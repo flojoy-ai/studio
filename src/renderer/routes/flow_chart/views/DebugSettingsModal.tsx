@@ -6,7 +6,13 @@ import {
   DialogTitle,
 } from "@src/components/ui/dialog";
 import { Label } from "@src/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@src/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@src/components/ui/select";
 import { getLogLevel, setLogLevel } from "@src/services/FlowChartServices";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -27,26 +33,27 @@ export const DebugSettingsModal = ({
       getLogLevel().then((data) => {
         console.log(data);
         setLevel(data);
-      })
+      });
     }
-  }, [isSettingsModalOpen])
+  }, [isSettingsModalOpen]);
 
   const onLogLevelChange = async (val: string) => {
     try {
       setLogLevel(val);
       setLevel(val);
     } catch {
-      toast.error("Failed to set log level, is the backend running?")
+      toast.error("Failed to set log level, is the backend running?");
     }
-  }
-
+  };
 
   return (
     <Dialog open={isSettingsModalOpen} onOpenChange={handleSettingsModalOpen}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader className="text-left">
           <DialogTitle>Debug Settings</DialogTitle>
-          <DialogDescription>Advanced settings for debugging Flojoy Studio itself.</DialogDescription>
+          <DialogDescription>
+            Advanced settings for debugging Flojoy Studio itself.
+          </DialogDescription>
         </DialogHeader>
         <div>
           <Label className="font-semibold">Log Level</Label>
