@@ -172,7 +172,7 @@ const getPoetryPath = async () => {
 
 export async function restartCaptain() {
   if (!global.captainProcess?.killed) {
-    const killed = global.captainProcess.kill();
+    const killed = global.captainProcess?.kill();
     while (!killed) {
       continue;
     }
