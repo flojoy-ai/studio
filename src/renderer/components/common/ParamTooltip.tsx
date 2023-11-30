@@ -56,7 +56,7 @@ export const ParamTooltip = ({
     }
     timeoutRef.current = setTimeout(() => {
       setTooltipOpen(true);
-    }, 150);
+    }, 500);
   };
 
   const onLeave = () => {
