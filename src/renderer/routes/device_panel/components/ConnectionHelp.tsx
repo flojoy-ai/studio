@@ -73,7 +73,7 @@ export const ConnectionHelp = () => {
                 Connect your computer to your hardware device with an Ethernet or USB cable
               </div>
               <div className="text-xs absolute bottom-0">
-                * Today, most hardware instruments have Ethernet or USB ports. If your instruments are older, they may only have <Link href="https://en.wikipedia.org/wiki/IEEE-488">GPIB (“IEEE-488”)</Link> or <Link href="https://en.wikipedia.org/wiki/RS-232">RS-232 ports</Link>. In this case, we highly recommend a GPIB-to-USB controller such the <Link href="https://prologix.biz/product/gpib-usb-controller/">Prologix</Link> or RS232-to-USB controller such as the <Link href="https://www.startech.com/en-ca/cards-adapters/icusb232v2">StarTech</Link>. Please see our guides on GPIB-to-USB and RS232-to-USB for more info.
+                * Today, most hardware instruments have Ethernet or USB ports. If your instruments are older, they may only have <Link href="https://en.wikipedia.org/wiki/IEEE-488">GPIB (“IEEE-488”)</Link> or <Link href="https://en.wikipedia.org/wiki/RS-232">RS-232 ports</Link>. In this case, we highly recommend a GPIB-to-USB controller such the <Link href="https://prologix.biz/product/gpib-usb-controller/">Prologix</Link> or RS232-to-USB controller such as the <Link href="https://www.startech.com/en-ca/cards-adapters/icusb232v2">StarTech</Link>. Please see our guides on <Link href="https://docs.flojoy.ai/prologix/gpib-to-usb/">GPIB-to-USB</Link> and <Link href="https://docs.flojoy.ai/startech/rs232-to-usb/">RS232-to-USB</Link> for more info.
               </div>
             </TabsContent>
             <TabsContent className="h-80 relative" value="find">
