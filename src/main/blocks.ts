@@ -5,6 +5,7 @@ import axios from "axios";
 import AdmZip from "adm-zip";
 import { sendToStatusBar } from "./logging";
 import { ncp as cpFolder } from "ncp";
+import { version } from "../../package.json";
 
 type SaveBlocksPackProps = {
   win: BrowserWindow;
@@ -24,6 +25,26 @@ const getBlocksPathFile = (): string => {
     fs.mkdirSync(flojoyDir);
   }
   return join(flojoyDir, fileName);
+};
+
+const getBlocksVersionFile = (): string => {
+  const fileName = "blocks_version.txt";
+  const flojoyDir = join(app.getPath("home"), ".flojoy");
+  if (!fs.existsSync(flojoyDir)) {
+    fs.mkdirSync(flojoyDir);
+  }
+  return join(flojoyDir, fileName);
+};
+
+const setBlocksVersion = (fileName: string, version: string) => {
+  fs.writeFileSync(fileName, version);
+};
+
+const getBlocksVersion = (): string => {
+  if (fs.existsSync(getBlocksPathFile())) {
+    return fs.readFileSync(getBlocksPathFile(), { encoding: "utf-8" });
+  }
+  return "";
 };
 
 export const saveBlocksPack = async ({
@@ -150,7 +171,7 @@ const downloadBlocksRepo = async (
     win.reload();
     return;
   }
-  const repoURL = `https://github.com/flojoy-ai/blocks/archive/refs/heads/main.zip`;
+  const repoURL = `https://github.com/flojoy-ai/blocks/archive/refs/tags/v${version}.zip`;
   sendToStatusBar("Downloading blocks resource...");
   const res = await axios.get(repoURL, { responseType: "arraybuffer" });
   const buffer = Buffer.from(res.data);
@@ -163,7 +184,7 @@ const downloadBlocksRepo = async (
   sendToStatusBar(`Copying files to ${downloadPath}...`);
   await Promise.resolve(
     new Promise((resolve, reject) => {
-      cpFolder(join(extractPath, "blocks-main"), downloadPath, (err) => {
+      cpFolder(join(extractPath, `blocks-${version}`), downloadPath, (err) => {
         if (err) {
           reject(err.map((e) => e.message).join("\n"));
           return;
@@ -180,6 +201,7 @@ const downloadBlocksRepo = async (
     type: "info",
   });
   fs.unlinkSync(zipFilePath);
+  setBlocksVersion(getBlocksVersionFile(), version);
   win.reload();
 };
 /**
