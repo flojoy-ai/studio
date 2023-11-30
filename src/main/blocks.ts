@@ -65,7 +65,7 @@ export const saveBlocksPack = async ({
   ) {
     return;
   }
-  if (update) {
+  if (update || isBlocksOutdated()) {
     const response = dialog.showMessageBoxSync(win, {
       icon,
       message: "Updating will overwrite your local changes.",
@@ -167,7 +167,7 @@ const downloadBlocksRepo = async (
   win: BrowserWindow,
   update: boolean = false,
 ) => {
-  if (fs.existsSync(downloadPath) && !update && !isBlocksOutdated()) {
+  if (fs.existsSync(downloadPath) && !update) {
     dialog.showMessageBox(win, {
       message: "Blocks resource pack added successfully!",
       detail: `Blocks resources will be added from ${downloadPath}`,
