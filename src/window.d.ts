@@ -7,7 +7,7 @@ import { ChildProcess } from "child_process";
 declare global {
   var mainWindow: BrowserWindow;
   var pythonInterpreters: InterpretersList;
-  var captainProcess: ChildProcess;
+  var captainProcess: ChildProcess | null;
 
   interface Window {
     api: typeof api;
