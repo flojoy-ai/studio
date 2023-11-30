@@ -2,11 +2,13 @@ import os
 
 import uvicorn
 
+from captain.utils.logger import load_log_level_from_config
+
 __ignore_list = ["venv"]
 
 
 if __name__ == "__main__":
-    log_level = os.environ.get("FASTAPI_LOG", "info")
+    log_level = load_log_level_from_config().lower()
     is_dev = os.environ.get("DEPLOY_STATUS", "prod") == "dev"
     uvicorn.run(
         "captain.main:app",
