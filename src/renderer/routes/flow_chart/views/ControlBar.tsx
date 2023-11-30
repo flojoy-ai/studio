@@ -46,7 +46,7 @@ const ControlBar = () => {
     const win = window as any;
 
     if (typeof win.Featurebase !== "function") {
-      win.Featurebase = function() {
+      win.Featurebase = function () {
         // eslint-disable-next-line prefer-rest-params
         (win.Featurebase.q = win.Featurebase.q || []).push(arguments);
       };
@@ -153,29 +153,25 @@ const ControlBar = () => {
               >
                 Debug Settings
               </MenubarItem>
-              {"api" in window && (
-                <>
-                  <MenubarItem
-                    data-testid="btn-change-blocks-path"
-                    onClick={handleChangeNodesPath}
-                  >
-                    Change blocks resource path
-                  </MenubarItem>
-                  <MenubarItem
-                    data-testid="btn-update-blocks-pack"
-                    onClick={handleUpdateBlocksPack}
-                  >
-                    Update blocks resource pack
-                  </MenubarItem>
-                  <MenubarItem onClick={handleCheckForUpdates}>
-                    Check for Studio updates
-                  </MenubarItem>
+              <MenubarItem
+                data-testid="btn-change-blocks-path"
+                onClick={handleChangeNodesPath}
+              >
+                Change blocks resource path
+              </MenubarItem>
+              <MenubarItem
+                data-testid="btn-update-blocks-pack"
+                onClick={handleUpdateBlocksPack}
+              >
+                Update blocks resource pack
+              </MenubarItem>
+              <MenubarItem onClick={handleCheckForUpdates}>
+                Check for Studio updates
+              </MenubarItem>
 
-                  <MenubarItem onClick={() => window.api.restartCaptain()}>
-                    Restart Backend
-                  </MenubarItem>
-                </>
-              )}
+              <MenubarItem onClick={() => window.api.restartCaptain()}>
+                Restart Backend
+              </MenubarItem>
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>
