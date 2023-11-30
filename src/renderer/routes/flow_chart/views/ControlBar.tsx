@@ -20,12 +20,14 @@ import FlowControlButtons from "./ControlBar/FlowControlButtons";
 import { useTheme } from "@src/providers/themeProvider";
 import { IS_CLOUD_DEMO } from "@src/data/constants";
 import { DemoWarningTooltip } from "@src/components/ui/demo-warning-tooltip";
+import { DebugSettingsModal } from "./DebugSettingsModal";
 
 const ControlBar = () => {
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
     useState<boolean>(false);
   const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
   const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
+  const [isDebugSettingsOpen, setIsDebugSettingsOpen] = useState(false);
   const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
   const { resolvedTheme } = useTheme();
 
@@ -44,7 +46,7 @@ const ControlBar = () => {
     const win = window as any;
 
     if (typeof win.Featurebase !== "function") {
-      win.Featurebase = function () {
+      win.Featurebase = function() {
         // eslint-disable-next-line prefer-rest-params
         (win.Featurebase.q = win.Featurebase.q || []).push(arguments);
       };
@@ -78,6 +80,10 @@ const ControlBar = () => {
       <EditorSettingsModal
         handleSettingsModalOpen={setIsEditorSettingsOpen}
         isSettingsModalOpen={isEditorSettingsOpen}
+      />
+      <DebugSettingsModal
+        handleSettingsModalOpen={setIsDebugSettingsOpen}
+        isSettingsModalOpen={isDebugSettingsOpen}
       />
 
       <FlowControlButtons />
@@ -140,6 +146,12 @@ const ControlBar = () => {
                 onClick={() => setIsNodeSettingsOpen(true)}
               >
                 Node Settings
+              </MenubarItem>
+              <MenubarItem
+                data-testid="btn-debug-settings"
+                onClick={() => setIsDebugSettingsOpen(true)}
+              >
+                Debug Settings
               </MenubarItem>
               {"api" in window && (
                 <>
