@@ -5,7 +5,6 @@ import axios from "axios";
 import AdmZip from "adm-zip";
 import { sendToStatusBar } from "./logging";
 import { ncp as cpFolder } from "ncp";
-import { version } from "../../package.json";
 
 type SaveBlocksPackProps = {
   win: BrowserWindow;
@@ -48,7 +47,7 @@ const getBlocksVersion = (): string => {
 };
 
 export const isBlocksOutdated = (): boolean => {
-  return getBlocksVersion() !== version;
+  return getBlocksVersion() !== app.getVersion();
 };
 
 export const saveBlocksPack = async ({
@@ -176,7 +175,7 @@ const downloadBlocksRepo = async (
     win.reload();
     return;
   }
-  const repoURL = `https://github.com/flojoy-ai/blocks/archive/refs/tags/v${version}.zip`;
+  const repoURL = `https://github.com/flojoy-ai/blocks/archive/refs/tags/v${app.getVersion()}.zip`;
   sendToStatusBar("Downloading blocks resource...");
   const res = await axios.get(repoURL, { responseType: "arraybuffer" });
   const buffer = Buffer.from(res.data);
@@ -189,13 +188,17 @@ const downloadBlocksRepo = async (
   sendToStatusBar(`Copying files to ${downloadPath}...`);
   await Promise.resolve(
     new Promise((resolve, reject) => {
-      cpFolder(join(extractPath, `blocks-${version}`), downloadPath, (err) => {
-        if (err) {
-          reject(err.map((e) => e.message).join("\n"));
-          return;
-        }
-        resolve(true);
-      });
+      cpFolder(
+        join(extractPath, `blocks-${app.getVersion()}`),
+        downloadPath,
+        (err) => {
+          if (err) {
+            reject(err.map((e) => e.message).join("\n"));
+            return;
+          }
+          resolve(true);
+        },
+      );
     }),
   );
   savePathToLocalFile(getBlocksPathFile(), downloadPath);
@@ -206,7 +209,7 @@ const downloadBlocksRepo = async (
     type: "info",
   });
   fs.unlinkSync(zipFilePath);
-  setBlocksVersion(getBlocksVersionFile(), version);
+  setBlocksVersion(getBlocksVersionFile(), app.getVersion());
   win.reload();
 };
 /**
