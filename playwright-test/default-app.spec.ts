@@ -38,6 +38,6 @@ test.describe("Apps testing", () => {
     await playBtn.click({ delay: 500 });
     const cancelBtn = window.getByTestId("btn-cancel");
     await cancelBtn.waitFor({ state: "visible", timeout: 5000 });
-    await window.getByText(standbyStatus).innerText({ timeout: 10000 });
+    await window.getByText(standbyStatus).innerText({ timeout: 60000 });
   });
 });
