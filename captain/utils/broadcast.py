@@ -54,7 +54,7 @@ class Signaler:
         msg = WorkerJobResponse(
             jobset_id=jobset_id,
             sys_status=STATUS_CODES["STANDBY"],
-            failed_nodes=[],
+            failed_nodes={},
             running_node="",
         )
         await self.ws.broadcast(msg)
@@ -63,7 +63,7 @@ class Signaler:
         msg = WorkerJobResponse(
             jobset_id=jobset_id,
             sys_status=STATUS_CODES["MAXIMUM_RUNTIME_EXCEEDED"],
-            failed_nodes=[],
+            failed_nodes={},
             running_node="",
         )
         await self.ws.broadcast(msg)
