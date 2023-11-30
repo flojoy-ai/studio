@@ -26,6 +26,30 @@ const getBlocksPathFile = (): string => {
   return join(flojoyDir, fileName);
 };
 
+const getBlocksVersionFile = (): string => {
+  const fileName = "blocks_version.txt";
+  const flojoyDir = join(app.getPath("home"), ".flojoy");
+  if (!fs.existsSync(flojoyDir)) {
+    fs.mkdirSync(flojoyDir);
+  }
+  return join(flojoyDir, fileName);
+};
+
+const setBlocksVersion = (fileName: string, version: string) => {
+  fs.writeFileSync(fileName, version);
+};
+
+const getBlocksVersion = (): string => {
+  if (fs.existsSync(getBlocksVersionFile())) {
+    return fs.readFileSync(getBlocksVersionFile(), { encoding: "utf-8" });
+  }
+  return "";
+};
+
+export const isBlocksOutdated = (): boolean => {
+  return getBlocksVersion() !== app.getVersion();
+};
+
 export const saveBlocksPack = async ({
   win,
   icon,
@@ -35,11 +59,12 @@ export const saveBlocksPack = async ({
   if (
     startup &&
     fs.existsSync(getBlocksPathFile()) &&
-    fs.existsSync(getBlocksDirPath())
+    fs.existsSync(getBlocksDirPath()) &&
+    !isBlocksOutdated()
   ) {
     return;
   }
-  if (update) {
+  if (update || isBlocksOutdated()) {
     const response = dialog.showMessageBoxSync(win, {
       icon,
       message: "Updating will overwrite your local changes.",
@@ -150,7 +175,7 @@ const downloadBlocksRepo = async (
     win.reload();
     return;
   }
-  const repoURL = `https://github.com/flojoy-ai/blocks/archive/refs/heads/main.zip`;
+  const repoURL = `https://github.com/flojoy-ai/blocks/archive/refs/tags/v${app.getVersion()}.zip`;
   sendToStatusBar("Downloading blocks resource...");
   const res = await axios.get(repoURL, { responseType: "arraybuffer" });
   const buffer = Buffer.from(res.data);
@@ -163,13 +188,17 @@ const downloadBlocksRepo = async (
   sendToStatusBar(`Copying files to ${downloadPath}...`);
   await Promise.resolve(
     new Promise((resolve, reject) => {
-      cpFolder(join(extractPath, "blocks-main"), downloadPath, (err) => {
-        if (err) {
-          reject(err.map((e) => e.message).join("\n"));
-          return;
-        }
-        resolve(true);
-      });
+      cpFolder(
+        join(extractPath, `blocks-${app.getVersion()}`),
+        downloadPath,
+        (err) => {
+          if (err) {
+            reject(err.map((e) => e.message).join("\n"));
+            return;
+          }
+          resolve(true);
+        },
+      );
     }),
   );
   savePathToLocalFile(getBlocksPathFile(), downloadPath);
@@ -180,6 +209,7 @@ const downloadBlocksRepo = async (
     type: "info",
   });
   fs.unlinkSync(zipFilePath);
+  setBlocksVersion(getBlocksVersionFile(), app.getVersion());
   win.reload();
 };
 /**
