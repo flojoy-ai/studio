@@ -48,22 +48,25 @@ export const DebugSettingsModal = ({
           <DialogTitle>Debug Settings</DialogTitle>
           <DialogDescription>Advanced settings for debugging Flojoy Studio itself.</DialogDescription>
         </DialogHeader>
-        <Label>Log Level</Label>
-        <div className="text-sm text-muted-foreground">
-          The log level to display, higher level = fewer logs. Levels are ordered in increasing order.
+        <div>
+          <Label className="font-semibold">Log Level</Label>
+          <div className="text-sm text-muted-foreground">
+            The log level to display, higher level = fewer logs.
+          </div>
+          <div className="py-1" />
+          <Select value={level} onValueChange={onLogLevelChange}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="DEBUG">Debug</SelectItem>
+              <SelectItem value="INFO">Info</SelectItem>
+              <SelectItem value="WARNING">Warning</SelectItem>
+              <SelectItem value="ERROR">Error</SelectItem>
+              <SelectItem value="CRITICAL">Critical</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
-        <Select value={level} onValueChange={onLogLevelChange}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="DEBUG">Debug</SelectItem>
-            <SelectItem value="INFO">Info</SelectItem>
-            <SelectItem value="WARNING">Warning</SelectItem>
-            <SelectItem value="ERROR">Error</SelectItem>
-            <SelectItem value="CRITICAL">Critical</SelectItem>
-          </SelectContent>
-        </Select>
       </DialogContent>
     </Dialog>
   );
