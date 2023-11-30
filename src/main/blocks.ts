@@ -41,10 +41,16 @@ const setBlocksVersion = (fileName: string, version: string) => {
 };
 
 const getBlocksVersion = (): string => {
-  if (fs.existsSync(getBlocksPathFile())) {
-    return fs.readFileSync(getBlocksPathFile(), { encoding: "utf-8" });
+  if (fs.existsSync(getBlocksVersionFile())) {
+    return fs.readFileSync(getBlocksVersionFile(), { encoding: "utf-8" });
   }
   return "";
+};
+
+export const isBlocksOutdated = (): boolean => {
+  console.log(version);
+  console.log(getBlocksVersion());
+  return getBlocksVersion() !== version;
 };
 
 export const saveBlocksPack = async ({
@@ -56,7 +62,8 @@ export const saveBlocksPack = async ({
   if (
     startup &&
     fs.existsSync(getBlocksPathFile()) &&
-    fs.existsSync(getBlocksDirPath())
+    fs.existsSync(getBlocksDirPath()) &&
+    !isBlocksOutdated()
   ) {
     return;
   }
@@ -162,7 +169,7 @@ const downloadBlocksRepo = async (
   win: BrowserWindow,
   update: boolean = false,
 ) => {
-  if (fs.existsSync(downloadPath) && !update) {
+  if (fs.existsSync(downloadPath) && !update && !isBlocksOutdated()) {
     dialog.showMessageBox(win, {
       message: "Blocks resource pack added successfully!",
       detail: `Blocks resources will be added from ${downloadPath}`,
