@@ -278,7 +278,7 @@ export const Index = (): JSX.Element => {
     ) {
       navigate("/flowchart");
     }
-  }, [navigate, serverStatus]);
+  }, [serverStatus]);
 
   return (
     <div className="flex h-screen flex-col bg-muted">

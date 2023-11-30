@@ -11,6 +11,7 @@ import {
 } from "./interpreter";
 import * as os from "os";
 import { existsSync, readFileSync } from "fs";
+import { killProcess } from "../utils";
 
 export async function checkPythonInstallation(
   _,
@@ -123,7 +124,7 @@ export async function spawnCaptain(): Promise<void> {
 
   global.captainProcess.on("exit", (code) => {
     if (code !== 0 && !global?.mainWindow?.isDestroyed()) {
-      throw new Error("Captain process is exited with code " + code);
+      log.error("Captain process is exited with code " + code);
     }
   });
 }
@@ -166,3 +167,8 @@ const getPoetryPath = async () => {
     return "poetry";
   }
 };
+
+export async function restartCaptain() {
+  await killProcess(5392);
+  await spawnCaptain();
+}

@@ -170,6 +170,10 @@ const ControlBar = () => {
                   <MenubarItem onClick={handleCheckForUpdates}>
                     Check for Studio updates
                   </MenubarItem>
+
+                  <MenubarItem onClick={() => window.api.restartCaptain()}>
+                    Restart Backend
+                  </MenubarItem>
                 </>
               )}
             </MenubarContent>
