@@ -41,7 +41,7 @@ const FlowControlButtons = () => {
     }
   };
   const onRun = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
-    if (project.rfInstance && project.rfInstance.nodes.length > 0) {
+    if (project.rfInstance && nodes.length > 0) {
       if (_.some(nodes, (n) => n.data.invalid)) {
         toast.error(
           "Unknown blocks found, these must be removed before attempting to run the flow chart.",
