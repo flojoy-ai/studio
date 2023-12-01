@@ -206,7 +206,7 @@ def flojoy(
                         node_type="default",
                     )
 
-                logger.debug(f"{node_id} params: {args.keys()}")
+                logger.debug(f"{node_id} params: {args}")
 
                 # check if node has an init container and if so, inject it
                 if NodeInitService().has_init_store(node_id):

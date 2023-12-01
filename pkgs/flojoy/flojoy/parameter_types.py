@@ -9,7 +9,11 @@ class HardwareDevice(ABC):
     # For visa devices, this is the visa address
     _id: str | int
 
-    def __init__(self, id: int) -> None:
+    def __init__(self, id: int | str) -> None:
+        if id == "":
+            raise ValueError(
+                "No device selected, please select one using the parameter menu."
+            )
         self._id = id
 
     def get_id(self):
@@ -147,6 +151,14 @@ def format_param_value(value: Any, value_type: str):
             return parse_array(str(value), [int], "list[int]")
         case "select" | "str":
             return str(value)
+        case "CameraDevice" | "CameraConnection":
+            return (
+                CameraDevice(int(value)) if value.isnumeric() else CameraDevice(value)
+            )
+        case "SerialDevice" | "SerialConnection":
+            return SerialDevice(value)
+        case "VisaDevice" | "VisaConnection":
+            return VisaDevice(value)
 
     if value == "":
         return None
@@ -160,14 +172,6 @@ def format_param_value(value: Any, value_type: str):
             return bool(value)
         case "NodeReference":
             return NodeReference(str(value))
-        case "CameraDevice" | "CameraConnection":
-            return (
-                CameraDevice(int(value)) if value.isnumeric() else CameraDevice(value)
-            )
-        case "SerialDevice" | "SerialConnection":
-            return SerialDevice(value)
-        case "VisaDevice" | "VisaConnection":
-            return VisaDevice(value)
         case "File":
             return File(str(value))
         case _:
