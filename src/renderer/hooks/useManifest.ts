@@ -8,6 +8,7 @@ import { atom, useAtomValue, useSetAtom } from "jotai";
 import { useCallback } from "react";
 
 const manifestAtom = atom<RootNode | null>(null);
+export const manifestChangedAtom = atom<boolean>(true);
 
 export const useFetchManifest = () => {
   const setManifest = useSetAtom(manifestAtom);

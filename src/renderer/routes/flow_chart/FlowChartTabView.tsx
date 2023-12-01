@@ -55,7 +55,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@src/components/ui/tooltip";
-import { useManifest, useNodesMetadata } from "@src/hooks/useManifest";
+import { manifestChangedAtom, useManifest, useNodesMetadata } from "@src/hooks/useManifest";
 import { ElementsData } from "@src/types";
 import { createNodeId, createNodeLabel } from "@src/utils/NodeUtils";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
@@ -131,9 +131,10 @@ const FlowChartTab = () => {
   } = useFlowChartGraph();
   const nodesMetadataMap = useNodesMetadata();
   const manifest = useManifest();
+  const [manifestChanged, setManifestChanged] = useAtom(manifestChangedAtom);
 
   useEffect(() => {
-    if (manifest && nodesMetadataMap) {
+    if (manifest && nodesMetadataMap && manifestChanged) {
       const [syncedNodes, syncedEdges] = syncFlowchartWithManifest(
         nodes,
         edges,
@@ -143,8 +144,9 @@ const FlowChartTab = () => {
       setNodes(syncedNodes);
       setEdges(syncedEdges);
       toast("Synced blocks with manifest.");
+      setManifestChanged(false);
     }
-  }, [manifest, nodesMetadataMap]);
+  }, [manifest, nodesMetadataMap, manifestChanged]);
 
   const getTakenNodeLabels = useCallback(
     (func: string) => {
