@@ -38,9 +38,6 @@ export const DeviceSelect = <T,>({
     ? nameSelector(selectedDevice)
     : undefined;
 
-  if (!value && devices?.length === 1) {
-    onValueChange(valueSelector(devices[0]));
-  }
 
   return (
     <Select onValueChange={onValueChange}>

@@ -216,6 +216,10 @@ def flojoy(
                     logger.debug("injecting connection")
                     device = args["connection"]
                     logger.debug(f"device handle: {device}")
+                    if device is None:
+                        raise ValueError(
+                            "No device selected, please select one using the edit menu."
+                        )
                     _id = device.get_id()
                     connection = DeviceConnectionManager.get_connection(_id)
                     args["connection"] = connection
