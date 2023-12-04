@@ -37,6 +37,7 @@ import {
   isPortFree,
   killProcess,
   netstat,
+  pickDirectory,
   ping,
   writeFileSync,
 } from "./utils";
@@ -229,6 +230,7 @@ app.whenReady().then(async () => {
   ipcMain.handle(API.spawnCaptain, spawnCaptain);
   ipcMain.handle(API.killCaptain, killCaptain);
   ipcMain.handle(API.openLogFolder, openLogFolder);
+  ipcMain.handle(API.pickDirectory, pickDirectory);
   ipcMain.handle(API.browsePythonInterpreter, browsePythonInterpreter);
   ipcMain.handle(API.listPythonPackages, listPythonPackages);
   ipcMain.handle(API.pyvisaInfo, pyvisaInfo);

@@ -27,4 +27,5 @@ export enum API {
   downloadLogs = "DOWNLOAD_LOGS",
   checkForUpdates = "CHECK_FOR_UPDATES",
   restartCaptain = "RESTART_CAPTAIN",
+  pickDirectory = "PICK_DIRECTORY",
 }

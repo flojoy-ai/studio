@@ -121,7 +121,7 @@ const ParamField = ({
           </SelectContent>
         </Select>
       );
-    case "File":
+    case "Directory":
       return (
         <div className="flex items-center justify-between gap-2.5">
           <Input
@@ -145,6 +145,27 @@ const ParamField = ({
                 }
               };
               fileInput.click();
+            }}
+          >
+            Browse
+          </Button>
+        </div>
+      );
+
+    case "File":
+      return (
+        <div className="flex items-center justify-between gap-2.5">
+          <Input
+            data-testid="dir-input"
+            className="border-none focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
+            onChange={(e) => handleChange(e.target.value)}
+            value={value as string}
+          />
+          <Button
+            variant={"secondary"}
+            onClick={async () => {
+              const dir = await window.api.pickDirectory();
+              handleChange(dir);
             }}
           >
             Browse
