@@ -27,6 +27,7 @@ from flojoy import (
     VisaConnection,
     VisaDevice,
     File,
+    Directory,
 )
 
 from .build_ast import get_node_type, get_pip_dependencies, make_manifest_ast
@@ -51,6 +52,7 @@ SPECIAL_TYPES = [
     SerialConnection,
     VisaConnection,
     File,
+    Directory,
 ]
 
 SPECIAL_NODES = ["LOOP", "CONDITIONAL"]
