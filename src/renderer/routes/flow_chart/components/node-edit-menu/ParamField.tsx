@@ -121,7 +121,7 @@ const ParamField = ({
           </SelectContent>
         </Select>
       );
-    case "Directory":
+    case "File":
       return (
         <div className="flex items-center justify-between gap-2.5">
           <Input
@@ -152,7 +152,7 @@ const ParamField = ({
         </div>
       );
 
-    case "File":
+    case "Directory":
       return (
         <div className="flex items-center justify-between gap-2.5">
           <Input
