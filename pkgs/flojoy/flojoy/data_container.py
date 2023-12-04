@@ -94,7 +94,7 @@ class DataContainer(Box):
         "g",
         "b",
         "a",
-        "text_blob",
+        "s",
         "fig",
         "obj",
         "extra",
@@ -114,7 +114,7 @@ class DataContainer(Box):
         "obj": ["extra"],
         "bytes": ["extra"],
         "bool": ["extra"],
-        "text_blob": ["extra"],
+        "s": ["extra"],
         "extra": [*(k for k in allowed_keys if k not in ["extra"])],
         "fig": ["t", "extra"],
     }
@@ -130,7 +130,7 @@ class DataContainer(Box):
         "Scalar": ["c"],
         "Plotly": ["fig"],
         "Bytes": ["b"],
-        "String": ["text_blob"],
+        "String": ["s"],
         "Boolean": ["b"],
         "Stateful": ["obj"],
     }
