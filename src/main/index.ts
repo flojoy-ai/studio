@@ -252,6 +252,16 @@ app.whenReady().then(async () => {
       }),
   );
   ipcMain.handle(
+    API.downloadBlocksFromMain,
+    async () =>
+      await saveBlocksPack({
+        win: global.mainWindow,
+        icon: getIcon(),
+        update: true,
+        branch: "main",
+      }),
+  );
+  ipcMain.handle(
     API.changeBlocksPath,
     async () =>
       await saveBlocksPack({ win: global.mainWindow, icon: getIcon() }),

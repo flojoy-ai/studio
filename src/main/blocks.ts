@@ -11,6 +11,7 @@ type SaveBlocksPackProps = {
   icon: string;
   startup?: boolean;
   update?: boolean;
+  branch?: string;
 };
 
 /**
@@ -55,6 +56,7 @@ export const saveBlocksPack = async ({
   icon,
   startup,
   update,
+  branch,
 }: SaveBlocksPackProps) => {
   if (
     startup &&
@@ -91,6 +93,7 @@ export const saveBlocksPack = async ({
       await downloadBlocksRepo({
         downloadPath: getBlocksDirPath(),
         update: true,
+        branch,
       });
       return;
     } catch (error) {
@@ -106,7 +109,11 @@ export const saveBlocksPack = async ({
   const defaultSavePath = getBlocksDirPath();
   try {
     if (startup) {
-      await downloadBlocksRepo({ downloadPath: defaultSavePath, quiet: true });
+      await downloadBlocksRepo({
+        downloadPath: defaultSavePath,
+        quiet: true,
+        branch,
+      });
       return;
     }
 
@@ -115,7 +122,7 @@ export const saveBlocksPack = async ({
       return;
     }
 
-    await downloadBlocksRepo({ downloadPath: savePath });
+    await downloadBlocksRepo({ downloadPath: savePath, branch });
   } catch (error) {
     sendToStatusBar(
       `Failed to download blocks resource, reason: ", ${String(error)}`,
@@ -178,14 +185,19 @@ type DownloadBlocksRepoProps = {
   downloadPath: string;
   update?: boolean;
   quiet?: boolean;
+  branch?: string;
 };
 
 const downloadBlocksRepo = async ({
   downloadPath,
   update = false,
   quiet = false,
+  branch = "",
 }: DownloadBlocksRepoProps) => {
-  const repoURL = `https://github.com/flojoy-ai/blocks/archive/refs/tags/v${app.getVersion()}.zip`;
+  const repoURL = branch
+    ? `https://github.com/flojoy-ai/blocks/archive/refs/heads/${branch}.zip`
+    : `https://github.com/flojoy-ai/blocks/archive/refs/tags/v${app.getVersion()}.zip`;
+
   sendToStatusBar("Downloading blocks resource...");
 
   const res = await axios.get(repoURL, { responseType: "arraybuffer" });
@@ -204,7 +216,10 @@ const downloadBlocksRepo = async ({
   await Promise.resolve(
     new Promise((resolve, reject) => {
       cpFolder(
-        join(extractPath, `blocks-${app.getVersion()}`),
+        join(
+          extractPath,
+          branch ? `blocks-${branch}` : `blocks-${app.getVersion()}`,
+        ),
         downloadPath,
         (err) => {
           if (err) {
@@ -219,7 +234,9 @@ const downloadBlocksRepo = async ({
 
   savePathToLocalFile(getBlocksPathFile(), downloadPath);
 
-  setBlocksVersion(getBlocksVersionFile(), app.getVersion());
+  if (!branch) {
+    setBlocksVersion(getBlocksVersionFile(), app.getVersion());
+  }
 
   if (!quiet) {
     dialog.showMessageBox(global.mainWindow, {

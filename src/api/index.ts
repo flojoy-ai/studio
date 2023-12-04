@@ -12,6 +12,7 @@ export default {
   },
   saveBlocks: () => ipcRenderer.invoke(API.saveBlocks),
   updateBlocks: () => ipcRenderer.invoke(API.updateBlocks),
+  downloadBlocksFromMain: () => ipcRenderer.invoke(API.downloadBlocksFromMain),
   changeBlocksPath: () => ipcRenderer.invoke(API.changeBlocksPath),
   checkPythonInstallation: (force?: boolean): Promise<InterpretersList> =>
     ipcRenderer.invoke(API.checkPythonInstallation, force),
