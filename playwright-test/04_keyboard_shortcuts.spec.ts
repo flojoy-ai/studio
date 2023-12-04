@@ -94,7 +94,7 @@ test.describe("Keyboard shortcuts", () => {
   //     await expect(window.locator("div", {hasText:"LINSPACE"})).toBeVisible();
   //   })
 
-  test("Ctrl/⌘ + s should prompt to choose location and save current app", async () => {
+  test("Ctrl/⌘ + s should save current app", async () => {
     const savePath = join(os.homedir(), "Downloads", "app.json");
     // Mock saveAs dialog and return a save path
     await app.evaluate(async ({ dialog }, savePath) => {
@@ -108,7 +108,7 @@ test.describe("Keyboard shortcuts", () => {
     } else {
       await window.keyboard.press("Control+s");
     }
-    // Manually wait for 2 seconds for file to be save successfully
+    // Manually wait for 2 seconds for file to be saved successfully
     await Promise.resolve(
       new Promise((resolve) => {
         setTimeout(() => {
