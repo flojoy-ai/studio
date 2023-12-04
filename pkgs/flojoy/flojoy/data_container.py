@@ -24,7 +24,7 @@ DCType = Literal[
     "OrderedTriple",
     "Plotly",
     "Bytes",
-    "TextBlob",
+    "String",
     "Boolean",
     "Scalar",
     "Surface",
@@ -130,7 +130,7 @@ class DataContainer(Box):
         "Scalar": ["c"],
         "Plotly": ["fig"],
         "Bytes": ["b"],
-        "TextBlob": ["text_blob"],
+        "String": ["text_blob"],
         "Boolean": ["b"],
         "Stateful": ["obj"],
     }
@@ -482,11 +482,11 @@ class Bytes(DataContainer):
         super().__init__(type="Bytes", b=b)
 
 
-class TextBlob(DataContainer):
+class String(DataContainer):
     text_blob: str
 
-    def __init__(self, text_blob: str):
-        super().__init__(type="TextBlob", text_blob=text_blob)
+    def __init__(self, s: str):
+        super().__init__(type="String", s=s)
 
 
 class Boolean(DataContainer):

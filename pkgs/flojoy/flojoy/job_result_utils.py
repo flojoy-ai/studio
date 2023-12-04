@@ -1,6 +1,6 @@
 from .flojoy_instruction import FLOJOY_INSTRUCTION
 from .plotly_utils import data_container_to_plotly
-from .data_container import DataContainer, Plotly, TextBlob, Bytes
+from .data_container import DataContainer, Plotly, String, Bytes
 from .dao import Dao
 from typing import Any, cast, Optional
 
@@ -63,8 +63,8 @@ def get_job_result(job_id: str) -> dict[str, Any] | DataContainer | None:
 
 def get_text_blob_from_dc(dc: DataContainer) -> str | None:
     match dc.type:
-        case "TextBlob":
-            return dc.text_blob
+        case "String":
+            return dc.s
         case "Bytes":
             return dc.b.decode("utf-8")
         case _:
@@ -79,7 +79,7 @@ def get_frontend_res_obj_from_result(
 
     # Only return a plotly fig if it is a viz node
     match result:
-        case Plotly() | TextBlob() | Bytes():
+        case Plotly() | String() | Bytes():
             plotly_fig = data_container_to_plotly(data=result)
             return {
                 "plotly_fig": plotly_fig,
@@ -97,7 +97,7 @@ def get_frontend_res_obj_from_result(
         plotly_fig = None
         text_blob = None
         match result:
-            case Plotly() | TextBlob() | Bytes():
+            case Plotly() | String() | Bytes():
                 plotly_fig = data_container_to_plotly(data=result)
                 text_blob = get_text_blob_from_dc(result)
 
