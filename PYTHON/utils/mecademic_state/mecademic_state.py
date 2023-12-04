@@ -1,4 +1,4 @@
-from flojoy import TextBlob
+from flojoy import String
 import mecademicpy.robot as mdr
 
 from PYTHON.utils.mecademic_state.mecademic_mock import MockRobot
@@ -23,13 +23,13 @@ def init_handle_map(allow_reinit: bool = False):
     _robot_handle_map = None
 
 
-def query_for_handle(ip_address: str | TextBlob) -> mdr.Robot | None:
+def query_for_handle(ip_address: str | String) -> mdr.Robot | None:
     """
     Queries the robot handle map for a handle with the given IP address.
     If a handle is not found, a new handle is created and added to the map.
     """
-    if isinstance(ip_address, TextBlob):
-        ip_address: str = ip_address.text_blob  # unbox TextBlob
+    if isinstance(ip_address, String):
+        ip_address: str = ip_address.s  # unbox String
     robot_handle_map = get_robot_handle_map()
     if ip_address in robot_handle_map:
         return robot_handle_map[ip_address]
