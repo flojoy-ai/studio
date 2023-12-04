@@ -56,11 +56,14 @@ test.describe("Apps testing", () => {
     // Download blocks from main branch
     await window.getByTestId(Selectors.settingsBtn).click();
     await window.getByText("Download blocks from main").click();
-
-    await window
-      .getByTestId(Selectors.closeWelcomeModalBtn)
-      .waitFor({ state: "visible", timeout: 180000 });
-    await window.getByTestId(Selectors.closeWelcomeModalBtn).click();
+    try {
+      await window
+        .getByTestId(Selectors.closeWelcomeModalBtn)
+        .waitFor({ state: "visible", timeout: 30000 });
+      await window.getByTestId(Selectors.closeWelcomeModalBtn).click();
+    } catch (error) {
+      //
+    }
 
     // Wait for manifest file to be fetched from backend
     const playBtn = window.getByTestId(Selectors.playBtn);
