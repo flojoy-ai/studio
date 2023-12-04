@@ -21,6 +21,7 @@ test.describe("Add and delete blocks", () => {
     const standbyStatus = "🐢 awaiting a new job";
     await window.getByText(standbyStatus).innerText({ timeout: 900000 });
     await window.getByTestId(Selectors.closeWelcomeModalBtn).click();
+    await window.getByTestId(Selectors.playBtn).isEnabled({ timeout: 15000 });
     app.on("close", () => {
       killBackend();
     });
@@ -35,20 +36,28 @@ test.describe("Add and delete blocks", () => {
   });
 
   test("Clear canvas", async () => {
+    // Click on clear canvas button
     await window.getByTestId(Selectors.clearCanvasBtn).click();
+
+    // Confirm
     await window.getByTestId(Selectors.clearCanvasConfirmBtn).click();
+
+    // Check for play button to be disabled, which indicates that
+    // canvas is empty
     const playBtn = window.getByTestId(Selectors.playBtn);
     await playBtn.isDisabled({ timeout: 10000 });
   });
 
   test("Add a new block", async () => {
-    const timeoutSecond = 900000; // 15mins
-    test.setTimeout(timeoutSecond);
+    // Check for manifest file to be fetched from backend
     const addBlockBtn = window.getByTestId(Selectors.addBlockBtn);
     await addBlockBtn.isEnabled({ timeout: 10000 });
+
+    // Add two blocks from sidebar menu
     const blocks = ["LINSPACE", "SINE"];
 
     for (const block of blocks) {
+      // Expand the sidebar menu
       await addBlockBtn.click({ delay: 500 });
       const sidebarInput = window.getByTestId(Selectors.sidebarInput);
 
@@ -56,7 +65,7 @@ test.describe("Add and delete blocks", () => {
       await sidebarInput.clear();
       await sidebarInput.fill(block);
 
-      // Expand sidebar
+      // Expand all blocks categories
       await window
         .getByTestId(Selectors.sidebarExpandBtn)
         .click({ clickCount: 2 });
@@ -64,20 +73,15 @@ test.describe("Add and delete blocks", () => {
       // Click on the block in the sidebar
       await window.getByText(block, { exact: true }).click();
 
-      // Check if the block is present using $$eval
-      const isBlockPresent = await window.$$eval(
-        "h2",
-        (elems, block) => {
-          return elems.some((e) => e.innerText === block);
-        },
-        block,
-      );
-      expect(isBlockPresent).toEqual(true);
+      // Check if the block is visible in flow chart canvas
+      const blockElem = window.locator("h2", { hasText: block });
+      await expect(blockElem).toBeVisible({ timeout: 2000 });
 
       // Close the sidebar
       await window.getByTestId(Selectors.sidebarCloseBtn).click();
     }
 
+    // Take a screenshot
     await window.screenshot({
       fullPage: true,
       path: "test-results/add-block.jpg",
@@ -85,28 +89,34 @@ test.describe("Add and delete blocks", () => {
   });
 
   test("Delete a block with Delete button", async () => {
-    const sine = (await window.$$("h2")).find(
-      async (el) => (await el.innerText()) === "SINE",
-    );
+    // Find and click on SINE block
+    const sine = window.locator("h2", { hasText: "SINE" });
     await sine?.click({ noWaitAfter: true });
+
+    // Click on edit block button
     const editBlockBtn = window.getByTestId(Selectors.blockEditToggleBtn);
     await editBlockBtn.isEnabled();
     await editBlockBtn.click();
+
+    // Click on delete button from block edit menu
     await window.getByTestId(Selectors.deleteBlockBtn).click();
-    await window.$$eval("h2", (elems) => {
-      return !elems.some((e) => e.innerText === "SINE");
-    });
+
+    // Expect block is removed from DOM element
+    await expect(sine).toBeHidden({ timeout: 3000 });
   });
 
   test("Delete a block with Backspace key", async () => {
-    const linspace = (await window.$$("h2")).find(
-      async (el) => (await el.innerText()) === "LINSPACE",
-    );
-    await linspace?.click();
-    await window.keyboard.press("Backspace");
-    await window.$$eval("h2", (elems) => {
-      return elems.find((e) => e.innerText === "LINSPACE") === undefined;
-    });
+    // Click on Linspace block to select the block
+    const linspace = window.locator("h2", { hasText: "LINSPACE" });
+    await linspace.click();
+
+    // Press Backspace from keyboard
+    await window.keyboard.press("Backspace", { delay: 1000 });
+
+    // Expect Linspace block to be removed from DOM element
+    expect(linspace).toBeHidden({ timeout: 3000 });
+
+    // Take a screenshot
     await window.screenshot({
       fullPage: true,
       path: "test-results/delete-block.jpg",
