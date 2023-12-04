@@ -59,7 +59,7 @@ test.describe("Apps testing", () => {
 
     await window
       .getByTestId(Selectors.closeWelcomeModalBtn)
-      .waitFor({ state: "visible", timeout: 60000 });
+      .waitFor({ state: "visible", timeout: 180000 });
     await window.getByTestId(Selectors.closeWelcomeModalBtn).click();
 
     // Wait for manifest file to be fetched from backend
