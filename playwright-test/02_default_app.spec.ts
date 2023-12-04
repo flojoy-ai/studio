@@ -47,9 +47,24 @@ test.describe("Apps testing", () => {
     // Close the welcome modal
     await window.getByTestId(Selectors.closeWelcomeModalBtn).click();
 
+    // Mock dialog to return 0 index
+    await app.evaluate(async ({ dialog }) => {
+      dialog.showMessageBoxSync = () => 0;
+      dialog.showMessageBox = () =>
+        Promise.resolve({ response: 0, checkboxChecked: false });
+    });
+    // Download blocks from main branch
+    await window.getByTestId(Selectors.settingsBtn).click();
+    await window.getByText("Download blocks from main").click();
+
+    await window
+      .getByTestId(Selectors.closeWelcomeModalBtn)
+      .waitFor({ state: "visible", timeout: 30000 });
+    await window.getByTestId(Selectors.closeWelcomeModalBtn).click();
+
     // Wait for manifest file to be fetched from backend
     const playBtn = window.getByTestId(Selectors.playBtn);
-    await playBtn.isEnabled({ timeout: 10000 });
+    await playBtn.isEnabled({ timeout: 20000 });
 
     // Click play to run the default app
     await playBtn.click({ delay: 500 });
