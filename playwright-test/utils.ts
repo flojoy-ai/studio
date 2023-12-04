@@ -1,8 +1,7 @@
 import { execSync } from "child_process";
 import { join } from "path";
 import fs from "fs";
-import test, { ElectronApplication, _electron } from "@playwright/test";
-
+export const STARTUP_TIMEOUT = 900000; // 15 mins
 export const getExecutablePath = () => {
   switch (process.platform) {
     case "darwin":

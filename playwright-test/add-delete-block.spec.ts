@@ -5,13 +5,19 @@ import {
   Page,
   expect,
 } from "@playwright/test";
-import { getExecutablePath, killBackend, writeLogFile } from "./utils";
+import {
+  STARTUP_TIMEOUT,
+  getExecutablePath,
+  killBackend,
+  writeLogFile,
+} from "./utils";
 import { Selectors } from "./selectors";
 
 test.describe("Add and delete blocks", () => {
   let app: ElectronApplication;
   let window: Page;
   test.beforeAll(async () => {
+    test.setTimeout(STARTUP_TIMEOUT);
     const executablePath = getExecutablePath();
     app = await electron.launch({
       executablePath,
@@ -19,7 +25,9 @@ test.describe("Add and delete blocks", () => {
     window = await app.firstWindow();
     await window.waitForLoadState("domcontentloaded");
     const standbyStatus = "🐢 awaiting a new job";
-    await window.getByText(standbyStatus).innerText({ timeout: 900000 });
+    await window
+      .getByText(standbyStatus)
+      .innerText({ timeout: STARTUP_TIMEOUT });
     await window.getByTestId(Selectors.closeWelcomeModalBtn).click();
     await window.getByTestId(Selectors.playBtn).isEnabled({ timeout: 15000 });
     app.on("close", () => {

@@ -3,7 +3,12 @@ import {
   test,
   ElectronApplication,
 } from "@playwright/test";
-import { getExecutablePath, killBackend, writeLogFile } from "./utils";
+import {
+  STARTUP_TIMEOUT,
+  getExecutablePath,
+  killBackend,
+  writeLogFile,
+} from "./utils";
 import { Selectors } from "./selectors";
 
 test.describe("Apps testing", () => {
@@ -28,8 +33,7 @@ test.describe("Apps testing", () => {
 
   test("Run default app", async () => {
     // Set test timeout as this test is expected to be slow
-    const timeoutSecond = 900000; // 15mins
-    test.setTimeout(timeoutSecond);
+    test.setTimeout(STARTUP_TIMEOUT);
 
     // Get electron BrowserWindow
     const window = await app.firstWindow();
@@ -39,7 +43,9 @@ test.describe("Apps testing", () => {
 
     // Wait for standby status, this indicates backend is up
     const standbyStatus = "🐢 awaiting a new job";
-    await window.getByText(standbyStatus).innerText({ timeout: timeoutSecond });
+    await window
+      .getByText(standbyStatus)
+      .innerText({ timeout: STARTUP_TIMEOUT });
 
     // Close the welcome modal
     await window.getByTestId(Selectors.closeWelcomeModalBtn).click();
