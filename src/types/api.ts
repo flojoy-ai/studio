@@ -1,6 +1,7 @@
 export enum API {
   saveBlocks = "SAVE_BLOCKS",
   updateBlocks = "UPDATE_BLOCKS",
+  downloadBlocksFromMain = "DOWNLOAD_BLOCKS_FROM_MAIN",
   changeBlocksPath = "CHANGE_BLOCKS_PATH",
   checkPythonInstallation = "CHECK_PYTHON_INSTALLATION",
   installPipx = "INSTALL_PIPX",
@@ -27,4 +28,5 @@ export enum API {
   downloadLogs = "DOWNLOAD_LOGS",
   checkForUpdates = "CHECK_FOR_UPDATES",
   restartCaptain = "RESTART_CAPTAIN",
+  pickDirectory = "PICK_DIRECTORY",
 }

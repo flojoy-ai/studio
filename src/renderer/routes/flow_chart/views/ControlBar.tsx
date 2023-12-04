@@ -165,6 +165,10 @@ const ControlBar = () => {
               >
                 Update blocks resource pack
               </MenubarItem>
+
+              <MenubarItem onClick={() => window.api.downloadBlocksFromMain()}>
+                Download blocks from main
+              </MenubarItem>
               <MenubarItem onClick={handleCheckForUpdates}>
                 Check for Studio updates
               </MenubarItem>

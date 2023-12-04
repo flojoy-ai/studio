@@ -11,6 +11,7 @@ import { addRandomPositionOffset } from "@src/utils/RandomPositionOffset";
 import { BlocksMetadataMap } from "@src/types/blocks-metadata";
 import { createNodeId, createNodeLabel } from "@src/utils/NodeUtils";
 import { ctrlsFromParams } from "@src/utils/NodeUtils";
+import { DeviceInfo, useHardwareDevices } from "@src/hooks/useHardwareDevices";
 
 export type AddNewNode = (node: NodeElement) => void;
 
@@ -25,6 +26,7 @@ export const useAddNewNode = (
 ) => {
   const center = useAtomValue(centerPositionAtom);
   const setHasUnsavedChanges = useSetAtom(unsavedChangesAtom);
+  const hardwareDevices: DeviceInfo | undefined = useHardwareDevices();
 
   return useCallback(
     (node: NodeElement) => {
@@ -50,7 +52,7 @@ export const useAddNewNode = (
           ? params!["constant"].default?.toString()
           : createNodeLabel(node.key, getTakenNodeLabels(funcName));
 
-      const nodeCtrls = ctrlsFromParams(params, funcName);
+      const nodeCtrls = ctrlsFromParams(params, funcName, hardwareDevices);
       const initCtrls = ctrlsFromParams(initParams, funcName);
 
       const newNode: Node<ElementsData> = {

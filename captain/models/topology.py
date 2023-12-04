@@ -189,8 +189,7 @@ class Topology:
 
         logger.debug(f"out_edges to follow: {next_directions}")
 
-        for direction_ in next_directions:
-            direction = direction_.lower()
+        for direction in next_directions:
             if direction == "end" and self.loop_nodes:
                 self.loop_nodes.pop()
             next_nodes = self.remove_edges_and_get_next(job_id, direction)

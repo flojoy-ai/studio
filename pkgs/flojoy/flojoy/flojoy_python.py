@@ -206,7 +206,7 @@ def flojoy(
                         node_type="default",
                     )
 
-                logger.debug(f"{node_id} params: {args.keys()}")
+                logger.debug(f"{node_id} params: {args}")
 
                 # check if node has an init container and if so, inject it
                 if NodeInitService().has_init_store(node_id):
@@ -216,6 +216,10 @@ def flojoy(
                     logger.debug("injecting connection")
                     device = args["connection"]
                     logger.debug(f"device handle: {device}")
+                    if device is None:
+                        raise ValueError(
+                            "No device selected, please select one using the edit menu."
+                        )
                     _id = device.get_id()
                     connection = DeviceConnectionManager.get_connection(_id)
                     args["connection"] = connection

@@ -12,6 +12,7 @@ export default {
   },
   saveBlocks: () => ipcRenderer.invoke(API.saveBlocks),
   updateBlocks: () => ipcRenderer.invoke(API.updateBlocks),
+  downloadBlocksFromMain: () => ipcRenderer.invoke(API.downloadBlocksFromMain),
   changeBlocksPath: () => ipcRenderer.invoke(API.changeBlocksPath),
   checkPythonInstallation: (force?: boolean): Promise<InterpretersList> =>
     ipcRenderer.invoke(API.checkPythonInstallation, force),
@@ -40,6 +41,7 @@ export default {
   ping: (addr: string): Promise<string> => ipcRenderer.invoke(API.ping, addr),
   netstat: (): Promise<string> => ipcRenderer.invoke(API.netstat),
   ifconfig: (): Promise<string> => ipcRenderer.invoke(API.ifconfig),
+  pickDirectory: (): Promise<string> => ipcRenderer.invoke(API.pickDirectory),
   downloadLogs: (): void => ipcRenderer.send(API.downloadLogs),
   checkForUpdates: (): void => ipcRenderer.send(API.checkForUpdates),
   restartCaptain: (): Promise<void> => ipcRenderer.invoke(API.restartCaptain),

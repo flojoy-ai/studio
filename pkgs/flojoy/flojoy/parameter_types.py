@@ -9,7 +9,11 @@ class HardwareDevice(ABC):
     # For visa devices, this is the visa address
     _id: str | int
 
-    def __init__(self, id: int) -> None:
+    def __init__(self, id: int | str) -> None:
+        if id == "":
+            raise ValueError(
+                "No device selected, please select one using the parameter menu."
+            )
         self._id = id
 
     def get_id(self):
@@ -133,6 +137,18 @@ class File:
         return self.ref
 
 
+class Directory:
+    """Node parameter type of str"""
+
+    ref: str
+
+    def __init__(self, ref: str) -> None:
+        self.ref = ref
+
+    def unwrap(self):
+        return self.ref
+
+
 def format_param_value(value: Any, value_type: str):
     match value_type:
         case "Array":
@@ -147,6 +163,14 @@ def format_param_value(value: Any, value_type: str):
             return parse_array(str(value), [int], "list[int]")
         case "select" | "str":
             return str(value)
+        case "CameraDevice" | "CameraConnection":
+            return (
+                CameraDevice(int(value)) if value.isnumeric() else CameraDevice(value)
+            )
+        case "SerialDevice" | "SerialConnection":
+            return SerialDevice(value)
+        case "VisaDevice" | "VisaConnection":
+            return VisaDevice(value)
 
     if value == "":
         return None
@@ -160,16 +184,10 @@ def format_param_value(value: Any, value_type: str):
             return bool(value)
         case "NodeReference":
             return NodeReference(str(value))
-        case "CameraDevice" | "CameraConnection":
-            return (
-                CameraDevice(int(value)) if value.isnumeric() else CameraDevice(value)
-            )
-        case "SerialDevice" | "SerialConnection":
-            return SerialDevice(value)
-        case "VisaDevice" | "VisaConnection":
-            return VisaDevice(value)
         case "File":
             return File(str(value))
+        case "Directory":
+            return Directory(str(value))
         case _:
             print("hit default case", flush=True)
             return value

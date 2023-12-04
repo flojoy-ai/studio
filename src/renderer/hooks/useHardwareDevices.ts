@@ -33,7 +33,7 @@ const DeviceInfo = z.object({
   visaDevices: z.array(VISADevice),
 });
 
-type DeviceInfo = z.infer<typeof DeviceInfo>;
+export type DeviceInfo = z.infer<typeof DeviceInfo>;
 
 const deviceAtom = atom<DeviceInfo | undefined>(undefined);
 

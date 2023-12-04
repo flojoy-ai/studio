@@ -1,11 +1,12 @@
 import { NodeResult } from "@src/routes/common/types/ResultsType";
-import { SetStateAction } from "jotai";
+import { SetStateAction, useSetAtom } from "jotai";
 import { createContext, Dispatch, useEffect, useMemo, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";
 import { v4 as UUID } from "uuid";
 import { SOCKET_URL } from "@src/data/constants";
 import { useHardwareRefetch } from "@src/hooks/useHardwareDevices";
 import {
+  manifestChangedAtom,
   useFetchManifest,
   useFetchNodesMetadata,
 } from "@src/hooks/useManifest";
@@ -55,15 +56,16 @@ export const SocketContextProvider = ({
   const hardwareRefetch = useHardwareRefetch();
   const fetchManifest = useFetchManifest();
   const fetchMetadata = useFetchNodesMetadata();
+  const setManifestChanged = useSetAtom(manifestChangedAtom);
 
   const handleStateChange =
     (state: keyof States) =>
-    (value: string | number | Record<string, string> | IServerStatus) => {
-      setStates((prev) => ({
-        ...prev,
-        [state]: value,
-      }));
-    };
+      (value: string | number | Record<string, string> | IServerStatus) => {
+        setStates((prev) => ({
+          ...prev,
+          [state]: value,
+        }));
+      };
 
   useEffect(() => {
     if (!socket) {
@@ -87,6 +89,7 @@ export const SocketContextProvider = ({
           fetchMetadata();
         },
         onManifestUpdate: () => {
+          setManifestChanged(true);
           toast("Changes detected, syncing blocks with changes...");
           fetchManifest();
           fetchMetadata();
@@ -94,7 +97,7 @@ export const SocketContextProvider = ({
       });
       setSocket(ws);
     }
-  }, [fetchManifest, fetchMetadata, hardwareRefetch, socket]);
+  }, [fetchManifest, fetchMetadata, hardwareRefetch, socket, setManifestChanged]);
   const values = useMemo(
     () => ({
       states: {
