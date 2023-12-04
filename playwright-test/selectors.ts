@@ -12,4 +12,5 @@ export enum Selectors {
   cancelPlayBtn = "btn-cancel",
   settingsBtn = "settings-btn",
   keyboardShortcutBtn = "btn-keyboardshortcut",
+  commandInput = "command-input",
 }
