@@ -483,7 +483,7 @@ class Bytes(DataContainer):
 
 
 class String(DataContainer):
-    text_blob: str
+    s: str
 
     def __init__(self, s: str):
         super().__init__(type="String", s=s)
