@@ -10,4 +10,6 @@ export enum Selectors {
   clearCanvasConfirmBtn = "confirm-clear-canvas",
   playBtn = "btn-play",
   cancelPlayBtn = "btn-cancel",
+  settingsBtn = "settings-btn",
+  keyboardShortcutBtn = "btn-keyboardshortcut",
 }

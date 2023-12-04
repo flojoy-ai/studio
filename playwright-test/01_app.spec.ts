@@ -20,10 +20,7 @@ test.describe(`${productName} startup test`, () => {
   });
 
   test.afterAll(async () => {
-    const logPath = await app.evaluate(async ({ app: _app }) => {
-      return _app.getPath("logs");
-    });
-    writeLogFile(logPath, `flojoy-startup-test`);
+    await writeLogFile(app, `flojoy-startup-test`);
     await app.close();
   });
 

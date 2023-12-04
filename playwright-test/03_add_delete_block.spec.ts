@@ -9,6 +9,7 @@ import {
   STARTUP_TIMEOUT,
   getExecutablePath,
   killBackend,
+  standbyStatus,
   writeLogFile,
 } from "./utils";
 import { Selectors } from "./selectors";
@@ -24,7 +25,6 @@ test.describe("Add and delete blocks", () => {
     });
     window = await app.firstWindow();
     await window.waitForLoadState("domcontentloaded");
-    const standbyStatus = "🐢 awaiting a new job";
     await window
       .getByText(standbyStatus)
       .innerText({ timeout: STARTUP_TIMEOUT });
@@ -36,10 +36,7 @@ test.describe("Add and delete blocks", () => {
   });
 
   test.afterAll(async () => {
-    const logPath = await app.evaluate(async ({ app: _app }) => {
-      return _app.getPath("logs");
-    });
-    writeLogFile(logPath, "add-delete-blocks");
+    await writeLogFile(app, "add-delete-blocks");
     await app.close();
   });
 

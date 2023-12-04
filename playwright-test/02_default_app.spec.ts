@@ -24,10 +24,7 @@ test.describe("Apps testing", () => {
   });
 
   test.afterAll(async () => {
-    const logPath = await app.evaluate(async ({ app: _app }) => {
-      return _app.getPath("logs");
-    });
-    writeLogFile(logPath, "app-testing");
+    await writeLogFile(app, "app-testing");
     await app.close();
   });
 

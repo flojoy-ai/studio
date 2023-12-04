@@ -1,7 +1,9 @@
 import { execSync } from "child_process";
 import { join } from "path";
 import fs from "fs";
+import { ElectronApplication } from "playwright";
 export const STARTUP_TIMEOUT = 900000; // 15 mins
+export const standbyStatus = "🐢 awaiting a new job";
 export const getExecutablePath = () => {
   switch (process.platform) {
     case "darwin":
@@ -27,8 +29,14 @@ export const getExecutablePath = () => {
   }
 };
 
-export const writeLogFile = (logFilePath: string, testName: string) => {
-  const logFile = join(logFilePath, "main.log");
+export const writeLogFile = async (
+  app: ElectronApplication,
+  testName: string,
+) => {
+  const logPath = await app.evaluate(async ({ app: _app }) => {
+    return _app.getPath("logs");
+  });
+  const logFile = join(logPath, "main.log");
   const logs = fs.readFileSync(logFile);
   fs.writeFileSync(
     `test-results/${process.platform}-${testName}-logs.txt`,
