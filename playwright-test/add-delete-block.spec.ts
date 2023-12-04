@@ -6,6 +6,7 @@ import {
   expect,
 } from "@playwright/test";
 import { getExecutablePath, killBackend, writeLogFile } from "./utils";
+import { Selectors } from "./selectors";
 
 test.describe("Add and delete blocks", () => {
   let app: ElectronApplication;
@@ -19,7 +20,7 @@ test.describe("Add and delete blocks", () => {
     await window.waitForLoadState("domcontentloaded");
     const standbyStatus = "🐢 awaiting a new job";
     await window.getByText(standbyStatus).innerText({ timeout: 900000 });
-    await window.getByTestId("close-welcome-modal").click();
+    await window.getByTestId(Selectors.closeWelcomeModalBtn).click();
     app.on("close", () => {
       killBackend();
     });
@@ -34,29 +35,31 @@ test.describe("Add and delete blocks", () => {
   });
 
   test("Clear canvas", async () => {
-    await window.getByTestId("clear-canvas-button").click();
-    await window.getByTestId("confirm-clear-canvas").click();
-    const playBtn = window.getByTestId("btn-play");
+    await window.getByTestId(Selectors.clearCanvasBtn).click();
+    await window.getByTestId(Selectors.clearCanvasConfirmBtn).click();
+    const playBtn = window.getByTestId(Selectors.playBtn);
     await playBtn.isDisabled({ timeout: 10000 });
   });
 
   test("Add a new block", async () => {
     const timeoutSecond = 900000; // 15mins
     test.setTimeout(timeoutSecond);
-    const addBlockBtn = window.getByTestId("add-block-button");
+    const addBlockBtn = window.getByTestId(Selectors.addBlockBtn);
     await addBlockBtn.isEnabled({ timeout: 10000 });
     const blocks = ["LINSPACE", "SINE"];
 
     for (const block of blocks) {
       await addBlockBtn.click({ delay: 500 });
-      const sidebarInput = window.getByTestId("sidebar-input");
+      const sidebarInput = window.getByTestId(Selectors.sidebarInput);
 
       // Clear and fill sidebar input
       await sidebarInput.clear();
       await sidebarInput.fill(block);
 
       // Expand sidebar
-      await window.getByTestId("sidebar-expand-btn").click({ clickCount: 2 });
+      await window
+        .getByTestId(Selectors.sidebarExpandBtn)
+        .click({ clickCount: 2 });
 
       // Click on the block in the sidebar
       await window.getByText(block, { exact: true }).click();
@@ -72,7 +75,7 @@ test.describe("Add and delete blocks", () => {
       expect(isBlockPresent).toEqual(true);
 
       // Close the sidebar
-      await window.getByTestId("sidebar-close").click();
+      await window.getByTestId(Selectors.sidebarCloseBtn).click();
     }
 
     await window.screenshot({
@@ -86,10 +89,10 @@ test.describe("Add and delete blocks", () => {
       async (el) => (await el.innerText()) === "SINE",
     );
     await sine?.click({ noWaitAfter: true });
-    const editBlockBtn = window.getByTestId("toggle-edit-mode");
+    const editBlockBtn = window.getByTestId(Selectors.blockEditToggleBtn);
     await editBlockBtn.isEnabled();
     await editBlockBtn.click();
-    await window.getByTestId("delete-node-button").click();
+    await window.getByTestId(Selectors.deleteBlockBtn).click();
     await window.$$eval("h2", (elems) => {
       return !elems.some((e) => e.innerText === "SINE");
     });
