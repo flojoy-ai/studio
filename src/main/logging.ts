@@ -11,6 +11,7 @@ export function openLogFolder(): void {
 
 export function sendToStatusBar(message: string): void {
   ipcMain.emit(API.statusBarLogging, message);
+  log.info(message);
 }
 
 export const logListener = (event): void => {
