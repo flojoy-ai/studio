@@ -137,6 +137,18 @@ class File:
         return self.ref
 
 
+class Directory:
+    """Node parameter type of str"""
+
+    ref: str
+
+    def __init__(self, ref: str) -> None:
+        self.ref = ref
+
+    def unwrap(self):
+        return self.ref
+
+
 def format_param_value(value: Any, value_type: str):
     match value_type:
         case "Array":
@@ -174,6 +186,8 @@ def format_param_value(value: Any, value_type: str):
             return NodeReference(str(value))
         case "File":
             return File(str(value))
+        case "Directory":
+            return Directory(str(value))
         case _:
             print("hit default case", flush=True)
             return value
