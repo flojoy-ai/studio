@@ -16,4 +16,5 @@ export type ParamValueType =
   | "SerialConnection"
   | "VisaConnection"
   | "File"
+  | "Directory"
   | "unknown";

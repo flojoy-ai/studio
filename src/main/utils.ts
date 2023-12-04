@@ -3,6 +3,7 @@ import * as fs from "fs";
 import { isIP } from "net";
 import { execCommand } from "./executor";
 import { Command } from "./command";
+import { dialog } from "electron";
 
 export const isPortFree = (port: number) =>
   new Promise((resolve) => {
@@ -66,4 +67,11 @@ export const ifconfig = async () => {
 
 export const writeFileSync = (_, filePath: string, text: string): void => {
   fs.writeFileSync(filePath, text);
+};
+
+export const pickDirectory = async (): Promise<string> => {
+  const handler = await dialog.showOpenDialog({
+    properties: ["openDirectory"],
+  });
+  return handler.filePaths[0];
 };
