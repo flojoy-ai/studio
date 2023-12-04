@@ -1,6 +1,7 @@
 import { execSync } from "child_process";
 import { join } from "path";
 import fs from "fs";
+import test, { ElectronApplication, _electron } from "@playwright/test";
 
 export const getExecutablePath = () => {
   switch (process.platform) {

@@ -28,8 +28,10 @@ export const useAddNewNode = (
 
   return useCallback(
     (node: NodeElement) => {
-      const pos = center ?? { x: 0, y: 0 };
-      const nodePosition = addRandomPositionOffset(pos, 30);
+      const previousBlockPos = localStorage.getItem("prev_node_pos");
+      const parsedPos = previousBlockPos ? JSON.parse(previousBlockPos) : null;
+      const pos = parsedPos ?? center;
+      const nodePosition = addRandomPositionOffset(pos, 300);
       const funcName = node.key;
       const type = node.type;
       const params = node.parameters;
@@ -45,18 +47,18 @@ export const useAddNewNode = (
       const nodeId = createNodeId(node.key);
       const nodeLabel =
         funcName === "CONSTANT"
-          ? params!["constant"].default!.toString()
+          ? params!["constant"].default?.toString()
           : createNodeLabel(node.key, getTakenNodeLabels(funcName));
 
       const nodeCtrls = ctrlsFromParams(params, funcName);
       const initCtrls = ctrlsFromParams(initParams, funcName);
 
-      const newNode = {
+      const newNode: Node<ElementsData> = {
         id: nodeId,
         type: uiComponentId ?? type,
         data: {
           id: nodeId,
-          label: nodeLabel,
+          label: nodeLabel ?? "New Block",
           func: funcName,
           type,
           ctrls: nodeCtrls,
@@ -70,7 +72,8 @@ export const useAddNewNode = (
       };
       setNodes((els) => els.concat(newNode));
       setHasUnsavedChanges(true);
-      sendEventToMix("Node Added", newNode.data.label);
+      localStorage.setItem("prev_block_pos", JSON.stringify(nodePosition));
+      sendEventToMix("Node Added", newNode.data?.label ?? "");
     },
     [
       setNodes,

@@ -243,6 +243,7 @@ const FlowChartTab = () => {
       const nodeIndex = nodes.findIndex((el) => el.id === node.id);
       nodes[nodeIndex] = node;
       setHasUnsavedChanges(true);
+      localStorage.setItem("prev_block_pos", "");
     });
   };
 

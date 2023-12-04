@@ -39,5 +39,9 @@ test.describe("Apps testing", () => {
     const cancelBtn = window.getByTestId("btn-cancel");
     await cancelBtn.waitFor({ state: "visible", timeout: 5000 });
     await window.getByText(standbyStatus).innerText({ timeout: 60000 });
+    await window.screenshot({
+      fullPage: true,
+      path: "test-results/default-app.jpg",
+    });
   });
 });
