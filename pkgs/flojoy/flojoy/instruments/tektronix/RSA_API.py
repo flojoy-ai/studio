@@ -15,11 +15,15 @@ http://www.tek.com/spectrum-analyzer/rsa306-manual-6
 YOU WILL NEED TO REFERENCE THE API DOCUMENTATION
 """
 
-from ctypes import *
+from ctypes import c_char_p, c_float, c_int16, c_int32, c_int, c_uint64
+from ctypes import c_int64, c_double, c_bool, POINTER, c_uint32, c_uint16
+from ctypes import c_wchar_p, Structure, c_uint8
 from enum import Enum
+
 
 class RSAError(Exception):
     pass
+
 
 class ReturnStatus(Enum):
     noError = 0
@@ -118,7 +122,7 @@ class ReturnStatus(Enum):
     errorCalConfigInvalid = 3309
 
     # flash
-    errorFlashFileSystemUnexpectedSize = 3401,
+    errorFlashFileSystemUnexpectedSize = (3401,)
     errorFlashFileSystemNotMounted = 3402
     errorFlashFileSystemOutOfRange = 3403
     errorFlashFileSystemIndexNotFound = 3404
@@ -141,7 +145,7 @@ class ReturnStatus(Enum):
     errorFlashFileSystemCreateFile = 3421
 
     # Aux monitoring
-    errorMonitoringNotSupported = 3501,
+    errorMonitoringNotSupported = (3501,)
     errorAuxDataNotAvailable = 3502
 
     # battery
@@ -177,22 +181,27 @@ class ReturnStatus(Enum):
 
 
 class Cplx32(Structure):
-    _fields_ = [('i', c_float), ('q', c_float)]
+    _fields_ = [("i", c_float), ("q", c_float)]
 
 
 class CplxInt32(Structure):
-    _fields_ = [('i', c_int32), ('q', c_int32)]
+    _fields_ = [("i", c_int32), ("q", c_int32)]
 
 
 class CplxInt16(Structure):
-    _fields_ = [('i', c_int16), ('q', c_int16)]
+    _fields_ = [("i", c_int16), ("q", c_int16)]
 
 
 AcqDataStatus_ADC_OVERRANGE = 0x1
 AcqDataStatus_REF_OSC_UNLOCK = 0x2
 AcqDataStatus_LOW_SUPPLY_VOLTAGE = 0x10
 AcqDataStatus_ADC_DATA_LOST = 0x20
-AcqDataStatus_VALID_BITS_MASK = (AcqDataStatus_ADC_OVERRANGE or AcqDataStatus_REF_OSC_UNLOCK or AcqDataStatus_LOW_SUPPLY_VOLTAGE or AcqDataStatus_ADC_DATA_LOST)
+AcqDataStatus_VALID_BITS_MASK = (
+    AcqDataStatus_ADC_OVERRANGE
+    or AcqDataStatus_REF_OSC_UNLOCK
+    or AcqDataStatus_LOW_SUPPLY_VOLTAGE
+    or AcqDataStatus_ADC_DATA_LOST
+)
 
 
 class AcqDataStatus:
@@ -215,18 +224,22 @@ DEVINFO_MAX_STRLEN = 100
 
 
 class DEVICE_INFO(Structure):
-    _fields_ = [('nomenclature', c_char_p),
-                ('serialNum', c_char_p),
-                ('apiVersion', c_char_p),
-                ('fwVersion', c_char_p),
-                ('fpgaVersion', c_char_p),
-                ('hwVersion', c_char_p)]
+    _fields_ = [
+        ("nomenclature", c_char_p),
+        ("serialNum", c_char_p),
+        ("apiVersion", c_char_p),
+        ("fwVersion", c_char_p),
+        ("fpgaVersion", c_char_p),
+        ("hwVersion", c_char_p),
+    ]
 
 
 class TriggerMode:
     def __init__(self):
         self.freeRun = c_int(0)
         self.triggered = c_int(1)
+
+
 TriggerMode = TriggerMode()
 
 
@@ -234,6 +247,8 @@ class TriggerSource:
     def __init__(self):
         self.TriggerSourceExternal = c_int(0)
         self.TriggerSourceIFPowerLevel = c_int(1)
+
+
 TriggerSource = TriggerSource()
 
 
@@ -242,6 +257,8 @@ class TriggerTransition:
         self.TriggerTransitionLH = c_int(1)
         self.TriggerTransitionHL = c_int(2)
         self.TriggerTransitionEither = c_int(3)
+
+
 TriggerTransition = TriggerTransition()
 
 
@@ -254,29 +271,35 @@ class RunMode:
     def __init__(self):
         self.stopped = c_int(0)
         self.running = c_int(1)
+
+
 RunMode = RunMode()
 
 
-IQBLK_STATUS_INPUT_OVERRANGE = (1 << 0)
-IQBLK_STATUS_FREQREF_UNLOCKED = (1 << 1)
-IQBLK_STATUS_ACQ_SYS_ERROR = (1 << 2)
-IQBLK_STATUS_DATA_XFER_ERROR = (1 << 3)
+IQBLK_STATUS_INPUT_OVERRANGE = 1 << 0
+IQBLK_STATUS_FREQREF_UNLOCKED = 1 << 1
+IQBLK_STATUS_ACQ_SYS_ERROR = 1 << 2
+IQBLK_STATUS_DATA_XFER_ERROR = 1 << 3
 
 
 class IQBLK_ACQINFO(Structure):
-    _fields_ = [('sample0Timestamp', c_uint64),
-                ('triggerSampleIndex', c_uint64),
-                ('triggerTimestamp', c_uint64),
-                ('acqStatus', c_uint32)]
+    _fields_ = [
+        ("sample0Timestamp", c_uint64),
+        ("triggerSampleIndex", c_uint64),
+        ("triggerTimestamp", c_uint64),
+        ("acqStatus", c_uint32),
+    ]
 
 
 class IQHeader(Structure):
-    _fields_ = [('acqDataStatus', c_uint16),
-                ('acquisitionTimestamp', c_uint64),
-                ('frameID', c_uint32),
-                ('trigger1Index', c_uint16),
-                ('trigger2Index', c_uint16),
-                ('timeSyncIndex', c_uint16)]
+    _fields_ = [
+        ("acqDataStatus", c_uint16),
+        ("acquisitionTimestamp", c_uint64),
+        ("frameID", c_uint32),
+        ("trigger1Index", c_uint16),
+        ("trigger2Index", c_uint16),
+        ("timeSyncIndex", c_uint16),
+    ]
 
 
 class SpectrumWindows:
@@ -287,6 +310,8 @@ class SpectrumWindows:
         self.SpectrumWindow_Rectangle = c_int(3)
         self.SpectrumWindow_FlatTop = c_int(4)
         self.SpectrumWindow_Hann = c_int(5)
+
+
 SpectrumWindows = SpectrumWindows()
 
 
@@ -295,6 +320,8 @@ class SpectrumTraces:
         self.SpectrumTrace1 = c_int(0)
         self.SpectrumTrace2 = c_int(1)
         self.SpectrumTrace3 = c_int(2)
+
+
 SpectrumTraces = SpectrumTraces()
 
 
@@ -304,6 +331,8 @@ class SpectrumDetectors:
         self.SpectrumDetector_NegPeak = c_int(1)
         self.SpectrumDetector_AverageVRMS = c_int(2)
         self.SpectrumDetector_Sample = c_int(3)
+
+
 SpectrumDetectors = SpectrumDetectors()
 
 
@@ -314,82 +343,93 @@ class SpectrumVerticalUnits:
         self.SpectrumVerticalUnit_Volt = c_int(2)
         self.SpectrumVerticalUnit_Amp = c_int(3)
         self.SpectrumVerticalUnit_dBmV = c_int(4)
+
+
 SpectrumVerticalUnits = SpectrumVerticalUnits()
 
 
 class Spectrum_Settings(Structure):
-    _fields_ = [('span', c_double),
-                ('rbw', c_double),
-                ('enableVBW', c_bool),
-                ('vbw', c_double),
-                ('traceLength', c_int),
-                ('window', c_int),
-                ('verticalUnit', c_int),
-                ('actualStartFreq', c_double),
-                ('actualStopFreq', c_double),
-                ('actualFreqStepSize', c_double),
-                ('actualRBW', c_double),
-                ('actualVBW', c_double),
-                ('actualNumIQSamples', c_double)]
+    _fields_ = [
+        ("span", c_double),
+        ("rbw", c_double),
+        ("enableVBW", c_bool),
+        ("vbw", c_double),
+        ("traceLength", c_int),
+        ("window", c_int),
+        ("verticalUnit", c_int),
+        ("actualStartFreq", c_double),
+        ("actualStopFreq", c_double),
+        ("actualFreqStepSize", c_double),
+        ("actualRBW", c_double),
+        ("actualVBW", c_double),
+        ("actualNumIQSamples", c_double),
+    ]
 
 
 class Spectrum_Limits(Structure):
-    _fields_ = [('maxSpan', c_double),
-                ('minSpan', c_double),
-                ('maxRBW', c_double),
-                ('minRBW', c_double),
-                ('maxVBW', c_double),
-                ('minVBW', c_double),
-                ('maxTraceLength', c_int),
-                ('minTraceLength', c_int)]
+    _fields_ = [
+        ("maxSpan", c_double),
+        ("minSpan", c_double),
+        ("maxRBW", c_double),
+        ("minRBW", c_double),
+        ("maxVBW", c_double),
+        ("minVBW", c_double),
+        ("maxTraceLength", c_int),
+        ("minTraceLength", c_int),
+    ]
 
 
 class Spectrum_TraceInfo(Structure):
-    _fields_ = [('timestamp', c_int64),
-                ('acqDataStatus', c_uint16)]
+    _fields_ = [("timestamp", c_int64), ("acqDataStatus", c_uint16)]
 
 
 class DPX_FrameBuffer(Structure):
-    _fields_ = [('fftPerFrame', c_int32),
-                ('fftCount', c_int64),
-                ('frameCount', c_int64),
-                ('timestamp', c_double),
-                ('acqDataStatus', c_uint32),
-                ('minSigDuration', c_double),
-                ('minSigDurOutOfRange', c_bool),
-                ('spectrumBitmapWidth', c_int32),
-                ('spectrumBitmapHeight', c_int32),
-                ('spectrumBitmapSize', c_int32),
-                ('spectrumTraceLength', c_int32),
-                ('numSpectrumTraces', c_int32),
-                ('spectrumEnabled', c_bool),
-                ('spectrogramEnabled', c_bool),
-                ('spectrumBitmap', POINTER(c_float)),
-                ('spectrumTraces', POINTER(POINTER(c_float))),
-                ('sogramBitmapWidth', c_int32),
-                ('sogramBitmapHeight', c_int32),
-                ('sogramBitmapSize', c_int32),
-                ('sogramBitmapNumValidLines', c_int32),
-                ('sogramBitmap', POINTER(c_uint8)),
-                ('sogramBitmapTimestampArray', POINTER(c_double)),
-                ('sogramBitmapContainTriggerArray', POINTER(c_double))]
+    _fields_ = [
+        ("fftPerFrame", c_int32),
+        ("fftCount", c_int64),
+        ("frameCount", c_int64),
+        ("timestamp", c_double),
+        ("acqDataStatus", c_uint32),
+        ("minSigDuration", c_double),
+        ("minSigDurOutOfRange", c_bool),
+        ("spectrumBitmapWidth", c_int32),
+        ("spectrumBitmapHeight", c_int32),
+        ("spectrumBitmapSize", c_int32),
+        ("spectrumTraceLength", c_int32),
+        ("numSpectrumTraces", c_int32),
+        ("spectrumEnabled", c_bool),
+        ("spectrogramEnabled", c_bool),
+        ("spectrumBitmap", POINTER(c_float)),
+        ("spectrumTraces", POINTER(POINTER(c_float))),
+        ("sogramBitmapWidth", c_int32),
+        ("sogramBitmapHeight", c_int32),
+        ("sogramBitmapSize", c_int32),
+        ("sogramBitmapNumValidLines", c_int32),
+        ("sogramBitmap", POINTER(c_uint8)),
+        ("sogramBitmapTimestampArray", POINTER(c_double)),
+        ("sogramBitmapContainTriggerArray", POINTER(c_double)),
+    ]
 
 
 class DPX_SogramSettingStruct(Structure):
-    _fields_ = [('bitmapWidth', c_int32),
-                ('bitmapHeight', c_int32),
-                ('sogramTraceLineTime', c_double),
-                ('sogramBitmapLineTime', c_double)]
+    _fields_ = [
+        ("bitmapWidth", c_int32),
+        ("bitmapHeight", c_int32),
+        ("sogramTraceLineTime", c_double),
+        ("sogramBitmapLineTime", c_double),
+    ]
 
 
 class DPX_SettingStruct(Structure):
-    _fields_ = [('enableSpectrum', c_bool),
-                ('enableSpectrogram', c_bool),
-                ('bitmapWidth', c_int32),
-                ('bitmapHeight', c_int32),
-                ('traceLength', c_int32),
-                ('decayFactor', c_float),
-                ('actualRBW', c_double)]
+    _fields_ = [
+        ("enableSpectrum", c_bool),
+        ("enableSpectrogram", c_bool),
+        ("bitmapWidth", c_int32),
+        ("bitmapHeight", c_int32),
+        ("traceLength", c_int32),
+        ("decayFactor", c_float),
+        ("actualRBW", c_double),
+    ]
 
 
 class TraceType:
@@ -399,6 +439,8 @@ class TraceType:
         self.TraceTypeMaxHold = c_int(2)
         self.TraceTypeMin = c_int(3)
         self.TraceTypeMinHold = c_int(4)
+
+
 TraceType = TraceType()
 
 
@@ -408,6 +450,8 @@ class VerticalUnitType:
         self.VerticalUnit_Watt = c_int(1)
         self.VerticalUnit_Volt = c_int(2)
         self.VerticalUnit_Amp = c_int(3)
+
+
 VerticalUnitType = VerticalUnitType()
 
 
@@ -424,6 +468,8 @@ class AudioDemodMode:
         self.ADM_FM_200KHZ = c_int(3)
         self.ADM_AM_8KHZ = c_int(4)
         self.ADM_NONE = c_int(5)  # internal use only
+
+
 AudioDemodMode = AudioDemodMode()
 
 
@@ -431,6 +477,8 @@ class StreamingMode:
     def __init__(self):
         self.StreamingModeRaw = c_int(0)
         self.StreamingModeFormatted = c_int(1)
+
+
 StreamingMode = StreamingMode()
 
 
@@ -440,6 +488,8 @@ class IQSOUTDEST:
         self.IQSOD_FILE_TIQ = c_int(1)
         self.IQSOD_FILE_SIQ = c_int(2)
         self.IQSOD_FILE_SIQ_SPLIT = c_int(3)
+
+
 IQSOUTDEST = IQSOUTDEST()
 
 
@@ -448,6 +498,8 @@ class IQSOUTDTYPE:
         self.IQSODT_SINGLE = c_int(0)
         self.IQSODT_INT32 = c_int(1)
         self.IQSODT_INT16 = c_int(2)
+
+
 IQSOUTDTYPE = IQSOUTDTYPE()
 
 
@@ -459,34 +511,37 @@ IFSSDFN_SUFFIX_INCRINDEX_MIN = c_int(0)
 IFSSDFN_SUFFIX_TIMESTAMP = c_int(-1)
 IFSSDFN_SUFFIX_NONE = c_int(-2)
 
-IQSTRM_STATUS_OVERRANGE = (1 << 0)
-IQSTRM_STATUS_XFER_DISCONTINUITY = (1 << 1)
-IQSTRM_STATUS_IBUFF75PCT = (1 << 2)
-IQSTRM_STATUS_IBUFFOVFLOW = (1 << 3)
-IQSTRM_STATUS_OBUFF75PCT = (1 << 4)
-IQSTRM_STATUS_OBUFFOVFLOW = (1 << 5)
+IQSTRM_STATUS_OVERRANGE = 1 << 0
+IQSTRM_STATUS_XFER_DISCONTINUITY = 1 << 1
+IQSTRM_STATUS_IBUFF75PCT = 1 << 2
+IQSTRM_STATUS_IBUFFOVFLOW = 1 << 3
+IQSTRM_STATUS_OBUFF75PCT = 1 << 4
+IQSTRM_STATUS_OBUFFOVFLOW = 1 << 5
 IQSTRM_STATUS_NONSTICKY_SHIFT = 0
 IQSTRM_STATUS_STICKY_SHIFT = 16
 
 IQSTRM_MAXTRIGGERS = 100
 
 
-
 class IQSTRMIQINFO(Structure):
-    _fields_ = [('timestamp', c_uint64),
-                ('triggerCount', c_int),
-                ('triggerIndices', POINTER(c_int)),
-                ('scaleFactor', c_double),
-                ('acqStatus', c_uint32)]
+    _fields_ = [
+        ("timestamp", c_uint64),
+        ("triggerCount", c_int),
+        ("triggerIndices", POINTER(c_int)),
+        ("scaleFactor", c_double),
+        ("acqStatus", c_uint32),
+    ]
 
 
 class IQSTREAM_File_Info(Structure):
-    _fields_ = [('numberSamples', c_uint64),
-                ('sample0Timestamp', c_uint64),
-                ('triggerSampleIndex', c_uint64),
-                ('triggerTimestamp', c_uint64),
-                ('acqStatus', c_uint32),
-                ('filenames', c_wchar_p)]
+    _fields_ = [
+        ("numberSamples", c_uint64),
+        ("sample0Timestamp", c_uint64),
+        ("triggerSampleIndex", c_uint64),
+        ("triggerTimestamp", c_uint64),
+        ("acqStatus", c_uint32),
+        ("filenames", c_wchar_p),
+    ]
 
 
 class GNSS_SATSYS:
@@ -497,13 +552,17 @@ class GNSS_SATSYS:
         self.GNSS_GPS = c_int(3)
         self.GNSS_GLONASS = c_int(4)
         self.GNSS_BEIDOU = c_int(5)
+
+
 GNSS_SATSYS = GNSS_SATSYS()
 
 
 class POWER_INFO(Structure):
-    _fields_ = [('externalPowerPresent', c_bool),
-                ('batteryPresent', c_bool),
-                ('batteryChargeLevel', c_double),
-                ('batteryCharging', c_bool),
-                ('batteryOverTemperature', c_bool),
-                ('batteryHardwareError', c_bool)]
+    _fields_ = [
+        ("externalPowerPresent", c_bool),
+        ("batteryPresent", c_bool),
+        ("batteryChargeLevel", c_double),
+        ("batteryCharging", c_bool),
+        ("batteryOverTemperature", c_bool),
+        ("batteryHardwareError", c_bool),
+    ]
