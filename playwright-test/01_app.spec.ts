@@ -2,7 +2,7 @@ import { ElectronApplication, _electron as electron } from "playwright";
 import { test, expect } from "@playwright/test";
 import fs from "fs";
 import { join } from "path";
-import { getExecutablePath, killBackend, writeLogFile } from "./utils";
+import { getExecutablePath, mockDialogMessage, writeLogFile } from "./utils";
 const { productName, version } = JSON.parse(
   fs.readFileSync(join(process.cwd(), "package.json"), { encoding: "utf-8" }),
 );
@@ -14,9 +14,7 @@ test.describe(`${productName} startup test`, () => {
     app = await electron.launch({
       executablePath,
     });
-    app.on("close", () => {
-      killBackend();
-    });
+    await mockDialogMessage(app);
   });
 
   test.afterAll(async () => {

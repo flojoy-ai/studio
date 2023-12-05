@@ -64,3 +64,25 @@ export const killBackend = async () => {
     //
   }
 };
+
+export const mockDialogMessage = async (app: ElectronApplication) => {
+  await app.evaluate(async ({ dialog }) => {
+    const originalShowMessageBoxSync = dialog.showMessageBoxSync;
+
+    // Create a wrapper function with the original signature
+    const wrapperShowMessageBoxSync = (
+      browserWindow: Electron.BrowserWindow | undefined,
+      options: Electron.MessageBoxSyncOptions,
+    ) => {
+      if (options.title === "Existing Server Detected") {
+        return 1;
+      } else {
+        return browserWindow
+          ? originalShowMessageBoxSync(browserWindow, options)
+          : originalShowMessageBoxSync(options);
+      }
+    };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    dialog.showMessageBoxSync = wrapperShowMessageBoxSync as any;
+  });
+};

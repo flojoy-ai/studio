@@ -8,7 +8,7 @@ import {
 import {
   STARTUP_TIMEOUT,
   getExecutablePath,
-  killBackend,
+  mockDialogMessage,
   standbyStatus,
   writeLogFile,
 } from "./utils";
@@ -23,6 +23,7 @@ test.describe("Add and delete blocks", () => {
     app = await electron.launch({
       executablePath,
     });
+    await mockDialogMessage(app);
     window = await app.firstWindow();
     await window.waitForLoadState("domcontentloaded");
     await window
@@ -30,9 +31,6 @@ test.describe("Add and delete blocks", () => {
       .innerText({ timeout: STARTUP_TIMEOUT });
     await window.getByTestId(Selectors.closeWelcomeModalBtn).click();
     await window.getByTestId(Selectors.playBtn).isEnabled({ timeout: 15000 });
-    app.on("close", () => {
-      killBackend();
-    });
   });
 
   test.afterAll(async () => {

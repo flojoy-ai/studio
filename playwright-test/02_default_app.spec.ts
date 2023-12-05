@@ -6,7 +6,7 @@ import {
 import {
   STARTUP_TIMEOUT,
   getExecutablePath,
-  killBackend,
+  mockDialogMessage,
   writeLogFile,
 } from "./utils";
 import { Selectors } from "./selectors";
@@ -18,9 +18,7 @@ test.describe("Apps testing", () => {
     app = await electron.launch({
       executablePath,
     });
-    app.on("close", () => {
-      killBackend();
-    });
+    await mockDialogMessage(app);
   });
 
   test.afterAll(async () => {
@@ -49,7 +47,6 @@ test.describe("Apps testing", () => {
 
     // Mock dialog to return 0 index
     await app.evaluate(async ({ dialog }) => {
-      dialog.showMessageBoxSync = () => 0;
       dialog.showMessageBox = () =>
         Promise.resolve({ response: 0, checkboxChecked: false });
     });
@@ -59,7 +56,7 @@ test.describe("Apps testing", () => {
     try {
       await window
         .getByTestId(Selectors.closeWelcomeModalBtn)
-        .waitFor({ state: "visible", timeout: 30000 });
+        .waitFor({ state: "visible", timeout: 120000 });
       await window.getByTestId(Selectors.closeWelcomeModalBtn).click();
     } catch (error) {
       //

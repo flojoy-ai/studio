@@ -4,6 +4,7 @@ import {
   STARTUP_TIMEOUT,
   getExecutablePath,
   killBackend,
+  mockDialogMessage,
   standbyStatus,
   writeLogFile,
 } from "./utils";
@@ -19,14 +20,12 @@ test.describe("Keyboard shortcuts", () => {
     test.setTimeout(STARTUP_TIMEOUT);
     const executablePath = getExecutablePath();
     app = await electron.launch({ executablePath });
+    await mockDialogMessage(app);
     window = await app.firstWindow();
     await expect(
       window.locator("code", { hasText: standbyStatus }),
     ).toBeVisible({ timeout: STARTUP_TIMEOUT });
     await window.getByTestId(Selectors.closeWelcomeModalBtn).click();
-    app.on("close", () => {
-      killBackend();
-    });
   });
 
   test.afterAll(async () => {
