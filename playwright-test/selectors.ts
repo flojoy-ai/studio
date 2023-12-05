@@ -21,4 +21,5 @@ export enum Selectors {
   blockLabelInput = "block-label-input",
   fileBtn = "file-button",
   loadAppBtn = "load-app-btn",
+  appGalleryBtn = "app-gallery-btn",
 }
