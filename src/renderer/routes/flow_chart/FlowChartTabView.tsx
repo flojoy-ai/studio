@@ -71,7 +71,7 @@ import ScipyNode from "@src/components/nodes/ScipyNode";
 import VisorNode from "@src/components/nodes/VisorNode";
 import { syncFlowchartWithManifest } from "@src/lib/sync";
 import TextNode from "@src/components/nodes/TextNode";
-import ContextMenu from "./components/NodeContextMenu";
+import ContextMenu, { MenuInfo } from "./components/NodeContextMenu";
 
 const nodeTypes: NodeTypes = {
   default: DefaultNode,
@@ -337,15 +337,8 @@ const FlowChartTab = () => {
     setCommandMenuOpen(false);
   };
 
-  type Menu = {
-    id: string;
-    top?: number;
-    left?: number;
-    right?: number;
-    bottom?: number;
-  }
 
-  const [menu, setMenu] = useState<Menu | null>(null);
+  const [menu, setMenu] = useState<MenuInfo | null>(null);
   const ref = useRef<HTMLDivElement | null>(null);
 
   const onNodeContextMenu = useCallback(
@@ -363,11 +356,11 @@ const FlowChartTab = () => {
       const pane = ref.current.getBoundingClientRect();
       setMenu({
         id: node.id,
-        top: event.clientY < pane.height - 200 ? event.clientY - 150 : undefined,
+        top: event.clientY < pane.height - 200 ? event.clientY - 200 : undefined,
         left: event.clientX < pane.width - 200 ? event.clientX : undefined,
         right: event.clientX >= pane.width - 200 ? pane.width - event.clientX : undefined,
         bottom:
-          event.clientY >= pane.height - 200 ? pane.height - event.clientY + 150 : undefined,
+          event.clientY >= pane.height - 200 ? pane.height - event.clientY + 125 : undefined,
       });
     },
     [setMenu],
@@ -498,6 +491,7 @@ const FlowChartTab = () => {
               padding: 0.8,
             }}
             onNodeContextMenu={onNodeContextMenu}
+            onPaneClick={onPaneClick}
           >
             <MiniMap
               className="!bottom-1 !bg-background"
@@ -518,7 +512,7 @@ const FlowChartTab = () => {
               fitViewOptions={{ padding: 0.8 }}
               className="!bottom-1 !shadow-control"
             />
-            {menu && <ContextMenu onClick={onPaneClick} {...menu} />}
+            {menu && <ContextMenu onClick={onPaneClick} duplicateNode={duplicateNode} {...menu} />}
           </ReactFlow>
 
           <NodeExpandMenu

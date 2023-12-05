@@ -1,5 +1,16 @@
 import { useFlowChartState } from '@src/hooks/useFlowChartState';
-import { useStore } from 'reactflow';
+import { ElementsData } from '@src/types';
+import { CopyPlus, Pencil, X } from 'lucide-react';
+import { useCallback } from 'react';
+import { useStore, Node, useReactFlow } from 'reactflow';
+
+export type MenuInfo = {
+  id: string;
+  top?: number;
+  left?: number;
+  right?: number;
+  bottom?: number;
+}
 
 type ContextMenuProps = {
   id: string;
@@ -8,6 +19,7 @@ type ContextMenuProps = {
   right?: number;
   bottom?: number;
   onClick?: () => void;
+  duplicateNode: (node: Node<ElementsData>) => void;
 }
 
 export default function ContextMenu({
@@ -16,9 +28,11 @@ export default function ContextMenu({
   left,
   right,
   bottom,
-  onClick
+  onClick,
+  duplicateNode
 }: ContextMenuProps) {
-  // const { getNode, setNodes, addNodes, setEdges } = useReactFlow();
+  const { getNode, setNodes, setEdges } = useReactFlow();
+
   const { setIsEditMode } = useFlowChartState();
   const { resetSelectedElements, addSelectedNodes } = useStore(state => ({ resetSelectedElements: state.resetSelectedElements, addSelectedNodes: state.addSelectedNodes }));
   const editNode = () => {
@@ -27,36 +41,28 @@ export default function ContextMenu({
     setIsEditMode(true);
   }
 
-  // const duplicateNode = useCallback(() => {
-  //   const node = getNode(id);
-  //   if (!node) {
-  //     return;
-  //   }
-  //   const position = {
-  //     x: node.position.x + 50,
-  //     y: node.position.y +j50,
-  //   };
-  //
-  //   addNodes({ ...node, id: `${node.id}-copy`, position });
-  // }, [id, getNode, addNodes]);
-  //
-  // const deleteNode = useCallback(() => {
-  //   setNodes((nodes) => nodes.filter((node) => node.id !== id));
-  //   setEdges((edges) => edges.filter((edge) => edge.source !== id));
-  // }, [id, setNodes, setEdges]);
+  const duplicate = () => {
+    const node = getNode(id);
+    if (!node) {
+      return;
+    }
+    duplicateNode(node);
+  }
+
+  const deleteNode = useCallback(() => {
+    setNodes((nodes) => nodes.filter((node) => node.id !== id));
+    setEdges((edges) => edges.filter((edge) => edge.source !== id));
+  }, [id, setNodes, setEdges]);
 
   return (
     <div
       style={{ top, left, right, bottom }}
-      className="absolute z-50 bg-background border"
+      className="absolute z-50 bg-background border rounded-md"
       onClick={onClick}
     >
-      <p style={{ margin: '0.5em' }}>
-        <small>node: {id}</small>
-      </p>
-      <button onClick={editNode}>edit</button>
-      {/* <button onClick={duplicateNode}>duplicate</button> */}
-      {/* <button onClick={deleteNode}>delete</button> */}
+      <button onClick={editNode} className="hover:bg-muted/50 px-2 py-1 text-sm flex items-center gap-2 w-full"><Pencil size={14} />Edit Node</button>
+      <button onClick={duplicate} className="hover:bg-muted/50 px-2 py-1 text-sm flex items-center gap-2 w-full"><CopyPlus size={14} />Duplicate Node</button>
+      <button onClick={deleteNode} className="hover:bg-muted/50 px-2 py-1 text-sm flex items-center gap-2 w-full"><X size={14} />Delete Node</button>
     </div>
   );
 }
