@@ -67,12 +67,12 @@ export default function ContextMenu({
       className="absolute z-50 bg-background border rounded-md"
       onClick={onClick}
     >
-      <button onClick={editNode} className="hover:bg-muted/50 px-2 py-1 text-sm flex items-center gap-2 w-full"><Pencil size={14} />Edit Block</button>
-      <button onClick={duplicate} className="hover:bg-muted/50 px-2 py-1 text-sm flex items-center gap-2 w-full"><CopyPlus size={14} />Duplicate Block</button>
+      <div onClick={editNode} className="hover:bg-muted/50 px-2 py-1 text-sm flex items-center gap-2 w-full"><Pencil size={14} />Edit Block</div>
+      <div onClick={duplicate} className="hover:bg-muted/50 px-2 py-1 text-sm flex items-center gap-2 w-full"><CopyPlus size={14} />Duplicate Block</div>
       <hr />
-      <button onClick={openInfo} className="hover:bg-muted/50 px-2 py-1 text-sm flex items-center gap-2 w-full"><Info size={14} />Block Info</button>
+      <div onClick={openInfo} className="hover:bg-muted/50 px-2 py-1 text-sm flex items-center gap-2 w-full"><Info size={14} />Block Info</div >
       <hr />
-      <button onClick={deleteNode} className="hover:bg-muted/50 px-2 py-1 text-sm flex items-center gap-2 w-full"><X size={14} />Delete Block</button>
+      <div onClick={deleteNode} className="hover:bg-muted/50 px-2 py-1 text-sm flex items-center gap-2 w-full"><X size={14} />Delete Block</div>
     </div>
   );
 }

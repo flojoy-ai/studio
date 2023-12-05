@@ -360,7 +360,7 @@ const FlowChartTab = () => {
         left: event.clientX < pane.width - 200 ? event.clientX : undefined,
         right: event.clientX >= pane.width - 200 ? pane.width - event.clientX : undefined,
         bottom:
-          event.clientY >= pane.height - 200 ? pane.height - event.clientY + 125 : undefined,
+          event.clientY >= pane.height - 200 ? pane.height - event.clientY + 100 : undefined,
       });
     },
     [setMenu],
