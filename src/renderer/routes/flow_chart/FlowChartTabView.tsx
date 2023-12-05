@@ -55,7 +55,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@src/components/ui/tooltip";
-import { manifestChangedAtom, useManifest, useNodesMetadata } from "@src/hooks/useManifest";
+import {
+  manifestChangedAtom,
+  useManifest,
+  useNodesMetadata,
+} from "@src/hooks/useManifest";
 import { ElementsData } from "@src/types";
 import { createNodeId, createNodeLabel } from "@src/utils/NodeUtils";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
@@ -417,8 +421,9 @@ const FlowChartTab = () => {
 
         <div
           style={{
-            height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT + ACTIONS_HEIGHT
-              }px)`,
+            height: `calc(100vh - ${
+              LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT + ACTIONS_HEIGHT
+            }px)`,
           }}
           className="relative overflow-hidden bg-background"
           data-testid="react-flow"
