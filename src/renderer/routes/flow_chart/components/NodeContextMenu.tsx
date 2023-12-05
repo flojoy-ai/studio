@@ -34,9 +34,8 @@ export default function ContextMenu({
   const { getNode, setNodes, setEdges } = useReactFlow();
 
   const { setIsEditMode } = useFlowChartState();
-  const { resetSelectedElements, addSelectedNodes } = useStore(state => ({ resetSelectedElements: state.resetSelectedElements, addSelectedNodes: state.addSelectedNodes }));
+  const { addSelectedNodes } = useStore(state => ({ resetSelectedElements: state.resetSelectedElements, addSelectedNodes: state.addSelectedNodes }));
   const editNode = () => {
-    resetSelectedElements();
     addSelectedNodes([id])
     setIsEditMode(true);
   }
@@ -60,9 +59,9 @@ export default function ContextMenu({
       className="absolute z-50 bg-background border rounded-md"
       onClick={onClick}
     >
-      <button onClick={editNode} className="hover:bg-muted/50 px-2 py-1 text-sm flex items-center gap-2 w-full"><Pencil size={14} />Edit Node</button>
-      <button onClick={duplicate} className="hover:bg-muted/50 px-2 py-1 text-sm flex items-center gap-2 w-full"><CopyPlus size={14} />Duplicate Node</button>
-      <button onClick={deleteNode} className="hover:bg-muted/50 px-2 py-1 text-sm flex items-center gap-2 w-full"><X size={14} />Delete Node</button>
+      <button onClick={editNode} className="hover:bg-muted/50 px-2 py-1 text-sm flex items-center gap-2 w-full"><Pencil size={14} />Edit Block</button>
+      <button onClick={duplicate} className="hover:bg-muted/50 px-2 py-1 text-sm flex items-center gap-2 w-full"><CopyPlus size={14} />Duplicate Block</button>
+      <button onClick={deleteNode} className="hover:bg-muted/50 px-2 py-1 text-sm flex items-center gap-2 w-full"><X size={14} />Delete Block</button>
     </div>
   );
 }
