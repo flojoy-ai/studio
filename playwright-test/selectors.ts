@@ -16,4 +16,7 @@ export enum Selectors {
   blockInfoBtn = "block-info-btn",
   blockEditParam = "block-edit-modal-params",
   blockInfoJson = "block-info-json",
+  blockLabelEditBtn = "block-label-edit",
+  blockLabelSubmit = "block-label-submit",
+  blockLabelInput = "block-label-input",
 }

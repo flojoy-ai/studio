@@ -9,7 +9,7 @@ import {
 } from "./utils";
 import { Selectors } from "./selectors";
 
-test.describe("Block params", () => {
+test.describe("Block params and label", () => {
   let window: Page;
   let app: ElectronApplication;
   test.beforeAll(async () => {
@@ -29,13 +29,31 @@ test.describe("Block params", () => {
     await app.close();
   });
 
-  test("Should change block parameter", async () => {
+  test("Should change SINE to TEST NODE", async () => {
     // Click on `SINE` block to select it
     await window.locator("h2", { hasText: "SINE" }).click();
 
     // Click on edit block button
     await window.getByTestId(Selectors.blockEditToggleBtn).click();
 
+    // Click on edit labe button
+    await window.getByTestId(Selectors.blockLabelEditBtn).click();
+
+    // Clear input field
+    await window.getByTestId(Selectors.blockLabelInput).clear();
+
+    // Write "TEST NODE"
+    await window.getByTestId(Selectors.blockLabelInput).fill("TEST NODE");
+
+    // Click on submit button
+    await window.getByTestId(Selectors.blockLabelSubmit).click();
+
+    // Expect SINE block to be changed to "TEST NODE"
+    await expect(window.locator("h2", { hasText: "TEST NODE" })).toBeVisible();
+    await expect(window.locator("h2", { hasText: "SINE" })).toBeHidden();
+  });
+
+  test("Should change block parameter values", async () => {
     // Select all param div
     const params = await window.$$(
       `[data-testid="${Selectors.blockEditParam}"]`,
@@ -77,5 +95,8 @@ test.describe("Block params", () => {
     expect(parsedInfo.data.ctrls.amplitude.value).toEqual(10);
     expect(parsedInfo.data.ctrls.frequency.value).toEqual(10);
     expect(parsedInfo.data.ctrls.waveform.value).toEqual("sawtooth");
+
+    // Close the modal
+    await window.locator('[role="dialog"] > button').click();
   });
 });

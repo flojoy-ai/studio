@@ -53,6 +53,7 @@ const NodeEditModal = ({
               <div className="flex">
                 <Input
                   id="title_input"
+                  data-testid="block-label-input"
                   className="w-max bg-modal"
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
@@ -61,6 +62,7 @@ const NodeEditModal = ({
                 <Button
                   size="icon"
                   variant="ghost"
+                  data-testid="block-label-submit"
                   onClick={() => {
                     setEditRenamingTitle(false);
                     handleTitleChange(newTitle, node.data.id);
@@ -78,6 +80,7 @@ const NodeEditModal = ({
                 <Button
                   size="icon"
                   variant="ghost"
+                  data-testid="block-label-edit"
                   onClick={() => {
                     setEditRenamingTitle(true);
                   }}
