@@ -19,4 +19,6 @@ export enum Selectors {
   blockLabelEditBtn = "block-label-edit",
   blockLabelSubmit = "block-label-submit",
   blockLabelInput = "block-label-input",
+  fileBtn = "file-button",
+  loadAppBtn = "load-app-btn",
 }
