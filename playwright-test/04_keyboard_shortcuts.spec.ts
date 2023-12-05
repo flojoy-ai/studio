@@ -50,7 +50,7 @@ test.describe("Keyboard shortcuts", () => {
 
   test("Ctrl/⌘ + P should run the app", async () => {
     // Check if Play button is enabled
-    await window.getByTestId(Selectors.addBlockBtn).isEnabled();
+    await expect(window.getByTestId(Selectors.addBlockBtn)).toBeEnabled();
 
     // Press Ctrl/meta + p key
     if (process.platform === "darwin") {
