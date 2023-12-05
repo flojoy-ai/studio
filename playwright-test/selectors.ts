@@ -13,4 +13,7 @@ export enum Selectors {
   settingsBtn = "settings-btn",
   keyboardShortcutBtn = "btn-keyboardshortcut",
   commandInput = "command-input",
+  blockInfoBtn = "block-info-btn",
+  blockEditParam = "block-edit-modal-params",
+  blockInfoJson = "block-info-json",
 }

@@ -2,23 +2,23 @@ import { NodeResult } from "@src/routes/common/types/ResultsType";
 // import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { Node } from "reactflow";
 import { ElementsData } from "@src/types";
-import NodeModal from "./NodeModal";
+import BlockModal from "./BlockModal";
 import { useEffect, useState } from "react";
 // import { useFlowChartTabState } from "../FlowChartTabState";
 
-type NodeExpandMenuProps = {
+type BlockExpandMenuProps = {
   modalIsOpen: boolean;
   setModalOpen: (open: boolean) => void;
   nodeResults: NodeResult[];
   selectedNode: Node<ElementsData> | null;
   pythonString: string;
-  nodeFilePath: string;
+  blockFilePath: string;
 };
 
-export const NodeExpandMenu = ({
+export const BlockExpandMenu = ({
   nodeResults,
   ...props
-}: NodeExpandMenuProps) => {
+}: BlockExpandMenuProps) => {
   const { selectedNode } = props;
   const [nodeResult, setNodeResult] = useState<NodeResult | null>(null);
   // const onSelectionChange = () => {
@@ -38,7 +38,7 @@ export const NodeExpandMenu = ({
   return (
     <div className="relative" data-testid="node-modal">
       {selectedNode && (
-        <NodeModal
+        <BlockModal
           {...props}
           nd={nodeResult}
           selectedNode={selectedNode}

@@ -90,7 +90,7 @@ const NodeEditModal = ({
                   onClick={() => {
                     setNodeModalOpen(true);
                   }}
-                  data-testid="node-info-button"
+                  data-testid="block-info-btn"
                 >
                   <Info size={20} className="stroke-muted-foreground" />
                 </Button>

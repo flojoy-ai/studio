@@ -39,7 +39,7 @@ export const ParamList = ({
         <div
           key={nodeId + name}
           id="undrag"
-          data-testid="node-edit-modal-params"
+          data-testid="block-edit-modal-params"
         >
           <ParamTooltip
             nodeId={nodeId}

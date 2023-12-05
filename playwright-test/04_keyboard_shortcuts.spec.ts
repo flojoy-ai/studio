@@ -109,14 +109,6 @@ test.describe("Keyboard shortcuts", () => {
     } else {
       await window.keyboard.press("Control+s");
     }
-    // // Manually wait for 2 seconds for file to be saved successfully
-    // await Promise.resolve(
-    //   new Promise((resolve) => {
-    //     setTimeout(() => {
-    //       resolve(true);
-    //     }, 2000);
-    //   }),
-    // );
 
     // Expect file path to exist
     expect(existsSync(savePath)).toBe(true);
