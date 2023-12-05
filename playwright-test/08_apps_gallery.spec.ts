@@ -74,7 +74,14 @@ test.describe("Apps gallery", () => {
         await window.getByTestId(Selectors.appGalleryBtn).click();
 
         // Find and click on Load button
-        await window.getByTestId(_app.title).click();
+        await window.getByTestId(_app.title).click({ delay: 300 });
+
+        try {
+          // Close the modal
+          await window.locator('[role="dialog"] > button').click();
+        } catch (error) {
+          //
+        }
 
         // Click on Play button to run the app
         await window.getByTestId(Selectors.playBtn).click();
