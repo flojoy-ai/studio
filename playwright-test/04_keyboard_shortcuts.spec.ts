@@ -8,9 +8,9 @@ import {
   writeLogFile,
 } from "./utils";
 import { Selectors } from "./selectors";
-// import os from "os";
-// import { join } from "path";
-// import { existsSync } from "fs";
+import os from "os";
+import { join } from "path";
+import { existsSync } from "fs";
 
 test.describe("Keyboard shortcuts", () => {
   let window: Page;
@@ -95,30 +95,30 @@ test.describe("Keyboard shortcuts", () => {
   //     await expect(window.locator("div", {hasText:"LINSPACE"})).toBeVisible();
   //   })
 
-  // test("Ctrl/⌘ + s should save current app", async () => {
-  //   const savePath = join(os.homedir(), "Downloads", "app.json");
-  //   // Mock saveAs dialog and return a save path
-  //   await app.evaluate(async ({ dialog }, savePath) => {
-  //     dialog.showSaveDialog = () =>
-  //       Promise.resolve({ filePath: savePath, canceled: false });
-  //   }, savePath);
+  test("Ctrl/⌘ + s should save current app", async () => {
+    const savePath = join(os.homedir(), "app.json");
+    // Mock saveAs dialog and return a save path
+    await app.evaluate(async ({ dialog }, savePath) => {
+      dialog.showSaveDialog = () =>
+        Promise.resolve({ filePath: savePath, canceled: false });
+    }, savePath);
 
-  //   // Press Ctrl/Meta + s key
-  //   if (process.platform === "darwin") {
-  //     await window.keyboard.press("Meta+s");
-  //   } else {
-  //     await window.keyboard.press("Control+s");
-  //   }
-  //   // // Manually wait for 2 seconds for file to be saved successfully
-  //   // await Promise.resolve(
-  //   //   new Promise((resolve) => {
-  //   //     setTimeout(() => {
-  //   //       resolve(true);
-  //   //     }, 2000);
-  //   //   }),
-  //   // );
+    // Press Ctrl/Meta + s key
+    if (process.platform === "darwin") {
+      await window.keyboard.press("Meta+s");
+    } else {
+      await window.keyboard.press("Control+s");
+    }
+    // // Manually wait for 2 seconds for file to be saved successfully
+    // await Promise.resolve(
+    //   new Promise((resolve) => {
+    //     setTimeout(() => {
+    //       resolve(true);
+    //     }, 2000);
+    //   }),
+    // );
 
-  //   // Expect file path to exist
-  //   expect(existsSync(savePath)).toBe(true);
-  // });
+    // Expect file path to exist
+    expect(existsSync(savePath)).toBe(true);
+  });
 });
