@@ -5,6 +5,7 @@ from fastapi import APIRouter, Response
 from captain.utils.manifest.generate_manifest import generate_manifest
 from captain.utils.blocks_metadata import generate_metadata
 from captain.utils.import_blocks import create_map
+from captain.utils.logger import logger
 
 router = APIRouter(tags=["blocks"])
 
@@ -17,6 +18,9 @@ async def get_manifest():
         manifest = generate_manifest()
         return manifest
     except Exception as e:
+        logger.error(
+            f"error in get_manifest(): {e} traceback: {e.with_traceback(e.__traceback__)}"
+        )
         return Response(
             status_code=400,
             content=json.dumps({"success": False, "error": "\n".join(e.args)}),
@@ -29,6 +33,9 @@ async def get_metadata():
         metadata_map = generate_metadata()
         return metadata_map
     except Exception as e:
+        logger.error(
+            f"error in get_metadata(): {e}, traceback: {e.with_traceback(e.__traceback__)}"
+        )
         return Response(
             status_code=400,
             content=json.dumps({"success": False, "error": "\n".join(e.args)}),
