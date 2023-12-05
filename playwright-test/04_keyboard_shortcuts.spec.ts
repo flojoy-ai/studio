@@ -63,7 +63,10 @@ test.describe("Keyboard shortcuts", () => {
     // Check for cancel button to be visible, this indicates app is running.
     const cancelBtn = window.getByTestId(Selectors.cancelPlayBtn);
     await cancelBtn.waitFor({ state: "visible", timeout: 5000 });
-
+    await window.screenshot({
+      path: "test-results/keyboard-app-run.jpeg",
+      fullPage: true,
+    });
     // Wait for the standby status to ensure that the app has finished running.
     await expect(
       window.locator("code", { hasText: standbyStatus }),
