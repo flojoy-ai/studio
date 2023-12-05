@@ -46,7 +46,6 @@ type ContextMenuProps = {
   setNodeModalOpen: (open: boolean) => void;
 };
 
-
 export default function ContextMenu({
   id,
   top,
@@ -108,6 +107,6 @@ export default function ContextMenu({
       <ContextMenuAction onClick={deleteNode} icon={X}>
         Delete Block
       </ContextMenuAction>
-    </div>
+    </div >
   );
 }

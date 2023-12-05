@@ -36,19 +36,19 @@ const data: GalleryData = {
       ],
       cloudDemoEnabled: true,
     },
-    {
-      title: "Stream to Flojoy Cloud",
-      description: "Stream data to your Flojoy Cloud account",
-      imagePath: "assets/appGallery/flojoyCloud.png",
-      appPath: "cloud",
-      relevantNodes: [
-        {
-          name: "FLOJOY_CLOUD_UPLOAD",
-          docs: "https://docs.flojoy.ai/nodes/LOADERS/CLOUD_DATABASE/FLOJOY_CLOUD_UPLOAD/",
-        },
-      ],
-      cloudDemoEnabled: false,
-    },
+    // {
+    //   title: "Stream to Flojoy Cloud",
+    //   description: "Stream data to your Flojoy Cloud account",
+    //   imagePath: "assets/appGallery/flojoyCloud.png",
+    //   appPath: "cloud",
+    //   relevantNodes: [
+    //     {
+    //       name: "FLOJOY_CLOUD_UPLOAD",
+    //       docs: "https://docs.flojoy.ai/nodes/LOADERS/CLOUD_DATABASE/FLOJOY_CLOUD_UPLOAD/",
+    //     },
+    //   ],
+    //   cloudDemoEnabled: false,
+    // },
   ],
   AI: [
     {

@@ -1,1 +1,1 @@
-from .tektronix import *
+from .tektronix import *  # noqa: F403

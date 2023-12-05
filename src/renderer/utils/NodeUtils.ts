@@ -41,28 +41,34 @@ export const createNodeLabel = (nodeFunc: string, takenLabels: string[][]) => {
 export const ctrlsFromParams = (
   params: NodeElement["parameters"] | undefined,
   funcName: string,
-  devices?: DeviceInfo
+  devices?: DeviceInfo,
 ): CtrlData => {
   if (!params) {
     return {};
   }
 
-  const getDefault = devices === undefined ? (param) => param.default ?? "" :
-    (param) => {
-      switch (param.type) {
-        case "CameraDevice":
-        case "CameraConnection":
-          return devices.cameras.length === 1 ? devices.cameras[0].id : ""
-        case "SerialDevice":
-        case "SerialConnection":
-          return devices.serialDevices.length === 1 ? devices.serialDevices[0].port : ""
-        case "VisaDevice":
-        case "VisaConnection":
-          return devices.visaDevices.length === 1 ? devices.visaDevices[0].address : ""
-        default:
-          return param.default ?? ""
-      }
-    }
+  const getDefault =
+    devices === undefined
+      ? (param) => param.default ?? ""
+      : (param) => {
+          switch (param.type) {
+            case "CameraDevice":
+            case "CameraConnection":
+              return devices.cameras.length === 1 ? devices.cameras[0].id : "";
+            case "SerialDevice":
+            case "SerialConnection":
+              return devices.serialDevices.length === 1
+                ? devices.serialDevices[0].port
+                : "";
+            case "VisaDevice":
+            case "VisaConnection":
+              return devices.visaDevices.length === 1
+                ? devices.visaDevices[0].address
+                : "";
+            default:
+              return param.default ?? "";
+          }
+        };
 
   return Object.fromEntries(
     Object.entries(params).map(([paramName, param]) => {
@@ -72,9 +78,9 @@ export const ctrlsFromParams = (
           ...param,
           functionName: funcName,
           param: paramName,
-          value: getDefault(param)
+          value: getDefault(param),
         },
-      ]
+      ];
     }),
   );
 };

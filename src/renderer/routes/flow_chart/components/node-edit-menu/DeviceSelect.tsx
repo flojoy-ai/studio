@@ -38,7 +38,6 @@ export const DeviceSelect = <T,>({
     ? nameSelector(selectedDevice)
     : undefined;
 
-
   return (
     <Select onValueChange={onValueChange}>
       <SelectTrigger
