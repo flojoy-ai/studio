@@ -1,6 +1,6 @@
 import { useFlowChartState } from '@src/hooks/useFlowChartState';
 import { ElementsData } from '@src/types';
-import { CopyPlus, Pencil, X } from 'lucide-react';
+import { CopyPlus, Info, Pencil, X } from 'lucide-react';
 import { useCallback } from 'react';
 import { useStore, Node, useReactFlow } from 'reactflow';
 
@@ -20,6 +20,7 @@ type ContextMenuProps = {
   bottom?: number;
   onClick?: () => void;
   duplicateNode: (node: Node<ElementsData>) => void;
+  setNodeModalOpen: (open: boolean) => void;
 }
 
 export default function ContextMenu({
@@ -29,7 +30,8 @@ export default function ContextMenu({
   right,
   bottom,
   onClick,
-  duplicateNode
+  duplicateNode,
+  setNodeModalOpen
 }: ContextMenuProps) {
   const { getNode, setNodes, setEdges } = useReactFlow();
 
@@ -38,6 +40,12 @@ export default function ContextMenu({
   const editNode = () => {
     addSelectedNodes([id])
     setIsEditMode(true);
+  }
+
+  const openInfo = () => {
+    addSelectedNodes([id])
+    setIsEditMode(false);
+    setNodeModalOpen(true);
   }
 
   const duplicate = () => {
@@ -61,6 +69,9 @@ export default function ContextMenu({
     >
       <button onClick={editNode} className="hover:bg-muted/50 px-2 py-1 text-sm flex items-center gap-2 w-full"><Pencil size={14} />Edit Block</button>
       <button onClick={duplicate} className="hover:bg-muted/50 px-2 py-1 text-sm flex items-center gap-2 w-full"><CopyPlus size={14} />Duplicate Block</button>
+      <hr />
+      <button onClick={openInfo} className="hover:bg-muted/50 px-2 py-1 text-sm flex items-center gap-2 w-full"><Info size={14} />Block Info</button>
+      <hr />
       <button onClick={deleteNode} className="hover:bg-muted/50 px-2 py-1 text-sm flex items-center gap-2 w-full"><X size={14} />Delete Block</button>
     </div>
   );

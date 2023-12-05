@@ -512,7 +512,7 @@ const FlowChartTab = () => {
               fitViewOptions={{ padding: 0.8 }}
               className="!bottom-1 !shadow-control"
             />
-            {menu && <ContextMenu onClick={onPaneClick} duplicateNode={duplicateNode} {...menu} />}
+            {menu && <ContextMenu onClick={onPaneClick} duplicateNode={duplicateNode} setNodeModalOpen={setNodeModalOpen} {...menu} />}
           </ReactFlow>
 
           <NodeExpandMenu
