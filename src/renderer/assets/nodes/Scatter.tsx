@@ -3,8 +3,6 @@ import { memo } from "react";
 const Scatter = () => {
   return (
     <svg
-      width="225"
-      height="226"
       viewBox="0 0 125 126"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
