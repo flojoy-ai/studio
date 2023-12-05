@@ -18,11 +18,11 @@ from .flojoy_cloud import *  # noqa: F403
 from .models import *  # noqa: F403
 
 def flojoy(
-    original_function: Callable[..., DataContainer | dict[str, Any] | TypedDict | None]
+    original_function: Callable[..., DataContainer | dict[str, Any] | TypedDict | None]  # noqa: F405
     | None = None,
     *,
     node_type: Optional[str] = None,
     deps: Optional[list[str]] = None,
     inject_node_metadata: bool = False,
     inject_connection: bool = False,
-) -> Callable[..., DataContainer | dict[str, Any] | None]: ...
+) -> Callable[..., DataContainer | dict[str, Any] | None]: ...  # noqa: F405
