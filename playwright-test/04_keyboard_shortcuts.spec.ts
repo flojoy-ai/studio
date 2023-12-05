@@ -3,7 +3,6 @@ import { _electron as electron } from "playwright";
 import {
   STARTUP_TIMEOUT,
   getExecutablePath,
-  killBackend,
   mockDialogMessage,
   standbyStatus,
   writeLogFile,

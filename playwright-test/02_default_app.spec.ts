@@ -47,6 +47,7 @@ test.describe("Apps testing", () => {
 
     // Mock dialog to return 0 index
     await app.evaluate(async ({ dialog }) => {
+      dialog.showMessageBoxSync = () => 0;
       dialog.showMessageBox = () =>
         Promise.resolve({ response: 0, checkboxChecked: false });
     });
