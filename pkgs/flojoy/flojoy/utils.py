@@ -19,9 +19,12 @@ from .dao import Dao
 from .config import FlojoyConfig, logger
 
 from .node_init import NodeInit, NodeInitService
-import keyring
+
+# import keyring
+from keyrings.cryptfile.cryptfile import CryptFileKeyring
+
 import base64
-from .CONSTANTS import FLOJOY_DIR, FLOJOY_CACHE_DIR, CREDENTIAL_FILE
+from .CONSTANTS import FLOJOY_DIR, FLOJOY_CACHE_DIR, CREDENTIAL_FILE, KEYRING_KEY
 
 
 __all__ = [
@@ -36,7 +39,8 @@ __all__ = [
     "clear_flojoy_memory",
 ]
 
-
+kr = CryptFileKeyring()
+kr.keyring_key = KEYRING_KEY
 # # package result
 # def package_result(result: dict | None, fn: str, node_id: str, jobset_id: str) -> dict:
 #     return {
@@ -304,11 +308,11 @@ def get_flojoy_root_dir() -> str:
 
 
 def get_env_var(key: str) -> Optional[str]:
-    return keyring.get_password("flojoy", key)
+    return kr.get_password("flojoy", key)
 
 
 def set_env_var(key: str, value: str):
-    keyring.set_password("flojoy", key, value)
+    kr.set_password("flojoy", key, value)
     home = str(Path.home())
     file_path = os.path.join(home, os.path.join(FLOJOY_DIR, CREDENTIAL_FILE))
 
@@ -347,7 +351,7 @@ def delete_env_var(key: str):
     with open(file_path, "w") as f:
         f.write(",".join(keys))
 
-    keyring.delete_password("flojoy", key)
+    kr.delete_password("flojoy", key)
 
 
 def get_credentials() -> list[dict[str, str]]:
