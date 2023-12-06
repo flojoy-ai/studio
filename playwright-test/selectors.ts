@@ -23,4 +23,10 @@ export enum Selectors {
   loadAppBtn = "load-app-btn",
   appGalleryBtn = "app-gallery-btn",
   saveBtn = "btn-save",
+  blockContextMenuDiv = "block-context-menu",
+  contextEditBlockBtn = "context-edit-block",
+  contextDuplicateBlockBtn = "context-duplicate-block",
+  contextBlockInfoBtn = "context-block-info",
+  contextDeleteBlockBtn = "context-delete-block",
+  blockEditMenuCloseBtn = "block-edit-close-button",
 }

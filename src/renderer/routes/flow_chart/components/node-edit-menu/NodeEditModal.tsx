@@ -107,7 +107,7 @@ const NodeEditModal = ({
               size="icon"
               variant="ghost"
               onClick={() => setIsEditMode(false)}
-              data-testid="node-edit-close-button"
+              data-testid="block-edit-close-button"
               className="mr-4 p-2"
             >
               <X size={20} className="stroke-muted-foreground" />
