@@ -110,11 +110,7 @@ test.describe("Apps gallery", () => {
         } catch (error) {
           //
         }
-        // Take a screenshot
-        await window.screenshot({
-          fullPage: true,
-          path: `test-results/apps/${_app.title}.jpeg`,
-        });
+
         for (const id of blockIds) {
           await expect(window.getByTestId(`rf__node-${id}`)).toBeVisible({
             timeout: 30000,
@@ -138,11 +134,11 @@ test.describe("Apps gallery", () => {
           window.locator("code", { hasText: standbyStatus }),
         ).toBeVisible({ timeout: 300000 });
 
-        // // Take a screenshot
-        // await window.screenshot({
-        //   fullPage: true,
-        //   path: `test-results/apps/${_app.title}.jpeg`,
-        // });
+        // Take a screenshot
+        await window.screenshot({
+          fullPage: true,
+          path: `test-results/apps/${_app.title}.jpeg`,
+        });
       }
     }
   });
