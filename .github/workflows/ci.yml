@@ -101,10 +101,10 @@ jobs:
       - name: pytest
         run: |
           cd PYTHON
-          poetry run python -m pytest --cov --cov-report=xml --ignore=nodes
+          poetry run python -m pytest --cov --cov-report=xml --ignore=blocks
           cd ..
           cd captain
-          poetry run python -m pytest --cov --cov-report=xml --ignore=nodes
+          poetry run python -m pytest --cov --cov-report=xml --ignore=blocks
 
       - name: Codecov report
         uses: codecov/codecov-action@v3
