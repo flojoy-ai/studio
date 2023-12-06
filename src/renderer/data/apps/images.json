@@ -1,5 +1,5 @@
 {
-  "name": "Intro to images",
+  "name": "Intro to Images",
   "rfInstance": {
     "nodes": [
       {
@@ -17,18 +17,20 @@
             {
               "name": "default",
               "id": "default",
-              "type": "Image",
-              "multiple": false
+              "type": "Image|Grayscale",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
             }
           ],
           "outputs": [
             {
               "name": "default",
               "id": "default",
-              "type": "Plotly"
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Image visualization of the input image"
             }
           ],
-          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
+          "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py",
           "selected": false
         },
         "position": {
@@ -57,18 +59,20 @@
             {
               "name": "default",
               "id": "default",
-              "type": "Image",
-              "multiple": false
+              "type": "Image|Grayscale",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
             }
           ],
           "outputs": [
             {
               "name": "default",
               "id": "default",
-              "type": "Plotly"
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Image visualization of the input image"
             }
           ],
-          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
+          "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py",
           "selected": false
         },
         "position": {
@@ -96,19 +100,21 @@
             "file_path": {
               "type": "str",
               "default": null,
-              "desc": "path to the file to be loaded",
+              "desc": "The path to the file to be loaded. This can be either an absolute path or\na path relative to the \"nodes\" directory.",
               "functionName": "LOCAL_FILE",
               "param": "file_path",
-              "value": ""
+              "value": "",
+              "overload": null
             },
             "file_type": {
               "type": "select",
               "default": "Image",
-              "options": ["Image", "Grayscale", "JSON", "CSV", "Excel", "XML"],
-              "desc": "type of file to load, default = image",
+              "options": ["Image", "Grayscale", "JSON", "CSV"],
+              "desc": "Type of file to load, default = image.\nIf both 'file_path' and 'default' are not specified when 'file_type=\"Image\"',\na default image will be loaded.\nIf the file path is not specified and the default input is not connected,\na ValueError is raised.",
               "functionName": "LOCAL_FILE",
               "param": "file_type",
-              "value": "Image"
+              "value": "Image",
+              "overload": null
             }
           },
           "initCtrls": {},
@@ -118,15 +124,15 @@
               "id": "default",
               "type": "String",
               "multiple": false,
-              "desc": "If this input node is connected, the filename will be taken from\nthe output of the connected node. To be used in conjunction with batch processing"
+              "desc": "If this input node is connected, the file name will be taken from\nthe output of the connected node.\nTo be used in conjunction with batch processing."
             }
           ],
           "outputs": [
             {
               "name": "default",
               "id": "default",
-              "type": "Image|DataFrame",
-              "desc": "Image for file_type 'image'\nDataFrame for file_type 'json', 'csv', 'excel', 'xml'"
+              "type": "Image|DataFrame|Grayscale",
+              "desc": "Image for file_type 'image'.\nGrayscale from file_type 'Grayscale'.\nDataFrame for file_type 'json', 'csv'."
             }
           ],
           "pip_dependencies": [
@@ -147,7 +153,7 @@
               "v": "0.21.0"
             }
           ],
-          "path": "PYTHON/nodes/LOADERS/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py",
+          "path": "ETL/LOAD/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py",
           "selected": false
         },
         "position": {
@@ -162,29 +168,31 @@
         "dragging": true
       },
       {
-        "width": 189,
-        "height": 160,
-        "id": "IMAGE_SMOOTHING-9f184b61-e8a5-4202-9d9d-709da0673f2c",
-        "type": "TRANSFORMERS",
+        "width": 150,
+        "height": 180,
+        "id": "IMAGE_SMOOTHING-6d4d6f9d-941e-4cbd-9c45-0e8a8c5f7559",
+        "type": "COMPUTER_VISION",
         "data": {
-          "id": "IMAGE_SMOOTHING-9f184b61-e8a5-4202-9d9d-709da0673f2c",
+          "id": "IMAGE_SMOOTHING-6d4d6f9d-941e-4cbd-9c45-0e8a8c5f7559",
           "label": "IMAGE SMOOTHING",
           "func": "IMAGE_SMOOTHING",
-          "type": "TRANSFORMERS",
+          "type": "COMPUTER_VISION",
           "ctrls": {
             "kernel": {
               "type": "int",
               "default": 5,
               "desc": "The strength of the smoothing (larger = stronger smoothing).",
+              "overload": null,
               "functionName": "IMAGE_SMOOTHING",
               "param": "kernel",
-              "value": 5
+              "value": 10
             },
             "smoothing_type": {
               "type": "select",
-              "default": "average",
               "options": ["average", "gaussian", "median", "bilateral"],
+              "default": "average",
               "desc": "The type of smoothing function to use.",
+              "overload": null,
               "functionName": "IMAGE_SMOOTHING",
               "param": "smoothing_type",
               "value": "average"
@@ -210,21 +218,20 @@
           ],
           "pip_dependencies": [
             {
-              "name": "opencv-python",
-              "v": "4.8.0.76"
+              "name": "opencv-python-headless",
+              "v": "4.8.1.78"
             }
           ],
-          "path": "PYTHON/nodes/TRANSFORMERS/IMAGE_PROCESSING/IMAGE_SMOOTHING/IMAGE_SMOOTHING.py",
-          "selected": false
+          "path": "COMPUTER_VISION/IMAGE_SMOOTHING/IMAGE_SMOOTHING.py"
         },
         "position": {
-          "x": 729.1384081129287,
-          "y": 180.79333305981027
+          "x": 716.1329930780284,
+          "y": 184.36374527852246
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 729.1384081129287,
-          "y": 180.79333305981027
+          "x": 716.1329930780284,
+          "y": 184.36374527852246
         },
         "dragging": true
       }
@@ -233,23 +240,23 @@
       {
         "source": "LOCAL_FILE-7e9953b7-3ab4-425f-80aa-2178c3508aac",
         "sourceHandle": "default",
-        "target": "IMAGE_SMOOTHING-9f184b61-e8a5-4202-9d9d-709da0673f2c",
-        "targetHandle": "default",
-        "id": "reactflow__edge-LOCAL_FILE-7e9953b7-3ab4-425f-80aa-2178c3508aacdefault-IMAGE_SMOOTHING-9f184b61-e8a5-4202-9d9d-709da0673f2cdefault"
-      },
-      {
-        "source": "LOCAL_FILE-7e9953b7-3ab4-425f-80aa-2178c3508aac",
-        "sourceHandle": "default",
         "target": "IMAGE-0b7bb803-8dba-43eb-a9bf-4073b3fda94c",
         "targetHandle": "default",
         "id": "reactflow__edge-LOCAL_FILE-7e9953b7-3ab4-425f-80aa-2178c3508aacdefault-IMAGE-0b7bb803-8dba-43eb-a9bf-4073b3fda94cdefault"
       },
       {
-        "source": "IMAGE_SMOOTHING-9f184b61-e8a5-4202-9d9d-709da0673f2c",
+        "source": "IMAGE_SMOOTHING-6d4d6f9d-941e-4cbd-9c45-0e8a8c5f7559",
         "sourceHandle": "default",
         "target": "IMAGE-7aacbaca-2652-4c99-babe-5779ba0ce181",
         "targetHandle": "default",
-        "id": "reactflow__edge-IMAGE_SMOOTHING-9f184b61-e8a5-4202-9d9d-709da0673f2cdefault-IMAGE-7aacbaca-2652-4c99-babe-5779ba0ce181default"
+        "id": "reactflow__edge-IMAGE_SMOOTHING-6d4d6f9d-941e-4cbd-9c45-0e8a8c5f7559default-IMAGE-7aacbaca-2652-4c99-babe-5779ba0ce181default"
+      },
+      {
+        "source": "LOCAL_FILE-7e9953b7-3ab4-425f-80aa-2178c3508aac",
+        "sourceHandle": "default",
+        "target": "IMAGE_SMOOTHING-6d4d6f9d-941e-4cbd-9c45-0e8a8c5f7559",
+        "targetHandle": "default",
+        "id": "reactflow__edge-LOCAL_FILE-7e9953b7-3ab4-425f-80aa-2178c3508aacdefault-IMAGE_SMOOTHING-6d4d6f9d-941e-4cbd-9c45-0e8a8c5f7559default"
       }
     ],
     "viewport": {
@@ -257,5 +264,6 @@
       "y": 0,
       "zoom": 1
     }
-  }
+  },
+  "textNodes": []
 }

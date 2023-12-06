@@ -1,1 +1,1 @@
-from .JobResults import *
+from .JobResults import *  # noqa: F403

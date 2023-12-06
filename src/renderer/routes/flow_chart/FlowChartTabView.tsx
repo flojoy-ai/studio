@@ -3,7 +3,7 @@ import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
 import { TreeNode } from "@src/utils/ManifestLoader";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ConnectionLineType,
   MiniMap,
@@ -75,6 +75,7 @@ import ScipyNode from "@src/components/nodes/ScipyNode";
 import VisorNode from "@src/components/nodes/VisorNode";
 import { syncFlowchartWithManifest } from "@src/lib/sync";
 import TextNode from "@src/components/nodes/TextNode";
+import ContextMenu, { MenuInfo } from "./components/NodeContextMenu";
 
 const nodeTypes: NodeTypes = {
   default: DefaultNode,
@@ -341,6 +342,38 @@ const FlowChartTab = () => {
     setCommandMenuOpen(false);
   };
 
+
+  const [menu, setMenu] = useState<MenuInfo | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  const onNodeContextMenu = useCallback(
+    (event, node: Node<ElementsData>) => {
+      // Prevent native context menu from showing
+      event.preventDefault();
+
+      if (ref.current === null) {
+        return;
+      }
+      console.log(node.id);
+
+      // Calculate position of the context menu. We want to make sure it
+      // doesn't get positioned off-screen.
+      const pane = ref.current.getBoundingClientRect();
+      setMenu({
+        id: node.id,
+        top: event.clientY < pane.height - 200 ? event.clientY - 225 : undefined,
+        left: event.clientX < pane.width - 200 ? event.clientX : undefined,
+        right: event.clientX >= pane.width - 200 ? pane.width - event.clientX : undefined,
+        bottom:
+          event.clientY >= pane.height - 200 ? pane.height - event.clientY + 75 : undefined,
+      });
+    },
+    [setMenu],
+  );
+
+  // Close the context menu if it's open whenever the window is clicked.
+  const onPaneClick = useCallback(() => setMenu(null), [setMenu]);
+
   return (
     <>
       <ReactFlowProvider>
@@ -445,6 +478,7 @@ const FlowChartTab = () => {
 
           <ReactFlow
             id="flow-chart"
+            ref={ref}
             className="!absolute"
             deleteKeyCode={deleteKeyCodes}
             proOptions={proOptions}
@@ -462,6 +496,8 @@ const FlowChartTab = () => {
             fitViewOptions={{
               padding: 0.8,
             }}
+            onNodeContextMenu={onNodeContextMenu}
+            onPaneClick={onPaneClick}
           >
             <MiniMap
               className="!bottom-1 !bg-background"
@@ -482,6 +518,7 @@ const FlowChartTab = () => {
               fitViewOptions={{ padding: 0.8 }}
               className="!bottom-1 !shadow-control"
             />
+            {menu && <ContextMenu onClick={onPaneClick} duplicateNode={duplicateNode} setNodeModalOpen={setNodeModalOpen} {...menu} />}
           </ReactFlow>
 
           <BlockExpandMenu
