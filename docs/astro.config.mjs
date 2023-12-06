@@ -137,6 +137,7 @@ export default defineConfig({
         "hastscript",
         "hast-util-parse-selector",
         "unified",
+        "tailwindcss",
       ],
     },
   },
