@@ -23,6 +23,7 @@ const PlotlyComponent = (props: PlotProps) => {
 
   return (
     <Plot
+      {...props}
       data={data}
       layout={{
         ...layout,

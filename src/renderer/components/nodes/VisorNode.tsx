@@ -1,4 +1,4 @@
-import { CustomNodeProps } from "@src/types/node";
+import { ElementsData } from "@src/types/node";
 import NodeWrapper from "@src/components/common/NodeWrapper";
 import clsx from "clsx";
 import HandleComponent from "@src/components/common/HandleComponent";
@@ -27,7 +27,7 @@ import RegionInspector from "@src/assets/nodes/RegionInspector";
 import TextView from "@src/assets/nodes/TextView";
 import Heatmap from "@src/assets/nodes/Heatmap";
 import { useNodeStatus } from "@src/hooks/useNodeStatus";
-import { NodeResizer } from "reactflow";
+import { NodeResizer, Node } from "reactflow";
 
 const chartElemMap = {
   SCATTER: Scatter,
@@ -51,12 +51,12 @@ const chartElemMap = {
   HEATMAP: Heatmap,
 };
 
-MIN_DIMENSIONS = {
-  width: 225,
-  height: 225,
+const MIN_DIMENSIONS = {
+  minWidth: 225,
+  minHeight: 225,
 }
 
-const VisorNode = ({ selected, data }: CustomNodeProps) => {
+const VisorNode = ({ selected, data, width, height }: Node<ElementsData>) => {
   const { resolvedTheme } = useTheme();
   const { nodeRunning, nodeError, nodeResult } = useNodeStatus(data.id);
 
@@ -69,9 +69,13 @@ const VisorNode = ({ selected, data }: CustomNodeProps) => {
     [plotlyFig, resolvedTheme],
   );
 
-  const [dimensions, setDimensions] = useState({ width: 225, height: 225 });
+
+  const [dimensions, setDimensions] = useState({ width: width ?? 225, height: height ?? 225 });
 
   const ChartIcon = chartElemMap[data.func];
+
+  const square = Math.min(dimensions.width, dimensions.height);
+
 
   return (
     <>
@@ -84,13 +88,14 @@ const VisorNode = ({ selected, data }: CustomNodeProps) => {
           setDimensions({ width: params.width, height: params.height })
         }}
       />
-      <NodeWrapper nodeError={nodeError} data={data} selected={selected} style={{ minWidth: 225, minHeight: 225 }}>
+      <NodeWrapper nodeError={nodeError} data={data} selected={selected!} style={dimensions}>
         <div
           className={clsx(
-            "rounded-2xl bg-transparent w-full h-full",
+            "rounded-2xl bg-transparent",
             { "shadow-around shadow-accent2": nodeRunning || selected },
             { "shadow-around shadow-red-700": nodeError },
           )}
+          style={dimensions}
         >
           {plotlyData && (
             <PlotlyComponent
@@ -105,7 +110,7 @@ const VisorNode = ({ selected, data }: CustomNodeProps) => {
           {textBlob && <MarkDownText text={textBlob} isThumbnail />}
           {!plotlyData && !textBlob && (
             <>
-              {ChartIcon ? <ChartIcon /> : (
+              {ChartIcon ? <ChartIcon style={{ width: square, height: square }} /> : (
                 <div className="flex items-center justify-center break-all rounded-lg border-2 border-accent2 bg-accent2/5 p-2 text-center text-2xl font-bold tracking-wider text-accent2 w-full h-full">
                   {data.label}
                 </div>
