@@ -19,13 +19,14 @@ extraResources:
     to: "pkgs"
   - from: "PYTHON"
     to: "PYTHON"
-    filter: "!**/blocks/**"
   - from: "main.py"
     to: "main.py"
   - from: "pyproject.toml"
     to: "pyproject.toml"
   - from: "poetry.lock"
     to: "poetry.lock"
+  - from: "blocks"
+    to: "blocks"
 
 mac:
   icon: ./public/favicon.icns

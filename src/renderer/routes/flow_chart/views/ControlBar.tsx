@@ -31,12 +31,6 @@ const ControlBar = () => {
   const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
   const { resolvedTheme } = useTheme();
 
-  const handleUpdateBlocksPack = () => {
-    window.api.updateBlocks();
-  };
-  const handleChangeNodesPath = () => {
-    window.api.changeBlocksPath();
-  };
   const handleCheckForUpdates = () => {
     window.api.checkForUpdates();
   };
@@ -153,22 +147,7 @@ const ControlBar = () => {
               >
                 Debug Settings
               </MenubarItem>
-              <MenubarItem
-                data-testid="btn-change-blocks-path"
-                onClick={handleChangeNodesPath}
-              >
-                Change blocks resource path
-              </MenubarItem>
-              <MenubarItem
-                data-testid="btn-update-blocks-pack"
-                onClick={handleUpdateBlocksPack}
-              >
-                Update blocks resource pack
-              </MenubarItem>
 
-              <MenubarItem onClick={() => window.api.downloadBlocksFromMain()}>
-                Download blocks from main
-              </MenubarItem>
               <MenubarItem onClick={handleCheckForUpdates}>
                 Check for Studio updates
               </MenubarItem>
