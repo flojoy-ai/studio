@@ -1,0 +1,35 @@
+{
+  "docstring": {
+    "long_description": "This block should also work with compatible Tektronix RSAXXX instruments.\n\nTested with RSA507a.",
+    "short_description": "Extracts and returns the spectrum trace from an Tektronix RSA.",
+    "parameters": [
+      {
+        "name": "center_freq",
+        "type": "float, default=100e6",
+        "description": "The center frequency, in Hz."
+      },
+      {
+        "name": "ref_level",
+        "type": "float, default=-30",
+        "description": "The reference level (the maximum y axis value), in dBm."
+      },
+      {
+        "name": "span",
+        "type": "float, default=1e6",
+        "description": "The width of the x axis, in Hz."
+      },
+      {
+        "name": "bandwidth",
+        "type": "float, default=10e3",
+        "description": "Resolution bandwidth, in Hz."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "OrderedPair",
+        "description": "RF spectrum trace"
+      }
+    ]
+  }
+}

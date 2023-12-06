@@ -1,0 +1,235 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "DPX_RSA500-9793ef30-3342-49e0-9050-68b8580762d9",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "DPX_RSA500-9793ef30-3342-49e0-9050-68b8580762d9",
+                    "label": "DPX RSA500",
+                    "func": "DPX_RSA500",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "center_freq": {
+                            "type": "float",
+                            "default": 100000000,
+                            "desc": "The center frequency, in Hz.",
+                            "overload": null,
+                            "functionName": "DPX_RSA500",
+                            "param": "center_freq",
+                            "value": 99300000
+                        },
+                        "ref_level": {
+                            "type": "float",
+                            "default": -30,
+                            "desc": "The reference level (the maximum y axis value), in dBm.",
+                            "overload": null,
+                            "functionName": "DPX_RSA500",
+                            "param": "ref_level",
+                            "value": -30
+                        },
+                        "span": {
+                            "type": "float",
+                            "default": 1000000,
+                            "desc": "The width of the x axis, in Hz.",
+                            "overload": null,
+                            "functionName": "DPX_RSA500",
+                            "param": "span",
+                            "value": 1000000
+                        },
+                        "bandwidth": {
+                            "type": "float",
+                            "default": 20000,
+                            "desc": "Resolution bandwidth, in Hz.",
+                            "overload": null,
+                            "functionName": "DPX_RSA500",
+                            "param": "bandwidth",
+                            "value": 20000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "bitmap",
+                            "id": "bitmap",
+                            "type": "Surface",
+                            "desc": "x: frequency\ny: power\nz: occurances"
+                        },
+                        {
+                            "name": "dpx_ogram",
+                            "id": "dpx_ogram",
+                            "type": "Surface",
+                            "desc": "x: frequency\ny: trace number\nz: occurances"
+                        }
+                    ],
+                    "path": "HARDWARE/SIGNAL_ANALYZERS/TEKTRONIX/RSA500/DPX_RSA500/DPX_RSA500.py"
+                },
+                "position": {
+                    "x": -132.74144499664698,
+                    "y": -22.72976403902004
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -132.74144499664698,
+                    "y": -22.72976403902004
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "HEATMAP-e93684b6-b790-43c5-b20b-5a654eed0e60",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "HEATMAP-e93684b6-b790-43c5-b20b-5a654eed0e60",
+                    "label": "HEATMAP",
+                    "func": "HEATMAP",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "show_text": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "whether or not to show the text inside the heatmap color blocks",
+                            "overload": null,
+                            "functionName": "HEATMAP",
+                            "param": "show_text",
+                            "value": false
+                        },
+                        "histogram": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "whether or not to render a histogram of the image next to the render",
+                            "overload": null,
+                            "functionName": "HEATMAP",
+                            "param": "histogram",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Matrix|Grayscale|DataFrame|Vector|OrderedTriple|Surface",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly heatmap visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/HEATMAP/HEATMAP.py"
+                },
+                "position": {
+                    "x": 257.6702070990542,
+                    "y": 75.60765713787168
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 257.6702070990542,
+                    "y": 75.60765713787168
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "HEATMAP-92039989-a727-4e17-990e-7aa31270fe0b",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "HEATMAP-92039989-a727-4e17-990e-7aa31270fe0b",
+                    "label": "HEATMAP 1",
+                    "func": "HEATMAP",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "show_text": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "whether or not to show the text inside the heatmap color blocks",
+                            "overload": null,
+                            "functionName": "HEATMAP",
+                            "param": "show_text",
+                            "value": false
+                        },
+                        "histogram": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "whether or not to render a histogram of the image next to the render",
+                            "overload": null,
+                            "functionName": "HEATMAP",
+                            "param": "histogram",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Matrix|Grayscale|DataFrame|Vector|OrderedTriple|Surface",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly heatmap visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/HEATMAP/HEATMAP.py"
+                },
+                "position": {
+                    "x": 257.9907441712394,
+                    "y": -202.85292611674154
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 257.9907441712394,
+                    "y": -202.85292611674154
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "DPX_RSA500-9793ef30-3342-49e0-9050-68b8580762d9",
+                "sourceHandle": "dpx_ogram",
+                "target": "HEATMAP-e93684b6-b790-43c5-b20b-5a654eed0e60",
+                "targetHandle": "default",
+                "id": "reactflow__edge-DPX_RSA500-9793ef30-3342-49e0-9050-68b8580762d9dpx_ogram-HEATMAP-e93684b6-b790-43c5-b20b-5a654eed0e60default"
+            },
+            {
+                "source": "DPX_RSA500-9793ef30-3342-49e0-9050-68b8580762d9",
+                "sourceHandle": "bitmap",
+                "target": "HEATMAP-92039989-a727-4e17-990e-7aa31270fe0b",
+                "targetHandle": "default",
+                "id": "reactflow__edge-DPX_RSA500-9793ef30-3342-49e0-9050-68b8580762d9bitmap-HEATMAP-92039989-a727-4e17-990e-7aa31270fe0bdefault"
+            }
+        ],
+        "viewport": {
+            "x": 948.751833426666,
+            "y": 548.8961711096587,
+            "zoom": 0.8898510191682055
+        }
+    },
+    "textNodes": []
+}
