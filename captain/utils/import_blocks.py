@@ -18,13 +18,8 @@ def pre_import_functions(topology: Topology):
         # get the block function
         block = cast(dict[str, Any], topology.original_graph.nodes[block_id])
         cmd: str = block["cmd"]
-        # cmd_mock: str = block["cmd"] + "_MOCK"
         module = get_module_func(cmd)
         func = getattr(module, cmd)
-        # try:
-        #     func = getattr(module, func_name)
-        # except AttributeError:
-        #     func = getattr(module, cmd)
 
         preflight = next(
             (
@@ -75,9 +70,7 @@ def get_module_func(file_name: str):
         return module
 
     else:
-        logger.error(
-            f"File {file_name} not found in subdirectories of {blocks_path}.. {list(mapping.keys())}"
-        )
+        logger.error(f"File {file_name} not found in subdirectories of {blocks_path}..")
 
 
 def create_map():
