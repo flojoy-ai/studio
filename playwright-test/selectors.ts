@@ -29,4 +29,10 @@ export enum Selectors {
   contextBlockInfoBtn = "context-block-info",
   contextDeleteBlockBtn = "context-delete-block",
   blockEditMenuCloseBtn = "block-edit-close-button",
+  envModalBtn = "env-var-modal-button",
+  flojoyCloudApiInput = "flojoy-cloud-api-input",
+  flojoyCloudApiSubmit = "flojoy-cloud-api-submit",
+  envVarKeyInput = "env-var-key-input",
+  envVarValueInput = "env-var-value-input",
+  envVarSubmitBtn = "env-var-submit-btn",
 }

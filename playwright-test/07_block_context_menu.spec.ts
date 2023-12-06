@@ -42,13 +42,18 @@ test.describe("Block context menu", () => {
   });
 
   test("Should open block edit menu upon clicking Edit block", async () => {
+    // Click on Edit block button from context menu
     await window.getByTestId(Selectors.contextEditBlockBtn).click();
+
     // Select all param div
     const params = await window.$$(
       `[data-testid="${Selectors.blockEditParam}"]`,
     );
-    // Expect 5 parameters
+
+    // Expect 5 parameters for SINE block
     expect(params).toHaveLength(5);
+
+    // Close the block edit menu
     await window.getByTestId(Selectors.blockEditMenuCloseBtn).click();
   });
 
@@ -58,8 +63,10 @@ test.describe("Block context menu", () => {
       button: "right",
     });
 
+    // Click on Block info button from context menu
     await window.getByTestId(Selectors.contextBlockInfoBtn).click();
-    // Expect dialog to be visible
+
+    // Expect a dialog to be visible
     await expect(window.getByRole("dialog")).toBeVisible();
 
     // Expect "Python code" text in block modal
@@ -69,6 +76,8 @@ test.describe("Block context menu", () => {
 
     // Close the modal
     await window.locator('[role="dialog"] > button').click();
+
+    // Ensure that modal is closed
     await expect(window.locator('[role="dialog"] > button')).toBeHidden();
   });
 
@@ -77,7 +86,11 @@ test.describe("Block context menu", () => {
     await window.locator("h2", { hasText: "SINE" }).click({
       button: "right",
     });
+
+    // Click on Delete block button from context menu
     await window.getByTestId(Selectors.contextDeleteBlockBtn).click();
+
+    // Expect SINE block to disappear from DOM
     await expect(window.locator("h2", { hasText: "SINE" })).toBeHidden();
   });
 
@@ -87,9 +100,12 @@ test.describe("Block context menu", () => {
       button: "right",
     });
 
+    // Click on Duplicate block button from context menu
     await window
       .getByTestId(Selectors.contextDuplicateBlockBtn)
       .click({ timeout: 2000 });
+
+    // Expect a new block named 'LINSPACE 1' is visible in flow chart
     await expect(window.locator("h2", { hasText: "LINSPACE 1" })).toBeVisible();
   });
 });

@@ -151,13 +151,18 @@ const EnvVarModal = ({
           <div className="py-1" />
           <div className="flex w-full items-center space-x-2">
             <Input
-              type="email"
+              type="text"
               value={flojoyCloudKey}
               onChange={(e) => setFlojoyCloudKey(e.target.value)}
               className="bg-modal"
+              data-testid="flojoy-cloud-api-input"
               placeholder="Paste your Flojoy Cloud API key here :)"
             />
-            <Button type="submit" onClick={handleSetCloudKey}>
+            <Button
+              data-testid="flojoy-cloud-api-submit"
+              type="submit"
+              onClick={handleSetCloudKey}
+            >
               Set
             </Button>
           </div>
@@ -206,7 +211,7 @@ const EnvVarModal = ({
             <div className="flex shrink flex-col">
               <div className="grow" />
               <Button
-                data-testid="env-modal-add-btn"
+                data-testid="env-var-submit-btn"
                 onClick={handleSendEnvVar}
               >
                 Add

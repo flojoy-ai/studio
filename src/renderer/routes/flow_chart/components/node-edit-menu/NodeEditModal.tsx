@@ -37,7 +37,7 @@ const NodeEditModal = ({
 
   useEffect(() => {
     setNewTitle(node.data.label);
-  }, [node.data.id]);
+  }, [node.data.id, node.data.label]);
 
   return (
     <Draggable bounds="parent" cancel="#undrag,#title_input">
