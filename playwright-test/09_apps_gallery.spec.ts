@@ -9,6 +9,10 @@ import {
 } from "./utils";
 import { Selectors } from "./selectors";
 import { data as appsGallery } from "../src/renderer/utils/GalleryLoader";
+import { join } from "path";
+import { readFileSync } from "fs";
+
+const appJsonDir = join(process.cwd(), "src/renderer/data/apps");
 
 test.describe("Apps gallery", () => {
   let window: Page;
@@ -70,11 +74,16 @@ test.describe("Apps gallery", () => {
           continue;
         }
 
+        const appJsonPath = join(appJsonDir, `${_app.appPath}.json`);
+        const appJson = readFileSync(appJsonPath, { encoding: "utf-8" });
+        const parsedAppJson = JSON.parse(appJson);
+
+        const blockIds = parsedAppJson.rfInstance.nodes.map((n) => n.id);
         // Click on App Gallery button to open gallery modal
         await window.getByTestId(Selectors.appGalleryBtn).click();
 
         // Find and click on Load button
-        await window.getByTestId(_app.title).click({ delay: 300 });
+        await window.getByTestId(_app.title).click();
 
         try {
           // Close the modal
@@ -85,6 +94,11 @@ test.describe("Apps gallery", () => {
           //
         }
 
+        for (const id of blockIds) {
+          await expect(window.getByTestId(`rf__node-${id}`)).toBeVisible({
+            timeout: 30000,
+          });
+        }
         // Click on Play button to run the app
         await window.getByTestId(Selectors.playBtn).click();
 
