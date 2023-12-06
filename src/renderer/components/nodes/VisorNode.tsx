@@ -100,7 +100,7 @@ const VisorNode = ({ selected, data, id }: CustomNodeProps) => {
         }}
         isVisible={selected}
       />
-      <NodeWrapper nodeError={nodeError} data={data} selected={selected} style={{ width: "full", height: "full" }}>
+      <NodeWrapper nodeError={nodeError} data={data} selected={selected} style={dimensions}>
         <div
           className={clsx(
             "rounded-2xl bg-transparent",
