@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "The default behaviour is to implement a 3-point moving average of the data.\n\nInputs\n------\ndefault : OrderedPair\n    The data to apply the numpy savgol filter to.",
+    "short_description": "Apply a Savitzky-Golay filter to an input signal. This is generally used for smoothing data.",
+    "parameters": [
+      {
+        "name": "window_length",
+        "type": "int",
+        "description": "the length of the filter window, must be less than or equal to the size of the input"
+      },
+      {
+        "name": "poly_order",
+        "type": "int",
+        "description": "the order of the polynomial used to fit the samples, must be less than or equal to the size of window_length"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "OrderedPair",
+        "description": "x: time axis\ny: filtered signal"
+      }
+    ]
+  }
+}

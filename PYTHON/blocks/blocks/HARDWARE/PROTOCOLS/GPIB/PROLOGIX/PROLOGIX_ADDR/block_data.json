@@ -1,0 +1,27 @@
+{
+  "docstring": {
+    "long_description": "Inputs\n------\ndefault: DataContainer\n    Any DataContainer - likely connected to the output of the OPEN_SERIAL block.",
+    "short_description": "Set the GPIB address of an instrument using the Prologix USB-to-GPIB or USB-to-Ethernet adapter.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "Serial",
+        "description": "The open serial connection with the instrument."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "TextBlob",
+        "description": "Response from the Prologix USB-to-GPIB controller."
+      }
+    ]
+  },
+  "videos": [
+    {
+      "title": "Control Agilent 34410A multimeter with Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=jaN89-ijxL0"
+    }
+  ]
+}

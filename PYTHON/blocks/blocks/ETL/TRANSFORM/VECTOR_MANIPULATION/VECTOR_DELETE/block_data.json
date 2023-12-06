@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "Inputs\n------\nv : Vector\n    The input vector to delete from",
+    "short_description": "The VECTOR_DELETE node returns a new Vector with elements deleted from requested indices",
+    "parameters": [
+      {
+        "name": "indices",
+        "type": "Array",
+        "description": "specified indices to delete value(s) at from the input vector"
+      },
+      {
+        "name": "length",
+        "type": "int",
+        "description": "number of elements to delete from the input vector, default is 1 (this only applies when one index is specified for indices parameter)"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Vector",
+        "description": "The new vector with element(s) deleted from the input vector"
+      }
+    ]
+  }
+}

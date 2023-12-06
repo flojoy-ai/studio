@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "When setting the attenuation, the attenuation is then queried to ensure\nthe attenuation was set correctly.\nThe attenuation is rounded to the nearest 0.5 dB.\n\nThis node should also work with compatible LDA attenuators (untested).",
+    "short_description": "Set or query the attenuation for the LDA-602 Digital Attenuator.",
+    "parameters": [
+      {
+        "name": "serial_number",
+        "type": "str",
+        "description": "The serial number (not model number) to connect to."
+      },
+      {
+        "name": "query_set",
+        "type": "str",
+        "description": "Query or set the attenuation?"
+      },
+      {
+        "name": "attenuation",
+        "type": "str",
+        "description": "The attenuation to set the LDA to, in dB."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "String: The current attenuation value."
+      }
+    ]
+  }
+}

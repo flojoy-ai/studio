@@ -1,0 +1,35 @@
+{
+  "docstring": {
+    "long_description": "The description of that function is as follows:\n\n    Compute the standard error of the mean.\n\n    Calculate the standard error of the mean (or standard error of measurement) of the values in the input array.",
+    "short_description": "The SEM node is based on a numpy or scipy function.",
+    "parameters": [
+      {
+        "name": "a",
+        "type": "array_like",
+        "description": "An array containing the values for which the standard error is returned."
+      },
+      {
+        "name": "axis",
+        "type": "int or None",
+        "description": "Axis along which to operate.\nDefault is 0.\nIf None, compute over the whole array 'a'."
+      },
+      {
+        "name": "ddof",
+        "type": "int",
+        "description": "Delta degrees-of-freedom. How many degrees of freedom to adjust\nfor bias in limited samples relative to the population estimate of variance.\nDefaults to 1."
+      },
+      {
+        "name": "nan_policy",
+        "type": "{'propagate', 'raise', 'omit'}",
+        "description": "Defines how to handle when input contains nan.\nThe following options are available (default is 'propagate'):\n'propagate' : returns nan\n'raise' : raises an error\n'omit' : performs the calculations ignoring nan values"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "type 'ordered pair', 'scalar', or 'matrix'"
+      }
+    ]
+  }
+}

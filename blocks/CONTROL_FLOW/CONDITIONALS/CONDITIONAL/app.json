@@ -1,0 +1,360 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 96,
+                "height": 96,
+                "id": "CONDITIONAL-c44f8006-f1fb-41be-ab39-de40becaf62c",
+                "type": "CONDITIONALS",
+                "data": {
+                    "id": "CONDITIONAL-c44f8006-f1fb-41be-ab39-de40becaf62c",
+                    "label": "CONDITIONAL",
+                    "func": "CONDITIONAL",
+                    "type": "CONDITIONALS",
+                    "ctrls": {
+                        "operator_type": {
+                            "type": "select",
+                            "default": ">=",
+                            "options": [
+                                "<=",
+                                ">",
+                                "<",
+                                ">=",
+                                "!=",
+                                "=="
+                            ],
+                            "functionName": "CONDITIONAL",
+                            "param": "operator_type",
+                            "value": ">"
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "x",
+                            "id": "x",
+                            "type": "OrderedPair",
+                            "multiple": false
+                        },
+                        {
+                            "name": "y",
+                            "id": "y",
+                            "type": "OrderedPair",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "true",
+                            "id": "true",
+                            "type": "Any"
+                        },
+                        {
+                            "name": "false",
+                            "id": "false",
+                            "type": "Any"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\LOGIC_GATES\\CONDITIONALS\\CONDITIONAL\\CONDITIONAL.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 259.2959843332327,
+                    "y": 140.81176179304782
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 259.2959843332327,
+                    "y": 140.81176179304782
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "LINE-3c753e5a-5d90-4d92-92f9-b955d32bd24e",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "LINE-3c753e5a-5d90-4d92-92f9-b955d32bd24e",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\LINE\\LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 582.9519442261868,
+                    "y": -94.35986044465847
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 582.9519442261868,
+                    "y": -94.35986044465847
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "LINE-6a05bf10-f19b-401d-b8e4-0a4d56d8f27c",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "LINE-6a05bf10-f19b-401d-b8e4-0a4d56d8f27c",
+                    "label": "LINE 1",
+                    "func": "LINE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\LINE\\LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 662.6259690852644,
+                    "y": 291.83974468546364
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 662.6259690852644,
+                    "y": 291.83974468546364
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "CONSTANT-f7e4da4a-6c7f-4d91-b4f6-b1fa0113ae52",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "CONSTANT-f7e4da4a-6c7f-4d91-b4f6-b1fa0113ae52",
+                    "label": "8",
+                    "func": "CONSTANT",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "dc_type": {
+                            "type": "select",
+                            "options": [
+                                "Scalar",
+                                "Vector",
+                                "OrderedPair"
+                            ],
+                            "default": "OrderedPair",
+                            "desc": "The type of DataContainer to return.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "dc_type",
+                            "value": "Scalar"
+                        },
+                        "constant": {
+                            "type": "float",
+                            "default": 3,
+                            "desc": "The value of the y axis output.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "constant",
+                            "value": 8
+                        },
+                        "step": {
+                            "type": "float",
+                            "default": 1000,
+                            "desc": "The size of the y and x axes.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "step",
+                            "value": 1000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "multiple": false,
+                            "desc": "Optional input that defines the size of the output."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Vector|Scalar",
+                            "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
+                        }
+                    ],
+                    "path": "GENERATORS/SIMULATIONS/CONSTANT/CONSTANT.py",
+                    "selected": true
+                },
+                "position": {
+                    "x": -129.7356522942301,
+                    "y": 302.9519163096686
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": -129.7356522942301,
+                    "y": 302.9519163096686
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "CONSTANT-5ff1d064-b39f-4340-808a-a34b8ab85898",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "CONSTANT-5ff1d064-b39f-4340-808a-a34b8ab85898",
+                    "label": "4",
+                    "func": "CONSTANT",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "dc_type": {
+                            "type": "select",
+                            "options": [
+                                "Scalar",
+                                "Vector",
+                                "OrderedPair"
+                            ],
+                            "default": "OrderedPair",
+                            "desc": "The type of DataContainer to return.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "dc_type",
+                            "value": "Scalar"
+                        },
+                        "constant": {
+                            "type": "float",
+                            "default": 3,
+                            "desc": "The value of the y axis output.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "constant",
+                            "value": 4
+                        },
+                        "step": {
+                            "type": "float",
+                            "default": 1000,
+                            "desc": "The size of the y and x axes.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "step",
+                            "value": 1000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "multiple": false,
+                            "desc": "Optional input that defines the size of the output."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Vector|Scalar",
+                            "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
+                        }
+                    ],
+                    "path": "GENERATORS/SIMULATIONS/CONSTANT/CONSTANT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -113.23746586941505,
+                    "y": 31.426340142776155
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -113.23746586941505,
+                    "y": 31.426340142776155
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "CONDITIONAL-c44f8006-f1fb-41be-ab39-de40becaf62c",
+                "sourceHandle": "true",
+                "target": "LINE-3c753e5a-5d90-4d92-92f9-b955d32bd24e",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONDITIONAL-c44f8006-f1fb-41be-ab39-de40becaf62ctrue-LINE-3c753e5a-5d90-4d92-92f9-b955d32bd24edefault"
+            },
+            {
+                "source": "CONDITIONAL-c44f8006-f1fb-41be-ab39-de40becaf62c",
+                "sourceHandle": "false",
+                "target": "LINE-6a05bf10-f19b-401d-b8e4-0a4d56d8f27c",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONDITIONAL-c44f8006-f1fb-41be-ab39-de40becaf62cfalse-LINE-6a05bf10-f19b-401d-b8e4-0a4d56d8f27cdefault"
+            },
+            {
+                "source": "CONSTANT-5ff1d064-b39f-4340-808a-a34b8ab85898",
+                "sourceHandle": "default",
+                "target": "CONDITIONAL-c44f8006-f1fb-41be-ab39-de40becaf62c",
+                "targetHandle": "y",
+                "id": "reactflow__edge-CONSTANT-5ff1d064-b39f-4340-808a-a34b8ab85898default-CONDITIONAL-c44f8006-f1fb-41be-ab39-de40becaf62cy"
+            },
+            {
+                "source": "CONSTANT-f7e4da4a-6c7f-4d91-b4f6-b1fa0113ae52",
+                "sourceHandle": "default",
+                "target": "CONDITIONAL-c44f8006-f1fb-41be-ab39-de40becaf62c",
+                "targetHandle": "x",
+                "id": "reactflow__edge-CONSTANT-f7e4da4a-6c7f-4d91-b4f6-b1fa0113ae52default-CONDITIONAL-c44f8006-f1fb-41be-ab39-de40becaf62cx"
+            }
+        ],
+        "viewport": {
+            "x": -296.35399545928726,
+            "y": 66.8470830817738,
+            "zoom": 0.8744723800359967
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+        }
+    ],
+    "textNodes": []
+}

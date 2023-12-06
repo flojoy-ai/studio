@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Activate the robot arm.",
+    "parameters": [
+      {
+        "name": "ip_address",
+        "type": "TextBlob",
+        "description": "The IP address of the robot arm."
+      },
+      {
+        "name": "simulator",
+        "type": "bool, default=False",
+        "description": "Whether to activate the simulator or not. Defaults to False."
+      }
+    ],
+    "returns": [
+      {
+        "name": "ip",
+        "type": "TextBlob",
+        "description": "The IP address of the robot arm."
+      }
+    ]
+  }
+}

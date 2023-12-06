@@ -1,0 +1,40 @@
+{
+  "docstring": {
+    "long_description": "Use the MEASURE_READ_2450 block to return a measurement.\n\nRequires a CONNECT_2450 block to create the connection.",
+    "short_description": "Changes the measurement settings for the 2450.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_2450 block)."
+      },
+      {
+        "name": "measure",
+        "type": "select, default=voltage",
+        "description": "Select the measure unit"
+      },
+      {
+        "name": "wires",
+        "type": "select, default=2",
+        "description": "Select 2-wire or 4-wire sense mode."
+      },
+      {
+        "name": "digits",
+        "type": "select, default=6.5",
+        "description": "Select the number of display digits."
+      },
+      {
+        "name": "meas_range",
+        "type": "int, default=0",
+        "description": "The measurement range. 0 == AUTO."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "TextBlob",
+        "description": "Measurement"
+      }
+    ]
+  }
+}

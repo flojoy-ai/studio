@@ -1,0 +1,117 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 208,
+                "height": 96,
+                "id": "TEXT-45fcfb81-572f-4dcc-bcb5-b9a8ab089b26",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "TEXT-45fcfb81-572f-4dcc-bcb5-b9a8ab089b26",
+                    "label": "TEXT",
+                    "func": "TEXT",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "value": {
+                            "type": "str",
+                            "default": "Hello World!",
+                            "desc": "The value set in Parameters",
+                            "functionName": "TEXT",
+                            "param": "value",
+                            "value": "Hello World! This is Flojoy App text example."
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "text_blob: return the value being set in Parameters"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TEXT/TEXT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 100.43021110919187,
+                    "y": -17.92250301470844
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 100.43021110919187,
+                    "y": -17.92250301470844
+                },
+                "dragging": true
+            },
+            {
+                "width": 384,
+                "height": 288,
+                "id": "TEXT_VIEW-681bb72c-63d9-4be1-b20d-5888c47200c9",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-681bb72c-63d9-4be1-b20d-5888c47200c9",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 525.0850419547326,
+                    "y": -82.05123546038055
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 525.0850419547326,
+                    "y": -82.05123546038055
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "TEXT-45fcfb81-572f-4dcc-bcb5-b9a8ab089b26",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-681bb72c-63d9-4be1-b20d-5888c47200c9",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TEXT-45fcfb81-572f-4dcc-bcb5-b9a8ab089b26default-TEXT_VIEW-681bb72c-63d9-4be1-b20d-5888c47200c9default"
+            }
+        ],
+        "viewport": {
+            "x": 574.9737644785836,
+            "y": 258.3200412975903,
+            "zoom": 1.01138398827472
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+        }
+    ]
+}

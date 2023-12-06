@@ -1,0 +1,194 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CONNECTION_33510B-4c8ca1dd-a8ee-4ba9-ae8b-886c80a0a027",
+                "type": "IO",
+                "data": {
+                    "id": "CONNECTION_33510B-4c8ca1dd-a8ee-4ba9-ae8b-886c80a0a027",
+                    "label": "CONNECTION 33510B",
+                    "func": "CONNECTION_33510B",
+                    "type": "IO",
+                    "ctrls": {
+                        "device": {
+                            "type": "VisaDevice",
+                            "default": null,
+                            "desc": "The VISA address to connect to.",
+                            "overload": null,
+                            "functionName": "CONNECTION_33510B",
+                            "param": "device",
+                            "value": "USB0::2391::9735::MY59003244::0::INSTR"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "Optional: None"
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/FUNCTION_GENERATORS/KEYSIGHT/33XXX/BASIC/CONNECTION_33510B/CONNECTION_33510B.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -886.7395156170513,
+                    "y": -112.96725387394693
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -886.7395156170513,
+                    "y": -112.96725387394693
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "TEXT_VIEW-1e087237-ee3a-4db7-963d-46fbdbd7b59b",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-1e087237-ee3a-4db7-963d-46fbdbd7b59b",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -228.91602197898922,
+                    "y": -130.8283743248985
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -228.91602197898922,
+                    "y": -130.8283743248985
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "OUTPUT_SYNC_33510B-a889708d-f110-42a5-a7ce-67c30d4eb9c0",
+                "type": "IO",
+                "data": {
+                    "id": "OUTPUT_SYNC_33510B-a889708d-f110-42a5-a7ce-67c30d4eb9c0",
+                    "label": "OUTPUT SYNC 33510B",
+                    "func": "OUTPUT_SYNC_33510B",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_MDO3XXX node).",
+                            "overload": null,
+                            "functionName": "OUTPUT_SYNC_33510B",
+                            "param": "connection",
+                            "value": "USB0::2391::9735::MY59003244::0::INSTR"
+                        },
+                        "on_off": {
+                            "type": "select",
+                            "options": [
+                                "ON",
+                                "OFF"
+                            ],
+                            "default": "OFF",
+                            "desc": "Whether to turn the waveform phase syncing on or off.",
+                            "overload": null,
+                            "functionName": "OUTPUT_SYNC_33510B",
+                            "param": "on_off",
+                            "value": "ON"
+                        },
+                        "channel": {
+                            "type": "select",
+                            "options": [
+                                "1",
+                                "2"
+                            ],
+                            "default": "1",
+                            "desc": "The channel to use as the baseline phase.",
+                            "overload": null,
+                            "functionName": "OUTPUT_SYNC_33510B",
+                            "param": "channel",
+                            "value": "1"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "TextBlob: The channel, and ON or OFF depending on on_off value."
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/FUNCTION_GENERATORS/KEYSIGHT/33XXX/BASIC/OUTPUT_SYNC_33510B/OUTPUT_SYNC_33510B.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -576.8436213938844,
+                    "y": -112.88858916855764
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -576.8436213938844,
+                    "y": -112.88858916855764
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "CONNECTION_33510B-4c8ca1dd-a8ee-4ba9-ae8b-886c80a0a027",
+                "sourceHandle": "default",
+                "target": "OUTPUT_SYNC_33510B-a889708d-f110-42a5-a7ce-67c30d4eb9c0",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONNECTION_33510B-4c8ca1dd-a8ee-4ba9-ae8b-886c80a0a027default-OUTPUT_SYNC_33510B-a889708d-f110-42a5-a7ce-67c30d4eb9c0default"
+            },
+            {
+                "source": "OUTPUT_SYNC_33510B-a889708d-f110-42a5-a7ce-67c30d4eb9c0",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-1e087237-ee3a-4db7-963d-46fbdbd7b59b",
+                "targetHandle": "default",
+                "id": "reactflow__edge-OUTPUT_SYNC_33510B-a889708d-f110-42a5-a7ce-67c30d4eb9c0default-TEXT_VIEW-1e087237-ee3a-4db7-963d-46fbdbd7b59bdefault"
+            }
+        ],
+        "viewport": {
+            "x": 1104.261946392206,
+            "y": 573.1338859553202,
+            "zoom": 1.2154437530123414
+        }
+    }
+}

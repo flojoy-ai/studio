@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "Inputs\n------\ndefault: None",
+    "short_description": "Load an image file from disk and return a DataContainer of type 'image'.",
+    "parameters": [
+      {
+        "name": "file_path",
+        "type": "str",
+        "description": "path to the file to be loaded"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Image",
+        "description": "Image loaded from specified file path"
+      }
+    ]
+  }
+}

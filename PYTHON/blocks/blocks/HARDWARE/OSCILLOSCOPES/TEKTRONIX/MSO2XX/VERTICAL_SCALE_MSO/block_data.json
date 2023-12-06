@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Set the MSO2XX oscilloscope viewport.",
+    "parameters": [
+      {
+        "name": "channel",
+        "type": "int",
+        "description": "Oscilloscope channel to affect"
+      },
+      {
+        "name": "scale",
+        "type": "float",
+        "description": "Vertical viewport division"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "None",
+        "description": null
+      }
+    ]
+  }
+}

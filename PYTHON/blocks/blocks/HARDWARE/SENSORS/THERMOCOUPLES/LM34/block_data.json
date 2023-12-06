@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Convert voltages measured with a thermocouple (LM34) connected to a LabJack U3 device into temperature units.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "OrderedPair",
+        "description": null
+      },
+      {
+        "name": "calibration1, calibration2, calibration3",
+        "type": "float",
+        "description": "Calibration parameters to convert voltage into temperature in Celsius."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "OrderedPair",
+        "description": "The output of the node is a list of temperatures measured from the sensors."
+      }
+    ]
+  }
+}

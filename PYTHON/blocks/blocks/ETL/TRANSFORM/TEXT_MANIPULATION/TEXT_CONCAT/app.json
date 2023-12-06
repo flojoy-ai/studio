@@ -1,0 +1,326 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 208,
+                "height": 96,
+                "id": "TEXT-227089e5-8fbd-4a73-980d-339ba726dae4",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "TEXT-227089e5-8fbd-4a73-980d-339ba726dae4",
+                    "label": "TEXT",
+                    "func": "TEXT",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "value": {
+                            "type": "str",
+                            "default": "Hello World!",
+                            "desc": "The value set in Parameters",
+                            "overload": null,
+                            "functionName": "TEXT",
+                            "param": "value",
+                            "value": "This app is an example of how"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "_",
+                            "id": "_",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "text_blob: return the value being set in Parameters"
+                        }
+                    ],
+                    "path": "GENERATORS/SIMULATIONS/TEXT/TEXT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -211.32231151327338,
+                    "y": -89.70082843401013
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -211.32231151327338,
+                    "y": -89.70082843401013
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "TEXT-928dd912-2512-4c96-9dd7-23e27a3dd2d3",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "TEXT-928dd912-2512-4c96-9dd7-23e27a3dd2d3",
+                    "label": "TEXT 1",
+                    "func": "TEXT",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "value": {
+                            "type": "str",
+                            "default": "Hello World!",
+                            "desc": "The value set in Parameters",
+                            "overload": null,
+                            "functionName": "TEXT",
+                            "param": "value",
+                            "value": "text concatenation can be done when text concat node receives two texts."
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "_",
+                            "id": "_",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "text_blob: return the value being set in Parameters"
+                        }
+                    ],
+                    "path": "GENERATORS/SIMULATIONS/TEXT/TEXT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -213.8881079257544,
+                    "y": 70.98356991895969
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -213.8881079257544,
+                    "y": 70.98356991895969
+                },
+                "dragging": true
+            },
+            {
+                "width": 384,
+                "height": 288,
+                "id": "TEXT_VIEW-15aa085c-94d2-4cfb-b1b7-8aa8f7a419c8",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-15aa085c-94d2-4cfb-b1b7-8aa8f7a419c8",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 78.82218180901118,
+                    "y": 168.52634688615888
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 78.82218180901118,
+                    "y": 168.52634688615888
+                },
+                "dragging": true
+            },
+            {
+                "width": 384,
+                "height": 288,
+                "id": "TEXT_VIEW-e388f14f-a67c-4576-becf-c18e5a3c1351",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-e388f14f-a67c-4576-becf-c18e5a3c1351",
+                    "label": "TEXT VIEW 1",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 108.6949072989687,
+                    "y": -375.6105365940835
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 108.6949072989687,
+                    "y": -375.6105365940835
+                },
+                "dragging": true
+            },
+            {
+                "width": 160,
+                "height": 160,
+                "id": "TEXT_CONCAT-5d342d7b-056d-4c32-9434-b4250ad211f1",
+                "type": "TRANSFORMERS",
+                "data": {
+                    "id": "TEXT_CONCAT-5d342d7b-056d-4c32-9434-b4250ad211f1",
+                    "label": "TEXT CONCAT",
+                    "func": "TEXT_CONCAT",
+                    "type": "TRANSFORMERS",
+                    "ctrls": {
+                        "delimiter": {
+                            "type": "select",
+                            "options": [
+                                "space",
+                                "comma",
+                                "semicolon",
+                                "colon",
+                                "new line"
+                            ],
+                            "default": "space",
+                            "desc": "Select the delimiter to place between two text.",
+                            "overload": null,
+                            "functionName": "TEXT_CONCAT",
+                            "param": "delimiter",
+                            "value": "space"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "a",
+                            "id": "a",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "The input text to be concatenated to input b"
+                        },
+                        {
+                            "name": "b",
+                            "id": "b",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "The input text to be concatenated to input a"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "The text result from concatenation."
+                        }
+                    ],
+                    "path": "TRANSFORMERS/TEXT_MANIPULATION/TEXT_CONCAT/TEXT_CONCAT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 146.05490307299712,
+                    "y": -59.34707208249702
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 146.05490307299712,
+                    "y": -59.34707208249702
+                },
+                "dragging": true
+            },
+            {
+                "width": 384,
+                "height": 288,
+                "id": "TEXT_VIEW-eb9c6467-0268-4e66-8962-ee86675224c3",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-eb9c6467-0268-4e66-8962-ee86675224c3",
+                    "label": "TEXT VIEW 2",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 443.4362187780466,
+                    "y": -92.2740632689061
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 443.4362187780466,
+                    "y": -92.2740632689061
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "TEXT-227089e5-8fbd-4a73-980d-339ba726dae4",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-e388f14f-a67c-4576-becf-c18e5a3c1351",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TEXT-227089e5-8fbd-4a73-980d-339ba726dae4default-TEXT_VIEW-e388f14f-a67c-4576-becf-c18e5a3c1351default"
+            },
+            {
+                "source": "TEXT-928dd912-2512-4c96-9dd7-23e27a3dd2d3",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-15aa085c-94d2-4cfb-b1b7-8aa8f7a419c8",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TEXT-928dd912-2512-4c96-9dd7-23e27a3dd2d3default-TEXT_VIEW-15aa085c-94d2-4cfb-b1b7-8aa8f7a419c8default"
+            },
+            {
+                "source": "TEXT-227089e5-8fbd-4a73-980d-339ba726dae4",
+                "sourceHandle": "default",
+                "target": "TEXT_CONCAT-5d342d7b-056d-4c32-9434-b4250ad211f1",
+                "targetHandle": "a",
+                "id": "reactflow__edge-TEXT-227089e5-8fbd-4a73-980d-339ba726dae4default-TEXT_CONCAT-5d342d7b-056d-4c32-9434-b4250ad211f1a"
+            },
+            {
+                "source": "TEXT-928dd912-2512-4c96-9dd7-23e27a3dd2d3",
+                "sourceHandle": "default",
+                "target": "TEXT_CONCAT-5d342d7b-056d-4c32-9434-b4250ad211f1",
+                "targetHandle": "b",
+                "id": "reactflow__edge-TEXT-928dd912-2512-4c96-9dd7-23e27a3dd2d3default-TEXT_CONCAT-5d342d7b-056d-4c32-9434-b4250ad211f1b"
+            },
+            {
+                "source": "TEXT_CONCAT-5d342d7b-056d-4c32-9434-b4250ad211f1",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-eb9c6467-0268-4e66-8962-ee86675224c3",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TEXT_CONCAT-5d342d7b-056d-4c32-9434-b4250ad211f1default-TEXT_VIEW-eb9c6467-0268-4e66-8962-ee86675224c3default"
+            }
+        ],
+        "viewport": {
+            "x": 637.654905587641,
+            "y": 370.10612546109087,
+            "zoom": 0.7111497425822767
+        }
+    }
+}

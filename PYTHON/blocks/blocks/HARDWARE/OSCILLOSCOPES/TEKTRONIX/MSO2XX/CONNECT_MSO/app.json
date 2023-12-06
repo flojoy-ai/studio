@@ -1,0 +1,561 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 208,
+                "height": 96,
+                "id": "VEC_2_LINSPACE-66a4f72c-7d6f-47fa-8cb0-3d6d8b57b287",
+                "type": "DATA",
+                "data": {
+                    "id": "VEC_2_LINSPACE-66a4f72c-7d6f-47fa-8cb0-3d6d8b57b287",
+                    "label": "VEC 2 LINSPACE",
+                    "func": "VEC_2_LINSPACE",
+                    "type": "DATA",
+                    "ctrls": {
+                        "start": {
+                            "type": "float",
+                            "default": -10,
+                            "desc": "The start point of the data.",
+                            "overload": null,
+                            "functionName": "VEC_2_LINSPACE",
+                            "param": "start",
+                            "value": -10
+                        },
+                        "end": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "The end point of the data.",
+                            "overload": null,
+                            "functionName": "VEC_2_LINSPACE",
+                            "param": "end",
+                            "value": 10
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar|Vector",
+                            "multiple": false,
+                            "desc": "Length of resulting linspace vector."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/VEC_2_LINSPACE/VEC_2_LINSPACE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -31.805589219806237,
+                    "y": -314.41315686170105
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -31.805589219806237,
+                    "y": -314.41315686170105
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "LINE-b5878989-43db-4fc2-8812-e2a6d2278486",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-b5878989-43db-4fc2-8812-e2a6d2278486",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py",
+                    "selected": true
+                },
+                "position": {
+                    "x": 900.3515946918044,
+                    "y": -253.27355565401513
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": 900.3515946918044,
+                    "y": -253.27355565401513
+                },
+                "dragging": true
+            },
+            {
+                "width": 240,
+                "height": 160,
+                "id": "DECIMATE-dd3aad9a-43f2-4f07-9f76-76e2bb428cbb",
+                "type": "SCIPY",
+                "data": {
+                    "id": "DECIMATE-dd3aad9a-43f2-4f07-9f76-76e2bb428cbb",
+                    "label": "DECIMATE",
+                    "func": "DECIMATE",
+                    "type": "SCIPY",
+                    "ctrls": {
+                        "q": {
+                            "type": "int",
+                            "default": 2,
+                            "desc": "The downsampling factor. When using IIR downsampling, it is recommended\nto call `decimate` multiple times for downsampling factors higher than 13.",
+                            "overload": null,
+                            "functionName": "DECIMATE",
+                            "param": "q",
+                            "value": 10
+                        },
+                        "n": {
+                            "type": "int",
+                            "default": 2,
+                            "desc": "The order of the filter (1 less than the length for 'fir').\nDefaults to 8 for 'iir' and 20 times the downsampling factor for 'fir'.",
+                            "overload": null,
+                            "functionName": "DECIMATE",
+                            "param": "n",
+                            "value": 2
+                        },
+                        "ftype": {
+                            "type": "str",
+                            "default": "iir",
+                            "desc": "If 'iir' or 'fir', specifies the type of lowpass filter.\nIf an instance of an \"dlti\" object, uses that object to filter before downsampling.",
+                            "overload": null,
+                            "functionName": "DECIMATE",
+                            "param": "ftype",
+                            "value": "iir"
+                        },
+                        "axis": {
+                            "type": "int",
+                            "default": -1,
+                            "desc": "The axis along which to decimate.",
+                            "overload": null,
+                            "functionName": "DECIMATE",
+                            "param": "axis",
+                            "value": -1
+                        },
+                        "zero_phase": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "Prevent phase shift by filtering with 'filtfilt' instead of 'lfilter'\nwhen using an IIR filter, and shifting the outputs back by the filter's\ngroup delay when using an FIR filter. The default value of 'True' is\nrecommended, since a phase shift is generally not desired.",
+                            "overload": null,
+                            "functionName": "DECIMATE",
+                            "param": "zero_phase",
+                            "value": true
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Matrix",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Matrix|Scalar",
+                            "desc": "type 'ordered pair', 'scalar', or 'matrix'"
+                        }
+                    ],
+                    "path": "SCIPY/SIGNAL/DECIMATE/DECIMATE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 550.2008547363174,
+                    "y": -217.54318216176063
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 550.2008547363174,
+                    "y": -217.54318216176063
+                },
+                "dragging": true
+            },
+            {
+                "width": 160,
+                "height": 160,
+                "id": "VECTOR_2_ORDERED_PAIR-81e9a781-6952-45e4-8714-ed61cd8a9a82",
+                "type": "ETL",
+                "data": {
+                    "id": "VECTOR_2_ORDERED_PAIR-81e9a781-6952-45e4-8714-ed61cd8a9a82",
+                    "label": "VECTOR 2 ORDERED PAIR",
+                    "func": "VECTOR_2_ORDERED_PAIR",
+                    "type": "ETL",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "multiple": false,
+                            "desc": "The input vector that will be the x axis of OrderedPair."
+                        },
+                        {
+                            "name": "y",
+                            "id": "y",
+                            "type": "Vector",
+                            "multiple": false,
+                            "desc": "The input vector that will be the y axis of OrderedPair."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "The OrderedPair that is generated from the input vectors"
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/TYPE_CASTING/VECTOR_2_ORDERED_PAIR/VECTOR_2_ORDERED_PAIR.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 249.00076175466944,
+                    "y": -215.88296586711417
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 249.00076175466944,
+                    "y": -215.88296586711417
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "QUERY_CURVE_MSO-d4abab7c-528b-44d0-b6a8-b48e0c679ca3",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "QUERY_CURVE_MSO-d4abab7c-528b-44d0-b6a8-b48e0c679ca3",
+                    "label": "QUERY CURVE MSO",
+                    "func": "QUERY_CURVE_MSO",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "QUERY_CURVE_MSO",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.7.31::INSTR"
+                        },
+                        "channel": {
+                            "type": "int",
+                            "default": 2,
+                            "desc": "Oscilloscope channel to query (1 or 2 for a 2 channel scope, 1-4 for a 4 channel scope, etc)",
+                            "overload": null,
+                            "functionName": "QUERY_CURVE_MSO",
+                            "param": "channel",
+                            "value": 2
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "A list containing the curve query results."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tm_devices",
+                            "v": "0.1.24"
+                        }
+                    ],
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2XX/QUERY_CURVE_MSO/QUERY_CURVE_MSO.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -319.65630094143455,
+                    "y": -204.95134274922012
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -319.65630094143455,
+                    "y": -204.95134274922012
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CONNECT_MSO-e6f1237b-d12e-4512-a563-f7f9bdb319a6",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "CONNECT_MSO-e6f1237b-d12e-4512-a563-f7f9bdb319a6",
+                    "label": "CONNECT MSO",
+                    "func": "CONNECT_MSO",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "device": {
+                            "type": "VisaDevice",
+                            "default": null,
+                            "desc": "The connected VISA device.",
+                            "overload": null,
+                            "functionName": "CONNECT_MSO",
+                            "param": "device",
+                            "value": "TCPIP::169.254.7.31::INSTR"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "The IP address of the VISA device."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tm_devices",
+                            "v": "0.1.24"
+                        }
+                    ],
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2XX/CONNECT_MSO/CONNECT_MSO.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -670.2974296333135,
+                    "y": -205.63589719643787
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -670.2974296333135,
+                    "y": -205.63589719643787
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "HORIZONTAL_SCALE_MSO-29fcf4b0-ad64-426b-878e-3c48a069c234",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "HORIZONTAL_SCALE_MSO-29fcf4b0-ad64-426b-878e-3c48a069c234",
+                    "label": "HORIZONTAL SCALE MSO",
+                    "func": "HORIZONTAL_SCALE_MSO",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "HORIZONTAL_SCALE_MSO",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.7.31::INSTR"
+                        },
+                        "scale": {
+                            "type": "float",
+                            "default": 0.001,
+                            "desc": "Horizontal viewport division",
+                            "overload": null,
+                            "functionName": "HORIZONTAL_SCALE_MSO",
+                            "param": "scale",
+                            "value": 0.001
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tm_devices",
+                            "v": "0.1.24"
+                        }
+                    ],
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2XX/HORIZONTAL_SCALE_MSO/HORIZONTAL_SCALE_MSO.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -302.160636288433,
+                    "y": 67.15658218424869
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -302.160636288433,
+                    "y": 67.15658218424869
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "VERTICAL_SCALE_MSO-777bd85b-1933-4726-a6c8-64bf301600d1",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "VERTICAL_SCALE_MSO-777bd85b-1933-4726-a6c8-64bf301600d1",
+                    "label": "VERTICAL SCALE MSO",
+                    "func": "VERTICAL_SCALE_MSO",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "VERTICAL_SCALE_MSO",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.7.31::INSTR"
+                        },
+                        "channel": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "Oscilloscope channel to affect",
+                            "overload": null,
+                            "functionName": "VERTICAL_SCALE_MSO",
+                            "param": "channel",
+                            "value": 2
+                        },
+                        "scale": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "Vertical viewport division",
+                            "overload": null,
+                            "functionName": "VERTICAL_SCALE_MSO",
+                            "param": "scale",
+                            "value": 1
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tm_devices",
+                            "v": "0.1.24"
+                        }
+                    ],
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2XX/VERTICAL_SCALE_MSO/VERTICAL_SCALE_MSO.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -324.4451436019013,
+                    "y": -525.4377454645389
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -324.4451436019013,
+                    "y": -525.4377454645389
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "VEC_2_LINSPACE-66a4f72c-7d6f-47fa-8cb0-3d6d8b57b287",
+                "sourceHandle": "default",
+                "target": "VECTOR_2_ORDERED_PAIR-81e9a781-6952-45e4-8714-ed61cd8a9a82",
+                "targetHandle": "default",
+                "id": "reactflow__edge-VEC_2_LINSPACE-66a4f72c-7d6f-47fa-8cb0-3d6d8b57b287default-VECTOR_2_ORDERED_PAIR-81e9a781-6952-45e4-8714-ed61cd8a9a82default"
+            },
+            {
+                "source": "VECTOR_2_ORDERED_PAIR-81e9a781-6952-45e4-8714-ed61cd8a9a82",
+                "sourceHandle": "default",
+                "target": "DECIMATE-dd3aad9a-43f2-4f07-9f76-76e2bb428cbb",
+                "targetHandle": "default",
+                "id": "reactflow__edge-VECTOR_2_ORDERED_PAIR-81e9a781-6952-45e4-8714-ed61cd8a9a82default-DECIMATE-dd3aad9a-43f2-4f07-9f76-76e2bb428cbbdefault"
+            },
+            {
+                "source": "DECIMATE-dd3aad9a-43f2-4f07-9f76-76e2bb428cbb",
+                "sourceHandle": "default",
+                "target": "LINE-b5878989-43db-4fc2-8812-e2a6d2278486",
+                "targetHandle": "default",
+                "id": "reactflow__edge-DECIMATE-dd3aad9a-43f2-4f07-9f76-76e2bb428cbbdefault-LINE-b5878989-43db-4fc2-8812-e2a6d2278486default"
+            },
+            {
+                "source": "QUERY_CURVE_MSO-d4abab7c-528b-44d0-b6a8-b48e0c679ca3",
+                "sourceHandle": "default",
+                "target": "VEC_2_LINSPACE-66a4f72c-7d6f-47fa-8cb0-3d6d8b57b287",
+                "targetHandle": "default",
+                "id": "reactflow__edge-QUERY_CURVE_MSO-d4abab7c-528b-44d0-b6a8-b48e0c679ca3default-VEC_2_LINSPACE-66a4f72c-7d6f-47fa-8cb0-3d6d8b57b287default"
+            },
+            {
+                "source": "QUERY_CURVE_MSO-d4abab7c-528b-44d0-b6a8-b48e0c679ca3",
+                "sourceHandle": "default",
+                "target": "VECTOR_2_ORDERED_PAIR-81e9a781-6952-45e4-8714-ed61cd8a9a82",
+                "targetHandle": "y",
+                "id": "reactflow__edge-QUERY_CURVE_MSO-d4abab7c-528b-44d0-b6a8-b48e0c679ca3default-VECTOR_2_ORDERED_PAIR-81e9a781-6952-45e4-8714-ed61cd8a9a82y"
+            },
+            {
+                "source": "CONNECT_MSO-e6f1237b-d12e-4512-a563-f7f9bdb319a6",
+                "sourceHandle": "default",
+                "target": "QUERY_CURVE_MSO-d4abab7c-528b-44d0-b6a8-b48e0c679ca3",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONNECT_MSO-e6f1237b-d12e-4512-a563-f7f9bdb319a6default-QUERY_CURVE_MSO-d4abab7c-528b-44d0-b6a8-b48e0c679ca3default"
+            },
+            {
+                "source": "CONNECT_MSO-e6f1237b-d12e-4512-a563-f7f9bdb319a6",
+                "sourceHandle": "default",
+                "target": "VERTICAL_SCALE_MSO-777bd85b-1933-4726-a6c8-64bf301600d1",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONNECT_MSO-e6f1237b-d12e-4512-a563-f7f9bdb319a6default-VERTICAL_SCALE_MSO-777bd85b-1933-4726-a6c8-64bf301600d1default"
+            },
+            {
+                "source": "CONNECT_MSO-e6f1237b-d12e-4512-a563-f7f9bdb319a6",
+                "sourceHandle": "default",
+                "target": "HORIZONTAL_SCALE_MSO-29fcf4b0-ad64-426b-878e-3c48a069c234",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONNECT_MSO-e6f1237b-d12e-4512-a563-f7f9bdb319a6default-HORIZONTAL_SCALE_MSO-29fcf4b0-ad64-426b-878e-3c48a069c234default"
+            }
+        ],
+        "viewport": {
+            "x": 493.2364587353772,
+            "y": 502.07029082007256,
+            "zoom": 0.5
+        }
+    },
+    "textNodes": []
+}

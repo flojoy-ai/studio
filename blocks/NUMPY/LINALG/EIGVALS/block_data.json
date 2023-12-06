@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "The description of that function is as follows:\n\n    Compute the eigenvalues of a general matrix.\n\nMain difference between `eigvals` and `eig`: the eigenvectors are not returned.",
+    "short_description": "The EIGVALS node is based on a numpy or scipy function.",
+    "parameters": [
+      {
+        "name": "a",
+        "type": "(..., M, M) array_like",
+        "description": "A complex- or real-valued matrix whose eigenvalues will be computed."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "type 'ordered pair', 'scalar', or 'matrix'"
+      }
+    ]
+  }
+}

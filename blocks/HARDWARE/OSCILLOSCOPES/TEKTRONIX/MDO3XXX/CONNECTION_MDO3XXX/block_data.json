@@ -1,0 +1,32 @@
+{
+  "docstring": {
+    "long_description": "The connection is made with the VISA address in the Flojoy UI.\n\nThis block should also work with compatible Tektronix scopes (untested):\nMDO4xxx, MSO4xxx, and DPO4xxx.",
+    "short_description": "Connect Flojoy to a MDO3XXX oscilloscope.",
+    "parameters": [
+      {
+        "name": "device",
+        "type": "VisaDevice",
+        "description": "The VISA address to connect to."
+      },
+      {
+        "name": "num_channels",
+        "type": "int",
+        "description": "The number of channels on the instrument that are currently in use."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "Optional: None"
+      }
+    ]
+  },
+  "videos": [
+    {
+      "title": "Control Oscilloscope with Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=NqPW7pG3NZs"
+    }
+  ]
+}

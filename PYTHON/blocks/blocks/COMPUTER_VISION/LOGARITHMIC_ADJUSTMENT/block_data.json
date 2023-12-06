@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Adjusts the logarithmic exposure of an input image and outputs the adjusted image",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "Image",
+        "description": "The input image"
+      },
+      {
+        "name": "gain",
+        "type": "float, default=1",
+        "description": "The gain of the logarithmic correction."
+      },
+      {
+        "name": "inv",
+        "type": "bool, default=False",
+        "description": "Perform inverse logarithmic correction."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Image",
+        "description": "The adjusted image."
+      }
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Create a Plotly 3D Surface visualization for a given input DataContainer.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "OrderedTriple|DataFrame|Surface|Matrix",
+        "description": "the DataContainer to be visualized"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Plotly",
+        "description": "the DataContainer containing the Plotly 3D Surface visualization"
+      }
+    ]
+  }
+}

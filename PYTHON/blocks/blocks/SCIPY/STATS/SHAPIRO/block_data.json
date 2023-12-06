@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "The description of that function is as follows:\n\n    Perform the Shapiro-Wilk test for normality.\n\n    The Shapiro-Wilk test tests the null hypothesis that the data was drawn from a normal distribution.",
+    "short_description": "The SHAPIRO node is based on a numpy or scipy function.",
+    "parameters": [
+      {
+        "name": "select_return",
+        "type": "'statistic', 'p-value'",
+        "description": "Select the desired object to return.\nSee the respective function docs for descriptors."
+      },
+      {
+        "name": "x",
+        "type": "array_like",
+        "description": "Array of sample data."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "type 'ordered pair', 'scalar', or 'matrix'"
+      }
+    ]
+  }
+}

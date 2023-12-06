@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "Requires a CONNECT_MSO2X block to create the connection.\n\nTested on MSO22 and MSO24.",
+    "short_description": "Returns the curve query on a MSO2X oscilloscope, in voltage vs time.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_MSO2X block)."
+      },
+      {
+        "name": "channel",
+        "type": "int, default=1",
+        "description": "Oscilloscope channel to query (eg 1 or 2 for a 2 channel scope)"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "OrderedPair",
+        "description": "Curve query results, in voltage vs time."
+      }
+    ]
+  }
+}

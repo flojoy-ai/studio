@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "The description of that function is as follows:\n\n    Anderson-Darling test for data coming from a particular distribution.\n\n    The Anderson-Darling test tests the null hypothesis that a sample is drawn from a population that follows a particular distribution.\n    For the Anderson-Darling test, the critical values depend on which distribution is being tested against.\n    This function works for normal, exponential, logistic, or Gumbel (Extreme Value Type I) distributions.",
+    "short_description": "The ANDERSON node is based on a numpy or scipy function.",
+    "parameters": [
+      {
+        "name": "select_return",
+        "type": "This function has returns multiple objects ['statistic', 'critical_values', 'significance_level'].",
+        "description": "Select the desired one to return.\nSee the respective function docs for descriptors."
+      },
+      {
+        "name": "x",
+        "type": "array_like",
+        "description": "Array of sample data."
+      },
+      {
+        "name": "dist",
+        "type": "{'norm', 'expon', 'logistic', 'gumbel', 'gumbel_l', 'gumbel_r', 'extreme1'}",
+        "description": "The type of distribution to test against.\nThe default is 'norm'.\nThe names 'extreme1', 'gumbel_l' and 'gumbel' are synonyms for the same distribution."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "type 'ordered pair', 'scalar', or 'matrix'"
+      }
+    ]
+  }
+}

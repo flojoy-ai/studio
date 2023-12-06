@@ -1,0 +1,1688 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CONNECTION_DS1074Z-2915183b-c77b-4a8d-b762-2c39ae72ccbd",
+                "type": "IO",
+                "data": {
+                    "id": "CONNECTION_DS1074Z-2915183b-c77b-4a8d-b762-2c39ae72ccbd",
+                    "label": "CONNECTION DS1074Z",
+                    "func": "CONNECTION_DS1074Z",
+                    "type": "IO",
+                    "ctrls": {
+                        "device": {
+                            "type": "VisaDevice",
+                            "default": null,
+                            "desc": "The VISA address to connect to.",
+                            "overload": null,
+                            "functionName": "CONNECTION_DS1074Z",
+                            "param": "device",
+                            "value": "TCPIP::169.254.247.202::INSTR"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "Optional: None"
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/CONNECTION_DS1074Z/CONNECTION_DS1074Z.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -724.7576961471643,
+                    "y": -183.4745577192959
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -724.7576961471643,
+                    "y": -183.4745577192959
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254",
+                "type": "IO",
+                "data": {
+                    "id": "EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254",
+                    "label": "EXTRACT TRACE CH1",
+                    "func": "EXTRACT_TRACE_DS1074Z",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_MDO3XXX node).",
+                            "overload": null,
+                            "functionName": "EXTRACT_TRACE_DS1074Z",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.247.202::INSTR"
+                        },
+                        "channel": {
+                            "type": "select",
+                            "options": [
+                                "ch1",
+                                "ch2",
+                                "ch3",
+                                "ch4"
+                            ],
+                            "default": "ch1",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "EXTRACT_TRACE_DS1074Z",
+                            "param": "channel",
+                            "value": "ch1"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "OrderedPair: The trace of the oscilloscope is returned."
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/EXTRACT_TRACE_DS1074Z/EXTRACT_TRACE_DS1074Z.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 939.3054778379178,
+                    "y": -160.51627665928027
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 939.3054778379178,
+                    "y": -160.51627665928027
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4",
+                "type": "IO",
+                "data": {
+                    "id": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4",
+                    "label": "TRIGGER SETTINGS",
+                    "func": "TRIGGER_DS1074Z",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "overload": null,
+                            "functionName": "TRIGGER_DS1074Z",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.247.202::INSTR"
+                        },
+                        "query_set": {
+                            "type": "select",
+                            "options": [
+                                "query",
+                                "set"
+                            ],
+                            "default": "query",
+                            "desc": "\"query\" or \"set\" the trigger settings.",
+                            "overload": null,
+                            "functionName": "TRIGGER_DS1074Z",
+                            "param": "query_set",
+                            "value": "set"
+                        },
+                        "channel": {
+                            "type": "select",
+                            "options": [
+                                "ch1",
+                                "ch2",
+                                "ch3",
+                                "ch4"
+                            ],
+                            "default": "ch1",
+                            "desc": "Which channel to use as the trigger channel.",
+                            "overload": null,
+                            "functionName": "TRIGGER_DS1074Z",
+                            "param": "channel",
+                            "value": "ch1"
+                        },
+                        "level": {
+                            "type": "float",
+                            "default": 0.5,
+                            "desc": "Set the triggering level, in Volts",
+                            "overload": null,
+                            "functionName": "TRIGGER_DS1074Z",
+                            "param": "level",
+                            "value": 0.5
+                        },
+                        "slope": {
+                            "type": "select",
+                            "options": [
+                                "positive",
+                                "negative",
+                                "either",
+                                "unchanged"
+                            ],
+                            "default": "positive",
+                            "desc": "Which slope to detect the triggering time on.",
+                            "overload": null,
+                            "functionName": "TRIGGER_DS1074Z",
+                            "param": "slope",
+                            "value": "positive"
+                        },
+                        "coupling": {
+                            "type": "select",
+                            "options": [
+                                "AC",
+                                "DC",
+                                "LFReject",
+                                "HFReject",
+                                "unchanged"
+                            ],
+                            "default": "DC",
+                            "desc": "Which coupling to use for the trigger signal.",
+                            "overload": null,
+                            "functionName": "TRIGGER_DS1074Z",
+                            "param": "coupling",
+                            "value": "DC"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "TextBlob: The triggering settings."
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/TRIGGER_DS1074Z/TRIGGER_DS1074Z.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 133.07895656458095,
+                    "y": -168.4905183682502
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 133.07895656458095,
+                    "y": -168.4905183682502
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/LINE/LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1186.7302261216023,
+                    "y": -183.3288097960594
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1186.7302261216023,
+                    "y": -183.3288097960594
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2",
+                "type": "IO",
+                "data": {
+                    "id": "TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2",
+                    "label": "TIME AXIS",
+                    "func": "TIME_AXIS_DS1074Z",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "overload": null,
+                            "functionName": "TIME_AXIS_DS1074Z",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.247.202::INSTR"
+                        },
+                        "query_set": {
+                            "type": "select",
+                            "options": [
+                                "query",
+                                "set"
+                            ],
+                            "default": "query",
+                            "desc": "\"query\" or \"set\" the trigger settings.",
+                            "overload": null,
+                            "functionName": "TIME_AXIS_DS1074Z",
+                            "param": "query_set",
+                            "value": "set"
+                        },
+                        "offset": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "Set the time axis offset, in seconds.",
+                            "overload": null,
+                            "functionName": "TIME_AXIS_DS1074Z",
+                            "param": "offset",
+                            "value": 0
+                        },
+                        "scale": {
+                            "type": "float",
+                            "default": 0.001,
+                            "desc": "Set the time axis scale, in seconds.",
+                            "overload": null,
+                            "functionName": "TIME_AXIS_DS1074Z",
+                            "param": "scale",
+                            "value": 0.0005
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "TextBlob: The triggering settings."
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/TIME_AXIS_DS1074Z/TIME_AXIS_DS1074Z.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 681.2430377624725,
+                    "y": -162.70605036769487
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 681.2430377624725,
+                    "y": -162.70605036769487
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552",
+                "type": "IO",
+                "data": {
+                    "id": "VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552",
+                    "label": "VERTICAL AXIS",
+                    "func": "VERTICAL_AXIS_DS1074Z",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "overload": null,
+                            "functionName": "VERTICAL_AXIS_DS1074Z",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.247.202::INSTR"
+                        },
+                        "query_set": {
+                            "type": "select",
+                            "options": [
+                                "query",
+                                "set"
+                            ],
+                            "default": "query",
+                            "desc": "\"query\" or \"set\" the trigger settings.",
+                            "overload": null,
+                            "functionName": "VERTICAL_AXIS_DS1074Z",
+                            "param": "query_set",
+                            "value": "set"
+                        },
+                        "channel": {
+                            "type": "select",
+                            "options": [
+                                "ch1",
+                                "ch2",
+                                "ch3",
+                                "ch4"
+                            ],
+                            "default": "ch1",
+                            "desc": "Which channel to set or query.",
+                            "overload": null,
+                            "functionName": "VERTICAL_AXIS_DS1074Z",
+                            "param": "channel",
+                            "value": "ch1"
+                        },
+                        "offset": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "Set the vertical axis offset.",
+                            "overload": null,
+                            "functionName": "VERTICAL_AXIS_DS1074Z",
+                            "param": "offset",
+                            "value": 0
+                        },
+                        "scale": {
+                            "type": "float",
+                            "default": 0.001,
+                            "desc": "Set the vertical axis scale.",
+                            "overload": null,
+                            "functionName": "VERTICAL_AXIS_DS1074Z",
+                            "param": "scale",
+                            "value": 1
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "TextBlob: The triggering settings."
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/VERTICAL_AXIS_DS1074Z/VERTICAL_AXIS_DS1074Z.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 419.4983121301581,
+                    "y": -164.56738808036144
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 419.4983121301581,
+                    "y": -164.56738808036144
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "TIME_AXIS_DS1074Z-051d7526-3136-4bf0-a3cc-14dcc0f2e92f",
+                "type": "IO",
+                "data": {
+                    "id": "TIME_AXIS_DS1074Z-051d7526-3136-4bf0-a3cc-14dcc0f2e92f",
+                    "label": "TIME AXIS ZOOM",
+                    "func": "TIME_AXIS_DS1074Z",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "overload": null,
+                            "functionName": "TIME_AXIS_DS1074Z",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.247.202::INSTR"
+                        },
+                        "query_set": {
+                            "type": "select",
+                            "options": [
+                                "query",
+                                "set"
+                            ],
+                            "default": "query",
+                            "desc": "\"query\" or \"set\" the trigger settings.",
+                            "overload": null,
+                            "functionName": "TIME_AXIS_DS1074Z",
+                            "param": "query_set",
+                            "value": "set"
+                        },
+                        "offset": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "Set the time axis offset, in seconds.",
+                            "overload": null,
+                            "functionName": "TIME_AXIS_DS1074Z",
+                            "param": "offset",
+                            "value": 0.000003
+                        },
+                        "scale": {
+                            "type": "float",
+                            "default": 0.001,
+                            "desc": "Set the time axis scale, in seconds.",
+                            "overload": null,
+                            "functionName": "TIME_AXIS_DS1074Z",
+                            "param": "scale",
+                            "value": 0.00002
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "TextBlob: The triggering settings."
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/TIME_AXIS_DS1074Z/TIME_AXIS_DS1074Z.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 681.1759587934414,
+                    "y": 158.93327587351155
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 681.1759587934414,
+                    "y": 158.93327587351155
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "EXTRACT_TRACE_DS1074Z-01c1d809-75ba-463b-b7f2-995c083b49dc",
+                "type": "IO",
+                "data": {
+                    "id": "EXTRACT_TRACE_DS1074Z-01c1d809-75ba-463b-b7f2-995c083b49dc",
+                    "label": "EXTRACT TRACE CH1 ZOOM",
+                    "func": "EXTRACT_TRACE_DS1074Z",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "overload": null,
+                            "functionName": "EXTRACT_TRACE_DS1074Z",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.247.202::INSTR"
+                        },
+                        "channel": {
+                            "type": "select",
+                            "options": [
+                                "ch1",
+                                "ch2",
+                                "ch3",
+                                "ch4"
+                            ],
+                            "default": "ch1",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "EXTRACT_TRACE_DS1074Z",
+                            "param": "channel",
+                            "value": "ch1"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "OrderedPair: The trace of the oscilloscope is returned."
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/EXTRACT_TRACE_DS1074Z/EXTRACT_TRACE_DS1074Z.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 949.9500790674134,
+                    "y": 150.3439215923338
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 949.9500790674134,
+                    "y": 150.3439215923338
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "LINE-99251a58-3364-4653-809f-9926102db6cc",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "LINE-99251a58-3364-4653-809f-9926102db6cc",
+                    "label": "LINE 1",
+                    "func": "LINE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/LINE/LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1209.5249100018245,
+                    "y": 142.28118075787148
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1209.5249100018245,
+                    "y": 142.28118075787148
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "SIGNAL_FACTOR_DS1074Z-6c45c50f-05c5-491f-83d3-153464f21edc",
+                "type": "IO",
+                "data": {
+                    "id": "SIGNAL_FACTOR_DS1074Z-6c45c50f-05c5-491f-83d3-153464f21edc",
+                    "label": "SIGNAL FACTOR CH2",
+                    "func": "SIGNAL_FACTOR_DS1074Z",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "overload": null,
+                            "functionName": "SIGNAL_FACTOR_DS1074Z",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.247.202::INSTR"
+                        },
+                        "query_set": {
+                            "type": "select",
+                            "options": [
+                                "query",
+                                "set"
+                            ],
+                            "default": "query",
+                            "desc": "\"query\" or \"set\" the trigger settings.",
+                            "overload": null,
+                            "functionName": "SIGNAL_FACTOR_DS1074Z",
+                            "param": "query_set",
+                            "value": "set"
+                        },
+                        "channel": {
+                            "type": "select",
+                            "options": [
+                                "ch1",
+                                "ch2",
+                                "ch3",
+                                "ch4"
+                            ],
+                            "default": "ch1",
+                            "desc": "Which channel to use as the trigger channel.",
+                            "overload": null,
+                            "functionName": "SIGNAL_FACTOR_DS1074Z",
+                            "param": "channel",
+                            "value": "ch2"
+                        },
+                        "probe_factor": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SIGNAL_FACTOR_DS1074Z",
+                            "param": "probe_factor",
+                            "value": 1
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "TextBlob: The triggering settings."
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/SIGNAL_FACTOR_DS1074Z/SIGNAL_FACTOR_DS1074Z.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -163.86169266533938,
+                    "y": -58.60838038414761
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -163.86169266533938,
+                    "y": -58.60838038414761
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "SIGNAL_FACTOR_DS1074Z-185baa5b-f346-4338-9d2d-3aee15c08666",
+                "type": "IO",
+                "data": {
+                    "id": "SIGNAL_FACTOR_DS1074Z-185baa5b-f346-4338-9d2d-3aee15c08666",
+                    "label": "SIGNAL FACTOR CH1",
+                    "func": "SIGNAL_FACTOR_DS1074Z",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "overload": null,
+                            "functionName": "SIGNAL_FACTOR_DS1074Z",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.247.202::INSTR"
+                        },
+                        "query_set": {
+                            "type": "select",
+                            "options": [
+                                "query",
+                                "set"
+                            ],
+                            "default": "query",
+                            "desc": "\"query\" or \"set\" the trigger settings.",
+                            "overload": null,
+                            "functionName": "SIGNAL_FACTOR_DS1074Z",
+                            "param": "query_set",
+                            "value": "set"
+                        },
+                        "channel": {
+                            "type": "select",
+                            "options": [
+                                "ch1",
+                                "ch2",
+                                "ch3",
+                                "ch4"
+                            ],
+                            "default": "ch1",
+                            "desc": "Which channel to use as the trigger channel.",
+                            "overload": null,
+                            "functionName": "SIGNAL_FACTOR_DS1074Z",
+                            "param": "channel",
+                            "value": "ch1"
+                        },
+                        "probe_factor": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SIGNAL_FACTOR_DS1074Z",
+                            "param": "probe_factor",
+                            "value": 1
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "TextBlob: The triggering settings."
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/SIGNAL_FACTOR_DS1074Z/SIGNAL_FACTOR_DS1074Z.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -168.86410131510203,
+                    "y": -307.93722100480187
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -168.86410131510203,
+                    "y": -307.93722100480187
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "MEASUREMENT_DS1074Z-6730b353-acdd-4a33-a3ce-b44991262222",
+                "type": "IO",
+                "data": {
+                    "id": "MEASUREMENT_DS1074Z-6730b353-acdd-4a33-a3ce-b44991262222",
+                    "label": "MEASUREMENT FREQUENCY",
+                    "func": "MEASUREMENT_DS1074Z",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "overload": null,
+                            "functionName": "MEASUREMENT_DS1074Z",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.247.202::INSTR"
+                        },
+                        "channel": {
+                            "type": "select",
+                            "options": [
+                                "ch1",
+                                "ch2",
+                                "ch3",
+                                "ch4"
+                            ],
+                            "default": "ch1",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "MEASUREMENT_DS1074Z",
+                            "param": "channel",
+                            "value": "ch1"
+                        },
+                        "measurement": {
+                            "type": "select",
+                            "options": [
+                                "VMAX",
+                                "VMIN",
+                                "VPP",
+                                "VTOP",
+                                "VBASe",
+                                "VRMS",
+                                "PERiod",
+                                "FREQuency",
+                                "RTIMe",
+                                "FTIMe",
+                                "PWIDth",
+                                "NWIDth",
+                                "PDUTy",
+                                "NDUTy",
+                                "TVMAX",
+                                "TVMIN"
+                            ],
+                            "default": "VMAX",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "MEASUREMENT_DS1074Z",
+                            "param": "measurement",
+                            "value": "FREQuency"
+                        },
+                        "stat": {
+                            "type": "select",
+                            "options": [
+                                "MAX",
+                                "MIN",
+                                "CURR",
+                                "AVER",
+                                "DEV"
+                            ],
+                            "default": "CURR",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "MEASUREMENT_DS1074Z",
+                            "param": "stat",
+                            "value": "AVER"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "OrderedPair: The trace of the oscilloscope is returned."
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/MEASUREMENT_DS1074Z/MEASUREMENT_DS1074Z.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1568.0300758121612,
+                    "y": -349.62042797431707
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1568.0300758121612,
+                    "y": -349.62042797431707
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "MEASUREMENT_DS1074Z-4d8bd567-fa73-4926-88c7-9420d03dcf35",
+                "type": "IO",
+                "data": {
+                    "id": "MEASUREMENT_DS1074Z-4d8bd567-fa73-4926-88c7-9420d03dcf35",
+                    "label": "MEASUREMENT MAX VOLTAGE CH2",
+                    "func": "MEASUREMENT_DS1074Z",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "overload": null,
+                            "functionName": "MEASUREMENT_DS1074Z",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.247.202::INSTR"
+                        },
+                        "channel": {
+                            "type": "select",
+                            "options": [
+                                "ch1",
+                                "ch2",
+                                "ch3",
+                                "ch4"
+                            ],
+                            "default": "ch1",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "MEASUREMENT_DS1074Z",
+                            "param": "channel",
+                            "value": "ch2"
+                        },
+                        "measurement": {
+                            "type": "select",
+                            "options": [
+                                "VMAX",
+                                "VMIN",
+                                "VPP",
+                                "VTOP",
+                                "VBASe",
+                                "VRMS",
+                                "PERiod",
+                                "FREQuency",
+                                "RTIMe",
+                                "FTIMe",
+                                "PWIDth",
+                                "NWIDth",
+                                "PDUTy",
+                                "NDUTy",
+                                "TVMAX",
+                                "TVMIN"
+                            ],
+                            "default": "VMAX",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "MEASUREMENT_DS1074Z",
+                            "param": "measurement",
+                            "value": "VMAX"
+                        },
+                        "stat": {
+                            "type": "select",
+                            "options": [
+                                "MAX",
+                                "MIN",
+                                "CURR",
+                                "AVER",
+                                "DEV"
+                            ],
+                            "default": "CURR",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "MEASUREMENT_DS1074Z",
+                            "param": "stat",
+                            "value": "AVER"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "OrderedPair: The trace of the oscilloscope is returned."
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/MEASUREMENT_DS1074Z/MEASUREMENT_DS1074Z.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1646.832585998151,
+                    "y": 287.561122819746
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1646.832585998151,
+                    "y": 287.561122819746
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "MEASUREMENT_DS1074Z-46f16e1e-d11f-47f5-97aa-d436ae4a0dfb",
+                "type": "IO",
+                "data": {
+                    "id": "MEASUREMENT_DS1074Z-46f16e1e-d11f-47f5-97aa-d436ae4a0dfb",
+                    "label": "MEASUREMENT MAX VOLTAGE CH1",
+                    "func": "MEASUREMENT_DS1074Z",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "overload": null,
+                            "functionName": "MEASUREMENT_DS1074Z",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.247.202::INSTR"
+                        },
+                        "channel": {
+                            "type": "select",
+                            "options": [
+                                "ch1",
+                                "ch2",
+                                "ch3",
+                                "ch4"
+                            ],
+                            "default": "ch1",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "MEASUREMENT_DS1074Z",
+                            "param": "channel",
+                            "value": "ch1"
+                        },
+                        "measurement": {
+                            "type": "select",
+                            "options": [
+                                "VMAX",
+                                "VMIN",
+                                "VPP",
+                                "VTOP",
+                                "VBASe",
+                                "VRMS",
+                                "PERiod",
+                                "FREQuency",
+                                "RTIMe",
+                                "FTIMe",
+                                "PWIDth",
+                                "NWIDth",
+                                "PDUTy",
+                                "NDUTy",
+                                "TVMAX",
+                                "TVMIN"
+                            ],
+                            "default": "VMAX",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "MEASUREMENT_DS1074Z",
+                            "param": "measurement",
+                            "value": "VMAX"
+                        },
+                        "stat": {
+                            "type": "select",
+                            "options": [
+                                "MAX",
+                                "MIN",
+                                "CURR",
+                                "AVER",
+                                "DEV"
+                            ],
+                            "default": "CURR",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "MEASUREMENT_DS1074Z",
+                            "param": "stat",
+                            "value": "AVER"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "OrderedPair: The trace of the oscilloscope is returned."
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/MEASUREMENT_DS1074Z/MEASUREMENT_DS1074Z.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1658.9615679645647,
+                    "y": 34.57026505282113
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1658.9615679645647,
+                    "y": 34.57026505282113
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "BIG_NUMBER-8d9c1891-82c7-487a-b50d-6bf146a324c0",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "BIG_NUMBER-8d9c1891-82c7-487a-b50d-6bf146a324c0",
+                    "label": "BIG NUMBER",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZERS",
+                    "ctrls": {
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any suffix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": " Hz"
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1903.4573202254608,
+                    "y": -409.27340562379544
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1903.4573202254608,
+                    "y": -409.27340562379544
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "BIG_NUMBER-0ff2ad0d-7b37-4d37-9d22-85437a146e8e",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "BIG_NUMBER-0ff2ad0d-7b37-4d37-9d22-85437a146e8e",
+                    "label": "BIG NUMBER 1",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZERS",
+                    "ctrls": {
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any suffix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": " V"
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1958.3788256812559,
+                    "y": 254.5251164829956
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1958.3788256812559,
+                    "y": 254.5251164829956
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "BIG_NUMBER-2193dc0f-9e9f-435a-92ba-d25bab3f4258",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "BIG_NUMBER-2193dc0f-9e9f-435a-92ba-d25bab3f4258",
+                    "label": "BIG NUMBER 2",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZERS",
+                    "ctrls": {
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any suffix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": " V"
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1958.4548142583037,
+                    "y": -33.23904081834979
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1958.4548142583037,
+                    "y": -33.23904081834979
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055eb",
+                "type": "IO",
+                "data": {
+                    "id": "CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055eb",
+                    "label": "CHANNEL ON OFF",
+                    "func": "CHANNEL_ON_OFF_DS1074Z",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "overload": null,
+                            "functionName": "CHANNEL_ON_OFF_DS1074Z",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.247.202::INSTR"
+                        },
+                        "ch1": {
+                            "type": "select",
+                            "options": [
+                                "ON",
+                                "OFF"
+                            ],
+                            "default": "ON",
+                            "desc": "Turn channel 1 on or off.",
+                            "overload": null,
+                            "functionName": "CHANNEL_ON_OFF_DS1074Z",
+                            "param": "ch1",
+                            "value": "ON"
+                        },
+                        "ch2": {
+                            "type": "select",
+                            "options": [
+                                "ON",
+                                "OFF"
+                            ],
+                            "default": "ON",
+                            "desc": "Turn channel 2 on or off.",
+                            "overload": null,
+                            "functionName": "CHANNEL_ON_OFF_DS1074Z",
+                            "param": "ch2",
+                            "value": "ON"
+                        },
+                        "ch3": {
+                            "type": "select",
+                            "options": [
+                                "ON",
+                                "OFF"
+                            ],
+                            "default": "ON",
+                            "desc": "Turn channel 3 on or off.",
+                            "overload": null,
+                            "functionName": "CHANNEL_ON_OFF_DS1074Z",
+                            "param": "ch3",
+                            "value": "OFF"
+                        },
+                        "ch4": {
+                            "type": "select",
+                            "options": [
+                                "ON",
+                                "OFF"
+                            ],
+                            "default": "ON",
+                            "desc": "Turn channel 4 on or off.",
+                            "overload": null,
+                            "functionName": "CHANNEL_ON_OFF_DS1074Z",
+                            "param": "ch4",
+                            "value": "OFF"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "TextBlob: summary of channel settings."
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/CHANNEL_ON_OFF_DS1074Z/CHANNEL_ON_OFF_DS1074Z.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -451.63481901871245,
+                    "y": -184.81895128736548
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -451.63481901871245,
+                    "y": -184.81895128736548
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254",
+                "sourceHandle": "default",
+                "target": "LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535",
+                "targetHandle": "default",
+                "id": "reactflow__edge-EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254default-LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535default"
+            },
+            {
+                "source": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4",
+                "sourceHandle": "default",
+                "target": "VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4default-VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552default"
+            },
+            {
+                "source": "VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552",
+                "sourceHandle": "default",
+                "target": "TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2",
+                "targetHandle": "default",
+                "id": "reactflow__edge-VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552default-TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2default"
+            },
+            {
+                "source": "TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2",
+                "sourceHandle": "default",
+                "target": "EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2default-EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254default"
+            },
+            {
+                "source": "TIME_AXIS_DS1074Z-051d7526-3136-4bf0-a3cc-14dcc0f2e92f",
+                "sourceHandle": "default",
+                "target": "EXTRACT_TRACE_DS1074Z-01c1d809-75ba-463b-b7f2-995c083b49dc",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TIME_AXIS_DS1074Z-051d7526-3136-4bf0-a3cc-14dcc0f2e92fdefault-EXTRACT_TRACE_DS1074Z-01c1d809-75ba-463b-b7f2-995c083b49dcdefault"
+            },
+            {
+                "source": "EXTRACT_TRACE_DS1074Z-01c1d809-75ba-463b-b7f2-995c083b49dc",
+                "sourceHandle": "default",
+                "target": "LINE-99251a58-3364-4653-809f-9926102db6cc",
+                "targetHandle": "default",
+                "id": "reactflow__edge-EXTRACT_TRACE_DS1074Z-01c1d809-75ba-463b-b7f2-995c083b49dcdefault-LINE-99251a58-3364-4653-809f-9926102db6ccdefault"
+            },
+            {
+                "source": "SIGNAL_FACTOR_DS1074Z-6c45c50f-05c5-491f-83d3-153464f21edc",
+                "sourceHandle": "default",
+                "target": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SIGNAL_FACTOR_DS1074Z-6c45c50f-05c5-491f-83d3-153464f21edcdefault-TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4default"
+            },
+            {
+                "source": "SIGNAL_FACTOR_DS1074Z-185baa5b-f346-4338-9d2d-3aee15c08666",
+                "sourceHandle": "default",
+                "target": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SIGNAL_FACTOR_DS1074Z-185baa5b-f346-4338-9d2d-3aee15c08666default-TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4default"
+            },
+            {
+                "source": "LINE-99251a58-3364-4653-809f-9926102db6cc",
+                "sourceHandle": "default",
+                "target": "MEASUREMENT_DS1074Z-46f16e1e-d11f-47f5-97aa-d436ae4a0dfb",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINE-99251a58-3364-4653-809f-9926102db6ccdefault-MEASUREMENT_DS1074Z-46f16e1e-d11f-47f5-97aa-d436ae4a0dfbdefault"
+            },
+            {
+                "source": "LINE-99251a58-3364-4653-809f-9926102db6cc",
+                "sourceHandle": "default",
+                "target": "MEASUREMENT_DS1074Z-4d8bd567-fa73-4926-88c7-9420d03dcf35",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINE-99251a58-3364-4653-809f-9926102db6ccdefault-MEASUREMENT_DS1074Z-4d8bd567-fa73-4926-88c7-9420d03dcf35default"
+            },
+            {
+                "source": "MEASUREMENT_DS1074Z-46f16e1e-d11f-47f5-97aa-d436ae4a0dfb",
+                "sourceHandle": "default",
+                "target": "BIG_NUMBER-2193dc0f-9e9f-435a-92ba-d25bab3f4258",
+                "targetHandle": "default",
+                "id": "reactflow__edge-MEASUREMENT_DS1074Z-46f16e1e-d11f-47f5-97aa-d436ae4a0dfbdefault-BIG_NUMBER-2193dc0f-9e9f-435a-92ba-d25bab3f4258default"
+            },
+            {
+                "source": "MEASUREMENT_DS1074Z-4d8bd567-fa73-4926-88c7-9420d03dcf35",
+                "sourceHandle": "default",
+                "target": "BIG_NUMBER-0ff2ad0d-7b37-4d37-9d22-85437a146e8e",
+                "targetHandle": "default",
+                "id": "reactflow__edge-MEASUREMENT_DS1074Z-4d8bd567-fa73-4926-88c7-9420d03dcf35default-BIG_NUMBER-0ff2ad0d-7b37-4d37-9d22-85437a146e8edefault"
+            },
+            {
+                "source": "MEASUREMENT_DS1074Z-6730b353-acdd-4a33-a3ce-b44991262222",
+                "sourceHandle": "default",
+                "target": "BIG_NUMBER-8d9c1891-82c7-487a-b50d-6bf146a324c0",
+                "targetHandle": "default",
+                "id": "reactflow__edge-MEASUREMENT_DS1074Z-6730b353-acdd-4a33-a3ce-b44991262222default-BIG_NUMBER-8d9c1891-82c7-487a-b50d-6bf146a324c0default"
+            },
+            {
+                "source": "LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535",
+                "sourceHandle": "default",
+                "target": "MEASUREMENT_DS1074Z-6730b353-acdd-4a33-a3ce-b44991262222",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535default-MEASUREMENT_DS1074Z-6730b353-acdd-4a33-a3ce-b44991262222default"
+            },
+            {
+                "source": "LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535",
+                "sourceHandle": "default",
+                "target": "TIME_AXIS_DS1074Z-051d7526-3136-4bf0-a3cc-14dcc0f2e92f",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535default-TIME_AXIS_DS1074Z-051d7526-3136-4bf0-a3cc-14dcc0f2e92fdefault"
+            },
+            {
+                "source": "CONNECTION_DS1074Z-2915183b-c77b-4a8d-b762-2c39ae72ccbd",
+                "sourceHandle": "default",
+                "target": "CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055eb",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONNECTION_DS1074Z-2915183b-c77b-4a8d-b762-2c39ae72ccbddefault-CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055ebdefault"
+            },
+            {
+                "source": "CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055eb",
+                "sourceHandle": "default",
+                "target": "SIGNAL_FACTOR_DS1074Z-185baa5b-f346-4338-9d2d-3aee15c08666",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055ebdefault-SIGNAL_FACTOR_DS1074Z-185baa5b-f346-4338-9d2d-3aee15c08666default"
+            },
+            {
+                "source": "CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055eb",
+                "sourceHandle": "default",
+                "target": "SIGNAL_FACTOR_DS1074Z-6c45c50f-05c5-491f-83d3-153464f21edc",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055ebdefault-SIGNAL_FACTOR_DS1074Z-6c45c50f-05c5-491f-83d3-153464f21edcdefault"
+            }
+        ],
+        "viewport": {
+            "x": 1139.470292881633,
+            "y": 572.2854272048312,
+            "zoom": 1.2136444284334926
+        }
+    },
+    "textNodes": []
+}

@@ -1,0 +1,45 @@
+{
+  "docstring": {
+    "long_description": "Inputs\n------\nip_address: String\n    The IP address of the robot arm.",
+    "short_description": "The MOVE_LIN node linearly moves the robot's tool to an absolute Cartesian position relative to the robot's tool reference frame which is set by the SET_TRF node.",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "float",
+        "description": "The x coordinate of the position to move to"
+      },
+      {
+        "name": "y",
+        "type": "float",
+        "description": "The y coordinate of the position to move to"
+      },
+      {
+        "name": "z",
+        "type": "float",
+        "description": "The z coordinate of the position to move to"
+      },
+      {
+        "name": "alpha",
+        "type": "float",
+        "description": "The alpha coordinate (rotation in radians about the x axis) of the position to move to."
+      },
+      {
+        "name": "beta",
+        "type": "float",
+        "description": "The beta coordinate   (rotation in radians about the y axis) of the position to move to."
+      },
+      {
+        "name": "gamma",
+        "type": "float",
+        "description": "The gamma coordinate (rotation in radians about the z axis) of the position to move to."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "String",
+        "description": "The IP address of the robot arm."
+      }
+    ]
+  }
+}

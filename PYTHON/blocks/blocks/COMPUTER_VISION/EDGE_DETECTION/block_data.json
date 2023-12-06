@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "This is done through the Pillow image filter, FIND_EDGES.\n\nNote that the image is converted to greyscale during this processing.",
+    "short_description": "Detect edges in the image that was passed to it.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "Image",
+        "description": "The input image to apply edge detection to."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Image",
+        "description": "The image with detected edges in white."
+      }
+    ]
+  }
+}

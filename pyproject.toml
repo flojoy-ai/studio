@@ -38,6 +38,31 @@ keyrings-cryptfile = "^1.3.9"
 pytest = "^7.4.2"
 pytest-cov = "^4.1.0"
 ruff = "^0.1.5"
+typer = {extras = ["all"], version = "^0.9.0"}
+docstring-parser = "^0.15"
+python-frontmatter = "^1.0.1"
+
+
+[tool.poetry.group.blocks.dependencies]
+scipy = "^1.11.4"
+scikit-image = "^0.22.0"
+scikit-learn = "^1.3.2"
+numpy = "^1.26.2"
+mecademicpy = "^2.0.0"
+boto3 = "^1.33.8"
+pandas = {extras = ["parquet"], version = "^2.1.3"}
+pyvisa-sim = "^0.6.0"
+ticlib = "^0.2.2"
+lxml = "^4.9.3"
+labjackpython = "^2.1.0"
+moto = "^4.2.11"
+phidget22 = "^1.17.20231004"
+pyserial = "^3.5"
+pyyaml = "^6.0.1"
+openpyxl = "^3.1.2"
+opencv-python-headless = "^4.8.1.78"
+sympy = "^1.12"
+xlrd = "^2.0.1"
 
 [build-system]
 requires = ["poetry-core"]

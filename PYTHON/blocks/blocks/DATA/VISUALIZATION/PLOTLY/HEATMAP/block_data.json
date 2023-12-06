@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "Inputs\n------\ndefault : OrderedPair|OrderedTriple|DataFrame|Vector|Matrix|Grayscale\n    the DataContainer to be visualized",
+    "short_description": "Create a Plotly Heatmap visualization for a given input DataContainer.",
+    "parameters": [
+      {
+        "name": "show_text",
+        "type": "bool",
+        "description": "whether or not to show the text inside the heatmap color blocks"
+      },
+      {
+        "name": "histogram",
+        "type": "bool",
+        "description": "whether or not to render a histogram of the image next to the render"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Plotly",
+        "description": "the DataContainer containing the Plotly heatmap visualization"
+      }
+    ]
+  }
+}

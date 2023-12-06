@@ -1,0 +1,37 @@
+{
+  "docstring": {
+    "long_description": "If the bandwidths are set to 0, the bandwidths will be automatic.\n\nRequires a CONNECTION_FSV node at the start of the app to connect with\nthe instrument. The VISA address will then be listed under 'connection'.\n\nThis node should also work with compatible R&S network analyzers.",
+    "short_description": "The BANDWIDTH_FSV block sets the bandwidths for the signal analyzer.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_FSV node)."
+      },
+      {
+        "name": "resolution_bandwidth",
+        "type": "float",
+        "description": "Resolution bandwidth, in Hz. Set to automatic if equal to 0."
+      },
+      {
+        "name": "video_bandwidth",
+        "type": "float",
+        "description": "Video bandwidth, in Hz. Set to automatic if equal to 0."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "TextBlob",
+        "description": "Sweep settings summary."
+      }
+    ]
+  },
+  "videos": [
+    {
+      "title": "Read FM Radio Signals using Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=1crZxgWDAaw"
+    }
+  ]
+}

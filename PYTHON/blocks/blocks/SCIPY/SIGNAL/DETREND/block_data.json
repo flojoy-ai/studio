@@ -1,0 +1,40 @@
+{
+  "docstring": {
+    "long_description": "The description of that function is as follows:\n\n    Remove a linear trend along an axis from data.",
+    "short_description": "The DETREND node is based on a numpy or scipy function.",
+    "parameters": [
+      {
+        "name": "data",
+        "type": "array_like",
+        "description": "The input data."
+      },
+      {
+        "name": "axis",
+        "type": "int",
+        "description": "The axis along which to detrend the data.\nBy default this is the last axis (-1)."
+      },
+      {
+        "name": "type",
+        "type": "{'linear', 'constant'}",
+        "description": "The type of detrending. If type == 'linear' (default),\nthe result of a linear least-squares fit to 'data' is subtracted from 'data'.\nIf type == 'constant', only the mean of 'data' is subtracted."
+      },
+      {
+        "name": "bp",
+        "type": "array_like of ints",
+        "description": "A sequence of break points. If given, an individual linear fit is\nperformed for each part of 'data' between two break points.\nBreak points are specified as indices into 'data'.\nThis parameter only has an effect when type == 'linear'."
+      },
+      {
+        "name": "overwrite_data",
+        "type": "bool",
+        "description": "If True, perform in place detrending and avoid a copy.\nDefault is False."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "type 'ordered pair', 'scalar', or 'matrix'"
+      }
+    ]
+  }
+}

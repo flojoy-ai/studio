@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Set the MSO2XX oscilloscope viewport.",
+    "parameters": [
+      {
+        "name": "scale",
+        "type": "float",
+        "description": "Horizontal viewport division"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "None",
+        "description": null
+      }
+    ]
+  }
+}

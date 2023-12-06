@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Returns the split components (x, y) of an ordered pair as Vectors.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "OrderedPair",
+        "description": "The input OrderedPair."
+      }
+    ],
+    "returns": [
+      {
+        "name": "TypedDict",
+        "type": "",
+        "description": "x: Vector from input x\ny: Vector from input y"
+      }
+    ]
+  }
+}

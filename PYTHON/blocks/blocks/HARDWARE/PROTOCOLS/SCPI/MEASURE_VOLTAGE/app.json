@@ -1,0 +1,955 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "OPEN_SERIAL-5372b346-c682-4531-b6d0-2dcbcdfe1044",
+                "type": "IO",
+                "data": {
+                    "id": "OPEN_SERIAL-5372b346-c682-4531-b6d0-2dcbcdfe1044",
+                    "label": "OPEN SERIAL",
+                    "func": "OPEN_SERIAL",
+                    "type": "IO",
+                    "ctrls": {
+                        "device": {
+                            "type": "SerialDevice",
+                            "default": null,
+                            "desc": "The connected serial device.",
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "device",
+                            "value": "/dev/cu.usbserial-PX75GRVT"
+                        },
+                        "baudrate": {
+                            "type": "int",
+                            "default": 9600,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "baudrate",
+                            "value": 9600
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "pyserial",
+                            "v": "3.5"
+                        }
+                    ],
+                    "path": "IO/PROTOCOLS/SERIAL/BASIC/OPEN_SERIAL/OPEN_SERIAL.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -681.6956566487211,
+                    "y": -247.69063910436114
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -681.6956566487211,
+                    "y": -247.69063910436114
+                },
+                "dragging": true
+            },
+            {
+                "width": 96,
+                "height": 96,
+                "id": "LOOP-65140bf7-e1d6-41c8-9ae7-03739dced34a",
+                "type": "LOGIC_GATES",
+                "data": {
+                    "id": "LOOP-65140bf7-e1d6-41c8-9ae7-03739dced34a",
+                    "label": "LOOP",
+                    "func": "LOOP",
+                    "type": "LOGIC_GATES",
+                    "ctrls": {
+                        "num_loops": {
+                            "type": "int",
+                            "default": -1,
+                            "desc": "number of times to iterate through body nodes, default is \"-1\" meaning infinity.",
+                            "overload": null,
+                            "functionName": "LOOP",
+                            "param": "num_loops",
+                            "value": -1
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "body",
+                            "id": "body",
+                            "type": "Any",
+                            "desc": null
+                        },
+                        {
+                            "name": "end",
+                            "id": "end",
+                            "type": "Any",
+                            "desc": null
+                        }
+                    ],
+                    "path": "LOGIC_GATES/LOOPS/LOOP/LOOP.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 260.7414301413004,
+                    "y": -208.46115506617377
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 260.7414301413004,
+                    "y": -208.46115506617377
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "MEASURE_VOLTAGE-12dc10b8-4a04-4ad0-8076-8dc1339352ba",
+                "type": "IO",
+                "data": {
+                    "id": "MEASURE_VOLTAGE-12dc10b8-4a04-4ad0-8076-8dc1339352ba",
+                    "label": "MEASURE VOLTAGE IN LOOP",
+                    "func": "MEASURE_VOLTAGE",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The open serial connection with the instrument.",
+                            "overload": null,
+                            "functionName": "MEASURE_VOLTAGE",
+                            "param": "connection",
+                            "value": "/dev/cu.usbserial-PX75GRVT"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "An optional SCPI commmand string to override the MEASURE:VOLTAGE:DC? command."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar|TextBlob",
+                            "desc": null
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "pyserial",
+                            "v": "3.5"
+                        }
+                    ],
+                    "path": "IO/PROTOCOLS/SCPI/MEASURE_VOLTAGE/MEASURE_VOLTAGE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 431.2056306816653,
+                    "y": -523.5297551033295
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 431.2056306816653,
+                    "y": -523.5297551033295
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "FEEDBACK-9504a42a-4bce-4f8f-8895-9ea20fe1f209",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "FEEDBACK-9504a42a-4bce-4f8f-8895-9ea20fe1f209",
+                    "label": "FEEDBACK",
+                    "func": "FEEDBACK",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "referred_node": {
+                            "type": "NodeReference",
+                            "default": null,
+                            "desc": "The node ID to capture the result from.",
+                            "overload": null,
+                            "functionName": "FEEDBACK",
+                            "param": "referred_node",
+                            "value": "APPEND-eff20e49-760e-42ea-95a9-df18202000b6"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null
+                        }
+                    ],
+                    "path": "GENERATORS/SIMULATIONS/FEEDBACK/FEEDBACK.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 444.9834925868771,
+                    "y": -236.71468358109905
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 444.9834925868771,
+                    "y": -236.71468358109905
+                },
+                "dragging": true
+            },
+            {
+                "width": 96,
+                "height": 96,
+                "id": "APPEND-eff20e49-760e-42ea-95a9-df18202000b6",
+                "type": "LOGIC_GATES",
+                "data": {
+                    "id": "APPEND-eff20e49-760e-42ea-95a9-df18202000b6",
+                    "label": "APPEND",
+                    "func": "APPEND",
+                    "type": "LOGIC_GATES",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "primary_dp",
+                            "id": "primary_dp",
+                            "type": "OrderedPair|Matrix|DataFrame|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "Input that ends up \"on top\" of the resulting DataContainer."
+                        },
+                        {
+                            "name": "secondary_dp",
+                            "id": "secondary_dp",
+                            "type": "OrderedPair|Matrix|DataFrame|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "Input that ends up \"on the bottom\" of the resulting DataContainer."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Matrix|DataFrame|Vector",
+                            "desc": null
+                        }
+                    ],
+                    "path": "LOGIC_GATES/LOOPS/APPEND/APPEND.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1007.3314929693323,
+                    "y": -358.01388237593756
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1007.3314929693323,
+                    "y": -358.01388237593756
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "MEASURE_VOLTAGE-d43b28cb-2578-40da-a246-cd05dbfdf65b",
+                "type": "IO",
+                "data": {
+                    "id": "MEASURE_VOLTAGE-d43b28cb-2578-40da-a246-cd05dbfdf65b",
+                    "label": "MEASURE INITIAL VOLTAGE",
+                    "func": "MEASURE_VOLTAGE",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The open serial connection with the instrument.",
+                            "overload": null,
+                            "functionName": "MEASURE_VOLTAGE",
+                            "param": "connection",
+                            "value": "/dev/cu.usbserial-PX75GRVT"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "An optional SCPI commmand string to override the MEASURE:VOLTAGE:DC? command."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar|TextBlob",
+                            "desc": null
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "pyserial",
+                            "v": "3.5"
+                        }
+                    ],
+                    "path": "IO/PROTOCOLS/SCPI/MEASURE_VOLTAGE/MEASURE_VOLTAGE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -335.1428554920709,
+                    "y": -245.64154172271856
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -335.1428554920709,
+                    "y": -245.64154172271856
+                },
+                "dragging": true
+            },
+            {
+                "width": 96,
+                "height": 96,
+                "id": "TIMER-ce1b43f2-d9a4-4f83-a1dc-dbde450351fc",
+                "type": "LOGIC_GATES",
+                "data": {
+                    "id": "TIMER-ce1b43f2-d9a4-4f83-a1dc-dbde450351fc",
+                    "label": "TIMER",
+                    "func": "TIMER",
+                    "type": "LOGIC_GATES",
+                    "ctrls": {
+                        "sleep_time": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "number of seconds to sleep",
+                            "overload": null,
+                            "functionName": "TIMER",
+                            "param": "sleep_time",
+                            "value": 1
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null
+                        }
+                    ],
+                    "path": "LOGIC_GATES/TIMERS/TIMER/TIMER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1695.1744444352219,
+                    "y": -371.98469156311245
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1695.1744444352219,
+                    "y": -371.98469156311245
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "BIG_NUMBER-a74f5dd6-46ed-4a3b-ad17-148bb06ca462",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "BIG_NUMBER-a74f5dd6-46ed-4a3b-ad17-148bb06ca462",
+                    "label": "BIG NUMBER",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZERS",
+                    "ctrls": {
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any suffix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": ""
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": true
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 728.1982187293316,
+                    "y": -921.1696110250343
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 728.1982187293316,
+                    "y": -921.1696110250343
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "UNIX_TIMESTAMP-39d4bf22-daf4-4608-a42b-96c1c47a6fc5",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "UNIX_TIMESTAMP-39d4bf22-daf4-4608-a42b-96c1c47a6fc5",
+                    "label": "UNIX TIMESTAMP",
+                    "func": "UNIX_TIMESTAMP",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "dc_type": {
+                            "type": "select",
+                            "options": [
+                                "Scalar",
+                                "Vector"
+                            ],
+                            "default": "Scalar",
+                            "desc": "The type of DataContainer to return.",
+                            "overload": null,
+                            "functionName": "UNIX_TIMESTAMP",
+                            "param": "dc_type",
+                            "value": "Scalar"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "multiple": false,
+                            "desc": "A value to timestamp"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar|Vector|OrderedPair",
+                            "desc": null
+                        }
+                    ],
+                    "path": "GENERATORS/SIMULATIONS/UNIX_TIMESTAMP/UNIX_TIMESTAMP.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -47.01334381160734,
+                    "y": -201.2378242028975
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -47.01334381160734,
+                    "y": -201.2378242028975
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "UNIX_TIMESTAMP-2d1041ac-5659-43f9-82ba-cdfc94aad09c",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "UNIX_TIMESTAMP-2d1041ac-5659-43f9-82ba-cdfc94aad09c",
+                    "label": "UNIX TIMESTAMP 1",
+                    "func": "UNIX_TIMESTAMP",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "dc_type": {
+                            "type": "select",
+                            "options": [
+                                "Scalar",
+                                "Vector"
+                            ],
+                            "default": "Scalar",
+                            "desc": "The type of DataContainer to return.",
+                            "overload": null,
+                            "functionName": "UNIX_TIMESTAMP",
+                            "param": "dc_type",
+                            "value": "Scalar"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "multiple": false,
+                            "desc": "A value to timestamp"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar|Vector|OrderedPair",
+                            "desc": null
+                        }
+                    ],
+                    "path": "GENERATORS/SIMULATIONS/UNIX_TIMESTAMP/UNIX_TIMESTAMP.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 720.7321917918136,
+                    "y": -474.75654046293664
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 720.7321917918136,
+                    "y": -474.75654046293664
+                },
+                "dragging": true
+            },
+            {
+                "width": 384,
+                "height": 288,
+                "id": "TEXT_VIEW-c4eb1db9-4fe2-4e9b-81ea-90d3a7a1e10f",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-c4eb1db9-4fe2-4e9b-81ea-90d3a7a1e10f",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -409.4469388443023,
+                    "y": -10.62728849821724
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -409.4469388443023,
+                    "y": -10.62728849821724
+                },
+                "dragging": true
+            },
+            {
+                "width": 273,
+                "height": 160,
+                "id": "PRINT_DATACONTAINER-e16d40b1-f87a-4e42-84d2-cbd3ff64d5a8",
+                "type": "EXTRACTORS",
+                "data": {
+                    "id": "PRINT_DATACONTAINER-e16d40b1-f87a-4e42-84d2-cbd3ff64d5a8",
+                    "label": "PRINT DATACONTAINER",
+                    "func": "PRINT_DATACONTAINER",
+                    "type": "EXTRACTORS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "TextBlob: Input datacontainer information"
+                        }
+                    ],
+                    "path": "EXTRACTORS/DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 712.8137216815738,
+                    "y": -140.25395447728823
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 712.8137216815738,
+                    "y": -140.25395447728823
+                },
+                "dragging": true
+            },
+            {
+                "width": 384,
+                "height": 288,
+                "id": "TEXT_VIEW-68bca17e-1113-47b2-9ca0-fdeeb12b369e",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-68bca17e-1113-47b2-9ca0-fdeeb12b369e",
+                    "label": "TEXT VIEW 1",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1085.6504829807627,
+                    "y": -118.58394481930316
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1085.6504829807627,
+                    "y": -118.58394481930316
+                },
+                "dragging": true
+            },
+            {
+                "width": 384,
+                "height": 288,
+                "id": "TEXT_VIEW-e98aef4b-f278-43b4-aa24-7f5067273060",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-e98aef4b-f278-43b4-aa24-7f5067273060",
+                    "label": "TEXT VIEW 2",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1413.0803813233645,
+                    "y": -768.80289018579
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1413.0803813233645,
+                    "y": -768.80289018579
+                },
+                "dragging": true
+            },
+            {
+                "width": 273,
+                "height": 160,
+                "id": "PRINT_DATACONTAINER-232fba0e-ef01-4535-99a5-a5c62a40d5cd",
+                "type": "EXTRACTORS",
+                "data": {
+                    "id": "PRINT_DATACONTAINER-232fba0e-ef01-4535-99a5-a5c62a40d5cd",
+                    "label": "PRINT DATACONTAINER 1",
+                    "func": "PRINT_DATACONTAINER",
+                    "type": "EXTRACTORS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "TextBlob: Input datacontainer information"
+                        }
+                    ],
+                    "path": "EXTRACTORS/DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1044.759869422389,
+                    "y": -700.6321389050217
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1044.759869422389,
+                    "y": -700.6321389050217
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "LINE-219ec912-3d69-41ea-bf6e-6080d8b1bc79",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "LINE-219ec912-3d69-41ea-bf6e-6080d8b1bc79",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/LINE/LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1208.8690545120376,
+                    "y": -456.5439220768478
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1208.8690545120376,
+                    "y": -456.5439220768478
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "LOOP-65140bf7-e1d6-41c8-9ae7-03739dced34a",
+                "sourceHandle": "body",
+                "target": "MEASURE_VOLTAGE-12dc10b8-4a04-4ad0-8076-8dc1339352ba",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LOOP-65140bf7-e1d6-41c8-9ae7-03739dced34abody-MEASURE_VOLTAGE-12dc10b8-4a04-4ad0-8076-8dc1339352badefault"
+            },
+            {
+                "source": "LOOP-65140bf7-e1d6-41c8-9ae7-03739dced34a",
+                "sourceHandle": "body",
+                "target": "FEEDBACK-9504a42a-4bce-4f8f-8895-9ea20fe1f209",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LOOP-65140bf7-e1d6-41c8-9ae7-03739dced34abody-FEEDBACK-9504a42a-4bce-4f8f-8895-9ea20fe1f209default"
+            },
+            {
+                "source": "FEEDBACK-9504a42a-4bce-4f8f-8895-9ea20fe1f209",
+                "sourceHandle": "default",
+                "target": "APPEND-eff20e49-760e-42ea-95a9-df18202000b6",
+                "targetHandle": "primary_dp",
+                "id": "reactflow__edge-FEEDBACK-9504a42a-4bce-4f8f-8895-9ea20fe1f209default-APPEND-eff20e49-760e-42ea-95a9-df18202000b6primary_dp"
+            },
+            {
+                "source": "OPEN_SERIAL-5372b346-c682-4531-b6d0-2dcbcdfe1044",
+                "sourceHandle": "default",
+                "target": "MEASURE_VOLTAGE-d43b28cb-2578-40da-a246-cd05dbfdf65b",
+                "targetHandle": "default",
+                "id": "reactflow__edge-OPEN_SERIAL-5372b346-c682-4531-b6d0-2dcbcdfe1044default-MEASURE_VOLTAGE-d43b28cb-2578-40da-a246-cd05dbfdf65bdefault"
+            },
+            {
+                "source": "OPEN_SERIAL-5372b346-c682-4531-b6d0-2dcbcdfe1044",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-c4eb1db9-4fe2-4e9b-81ea-90d3a7a1e10f",
+                "targetHandle": "default",
+                "id": "reactflow__edge-OPEN_SERIAL-5372b346-c682-4531-b6d0-2dcbcdfe1044default-TEXT_VIEW-c4eb1db9-4fe2-4e9b-81ea-90d3a7a1e10fdefault"
+            },
+            {
+                "source": "MEASURE_VOLTAGE-d43b28cb-2578-40da-a246-cd05dbfdf65b",
+                "sourceHandle": "default",
+                "target": "UNIX_TIMESTAMP-39d4bf22-daf4-4608-a42b-96c1c47a6fc5",
+                "targetHandle": "default",
+                "id": "reactflow__edge-MEASURE_VOLTAGE-d43b28cb-2578-40da-a246-cd05dbfdf65bdefault-UNIX_TIMESTAMP-39d4bf22-daf4-4608-a42b-96c1c47a6fc5default"
+            },
+            {
+                "source": "UNIX_TIMESTAMP-39d4bf22-daf4-4608-a42b-96c1c47a6fc5",
+                "sourceHandle": "default",
+                "target": "LOOP-65140bf7-e1d6-41c8-9ae7-03739dced34a",
+                "targetHandle": "default",
+                "id": "reactflow__edge-UNIX_TIMESTAMP-39d4bf22-daf4-4608-a42b-96c1c47a6fc5default-LOOP-65140bf7-e1d6-41c8-9ae7-03739dced34adefault"
+            },
+            {
+                "source": "MEASURE_VOLTAGE-12dc10b8-4a04-4ad0-8076-8dc1339352ba",
+                "sourceHandle": "default",
+                "target": "UNIX_TIMESTAMP-2d1041ac-5659-43f9-82ba-cdfc94aad09c",
+                "targetHandle": "default",
+                "id": "reactflow__edge-MEASURE_VOLTAGE-12dc10b8-4a04-4ad0-8076-8dc1339352badefault-UNIX_TIMESTAMP-2d1041ac-5659-43f9-82ba-cdfc94aad09cdefault"
+            },
+            {
+                "source": "UNIX_TIMESTAMP-2d1041ac-5659-43f9-82ba-cdfc94aad09c",
+                "sourceHandle": "default",
+                "target": "APPEND-eff20e49-760e-42ea-95a9-df18202000b6",
+                "targetHandle": "secondary_dp",
+                "id": "reactflow__edge-UNIX_TIMESTAMP-2d1041ac-5659-43f9-82ba-cdfc94aad09cdefault-APPEND-eff20e49-760e-42ea-95a9-df18202000b6secondary_dp"
+            },
+            {
+                "source": "MEASURE_VOLTAGE-12dc10b8-4a04-4ad0-8076-8dc1339352ba",
+                "sourceHandle": "default",
+                "target": "BIG_NUMBER-a74f5dd6-46ed-4a3b-ad17-148bb06ca462",
+                "targetHandle": "default",
+                "id": "reactflow__edge-MEASURE_VOLTAGE-12dc10b8-4a04-4ad0-8076-8dc1339352badefault-BIG_NUMBER-a74f5dd6-46ed-4a3b-ad17-148bb06ca462default"
+            },
+            {
+                "source": "FEEDBACK-9504a42a-4bce-4f8f-8895-9ea20fe1f209",
+                "sourceHandle": "default",
+                "target": "PRINT_DATACONTAINER-e16d40b1-f87a-4e42-84d2-cbd3ff64d5a8",
+                "targetHandle": "default",
+                "id": "reactflow__edge-FEEDBACK-9504a42a-4bce-4f8f-8895-9ea20fe1f209default-PRINT_DATACONTAINER-e16d40b1-f87a-4e42-84d2-cbd3ff64d5a8default"
+            },
+            {
+                "source": "PRINT_DATACONTAINER-e16d40b1-f87a-4e42-84d2-cbd3ff64d5a8",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-68bca17e-1113-47b2-9ca0-fdeeb12b369e",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PRINT_DATACONTAINER-e16d40b1-f87a-4e42-84d2-cbd3ff64d5a8default-TEXT_VIEW-68bca17e-1113-47b2-9ca0-fdeeb12b369edefault"
+            },
+            {
+                "source": "UNIX_TIMESTAMP-2d1041ac-5659-43f9-82ba-cdfc94aad09c",
+                "sourceHandle": "default",
+                "target": "PRINT_DATACONTAINER-232fba0e-ef01-4535-99a5-a5c62a40d5cd",
+                "targetHandle": "default",
+                "id": "reactflow__edge-UNIX_TIMESTAMP-2d1041ac-5659-43f9-82ba-cdfc94aad09cdefault-PRINT_DATACONTAINER-232fba0e-ef01-4535-99a5-a5c62a40d5cddefault"
+            },
+            {
+                "source": "PRINT_DATACONTAINER-232fba0e-ef01-4535-99a5-a5c62a40d5cd",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-e98aef4b-f278-43b4-aa24-7f5067273060",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PRINT_DATACONTAINER-232fba0e-ef01-4535-99a5-a5c62a40d5cddefault-TEXT_VIEW-e98aef4b-f278-43b4-aa24-7f5067273060default"
+            },
+            {
+                "source": "APPEND-eff20e49-760e-42ea-95a9-df18202000b6",
+                "sourceHandle": "default",
+                "target": "LINE-219ec912-3d69-41ea-bf6e-6080d8b1bc79",
+                "targetHandle": "default",
+                "id": "reactflow__edge-APPEND-eff20e49-760e-42ea-95a9-df18202000b6default-LINE-219ec912-3d69-41ea-bf6e-6080d8b1bc79default"
+            },
+            {
+                "source": "LINE-219ec912-3d69-41ea-bf6e-6080d8b1bc79",
+                "sourceHandle": "default",
+                "target": "TIMER-ce1b43f2-d9a4-4f83-a1dc-dbde450351fc",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINE-219ec912-3d69-41ea-bf6e-6080d8b1bc79default-TIMER-ce1b43f2-d9a4-4f83-a1dc-dbde450351fcdefault"
+            }
+        ],
+        "viewport": {
+            "x": 189.53030305337484,
+            "y": 644.7027881869383,
+            "zoom": 0.5
+        }
+    },
+    "textNodes": []
+}

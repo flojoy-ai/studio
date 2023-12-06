@@ -1,0 +1,58 @@
+{
+  "long_description": "Requires a CONNECTION_DS1074Z node at the start of the app to connect with\nthe instrument. The VISA address will then be listed under 'connection'.\n\nThis node should also work with compatible DS1000Z oscilloscopes",
+  "short_description": "The DIGITAL_ON_OFF_DS1074Z node turns digital channels on or off for the DS1074Z.",
+  "parameters": [
+    {
+      "name": "connection",
+      "type": "VisaConnection",
+      "description": "The VISA address (requires the CONNECTION_DS1074Z node)."
+    },
+    {
+      "name": "digi_on_off",
+      "type": "select",
+      "description": "Turn digital channel (i.e. LA) on the scope on or off."
+    },
+    {
+      "name": "d0",
+      "type": "select",
+      "description": "Turn digital channel 0 on or off."
+    },
+    {
+      "name": "d1",
+      "type": "select",
+      "description": "Turn digital channel 1 on or off."
+    },
+    {
+      "name": "d2",
+      "type": "select",
+      "description": "Turn digital channel 2 on or off."
+    },
+    {
+      "name": "d3",
+      "type": "select",
+      "description": "Turn digital channel 3 on or off."
+    },
+    {
+      "name": "use_pods",
+      "type": "select",
+      "description": "Use pod1 and pod2 parameters? If True, d0-d3 parameters are not used."
+    },
+    {
+      "name": "pod1",
+      "type": "select",
+      "description": "Turn digital channels 0-7 on or off."
+    },
+    {
+      "name": "pod2",
+      "type": "select",
+      "description": "Turn digital channels 8-15 on or off."
+    }
+  ],
+  "returns": [
+    {
+      "name": null,
+      "type": "DataContainer",
+      "description": "TextBlob: summary of channel settings."
+    }
+  ]
+}

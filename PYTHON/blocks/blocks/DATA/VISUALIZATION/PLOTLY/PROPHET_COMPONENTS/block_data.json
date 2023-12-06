@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "This is the output plotly graph from the 'plot_components_plotly' function from 'prophet.plot'.\nIt expects the trained Prophet model from the PROPHET_PREDICT node as input.\n\nIf 'run_forecast' was True in that node, the forecasted dataframe will be available as the 'm' attribute of the default input.\nOtherwise, this will make the predictions on the raw dataframe (in which case it will be the 'm' attribute of the default input).\n\nYou can tell if that forecasted dataframe is available via the 'extra' field of data input, 'run_forecast' (data.extra[\"run_forecast\"]).\n\nInputs\n------\ndefault : DataFrame\n    the DataContainer to be visualized\n\ndata : DataContainer\n    the DataContainer that holds prophet model and forecast data in the 'extra' field",
+    "short_description": "The PROPHET_COMPONENTS node plots the components of the prophet model trained in the PROPHET_PREDICT node.",
+    "parameters": [
+      {
+        "name": "periods",
+        "type": "int",
+        "description": "The number of periods out to predict.\nOnly used if the node passed into this node (i.e. PROPHET_PREDICT) did NOT return the forecast.\nIf the forecast was included in the DataContainer, this parameter will be ignored.\n\nDefault = 365"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Plotly",
+        "description": "the DataContainer containing the Plotly visualization of the prophet model"
+      }
+    ]
+  }
+}

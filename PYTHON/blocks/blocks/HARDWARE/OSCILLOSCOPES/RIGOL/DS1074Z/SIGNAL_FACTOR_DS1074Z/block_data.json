@@ -1,0 +1,42 @@
+{
+  "docstring": {
+    "long_description": "Note that only select values are available. If the selected value isn't\navailable, the instrument will default to 10.\n\nThis setting multiplies the y axis of the selected channel by this factor.\nBy default the setting is 10 on instrument startup. It is recommened to set\nit to 1 inside Flojoy, unless the probe requires a correction.\n\nRequires a CONNECTION_DS1074Z block at the start of the app to connect with\nthe instrument. The VISA address will then be listed under 'connection'.\n\nThis block should also work with compatible DS1000Z oscilloscopes",
+    "short_description": "Set the \"probe\" settings for the DS1074Z oscilloscope.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_DS1074Z block)."
+      },
+      {
+        "name": "query_set",
+        "type": "select:",
+        "description": "\"query\" or \"set\" the setting."
+      },
+      {
+        "name": "channel",
+        "type": "select",
+        "description": "Which channel to use."
+      },
+      {
+        "name": "probe_factor",
+        "type": "float",
+        "description": "Multiply the y axis by this factor."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "TextBlob",
+        "description": "The probe factor settings."
+      }
+    ]
+  },
+  "videos": [
+    {
+      "title": "Control DS1000Z oscilloscope with Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=Bl0DrvaOtgI"
+    }
+  ]
+}

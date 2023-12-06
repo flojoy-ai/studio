@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Delay the action between two blocks.",
+    "parameters": [
+      {
+        "name": "ip_address",
+        "type": "TextBlob",
+        "description": "The IP address of the robot arm."
+      },
+      {
+        "name": "time",
+        "type": "float",
+        "description": "The time of delay in seconds."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "TextBlob",
+        "description": "The IP address of the robot arm."
+      }
+    ]
+  }
+}

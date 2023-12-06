@@ -1,0 +1,60 @@
+{
+  "docstring": {
+    "long_description": "Note that this block requires the CONNECTION_2000 block.\n\nAlso note that the P2000 blocks require a device specific driver/SDK downloaded from:\nhttps://www.picotech.com/downloads.",
+    "short_description": "Control wavefunction generation from a PicoScope.",
+    "parameters": [
+      {
+        "name": "offset_voltage",
+        "type": "int",
+        "description": "The offset (vertical) voltage, in uV (microvolts)."
+      },
+      {
+        "name": "amplitude",
+        "type": "int",
+        "description": "The peak-to-peak amplitude, in uV (microvolts)."
+      },
+      {
+        "name": "wave_type",
+        "type": "select",
+        "description": "The type of waveform to generate (e.g. 0 is a sine)"
+      },
+      {
+        "name": "start_frequency",
+        "type": "int",
+        "description": "The static or starting frequency, in Hz."
+      },
+      {
+        "name": "end_frequency",
+        "type": "int",
+        "description": "The ending frequency if sweeping is activated, in Hz."
+      },
+      {
+        "name": "sweep_increment",
+        "type": "int",
+        "description": "The increment to increase frequency during sweeping, in Hz"
+      },
+      {
+        "name": "dwell_time",
+        "type": "int = 1,",
+        "description": "The time to dwell at a frequency during sweeping, in ms."
+      },
+      {
+        "name": "sweep_type",
+        "type": "Literal[\"0\", \"1\", \"2\", \"3\"] = \"0\",",
+        "description": "The type of sweeping. 0 deactivates sweeping."
+      },
+      {
+        "name": "sweeps",
+        "type": "int = 0,",
+        "description": "The number of sweeps."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "TextBlob",
+        "description": "Placeholder return currently"
+      }
+    ]
+  }
+}

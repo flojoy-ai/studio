@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "The channel output state is not save (i.e. if the channel was outputing).\n\nThis block should also work with compatible Tektronix AFG31XXX instruments.",
+    "short_description": "Saves or recalls the state for the AFG31000.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_AFG31000 block)."
+      },
+      {
+        "name": "save_recall",
+        "type": "select, default=save",
+        "description": "Save or recall the save state."
+      },
+      {
+        "name": "option",
+        "type": "select, default=1",
+        "description": "Choose from the 5 save states."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "String",
+        "description": "Save state"
+      }
+    ]
+  }
+}

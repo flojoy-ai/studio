@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Convert a Vector DataContainer to an OrderedPair DataContainer.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "Vector",
+        "description": "The input vector that will be the x axis of OrderedPair."
+      },
+      {
+        "name": "y",
+        "type": "Vector",
+        "description": "The input vector that will be the y axis of OrderedPair."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "OrderedPair",
+        "description": "The OrderedPair that is generated from the input vectors"
+      }
+    ]
+  }
+}

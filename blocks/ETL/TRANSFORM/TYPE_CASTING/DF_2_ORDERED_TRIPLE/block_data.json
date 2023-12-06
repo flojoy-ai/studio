@@ -1,0 +1,35 @@
+{
+  "docstring": {
+    "long_description": "It takes one dataframe type data and selects 3 different columns to generate the OrderedTriple type.",
+    "short_description": "Convert a DataFrame DataContainer to an OrderedTriple DataContainer.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "DataFrame",
+        "description": "The input dataframe to which we apply the conversion to."
+      },
+      {
+        "name": "x",
+        "type": "int",
+        "description": "The index of the column that represents the x-axis."
+      },
+      {
+        "name": "y",
+        "type": "int",
+        "description": "The index of the column that represents the y-axis."
+      },
+      {
+        "name": "z",
+        "type": "int",
+        "description": "The index of the column that represents the z-axis."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "OrderedTriple",
+        "description": "The OrderedTriple result from the conversion of the input."
+      }
+    ]
+  }
+}

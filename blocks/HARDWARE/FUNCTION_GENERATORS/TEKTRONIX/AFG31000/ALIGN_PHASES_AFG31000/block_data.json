@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "This block should also work with compatible Tektronix AFG31XXX instruments.",
+    "short_description": "Run this block to align the phases for ch1 and ch2.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_AFG31000 block)."
+      },
+      {
+        "name": "channel",
+        "type": "select, default=ch1",
+        "description": "Which channel is the reference?"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "String",
+        "description": "Aligned channel phases"
+      }
+    ]
+  }
+}

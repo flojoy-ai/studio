@@ -1,0 +1,451 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "SERIAL_WRITE-bc7a5dce-aaf9-4de4-9e77-681b1a6ea623",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "SERIAL_WRITE-bc7a5dce-aaf9-4de4-9e77-681b1a6ea623",
+                    "label": "SERIAL WRITE GREEN",
+                    "func": "SERIAL_WRITE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialDevice",
+                            "default": null,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "connection",
+                            "value": "COM3"
+                        },
+                        "write": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "The string to write to the serial device.",
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "write",
+                            "value": "G"
+                        },
+                        "encoding": {
+                            "type": "select",
+                            "options": [
+                                "bytes",
+                                "utf-8",
+                                "ascii"
+                            ],
+                            "default": "bytes",
+                            "desc": "Which string encoding method to use.",
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "encoding",
+                            "value": "bytes"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "The input string."
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/SERIAL/SERIAL_WRITE/SERIAL_WRITE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 517.7419064110766,
+                    "y": -184.5000668406568
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 517.7419064110766,
+                    "y": -184.5000668406568
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "SERIAL_WRITE-0218a49f-0787-4813-8890-f9b89fc00cb4",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "SERIAL_WRITE-0218a49f-0787-4813-8890-f9b89fc00cb4",
+                    "label": "SERIAL WRITE RED",
+                    "func": "SERIAL_WRITE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialDevice",
+                            "default": null,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "connection",
+                            "value": "COM3"
+                        },
+                        "write": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "The string to write to the serial device.",
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "write",
+                            "value": "R"
+                        },
+                        "encoding": {
+                            "type": "select",
+                            "options": [
+                                "bytes",
+                                "utf-8",
+                                "ascii"
+                            ],
+                            "default": "bytes",
+                            "desc": "Which string encoding method to use.",
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "encoding",
+                            "value": "bytes"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "The input string."
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/SERIAL/SERIAL_WRITE/SERIAL_WRITE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 78.57312827620973,
+                    "y": -190.12757653624098
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 78.57312827620973,
+                    "y": -190.12757653624098
+                },
+                "dragging": true
+            },
+            {
+                "width": 96,
+                "height": 96,
+                "id": "TIMER-e504bb14-d25e-428a-8e34-4756bca67e1a",
+                "type": "CONTROL_FLOW",
+                "data": {
+                    "id": "TIMER-e504bb14-d25e-428a-8e34-4756bca67e1a",
+                    "label": "TIMER",
+                    "func": "TIMER",
+                    "type": "CONTROL_FLOW",
+                    "ctrls": {
+                        "sleep_time": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "number of seconds to sleep",
+                            "overload": null,
+                            "functionName": "TIMER",
+                            "param": "sleep_time",
+                            "value": 2
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "Returns the input if one was passed in."
+                        }
+                    ],
+                    "path": "CONTROL_FLOW/TIMERS/TIMER/TIMER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 348.3147844694306,
+                    "y": -138.7151227992282
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 348.3147844694306,
+                    "y": -138.7151227992282
+                },
+                "dragging": true
+            },
+            {
+                "width": 96,
+                "height": 96,
+                "id": "TIMER-47a9cdca-2b4e-4f7e-85c2-3b0ae18c442c",
+                "type": "CONTROL_FLOW",
+                "data": {
+                    "id": "TIMER-47a9cdca-2b4e-4f7e-85c2-3b0ae18c442c",
+                    "label": "TIMER 1",
+                    "func": "TIMER",
+                    "type": "CONTROL_FLOW",
+                    "ctrls": {
+                        "sleep_time": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "number of seconds to sleep",
+                            "overload": null,
+                            "functionName": "TIMER",
+                            "param": "sleep_time",
+                            "value": 2
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "Returns the input if one was passed in."
+                        }
+                    ],
+                    "path": "CONTROL_FLOW/TIMERS/TIMER/TIMER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 805.1676351686855,
+                    "y": -138.7569363178802
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 805.1676351686855,
+                    "y": -138.7569363178802
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "SERIAL_WRITE-57ddea96-b303-498e-b9e2-5c07d9a806f9",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "SERIAL_WRITE-57ddea96-b303-498e-b9e2-5c07d9a806f9",
+                    "label": "SERIAL WRITE OFF",
+                    "func": "SERIAL_WRITE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialDevice",
+                            "default": null,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "connection",
+                            "value": "COM3"
+                        },
+                        "write": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "The string to write to the serial device.",
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "write",
+                            "value": "0"
+                        },
+                        "encoding": {
+                            "type": "select",
+                            "options": [
+                                "bytes",
+                                "utf-8",
+                                "ascii"
+                            ],
+                            "default": "bytes",
+                            "desc": "Which string encoding method to use.",
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "encoding",
+                            "value": "bytes"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "The input string."
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/SERIAL/SERIAL_WRITE/SERIAL_WRITE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1005.8130418866517,
+                    "y": -170.9287784505403
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1005.8130418866517,
+                    "y": -170.9287784505403
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "OPEN_SERIAL-902f7add-251b-46ad-bba3-cc2c288c6cdf",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "OPEN_SERIAL-902f7add-251b-46ad-bba3-cc2c288c6cdf",
+                    "label": "OPEN SERIAL",
+                    "func": "OPEN_SERIAL",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "device": {
+                            "type": "SerialDevice",
+                            "default": null,
+                            "desc": "The connected serial device.",
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "device",
+                            "value": "COM3"
+                        },
+                        "baudrate": {
+                            "type": "int",
+                            "default": 9600,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "baudrate",
+                            "value": 9600
+                        },
+                        "connection_time": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "connection_time",
+                            "value": 2
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": null
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "pyserial",
+                            "v": "3.5"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/SERIAL/OPEN_SERIAL/OPEN_SERIAL.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -251.21351812883603,
+                    "y": -192.98718088808147
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -251.21351812883603,
+                    "y": -192.98718088808147
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "SERIAL_WRITE-0218a49f-0787-4813-8890-f9b89fc00cb4",
+                "sourceHandle": "default",
+                "target": "TIMER-e504bb14-d25e-428a-8e34-4756bca67e1a",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SERIAL_WRITE-0218a49f-0787-4813-8890-f9b89fc00cb4default-TIMER-e504bb14-d25e-428a-8e34-4756bca67e1adefault"
+            },
+            {
+                "source": "TIMER-e504bb14-d25e-428a-8e34-4756bca67e1a",
+                "sourceHandle": "default",
+                "target": "SERIAL_WRITE-bc7a5dce-aaf9-4de4-9e77-681b1a6ea623",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TIMER-e504bb14-d25e-428a-8e34-4756bca67e1adefault-SERIAL_WRITE-bc7a5dce-aaf9-4de4-9e77-681b1a6ea623default"
+            },
+            {
+                "source": "TIMER-47a9cdca-2b4e-4f7e-85c2-3b0ae18c442c",
+                "sourceHandle": "default",
+                "target": "SERIAL_WRITE-57ddea96-b303-498e-b9e2-5c07d9a806f9",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TIMER-47a9cdca-2b4e-4f7e-85c2-3b0ae18c442cdefault-SERIAL_WRITE-57ddea96-b303-498e-b9e2-5c07d9a806f9default"
+            },
+            {
+                "source": "SERIAL_WRITE-bc7a5dce-aaf9-4de4-9e77-681b1a6ea623",
+                "sourceHandle": "default",
+                "target": "TIMER-47a9cdca-2b4e-4f7e-85c2-3b0ae18c442c",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SERIAL_WRITE-bc7a5dce-aaf9-4de4-9e77-681b1a6ea623default-TIMER-47a9cdca-2b4e-4f7e-85c2-3b0ae18c442cdefault"
+            },
+            {
+                "source": "OPEN_SERIAL-902f7add-251b-46ad-bba3-cc2c288c6cdf",
+                "sourceHandle": "default",
+                "target": "SERIAL_WRITE-0218a49f-0787-4813-8890-f9b89fc00cb4",
+                "targetHandle": "default",
+                "id": "reactflow__edge-OPEN_SERIAL-902f7add-251b-46ad-bba3-cc2c288c6cdfdefault-SERIAL_WRITE-0218a49f-0787-4813-8890-f9b89fc00cb4default"
+            }
+        ],
+        "viewport": {
+            "x": 556.2622732052125,
+            "y": 791.7618058444115,
+            "zoom": 0.6304092340400338
+        }
+    },
+    "textNodes": []
+}

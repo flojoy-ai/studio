@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "The MOVE_KEYFRAMES node linearly moves the robot's tool according to a set of 3d animation style keyframes.",
+    "parameters": [
+      {
+        "name": "ip_address",
+        "type": "TextBlob",
+        "description": "The IP address of the robot arm."
+      },
+      {
+        "name": "keyframes",
+        "type": "DataFrame",
+        "description": "A dataframe containing the keyframes to move to. The dataframe must have the following columns:\nx, y, z, alpha, beta, gamma, duration. The duration column is the time in seconds to move to the next keyframe."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "TextBlob",
+        "description": "The IP address of the robot arm."
+      }
+    ]
+  }
+}

@@ -1,0 +1,332 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 231,
+                "height": 96,
+                "id": "TEXT-8602f29b-5477-4985-8ac6-07050e64e263",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "TEXT-8602f29b-5477-4985-8ac6-07050e64e263",
+                    "label": "DESCRIPTION",
+                    "func": "TEXT",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "value": {
+                            "type": "str",
+                            "default": "Hello World!",
+                            "desc": "The value set in Parameters",
+                            "functionName": "TEXT",
+                            "param": "value",
+                            "value": "This app shows how the DIFFERENTIATE node works. First we generate a linear function with the LINSPACE node. Then we differentiate it and visualize the resulting constant function with the LINE node."
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "_",
+                            "id": "_",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "text_blob: return the value being set in Parameters"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TEXT/TEXT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -171.63162155567034,
+                    "y": -779.7605075198269
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -171.63162155567034,
+                    "y": -779.7605075198269
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "LINSPACE-f391dcb6-2dfb-4450-8022-b899b1095ff2",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "LINSPACE-f391dcb6-2dfb-4450-8022-b899b1095ff2",
+                    "label": "LINSPACE",
+                    "func": "LINSPACE",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "start": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "The start point of the data.",
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": 0
+                        },
+                        "end": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The end point of the data.",
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": 100
+                        },
+                        "step": {
+                            "type": "int",
+                            "default": 1000,
+                            "desc": "The number of points in the vector.",
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": 100
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "multiple": false,
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "v: the vector between start and end with step number of points."
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -775.7340726440013,
+                    "y": -632.5724399615744
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -775.7340726440013,
+                    "y": -632.5724399615744
+                },
+                "dragging": true
+            },
+            {
+                "width": 273,
+                "height": 160,
+                "id": "DIFFERENTIATE-c1af02f6-43c0-48c4-b52f-f4bd9a2bfc29",
+                "type": "TRANSFORMERS",
+                "data": {
+                    "id": "DIFFERENTIATE-c1af02f6-43c0-48c4-b52f-f4bd9a2bfc29",
+                    "label": "DIFFERENTIATE",
+                    "func": "DIFFERENTIATE",
+                    "type": "TRANSFORMERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Vector",
+                            "multiple": false,
+                            "desc": "Input from which we get the x and y lists use in the derivative."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "x: the x-axis of the input.\ny: the result of the derivative."
+                        }
+                    ],
+                    "path": "PYTHON/nodes/TRANSFORMERS/CALCULUS/DIFFERENTIATE/DIFFERENTIATE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -500.4824069850409,
+                    "y": -816.4332375263893
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -500.4824069850409,
+                    "y": -816.4332375263893
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "TEXT_VIEW-d9150eea-c64f-450e-996c-bd79993499b6",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-d9150eea-c64f-450e-996c-bd79993499b6",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 110.34530667447498,
+                    "y": -842.9119492687587
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 110.34530667447498,
+                    "y": -842.9119492687587
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "LINE-7caa3ee4-0a68-4600-b24a-a4417ef32ef4",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "LINE-7caa3ee4-0a68-4600-b24a-a4417ef32ef4",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -141.92430593392956,
+                    "y": -566.3963477722937
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -141.92430593392956,
+                    "y": -566.3963477722937
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "LINE-cdb64a7b-c138-4fe7-bae2-8ce5edf8dffa",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "LINE-cdb64a7b-c138-4fe7-bae2-8ce5edf8dffa",
+                    "label": "LINE 1",
+                    "func": "LINE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -516.3565646056352,
+                    "y": -568.445822092722
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -516.3565646056352,
+                    "y": -568.445822092722
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "LINSPACE-f391dcb6-2dfb-4450-8022-b899b1095ff2",
+                "sourceHandle": "default",
+                "target": "DIFFERENTIATE-c1af02f6-43c0-48c4-b52f-f4bd9a2bfc29",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINSPACE-f391dcb6-2dfb-4450-8022-b899b1095ff2default-DIFFERENTIATE-c1af02f6-43c0-48c4-b52f-f4bd9a2bfc29default"
+            },
+            {
+                "source": "DIFFERENTIATE-c1af02f6-43c0-48c4-b52f-f4bd9a2bfc29",
+                "sourceHandle": "default",
+                "target": "TEXT-8602f29b-5477-4985-8ac6-07050e64e263",
+                "targetHandle": "_",
+                "id": "reactflow__edge-DIFFERENTIATE-c1af02f6-43c0-48c4-b52f-f4bd9a2bfc29default-TEXT-8602f29b-5477-4985-8ac6-07050e64e263_"
+            },
+            {
+                "source": "DIFFERENTIATE-c1af02f6-43c0-48c4-b52f-f4bd9a2bfc29",
+                "sourceHandle": "default",
+                "target": "LINE-7caa3ee4-0a68-4600-b24a-a4417ef32ef4",
+                "targetHandle": "default",
+                "id": "reactflow__edge-DIFFERENTIATE-c1af02f6-43c0-48c4-b52f-f4bd9a2bfc29default-LINE-7caa3ee4-0a68-4600-b24a-a4417ef32ef4default"
+            },
+            {
+                "source": "LINSPACE-f391dcb6-2dfb-4450-8022-b899b1095ff2",
+                "sourceHandle": "default",
+                "target": "LINE-cdb64a7b-c138-4fe7-bae2-8ce5edf8dffa",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINSPACE-f391dcb6-2dfb-4450-8022-b899b1095ff2default-LINE-cdb64a7b-c138-4fe7-bae2-8ce5edf8dffadefault"
+            },
+            {
+                "source": "TEXT-8602f29b-5477-4985-8ac6-07050e64e263",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-d9150eea-c64f-450e-996c-bd79993499b6",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TEXT-8602f29b-5477-4985-8ac6-07050e64e263default-TEXT_VIEW-d9150eea-c64f-450e-996c-bd79993499b6default"
+            }
+        ],
+        "viewport": {
+            "x": 328.30307914563144,
+            "y": 226.88940714410813,
+            "zoom": 0.5
+        }
+    }
+}

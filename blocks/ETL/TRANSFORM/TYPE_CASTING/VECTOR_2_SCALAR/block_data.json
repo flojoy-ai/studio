@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "If the vector consists of all boolean type data, then it reads the vector in binary number where True is 1 and False is 0.\nIt then converts the binary number into decimal number.\nIf the vector consists of all integer type data, then it sums up all the data and converts it into a scalar type data.",
+    "short_description": "Takes a vector and transform it into scalar data type.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "Vector",
+        "description": "The input vector that will be transformed into scalar data type."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Scalar",
+        "description": "The scalar that is generated from the given vector."
+      }
+    ]
+  }
+}

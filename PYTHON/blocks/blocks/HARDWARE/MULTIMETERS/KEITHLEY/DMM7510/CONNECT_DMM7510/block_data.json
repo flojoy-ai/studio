@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "Also sets the communication language to TSP.",
+    "short_description": "Open a VISA connection to a Keithley DMM7510.",
+    "parameters": [
+      {
+        "name": "device",
+        "type": "VisaDevice",
+        "description": "The connected VISA device."
+      }
+    ],
+    "returns": [
+      {
+        "name": "device_addr",
+        "type": "TextBlob",
+        "description": "The IP or VISA address of the VISA device."
+      }
+    ]
+  }
+}

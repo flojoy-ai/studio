@@ -1,0 +1,45 @@
+{
+  "docstring": {
+    "long_description": "Use the OUTPUT_2450 block to turn the output on or off.\n\nRequires a CONNECT_2450 block to create the connection.",
+    "short_description": "Set the source output settings.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_2450 block)."
+      },
+      {
+        "name": "function",
+        "type": "select, default=voltage",
+        "description": "The type of output to use."
+      },
+      {
+        "name": "level",
+        "type": "float, default=0",
+        "description": "The fixed voltage or current to output."
+      },
+      {
+        "name": "limit",
+        "type": "float, default=1",
+        "description": "Output limit (if function=voltage, current is limited and visa versa)."
+      },
+      {
+        "name": "terminal",
+        "type": "select, default=front",
+        "description": "The panel to output from."
+      },
+      {
+        "name": "protect",
+        "type": "select, default=NONE",
+        "description": "The overvoltage protection value."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "TextBlob",
+        "description": "Source settings"
+      }
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "The description of that function is as follows:\n\n    Bayesian confidence intervals for the mean, var, and std.",
+    "short_description": "The BAYES_MVS node is based on a numpy or scipy function.",
+    "parameters": [
+      {
+        "name": "data",
+        "type": "array_like",
+        "description": "Input data, if multi-dimensional it is flattened to 1-D by 'bayes_mvs'.\nRequires 2 or more data points."
+      },
+      {
+        "name": "alpha",
+        "type": "float",
+        "description": "Probability that the returned confidence interval contains the true parameter."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "type 'ordered pair', 'scalar', or 'matrix'"
+      }
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "long_description": "Requires a CONNECTION_DS1074Z node at the start of the app to connect with\nthe instrument. The VISA address will then be listed under 'connection'.\n\nThis node should also work with compatible DS1000Z oscilloscopes",
+  "short_description": "Sets the digital triggering channel and threshold level.",
+  "parameters": [
+    {
+      "name": "connection",
+      "type": "VisaConnection",
+      "description": "The VISA address (requires the CONNECTION_DS1074Z node)."
+    },
+    {
+      "name": "channel",
+      "type": "int",
+      "description": "Set the triggering channel, from 0-15."
+    },
+    {
+      "name": "level",
+      "type": "float",
+      "description": "The triggering level, in V."
+    },
+    {
+      "name": "slope",
+      "type": "select",
+      "description": "Which slope to detect the triggering time on."
+    }
+  ],
+  "returns": [
+    {
+      "name": null,
+      "type": "DataContainer",
+      "description": "TextBlob: summary of channel settings."
+    }
+  ]
+}

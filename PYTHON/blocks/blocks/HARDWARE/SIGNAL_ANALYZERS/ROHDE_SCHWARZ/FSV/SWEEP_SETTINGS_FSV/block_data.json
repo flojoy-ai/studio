@@ -1,0 +1,72 @@
+{
+  "docstring": {
+    "long_description": "Note that span/center and start/stop can be used equivalently if:\nstart = center - (span / 2) and stop = center + (span / 2).\n\nRequires a CONNECTION_FSV block at the start of the app to connect with\nthe instrument. The VISA address will then be listed under 'connection'.\n\nThis block should also work with compatible R&S network analyzers.",
+    "short_description": "Set sweep settings for a FSV.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_FSV block)."
+      },
+      {
+        "name": "span_or_range",
+        "type": "select",
+        "description": "X axis range, span (center and span) or range (start and stop)."
+      },
+      {
+        "name": "center",
+        "type": "float",
+        "description": "The center of the x axis range, in Hz."
+      },
+      {
+        "name": "span",
+        "type": "float",
+        "description": "The span of the x axis, in Hz."
+      },
+      {
+        "name": "start",
+        "type": "float",
+        "description": "The start point of the x axis, in Hz."
+      },
+      {
+        "name": "stop",
+        "type": "float",
+        "description": "The end point of the x axis, in Hz."
+      },
+      {
+        "name": "sweep_type",
+        "type": "select",
+        "description": "How the FSV sweeps along the x axis range."
+      },
+      {
+        "name": "sweep_type",
+        "type": "float",
+        "description": "The sweep time (set to auto if = 0), in seconds."
+      },
+      {
+        "name": "counts",
+        "type": "int",
+        "description": "Number of sweeps to do, (average optional in INIT_SWEEP_FSV)."
+      },
+      {
+        "name": "points",
+        "type": "int",
+        "description": "Number of x axis points to sweep."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "TextBlob",
+        "description": "Sweep settings summary."
+      }
+    ]
+  },
+  "videos": [
+    {
+      "title": "Read FM Radio Signals using Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=1crZxgWDAaw"
+    }
+  ]
+}

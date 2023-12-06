@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "Inputs\n------\ndefault: Vector\n    The input vector that will be transformed into matrix.",
+    "short_description": "Convert a Vector DataContainer to a Matrix DataContainer.",
+    "parameters": [
+      {
+        "name": "row",
+        "type": "int",
+        "description": "number of rows for the new matrix"
+      },
+      {
+        "name": "col",
+        "type": "int",
+        "description": "number of columns for the new matrix"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Matrix",
+        "description": "The matrix that is generated from the given vector and the parameters."
+      }
+    ]
+  }
+}

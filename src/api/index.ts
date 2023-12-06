@@ -10,10 +10,6 @@ export default {
   subscribeToElectronLogs: (func: (arg: string) => void) => {
     ipcRenderer.on(API.statusBarLogging, (event, data: string) => func(data));
   },
-  saveBlocks: () => ipcRenderer.invoke(API.saveBlocks),
-  updateBlocks: () => ipcRenderer.invoke(API.updateBlocks),
-  downloadBlocksFromMain: () => ipcRenderer.invoke(API.downloadBlocksFromMain),
-  changeBlocksPath: () => ipcRenderer.invoke(API.changeBlocksPath),
   checkPythonInstallation: (force?: boolean): Promise<InterpretersList> =>
     ipcRenderer.invoke(API.checkPythonInstallation, force),
   installPipx: (): Promise<string> => ipcRenderer.invoke(API.installPipx),

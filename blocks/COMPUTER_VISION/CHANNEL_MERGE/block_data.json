@@ -1,0 +1,35 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Return the merged RGBA channels of an image.",
+    "parameters": [
+      {
+        "name": "red",
+        "type": "Image",
+        "description": "The red channel of the image."
+      },
+      {
+        "name": "green",
+        "type": "Image",
+        "description": "The green channel of the image."
+      },
+      {
+        "name": "blue",
+        "type": "Image",
+        "description": "The blue channel of the image."
+      },
+      {
+        "name": "alpha",
+        "type": "Image",
+        "description": "The alpha channel of the image."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Image",
+        "description": "The image with each channel given by the appropriate channel\non the respective inputs."
+      }
+    ]
+  }
+}

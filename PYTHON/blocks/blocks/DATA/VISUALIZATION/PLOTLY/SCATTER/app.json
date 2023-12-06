@@ -1,0 +1,319 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 208,
+                "height": 96,
+                "id": "PLOTLY_DATASET-686a1fd9-8dab-4de2-80d6-21386dc65e34",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "PLOTLY_DATASET-686a1fd9-8dab-4de2-80d6-21386dc65e34",
+                    "label": "PLOTLY DATASET",
+                    "func": "PLOTLY_DATASET",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "dataset_key": {
+                            "type": "select",
+                            "default": "wind",
+                            "options": [
+                                "wind",
+                                "iris",
+                                "carshare",
+                                "tips",
+                                "election",
+                                "experiment",
+                                "gapminder",
+                                "medals_long",
+                                "medals_wide",
+                                "stocks"
+                            ],
+                            "functionName": "PLOTLY_DATASET",
+                            "param": "dataset_key",
+                            "value": "iris"
+                        }
+                    },
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\GENERATORS\\SAMPLE_DATASETS\\PLOTLY_DATASET\\PLOTLY_DATASET.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 96.7381246005109,
+                    "y": 744.7785434386891
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 96.7381246005109,
+                    "y": 744.7785434386891
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "TIMESERIES-a11c4d23-595e-4325-91ab-6901e4626395",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "TIMESERIES-a11c4d23-595e-4325-91ab-6901e4626395",
+                    "label": "TIMESERIES",
+                    "func": "TIMESERIES",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "start_date": {
+                            "type": "str",
+                            "default": "2023-01-01",
+                            "functionName": "TIMESERIES",
+                            "param": "start_date",
+                            "value": "2023-01-01"
+                        },
+                        "end_date": {
+                            "type": "str",
+                            "default": "2023-07-20",
+                            "functionName": "TIMESERIES",
+                            "param": "end_date",
+                            "value": "2023-07-20"
+                        }
+                    },
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\TIMESERIES\\TIMESERIES.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 96.06118244399238,
+                    "y": 329.71860208595893
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 96.06118244399238,
+                    "y": 329.71860208595893
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "MATRIX-8f1eae39-3d4b-4382-a18a-8db31ab0e1a8",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "MATRIX-8f1eae39-3d4b-4382-a18a-8db31ab0e1a8",
+                    "label": "MATRIX",
+                    "func": "MATRIX",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "row": {
+                            "type": "int",
+                            "default": 2,
+                            "functionName": "MATRIX",
+                            "param": "row",
+                            "value": "10"
+                        },
+                        "column": {
+                            "type": "int",
+                            "default": 2,
+                            "functionName": "MATRIX",
+                            "param": "column",
+                            "value": "10"
+                        }
+                    },
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Matrix"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\MATRIX\\MATRIX.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 107.17107103989554,
+                    "y": 547.4990642631835
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 107.17107103989554,
+                    "y": 547.4990642631835
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "SCATTER-8f064bb5-af44-44fd-82f4-9a948f3695b5",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "SCATTER-8f064bb5-af44-44fd-82f4-9a948f3695b5",
+                    "label": "SCATTER",
+                    "func": "SCATTER",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\SCATTER\\SCATTER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 345.47622757570446,
+                    "y": 453.29086666590865
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 345.47622757570446,
+                    "y": 453.29086666590865
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "SCATTER-bbfa1109-425d-457f-8f4f-bd6477f6ed0f",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "SCATTER-bbfa1109-425d-457f-8f4f-bd6477f6ed0f",
+                    "label": "SCATTER 1",
+                    "func": "SCATTER",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\SCATTER\\SCATTER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 761.4205476584486,
+                    "y": 659.4631580061657
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 761.4205476584486,
+                    "y": 659.4631580061657
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "SCATTER-a4744b2a-78e6-4874-a2ae-177e1dd6aa82",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "SCATTER-a4744b2a-78e6-4874-a2ae-177e1dd6aa82",
+                    "label": "SCATTER 2",
+                    "func": "SCATTER",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\SCATTER\\SCATTER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 713.7453784769118,
+                    "y": 248.50330062718808
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 713.7453784769118,
+                    "y": 248.50330062718808
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "TIMESERIES-a11c4d23-595e-4325-91ab-6901e4626395",
+                "sourceHandle": "default",
+                "target": "SCATTER-a4744b2a-78e6-4874-a2ae-177e1dd6aa82",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TIMESERIES-a11c4d23-595e-4325-91ab-6901e4626395default-SCATTER-a4744b2a-78e6-4874-a2ae-177e1dd6aa82default"
+            },
+            {
+                "source": "MATRIX-8f1eae39-3d4b-4382-a18a-8db31ab0e1a8",
+                "sourceHandle": "default",
+                "target": "SCATTER-8f064bb5-af44-44fd-82f4-9a948f3695b5",
+                "targetHandle": "default",
+                "id": "reactflow__edge-MATRIX-8f1eae39-3d4b-4382-a18a-8db31ab0e1a8default-SCATTER-8f064bb5-af44-44fd-82f4-9a948f3695b5default"
+            },
+            {
+                "source": "PLOTLY_DATASET-686a1fd9-8dab-4de2-80d6-21386dc65e34",
+                "sourceHandle": "default",
+                "target": "SCATTER-bbfa1109-425d-457f-8f4f-bd6477f6ed0f",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PLOTLY_DATASET-686a1fd9-8dab-4de2-80d6-21386dc65e34default-SCATTER-bbfa1109-425d-457f-8f4f-bd6477f6ed0fdefault"
+            }
+        ],
+        "viewport": {
+            "x": 606.4472645567363,
+            "y": 234.63130388602087,
+            "zoom": 0.9186369849831518
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+        }
+    ]
+}

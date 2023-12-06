@@ -1,0 +1,40 @@
+{
+  "docstring": {
+    "long_description": "Requires a CONNECT_DMM7510 block to create the connection.",
+    "short_description": "Changes the measurement filter settings for the DMM7510.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_DMM7510 block)."
+      },
+      {
+        "name": "on_off",
+        "type": "select, default=off",
+        "description": "Turn the filter on or off."
+      },
+      {
+        "name": "avg_type",
+        "type": "select, default=moving",
+        "description": "Use moving or repeating averaging."
+      },
+      {
+        "name": "count",
+        "type": "int, default=10",
+        "description": "The number of counts to average."
+      },
+      {
+        "name": "window",
+        "type": "float, default=0",
+        "description": "The size of the window, in percent."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "String",
+        "description": "Filter settings"
+      }
+    ]
+  }
+}

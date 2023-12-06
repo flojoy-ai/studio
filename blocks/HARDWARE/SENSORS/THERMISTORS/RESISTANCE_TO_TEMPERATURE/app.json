@@ -1,0 +1,1031 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "OPEN_SERIAL-5eb21077-20e8-4bfc-a4ca-e385f0caa518",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "OPEN_SERIAL-5eb21077-20e8-4bfc-a4ca-e385f0caa518",
+                    "label": "OPEN SERIAL",
+                    "func": "OPEN_SERIAL",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "device": {
+                            "type": "SerialDevice",
+                            "default": null,
+                            "desc": "The connected serial device.",
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "device",
+                            "value": "COM3"
+                        },
+                        "baudrate": {
+                            "type": "int",
+                            "default": 9600,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "baudrate",
+                            "value": 9600
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": null
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "pyserial",
+                            "v": "3.5"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/SERIAL/OPEN_SERIAL/OPEN_SERIAL.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -452.3775516722248,
+                    "y": -30.36289083803001
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -452.3775516722248,
+                    "y": -30.36289083803001
+                },
+                "dragging": true
+            },
+            {
+                "width": 168,
+                "height": 160,
+                "id": "VECTOR_INDEXING-8af6e98e-143a-4bbc-958c-7a1921e852b3",
+                "type": "ETL",
+                "data": {
+                    "id": "VECTOR_INDEXING-8af6e98e-143a-4bbc-958c-7a1921e852b3",
+                    "label": "VECTOR INDEXING",
+                    "func": "VECTOR_INDEXING",
+                    "type": "ETL",
+                    "ctrls": {
+                        "index": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "The index of the vector to return.",
+                            "overload": null,
+                            "functionName": "VECTOR_INDEXING",
+                            "param": "index",
+                            "value": 1
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "The scalar index of the input vector."
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/VECTOR_MANIPULATION/VECTOR_INDEXING/VECTOR_INDEXING.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 348.289829554803,
+                    "y": -230.13726644635827
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 348.289829554803,
+                    "y": -230.13726644635827
+                },
+                "dragging": true
+            },
+            {
+                "width": 168,
+                "height": 160,
+                "id": "VECTOR_INDEXING-994b32c9-33c8-433f-a335-94ba78bd0f79",
+                "type": "ETL",
+                "data": {
+                    "id": "VECTOR_INDEXING-994b32c9-33c8-433f-a335-94ba78bd0f79",
+                    "label": "VECTOR INDEXING 1",
+                    "func": "VECTOR_INDEXING",
+                    "type": "ETL",
+                    "ctrls": {
+                        "index": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "The index of the vector to return.",
+                            "overload": null,
+                            "functionName": "VECTOR_INDEXING",
+                            "param": "index",
+                            "value": 0
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "The scalar index of the input vector."
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/VECTOR_MANIPULATION/VECTOR_INDEXING/VECTOR_INDEXING.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 497.0274144241343,
+                    "y": -33.4749798355453
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 497.0274144241343,
+                    "y": -33.4749798355453
+                },
+                "dragging": true
+            },
+            {
+                "width": 96,
+                "height": 96,
+                "id": "APPEND-a72afa4e-1817-48ba-95c1-7afb4fd27629",
+                "type": "CONTROL_FLOW",
+                "data": {
+                    "id": "APPEND-a72afa4e-1817-48ba-95c1-7afb4fd27629",
+                    "label": "APPEND",
+                    "func": "APPEND",
+                    "type": "CONTROL_FLOW",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "primary_dp",
+                            "id": "primary_dp",
+                            "type": "OrderedPair|Matrix|DataFrame|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "Input that ends up \"on top\" of the resulting DataContainer."
+                        },
+                        {
+                            "name": "secondary_dp",
+                            "id": "secondary_dp",
+                            "type": "OrderedPair|Matrix|DataFrame|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "Input that ends up \"on the bottom\" of the resulting DataContainer."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Matrix|DataFrame|Vector",
+                            "desc": null
+                        }
+                    ],
+                    "path": "CONTROL_FLOW/LOOPS/APPEND/APPEND.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1173.2419796339022,
+                    "y": -333.75578858169024
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1173.2419796339022,
+                    "y": -333.75578858169024
+                },
+                "dragging": true
+            },
+            {
+                "width": 96,
+                "height": 96,
+                "id": "LOOP-b00ada23-a24c-4513-b1b4-e6a28e5065d8",
+                "type": "CONTROL_FLOW",
+                "data": {
+                    "id": "LOOP-b00ada23-a24c-4513-b1b4-e6a28e5065d8",
+                    "label": "LOOP",
+                    "func": "LOOP",
+                    "type": "CONTROL_FLOW",
+                    "ctrls": {
+                        "num_loops": {
+                            "type": "int",
+                            "default": -1,
+                            "desc": "number of times to iterate through body nodes, default is \"-1\" meaning infinity.",
+                            "overload": null,
+                            "functionName": "LOOP",
+                            "param": "num_loops",
+                            "value": 100
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "body",
+                            "id": "body",
+                            "type": "Any",
+                            "desc": "Forwards the input DataContainer to the body."
+                        },
+                        {
+                            "name": "end",
+                            "id": "end",
+                            "type": "Any",
+                            "desc": "Forwards the input DataContainer to the end."
+                        }
+                    ],
+                    "path": "CONTROL_FLOW/LOOPS/LOOP/LOOP.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 202.73054340530467,
+                    "y": 15.780741906682863
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 202.73054340530467,
+                    "y": 15.780741906682863
+                },
+                "dragging": true
+            },
+            {
+                "width": 96,
+                "height": 96,
+                "id": "APPEND-20fa8678-5e69-441a-bae1-0e7e32e8c6cb",
+                "type": "CONTROL_FLOW",
+                "data": {
+                    "id": "APPEND-20fa8678-5e69-441a-bae1-0e7e32e8c6cb",
+                    "label": "APPEND 1",
+                    "func": "APPEND",
+                    "type": "CONTROL_FLOW",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "primary_dp",
+                            "id": "primary_dp",
+                            "type": "OrderedPair|Matrix|DataFrame|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "Input that ends up \"on top\" of the resulting DataContainer."
+                        },
+                        {
+                            "name": "secondary_dp",
+                            "id": "secondary_dp",
+                            "type": "OrderedPair|Matrix|DataFrame|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "Input that ends up \"on the bottom\" of the resulting DataContainer."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Matrix|DataFrame|Vector",
+                            "desc": null
+                        }
+                    ],
+                    "path": "CONTROL_FLOW/LOOPS/APPEND/APPEND.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1162.3115624653708,
+                    "y": -42.82437913230356
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1162.3115624653708,
+                    "y": -42.82437913230356
+                },
+                "dragging": true
+            },
+            {
+                "width": 168,
+                "height": 160,
+                "id": "VECTOR_INDEXING-41750fcf-7856-4c86-b874-716c18946231",
+                "type": "ETL",
+                "data": {
+                    "id": "VECTOR_INDEXING-41750fcf-7856-4c86-b874-716c18946231",
+                    "label": "VECTOR INDEXING 2",
+                    "func": "VECTOR_INDEXING",
+                    "type": "ETL",
+                    "ctrls": {
+                        "index": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "The index of the vector to return.",
+                            "overload": null,
+                            "functionName": "VECTOR_INDEXING",
+                            "param": "index",
+                            "value": 1
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "The scalar index of the input vector."
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/VECTOR_MANIPULATION/VECTOR_INDEXING/VECTOR_INDEXING.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 705.7467110062474,
+                    "y": -573.3297492472373
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 705.7467110062474,
+                    "y": -573.3297492472373
+                },
+                "dragging": true
+            },
+            {
+                "width": 168,
+                "height": 160,
+                "id": "VECTOR_INDEXING-fcd99e6e-e834-4231-867d-c32e558aa248",
+                "type": "ETL",
+                "data": {
+                    "id": "VECTOR_INDEXING-fcd99e6e-e834-4231-867d-c32e558aa248",
+                    "label": "VECTOR INDEXING 3",
+                    "func": "VECTOR_INDEXING",
+                    "type": "ETL",
+                    "ctrls": {
+                        "index": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "The index of the vector to return.",
+                            "overload": null,
+                            "functionName": "VECTOR_INDEXING",
+                            "param": "index",
+                            "value": 0
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "The scalar index of the input vector."
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/VECTOR_MANIPULATION/VECTOR_INDEXING/VECTOR_INDEXING.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 803.184982012672,
+                    "y": -382.09770415178275
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 803.184982012672,
+                    "y": -382.09770415178275
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "FEEDBACK-11bf1d8b-0f79-4954-a7d6-1d32b295382c",
+                "type": "DATA",
+                "data": {
+                    "id": "FEEDBACK-11bf1d8b-0f79-4954-a7d6-1d32b295382c",
+                    "label": "FEEDBACK",
+                    "func": "FEEDBACK",
+                    "type": "DATA",
+                    "ctrls": {
+                        "referred_node": {
+                            "type": "NodeReference",
+                            "default": null,
+                            "desc": "The node ID to capture the result from.",
+                            "overload": null,
+                            "functionName": "FEEDBACK",
+                            "param": "referred_node",
+                            "value": "APPEND-a72afa4e-1817-48ba-95c1-7afb4fd27629"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "The result of the specified node ID, or the result of the parent node if it was not found."
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/FEEDBACK/FEEDBACK.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 782.5559053145205,
+                    "y": -197.04160245663152
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 782.5559053145205,
+                    "y": -197.04160245663152
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "FEEDBACK-df91c7bc-e294-49c5-b5bd-81678180ece5",
+                "type": "DATA",
+                "data": {
+                    "id": "FEEDBACK-df91c7bc-e294-49c5-b5bd-81678180ece5",
+                    "label": "FEEDBACK 1",
+                    "func": "FEEDBACK",
+                    "type": "DATA",
+                    "ctrls": {
+                        "referred_node": {
+                            "type": "NodeReference",
+                            "default": null,
+                            "desc": "The node ID to capture the result from.",
+                            "overload": null,
+                            "functionName": "FEEDBACK",
+                            "param": "referred_node",
+                            "value": "APPEND-20fa8678-5e69-441a-bae1-0e7e32e8c6cb"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "The result of the specified node ID, or the result of the parent node if it was not found."
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/FEEDBACK/FEEDBACK.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 795.1377006388858,
+                    "y": -33.6996552418656
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 795.1377006388858,
+                    "y": -33.6996552418656
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "LINE-d401e3f4-b1e5-4e2e-9cd1-267efc7d2abc",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-d401e3f4-b1e5-4e2e-9cd1-267efc7d2abc",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1379.5454963778677,
+                    "y": -129.00440046868778
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1379.5454963778677,
+                    "y": -129.00440046868778
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "LINE-d675e121-bb3b-4761-8e2d-78160f48972f",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-d675e121-bb3b-4761-8e2d-78160f48972f",
+                    "label": "LINE 1",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1387.926746426869,
+                    "y": -425.0400565974097
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1387.926746426869,
+                    "y": -425.0400565974097
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "RESISTANCE_TO_TEMPERATURE-ae979919-2e50-46a9-bcaf-9b2c1f50c349",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "RESISTANCE_TO_TEMPERATURE-ae979919-2e50-46a9-bcaf-9b2c1f50c349",
+                    "label": "RESISTANCE TO TEMPERATURE 1",
+                    "func": "RESISTANCE_TO_TEMPERATURE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "unit": {
+                            "type": "select",
+                            "options": [
+                                "K",
+                                "C",
+                                "F"
+                            ],
+                            "default": "K",
+                            "desc": "Which unit of temperature to return.",
+                            "overload": null,
+                            "functionName": "RESISTANCE_TO_TEMPERATURE",
+                            "param": "unit",
+                            "value": "C"
+                        },
+                        "nominal_resistance": {
+                            "type": "float",
+                            "default": 100000,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "RESISTANCE_TO_TEMPERATURE",
+                            "param": "nominal_resistance",
+                            "value": 10000
+                        },
+                        "nominal_temperature": {
+                            "type": "float",
+                            "default": 298.15,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "RESISTANCE_TO_TEMPERATURE",
+                            "param": "nominal_temperature",
+                            "value": 298.15
+                        },
+                        "beta_coefficient": {
+                            "type": "float",
+                            "default": 3950,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "RESISTANCE_TO_TEMPERATURE",
+                            "param": "beta_coefficient",
+                            "value": 3950
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "The resulting temperature."
+                        }
+                    ],
+                    "path": "HARDWARE/SENSORS/THERMISTORS/RESISTANCE_TO_TEMPERATURE/RESISTANCE_TO_TEMPERATURE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 925.304387962839,
+                    "y": -587.539002913551
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 925.304387962839,
+                    "y": -587.539002913551
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "RESISTANCE_TO_TEMPERATURE-2469a3e5-6fe5-4ce4-b6b3-951ed0bcef95",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "RESISTANCE_TO_TEMPERATURE-2469a3e5-6fe5-4ce4-b6b3-951ed0bcef95",
+                    "label": "RESISTANCE TO TEMPERATURE",
+                    "func": "RESISTANCE_TO_TEMPERATURE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "unit": {
+                            "type": "select",
+                            "options": [
+                                "K",
+                                "C",
+                                "F"
+                            ],
+                            "default": "K",
+                            "desc": "Which unit of temperature to return.",
+                            "overload": null,
+                            "functionName": "RESISTANCE_TO_TEMPERATURE",
+                            "param": "unit",
+                            "value": "C"
+                        },
+                        "nominal_resistance": {
+                            "type": "float",
+                            "default": 100000,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "RESISTANCE_TO_TEMPERATURE",
+                            "param": "nominal_resistance",
+                            "value": 10000
+                        },
+                        "nominal_temperature": {
+                            "type": "float",
+                            "default": 298.15,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "RESISTANCE_TO_TEMPERATURE",
+                            "param": "nominal_temperature",
+                            "value": 298.15
+                        },
+                        "beta_coefficient": {
+                            "type": "float",
+                            "default": 3950,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "RESISTANCE_TO_TEMPERATURE",
+                            "param": "beta_coefficient",
+                            "value": 3950
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "The resulting temperature."
+                        }
+                    ],
+                    "path": "HARDWARE/SENSORS/THERMISTORS/RESISTANCE_TO_TEMPERATURE/RESISTANCE_TO_TEMPERATURE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 555.6013789485376,
+                    "y": -249.6111904579954
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 555.6013789485376,
+                    "y": -249.6111904579954
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "SERIAL_SINGLE_MEASUREMENT-4fa7d00a-a60c-47e5-bc64-ed5b312a4cd9",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "SERIAL_SINGLE_MEASUREMENT-4fa7d00a-a60c-47e5-bc64-ed5b312a4cd9",
+                    "label": "SERIAL SINGLE MEASUREMENT",
+                    "func": "SERIAL_SINGLE_MEASUREMENT",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialDevice",
+                            "default": null,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SERIAL_SINGLE_MEASUREMENT",
+                            "param": "connection",
+                            "value": "COM3"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "The output from the serial device."
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/SERIAL/SERIAL_SINGLE_MEASUREMENT/SERIAL_SINGLE_MEASUREMENT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -138.78116839049494,
+                    "y": -24.35067093295237
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -138.78116839049494,
+                    "y": -24.35067093295237
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "SERIAL_SINGLE_MEASUREMENT-3c35cd6c-3c60-4ded-88b4-2d8af54e55c6",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "SERIAL_SINGLE_MEASUREMENT-3c35cd6c-3c60-4ded-88b4-2d8af54e55c6",
+                    "label": "SERIAL SINGLE MEASUREMENT 1",
+                    "func": "SERIAL_SINGLE_MEASUREMENT",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialDevice",
+                            "default": null,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SERIAL_SINGLE_MEASUREMENT",
+                            "param": "connection",
+                            "value": "COM3"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "The output from the serial device."
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/SERIAL/SERIAL_SINGLE_MEASUREMENT/SERIAL_SINGLE_MEASUREMENT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 408.21484438828344,
+                    "y": -584.7090290921851
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 408.21484438828344,
+                    "y": -584.7090290921851
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "APPEND-a72afa4e-1817-48ba-95c1-7afb4fd27629",
+                "sourceHandle": "default",
+                "target": "LINE-d675e121-bb3b-4761-8e2d-78160f48972f",
+                "targetHandle": "default",
+                "id": "reactflow__edge-APPEND-a72afa4e-1817-48ba-95c1-7afb4fd27629default-LINE-d675e121-bb3b-4761-8e2d-78160f48972fdefault"
+            },
+            {
+                "source": "APPEND-20fa8678-5e69-441a-bae1-0e7e32e8c6cb",
+                "sourceHandle": "default",
+                "target": "LINE-d401e3f4-b1e5-4e2e-9cd1-267efc7d2abc",
+                "targetHandle": "default",
+                "id": "reactflow__edge-APPEND-20fa8678-5e69-441a-bae1-0e7e32e8c6cbdefault-LINE-d401e3f4-b1e5-4e2e-9cd1-267efc7d2abcdefault"
+            },
+            {
+                "source": "VECTOR_INDEXING-fcd99e6e-e834-4231-867d-c32e558aa248",
+                "sourceHandle": "default",
+                "target": "APPEND-20fa8678-5e69-441a-bae1-0e7e32e8c6cb",
+                "targetHandle": "secondary_dp",
+                "id": "reactflow__edge-VECTOR_INDEXING-fcd99e6e-e834-4231-867d-c32e558aa248default-APPEND-20fa8678-5e69-441a-bae1-0e7e32e8c6cbsecondary_dp"
+            },
+            {
+                "source": "VECTOR_INDEXING-994b32c9-33c8-433f-a335-94ba78bd0f79",
+                "sourceHandle": "default",
+                "target": "FEEDBACK-df91c7bc-e294-49c5-b5bd-81678180ece5",
+                "targetHandle": "default",
+                "id": "reactflow__edge-VECTOR_INDEXING-994b32c9-33c8-433f-a335-94ba78bd0f79default-FEEDBACK-df91c7bc-e294-49c5-b5bd-81678180ece5default"
+            },
+            {
+                "source": "LOOP-b00ada23-a24c-4513-b1b4-e6a28e5065d8",
+                "sourceHandle": "body",
+                "target": "VECTOR_INDEXING-994b32c9-33c8-433f-a335-94ba78bd0f79",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LOOP-b00ada23-a24c-4513-b1b4-e6a28e5065d8body-VECTOR_INDEXING-994b32c9-33c8-433f-a335-94ba78bd0f79default"
+            },
+            {
+                "source": "LOOP-b00ada23-a24c-4513-b1b4-e6a28e5065d8",
+                "sourceHandle": "body",
+                "target": "VECTOR_INDEXING-8af6e98e-143a-4bbc-958c-7a1921e852b3",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LOOP-b00ada23-a24c-4513-b1b4-e6a28e5065d8body-VECTOR_INDEXING-8af6e98e-143a-4bbc-958c-7a1921e852b3default"
+            },
+            {
+                "source": "FEEDBACK-11bf1d8b-0f79-4954-a7d6-1d32b295382c",
+                "sourceHandle": "default",
+                "target": "APPEND-a72afa4e-1817-48ba-95c1-7afb4fd27629",
+                "targetHandle": "primary_dp",
+                "id": "reactflow__edge-FEEDBACK-11bf1d8b-0f79-4954-a7d6-1d32b295382cdefault-APPEND-a72afa4e-1817-48ba-95c1-7afb4fd27629primary_dp"
+            },
+            {
+                "source": "FEEDBACK-df91c7bc-e294-49c5-b5bd-81678180ece5",
+                "sourceHandle": "default",
+                "target": "APPEND-20fa8678-5e69-441a-bae1-0e7e32e8c6cb",
+                "targetHandle": "primary_dp",
+                "id": "reactflow__edge-FEEDBACK-df91c7bc-e294-49c5-b5bd-81678180ece5default-APPEND-20fa8678-5e69-441a-bae1-0e7e32e8c6cbprimary_dp"
+            },
+            {
+                "source": "VECTOR_INDEXING-8af6e98e-143a-4bbc-958c-7a1921e852b3",
+                "sourceHandle": "default",
+                "target": "RESISTANCE_TO_TEMPERATURE-2469a3e5-6fe5-4ce4-b6b3-951ed0bcef95",
+                "targetHandle": "default",
+                "id": "reactflow__edge-VECTOR_INDEXING-8af6e98e-143a-4bbc-958c-7a1921e852b3default-RESISTANCE_TO_TEMPERATURE-2469a3e5-6fe5-4ce4-b6b3-951ed0bcef95default"
+            },
+            {
+                "source": "RESISTANCE_TO_TEMPERATURE-2469a3e5-6fe5-4ce4-b6b3-951ed0bcef95",
+                "sourceHandle": "default",
+                "target": "FEEDBACK-11bf1d8b-0f79-4954-a7d6-1d32b295382c",
+                "targetHandle": "default",
+                "id": "reactflow__edge-RESISTANCE_TO_TEMPERATURE-2469a3e5-6fe5-4ce4-b6b3-951ed0bcef95default-FEEDBACK-11bf1d8b-0f79-4954-a7d6-1d32b295382cdefault"
+            },
+            {
+                "source": "VECTOR_INDEXING-41750fcf-7856-4c86-b874-716c18946231",
+                "sourceHandle": "default",
+                "target": "RESISTANCE_TO_TEMPERATURE-ae979919-2e50-46a9-bcaf-9b2c1f50c349",
+                "targetHandle": "default",
+                "id": "reactflow__edge-VECTOR_INDEXING-41750fcf-7856-4c86-b874-716c18946231default-RESISTANCE_TO_TEMPERATURE-ae979919-2e50-46a9-bcaf-9b2c1f50c349default"
+            },
+            {
+                "source": "RESISTANCE_TO_TEMPERATURE-ae979919-2e50-46a9-bcaf-9b2c1f50c349",
+                "sourceHandle": "default",
+                "target": "APPEND-a72afa4e-1817-48ba-95c1-7afb4fd27629",
+                "targetHandle": "secondary_dp",
+                "id": "reactflow__edge-RESISTANCE_TO_TEMPERATURE-ae979919-2e50-46a9-bcaf-9b2c1f50c349default-APPEND-a72afa4e-1817-48ba-95c1-7afb4fd27629secondary_dp"
+            },
+            {
+                "source": "OPEN_SERIAL-5eb21077-20e8-4bfc-a4ca-e385f0caa518",
+                "sourceHandle": "default",
+                "target": "SERIAL_SINGLE_MEASUREMENT-4fa7d00a-a60c-47e5-bc64-ed5b312a4cd9",
+                "targetHandle": "default",
+                "id": "reactflow__edge-OPEN_SERIAL-5eb21077-20e8-4bfc-a4ca-e385f0caa518default-SERIAL_SINGLE_MEASUREMENT-4fa7d00a-a60c-47e5-bc64-ed5b312a4cd9default"
+            },
+            {
+                "source": "SERIAL_SINGLE_MEASUREMENT-4fa7d00a-a60c-47e5-bc64-ed5b312a4cd9",
+                "sourceHandle": "default",
+                "target": "LOOP-b00ada23-a24c-4513-b1b4-e6a28e5065d8",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SERIAL_SINGLE_MEASUREMENT-4fa7d00a-a60c-47e5-bc64-ed5b312a4cd9default-LOOP-b00ada23-a24c-4513-b1b4-e6a28e5065d8default"
+            },
+            {
+                "source": "LOOP-b00ada23-a24c-4513-b1b4-e6a28e5065d8",
+                "sourceHandle": "body",
+                "target": "SERIAL_SINGLE_MEASUREMENT-3c35cd6c-3c60-4ded-88b4-2d8af54e55c6",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LOOP-b00ada23-a24c-4513-b1b4-e6a28e5065d8body-SERIAL_SINGLE_MEASUREMENT-3c35cd6c-3c60-4ded-88b4-2d8af54e55c6default"
+            },
+            {
+                "source": "SERIAL_SINGLE_MEASUREMENT-3c35cd6c-3c60-4ded-88b4-2d8af54e55c6",
+                "sourceHandle": "default",
+                "target": "VECTOR_INDEXING-41750fcf-7856-4c86-b874-716c18946231",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SERIAL_SINGLE_MEASUREMENT-3c35cd6c-3c60-4ded-88b4-2d8af54e55c6default-VECTOR_INDEXING-41750fcf-7856-4c86-b874-716c18946231default"
+            },
+            {
+                "source": "SERIAL_SINGLE_MEASUREMENT-3c35cd6c-3c60-4ded-88b4-2d8af54e55c6",
+                "sourceHandle": "default",
+                "target": "VECTOR_INDEXING-fcd99e6e-e834-4231-867d-c32e558aa248",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SERIAL_SINGLE_MEASUREMENT-3c35cd6c-3c60-4ded-88b4-2d8af54e55c6default-VECTOR_INDEXING-fcd99e6e-e834-4231-867d-c32e558aa248default"
+            }
+        ],
+        "viewport": {
+            "x": 890.1462582695028,
+            "y": 821.1574272615175,
+            "zoom": 0.6462043127855726
+        }
+    },
+    "textNodes": []
+}

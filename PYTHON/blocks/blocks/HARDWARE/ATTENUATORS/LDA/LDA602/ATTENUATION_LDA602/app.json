@@ -1,0 +1,266 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "ATTENUATION_LDA602-01a70384-a7a8-455e-afc5-58354a065a14",
+                "type": "IO",
+                "data": {
+                    "id": "ATTENUATION_LDA602-01a70384-a7a8-455e-afc5-58354a065a14",
+                    "label": "set ATTENUATION LDA602",
+                    "func": "ATTENUATION_LDA602",
+                    "type": "IO",
+                    "ctrls": {
+                        "serial_number": {
+                            "type": "int",
+                            "default": 839,
+                            "desc": "The serial number to connect to.",
+                            "overload": null,
+                            "functionName": "ATTENUATION_LDA602",
+                            "param": "serial_number",
+                            "value": 839
+                        },
+                        "query_set": {
+                            "type": "select",
+                            "options": [
+                                "query",
+                                "set"
+                            ],
+                            "default": "query",
+                            "desc": "Query or set the attenuation.",
+                            "overload": null,
+                            "functionName": "ATTENUATION_LDA602",
+                            "param": "query_set",
+                            "value": "set"
+                        },
+                        "attenuation": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "The actual set attenuation of the LDA.",
+                            "overload": null,
+                            "functionName": "ATTENUATION_LDA602",
+                            "param": "attenuation",
+                            "value": 63
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "TextBlob: The current attenuation value."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "qcodes-contrib-drivers",
+                            "v": "0.18.0"
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/ATTENUATORS/LDA/LDA602/ATTENUATION_LDA602/ATTENUATION_LDA602.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -274.44438190773985,
+                    "y": -73.26626661266889
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -274.44438190773985,
+                    "y": -73.26626661266889
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "ATTENUATION_LDA602-9fb837d5-04fa-499b-9690-e6bb317f470b",
+                "type": "IO",
+                "data": {
+                    "id": "ATTENUATION_LDA602-9fb837d5-04fa-499b-9690-e6bb317f470b",
+                    "label": "query ATTENUATION LDA602",
+                    "func": "ATTENUATION_LDA602",
+                    "type": "IO",
+                    "ctrls": {
+                        "serial_number": {
+                            "type": "int",
+                            "default": 839,
+                            "desc": "The serial number to connect to.",
+                            "overload": null,
+                            "functionName": "ATTENUATION_LDA602",
+                            "param": "serial_number",
+                            "value": 839
+                        },
+                        "query_set": {
+                            "type": "select",
+                            "options": [
+                                "query",
+                                "set"
+                            ],
+                            "default": "query",
+                            "desc": "Query or set the attenuation.",
+                            "overload": null,
+                            "functionName": "ATTENUATION_LDA602",
+                            "param": "query_set",
+                            "value": "query"
+                        },
+                        "attenuation": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "The actual set attenuation of the LDA.",
+                            "overload": null,
+                            "functionName": "ATTENUATION_LDA602",
+                            "param": "attenuation",
+                            "value": 63
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "TextBlob: The current attenuation value."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "qcodes-contrib-drivers",
+                            "v": "0.18.0"
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/ATTENUATORS/LDA/LDA602/ATTENUATION_LDA602/ATTENUATION_LDA602.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 130.34293392154294,
+                    "y": -72.57866849978348
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 130.34293392154294,
+                    "y": -72.57866849978348
+                },
+                "dragging": true
+            },
+            {
+                "width": 384,
+                "height": 288,
+                "id": "TEXT_VIEW-81987d18-dee4-4ad7-97b6-d9e578af8cd9",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-81987d18-dee4-4ad7-97b6-d9e578af8cd9",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 491.92005634995985,
+                    "y": -121.10237142182902
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 491.92005634995985,
+                    "y": -121.10237142182902
+                },
+                "dragging": true
+            },
+            {
+                "width": 384,
+                "height": 288,
+                "id": "TEXT_VIEW-e35abb45-2e39-4860-8788-fa174df6738f",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-e35abb45-2e39-4860-8788-fa174df6738f",
+                    "label": "TEXT VIEW 1",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 118.78073739813146,
+                    "y": -370.56072994021326
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 118.78073739813146,
+                    "y": -370.56072994021326
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "ATTENUATION_LDA602-01a70384-a7a8-455e-afc5-58354a065a14",
+                "sourceHandle": "default",
+                "target": "ATTENUATION_LDA602-9fb837d5-04fa-499b-9690-e6bb317f470b",
+                "targetHandle": "default",
+                "id": "reactflow__edge-ATTENUATION_LDA602-01a70384-a7a8-455e-afc5-58354a065a14default-ATTENUATION_LDA602-9fb837d5-04fa-499b-9690-e6bb317f470bdefault"
+            },
+            {
+                "source": "ATTENUATION_LDA602-9fb837d5-04fa-499b-9690-e6bb317f470b",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-81987d18-dee4-4ad7-97b6-d9e578af8cd9",
+                "targetHandle": "default",
+                "id": "reactflow__edge-ATTENUATION_LDA602-9fb837d5-04fa-499b-9690-e6bb317f470bdefault-TEXT_VIEW-81987d18-dee4-4ad7-97b6-d9e578af8cd9default"
+            },
+            {
+                "source": "ATTENUATION_LDA602-01a70384-a7a8-455e-afc5-58354a065a14",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-e35abb45-2e39-4860-8788-fa174df6738f",
+                "targetHandle": "default",
+                "id": "reactflow__edge-ATTENUATION_LDA602-01a70384-a7a8-455e-afc5-58354a065a14default-TEXT_VIEW-e35abb45-2e39-4860-8788-fa174df6738fdefault"
+            }
+        ],
+        "viewport": {
+            "x": 1139.470292881633,
+            "y": 572.2854272048312,
+            "zoom": 1.2136444284334926
+        }
+    }
+}

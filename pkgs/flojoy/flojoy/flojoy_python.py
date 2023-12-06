@@ -102,7 +102,7 @@ class cache_huggingface_to_flojoy(ContextDecorator):
 
 
 def display(
-    original_function: Callable[..., DataContainer | dict[str, Any]] | None = None
+    original_function: Callable[..., DataContainer | dict[str, Any]] | None = None,
 ):
     return original_function
 

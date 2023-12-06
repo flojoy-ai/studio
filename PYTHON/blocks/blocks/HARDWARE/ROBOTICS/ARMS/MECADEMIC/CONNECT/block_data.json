@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "The CONNECT node establishes a connection to the Mecademic robot arm via HTTP and activates the robot arm. The IP Address to use is the same one that is used to access the Mecademic web interface. Example: 192.168.0.100",
+    "parameters": [
+      {
+        "name": "ip_address",
+        "type": "str",
+        "description": "The IP address of the robot arm."
+      },
+      {
+        "name": "simulator",
+        "type": "bool",
+        "description": "Whether to activate the simulator or not. Defaults to False."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "TextBlob",
+        "description": "The IP address of the robot arm, used in other Mecademic nodes to establish which arm they are communicating with."
+      }
+    ]
+  }
+}

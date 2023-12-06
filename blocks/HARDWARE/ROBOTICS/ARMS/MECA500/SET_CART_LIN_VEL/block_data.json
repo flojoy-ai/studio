@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Set the robot arm's linear velocity in Cartesian coordinates.",
+    "parameters": [
+      {
+        "name": "v",
+        "type": "float",
+        "description": "The velocity to be set."
+      },
+      {
+        "name": "ip_address",
+        "type": "String",
+        "description": "The IP address of the robot arm"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "ip_address",
+        "description": "The IP address of the robot arm."
+      }
+    ]
+  }
+}

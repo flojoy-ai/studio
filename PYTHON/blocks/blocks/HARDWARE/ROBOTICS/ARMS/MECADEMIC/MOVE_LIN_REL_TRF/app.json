@@ -1,0 +1,398 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CONNECT-8808f575-3a8c-4985-8744-a697ff79c40d",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "CONNECT-8808f575-3a8c-4985-8744-a697ff79c40d",
+                    "label": "CONNECT",
+                    "func": "CONNECT",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "ip_address": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "The IP address of the robot arm.",
+                            "overload": null,
+                            "functionName": "CONNECT",
+                            "param": "ip_address",
+                            "value": "192.168.0.100"
+                        },
+                        "simulator": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to activate the simulator or not. Defaults to False.",
+                            "overload": null,
+                            "functionName": "CONNECT",
+                            "param": "simulator",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "The IP address of the robot arm, used in other Mecademic nodes to establish which arm they are communicating with."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "mecademicpy",
+                            "v": "1.4.0"
+                        }
+                    ],
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/CONNECT/CONNECT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -451.20434004901955,
+                    "y": -60.904869691378984
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -451.20434004901955,
+                    "y": -60.904869691378984
+                }
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "HOME-5de5f4dc-0f9a-422b-9291-676590b27f38",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "HOME-5de5f4dc-0f9a-422b-9291-676590b27f38",
+                    "label": "HOME",
+                    "func": "HOME",
+                    "type": "HARDWARE",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "ip_address",
+                            "id": "ip_address",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "The IP address of the robot arm."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "The IP address of the robot arm."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "mecademicpy",
+                            "v": "1.4.0"
+                        }
+                    ],
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/HOME/HOME.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -67.52953161935635,
+                    "y": -57.67086561680469
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -67.52953161935635,
+                    "y": -57.67086561680469
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "SET_TRF-9a052f4a-e4c6-4d9e-99a8-26ada24487ef",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "SET_TRF-9a052f4a-e4c6-4d9e-99a8-26ada24487ef",
+                    "label": "SET TRF",
+                    "func": "SET_TRF",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "rf_x": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The X coordinate of the reference plane. If not specified, the default value of 0.0 is used.",
+                            "overload": null,
+                            "functionName": "SET_TRF",
+                            "param": "rf_x",
+                            "value": 0
+                        },
+                        "rf_y": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The Y coordinate of the reference plane. If not specified, the default value of 0.0 is used.",
+                            "overload": null,
+                            "functionName": "SET_TRF",
+                            "param": "rf_y",
+                            "value": 0
+                        },
+                        "rf_z": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The Z coordinate of the reference plane. If not specified, the default value of 0.0 is used.",
+                            "overload": null,
+                            "functionName": "SET_TRF",
+                            "param": "rf_z",
+                            "value": 0
+                        },
+                        "rf_a": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The alpha angle of the reference plane. If not specified, the default value of 0.0 is used.",
+                            "overload": null,
+                            "functionName": "SET_TRF",
+                            "param": "rf_a",
+                            "value": 0
+                        },
+                        "rf_b": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The beta angle of the reference plane. If not specified, the default value of 0.0 is used.",
+                            "overload": null,
+                            "functionName": "SET_TRF",
+                            "param": "rf_b",
+                            "value": 0
+                        },
+                        "rf_g": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The gamma angle of the reference plane. If not specified, the default value of 0.0 is used.",
+                            "overload": null,
+                            "functionName": "SET_TRF",
+                            "param": "rf_g",
+                            "value": 0
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "ip_address",
+                            "id": "ip_address",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "The IP address of the robot arm."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "The IP address of the robot arm."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "mecademicpy",
+                            "v": "1.4.0"
+                        }
+                    ],
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/SET_TRF/SET_TRF.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 264.6295379344546,
+                    "y": -54.72653533790697
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 264.6295379344546,
+                    "y": -54.72653533790697
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "MOVE_LIN_REL_TRF-ac41efb4-012f-4179-95cd-9c002a1a5bca",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "MOVE_LIN_REL_TRF-ac41efb4-012f-4179-95cd-9c002a1a5bca",
+                    "label": "MOVE LIN REL TRF",
+                    "func": "MOVE_LIN_REL_TRF",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "x": {
+                            "type": "float",
+                            "default": null,
+                            "desc": "The x coordinate of the position to move to",
+                            "overload": null,
+                            "functionName": "MOVE_LIN_REL_TRF",
+                            "param": "x",
+                            "value": 120
+                        },
+                        "y": {
+                            "type": "float",
+                            "default": null,
+                            "desc": "The y coordinate of the position to move to",
+                            "overload": null,
+                            "functionName": "MOVE_LIN_REL_TRF",
+                            "param": "y",
+                            "value": 23
+                        },
+                        "z": {
+                            "type": "float",
+                            "default": null,
+                            "desc": "The z coordinate of the position to move to",
+                            "overload": null,
+                            "functionName": "MOVE_LIN_REL_TRF",
+                            "param": "z",
+                            "value": 231
+                        },
+                        "alpha": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The alpha coordinate (rotation in radians about the x axis) of the position to move to.",
+                            "overload": null,
+                            "functionName": "MOVE_LIN_REL_TRF",
+                            "param": "alpha",
+                            "value": 0
+                        },
+                        "beta": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The beta coordinate   (rotation in radians about the y axis) of the position to move to.",
+                            "overload": null,
+                            "functionName": "MOVE_LIN_REL_TRF",
+                            "param": "beta",
+                            "value": 0
+                        },
+                        "gamma": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The gamma coordinate (rotation in radians about the z axis) of the position to move to.",
+                            "overload": null,
+                            "functionName": "MOVE_LIN_REL_TRF",
+                            "param": "gamma",
+                            "value": 0
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "ip_address",
+                            "id": "ip_address",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "The IP address of the robot arm."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "The IP address of the robot arm."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "mecademicpy",
+                            "v": "1.4.0"
+                        }
+                    ],
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/MOVE_LIN_REL_TRF/MOVE_LIN_REL_TRF.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 602.1636672816304,
+                    "y": -50.26447523084056
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 602.1636672816304,
+                    "y": -50.26447523084056
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "DISCONNECT-270b52f0-d89b-4c0f-a0c4-71d9088bbdc8",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "DISCONNECT-270b52f0-d89b-4c0f-a0c4-71d9088bbdc8",
+                    "label": "DISCONNECT",
+                    "func": "DISCONNECT",
+                    "type": "HARDWARE",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "ip_address",
+                            "id": "ip_address",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "The IP address of the robot arm."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "mecademicpy",
+                            "v": "1.4.0"
+                        }
+                    ],
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/DISCONNECT/DISCONNECT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 959.789519687517,
+                    "y": -73.75356165646582
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 959.789519687517,
+                    "y": -73.75356165646582
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "CONNECT-8808f575-3a8c-4985-8744-a697ff79c40d",
+                "sourceHandle": "default",
+                "target": "HOME-5de5f4dc-0f9a-422b-9291-676590b27f38",
+                "targetHandle": "ip_address",
+                "id": "reactflow__edge-CONNECT-8808f575-3a8c-4985-8744-a697ff79c40ddefault-HOME-5de5f4dc-0f9a-422b-9291-676590b27f38ip_address"
+            },
+            {
+                "source": "HOME-5de5f4dc-0f9a-422b-9291-676590b27f38",
+                "sourceHandle": "default",
+                "target": "SET_TRF-9a052f4a-e4c6-4d9e-99a8-26ada24487ef",
+                "targetHandle": "ip_address",
+                "id": "reactflow__edge-HOME-5de5f4dc-0f9a-422b-9291-676590b27f38default-SET_TRF-9a052f4a-e4c6-4d9e-99a8-26ada24487efip_address"
+            },
+            {
+                "source": "SET_TRF-9a052f4a-e4c6-4d9e-99a8-26ada24487ef",
+                "sourceHandle": "default",
+                "target": "MOVE_LIN_REL_TRF-ac41efb4-012f-4179-95cd-9c002a1a5bca",
+                "targetHandle": "ip_address",
+                "id": "reactflow__edge-SET_TRF-9a052f4a-e4c6-4d9e-99a8-26ada24487efdefault-MOVE_LIN_REL_TRF-ac41efb4-012f-4179-95cd-9c002a1a5bcaip_address"
+            },
+            {
+                "source": "MOVE_LIN_REL_TRF-ac41efb4-012f-4179-95cd-9c002a1a5bca",
+                "sourceHandle": "default",
+                "target": "DISCONNECT-270b52f0-d89b-4c0f-a0c4-71d9088bbdc8",
+                "targetHandle": "ip_address",
+                "id": "reactflow__edge-MOVE_LIN_REL_TRF-ac41efb4-012f-4179-95cd-9c002a1a5bcadefault-DISCONNECT-270b52f0-d89b-4c0f-a0c4-71d9088bbdc8ip_address"
+            }
+        ],
+        "viewport": {
+            "x": 828.0110268252124,
+            "y": 536.5928265048133,
+            "zoom": 0.8332097522012074
+        }
+    },
+    "textNodes": []
+}

@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "The file currently can only be located in the instruments C drive (C:/)\n\nRequires a CONNECT_MSO2X block to create the connection.\n\nTested on MSO22 and MSO24.",
+    "short_description": "Saves or recalls a instrument setup file (.set).",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_MSO2X block)."
+      },
+      {
+        "name": "save_or_recall",
+        "type": "select, default=save",
+        "description": "Save or recall the file."
+      },
+      {
+        "name": "filename",
+        "type": "str, default=flojoy",
+        "description": "The file name to save or recall (e.g. c:/flojoy.set)."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "TextBlob",
+        "description": "Filename"
+      }
+    ]
+  }
+}

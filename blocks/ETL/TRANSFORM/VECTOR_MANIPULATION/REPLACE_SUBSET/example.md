@@ -1,0 +1,1 @@
+In this example, we generate a vector by using a `LINSPACE` node. Then indices 1, 4, 6 are replaced with values -5, 22, 13 respectively using `REPLACE_SUBSET`. The resulting vector is visualized with `SCATTER` node.

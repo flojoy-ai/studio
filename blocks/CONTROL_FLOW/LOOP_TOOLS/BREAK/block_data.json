@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "It should be used in conjunction with conditionals to determine when to break the loop.\nIt is needed to be able to generate 'while loops' in Flojoy (combined with an 'infinite loop').",
+    "short_description": "End the iteration of a loop.",
+    "parameters": [
+      {
+        "name": "referred_node",
+        "type": "NodeReference",
+        "description": "This is the specific instance of a LOOP node that you want to break.\nIt is required to differentiate between multiple LOOPs if they exist\nin the same application."
+      },
+      {
+        "name": "default",
+        "type": "DataContainer",
+        "description": "This node simply requires an input (most likely from\nthe return of a CONDITIONAL node) so that it is executed."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "None",
+        "description": null
+      }
+    ]
+  }
+}

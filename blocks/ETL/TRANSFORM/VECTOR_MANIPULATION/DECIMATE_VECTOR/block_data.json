@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "number of points by given factor\n\nInputs\n------\ndefault : Vector\n    The input vector",
+    "short_description": "The DECIMATE_VECTOR node returns the input vector by reducing the",
+    "parameters": [
+      {
+        "name": "factor",
+        "type": "int",
+        "description": "Decimate factor which determines how many elements will be skipped\nbetween each selected element in the output vector"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Vector",
+        "description": "Decimated vector"
+      }
+    ]
+  }
+}

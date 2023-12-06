@@ -1,0 +1,73 @@
+{
+  "long_description": "Requires a CONNECTION_DS1074Z node at the start of the app to connect with\nthe instrument. The VISA address will then be listed under 'connection'.\n\nThis node should also work with compatible DS1000Z oscilloscopes",
+  "short_description": "Controls the function generator, AKA 'Source' 1 and 2.",
+  "parameters": [
+    {
+      "name": "connection",
+      "type": "VisaConnection",
+      "description": "The VISA address (requires the CONNECTION_DS1074Z node)."
+    },
+    {
+      "name": "source",
+      "type": "int",
+      "description": "Control source 1 or 2."
+    },
+    {
+      "name": "source_on",
+      "type": "bool",
+      "description": "Turn the wavefunction generator on (True) or off (False.)"
+    },
+    {
+      "name": "impedance",
+      "type": "str",
+      "description": "Use high (~1e6) or 50 Ohm impedance."
+    },
+    {
+      "name": "frequency",
+      "type": "float",
+      "description": "The output frequency, in Hz."
+    },
+    {
+      "name": "phase",
+      "type": "float = 0",
+      "description": "The output frequency, in degrees."
+    },
+    {
+      "name": "align_phases",
+      "type": "bool",
+      "description": "Align the phases of source 1 and 2 (use after both phases are set)."
+    },
+    {
+      "name": "function",
+      "type": "str",
+      "description": "Choose the desired wavefunction shape."
+    },
+    {
+      "name": "amplitude",
+      "type": "float",
+      "description": "Peak-to-peak amplitude, in V."
+    },
+    {
+      "name": "voltage_offset",
+      "type": "float",
+      "description": "The vertical voltage offset, in V."
+    },
+    {
+      "name": "ramp_symmetry",
+      "type": "float = 0,",
+      "description": "The symmetry of the ramp wavefunction, if used. 0-100%."
+    },
+    {
+      "name": "duty_cycle",
+      "type": "float = 0,",
+      "description": "The duty cycle of the pulse wavefunction, if used. 0-100%."
+    }
+  ],
+  "returns": [
+    {
+      "name": null,
+      "type": "DataContainer",
+      "description": "TextBlob: summary of channel settings."
+    }
+  ]
+}

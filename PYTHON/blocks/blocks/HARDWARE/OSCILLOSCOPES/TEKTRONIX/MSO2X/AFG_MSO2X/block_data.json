@@ -1,0 +1,65 @@
+{
+  "docstring": {
+    "long_description": "Requires a CONNECT_MSO2X block to create the connection.\n\nTested on MSO22 and MSO24.",
+    "short_description": "Set the MSO2XX Function Generator settings.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_MSO2X block)."
+      },
+      {
+        "name": "function",
+        "type": "select, default=sine",
+        "description": "The type of waveform to use."
+      },
+      {
+        "name": "frequency",
+        "type": "float, default=100e6",
+        "description": "The frequency of the waveform, in Hz."
+      },
+      {
+        "name": "amplitude",
+        "type": "float, default=0.2",
+        "description": "The peak to peak voltage of the waveform, in volts."
+      },
+      {
+        "name": "offset",
+        "type": "float, default=0",
+        "description": "The voltage offset of the waveform, in volts."
+      },
+      {
+        "name": "ramp_symmetry",
+        "type": "float, default=50",
+        "description": "The ramp symmetry if the ramp waveform is used, in percent."
+      },
+      {
+        "name": "square_duty",
+        "type": "float, default=50",
+        "description": "The duty of the square waveform if used, in percent."
+      },
+      {
+        "name": "pulse_width",
+        "type": "float, default=1e-6",
+        "description": "The pulse width in seconds if the pulse waveform is used."
+      },
+      {
+        "name": "impedance",
+        "type": "select, default=unchanged",
+        "description": "The impedance of the output."
+      },
+      {
+        "name": "mode",
+        "type": "select, default=continuous",
+        "description": "The mode to use."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "TextBlob",
+        "description": "AFG settings"
+      }
+    ]
+  }
+}

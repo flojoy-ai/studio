@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "Use the SOURCE_2450 block to change the source settings.\n\nRequires a CONNECT_2450 block to create the connection.",
+    "short_description": "Turns the source output on or off.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_2450 block)."
+      },
+      {
+        "name": "output",
+        "type": "select, default=off",
+        "description": "Turn the output on or off."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "TextBlob",
+        "description": "Output settings"
+      }
+    ]
+  }
+}

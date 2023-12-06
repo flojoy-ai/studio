@@ -1,0 +1,27 @@
+{
+  "docstring": {
+    "long_description": "From the Prologix manual:\n\nIn Controller mode, the GPIB-USB Controller acts as the Controller-In-Charge (CIC)\non the GPIB bus. When the controller receives a command over the USB port\nterminated by the USB terminator \u2013 CR (ASCII 13) or LF (ASCII 10) \u2013 it addresses the\nGPIB instrument at the currently specified address (See ++addr command) to listen, and\npasses along the received data.\n\nIn Device mode, Prologix GPIB-USB Controller acts as another peripheral on the GPIB\nbus. In this mode, the controller can act as a GPIB TALKER or GPIB LISTENER\nonly. Since Prologix GPIB-USB Controller is not the Controller-In-Charge while in this\nmode, it expects to receive commands from a GPIB controller. When Device mode is\nenabled Prologix GPIB-USB controller configures itself as a GPIB Listener. All data\nreceived by the controller over the GPIB port is passed along to the USB port without\nbuffering.\n\nInputs\n------\ndefault: DataContainer\n    Any DataContainer - likely connected to the output of the OPEN_SERIAL block.",
+    "short_description": "Set the mode of the Prologix USB-to-GPIB controller - 1 for CONTROLLER mode and 0 for DEVICE mode.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "Serial",
+        "description": "The open serial connection with the instrument."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "TextBlob",
+        "description": "Response from the Prologix USB-to-GPIB controller."
+      }
+    ]
+  },
+  "videos": [
+    {
+      "title": "Control Agilent 34410A multimeter with Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=jaN89-ijxL0"
+    }
+  ]
+}

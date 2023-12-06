@@ -1,0 +1,1 @@
+In this example, we generate a vector by using a `LINSPACE` node. Then the values located at indices 3, 1, 9 are extracted using `VECTOR_SUBSET`. The resulting vector is visualized with `SCATTER` node.

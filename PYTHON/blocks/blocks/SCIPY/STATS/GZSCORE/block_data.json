@@ -1,0 +1,35 @@
+{
+  "docstring": {
+    "long_description": "The description of that function is as follows:\n\n    Compute the geometric standard score.\n\n    Compute the geometric z score of each strictly positive value in the sample, relative to the geometric mean and standard deviation.\n\n    Mathematically the geometric z score can be evaluated as::\n\n        gzscore = log(a/gmu) / log(gsigma)\n\n        where ``gmu`` (resp. ``gsigma``) is the geometric mean (resp. standard\n        deviation).",
+    "short_description": "The GZSCORE node is based on a numpy or scipy function.",
+    "parameters": [
+      {
+        "name": "a",
+        "type": "array_like",
+        "description": "Sample data."
+      },
+      {
+        "name": "axis",
+        "type": "int or None",
+        "description": "Axis along which to operate.\nDefault is 0.\nIf None, compute over the whole array 'a'."
+      },
+      {
+        "name": "ddof",
+        "type": "int",
+        "description": "Degrees of freedom correction in the calculation of the standard deviation.\nDefault is 0."
+      },
+      {
+        "name": "nan_policy",
+        "type": "{'propagate', 'raise', 'omit'}",
+        "description": "Defines how to handle when input contains nan. 'propagate' returns nan,\n'raise' throws an error, 'omit' performs the calculations ignoring nan values.\nDefault is 'propagate'.\nNote that when the value is 'omit', nans in the input also propagate to the output,\nbut they do not affect the geometric z scores computed for the non-nan values."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "type 'ordered pair', 'scalar', or 'matrix'"
+      }
+    ]
+  }
+}

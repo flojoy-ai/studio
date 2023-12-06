@@ -1,0 +1,254 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 208,
+                "height": 96,
+                "id": "VEC_2_LINSPACE-328c0f00-2689-4e04-bafd-5dca4e9faab3",
+                "type": "DATA",
+                "data": {
+                    "id": "VEC_2_LINSPACE-328c0f00-2689-4e04-bafd-5dca4e9faab3",
+                    "label": "VEC 2 LINSPACE",
+                    "func": "VEC_2_LINSPACE",
+                    "type": "DATA",
+                    "ctrls": {
+                        "start": {
+                            "type": "float",
+                            "default": -10,
+                            "desc": "The start point of the data.",
+                            "overload": null,
+                            "functionName": "VEC_2_LINSPACE",
+                            "param": "start",
+                            "value": -10
+                        },
+                        "end": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "The end point of the data.",
+                            "overload": null,
+                            "functionName": "VEC_2_LINSPACE",
+                            "param": "end",
+                            "value": 10
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar|Vector",
+                            "multiple": false,
+                            "desc": "Length of resulting linspace vector."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/VEC_2_LINSPACE/VEC_2_LINSPACE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -84.17949055816325,
+                    "y": -96.55938108577868
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -84.17949055816325,
+                    "y": -96.55938108577868
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "VECTOR-5a422069-2a18-461a-ad80-ada8b0b4474a",
+                "type": "DATA",
+                "data": {
+                    "id": "VECTOR-5a422069-2a18-461a-ad80-ada8b0b4474a",
+                    "label": "VECTOR",
+                    "func": "VECTOR",
+                    "type": "DATA",
+                    "ctrls": {
+                        "elements": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "The elements that should be in the vector",
+                            "overload": null,
+                            "functionName": "VECTOR",
+                            "param": "elements",
+                            "value": "1,2,3,5,8,13,21,44"
+                        },
+                        "elements_type": {
+                            "type": "select",
+                            "options": [
+                                "boolean",
+                                "numeric"
+                            ],
+                            "default": "boolean",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "VECTOR",
+                            "param": "elements_type",
+                            "value": "numeric"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "The vector consists of the elements."
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/VECTOR/VECTOR.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -378.19781439363095,
+                    "y": 19.346137180323296
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -378.19781439363095,
+                    "y": 19.346137180323296
+                },
+                "dragging": true
+            },
+            {
+                "width": 160,
+                "height": 160,
+                "id": "VECTOR_2_ORDERED_PAIR-8be017a9-20a4-40e3-8e21-a043f6d9d94e",
+                "type": "ETL",
+                "data": {
+                    "id": "VECTOR_2_ORDERED_PAIR-8be017a9-20a4-40e3-8e21-a043f6d9d94e",
+                    "label": "VECTOR 2 ORDERED PAIR",
+                    "func": "VECTOR_2_ORDERED_PAIR",
+                    "type": "ETL",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "multiple": false,
+                            "desc": "The input vector that will be the x axis of OrderedPair."
+                        },
+                        {
+                            "name": "y",
+                            "id": "y",
+                            "type": "Vector",
+                            "multiple": false,
+                            "desc": "The input vector that will be the y axis of OrderedPair."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "The OrderedPair that is generated from the input vectors"
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/TYPE_CASTING/VECTOR_2_ORDERED_PAIR/VECTOR_2_ORDERED_PAIR.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 222.6119139759316,
+                    "y": -37.697154242157126
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 222.6119139759316,
+                    "y": -37.697154242157126
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "BAR-0453d463-5da2-42a2-a847-709805d66330",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "BAR-0453d463-5da2-42a2-a847-709805d66330",
+                    "label": "BAR",
+                    "func": "BAR",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in a bar chart"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Bar chart visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/BAR/BAR.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 541.018872731385,
+                    "y": -103.5137973042655
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 541.018872731385,
+                    "y": -103.5137973042655
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "VECTOR-5a422069-2a18-461a-ad80-ada8b0b4474a",
+                "sourceHandle": "default",
+                "target": "VEC_2_LINSPACE-328c0f00-2689-4e04-bafd-5dca4e9faab3",
+                "targetHandle": "default",
+                "id": "reactflow__edge-VECTOR-5a422069-2a18-461a-ad80-ada8b0b4474adefault-VEC_2_LINSPACE-328c0f00-2689-4e04-bafd-5dca4e9faab3default"
+            },
+            {
+                "source": "VEC_2_LINSPACE-328c0f00-2689-4e04-bafd-5dca4e9faab3",
+                "sourceHandle": "default",
+                "target": "VECTOR_2_ORDERED_PAIR-8be017a9-20a4-40e3-8e21-a043f6d9d94e",
+                "targetHandle": "default",
+                "id": "reactflow__edge-VEC_2_LINSPACE-328c0f00-2689-4e04-bafd-5dca4e9faab3default-VECTOR_2_ORDERED_PAIR-8be017a9-20a4-40e3-8e21-a043f6d9d94edefault"
+            },
+            {
+                "source": "VECTOR-5a422069-2a18-461a-ad80-ada8b0b4474a",
+                "sourceHandle": "default",
+                "target": "VECTOR_2_ORDERED_PAIR-8be017a9-20a4-40e3-8e21-a043f6d9d94e",
+                "targetHandle": "y",
+                "id": "reactflow__edge-VECTOR-5a422069-2a18-461a-ad80-ada8b0b4474adefault-VECTOR_2_ORDERED_PAIR-8be017a9-20a4-40e3-8e21-a043f6d9d94ey"
+            },
+            {
+                "source": "VECTOR_2_ORDERED_PAIR-8be017a9-20a4-40e3-8e21-a043f6d9d94e",
+                "sourceHandle": "default",
+                "target": "BAR-0453d463-5da2-42a2-a847-709805d66330",
+                "targetHandle": "default",
+                "id": "reactflow__edge-VECTOR_2_ORDERED_PAIR-8be017a9-20a4-40e3-8e21-a043f6d9d94edefault-BAR-0453d463-5da2-42a2-a847-709805d66330default"
+            }
+        ],
+        "viewport": {
+            "x": 493.2364587353772,
+            "y": 502.07029082007256,
+            "zoom": 0.5
+        }
+    },
+    "textNodes": []
+}

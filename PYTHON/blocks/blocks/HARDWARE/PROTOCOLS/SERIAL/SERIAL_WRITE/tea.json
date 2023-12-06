@@ -1,0 +1,754 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "OPEN_SERIAL-b76e4a1f-92f0-4446-9524-82d2748f78c6",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "OPEN_SERIAL-b76e4a1f-92f0-4446-9524-82d2748f78c6",
+                    "label": "OPEN SERIAL",
+                    "func": "OPEN_SERIAL",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "device": {
+                            "type": "SerialDevice",
+                            "default": null,
+                            "desc": "The connected serial device.",
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "device",
+                            "value": "COM3"
+                        },
+                        "baudrate": {
+                            "type": "int",
+                            "default": 9600,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "baudrate",
+                            "value": 9600
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": null
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "pyserial",
+                            "v": "3.5"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/SERIAL/OPEN_SERIAL/OPEN_SERIAL.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -505.9417308926332,
+                    "y": -160.5655669263865
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -505.9417308926332,
+                    "y": -160.5655669263865
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "SERIAL_SINGLE_MEASUREMENT-697661ec-bbc7-4cbc-9614-8e89ee5d066c",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "SERIAL_SINGLE_MEASUREMENT-697661ec-bbc7-4cbc-9614-8e89ee5d066c",
+                    "label": "SERIAL SINGLE MEASUREMENT",
+                    "func": "SERIAL_SINGLE_MEASUREMENT",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialDevice",
+                            "default": null,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SERIAL_SINGLE_MEASUREMENT",
+                            "param": "connection",
+                            "value": "COM3"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "The output from the serial device."
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/SERIAL/SERIAL_SINGLE_MEASUREMENT/SERIAL_SINGLE_MEASUREMENT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -0.07092475049714153,
+                    "y": -229.65767283714172
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -0.07092475049714153,
+                    "y": -229.65767283714172
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "RESISTANCE_TO_TEMPERATURE-abb780b1-787d-4e53-a276-ddc6ad4a0111",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "RESISTANCE_TO_TEMPERATURE-abb780b1-787d-4e53-a276-ddc6ad4a0111",
+                    "label": "RESISTANCE TO TEMPERATURE",
+                    "func": "RESISTANCE_TO_TEMPERATURE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "unit": {
+                            "type": "select",
+                            "options": [
+                                "K",
+                                "C",
+                                "F"
+                            ],
+                            "default": "K",
+                            "desc": "Which unit of temperature to return.",
+                            "overload": null,
+                            "functionName": "RESISTANCE_TO_TEMPERATURE",
+                            "param": "unit",
+                            "value": "C"
+                        },
+                        "nominal_resistance": {
+                            "type": "float",
+                            "default": 10000,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "RESISTANCE_TO_TEMPERATURE",
+                            "param": "nominal_resistance",
+                            "value": 10000
+                        },
+                        "nominal_temperature": {
+                            "type": "float",
+                            "default": 298.15,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "RESISTANCE_TO_TEMPERATURE",
+                            "param": "nominal_temperature",
+                            "value": 298.15
+                        },
+                        "beta_coefficient": {
+                            "type": "float",
+                            "default": 3950,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "RESISTANCE_TO_TEMPERATURE",
+                            "param": "beta_coefficient",
+                            "value": 3950
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "The resulting temperature."
+                        }
+                    ],
+                    "path": "HARDWARE/SENSORS/THERMISTORS/RESISTANCE_TO_TEMPERATURE/RESISTANCE_TO_TEMPERATURE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 483.04813394847383,
+                    "y": -239.3839976155127
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 483.04813394847383,
+                    "y": -239.3839976155127
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "BIG_NUMBER-fa8af7de-ab24-4884-a8f3-6683b29fbb5e",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "BIG_NUMBER-fa8af7de-ab24-4884-a8f3-6683b29fbb5e",
+                    "label": "BIG NUMBER",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any suffix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": " C"
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 729.8253033769018,
+                    "y": -543.7512190948746
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 729.8253033769018,
+                    "y": -543.7512190948746
+                },
+                "dragging": true
+            },
+            {
+                "width": 168,
+                "height": 160,
+                "id": "VECTOR_INDEXING-1db7c69f-ae86-498d-9568-42db242bf979",
+                "type": "ETL",
+                "data": {
+                    "id": "VECTOR_INDEXING-1db7c69f-ae86-498d-9568-42db242bf979",
+                    "label": "VECTOR INDEXING",
+                    "func": "VECTOR_INDEXING",
+                    "type": "ETL",
+                    "ctrls": {
+                        "index": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "The index of the vector to return.",
+                            "overload": null,
+                            "functionName": "VECTOR_INDEXING",
+                            "param": "index",
+                            "value": 0
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "The scalar index of the input vector."
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/VECTOR_MANIPULATION/VECTOR_INDEXING/VECTOR_INDEXING.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 261.46582391487556,
+                    "y": -216.84485071479315
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 261.46582391487556,
+                    "y": -216.84485071479315
+                },
+                "dragging": true
+            },
+            {
+                "width": 96,
+                "height": 96,
+                "id": "CONDITIONAL-92ae3cd3-1bdc-4401-9925-c08d906154f5",
+                "type": "CONDITIONALS",
+                "data": {
+                    "id": "CONDITIONAL-92ae3cd3-1bdc-4401-9925-c08d906154f5",
+                    "label": "CONDITIONAL",
+                    "func": "CONDITIONAL",
+                    "type": "CONDITIONALS",
+                    "ctrls": {
+                        "operator_type": {
+                            "type": "select",
+                            "options": [
+                                "<=",
+                                ">",
+                                "<",
+                                ">=",
+                                "!=",
+                                "=="
+                            ],
+                            "default": ">=",
+                            "desc": "Specifies the type of comparison to be performed between the two inputs. The default value is \">=\".",
+                            "overload": null,
+                            "functionName": "CONDITIONAL",
+                            "param": "operator_type",
+                            "value": ">"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "x",
+                            "id": "x",
+                            "type": "Scalar",
+                            "multiple": false,
+                            "desc": null
+                        },
+                        {
+                            "name": "y",
+                            "id": "y",
+                            "type": "Scalar",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "true",
+                            "id": "true",
+                            "type": "Any",
+                            "desc": "Forwards the first value to the true branch."
+                        },
+                        {
+                            "name": "false",
+                            "id": "false",
+                            "type": "Any",
+                            "desc": null
+                        }
+                    ],
+                    "path": "CONTROL_FLOW/CONDITIONALS/CONDITIONAL/CONDITIONAL.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 794.0234448596667,
+                    "y": -91.95261602064329
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 794.0234448596667,
+                    "y": -91.95261602064329
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "SCALAR-03ea9551-49ac-4aa1-80ce-5a317d6e5a8a",
+                "type": "DATA",
+                "data": {
+                    "id": "SCALAR-03ea9551-49ac-4aa1-80ce-5a317d6e5a8a",
+                    "label": "SCALAR",
+                    "func": "SCALAR",
+                    "type": "DATA",
+                    "ctrls": {
+                        "value": {
+                            "type": "float",
+                            "default": 3,
+                            "desc": "The value set in Parameters",
+                            "overload": null,
+                            "functionName": "SCALAR",
+                            "param": "value",
+                            "value": 30
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "_",
+                            "id": "_",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "c: return the value being set in Parameters"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/SCALAR/SCALAR.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 478.02645783661944,
+                    "y": 45.8719355163297
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 478.02645783661944,
+                    "y": 45.8719355163297
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "SERIAL_WRITE-bc7a5dce-aaf9-4de4-9e77-681b1a6ea623",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "SERIAL_WRITE-bc7a5dce-aaf9-4de4-9e77-681b1a6ea623",
+                    "label": "SERIAL WRITE",
+                    "func": "SERIAL_WRITE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialDevice",
+                            "default": null,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "connection",
+                            "value": "COM3"
+                        },
+                        "write": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "The string to write to the serial device.",
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "write",
+                            "value": "G"
+                        },
+                        "encoding": {
+                            "type": "select",
+                            "options": [
+                                "bytes",
+                                "utf-8",
+                                "ascii"
+                            ],
+                            "default": "bytes",
+                            "desc": "Which string encoding method to use.",
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "encoding",
+                            "value": "bytes"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "The input string."
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/SERIAL/SERIAL_WRITE/SERIAL_WRITE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 998.0401223000237,
+                    "y": -2.81784433135698
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 998.0401223000237,
+                    "y": -2.81784433135698
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "SERIAL_WRITE-0218a49f-0787-4813-8890-f9b89fc00cb4",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "SERIAL_WRITE-0218a49f-0787-4813-8890-f9b89fc00cb4",
+                    "label": "SERIAL WRITE 1",
+                    "func": "SERIAL_WRITE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialDevice",
+                            "default": null,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "connection",
+                            "value": "COM3"
+                        },
+                        "write": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "The string to write to the serial device.",
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "write",
+                            "value": "R"
+                        },
+                        "encoding": {
+                            "type": "select",
+                            "options": [
+                                "bytes",
+                                "utf-8",
+                                "ascii"
+                            ],
+                            "default": "bytes",
+                            "desc": "Which string encoding method to use.",
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "encoding",
+                            "value": "bytes"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "The input string."
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/SERIAL/SERIAL_WRITE/SERIAL_WRITE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1017.9088744413131,
+                    "y": -258.74160737751913
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1017.9088744413131,
+                    "y": -258.74160737751913
+                },
+                "dragging": true
+            },
+            {
+                "width": 96,
+                "height": 96,
+                "id": "LOOP-94bca8c0-cf24-4477-950c-2d735ccd3b02",
+                "type": "CONTROL_FLOW",
+                "data": {
+                    "id": "LOOP-94bca8c0-cf24-4477-950c-2d735ccd3b02",
+                    "label": "LOOP",
+                    "func": "LOOP",
+                    "type": "CONTROL_FLOW",
+                    "ctrls": {
+                        "num_loops": {
+                            "type": "int",
+                            "default": -1,
+                            "desc": "number of times to iterate through body nodes, default is \"-1\" meaning infinity.",
+                            "overload": null,
+                            "functionName": "LOOP",
+                            "param": "num_loops",
+                            "value": -1
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "body",
+                            "id": "body",
+                            "type": "Any",
+                            "desc": "Forwards the input DataContainer to the body."
+                        },
+                        {
+                            "name": "end",
+                            "id": "end",
+                            "type": "Any",
+                            "desc": "Forwards the input DataContainer to the end."
+                        }
+                    ],
+                    "path": "CONTROL_FLOW/LOOPS/LOOP/LOOP.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -215.66757992627316,
+                    "y": -117.80831553597349
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -215.66757992627316,
+                    "y": -117.80831553597349
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "SERIAL_SINGLE_MEASUREMENT-697661ec-bbc7-4cbc-9614-8e89ee5d066c",
+                "sourceHandle": "default",
+                "target": "VECTOR_INDEXING-1db7c69f-ae86-498d-9568-42db242bf979",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SERIAL_SINGLE_MEASUREMENT-697661ec-bbc7-4cbc-9614-8e89ee5d066cdefault-VECTOR_INDEXING-1db7c69f-ae86-498d-9568-42db242bf979default"
+            },
+            {
+                "source": "VECTOR_INDEXING-1db7c69f-ae86-498d-9568-42db242bf979",
+                "sourceHandle": "default",
+                "target": "RESISTANCE_TO_TEMPERATURE-abb780b1-787d-4e53-a276-ddc6ad4a0111",
+                "targetHandle": "default",
+                "id": "reactflow__edge-VECTOR_INDEXING-1db7c69f-ae86-498d-9568-42db242bf979default-RESISTANCE_TO_TEMPERATURE-abb780b1-787d-4e53-a276-ddc6ad4a0111default"
+            },
+            {
+                "source": "RESISTANCE_TO_TEMPERATURE-abb780b1-787d-4e53-a276-ddc6ad4a0111",
+                "sourceHandle": "default",
+                "target": "BIG_NUMBER-fa8af7de-ab24-4884-a8f3-6683b29fbb5e",
+                "targetHandle": "default",
+                "id": "reactflow__edge-RESISTANCE_TO_TEMPERATURE-abb780b1-787d-4e53-a276-ddc6ad4a0111default-BIG_NUMBER-fa8af7de-ab24-4884-a8f3-6683b29fbb5edefault"
+            },
+            {
+                "source": "SCALAR-03ea9551-49ac-4aa1-80ce-5a317d6e5a8a",
+                "sourceHandle": "default",
+                "target": "CONDITIONAL-92ae3cd3-1bdc-4401-9925-c08d906154f5",
+                "targetHandle": "x",
+                "id": "reactflow__edge-SCALAR-03ea9551-49ac-4aa1-80ce-5a317d6e5a8adefault-CONDITIONAL-92ae3cd3-1bdc-4401-9925-c08d906154f5x"
+            },
+            {
+                "source": "RESISTANCE_TO_TEMPERATURE-abb780b1-787d-4e53-a276-ddc6ad4a0111",
+                "sourceHandle": "default",
+                "target": "CONDITIONAL-92ae3cd3-1bdc-4401-9925-c08d906154f5",
+                "targetHandle": "y",
+                "id": "reactflow__edge-RESISTANCE_TO_TEMPERATURE-abb780b1-787d-4e53-a276-ddc6ad4a0111default-CONDITIONAL-92ae3cd3-1bdc-4401-9925-c08d906154f5y"
+            },
+            {
+                "source": "CONDITIONAL-92ae3cd3-1bdc-4401-9925-c08d906154f5",
+                "sourceHandle": "true",
+                "target": "SERIAL_WRITE-0218a49f-0787-4813-8890-f9b89fc00cb4",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONDITIONAL-92ae3cd3-1bdc-4401-9925-c08d906154f5true-SERIAL_WRITE-0218a49f-0787-4813-8890-f9b89fc00cb4default"
+            },
+            {
+                "source": "CONDITIONAL-92ae3cd3-1bdc-4401-9925-c08d906154f5",
+                "sourceHandle": "false",
+                "target": "SERIAL_WRITE-bc7a5dce-aaf9-4de4-9e77-681b1a6ea623",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONDITIONAL-92ae3cd3-1bdc-4401-9925-c08d906154f5false-SERIAL_WRITE-bc7a5dce-aaf9-4de4-9e77-681b1a6ea623default"
+            },
+            {
+                "source": "OPEN_SERIAL-b76e4a1f-92f0-4446-9524-82d2748f78c6",
+                "sourceHandle": "default",
+                "target": "LOOP-94bca8c0-cf24-4477-950c-2d735ccd3b02",
+                "targetHandle": "default",
+                "id": "reactflow__edge-OPEN_SERIAL-b76e4a1f-92f0-4446-9524-82d2748f78c6default-LOOP-94bca8c0-cf24-4477-950c-2d735ccd3b02default"
+            },
+            {
+                "source": "LOOP-94bca8c0-cf24-4477-950c-2d735ccd3b02",
+                "sourceHandle": "body",
+                "target": "SERIAL_SINGLE_MEASUREMENT-697661ec-bbc7-4cbc-9614-8e89ee5d066c",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LOOP-94bca8c0-cf24-4477-950c-2d735ccd3b02body-SERIAL_SINGLE_MEASUREMENT-697661ec-bbc7-4cbc-9614-8e89ee5d066cdefault"
+            }
+        ],
+        "viewport": {
+            "x": 556.2622732052125,
+            "y": 791.7618058444115,
+            "zoom": 0.6304092340400338
+        }
+    },
+    "textNodes": []
+}

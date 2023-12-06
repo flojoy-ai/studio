@@ -1,0 +1,119 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 150,
+                "height": 150,
+                "id": "OPEN_IMAGE-2bfde548-fc1a-46ae-bab1-1352eea39ae9",
+                "type": "EXTRACTORS",
+                "data": {
+                    "id": "OPEN_IMAGE-2bfde548-fc1a-46ae-bab1-1352eea39ae9",
+                    "label": "OPEN IMAGE",
+                    "func": "OPEN_IMAGE",
+                    "type": "EXTRACTORS",
+                    "ctrls": {
+                        "file_path": {
+                            "type": "str",
+                            "default": "",
+                            "functionName": "OPEN_IMAGE",
+                            "param": "file_path",
+                            "value": "./PYTHON/nodes/LOADERS/LOCAL_FILE_SYSTEM/LOCAL_FILE/assets/astronaut.png"
+                        }
+                    },
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/EXTRACTORS/FILE/OPEN_IMAGE/OPEN_IMAGE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 858.9345817189944,
+                    "y": 387.14456168656636
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 858.9345817189944,
+                    "y": 387.14456168656636
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "IMAGE-1f5192a8-cc27-4d99-beeb-a6632586b6d3",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "IMAGE-1f5192a8-cc27-4d99-beeb-a6632586b6d3",
+                    "label": "IMAGE",
+                    "func": "IMAGE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1410.405681319957,
+                    "y": 349.2352236827468
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1410.405681319957,
+                    "y": 349.2352236827468
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "OPEN_IMAGE-2bfde548-fc1a-46ae-bab1-1352eea39ae9",
+                "sourceHandle": "default",
+                "target": "IMAGE-1f5192a8-cc27-4d99-beeb-a6632586b6d3",
+                "targetHandle": "default",
+                "id": "reactflow__edge-OPEN_IMAGE-2bfde548-fc1a-46ae-bab1-1352eea39ae9default-IMAGE-1f5192a8-cc27-4d99-beeb-a6632586b6d3default"
+            }
+        ],
+        "viewport": {
+            "x": -501.95459935516146,
+            "y": 197.98083177807212,
+            "zoom": 1.4811524052100216
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+        }
+    ]
+}

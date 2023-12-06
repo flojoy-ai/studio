@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "The description of that function is as follows:\n\n    Compute the eigenvalues of a complex Hermitian or real symmetric matrix.\n\nMain difference from eigh: the eigenvectors are not computed.",
+    "short_description": "The EIGVALSH node is based on a numpy or scipy function.",
+    "parameters": [
+      {
+        "name": "a",
+        "type": "(..., M, M) array_like",
+        "description": "A complex- or real-valued matrix whose eigenvalues are to be computed."
+      },
+      {
+        "name": "UPLO",
+        "type": "{'L', 'U'}",
+        "description": "Specifies whether the calculation is done with the lower triangular\npart of 'a' ('L', default) or the upper triangular part ('U').\nIrrespective of this value, only the real parts of the diagonal will\nbe considered in the computation to preserve the notion of a Hermitian matrix.\nIt therefore follows that the imaginary part of the diagonal will always\nbe treated as zero."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "type 'ordered pair', 'scalar', or 'matrix'"
+      }
+    ]
+  }
+}

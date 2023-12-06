@@ -1,0 +1,35 @@
+{
+  "docstring": {
+    "long_description": "While the notion of \"splitting an image into RGBA channels\" is inherently tied to coloured pictures, this function will attempt to make sense of multiple input types.\nShould the input be of type 'Image', then the function will return the RGBA channels.\nShould the input be of type 'Matrix', meaning ideally a 3D 'numpy' array of size (L, M, 3) or (L, M, 4), then the function will return each channel respectively.",
+    "short_description": "Return the RGBA channels of an image as 4 separate images for direct visualization.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "Image | Matrix",
+        "description": "The image to split."
+      }
+    ],
+    "returns": [
+      {
+        "name": "r",
+        "type": "Image",
+        "description": "The red channel."
+      },
+      {
+        "name": "g",
+        "type": "Image",
+        "description": "The green channel."
+      },
+      {
+        "name": "b",
+        "type": "Image",
+        "description": "The blue channel."
+      },
+      {
+        "name": "a",
+        "type": "Image",
+        "description": "The alpha channel."
+      }
+    ]
+  }
+}

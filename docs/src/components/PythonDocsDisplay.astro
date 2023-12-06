@@ -1,0 +1,40 @@
+---
+const { docstring } = Astro.props;
+---
+
+<span class="flex flex-col gap-2">
+  <span>{docstring.short_description}</span>
+  <span>{docstring.long_description}</span>
+
+  <span class="flex gap-2">
+    <span class="w-24 shrink-0 font-bold">Params:</span>
+    <span class="flex flex-col gap-2">
+      {
+        docstring.parameters.map((param: any) => (
+          <>
+            <span class="font-bold">
+              {param.name} : {param.type}
+            </span>
+            <span class="pl-8">{param.description}</span>
+          </>
+        ))
+      }
+    </span>
+  </span>
+
+  <span class="flex gap-2">
+    <span class="w-24 shrink-0 font-bold">Returns:</span>
+    <span class="flex flex-col gap-2">
+      {
+        docstring.returns.map((param: any) => (
+          <>
+            <span class="font-bold">
+              {param.name ?? "out"} : {param.type}
+            </span>
+            <span class="pl-8">{param.description}</span>
+          </>
+        ))
+      }
+    </span>
+  </span>
+</span>

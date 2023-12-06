@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "The \"summary_text\" column contains a summary of the text in the corresponding row of the input dataframe.",
+    "short_description": "Take an input dataframe with multiple rows and a single column, then produce a dataframe with a single \"summary_text\" column.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "DataFrame",
+        "description": "The text to summarize."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataFrame",
+        "description": "dataframe containing the summary text in the \"summary_text\" column"
+      }
+    ]
+  }
+}

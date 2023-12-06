@@ -1,0 +1,47 @@
+{
+  "docstring": {
+    "long_description": "Both the scale and offset can be changed. The scale sets the size\nof one section. The full window is 12 times the scale. The offset and scale\nsetting will be rounded up to the nearest available setting by the DS1074Z.\n\nIf 'query_set' is set to query the trigger settings will be queried and\nleft unchanged.\n\nRequires a CONNECTION_DS1074Z block at the start of the app to connect with\nthe instrument. The VISA address will then be listed under 'connection'.\n\nThis block should also work with compatible DS1000Z oscilloscopes",
+    "short_description": "Change the vertical axis display for the DS1074Z oscilloscope.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_DS1074Z block)."
+      },
+      {
+        "name": "query_set",
+        "type": "select:",
+        "description": "\"query\" or \"set\" the trigger settings."
+      },
+      {
+        "name": "channel",
+        "type": "select",
+        "description": "Which channel to set or query."
+      },
+      {
+        "name": "offset",
+        "type": "float",
+        "description": "Set the vertical axis offset."
+      },
+      {
+        "name": "scale",
+        "type": "float",
+        "description": "Set the vertical axis scale."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "TextBlob",
+        "description": "Summary of the vertical axis settings."
+      }
+    ]
+  },
+  "videos": [
+    {
+      "title": "Control DS1000Z oscilloscope with Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=Bl0DrvaOtgI"
+    }
+  ]
+}

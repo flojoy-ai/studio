@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "These dataframes should both be single columns.",
+    "short_description": "Take two dataframes with the true and predicted labels from a classification task, and indicates whether the prediction was correct or not.",
+    "parameters": [
+      {
+        "name": "true_label",
+        "type": "optional str",
+        "description": "true label users can select from original data"
+      },
+      {
+        "name": "predicted_label",
+        "type": "optional str",
+        "description": "resulting predicted label users can select"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataFrame",
+        "description": "The input predictions dataframe, with an extra boolean column \"prediction_correct\"."
+      }
+    ]
+  }
+}

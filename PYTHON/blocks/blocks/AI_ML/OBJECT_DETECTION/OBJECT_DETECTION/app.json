@@ -1,0 +1,264 @@
+{
+    "name": "Object Identification",
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 380,
+                "height": 293,
+                "id": "IMAGE-19594356-4c51-4ce0-9213-765b382ad903",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "IMAGE-19594356-4c51-4ce0-9213-765b382ad903",
+                    "label": "IMAGE",
+                    "func": "IMAGE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": null
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -205.74803743232445,
+                    "y": -34.51716044641216
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -205.74803743232445,
+                    "y": -34.51716044641216
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "IMAGE-9591ea14-23d2-4d24-b104-1335600c0f25",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "IMAGE-9591ea14-23d2-4d24-b104-1335600c0f25",
+                    "label": "IMAGE 1",
+                    "func": "IMAGE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": null
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -534.6028691959158,
+                    "y": -439.0026070631619
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -534.6028691959158,
+                    "y": -439.0026070631619
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "OBJECT_DETECTION-6c83163f-0e15-4ab9-8152-92141a0fd2d8",
+                "type": "AI_ML",
+                "data": {
+                    "id": "OBJECT_DETECTION-6c83163f-0e15-4ab9-8152-92141a0fd2d8",
+                    "label": "OBJECT DETECTION",
+                    "func": "OBJECT_DETECTION",
+                    "type": "AI_ML",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "multiple": false,
+                            "desc": "The image to analyze for object detection."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "desc": null
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "opencv-python-headless",
+                            "v": "4.8.1.78"
+                        }
+                    ],
+                    "path": "AI_ML/OBJECT_DETECTION/OBJECT_DETECTION/OBJECT_DETECTION.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -591.2621625072917,
+                    "y": -73.80250413673275
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -591.2621625072917,
+                    "y": -73.80250413673275
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "SKIMAGE-59347eff-c053-4580-abd8-aeddb55e001c",
+                "type": "DATA",
+                "data": {
+                    "id": "SKIMAGE-59347eff-c053-4580-abd8-aeddb55e001c",
+                    "label": "SKIMAGE",
+                    "func": "SKIMAGE",
+                    "type": "DATA",
+                    "ctrls": {
+                        "img_key": {
+                            "type": "select",
+                            "options": [
+                                "astronaut",
+                                "binary_blobs",
+                                "brain",
+                                "brick",
+                                "camera",
+                                "cat",
+                                "cell",
+                                "cells3d",
+                                "checkerboard",
+                                "chelsea",
+                                "clock",
+                                "coffee",
+                                "coins",
+                                "colorwheel",
+                                "create_image_fetcher",
+                                "data_dir",
+                                "download_all",
+                                "eagle",
+                                "file_hash",
+                                "grass",
+                                "gravel",
+                                "horse",
+                                "hubble_deep_field",
+                                "human_mitosis",
+                                "image_fetcher",
+                                "immunohistochemistry",
+                                "kidney",
+                                "lbp_frontal_face_cascade_filename",
+                                "lfw_subset",
+                                "lily",
+                                "logo",
+                                "microaneurysms",
+                                "moon",
+                                "nickel_solidification",
+                                "page",
+                                "protein_transport",
+                                "retina",
+                                "rocket",
+                                "shepp_logan_phantom",
+                                "skin",
+                                "stereo_motorcycle",
+                                "text",
+                                "vortex"
+                            ],
+                            "default": "astronaut",
+                            "desc": "The name of the image to be loaded from scikit-image.",
+                            "overload": null,
+                            "functionName": "SKIMAGE",
+                            "param": "img_key",
+                            "value": "coffee"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "desc": "DataContainer containing the image loaded from scikit-image."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "scikit-image",
+                            "v": "0.21.0"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SAMPLE_IMAGES/SKIMAGE/SKIMAGE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -947.8658706942083,
+                    "y": -184.29148635684746
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -947.8658706942083,
+                    "y": -184.29148635684746
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "OBJECT_DETECTION-6c83163f-0e15-4ab9-8152-92141a0fd2d8",
+                "sourceHandle": "default",
+                "target": "IMAGE-19594356-4c51-4ce0-9213-765b382ad903",
+                "targetHandle": "default",
+                "id": "reactflow__edge-OBJECT_DETECTION-6c83163f-0e15-4ab9-8152-92141a0fd2d8default-IMAGE-19594356-4c51-4ce0-9213-765b382ad903default"
+            },
+            {
+                "source": "SKIMAGE-59347eff-c053-4580-abd8-aeddb55e001c",
+                "sourceHandle": "default",
+                "target": "IMAGE-9591ea14-23d2-4d24-b104-1335600c0f25",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SKIMAGE-59347eff-c053-4580-abd8-aeddb55e001cdefault-IMAGE-9591ea14-23d2-4d24-b104-1335600c0f25default"
+            },
+            {
+                "source": "SKIMAGE-59347eff-c053-4580-abd8-aeddb55e001c",
+                "sourceHandle": "default",
+                "target": "OBJECT_DETECTION-6c83163f-0e15-4ab9-8152-92141a0fd2d8",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SKIMAGE-59347eff-c053-4580-abd8-aeddb55e001cdefault-OBJECT_DETECTION-6c83163f-0e15-4ab9-8152-92141a0fd2d8default"
+            }
+        ],
+        "viewport": {
+            "x": 1197.596184448298,
+            "y": 304.7961088583293,
+            "zoom": 1.2943575349520495
+        }
+    },
+    "textNodes": []
+}

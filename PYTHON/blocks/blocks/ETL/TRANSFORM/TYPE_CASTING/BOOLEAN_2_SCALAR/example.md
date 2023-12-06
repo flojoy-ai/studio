@@ -1,0 +1,1 @@
+In this example, `BOOLEAN` node generates true. It converts its value to scalar type value and visualize it with `BIG_NUMBER` node.

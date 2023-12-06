@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Convert a DataFrame DataContainer to a Matrix DataContainer.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "DataFrame",
+        "description": "The input dataframe to which we apply the conversion to."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Matrix",
+        "description": "The matrix result from the conversion of the input."
+      }
+    ]
+  }
+}

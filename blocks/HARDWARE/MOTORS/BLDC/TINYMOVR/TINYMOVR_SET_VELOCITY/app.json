@@ -1,0 +1,468 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 208,
+                "height": 96,
+                "id": "SINE-1a56066f-d3b4-49bc-8e82-2062c8cd7e8e",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "SINE-1a56066f-d3b4-49bc-8e82-2062c8cd7e8e",
+                    "label": "SINE",
+                    "func": "SINE",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "amplitude": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The amplitude of the wave.",
+                            "overload": null,
+                            "functionName": "SINE",
+                            "param": "amplitude",
+                            "value": 10000
+                        },
+                        "frequency": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The wave frequency in radians/2pi.",
+                            "overload": null,
+                            "functionName": "SINE",
+                            "param": "frequency",
+                            "value": 1
+                        },
+                        "offset": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The y axis offset of the function.",
+                            "overload": null,
+                            "functionName": "SINE",
+                            "param": "offset",
+                            "value": 0
+                        },
+                        "phase": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The x axis offset of the function.",
+                            "overload": null,
+                            "functionName": "SINE",
+                            "param": "phase",
+                            "value": 0
+                        },
+                        "waveform": {
+                            "type": "select",
+                            "options": [
+                                "sine",
+                                "square",
+                                "triangle",
+                                "sawtooth"
+                            ],
+                            "default": "sine",
+                            "desc": "The waveform type of the wave.",
+                            "overload": null,
+                            "functionName": "SINE",
+                            "param": "waveform",
+                            "value": "sine"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Vector",
+                            "multiple": false,
+                            "desc": "Input that defines the x-axis values of the function and output."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "x: the input v or x values\ny: the resulting sine function"
+                        }
+                    ],
+                    "path": "GENERATORS/SIMULATIONS/SINE/SINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -240.11757149683567,
+                    "y": 25.702132259940072
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -240.11757149683567,
+                    "y": 25.702132259940072
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "LINSPACE-f44a4018-13d0-4e2a-a474-bfaba7fdd57c",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "LINSPACE-f44a4018-13d0-4e2a-a474-bfaba7fdd57c",
+                    "label": "LINSPACE",
+                    "func": "LINSPACE",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "start": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "The start point of the data.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": 10
+                        },
+                        "end": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The end point of the data.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": 0
+                        },
+                        "step": {
+                            "type": "int",
+                            "default": 1000,
+                            "desc": "The number of points in the vector.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": 1000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "multiple": false,
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
+                        }
+                    ],
+                    "path": "GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -579.7342501929215,
+                    "y": 25.003420793376165
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -579.7342501929215,
+                    "y": 25.003420793376165
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "LINE-d0411371-966e-4ac7-bae7-ac296dfbf5f8",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "LINE-d0411371-966e-4ac7-bae7-ac296dfbf5f8",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/LINE/LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 58.26441822526766,
+                    "y": 131.27157912186965
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 58.26441822526766,
+                    "y": 131.27157912186965
+                },
+                "dragging": true
+            },
+            {
+                "width": 384,
+                "height": 288,
+                "id": "TEXT_VIEW-252a888c-5fb7-4cf2-a0a5-f284699a4339",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-252a888c-5fb7-4cf2-a0a5-f284699a4339",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "multiple": false,
+                            "desc": "The DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 605.7647236507444,
+                    "y": -171.22765860906554
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 605.7647236507444,
+                    "y": -171.22765860906554
+                },
+                "dragging": true
+            },
+            {
+                "width": 160,
+                "height": 160,
+                "id": "ORDERED_PAIR_2_VECTOR-eb343b25-8753-4974-8e56-3ec1f46dd177",
+                "type": "TRANSFORMERS",
+                "data": {
+                    "id": "ORDERED_PAIR_2_VECTOR-eb343b25-8753-4974-8e56-3ec1f46dd177",
+                    "label": "ORDERED PAIR 2 VECTOR",
+                    "func": "ORDERED_PAIR_2_VECTOR",
+                    "type": "TRANSFORMERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "multiple": false,
+                            "desc": "The input OrderedPair."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "The y component of the input OrderedPair."
+                        }
+                    ],
+                    "path": "TRANSFORMERS/TYPE_CASTING/ORDERED_PAIR_2_VECTOR/ORDERED_PAIR_2_VECTOR.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 88.44935080859928,
+                    "y": -109.77519076703038
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 88.44935080859928,
+                    "y": -109.77519076703038
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "TINYMOVR_BLDC-63bf870f-89c3-4366-bc09-d9e4ade5f29c",
+                "type": "IO",
+                "data": {
+                    "id": "TINYMOVR_BLDC-63bf870f-89c3-4366-bc09-d9e4ade5f29c",
+                    "label": "TINYMOVR BLDC",
+                    "func": "TINYMOVR_BLDC",
+                    "type": "IO",
+                    "ctrls": {
+                        "sleep": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "Time to wait between movements",
+                            "overload": null,
+                            "functionName": "TINYMOVR_BLDC",
+                            "param": "sleep",
+                            "value": 0
+                        },
+                        "velocity": {
+                            "type": "float",
+                            "default": 80000,
+                            "desc": "Tinymovr servo velocity",
+                            "overload": null,
+                            "functionName": "TINYMOVR_BLDC",
+                            "param": "velocity",
+                            "value": 80000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Traceback error"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tinymovr",
+                            "v": "1.6.2"
+                        }
+                    ],
+                    "path": "IO/MOTION/MOTOR_DRIVERS/BLDC/TINYMOVR/TINYMOVR_BLDC/TINYMOVR_BLDC.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 328.19344567783276,
+                    "y": -126.62290766255933
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 328.19344567783276,
+                    "y": -126.62290766255933
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "TINYMOVR_CALIBRATE-0e6dc485-914a-4d63-b8d9-7e36270a365d",
+                "type": "IO",
+                "data": {
+                    "id": "TINYMOVR_CALIBRATE-0e6dc485-914a-4d63-b8d9-7e36270a365d",
+                    "label": "TINYMOVR CALIBRATE",
+                    "func": "TINYMOVR_CALIBRATE",
+                    "type": "IO",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Traceback error"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tinymovr",
+                            "v": "1.6.2"
+                        }
+                    ],
+                    "path": "IO/MOTION/MOTOR_DRIVERS/BLDC/TINYMOVR/TINYMOVR_CALIBRATE/TINYMOVR_CALIBRATE.py",
+                    "selected": true
+                },
+                "position": {
+                    "x": 73.67600809515844,
+                    "y": -347.5069775006768
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": 73.67600809515844,
+                    "y": -347.5069775006768
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "LINSPACE-f44a4018-13d0-4e2a-a474-bfaba7fdd57c",
+                "sourceHandle": "default",
+                "target": "SINE-1a56066f-d3b4-49bc-8e82-2062c8cd7e8e",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINSPACE-f44a4018-13d0-4e2a-a474-bfaba7fdd57cdefault-SINE-1a56066f-d3b4-49bc-8e82-2062c8cd7e8edefault"
+            },
+            {
+                "source": "SINE-1a56066f-d3b4-49bc-8e82-2062c8cd7e8e",
+                "sourceHandle": "default",
+                "target": "LINE-d0411371-966e-4ac7-bae7-ac296dfbf5f8",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SINE-1a56066f-d3b4-49bc-8e82-2062c8cd7e8edefault-LINE-d0411371-966e-4ac7-bae7-ac296dfbf5f8default"
+            },
+            {
+                "source": "SINE-1a56066f-d3b4-49bc-8e82-2062c8cd7e8e",
+                "sourceHandle": "default",
+                "target": "ORDERED_PAIR_2_VECTOR-eb343b25-8753-4974-8e56-3ec1f46dd177",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SINE-1a56066f-d3b4-49bc-8e82-2062c8cd7e8edefault-ORDERED_PAIR_2_VECTOR-eb343b25-8753-4974-8e56-3ec1f46dd177default"
+            },
+            {
+                "source": "ORDERED_PAIR_2_VECTOR-eb343b25-8753-4974-8e56-3ec1f46dd177",
+                "sourceHandle": "default",
+                "target": "TINYMOVR_BLDC-63bf870f-89c3-4366-bc09-d9e4ade5f29c",
+                "targetHandle": "default",
+                "id": "reactflow__edge-ORDERED_PAIR_2_VECTOR-eb343b25-8753-4974-8e56-3ec1f46dd177default-TINYMOVR_BLDC-63bf870f-89c3-4366-bc09-d9e4ade5f29cdefault"
+            },
+            {
+                "source": "TINYMOVR_BLDC-63bf870f-89c3-4366-bc09-d9e4ade5f29c",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-252a888c-5fb7-4cf2-a0a5-f284699a4339",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TINYMOVR_BLDC-63bf870f-89c3-4366-bc09-d9e4ade5f29cdefault-TEXT_VIEW-252a888c-5fb7-4cf2-a0a5-f284699a4339default"
+            },
+            {
+                "source": "TINYMOVR_CALIBRATE-0e6dc485-914a-4d63-b8d9-7e36270a365d",
+                "sourceHandle": "default",
+                "target": "TINYMOVR_BLDC-63bf870f-89c3-4366-bc09-d9e4ade5f29c",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TINYMOVR_CALIBRATE-0e6dc485-914a-4d63-b8d9-7e36270a365ddefault-TINYMOVR_BLDC-63bf870f-89c3-4366-bc09-d9e4ade5f29cdefault"
+            }
+        ],
+        "viewport": {
+            "x": 472.4845724041756,
+            "y": 354.12030268540553,
+            "zoom": 0.5269422050939508
+        }
+    }
+}

@@ -1,0 +1,173 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 208,
+                "height": 96,
+                "id": "CONSTANT-9bfa0626-7664-41a7-b5bc-ec8f62540e35",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "CONSTANT-9bfa0626-7664-41a7-b5bc-ec8f62540e35",
+                    "label": "3.0",
+                    "func": "CONSTANT",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "constant": {
+                            "type": "float",
+                            "default": 3,
+                            "desc": null,
+                            "functionName": "CONSTANT",
+                            "param": "constant",
+                            "value": 3
+                        },
+                        "step": {
+                            "type": "int",
+                            "default": 1000,
+                            "desc": null,
+                            "functionName": "CONSTANT",
+                            "param": "step",
+                            "value": 1000
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": null
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\CONSTANT\\CONSTANT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -130.83989138018498,
+                    "y": 13.422546284269998
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -130.83989138018498,
+                    "y": 13.422546284269998
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "BIG_NUMBER-23d35b1d-f436-4201-8aa1-69c93ff7ed99",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "BIG_NUMBER-23d35b1d-f436-4201-8aa1-69c93ff7ed99",
+                    "label": "BIG NUMBER",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZERS",
+                    "ctrls": {
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": ""
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": null
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\BIG_NUMBER\\BIG_NUMBER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 294.1748962833931,
+                    "y": -62.1556648169163
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 294.1748962833931,
+                    "y": -62.1556648169163
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "CONSTANT-9bfa0626-7664-41a7-b5bc-ec8f62540e35",
+                "sourceHandle": "default",
+                "target": "BIG_NUMBER-23d35b1d-f436-4201-8aa1-69c93ff7ed99",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONSTANT-9bfa0626-7664-41a7-b5bc-ec8f62540e35default-BIG_NUMBER-23d35b1d-f436-4201-8aa1-69c93ff7ed99default"
+            }
+        ],
+        "viewport": {
+            "x": 606.4472645567363,
+            "y": 234.63130388602087,
+            "zoom": 0.9186369849831518
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+        }
+    ]
+}

@@ -1,0 +1,35 @@
+{
+  "docstring": {
+    "long_description": "With the FFT algorithm, the input matrix will undergo a change of basis from the space domain into the frequency domain.\n\ngrayscale, dataframe, image, or matrix\n\nInputs\n------\ndefault : Grayscale|DataFrame|Image|Matrix\n    The 2D data to apply 2DFFT to.",
+    "short_description": "Performs a two-dimensional fast fourier transform on the input matrix.",
+    "parameters": [
+      {
+        "name": "real_signal",
+        "type": "bool",
+        "description": "true if the input matrix consists of only real numbers, false otherwise"
+      },
+      {
+        "name": "color",
+        "type": "select",
+        "description": "if the input is an RGBA or RGB image, this parameter selects the color channel to perform the FFT on"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Matrix if input is Matrix",
+        "description": "m: the matrix after 2DFFT"
+      },
+      {
+        "name": null,
+        "type": "DataFrame if input is Dataframe",
+        "description": "m: the dataframe after 2DFFT"
+      },
+      {
+        "name": null,
+        "type": "Image",
+        "description": "the frequency spectrum of the color channel"
+      }
+    ]
+  }
+}

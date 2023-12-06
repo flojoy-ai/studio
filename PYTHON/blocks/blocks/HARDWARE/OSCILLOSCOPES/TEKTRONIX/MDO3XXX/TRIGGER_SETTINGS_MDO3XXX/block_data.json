@@ -1,0 +1,47 @@
+{
+  "docstring": {
+    "long_description": "Note that \"unchanged\" will leave the settings unchanged.\n\nRequires a CONNECTION_MDO3XXX block at the start of the app to connect with\nthe instrument. The VISA address will then be listed under 'connection'.\n\nThis block should also work with compatible Tektronix scopes (untested):\nMDO4xxx, MSO4xxx, and DPO4xxx.",
+    "short_description": "Sets advanced trigger settings for an MDO3XXX oscilloscope.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_MDO3XXX block)."
+      },
+      {
+        "name": "query_set",
+        "type": "str",
+        "description": "Whether to query or set the triggering channel."
+      },
+      {
+        "name": "edge_couplings",
+        "type": "str",
+        "description": "Set the trigger edge coupling type."
+      },
+      {
+        "name": "trigger_types",
+        "type": "str",
+        "description": "Set to trigger on edge, logic, or pulses."
+      },
+      {
+        "name": "edge_slope",
+        "type": "str",
+        "description": "Set to trigger on positive, negative, or either slopes."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "TextBlob: Summary of trigger settings."
+      }
+    ]
+  },
+  "videos": [
+    {
+      "title": "Control Oscilloscope with Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=NqPW7pG3NZs"
+    }
+  ]
+}

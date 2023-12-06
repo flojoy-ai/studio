@@ -1,0 +1,439 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "DIGITAL_ON_OFF_DS1074Z-91d10b43-f07e-47ab-9bf9-b0a90fb31d93",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "DIGITAL_ON_OFF_DS1074Z-91d10b43-f07e-47ab-9bf9-b0a90fb31d93",
+                    "label": "DIGITAL ON OFF DS1074Z",
+                    "func": "DIGITAL_ON_OFF_DS1074Z",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "overload": null,
+                            "functionName": "DIGITAL_ON_OFF_DS1074Z",
+                            "param": "connection",
+                            "value": "USB0::6833::1230::DS1ZD233801325::0::INSTR"
+                        },
+                        "digi_on_off": {
+                            "type": "select",
+                            "options": [
+                                "ON",
+                                "OFF"
+                            ],
+                            "default": "ON",
+                            "desc": "Turn digital channel (i.e. LA) on the scope on or off.",
+                            "overload": null,
+                            "functionName": "DIGITAL_ON_OFF_DS1074Z",
+                            "param": "digi_on_off",
+                            "value": "ON"
+                        },
+                        "d0": {
+                            "type": "select",
+                            "options": [
+                                "ON",
+                                "OFF"
+                            ],
+                            "default": "ON",
+                            "desc": "Turn digital channel 0 on or off.",
+                            "overload": null,
+                            "functionName": "DIGITAL_ON_OFF_DS1074Z",
+                            "param": "d0",
+                            "value": "ON"
+                        },
+                        "d1": {
+                            "type": "select",
+                            "options": [
+                                "ON",
+                                "OFF"
+                            ],
+                            "default": "ON",
+                            "desc": "Turn digital channel 1 on or off.",
+                            "overload": null,
+                            "functionName": "DIGITAL_ON_OFF_DS1074Z",
+                            "param": "d1",
+                            "value": "ON"
+                        },
+                        "d2": {
+                            "type": "select",
+                            "options": [
+                                "ON",
+                                "OFF"
+                            ],
+                            "default": "ON",
+                            "desc": "Turn digital channel 2 on or off.",
+                            "overload": null,
+                            "functionName": "DIGITAL_ON_OFF_DS1074Z",
+                            "param": "d2",
+                            "value": "ON"
+                        },
+                        "d3": {
+                            "type": "select",
+                            "options": [
+                                "ON",
+                                "OFF"
+                            ],
+                            "default": "ON",
+                            "desc": "Turn digital channel 3 on or off.",
+                            "overload": null,
+                            "functionName": "DIGITAL_ON_OFF_DS1074Z",
+                            "param": "d3",
+                            "value": "OFF"
+                        },
+                        "use_pods": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Use pod1 and pod2 parameters? If True, d0-d3 parameters are not used.",
+                            "overload": null,
+                            "functionName": "DIGITAL_ON_OFF_DS1074Z",
+                            "param": "use_pods",
+                            "value": false
+                        },
+                        "pod1": {
+                            "type": "select",
+                            "options": [
+                                "ON",
+                                "OFF"
+                            ],
+                            "default": "ON",
+                            "desc": "Turn digital channels 0-7 on or off.",
+                            "overload": null,
+                            "functionName": "DIGITAL_ON_OFF_DS1074Z",
+                            "param": "pod1",
+                            "value": "ON"
+                        },
+                        "pod2": {
+                            "type": "select",
+                            "options": [
+                                "ON",
+                                "OFF"
+                            ],
+                            "default": "OFF",
+                            "desc": "Turn digital channels 8-15 on or off.",
+                            "overload": null,
+                            "functionName": "DIGITAL_ON_OFF_DS1074Z",
+                            "param": "pod2",
+                            "value": "OFF"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "TextBlob: summary of channel settings."
+                        }
+                    ],
+                    "path": "HARDWARE/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/ADVANCED/DIGITAL_ON_OFF_DS1074Z/DIGITAL_ON_OFF_DS1074Z.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -135.59415071861343,
+                    "y": 10.779995238081653
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -135.59415071861343,
+                    "y": 10.779995238081653
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "DIGITAL_TRACE_DS1047Z-89ae3c1f-afb0-4411-8f56-cf0ad66f7ede",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "DIGITAL_TRACE_DS1047Z-89ae3c1f-afb0-4411-8f56-cf0ad66f7ede",
+                    "label": "DIGITAL TRACE DS1047Z",
+                    "func": "DIGITAL_TRACE_DS1047Z",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "overload": null,
+                            "functionName": "DIGITAL_TRACE_DS1047Z",
+                            "param": "connection",
+                            "value": "USB0::6833::1230::DS1ZD233801325::0::INSTR"
+                        },
+                        "channel": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "Set the triggering channel, from 0-15.",
+                            "overload": null,
+                            "functionName": "DIGITAL_TRACE_DS1047Z",
+                            "param": "channel",
+                            "value": 0
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "TextBlob: summary of channel settings."
+                        }
+                    ],
+                    "path": "HARDWARE/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/ADVANCED/DIGITAL_TRACE_DS1047Z/DIGITAL_TRACE_DS1047Z.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 450.4693238223513,
+                    "y": 1.6050666005044718
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 450.4693238223513,
+                    "y": 1.6050666005044718
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "DIGITAL_TRIGGER_DS1047Z-de644351-7f1c-4b62-86c6-09b2cb2002de",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "DIGITAL_TRIGGER_DS1047Z-de644351-7f1c-4b62-86c6-09b2cb2002de",
+                    "label": "DIGITAL TRIGGER DS1047Z",
+                    "func": "DIGITAL_TRIGGER_DS1047Z",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "overload": null,
+                            "functionName": "DIGITAL_TRIGGER_DS1047Z",
+                            "param": "connection",
+                            "value": "USB0::6833::1230::DS1ZD233801325::0::INSTR"
+                        },
+                        "channel": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "Set the triggering channel, from 0-15.",
+                            "overload": null,
+                            "functionName": "DIGITAL_TRIGGER_DS1047Z",
+                            "param": "channel",
+                            "value": 0
+                        },
+                        "level": {
+                            "type": "float",
+                            "default": 0.1,
+                            "desc": "The triggering level, in V.",
+                            "overload": null,
+                            "functionName": "DIGITAL_TRIGGER_DS1047Z",
+                            "param": "level",
+                            "value": 0.1
+                        },
+                        "slope": {
+                            "type": "select",
+                            "options": [
+                                "positive",
+                                "negative",
+                                "either",
+                                "unchanged"
+                            ],
+                            "default": "positive",
+                            "desc": "Which slope to detect the triggering time on.",
+                            "overload": null,
+                            "functionName": "DIGITAL_TRIGGER_DS1047Z",
+                            "param": "slope",
+                            "value": "positive"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "TextBlob: summary of channel settings."
+                        }
+                    ],
+                    "path": "HARDWARE/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/ADVANCED/DIGITAL_TRIGGER_DS1047Z/DIGITAL_TRIGGER_DS1047Z.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 158.04003920988558,
+                    "y": 6.142023721849569
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 158.04003920988558,
+                    "y": 6.142023721849569
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CONNECTION_DS1074Z-09268a8c-6409-4b2d-a881-225ce00d0318",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "CONNECTION_DS1074Z-09268a8c-6409-4b2d-a881-225ce00d0318",
+                    "label": "CONNECTION DS1074Z",
+                    "func": "CONNECTION_DS1074Z",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "device": {
+                            "type": "VisaDevice",
+                            "default": null,
+                            "desc": "The VISA address to connect to.",
+                            "overload": null,
+                            "functionName": "CONNECTION_DS1074Z",
+                            "param": "device",
+                            "value": "USB0::6833::1230::DS1ZD233801325::0::INSTR"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "None"
+                        }
+                    ],
+                    "path": "HARDWARE/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/CONNECTION_DS1074Z/CONNECTION_DS1074Z.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -421.475603592494,
+                    "y": 13.848354511708834
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -421.475603592494,
+                    "y": 13.848354511708834
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "LINE-9b66d926-b6e0-48be-90fd-058db5df34b7",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-9b66d926-b6e0-48be-90fd-058db5df34b7",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 742.2561222340222,
+                    "y": -16.96827379756155
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 742.2561222340222,
+                    "y": -16.96827379756155
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "CONNECTION_DS1074Z-09268a8c-6409-4b2d-a881-225ce00d0318",
+                "sourceHandle": "default",
+                "target": "DIGITAL_ON_OFF_DS1074Z-91d10b43-f07e-47ab-9bf9-b0a90fb31d93",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONNECTION_DS1074Z-09268a8c-6409-4b2d-a881-225ce00d0318default-DIGITAL_ON_OFF_DS1074Z-91d10b43-f07e-47ab-9bf9-b0a90fb31d93default"
+            },
+            {
+                "source": "DIGITAL_ON_OFF_DS1074Z-91d10b43-f07e-47ab-9bf9-b0a90fb31d93",
+                "sourceHandle": "default",
+                "target": "DIGITAL_TRIGGER_DS1047Z-de644351-7f1c-4b62-86c6-09b2cb2002de",
+                "targetHandle": "default",
+                "id": "reactflow__edge-DIGITAL_ON_OFF_DS1074Z-91d10b43-f07e-47ab-9bf9-b0a90fb31d93default-DIGITAL_TRIGGER_DS1047Z-de644351-7f1c-4b62-86c6-09b2cb2002dedefault"
+            },
+            {
+                "source": "DIGITAL_TRIGGER_DS1047Z-de644351-7f1c-4b62-86c6-09b2cb2002de",
+                "sourceHandle": "default",
+                "target": "DIGITAL_TRACE_DS1047Z-89ae3c1f-afb0-4411-8f56-cf0ad66f7ede",
+                "targetHandle": "default",
+                "id": "reactflow__edge-DIGITAL_TRIGGER_DS1047Z-de644351-7f1c-4b62-86c6-09b2cb2002dedefault-DIGITAL_TRACE_DS1047Z-89ae3c1f-afb0-4411-8f56-cf0ad66f7ededefault"
+            },
+            {
+                "source": "DIGITAL_TRACE_DS1047Z-89ae3c1f-afb0-4411-8f56-cf0ad66f7ede",
+                "sourceHandle": "default",
+                "target": "LINE-9b66d926-b6e0-48be-90fd-058db5df34b7",
+                "targetHandle": "default",
+                "id": "reactflow__edge-DIGITAL_TRACE_DS1047Z-89ae3c1f-afb0-4411-8f56-cf0ad66f7ededefault-LINE-9b66d926-b6e0-48be-90fd-058db5df34b7default"
+            }
+        ],
+        "viewport": {
+            "x": 1000.5287502141653,
+            "y": 576.1523836076532,
+            "zoom": 1.0241158862960187
+        }
+    },
+    "textNodes": []
+}

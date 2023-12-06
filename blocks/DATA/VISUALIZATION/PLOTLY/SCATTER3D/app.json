@@ -1,0 +1,253 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 208,
+                "height": 96,
+                "id": "PLOTLY_DATASET-6af3469b-5751-4778-84a1-2b17bc9c0894",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "PLOTLY_DATASET-6af3469b-5751-4778-84a1-2b17bc9c0894",
+                    "label": "PLOTLY DATASET",
+                    "func": "PLOTLY_DATASET",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "dataset_key": {
+                            "type": "select",
+                            "default": "wind",
+                            "options": [
+                                "wind",
+                                "iris",
+                                "carshare",
+                                "tips",
+                                "election",
+                                "experiment",
+                                "gapminder",
+                                "medals_long",
+                                "medals_wide",
+                                "stocks"
+                            ],
+                            "functionName": "PLOTLY_DATASET",
+                            "param": "dataset_key",
+                            "value": "iris"
+                        }
+                    },
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\GENERATORS\\SAMPLE_DATASETS\\PLOTLY_DATASET\\PLOTLY_DATASET.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -298.0815755738636,
+                    "y": 105.97367325652914
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -298.0815755738636,
+                    "y": 105.97367325652914
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "SCATTER3D-27578128-aa7b-40fe-8dfd-d971192bba27",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "SCATTER3D-27578128-aa7b-40fe-8dfd-d971192bba27",
+                    "label": "SCATTER3D 1",
+                    "func": "SCATTER3D",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|DataFrame",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\SCATTER3D\\SCATTER3D.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 194.33796607992497,
+                    "y": 418.50728439606235
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 194.33796607992497,
+                    "y": 418.50728439606235
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "SCATTER3D-0ba51c41-646b-47e4-a6e0-a306230f4ec6",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "SCATTER3D-0ba51c41-646b-47e4-a6e0-a306230f4ec6",
+                    "label": "SCATTER3D 1",
+                    "func": "SCATTER3D",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|DataFrame",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\SCATTER3D\\SCATTER3D.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 484.38259832770757,
+                    "y": 34.16199428293129
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 484.38259832770757,
+                    "y": 34.16199428293129
+                },
+                "dragging": true
+            },
+            {
+                "width": 160,
+                "height": 160,
+                "id": "DF_2_ORDERED_TRIPLE-d6e4cf4b-8ff3-4432-910f-76361d564b61",
+                "type": "TRANSFORMERS",
+                "data": {
+                    "id": "DF_2_ORDERED_TRIPLE-d6e4cf4b-8ff3-4432-910f-76361d564b61",
+                    "label": "DF 2 ORDERED TRIPLE",
+                    "func": "DF_2_ORDERED_TRIPLE",
+                    "type": "TRANSFORMERS",
+                    "ctrls": {
+                        "x": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "The index of the column that represents the x-axis.",
+                            "functionName": "DF_2_ORDERED_TRIPLE",
+                            "param": "x",
+                            "value": 0
+                        },
+                        "y": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "The index of the column that represents the y-axis.",
+                            "functionName": "DF_2_ORDERED_TRIPLE",
+                            "param": "y",
+                            "value": 1
+                        },
+                        "z": {
+                            "type": "int",
+                            "default": 2,
+                            "desc": "The index of the column that represents the z-axis.",
+                            "functionName": "DF_2_ORDERED_TRIPLE",
+                            "param": "z",
+                            "value": 2
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame",
+                            "multiple": false,
+                            "desc": "The input dataframe to which we apply the conversion to."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple",
+                            "desc": "The OrderedTriple result from the conversion of the input."
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\TRANSFORMERS\\TYPE_CASTING\\DF_2_ORDERED_TRIPLE\\DF_2_ORDERED_TRIPLE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 122.38447463973523,
+                    "y": 12.199074249669422
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 122.38447463973523,
+                    "y": 12.199074249669422
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "PLOTLY_DATASET-6af3469b-5751-4778-84a1-2b17bc9c0894",
+                "sourceHandle": "default",
+                "target": "SCATTER3D-27578128-aa7b-40fe-8dfd-d971192bba27",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PLOTLY_DATASET-6af3469b-5751-4778-84a1-2b17bc9c0894default-SCATTER3D-27578128-aa7b-40fe-8dfd-d971192bba27default"
+            },
+            {
+                "source": "PLOTLY_DATASET-6af3469b-5751-4778-84a1-2b17bc9c0894",
+                "sourceHandle": "default",
+                "target": "DF_2_ORDERED_TRIPLE-d6e4cf4b-8ff3-4432-910f-76361d564b61",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PLOTLY_DATASET-6af3469b-5751-4778-84a1-2b17bc9c0894default-DF_2_ORDERED_TRIPLE-d6e4cf4b-8ff3-4432-910f-76361d564b61default"
+            },
+            {
+                "source": "DF_2_ORDERED_TRIPLE-d6e4cf4b-8ff3-4432-910f-76361d564b61",
+                "sourceHandle": "default",
+                "target": "SCATTER3D-0ba51c41-646b-47e4-a6e0-a306230f4ec6",
+                "targetHandle": "default",
+                "id": "reactflow__edge-DF_2_ORDERED_TRIPLE-d6e4cf4b-8ff3-4432-910f-76361d564b61default-SCATTER3D-0ba51c41-646b-47e4-a6e0-a306230f4ec6default"
+            }
+        ],
+        "viewport": {
+            "x": 688.7902964004815,
+            "y": 260.4768364001233,
+            "zoom": 0.5523926457065711
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+        }
+    ]
+}

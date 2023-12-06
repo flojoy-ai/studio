@@ -1,0 +1,50 @@
+{
+  "docstring": {
+    "long_description": "Note that if the file is not yet created, you can choose a file in the\nsame directory/folder.",
+    "short_description": "Records audio using a local microphone.",
+    "parameters": [
+      {
+        "name": "file_name",
+        "type": "str",
+        "description": "File name of the output audio file."
+      },
+      {
+        "name": "file_path",
+        "type": "File",
+        "description": "The path to save the audio file in. Select a file in the directory."
+      },
+      {
+        "name": "record_length",
+        "type": "float",
+        "description": "How long to record in seconds."
+      },
+      {
+        "name": "chunk_size",
+        "type": "int",
+        "description": "The size, in samples, to record."
+      },
+      {
+        "name": "bits_per_sample",
+        "type": "select",
+        "description": "The bits per sample."
+      },
+      {
+        "name": "channels",
+        "type": "int",
+        "description": "The number of channels for the recording (e.g. 2 = left and right)."
+      },
+      {
+        "name": "samples_per_second",
+        "type": "int",
+        "description": "Samples per second. The bitrate is this multiplied by bits_per_sample."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "TextBlob",
+        "description": "Filename and path of the recording."
+      }
+    ]
+  }
+}

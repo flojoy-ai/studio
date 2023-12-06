@@ -1,0 +1,1 @@
+In this example, the `LINSPACE` and `SINE` nodes generate a sine function which is visualized with the `SCATTER` node.

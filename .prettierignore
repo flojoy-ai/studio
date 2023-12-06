@@ -6,3 +6,5 @@ src/data/*.json
 **/.venv/*
 **/venv2/*
 pnpm-lock.yaml
+blocks/*
+docs/*

@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "The description of that function is as follows:\n\n    Compute the determinant of an array.",
+    "short_description": "The DET node is based on a numpy or scipy function.",
+    "parameters": [
+      {
+        "name": "a",
+        "type": "(..., M, M) array_like",
+        "description": "Input array to compute determinants."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "type 'ordered pair', 'scalar', or 'matrix'"
+      }
+    ]
+  }
+}

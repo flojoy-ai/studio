@@ -1,0 +1,282 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 208,
+                "height": 96,
+                "id": "LINSPACE-11d46127-5570-4ed4-a4bf-2da340fad697",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "LINSPACE-11d46127-5570-4ed4-a4bf-2da340fad697",
+                    "label": "LINSPACE",
+                    "func": "LINSPACE",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "start": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "The start point of the data.",
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": -10
+                        },
+                        "end": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The end point of the data.",
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": 10
+                        },
+                        "step": {
+                            "type": "int",
+                            "default": 1000,
+                            "desc": "The number of points in the vector.",
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": 1000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "multiple": false,
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "v: the vector between start and end with step number of points."
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
+                    "selected": true
+                },
+                "position": {
+                    "x": -134.89631453208858,
+                    "y": 43.170140259972584
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": -134.89631453208858,
+                    "y": 43.170140259972584
+                },
+                "dragging": true
+            },
+            {
+                "width": 72,
+                "height": 72,
+                "id": "ABS-13396e8e-fa90-4b4e-b8e8-b83b83062d76",
+                "type": "ARITHMETIC",
+                "data": {
+                    "id": "ABS-13396e8e-fa90-4b4e-b8e8-b83b83062d76",
+                    "label": "ABS",
+                    "func": "ABS",
+                    "type": "ARITHMETIC",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Vector|Scalar",
+                            "multiple": false,
+                            "desc": "The input to apply the absolute value to."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "x: the x-axis of the input.\ny: the absolute value of the input."
+                        }
+                    ],
+                    "path": "PYTHON/nodes/TRANSFORMERS/ARITHMETIC/ABS/ABS.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 163.35687318085155,
+                    "y": -42.70353213709677
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 163.35687318085155,
+                    "y": -42.70353213709677
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "TEXT-e3f90d0e-e5d6-4e35-9904-81869991e968",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "TEXT-e3f90d0e-e5d6-4e35-9904-81869991e968",
+                    "label": "TEXT",
+                    "func": "TEXT",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "value": {
+                            "type": "str",
+                            "default": "Hello World!",
+                            "desc": "The value set in Parameters",
+                            "functionName": "TEXT",
+                            "param": "value",
+                            "value": "This app shows how the ABS node works. We gave an input to the node, here our input is a function from -10 to 10. Then the abs node returns the absolute value of the input."
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "_",
+                            "id": "_",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "text_blob: return the value being set in Parameters"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TEXT/TEXT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 119.04672037643181,
+                    "y": 146.8953702601495
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 119.04672037643181,
+                    "y": 146.8953702601495
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "TEXT_VIEW-114093ad-15b1-42a6-8840-7b32598da83c",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-114093ad-15b1-42a6-8840-7b32598da83c",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 356.8108953782835,
+                    "y": 115.74223587436978
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 356.8108953782835,
+                    "y": 115.74223587436978
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "SCATTER-69af7410-0866-46ca-bcfe-7eeb5ee03943",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "SCATTER-69af7410-0866-46ca-bcfe-7eeb5ee03943",
+                    "label": "SCATTER",
+                    "func": "SCATTER",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing Plotly Scatter visualization"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 350.23161171482496,
+                    "y": -163.15318250315033
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 350.23161171482496,
+                    "y": -163.15318250315033
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "LINSPACE-11d46127-5570-4ed4-a4bf-2da340fad697",
+                "sourceHandle": "default",
+                "target": "ABS-13396e8e-fa90-4b4e-b8e8-b83b83062d76",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINSPACE-11d46127-5570-4ed4-a4bf-2da340fad697default-ABS-13396e8e-fa90-4b4e-b8e8-b83b83062d76default"
+            },
+            {
+                "source": "LINSPACE-11d46127-5570-4ed4-a4bf-2da340fad697",
+                "sourceHandle": "default",
+                "target": "TEXT-e3f90d0e-e5d6-4e35-9904-81869991e968",
+                "targetHandle": "_",
+                "id": "reactflow__edge-LINSPACE-11d46127-5570-4ed4-a4bf-2da340fad697default-TEXT-e3f90d0e-e5d6-4e35-9904-81869991e968_"
+            },
+            {
+                "source": "TEXT-e3f90d0e-e5d6-4e35-9904-81869991e968",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-114093ad-15b1-42a6-8840-7b32598da83c",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TEXT-e3f90d0e-e5d6-4e35-9904-81869991e968default-TEXT_VIEW-114093ad-15b1-42a6-8840-7b32598da83cdefault"
+            },
+            {
+                "source": "ABS-13396e8e-fa90-4b4e-b8e8-b83b83062d76",
+                "sourceHandle": "default",
+                "target": "SCATTER-69af7410-0866-46ca-bcfe-7eeb5ee03943",
+                "targetHandle": "default",
+                "id": "reactflow__edge-ABS-13396e8e-fa90-4b4e-b8e8-b83b83062d76default-SCATTER-69af7410-0866-46ca-bcfe-7eeb5ee03943default"
+            }
+        ],
+        "viewport": {
+            "x": 328.30307914563144,
+            "y": 226.88940714410813,
+            "zoom": 0.5
+        }
+    }
+}

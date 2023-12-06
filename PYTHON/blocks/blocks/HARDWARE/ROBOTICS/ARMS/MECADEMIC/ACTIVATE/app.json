@@ -1,0 +1,177 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CONNECT-7ca02405-664b-43f0-a498-ef3ddecbd2b7",
+                "type": "INSTRUMENTS",
+                "data": {
+                    "id": "CONNECT-7ca02405-664b-43f0-a498-ef3ddecbd2b7",
+                    "label": "CONNECT",
+                    "func": "CONNECT",
+                    "type": "INSTRUMENTS",
+                    "ctrls": {
+                        "ip_address": {
+                            "type": "str",
+                            "default": null,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "CONNECT",
+                            "param": "ip_address",
+                            "value": ""
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "The IP address of the robot arm."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "mecademicpy",
+                            "v": "1.4.0"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/INSTRUMENTS/MECADEMIC/CONNECT/CONNECT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 149.79183394290823,
+                    "y": -219.99455021662578
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 149.79183394290823,
+                    "y": -219.99455021662578
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "ACTIVATE-83ad0faf-16a9-42c9-bcd2-fc0e0f25395b",
+                "type": "INSTRUMENTS",
+                "data": {
+                    "id": "ACTIVATE-83ad0faf-16a9-42c9-bcd2-fc0e0f25395b",
+                    "label": "ACTIVATE",
+                    "func": "ACTIVATE",
+                    "type": "INSTRUMENTS",
+                    "ctrls": {
+                        "simulator": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to activate the simulator or not. Defaults to False.",
+                            "overload": null,
+                            "functionName": "ACTIVATE",
+                            "param": "simulator",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "ip_address",
+                            "id": "ip_address",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "The IP address of the robot arm."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "The IP address of the robot arm."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "mecademicpy",
+                            "v": "1.4.0"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/INSTRUMENTS/MECADEMIC/ACTIVATE/ACTIVATE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 527.703545775578,
+                    "y": -214.68035169098664
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 527.703545775578,
+                    "y": -214.68035169098664
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "DISCONNECT-508704f3-6da0-4541-8590-21a3b4318e0d",
+                "type": "INSTRUMENTS",
+                "data": {
+                    "id": "DISCONNECT-508704f3-6da0-4541-8590-21a3b4318e0d",
+                    "label": "DISCONNECT",
+                    "func": "DISCONNECT",
+                    "type": "INSTRUMENTS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "ip_address",
+                            "id": "ip_address",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "The IP address of the robot arm."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "mecademicpy",
+                            "v": "1.4.0"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/INSTRUMENTS/MECADEMIC/DISCONNECT/DISCONNECT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 877.4514022741033,
+                    "y": -212.57592377531705
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 877.4514022741033,
+                    "y": -212.57592377531705
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "CONNECT-7ca02405-664b-43f0-a498-ef3ddecbd2b7",
+                "sourceHandle": "default",
+                "target": "ACTIVATE-83ad0faf-16a9-42c9-bcd2-fc0e0f25395b",
+                "targetHandle": "ip_address",
+                "id": "reactflow__edge-CONNECT-7ca02405-664b-43f0-a498-ef3ddecbd2b7default-ACTIVATE-83ad0faf-16a9-42c9-bcd2-fc0e0f25395bip_address"
+            },
+            {
+                "source": "ACTIVATE-83ad0faf-16a9-42c9-bcd2-fc0e0f25395b",
+                "sourceHandle": "default",
+                "target": "DISCONNECT-508704f3-6da0-4541-8590-21a3b4318e0d",
+                "targetHandle": "ip_address",
+                "id": "reactflow__edge-ACTIVATE-83ad0faf-16a9-42c9-bcd2-fc0e0f25395bdefault-DISCONNECT-508704f3-6da0-4541-8590-21a3b4318e0dip_address"
+            }
+        ],
+        "viewport": {
+            "x": 669.537650867023,
+            "y": 398.1114317341454,
+            "zoom": 0.7467072297113905
+        }
+    }
+}

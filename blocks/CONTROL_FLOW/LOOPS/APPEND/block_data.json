@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "The large array must be passed to the bottom \"array\" connection.\n\nFor ordered pair, the single point must have a shape of 1 (or (1,)).",
+    "short_description": "Append a single data point to an array.",
+    "parameters": [
+      {
+        "name": "primary_dp",
+        "type": "OrderedPair|Vector|Scalar|Matrix|DataFrame",
+        "description": "Input that ends up \"on top\" of the resulting DataContainer."
+      },
+      {
+        "name": "secondary_dp",
+        "type": "OrderedPair|Vector|Scalar|Matrix|DataFrame",
+        "description": "Input that ends up \"on the bottom\" of the resulting DataContainer."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "OrderedPair, Matrix, DataFrame, Vector",
+        "description": null
+      }
+    ]
+  }
+}

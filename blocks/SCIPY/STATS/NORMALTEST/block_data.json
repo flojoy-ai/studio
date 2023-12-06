@@ -1,0 +1,35 @@
+{
+  "docstring": {
+    "long_description": "The description of that function is as follows:\n\n    Test whether a sample differs from a normal distribution.\n\n    This function tests the null hypothesis that a sample comes from a normal distribution.\n    It is based on D'Agostino and Pearson's [1]_, [2]_ test that combines skewness and kurtosis to produce an omnibus test of normality.",
+    "short_description": "The NORMALTEST node is based on a numpy or scipy function.",
+    "parameters": [
+      {
+        "name": "select_return",
+        "type": "'statistic', 'pvalue'",
+        "description": "Select the desired object to return.\nSee the respective function docs for descriptors."
+      },
+      {
+        "name": "a",
+        "type": "array_like",
+        "description": "The array containing the sample to be tested."
+      },
+      {
+        "name": "axis",
+        "type": "int or None",
+        "description": "Axis along which to compute test.\nDefault is 0.\nIf None, compute over the whole array 'a'."
+      },
+      {
+        "name": "nan_policy",
+        "type": "{'propagate', 'raise', 'omit'}",
+        "description": "Defines how to handle when input contains nan.\nThe following options are available (default is 'propagate'):\n'propagate' : returns nan\n'raise' : raises an error\n'omit' : performs the calculations ignoring nan values"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "type 'ordered pair', 'scalar', or 'matrix'"
+      }
+    ]
+  }
+}

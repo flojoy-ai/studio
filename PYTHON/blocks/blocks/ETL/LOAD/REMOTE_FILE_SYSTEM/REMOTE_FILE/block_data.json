@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "Note: If both the file_url and default are not specified when file_type=\"Image\", a default image will be loaded.\n\nFor now, REMOTE_FILE only supports HTTP file URLs, in particular GCP URL (starting with gcp://). S3 URL (starting with s3://) and other bucket-like URLs are not supported.\n\nIf the file url is not specified and the default input is not connected, or if the file url is not a valid URL, a ValueError is raised.",
+    "short_description": "Load a remote file from an HTTP URL endpoint, infer the type, and convert it to a DataContainer class.",
+    "parameters": [
+      {
+        "name": "file_url",
+        "type": "str",
+        "description": "URL of the file to be loaded."
+      },
+      {
+        "name": "default",
+        "type": "Optional[TextBlob]",
+        "description": "If this input node is connected, the file URL will be taken from\nthe output of the connected node.\nTo be used in conjunction with batch processing."
+      },
+      {
+        "name": "file_type",
+        "type": "str",
+        "description": "Type of file to load, default = image."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Image|DataFrame",
+        "description": "Image for file_type 'image'.\nDataFrame for file_type 'json', 'csv', 'excel', 'xml'."
+      }
+    ]
+  }
+}

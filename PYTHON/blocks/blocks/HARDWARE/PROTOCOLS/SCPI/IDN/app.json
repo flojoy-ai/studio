@@ -1,0 +1,223 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "OPEN_SERIAL-17411722-e9a1-4e27-ba12-1e75d699e01d",
+                "type": "IO",
+                "data": {
+                    "id": "OPEN_SERIAL-17411722-e9a1-4e27-ba12-1e75d699e01d",
+                    "label": "OPEN SERIAL",
+                    "func": "OPEN_SERIAL",
+                    "type": "IO",
+                    "ctrls": {
+                        "device": {
+                            "type": "SerialDevice",
+                            "default": null,
+                            "desc": "The connected serial device.",
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "device",
+                            "value": "/dev/cu.usbserial-PX75GRVT"
+                        },
+                        "baudrate": {
+                            "type": "int",
+                            "default": 9600,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "baudrate",
+                            "value": 9600
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": null
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "pyserial",
+                            "v": "3.5"
+                        }
+                    ],
+                    "path": "IO/PROTOCOLS/SERIAL/BASIC/OPEN_SERIAL/OPEN_SERIAL.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 163.45278793835485,
+                    "y": -471.31273604271325
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 163.45278793835485,
+                    "y": -471.31273604271325
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "IDN-c161f297-0c02-4397-9227-f3142ad0bb9c",
+                "type": "IO",
+                "data": {
+                    "id": "IDN-c161f297-0c02-4397-9227-f3142ad0bb9c",
+                    "label": "IDN",
+                    "func": "IDN",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The open connection with the device receiving the *IDN? SCPI command.",
+                            "overload": null,
+                            "functionName": "IDN",
+                            "param": "connection",
+                            "value": "/dev/cu.usbserial-PX75GRVT"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "A dummy TextBlob DataContainer - likely connected to the output of the OPEN_SERIAL node. This dummy input is intended to connect to the OPEN_SERIAL output to ensure that OPEN_SERIAL is executed first."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "desc": "The result of the *IDN? SCPI command."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "pyserial",
+                            "v": "3.5"
+                        }
+                    ],
+                    "path": "IO/PROTOCOLS/SCPI/IDN/IDN.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 551.0172186571147,
+                    "y": -576.1304008214148
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 551.0172186571147,
+                    "y": -576.1304008214148
+                },
+                "dragging": true
+            },
+            {
+                "width": 384,
+                "height": 288,
+                "id": "TEXT_VIEW-35658fcd-1613-4ac0-9e6c-321e0289cdb9",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-35658fcd-1613-4ac0-9e6c-321e0289cdb9",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 481.65150454274004,
+                    "y": -332.91450740918776
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 481.65150454274004,
+                    "y": -332.91450740918776
+                },
+                "dragging": true
+            },
+            {
+                "width": 384,
+                "height": 288,
+                "id": "TEXT_VIEW-eedc270e-60d1-43a4-8052-c06d065cda03",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-eedc270e-60d1-43a4-8052-c06d065cda03",
+                    "label": "TEXT VIEW 1",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "TextBlob",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": true
+                },
+                "position": {
+                    "x": 879.5415779914551,
+                    "y": -625.7781906340394
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": 879.5415779914551,
+                    "y": -625.7781906340394
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "OPEN_SERIAL-17411722-e9a1-4e27-ba12-1e75d699e01d",
+                "sourceHandle": "default",
+                "target": "IDN-c161f297-0c02-4397-9227-f3142ad0bb9c",
+                "targetHandle": "default",
+                "id": "reactflow__edge-OPEN_SERIAL-17411722-e9a1-4e27-ba12-1e75d699e01ddefault-IDN-c161f297-0c02-4397-9227-f3142ad0bb9cdefault"
+            },
+            {
+                "source": "IDN-c161f297-0c02-4397-9227-f3142ad0bb9c",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-eedc270e-60d1-43a4-8052-c06d065cda03",
+                "targetHandle": "default",
+                "id": "reactflow__edge-IDN-c161f297-0c02-4397-9227-f3142ad0bb9cdefault-TEXT_VIEW-eedc270e-60d1-43a4-8052-c06d065cda03default"
+            },
+            {
+                "source": "OPEN_SERIAL-17411722-e9a1-4e27-ba12-1e75d699e01d",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-35658fcd-1613-4ac0-9e6c-321e0289cdb9",
+                "targetHandle": "default",
+                "id": "reactflow__edge-OPEN_SERIAL-17411722-e9a1-4e27-ba12-1e75d699e01ddefault-TEXT_VIEW-35658fcd-1613-4ac0-9e6c-321e0289cdb9default"
+            }
+        ],
+        "viewport": {
+            "x": 173.54985819173658,
+            "y": 726.3350510651735,
+            "zoom": 0.8280007481315924
+        }
+    },
+    "textNodes": []
+}

@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Take an OrderedPair, Vector, or Scalar as input and return its absolute value.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "OrderedPair|Vector|Scalar",
+        "description": "The input to apply the absolute value to."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "OrderedPair",
+        "description": "x: the x-axis of the input.\ny: the absolute value of the input."
+      }
+    ]
+  }
+}

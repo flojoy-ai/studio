@@ -1,0 +1,27 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Connect Flojoy to an NI USB4065 DAQ board.",
+    "parameters": [
+      {
+        "name": "NI_address",
+        "type": "str",
+        "description": "The NI instrument address for the instrument (e.g. 'Dev0', 'Dev1')."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "Optional: None"
+      }
+    ]
+  },
+  "videos": [
+    {
+      "title": "Control USB-4605 multimeter with Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=FPSkvCFjKR4"
+    }
+  ]
+}
