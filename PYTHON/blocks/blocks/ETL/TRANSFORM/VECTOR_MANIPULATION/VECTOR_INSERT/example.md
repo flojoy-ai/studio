@@ -1,0 +1,1 @@
+In this example, we generate a vector by using a `LINSPACE` node. Then, a value specified (13) is inserted at index 0 `VECTOR_INSERT`. The value is visualized with `SCATTER` node. Another set of example  excluding `VECTOR_INSERT` node has been added for comparison.

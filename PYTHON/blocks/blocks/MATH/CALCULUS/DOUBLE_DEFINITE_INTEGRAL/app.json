@@ -1,0 +1,524 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 208,
+                "height": 96,
+                "id": "LINSPACE-21723961-99ce-4b59-a3b2-8dac32c8fb8a",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "LINSPACE-21723961-99ce-4b59-a3b2-8dac32c8fb8a",
+                    "label": "LINSPACE",
+                    "func": "LINSPACE",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "start": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "The start point of the data.",
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": 10
+                        },
+                        "end": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The end point of the data.",
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": 0
+                        },
+                        "step": {
+                            "type": "int",
+                            "default": 1000,
+                            "desc": "The number of points in the vector.",
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": 1000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "multiple": false,
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "v: the vector between start and end with step number of points."
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -781.2371899384184,
+                    "y": -834.3186961233162
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -781.2371899384184,
+                    "y": -834.3186961233162
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "SINE-c0ce0d99-dafe-46cf-b360-fe033cab208f",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "SINE-c0ce0d99-dafe-46cf-b360-fe033cab208f",
+                    "label": "SINE",
+                    "func": "SINE",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "amplitude": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The amplitude of the wave.",
+                            "functionName": "SINE",
+                            "param": "amplitude",
+                            "value": 1
+                        },
+                        "frequency": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The wave frequency in radians/2pi.",
+                            "functionName": "SINE",
+                            "param": "frequency",
+                            "value": 1
+                        },
+                        "offset": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The y axis offset of the function.",
+                            "functionName": "SINE",
+                            "param": "offset",
+                            "value": 0
+                        },
+                        "phase": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The x axis offset of the function.",
+                            "functionName": "SINE",
+                            "param": "phase",
+                            "value": 0
+                        },
+                        "waveform": {
+                            "type": "select",
+                            "default": "sine",
+                            "options": [
+                                "sine",
+                                "square",
+                                "triangle",
+                                "sawtooth"
+                            ],
+                            "desc": "The waveform type of the wave.",
+                            "functionName": "SINE",
+                            "param": "waveform",
+                            "value": "sine"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Vector",
+                            "multiple": false,
+                            "desc": "Input that defines the x axis values of the function and output."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "x: the input v or x values\ny: the resulting sine function"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/SINE/SINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -492.3844094754273,
+                    "y": -895.5168686652897
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -492.3844094754273,
+                    "y": -895.5168686652897
+                },
+                "dragging": true
+            },
+            {
+                "width": 168,
+                "height": 160,
+                "id": "DOUBLE_DEFINITE_INTEGRAL-1d5f2fed-f987-406b-b30a-86be423a9345",
+                "type": "TRANSFORMERS",
+                "data": {
+                    "id": "DOUBLE_DEFINITE_INTEGRAL-1d5f2fed-f987-406b-b30a-86be423a9345",
+                    "label": "DOUBLE DEFINITE INTEGRAL",
+                    "func": "DOUBLE_DEFINITE_INTEGRAL",
+                    "type": "TRANSFORMERS",
+                    "ctrls": {
+                        "function": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "The function that we are integrating.",
+                            "functionName": "DOUBLE_DEFINITE_INTEGRAL",
+                            "param": "function",
+                            "value": "x*y"
+                        },
+                        "upper_bound_x": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The upper bound for x.",
+                            "functionName": "DOUBLE_DEFINITE_INTEGRAL",
+                            "param": "upper_bound_x",
+                            "value": 2
+                        },
+                        "lower_bound_x": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The lower bound for x.",
+                            "functionName": "DOUBLE_DEFINITE_INTEGRAL",
+                            "param": "lower_bound_x",
+                            "value": 0
+                        },
+                        "upper_bound_y": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The upper bound for y.",
+                            "functionName": "DOUBLE_DEFINITE_INTEGRAL",
+                            "param": "upper_bound_y",
+                            "value": 1
+                        },
+                        "lower_bound_y": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The lower bound for y.",
+                            "functionName": "DOUBLE_DEFINITE_INTEGRAL",
+                            "param": "lower_bound_y",
+                            "value": 0
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "The result of the double definite integral."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "sympy",
+                            "v": "1.12"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/TRANSFORMERS/CALCULUS/DOUBLE_DEFINITE_INTEGRAL/DOUBLE_DEFINITE_INTEGRAL.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -733.3409833662724,
+                    "y": -685.4327087535473
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -733.3409833662724,
+                    "y": -685.4327087535473
+                },
+                "dragging": true
+            },
+            {
+                "width": 72,
+                "height": 72,
+                "id": "ADD-a2e98163-6fdf-4103-a592-9a1ddcd54782",
+                "type": "ARITHMETIC",
+                "data": {
+                    "id": "ADD-a2e98163-6fdf-4103-a592-9a1ddcd54782",
+                    "label": "ADD",
+                    "func": "ADD",
+                    "type": "ARITHMETIC",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "a",
+                            "id": "a",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "The input a use to compute the sum of a and b."
+                        },
+                        {
+                            "name": "b",
+                            "id": "b",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": true,
+                            "desc": "The input b use to compute the sum of a and b."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the sum of input a and input b.\n\nScalar if a is a Scalar.\nc: the sum of input a and input b.\n\nVector if a is a Vector.\nv: the sum of input a and input b."
+                        }
+                    ],
+                    "path": "PYTHON/nodes/TRANSFORMERS/ARITHMETIC/ADD/ADD.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -169.15354667419064,
+                    "y": -755.434480581777
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -169.15354667419064,
+                    "y": -755.434480581777
+                },
+                "dragging": true
+            },
+            {
+                "width": 231,
+                "height": 96,
+                "id": "TEXT-f6948095-b42b-42b5-a42d-49c1bac7f069",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "TEXT-f6948095-b42b-42b5-a42d-49c1bac7f069",
+                    "label": "DESCRIPTION",
+                    "func": "TEXT",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "value": {
+                            "type": "str",
+                            "default": "Hello World!",
+                            "desc": "The value set in Parameters",
+                            "functionName": "TEXT",
+                            "param": "value",
+                            "value": "This app shows how the DOUBLE_DEFINITE_INTEGRAL node works. First we generate a sine function with the LINSPACE and SINE nodes and compute the integral of the function x*y in the double definite integral node. Then we add the sine function and the result of the integral together and we visualize the result in the SCATTER node."
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "_",
+                            "id": "_",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "s: return the value being set in Parameters"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TEXT/TEXT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -545.5871618362089,
+                    "y": -521.5163302961121
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -545.5871618362089,
+                    "y": -521.5163302961121
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "TEXT_VIEW-1fab58aa-9aa0-4eb8-a880-bfb8b2ccc0d3",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-1fab58aa-9aa0-4eb8-a880-bfb8b2ccc0d3",
+                    "label": "TEXT VIEW 1",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -265.2834694342107,
+                    "y": -552.4272635002714
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -265.2834694342107,
+                    "y": -552.4272635002714
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "SCATTER-63f4df47-4d14-47e0-8e84-f5cd41363016",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "SCATTER-63f4df47-4d14-47e0-8e84-f5cd41363016",
+                    "label": "SCATTER 2",
+                    "func": "SCATTER",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing Plotly Scatter visualization"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 153.8956190137875,
+                    "y": -755.1313323788451
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 153.8956190137875,
+                    "y": -755.1313323788451
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "SCATTER-be022a02-6816-4879-8a08-3c4856edb2c3",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "SCATTER-be022a02-6816-4879-8a08-3c4856edb2c3",
+                    "label": "SCATTER 3",
+                    "func": "SCATTER",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing Plotly Scatter visualization"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -74.56299583367218,
+                    "y": -1058.2794448534007
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -74.56299583367218,
+                    "y": -1058.2794448534007
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "DOUBLE_DEFINITE_INTEGRAL-1d5f2fed-f987-406b-b30a-86be423a9345",
+                "sourceHandle": "default",
+                "target": "TEXT-f6948095-b42b-42b5-a42d-49c1bac7f069",
+                "targetHandle": "_",
+                "id": "reactflow__edge-DOUBLE_DEFINITE_INTEGRAL-1d5f2fed-f987-406b-b30a-86be423a9345default-TEXT-f6948095-b42b-42b5-a42d-49c1bac7f069_"
+            },
+            {
+                "source": "SINE-c0ce0d99-dafe-46cf-b360-fe033cab208f",
+                "sourceHandle": "default",
+                "target": "ADD-a2e98163-6fdf-4103-a592-9a1ddcd54782",
+                "targetHandle": "a",
+                "id": "reactflow__edge-SINE-c0ce0d99-dafe-46cf-b360-fe033cab208fdefault-ADD-a2e98163-6fdf-4103-a592-9a1ddcd54782a"
+            },
+            {
+                "source": "DOUBLE_DEFINITE_INTEGRAL-1d5f2fed-f987-406b-b30a-86be423a9345",
+                "sourceHandle": "default",
+                "target": "ADD-a2e98163-6fdf-4103-a592-9a1ddcd54782",
+                "targetHandle": "b",
+                "id": "reactflow__edge-DOUBLE_DEFINITE_INTEGRAL-1d5f2fed-f987-406b-b30a-86be423a9345default-ADD-a2e98163-6fdf-4103-a592-9a1ddcd54782b"
+            },
+            {
+                "source": "LINSPACE-21723961-99ce-4b59-a3b2-8dac32c8fb8a",
+                "sourceHandle": "default",
+                "target": "SINE-c0ce0d99-dafe-46cf-b360-fe033cab208f",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINSPACE-21723961-99ce-4b59-a3b2-8dac32c8fb8adefault-SINE-c0ce0d99-dafe-46cf-b360-fe033cab208fdefault"
+            },
+            {
+                "source": "TEXT-f6948095-b42b-42b5-a42d-49c1bac7f069",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-1fab58aa-9aa0-4eb8-a880-bfb8b2ccc0d3",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TEXT-f6948095-b42b-42b5-a42d-49c1bac7f069default-TEXT_VIEW-1fab58aa-9aa0-4eb8-a880-bfb8b2ccc0d3default"
+            },
+            {
+                "source": "SINE-c0ce0d99-dafe-46cf-b360-fe033cab208f",
+                "sourceHandle": "default",
+                "target": "SCATTER-be022a02-6816-4879-8a08-3c4856edb2c3",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SINE-c0ce0d99-dafe-46cf-b360-fe033cab208fdefault-SCATTER-be022a02-6816-4879-8a08-3c4856edb2c3default"
+            },
+            {
+                "source": "ADD-a2e98163-6fdf-4103-a592-9a1ddcd54782",
+                "sourceHandle": "default",
+                "target": "SCATTER-63f4df47-4d14-47e0-8e84-f5cd41363016",
+                "targetHandle": "default",
+                "id": "reactflow__edge-ADD-a2e98163-6fdf-4103-a592-9a1ddcd54782default-SCATTER-63f4df47-4d14-47e0-8e84-f5cd41363016default"
+            }
+        ],
+        "viewport": {
+            "x": 328.30307914563144,
+            "y": 226.88940714410813,
+            "zoom": 0.5
+        }
+    }
+}

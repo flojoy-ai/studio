@@ -1,0 +1,288 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 150,
+                "height": 150,
+                "id": "PLOTLY_DATASET-d91971aa-7143-46d8-82a7-5ec15eba9816",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "PLOTLY_DATASET-d91971aa-7143-46d8-82a7-5ec15eba9816",
+                    "label": "PLOTLY DATASET",
+                    "func": "PLOTLY_DATASET",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "dataset_key": {
+                            "type": "select",
+                            "default": "wind",
+                            "options": [
+                                "wind",
+                                "iris",
+                                "carshare",
+                                "tips",
+                                "election",
+                                "experiment",
+                                "gapminder",
+                                "medals_long",
+                                "medals_wide",
+                                "stocks"
+                            ],
+                            "functionName": "PLOTLY_DATASET",
+                            "param": "dataset_key",
+                            "value": "tips"
+                        }
+                    },
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SAMPLE_DATASETS/PLOTLY_DATASET/PLOTLY_DATASET.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 246.6265685991994,
+                    "y": 514.6410134767791
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 246.6265685991994,
+                    "y": 514.6410134767791
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 150,
+                "id": "EXTRACT_COLUMNS-e8f40b9e-1d83-478f-b43a-e0a53829e018",
+                "type": "EXTRACTORS",
+                "data": {
+                    "id": "EXTRACT_COLUMNS-e8f40b9e-1d83-478f-b43a-e0a53829e018",
+                    "label": "EXTRACT COLUMNS",
+                    "func": "EXTRACT_COLUMNS",
+                    "type": "EXTRACTORS",
+                    "ctrls": {
+                        "columns": {
+                            "type": "Array",
+                            "default": null,
+                            "functionName": "EXTRACT_COLUMNS",
+                            "param": "columns",
+                            "value": "tip, time"
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/EXTRACTORS/EXTRACT_COLUMNS/EXTRACT_COLUMNS/EXTRACT_COLUMNS.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 586.4576631006794,
+                    "y": 385.19678110303124
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 586.4576631006794,
+                    "y": 385.19678110303124
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 150,
+                "id": "EXTRACT_COLUMNS-19b5a943-df28-49dd-b030-f48cd6fc0444",
+                "type": "EXTRACTORS",
+                "data": {
+                    "id": "EXTRACT_COLUMNS-19b5a943-df28-49dd-b030-f48cd6fc0444",
+                    "label": "EXTRACT COLUMNS 1",
+                    "func": "EXTRACT_COLUMNS",
+                    "type": "EXTRACTORS",
+                    "ctrls": {
+                        "columns": {
+                            "type": "Array",
+                            "default": null,
+                            "functionName": "EXTRACT_COLUMNS",
+                            "param": "columns",
+                            "value": "total_bill"
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/EXTRACTORS/EXTRACT_COLUMNS/EXTRACT_COLUMNS/EXTRACT_COLUMNS.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 583.6116199640052,
+                    "y": 638.6433365798632
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 583.6116199640052,
+                    "y": 638.6433365798632
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "TABLE-54f2efe9-ff96-4337-a557-5b04987361a1",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TABLE-54f2efe9-ff96-4337-a557-5b04987361a1",
+                    "label": "TABLE",
+                    "func": "TABLE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 860.9858764800861,
+                    "y": 316.2359989426046
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 860.9858764800861,
+                    "y": 316.2359989426046
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "TABLE-78464c37-c0ed-4eeb-ac3a-0d13b241e24a",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TABLE-78464c37-c0ed-4eeb-ac3a-0d13b241e24a",
+                    "label": "TABLE 1",
+                    "func": "TABLE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 868.488229602283,
+                    "y": 655.3282103193458
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 868.488229602283,
+                    "y": 655.3282103193458
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "PLOTLY_DATASET-d91971aa-7143-46d8-82a7-5ec15eba9816",
+                "sourceHandle": "default",
+                "target": "EXTRACT_COLUMNS-e8f40b9e-1d83-478f-b43a-e0a53829e018",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PLOTLY_DATASET-d91971aa-7143-46d8-82a7-5ec15eba9816default-EXTRACT_COLUMNS-e8f40b9e-1d83-478f-b43a-e0a53829e018default"
+            },
+            {
+                "source": "PLOTLY_DATASET-d91971aa-7143-46d8-82a7-5ec15eba9816",
+                "sourceHandle": "default",
+                "target": "EXTRACT_COLUMNS-19b5a943-df28-49dd-b030-f48cd6fc0444",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PLOTLY_DATASET-d91971aa-7143-46d8-82a7-5ec15eba9816default-EXTRACT_COLUMNS-19b5a943-df28-49dd-b030-f48cd6fc0444default"
+            },
+            {
+                "source": "EXTRACT_COLUMNS-e8f40b9e-1d83-478f-b43a-e0a53829e018",
+                "sourceHandle": "default",
+                "target": "TABLE-54f2efe9-ff96-4337-a557-5b04987361a1",
+                "targetHandle": "default",
+                "id": "reactflow__edge-EXTRACT_COLUMNS-e8f40b9e-1d83-478f-b43a-e0a53829e018default-TABLE-54f2efe9-ff96-4337-a557-5b04987361a1default"
+            },
+            {
+                "source": "EXTRACT_COLUMNS-19b5a943-df28-49dd-b030-f48cd6fc0444",
+                "sourceHandle": "default",
+                "target": "TABLE-78464c37-c0ed-4eeb-ac3a-0d13b241e24a",
+                "targetHandle": "default",
+                "id": "reactflow__edge-EXTRACT_COLUMNS-19b5a943-df28-49dd-b030-f48cd6fc0444default-TABLE-78464c37-c0ed-4eeb-ac3a-0d13b241e24adefault"
+            }
+        ],
+        "viewport": {
+            "x": -456.37712173371256,
+            "y": 259.03077225262325,
+            "zoom": 1.3466637668169514
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Takes a boolean data type and computs logical NOT operation on them.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "Boolean",
+        "description": "The input boolean to which we apply the NOT operation."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Boolean",
+        "description": "The boolean result from the operation of the input."
+      }
+    ]
+  }
+}

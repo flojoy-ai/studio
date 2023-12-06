@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Convert a Matrix DataContainer to a Vector DataContainer.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "Matrix",
+        "description": "The input matrix that will be transformed into vector data type."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Vector",
+        "description": "Vector that is flatten from input matrix."
+      }
+    ]
+  }
+}

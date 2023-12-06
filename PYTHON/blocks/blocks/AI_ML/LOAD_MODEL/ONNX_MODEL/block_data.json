@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "This allows supporting a wide range of deep learning frameworks and hardware platforms.",
+    "short_description": "Load a serialized ONNX model and uses it to make predictions using ONNX Runtime.",
+    "parameters": [
+      {
+        "name": "file_path",
+        "type": "str",
+        "description": "Path to a ONNX model to load and use for prediction."
+      },
+      {
+        "name": "default",
+        "type": "Vector",
+        "description": "The input tensor to use for prediction.\nFor now, only a single input tensor is supported.\nNote that the input tensor shape is not checked against the model's input shape."
+      }
+    ],
+    "returns": [
+      {
+        "name": "Vector",
+        "type": "",
+        "description": "The predictions made by the ONNX model.\nFor now, only a single output tensor is supported."
+      }
+    ]
+  }
+}

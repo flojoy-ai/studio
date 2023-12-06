@@ -1,0 +1,257 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 208,
+                "height": 96,
+                "id": "SCALAR-0a444b33-cbb1-474f-b301-2afafbd1ec06",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "SCALAR-0a444b33-cbb1-474f-b301-2afafbd1ec06",
+                    "label": "SCALAR",
+                    "func": "SCALAR",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "value": {
+                            "type": "float",
+                            "default": 3,
+                            "desc": "The value of the y axis output",
+                            "functionName": "SCALAR",
+                            "param": "value",
+                            "value": "10"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "c: return the value being set in Parameters"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/SCALAR/SCALAR.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -68.45245265394736,
+                    "y": 82.09538044237203
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -68.45245265394736,
+                    "y": 82.09538044237203
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "LINSPACE-f9050481-67ec-4041-8a79-857915f5068a",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "LINSPACE-f9050481-67ec-4041-8a79-857915f5068a",
+                    "label": "LINSPACE",
+                    "func": "LINSPACE",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "start": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "The start point of the data.",
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": "0"
+                        },
+                        "end": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The end point of the data.",
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": "10"
+                        },
+                        "step": {
+                            "type": "int",
+                            "default": 1000,
+                            "desc": "The number of points in the vector.",
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": "200"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "multiple": false,
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "v: the vector between start and end with step number of points."
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -65.78211539086668,
+                    "y": -78.04804637833047
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -65.78211539086668,
+                    "y": -78.04804637833047
+                },
+                "dragging": true
+            },
+            {
+                "width": 72,
+                "height": 72,
+                "id": "ADD-c5647328-b364-4ce5-8399-07dc2430fa73",
+                "type": "ARITHMETIC",
+                "data": {
+                    "id": "ADD-c5647328-b364-4ce5-8399-07dc2430fa73",
+                    "label": "ADD",
+                    "func": "ADD",
+                    "type": "ARITHMETIC",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "a",
+                            "id": "a",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": null
+                        },
+                        {
+                            "name": "b",
+                            "id": "b",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": true,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": null
+                        }
+                    ],
+                    "path": "PYTHON/nodes/TRANSFORMERS/ARITHMETIC/ADD/ADD.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 319.8903167459661,
+                    "y": 3.0683844611061772
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 319.8903167459661,
+                    "y": 3.0683844611061772
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "LINE-67cf5d6a-c420-4fe5-a4d6-c98812711b01",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "LINE-67cf5d6a-c420-4fe5-a4d6-c98812711b01",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 557.0297668457374,
+                    "y": -73.40249478571985
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 557.0297668457374,
+                    "y": -73.40249478571985
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "LINSPACE-f9050481-67ec-4041-8a79-857915f5068a",
+                "sourceHandle": "default",
+                "target": "ADD-c5647328-b364-4ce5-8399-07dc2430fa73",
+                "targetHandle": "a",
+                "id": "reactflow__edge-LINSPACE-f9050481-67ec-4041-8a79-857915f5068adefault-ADD-c5647328-b364-4ce5-8399-07dc2430fa73a"
+            },
+            {
+                "source": "SCALAR-0a444b33-cbb1-474f-b301-2afafbd1ec06",
+                "sourceHandle": "default",
+                "target": "ADD-c5647328-b364-4ce5-8399-07dc2430fa73",
+                "targetHandle": "b",
+                "id": "reactflow__edge-SCALAR-0a444b33-cbb1-474f-b301-2afafbd1ec06default-ADD-c5647328-b364-4ce5-8399-07dc2430fa73b"
+            },
+            {
+                "source": "ADD-c5647328-b364-4ce5-8399-07dc2430fa73",
+                "sourceHandle": "default",
+                "target": "LINE-67cf5d6a-c420-4fe5-a4d6-c98812711b01",
+                "targetHandle": "default",
+                "id": "reactflow__edge-ADD-c5647328-b364-4ce5-8399-07dc2430fa73default-LINE-67cf5d6a-c420-4fe5-a4d6-c98812711b01default"
+            }
+        ],
+        "viewport": {
+            "x": 574.9737644785836,
+            "y": 258.3200412975903,
+            "zoom": 1.01138398827472
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+        }
+    ]
+}

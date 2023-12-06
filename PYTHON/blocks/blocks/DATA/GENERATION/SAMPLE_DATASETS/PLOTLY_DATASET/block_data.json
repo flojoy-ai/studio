@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Retrieve a pandas DataFrame from one of Plotly Express's built-in datasets.",
+    "parameters": [
+      {
+        "name": "dataset_key",
+        "type": "str",
+        "description": null
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataFrame",
+        "description": null
+      }
+    ]
+  }
+}

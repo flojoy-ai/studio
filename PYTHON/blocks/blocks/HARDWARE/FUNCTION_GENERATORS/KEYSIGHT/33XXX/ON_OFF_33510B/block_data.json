@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "Requires a CONNECTION_33510B node at the start of the app to connect with\nthe instrument. The VISA address will then be listed under 'connection'.\n\nThis node should also work with compatible Keysight 33XXX wavefunction\ngenerators (although they are untested).",
+    "short_description": "Turn the output of a supported function generator on or off.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_MDO3XXX node)."
+      },
+      {
+        "name": "on_off",
+        "type": "str",
+        "description": "Whether to turn the waveform generation to on or off."
+      },
+      {
+        "name": "channel",
+        "type": "str",
+        "description": "The channel to turn on or off."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "String: ON or OFF depending on on_off value."
+      }
+    ]
+  }
+}

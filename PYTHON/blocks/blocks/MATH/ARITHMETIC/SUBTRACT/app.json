@@ -1,0 +1,594 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 225,
+                "height": 226,
+                "id": "SCATTER-483e3828-1bd3-492f-8733-64da683c3e2c",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "SCATTER-483e3828-1bd3-492f-8733-64da683c3e2c",
+                    "label": "SCATTER",
+                    "func": "SCATTER",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing Plotly Scatter visualization"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -73.71430450136839,
+                    "y": -458.36846181579637
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -73.71430450136839,
+                    "y": -458.36846181579637
+                },
+                "dragging": true
+            },
+            {
+                "width": 72,
+                "height": 72,
+                "id": "SUBTRACT-920dcf1c-27a1-4808-9a8b-ad7e38ca9adc",
+                "type": "ARITHMETIC",
+                "data": {
+                    "id": "SUBTRACT-920dcf1c-27a1-4808-9a8b-ad7e38ca9adc",
+                    "label": "SUBTRACT",
+                    "func": "SUBTRACT",
+                    "type": "ARITHMETIC",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "a",
+                            "id": "a",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "The input a use in the subtraction of a by b."
+                        },
+                        {
+                            "name": "b",
+                            "id": "b",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": true,
+                            "desc": "The input b use in the subtraction of a by b."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the result of the subtraction of input a by input b.\n\nScalar if a is a Scalar.\nc: the result of the subtraction of input a by input b.\n\nVector if a is a Vector.\nv: the result of the subtraction of input a by input b."
+                        }
+                    ],
+                    "path": "PYTHON/nodes/TRANSFORMERS/ARITHMETIC/SUBTRACT/SUBTRACT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -267.1155570334878,
+                    "y": -478.2282058327404
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -267.1155570334878,
+                    "y": -478.2282058327404
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "SINE-fbeb7311-b6b9-4dd6-9827-4afe93b6f487",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "SINE-fbeb7311-b6b9-4dd6-9827-4afe93b6f487",
+                    "label": "SINE",
+                    "func": "SINE",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "amplitude": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The amplitude of the wave.",
+                            "functionName": "SINE",
+                            "param": "amplitude",
+                            "value": 1
+                        },
+                        "frequency": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The wave frequency in radians/2pi.",
+                            "functionName": "SINE",
+                            "param": "frequency",
+                            "value": 1
+                        },
+                        "offset": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The y axis offset of the function.",
+                            "functionName": "SINE",
+                            "param": "offset",
+                            "value": 0
+                        },
+                        "phase": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The x axis offset of the function.",
+                            "functionName": "SINE",
+                            "param": "phase",
+                            "value": 0
+                        },
+                        "waveform": {
+                            "type": "select",
+                            "default": "sine",
+                            "options": [
+                                "sine",
+                                "square",
+                                "triangle",
+                                "sawtooth"
+                            ],
+                            "desc": "The waveform type of the wave.",
+                            "functionName": "SINE",
+                            "param": "waveform",
+                            "value": "sine"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Vector",
+                            "multiple": false,
+                            "desc": "Input that defines the x axis values of the function and output."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "x: the input v or x values\ny: the resulting sine function"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/SINE/SINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -564.1998513907322,
+                    "y": -733.1497903875272
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -564.1998513907322,
+                    "y": -733.1497903875272
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "SINE-b36a80fb-3f83-4b82-b343-a94420925848",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "SINE-b36a80fb-3f83-4b82-b343-a94420925848",
+                    "label": "SINE 1",
+                    "func": "SINE",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "amplitude": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The amplitude of the wave.",
+                            "functionName": "SINE",
+                            "param": "amplitude",
+                            "value": 1
+                        },
+                        "frequency": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The wave frequency in radians/2pi.",
+                            "functionName": "SINE",
+                            "param": "frequency",
+                            "value": 1
+                        },
+                        "offset": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The y axis offset of the function.",
+                            "functionName": "SINE",
+                            "param": "offset",
+                            "value": 0
+                        },
+                        "phase": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The x axis offset of the function.",
+                            "functionName": "SINE",
+                            "param": "phase",
+                            "value": 0
+                        },
+                        "waveform": {
+                            "type": "select",
+                            "default": "sine",
+                            "options": [
+                                "sine",
+                                "square",
+                                "triangle",
+                                "sawtooth"
+                            ],
+                            "desc": "The waveform type of the wave.",
+                            "functionName": "SINE",
+                            "param": "waveform",
+                            "value": "sine"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Vector",
+                            "multiple": false,
+                            "desc": "Input that defines the x axis values of the function and output."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "x: the input v or x values\ny: the resulting sine function"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/SINE/SINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -560.6521820450217,
+                    "y": -547.3707385388163
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -560.6521820450217,
+                    "y": -547.3707385388163
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "SINE-9a8102ee-fa6c-4889-95c9-81f8d2c0f9b7",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "SINE-9a8102ee-fa6c-4889-95c9-81f8d2c0f9b7",
+                    "label": "SINE 2",
+                    "func": "SINE",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "amplitude": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The amplitude of the wave.",
+                            "functionName": "SINE",
+                            "param": "amplitude",
+                            "value": 1
+                        },
+                        "frequency": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The wave frequency in radians/2pi.",
+                            "functionName": "SINE",
+                            "param": "frequency",
+                            "value": 1
+                        },
+                        "offset": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The y axis offset of the function.",
+                            "functionName": "SINE",
+                            "param": "offset",
+                            "value": 0
+                        },
+                        "phase": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The x axis offset of the function.",
+                            "functionName": "SINE",
+                            "param": "phase",
+                            "value": 0
+                        },
+                        "waveform": {
+                            "type": "select",
+                            "default": "sine",
+                            "options": [
+                                "sine",
+                                "square",
+                                "triangle",
+                                "sawtooth"
+                            ],
+                            "desc": "The waveform type of the wave.",
+                            "functionName": "SINE",
+                            "param": "waveform",
+                            "value": "sine"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Vector",
+                            "multiple": false,
+                            "desc": "Input that defines the x axis values of the function and output."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "x: the input v or x values\ny: the resulting sine function"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/SINE/SINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -556.5890978018451,
+                    "y": -352.98674924699355
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -556.5890978018451,
+                    "y": -352.98674924699355
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "LINSPACE-929cda3e-f930-4af8-a1d3-00d1781bd12b",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "LINSPACE-929cda3e-f930-4af8-a1d3-00d1781bd12b",
+                    "label": "LINSPACE",
+                    "func": "LINSPACE",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "start": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "The start point of the data.",
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": 10
+                        },
+                        "end": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The end point of the data.",
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": 0
+                        },
+                        "step": {
+                            "type": "int",
+                            "default": 1000,
+                            "desc": "The number of points in the vector.",
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": 1000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "multiple": false,
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "v: the vector between start and end with step number of points."
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -861.2276622362028,
+                    "y": -552.1806687599058
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -861.2276622362028,
+                    "y": -552.1806687599058
+                },
+                "dragging": true
+            },
+            {
+                "width": 231,
+                "height": 96,
+                "id": "TEXT-8e37885f-69e5-46e5-9cd1-114eff649c7b",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "TEXT-8e37885f-69e5-46e5-9cd1-114eff649c7b",
+                    "label": "DESCRIPTION",
+                    "func": "TEXT",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "value": {
+                            "type": "str",
+                            "default": "Hello World!",
+                            "desc": "The value set in Parameters",
+                            "functionName": "TEXT",
+                            "param": "value",
+                            "value": "This app shows how the SUBTRACT node works. First we generate 3 identical sine functions with the LINSPACE and SINE nodes. Then we subtract 2 of these sine functions to the other one and we obtain a negative sine function. We visualize it with the SCATTER node."
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "_",
+                            "id": "_",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "s: return the value being set in Parameters"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TEXT/TEXT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -176.76015687891515,
+                    "y": -674.9232362301551
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -176.76015687891515,
+                    "y": -674.9232362301551
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "TEXT_VIEW-0d34a8a6-8590-489c-a97e-e1233bbceaf1",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-0d34a8a6-8590-489c-a97e-e1233bbceaf1",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 130.83425656325687,
+                    "y": -763.2229505411959
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 130.83425656325687,
+                    "y": -763.2229505411959
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "LINSPACE-929cda3e-f930-4af8-a1d3-00d1781bd12b",
+                "sourceHandle": "default",
+                "target": "SINE-fbeb7311-b6b9-4dd6-9827-4afe93b6f487",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINSPACE-929cda3e-f930-4af8-a1d3-00d1781bd12bdefault-SINE-fbeb7311-b6b9-4dd6-9827-4afe93b6f487default"
+            },
+            {
+                "source": "LINSPACE-929cda3e-f930-4af8-a1d3-00d1781bd12b",
+                "sourceHandle": "default",
+                "target": "SINE-b36a80fb-3f83-4b82-b343-a94420925848",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINSPACE-929cda3e-f930-4af8-a1d3-00d1781bd12bdefault-SINE-b36a80fb-3f83-4b82-b343-a94420925848default"
+            },
+            {
+                "source": "LINSPACE-929cda3e-f930-4af8-a1d3-00d1781bd12b",
+                "sourceHandle": "default",
+                "target": "SINE-9a8102ee-fa6c-4889-95c9-81f8d2c0f9b7",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINSPACE-929cda3e-f930-4af8-a1d3-00d1781bd12bdefault-SINE-9a8102ee-fa6c-4889-95c9-81f8d2c0f9b7default"
+            },
+            {
+                "source": "SINE-fbeb7311-b6b9-4dd6-9827-4afe93b6f487",
+                "sourceHandle": "default",
+                "target": "SUBTRACT-920dcf1c-27a1-4808-9a8b-ad7e38ca9adc",
+                "targetHandle": "a",
+                "id": "reactflow__edge-SINE-fbeb7311-b6b9-4dd6-9827-4afe93b6f487default-SUBTRACT-920dcf1c-27a1-4808-9a8b-ad7e38ca9adca"
+            },
+            {
+                "source": "SINE-b36a80fb-3f83-4b82-b343-a94420925848",
+                "sourceHandle": "default",
+                "target": "SUBTRACT-920dcf1c-27a1-4808-9a8b-ad7e38ca9adc",
+                "targetHandle": "b",
+                "id": "reactflow__edge-SINE-b36a80fb-3f83-4b82-b343-a94420925848default-SUBTRACT-920dcf1c-27a1-4808-9a8b-ad7e38ca9adcb"
+            },
+            {
+                "source": "SINE-9a8102ee-fa6c-4889-95c9-81f8d2c0f9b7",
+                "sourceHandle": "default",
+                "target": "SUBTRACT-920dcf1c-27a1-4808-9a8b-ad7e38ca9adc",
+                "targetHandle": "b",
+                "id": "reactflow__edge-SINE-9a8102ee-fa6c-4889-95c9-81f8d2c0f9b7default-SUBTRACT-920dcf1c-27a1-4808-9a8b-ad7e38ca9adcb"
+            },
+            {
+                "source": "SUBTRACT-920dcf1c-27a1-4808-9a8b-ad7e38ca9adc",
+                "sourceHandle": "default",
+                "target": "TEXT-8e37885f-69e5-46e5-9cd1-114eff649c7b",
+                "targetHandle": "_",
+                "id": "reactflow__edge-SUBTRACT-920dcf1c-27a1-4808-9a8b-ad7e38ca9adcdefault-TEXT-8e37885f-69e5-46e5-9cd1-114eff649c7b_"
+            },
+            {
+                "source": "TEXT-8e37885f-69e5-46e5-9cd1-114eff649c7b",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-0d34a8a6-8590-489c-a97e-e1233bbceaf1",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TEXT-8e37885f-69e5-46e5-9cd1-114eff649c7bdefault-TEXT_VIEW-0d34a8a6-8590-489c-a97e-e1233bbceaf1default"
+            },
+            {
+                "source": "SUBTRACT-920dcf1c-27a1-4808-9a8b-ad7e38ca9adc",
+                "sourceHandle": "default",
+                "target": "SCATTER-483e3828-1bd3-492f-8733-64da683c3e2c",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SUBTRACT-920dcf1c-27a1-4808-9a8b-ad7e38ca9adcdefault-SCATTER-483e3828-1bd3-492f-8733-64da683c3e2cdefault"
+            }
+        ],
+        "viewport": {
+            "x": 328.30307914563144,
+            "y": 226.88940714410813,
+            "zoom": 0.5
+        }
+    }
+}

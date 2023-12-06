@@ -1,0 +1,28 @@
+{
+  "long_description": "",
+  "short_description": "Write a custom string to the selected serial device.",
+  "parameters": [
+    {
+      "name": "device",
+      "type": "SerialDevice",
+      "description": "Defines the communication port on which the serial device is connected."
+    },
+    {
+      "name": "write",
+      "type": "str",
+      "description": "The string to write to the serial device."
+    },
+    {
+      "name": "encoding",
+      "type": "select",
+      "description": "Which string encoding method to use."
+    }
+  ],
+  "returns": [
+    {
+      "name": null,
+      "type": "String",
+      "description": "The input string."
+    }
+  ]
+}

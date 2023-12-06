@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "The INTERLEAVE_VECTOR node combine multiple vectors into a single vector type by interleaving their elements.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "Vector",
+        "description": "The input vector"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Vector",
+        "description": "Interleaved vector"
+      }
+    ]
+  }
+}

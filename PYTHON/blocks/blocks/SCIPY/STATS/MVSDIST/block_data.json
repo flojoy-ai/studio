@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "The description of that function is as follows:\n\n    'Frozen' distributions for mean, variance, and standard deviation of data.",
+    "short_description": "The MVSDIST node is based on a numpy or scipy function.",
+    "parameters": [
+      {
+        "name": "select_return",
+        "type": "'mdist', 'vdist', 'sdist'",
+        "description": "Select the desired object to return.\nSee the respective function docs for descriptors."
+      },
+      {
+        "name": "data",
+        "type": "array_like",
+        "description": "Input array. Converted to 1-D using ravel.\nRequires 2 or more data-points."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "type 'ordered pair', 'scalar', or 'matrix'"
+      }
+    ]
+  }
+}

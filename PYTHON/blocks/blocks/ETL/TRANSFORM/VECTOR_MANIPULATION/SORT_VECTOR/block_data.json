@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "Inputs\n------\ndefault : Vector\n    The input vector",
+    "short_description": "The SORT_VECTOR node returns the input Vector that is sorted",
+    "parameters": [
+      {
+        "name": "reverse",
+        "type": "bool",
+        "description": "If False, sort in ascending order. If True, descending order."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Vector",
+        "description": "Sorted input vector"
+      }
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+This example shows the function of the `TRANSPOSE_MATRIX` node. This node transposes the input matrix by switching columns to rows and visa versa.

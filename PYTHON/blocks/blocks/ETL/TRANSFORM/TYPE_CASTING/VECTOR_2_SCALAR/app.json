@@ -1,0 +1,217 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 160,
+                "height": 160,
+                "id": "VECTOR_2_SCALAR-39be59c6-f14e-41c1-bfab-3be8b8fe0fd6",
+                "type": "ETL",
+                "data": {
+                    "id": "VECTOR_2_SCALAR-39be59c6-f14e-41c1-bfab-3be8b8fe0fd6",
+                    "label": "VECTOR 2 SCALAR",
+                    "func": "VECTOR_2_SCALAR",
+                    "type": "ETL",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "multiple": false,
+                            "desc": "The input vector that will be transformed into scalar data type."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "The scalar that is generated from the given vector."
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/TYPE_CASTING/VECTOR_2_SCALAR/VECTOR_2_SCALAR.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 80.31208640319248,
+                    "y": 1.3466293088192742
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 80.31208640319248,
+                    "y": 1.3466293088192742
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "VECTOR-c146e798-6347-4fa2-b118-03a9d5a836ed",
+                "type": "DATA",
+                "data": {
+                    "id": "VECTOR-c146e798-6347-4fa2-b118-03a9d5a836ed",
+                    "label": "VECTOR",
+                    "func": "VECTOR",
+                    "type": "DATA",
+                    "ctrls": {
+                        "elements": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "The elements that should be in the vector",
+                            "overload": null,
+                            "functionName": "VECTOR",
+                            "param": "elements",
+                            "value": ""
+                        },
+                        "elements_type": {
+                            "type": "select",
+                            "options": [
+                                "boolean",
+                                "integer"
+                            ],
+                            "default": "boolean",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "VECTOR",
+                            "param": "elements_type",
+                            "value": "boolean"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "The vector consists of the elements."
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/VECTOR/VECTOR.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -265.58733543196865,
+                    "y": 35.64806642459058
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -265.58733543196865,
+                    "y": 35.64806642459058
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "BIG_NUMBER-0aa17efe-6172-4905-849b-6cf9cb942940",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "BIG_NUMBER-0aa17efe-6172-4905-849b-6cf9cb942940",
+                    "label": "BIG NUMBER 1",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any suffix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": ""
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
+                    "selected": true
+                },
+                "position": {
+                    "x": 393.6714561006442,
+                    "y": -40.06384938101104
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": 393.6714561006442,
+                    "y": -40.06384938101104
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "VECTOR-c146e798-6347-4fa2-b118-03a9d5a836ed",
+                "sourceHandle": "default",
+                "target": "VECTOR_2_SCALAR-39be59c6-f14e-41c1-bfab-3be8b8fe0fd6",
+                "targetHandle": "default",
+                "id": "reactflow__edge-VECTOR-c146e798-6347-4fa2-b118-03a9d5a836eddefault-VECTOR_2_SCALAR-39be59c6-f14e-41c1-bfab-3be8b8fe0fd6default"
+            },
+            {
+                "source": "VECTOR_2_SCALAR-39be59c6-f14e-41c1-bfab-3be8b8fe0fd6",
+                "sourceHandle": "default",
+                "target": "BIG_NUMBER-0aa17efe-6172-4905-849b-6cf9cb942940",
+                "targetHandle": "default",
+                "id": "reactflow__edge-VECTOR_2_SCALAR-39be59c6-f14e-41c1-bfab-3be8b8fe0fd6default-BIG_NUMBER-0aa17efe-6172-4905-849b-6cf9cb942940default"
+            }
+        ],
+        "viewport": {
+            "x": 695.5292625331784,
+            "y": 411.9979742640432,
+            "zoom": 0.6998961918490142
+        }
+    },
+    "textNodes": []
+}

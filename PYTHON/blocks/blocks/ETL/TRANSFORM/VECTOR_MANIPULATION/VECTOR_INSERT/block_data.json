@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "specified index.\n\nInputs\n------\nv : Vector\n    The input vector to insert value.",
+    "short_description": "The VECTOR_INSERT node inserts a value to the Vector at the",
+    "parameters": [
+      {
+        "name": "element",
+        "type": "int",
+        "description": "The value to add to the input vector."
+      },
+      {
+        "name": "index",
+        "type": "int",
+        "description": "The index of the vector to insert value."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Vector",
+        "description": "The new vector that contains the inserted value"
+      }
+    ]
+  }
+}

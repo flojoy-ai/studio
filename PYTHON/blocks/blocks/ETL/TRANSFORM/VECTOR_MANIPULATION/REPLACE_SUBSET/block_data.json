@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "Inputs\n------\nv : Vector\n    The input vector to replace subset from",
+    "short_description": "The REPLACE_SUBSET node returns a new Vector with subset of elements replaced.",
+    "parameters": [
+      {
+        "name": "indices",
+        "type": "Array",
+        "description": "specified indices to replace values at from the input vector"
+      },
+      {
+        "name": "values",
+        "type": "Array",
+        "description": "subset of values to replace the specified indices"
+      },
+      {
+        "name": "length",
+        "type": "int",
+        "description": "number of elements to replace from the input vector, default is 1 (this only applies when one index is specified for indices parameter)"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Vector",
+        "description": "The new vector with subset of elements replaced from the input vector"
+      }
+    ]
+  }
+}

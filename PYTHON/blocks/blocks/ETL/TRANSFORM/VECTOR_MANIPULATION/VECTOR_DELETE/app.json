@@ -1,0 +1,255 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 208,
+                "height": 96,
+                "id": "LINSPACE-f80c30e0-eb44-4a25-94bb-f95afa92ad12",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "LINSPACE-f80c30e0-eb44-4a25-94bb-f95afa92ad12",
+                    "label": "LINSPACE",
+                    "func": "LINSPACE",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "start": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "The start point of the data.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": 0
+                        },
+                        "end": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The end point of the data.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": 5
+                        },
+                        "step": {
+                            "type": "int",
+                            "default": 1000,
+                            "desc": "The number of points in the vector.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": 10
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "multiple": false,
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "v: the vector between start and end with step number of points."
+                        }
+                    ],
+                    "path": "GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -158.11513318068995,
+                    "y": 2.8433502380470372
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -158.11513318068995,
+                    "y": 2.8433502380470372
+                },
+                "dragging": true
+            },
+            {
+                "width": 160,
+                "height": 160,
+                "id": "VECTOR_DELETE-454ae648-0ca5-4e30-8f6e-56edfee71ff0",
+                "type": "TRANSFORMERS",
+                "data": {
+                    "id": "VECTOR_DELETE-454ae648-0ca5-4e30-8f6e-56edfee71ff0",
+                    "label": "VECTOR DELETE",
+                    "func": "VECTOR_DELETE",
+                    "type": "TRANSFORMERS",
+                    "ctrls": {
+                        "indices": {
+                            "type": "Array",
+                            "default": null,
+                            "desc": "specified indices to delete value(s) at from the input vector",
+                            "overload": null,
+                            "functionName": "VECTOR_DELETE",
+                            "param": "indices",
+                            "value": "0"
+                        },
+                        "length": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "number of elements to delete from the input vector, default is 1 (this only applies when one index is specified for indices parameter)",
+                            "overload": null,
+                            "functionName": "VECTOR_DELETE",
+                            "param": "length",
+                            "value": 2
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "The new vector with element(s) deleted from the input vector"
+                        }
+                    ],
+                    "path": "TRANSFORMERS/VECTOR_MANIPULATION/VECTOR_DELETE/VECTOR_DELETE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 178.79385899805402,
+                    "y": -68.85894937989926
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 178.79385899805402,
+                    "y": -68.85894937989926
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "SCATTER-69115da9-f7af-44a0-ad96-a2ae12da4166",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "SCATTER-69115da9-f7af-44a0-ad96-a2ae12da4166",
+                    "label": "SCATTER",
+                    "func": "SCATTER",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing Plotly Scatter visualization"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 420.16869133149214,
+                    "y": -252.87031100366278
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 420.16869133149214,
+                    "y": -252.87031100366278
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "SCATTER-439c772a-837a-424d-bd07-656245e01cc9",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "SCATTER-439c772a-837a-424d-bd07-656245e01cc9",
+                    "label": "SCATTER 1",
+                    "func": "SCATTER",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing Plotly Scatter visualization"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
+                    "selected": true
+                },
+                "position": {
+                    "x": 410.27706108811014,
+                    "y": 135.72610592210992
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": 410.27706108811014,
+                    "y": 135.72610592210992
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "LINSPACE-f80c30e0-eb44-4a25-94bb-f95afa92ad12",
+                "sourceHandle": "default",
+                "target": "VECTOR_DELETE-454ae648-0ca5-4e30-8f6e-56edfee71ff0",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINSPACE-f80c30e0-eb44-4a25-94bb-f95afa92ad12default-VECTOR_DELETE-454ae648-0ca5-4e30-8f6e-56edfee71ff0default",
+                "selected": false
+            },
+            {
+                "source": "VECTOR_DELETE-454ae648-0ca5-4e30-8f6e-56edfee71ff0",
+                "sourceHandle": "default",
+                "target": "SCATTER-69115da9-f7af-44a0-ad96-a2ae12da4166",
+                "targetHandle": "default",
+                "id": "reactflow__edge-VECTOR_DELETE-454ae648-0ca5-4e30-8f6e-56edfee71ff0default-SCATTER-69115da9-f7af-44a0-ad96-a2ae12da4166default"
+            },
+            {
+                "source": "LINSPACE-f80c30e0-eb44-4a25-94bb-f95afa92ad12",
+                "sourceHandle": "default",
+                "target": "SCATTER-439c772a-837a-424d-bd07-656245e01cc9",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINSPACE-f80c30e0-eb44-4a25-94bb-f95afa92ad12default-SCATTER-439c772a-837a-424d-bd07-656245e01cc9default",
+                "selected": false
+            }
+        ],
+        "viewport": {
+            "x": 637.654905587641,
+            "y": 363.60612546109087,
+            "zoom": 0.7111497425822767
+        }
+    }
+}

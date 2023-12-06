@@ -1,0 +1,61 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 150,
+                "height": 180,
+                "id": "FLEXIFORCE_25LB-6833dfdd-3730-4483-a8aa-3c094280f07e",
+                "type": "IO",
+                "data": {
+                    "id": "FLEXIFORCE_25LB-6833dfdd-3730-4483-a8aa-3c094280f07e",
+                    "label": "FLEXIFORCE 25LB",
+                    "func": "FLEXIFORCE_25LB",
+                    "type": "IO",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": null
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "pyserial",
+                            "v": "3.5"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/IO/ANALOG_SENSORS/PRESSURE_SENSORS/FLEXIFORCE_25LB/FLEXIFORCE_25LB.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -128.77937355641933,
+                    "y": -298.2480293081669
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -128.77937355641933,
+                    "y": -298.2480293081669
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [],
+        "viewport": {
+            "x": 819.7643144890276,
+            "y": 420.4113108673,
+            "zoom": 0.8915653288195635
+        }
+    }
+}

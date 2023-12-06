@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "Requires a CONNECT_DMM7510 block to create the connection.",
+    "short_description": "Changes the measurement function for the DMM7510.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_DMM7510 block)."
+      },
+      {
+        "name": "function",
+        "type": "select, default=DC voltage",
+        "description": "Select the measurement function"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "String",
+        "description": "Measurement"
+      }
+    ]
+  }
+}

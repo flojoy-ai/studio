@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Read a .csv file from disk or a URL, and then return it as a dataframe.",
+    "parameters": [
+      {
+        "name": "file_path",
+        "type": "str",
+        "description": "File path to the .csv file or an URL of a .csv file."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataFrame",
+        "description": "DataFrame loaded from .csv file"
+      }
+    ]
+  }
+}

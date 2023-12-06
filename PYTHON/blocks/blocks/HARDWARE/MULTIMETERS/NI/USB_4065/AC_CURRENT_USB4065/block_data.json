@@ -1,0 +1,37 @@
+{
+  "docstring": {
+    "long_description": "The USB-4065 is a NI (National Instruments) multimeter. It is possible that\nthe block will work with other NI DMMs (digital multimeters) such as the\n4070 and 4080 series.\n\nThis instrument will likely only be compatible with Windows systems due to\nNI driver availablity. To use the instrument you must install the runtime:\n\nhttps://www.ni.com/en/support/downloads/drivers/download.ni-dmm.html\n\nYou must also find the address/resource name for the instrument. You can\nfind this using the NI MAX programming which can be downloaded when\ninstalling the drivers.",
+    "short_description": "Reads the AC current from a National Instrument's USB-4065 DAQ board.",
+    "parameters": [
+      {
+        "name": "NI_address",
+        "type": "str",
+        "description": "The NI instrument address for the instrument (e.g. 'Dev0', 'Dev1')."
+      },
+      {
+        "name": "digits",
+        "type": "str",
+        "description": "The accuracy of the reading in digits. Lower values are faster."
+      },
+      {
+        "name": "current_limit",
+        "type": "str",
+        "description": "The maximum current to allow, in Amps."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "Scalar: The AC current reading."
+      }
+    ]
+  },
+  "videos": [
+    {
+      "title": "Control USB-4605 multimeter with Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=FPSkvCFjKR4"
+    }
+  ]
+}

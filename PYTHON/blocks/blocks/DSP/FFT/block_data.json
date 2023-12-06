@@ -1,0 +1,40 @@
+{
+  "docstring": {
+    "long_description": "Through the FFT algorithm, the input vector will be transformed from a time domain into a frequency domain, which will be an ordered pair of arrays.\n\nInputs\n------\ndefault : OrderedPair\n    The data to apply FFT to.",
+    "short_description": "Perform a Discrete Fourier Transform on the input vector.",
+    "parameters": [
+      {
+        "name": "window",
+        "type": "select",
+        "description": "the node will apply a window to the signal to avoid spectral leakage"
+      },
+      {
+        "name": "real_signal",
+        "type": "boolean",
+        "description": "whether the input signal is real or complex"
+      },
+      {
+        "name": "sample_rate",
+        "type": "int",
+        "description": "the sample rate of the signal, defaults to 1"
+      },
+      {
+        "name": "display",
+        "type": "boolean",
+        "description": "whether the output would be graphed, set to false for pure data and true for data that is more suitable to be graphed"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "OrderedPair if display is true",
+        "description": "x: frequency\ny: spectrum of the signal"
+      },
+      {
+        "name": null,
+        "type": "DataFrame if display is false",
+        "description": "time: time domain\nfrequency: frequency domain\nreal: real section of the signal\nimag: imaginary section of the signal"
+      }
+    ]
+  }
+}

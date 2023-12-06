@@ -1,0 +1,32 @@
+{
+  "docstring": {
+    "long_description": "The SENSOR node can be used to convert voltage into temperature measurements.",
+    "short_description": "Read voltages from a sensor connected to a LABJACK U3 device.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "OrderedPair",
+        "description": null
+      },
+      {
+        "name": "number",
+        "type": "int",
+        "description": "Defines the number of temperature sensors connected to the LabJack U3 device."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "OrderedPair",
+        "description": "The output of the node is a list of voltages measured from the sensors."
+      }
+    ]
+  },
+  "videos": [
+    {
+      "title": "Temperature measurements with LabJack & Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=ph64DXjX1-8"
+    }
+  ]
+}

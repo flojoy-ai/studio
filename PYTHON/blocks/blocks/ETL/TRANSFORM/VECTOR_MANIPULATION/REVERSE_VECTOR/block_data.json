@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "The REVERSE_VECTOR node returns a vector equal to the input vector but reversed.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "Vector",
+        "description": "The input vector."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Vector",
+        "description": "Reversed input vector."
+      }
+    ]
+  }
+}

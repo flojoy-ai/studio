@@ -1,0 +1,45 @@
+{
+  "docstring": {
+    "long_description": "Requires a CONNECT_DMM7510 block to create the connection.",
+    "short_description": "Changes the measurement settings for the DMM7510.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_DMM7510 block)."
+      },
+      {
+        "name": "autorange",
+        "type": "bool, default=True,",
+        "description": "Use auto range?"
+      },
+      {
+        "name": "meas_range",
+        "type": "float, default=1,",
+        "description": "The range to measure with (i.e. the maximum)."
+      },
+      {
+        "name": "autozero",
+        "type": "bool, default=True,",
+        "description": "Use auto zero?"
+      },
+      {
+        "name": "count",
+        "type": "int, default=1,",
+        "description": "The number of counts to average."
+      },
+      {
+        "name": "NPLC",
+        "type": "float, default=1,",
+        "description": "The integration rate in number of clocks."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "String",
+        "description": "Measurement settings"
+      }
+    ]
+  }
+}

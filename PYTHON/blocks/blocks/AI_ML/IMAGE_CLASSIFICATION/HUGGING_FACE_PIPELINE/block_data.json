@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "For more information about Vision Transformers,\nsee: https://huggingface.co/google/vit-base-patch16-224\n\nFor a complete list of models, see:\nhttps://huggingface.co/models?pipeline_tag=image-classification\n\nFor examples of how revision parameters (such as 'main') is used,\nsee: https://huggingface.co/google/vit-base-patch16-224/commits/main",
+    "short_description": "The HUGGING_FACE_PIPELINE node uses a classification pipeline to process and classify an image.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "Image",
+        "description": "The input image to be classified.\nThe image must be a PIL.Image object, wrapped in a Flojoy Image object."
+      },
+      {
+        "name": "model",
+        "type": "str",
+        "description": "The model to be used for classification.\nIf not specified, Vision Transformers (i.e. 'google/vit-base-patch16-224') are used."
+      },
+      {
+        "name": "revision",
+        "type": "str",
+        "description": "The revision of the model to be used for classification.\nIf not specified, 'main' is used."
+      }
+    ],
+    "returns": [
+      {
+        "name": "DataFrame",
+        "type": "",
+        "description": "A DataFrame containing the columns 'label' (as classification label)\nand 'score' (as the confidence score).\nAll scores are between 0 and 1, and sum to 1."
+      }
+    ]
+  }
+}

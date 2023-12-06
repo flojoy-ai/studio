@@ -1,0 +1,266 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "OPEN_KEITHLEY_24XX-097d2560-f5b9-468a-9517-32e89dedecc1",
+                "type": "IO",
+                "data": {
+                    "id": "OPEN_KEITHLEY_24XX-097d2560-f5b9-468a-9517-32e89dedecc1",
+                    "label": "OPEN KEITHLEY 24XX",
+                    "func": "OPEN_KEITHLEY_24XX",
+                    "type": "IO",
+                    "ctrls": {
+                        "device": {
+                            "type": "SerialDevice",
+                            "default": null,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "OPEN_KEITHLEY_24XX",
+                            "param": "device",
+                            "value": ""
+                        },
+                        "baudrate": {
+                            "type": "int",
+                            "default": 9600,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "OPEN_KEITHLEY_24XX",
+                            "param": "baudrate",
+                            "value": 9600
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "pyserial",
+                            "v": "3.5"
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/SOURCEMETERS/KEITHLEY/24XX/BASIC/OPEN_KEITHLEY_24XX/OPEN_KEITHLEY_24XX.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -140.35863305434796,
+                    "y": 1.9088042829506549
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -140.35863305434796,
+                    "y": 1.9088042829506549
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "IV_SWEEP-41060d63-89ff-46f2-914b-944a11d24ed7",
+                "type": "IO",
+                "data": {
+                    "id": "IV_SWEEP-41060d63-89ff-46f2-914b-944a11d24ed7",
+                    "label": "IV SWEEP",
+                    "func": "IV_SWEEP",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "IV_SWEEP",
+                            "param": "connection",
+                            "value": ""
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Vector",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": null
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "pyserial",
+                            "v": "3.5"
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/SOURCEMETERS/KEITHLEY/24XX/BASIC/IV_SWEEP/IV_SWEEP.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 511.6912461233678,
+                    "y": 5.980216390951398
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 511.6912461233678,
+                    "y": 5.980216390951398
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "LINSPACE-db9bbe29-66a0-4122-ad24-e3c00b1fba28",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "LINSPACE-db9bbe29-66a0-4122-ad24-e3c00b1fba28",
+                    "label": "LINSPACE",
+                    "func": "LINSPACE",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "start": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "The start point of the data.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": 10
+                        },
+                        "end": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The end point of the data.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": 0
+                        },
+                        "step": {
+                            "type": "int",
+                            "default": 1000,
+                            "desc": "The number of points in the vector.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": 10
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "multiple": false,
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
+                        }
+                    ],
+                    "path": "GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 192.47824090745922,
+                    "y": 49.8416165273091
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 192.47824090745922,
+                    "y": 49.8416165273091
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "SCATTER-fee34277-0702-4342-af77-37c9d68701c6",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "SCATTER-fee34277-0702-4342-af77-37c9d68701c6",
+                    "label": "SCATTER",
+                    "func": "SCATTER",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Scatter visualization"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 822.0611229804773,
+                    "y": -8.822814846961876
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 822.0611229804773,
+                    "y": -8.822814846961876
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "OPEN_KEITHLEY_24XX-097d2560-f5b9-468a-9517-32e89dedecc1",
+                "sourceHandle": "default",
+                "target": "LINSPACE-db9bbe29-66a0-4122-ad24-e3c00b1fba28",
+                "targetHandle": "default",
+                "id": "reactflow__edge-OPEN_KEITHLEY_24XX-097d2560-f5b9-468a-9517-32e89dedecc1default-LINSPACE-db9bbe29-66a0-4122-ad24-e3c00b1fba28default"
+            },
+            {
+                "source": "LINSPACE-db9bbe29-66a0-4122-ad24-e3c00b1fba28",
+                "sourceHandle": "default",
+                "target": "IV_SWEEP-41060d63-89ff-46f2-914b-944a11d24ed7",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINSPACE-db9bbe29-66a0-4122-ad24-e3c00b1fba28default-IV_SWEEP-41060d63-89ff-46f2-914b-944a11d24ed7default"
+            },
+            {
+                "source": "IV_SWEEP-41060d63-89ff-46f2-914b-944a11d24ed7",
+                "sourceHandle": "default",
+                "target": "SCATTER-fee34277-0702-4342-af77-37c9d68701c6",
+                "targetHandle": "default",
+                "id": "reactflow__edge-IV_SWEEP-41060d63-89ff-46f2-914b-944a11d24ed7default-SCATTER-fee34277-0702-4342-af77-37c9d68701c6default"
+            }
+        ],
+        "viewport": {
+            "x": 255.10425070720453,
+            "y": 317.88940714410813,
+            "zoom": 0.5
+        }
+    }
+}

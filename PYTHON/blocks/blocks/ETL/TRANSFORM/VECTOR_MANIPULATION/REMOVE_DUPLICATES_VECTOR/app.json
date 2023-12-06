@@ -1,0 +1,235 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 210,
+                "height": 160,
+                "id": "REMOVE_DUPLICATES_VECTOR-2dc7e5fa-76f8-4bd7-8f5e-5ab884b4e548",
+                "type": "TRANSFORMERS",
+                "data": {
+                    "id": "REMOVE_DUPLICATES_VECTOR-2dc7e5fa-76f8-4bd7-8f5e-5ab884b4e548",
+                    "label": "REMOVE DUPLICATES VECTOR",
+                    "func": "REMOVE_DUPLICATES_VECTOR",
+                    "type": "TRANSFORMERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "multiple": false,
+                            "desc": "The input vector"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "Unique input vector"
+                        }
+                    ],
+                    "path": "TRANSFORMERS/VECTOR_MANIPULATION/REMOVE_DUPLICATES_VECTOR/REMOVE_DUPLICATES_VECTOR.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 385.1308853076589,
+                    "y": -386.2194900131423
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 385.1308853076589,
+                    "y": -386.2194900131423
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "LINSPACE-918dcb2e-4df9-4c12-ae22-d66420a57ccd",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "LINSPACE-918dcb2e-4df9-4c12-ae22-d66420a57ccd",
+                    "label": "LINSPACE",
+                    "func": "LINSPACE",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "start": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "The start point of the data.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": 1
+                        },
+                        "end": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The end point of the data.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": 1
+                        },
+                        "step": {
+                            "type": "int",
+                            "default": 1000,
+                            "desc": "The number of points in the vector.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": 2
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "multiple": false,
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
+                        }
+                    ],
+                    "path": "GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -14.802497609729897,
+                    "y": -240.34080096619357
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -14.802497609729897,
+                    "y": -240.34080096619357
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "TABLE-68833dbd-50e6-463f-b256-02a74ce2536e",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TABLE-68833dbd-50e6-463f-b256-02a74ce2536e",
+                    "label": "TABLE",
+                    "func": "TABLE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Table visualization"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/TABLE/TABLE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 742.7447724811083,
+                    "y": -403.6761901373129
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 742.7447724811083,
+                    "y": -403.6761901373129
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "TABLE-52710f78-5ae1-48fa-9db0-c78dabdfa965",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TABLE-52710f78-5ae1-48fa-9db0-c78dabdfa965",
+                    "label": "TABLE 1",
+                    "func": "TABLE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Table visualization"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/TABLE/TABLE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 756.4811434180353,
+                    "y": -156.6021619445738
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 756.4811434180353,
+                    "y": -156.6021619445738
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "LINSPACE-918dcb2e-4df9-4c12-ae22-d66420a57ccd",
+                "sourceHandle": "default",
+                "target": "REMOVE_DUPLICATES_VECTOR-2dc7e5fa-76f8-4bd7-8f5e-5ab884b4e548",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINSPACE-918dcb2e-4df9-4c12-ae22-d66420a57ccddefault-REMOVE_DUPLICATES_VECTOR-2dc7e5fa-76f8-4bd7-8f5e-5ab884b4e548default"
+            },
+            {
+                "source": "REMOVE_DUPLICATES_VECTOR-2dc7e5fa-76f8-4bd7-8f5e-5ab884b4e548",
+                "sourceHandle": "default",
+                "target": "TABLE-68833dbd-50e6-463f-b256-02a74ce2536e",
+                "targetHandle": "default",
+                "id": "reactflow__edge-REMOVE_DUPLICATES_VECTOR-2dc7e5fa-76f8-4bd7-8f5e-5ab884b4e548default-TABLE-68833dbd-50e6-463f-b256-02a74ce2536edefault"
+            },
+            {
+                "source": "LINSPACE-918dcb2e-4df9-4c12-ae22-d66420a57ccd",
+                "sourceHandle": "default",
+                "target": "TABLE-52710f78-5ae1-48fa-9db0-c78dabdfa965",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINSPACE-918dcb2e-4df9-4c12-ae22-d66420a57ccddefault-TABLE-52710f78-5ae1-48fa-9db0-c78dabdfa965default"
+            }
+        ],
+        "viewport": {
+            "x": 1139.470292881633,
+            "y": 572.2854272048312,
+            "zoom": 1.2136444284334926
+        }
+    },
+    "textNodes": []
+}

@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "Error retrival is first-in-first-out (FIFO). Returning errors clears them\nfrom the instruments queue.\n\nRequires a CONNECTION_33510B node at the start of the app to connect with\nthe instrument. The VISA address will then be listed under 'connection'.\n\nThis node should also work with compatible Keysight 33XXX wavefunction\ngenerators (although they are untested).",
+    "short_description": "Return error messages from a supported function generator.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_MDO3XXX node)."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "String: Returns all errors in the WFG memory."
+      }
+    ]
+  }
+}

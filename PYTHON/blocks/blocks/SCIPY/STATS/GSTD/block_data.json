@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "The description of that function is as follows:\n\n    Calculate the geometric standard deviation of an array.\n\n    The geometric standard deviation describes the spread of a set of numbers where the geometric mean is preferred.\n    It is a multiplicative factor, and so a dimensionless quantity.\n\n    It is defined as the exponent of the standard deviation of log(a).\n\n    Mathematically the population geometric standard deviation can be evaluated as::\n\n    gstd = exp(std(log(a)))\n\n.. versionadded:: 1.3.0",
+    "short_description": "The GSTD node is based on a numpy or scipy function.",
+    "parameters": [
+      {
+        "name": "a",
+        "type": "array_like",
+        "description": "An array like object containing the sample data."
+      },
+      {
+        "name": "axis",
+        "type": "int, tuple or None",
+        "description": "Axis along which to operate. Default is 0.\nIf None, compute over the whole array 'a'."
+      },
+      {
+        "name": "ddof",
+        "type": "int",
+        "description": "Degree of freedom correction in the calculation of the geometric standard deviation.\nDefault is 1."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "type 'ordered pair', 'scalar', or 'matrix'"
+      }
+    ]
+  }
+}
