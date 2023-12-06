@@ -112,7 +112,7 @@ const CompositePlot = (props: SVGProps<SVGSVGElement>) => {
         className="stroke-accent2"
         stroke-width="0.5"
       />
-    </svg >
+    </svg>
   );
 };
 

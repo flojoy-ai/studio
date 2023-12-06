@@ -11,14 +11,14 @@ const NodeWrapper = ({
   children,
   data,
   style,
-  className
+  className,
 }: {
   selected: boolean;
   nodeError: string;
   children: React.ReactNode;
   data: CustomNodeProps["data"];
   style?: CSSProperties;
-  className?: string
+  className?: string;
 }) => {
   if (data.invalid) {
     return (
@@ -42,7 +42,11 @@ const NodeWrapper = ({
     );
   }
   return (
-    <div className={cn("relative", className)} data-testid="node-wrapper" style={style}>
+    <div
+      className={cn("relative", className)}
+      data-testid="node-wrapper"
+      style={style}
+    >
       {nodeError && <ErrorPopup message={nodeError} />}
       {children}
     </div>

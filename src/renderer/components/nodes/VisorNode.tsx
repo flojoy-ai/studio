@@ -53,7 +53,6 @@ const chartElemMap = {
   HEATMAP: Heatmap,
 };
 
-
 const VisorNode = ({ selected, id, data }: CustomNodeProps) => {
   const { resolvedTheme } = useTheme();
   const { nodeRunning, nodeError, nodeResult } = useNodeStatus(data.id);
@@ -68,16 +67,16 @@ const VisorNode = ({ selected, id, data }: CustomNodeProps) => {
   );
 
   const project = useAtomValue(projectAtom);
-  const [dimensions, setDimensions] = useState({ width: 225, height: 225 })
+  const [dimensions, setDimensions] = useState({ width: 225, height: 225 });
 
   useEffect(() => {
     // Weird hack to make it properly set the dimensions when loading an app...
     // I tried like 10 different things but this is the only thing that works without being crazy slow
-    const node = project.rfInstance?.nodes.find(n => n.id === id);
+    const node = project.rfInstance?.nodes.find((n) => n.id === id);
     if (node?.width && node?.height) {
       setDimensions({ width: node.width, height: node.height });
     }
-  }, [id, project])
+  }, [id, project]);
 
   const ChartIcon = chartElemMap[data.func];
   const iconSideLength = Math.min(dimensions.width, dimensions.height);
@@ -96,7 +95,12 @@ const VisorNode = ({ selected, id, data }: CustomNodeProps) => {
           setDimensions({ width: params.width, height: params.height });
         }}
       />
-      <NodeWrapper nodeError={nodeError} data={data} selected={selected} style={dimensions}>
+      <NodeWrapper
+        nodeError={nodeError}
+        data={data}
+        selected={selected}
+        style={dimensions}
+      >
         <div
           className={clsx(
             "rounded-2xl bg-transparent",
@@ -118,8 +122,10 @@ const VisorNode = ({ selected, id, data }: CustomNodeProps) => {
           {textBlob && <MarkDownText text={textBlob} isThumbnail />}
           {!plotlyData && !textBlob && (
             <>
-              {ChartIcon ? <ChartIcon width={iconSideLength} height={iconSideLength} /> : (
-                <div className="flex items-center justify-center break-all rounded-lg border-2 border-accent2 bg-accent2/5 p-2 text-center text-2xl font-bold tracking-wider text-accent2 w-full h-full">
+              {ChartIcon ? (
+                <ChartIcon width={iconSideLength} height={iconSideLength} />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center break-all rounded-lg border-2 border-accent2 bg-accent2/5 p-2 text-center text-2xl font-bold tracking-wider text-accent2">
                   {data.label}
                 </div>
               )}
