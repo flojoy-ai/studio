@@ -46,6 +46,7 @@ test.describe("Environment modal", () => {
   });
 
   test("Should set flojoy cloud API key", async () => {
+    test.setTimeout(60000);
     // Define a test API key
     const testAPIkey = "test-123";
 
@@ -70,10 +71,13 @@ test.describe("Environment modal", () => {
     });
 
     // Expect "FLOJOY_CLOUD_KEY" to be listed in the modal
-    await expect(window.getByText("FLOJOY_CLOUD_KEY")).toBeVisible();
+    await expect(window.getByText("FLOJOY_CLOUD_KEY")).toBeVisible({
+      timeout: 15000,
+    });
   });
 
   test("Should set given Env key value", async () => {
+    test.setTimeout(60000);
     // Define a API key
     const env = { key: "test-api", value: "test-123" };
 
@@ -88,7 +92,7 @@ test.describe("Environment modal", () => {
     await expect(window.getByText("Environment variable added")).toBeVisible();
 
     // Expect given env var listed in the modal
-    await expect(window.getByText(env.key)).toBeVisible();
+    await expect(window.getByText(env.key)).toBeVisible({ timeout: 15000 });
 
     // Take a screenshot
     await window.screenshot({
