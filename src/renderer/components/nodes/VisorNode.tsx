@@ -1,9 +1,9 @@
-import { CustomNodeProps, ElementsData } from "@src/types/node";
+import { CustomNodeProps } from "@src/types/node";
 import NodeWrapper from "@src/components/common/NodeWrapper";
 import clsx from "clsx";
 import HandleComponent from "@src/components/common/HandleComponent";
 import Scatter from "@src/assets/nodes/Scatter";
-import { memo, useEffect, useMemo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 import { makePlotlyData } from "@src/components/plotly/formatPlotlyData";
 import PlotlyComponent from "@src/components/plotly/PlotlyComponent";
 import CompositePlot from "@src/assets/nodes/CompositePlot";
@@ -27,7 +27,7 @@ import RegionInspector from "@src/assets/nodes/RegionInspector";
 import TextView from "@src/assets/nodes/TextView";
 import Heatmap from "@src/assets/nodes/Heatmap";
 import { useNodeStatus } from "@src/hooks/useNodeStatus";
-import { NodeResizer, useReactFlow } from "reactflow";
+import { NodeResizer } from "reactflow";
 
 const chartElemMap = {
   SCATTER: Scatter,
@@ -51,12 +51,14 @@ const chartElemMap = {
   HEATMAP: Heatmap,
 };
 
-const PLOT_ASPECT_RATIO = 1.4;
+MIN_DIMENSIONS = {
+  width: 225,
+  height: 225,
+}
 
-const VisorNode = ({ selected, data, id }: CustomNodeProps) => {
+const VisorNode = ({ selected, data }: CustomNodeProps) => {
   const { resolvedTheme } = useTheme();
   const { nodeRunning, nodeError, nodeResult } = useNodeStatus(data.id);
-  const { setNodes } = useReactFlow<ElementsData>();
 
   const plotlyFig = nodeResult?.result?.plotly_fig;
   const textBlob = nodeResult?.result?.text_blob;
@@ -71,39 +73,21 @@ const VisorNode = ({ selected, data, id }: CustomNodeProps) => {
 
   const ChartIcon = chartElemMap[data.func];
 
-  useEffect(() => {
-    setNodes((nodes) => nodes.map(
-      n => {
-        if (n.id === id) {
-          return {
-            ...n,
-            dimensions: {
-              width: dimensions.width * PLOT_ASPECT_RATIO,
-              height: dimensions.height
-            }
-          }
-        }
-        return n;
-      }
-    ))
-  }, [plotlyData])
-
   return (
     <>
       <NodeResizer
         minWidth={225}
         minHeight={225}
-        keepAspectRatio
-        onResize={(_, params) => {
-          const newSize = Math.max(params.width, params.height);
-          setDimensions({ width: params.width, height: newSize });
-        }}
         isVisible={selected}
+        handleClassName="p-2"
+        onResizeEnd={(e, params) => {
+          setDimensions({ width: params.width, height: params.height })
+        }}
       />
-      <NodeWrapper nodeError={nodeError} data={data} selected={selected} style={dimensions}>
+      <NodeWrapper nodeError={nodeError} data={data} selected={selected} style={{ minWidth: 225, minHeight: 225 }}>
         <div
           className={clsx(
-            "rounded-2xl bg-transparent",
+            "rounded-2xl bg-transparent w-full h-full",
             { "shadow-around shadow-accent2": nodeRunning || selected },
             { "shadow-around shadow-red-700": nodeError },
           )}
@@ -115,16 +99,13 @@ const VisorNode = ({ selected, data, id }: CustomNodeProps) => {
               layout={plotlyFig?.layout ?? {}}
               useResizeHandler
               isThumbnail
-              style={{
-                width: dimensions.width * PLOT_ASPECT_RATIO,
-                height: dimensions.height
-              }}
+              style={dimensions}
             />
           )}
           {textBlob && <MarkDownText text={textBlob} isThumbnail />}
           {!plotlyData && !textBlob && (
             <>
-              {ChartIcon ? <ChartIcon className="w-full h-full" /> : (
+              {ChartIcon ? <ChartIcon /> : (
                 <div className="flex items-center justify-center break-all rounded-lg border-2 border-accent2 bg-accent2/5 p-2 text-center text-2xl font-bold tracking-wider text-accent2 w-full h-full">
                   {data.label}
                 </div>

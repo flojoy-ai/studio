@@ -2,8 +2,8 @@ import { CustomNodeProps } from "@src/types";
 import clsx from "clsx";
 import React from "react";
 import HandleComponent from "./HandleComponent";
-import { cn } from "@src/lib/utils";
 import { CSSProperties } from "react";
+import { cn } from "@src/lib/utils";
 
 const NodeWrapper = ({
   selected,
@@ -11,12 +11,14 @@ const NodeWrapper = ({
   children,
   data,
   style,
+  className
 }: {
   selected: boolean;
   nodeError: string;
   children: React.ReactNode;
   data: CustomNodeProps["data"];
-  style: CSSProperties
+  style?: CSSProperties;
+  className?: string
 }) => {
   if (data.invalid) {
     return (
@@ -40,7 +42,7 @@ const NodeWrapper = ({
     );
   }
   return (
-    <div className={"relative"} data-testid="node-wrapper" style={style}>
+    <div className={cn("relative", className)} data-testid="node-wrapper" style={style}>
       {nodeError && <ErrorPopup message={nodeError} />}
       {children}
     </div>
