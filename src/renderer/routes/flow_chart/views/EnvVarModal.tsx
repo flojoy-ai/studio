@@ -22,12 +22,12 @@ import {
 import { Input } from "@src/components/ui/input";
 import { Label } from "@src/components/ui/label";
 import { ScrollArea } from "@src/components/ui/scroll-area";
-import { API_URI } from "@src/data/constants";
 import EnvVarDelete from "./EnvVarCredentials/EnvVarDelete";
 import EnvVarEdit from "./EnvVarCredentials/EnvVarEdit";
 import { Key } from "lucide-react";
 import { toast } from "sonner";
 import { Separator } from "@src/components/ui/separator";
+import { baseClient } from "@src/lib/base-client";
 
 interface EnvVarModalProps {
   handleEnvVarModalOpen: (open: boolean) => void;
@@ -49,18 +49,13 @@ const EnvVarModal = ({
 
   const [flojoyCloudKey, setFlojoyCloudKey] = useState<string>("");
 
-  const fetchCredentials = useCallback(() => {
-    fetch(`${API_URI}/env/`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setCredentials(data);
-      })
-      .catch((err) => console.log(err));
+  const fetchCredentials = useCallback(async () => {
+    try {
+      const res = await baseClient.get("env");
+      setCredentials(res.data);
+    } catch (error) {
+      console.log(error);
+    }
   }, [setCredentials]);
 
   const handleEnvVarKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -108,7 +103,7 @@ const EnvVarModal = ({
       setEnvVarValue("");
       fetchCredentials();
     } else {
-      toast("Error adding environment variable");
+      toast(`Error adding environment variable. reason: ${result.error}`);
     }
   };
 
@@ -125,7 +120,7 @@ const EnvVarModal = ({
       setFlojoyCloudKey("");
       fetchCredentials();
     } else {
-      toast("Error adding your Flojoy Cloud API key");
+      toast(`Error adding your Flojoy Cloud API key, reason: ${result.error}`);
     }
   };
 
