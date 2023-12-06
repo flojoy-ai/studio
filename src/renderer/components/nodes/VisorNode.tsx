@@ -1,9 +1,9 @@
-import { ElementsData } from "@src/types/node";
+import { CustomNodeProps } from "@src/types/node";
 import NodeWrapper from "@src/components/common/NodeWrapper";
 import clsx from "clsx";
 import HandleComponent from "@src/components/common/HandleComponent";
 import Scatter from "@src/assets/nodes/Scatter";
-import { memo, useMemo, useState } from "react";
+import { memo, useMemo } from "react";
 import { makePlotlyData } from "@src/components/plotly/formatPlotlyData";
 import PlotlyComponent from "@src/components/plotly/PlotlyComponent";
 import CompositePlot from "@src/assets/nodes/CompositePlot";
@@ -27,7 +27,8 @@ import RegionInspector from "@src/assets/nodes/RegionInspector";
 import TextView from "@src/assets/nodes/TextView";
 import Heatmap from "@src/assets/nodes/Heatmap";
 import { useNodeStatus } from "@src/hooks/useNodeStatus";
-import { NodeResizer, Node } from "reactflow";
+import { NodeResizer } from "reactflow";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 
 const chartElemMap = {
   SCATTER: Scatter,
@@ -51,12 +52,8 @@ const chartElemMap = {
   HEATMAP: Heatmap,
 };
 
-const MIN_DIMENSIONS = {
-  minWidth: 225,
-  minHeight: 225,
-}
 
-const VisorNode = ({ selected, data, width, height }: Node<ElementsData>) => {
+const VisorNode = ({ selected, id, data }: CustomNodeProps) => {
   const { resolvedTheme } = useTheme();
   const { nodeRunning, nodeError, nodeResult } = useNodeStatus(data.id);
 
@@ -70,12 +67,17 @@ const VisorNode = ({ selected, data, width, height }: Node<ElementsData>) => {
   );
 
 
-  const [dimensions, setDimensions] = useState({ width: width ?? 225, height: height ?? 225 });
+  const { nodes } = useFlowChartGraph();
+  const node = nodes.find(n => n.id === id);
+
+  const dimensions = {
+    width: node?.width ?? 225,
+    height: node?.height ?? 225
+  }
 
   const ChartIcon = chartElemMap[data.func];
 
   const square = Math.min(dimensions.width, dimensions.height);
-
 
   return (
     <>
@@ -84,9 +86,6 @@ const VisorNode = ({ selected, data, width, height }: Node<ElementsData>) => {
         minHeight={225}
         isVisible={selected}
         handleClassName="p-2"
-        onResizeEnd={(e, params) => {
-          setDimensions({ width: params.width, height: params.height })
-        }}
       />
       <NodeWrapper nodeError={nodeError} data={data} selected={selected!} style={dimensions}>
         <div
