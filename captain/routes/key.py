@@ -12,7 +12,7 @@ router = APIRouter(tags=["env"])
 @router.post("/env/")
 async def set_env_var_route(env_var: EnvVar):
     try:
-        set_env_var(env_var.key, env_var.value, "some")
+        set_env_var(env_var.key, env_var.value)
 
     except Exception as e:
         logger.error(
