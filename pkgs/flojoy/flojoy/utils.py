@@ -319,6 +319,7 @@ def set_env_var(key: str, value: str):
         logger.info(f"Env var written to {file_path}")
         return
 
+    logger.info(f"{file_path} exists, writing env to {file_path}")
     with open(file_path, "r") as f:
         keys = f.read().strip().split(",")
         if key not in keys:

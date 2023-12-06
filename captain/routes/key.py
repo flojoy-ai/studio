@@ -14,6 +14,9 @@ async def set_env_var_route(env_var: EnvVar):
     try:
         set_env_var(env_var.key, env_var.value)
     except Exception as e:
+        logger.error(
+            f"error occured in set_env_var function: {e}, traceback:{e.with_traceback(e.__traceback__)}"
+        )
         return HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=e
         )
