@@ -341,7 +341,6 @@ const FlowChartTab = () => {
     setCommandMenuOpen(false);
   };
 
-
   const [menu, setMenu] = useState<MenuInfo | null>(null);
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -360,11 +359,17 @@ const FlowChartTab = () => {
       const pane = ref.current.getBoundingClientRect();
       setMenu({
         id: node.id,
-        top: event.clientY < pane.height - 200 ? event.clientY - 225 : undefined,
+        top:
+          event.clientY < pane.height - 200 ? event.clientY - 225 : undefined,
         left: event.clientX < pane.width - 200 ? event.clientX : undefined,
-        right: event.clientX >= pane.width - 200 ? pane.width - event.clientX : undefined,
+        right:
+          event.clientX >= pane.width - 200
+            ? pane.width - event.clientX
+            : undefined,
         bottom:
-          event.clientY >= pane.height - 200 ? pane.height - event.clientY + 75 : undefined,
+          event.clientY >= pane.height - 200
+            ? pane.height - event.clientY + 75
+            : undefined,
       });
     },
     [setMenu],
@@ -454,8 +459,9 @@ const FlowChartTab = () => {
 
         <div
           style={{
-            height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT + ACTIONS_HEIGHT
-              }px)`,
+            height: `calc(100vh - ${
+              LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT + ACTIONS_HEIGHT
+            }px)`,
           }}
           className="relative overflow-hidden bg-background"
           data-testid="react-flow"
@@ -516,7 +522,14 @@ const FlowChartTab = () => {
               fitViewOptions={{ padding: 0.8 }}
               className="!bottom-1 !shadow-control"
             />
-            {menu && <ContextMenu onClick={onPaneClick} duplicateNode={duplicateNode} setNodeModalOpen={setNodeModalOpen} {...menu} />}
+            {menu && (
+              <ContextMenu
+                onClick={onPaneClick}
+                duplicateNode={duplicateNode}
+                setNodeModalOpen={setNodeModalOpen}
+                {...menu}
+              />
+            )}
           </ReactFlow>
 
           <NodeExpandMenu

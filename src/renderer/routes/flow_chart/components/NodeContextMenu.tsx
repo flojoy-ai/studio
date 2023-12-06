@@ -17,9 +17,13 @@ type ContextMenuActionProps = {
   onClick: () => void;
   children: React.ReactNode;
   icon: LucideIcon;
-}
+};
 
-const ContextMenuAction = ({ onClick, children, icon }: ContextMenuActionProps) => {
+const ContextMenuAction = ({
+  onClick,
+  children,
+  icon,
+}: ContextMenuActionProps) => {
   const Icon = icon;
   return (
     <Button
@@ -31,9 +35,8 @@ const ContextMenuAction = ({ onClick, children, icon }: ContextMenuActionProps) 
       <Icon size={14} />
       {children}
     </Button>
-
-  )
-}
+  );
+};
 
 type ContextMenuProps = {
   id: string;
@@ -107,6 +110,6 @@ export default function ContextMenu({
       <ContextMenuAction onClick={deleteNode} icon={X}>
         Delete Block
       </ContextMenuAction>
-    </div >
+    </div>
   );
 }

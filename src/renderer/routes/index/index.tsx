@@ -50,7 +50,6 @@ export const Index = (): JSX.Element => {
   const [errorActionName, setErrorActionName] = useState<string>("");
   const navigate = useNavigate();
 
-
   const checkPythonInstallation = async (force?: boolean): Promise<void> => {
     try {
       const interpreters = await window.api.checkPythonInstallation(force);
