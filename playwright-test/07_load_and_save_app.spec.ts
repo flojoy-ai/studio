@@ -10,8 +10,10 @@ import {
 import { Selectors } from "./selectors";
 import { join } from "path";
 import blockApp from "./fixtures/app.json";
+import { existsSync } from "fs";
+import os from "os";
 
-test.describe("Load app", () => {
+test.describe("Load and save app", () => {
   let window: Page;
   let app: ElectronApplication;
   test.beforeAll(async () => {
@@ -27,8 +29,28 @@ test.describe("Load app", () => {
   });
 
   test.afterAll(async () => {
-    await writeLogFile(app, "load-app");
+    await writeLogFile(app, "load-save-app");
     await app.close();
+  });
+
+  test("Should save an app to local file system", async () => {
+    // Click on file button from right top nav bar
+    await window.getByTestId(Selectors.fileBtn).click();
+
+    // Define a path where app should be saved to
+    const savePath = join(os.homedir(), "app.json");
+
+    // Mock saveAs dialog and return the save path
+    await app.evaluate(async ({ dialog }, savePath) => {
+      dialog.showSaveDialog = () =>
+        Promise.resolve({ filePath: savePath, canceled: false });
+    }, savePath);
+
+    // Click on save button to save the current app
+    await window.getByTestId(Selectors.saveBtn).click();
+
+    // Expect file path to exist
+    expect(existsSync(savePath)).toBe(true);
   });
 
   test("Should load an app from local file system", async () => {

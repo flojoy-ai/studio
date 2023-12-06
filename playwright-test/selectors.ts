@@ -22,4 +22,5 @@ export enum Selectors {
   fileBtn = "file-button",
   loadAppBtn = "load-app-btn",
   appGalleryBtn = "app-gallery-btn",
+  saveBtn = "btn-save",
 }
