@@ -110,7 +110,7 @@
     "@electron/notarize": "^2.1.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@percy/cli": "^1.27.3",
-    "@playwright/test": "^1.40.0",
+    "@playwright/test": "^1.40.1",
     "@tailwindcss/typography": "^0.5.10",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.1.2",
