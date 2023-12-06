@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "This block should also work with compatible Tektronix AFG31XXX instruments.",
+    "short_description": "Copy the setup parameters to the other channel.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_AFG31000 block)."
+      },
+      {
+        "name": "channel",
+        "type": "select, default=ch1",
+        "description": "Which channel to copy to the other channel."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "String",
+        "description": "Placeholder"
+      }
+    ]
+  }
+}

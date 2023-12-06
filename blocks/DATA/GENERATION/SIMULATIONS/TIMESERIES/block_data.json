@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Generate a timeseries with random y values between two dates.",
+    "parameters": [
+      {
+        "name": "start_date",
+        "type": "str",
+        "description": "The start date of the timeseries in the format 'YYYY:MM:DD'."
+      },
+      {
+        "name": "end_date",
+        "type": "str",
+        "description": "The end date of the timeseries in the format 'YYYY:MM:DD'."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataFrame",
+        "description": "m: the resulting timeseries"
+      }
+    ]
+  }
+}

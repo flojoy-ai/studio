@@ -1,7 +1,7 @@
 import { Button } from "@src/components/ui/button";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { ElementsData } from "@src/types";
-import { CopyPlus, Info, Pencil, X } from "lucide-react";
+import { CopyPlus, Info, LucideIcon, Pencil, X } from "lucide-react";
 import { useCallback } from "react";
 import { useStore, Node, useReactFlow } from "reactflow";
 
@@ -11,6 +11,31 @@ export type MenuInfo = {
   left?: number;
   right?: number;
   bottom?: number;
+};
+
+type ContextMenuActionProps = {
+  onClick: () => void;
+  children: React.ReactNode;
+  icon: LucideIcon;
+};
+
+const ContextMenuAction = ({
+  onClick,
+  children,
+  icon,
+}: ContextMenuActionProps) => {
+  const Icon = icon;
+  return (
+    <Button
+      onClick={onClick}
+      variant="ghost"
+      size="sm"
+      className="flex w-full justify-start gap-2"
+    >
+      <Icon size={14} />
+      {children}
+    </Button>
+  );
 };
 
 type ContextMenuProps = {
@@ -71,44 +96,20 @@ export default function ContextMenu({
       className="absolute z-50 rounded-md border bg-background"
       onClick={onClick}
     >
-      <Button
-        onClick={editNode}
-        variant="ghost"
-        size="sm"
-        className="flex w-full justify-start gap-2"
-      >
-        <Pencil size={14} />
+      <ContextMenuAction onClick={editNode} icon={Pencil}>
         Edit Block
-      </Button>
-      <Button
-        onClick={duplicate}
-        variant="ghost"
-        size="sm"
-        className="flex w-full justify-start gap-2"
-      >
-        <CopyPlus size={14} />
+      </ContextMenuAction>
+      <ContextMenuAction onClick={duplicate} icon={CopyPlus}>
         Duplicate Block
-      </Button>
+      </ContextMenuAction>
       <hr />
-      <Button
-        onClick={openInfo}
-        variant="ghost"
-        size="sm"
-        className="flex w-full justify-start gap-2"
-      >
-        <Info size={14} />
+      <ContextMenuAction onClick={openInfo} icon={Info}>
         Block Info
-      </Button>
+      </ContextMenuAction>
       <hr />
-      <Button
-        onClick={deleteNode}
-        variant="ghost"
-        size="sm"
-        className="flex w-full justify-start gap-2"
-      >
-        <X size={14} />
+      <ContextMenuAction onClick={deleteNode} icon={X}>
         Delete Block
-      </Button>
+      </ContextMenuAction>
     </div>
   );
 }

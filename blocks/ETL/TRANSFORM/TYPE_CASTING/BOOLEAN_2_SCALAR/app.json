@@ -1,0 +1,204 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 208,
+                "height": 96,
+                "id": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f",
+                "type": "DATA",
+                "data": {
+                    "id": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f",
+                    "label": "BOOLEAN",
+                    "func": "BOOLEAN",
+                    "type": "DATA",
+                    "ctrls": {
+                        "status": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "either True or False value that you want to assign",
+                            "overload": null,
+                            "functionName": "BOOLEAN",
+                            "param": "status",
+                            "value": true
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Boolean",
+                            "desc": "Boolean node"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/BOOLEAN/BOOLEAN.py",
+                    "selected": true
+                },
+                "position": {
+                    "x": -320.1693552631401,
+                    "y": -127.36631308085524
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": -320.1693552631401,
+                    "y": -127.36631308085524
+                },
+                "dragging": true
+            },
+            {
+                "width": 160,
+                "height": 160,
+                "id": "BOOLEAN_2_SCALAR-3d490dfe-d2d2-4dc1-9843-e63f0cad1840",
+                "type": "ETL",
+                "data": {
+                    "id": "BOOLEAN_2_SCALAR-3d490dfe-d2d2-4dc1-9843-e63f0cad1840",
+                    "label": "BOOLEAN 2 SCALAR",
+                    "func": "BOOLEAN_2_SCALAR",
+                    "type": "ETL",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Boolean",
+                            "multiple": false,
+                            "desc": "The input boolean to which we apply the conversion to."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "The scalar result from the conversion of the input."
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/TYPE_CASTING/BOOLEAN_2_SCALAR/BOOLEAN_2_SCALAR.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 46.08506223862054,
+                    "y": -156.1304414679447
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 46.08506223862054,
+                    "y": -156.1304414679447
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "BIG_NUMBER-1d8c8e7d-b0dd-40a4-8fcc-4d1acbd99fd5",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "BIG_NUMBER-1d8c8e7d-b0dd-40a4-8fcc-4d1acbd99fd5",
+                    "label": "BIG NUMBER",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any suffix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": ""
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 351.88769998424897,
+                    "y": -188.97245592715404
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 351.88769998424897,
+                    "y": -188.97245592715404
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f",
+                "sourceHandle": "default",
+                "target": "BOOLEAN_2_SCALAR-3d490dfe-d2d2-4dc1-9843-e63f0cad1840",
+                "targetHandle": "default",
+                "id": "reactflow__edge-BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91fdefault-BOOLEAN_2_SCALAR-3d490dfe-d2d2-4dc1-9843-e63f0cad1840default"
+            },
+            {
+                "source": "BOOLEAN_2_SCALAR-3d490dfe-d2d2-4dc1-9843-e63f0cad1840",
+                "sourceHandle": "default",
+                "target": "BIG_NUMBER-1d8c8e7d-b0dd-40a4-8fcc-4d1acbd99fd5",
+                "targetHandle": "default",
+                "id": "reactflow__edge-BOOLEAN_2_SCALAR-3d490dfe-d2d2-4dc1-9843-e63f0cad1840default-BIG_NUMBER-1d8c8e7d-b0dd-40a4-8fcc-4d1acbd99fd5default"
+            }
+        ],
+        "viewport": {
+            "x": 695.5292625331784,
+            "y": 411.9979742640432,
+            "zoom": 0.6998961918490142
+        }
+    },
+    "textNodes": []
+}

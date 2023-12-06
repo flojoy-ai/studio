@@ -1,0 +1,1 @@
+In this example we're simulating data from `LINSPACE`, `TIMESERIES`, `MATRIX` and `R_DATASET` and visualizing them with `BAR` node which creates a Plotly Bar visualization for each of the input node.

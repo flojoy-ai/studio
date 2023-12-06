@@ -1,0 +1,569 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CONNECTION_MDO3XXX-aa9a5c99-20e6-444c-a550-ac552f791a56",
+                "type": "IO",
+                "data": {
+                    "id": "CONNECTION_MDO3XXX-aa9a5c99-20e6-444c-a550-ac552f791a56",
+                    "label": "CONNECTION MDO3XXX",
+                    "func": "CONNECTION_MDO3XXX",
+                    "type": "IO",
+                    "ctrls": {
+                        "device": {
+                            "type": "VisaDevice",
+                            "default": null,
+                            "desc": "The VISA address to connect to.",
+                            "overload": null,
+                            "functionName": "CONNECTION_MDO3XXX",
+                            "param": "device",
+                            "value": "USB0::1689::1032::C012101::0::INSTR"
+                        },
+                        "num_channels": {
+                            "type": "int",
+                            "default": 4,
+                            "desc": "The number of channels on the instrument that are currently in use.",
+                            "overload": null,
+                            "functionName": "CONNECTION_MDO3XXX",
+                            "param": "num_channels",
+                            "value": 2
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "Optional: None"
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/BASIC/CONNECTION_MDO3XXX/CONNECTION_MDO3XXX.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -938.6144043410202,
+                    "y": 470.49780714269536
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -938.6144043410202,
+                    "y": 470.49780714269536
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "TRIGGER_CHANNEL_MDO3XXX-cf419afe-2271-4831-9d0a-b4e8e00c18a2",
+                "type": "IO",
+                "data": {
+                    "id": "TRIGGER_CHANNEL_MDO3XXX-cf419afe-2271-4831-9d0a-b4e8e00c18a2",
+                    "label": "TRIGGER CHANNEL MDO3XXX",
+                    "func": "TRIGGER_CHANNEL_MDO3XXX",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_MDO3XXX node).",
+                            "overload": null,
+                            "functionName": "TRIGGER_CHANNEL_MDO3XXX",
+                            "param": "connection",
+                            "value": "USB0::1689::1032::C012101::0::INSTR"
+                        },
+                        "channel": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "The channel to set as the triggering channel (used if set=True).",
+                            "overload": null,
+                            "functionName": "TRIGGER_CHANNEL_MDO3XXX",
+                            "param": "channel",
+                            "value": 0
+                        },
+                        "query_set": {
+                            "type": "select",
+                            "options": [
+                                "query",
+                                "set"
+                            ],
+                            "default": "query",
+                            "desc": "Whether to query or set the triggering channel.",
+                            "overload": null,
+                            "functionName": "TRIGGER_CHANNEL_MDO3XXX",
+                            "param": "query_set",
+                            "value": "query"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: The triggering channel (e.g. CH1)."
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/BASIC/TRIGGER_CHANNEL_MDO3XXX/TRIGGER_CHANNEL_MDO3XXX.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -570.9525773294033,
+                    "y": 466.494436792541
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -570.9525773294033,
+                    "y": 466.494436792541
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "TRIGGER_LEVEL_MDO3XXX-181c17a3-c48d-47ac-b87e-2d4b12988577",
+                "type": "IO",
+                "data": {
+                    "id": "TRIGGER_LEVEL_MDO3XXX-181c17a3-c48d-47ac-b87e-2d4b12988577",
+                    "label": "TRIGGER LEVEL MDO3XXX",
+                    "func": "TRIGGER_LEVEL_MDO3XXX",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_MDO3XXX node).",
+                            "overload": null,
+                            "functionName": "TRIGGER_LEVEL_MDO3XXX",
+                            "param": "connection",
+                            "value": "USB0::1689::1032::C012101::0::INSTR"
+                        },
+                        "trigger_volts": {
+                            "type": "float",
+                            "default": 0.1,
+                            "desc": "The voltage to set the triggering level to.",
+                            "overload": null,
+                            "functionName": "TRIGGER_LEVEL_MDO3XXX",
+                            "param": "trigger_volts",
+                            "value": 0.1
+                        },
+                        "query_set": {
+                            "type": "select",
+                            "options": [
+                                "query",
+                                "set"
+                            ],
+                            "default": "query",
+                            "desc": "Whether to query or set the triggering voltage.",
+                            "overload": null,
+                            "functionName": "TRIGGER_LEVEL_MDO3XXX",
+                            "param": "query_set",
+                            "value": "query"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "Scalar: The triggering voltage."
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/BASIC/TRIGGER_LEVEL_MDO3XXX/TRIGGER_LEVEL_MDO3XXX.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 149.8114874246843,
+                    "y": 479.5869710079853
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 149.8114874246843,
+                    "y": 479.5869710079853
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679",
+                "type": "IO",
+                "data": {
+                    "id": "TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679",
+                    "label": "TERMINATION MDO3XXX",
+                    "func": "TERMINATION_MDO3XXX",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_MDO3XXX node).",
+                            "overload": null,
+                            "functionName": "TERMINATION_MDO3XXX",
+                            "param": "connection",
+                            "value": "USB0::1689::1032::C012101::0::INSTR"
+                        },
+                        "channel": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "The channel to query or set the impedance/termination.",
+                            "overload": null,
+                            "functionName": "TERMINATION_MDO3XXX",
+                            "param": "channel",
+                            "value": 0
+                        },
+                        "termination": {
+                            "type": "select",
+                            "options": [
+                                "50 ohm",
+                                "75 ohm",
+                                "1M ohm"
+                            ],
+                            "default": "50 ohm",
+                            "desc": "The ohm to which the termination impedance is set to.",
+                            "overload": null,
+                            "functionName": "TERMINATION_MDO3XXX",
+                            "param": "termination",
+                            "value": "50 ohm"
+                        },
+                        "query_set": {
+                            "type": "select",
+                            "options": [
+                                "query",
+                                "set"
+                            ],
+                            "default": "query",
+                            "desc": "Whether to query or set the triggering voltage.",
+                            "overload": null,
+                            "functionName": "TERMINATION_MDO3XXX",
+                            "param": "query_set",
+                            "value": "query"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "Scalar: The termination value for the chosen channel."
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/BASIC/TERMINATION_MDO3XXX/TERMINATION_MDO3XXX.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -208.52964407405477,
+                    "y": 477.0224555404336
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -208.52964407405477,
+                    "y": 477.0224555404336
+                },
+                "dragging": true
+            },
+            {
+                "width": 384,
+                "height": 288,
+                "id": "TEXT_VIEW-fc0fcff6-9d54-458c-99ed-119ebefa9df7",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-fc0fcff6-9d54-458c-99ed-119ebefa9df7",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -236.5887560458949,
+                    "y": 214.9500448205381
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -236.5887560458949,
+                    "y": 214.9500448205381
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "BIG_NUMBER-55e20b98-1835-4d2d-b780-bc59b89a8457",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "BIG_NUMBER-55e20b98-1835-4d2d-b780-bc59b89a8457",
+                    "label": "BIG NUMBER",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZERS",
+                    "ctrls": {
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any suffix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": ""
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 123.40424633518722,
+                    "y": 702.8387346964474
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 123.40424633518722,
+                    "y": 702.8387346964474
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "BIG_NUMBER-5cf6b81c-ad59-4e32-a87a-696f5e318249",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "BIG_NUMBER-5cf6b81c-ad59-4e32-a87a-696f5e318249",
+                    "label": "BIG NUMBER 1",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZERS",
+                    "ctrls": {
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any suffix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": ""
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 484.61744162067066,
+                    "y": 463.62850205243456
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 484.61744162067066,
+                    "y": 463.62850205243456
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "CONNECTION_MDO3XXX-aa9a5c99-20e6-444c-a550-ac552f791a56",
+                "sourceHandle": "default",
+                "target": "TRIGGER_CHANNEL_MDO3XXX-cf419afe-2271-4831-9d0a-b4e8e00c18a2",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONNECTION_MDO3XXX-aa9a5c99-20e6-444c-a550-ac552f791a56default-TRIGGER_CHANNEL_MDO3XXX-cf419afe-2271-4831-9d0a-b4e8e00c18a2default"
+            },
+            {
+                "source": "TRIGGER_CHANNEL_MDO3XXX-cf419afe-2271-4831-9d0a-b4e8e00c18a2",
+                "sourceHandle": "default",
+                "target": "TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TRIGGER_CHANNEL_MDO3XXX-cf419afe-2271-4831-9d0a-b4e8e00c18a2default-TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679default"
+            },
+            {
+                "source": "TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679",
+                "sourceHandle": "default",
+                "target": "TRIGGER_LEVEL_MDO3XXX-181c17a3-c48d-47ac-b87e-2d4b12988577",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679default-TRIGGER_LEVEL_MDO3XXX-181c17a3-c48d-47ac-b87e-2d4b12988577default"
+            },
+            {
+                "source": "TRIGGER_LEVEL_MDO3XXX-181c17a3-c48d-47ac-b87e-2d4b12988577",
+                "sourceHandle": "default",
+                "target": "BIG_NUMBER-5cf6b81c-ad59-4e32-a87a-696f5e318249",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TRIGGER_LEVEL_MDO3XXX-181c17a3-c48d-47ac-b87e-2d4b12988577default-BIG_NUMBER-5cf6b81c-ad59-4e32-a87a-696f5e318249default"
+            },
+            {
+                "source": "TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679",
+                "sourceHandle": "default",
+                "target": "BIG_NUMBER-55e20b98-1835-4d2d-b780-bc59b89a8457",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679default-BIG_NUMBER-55e20b98-1835-4d2d-b780-bc59b89a8457default"
+            },
+            {
+                "source": "TRIGGER_CHANNEL_MDO3XXX-cf419afe-2271-4831-9d0a-b4e8e00c18a2",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-fc0fcff6-9d54-458c-99ed-119ebefa9df7",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TRIGGER_CHANNEL_MDO3XXX-cf419afe-2271-4831-9d0a-b4e8e00c18a2default-TEXT_VIEW-fc0fcff6-9d54-458c-99ed-119ebefa9df7default"
+            }
+        ],
+        "viewport": {
+            "x": 855.945537953298,
+            "y": 287.6844024349923,
+            "zoom": 2
+        }
+    }
+}

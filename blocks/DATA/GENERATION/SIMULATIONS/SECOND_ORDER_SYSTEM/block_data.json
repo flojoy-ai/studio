@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "Inputs\n------\ndefault : Scalar\n    PID node output.",
+    "short_description": "This block has a 2nd order exponential function and is designed to be used in a LOOP with an APPEND block.",
+    "parameters": [
+      {
+        "name": "d1",
+        "type": "float",
+        "description": "The first time constant."
+      },
+      {
+        "name": "d2",
+        "type": "float",
+        "description": "The second time constant."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Scalar",
+        "description": "The most recent value of the second order function."
+      }
+    ]
+  }
+}

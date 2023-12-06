@@ -1,0 +1,484 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 150,
+                "height": 150,
+                "id": "LINSPACE-79f540d0-bf01-44ee-a5cc-bd7c22c481fe",
+                "type": "default",
+                "data": {
+                    "id": "LINSPACE-79f540d0-bf01-44ee-a5cc-bd7c22c481fe",
+                    "label": "LINSPACE",
+                    "func": "LINSPACE",
+                    "type": "default",
+                    "ctrls": {
+                        "start": {
+                            "type": "float",
+                            "default": 10,
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": "0"
+                        },
+                        "end": {
+                            "type": "float",
+                            "default": 0,
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": "60"
+                        },
+                        "step": {
+                            "type": "int",
+                            "default": 1000,
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": "60"
+                        }
+                    },
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 177.40421214553245,
+                    "y": 23.20557403225355
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 177.40421214553245,
+                    "y": 23.20557403225355
+                }
+            },
+            {
+                "width": 130,
+                "height": 130,
+                "id": "RAND-67823db5-2e2b-48d2-9fa2-59711d68d8b3",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "RAND-67823db5-2e2b-48d2-9fa2-59711d68d8b3",
+                    "label": "RAND",
+                    "func": "RAND",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "distribution": {
+                            "type": "select",
+                            "default": "normal",
+                            "options": [
+                                "normal",
+                                "uniform",
+                                "poisson"
+                            ],
+                            "functionName": "RAND",
+                            "param": "distribution",
+                            "value": "uniform"
+                        },
+                        "lower_bound": {
+                            "type": "float",
+                            "default": 0,
+                            "functionName": "RAND",
+                            "param": "lower_bound",
+                            "value": 0
+                        },
+                        "upper_bound": {
+                            "type": "float",
+                            "default": 1,
+                            "functionName": "RAND",
+                            "param": "upper_bound",
+                            "value": "0.3"
+                        },
+                        "normal_mean": {
+                            "type": "float",
+                            "default": 0,
+                            "functionName": "RAND",
+                            "param": "normal_mean",
+                            "value": 0
+                        },
+                        "normal_standard_deviation": {
+                            "type": "float",
+                            "default": 1,
+                            "functionName": "RAND",
+                            "param": "normal_standard_deviation",
+                            "value": 1
+                        },
+                        "poisson_events": {
+                            "type": "float",
+                            "default": 1,
+                            "functionName": "RAND",
+                            "param": "poisson_events",
+                            "value": 1
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/RAND/RAND.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 488.56693400549386,
+                    "y": 35.020946550996484
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 488.56693400549386,
+                    "y": 35.020946550996484
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 150,
+                "id": "BASIC_OSCILLATOR-d82cc0d9-4160-4683-981f-c32f6dfe1256",
+                "type": "default",
+                "data": {
+                    "id": "BASIC_OSCILLATOR-d82cc0d9-4160-4683-981f-c32f6dfe1256",
+                    "label": "BASIC OSCILLATOR",
+                    "func": "BASIC_OSCILLATOR",
+                    "type": "default",
+                    "ctrls": {
+                        "sample_rate": {
+                            "type": "int",
+                            "default": 100,
+                            "functionName": "BASIC_OSCILLATOR",
+                            "param": "sample_rate",
+                            "value": "30"
+                        },
+                        "time": {
+                            "type": "int",
+                            "default": 10,
+                            "functionName": "BASIC_OSCILLATOR",
+                            "param": "time",
+                            "value": "2"
+                        },
+                        "waveform": {
+                            "type": "select",
+                            "default": "sine",
+                            "options": [
+                                "sine",
+                                "square",
+                                "triangle",
+                                "sawtooth"
+                            ],
+                            "functionName": "BASIC_OSCILLATOR",
+                            "param": "waveform",
+                            "value": "sine"
+                        },
+                        "amplitude": {
+                            "type": "float",
+                            "default": 1,
+                            "functionName": "BASIC_OSCILLATOR",
+                            "param": "amplitude",
+                            "value": 1
+                        },
+                        "frequency": {
+                            "type": "float",
+                            "default": 1,
+                            "functionName": "BASIC_OSCILLATOR",
+                            "param": "frequency",
+                            "value": "1"
+                        },
+                        "offset": {
+                            "type": "float",
+                            "default": 0,
+                            "functionName": "BASIC_OSCILLATOR",
+                            "param": "offset",
+                            "value": 0
+                        },
+                        "phase": {
+                            "type": "float",
+                            "default": 0,
+                            "functionName": "BASIC_OSCILLATOR",
+                            "param": "phase",
+                            "value": 0
+                        }
+                    },
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 188.05797144390925,
+                    "y": 276.8757782209271
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 188.05797144390925,
+                    "y": 276.8757782209271
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 150,
+                "id": "SAVGOL-a8bd4f8a-63a4-4b06-bacd-4cf1289f022e",
+                "type": "TRANSFORMERS",
+                "data": {
+                    "id": "SAVGOL-a8bd4f8a-63a4-4b06-bacd-4cf1289f022e",
+                    "label": "SAVGOL",
+                    "func": "SAVGOL",
+                    "type": "TRANSFORMERS",
+                    "ctrls": {
+                        "window_length": {
+                            "type": "int",
+                            "default": 50,
+                            "functionName": "SAVGOL",
+                            "param": "window_length",
+                            "value": "20"
+                        },
+                        "poly_order": {
+                            "type": "int",
+                            "default": 1,
+                            "functionName": "SAVGOL",
+                            "param": "poly_order",
+                            "value": "3"
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/TRANSFORMERS/SIGNAL_PROCESSING/SAVGOL/SAVGOL.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1202.7889654568903,
+                    "y": 128.8948299478717
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1202.7889654568903,
+                    "y": 128.8948299478717
+                },
+                "dragging": true
+            },
+            {
+                "width": 99,
+                "height": 130,
+                "id": "ADD-b6b71026-3b39-41be-9230-276ce8d76e70",
+                "type": "ARITHMETIC",
+                "data": {
+                    "id": "ADD-b6b71026-3b39-41be-9230-276ce8d76e70",
+                    "label": "ADD",
+                    "func": "ADD",
+                    "type": "ARITHMETIC",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "a",
+                            "id": "a",
+                            "type": "OrderedPair",
+                            "multiple": false
+                        },
+                        {
+                            "name": "b",
+                            "id": "b",
+                            "type": "OrderedPair",
+                            "multiple": true
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/TRANSFORMERS/ARITHMETIC/ADD/ADD.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 811.9422973537728,
+                    "y": 137.422040893595
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 811.9422973537728,
+                    "y": 137.422040893595
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "LINE-38ed0165-2ba5-418f-8603-e8592ae636c2",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "LINE-38ed0165-2ba5-418f-8603-e8592ae636c2",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 975.4183946292451,
+                    "y": 378.92458730043927
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 975.4183946292451,
+                    "y": 378.92458730043927
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "LINE-46272c52-999a-48c0-a2c4-9bf8e9f01631",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "LINE-46272c52-999a-48c0-a2c4-9bf8e9f01631",
+                    "label": "LINE 1",
+                    "func": "LINE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1489.3610618674375,
+                    "y": 384.82137397850096
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1489.3610618674375,
+                    "y": 384.82137397850096
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "LINSPACE-79f540d0-bf01-44ee-a5cc-bd7c22c481fe",
+                "sourceHandle": "default",
+                "target": "RAND-67823db5-2e2b-48d2-9fa2-59711d68d8b3",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINSPACE-79f540d0-bf01-44ee-a5cc-bd7c22c481fedefault-RAND-67823db5-2e2b-48d2-9fa2-59711d68d8b3default"
+            },
+            {
+                "source": "ADD-b6b71026-3b39-41be-9230-276ce8d76e70",
+                "sourceHandle": "default",
+                "target": "SAVGOL-a8bd4f8a-63a4-4b06-bacd-4cf1289f022e",
+                "targetHandle": "default",
+                "id": "reactflow__edge-ADD-b6b71026-3b39-41be-9230-276ce8d76e70default-SAVGOL-a8bd4f8a-63a4-4b06-bacd-4cf1289f022edefault"
+            },
+            {
+                "source": "RAND-67823db5-2e2b-48d2-9fa2-59711d68d8b3",
+                "sourceHandle": "default",
+                "target": "ADD-b6b71026-3b39-41be-9230-276ce8d76e70",
+                "targetHandle": "a",
+                "id": "reactflow__edge-RAND-67823db5-2e2b-48d2-9fa2-59711d68d8b3default-ADD-b6b71026-3b39-41be-9230-276ce8d76e70a"
+            },
+            {
+                "source": "BASIC_OSCILLATOR-d82cc0d9-4160-4683-981f-c32f6dfe1256",
+                "sourceHandle": "default",
+                "target": "ADD-b6b71026-3b39-41be-9230-276ce8d76e70",
+                "targetHandle": "b",
+                "id": "reactflow__edge-BASIC_OSCILLATOR-d82cc0d9-4160-4683-981f-c32f6dfe1256default-ADD-b6b71026-3b39-41be-9230-276ce8d76e70b"
+            },
+            {
+                "source": "ADD-b6b71026-3b39-41be-9230-276ce8d76e70",
+                "sourceHandle": "default",
+                "target": "LINE-38ed0165-2ba5-418f-8603-e8592ae636c2",
+                "targetHandle": "default",
+                "id": "reactflow__edge-ADD-b6b71026-3b39-41be-9230-276ce8d76e70default-LINE-38ed0165-2ba5-418f-8603-e8592ae636c2default"
+            },
+            {
+                "source": "SAVGOL-a8bd4f8a-63a4-4b06-bacd-4cf1289f022e",
+                "sourceHandle": "default",
+                "target": "LINE-46272c52-999a-48c0-a2c4-9bf8e9f01631",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SAVGOL-a8bd4f8a-63a4-4b06-bacd-4cf1289f022edefault-LINE-46272c52-999a-48c0-a2c4-9bf8e9f01631default"
+            }
+        ],
+        "viewport": {
+            "x": -373.4542219202399,
+            "y": 120.20973884288571,
+            "zoom": 1.101977389476256
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "The DataContainer input type must be a dataframe, and the first column (or index) of the dataframe must be of a datetime type.\n\nThis node always returns a DataContainer of a dataframe type. It will also always return an 'extra' field with a key 'prophet' of which the value is the JSONified Prophet model.\nThis model can be loaded as follows:",
+    "short_description": "Run a Prophet time series prediction model on an incoming dataframe.",
+    "parameters": [
+      {
+        "name": "run_forecast",
+        "type": "bool",
+        "description": "If True (default case), the dataframe of the returning DataContainer\n('m' parameter of the DataContainer) will be the forecasted dataframe.\nIt will also have an 'extra' field with the key 'original', which is\nthe original dataframe passed in.\n\nIf False, the returning dataframe will be the original data.\n\nThis node will also always have an 'extra' field, run_forecast, which\nmatches that of the parameters passed in. This is for future nodes\nto know if a forecast has already been run.\n\nDefault = True"
+      },
+      {
+        "name": "periods",
+        "type": "int",
+        "description": "The number of periods to predict out. Only used if run_forecast is True.\nDefault = 365"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataFrame",
+        "description": "With parameter as df.\nIndicates either the original df passed in, or the forecasted df\n(depending on if run_forecast is True)."
+      },
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "With parameter as 'extra'.\nContains keys run_forecast which correspond to the input parameter,\nand potentially 'original' in the event that run_forecast is True."
+      }
+    ]
+  }
+}

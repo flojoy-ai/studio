@@ -1,0 +1,240 @@
+{
+    "name": "USB Camera",
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "SCPI_WRITE-52a454f8-4871-4856-b681-08d16ba3375b",
+                "type": "IO",
+                "data": {
+                    "id": "SCPI_WRITE-52a454f8-4871-4856-b681-08d16ba3375b",
+                    "label": "SCPI WRITE",
+                    "func": "SCPI_WRITE",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The open serial connection with the instrument.",
+                            "overload": null,
+                            "functionName": "SCPI_WRITE",
+                            "param": "connection",
+                            "value": "/dev/cu.usbserial-PX75GRVT"
+                        },
+                        "command": {
+                            "type": "str",
+                            "default": "*IDN?",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SCPI_WRITE",
+                            "param": "command",
+                            "value": "MEASure:VOLTage?"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": "Any DataContainer - likely connected to the output of the OPEN_SERIAL node."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar|String",
+                            "desc": "The return value from the bench-top instrument as a Scalar or String."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "pyserial",
+                            "v": "3.5"
+                        }
+                    ],
+                    "path": "IO/PROTOCOLS/SCPI/SCPI_WRITE/SCPI_WRITE.py",
+                    "selected": true
+                },
+                "position": {
+                    "x": 234.72013360308043,
+                    "y": -167.20927235372574
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": 234.72013360308043,
+                    "y": -167.20927235372574
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "OPEN_SERIAL-d8d4820a-124d-486e-89ee-2bb873434dd4",
+                "type": "IO",
+                "data": {
+                    "id": "OPEN_SERIAL-d8d4820a-124d-486e-89ee-2bb873434dd4",
+                    "label": "OPEN SERIAL",
+                    "func": "OPEN_SERIAL",
+                    "type": "IO",
+                    "ctrls": {
+                        "device": {
+                            "type": "SerialDevice",
+                            "default": null,
+                            "desc": "The connected serial device.",
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "device",
+                            "value": "/dev/cu.usbserial-PX75GRVT"
+                        },
+                        "baudrate": {
+                            "type": "int",
+                            "default": 9600,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "baudrate",
+                            "value": 9600
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": null
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "pyserial",
+                            "v": "3.5"
+                        }
+                    ],
+                    "path": "IO/PROTOCOLS/SERIAL/BASIC/OPEN_SERIAL/OPEN_SERIAL.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -119.78151756712703,
+                    "y": -169.75657507433
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -119.78151756712703,
+                    "y": -169.75657507433
+                },
+                "dragging": true
+            },
+            {
+                "width": 273,
+                "height": 160,
+                "id": "PRINT_DATACONTAINER-84c3219c-85fd-4661-88c3-f8208d2113e1",
+                "type": "EXTRACTORS",
+                "data": {
+                    "id": "PRINT_DATACONTAINER-84c3219c-85fd-4661-88c3-f8208d2113e1",
+                    "label": "PRINT DATACONTAINER",
+                    "func": "PRINT_DATACONTAINER",
+                    "type": "EXTRACTORS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Input datacontainer information"
+                        }
+                    ],
+                    "path": "EXTRACTORS/DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 557.3999599501618,
+                    "y": -148.94821702035097
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 557.3999599501618,
+                    "y": -148.94821702035097
+                },
+                "dragging": true
+            },
+            {
+                "width": 384,
+                "height": 288,
+                "id": "TEXT_VIEW-784462fd-3284-40ac-bbd2-446e740f9edb",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-784462fd-3284-40ac-bbd2-446e740f9edb",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 947.7413591150134,
+                    "y": -212.73757787208604
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 947.7413591150134,
+                    "y": -212.73757787208604
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "OPEN_SERIAL-d8d4820a-124d-486e-89ee-2bb873434dd4",
+                "sourceHandle": "default",
+                "target": "SCPI_WRITE-52a454f8-4871-4856-b681-08d16ba3375b",
+                "targetHandle": "default",
+                "id": "reactflow__edge-OPEN_SERIAL-d8d4820a-124d-486e-89ee-2bb873434dd4default-SCPI_WRITE-52a454f8-4871-4856-b681-08d16ba3375bdefault"
+            },
+            {
+                "source": "SCPI_WRITE-52a454f8-4871-4856-b681-08d16ba3375b",
+                "sourceHandle": "default",
+                "target": "PRINT_DATACONTAINER-84c3219c-85fd-4661-88c3-f8208d2113e1",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SCPI_WRITE-52a454f8-4871-4856-b681-08d16ba3375bdefault-PRINT_DATACONTAINER-84c3219c-85fd-4661-88c3-f8208d2113e1default"
+            },
+            {
+                "source": "PRINT_DATACONTAINER-84c3219c-85fd-4661-88c3-f8208d2113e1",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-784462fd-3284-40ac-bbd2-446e740f9edb",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PRINT_DATACONTAINER-84c3219c-85fd-4661-88c3-f8208d2113e1default-TEXT_VIEW-784462fd-3284-40ac-bbd2-446e740f9edbdefault"
+            }
+        ],
+        "viewport": {
+            "x": 461.8053939811623,
+            "y": 532.5623864271589,
+            "zoom": 1.4143748922070958
+        }
+    }
+}

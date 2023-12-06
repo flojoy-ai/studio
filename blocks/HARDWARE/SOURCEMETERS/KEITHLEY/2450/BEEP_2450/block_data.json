@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "Requires a CONNECT_2450 block to create the connection.",
+    "short_description": "Causes the 2450 to beep audibly.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_2450 block)."
+      },
+      {
+        "name": "duration",
+        "type": "float, default=0.25",
+        "description": "The duration of the beep in seconds."
+      },
+      {
+        "name": "frequency",
+        "type": "float, default=2000",
+        "description": "The frequency, or tone, of the beep in Hz."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "String",
+        "description": "Beep"
+      }
+    ]
+  }
+}

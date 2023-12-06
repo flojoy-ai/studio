@@ -1,0 +1,40 @@
+{
+  "docstring": {
+    "long_description": "Requires a CONNECT_DMM7510 block to create the connection.",
+    "short_description": "Measures digitized data vs time.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_DMM7510 block)."
+      },
+      {
+        "name": "function",
+        "type": "select, default=Digitize voltage",
+        "description": "Select the measurement function"
+      },
+      {
+        "name": "num_samples",
+        "type": "int, default=100",
+        "description": "The number of points/samples to measure."
+      },
+      {
+        "name": "sample_rate",
+        "type": "float, default=1000",
+        "description": "The number of samples per second."
+      },
+      {
+        "name": "range",
+        "type": "float, default=1",
+        "description": "The range of the function measurement."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "OrderedPair",
+        "description": "x: time\ny: measurements"
+      }
+    ]
+  }
+}

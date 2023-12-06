@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "Can only be turned on for one channel.\n\nRequires a CONNECTION_33510B node at the start of the app to connect with\nthe instrument. The VISA address will then be listed under 'connection'.\n\nThis node should also work with compatible Keysight 33XXX wavefunction\ngenerators (although they are untested).",
+    "short_description": "Sync multiple output phases of a supported function generator.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_MDO3XXX node)."
+      },
+      {
+        "name": "on_off",
+        "type": "str",
+        "description": "Whether to turn the waveform phase syncing on or off."
+      },
+      {
+        "name": "channel",
+        "type": "str",
+        "description": "The channel to use as the baseline phase."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "String: The channel, and ON or OFF depending on on_off value."
+      }
+    ]
+  }
+}

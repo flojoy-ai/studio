@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "Must use the TEXT_VIEW block to view the text.",
+    "short_description": "Return a String containing input DataContainer information.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "DataContainer",
+        "description": "The input DataContainer to print."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "String: Input datacontainer information"
+      }
+    ]
+  }
+}

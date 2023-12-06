@@ -58,7 +58,6 @@ coverage.xml
 
 .nyc_output/out.json
 coverage-cy
-PYTHON/blocks*
 build
 .nyc_output
 

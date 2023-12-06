@@ -1,0 +1,226 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 160,
+                "height": 160,
+                "id": "LOCAL_FILE-715b53d4-a2d0-4437-a175-8c70372a2b87",
+                "type": "LOADERS",
+                "data": {
+                    "id": "LOCAL_FILE-715b53d4-a2d0-4437-a175-8c70372a2b87",
+                    "label": "LOCAL FILE",
+                    "func": "LOCAL_FILE",
+                    "type": "LOADERS",
+                    "ctrls": {
+                        "file_path": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "path to the file to be loaded",
+                            "functionName": "LOCAL_FILE",
+                            "param": "file_path",
+                            "value": "/home/trbritt/Desktop/Data/projects/flojoy/studio/PYTHON/nodes/VISUALIZERS/PLOTLY/HEATMAP/assets/heatmap.tif"
+                        },
+                        "file_type": {
+                            "type": "select",
+                            "default": "Image",
+                            "options": [
+                                "Image",
+                                "Grayscale",
+                                "JSON",
+                                "CSV",
+                                "Excel",
+                                "XML"
+                            ],
+                            "desc": "type of file to load, default = image",
+                            "functionName": "LOCAL_FILE",
+                            "param": "file_type",
+                            "value": "Grayscale"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|DataFrame",
+                            "desc": "Image for file_type 'image'\nDataFrame for file_type 'json', 'csv', 'excel', 'xml'"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "xlrd",
+                            "v": "2.0.1"
+                        },
+                        {
+                            "name": "lxml",
+                            "v": "4.9.2"
+                        },
+                        {
+                            "name": "openpyxl",
+                            "v": "3.0.10"
+                        },
+                        {
+                            "name": "scikit-image",
+                            "v": "0.21.0"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/LOADERS/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -213.9948763994475,
+                    "y": -687.1796942660033
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -213.9948763994475,
+                    "y": -687.1796942660033
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "HEATMAP-2fcfddb7-fa77-4593-82c3-22fe9d6beee0",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "HEATMAP-2fcfddb7-fa77-4593-82c3-22fe9d6beee0",
+                    "label": "HEATMAP",
+                    "func": "HEATMAP",
+                    "type": "VISUALIZERS",
+                    "ctrls": {
+                        "show_text": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "whether to show the text inside the heatmap color blocks",
+                            "functionName": "HEATMAP",
+                            "param": "show_text",
+                            "value": false
+                        },
+                        "histogram": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "whether or not to render a histogram of the image next to the render",
+                            "functionName": "HEATMAP",
+                            "param": "histogram",
+                            "value": true
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Matrix|Grayscale|DataFrame|Vector|OrderedTriple",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing Plotly heatmap visualization"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/HEATMAP/HEATMAP.py",
+                    "selected": true
+                },
+                "position": {
+                    "x": 85.83831612566095,
+                    "y": -425.01691469133516
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": 85.83831612566095,
+                    "y": -425.01691469133516
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "IMAGE-a79fa1e7-a7af-435d-960b-8d5e6ec628f8",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "IMAGE-a79fa1e7-a7af-435d-960b-8d5e6ec628f8",
+                    "label": "IMAGE",
+                    "func": "IMAGE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|Grayscale",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing Plotly Image visualization of the input image"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 115.3713799337333,
+                    "y": -834.399558047481
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 115.3713799337333,
+                    "y": -834.399558047481
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "LOCAL_FILE-715b53d4-a2d0-4437-a175-8c70372a2b87",
+                "sourceHandle": "default",
+                "target": "IMAGE-a79fa1e7-a7af-435d-960b-8d5e6ec628f8",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LOCAL_FILE-715b53d4-a2d0-4437-a175-8c70372a2b87default-IMAGE-a79fa1e7-a7af-435d-960b-8d5e6ec628f8default"
+            },
+            {
+                "source": "LOCAL_FILE-715b53d4-a2d0-4437-a175-8c70372a2b87",
+                "sourceHandle": "default",
+                "target": "HEATMAP-2fcfddb7-fa77-4593-82c3-22fe9d6beee0",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LOCAL_FILE-715b53d4-a2d0-4437-a175-8c70372a2b87default-HEATMAP-2fcfddb7-fa77-4593-82c3-22fe9d6beee0default"
+            }
+        ],
+        "viewport": {
+            "x": 459.5722592074368,
+            "y": 801.7614323394131,
+            "zoom": 0.5608869937101538
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "Based on the input, it generates a boolean type data.\nIf the status is True, then it generates true constant, else false constant.",
+    "short_description": "Takes one argument as input.",
+    "parameters": [
+      {
+        "name": "status",
+        "type": "bool, default: True",
+        "description": "either True or False value that you want to assign"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Boolean",
+        "description": "Boolean node"
+      }
+    ]
+  }
+}

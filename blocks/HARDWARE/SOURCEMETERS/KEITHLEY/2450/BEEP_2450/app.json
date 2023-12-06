@@ -1,0 +1,903 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "BEEP_2450-8f32f6a8-a1b7-4902-bcd0-bcd1891d1c29",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "BEEP_2450-8f32f6a8-a1b7-4902-bcd0-bcd1891d1c29",
+                    "label": "BEEP 2450",
+                    "func": "BEEP_2450",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_2450 block).",
+                            "overload": null,
+                            "functionName": "BEEP_2450",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.175.123::INSTR"
+                        },
+                        "duration": {
+                            "type": "float",
+                            "default": 0.25,
+                            "desc": "The duration of the beep in seconds.",
+                            "overload": null,
+                            "functionName": "BEEP_2450",
+                            "param": "duration",
+                            "value": 0.25
+                        },
+                        "frequency": {
+                            "type": "float",
+                            "default": 2000,
+                            "desc": "The frequency, or tone, of the beep in Hz.",
+                            "overload": null,
+                            "functionName": "BEEP_2450",
+                            "param": "frequency",
+                            "value": 2000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Beep"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tm_devices",
+                            "v": "1.0"
+                        }
+                    ],
+                    "path": "HARDWARE/SOURCEMETERS/KEITHLEY/2450/BEEP_2450/BEEP_2450.py"
+                },
+                "position": {
+                    "x": -448.3091293727178,
+                    "y": -347.92345448716804
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -448.3091293727178,
+                    "y": -347.92345448716804
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CONNECT_2450-72b8d59f-b577-4f92-b3df-705b3fc2cd06",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "CONNECT_2450-72b8d59f-b577-4f92-b3df-705b3fc2cd06",
+                    "label": "CONNECT 2450",
+                    "func": "CONNECT_2450",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "device": {
+                            "type": "VisaDevice",
+                            "default": null,
+                            "desc": "The connected VISA device.",
+                            "overload": null,
+                            "functionName": "CONNECT_2450",
+                            "param": "device",
+                            "value": "TCPIP::169.254.175.123::INSTR"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The IP or VISA address of the VISA device."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tm_devices",
+                            "v": "1.0"
+                        }
+                    ],
+                    "path": "HARDWARE/SOURCEMETERS/KEITHLEY/2450/CONNECT_2450/CONNECT_2450.py"
+                },
+                "position": {
+                    "x": -674.0943355603956,
+                    "y": -346.9914490190549
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -674.0943355603956,
+                    "y": -346.9914490190549
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010",
+                    "label": "IV SWEEP 2450",
+                    "func": "IV_SWEEP_2450",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_2450 block).",
+                            "overload": null,
+                            "functionName": "IV_SWEEP_2450",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.175.123::INSTR"
+                        },
+                        "sweep": {
+                            "type": "select",
+                            "options": [
+                                "voltage",
+                                "current"
+                            ],
+                            "default": "voltage",
+                            "desc": "Select the sweep mode, the opposite unit is measured.",
+                            "overload": null,
+                            "functionName": "IV_SWEEP_2450",
+                            "param": "sweep",
+                            "value": "voltage"
+                        },
+                        "sense": {
+                            "type": "select",
+                            "options": [
+                                "2-wire",
+                                "4-wire"
+                            ],
+                            "default": "2-wire",
+                            "desc": "Use 2 or 4 wire sense/measurement mode.",
+                            "overload": null,
+                            "functionName": "IV_SWEEP_2450",
+                            "param": "sense",
+                            "value": "2-wire"
+                        },
+                        "start": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The first x value of the sweep.",
+                            "overload": null,
+                            "functionName": "IV_SWEEP_2450",
+                            "param": "start",
+                            "value": 0
+                        },
+                        "stop": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The last x value of the sweep.",
+                            "overload": null,
+                            "functionName": "IV_SWEEP_2450",
+                            "param": "stop",
+                            "value": 1
+                        },
+                        "points": {
+                            "type": "float",
+                            "default": 100,
+                            "desc": "The number of points between start and stop.",
+                            "overload": null,
+                            "functionName": "IV_SWEEP_2450",
+                            "param": "points",
+                            "value": 100
+                        },
+                        "measurement_time": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "How long to measure a single point, in seconds.",
+                            "overload": null,
+                            "functionName": "IV_SWEEP_2450",
+                            "param": "measurement_time",
+                            "value": 1
+                        },
+                        "measurement_delay": {
+                            "type": "float",
+                            "default": 0.05,
+                            "desc": "How long to delay between two points, in seconds.",
+                            "overload": null,
+                            "functionName": "IV_SWEEP_2450",
+                            "param": "measurement_delay",
+                            "value": 0.05
+                        },
+                        "y_limit": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The limit of the measured value.",
+                            "overload": null,
+                            "functionName": "IV_SWEEP_2450",
+                            "param": "y_limit",
+                            "value": 1
+                        },
+                        "source_range": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The range of the x value.",
+                            "overload": null,
+                            "functionName": "IV_SWEEP_2450",
+                            "param": "source_range",
+                            "value": 2
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "Sweep values"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tm_devices",
+                            "v": "1.0"
+                        }
+                    ],
+                    "path": "HARDWARE/SOURCEMETERS/KEITHLEY/2450/IV_SWEEP_2450/IV_SWEEP_2450.py"
+                },
+                "position": {
+                    "x": 492.2816086087546,
+                    "y": 1.7974868009648617
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 492.2816086087546,
+                    "y": 1.7974868009648617
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "MEASURE_READ_2450-68952e00-42a8-458a-81c0-7d0d08398787",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "MEASURE_READ_2450-68952e00-42a8-458a-81c0-7d0d08398787",
+                    "label": "MEASURE READ 2450",
+                    "func": "MEASURE_READ_2450",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_2450 block).",
+                            "overload": null,
+                            "functionName": "MEASURE_READ_2450",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.175.123::INSTR"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "Reading"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tm_devices",
+                            "v": "1.0"
+                        }
+                    ],
+                    "path": "HARDWARE/SOURCEMETERS/KEITHLEY/2450/MEASURE_READ_2450/MEASURE_READ_2450.py"
+                },
+                "position": {
+                    "x": 512.3891574605273,
+                    "y": -320.65565183900117
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 512.3891574605273,
+                    "y": -320.65565183900117
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "MEASURE_SETTINGS_2450-2d6b2106-7975-4e13-9084-1432f534f5e9",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "MEASURE_SETTINGS_2450-2d6b2106-7975-4e13-9084-1432f534f5e9",
+                    "label": "MEASURE SETTINGS 2450",
+                    "func": "MEASURE_SETTINGS_2450",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_2450 block).",
+                            "overload": null,
+                            "functionName": "MEASURE_SETTINGS_2450",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.175.123::INSTR"
+                        },
+                        "measure": {
+                            "type": "select",
+                            "options": [
+                                "voltage",
+                                "current",
+                                "resistance",
+                                "power"
+                            ],
+                            "default": "voltage",
+                            "desc": "Select the measure unit",
+                            "overload": null,
+                            "functionName": "MEASURE_SETTINGS_2450",
+                            "param": "measure",
+                            "value": "voltage"
+                        },
+                        "wires": {
+                            "type": "select",
+                            "options": [
+                                "2",
+                                "4"
+                            ],
+                            "default": "2",
+                            "desc": "Select 2-wire or 4-wire sense mode.",
+                            "overload": null,
+                            "functionName": "MEASURE_SETTINGS_2450",
+                            "param": "wires",
+                            "value": "2"
+                        },
+                        "digits": {
+                            "type": "select",
+                            "options": [
+                                "3.5",
+                                "4.5",
+                                "5.5",
+                                "6.5"
+                            ],
+                            "default": "6.5",
+                            "desc": "Select the number of display digits.",
+                            "overload": null,
+                            "functionName": "MEASURE_SETTINGS_2450",
+                            "param": "digits",
+                            "value": "6.5"
+                        },
+                        "meas_range": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The measurement range. 0 == AUTO.",
+                            "overload": null,
+                            "functionName": "MEASURE_SETTINGS_2450",
+                            "param": "meas_range",
+                            "value": 0
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Measurement"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tm_devices",
+                            "v": "1.0"
+                        }
+                    ],
+                    "path": "HARDWARE/SOURCEMETERS/KEITHLEY/2450/MEASURE_SETTINGS_2450/MEASURE_SETTINGS_2450.py"
+                },
+                "position": {
+                    "x": 26.597185633155945,
+                    "y": -437.0939563812675
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 26.597185633155945,
+                    "y": -437.0939563812675
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "OUTPUT_2450-e2cfabda-a18e-4170-a237-98e1dd262d9d",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "OUTPUT_2450-e2cfabda-a18e-4170-a237-98e1dd262d9d",
+                    "label": "OUTPUT 2450",
+                    "func": "OUTPUT_2450",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_2450 block).",
+                            "overload": null,
+                            "functionName": "OUTPUT_2450",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.175.123::INSTR"
+                        },
+                        "output": {
+                            "type": "select",
+                            "options": [
+                                "on",
+                                "off"
+                            ],
+                            "default": "on",
+                            "desc": "Turn the output on or off.",
+                            "overload": null,
+                            "functionName": "OUTPUT_2450",
+                            "param": "output",
+                            "value": "on"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Output settings"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tm_devices",
+                            "v": "1.0"
+                        }
+                    ],
+                    "path": "HARDWARE/SOURCEMETERS/KEITHLEY/2450/OUTPUT_2450/OUTPUT_2450.py"
+                },
+                "position": {
+                    "x": 280.0082587419151,
+                    "y": -318.62173032956696
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 280.0082587419151,
+                    "y": -318.62173032956696
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "RESET_2450-1417dc2d-b853-4330-9d4f-6f67c137809e",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "RESET_2450-1417dc2d-b853-4330-9d4f-6f67c137809e",
+                    "label": "RESET 2450",
+                    "func": "RESET_2450",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_2450 block).",
+                            "overload": null,
+                            "functionName": "RESET_2450",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.175.123::INSTR"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Reset"
+                        }
+                    ],
+                    "path": "HARDWARE/SOURCEMETERS/KEITHLEY/2450/RESET_2450/RESET_2450.py"
+                },
+                "position": {
+                    "x": -226.13106763431557,
+                    "y": -346.60560976610765
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -226.13106763431557,
+                    "y": -346.60560976610765
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "SOURCE_2450-0665121f-eef3-48f7-b080-2400359631a7",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "SOURCE_2450-0665121f-eef3-48f7-b080-2400359631a7",
+                    "label": "SOURCE 2450",
+                    "func": "SOURCE_2450",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_2450 block).",
+                            "overload": null,
+                            "functionName": "SOURCE_2450",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.175.123::INSTR"
+                        },
+                        "function": {
+                            "type": "select",
+                            "options": [
+                                "current",
+                                "voltage"
+                            ],
+                            "default": "voltage",
+                            "desc": "The type of output to use.",
+                            "overload": null,
+                            "functionName": "SOURCE_2450",
+                            "param": "function",
+                            "value": "voltage"
+                        },
+                        "level": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The fixed voltage or current to output.",
+                            "overload": null,
+                            "functionName": "SOURCE_2450",
+                            "param": "level",
+                            "value": 1
+                        },
+                        "limit": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "Output limit (if function=voltage, current is limited and visa versa).",
+                            "overload": null,
+                            "functionName": "SOURCE_2450",
+                            "param": "limit",
+                            "value": 1
+                        },
+                        "terminal": {
+                            "type": "select",
+                            "options": [
+                                "front",
+                                "rear"
+                            ],
+                            "default": "front",
+                            "desc": "The panel to output from.",
+                            "overload": null,
+                            "functionName": "SOURCE_2450",
+                            "param": "terminal",
+                            "value": "front"
+                        },
+                        "protect": {
+                            "type": "select",
+                            "options": [
+                                "NONE",
+                                "2V",
+                                "5V",
+                                "10V",
+                                "20V",
+                                "40V",
+                                "60V",
+                                "80V",
+                                "100V",
+                                "120V",
+                                "140V",
+                                "160V",
+                                "180V"
+                            ],
+                            "default": "NONE",
+                            "desc": "The overvoltage protection value.",
+                            "overload": null,
+                            "functionName": "SOURCE_2450",
+                            "param": "protect",
+                            "value": "5V"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Source settings"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tm_devices",
+                            "v": "1.0"
+                        }
+                    ],
+                    "path": "HARDWARE/SOURCEMETERS/KEITHLEY/2450/SOURCE_2450/SOURCE_2450.py"
+                },
+                "position": {
+                    "x": 16.48308033026258,
+                    "y": -220.1001132926403
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 16.48308033026258,
+                    "y": -220.1001132926403
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "LINE-30feab30-6d4f-4274-8877-383382355e5f",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-30feab30-6d4f-4274-8877-383382355e5f",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": 820.060590405619,
+                    "y": -43.462075618890026
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 820.060590405619,
+                    "y": -43.462075618890026
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "BIG_NUMBER-da49fee0-f0ca-4054-8686-bb576f153749",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "BIG_NUMBER-da49fee0-f0ca-4054-8686-bb576f153749",
+                    "label": "BIG NUMBER",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any suffix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": ""
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py"
+                },
+                "position": {
+                    "x": 831.0144261253039,
+                    "y": -361.6163345095765
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 831.0144261253039,
+                    "y": -361.6163345095765
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "CONNECT_2450-72b8d59f-b577-4f92-b3df-705b3fc2cd06",
+                "sourceHandle": "default",
+                "target": "BEEP_2450-8f32f6a8-a1b7-4902-bcd0-bcd1891d1c29",
+                "targetHandle": "input",
+                "id": "reactflow__edge-CONNECT_2450-72b8d59f-b577-4f92-b3df-705b3fc2cd06default-BEEP_2450-8f32f6a8-a1b7-4902-bcd0-bcd1891d1c29input"
+            },
+            {
+                "source": "MEASURE_READ_2450-68952e00-42a8-458a-81c0-7d0d08398787",
+                "sourceHandle": "default",
+                "target": "IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010",
+                "targetHandle": "input",
+                "id": "reactflow__edge-MEASURE_READ_2450-68952e00-42a8-458a-81c0-7d0d08398787default-IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010input"
+            },
+            {
+                "source": "OUTPUT_2450-e2cfabda-a18e-4170-a237-98e1dd262d9d",
+                "sourceHandle": "default",
+                "target": "MEASURE_READ_2450-68952e00-42a8-458a-81c0-7d0d08398787",
+                "targetHandle": "input",
+                "id": "reactflow__edge-OUTPUT_2450-e2cfabda-a18e-4170-a237-98e1dd262d9ddefault-MEASURE_READ_2450-68952e00-42a8-458a-81c0-7d0d08398787input"
+            },
+            {
+                "source": "RESET_2450-1417dc2d-b853-4330-9d4f-6f67c137809e",
+                "sourceHandle": "default",
+                "target": "MEASURE_SETTINGS_2450-2d6b2106-7975-4e13-9084-1432f534f5e9",
+                "targetHandle": "input",
+                "id": "reactflow__edge-RESET_2450-1417dc2d-b853-4330-9d4f-6f67c137809edefault-MEASURE_SETTINGS_2450-2d6b2106-7975-4e13-9084-1432f534f5e9input"
+            },
+            {
+                "source": "MEASURE_SETTINGS_2450-2d6b2106-7975-4e13-9084-1432f534f5e9",
+                "sourceHandle": "default",
+                "target": "OUTPUT_2450-e2cfabda-a18e-4170-a237-98e1dd262d9d",
+                "targetHandle": "input",
+                "id": "reactflow__edge-MEASURE_SETTINGS_2450-2d6b2106-7975-4e13-9084-1432f534f5e9default-OUTPUT_2450-e2cfabda-a18e-4170-a237-98e1dd262d9dinput"
+            },
+            {
+                "source": "SOURCE_2450-0665121f-eef3-48f7-b080-2400359631a7",
+                "sourceHandle": "default",
+                "target": "OUTPUT_2450-e2cfabda-a18e-4170-a237-98e1dd262d9d",
+                "targetHandle": "input",
+                "id": "reactflow__edge-SOURCE_2450-0665121f-eef3-48f7-b080-2400359631a7default-OUTPUT_2450-e2cfabda-a18e-4170-a237-98e1dd262d9dinput"
+            },
+            {
+                "source": "BEEP_2450-8f32f6a8-a1b7-4902-bcd0-bcd1891d1c29",
+                "sourceHandle": "default",
+                "target": "RESET_2450-1417dc2d-b853-4330-9d4f-6f67c137809e",
+                "targetHandle": "input",
+                "id": "reactflow__edge-BEEP_2450-8f32f6a8-a1b7-4902-bcd0-bcd1891d1c29default-RESET_2450-1417dc2d-b853-4330-9d4f-6f67c137809einput"
+            },
+            {
+                "source": "RESET_2450-1417dc2d-b853-4330-9d4f-6f67c137809e",
+                "sourceHandle": "default",
+                "target": "SOURCE_2450-0665121f-eef3-48f7-b080-2400359631a7",
+                "targetHandle": "input",
+                "id": "reactflow__edge-RESET_2450-1417dc2d-b853-4330-9d4f-6f67c137809edefault-SOURCE_2450-0665121f-eef3-48f7-b080-2400359631a7input"
+            },
+            {
+                "source": "IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010",
+                "sourceHandle": "default",
+                "target": "LINE-30feab30-6d4f-4274-8877-383382355e5f",
+                "targetHandle": "default",
+                "id": "reactflow__edge-IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010default-LINE-30feab30-6d4f-4274-8877-383382355e5fdefault"
+            },
+            {
+                "source": "MEASURE_READ_2450-68952e00-42a8-458a-81c0-7d0d08398787",
+                "sourceHandle": "default",
+                "target": "BIG_NUMBER-da49fee0-f0ca-4054-8686-bb576f153749",
+                "targetHandle": "default",
+                "id": "reactflow__edge-MEASURE_READ_2450-68952e00-42a8-458a-81c0-7d0d08398787default-BIG_NUMBER-da49fee0-f0ca-4054-8686-bb576f153749default"
+            }
+        ],
+        "viewport": {
+            "x": 994.2991122110108,
+            "y": 573.4932402039965,
+            "zoom": 0.9719556784888205
+        }
+    },
+    "textNodes": []
+}

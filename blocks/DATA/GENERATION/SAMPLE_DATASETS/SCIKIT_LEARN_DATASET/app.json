@@ -1,0 +1,320 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 380,
+                "height": 293,
+                "id": "TABLE-014a1790-3c66-424e-b134-3b364494c143",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TABLE-014a1790-3c66-424e-b134-3b364494c143",
+                    "label": "TABLE",
+                    "func": "TABLE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Table visualization"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/TABLE/TABLE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 493.4591821594079,
+                    "y": 192.31503238809222
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 493.4591821594079,
+                    "y": 192.31503238809222
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "TABLE-9b2e5421-635c-4b38-afc0-1c128b2c6d73",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TABLE-9b2e5421-635c-4b38-afc0-1c128b2c6d73",
+                    "label": "TABLE 1",
+                    "func": "TABLE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Table visualization"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/TABLE/TABLE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 518.7712883355172,
+                    "y": -132.74472501832986
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 518.7712883355172,
+                    "y": -132.74472501832986
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "TABLE-90d658d2-73b2-4f06-81ec-26c65db46fd2",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TABLE-90d658d2-73b2-4f06-81ec-26c65db46fd2",
+                    "label": "TABLE 2",
+                    "func": "TABLE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Table visualization"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/TABLE/TABLE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 499.92077094681764,
+                    "y": -460.0160929303845
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 499.92077094681764,
+                    "y": -460.0160929303845
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 116,
+                "id": "SCIKIT_LEARN_DATASET-e8f2d84f-c945-4286-a405-f58ef2882ecc",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "SCIKIT_LEARN_DATASET-e8f2d84f-c945-4286-a405-f58ef2882ecc",
+                    "label": "SCIKIT LEARN DATASET (IRIS)",
+                    "func": "SCIKIT_LEARN_DATASET",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "dataset_name": {
+                            "type": "select",
+                            "options": [
+                                "iris",
+                                "diabetes",
+                                "digits",
+                                "linnerud",
+                                "wine",
+                                "breast_cancer"
+                            ],
+                            "default": "iris",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SCIKIT_LEARN_DATASET",
+                            "param": "dataset_name",
+                            "value": "iris"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame",
+                            "desc": "A DataContainer object containing the retrieved pandas DataFrame."
+                        }
+                    ],
+                    "path": "GENERATORS/SAMPLE_DATASETS/SCIKIT_LEARN_DATASET/SCIKIT_LEARN_DATASET.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 89.90415311013689,
+                    "y": -387.53214708521534
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 89.90415311013689,
+                    "y": -387.53214708521534
+                },
+                "dragging": true
+            },
+            {
+                "width": 210,
+                "height": 116,
+                "id": "SCIKIT_LEARN_DATASET-35cb3770-2baa-40ec-b808-e6477f798e77",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "SCIKIT_LEARN_DATASET-35cb3770-2baa-40ec-b808-e6477f798e77",
+                    "label": "SCIKIT LEARN DATASET (DIABETES)",
+                    "func": "SCIKIT_LEARN_DATASET",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "dataset_name": {
+                            "type": "select",
+                            "options": [
+                                "iris",
+                                "diabetes",
+                                "digits",
+                                "linnerud",
+                                "wine",
+                                "breast_cancer"
+                            ],
+                            "default": "iris",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SCIKIT_LEARN_DATASET",
+                            "param": "dataset_name",
+                            "value": "diabetes"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame",
+                            "desc": "A DataContainer object containing the retrieved pandas DataFrame."
+                        }
+                    ],
+                    "path": "GENERATORS/SAMPLE_DATASETS/SCIKIT_LEARN_DATASET/SCIKIT_LEARN_DATASET.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 89.49782717955932,
+                    "y": -55.581944075519544
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 89.49782717955932,
+                    "y": -55.581944075519544
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 116,
+                "id": "SCIKIT_LEARN_DATASET-5985e786-bc1b-49e7-9e38-618a24279ddd",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "SCIKIT_LEARN_DATASET-5985e786-bc1b-49e7-9e38-618a24279ddd",
+                    "label": "SCIKIT LEARN DATASET (DIGITS)",
+                    "func": "SCIKIT_LEARN_DATASET",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "dataset_name": {
+                            "type": "select",
+                            "options": [
+                                "iris",
+                                "diabetes",
+                                "digits",
+                                "linnerud",
+                                "wine",
+                                "breast_cancer"
+                            ],
+                            "default": "iris",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SCIKIT_LEARN_DATASET",
+                            "param": "dataset_name",
+                            "value": "digits"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame",
+                            "desc": "A DataContainer object containing the retrieved pandas DataFrame."
+                        }
+                    ],
+                    "path": "GENERATORS/SAMPLE_DATASETS/SCIKIT_LEARN_DATASET/SCIKIT_LEARN_DATASET.py",
+                    "selected": true
+                },
+                "position": {
+                    "x": 87.50801776829911,
+                    "y": 285.2650393430134
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": 87.50801776829911,
+                    "y": 285.2650393430134
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "SCIKIT_LEARN_DATASET-e8f2d84f-c945-4286-a405-f58ef2882ecc",
+                "sourceHandle": "default",
+                "target": "TABLE-90d658d2-73b2-4f06-81ec-26c65db46fd2",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SCIKIT_LEARN_DATASET-e8f2d84f-c945-4286-a405-f58ef2882eccdefault-TABLE-90d658d2-73b2-4f06-81ec-26c65db46fd2default"
+            },
+            {
+                "source": "SCIKIT_LEARN_DATASET-35cb3770-2baa-40ec-b808-e6477f798e77",
+                "sourceHandle": "default",
+                "target": "TABLE-9b2e5421-635c-4b38-afc0-1c128b2c6d73",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SCIKIT_LEARN_DATASET-35cb3770-2baa-40ec-b808-e6477f798e77default-TABLE-9b2e5421-635c-4b38-afc0-1c128b2c6d73default"
+            },
+            {
+                "source": "SCIKIT_LEARN_DATASET-5985e786-bc1b-49e7-9e38-618a24279ddd",
+                "sourceHandle": "default",
+                "target": "TABLE-014a1790-3c66-424e-b134-3b364494c143",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SCIKIT_LEARN_DATASET-5985e786-bc1b-49e7-9e38-618a24279ddddefault-TABLE-014a1790-3c66-424e-b134-3b364494c143default"
+            }
+        ],
+        "viewport": {
+            "x": 669.537650867023,
+            "y": 395.1114317341454,
+            "zoom": 0.7467072297113905
+        }
+    },
+    "textNodes": []
+}

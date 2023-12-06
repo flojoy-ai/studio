@@ -1,0 +1,65 @@
+{
+  "docstring": {
+    "long_description": "Requires a CONNECT_2450 block to create the connection.",
+    "short_description": "Sweeps current or voltage and measures the opposite for the 2450.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_2450 block)."
+      },
+      {
+        "name": "sweep",
+        "type": "select, default=voltage",
+        "description": "Select the sweep mode, the opposite unit is measured."
+      },
+      {
+        "name": "sense",
+        "type": "select, default=2-wire",
+        "description": "Use 2 or 4 wire sense/measurement mode."
+      },
+      {
+        "name": "start",
+        "type": "float, default=0",
+        "description": "The first x value of the sweep."
+      },
+      {
+        "name": "stop",
+        "type": "float, default=1",
+        "description": "The last x value of the sweep."
+      },
+      {
+        "name": "points",
+        "type": "float, default=100",
+        "description": "The number of points between start and stop."
+      },
+      {
+        "name": "measurement_time",
+        "type": "float, default=1",
+        "description": "How long to measure a single point, in seconds."
+      },
+      {
+        "name": "measurement_delay",
+        "type": "float, default=0.05",
+        "description": "How long to delay between two points, in seconds."
+      },
+      {
+        "name": "y_limit",
+        "type": "float, default=1",
+        "description": "The limit of the measured value."
+      },
+      {
+        "name": "source_range",
+        "type": "float, default=1",
+        "description": "The range of the x value."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "OrderedPair",
+        "description": "Sweep values"
+      }
+    ]
+  }
+}

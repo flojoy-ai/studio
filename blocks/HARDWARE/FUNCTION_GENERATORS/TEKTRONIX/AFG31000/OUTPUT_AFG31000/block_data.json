@@ -1,0 +1,40 @@
+{
+  "docstring": {
+    "long_description": "This block should also work with compatible Tektronix AFG31XXX instruments.",
+    "short_description": "Set impedances and turn the outputs on or off.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_AFG31000 block)."
+      },
+      {
+        "name": "ch1",
+        "type": "select, default=on",
+        "description": "Turn channel 1 output on or off."
+      },
+      {
+        "name": "ch2",
+        "type": "select, default=on",
+        "description": "Turn channel 2 output on or off."
+      },
+      {
+        "name": "ch1_impedance",
+        "type": "select, default=50",
+        "description": "Choosen channel 1 impedance."
+      },
+      {
+        "name": "ch2_impedance",
+        "type": "select, default=50",
+        "description": "Choosen channel 2 impedance"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "String",
+        "description": "Placeholder"
+      }
+    ]
+  }
+}

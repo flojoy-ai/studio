@@ -1,0 +1,66 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 208,
+                "height": 96,
+                "id": "ONNX_MODEL-3bfae6ce-ad2f-4d4d-8342-96d824eb7380",
+                "type": "AI_ML",
+                "data": {
+                    "id": "ONNX_MODEL-3bfae6ce-ad2f-4d4d-8342-96d824eb7380",
+                    "label": "ONNX MODEL",
+                    "func": "ONNX_MODEL",
+                    "type": "AI_ML",
+                    "ctrls": {
+                        "file_path": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "Path to a ONNX model to load and use for prediction.",
+                            "overload": null,
+                            "functionName": "ONNX_MODEL",
+                            "param": "file_path",
+                            "value": ""
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "multiple": false,
+                            "desc": "The input tensor to use for prediction.\nFor now, only a single input tensor is supported.\nNote that the input tensor shape is not checked against the model's input shape."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "The predictions made by the ONNX model.\nFor now, only a single output tensor is supported."
+                        }
+                    ],
+                    "path": "AI_ML/LOAD_MODEL/ONNX_MODEL/ONNX_MODEL.py",
+                    "selected": true
+                },
+                "position": {
+                    "x": -171.967500985471,
+                    "y": -191.24623740170063
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": -171.967500985471,
+                    "y": -191.24623740170063
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [],
+        "viewport": {
+            "x": 669.537650867023,
+            "y": 395.1114317341454,
+            "zoom": 0.7467072297113905
+        }
+    },
+    "textNodes": []
+}

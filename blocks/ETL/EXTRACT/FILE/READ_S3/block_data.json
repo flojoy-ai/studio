@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "Inputs\n------\ndefault: None",
+    "short_description": "Take an S3 key name, S3 bucket name, and file name as input, then extract the file from the specified bucket.",
+    "parameters": [
+      {
+        "name": "s3_name",
+        "type": "str",
+        "description": "name of the key that the user used to save the access and secret access keys"
+      },
+      {
+        "name": "bucket_name",
+        "type": "str",
+        "description": "Amazon S3 bucket name that they are trying to access"
+      },
+      {
+        "name": "file_name",
+        "type": "str",
+        "description": "name of the file that they want to extract"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataFrame",
+        "description": "DataFrame loaded from file in the specfied bucket"
+      }
+    ]
+  }
+}

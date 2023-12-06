@@ -1,0 +1,633 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CONNECT_AFG31000-6e227039-f81f-4f48-92a5-e4a1c0207f3e",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "CONNECT_AFG31000-6e227039-f81f-4f48-92a5-e4a1c0207f3e",
+                    "label": "CONNECT AFG31000",
+                    "func": "CONNECT_AFG31000",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "device": {
+                            "type": "VisaDevice",
+                            "default": null,
+                            "desc": "The VISA address to connect to.",
+                            "overload": null,
+                            "functionName": "CONNECT_AFG31000",
+                            "param": "device",
+                            "value": "TCPIP::169.254.145.144::INSTR"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The IP or VISA address of the VISA device."
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/CONNECT_AFG31000/CONNECT_AFG31000.py"
+                },
+                "position": {
+                    "x": -356.99744674030666,
+                    "y": -192.33911380820962
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -356.99744674030666,
+                    "y": -192.33911380820962
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "ALIGN_PHASES_AFG31000-32845bcc-be43-4ddc-adf3-8daad721c749",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "ALIGN_PHASES_AFG31000-32845bcc-be43-4ddc-adf3-8daad721c749",
+                    "label": "ALIGN PHASES AFG31000",
+                    "func": "ALIGN_PHASES_AFG31000",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_AFG31000 block).",
+                            "overload": null,
+                            "functionName": "ALIGN_PHASES_AFG31000",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.145.144::INSTR"
+                        },
+                        "channel": {
+                            "type": "select",
+                            "options": [
+                                "1",
+                                "2"
+                            ],
+                            "default": "1",
+                            "desc": "Which channel is the reference?",
+                            "overload": null,
+                            "functionName": "ALIGN_PHASES_AFG31000",
+                            "param": "channel",
+                            "value": "1"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Placeholder"
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/ALIGN_PHASES_AFG31000/ALIGN_PHASES_AFG31000.py"
+                },
+                "position": {
+                    "x": 439.9476681838445,
+                    "y": -194.69759194078154
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 439.9476681838445,
+                    "y": -194.69759194078154
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "OUTPUT_AFG31000-f318cbb8-f463-43c8-b06b-9f3fe2a62fe1",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "OUTPUT_AFG31000-f318cbb8-f463-43c8-b06b-9f3fe2a62fe1",
+                    "label": "OUTPUT AFG31000",
+                    "func": "OUTPUT_AFG31000",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_AFG31000 block).",
+                            "overload": null,
+                            "functionName": "OUTPUT_AFG31000",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.145.144::INSTR"
+                        },
+                        "ch1": {
+                            "type": "select",
+                            "options": [
+                                "on",
+                                "off"
+                            ],
+                            "default": "on",
+                            "desc": "Turn channel 1 output on or off.",
+                            "overload": null,
+                            "functionName": "OUTPUT_AFG31000",
+                            "param": "ch1",
+                            "value": "on"
+                        },
+                        "ch2": {
+                            "type": "select",
+                            "options": [
+                                "on",
+                                "off"
+                            ],
+                            "default": "on",
+                            "desc": "Turn channel 2 output on or off.",
+                            "overload": null,
+                            "functionName": "OUTPUT_AFG31000",
+                            "param": "ch2",
+                            "value": "on"
+                        },
+                        "ch1_impedance": {
+                            "type": "select",
+                            "options": [
+                                "50",
+                                "1e6"
+                            ],
+                            "default": "50",
+                            "desc": "Choosen channel 1 impedance.",
+                            "overload": null,
+                            "functionName": "OUTPUT_AFG31000",
+                            "param": "ch1_impedance",
+                            "value": "50"
+                        },
+                        "ch2_impedance": {
+                            "type": "select",
+                            "options": [
+                                "50",
+                                "1e6"
+                            ],
+                            "default": "50",
+                            "desc": "Choosen channel 2 impedance",
+                            "overload": null,
+                            "functionName": "OUTPUT_AFG31000",
+                            "param": "ch2_impedance",
+                            "value": "50"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Placeholder"
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/OUTPUT_AFG31000/OUTPUT_AFG31000.py"
+                },
+                "position": {
+                    "x": 193.0241524368904,
+                    "y": -193.99838203480326
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 193.0241524368904,
+                    "y": -193.99838203480326
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "SAVE_STATE_AFG31000-8f3cb51f-6cd9-49c1-bb78-9f05988a82dc",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "SAVE_STATE_AFG31000-8f3cb51f-6cd9-49c1-bb78-9f05988a82dc",
+                    "label": "SAVE STATE AFG31000",
+                    "func": "SAVE_STATE_AFG31000",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_AFG31000 block).",
+                            "overload": null,
+                            "functionName": "SAVE_STATE_AFG31000",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.145.144::INSTR"
+                        },
+                        "save_recall": {
+                            "type": "select",
+                            "options": [
+                                "save",
+                                "recall"
+                            ],
+                            "default": "save",
+                            "desc": "Save or recall the save state.",
+                            "overload": null,
+                            "functionName": "SAVE_STATE_AFG31000",
+                            "param": "save_recall",
+                            "value": "save"
+                        },
+                        "option": {
+                            "type": "select",
+                            "options": [
+                                "1",
+                                "2",
+                                "3",
+                                "4",
+                                "5"
+                            ],
+                            "default": "1",
+                            "desc": "Choose from the 5 save states.",
+                            "overload": null,
+                            "functionName": "SAVE_STATE_AFG31000",
+                            "param": "option",
+                            "value": "2"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Save state"
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/SAVE_STATE_AFG31000/SAVE_STATE_AFG31000.py"
+                },
+                "position": {
+                    "x": 680.0566763496477,
+                    "y": -192.15162100388233
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 680.0566763496477,
+                    "y": -192.15162100388233
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "FUNCTION_AFG31000-d59ef12d-1210-419c-a3e0-db44576fc527",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "FUNCTION_AFG31000-d59ef12d-1210-419c-a3e0-db44576fc527",
+                    "label": "FUNCTION AFG31000",
+                    "func": "FUNCTION_AFG31000",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_AFG31000 block).",
+                            "overload": null,
+                            "functionName": "FUNCTION_AFG31000",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.145.144::INSTR"
+                        },
+                        "source": {
+                            "type": "select",
+                            "options": [
+                                "1",
+                                "2"
+                            ],
+                            "default": "1",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "FUNCTION_AFG31000",
+                            "param": "source",
+                            "value": "1"
+                        },
+                        "functions": {
+                            "type": "select",
+                            "options": [
+                                "sinusoid",
+                                "square",
+                                "pulse",
+                                "ramp",
+                                "prnoise",
+                                "DC",
+                                "sinc",
+                                "gaussian",
+                                "lorentz",
+                                "erise",
+                                "edecay",
+                                "haversine"
+                            ],
+                            "default": "sinusoid",
+                            "desc": "Choose the function to output",
+                            "overload": null,
+                            "functionName": "FUNCTION_AFG31000",
+                            "param": "functions",
+                            "value": "sinusoid"
+                        },
+                        "frequency": {
+                            "type": "float",
+                            "default": 1000000,
+                            "desc": "The voltage of the waveform to set, in Hz.",
+                            "overload": null,
+                            "functionName": "FUNCTION_AFG31000",
+                            "param": "frequency",
+                            "value": 2000000
+                        },
+                        "amplitude": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The voltage of the waveform to set.",
+                            "overload": null,
+                            "functionName": "FUNCTION_AFG31000",
+                            "param": "amplitude",
+                            "value": 1
+                        },
+                        "offset": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The voltage offset to set the waveform to, in volts.",
+                            "overload": null,
+                            "functionName": "FUNCTION_AFG31000",
+                            "param": "offset",
+                            "value": 0
+                        },
+                        "phase": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The phase to set the waveform to, in degrees.",
+                            "overload": null,
+                            "functionName": "FUNCTION_AFG31000",
+                            "param": "phase",
+                            "value": 0
+                        },
+                        "pulse_width": {
+                            "type": "float",
+                            "default": 0.000001,
+                            "desc": "The pulse width in nanoseconds if the PULS waveform is used.",
+                            "overload": null,
+                            "functionName": "FUNCTION_AFG31000",
+                            "param": "pulse_width",
+                            "value": 0.000001
+                        },
+                        "ramp_symmetry": {
+                            "type": "float",
+                            "default": 50,
+                            "desc": "The ramp symmetry if the RAMP waveform is used, in percent.",
+                            "overload": null,
+                            "functionName": "FUNCTION_AFG31000",
+                            "param": "ramp_symmetry",
+                            "value": 50
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Placeholder"
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/FUNCTION_AFG31000/FUNCTION_AFG31000.py"
+                },
+                "position": {
+                    "x": -67.77699444442803,
+                    "y": -334.69885402865026
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -67.77699444442803,
+                    "y": -334.69885402865026
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "FUNCTION_AFG31000-300873f1-7bc9-455a-bad4-1c9565f82b2a",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "FUNCTION_AFG31000-300873f1-7bc9-455a-bad4-1c9565f82b2a",
+                    "label": "FUNCTION AFG31000 1",
+                    "func": "FUNCTION_AFG31000",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_AFG31000 block).",
+                            "overload": null,
+                            "functionName": "FUNCTION_AFG31000",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.145.144::INSTR"
+                        },
+                        "source": {
+                            "type": "select",
+                            "options": [
+                                "1",
+                                "2"
+                            ],
+                            "default": "1",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "FUNCTION_AFG31000",
+                            "param": "source",
+                            "value": "2"
+                        },
+                        "functions": {
+                            "type": "select",
+                            "options": [
+                                "sinusoid",
+                                "square",
+                                "pulse",
+                                "ramp",
+                                "prnoise",
+                                "DC",
+                                "sinc",
+                                "gaussian",
+                                "lorentz",
+                                "erise",
+                                "edecay",
+                                "haversine"
+                            ],
+                            "default": "sinusoid",
+                            "desc": "Choose the function to output",
+                            "overload": null,
+                            "functionName": "FUNCTION_AFG31000",
+                            "param": "functions",
+                            "value": "gaussian"
+                        },
+                        "frequency": {
+                            "type": "float",
+                            "default": 1000000,
+                            "desc": "The voltage of the waveform to set, in Hz.",
+                            "overload": null,
+                            "functionName": "FUNCTION_AFG31000",
+                            "param": "frequency",
+                            "value": 5000000
+                        },
+                        "amplitude": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The voltage of the waveform to set.",
+                            "overload": null,
+                            "functionName": "FUNCTION_AFG31000",
+                            "param": "amplitude",
+                            "value": 2
+                        },
+                        "offset": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The voltage offset to set the waveform to, in volts.",
+                            "overload": null,
+                            "functionName": "FUNCTION_AFG31000",
+                            "param": "offset",
+                            "value": -0.5
+                        },
+                        "phase": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The phase to set the waveform to, in degrees.",
+                            "overload": null,
+                            "functionName": "FUNCTION_AFG31000",
+                            "param": "phase",
+                            "value": 45
+                        },
+                        "pulse_width": {
+                            "type": "float",
+                            "default": 0.000001,
+                            "desc": "The pulse width in nanoseconds if the PULS waveform is used.",
+                            "overload": null,
+                            "functionName": "FUNCTION_AFG31000",
+                            "param": "pulse_width",
+                            "value": 0.000001
+                        },
+                        "ramp_symmetry": {
+                            "type": "float",
+                            "default": 50,
+                            "desc": "The ramp symmetry if the RAMP waveform is used, in percent.",
+                            "overload": null,
+                            "functionName": "FUNCTION_AFG31000",
+                            "param": "ramp_symmetry",
+                            "value": 50
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Placeholder"
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/FUNCTION_AFG31000/FUNCTION_AFG31000.py"
+                },
+                "position": {
+                    "x": -62.333665463218566,
+                    "y": -90.14297151518164
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -62.333665463218566,
+                    "y": -90.14297151518164
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "OUTPUT_AFG31000-f318cbb8-f463-43c8-b06b-9f3fe2a62fe1",
+                "sourceHandle": "default",
+                "target": "ALIGN_PHASES_AFG31000-32845bcc-be43-4ddc-adf3-8daad721c749",
+                "targetHandle": "input",
+                "id": "reactflow__edge-OUTPUT_AFG31000-f318cbb8-f463-43c8-b06b-9f3fe2a62fe1default-ALIGN_PHASES_AFG31000-32845bcc-be43-4ddc-adf3-8daad721c749input"
+            },
+            {
+                "source": "FUNCTION_AFG31000-d59ef12d-1210-419c-a3e0-db44576fc527",
+                "sourceHandle": "default",
+                "target": "OUTPUT_AFG31000-f318cbb8-f463-43c8-b06b-9f3fe2a62fe1",
+                "targetHandle": "input",
+                "id": "reactflow__edge-FUNCTION_AFG31000-d59ef12d-1210-419c-a3e0-db44576fc527default-OUTPUT_AFG31000-f318cbb8-f463-43c8-b06b-9f3fe2a62fe1input"
+            },
+            {
+                "source": "FUNCTION_AFG31000-300873f1-7bc9-455a-bad4-1c9565f82b2a",
+                "sourceHandle": "default",
+                "target": "OUTPUT_AFG31000-f318cbb8-f463-43c8-b06b-9f3fe2a62fe1",
+                "targetHandle": "input",
+                "id": "reactflow__edge-FUNCTION_AFG31000-300873f1-7bc9-455a-bad4-1c9565f82b2adefault-OUTPUT_AFG31000-f318cbb8-f463-43c8-b06b-9f3fe2a62fe1input"
+            },
+            {
+                "source": "ALIGN_PHASES_AFG31000-32845bcc-be43-4ddc-adf3-8daad721c749",
+                "sourceHandle": "default",
+                "target": "SAVE_STATE_AFG31000-8f3cb51f-6cd9-49c1-bb78-9f05988a82dc",
+                "targetHandle": "input",
+                "id": "reactflow__edge-ALIGN_PHASES_AFG31000-32845bcc-be43-4ddc-adf3-8daad721c749default-SAVE_STATE_AFG31000-8f3cb51f-6cd9-49c1-bb78-9f05988a82dcinput"
+            },
+            {
+                "source": "CONNECT_AFG31000-6e227039-f81f-4f48-92a5-e4a1c0207f3e",
+                "sourceHandle": "default",
+                "target": "FUNCTION_AFG31000-d59ef12d-1210-419c-a3e0-db44576fc527",
+                "targetHandle": "input",
+                "id": "reactflow__edge-CONNECT_AFG31000-6e227039-f81f-4f48-92a5-e4a1c0207f3edefault-FUNCTION_AFG31000-d59ef12d-1210-419c-a3e0-db44576fc527input"
+            },
+            {
+                "source": "CONNECT_AFG31000-6e227039-f81f-4f48-92a5-e4a1c0207f3e",
+                "sourceHandle": "default",
+                "target": "FUNCTION_AFG31000-300873f1-7bc9-455a-bad4-1c9565f82b2a",
+                "targetHandle": "input",
+                "id": "reactflow__edge-CONNECT_AFG31000-6e227039-f81f-4f48-92a5-e4a1c0207f3edefault-FUNCTION_AFG31000-300873f1-7bc9-455a-bad4-1c9565f82b2ainput"
+            }
+        ],
+        "viewport": {
+            "x": 998.0979704909867,
+            "y": 583.9050842369531,
+            "zoom": 0.9793470432493011
+        }
+    },
+    "textNodes": []
+}

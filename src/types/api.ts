@@ -1,8 +1,4 @@
 export enum API {
-  saveBlocks = "SAVE_BLOCKS",
-  updateBlocks = "UPDATE_BLOCKS",
-  downloadBlocksFromMain = "DOWNLOAD_BLOCKS_FROM_MAIN",
-  changeBlocksPath = "CHANGE_BLOCKS_PATH",
   checkPythonInstallation = "CHECK_PYTHON_INSTALLATION",
   installPipx = "INSTALL_PIPX",
   pipxEnsurepath = "PIPX_ENSUREPATH",

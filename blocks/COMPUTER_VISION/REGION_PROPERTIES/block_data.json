@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "There are multiple input 'DataContainer' types for which\nthis function is applicable: 'Image', 'Grayscale', or 'Matrix'.\n\nOften in image analysis, it is necessary to determine subvolumes / subregions\ninside a given image, whether for object count (e.g. the counting of\ncells on a glass plate), or object dimensional analysis (determining coutours of\na region, centroid of a region relative to the pixel coordinate origin of the image,\ndetermining the semi-major or -minor axes of a region, etc.). This functionality\nis entirely provided by this node in a two-step process:\n\n- First, the regions of the INTEGER image are identified and labelled.\n- Second, the regions are analyzed.\n\nThe first step is provided by the morphology library of scikit-image's label function,\nwhile the second is provided by scikit-image's regionprops function.\n\nAfter processing, the results of this node are visualized in the main UI,\nwhere the user can see:\n- The input array / image.\n- The semi-major and semi-minor axes of the contour drawn relative to the contour centroid.\n- The contour centroid.\n- The countour bounding-box.\n- A mouse-hover utility that displays the contour information to the user.",
+    "short_description": "A stand-alone visualizer for analyzing an input array of image data.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "Image | Grayscale",
+        "description": "The input node to this function.\nIf nothing is supplied, a demo test case is returned to illustrate the functionality of this node."
+      }
+    ],
+    "returns": [
+      {
+        "name": "fig",
+        "type": "Plotly",
+        "description": "A Plotly figure containing the illustrated features as determined by this node."
+      }
+    ]
+  }
+}

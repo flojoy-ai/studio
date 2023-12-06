@@ -1,0 +1,45 @@
+{
+  "docstring": {
+    "long_description": "This block should also work with compatible Tektronix AFG31XXX instruments.",
+    "short_description": "Set basic parameters such as frequency for a single channel.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_AFG31000 block)."
+      },
+      {
+        "name": "channel",
+        "type": "select, default=1",
+        "description": "Choose the channel to alter."
+      },
+      {
+        "name": "frequency",
+        "type": "float, default=1e6",
+        "description": "The voltage of the waveform to set, in Hz."
+      },
+      {
+        "name": "amplitude",
+        "type": "float, default=1",
+        "description": "The voltage of the waveform to set."
+      },
+      {
+        "name": "offset",
+        "type": "float, default=0",
+        "description": "The voltage offset to set the waveform to, in volts."
+      },
+      {
+        "name": "phase",
+        "type": "float, default=0",
+        "description": "The phase to set the waveform to, in degrees."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "String",
+        "description": "Placeholder"
+      }
+    ]
+  }
+}

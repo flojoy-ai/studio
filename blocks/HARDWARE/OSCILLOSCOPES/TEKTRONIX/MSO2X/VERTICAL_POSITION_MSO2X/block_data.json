@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "Requires a CONNECT_MSO2X block to create the connection.\n\nTested on MSO22 and MSO24.",
+    "short_description": "Set the MSO2XX oscilloscope vertical offset for the specified channel.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_MSO2X block)."
+      },
+      {
+        "name": "channel",
+        "type": "int, default=1",
+        "description": "Oscilloscope channel to affect"
+      },
+      {
+        "name": "scale",
+        "type": "float, default=0",
+        "description": "Vertical offset, in divisions"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "String",
+        "description": "Vertical position"
+      }
+    ]
+  }
+}

@@ -1,0 +1,461 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 231,
+                "height": 96,
+                "id": "TEXT-7370eabe-789d-444a-b7d4-15fac2e0014f",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "TEXT-7370eabe-789d-444a-b7d4-15fac2e0014f",
+                    "label": "DESCRIPTION",
+                    "func": "TEXT",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "value": {
+                            "type": "str",
+                            "default": "Hello World!",
+                            "desc": "The value set in Parameters",
+                            "functionName": "TEXT",
+                            "param": "value",
+                            "value": "This app shows how the NP_2_DF node works. First the BASIC_OSCILLATOR node generate a numpy array. Then this numpy array is convert to a DataFrame. We visualize the result in the TABLE and LINE nodes."
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "_",
+                            "id": "_",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "s: return the value being set in Parameters"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TEXT/TEXT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -437.78677607712706,
+                    "y": -878.7830926686538
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -437.78677607712706,
+                    "y": -878.7830926686538
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "TEXT_VIEW-f8808da9-246b-4d44-acb3-5fe793c357c4",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-f8808da9-246b-4d44-acb3-5fe793c357c4",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -44.296985406375654,
+                    "y": -944.8768923509705
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -44.296985406375654,
+                    "y": -944.8768923509705
+                },
+                "dragging": true
+            },
+            {
+                "width": 160,
+                "height": 160,
+                "id": "NP_2_DF-f2a26de8-5e5f-4272-9e03-d87d68f14de3",
+                "type": "TRANSFORMERS",
+                "data": {
+                    "id": "NP_2_DF-f2a26de8-5e5f-4272-9e03-d87d68f14de3",
+                    "label": "NP 2 DF",
+                    "func": "NP_2_DF",
+                    "type": "TRANSFORMERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": "The input numpy array to which we apply the conversion to."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame",
+                            "desc": "The dataframe result from the conversion of the input."
+                        }
+                    ],
+                    "path": "PYTHON/nodes/TRANSFORMERS/TYPE_CASTING/NP_2_DF/NP_2_DF.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -699.4666864526197,
+                    "y": -910.998316249142
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -699.4666864526197,
+                    "y": -910.998316249142
+                },
+                "dragging": true
+            },
+            {
+                "width": 210,
+                "height": 96,
+                "id": "BASIC_OSCILLATOR-88435426-dbfb-434e-91d5-7d238d52f112",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "BASIC_OSCILLATOR-88435426-dbfb-434e-91d5-7d238d52f112",
+                    "label": "BASIC OSCILLATOR",
+                    "func": "BASIC_OSCILLATOR",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "sample_rate": {
+                            "type": "int",
+                            "default": 100,
+                            "desc": "How many samples are taken in a second.",
+                            "functionName": "BASIC_OSCILLATOR",
+                            "param": "sample_rate",
+                            "value": 100
+                        },
+                        "time": {
+                            "type": "int",
+                            "default": 10,
+                            "desc": "The total amount of time of the signal.",
+                            "functionName": "BASIC_OSCILLATOR",
+                            "param": "time",
+                            "value": 10
+                        },
+                        "waveform": {
+                            "type": "select",
+                            "default": "sine",
+                            "options": [
+                                "sine",
+                                "square",
+                                "triangle",
+                                "sawtooth"
+                            ],
+                            "desc": "The waveform type of the wave.",
+                            "functionName": "BASIC_OSCILLATOR",
+                            "param": "waveform",
+                            "value": "sine"
+                        },
+                        "amplitude": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The amplitude of the wave.",
+                            "functionName": "BASIC_OSCILLATOR",
+                            "param": "amplitude",
+                            "value": 1
+                        },
+                        "frequency": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The wave frequency in radians/2pi.",
+                            "functionName": "BASIC_OSCILLATOR",
+                            "param": "frequency",
+                            "value": 1
+                        },
+                        "offset": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The y axis offset of the function.",
+                            "functionName": "BASIC_OSCILLATOR",
+                            "param": "offset",
+                            "value": 0
+                        },
+                        "phase": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The x axis offset of the function.",
+                            "functionName": "BASIC_OSCILLATOR",
+                            "param": "phase",
+                            "value": 0
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "x: time domain\ny: generated signal"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -1016.6868073585346,
+                    "y": -878.5291778066936
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -1016.6868073585346,
+                    "y": -878.5291778066936
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "LINE-f4e95a44-543d-45b7-a837-02e366aa19f3",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "LINE-f4e95a44-543d-45b7-a837-02e366aa19f3",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -787.9301439357055,
+                    "y": -1229.5625388558242
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -787.9301439357055,
+                    "y": -1229.5625388558242
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "LINE-0b1743a0-b92e-403c-9d64-5946f5618988",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "LINE-0b1743a0-b92e-403c-9d64-5946f5618988",
+                    "label": "LINE 1",
+                    "func": "LINE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -351.8091538605433,
+                    "y": -1231.7015672486862
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -351.8091538605433,
+                    "y": -1231.7015672486862
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "TABLE-d1268ba4-1293-4937-a6a0-93d1985b91ea",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TABLE-d1268ba4-1293-4937-a6a0-93d1985b91ea",
+                    "label": "TABLE",
+                    "func": "TABLE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing Plotly Table visualization"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -354.58782405857875,
+                    "y": -676.060143746796
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -354.58782405857875,
+                    "y": -676.060143746796
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "TABLE-e13e1262-a7fb-473a-9f26-510eea2e4cac",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TABLE-e13e1262-a7fb-473a-9f26-510eea2e4cac",
+                    "label": "TABLE 1",
+                    "func": "TABLE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing Plotly Table visualization"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -788.8701461902507,
+                    "y": -682.8625163954077
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -788.8701461902507,
+                    "y": -682.8625163954077
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "BASIC_OSCILLATOR-88435426-dbfb-434e-91d5-7d238d52f112",
+                "sourceHandle": "default",
+                "target": "TABLE-e13e1262-a7fb-473a-9f26-510eea2e4cac",
+                "targetHandle": "default",
+                "id": "reactflow__edge-BASIC_OSCILLATOR-88435426-dbfb-434e-91d5-7d238d52f112default-TABLE-e13e1262-a7fb-473a-9f26-510eea2e4cacdefault"
+            },
+            {
+                "source": "BASIC_OSCILLATOR-88435426-dbfb-434e-91d5-7d238d52f112",
+                "sourceHandle": "default",
+                "target": "NP_2_DF-f2a26de8-5e5f-4272-9e03-d87d68f14de3",
+                "targetHandle": "default",
+                "id": "reactflow__edge-BASIC_OSCILLATOR-88435426-dbfb-434e-91d5-7d238d52f112default-NP_2_DF-f2a26de8-5e5f-4272-9e03-d87d68f14de3default"
+            },
+            {
+                "source": "NP_2_DF-f2a26de8-5e5f-4272-9e03-d87d68f14de3",
+                "sourceHandle": "default",
+                "target": "TEXT-7370eabe-789d-444a-b7d4-15fac2e0014f",
+                "targetHandle": "_",
+                "id": "reactflow__edge-NP_2_DF-f2a26de8-5e5f-4272-9e03-d87d68f14de3default-TEXT-7370eabe-789d-444a-b7d4-15fac2e0014f_"
+            },
+            {
+                "source": "TEXT-7370eabe-789d-444a-b7d4-15fac2e0014f",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-f8808da9-246b-4d44-acb3-5fe793c357c4",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TEXT-7370eabe-789d-444a-b7d4-15fac2e0014fdefault-TEXT_VIEW-f8808da9-246b-4d44-acb3-5fe793c357c4default"
+            },
+            {
+                "source": "BASIC_OSCILLATOR-88435426-dbfb-434e-91d5-7d238d52f112",
+                "sourceHandle": "default",
+                "target": "LINE-f4e95a44-543d-45b7-a837-02e366aa19f3",
+                "targetHandle": "default",
+                "id": "reactflow__edge-BASIC_OSCILLATOR-88435426-dbfb-434e-91d5-7d238d52f112default-LINE-f4e95a44-543d-45b7-a837-02e366aa19f3default"
+            },
+            {
+                "source": "NP_2_DF-f2a26de8-5e5f-4272-9e03-d87d68f14de3",
+                "sourceHandle": "default",
+                "target": "LINE-0b1743a0-b92e-403c-9d64-5946f5618988",
+                "targetHandle": "default",
+                "id": "reactflow__edge-NP_2_DF-f2a26de8-5e5f-4272-9e03-d87d68f14de3default-LINE-0b1743a0-b92e-403c-9d64-5946f5618988default"
+            },
+            {
+                "source": "NP_2_DF-f2a26de8-5e5f-4272-9e03-d87d68f14de3",
+                "sourceHandle": "default",
+                "target": "TABLE-d1268ba4-1293-4937-a6a0-93d1985b91ea",
+                "targetHandle": "default",
+                "id": "reactflow__edge-NP_2_DF-f2a26de8-5e5f-4272-9e03-d87d68f14de3default-TABLE-d1268ba4-1293-4937-a6a0-93d1985b91eadefault"
+            }
+        ],
+        "viewport": {
+            "x": 328.30307914563144,
+            "y": 226.88940714410813,
+            "zoom": 0.5
+        }
+    }
+}

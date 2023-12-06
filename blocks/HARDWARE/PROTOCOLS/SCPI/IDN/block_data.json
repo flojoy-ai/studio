@@ -1,0 +1,27 @@
+{
+  "docstring": {
+    "long_description": "Inputs\n------\ndefault: DataContainer\n    Any DataContainer - likely connected to the output of the OPEN_SERIAL block.",
+    "short_description": "Query a device's identity through the universal *IDN? SCPI command.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "Serial",
+        "description": "The open connection with the device receiving the *IDN? SCPI command."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "String",
+        "description": "The result of the *IDN? SCPI command."
+      }
+    ]
+  },
+  "videos": [
+    {
+      "title": "Control Agilent 34410A multimeter with Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=jaN89-ijxL0"
+    }
+  ]
+}

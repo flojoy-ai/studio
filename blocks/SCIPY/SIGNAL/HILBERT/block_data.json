@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "The description of that function is as follows:\n\n    Compute the analytic signal, using the Hilbert transform.\n\n    The transformation is done along the last axis by default.",
+    "short_description": "The HILBERT node is based on a numpy or scipy function.",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "array_like",
+        "description": "Signal data.  Must be real."
+      },
+      {
+        "name": "N",
+        "type": "int",
+        "description": "Number of Fourier components. Default: x.shape[axis]."
+      },
+      {
+        "name": "axis",
+        "type": "int",
+        "description": "Axis along which to do the transformation. Default: -1."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "type 'ordered pair', 'scalar', or 'matrix'"
+      }
+    ]
+  }
+}

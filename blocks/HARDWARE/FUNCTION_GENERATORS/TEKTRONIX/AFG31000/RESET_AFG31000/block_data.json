@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "This block should also work with compatible Tektronix AFG31XXX instruments.",
+    "short_description": "Reset the instrument.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_AFG31000 block)."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "String",
+        "description": "Placeholder"
+      }
+    ]
+  }
+}

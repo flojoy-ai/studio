@@ -1,0 +1,456 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CONNECTION_USB4065-33140410-b4f4-4e67-8613-7559b997c8e1",
+                "type": "IO",
+                "data": {
+                    "id": "CONNECTION_USB4065-33140410-b4f4-4e67-8613-7559b997c8e1",
+                    "label": "CONNECTION USB4065",
+                    "func": "CONNECTION_USB4065",
+                    "type": "IO",
+                    "ctrls": {
+                        "NI_address": {
+                            "type": "str",
+                            "default": "Dev1",
+                            "desc": "The NI instrument address for the instrument (e.g. 'Dev0', 'Dev1').",
+                            "overload": null,
+                            "functionName": "CONNECTION_USB4065",
+                            "param": "NI_address",
+                            "value": "Dev1"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "Optional: None"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "nidmm",
+                            "v": "1.4.6"
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/MULTIMETERS/NI/USB_4065/BASIC/CONNECTION_USB4065/CONNECTION_USB4065.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 4.704499736461486,
+                    "y": -114.58793327290465
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 4.704499736461486,
+                    "y": -114.58793327290465
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "BIG_NUMBER-4f55667b-079e-4735-aa52-3bb18be8e06b",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "BIG_NUMBER-4f55667b-079e-4735-aa52-3bb18be8e06b",
+                    "label": "BIG NUMBER",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZERS",
+                    "ctrls": {
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any suffix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": ""
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": true
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 789.5089067672151,
+                    "y": -337.92011150709266
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 789.5089067672151,
+                    "y": -337.92011150709266
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "DC_VOLTAGE_USB4065-faabd48b-f783-4ebe-90ec-6a060dad2fbb",
+                "type": "IO",
+                "data": {
+                    "id": "DC_VOLTAGE_USB4065-faabd48b-f783-4ebe-90ec-6a060dad2fbb",
+                    "label": "DC VOLTAGE USB4065",
+                    "func": "DC_VOLTAGE_USB4065",
+                    "type": "IO",
+                    "ctrls": {
+                        "NI_address": {
+                            "type": "str",
+                            "default": "Dev1",
+                            "desc": "The NI instrument address for the instrument (e.g. 'Dev0', 'Dev1').",
+                            "overload": null,
+                            "functionName": "DC_VOLTAGE_USB4065",
+                            "param": "NI_address",
+                            "value": "Dev1"
+                        },
+                        "digits": {
+                            "type": "select",
+                            "options": [
+                                "4.5",
+                                "5.5",
+                                "6.5"
+                            ],
+                            "default": "5.5",
+                            "desc": "The accuracy of the reading in digits. Lower values are faster.",
+                            "overload": null,
+                            "functionName": "DC_VOLTAGE_USB4065",
+                            "param": "digits",
+                            "value": "5.5"
+                        },
+                        "voltage_limit": {
+                            "type": "select",
+                            "options": [
+                                "0.1",
+                                "1",
+                                "10",
+                                "100",
+                                "300"
+                            ],
+                            "default": "10",
+                            "desc": "The maximum voltage to allow, in Volts.",
+                            "overload": null,
+                            "functionName": "DC_VOLTAGE_USB4065",
+                            "param": "voltage_limit",
+                            "value": "10"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "Scalar: The DC voltage reading."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "nidmm",
+                            "v": "1.4.6"
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/MULTIMETERS/NI/USB_4065/BASIC/DC_VOLTAGE_USB4065/DC_VOLTAGE_USB4065.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 387.584587312525,
+                    "y": -281.5498028061119
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 387.584587312525,
+                    "y": -281.5498028061119
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "BIG_NUMBER-58ecefea-6da3-4e07-b581-b9796f085dec",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "BIG_NUMBER-58ecefea-6da3-4e07-b581-b9796f085dec",
+                    "label": "BIG NUMBER 1",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZERS",
+                    "ctrls": {
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any suffix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": ""
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": true
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
+                    "selected": true
+                },
+                "position": {
+                    "x": 788.5306367510525,
+                    "y": -17.717544827417925
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": 788.5306367510525,
+                    "y": -17.717544827417925
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "DC_CURRENT_USB4065-ec7b293a-827e-4d89-86bf-5db062fda09e",
+                "type": "IO",
+                "data": {
+                    "id": "DC_CURRENT_USB4065-ec7b293a-827e-4d89-86bf-5db062fda09e",
+                    "label": "DC CURRENT USB4065",
+                    "func": "DC_CURRENT_USB4065",
+                    "type": "IO",
+                    "ctrls": {
+                        "NI_address": {
+                            "type": "str",
+                            "default": "Dev1",
+                            "desc": "The NI instrument address for the instrument (e.g. 'Dev0', 'Dev1').",
+                            "overload": null,
+                            "functionName": "DC_CURRENT_USB4065",
+                            "param": "NI_address",
+                            "value": "Dev1"
+                        },
+                        "digits": {
+                            "type": "select",
+                            "options": [
+                                "4.5",
+                                "5.5",
+                                "6.5"
+                            ],
+                            "default": "5.5",
+                            "desc": "The accuracy of the reading in digits. Lower values are faster.",
+                            "overload": null,
+                            "functionName": "DC_CURRENT_USB4065",
+                            "param": "digits",
+                            "value": "4.5"
+                        },
+                        "current_limit": {
+                            "type": "select",
+                            "options": [
+                                "0.01",
+                                "0.1",
+                                "1",
+                                "3"
+                            ],
+                            "default": "3",
+                            "desc": "The maximum current to allow, in Amps.",
+                            "overload": null,
+                            "functionName": "DC_CURRENT_USB4065",
+                            "param": "current_limit",
+                            "value": "3"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "Scalar: The DC current reading."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "nidmm",
+                            "v": "1.4.6"
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/MULTIMETERS/NI/USB_4065/BASIC/DC_CURRENT_USB4065/DC_CURRENT_USB4065.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 383.63040645462985,
+                    "y": 31.065737308753683
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 383.63040645462985,
+                    "y": 31.065737308753683
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "CONNECTION_USB4065-33140410-b4f4-4e67-8613-7559b997c8e1",
+                "sourceHandle": "default",
+                "target": "DC_VOLTAGE_USB4065-faabd48b-f783-4ebe-90ec-6a060dad2fbb",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONNECTION_USB4065-33140410-b4f4-4e67-8613-7559b997c8e1default-DC_VOLTAGE_USB4065-faabd48b-f783-4ebe-90ec-6a060dad2fbbdefault",
+                "selected": false
+            },
+            {
+                "source": "DC_VOLTAGE_USB4065-faabd48b-f783-4ebe-90ec-6a060dad2fbb",
+                "sourceHandle": "default",
+                "target": "BIG_NUMBER-4f55667b-079e-4735-aa52-3bb18be8e06b",
+                "targetHandle": "default",
+                "id": "reactflow__edge-DC_VOLTAGE_USB4065-faabd48b-f783-4ebe-90ec-6a060dad2fbbdefault-BIG_NUMBER-4f55667b-079e-4735-aa52-3bb18be8e06bdefault"
+            },
+            {
+                "source": "CONNECTION_USB4065-33140410-b4f4-4e67-8613-7559b997c8e1",
+                "sourceHandle": "default",
+                "target": "DC_CURRENT_USB4065-ec7b293a-827e-4d89-86bf-5db062fda09e",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONNECTION_USB4065-33140410-b4f4-4e67-8613-7559b997c8e1default-DC_CURRENT_USB4065-ec7b293a-827e-4d89-86bf-5db062fda09edefault"
+            },
+            {
+                "source": "DC_CURRENT_USB4065-ec7b293a-827e-4d89-86bf-5db062fda09e",
+                "sourceHandle": "default",
+                "target": "BIG_NUMBER-58ecefea-6da3-4e07-b581-b9796f085dec",
+                "targetHandle": "default",
+                "id": "reactflow__edge-DC_CURRENT_USB4065-ec7b293a-827e-4d89-86bf-5db062fda09edefault-BIG_NUMBER-58ecefea-6da3-4e07-b581-b9796f085decdefault"
+            }
+        ],
+        "viewport": {
+            "x": 1139.470292881633,
+            "y": 572.2854272048312,
+            "zoom": 1.2136444284334926
+        }
+    }
+}

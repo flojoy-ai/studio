@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Convert an OrderedTriple DataContainer to a Surface DataContainer.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "OrderedTriple",
+        "description": "The input OrderedTriple to which we apply the conversion to."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Surface",
+        "description": "The surface result from the conversion of the input."
+      }
+    ]
+  }
+}

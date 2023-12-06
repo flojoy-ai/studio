@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "Inputs\n------\ndefault : String | Boolean\n    The DataContainer to be visualized in text format",
+    "short_description": "The TEXT_VIEW node creates a text visualization for a given String DataContainer type.",
+    "parameters": [
+      {
+        "name": "prettify",
+        "type": "Boolean",
+        "description": "Whether to prettify the displayed text (defaults to True)"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "String",
+        "description": "The DataContainer containing text data"
+      }
+    ]
+  }
+}

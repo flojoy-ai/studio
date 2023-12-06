@@ -1,0 +1,1 @@
+In this example, we select a starting date and end date for `TIMESERIES` node and it generates a random data for each day, which can be seen from the `TABLE` node.

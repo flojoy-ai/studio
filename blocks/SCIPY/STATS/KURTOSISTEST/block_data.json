@@ -1,0 +1,45 @@
+{
+  "docstring": {
+    "long_description": "The description of that function is as follows:\n\n    Test whether a dataset has normal kurtosis.\n\n    This function tests the null hypothesis that the kurtosis of the population from which the sample was drawn is that of the normal distribution.",
+    "short_description": "The KURTOSISTEST node is based on a numpy or scipy function.",
+    "parameters": [
+      {
+        "name": "select_return",
+        "type": "This function has returns multiple objects ['statistic', 'pvalue'].",
+        "description": "Select the desired one to return.\nSee the respective function docs for descriptors."
+      },
+      {
+        "name": "a",
+        "type": "array",
+        "description": "Array of the sample data."
+      },
+      {
+        "name": "axis",
+        "type": "int or None",
+        "description": "Axis along which to compute test. Default is 0.\nIf None, compute over the whole array 'a'."
+      },
+      {
+        "name": "nan_policy",
+        "type": "{'propagate', 'raise', 'omit'}",
+        "description": "Defines how to handle when input contains nan.\nThe following options are available (default is 'propagate'):\n'propagate' : returns nan\n'raise' : throws an error\n'omit' : performs the calculations ignoring nan values"
+      },
+      {
+        "name": "alternative",
+        "type": "{'two-sided', 'less', 'greater'}",
+        "description": "Defines the alternative hypothesis.\nThe following options are available (default is 'two-sided'):\n'two-sided' : the kurtosis of the distribution underlying the sample is different from that of the normal distribution\n'less' : the kurtosis of the distribution underlying the sample is less than that of the normal distribution\n'greater' : the kurtosis of the distribution underlying the sample is greater than that of the normal distribution"
+      },
+      {
+        "name": ".. versionadded",
+        "type": ": 1.7.0",
+        "description": null
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "type 'ordered pair', 'scalar', or 'matrix'"
+      }
+    ]
+  }
+}

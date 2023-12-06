@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "The description of that function is as follows:\n\n    Raise a square matrix to the (integer) power 'n'.\n\n    For positive integers 'n', the power is computed by repeated matrix squarings and matrix multiplications.\n\n    If \"n == 0\", the identity matrix of the same shape as M is returned. If \"n < 0\", the inverse is computed and then raised to \"abs(n)\".\n\nNote: Stacks of object matrices are not currently supported.",
+    "short_description": "The MATRIX_POWER node is based on a numpy or scipy function.",
+    "parameters": [
+      {
+        "name": "a",
+        "type": "(..., M, M) array_like",
+        "description": "Matrix to be \"powered\"."
+      },
+      {
+        "name": "n",
+        "type": "int",
+        "description": "The exponent can be any integer or long integer, positive, negative, or zero."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "type 'ordered pair', 'scalar', or 'matrix'"
+      }
+    ]
+  }
+}

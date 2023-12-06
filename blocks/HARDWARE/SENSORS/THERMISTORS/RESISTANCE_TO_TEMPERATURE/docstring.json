@@ -1,0 +1,18 @@
+{
+  "long_description": "The resistance should be a reading from a thermistor in Ohms.",
+  "short_description": "The RESISTANCE_TO_TEMPERATURE node converts resistance to temperature.",
+  "parameters": [
+    {
+      "name": "unit",
+      "type": "select",
+      "description": "Which unit of temperature to return."
+    }
+  ],
+  "returns": [
+    {
+      "name": null,
+      "type": "Scalar",
+      "description": "The resulting temperature."
+    }
+  ]
+}

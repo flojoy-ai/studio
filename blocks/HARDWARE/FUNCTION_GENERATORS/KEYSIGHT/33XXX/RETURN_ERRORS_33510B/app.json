@@ -1,0 +1,168 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CONNECTION_33510B-4c8ca1dd-a8ee-4ba9-ae8b-886c80a0a027",
+                "type": "IO",
+                "data": {
+                    "id": "CONNECTION_33510B-4c8ca1dd-a8ee-4ba9-ae8b-886c80a0a027",
+                    "label": "CONNECTION 33510B",
+                    "func": "CONNECTION_33510B",
+                    "type": "IO",
+                    "ctrls": {
+                        "device": {
+                            "type": "VisaDevice",
+                            "default": null,
+                            "desc": "The VISA address to connect to.",
+                            "overload": null,
+                            "functionName": "CONNECTION_33510B",
+                            "param": "device",
+                            "value": "USB0::2391::9735::MY59003244::0::INSTR"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "Optional: None"
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/FUNCTION_GENERATORS/KEYSIGHT/33XXX/BASIC/CONNECTION_33510B/CONNECTION_33510B.py",
+                    "selected": true
+                },
+                "position": {
+                    "x": -527.3533818261817,
+                    "y": -104.51110954945591
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": -527.3533818261817,
+                    "y": -104.51110954945591
+                },
+                "dragging": true
+            },
+            {
+                "width": 384,
+                "height": 288,
+                "id": "TEXT_VIEW-1e087237-ee3a-4db7-963d-46fbdbd7b59b",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-1e087237-ee3a-4db7-963d-46fbdbd7b59b",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 233.00086174633415,
+                    "y": -124.48626608153023
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 233.00086174633415,
+                    "y": -124.48626608153023
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "RETURN_ERRORS_33510B-399b56cc-0062-49f0-933c-ab01e39b6788",
+                "type": "IO",
+                "data": {
+                    "id": "RETURN_ERRORS_33510B-399b56cc-0062-49f0-933c-ab01e39b6788",
+                    "label": "RETURN ERRORS 33510B",
+                    "func": "RETURN_ERRORS_33510B",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_MDO3XXX node).",
+                            "overload": null,
+                            "functionName": "RETURN_ERRORS_33510B",
+                            "param": "connection",
+                            "value": "USB0::2391::9735::MY59003244::0::INSTR"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Returns all errors in the WFG memory."
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/FUNCTION_GENERATORS/KEYSIGHT/33XXX/ADVANCED/RETURN_ERRORS_33510B/RETURN_ERRORS_33510B.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -147.83112432013039,
+                    "y": -101.03938942263295
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -147.83112432013039,
+                    "y": -101.03938942263295
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "RETURN_ERRORS_33510B-399b56cc-0062-49f0-933c-ab01e39b6788",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-1e087237-ee3a-4db7-963d-46fbdbd7b59b",
+                "targetHandle": "default",
+                "id": "reactflow__edge-RETURN_ERRORS_33510B-399b56cc-0062-49f0-933c-ab01e39b6788default-TEXT_VIEW-1e087237-ee3a-4db7-963d-46fbdbd7b59bdefault"
+            },
+            {
+                "source": "CONNECTION_33510B-4c8ca1dd-a8ee-4ba9-ae8b-886c80a0a027",
+                "sourceHandle": "default",
+                "target": "RETURN_ERRORS_33510B-399b56cc-0062-49f0-933c-ab01e39b6788",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONNECTION_33510B-4c8ca1dd-a8ee-4ba9-ae8b-886c80a0a027default-RETURN_ERRORS_33510B-399b56cc-0062-49f0-933c-ab01e39b6788default"
+            }
+        ],
+        "viewport": {
+            "x": 1104.261946392206,
+            "y": 573.1338859553202,
+            "zoom": 1.2154437530123414
+        }
+    }
+}

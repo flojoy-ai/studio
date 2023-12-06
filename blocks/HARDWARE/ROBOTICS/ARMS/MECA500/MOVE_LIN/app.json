@@ -1,0 +1,344 @@
+{
+  "rfInstance": {
+    "nodes": [
+      {
+        "width": 192,
+        "height": 192,
+        "id": "CONNECT-7ca02405-664b-43f0-a498-ef3ddecbd2b7",
+        "type": "INSTRUMENTS",
+        "data": {
+          "id": "CONNECT-7ca02405-664b-43f0-a498-ef3ddecbd2b7",
+          "label": "CONNECT",
+          "func": "CONNECT",
+          "type": "INSTRUMENTS",
+          "ctrls": {
+            "ip_address": {
+              "type": "str",
+              "default": null,
+              "desc": null,
+              "overload": null,
+              "functionName": "CONNECT",
+              "param": "ip_address",
+              "value": ""
+            }
+          },
+          "initCtrls": {},
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "The IP address of the robot arm."
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "mecademicpy",
+              "v": "1.4.0"
+            }
+          ],
+          "path": "PYTHON/nodes/INSTRUMENTS/MECADEMIC/CONNECT/CONNECT.py",
+          "selected": false
+        },
+        "position": {
+          "x": 149.79183394290823,
+          "y": -219.99455021662578
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 149.79183394290823,
+          "y": -219.99455021662578
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "ACTIVATE-83ad0faf-16a9-42c9-bcd2-fc0e0f25395b",
+        "type": "INSTRUMENTS",
+        "data": {
+          "id": "ACTIVATE-83ad0faf-16a9-42c9-bcd2-fc0e0f25395b",
+          "label": "ACTIVATE",
+          "func": "ACTIVATE",
+          "type": "INSTRUMENTS",
+          "ctrls": {
+            "simulator": {
+              "type": "bool",
+              "default": false,
+              "desc": "Whether to activate the simulator or not. Defaults to False.",
+              "overload": null,
+              "functionName": "ACTIVATE",
+              "param": "simulator",
+              "value": false
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "ip_address",
+              "id": "ip_address",
+              "type": "String",
+              "multiple": false,
+              "desc": "The IP address of the robot arm."
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "The IP address of the robot arm."
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "mecademicpy",
+              "v": "1.4.0"
+            }
+          ],
+          "path": "PYTHON/nodes/INSTRUMENTS/MECADEMIC/ACTIVATE/ACTIVATE.py",
+          "selected": false
+        },
+        "position": {
+          "x": 527.703545775578,
+          "y": -214.68035169098664
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 527.703545775578,
+          "y": -214.68035169098664
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "DISCONNECT-508704f3-6da0-4541-8590-21a3b4318e0d",
+        "type": "INSTRUMENTS",
+        "data": {
+          "id": "DISCONNECT-508704f3-6da0-4541-8590-21a3b4318e0d",
+          "label": "DISCONNECT",
+          "func": "DISCONNECT",
+          "type": "INSTRUMENTS",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "ip_address",
+              "id": "ip_address",
+              "type": "String",
+              "multiple": false,
+              "desc": "The IP address of the robot arm."
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "mecademicpy",
+              "v": "1.4.0"
+            }
+          ],
+          "path": "PYTHON/nodes/INSTRUMENTS/MECADEMIC/DISCONNECT/DISCONNECT.py",
+          "selected": true
+        },
+        "position": {
+          "x": 1359.5680681849765,
+          "y": -215.25434969704412
+        },
+        "selected": true,
+        "positionAbsolute": {
+          "x": 1359.5680681849765,
+          "y": -215.25434969704412
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "HOME-15149cd9-755c-47da-8b07-cb63b74c6443",
+        "type": "INSTRUMENTS",
+        "data": {
+          "id": "HOME-15149cd9-755c-47da-8b07-cb63b74c6443",
+          "label": "HOME",
+          "func": "HOME",
+          "type": "INSTRUMENTS",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "ip_address",
+              "id": "ip_address",
+              "type": "String",
+              "multiple": false,
+              "desc": "The IP address of the robot arm."
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "The IP address of the robot arm."
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "mecademicpy",
+              "v": "1.4.0"
+            }
+          ],
+          "path": "PYTHON/nodes/INSTRUMENTS/MECADEMIC/HOME/HOME.py",
+          "selected": false
+        },
+        "position": {
+          "x": 794.0911798892838,
+          "y": -216.0856892468523
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 794.0911798892838,
+          "y": -216.0856892468523
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "MOVE_LIN-35a46f14-64c0-4744-b6c1-d8db200cd9bd",
+        "type": "INSTRUMENTS",
+        "data": {
+          "id": "MOVE_LIN-35a46f14-64c0-4744-b6c1-d8db200cd9bd",
+          "label": "MOVE LIN",
+          "func": "MOVE_LIN",
+          "type": "INSTRUMENTS",
+          "ctrls": {
+            "x": {
+              "type": "float",
+              "default": null,
+              "desc": "The x coordinate of the position to move to",
+              "overload": null,
+              "functionName": "MOVE_LIN",
+              "param": "x",
+              "value": ""
+            },
+            "y": {
+              "type": "float",
+              "default": null,
+              "desc": "The y coordinate of the position to move to",
+              "overload": null,
+              "functionName": "MOVE_LIN",
+              "param": "y",
+              "value": ""
+            },
+            "z": {
+              "type": "float",
+              "default": null,
+              "desc": "The z coordinate of the position to move to",
+              "overload": null,
+              "functionName": "MOVE_LIN",
+              "param": "z",
+              "value": ""
+            },
+            "alpha": {
+              "type": "float",
+              "default": 0,
+              "desc": "The alpha coordinate (rotation in radians about the x axis) of the position to move to.",
+              "overload": null,
+              "functionName": "MOVE_LIN",
+              "param": "alpha",
+              "value": 0
+            },
+            "beta": {
+              "type": "float",
+              "default": 0,
+              "desc": "The beta coordinate   (rotation in radians about the y axis) of the position to move to.",
+              "overload": null,
+              "functionName": "MOVE_LIN",
+              "param": "beta",
+              "value": 0
+            },
+            "gamma": {
+              "type": "float",
+              "default": 0,
+              "desc": "The gamma coordinate (rotation in radians about the z axis) of the position to move to.",
+              "overload": null,
+              "functionName": "MOVE_LIN",
+              "param": "gamma",
+              "value": 0
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "ip_address",
+              "id": "ip_address",
+              "type": "String",
+              "multiple": false,
+              "desc": "The IP address of the robot arm."
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "The IP address of the robot arm."
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "mecademicpy",
+              "v": "1.4.0"
+            }
+          ],
+          "path": "PYTHON/nodes/INSTRUMENTS/MECADEMIC/MOVE_LIN/MOVE_LIN.py",
+          "selected": false
+        },
+        "position": {
+          "x": 1086.8498227608254,
+          "y": -228.4510184768089
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1086.8498227608254,
+          "y": -228.4510184768089
+        },
+        "dragging": true
+      }
+    ],
+    "edges": [
+      {
+        "source": "CONNECT-7ca02405-664b-43f0-a498-ef3ddecbd2b7",
+        "sourceHandle": "default",
+        "target": "ACTIVATE-83ad0faf-16a9-42c9-bcd2-fc0e0f25395b",
+        "targetHandle": "ip_address",
+        "id": "reactflow__edge-CONNECT-7ca02405-664b-43f0-a498-ef3ddecbd2b7default-ACTIVATE-83ad0faf-16a9-42c9-bcd2-fc0e0f25395bip_address"
+      },
+      {
+        "source": "ACTIVATE-83ad0faf-16a9-42c9-bcd2-fc0e0f25395b",
+        "sourceHandle": "default",
+        "target": "HOME-15149cd9-755c-47da-8b07-cb63b74c6443",
+        "targetHandle": "ip_address",
+        "id": "reactflow__edge-ACTIVATE-83ad0faf-16a9-42c9-bcd2-fc0e0f25395bdefault-HOME-15149cd9-755c-47da-8b07-cb63b74c6443ip_address"
+      },
+      {
+        "source": "HOME-15149cd9-755c-47da-8b07-cb63b74c6443",
+        "sourceHandle": "default",
+        "target": "MOVE_LIN-35a46f14-64c0-4744-b6c1-d8db200cd9bd",
+        "targetHandle": "ip_address",
+        "id": "reactflow__edge-HOME-15149cd9-755c-47da-8b07-cb63b74c6443default-MOVE_LIN-35a46f14-64c0-4744-b6c1-d8db200cd9bdip_address"
+      },
+      {
+        "source": "MOVE_LIN-35a46f14-64c0-4744-b6c1-d8db200cd9bd",
+        "sourceHandle": "default",
+        "target": "DISCONNECT-508704f3-6da0-4541-8590-21a3b4318e0d",
+        "targetHandle": "ip_address",
+        "id": "reactflow__edge-MOVE_LIN-35a46f14-64c0-4744-b6c1-d8db200cd9bddefault-DISCONNECT-508704f3-6da0-4541-8590-21a3b4318e0dip_address"
+      }
+    ],
+    "viewport": {
+      "x": 669.537650867023,
+      "y": 398.1114317341454,
+      "zoom": 0.7467072297113905
+    }
+  }
+}

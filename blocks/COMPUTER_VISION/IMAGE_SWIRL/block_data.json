@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Adjusts the gamma of an input image and outputs the adjusted image",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "Image",
+        "description": "The input image"
+      },
+      {
+        "name": "gain",
+        "type": "float, default=1",
+        "description": "The gain of the logarithmic correction."
+      },
+      {
+        "name": "gamma",
+        "type": "float, default=1",
+        "description": "The gamma to correct to."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Image",
+        "description": "The adjusted image."
+      }
+    ]
+  }
+}

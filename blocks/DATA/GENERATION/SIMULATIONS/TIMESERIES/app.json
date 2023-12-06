@@ -1,0 +1,126 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 225,
+                "height": 226,
+                "id": "TABLE-e495f7ee-9936-41e5-8341-8532fbe7fc37",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TABLE-e495f7ee-9936-41e5-8341-8532fbe7fc37",
+                    "label": "TABLE",
+                    "func": "TABLE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1454.0240539163242,
+                    "y": 449.24417024363777
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1454.0240539163242,
+                    "y": 449.24417024363777
+                },
+                "dragging": true
+            },
+            {
+                "width": 130,
+                "height": 130,
+                "id": "TIMESERIES-32359924-1394-434a-a933-965680772cfb",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "TIMESERIES-32359924-1394-434a-a933-965680772cfb",
+                    "label": "TIMESERIES",
+                    "func": "TIMESERIES",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "start_date": {
+                            "type": "str",
+                            "default": "2023-01-01",
+                            "functionName": "TIMESERIES",
+                            "param": "start_date",
+                            "value": "2023-01-01"
+                        },
+                        "end_date": {
+                            "type": "str",
+                            "default": "2023-07-20",
+                            "functionName": "TIMESERIES",
+                            "param": "end_date",
+                            "value": "2023-07-20"
+                        }
+                    },
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TIMESERIES/TIMESERIES.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1083.3085875570803,
+                    "y": 496.01628490654286
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1083.3085875570803,
+                    "y": 496.01628490654286
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "TIMESERIES-32359924-1394-434a-a933-965680772cfb",
+                "sourceHandle": "default",
+                "target": "TABLE-e495f7ee-9936-41e5-8341-8532fbe7fc37",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TIMESERIES-32359924-1394-434a-a933-965680772cfbdefault-TABLE-e495f7ee-9936-41e5-8341-8532fbe7fc37default"
+            }
+        ],
+        "viewport": {
+            "x": -388.5128599008947,
+            "y": 286.46416379622787,
+            "zoom": 1.1464119616325565
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+        }
+    ]
+}

@@ -1,0 +1,315 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 231,
+                "height": 96,
+                "id": "TEXT-72b66432-eaa0-4d86-95d6-ebe5075bef53",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "TEXT-72b66432-eaa0-4d86-95d6-ebe5075bef53",
+                    "label": "DESCRIPTION",
+                    "func": "TEXT",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "value": {
+                            "type": "str",
+                            "default": "Hello World!",
+                            "desc": "The value set in Parameters",
+                            "functionName": "TEXT",
+                            "param": "value",
+                            "value": "This app shows how the MAT_2_DF node works. First we generate a matrix with 9 rows and 3 columns. Then we convert this Matrix in a DataFrame and we visualize the result with the LINE node."
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "_",
+                            "id": "_",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "s: return the value being set in Parameters"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TEXT/TEXT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -556.6631437445458,
+                    "y": -824.0377265986776
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -556.6631437445458,
+                    "y": -824.0377265986776
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "TEXT_VIEW-6985f322-a5cb-4e90-a111-e6609ad974ae",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-6985f322-a5cb-4e90-a111-e6609ad974ae",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -284.6091662018555,
+                    "y": -890.5935019228401
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -284.6091662018555,
+                    "y": -890.5935019228401
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "MATRIX-8ad853e0-d572-43b2-9e5d-53177ffa8fb0",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "MATRIX-8ad853e0-d572-43b2-9e5d-53177ffa8fb0",
+                    "label": "MATRIX",
+                    "func": "MATRIX",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "row": {
+                            "type": "int",
+                            "default": 2,
+                            "desc": "number of rows",
+                            "functionName": "MATRIX",
+                            "param": "row",
+                            "value": 9
+                        },
+                        "column": {
+                            "type": "int",
+                            "default": 2,
+                            "desc": "number of columns",
+                            "functionName": "MATRIX",
+                            "param": "column",
+                            "value": 3
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Matrix",
+                            "desc": "randomly generated matrix"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/MATRIX/MATRIX.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -1043.2636673727357,
+                    "y": -747.8141424962938
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -1043.2636673727357,
+                    "y": -747.8141424962938
+                },
+                "dragging": true
+            },
+            {
+                "width": 160,
+                "height": 160,
+                "id": "MAT_2_DF-0973028e-daa8-4d6f-b817-a817b35ffabc",
+                "type": "TRANSFORMERS",
+                "data": {
+                    "id": "MAT_2_DF-0973028e-daa8-4d6f-b817-a817b35ffabc",
+                    "label": "MAT 2 DF",
+                    "func": "MAT_2_DF",
+                    "type": "TRANSFORMERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Matrix",
+                            "multiple": false,
+                            "desc": "The input matrix to which we apply the conversion to."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame",
+                            "desc": "The dataframe result from the conversion of the input."
+                        }
+                    ],
+                    "path": "PYTHON/nodes/TRANSFORMERS/TYPE_CASTING/MAT_2_DF/MAT_2_DF.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -748.6868837914724,
+                    "y": -782.6233652716551
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -748.6868837914724,
+                    "y": -782.6233652716551
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "LINE-7236db9b-7b95-4d46-a240-8c8f82126d47",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "LINE-7236db9b-7b95-4d46-a240-8c8f82126d47",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -357.47302869019376,
+                    "y": -562.7262647369073
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -357.47302869019376,
+                    "y": -562.7262647369073
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "LINE-88541288-c3ff-4f6e-a9e1-e737a369d795",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "LINE-88541288-c3ff-4f6e-a9e1-e737a369d795",
+                    "label": "LINE 1",
+                    "func": "LINE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -803.2547549391984,
+                    "y": -561.4604053055284
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -803.2547549391984,
+                    "y": -561.4604053055284
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "MATRIX-8ad853e0-d572-43b2-9e5d-53177ffa8fb0",
+                "sourceHandle": "default",
+                "target": "MAT_2_DF-0973028e-daa8-4d6f-b817-a817b35ffabc",
+                "targetHandle": "default",
+                "id": "reactflow__edge-MATRIX-8ad853e0-d572-43b2-9e5d-53177ffa8fb0default-MAT_2_DF-0973028e-daa8-4d6f-b817-a817b35ffabcdefault"
+            },
+            {
+                "source": "MAT_2_DF-0973028e-daa8-4d6f-b817-a817b35ffabc",
+                "sourceHandle": "default",
+                "target": "TEXT-72b66432-eaa0-4d86-95d6-ebe5075bef53",
+                "targetHandle": "_",
+                "id": "reactflow__edge-MAT_2_DF-0973028e-daa8-4d6f-b817-a817b35ffabcdefault-TEXT-72b66432-eaa0-4d86-95d6-ebe5075bef53_"
+            },
+            {
+                "source": "TEXT-72b66432-eaa0-4d86-95d6-ebe5075bef53",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-6985f322-a5cb-4e90-a111-e6609ad974ae",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TEXT-72b66432-eaa0-4d86-95d6-ebe5075bef53default-TEXT_VIEW-6985f322-a5cb-4e90-a111-e6609ad974aedefault"
+            },
+            {
+                "source": "MATRIX-8ad853e0-d572-43b2-9e5d-53177ffa8fb0",
+                "sourceHandle": "default",
+                "target": "LINE-88541288-c3ff-4f6e-a9e1-e737a369d795",
+                "targetHandle": "default",
+                "id": "reactflow__edge-MATRIX-8ad853e0-d572-43b2-9e5d-53177ffa8fb0default-LINE-88541288-c3ff-4f6e-a9e1-e737a369d795default"
+            },
+            {
+                "source": "MAT_2_DF-0973028e-daa8-4d6f-b817-a817b35ffabc",
+                "sourceHandle": "default",
+                "target": "LINE-7236db9b-7b95-4d46-a240-8c8f82126d47",
+                "targetHandle": "default",
+                "id": "reactflow__edge-MAT_2_DF-0973028e-daa8-4d6f-b817-a817b35ffabcdefault-LINE-7236db9b-7b95-4d46-a240-8c8f82126d47default"
+            }
+        ],
+        "viewport": {
+            "x": 328.30307914563144,
+            "y": 226.88940714410813,
+            "zoom": 0.5
+        }
+    }
+}
