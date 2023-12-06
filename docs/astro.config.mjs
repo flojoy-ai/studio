@@ -129,5 +129,14 @@ export default defineConfig({
         "@blocks": path.resolve("../blocks/"),
       },
     },
+    ssr: {
+      noExternal: [
+        "execa",
+        "is-stream",
+        "npm-run-path",
+        "hastscript",
+        "hast-util-parse-selector",
+      ],
+    },
   },
 });
