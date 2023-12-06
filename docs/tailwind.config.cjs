@@ -1,6 +1,6 @@
 // tailwind.config.cjs
-const defaultTheme = require("tailwindcss/defaultTheme");
-const starlightPlugin = require("@astrojs/starlight-tailwind");
+import defaultTheme from "tailwindcss/defaultTheme";
+import starlightPlugin from "@astrojs/starlight-tailwind";
 
 // Generated color palettes
 const accent = {
