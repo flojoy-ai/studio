@@ -35,8 +35,8 @@ export const PingTab = () => {
     status === "success"
       ? "✅ IP Address is responsive"
       : status === "failed"
-        ? "❌ IP address could not be reached"
-        : "";
+      ? "❌ IP address could not be reached"
+      : "";
 
   return (
     <div>
