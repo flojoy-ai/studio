@@ -136,6 +136,7 @@ export default defineConfig({
         "npm-run-path",
         "hastscript",
         "hast-util-parse-selector",
+        "unified",
       ],
     },
   },
