@@ -313,8 +313,10 @@ def set_env_var(key: str, value: str):
     file_path = os.path.join(home, os.path.join(FLOJOY_DIR, CREDENTIAL_FILE))
 
     if not os.path.exists(file_path):
+        logger.info(f"{file_path} does not exist")
         with open(file_path, "w") as f:
             f.write(key)
+        logger.info(f"Env var written to {file_path}")
         return
 
     with open(file_path, "r") as f:
@@ -352,6 +354,7 @@ def get_credentials() -> list[dict[str, str]]:
     file_path = os.path.join(home, os.path.join(FLOJOY_DIR, CREDENTIAL_FILE))
 
     if not os.path.exists(file_path):
+        logger.info(f"{file_path} not exists returning empty list...")
         return []
 
     with open(file_path, "r") as f:
