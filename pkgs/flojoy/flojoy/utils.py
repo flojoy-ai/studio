@@ -1,6 +1,7 @@
 import decimal
 import json as _json
-import os, sys
+import os
+import sys
 from pathlib import Path
 from typing import Any, Callable, Optional
 
