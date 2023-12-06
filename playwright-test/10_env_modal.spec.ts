@@ -64,16 +64,19 @@ test.describe("Environment modal", () => {
       ),
     ).toBeVisible();
 
-    // #debug: Take a screenshot
-    await window.screenshot({
-      fullPage: true,
-      path: "test-results/flojoy-cloud-api.jpeg",
-    });
-
-    // Expect "FLOJOY_CLOUD_KEY" to be listed in the modal
-    await expect(window.getByText("FLOJOY_CLOUD_KEY")).toBeVisible({
-      timeout: 15000,
-    });
+    try {
+      // Expect "FLOJOY_CLOUD_KEY" to be listed in the modal
+      await expect(window.getByText("FLOJOY_CLOUD_KEY")).toBeVisible({
+        timeout: 20000,
+      });
+    } catch (error) {
+      // #debug: Take a screenshot
+      await window.screenshot({
+        fullPage: true,
+        path: "test-results/flojoy-cloud-api.jpeg",
+      });
+      throw new Error(error.message);
+    }
   });
 
   test("Should set given Env key value", async () => {

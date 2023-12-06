@@ -4,6 +4,7 @@ from fastapi import APIRouter, HTTPException, Response, status
 from flojoy import delete_env_var, get_credentials, get_env_var, set_env_var
 
 from captain.types.key import EnvVar
+from captain.utils.logger import logger
 
 router = APIRouter(tags=["env"])
 
@@ -49,5 +50,6 @@ async def get_env_vars_route():
         return HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="No key found!"
         )
+    logger.info(f"retrieved {len(values)} env variables")
 
     return values
