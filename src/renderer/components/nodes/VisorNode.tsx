@@ -3,7 +3,7 @@ import NodeWrapper from "@src/components/common/NodeWrapper";
 import clsx from "clsx";
 import HandleComponent from "@src/components/common/HandleComponent";
 import Scatter from "@src/assets/nodes/Scatter";
-import { memo, useMemo } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { makePlotlyData } from "@src/components/plotly/formatPlotlyData";
 import PlotlyComponent from "@src/components/plotly/PlotlyComponent";
 import CompositePlot from "@src/assets/nodes/CompositePlot";
@@ -28,7 +28,8 @@ import TextView from "@src/assets/nodes/TextView";
 import Heatmap from "@src/assets/nodes/Heatmap";
 import { useNodeStatus } from "@src/hooks/useNodeStatus";
 import { NodeResizer } from "reactflow";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { useAtomValue } from "jotai";
+import { projectAtom } from "@src/hooks/useFlowChartState";
 
 const chartElemMap = {
   SCATTER: Scatter,
@@ -66,18 +67,22 @@ const VisorNode = ({ selected, id, data }: CustomNodeProps) => {
     [plotlyFig, resolvedTheme],
   );
 
+  const project = useAtomValue(projectAtom);
+  const [dimensions, setDimensions] = useState({ width: 225, height: 225 })
 
-  const { nodes } = useFlowChartGraph();
-  const node = nodes.find(n => n.id === id);
-
-  const dimensions = {
-    width: node?.width ?? 225,
-    height: node?.height ?? 225
-  }
+  useEffect(() => {
+    // Weird hack to make it properly set the dimensions when loading an app...
+    // I tried like 10 different things but this is the only thing that works without being crazy slow
+    const node = project.rfInstance?.nodes.find(n => n.id === id);
+    if (node?.width && node?.height) {
+      setDimensions({ width: node.width, height: node.height });
+    }
+  }, [id, project])
 
   const ChartIcon = chartElemMap[data.func];
+  const iconSideLength = Math.min(dimensions.width, dimensions.height);
 
-  const square = Math.min(dimensions.width, dimensions.height);
+  console.log(iconSideLength);
 
   return (
     <>
@@ -85,9 +90,13 @@ const VisorNode = ({ selected, id, data }: CustomNodeProps) => {
         minWidth={225}
         minHeight={225}
         isVisible={selected}
-        handleClassName="p-2"
+        lineClassName="p-1"
+        handleClassName="p-1"
+        onResizeEnd={(e, params) => {
+          setDimensions({ width: params.width, height: params.height });
+        }}
       />
-      <NodeWrapper nodeError={nodeError} data={data} selected={selected!} style={dimensions}>
+      <NodeWrapper nodeError={nodeError} data={data} selected={selected} style={dimensions}>
         <div
           className={clsx(
             "rounded-2xl bg-transparent",
@@ -109,7 +118,7 @@ const VisorNode = ({ selected, id, data }: CustomNodeProps) => {
           {textBlob && <MarkDownText text={textBlob} isThumbnail />}
           {!plotlyData && !textBlob && (
             <>
-              {ChartIcon ? <ChartIcon style={{ width: square, height: square }} /> : (
+              {ChartIcon ? <ChartIcon width={iconSideLength} height={iconSideLength} /> : (
                 <div className="flex items-center justify-center break-all rounded-lg border-2 border-accent2 bg-accent2/5 p-2 text-center text-2xl font-bold tracking-wider text-accent2 w-full h-full">
                   {data.label}
                 </div>

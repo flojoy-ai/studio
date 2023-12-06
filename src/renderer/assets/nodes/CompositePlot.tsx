@@ -1,10 +1,9 @@
-import { memo } from "react";
+import { memo, SVGProps } from "react";
 
-const CompositePlot = () => {
+const CompositePlot = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
-      width="225"
-      height="226"
+      {...props}
       viewBox="0 0 125 126"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +112,7 @@ const CompositePlot = () => {
         className="stroke-accent2"
         stroke-width="0.5"
       />
-    </svg>
+    </svg >
   );
 };
 
