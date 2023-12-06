@@ -22,8 +22,7 @@
     "start-project:debug": "DEBUG=true concurrently --prefix \"[{time}-{name}]\" -n \"React,FastAPI\" -c auto  \"pnpm:start\" \"pnpm:backend:debug\"",
     "format": "npx prettier --write .",
     "check": "npx prettier --check .",
-    "e2e": "CI=true cypress run --browser chrome",
-    "cypress": "cypress open",
+    "e2e": "npx playwright test",
     "electron-dev": "electron .",
     "electron-package": "pnpm run build && electron-builder build -m --universal -lw",
     "electron-package:windows": "pnpm run build && electron-builder build --win",
@@ -33,7 +32,6 @@
     "test": "CI=true jest",
     "test:watch": "jest --watch --coverage",
     "test:dev": "jest --updateSnapshot",
-    "cy:run:report": "nyc --reporter=html cypress run",
     "electron:test": "npx playwright test"
   },
   "dependencies": {
@@ -109,11 +107,9 @@
     "zustand": "^4.4.6"
   },
   "devDependencies": {
-    "@cypress/code-coverage": "^3.12.4",
     "@electron/notarize": "^2.1.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@percy/cli": "^1.27.3",
-    "@percy/cypress": "^3.1.2",
     "@playwright/test": "^1.40.0",
     "@tailwindcss/typography": "^0.5.10",
     "@testing-library/jest-dom": "^5.17.0",
@@ -137,8 +133,6 @@
     "@vitejs/plugin-react-swc": "^3.4.0",
     "autoprefixer": "^10.4.16",
     "concurrently": "^8.2.2",
-    "cypress": "^12.17.4",
-    "cypress-xpath": "^2.0.1",
     "dotenv": "^16.3.1",
     "electron": "^27.0.4",
     "electron-builder": "^24.6.4",
