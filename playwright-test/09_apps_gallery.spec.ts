@@ -83,7 +83,11 @@ test.describe("Apps gallery", () => {
         await window.getByTestId(Selectors.appGalleryBtn).click();
 
         // Find and click on Load button
-        await window.getByTestId(_app.title).click();
+        await window
+          .getByTestId(
+            (_app.title as string).toLowerCase().split(" ").join("_"),
+          )
+          .click({ force: true });
 
         try {
           // Close the modal
