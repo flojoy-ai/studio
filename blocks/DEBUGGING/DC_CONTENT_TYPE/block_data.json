@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "Must use the TEXT_VIEW block to view the text.",
+    "short_description": "Return a String containing the type of the input DataContainer's content.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "DataContainer",
+        "description": "The input DataContainer to check the content type."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "String: Type of the input DataContainer's content (e.g. float)"
+      }
+    ]
+  }
+}

@@ -1,0 +1,72 @@
+[
+    {
+      "name": "John Smith",
+      "age": 20,
+      "gender": "Male",
+      "course": "Computer Science",
+      "gpa": 3.7
+    },
+    {
+      "name": "Jane Doe",
+      "age": 22,
+      "gender": "Female",
+      "course": "Business Administration",
+      "gpa": 3.9
+    },
+    {
+      "name": "Michael Johnson",
+      "age": 21,
+      "gender": "Male",
+      "course": "Mechanical Engineering",
+      "gpa": 3.5
+    },
+    {
+      "name": "Emily Williams",
+      "age": 19,
+      "gender": "Female",
+      "course": "Biology",
+      "gpa": 3.8
+    },
+    {
+      "name": "Daniel Brown",
+      "age": 20,
+      "gender": "Male",
+      "course": "Economics",
+      "gpa": 3.6
+    },
+    {
+      "name": "Sophia Martinez",
+      "age": 21,
+      "gender": "Female",
+      "course": "Political Science",
+      "gpa": 3.4
+    },
+    {
+      "name": "William Lee",
+      "age": 22,
+      "gender": "Male",
+      "course": "Psychology",
+      "gpa": 3.2
+    },
+    {
+      "name": "Olivia Clark",
+      "age": 19,
+      "gender": "Female",
+      "course": "English Literature",
+      "gpa": 3.9
+    },
+    {
+      "name": "James Hernandez",
+      "age": 20,
+      "gender": "Male",
+      "course": "Chemistry",
+      "gpa": 3.1
+    },
+    {
+      "name": "Isabella Scott",
+      "age": 21,
+      "gender": "Female",
+      "course": "Sociology",
+      "gpa": 3.7
+    }
+  ]

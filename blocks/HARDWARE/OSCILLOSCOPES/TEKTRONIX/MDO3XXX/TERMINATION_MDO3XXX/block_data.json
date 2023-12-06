@@ -1,0 +1,42 @@
+{
+  "docstring": {
+    "long_description": "The termination is set by the output, and the set termination\nin the oscilloscope must match that value.\n\nNote that the termination is often called the \"electrical impedance\".\nNote that the 75 Ohm option is not compatible with all model numbers.\n\nIf the \"VISA_address\" parameter is not specified the VISA_index will be\nused to find the address. The LIST_VISA block can be used to show the\nindicies of all available VISA instruments.\n\nThis block should also work with compatible Tektronix scopes (untested):\nMDO4xxx, MSO4xxx, and DPO4xxx.",
+    "short_description": "The TERMINATION_MDO3XXX block sets the termination ohms (or queries it).",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_MDO3XXX block)."
+      },
+      {
+        "name": "channel",
+        "type": "int",
+        "description": "The channel to query or set the impedance/termination."
+      },
+      {
+        "name": "termination",
+        "type": "str",
+        "description": "The ohm to which the termination impedance is set to."
+      },
+      {
+        "name": "query_set",
+        "type": "str",
+        "description": "Whether to query or set the triggering voltage."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "Scalar: The termination value for the chosen channel."
+      }
+    ]
+  },
+  "videos": [
+    {
+      "title": "Control Oscilloscope with Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=NqPW7pG3NZs"
+    }
+  ]
+}

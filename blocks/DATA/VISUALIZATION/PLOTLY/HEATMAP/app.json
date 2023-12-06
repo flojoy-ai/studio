@@ -1,0 +1,563 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 208,
+                "height": 96,
+                "id": "LINSPACE-1af859a4-45b3-4ded-b176-20aff091325f",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "LINSPACE-1af859a4-45b3-4ded-b176-20aff091325f",
+                    "label": "LINSPACE",
+                    "func": "LINSPACE",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "start": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "The start point of the data.",
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": 10
+                        },
+                        "end": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The end point of the data.",
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": 0
+                        },
+                        "step": {
+                            "type": "int",
+                            "default": 1000,
+                            "desc": "The number of points in the vector.",
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": 1000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "multiple": false,
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "v: the vector between start and end with step number of points."
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\LINSPACE\\LINSPACE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -497.4030667106702,
+                    "y": -223.31657807721334
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -497.4030667106702,
+                    "y": -223.31657807721334
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "PLOTLY_DATASET-f232d46a-1d90-4f2b-a069-e51968ac8f1d",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "PLOTLY_DATASET-f232d46a-1d90-4f2b-a069-e51968ac8f1d",
+                    "label": "PLOTLY DATASET",
+                    "func": "PLOTLY_DATASET",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "dataset_key": {
+                            "type": "select",
+                            "default": "wind",
+                            "options": [
+                                "wind",
+                                "iris",
+                                "carshare",
+                                "tips",
+                                "election",
+                                "experiment",
+                                "gapminder",
+                                "medals_long",
+                                "medals_wide",
+                                "stocks"
+                            ],
+                            "desc": null,
+                            "functionName": "PLOTLY_DATASET",
+                            "param": "dataset_key",
+                            "value": "iris"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame",
+                            "desc": null
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\GENERATORS\\SAMPLE_DATASETS\\PLOTLY_DATASET\\PLOTLY_DATASET.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -543.6909015026312,
+                    "y": 84.30208930481302
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -543.6909015026312,
+                    "y": 84.30208930481302
+                },
+                "dragging": true
+            },
+            {
+                "width": 160,
+                "height": 160,
+                "id": "DF_2_ORDERED_TRIPLE-96f9e5d5-918c-420a-9e73-73ece78bac60",
+                "type": "TRANSFORMERS",
+                "data": {
+                    "id": "DF_2_ORDERED_TRIPLE-96f9e5d5-918c-420a-9e73-73ece78bac60",
+                    "label": "DF 2 ORDERED TRIPLE",
+                    "func": "DF_2_ORDERED_TRIPLE",
+                    "type": "TRANSFORMERS",
+                    "ctrls": {
+                        "x": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "The index of the column that represents the x-axis.",
+                            "functionName": "DF_2_ORDERED_TRIPLE",
+                            "param": "x",
+                            "value": 0
+                        },
+                        "y": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "The index of the column that represents the y-axis.",
+                            "functionName": "DF_2_ORDERED_TRIPLE",
+                            "param": "y",
+                            "value": 1
+                        },
+                        "z": {
+                            "type": "int",
+                            "default": 2,
+                            "desc": "The index of the column that represents the z-axis.",
+                            "functionName": "DF_2_ORDERED_TRIPLE",
+                            "param": "z",
+                            "value": 2
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame",
+                            "multiple": false,
+                            "desc": "The input dataframe to which we apply the conversion to."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple",
+                            "desc": "The OrderedTriple result from the conversion of the input."
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\TRANSFORMERS\\TYPE_CASTING\\DF_2_ORDERED_TRIPLE\\DF_2_ORDERED_TRIPLE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -77.15579509921382,
+                    "y": 292.21287329509
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -77.15579509921382,
+                    "y": 292.21287329509
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "SINE-bab99ed9-69aa-4923-b765-169262716b1e",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "SINE-bab99ed9-69aa-4923-b765-169262716b1e",
+                    "label": "SINE",
+                    "func": "SINE",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "amplitude": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The amplitude of the wave.",
+                            "functionName": "SINE",
+                            "param": "amplitude",
+                            "value": 1
+                        },
+                        "frequency": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The wave frequency in radians/2pi.",
+                            "functionName": "SINE",
+                            "param": "frequency",
+                            "value": 1
+                        },
+                        "offset": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The y axis offset of the function.",
+                            "functionName": "SINE",
+                            "param": "offset",
+                            "value": 0
+                        },
+                        "phase": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The x axis offset of the function.",
+                            "functionName": "SINE",
+                            "param": "phase",
+                            "value": 0
+                        },
+                        "waveform": {
+                            "type": "select",
+                            "default": "sine",
+                            "options": [
+                                "sine",
+                                "square",
+                                "triangle",
+                                "sawtooth"
+                            ],
+                            "desc": "The waveform type of the wave.",
+                            "functionName": "SINE",
+                            "param": "waveform",
+                            "value": "sine"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Vector",
+                            "multiple": false,
+                            "desc": "Input that defines the x axis values of the function and output."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "x: the input v or x values\ny: the resulting sine function"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\SINE\\SINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -187.5062297012364,
+                    "y": -81.66926620838078
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -187.5062297012364,
+                    "y": -81.66926620838078
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "HEATMAP-7ee88731-534c-40c8-b1e0-57037a002be6",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "HEATMAP-7ee88731-534c-40c8-b1e0-57037a002be6",
+                    "label": "HEATMAP",
+                    "func": "HEATMAP",
+                    "type": "VISUALIZERS",
+                    "ctrls": {
+                        "show_text": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "functionName": "HEATMAP",
+                            "param": "show_text",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Matrix|DataFrame|Vector|OrderedTriple",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": null
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\HEATMAP\\HEATMAP.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -144.3068840079225,
+                    "y": -427.23516263075567
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -144.3068840079225,
+                    "y": -427.23516263075567
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "HEATMAP-7e870736-4e3f-4029-9fb7-d88497caae71",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "HEATMAP-7e870736-4e3f-4029-9fb7-d88497caae71",
+                    "label": "HEATMAP 1",
+                    "func": "HEATMAP",
+                    "type": "VISUALIZERS",
+                    "ctrls": {
+                        "show_text": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "functionName": "HEATMAP",
+                            "param": "show_text",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Matrix|DataFrame|Vector|OrderedTriple",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": null
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\HEATMAP\\HEATMAP.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 203.5463306644927,
+                    "y": 26.455026218052126
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 203.5463306644927,
+                    "y": 26.455026218052126
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "HEATMAP-3799d9d6-4dff-435c-812e-f33b097f90ce",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "HEATMAP-3799d9d6-4dff-435c-812e-f33b097f90ce",
+                    "label": "HEATMAP 2",
+                    "func": "HEATMAP",
+                    "type": "VISUALIZERS",
+                    "ctrls": {
+                        "show_text": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "functionName": "HEATMAP",
+                            "param": "show_text",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Matrix|DataFrame|Vector|OrderedTriple",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": null
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\HEATMAP\\HEATMAP.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 305.45933772616377,
+                    "y": 333.9110435250579
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 305.45933772616377,
+                    "y": 333.9110435250579
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "HEATMAP-d44cf026-d07a-46c3-9987-b06a1ff50299",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "HEATMAP-d44cf026-d07a-46c3-9987-b06a1ff50299",
+                    "label": "HEATMAP 3",
+                    "func": "HEATMAP",
+                    "type": "VISUALIZERS",
+                    "ctrls": {
+                        "show_text": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "functionName": "HEATMAP",
+                            "param": "show_text",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Matrix|DataFrame|Vector|OrderedTriple",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": null
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\HEATMAP\\HEATMAP.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 271.72577113683036,
+                    "y": -282.9912114021439
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 271.72577113683036,
+                    "y": -282.9912114021439
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "LINSPACE-1af859a4-45b3-4ded-b176-20aff091325f",
+                "sourceHandle": "default",
+                "target": "HEATMAP-7ee88731-534c-40c8-b1e0-57037a002be6",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINSPACE-1af859a4-45b3-4ded-b176-20aff091325fdefault-HEATMAP-7ee88731-534c-40c8-b1e0-57037a002be6default"
+            },
+            {
+                "source": "SINE-bab99ed9-69aa-4923-b765-169262716b1e",
+                "sourceHandle": "default",
+                "target": "HEATMAP-d44cf026-d07a-46c3-9987-b06a1ff50299",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SINE-bab99ed9-69aa-4923-b765-169262716b1edefault-HEATMAP-d44cf026-d07a-46c3-9987-b06a1ff50299default"
+            },
+            {
+                "source": "PLOTLY_DATASET-f232d46a-1d90-4f2b-a069-e51968ac8f1d",
+                "sourceHandle": "default",
+                "target": "DF_2_ORDERED_TRIPLE-96f9e5d5-918c-420a-9e73-73ece78bac60",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PLOTLY_DATASET-f232d46a-1d90-4f2b-a069-e51968ac8f1ddefault-DF_2_ORDERED_TRIPLE-96f9e5d5-918c-420a-9e73-73ece78bac60default"
+            },
+            {
+                "source": "LINSPACE-1af859a4-45b3-4ded-b176-20aff091325f",
+                "sourceHandle": "default",
+                "target": "SINE-bab99ed9-69aa-4923-b765-169262716b1e",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINSPACE-1af859a4-45b3-4ded-b176-20aff091325fdefault-SINE-bab99ed9-69aa-4923-b765-169262716b1edefault"
+            },
+            {
+                "source": "DF_2_ORDERED_TRIPLE-96f9e5d5-918c-420a-9e73-73ece78bac60",
+                "sourceHandle": "default",
+                "target": "HEATMAP-3799d9d6-4dff-435c-812e-f33b097f90ce",
+                "targetHandle": "default",
+                "id": "reactflow__edge-DF_2_ORDERED_TRIPLE-96f9e5d5-918c-420a-9e73-73ece78bac60default-HEATMAP-3799d9d6-4dff-435c-812e-f33b097f90cedefault"
+            },
+            {
+                "source": "PLOTLY_DATASET-f232d46a-1d90-4f2b-a069-e51968ac8f1d",
+                "sourceHandle": "default",
+                "target": "HEATMAP-7e870736-4e3f-4029-9fb7-d88497caae71",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PLOTLY_DATASET-f232d46a-1d90-4f2b-a069-e51968ac8f1ddefault-HEATMAP-7e870736-4e3f-4029-9fb7-d88497caae71default"
+            }
+        ],
+        "viewport": {
+            "x": 688.7902964004815,
+            "y": 260.4768364001233,
+            "zoom": 0.5523926457065711
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+        }
+    ]
+}

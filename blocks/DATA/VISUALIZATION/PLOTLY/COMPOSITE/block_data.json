@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "Inputs\n------\nprimary_trace : OrderedPair|DataFrame|Matrix|Vector\n    the DataContainer to be visualized as the first figure\n\nsecondary_trace : OrderedPair|DataFrame|Matrix|Vector\n    the DataContainer to be visualized as the second figure",
+    "short_description": "Create a combination of Plotly visualizations for a given input data container.",
+    "parameters": [
+      {
+        "name": "first_figure",
+        "type": "'bar' | 'line' | 'histogram' | 'scatter'",
+        "description": "plotly type to display as the first figure, default is 'scatter'"
+      },
+      {
+        "name": "second_figure",
+        "type": "'bar' | 'line' | 'histogram' | 'scatter'",
+        "description": "plotly type to display as the second figure, default is 'line'"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Plotly",
+        "description": "the DataContainer containing Plotly visualization of both figures"
+      }
+    ]
+  }
+}

@@ -1,0 +1,392 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CONNECT-8808f575-3a8c-4985-8744-a697ff79c40d",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "CONNECT-8808f575-3a8c-4985-8744-a697ff79c40d",
+                    "label": "CONNECT",
+                    "func": "CONNECT",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "ip_address": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "The IP address of the robot arm.",
+                            "overload": null,
+                            "functionName": "CONNECT",
+                            "param": "ip_address",
+                            "value": "192.168.0.100"
+                        },
+                        "simulator": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to activate the simulator or not. Defaults to False.",
+                            "overload": null,
+                            "functionName": "CONNECT",
+                            "param": "simulator",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The IP address of the robot arm, used in other Mecademic nodes to establish which arm they are communicating with."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "mecademicpy",
+                            "v": "1.4.0"
+                        }
+                    ],
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/CONNECT/CONNECT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -451.20434004901955,
+                    "y": -60.904869691378984
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -451.20434004901955,
+                    "y": -60.904869691378984
+                }
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "HOME-5de5f4dc-0f9a-422b-9291-676590b27f38",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "HOME-5de5f4dc-0f9a-422b-9291-676590b27f38",
+                    "label": "HOME",
+                    "func": "HOME",
+                    "type": "HARDWARE",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "ip_address",
+                            "id": "ip_address",
+                            "type": "String",
+                            "multiple": false,
+                            "desc": "The IP address of the robot arm."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The IP address of the robot arm."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "mecademicpy",
+                            "v": "1.4.0"
+                        }
+                    ],
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/HOME/HOME.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -67.52953161935635,
+                    "y": -57.67086561680469
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -67.52953161935635,
+                    "y": -57.67086561680469
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "DISCONNECT-270b52f0-d89b-4c0f-a0c4-71d9088bbdc8",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "DISCONNECT-270b52f0-d89b-4c0f-a0c4-71d9088bbdc8",
+                    "label": "DISCONNECT",
+                    "func": "DISCONNECT",
+                    "type": "HARDWARE",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "ip_address",
+                            "id": "ip_address",
+                            "type": "String",
+                            "multiple": false,
+                            "desc": "The IP address of the robot arm."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "mecademicpy",
+                            "v": "1.4.0"
+                        }
+                    ],
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/DISCONNECT/DISCONNECT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 959.789519687517,
+                    "y": -73.75356165646582
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 959.789519687517,
+                    "y": -73.75356165646582
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "SET_BLENDING-b95463e0-7098-48b1-94b5-c83e888a9b31",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "SET_BLENDING-b95463e0-7098-48b1-94b5-c83e888a9b31",
+                    "label": "SET BLENDING",
+                    "func": "SET_BLENDING",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "blending": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The blending factor to use when moving between keyframes. If not specified, the default value of 0.0 is used.",
+                            "overload": null,
+                            "functionName": "SET_BLENDING",
+                            "param": "blending",
+                            "value": 100
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "ip_address",
+                            "id": "ip_address",
+                            "type": "String",
+                            "multiple": false,
+                            "desc": "The IP address of the robot arm."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The IP address of the robot arm."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "mecademicpy",
+                            "v": "1.4.0"
+                        }
+                    ],
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/SET_BLENDING/SET_BLENDING.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 486.54012035181637,
+                    "y": -58.12541640325708
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 486.54012035181637,
+                    "y": -58.12541640325708
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "MOVE_CIRCLE-ec2687c5-86d1-4262-b67e-eedee5521e87",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "MOVE_CIRCLE-ec2687c5-86d1-4262-b67e-eedee5521e87",
+                    "label": "MOVE CIRCLE",
+                    "func": "MOVE_CIRCLE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "radius": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The radius of the circle. If not specified, the default value of 0.0 is used.",
+                            "overload": null,
+                            "functionName": "MOVE_CIRCLE",
+                            "param": "radius",
+                            "value": 10
+                        },
+                        "revolutions": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The number of revolutions to make. If not specified, the default value of 1.0 is used.",
+                            "overload": null,
+                            "functionName": "MOVE_CIRCLE",
+                            "param": "revolutions",
+                            "value": 5
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "ip_address",
+                            "id": "ip_address",
+                            "type": "String",
+                            "multiple": false,
+                            "desc": "The IP address of the robot arm."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The IP address of the robot arm."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "mecademicpy",
+                            "v": "1.4.0"
+                        }
+                    ],
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/MOVE_CIRCLE/MOVE_CIRCLE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 235.71478149653188,
+                    "y": -252.48278068414817
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 235.71478149653188,
+                    "y": -252.48278068414817
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "MOVE_CIRCLE-fe32aec8-d49c-4995-b494-dff990b7ecca",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "MOVE_CIRCLE-fe32aec8-d49c-4995-b494-dff990b7ecca",
+                    "label": "MOVE CIRCLE 1",
+                    "func": "MOVE_CIRCLE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "radius": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The radius of the circle. If not specified, the default value of 0.0 is used.",
+                            "overload": null,
+                            "functionName": "MOVE_CIRCLE",
+                            "param": "radius",
+                            "value": 10
+                        },
+                        "revolutions": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The number of revolutions to make. If not specified, the default value of 1.0 is used.",
+                            "overload": null,
+                            "functionName": "MOVE_CIRCLE",
+                            "param": "revolutions",
+                            "value": 5
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "ip_address",
+                            "id": "ip_address",
+                            "type": "String",
+                            "multiple": false,
+                            "desc": "The IP address of the robot arm."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The IP address of the robot arm."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "mecademicpy",
+                            "v": "1.4.0"
+                        }
+                    ],
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/MOVE_CIRCLE/MOVE_CIRCLE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 720.8725592925385,
+                    "y": 159.2921393872959
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 720.8725592925385,
+                    "y": 159.2921393872959
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "CONNECT-8808f575-3a8c-4985-8744-a697ff79c40d",
+                "sourceHandle": "default",
+                "target": "HOME-5de5f4dc-0f9a-422b-9291-676590b27f38",
+                "targetHandle": "ip_address",
+                "id": "reactflow__edge-CONNECT-8808f575-3a8c-4985-8744-a697ff79c40ddefault-HOME-5de5f4dc-0f9a-422b-9291-676590b27f38ip_address"
+            },
+            {
+                "source": "HOME-5de5f4dc-0f9a-422b-9291-676590b27f38",
+                "sourceHandle": "default",
+                "target": "MOVE_CIRCLE-ec2687c5-86d1-4262-b67e-eedee5521e87",
+                "targetHandle": "ip_address",
+                "id": "reactflow__edge-HOME-5de5f4dc-0f9a-422b-9291-676590b27f38default-MOVE_CIRCLE-ec2687c5-86d1-4262-b67e-eedee5521e87ip_address"
+            },
+            {
+                "source": "MOVE_CIRCLE-ec2687c5-86d1-4262-b67e-eedee5521e87",
+                "sourceHandle": "default",
+                "target": "SET_BLENDING-b95463e0-7098-48b1-94b5-c83e888a9b31",
+                "targetHandle": "ip_address",
+                "id": "reactflow__edge-MOVE_CIRCLE-ec2687c5-86d1-4262-b67e-eedee5521e87default-SET_BLENDING-b95463e0-7098-48b1-94b5-c83e888a9b31ip_address"
+            },
+            {
+                "source": "SET_BLENDING-b95463e0-7098-48b1-94b5-c83e888a9b31",
+                "sourceHandle": "default",
+                "target": "MOVE_CIRCLE-fe32aec8-d49c-4995-b494-dff990b7ecca",
+                "targetHandle": "ip_address",
+                "id": "reactflow__edge-SET_BLENDING-b95463e0-7098-48b1-94b5-c83e888a9b31default-MOVE_CIRCLE-fe32aec8-d49c-4995-b494-dff990b7eccaip_address"
+            },
+            {
+                "source": "MOVE_CIRCLE-fe32aec8-d49c-4995-b494-dff990b7ecca",
+                "sourceHandle": "default",
+                "target": "DISCONNECT-270b52f0-d89b-4c0f-a0c4-71d9088bbdc8",
+                "targetHandle": "ip_address",
+                "id": "reactflow__edge-MOVE_CIRCLE-fe32aec8-d49c-4995-b494-dff990b7eccadefault-DISCONNECT-270b52f0-d89b-4c0f-a0c4-71d9088bbdc8ip_address"
+            }
+        ],
+        "viewport": {
+            "x": 828.0110268252124,
+            "y": 536.5928265048133,
+            "zoom": 0.8332097522012074
+        }
+    },
+    "textNodes": []
+}

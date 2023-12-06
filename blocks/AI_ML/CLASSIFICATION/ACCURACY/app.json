@@ -1,0 +1,548 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 150,
+                "height": 150,
+                "id": "READ_CSV-efb0cda7-2730-4aa9-ad47-153aabbab38f",
+                "type": "EXTRACTORS",
+                "data": {
+                    "id": "READ_CSV-efb0cda7-2730-4aa9-ad47-153aabbab38f",
+                    "label": "READ CSV",
+                    "func": "READ_CSV",
+                    "type": "EXTRACTORS",
+                    "ctrls": {
+                        "file_path": {
+                            "type": "str",
+                            "default": "https://raw.githubusercontent.com/cs109/2014_data/master/countries.csv",
+                            "functionName": "READ_CSV",
+                            "param": "file_path",
+                            "value": "./PYTHON/nodes/EXTRACTORS/FILE/READ_CSV/assets/iris_train.csv"
+                        }
+                    },
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/EXTRACTORS/FILE/READ_CSV/READ_CSV.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 809.671020177502,
+                    "y": 222.07629603230282
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 809.671020177502,
+                    "y": 222.07629603230282
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 150,
+                "id": "READ_CSV-d92e3586-c0c0-4ebd-9713-02916b36e7b6",
+                "type": "EXTRACTORS",
+                "data": {
+                    "id": "READ_CSV-d92e3586-c0c0-4ebd-9713-02916b36e7b6",
+                    "label": "READ CSV 1",
+                    "func": "READ_CSV",
+                    "type": "EXTRACTORS",
+                    "ctrls": {
+                        "file_path": {
+                            "type": "str",
+                            "default": "https://raw.githubusercontent.com/cs109/2014_data/master/countries.csv",
+                            "functionName": "READ_CSV",
+                            "param": "file_path",
+                            "value": "./PYTHON/nodes/EXTRACTORS/FILE/READ_CSV/assets/iris_test.csv"
+                        }
+                    },
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/EXTRACTORS/FILE/READ_CSV/READ_CSV.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 804.9503287192058,
+                    "y": 628.7258310071566
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 804.9503287192058,
+                    "y": 628.7258310071566
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 150,
+                "id": "EXTRACT_COLUMNS-957fd785-5d26-4a46-8f38-3060768f5e0c",
+                "type": "EXTRACTORS",
+                "data": {
+                    "id": "EXTRACT_COLUMNS-957fd785-5d26-4a46-8f38-3060768f5e0c",
+                    "label": "EXTRACT COLUMNS",
+                    "func": "EXTRACT_COLUMNS",
+                    "type": "EXTRACTORS",
+                    "ctrls": {
+                        "columns": {
+                            "type": "Array",
+                            "default": null,
+                            "functionName": "EXTRACT_COLUMNS",
+                            "param": "columns",
+                            "value": "sepal_length,sepal_width,petal_length,petal_width"
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/EXTRACTORS/EXTRACT_COLUMNS/EXTRACT_COLUMNS/EXTRACT_COLUMNS.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1263.9384521195566,
+                    "y": 121.29660973664375
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1263.9384521195566,
+                    "y": 121.29660973664375
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 150,
+                "id": "EXTRACT_COLUMNS-a11a9de2-476a-40d1-99e2-5abd3d1f38fc",
+                "type": "EXTRACTORS",
+                "data": {
+                    "id": "EXTRACT_COLUMNS-a11a9de2-476a-40d1-99e2-5abd3d1f38fc",
+                    "label": "EXTRACT COLUMNS 1",
+                    "func": "EXTRACT_COLUMNS",
+                    "type": "EXTRACTORS",
+                    "ctrls": {
+                        "columns": {
+                            "type": "Array",
+                            "default": null,
+                            "functionName": "EXTRACT_COLUMNS",
+                            "param": "columns",
+                            "value": "variety"
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/EXTRACTORS/EXTRACT_COLUMNS/EXTRACT_COLUMNS/EXTRACT_COLUMNS.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1271.165545753499,
+                    "y": 397.54647293978513
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1271.165545753499,
+                    "y": 397.54647293978513
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 150,
+                "id": "EXTRACT_COLUMNS-65b1438d-f76e-4151-90cc-6b0a0c2698b0",
+                "type": "EXTRACTORS",
+                "data": {
+                    "id": "EXTRACT_COLUMNS-65b1438d-f76e-4151-90cc-6b0a0c2698b0",
+                    "label": "EXTRACT COLUMNS 2",
+                    "func": "EXTRACT_COLUMNS",
+                    "type": "EXTRACTORS",
+                    "ctrls": {
+                        "columns": {
+                            "type": "Array",
+                            "default": null,
+                            "functionName": "EXTRACT_COLUMNS",
+                            "param": "columns",
+                            "value": "sepal_length,sepal_width,petal_length,petal_width"
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/EXTRACTORS/EXTRACT_COLUMNS/EXTRACT_COLUMNS/EXTRACT_COLUMNS.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1277.7363475814786,
+                    "y": 601.6703032521995
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1277.7363475814786,
+                    "y": 601.6703032521995
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 150,
+                "id": "EXTRACT_COLUMNS-8ff329af-40f4-4efc-bb12-5d10a7fde800",
+                "type": "EXTRACTORS",
+                "data": {
+                    "id": "EXTRACT_COLUMNS-8ff329af-40f4-4efc-bb12-5d10a7fde800",
+                    "label": "EXTRACT COLUMNS 3",
+                    "func": "EXTRACT_COLUMNS",
+                    "type": "EXTRACTORS",
+                    "ctrls": {
+                        "columns": {
+                            "type": "Array",
+                            "default": null,
+                            "functionName": "EXTRACT_COLUMNS",
+                            "param": "columns",
+                            "value": "variety"
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/EXTRACTORS/EXTRACT_COLUMNS/EXTRACT_COLUMNS/EXTRACT_COLUMNS.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1286.2656908175936,
+                    "y": 789.356865414031
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1286.2656908175936,
+                    "y": 789.356865414031
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 150,
+                "id": "SUPPORT_VECTOR_MACHINE-6d59b4fc-d2d2-4dbc-956e-6818cec198d4",
+                "type": "AI_ML",
+                "data": {
+                    "id": "SUPPORT_VECTOR_MACHINE-6d59b4fc-d2d2-4dbc-956e-6818cec198d4",
+                    "label": "SUPPORT VECTOR MACHINE",
+                    "func": "SUPPORT_VECTOR_MACHINE",
+                    "type": "AI_ML",
+                    "ctrls": {
+                        "kernel": {
+                            "type": "select",
+                            "default": "linear",
+                            "options": [
+                                "linear",
+                                "poly",
+                                "rbf",
+                                "sigmoid",
+                                "precomputed"
+                            ],
+                            "functionName": "SUPPORT_VECTOR_MACHINE",
+                            "param": "kernel",
+                            "value": "linear"
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "train_feature",
+                            "id": "train_feature",
+                            "type": "DataFrame|Matrix",
+                            "multiple": false
+                        },
+                        {
+                            "name": "train_label",
+                            "id": "train_label",
+                            "type": "DataFrame|Matrix",
+                            "multiple": false
+                        },
+                        {
+                            "name": "input_data",
+                            "id": "input_data",
+                            "type": "DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "scikit-learn",
+                            "v": "1.2.2"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/AI_ML/CLASSIFICATION/SUPPORT_VECTOR_MACHINE/SUPPORT_VECTOR_MACHINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1896.9382856994248,
+                    "y": 282.7469238906283
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1896.9382856994248,
+                    "y": 282.7469238906283
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 150,
+                "id": "ACCURACY-b375ef9d-2c74-4f73-88d8-717c020422e4",
+                "type": "AI_ML",
+                "data": {
+                    "id": "ACCURACY-b375ef9d-2c74-4f73-88d8-717c020422e4",
+                    "label": "ACCURACY",
+                    "func": "ACCURACY",
+                    "type": "AI_ML",
+                    "ctrls": {
+                        "true_label": {
+                            "type": "str",
+                            "default": null,
+                            "functionName": "ACCURACY",
+                            "param": "true_label",
+                            "value": ""
+                        },
+                        "predicted_label": {
+                            "type": "str",
+                            "default": null,
+                            "functionName": "ACCURACY",
+                            "param": "predicted_label",
+                            "value": ""
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "true_data",
+                            "id": "true_data",
+                            "type": "DataFrame",
+                            "multiple": false
+                        },
+                        {
+                            "name": "predicted_data",
+                            "id": "predicted_data",
+                            "type": "DataFrame",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/AI_ML/CLASSIFICATION/ACCURACY/ACCURACY.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 2253.472526811098,
+                    "y": 362.2715825149083
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 2253.472526811098,
+                    "y": 362.2715825149083
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "TABLE-22193775-285f-4b58-93b5-9a8260454424",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TABLE-22193775-285f-4b58-93b5-9a8260454424",
+                    "label": "TABLE",
+                    "func": "TABLE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 2649.9417965837397,
+                    "y": 316.6433733865691
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 2649.9417965837397,
+                    "y": 316.6433733865691
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "READ_CSV-efb0cda7-2730-4aa9-ad47-153aabbab38f",
+                "sourceHandle": "default",
+                "target": "EXTRACT_COLUMNS-957fd785-5d26-4a46-8f38-3060768f5e0c",
+                "targetHandle": "default",
+                "id": "reactflow__edge-READ_CSV-efb0cda7-2730-4aa9-ad47-153aabbab38fdefault-EXTRACT_COLUMNS-957fd785-5d26-4a46-8f38-3060768f5e0cdefault"
+            },
+            {
+                "source": "READ_CSV-efb0cda7-2730-4aa9-ad47-153aabbab38f",
+                "sourceHandle": "default",
+                "target": "EXTRACT_COLUMNS-a11a9de2-476a-40d1-99e2-5abd3d1f38fc",
+                "targetHandle": "default",
+                "id": "reactflow__edge-READ_CSV-efb0cda7-2730-4aa9-ad47-153aabbab38fdefault-EXTRACT_COLUMNS-a11a9de2-476a-40d1-99e2-5abd3d1f38fcdefault"
+            },
+            {
+                "source": "READ_CSV-d92e3586-c0c0-4ebd-9713-02916b36e7b6",
+                "sourceHandle": "default",
+                "target": "EXTRACT_COLUMNS-65b1438d-f76e-4151-90cc-6b0a0c2698b0",
+                "targetHandle": "default",
+                "id": "reactflow__edge-READ_CSV-d92e3586-c0c0-4ebd-9713-02916b36e7b6default-EXTRACT_COLUMNS-65b1438d-f76e-4151-90cc-6b0a0c2698b0default"
+            },
+            {
+                "source": "READ_CSV-d92e3586-c0c0-4ebd-9713-02916b36e7b6",
+                "sourceHandle": "default",
+                "target": "EXTRACT_COLUMNS-8ff329af-40f4-4efc-bb12-5d10a7fde800",
+                "targetHandle": "default",
+                "id": "reactflow__edge-READ_CSV-d92e3586-c0c0-4ebd-9713-02916b36e7b6default-EXTRACT_COLUMNS-8ff329af-40f4-4efc-bb12-5d10a7fde800default"
+            },
+            {
+                "source": "EXTRACT_COLUMNS-957fd785-5d26-4a46-8f38-3060768f5e0c",
+                "sourceHandle": "default",
+                "target": "SUPPORT_VECTOR_MACHINE-6d59b4fc-d2d2-4dbc-956e-6818cec198d4",
+                "targetHandle": "train_feature",
+                "id": "reactflow__edge-EXTRACT_COLUMNS-957fd785-5d26-4a46-8f38-3060768f5e0cdefault-SUPPORT_VECTOR_MACHINE-6d59b4fc-d2d2-4dbc-956e-6818cec198d4train_feature"
+            },
+            {
+                "source": "EXTRACT_COLUMNS-a11a9de2-476a-40d1-99e2-5abd3d1f38fc",
+                "sourceHandle": "default",
+                "target": "SUPPORT_VECTOR_MACHINE-6d59b4fc-d2d2-4dbc-956e-6818cec198d4",
+                "targetHandle": "train_label",
+                "id": "reactflow__edge-EXTRACT_COLUMNS-a11a9de2-476a-40d1-99e2-5abd3d1f38fcdefault-SUPPORT_VECTOR_MACHINE-6d59b4fc-d2d2-4dbc-956e-6818cec198d4train_label"
+            },
+            {
+                "source": "EXTRACT_COLUMNS-65b1438d-f76e-4151-90cc-6b0a0c2698b0",
+                "sourceHandle": "default",
+                "target": "SUPPORT_VECTOR_MACHINE-6d59b4fc-d2d2-4dbc-956e-6818cec198d4",
+                "targetHandle": "input_data",
+                "id": "reactflow__edge-EXTRACT_COLUMNS-65b1438d-f76e-4151-90cc-6b0a0c2698b0default-SUPPORT_VECTOR_MACHINE-6d59b4fc-d2d2-4dbc-956e-6818cec198d4input_data"
+            },
+            {
+                "source": "EXTRACT_COLUMNS-8ff329af-40f4-4efc-bb12-5d10a7fde800",
+                "sourceHandle": "default",
+                "target": "ACCURACY-b375ef9d-2c74-4f73-88d8-717c020422e4",
+                "targetHandle": "predicted_data",
+                "id": "reactflow__edge-EXTRACT_COLUMNS-8ff329af-40f4-4efc-bb12-5d10a7fde800default-ACCURACY-b375ef9d-2c74-4f73-88d8-717c020422e4predicted_data"
+            },
+            {
+                "source": "SUPPORT_VECTOR_MACHINE-6d59b4fc-d2d2-4dbc-956e-6818cec198d4",
+                "sourceHandle": "default",
+                "target": "ACCURACY-b375ef9d-2c74-4f73-88d8-717c020422e4",
+                "targetHandle": "true_data",
+                "id": "reactflow__edge-SUPPORT_VECTOR_MACHINE-6d59b4fc-d2d2-4dbc-956e-6818cec198d4default-ACCURACY-b375ef9d-2c74-4f73-88d8-717c020422e4true_data"
+            },
+            {
+                "source": "ACCURACY-b375ef9d-2c74-4f73-88d8-717c020422e4",
+                "sourceHandle": "default",
+                "target": "TABLE-22193775-285f-4b58-93b5-9a8260454424",
+                "targetHandle": "default",
+                "id": "reactflow__edge-ACCURACY-b375ef9d-2c74-4f73-88d8-717c020422e4default-TABLE-22193775-285f-4b58-93b5-9a8260454424default"
+            }
+        ],
+        "viewport": {
+            "x": -456.37712173371256,
+            "y": 259.03077225262325,
+            "zoom": 1.3466637668169514
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+        }
+    ]
+}

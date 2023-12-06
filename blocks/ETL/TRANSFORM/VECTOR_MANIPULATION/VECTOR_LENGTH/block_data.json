@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "The VECTOR_LENGTH node returns the length of the input vector.",
+    "parameters": [
+      {
+        "name": "v",
+        "type": "Vector",
+        "description": "The input vector to find the length of."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Scalar",
+        "description": "The length of the input vector."
+      }
+    ]
+  }
+}

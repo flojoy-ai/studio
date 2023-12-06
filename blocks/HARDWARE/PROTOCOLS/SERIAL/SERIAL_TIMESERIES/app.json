@@ -1,0 +1,154 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 150,
+                "height": 150,
+                "id": "SERIAL_TIMESERIES-d9520c8e-120d-488b-a042-dac8b39b294c",
+                "type": "INSTRUMENTS",
+                "data": {
+                    "id": "SERIAL_TIMESERIES-d9520c8e-120d-488b-a042-dac8b39b294c",
+                    "label": "SERIAL TIMESERIES",
+                    "func": "SERIAL_TIMESERIES",
+                    "type": "INSTRUMENTS",
+                    "ctrls": {
+                        "comport": {
+                            "type": "str",
+                            "default": "/dev/ttyUSB0",
+                            "functionName": "SERIAL_TIMESERIES",
+                            "param": "comport",
+                            "value": "/dev/ttyUSB0"
+                        },
+                        "baudrate": {
+                            "type": "int",
+                            "default": 9600,
+                            "functionName": "SERIAL_TIMESERIES",
+                            "param": "baudrate",
+                            "value": 9600
+                        },
+                        "num_readings": {
+                            "type": "int",
+                            "default": 100,
+                            "functionName": "SERIAL_TIMESERIES",
+                            "param": "num_readings",
+                            "value": 100
+                        },
+                        "record_period": {
+                            "type": "int",
+                            "default": 1,
+                            "functionName": "SERIAL_TIMESERIES",
+                            "param": "record_period",
+                            "value": 1
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "pyserial",
+                            "v": "3.5"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/INSTRUMENTS/SERIAL/SERIAL_TIMESERIES/SERIAL_TIMESERIES.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 353.0843053074072,
+                    "y": 1.629899261204912
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 353.0843053074072,
+                    "y": 1.629899261204912
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 226,
+                "id": "TABLE-e0ba3b06-fcc8-40a5-bb12-14370fe009e9",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TABLE-e0ba3b06-fcc8-40a5-bb12-14370fe009e9",
+                    "label": "TABLE",
+                    "func": "TABLE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 815.4592095712483,
+                    "y": -29.91266050320587
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 815.4592095712483,
+                    "y": -29.91266050320587
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "SERIAL_TIMESERIES-d9520c8e-120d-488b-a042-dac8b39b294c",
+                "sourceHandle": "default",
+                "target": "TABLE-e0ba3b06-fcc8-40a5-bb12-14370fe009e9",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SERIAL_TIMESERIES-d9520c8e-120d-488b-a042-dac8b39b294cdefault-TABLE-e0ba3b06-fcc8-40a5-bb12-14370fe009e9default"
+            }
+        ],
+        "viewport": {
+            "x": -358.59636577932724,
+            "y": 99.85117439980638,
+            "zoom": 1.0581352782820395
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+           }
+    ]
+}         

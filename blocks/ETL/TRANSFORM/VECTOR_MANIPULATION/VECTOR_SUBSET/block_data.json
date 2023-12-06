@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "Inputs\n------\nv : Vector\n    The input vector to return subset of values from",
+    "short_description": "The VECTOR_SUBSET node returns the subset of values from requested indices",
+    "parameters": [
+      {
+        "name": "indices",
+        "type": "Array",
+        "description": "specified indices to extract values at from the input vector"
+      },
+      {
+        "name": "length",
+        "type": "int",
+        "description": "number of elements to extract from the input vector, default is 1 (this only applies when one index is specified for indices parameter)"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Vector",
+        "description": "The new vector with subset of elements extracted from the input vector"
+      }
+    ]
+  }
+}

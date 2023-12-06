@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Infer the type of an array-like DataContainer, then convert it to a DataFrame DataContainer'.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "DataContainer",
+        "description": "The input numpy array which we apply the conversion to."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataFrame",
+        "description": "The dataframe result from the conversion of the input."
+      }
+    ]
+  }
+}

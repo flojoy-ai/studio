@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "Must use the TEXT_VIEW block to view the text.",
+    "short_description": "Return a String containing the input DataContainer type (e.g. Vector).",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "DataContainer",
+        "description": "The input DataContainer to check the type."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "String: Input DataContainer type"
+      }
+    ]
+  }
+}

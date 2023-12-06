@@ -1,0 +1,1 @@
+This example shows the function of the `CHANNEL_SPLIT` node. This node takes an image and splits it into RGBA (Red Green Blue Alpha) layers (or channels).

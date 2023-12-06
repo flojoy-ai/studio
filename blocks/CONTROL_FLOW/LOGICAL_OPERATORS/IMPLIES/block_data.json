@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "x implies y",
+    "short_description": "Takes two boolean data type and computs logical IMPLIES operation on them.",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "Boolean",
+        "description": "The input boolean to which we apply the IMPLIES operation."
+      },
+      {
+        "name": "y",
+        "type": "Boolean",
+        "description": "The input boolean to which we apply the IMPLIES operation."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Boolean",
+        "description": "The boolean result from the operation of the inputs."
+      }
+    ]
+  }
+}

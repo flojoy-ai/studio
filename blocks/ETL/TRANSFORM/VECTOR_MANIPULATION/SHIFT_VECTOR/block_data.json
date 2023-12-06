@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "Inputs\n------\nv : Vector\n    The input vector to shift elements from",
+    "short_description": "The SHIFT_VECTOR node shifts the elements in the vector by the amount specified",
+    "parameters": [
+      {
+        "name": "shift",
+        "type": "int",
+        "description": "the number of places in which elements are moved (negative values will shift them to the left)"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Vector",
+        "description": "The new vector with elements shifted"
+      }
+    ]
+  }
+}

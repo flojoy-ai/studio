@@ -1,0 +1,27 @@
+{
+  "docstring": {
+    "long_description": "The trace is defined by the x and y limits as seen on the instrument.\n\nRequires a CONNECTION_DS1074Z block at the start of the app to connect with\nthe instrument. The VISA address will then be listed under 'connection'.\n\nThis block should also work with compatible DS1000Z oscilloscopes",
+    "short_description": "Extracts the trace from an DS1074Z oscilloscope.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_DS1074Z block)."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "OrderedPair",
+        "description": "The trace of the oscilloscope."
+      }
+    ]
+  },
+  "videos": [
+    {
+      "title": "Control DS1000Z oscilloscope with Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=Bl0DrvaOtgI"
+    }
+  ]
+}

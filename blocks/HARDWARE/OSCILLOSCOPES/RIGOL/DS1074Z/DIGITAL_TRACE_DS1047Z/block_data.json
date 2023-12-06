@@ -1,0 +1,42 @@
+{
+  "docstring": {
+    "long_description": "Requires a CONNECTION_DS1074Z node at the start of the app to connect with\nthe instrument. The VISA address will then be listed under 'connection'.\n\nThis node should also work with compatible DS1000Z oscilloscopes",
+    "short_description": "Extracts a traces from one of the digital channels (e.g D0).",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_DS1074Z node)."
+      },
+      {
+        "name": "channel",
+        "type": "int",
+        "description": "Set the triggering channel, from 0-15."
+      },
+      {
+        "name": "level",
+        "type": "float",
+        "description": "The triggering level, in V."
+      },
+      {
+        "name": "slope",
+        "type": "select",
+        "description": "Which slope to detect the triggering time on."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "String: summary of channel settings."
+      }
+    ]
+  },
+  "videos": [
+    {
+      "title": "Digital Signals Oscilloscope",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=0KqU-XWji9k"
+    }
+  ]
+}

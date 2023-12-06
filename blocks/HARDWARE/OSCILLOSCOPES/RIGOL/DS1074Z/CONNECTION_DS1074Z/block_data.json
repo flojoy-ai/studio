@@ -1,0 +1,27 @@
+{
+  "docstring": {
+    "long_description": "The connection is made with the VISA address in the Flojoy UI.\nThis block should also work with compatible DS1000Z oscilloscopes",
+    "short_description": "Connect Flojoy to a DS1074Z oscilloscope.",
+    "parameters": [
+      {
+        "name": "device",
+        "type": "VisaDevice",
+        "description": "The VISA address to connect to."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "None"
+      }
+    ]
+  },
+  "videos": [
+    {
+      "title": "Digital Signals Oscilloscope",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=0KqU-XWji9k"
+    }
+  ]
+}

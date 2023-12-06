@@ -1,0 +1,45 @@
+{
+  "docstring": {
+    "long_description": "The description of that function is as follows:\n\n    Test whether the skewness is different from the normal distribution.\n\n    This function tests the null hypothesis that the skewness of the population that the sample was drawn from is the same as that of a corresponding normal distribution.",
+    "short_description": "The SKEWTEST node is based on a numpy or scipy function.",
+    "parameters": [
+      {
+        "name": "select_return",
+        "type": "'statistic', 'pvalue'",
+        "description": "Select the desired object to return.\nSee the respective function docs for descriptors."
+      },
+      {
+        "name": "a",
+        "type": "array",
+        "description": "The data to be tested."
+      },
+      {
+        "name": "axis",
+        "type": "int or None",
+        "description": "Axis along which statistics are calculated.\nDefault is 0.\nIf None, compute over the whole array 'a'."
+      },
+      {
+        "name": "nan_policy",
+        "type": "{'propagate', 'raise', 'omit'}",
+        "description": "Defines how to handle when input contains nan.\nThe following options are available (default is 'propagate'):\n'propagate' : returns nan\n'raise' : throws an error\n'omit' : performs the calculations ignoring nan values"
+      },
+      {
+        "name": "alternative",
+        "type": "{'two-sided', 'less', 'greater'}",
+        "description": "Defines the alternative hypothesis.\nDefault is 'two-sided'.\nThe following options are available:\n'two-sided' : the skewness of the distribution underlying the sample\nis different from that of the normal distribution (i.e. 0)\n'less' : the skewness of the distribution underlying the sample\nis less than that of the normal distribution\n'greater' : the skewness of the distribution underlying the sample\nis greater than that of the normal distribution"
+      },
+      {
+        "name": ".. versionadded",
+        "type": ": 1.7.0",
+        "description": null
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "type 'ordered pair', 'scalar', or 'matrix'"
+      }
+    ]
+  }
+}

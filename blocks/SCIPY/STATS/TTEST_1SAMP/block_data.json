@@ -1,0 +1,50 @@
+{
+  "docstring": {
+    "long_description": "The description of that function is as follows:\n\n    Calculate the T-test for the mean of ONE group of scores.\n\n    This is a test for the null hypothesis that the expected value (mean) of a sample of independent observations 'a' is equal to the given population mean, 'popmean'.",
+    "short_description": "The TTEST_1SAMP node is based on a numpy or scipy function.",
+    "parameters": [
+      {
+        "name": "select_return",
+        "type": "'statistic', 'pvalue'",
+        "description": "Select the desired object to return.\nSee the respective function docs for descriptors."
+      },
+      {
+        "name": "a",
+        "type": "array_like",
+        "description": "Sample observation."
+      },
+      {
+        "name": "popmean",
+        "type": "float or array_like",
+        "description": "Expected value in null hypothesis.\nIf array_like, then it must have the same shape as 'a' excluding the axis dimension."
+      },
+      {
+        "name": "axis",
+        "type": "int or None",
+        "description": "Axis along which to compute test.\nDefault is 0.\nIf None, compute over the whole array 'a'."
+      },
+      {
+        "name": "nan_policy",
+        "type": "{'propagate', 'raise', 'omit'}",
+        "description": "Defines how to handle when input contains nan.\nThe following options are available (default is 'propagate'):\n'propagate' : returns nan\n'raise' : raises an error\n'omit' : performs the calculations ignoring nan values"
+      },
+      {
+        "name": "alternative",
+        "type": "{'two-sided', 'less', 'greater'}",
+        "description": "Defines the alternative hypothesis.\nThe following options are available (default is 'two-sided'):\n'two-sided' : the mean of the underlying distribution of the sample\nis different than the given population mean (`popmean`)\n'less' : the mean of the underlying distribution of the sample is\nless than the given population mean (`popmean`)\n'greater' : the mean of the underlying distribution of the sample is\ngreater than the given population mean (`popmean`)"
+      },
+      {
+        "name": ".. versionadded",
+        "type": ": 1.6.0",
+        "description": null
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "type 'ordered pair', 'scalar', or 'matrix'"
+      }
+    ]
+  }
+}

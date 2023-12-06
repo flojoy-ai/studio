@@ -1,0 +1,266 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 150,
+                "height": 180,
+                "id": "SKIMAGE-874fdd2b-fea5-4dc6-8898-2905d070aca8",
+                "type": "default",
+                "data": {
+                    "id": "SKIMAGE-874fdd2b-fea5-4dc6-8898-2905d070aca8",
+                    "label": "SKIMAGE",
+                    "func": "SKIMAGE",
+                    "type": "default",
+                    "ctrls": {
+                        "img_key": {
+                            "type": "select",
+                            "default": null,
+                            "options": [
+                                "astronaut",
+                                "binary_blobs",
+                                "brain",
+                                "brick",
+                                "camera",
+                                "cat",
+                                "cell",
+                                "cells3d",
+                                "checkerboard",
+                                "chelsea",
+                                "clock",
+                                "coffee",
+                                "coins",
+                                "colorwheel",
+                                "create_image_fetcher",
+                                "data_dir",
+                                "download_all",
+                                "eagle",
+                                "file_hash",
+                                "grass",
+                                "gravel",
+                                "horse",
+                                "hubble_deep_field",
+                                "human_mitosis",
+                                "image_fetcher",
+                                "immunohistochemistry",
+                                "kidney",
+                                "lbp_frontal_face_cascade_filename",
+                                "lfw_subset",
+                                "lily",
+                                "logo",
+                                "microaneurysms",
+                                "moon",
+                                "nickel_solidification",
+                                "page",
+                                "protein_transport",
+                                "retina",
+                                "rocket",
+                                "shepp_logan_phantom",
+                                "skin",
+                                "stereo_motorcycle",
+                                "text",
+                                "vortex"
+                            ],
+                            "functionName": "SKIMAGE",
+                            "param": "img_key",
+                            "value": "astronaut"
+                        }
+                    },
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SAMPLE_IMAGES/SKIMAGE/SKIMAGE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 210.34307729224753,
+                    "y": 18.719023756686905
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 210.34307729224753,
+                    "y": 18.719023756686905
+                }
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "IMAGE-455a09f6-8f20-4087-ab60-9f01c1b2427c",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "IMAGE-455a09f6-8f20-4087-ab60-9f01c1b2427c",
+                    "label": "IMAGE",
+                    "func": "IMAGE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 940.0318111970437,
+                    "y": 255.64889946924262
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 940.0318111970437,
+                    "y": 255.64889946924262
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "IMAGE-135a920b-87fa-4759-bfca-0b6ad739b406",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "IMAGE-135a920b-87fa-4759-bfca-0b6ad739b406",
+                    "label": "IMAGE 1",
+                    "func": "IMAGE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 463.2797046471253,
+                    "y": 253.34979215719778
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 463.2797046471253,
+                    "y": 253.34979215719778
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "OBJECT_DETECTION-3951b332-4786-4fa9-a456-2aaf2051e727",
+                "type": "AI_ML",
+                "data": {
+                    "id": "OBJECT_DETECTION-3951b332-4786-4fa9-a456-2aaf2051e727",
+                    "label": "OBJECT DETECTION",
+                    "func": "OBJECT_DETECTION",
+                    "type": "AI_ML",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "desc": null
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "opencv-python-headless",
+                            "v": "4.7.0.72"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\AI_ML\\OBJECT_DETECTION\\OBJECT_DETECTION\\OBJECT_DETECTION.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 629.5183623970019,
+                    "y": 23.297675484020942
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 629.5183623970019,
+                    "y": 23.297675484020942
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "SKIMAGE-874fdd2b-fea5-4dc6-8898-2905d070aca8",
+                "sourceHandle": "default",
+                "target": "IMAGE-135a920b-87fa-4759-bfca-0b6ad739b406",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SKIMAGE-874fdd2b-fea5-4dc6-8898-2905d070aca8default-IMAGE-135a920b-87fa-4759-bfca-0b6ad739b406default"
+            },
+            {
+                "source": "SKIMAGE-874fdd2b-fea5-4dc6-8898-2905d070aca8",
+                "sourceHandle": "default",
+                "target": "OBJECT_DETECTION-3951b332-4786-4fa9-a456-2aaf2051e727",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SKIMAGE-874fdd2b-fea5-4dc6-8898-2905d070aca8default-OBJECT_DETECTION-3951b332-4786-4fa9-a456-2aaf2051e727default"
+            },
+            {
+                "source": "OBJECT_DETECTION-3951b332-4786-4fa9-a456-2aaf2051e727",
+                "sourceHandle": "default",
+                "target": "IMAGE-455a09f6-8f20-4087-ab60-9f01c1b2427c",
+                "targetHandle": "default",
+                "id": "reactflow__edge-OBJECT_DETECTION-3951b332-4786-4fa9-a456-2aaf2051e727default-IMAGE-455a09f6-8f20-4087-ab60-9f01c1b2427cdefault"
+            }
+        ],
+        "viewport": {
+            "x": 688.7902964004815,
+            "y": 260.4768364001233,
+            "zoom": 0.5523926457065711
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+        }
+    ]
+}

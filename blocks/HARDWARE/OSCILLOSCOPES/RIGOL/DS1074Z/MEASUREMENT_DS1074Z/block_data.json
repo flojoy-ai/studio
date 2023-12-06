@@ -1,0 +1,42 @@
+{
+  "docstring": {
+    "long_description": "Also available are statistics for the measurement such as average and max.\nSee the docs page for information on each measurement.\n\nTODO: add link to docs page\n\nTODO: ADV_MEASUREMENT block + reference to it here\n\nRequires a CONNECTION_DS1074Z block at the start of the app to connect with\nthe instrument. The VISA address will then be listed under 'connection'.\n\nThis block should also work with compatible DS1000Z oscilloscopes",
+    "short_description": "Extract waveform measurements from a DS1074Z oscilloscope.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_DS1074Z block)."
+      },
+      {
+        "name": "channel",
+        "type": "select",
+        "description": "The channel to measure."
+      },
+      {
+        "name": "measurement",
+        "type": "select",
+        "description": "The measurement to extract."
+      },
+      {
+        "name": "stat",
+        "type": "select",
+        "description": "The statistic to use (e.g. CURR=instant measurement, AVER=average)."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Scalar",
+        "description": "The extracted measurement."
+      }
+    ]
+  },
+  "videos": [
+    {
+      "title": "Control DS1000Z oscilloscope with Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=Bl0DrvaOtgI"
+    }
+  ]
+}

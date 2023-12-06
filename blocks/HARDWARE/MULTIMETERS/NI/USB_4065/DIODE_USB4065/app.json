@@ -1,0 +1,594 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CONNECTION_USB4065-33140410-b4f4-4e67-8613-7559b997c8e1",
+                "type": "IO",
+                "data": {
+                    "id": "CONNECTION_USB4065-33140410-b4f4-4e67-8613-7559b997c8e1",
+                    "label": "CONNECTION USB4065",
+                    "func": "CONNECTION_USB4065",
+                    "type": "IO",
+                    "ctrls": {
+                        "NI_address": {
+                            "type": "str",
+                            "default": "Dev1",
+                            "desc": "The NI instrument address for the instrument (e.g. 'Dev0', 'Dev1').",
+                            "overload": null,
+                            "functionName": "CONNECTION_USB4065",
+                            "param": "NI_address",
+                            "value": "Dev1"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "Optional: None"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "nidmm",
+                            "v": "1.4.6"
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/MULTIMETERS/NI/USB_4065/BASIC/CONNECTION_USB4065/CONNECTION_USB4065.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -407.4314234630916,
+                    "y": -63.38316705720263
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -407.4314234630916,
+                    "y": -63.38316705720263
+                },
+                "dragging": true
+            },
+            {
+                "width": 96,
+                "height": 96,
+                "id": "LOOP-fdac3e37-4b37-49f0-976b-38ac4759268f",
+                "type": "LOGIC_GATES",
+                "data": {
+                    "id": "LOOP-fdac3e37-4b37-49f0-976b-38ac4759268f",
+                    "label": "LOOP",
+                    "func": "LOOP",
+                    "type": "LOGIC_GATES",
+                    "ctrls": {
+                        "num_loops": {
+                            "type": "int",
+                            "default": -1,
+                            "desc": "number of times to iterate through body nodes, default is \"-1\" meaning infinity.",
+                            "overload": null,
+                            "functionName": "LOOP",
+                            "param": "num_loops",
+                            "value": 25
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "body",
+                            "id": "body",
+                            "type": "Any",
+                            "desc": null
+                        },
+                        {
+                            "name": "end",
+                            "id": "end",
+                            "type": "Any",
+                            "desc": null
+                        }
+                    ],
+                    "path": "LOGIC_GATES/LOOPS/LOOP/LOOP.py",
+                    "selected": true
+                },
+                "position": {
+                    "x": 227.6964774956631,
+                    "y": -20.121881497152287
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": 227.6964774956631,
+                    "y": -20.121881497152287
+                },
+                "dragging": true
+            },
+            {
+                "width": 96,
+                "height": 96,
+                "id": "APPEND-adc5b868-3b2c-41f1-9ec8-ae0a411b1a22",
+                "type": "LOGIC_GATES",
+                "data": {
+                    "id": "APPEND-adc5b868-3b2c-41f1-9ec8-ae0a411b1a22",
+                    "label": "APPEND",
+                    "func": "APPEND",
+                    "type": "LOGIC_GATES",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "primary_dp",
+                            "id": "primary_dp",
+                            "type": "OrderedPair|Matrix|DataFrame|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "Input that ends up \"on top\" of the resulting DataContainer."
+                        },
+                        {
+                            "name": "secondary_dp",
+                            "id": "secondary_dp",
+                            "type": "OrderedPair|Matrix|DataFrame|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "Input that ends up \"on the bottom\" of the resulting DataContainer."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Matrix|DataFrame|Vector",
+                            "desc": null
+                        }
+                    ],
+                    "path": "LOGIC_GATES/LOOPS/APPEND/APPEND.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 735.3226087858226,
+                    "y": -250.41039060991284
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 735.3226087858226,
+                    "y": -250.41039060991284
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "FEEDBACK-dd1c23ff-8f91-4892-9f1c-8d4b91c50aa2",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "FEEDBACK-dd1c23ff-8f91-4892-9f1c-8d4b91c50aa2",
+                    "label": "FEEDBACK",
+                    "func": "FEEDBACK",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "referred_node": {
+                            "type": "NodeReference",
+                            "default": null,
+                            "desc": "The node ID to capture the result from.",
+                            "overload": null,
+                            "functionName": "FEEDBACK",
+                            "param": "referred_node",
+                            "value": "APPEND-adc5b868-3b2c-41f1-9ec8-ae0a411b1a22"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null
+                        }
+                    ],
+                    "path": "GENERATORS/SIMULATIONS/FEEDBACK/FEEDBACK.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 438.29263845094783,
+                    "y": -163.366406533838
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 438.29263845094783,
+                    "y": -163.366406533838
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "LINE-6977d433-f342-4c5a-9035-43961641c18c",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "LINE-6977d433-f342-4c5a-9035-43961641c18c",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/LINE/LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 973.9903536635177,
+                    "y": -319.7488298823558
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 973.9903536635177,
+                    "y": -319.7488298823558
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "DIODE_USB4065-83689859-e7b8-42d1-ab55-b5c7130633c9",
+                "type": "IO",
+                "data": {
+                    "id": "DIODE_USB4065-83689859-e7b8-42d1-ab55-b5c7130633c9",
+                    "label": "DIODE USB4065",
+                    "func": "DIODE_USB4065",
+                    "type": "IO",
+                    "ctrls": {
+                        "NI_address": {
+                            "type": "str",
+                            "default": "Dev1",
+                            "desc": "The NI instrument address for the instrument (e.g. 'Dev0', 'Dev1').",
+                            "overload": null,
+                            "functionName": "DIODE_USB4065",
+                            "param": "NI_address",
+                            "value": "Dev1"
+                        },
+                        "digits": {
+                            "type": "select",
+                            "options": [
+                                "4.5",
+                                "5.5",
+                                "6.5"
+                            ],
+                            "default": "5.5",
+                            "desc": "The accuracy of the reading in digits. Lower values are faster.",
+                            "overload": null,
+                            "functionName": "DIODE_USB4065",
+                            "param": "digits",
+                            "value": "4.5"
+                        },
+                        "voltage_limit": {
+                            "type": "select",
+                            "options": [
+                                "3.5",
+                                "10"
+                            ],
+                            "default": "10",
+                            "desc": "The maximum voltage to allow, in Volts.",
+                            "overload": null,
+                            "functionName": "DIODE_USB4065",
+                            "param": "voltage_limit",
+                            "value": "3.5"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "Scalar: The DC voltage reading."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "nidmm",
+                            "v": "1.4.6"
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/MULTIMETERS/NI/USB_4065/BASIC/DIODE_USB4065/DIODE_USB4065.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -116.51249844926463,
+                    "y": -66.10396672338652
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -116.51249844926463,
+                    "y": -66.10396672338652
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "DIODE_USB4065-f3d001ec-a80f-4216-886b-a260672a36e3",
+                "type": "IO",
+                "data": {
+                    "id": "DIODE_USB4065-f3d001ec-a80f-4216-886b-a260672a36e3",
+                    "label": "DIODE USB4065 1",
+                    "func": "DIODE_USB4065",
+                    "type": "IO",
+                    "ctrls": {
+                        "NI_address": {
+                            "type": "str",
+                            "default": "Dev1",
+                            "desc": "The NI instrument address for the instrument (e.g. 'Dev0', 'Dev1').",
+                            "overload": null,
+                            "functionName": "DIODE_USB4065",
+                            "param": "NI_address",
+                            "value": "Dev1"
+                        },
+                        "digits": {
+                            "type": "select",
+                            "options": [
+                                "4.5",
+                                "5.5",
+                                "6.5"
+                            ],
+                            "default": "5.5",
+                            "desc": "The accuracy of the reading in digits. Lower values are faster.",
+                            "overload": null,
+                            "functionName": "DIODE_USB4065",
+                            "param": "digits",
+                            "value": "4.5"
+                        },
+                        "voltage_limit": {
+                            "type": "select",
+                            "options": [
+                                "3.5",
+                                "10"
+                            ],
+                            "default": "10",
+                            "desc": "The maximum voltage to allow, in Volts.",
+                            "overload": null,
+                            "functionName": "DIODE_USB4065",
+                            "param": "voltage_limit",
+                            "value": "3.5"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "Scalar: The DC voltage reading."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "nidmm",
+                            "v": "1.4.6"
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/MULTIMETERS/NI/USB_4065/BASIC/DIODE_USB4065/DIODE_USB4065.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 451.32763370126673,
+                    "y": -431.75316643155406
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 451.32763370126673,
+                    "y": -431.75316643155406
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "BIG_NUMBER-4f55667b-079e-4735-aa52-3bb18be8e06b",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "BIG_NUMBER-4f55667b-079e-4735-aa52-3bb18be8e06b",
+                    "label": "BIG NUMBER",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZERS",
+                    "ctrls": {
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any suffix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": ""
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": true
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 942.0359776564547,
+                    "y": -618.7319046543057
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 942.0359776564547,
+                    "y": -618.7319046543057
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "LOOP-fdac3e37-4b37-49f0-976b-38ac4759268f",
+                "sourceHandle": "body",
+                "target": "FEEDBACK-dd1c23ff-8f91-4892-9f1c-8d4b91c50aa2",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LOOP-fdac3e37-4b37-49f0-976b-38ac4759268fbody-FEEDBACK-dd1c23ff-8f91-4892-9f1c-8d4b91c50aa2default"
+            },
+            {
+                "source": "FEEDBACK-dd1c23ff-8f91-4892-9f1c-8d4b91c50aa2",
+                "sourceHandle": "default",
+                "target": "APPEND-adc5b868-3b2c-41f1-9ec8-ae0a411b1a22",
+                "targetHandle": "primary_dp",
+                "id": "reactflow__edge-FEEDBACK-dd1c23ff-8f91-4892-9f1c-8d4b91c50aa2default-APPEND-adc5b868-3b2c-41f1-9ec8-ae0a411b1a22primary_dp"
+            },
+            {
+                "source": "APPEND-adc5b868-3b2c-41f1-9ec8-ae0a411b1a22",
+                "sourceHandle": "default",
+                "target": "LINE-6977d433-f342-4c5a-9035-43961641c18c",
+                "targetHandle": "default",
+                "id": "reactflow__edge-APPEND-adc5b868-3b2c-41f1-9ec8-ae0a411b1a22default-LINE-6977d433-f342-4c5a-9035-43961641c18cdefault"
+            },
+            {
+                "source": "CONNECTION_USB4065-33140410-b4f4-4e67-8613-7559b997c8e1",
+                "sourceHandle": "default",
+                "target": "DIODE_USB4065-83689859-e7b8-42d1-ab55-b5c7130633c9",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONNECTION_USB4065-33140410-b4f4-4e67-8613-7559b997c8e1default-DIODE_USB4065-83689859-e7b8-42d1-ab55-b5c7130633c9default"
+            },
+            {
+                "source": "DIODE_USB4065-83689859-e7b8-42d1-ab55-b5c7130633c9",
+                "sourceHandle": "default",
+                "target": "LOOP-fdac3e37-4b37-49f0-976b-38ac4759268f",
+                "targetHandle": "default",
+                "id": "reactflow__edge-DIODE_USB4065-83689859-e7b8-42d1-ab55-b5c7130633c9default-LOOP-fdac3e37-4b37-49f0-976b-38ac4759268fdefault"
+            },
+            {
+                "source": "LOOP-fdac3e37-4b37-49f0-976b-38ac4759268f",
+                "sourceHandle": "body",
+                "target": "DIODE_USB4065-f3d001ec-a80f-4216-886b-a260672a36e3",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LOOP-fdac3e37-4b37-49f0-976b-38ac4759268fbody-DIODE_USB4065-f3d001ec-a80f-4216-886b-a260672a36e3default"
+            },
+            {
+                "source": "DIODE_USB4065-f3d001ec-a80f-4216-886b-a260672a36e3",
+                "sourceHandle": "default",
+                "target": "APPEND-adc5b868-3b2c-41f1-9ec8-ae0a411b1a22",
+                "targetHandle": "secondary_dp",
+                "id": "reactflow__edge-DIODE_USB4065-f3d001ec-a80f-4216-886b-a260672a36e3default-APPEND-adc5b868-3b2c-41f1-9ec8-ae0a411b1a22secondary_dp"
+            },
+            {
+                "source": "DIODE_USB4065-f3d001ec-a80f-4216-886b-a260672a36e3",
+                "sourceHandle": "default",
+                "target": "BIG_NUMBER-4f55667b-079e-4735-aa52-3bb18be8e06b",
+                "targetHandle": "default",
+                "id": "reactflow__edge-DIODE_USB4065-f3d001ec-a80f-4216-886b-a260672a36e3default-BIG_NUMBER-4f55667b-079e-4735-aa52-3bb18be8e06bdefault"
+            }
+        ],
+        "viewport": {
+            "x": 1139.470292881633,
+            "y": 572.2854272048312,
+            "zoom": 1.2136444284334926
+        }
+    }
+}

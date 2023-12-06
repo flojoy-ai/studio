@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "The description of that function is as follows:\n\n    Compute the Kaiser parameter 'beta', given the attenuation 'a'.",
+    "short_description": "The KAISER_BETA node is based on a numpy or scipy function.",
+    "parameters": [
+      {
+        "name": "a",
+        "type": "float",
+        "description": "The desired attenuation in the stopband and maximum ripple in\nthe passband, in dB.  This should be a *positive* number."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "type 'ordered pair', 'scalar', or 'matrix'"
+      }
+    ]
+  }
+}

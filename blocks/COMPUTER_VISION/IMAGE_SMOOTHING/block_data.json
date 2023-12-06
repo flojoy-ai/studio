@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "Note: For \"gaussian\" and \"median\" type, you are only allowed an odd number for the kernel value.\n\nSee https://docs.opencv.org/4.x/d4/d13/tutorial_py_filtering.html for smoothing function information.\n\nInputs\n------\ndefault : Image\n    The input image to apply smoothing to.",
+    "short_description": "Apply an image smoothing operation on an input image.",
+    "parameters": [
+      {
+        "name": "kernel",
+        "type": "int",
+        "description": "The strength of the smoothing (larger = stronger smoothing)."
+      },
+      {
+        "name": "smoothing_type",
+        "type": "select",
+        "description": "The type of smoothing function to use."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Image",
+        "description": "The smoothed image."
+      }
+    ]
+  }
+}

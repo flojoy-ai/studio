@@ -1,0 +1,1 @@
+In this example, the `READ_CSV` node loads a local file. Then `COUNT_VECTORIZER` node transforms the received dataframe of text into a matrix of token/word counts, and it returns a `DataFrame` that contains unique words and a `Matrix` that contains token counts for each sentence.

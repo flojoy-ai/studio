@@ -1,0 +1,40 @@
+{
+  "docstring": {
+    "long_description": "Note that this block requires the CONNECTION_2000 block.\n\nAlso note that the P2000 block require a device specific driver/SDK downloaded from:\nhttps://www.picotech.com/downloads.",
+    "short_description": "Extract scope traces from a P2000 PicoScope.",
+    "parameters": [
+      {
+        "name": "channel",
+        "type": "select",
+        "description": "Select the channel to extract a trace from."
+      },
+      {
+        "name": "coupling_type",
+        "type": "select",
+        "description": "Select the coupling type (0:AC, 1:DC)"
+      },
+      {
+        "name": "trig_threshold",
+        "type": "float",
+        "description": "The threshold to trigger the oscilloscope timing, in mV."
+      },
+      {
+        "name": "trig_direction",
+        "type": "select",
+        "description": "The direction (slope) to search for a trigger (1:Rising, 2:Falling)."
+      },
+      {
+        "name": "x_samples",
+        "type": "int",
+        "description": "The number of samples in time (i.e. # of x axis pixels)."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "OrderedPair",
+        "description": "The trace of the oscilloscope is returned."
+      }
+    ]
+  }
+}

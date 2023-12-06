@@ -1,0 +1,1 @@
+In this example, we generate a vector by using a `LINSPACE` node. Then specify the amount to shift in the vector with `ROTATE_VECTOR` node. In this case, we are only shifting 3 places to the right. The resulting vector is visualized with `SCATTER` node. 

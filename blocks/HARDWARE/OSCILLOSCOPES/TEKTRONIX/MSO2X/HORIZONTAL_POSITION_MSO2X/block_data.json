@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "If delay is non-zero, position is unused.\n\nRequires a CONNECT_MSO2X block to create the connection.\n\nTested on MSO22 and MSO24.",
+    "short_description": "Set the MSO2X oscilloscope horizontal position or delay.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_MSO2X block)."
+      },
+      {
+        "name": "delay",
+        "type": "float, default=0",
+        "description": "Delay after trigger, in seconds. Delay mode is turned on if not 0."
+      },
+      {
+        "name": "position",
+        "type": "float, default=50",
+        "description": "Horizontal position, in percent. Only used if delay is zero."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "String",
+        "description": "Horizontal position"
+      }
+    ]
+  }
+}

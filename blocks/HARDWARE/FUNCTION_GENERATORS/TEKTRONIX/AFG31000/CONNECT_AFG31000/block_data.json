@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "The connection is made with the VISA address in the Flojoy UI.\n\nThis block should also work with compatible Tektronix AFG31XXX instruments.",
+    "short_description": "Connect Flojoy to a AFG31000 function generator.",
+    "parameters": [
+      {
+        "name": "device",
+        "type": "VisaDevice",
+        "description": "The VISA address to connect to."
+      }
+    ],
+    "returns": [
+      {
+        "name": "device_addr",
+        "type": "String",
+        "description": "The IP or VISA address of the VISA device."
+      }
+    ]
+  }
+}

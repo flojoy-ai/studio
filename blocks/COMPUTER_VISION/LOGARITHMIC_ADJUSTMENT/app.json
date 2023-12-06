@@ -1,0 +1,409 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 208,
+                "height": 96,
+                "id": "SKIMAGE-d0946bdd-a5f8-424b-9c6a-ef421d8052b3",
+                "type": "DATA",
+                "data": {
+                    "id": "SKIMAGE-d0946bdd-a5f8-424b-9c6a-ef421d8052b3",
+                    "label": "SKIMAGE",
+                    "func": "SKIMAGE",
+                    "type": "DATA",
+                    "ctrls": {
+                        "img_key": {
+                            "type": "select",
+                            "options": [
+                                "astronaut",
+                                "binary_blobs",
+                                "brain",
+                                "brick",
+                                "camera",
+                                "cat",
+                                "cell",
+                                "cells3d",
+                                "checkerboard",
+                                "chelsea",
+                                "clock",
+                                "coffee",
+                                "coins",
+                                "colorwheel",
+                                "create_image_fetcher",
+                                "data_dir",
+                                "download_all",
+                                "eagle",
+                                "file_hash",
+                                "grass",
+                                "gravel",
+                                "horse",
+                                "hubble_deep_field",
+                                "human_mitosis",
+                                "image_fetcher",
+                                "immunohistochemistry",
+                                "kidney",
+                                "lbp_frontal_face_cascade_filename",
+                                "lfw_subset",
+                                "lily",
+                                "logo",
+                                "microaneurysms",
+                                "moon",
+                                "nickel_solidification",
+                                "page",
+                                "protein_transport",
+                                "retina",
+                                "rocket",
+                                "shepp_logan_phantom",
+                                "skin",
+                                "stereo_motorcycle",
+                                "text",
+                                "vortex"
+                            ],
+                            "default": "astronaut",
+                            "desc": "The name of the image to be loaded from scikit-image.",
+                            "overload": null,
+                            "functionName": "SKIMAGE",
+                            "param": "img_key",
+                            "value": "moon"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "desc": "DataContainer containing the image loaded from scikit-image."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "scikit-image",
+                            "v": "0.21.0"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SAMPLE_IMAGES/SKIMAGE/SKIMAGE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -382.43166198677613,
+                    "y": -27.41089883971199
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -382.43166198677613,
+                    "y": -27.41089883971199
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "IMAGE-e887bb20-6dd5-4615-bd84-7390481fe714",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "IMAGE-e887bb20-6dd5-4615-bd84-7390481fe714",
+                    "label": "IMAGE",
+                    "func": "IMAGE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|Grayscale",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 361.2176944783278,
+                    "y": -129.33292965805714
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 361.2176944783278,
+                    "y": -129.33292965805714
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 180,
+                "id": "GAMMA_ADJUSTMENT-93965d79-5625-46ca-a42b-910e9ea50a22",
+                "type": "COMPUTER_VISION",
+                "data": {
+                    "id": "GAMMA_ADJUSTMENT-93965d79-5625-46ca-a42b-910e9ea50a22",
+                    "label": "GAMMA ADJUSTMENT",
+                    "func": "GAMMA_ADJUSTMENT",
+                    "type": "COMPUTER_VISION",
+                    "ctrls": {
+                        "gain": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The gain of the logarithmic correction. Default is 1.",
+                            "overload": null,
+                            "functionName": "GAMMA_ADJUSTMENT",
+                            "param": "gain",
+                            "value": 1
+                        },
+                        "gamma": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The gamma to correct to. Default is 1.",
+                            "overload": null,
+                            "functionName": "GAMMA_ADJUSTMENT",
+                            "param": "gamma",
+                            "value": 1.5
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "multiple": false,
+                            "desc": "The input image"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "desc": "The adjusted image."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "scikit-image",
+                            "v": "0.21.0"
+                        }
+                    ],
+                    "path": "COMPUTER_VISION/CONTRAST/GAMMA_ADJUSTMENT/GAMMA_ADJUSTMENT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 53.07415034846895,
+                    "y": 207.609170384079
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 53.07415034846895,
+                    "y": 207.609170384079
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 180,
+                "id": "LOGARITHMIC_ADJUSTMENT-b5766496-fd9c-4b21-99f3-8ccb7b1cb2a6",
+                "type": "COMPUTER_VISION",
+                "data": {
+                    "id": "LOGARITHMIC_ADJUSTMENT-b5766496-fd9c-4b21-99f3-8ccb7b1cb2a6",
+                    "label": "LOGARITHMIC ADJUSTMENT",
+                    "func": "LOGARITHMIC_ADJUSTMENT",
+                    "type": "COMPUTER_VISION",
+                    "ctrls": {
+                        "gain": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The gain of the logarithmic correction. Default is 1.",
+                            "overload": null,
+                            "functionName": "LOGARITHMIC_ADJUSTMENT",
+                            "param": "gain",
+                            "value": 1.002
+                        },
+                        "inv": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Perform inverse logarithmic correction?",
+                            "overload": null,
+                            "functionName": "LOGARITHMIC_ADJUSTMENT",
+                            "param": "inv",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "multiple": false,
+                            "desc": "The input image"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "desc": "The adjusted image."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "scikit-image",
+                            "v": "0.21.0"
+                        }
+                    ],
+                    "path": "COMPUTER_VISION/CONTRAST/LOGARITHMIC_ADJUSTMENT/LOGARITHMIC_ADJUSTMENT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 51.52807940967986,
+                    "y": -353.7651555896321
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 51.52807940967986,
+                    "y": -353.7651555896321
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "IMAGE-2c10033b-1298-4977-98d4-946b93d4b443",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "IMAGE-2c10033b-1298-4977-98d4-946b93d4b443",
+                    "label": "IMAGE 1",
+                    "func": "IMAGE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|Grayscale",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 359.2475344573813,
+                    "y": 153.6678459943995
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 359.2475344573813,
+                    "y": 153.6678459943995
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "IMAGE-bf0e5883-7bdd-43e3-831b-82382061acd3",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "IMAGE-bf0e5883-7bdd-43e3-831b-82382061acd3",
+                    "label": "IMAGE 2",
+                    "func": "IMAGE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|Grayscale",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 361.10332406393013,
+                    "y": -409.43213149730934
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 361.10332406393013,
+                    "y": -409.43213149730934
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "SKIMAGE-d0946bdd-a5f8-424b-9c6a-ef421d8052b3",
+                "sourceHandle": "default",
+                "target": "IMAGE-e887bb20-6dd5-4615-bd84-7390481fe714",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SKIMAGE-d0946bdd-a5f8-424b-9c6a-ef421d8052b3default-IMAGE-e887bb20-6dd5-4615-bd84-7390481fe714default"
+            },
+            {
+                "source": "SKIMAGE-d0946bdd-a5f8-424b-9c6a-ef421d8052b3",
+                "sourceHandle": "default",
+                "target": "GAMMA_ADJUSTMENT-93965d79-5625-46ca-a42b-910e9ea50a22",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SKIMAGE-d0946bdd-a5f8-424b-9c6a-ef421d8052b3default-GAMMA_ADJUSTMENT-93965d79-5625-46ca-a42b-910e9ea50a22default"
+            },
+            {
+                "source": "GAMMA_ADJUSTMENT-93965d79-5625-46ca-a42b-910e9ea50a22",
+                "sourceHandle": "default",
+                "target": "IMAGE-2c10033b-1298-4977-98d4-946b93d4b443",
+                "targetHandle": "default",
+                "id": "reactflow__edge-GAMMA_ADJUSTMENT-93965d79-5625-46ca-a42b-910e9ea50a22default-IMAGE-2c10033b-1298-4977-98d4-946b93d4b443default"
+            },
+            {
+                "source": "SKIMAGE-d0946bdd-a5f8-424b-9c6a-ef421d8052b3",
+                "sourceHandle": "default",
+                "target": "LOGARITHMIC_ADJUSTMENT-b5766496-fd9c-4b21-99f3-8ccb7b1cb2a6",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SKIMAGE-d0946bdd-a5f8-424b-9c6a-ef421d8052b3default-LOGARITHMIC_ADJUSTMENT-b5766496-fd9c-4b21-99f3-8ccb7b1cb2a6default"
+            },
+            {
+                "source": "LOGARITHMIC_ADJUSTMENT-b5766496-fd9c-4b21-99f3-8ccb7b1cb2a6",
+                "sourceHandle": "default",
+                "target": "IMAGE-bf0e5883-7bdd-43e3-831b-82382061acd3",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LOGARITHMIC_ADJUSTMENT-b5766496-fd9c-4b21-99f3-8ccb7b1cb2a6default-IMAGE-bf0e5883-7bdd-43e3-831b-82382061acd3default"
+            }
+        ],
+        "viewport": {
+            "x": 1177.6156825958576,
+            "y": 667.56535325129,
+            "zoom": 1.1850094253528283
+        }
+    },
+    "textNodes": []
+}

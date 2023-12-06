@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "Inputs\n------\ndefault : Vector\n    The input vector",
+    "short_description": "The SPLIT_VECTOR node returns a vector that is splited by a given index",
+    "parameters": [
+      {
+        "name": "index",
+        "type": "int",
+        "description": "index which you want to split your vector by"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Vector",
+        "description": "Splited input vector"
+      }
+    ]
+  }
+}

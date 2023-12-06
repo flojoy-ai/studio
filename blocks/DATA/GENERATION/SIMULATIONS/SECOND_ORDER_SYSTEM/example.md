@@ -1,0 +1,1 @@
+This example demonstrates an active PID controller for a mock non-linear system to be driven to a given setpoint using `SECOND_ORDER_SYSTEM` node.

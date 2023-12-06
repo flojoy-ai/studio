@@ -1,0 +1,324 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "OPEN_SERIAL-0379a423-93ea-47e9-83e4-13d5b7e33231",
+                "type": "IO",
+                "data": {
+                    "id": "OPEN_SERIAL-0379a423-93ea-47e9-83e4-13d5b7e33231",
+                    "label": "OPEN SERIAL",
+                    "func": "OPEN_SERIAL",
+                    "type": "IO",
+                    "ctrls": {
+                        "device": {
+                            "type": "SerialDevice",
+                            "default": null,
+                            "desc": "The connected serial device.",
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "device",
+                            "value": "/dev/cu.usbserial-PX75GRVT"
+                        },
+                        "baudrate": {
+                            "type": "int",
+                            "default": 9600,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "baudrate",
+                            "value": 9600
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": null
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "pyserial",
+                            "v": "3.5"
+                        }
+                    ],
+                    "path": "IO/PROTOCOLS/SERIAL/BASIC/OPEN_SERIAL/OPEN_SERIAL.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -409.7072613691855,
+                    "y": -119.46721173101321
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -409.7072613691855,
+                    "y": -119.46721173101321
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "PROLOGIX_HELP-73c23bcf-494c-4a68-9467-4da78bfb3fb4",
+                "type": "IO",
+                "data": {
+                    "id": "PROLOGIX_HELP-73c23bcf-494c-4a68-9467-4da78bfb3fb4",
+                    "label": "PROLOGIX HELP",
+                    "func": "PROLOGIX_HELP",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The open serial connection with the instrument.",
+                            "overload": null,
+                            "functionName": "PROLOGIX_HELP",
+                            "param": "connection",
+                            "value": "/dev/cu.usbserial-PX75GRVT"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": "Any DataContainer - likely connected to the output of the OPEN_SERIAL node."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "A list of available Prologix USB-to-GPIB firmware commands"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "pyserial",
+                            "v": "3.5"
+                        }
+                    ],
+                    "path": "IO/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_HELP/PROLOGIX_HELP.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 43.7677951992148,
+                    "y": -301.62936069100147
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 43.7677951992148,
+                    "y": -301.62936069100147
+                },
+                "dragging": true
+            },
+            {
+                "width": 384,
+                "height": 288,
+                "id": "TEXT_VIEW-8260cd6b-0c5d-4e6a-b9f3-a5aca4c53567",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-8260cd6b-0c5d-4e6a-b9f3-a5aca4c53567",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": true
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "multiple": false,
+                            "desc": "The DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 423.4185766491661,
+                    "y": -355.54847177565506
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 423.4185766491661,
+                    "y": -355.54847177565506
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "PROLOGIX_VER-3ba9a232-95ac-4ff1-89fe-226ccd734e98",
+                "type": "IO",
+                "data": {
+                    "id": "PROLOGIX_VER-3ba9a232-95ac-4ff1-89fe-226ccd734e98",
+                    "label": "PROLOGIX VER",
+                    "func": "PROLOGIX_VER",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The open serial connection with the instrument.",
+                            "overload": null,
+                            "functionName": "PROLOGIX_VER",
+                            "param": "connection",
+                            "value": "/dev/cu.usbserial-PX75GRVT"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": "Any DataContainer - likely connected to the output of the OPEN_SERIAL node."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The Prologix controller available commands."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "pyserial",
+                            "v": "3.5"
+                        }
+                    ],
+                    "path": "IO/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_VER/PROLOGIX_VER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 36.97386338103118,
+                    "y": 100.85210674163193
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 36.97386338103118,
+                    "y": 100.85210674163193
+                },
+                "dragging": true
+            },
+            {
+                "width": 384,
+                "height": 288,
+                "id": "TEXT_VIEW-e28cbcd7-ed1f-42bb-816a-e95fc6fc8c37",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "TEXT_VIEW-e28cbcd7-ed1f-42bb-816a-e95fc6fc8c37",
+                    "label": "TEXT VIEW 1",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZERS",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "multiple": false,
+                            "desc": "The DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 434.2592704786502,
+                    "y": 53.58359116674569
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 434.2592704786502,
+                    "y": 53.58359116674569
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "OPEN_SERIAL-0379a423-93ea-47e9-83e4-13d5b7e33231",
+                "sourceHandle": "default",
+                "target": "PROLOGIX_HELP-73c23bcf-494c-4a68-9467-4da78bfb3fb4",
+                "targetHandle": "default",
+                "id": "reactflow__edge-OPEN_SERIAL-0379a423-93ea-47e9-83e4-13d5b7e33231default-PROLOGIX_HELP-73c23bcf-494c-4a68-9467-4da78bfb3fb4default"
+            },
+            {
+                "source": "PROLOGIX_HELP-73c23bcf-494c-4a68-9467-4da78bfb3fb4",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-8260cd6b-0c5d-4e6a-b9f3-a5aca4c53567",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PROLOGIX_HELP-73c23bcf-494c-4a68-9467-4da78bfb3fb4default-TEXT_VIEW-8260cd6b-0c5d-4e6a-b9f3-a5aca4c53567default"
+            },
+            {
+                "source": "OPEN_SERIAL-0379a423-93ea-47e9-83e4-13d5b7e33231",
+                "sourceHandle": "default",
+                "target": "PROLOGIX_VER-3ba9a232-95ac-4ff1-89fe-226ccd734e98",
+                "targetHandle": "default",
+                "id": "reactflow__edge-OPEN_SERIAL-0379a423-93ea-47e9-83e4-13d5b7e33231default-PROLOGIX_VER-3ba9a232-95ac-4ff1-89fe-226ccd734e98default"
+            },
+            {
+                "source": "PROLOGIX_VER-3ba9a232-95ac-4ff1-89fe-226ccd734e98",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-e28cbcd7-ed1f-42bb-816a-e95fc6fc8c37",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PROLOGIX_VER-3ba9a232-95ac-4ff1-89fe-226ccd734e98default-TEXT_VIEW-e28cbcd7-ed1f-42bb-816a-e95fc6fc8c37default"
+            }
+        ],
+        "viewport": {
+            "x": 466.68096270497455,
+            "y": 429.1170430912722,
+            "zoom": 0.5180199090230052
+        }
+    }
+}

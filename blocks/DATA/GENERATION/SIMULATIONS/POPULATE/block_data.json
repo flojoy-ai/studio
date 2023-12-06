@@ -1,0 +1,45 @@
+{
+  "docstring": {
+    "long_description": "Inputs\n------\ndefault : OrderedPair|Vector\n    Input to use as the x-axis for the random samples.",
+    "short_description": "Generate an OrderedPair of random numbers, depending on the distribution selected and the input data.",
+    "parameters": [
+      {
+        "name": "distribution",
+        "type": "select",
+        "description": "the distribution over the random samples"
+      },
+      {
+        "name": "lower_bound",
+        "type": "float",
+        "description": "the lower bound of the output interval"
+      },
+      {
+        "name": "upper_bound",
+        "type": "float",
+        "description": "the upper bound of the output interval"
+      },
+      {
+        "name": "normal_mean",
+        "type": "float",
+        "description": "the mean or \"center\" of the normal distribution"
+      },
+      {
+        "name": "normal_standard_deviation",
+        "type": "float",
+        "description": "the spread or \"width\" of the normal distribution"
+      },
+      {
+        "name": "poisson_events",
+        "type": "float",
+        "description": "the expected number of events occurring in a fixed time-interval when distribution is poisson"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "OrderedPair",
+        "description": "x: provided from input data\ny: the random samples"
+      }
+    ]
+  }
+}

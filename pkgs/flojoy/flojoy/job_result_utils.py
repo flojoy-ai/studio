@@ -41,7 +41,7 @@ def get_next_nodes(result: dict[str, Any] | None) -> list[str]:
 
 
 def get_dc_from_result(
-    result: dict[str, Any] | DataContainer | None
+    result: dict[str, Any] | DataContainer | None,
 ) -> DataContainer | None:
     if not result:
         return None
@@ -72,7 +72,7 @@ def get_text_blob_from_dc(dc: DataContainer) -> str | None:
 
 
 def get_frontend_res_obj_from_result(
-    result: Optional[dict[str, Any] | DataContainer]
+    result: Optional[dict[str, Any] | DataContainer],
 ) -> Optional[dict[str, Any]]:
     if result is None:
         return None

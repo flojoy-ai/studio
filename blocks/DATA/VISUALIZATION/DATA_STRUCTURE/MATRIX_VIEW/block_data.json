@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Take a Matrix or OrderedPair DataContainer object as input, then visualize it in a Plotly table.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "OrderedPair | Matrix",
+        "description": "the DataContainer to be visualized in matrix format."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Plotly",
+        "description": "the DataContainer containing visualization of the input in matrix format"
+      }
+    ]
+  }
+}

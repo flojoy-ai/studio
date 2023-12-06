@@ -1,0 +1,35 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "The SET_JOINT_VEL node sets the robot arm's angular velocity for its joints.",
+    "parameters": [
+      {
+        "name": "v",
+        "type": "float",
+        "description": "The angular velocity to be set for each joint."
+      },
+      {
+        "name": "Inputs",
+        "type": null,
+        "description": null
+      },
+      {
+        "name": "------",
+        "type": null,
+        "description": null
+      },
+      {
+        "name": "ip_address",
+        "type": "String",
+        "description": "The IP address of the robot arm."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "String",
+        "description": "The IP address of the robot arm."
+      }
+    ]
+  }
+}

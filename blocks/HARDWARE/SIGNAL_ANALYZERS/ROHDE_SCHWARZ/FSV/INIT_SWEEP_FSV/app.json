@@ -1,0 +1,404 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 380,
+                "height": 293,
+                "id": "LINE-437e1ca3-fdc5-43c7-89a4-95766a021c45",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "LINE-437e1ca3-fdc5-43c7-89a4-95766a021c45",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "VISUALIZERS/PLOTLY/LINE/LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 982.433589812745,
+                    "y": -158.221539428072
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 982.433589812745,
+                    "y": -158.221539428072
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CONNECTION_FSV-6af7f29b-5578-4bb7-97b2-d728dcd68073",
+                "type": "IO",
+                "data": {
+                    "id": "CONNECTION_FSV-6af7f29b-5578-4bb7-97b2-d728dcd68073",
+                    "label": "CONNECTION FSV",
+                    "func": "CONNECTION_FSV",
+                    "type": "IO",
+                    "ctrls": {
+                        "device": {
+                            "type": "VisaDevice",
+                            "default": null,
+                            "desc": "The VISA address to connect to.",
+                            "overload": null,
+                            "functionName": "CONNECTION_FSV",
+                            "param": "device",
+                            "value": "TCPIP::169.254.28.160::INSTR"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "Optional: None"
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/NETWORK_ANALYZERS/ROHDE_SCHWARZ/FSV/BASIC/CONNECTION_FSV/CONNECTION_FSV.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -126.41208723832608,
+                    "y": -108.52899007141966
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -126.41208723832608,
+                    "y": -108.52899007141966
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "EXTRACT_SWEEP_FSV-58bbdf2f-add5-4426-b581-7499196e74f0",
+                "type": "IO",
+                "data": {
+                    "id": "EXTRACT_SWEEP_FSV-58bbdf2f-add5-4426-b581-7499196e74f0",
+                    "label": "EXTRACT SWEEP FSV",
+                    "func": "EXTRACT_SWEEP_FSV",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_FSV node).",
+                            "overload": null,
+                            "functionName": "EXTRACT_SWEEP_FSV",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.28.160::INSTR"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "OrderedPair: The sweep trace from the FSV is returned."
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/NETWORK_ANALYZERS/ROHDE_SCHWARZ/FSV/BASIC/EXTRACT_SWEEP_FSV/EXTRACT_SWEEP_FSV.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 698.1125693394696,
+                    "y": -106.79580773233235
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 698.1125693394696,
+                    "y": -106.79580773233235
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "INIT_SWEEP_FSV-d8a3c888-310a-437b-b68a-43f6a3d4831f",
+                "type": "IO",
+                "data": {
+                    "id": "INIT_SWEEP_FSV-d8a3c888-310a-437b-b68a-43f6a3d4831f",
+                    "label": "INIT SWEEP FSV",
+                    "func": "INIT_SWEEP_FSV",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_FSV node).",
+                            "overload": null,
+                            "functionName": "INIT_SWEEP_FSV",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.28.160::INSTR"
+                        },
+                        "display": {
+                            "type": "select",
+                            "options": [
+                                "write",
+                                "view",
+                                "average",
+                                "maxhold",
+                                "minhold",
+                                "blank"
+                            ],
+                            "default": "write",
+                            "desc": "Choose the trace display setting.",
+                            "overload": null,
+                            "functionName": "INIT_SWEEP_FSV",
+                            "param": "display",
+                            "value": "average"
+                        },
+                        "continuous": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "Sweep continuously or not.",
+                            "overload": null,
+                            "functionName": "INIT_SWEEP_FSV",
+                            "param": "continuous",
+                            "value": true
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Display and sweep settings."
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/NETWORK_ANALYZERS/ROHDE_SCHWARZ/FSV/BASIC/INIT_SWEEP_FSV/INIT_SWEEP_FSV.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 423.16802090780266,
+                    "y": -109.77806957868016
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 423.16802090780266,
+                    "y": -109.77806957868016
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "SWEEP_SETTINGS_FSV-92c0fefc-8488-4a14-b96d-83f4141aa370",
+                "type": "IO",
+                "data": {
+                    "id": "SWEEP_SETTINGS_FSV-92c0fefc-8488-4a14-b96d-83f4141aa370",
+                    "label": "SWEEP SETTINGS FSV",
+                    "func": "SWEEP_SETTINGS_FSV",
+                    "type": "IO",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_FSV node).",
+                            "overload": null,
+                            "functionName": "SWEEP_SETTINGS_FSV",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.28.160::INSTR"
+                        },
+                        "span_or_range": {
+                            "type": "select",
+                            "options": [
+                                "span",
+                                "range"
+                            ],
+                            "default": "range",
+                            "desc": "X axis range, span (center and span) or range (start and stop).",
+                            "overload": null,
+                            "functionName": "SWEEP_SETTINGS_FSV",
+                            "param": "span_or_range",
+                            "value": "range"
+                        },
+                        "center": {
+                            "type": "float",
+                            "default": 100000000,
+                            "desc": "The center of the x axis range, in Hz.",
+                            "overload": null,
+                            "functionName": "SWEEP_SETTINGS_FSV",
+                            "param": "center",
+                            "value": 86000000
+                        },
+                        "span": {
+                            "type": "float",
+                            "default": 10000000,
+                            "desc": "The span of the x axis, in Hz.",
+                            "overload": null,
+                            "functionName": "SWEEP_SETTINGS_FSV",
+                            "param": "span",
+                            "value": 112000000
+                        },
+                        "start": {
+                            "type": "float",
+                            "default": 10000000,
+                            "desc": "The start point of the x axis, in Hz.",
+                            "overload": null,
+                            "functionName": "SWEEP_SETTINGS_FSV",
+                            "param": "start",
+                            "value": 86000000
+                        },
+                        "stop": {
+                            "type": "float",
+                            "default": 100000000,
+                            "desc": "The end point of the x axis, in Hz.",
+                            "overload": null,
+                            "functionName": "SWEEP_SETTINGS_FSV",
+                            "param": "stop",
+                            "value": 112000000
+                        },
+                        "sweep_type": {
+                            "type": "select",
+                            "options": [
+                                "sweep",
+                                "FFT",
+                                "auto"
+                            ],
+                            "default": "auto",
+                            "desc": "How the FSV sweeps along the x axis range.",
+                            "overload": null,
+                            "functionName": "SWEEP_SETTINGS_FSV",
+                            "param": "sweep_type",
+                            "value": "auto"
+                        },
+                        "counts": {
+                            "type": "int",
+                            "default": 10,
+                            "desc": "Number of sweeps to do, (average optional in INIT_SWEEP_FSV).",
+                            "overload": null,
+                            "functionName": "SWEEP_SETTINGS_FSV",
+                            "param": "counts",
+                            "value": 100
+                        },
+                        "points": {
+                            "type": "int",
+                            "default": 1000,
+                            "desc": "Number of x axis points to sweep.",
+                            "overload": null,
+                            "functionName": "SWEEP_SETTINGS_FSV",
+                            "param": "points",
+                            "value": 1000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Sweep settings summary."
+                        }
+                    ],
+                    "path": "IO/INSTRUMENTS/NETWORK_ANALYZERS/ROHDE_SCHWARZ/FSV/BASIC/SWEEP_SETTINGS_FSV/SWEEP_SETTINGS_FSV.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 150.00876699020785,
+                    "y": -107.85365492861959
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 150.00876699020785,
+                    "y": -107.85365492861959
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "CONNECTION_FSV-6af7f29b-5578-4bb7-97b2-d728dcd68073",
+                "sourceHandle": "default",
+                "target": "SWEEP_SETTINGS_FSV-92c0fefc-8488-4a14-b96d-83f4141aa370",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONNECTION_FSV-6af7f29b-5578-4bb7-97b2-d728dcd68073default-SWEEP_SETTINGS_FSV-92c0fefc-8488-4a14-b96d-83f4141aa370default"
+            },
+            {
+                "source": "SWEEP_SETTINGS_FSV-92c0fefc-8488-4a14-b96d-83f4141aa370",
+                "sourceHandle": "default",
+                "target": "INIT_SWEEP_FSV-d8a3c888-310a-437b-b68a-43f6a3d4831f",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SWEEP_SETTINGS_FSV-92c0fefc-8488-4a14-b96d-83f4141aa370default-INIT_SWEEP_FSV-d8a3c888-310a-437b-b68a-43f6a3d4831fdefault"
+            },
+            {
+                "source": "INIT_SWEEP_FSV-d8a3c888-310a-437b-b68a-43f6a3d4831f",
+                "sourceHandle": "default",
+                "target": "EXTRACT_SWEEP_FSV-58bbdf2f-add5-4426-b581-7499196e74f0",
+                "targetHandle": "default",
+                "id": "reactflow__edge-INIT_SWEEP_FSV-d8a3c888-310a-437b-b68a-43f6a3d4831fdefault-EXTRACT_SWEEP_FSV-58bbdf2f-add5-4426-b581-7499196e74f0default"
+            },
+            {
+                "source": "EXTRACT_SWEEP_FSV-58bbdf2f-add5-4426-b581-7499196e74f0",
+                "sourceHandle": "default",
+                "target": "LINE-437e1ca3-fdc5-43c7-89a4-95766a021c45",
+                "targetHandle": "default",
+                "id": "reactflow__edge-EXTRACT_SWEEP_FSV-58bbdf2f-add5-4426-b581-7499196e74f0default-LINE-437e1ca3-fdc5-43c7-89a4-95766a021c45default"
+            }
+        ],
+        "viewport": {
+            "x": 1139.470292881633,
+            "y": 572.2854272048312,
+            "zoom": 1.2136444284334926
+        }
+    },
+    "textNodes": []
+}

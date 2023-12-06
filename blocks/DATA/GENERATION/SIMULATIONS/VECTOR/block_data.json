@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Creates a vector type data given the elements",
+    "parameters": [
+      {
+        "name": "elements",
+        "type": "str, default = \"\"",
+        "description": "The elements that should be in the vector"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Vector",
+        "description": "The vector consists of the elements."
+      }
+    ]
+  }
+}

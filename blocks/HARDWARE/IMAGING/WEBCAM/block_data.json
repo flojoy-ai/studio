@@ -1,0 +1,32 @@
+{
+  "docstring": {
+    "long_description": "The selected camera must be opened already using the OPEN_WEBCAM block.",
+    "short_description": "Acquire an image using the selected camera.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "Camera",
+        "description": "The opened camera connection to use."
+      },
+      {
+        "name": "resolution",
+        "type": "select",
+        "description": "Camera resolution. Choose from a few options."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Image",
+        "description": null
+      }
+    ]
+  },
+  "videos": [
+    {
+      "title": "Control Camera with Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=Om0C7s_9Qo8"
+    }
+  ]
+}

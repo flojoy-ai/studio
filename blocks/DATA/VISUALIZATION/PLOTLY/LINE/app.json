@@ -1,0 +1,320 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 208,
+                "height": 96,
+                "id": "MATRIX-adb7407c-2ba3-4478-8c1a-2c0d2dc1f095",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "MATRIX-adb7407c-2ba3-4478-8c1a-2c0d2dc1f095",
+                    "label": "MATRIX",
+                    "func": "MATRIX",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "row": {
+                            "type": "int",
+                            "default": 2,
+                            "functionName": "MATRIX",
+                            "param": "row",
+                            "value": "8"
+                        },
+                        "column": {
+                            "type": "int",
+                            "default": 2,
+                            "functionName": "MATRIX",
+                            "param": "column",
+                            "value": "8"
+                        }
+                    },
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Matrix"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\MATRIX\\MATRIX.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 97.49407720704693,
+                    "y": 504.76065391278627
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 97.49407720704693,
+                    "y": 504.76065391278627
+                },
+                "dragging": true
+            },
+            {
+                "width": 210,
+                "height": 96,
+                "id": "TIMESERIES-511ecdda-9fd1-443e-95bb-2399e69b6484",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "TIMESERIES-511ecdda-9fd1-443e-95bb-2399e69b6484",
+                    "label": "TIMESERIES",
+                    "func": "TIMESERIES",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "start_date": {
+                            "type": "str",
+                            "default": "2023-01-01",
+                            "functionName": "TIMESERIES",
+                            "param": "start_date",
+                            "value": "2023-01-01"
+                        },
+                        "end_date": {
+                            "type": "str",
+                            "default": "2023-07-20",
+                            "functionName": "TIMESERIES",
+                            "param": "end_date",
+                            "value": "2023-07-20"
+                        }
+                    },
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\TIMESERIES\\TIMESERIES.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 67.1589140181004,
+                    "y": -18.011849048761917
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 67.1589140181004,
+                    "y": -18.011849048761917
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "LINE-b77bfca4-130d-46b6-9962-f53f605d7107",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "LINE-b77bfca4-130d-46b6-9962-f53f605d7107",
+                    "label": "LINE 1",
+                    "func": "LINE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\LINE\\LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 467.6942592380291,
+                    "y": 399.4670320892793
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 467.6942592380291,
+                    "y": 399.4670320892793
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "LINE-fba98010-ffc1-4864-8a5a-356f46f70a26",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "LINE-fba98010-ffc1-4864-8a5a-356f46f70a26",
+                    "label": "LINE 2",
+                    "func": "LINE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\LINE\\LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 780.1266899002345,
+                    "y": 114.937459376096
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 780.1266899002345,
+                    "y": 114.937459376096
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "LINE-be1cb8d9-dc67-4567-8952-8b7eaeb9134d",
+                "type": "VISUALIZERS",
+                "data": {
+                    "id": "LINE-be1cb8d9-dc67-4567-8952-8b7eaeb9134d",
+                    "label": "LINE 3",
+                    "func": "LINE",
+                    "type": "VISUALIZERS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\LINE\\LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 417.740720779551,
+                    "y": -119.7453669582851
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 417.740720779551,
+                    "y": -119.7453669582851
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "SCIKIT_LEARN_DATASET-1abc7ecd-da77-4b00-bfdc-8068bd315a63",
+                "type": "GENERATORS",
+                "data": {
+                    "id": "SCIKIT_LEARN_DATASET-1abc7ecd-da77-4b00-bfdc-8068bd315a63",
+                    "label": "SCIKIT LEARN DATASET",
+                    "func": "SCIKIT_LEARN_DATASET",
+                    "type": "GENERATORS",
+                    "ctrls": {
+                        "dataset_name": {
+                            "type": "select",
+                            "options": [
+                                "iris",
+                                "diabetes",
+                                "digits",
+                                "linnerud",
+                                "wine",
+                                "breast_cancer"
+                            ],
+                            "default": "iris",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SCIKIT_LEARN_DATASET",
+                            "param": "dataset_name",
+                            "value": "iris"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame",
+                            "desc": "A DataContainer object containing the retrieved pandas DataFrame."
+                        }
+                    ],
+                    "path": "GENERATORS/SAMPLE_DATASETS/SCIKIT_LEARN_DATASET/SCIKIT_LEARN_DATASET.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 79.88477303643154,
+                    "y": 236.65339910085572
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 79.88477303643154,
+                    "y": 236.65339910085572
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "TIMESERIES-511ecdda-9fd1-443e-95bb-2399e69b6484",
+                "sourceHandle": "default",
+                "target": "LINE-be1cb8d9-dc67-4567-8952-8b7eaeb9134d",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TIMESERIES-511ecdda-9fd1-443e-95bb-2399e69b6484default-LINE-be1cb8d9-dc67-4567-8952-8b7eaeb9134ddefault"
+            },
+            {
+                "source": "MATRIX-adb7407c-2ba3-4478-8c1a-2c0d2dc1f095",
+                "sourceHandle": "default",
+                "target": "LINE-b77bfca4-130d-46b6-9962-f53f605d7107",
+                "targetHandle": "default",
+                "id": "reactflow__edge-MATRIX-adb7407c-2ba3-4478-8c1a-2c0d2dc1f095default-LINE-b77bfca4-130d-46b6-9962-f53f605d7107default"
+            },
+            {
+                "source": "SCIKIT_LEARN_DATASET-1abc7ecd-da77-4b00-bfdc-8068bd315a63",
+                "sourceHandle": "default",
+                "target": "LINE-fba98010-ffc1-4864-8a5a-356f46f70a26",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SCIKIT_LEARN_DATASET-1abc7ecd-da77-4b00-bfdc-8068bd315a63default-LINE-fba98010-ffc1-4864-8a5a-356f46f70a26default"
+            }
+        ],
+        "viewport": {
+            "x": 606.4472645567363,
+            "y": 234.63130388602087,
+            "zoom": 0.9186369849831518
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+        }
+    ],
+    "textNodes": []
+}

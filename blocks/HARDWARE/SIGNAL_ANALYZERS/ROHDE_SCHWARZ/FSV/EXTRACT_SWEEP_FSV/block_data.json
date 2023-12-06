@@ -1,0 +1,27 @@
+{
+  "docstring": {
+    "long_description": "Requires a CONNECTION_FSV block at the start of the app to connect with\nthe instrument. The VISA address will then be listed under 'connection'.\n\nThis block should also work with compatible R&S network analyzers.",
+    "short_description": "Extract the sweep trace from an FSV network analyzer.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_FSV block)."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "OrderedPair",
+        "description": "The sweep trace from the FSV is returned."
+      }
+    ]
+  },
+  "videos": [
+    {
+      "title": "Read FM Radio Signals using Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=1crZxgWDAaw"
+    }
+  ]
+}

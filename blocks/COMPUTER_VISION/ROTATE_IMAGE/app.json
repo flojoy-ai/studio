@@ -1,0 +1,434 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 380,
+                "height": 293,
+                "id": "IMAGE-f1b88d17-555e-4e52-b603-96d822581c7a",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "IMAGE-f1b88d17-555e-4e52-b603-96d822581c7a",
+                    "label": "IMAGE",
+                    "func": "IMAGE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|Grayscale",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 291.5763289691951,
+                    "y": 74.11312569801117
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 291.5763289691951,
+                    "y": 74.11312569801117
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "IMAGE-1aed0295-333d-4a72-8c86-6319fde2056e",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "IMAGE-1aed0295-333d-4a72-8c86-6319fde2056e",
+                    "label": "IMAGE 1",
+                    "func": "IMAGE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|Grayscale",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 294.00079972746755,
+                    "y": -228.27627477316278
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 294.00079972746755,
+                    "y": -228.27627477316278
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "SKIMAGE-fce9b78b-bf71-4850-870b-b88e384b877d",
+                "type": "DATA",
+                "data": {
+                    "id": "SKIMAGE-fce9b78b-bf71-4850-870b-b88e384b877d",
+                    "label": "SKIMAGE",
+                    "func": "SKIMAGE",
+                    "type": "DATA",
+                    "ctrls": {
+                        "img_key": {
+                            "type": "select",
+                            "options": [
+                                "astronaut",
+                                "binary_blobs",
+                                "brain",
+                                "brick",
+                                "camera",
+                                "cat",
+                                "cell",
+                                "cells3d",
+                                "checkerboard",
+                                "chelsea",
+                                "clock",
+                                "coffee",
+                                "coins",
+                                "colorwheel",
+                                "create_image_fetcher",
+                                "data_dir",
+                                "download_all",
+                                "eagle",
+                                "file_hash",
+                                "grass",
+                                "gravel",
+                                "horse",
+                                "hubble_deep_field",
+                                "human_mitosis",
+                                "image_fetcher",
+                                "immunohistochemistry",
+                                "kidney",
+                                "lbp_frontal_face_cascade_filename",
+                                "lfw_subset",
+                                "lily",
+                                "logo",
+                                "microaneurysms",
+                                "moon",
+                                "nickel_solidification",
+                                "page",
+                                "protein_transport",
+                                "retina",
+                                "rocket",
+                                "shepp_logan_phantom",
+                                "skin",
+                                "stereo_motorcycle",
+                                "text",
+                                "vortex"
+                            ],
+                            "default": "astronaut",
+                            "desc": "The name of the image to be loaded from scikit-image.",
+                            "overload": null,
+                            "functionName": "SKIMAGE",
+                            "param": "img_key",
+                            "value": "camera"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "desc": "DataContainer containing the image loaded from scikit-image."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "scikit-image",
+                            "v": "0.21.0"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SAMPLE_IMAGES/SKIMAGE/SKIMAGE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -248.83588643334767,
+                    "y": 167.1881647727705
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -248.83588643334767,
+                    "y": 167.1881647727705
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 180,
+                "id": "IMAGE_SWIRL-64134da3-36a7-4c22-82a6-958ac989e582",
+                "type": "COMPUTER_VISION",
+                "data": {
+                    "id": "IMAGE_SWIRL-64134da3-36a7-4c22-82a6-958ac989e582",
+                    "label": "IMAGE SWIRL",
+                    "func": "IMAGE_SWIRL",
+                    "type": "COMPUTER_VISION",
+                    "ctrls": {
+                        "rotation": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "IMAGE_SWIRL",
+                            "param": "rotation",
+                            "value": 0
+                        },
+                        "strength": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "IMAGE_SWIRL",
+                            "param": "strength",
+                            "value": 3
+                        },
+                        "radius": {
+                            "type": "float",
+                            "default": 120,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "IMAGE_SWIRL",
+                            "param": "radius",
+                            "value": 750
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "multiple": false,
+                            "desc": "The input image"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "desc": "The adjusted image."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "scikit-image",
+                            "v": "0.21.0"
+                        }
+                    ],
+                    "path": "COMPUTER_VISION/IMAGE_SWIRL/IMAGE_SWIRL.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 59.72669699884982,
+                    "y": -173.9579689531354
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 59.72669699884982,
+                    "y": -173.9579689531354
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "IMAGE-e632723f-0c8e-4585-9a56-772125cc70be",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "IMAGE-e632723f-0c8e-4585-9a56-772125cc70be",
+                    "label": "IMAGE 2",
+                    "func": "IMAGE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|Grayscale",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 294.3490385306934,
+                    "y": 363.36446456474107
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 294.3490385306934,
+                    "y": 363.36446456474107
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 180,
+                "id": "ROTATE_IMAGE-4971a27b-eb5b-4ba9-9541-cffbea507c09",
+                "type": "COMPUTER_VISION",
+                "data": {
+                    "id": "ROTATE_IMAGE-4971a27b-eb5b-4ba9-9541-cffbea507c09",
+                    "label": "ROTATE IMAGE",
+                    "func": "ROTATE_IMAGE",
+                    "type": "COMPUTER_VISION",
+                    "ctrls": {
+                        "degrees": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "ROTATE_IMAGE",
+                            "param": "degrees",
+                            "value": 45
+                        },
+                        "resize": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "ROTATE_IMAGE",
+                            "param": "resize",
+                            "value": true
+                        },
+                        "mode": {
+                            "type": "select",
+                            "options": [
+                                "constant",
+                                "edge",
+                                "symmetric",
+                                "reflect",
+                                "wrap"
+                            ],
+                            "default": "constant",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "ROTATE_IMAGE",
+                            "param": "mode",
+                            "value": "constant"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "multiple": false,
+                            "desc": "The input image"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "desc": "The adjusted image."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "scikit-image",
+                            "v": "0.21.0"
+                        }
+                    ],
+                    "path": "COMPUTER_VISION/ROTATE_IMAGE/ROTATE_IMAGE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 50.67158866527976,
+                    "y": 412.42770678206483
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 50.67158866527976,
+                    "y": 412.42770678206483
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "SKIMAGE-fce9b78b-bf71-4850-870b-b88e384b877d",
+                "sourceHandle": "default",
+                "target": "IMAGE-f1b88d17-555e-4e52-b603-96d822581c7a",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SKIMAGE-fce9b78b-bf71-4850-870b-b88e384b877ddefault-IMAGE-f1b88d17-555e-4e52-b603-96d822581c7adefault"
+            },
+            {
+                "source": "IMAGE_SWIRL-64134da3-36a7-4c22-82a6-958ac989e582",
+                "sourceHandle": "default",
+                "target": "IMAGE-1aed0295-333d-4a72-8c86-6319fde2056e",
+                "targetHandle": "default",
+                "id": "reactflow__edge-IMAGE_SWIRL-64134da3-36a7-4c22-82a6-958ac989e582default-IMAGE-1aed0295-333d-4a72-8c86-6319fde2056edefault"
+            },
+            {
+                "source": "SKIMAGE-fce9b78b-bf71-4850-870b-b88e384b877d",
+                "sourceHandle": "default",
+                "target": "IMAGE_SWIRL-64134da3-36a7-4c22-82a6-958ac989e582",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SKIMAGE-fce9b78b-bf71-4850-870b-b88e384b877ddefault-IMAGE_SWIRL-64134da3-36a7-4c22-82a6-958ac989e582default"
+            },
+            {
+                "source": "ROTATE_IMAGE-4971a27b-eb5b-4ba9-9541-cffbea507c09",
+                "sourceHandle": "default",
+                "target": "IMAGE-e632723f-0c8e-4585-9a56-772125cc70be",
+                "targetHandle": "default",
+                "id": "reactflow__edge-ROTATE_IMAGE-4971a27b-eb5b-4ba9-9541-cffbea507c09default-IMAGE-e632723f-0c8e-4585-9a56-772125cc70bedefault"
+            },
+            {
+                "source": "SKIMAGE-fce9b78b-bf71-4850-870b-b88e384b877d",
+                "sourceHandle": "default",
+                "target": "ROTATE_IMAGE-4971a27b-eb5b-4ba9-9541-cffbea507c09",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SKIMAGE-fce9b78b-bf71-4850-870b-b88e384b877ddefault-ROTATE_IMAGE-4971a27b-eb5b-4ba9-9541-cffbea507c09default"
+            }
+        ],
+        "viewport": {
+            "x": 1177.6156825958576,
+            "y": 667.56535325129,
+            "zoom": 1.1850094253528283
+        }
+    },
+    "textNodes": []
+}

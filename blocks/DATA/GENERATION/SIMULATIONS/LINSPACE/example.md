@@ -1,0 +1,1 @@
+In this example, the `LINSPACE` node generates a OrderedPair which is visualized with the `SCATTER` node.

@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Take two input matrices, multiply them, and return the result.",
+    "parameters": [
+      {
+        "name": "a",
+        "type": "Matrix",
+        "description": "The matrix on the left of the multiplication."
+      },
+      {
+        "name": "b",
+        "type": "Matrix",
+        "description": "The matrix on the right of the multiplication."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Matrix",
+        "description": "The matrix result from the matrix multiplication."
+      }
+    ]
+  }
+}

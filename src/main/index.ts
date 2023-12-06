@@ -10,7 +10,6 @@ import contextMenu from "electron-context-menu";
 import { release } from "node:os";
 import { join } from "node:path";
 import { checkForUpdates, update } from "./update";
-import { saveBlocksPack } from "./blocks";
 import { ChildProcess } from "node:child_process";
 import log from "electron-log/main";
 import { API } from "../types/api";
@@ -237,37 +236,6 @@ app.whenReady().then(async () => {
   ipcMain.handle(API.ping, (_, addr) => ping(addr));
   ipcMain.handle(API.netstat, netstat);
   ipcMain.handle(API.ifconfig, ifconfig);
-  ipcMain.handle(API.saveBlocks, async () => {
-    await saveBlocksPack({
-      win: global.mainWindow,
-      icon: getIcon(),
-      startup: true,
-    });
-  });
-  ipcMain.handle(
-    API.updateBlocks,
-    async () =>
-      await saveBlocksPack({
-        win: global.mainWindow,
-        icon: getIcon(),
-        update: true,
-      }),
-  );
-  ipcMain.handle(
-    API.downloadBlocksFromMain,
-    async () =>
-      await saveBlocksPack({
-        win: global.mainWindow,
-        icon: getIcon(),
-        update: true,
-        branch: "main",
-      }),
-  );
-  ipcMain.handle(
-    API.changeBlocksPath,
-    async () =>
-      await saveBlocksPack({ win: global.mainWindow, icon: getIcon() }),
-  );
   ipcMain.handle(API.restartFlojoyStudio, () => {
     app.relaunch();
     app.exit();

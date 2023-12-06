@@ -29,11 +29,6 @@ export const Index = (): JSX.Element => {
   const [setupStatuses, setSetupStatuses] = useState<SetupStatus[]>([
     {
       status: "running",
-      stage: "check-blocks-resource",
-      message: "Looking for blocks resource...",
-    },
-    {
-      status: "pending",
       stage: "check-python-installation",
       message: "Check for python ~3.11 installation.",
     },
@@ -54,26 +49,6 @@ export const Index = (): JSX.Element => {
   const [errorDesc, setErrorDesc] = useState<string>("");
   const [errorActionName, setErrorActionName] = useState<string>("");
   const navigate = useNavigate();
-
-  const checkBlocksResource = async () => {
-    try {
-      await window.api.saveBlocks();
-      updateSetupStatus({
-        stage: "check-blocks-resource",
-        status: "completed",
-        message: "Blocks resource is downloaded!",
-      });
-    } catch (err) {
-      updateSetupStatus({
-        stage: "check-blocks-resource",
-        status: "error",
-        message: "Could not download blocks resource :(",
-      });
-      setErrorTitle("Blocks resource download failed!");
-      setErrorDesc(String(err));
-      setErrorActionName("Restart");
-    }
-  };
 
   const checkPythonInstallation = async (force?: boolean): Promise<void> => {
     try {
@@ -218,7 +193,7 @@ export const Index = (): JSX.Element => {
 
   useEffect(() => {
     // Kick off the setup process with this useEffect
-    checkBlocksResource();
+    checkPythonInstallation();
   }, []);
 
   useEffect(() => {

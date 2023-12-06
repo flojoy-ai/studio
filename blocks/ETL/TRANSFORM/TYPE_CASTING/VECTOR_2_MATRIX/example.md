@@ -1,0 +1,1 @@
+This example shows the function of the `VECTOR_2_MATRIX` node. This node simply changes the data container type from `Vector` to `Matrix`. 

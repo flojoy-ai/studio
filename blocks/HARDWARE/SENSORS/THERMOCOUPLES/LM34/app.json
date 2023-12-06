@@ -1,0 +1,55 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 150,
+                "height": 180,
+                "id": "LM34-a4fabeea-988a-4de9-9c47-218f4575717e",
+                "type": "IO",
+                "data": {
+                    "id": "LM34-a4fabeea-988a-4de9-9c47-218f4575717e",
+                    "label": "LM34",
+                    "func": "LM34",
+                    "type": "IO",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": null
+                        }
+                    ],
+                    "path": "PYTHON/nodes/IO/ANALOG_SENSORS/THERMOCOUPLES/LM34/LM34.py",
+                    "selected": true
+                },
+                "position": {
+                    "x": -140.33430403903543,
+                    "y": -274.5727434927463
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": -140.33430403903543,
+                    "y": -274.5727434927463
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [],
+        "viewport": {
+            "x": 819.7643144890276,
+            "y": 420.4113108673,
+            "zoom": 0.8915653288195635
+        }
+    }
+}

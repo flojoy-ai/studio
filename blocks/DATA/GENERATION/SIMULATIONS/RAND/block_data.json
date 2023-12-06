@@ -1,0 +1,50 @@
+{
+  "docstring": {
+    "long_description": "Inputs\n------\ndefault : DataContainer\n    unused in this node",
+    "short_description": "Generate a random number or Vector of random numbers, depending on the distribution selected.",
+    "parameters": [
+      {
+        "name": "distribution",
+        "type": "select",
+        "description": "the distribution over the random samples"
+      },
+      {
+        "name": "size",
+        "type": "int",
+        "description": "the size of the output. =1 outputs Scalar, >1 outputs Vector"
+      },
+      {
+        "name": "lower_bound",
+        "type": "float",
+        "description": "the lower bound of the output interval"
+      },
+      {
+        "name": "upper_bound",
+        "type": "float",
+        "description": "the upper bound of the output interval"
+      },
+      {
+        "name": "normal_mean",
+        "type": "float",
+        "description": "the mean or \"center\" of the normal distribution"
+      },
+      {
+        "name": "normal_standard_deviation",
+        "type": "float",
+        "description": "the spread or \"width\" of the normal distribution"
+      },
+      {
+        "name": "poisson_events",
+        "type": "float",
+        "description": "the expected number of events occurring in a fixed time-interval when distribution is poisson"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Scalar|Vector",
+        "description": "Vector if size > 1\nv: the random samples\n\nScalar if size = 1\nc: the random number"
+      }
+    ]
+  }
+}
