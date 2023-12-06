@@ -25,6 +25,9 @@ update-blocks:
 dev:
   cd docs && pnpm dev
 
+build:
+  cd docs && pnpm build
+
 format:
   poetry run ruff format .
 
