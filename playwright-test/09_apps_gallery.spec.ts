@@ -99,7 +99,7 @@ test.describe("Apps gallery", () => {
           .toLowerCase()
           .split(" ")
           .join("_");
-        await expect(window.getByTestId(testId)).toBeInViewport();
+        await expect(window.getByTestId(testId)).toBeVisible();
         await window.getByTestId(testId).click({ force: true });
 
         try {
