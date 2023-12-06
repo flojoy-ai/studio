@@ -81,6 +81,14 @@ test.describe("Apps gallery", () => {
         const blockIds = parsedAppJson.rfInstance.nodes.map((n) => n.id);
         // Click on App Gallery button to open gallery modal
         await window.getByTestId(Selectors.appGalleryBtn).click();
+        // Expect modal to be visible
+        await expect(window.getByRole("dialog")).toBeInViewport();
+
+        // Evaluate app gallery title
+        const hasAppGalleryTitle = await window.$$eval("div", (divs) => {
+          return divs.some((div) => div.innerText === "App Gallery");
+        });
+        expect(hasAppGalleryTitle).toBe(true);
 
         // Find and click on Load button
         await window
