@@ -52,7 +52,7 @@ test.describe("Apps gallery", () => {
     test.setTimeout(600000);
 
     // Define app categories to run on test
-    const categoriesToRun = ["Fundamentals"];
+    const categoriesToRun = ["Fundamentals", "DSP"];
 
     // Define app names to exclude from test
     const excludeApps = ["Stream to Flojoy Cloud"];
@@ -78,7 +78,9 @@ test.describe("Apps gallery", () => {
 
         try {
           // Close the modal
-          await window.locator('[role="dialog"] > button').click();
+          await window
+            .locator('[role="dialog"] > button')
+            .click({ timeout: 1000 });
         } catch (error) {
           //
         }
