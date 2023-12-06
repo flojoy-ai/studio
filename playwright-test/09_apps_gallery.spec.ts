@@ -79,6 +79,10 @@ test.describe("Apps gallery", () => {
         const parsedAppJson = JSON.parse(appJson);
 
         const blockIds = parsedAppJson.rfInstance.nodes.map((n) => n.id);
+
+        await expect(window.getByTestId(Selectors.playBtn)).toBeEnabled({
+          timeout: 15000,
+        });
         // Click on App Gallery button to open gallery modal
         await window.getByTestId(Selectors.appGalleryBtn).click();
         // Expect modal to be visible
