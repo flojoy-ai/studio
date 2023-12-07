@@ -1,10 +1,9 @@
-import { memo } from "react";
+import { memo, SVGProps } from "react";
 
-export const BoxPlot = () => {
+export const BoxPlot = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
-      width="125"
-      height="126"
+      {...props}
       viewBox="0 0 125 126"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

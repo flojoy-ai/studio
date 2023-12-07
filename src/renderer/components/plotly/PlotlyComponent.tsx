@@ -23,6 +23,7 @@ const PlotlyComponent = (props: PlotProps) => {
 
   return (
     <Plot
+      {...props}
       data={data}
       layout={{
         ...layout,
@@ -31,7 +32,7 @@ const PlotlyComponent = (props: PlotProps) => {
         ...(isThumbnail && isMatrix && MATRIX_SIZE),
       }}
       useResizeHandler={useResizeHandler}
-      config={{ displayModeBar: false, staticPlot: isThumbnail && !is3dPlot }}
+      config={{ staticPlot: isThumbnail && !is3dPlot }}
       style={isMatrix && isThumbnail ? MATRIX_SIZE : style}
     />
   );

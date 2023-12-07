@@ -9,7 +9,7 @@ export const plotLayout = (theme: "dark" | "light") => {
     plot_bgcolor: plotBackgroundColor,
     autosize: true,
     font: { color: accentColor },
-    margin: { t: 40, r: 40, b: 40, l: 40 },
+    margin: { t: 32, r: 32, b: 32, l: 32 },
     xaxis: { zeroline: false, type: "-" },
     template: {},
   };
