@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "target": "es5",
-    "lib": ["es5", "dom"],
-    "types": ["cypress", "node", "@percy/cypress"],
-    "resolveJsonModule": true
-  },
-  "include": ["**/*.ts", "../src/**/*.ts"]
-}

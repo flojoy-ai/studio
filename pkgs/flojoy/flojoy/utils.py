@@ -1,6 +1,7 @@
 import decimal
 import json as _json
 import os
+import sys
 from pathlib import Path
 from typing import Any, Callable, Optional
 
@@ -19,9 +20,11 @@ from .dao import Dao
 from .config import FlojoyConfig, logger
 
 from .node_init import NodeInit, NodeInitService
+
 import keyring
+from keyrings.cryptfile.cryptfile import CryptFileKeyring
 import base64
-from .CONSTANTS import FLOJOY_DIR, FLOJOY_CACHE_DIR, CREDENTIAL_FILE
+from .CONSTANTS import FLOJOY_DIR, FLOJOY_CACHE_DIR, CREDENTIAL_FILE, KEYRING_KEY
 
 
 __all__ = [
@@ -303,20 +306,33 @@ def get_flojoy_root_dir() -> str:
     return root_dir
 
 
+def get_keyring():
+    if sys.platform.lower() == "linux":
+        kr = CryptFileKeyring()
+        kr.keyring_key = KEYRING_KEY
+        keyring.set_keyring(kr)
+    return keyring
+
+
 def get_env_var(key: str) -> Optional[str]:
-    return keyring.get_password("flojoy", key)
+    kr = get_keyring()
+    return kr.get_password("flojoy", key)
 
 
 def set_env_var(key: str, value: str):
-    keyring.set_password("flojoy", key, value)
+    kr = get_keyring()
+    kr.set_password("flojoy", key, value)
     home = str(Path.home())
     file_path = os.path.join(home, os.path.join(FLOJOY_DIR, CREDENTIAL_FILE))
 
     if not os.path.exists(file_path):
+        logger.info(f"{file_path} does not exist")
         with open(file_path, "w") as f:
             f.write(key)
+        logger.info(f"Env var written to {file_path}")
         return
 
+    logger.info(f"{file_path} exists, writing env to {file_path}")
     with open(file_path, "r") as f:
         keys = f.read().strip().split(",")
         if key not in keys:
@@ -344,7 +360,8 @@ def delete_env_var(key: str):
     with open(file_path, "w") as f:
         f.write(",".join(keys))
 
-    keyring.delete_password("flojoy", key)
+    kr = get_keyring()
+    kr.delete_password("flojoy", key)
 
 
 def get_credentials() -> list[dict[str, str]]:
@@ -352,6 +369,7 @@ def get_credentials() -> list[dict[str, str]]:
     file_path = os.path.join(home, os.path.join(FLOJOY_DIR, CREDENTIAL_FILE))
 
     if not os.path.exists(file_path):
+        logger.info(f"{file_path} not exists returning empty list...")
         return []
 
     with open(file_path, "r") as f:

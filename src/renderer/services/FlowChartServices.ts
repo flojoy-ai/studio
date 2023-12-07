@@ -24,8 +24,9 @@ export const postEnvironmentVariable = async (
   try {
     await baseClient.post("env", body);
     return { ok: true, data: null };
-  } catch (error) {
-    return { ok: false, error: error };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    return { ok: false, error: error.response?.data ?? error.message };
   }
 };
 
@@ -36,8 +37,9 @@ export const deleteEnvironmentVariable = async (
     await baseClient.delete(`env/${key}`);
 
     return { ok: true, data: null };
-  } catch (error) {
-    return { ok: false, error: error };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    return { ok: false, error: error.response?.data ?? error.message };
   }
 };
 

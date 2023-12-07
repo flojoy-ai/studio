@@ -37,7 +37,7 @@ const NodeEditModal = ({
 
   useEffect(() => {
     setNewTitle(node.data.label);
-  }, [node.data.id]);
+  }, [node.data.id, node.data.label]);
 
   return (
     <Draggable bounds="parent" cancel="#undrag,#title_input">
@@ -53,6 +53,7 @@ const NodeEditModal = ({
               <div className="flex">
                 <Input
                   id="title_input"
+                  data-testid="block-label-input"
                   className="w-max bg-modal"
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
@@ -61,6 +62,7 @@ const NodeEditModal = ({
                 <Button
                   size="icon"
                   variant="ghost"
+                  data-testid="block-label-submit"
                   onClick={() => {
                     setEditRenamingTitle(false);
                     handleTitleChange(newTitle, node.data.id);
@@ -78,6 +80,7 @@ const NodeEditModal = ({
                 <Button
                   size="icon"
                   variant="ghost"
+                  data-testid="block-label-edit"
                   onClick={() => {
                     setEditRenamingTitle(true);
                   }}
@@ -90,7 +93,7 @@ const NodeEditModal = ({
                   onClick={() => {
                     setNodeModalOpen(true);
                   }}
-                  data-testid="node-info-button"
+                  data-testid="block-info-btn"
                 >
                   <Info size={20} className="stroke-muted-foreground" />
                 </Button>
@@ -104,7 +107,7 @@ const NodeEditModal = ({
               size="icon"
               variant="ghost"
               onClick={() => setIsEditMode(false)}
-              data-testid="node-edit-close-button"
+              data-testid="block-edit-close-button"
               className="mr-4 p-2"
             >
               <X size={20} className="stroke-muted-foreground" />

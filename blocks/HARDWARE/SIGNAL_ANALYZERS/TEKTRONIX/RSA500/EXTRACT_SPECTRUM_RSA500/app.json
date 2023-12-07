@@ -1,0 +1,141 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "EXTRACT_SPECTRUM_RSA500-af96bf14-3bdd-4d09-b8e7-ca7e24083c8e",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "EXTRACT_SPECTRUM_RSA500-af96bf14-3bdd-4d09-b8e7-ca7e24083c8e",
+                    "label": "EXTRACT SPECTRUM RSA500",
+                    "func": "EXTRACT_SPECTRUM_RSA500",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "center_freq": {
+                            "type": "float",
+                            "default": 100000000,
+                            "desc": "The center frequency, in Hz.",
+                            "overload": null,
+                            "functionName": "EXTRACT_SPECTRUM_RSA500",
+                            "param": "center_freq",
+                            "value": 99300000
+                        },
+                        "ref_level": {
+                            "type": "float",
+                            "default": -30,
+                            "desc": "The reference level (the maximum y axis value), in dBm.",
+                            "overload": null,
+                            "functionName": "EXTRACT_SPECTRUM_RSA500",
+                            "param": "ref_level",
+                            "value": -30
+                        },
+                        "span": {
+                            "type": "float",
+                            "default": 1000000,
+                            "desc": "The width of the x axis, in Hz.",
+                            "overload": null,
+                            "functionName": "EXTRACT_SPECTRUM_RSA500",
+                            "param": "span",
+                            "value": 1000000
+                        },
+                        "bandwidth": {
+                            "type": "float",
+                            "default": 10000,
+                            "desc": "Resolution bandwidth, in Hz.",
+                            "overload": null,
+                            "functionName": "EXTRACT_SPECTRUM_RSA500",
+                            "param": "bandwidth",
+                            "value": 10000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "RF spectrum trace"
+                        }
+                    ],
+                    "path": "HARDWARE/SIGNAL_ANALYZERS/TEKTRONIX/RSA500/EXTRACT_SPECTRUM_RSA500/EXTRACT_SPECTRUM_RSA500.py"
+                },
+                "position": {
+                    "x": 294.6907674218594,
+                    "y": 110.23947430672145
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": 294.6907674218594,
+                    "y": 110.23947430672145
+                }
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "LINE-e98d4d4b-6372-4419-9ebe-3af956455b26",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-e98d4d4b-6372-4419-9ebe-3af956455b26",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": 599.2583922530205,
+                    "y": 93.16762276530585
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 599.2583922530205,
+                    "y": 93.16762276530585
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "EXTRACT_SPECTRUM_RSA500-af96bf14-3bdd-4d09-b8e7-ca7e24083c8e",
+                "sourceHandle": "default",
+                "target": "LINE-e98d4d4b-6372-4419-9ebe-3af956455b26",
+                "targetHandle": "default",
+                "id": "reactflow__edge-EXTRACT_SPECTRUM_RSA500-af96bf14-3bdd-4d09-b8e7-ca7e24083c8edefault-LINE-e98d4d4b-6372-4419-9ebe-3af956455b26default"
+            }
+        ],
+        "viewport": {
+            "x": 948.751833426666,
+            "y": 548.8961711096587,
+            "zoom": 0.8898510191682055
+        }
+    },
+    "textNodes": []
+}

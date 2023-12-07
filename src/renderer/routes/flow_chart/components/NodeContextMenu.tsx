@@ -17,18 +17,21 @@ type ContextMenuActionProps = {
   onClick: () => void;
   children: React.ReactNode;
   icon: LucideIcon;
+  testId: string;
 };
 
 const ContextMenuAction = ({
   onClick,
   children,
   icon,
+  testId,
 }: ContextMenuActionProps) => {
   const Icon = icon;
   return (
     <Button
       onClick={onClick}
       variant="ghost"
+      data-testid={testId}
       size="sm"
       className="flex w-full justify-start gap-2"
     >
@@ -95,19 +98,36 @@ export default function ContextMenu({
       style={{ top, left, right, bottom }}
       className="absolute z-50 rounded-md border bg-background"
       onClick={onClick}
+      data-testid={"block-context-menu"}
     >
-      <ContextMenuAction onClick={editNode} icon={Pencil}>
+      <ContextMenuAction
+        testId="context-edit-block"
+        onClick={editNode}
+        icon={Pencil}
+      >
         Edit Block
       </ContextMenuAction>
-      <ContextMenuAction onClick={duplicate} icon={CopyPlus}>
+      <ContextMenuAction
+        testId="context-duplicate-block"
+        onClick={duplicate}
+        icon={CopyPlus}
+      >
         Duplicate Block
       </ContextMenuAction>
       <hr />
-      <ContextMenuAction onClick={openInfo} icon={Info}>
+      <ContextMenuAction
+        testId="context-block-info"
+        onClick={openInfo}
+        icon={Info}
+      >
         Block Info
       </ContextMenuAction>
       <hr />
-      <ContextMenuAction onClick={deleteNode} icon={X}>
+      <ContextMenuAction
+        testId="context-delete-block"
+        onClick={deleteNode}
+        icon={X}
+      >
         Delete Block
       </ContextMenuAction>
     </div>

@@ -1,0 +1,197 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "BLOCK_IQ_RSA500-33713d6b-4202-414e-b8a3-2d9870aa0c7e",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "BLOCK_IQ_RSA500-33713d6b-4202-414e-b8a3-2d9870aa0c7e",
+                    "label": "BLOCK IQ RSA500",
+                    "func": "BLOCK_IQ_RSA500",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "center_freq": {
+                            "type": "float",
+                            "default": 100000000,
+                            "desc": "The center frequency, in Hz.",
+                            "overload": null,
+                            "functionName": "BLOCK_IQ_RSA500",
+                            "param": "center_freq",
+                            "value": 99300000
+                        },
+                        "ref_level": {
+                            "type": "float",
+                            "default": -30,
+                            "desc": "The reference level (the maximum y axis value), in dBm.",
+                            "overload": null,
+                            "functionName": "BLOCK_IQ_RSA500",
+                            "param": "ref_level",
+                            "value": -30
+                        },
+                        "record_length": {
+                            "type": "float",
+                            "default": 1000,
+                            "desc": "The length to record (length of x axis), in ms.",
+                            "overload": null,
+                            "functionName": "BLOCK_IQ_RSA500",
+                            "param": "record_length",
+                            "value": 500
+                        },
+                        "bandwidth": {
+                            "type": "float",
+                            "default": 500000,
+                            "desc": "Resolution bandwidth, in Hz.",
+                            "overload": null,
+                            "functionName": "BLOCK_IQ_RSA500",
+                            "param": "bandwidth",
+                            "value": 500000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "I_real",
+                            "id": "I_real",
+                            "type": "OrderedPair",
+                            "desc": "x: time\ny: power"
+                        },
+                        {
+                            "name": "Q_imag",
+                            "id": "Q_imag",
+                            "type": "OrderedPair",
+                            "desc": "x: time\ny: power"
+                        }
+                    ],
+                    "path": "HARDWARE/SIGNAL_ANALYZERS/TEKTRONIX/RSA500/BLOCK_IQ_RSA500/BLOCK_IQ_RSA500.py"
+                },
+                "position": {
+                    "x": -56.027539485865546,
+                    "y": -144.34132183199543
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -56.027539485865546,
+                    "y": -144.34132183199543
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "LINE-7f8f05d3-8628-400e-8b6b-5b5c01ac63bd",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-7f8f05d3-8628-400e-8b6b-5b5c01ac63bd",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": 285.36059388919506,
+                    "y": -27.241936012938595
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 285.36059388919506,
+                    "y": -27.241936012938595
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "LINE-b386bedb-cff5-4f45-bd9a-88af92b4a933",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-b386bedb-cff5-4f45-bd9a-88af92b4a933",
+                    "label": "LINE 1",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": 287.25605181479796,
+                    "y": -299.6107860259417
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 287.25605181479796,
+                    "y": -299.6107860259417
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "BLOCK_IQ_RSA500-33713d6b-4202-414e-b8a3-2d9870aa0c7e",
+                "sourceHandle": "I_real",
+                "target": "LINE-b386bedb-cff5-4f45-bd9a-88af92b4a933",
+                "targetHandle": "default",
+                "id": "reactflow__edge-BLOCK_IQ_RSA500-33713d6b-4202-414e-b8a3-2d9870aa0c7eI_real-LINE-b386bedb-cff5-4f45-bd9a-88af92b4a933default"
+            },
+            {
+                "source": "BLOCK_IQ_RSA500-33713d6b-4202-414e-b8a3-2d9870aa0c7e",
+                "sourceHandle": "Q_imag",
+                "target": "LINE-7f8f05d3-8628-400e-8b6b-5b5c01ac63bd",
+                "targetHandle": "default",
+                "id": "reactflow__edge-BLOCK_IQ_RSA500-33713d6b-4202-414e-b8a3-2d9870aa0c7eQ_imag-LINE-7f8f05d3-8628-400e-8b6b-5b5c01ac63bddefault"
+            }
+        ],
+        "viewport": {
+            "x": 948.751833426666,
+            "y": 548.8961711096587,
+            "zoom": 0.8898510191682055
+        }
+    },
+    "textNodes": []
+}

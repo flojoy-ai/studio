@@ -11,7 +11,7 @@ export const SaveButton = () => {
   const handleSave = useSave();
 
   return (
-    <MenubarItem data-cy="btn-save" onClick={handleSave}>
+    <MenubarItem data-testid="btn-save" onClick={handleSave}>
       {/* TODO: Add logo for windows and linux */}
       Save <MenubarShortcut>⌘S</MenubarShortcut>
     </MenubarItem>
@@ -41,7 +41,7 @@ export const SaveAsButton = () => {
   };
 
   return (
-    <MenubarItem data-cy="btn-saveas" onClick={handleSave}>
+    <MenubarItem data-testid="btn-saveas" onClick={handleSave}>
       Save As{" "}
     </MenubarItem>
   );
