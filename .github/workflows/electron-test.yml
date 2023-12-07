@@ -16,6 +16,7 @@ concurrency:
 env:
   NODE_ENV: "dev"
   DISPLAY: :0
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   electron_app:
