@@ -9,15 +9,14 @@ type MarkDownTextProps = {
 };
 const MarkDown = ({
   text,
-  isThumbnail,
   containerClassName,
   markDownclassName,
 }: MarkDownTextProps) => {
+  console.log(text);
   return (
     <div
       className={clsx(
-        { "h-72 w-96 overflow-hidden": isThumbnail },
-        "p-6",
+        "p-6 border overflow-hidden w-full h-full prose dark:prose-invert prose-headings:mb-0 prose-headings:mt-2 prose-p:mb-1 prose-p:mt-1 prose-p:first:mt-0 prose-ul:m-0 prose-li:m-0",
         containerClassName,
       )}
     >
