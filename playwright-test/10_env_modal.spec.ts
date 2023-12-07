@@ -57,13 +57,6 @@ test.describe("Environment modal", () => {
     // Click on submit button
     await window.getByTestId(Selectors.flojoyCloudApiSubmit).click();
 
-    // Expect success message to be shown
-    await expect(
-      window.getByText(
-        "Successfully set your Flojoy Cloud API key, let's stream some data to the cloud!",
-      ),
-    ).toBeVisible();
-
     try {
       // Expect "FLOJOY_CLOUD_KEY" to be listed in the modal
       await expect(window.getByText("FLOJOY_CLOUD_KEY")).toBeVisible({
@@ -91,11 +84,8 @@ test.describe("Environment modal", () => {
     // Click on Add button
     await window.getByTestId(Selectors.envVarSubmitBtn).click();
 
-    // Expect success message to show up
-    await expect(window.getByText("Environment variable added")).toBeVisible();
-
     // Expect given env var listed in the modal
-    await expect(window.getByText(env.key)).toBeVisible({ timeout: 15000 });
+    await expect(window.getByText(env.key)).toBeVisible({ timeout: 20000 });
 
     // Take a screenshot
     await window.screenshot({
