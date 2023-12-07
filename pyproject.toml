@@ -26,7 +26,7 @@ keyring = "^24.2.0"
 pyvisa-py = "^0.7.0"
 pyvisa = "^1.13.0"
 pyusb = "^1.2.1"
-tm-devices = { git = "https://github.com/tektronix/tm_devices.git", rev = "main" }
+tm-devices = "^1.1.0"
 watchfiles = "^0.21.0"
 keyrings-cryptfile = "^1.3.9"
 
