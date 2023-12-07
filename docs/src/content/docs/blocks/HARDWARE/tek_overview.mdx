@@ -1,0 +1,74 @@
+---
+title: Tektronix Instruments Overview
+description: "Flojoy drivers for the Tektronix Instruments."
+slug: blocks/hardware/tek
+sidebar:
+  order: 1
+---
+
+## Introduction
+
+Watch a video of Flojoy in action with a Tektronix AFG31000.
+
+import { YouTube } from '@astro-community/astro-embed-youtube';
+
+<div className="not-content">
+<YouTube id="hFrr2NlbqEg" />
+</div>
+
+
+Flojoy makes instrumentation easy and powerful. The visual programming nature of Flojoy allows for easy control of instruments, but we've also built Flojoy to allow users to write their own custom Blocks.
+
+You can also [request](https://toqo276pj36.typeform.com/to/F5rSHVu1) a custom Block that the team will create for you.
+
+This documentation outlines the first few, of many, officially supported Tektronix instruments.
+
+## Programming Tektronix Instruments with Flojoy
+
+The majority of Tektronix instrument use [SCPI](https://en.wikipedia.org/wiki/Standard_Commands_for_Programmable_Instruments) or [TSP](https://download.tek.com/document/1KW-61540-0_Script_with_TSP_Application_Note_031121.pdf). These instruments all have similar flow:
+
+1. Establish Connection:
+   - **`Connect`**: Begin by setting up the connection between Flojoy and the instrument (usually called `CONNECT_...`).
+2. Configuration:
+    - Blocks for programming the instruments settings (e.g. changing the voltage for a power supply).
+3. Control:
+    - Blocks for extracting data from the instrument and turning outputs on or off (e.g. turning on output on for a power supply).
+4. Ending the program
+   - Disconnection: When an app completes, instruments are *automatically* disconnected until the next time the app is run.
+
+
+## Example: Blocks for AFG31000
+
+Most instrument blocks names follow the convention: `FUNCTION_INSTRUMENTNAME` such as `OUTPUT_AFG31000`.
+
+#### Initialization Blocks
+
+- **`CONNECT`**: Establishes the connection the AFG31000 (ethernet/TCPIP recommended).
+
+- **`SAVE_STATE`**: Saves or recalls the instrument's state.
+
+- **`RESET`**: Resets the instruments to it's default state.
+
+#### Configuration Blocks
+
+- **`FUNCTION`**: Sets the parameters for the built-in function generator.
+
+- **`COPY`**: Copies the parameters from Channel 1 to channel 2 (or the reverse).
+
+- **`ARBITRARY`**: Uses the Block's input data in Flojoy as a artitrary function.
+
+- **`BASIC_PARAMETERS`**: Controls the frequency, phase, and voltages of the signals.
+
+#### Control Blocks
+
+- **`OUTPUT`**: Turns the output of the channels on or off. 
+
+- **`ALIGN_PHASES`**: Aligns the phases of the two channels, using one of them as the reference.
+
+
+## Instruments (Tektronix and Keithley)
+
+import BlockCategory from "@/components/BlockCategory.astro";
+
+<BlockCategory blocks={[{'link': '/blocks/hardware/oscilloscopes/tektronix/mdo3xxx/connection-mdo3xxx', 'name': 'CONNECTION_MDO3XXX', 'description': 'Connect Flojoy to a MDO3XXX oscilloscope.'}, {'link': '/blocks/hardware/oscilloscopes/tektronix/mso2x/connect-mso2x', 'name': 'CONNECT_MSO2X', 'description': 'Open a VISA connection to an MSO2X Tektronix oscilloscope.'}, {'link': '/blocks/hardware/function-generators/tektronix/afg31000/connect-afg31000', 'name': 'CONNECT_AFG31000', 'description': 'Connect Flojoy to a AFG31000 function generator.'}, {'link': '/blocks/hardware/sourcemeters/keithley/2450/connect-2450', 'name': 'CONNECT_2450', 'description': 'Open a VISA connection to an Keithley 2450 SourceMeter.'}, {'link': '/blocks/hardware/multimeters/keithley/dmm7510/connect-dmm7510', 'name': 'CONNECT_DMM7510', 'description': 'Open a VISA connection to a Keithley DMM7510.'}, {'link': '/blocks/hardware/signal-analyzers/tektronix/rsa500/extract-spectrum-rsa500', 'name': 'EXTRACT_SPECTRUM_RSA500', 'description': 'Extracts and returns the spectrum trace from an Tektronix RSA.'}]} />
+
