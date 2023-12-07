@@ -4,6 +4,11 @@
     "short_description": "Run DPX (Digital Phosphor) analysis on the RSA500.",
     "parameters": [
       {
+        "name": "dll_file",
+        "type": "File, default=C:/Tektronix/RSA_API/lib/x64/RSA_API.dll",
+        "description": "Where the RSA_API.dll file is located."
+      },
+      {
         "name": "center_freq",
         "type": "float, default=100e6",
         "description": "The center frequency, in Hz."

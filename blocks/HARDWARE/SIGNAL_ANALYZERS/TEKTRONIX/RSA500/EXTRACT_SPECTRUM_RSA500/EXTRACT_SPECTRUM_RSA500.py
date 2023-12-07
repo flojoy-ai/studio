@@ -1,4 +1,4 @@
-from flojoy import flojoy, DataContainer, OrderedPair
+from flojoy import flojoy, DataContainer, OrderedPair, File
 from typing import Optional
 from flojoy.instruments.tektronix.RSA_API import *  # noqa: F403
 from ctypes import cdll, c_int, c_bool, c_double, c_float, byref
@@ -8,6 +8,7 @@ import numpy as np
 
 @flojoy()
 def EXTRACT_SPECTRUM_RSA500(
+    dll_file: File,
     input: Optional[DataContainer] = None,
     center_freq: float = 100e6,
     ref_level: float = -30,
@@ -22,6 +23,8 @@ def EXTRACT_SPECTRUM_RSA500(
 
     Parameters
     ----------
+    dll_file : File, default=C:/Tektronix/RSA_API/lib/x64/RSA_API.dll
+        Where the RSA_API.dll file is located.
     center_freq : float, default=100e6
         The center frequency, in Hz.
     ref_level : float, default=-30
@@ -38,16 +41,7 @@ def EXTRACT_SPECTRUM_RSA500(
     """
 
     # Connect to RSA
-    moved = "C:/Program Files/Tek/RSA_API/lib/x64/RSA_API.dll"
-    defau = "C:/Tektronix/RSA_API/lib/x64/RSA_API.dll"
-    if path.isfile(defau):
-        rsa = cdll.LoadLibrary(defau)
-    elif path.isfile(moved):
-        rsa = cdll.LoadLibrary(moved)
-    else:
-        raise FileNotFoundError(
-            "Cannot find RSA_API.dll. Download from: https://www.tek.com/en/products/spectrum-analyzers/rsa500"
-        )
+    rsa = cdll.LoadLibrary(dll_file.unwrap())
 
     numFound = c_int(0)
     intArray = c_int * DEVSRCH_MAX_NUM_DEVICES  # noqa: F405
