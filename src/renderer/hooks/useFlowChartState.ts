@@ -61,9 +61,10 @@ const editModeAtom = atomWithImmer<boolean>(false);
 const credentialsAtom = atomWithImmer<EnvVarCredentialType[]>([]);
 const isSidebarOpenAtom = atom<boolean>(false);
 const nodeParamChangedAtom = atom<boolean>(false);
-export const centerPositionAtom = atom<{ x: number; y: number } | undefined>(
-  undefined,
-);
+export const centerPositionAtom = atom<{ x: number; y: number }>({
+  x: 0,
+  y: 0,
+});
 
 const currentPythonEnvAtom = atom<string | undefined>(undefined);
 

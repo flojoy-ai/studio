@@ -1,6 +1,6 @@
 import { GalleryData } from "@src/types/gallery";
 
-const data: GalleryData = {
+export const data: GalleryData = {
   Fundamentals: [
     {
       title: "Intro to Loops",

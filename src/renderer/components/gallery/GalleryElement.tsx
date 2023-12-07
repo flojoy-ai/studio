@@ -99,7 +99,7 @@ export const GalleryElement = ({
               variant="outline"
               size="sm"
               className="gap-2"
-              data-testid="gallery-load-button"
+              data-testid={galleryApp.title.toLowerCase().split(" ").join("_")}
               onClick={async () => {
                 await handleAppLoad();
               }}

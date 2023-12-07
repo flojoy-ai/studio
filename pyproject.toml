@@ -31,6 +31,7 @@ pyvisa = "^1.13.0"
 pyusb = "^1.2.1"
 tm-devices = {git = "https://github.com/tektronix/tm_devices.git", rev = "main"}
 watchfiles = "^0.21.0"
+keyrings-cryptfile = "^1.3.9"
 
 
 [tool.poetry.group.dev.dependencies]

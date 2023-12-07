@@ -26,7 +26,7 @@ import Sidebar, { LeafClickHandler } from "../common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import { useAddNewNode } from "./hooks/useAddNewNode";
-import { NodeExpandMenu } from "./views/NodeExpandMenu";
+import { BlockExpandMenu } from "./views/BlockExpandMenu";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import {
   ACTIONS_HEIGHT,
@@ -250,6 +250,7 @@ const FlowChartTab = () => {
       const nodeIndex = nodes.findIndex((el) => el.id === node.id);
       nodes[nodeIndex] = node;
       setHasUnsavedChanges(true);
+      localStorage.setItem("prev_block_pos", "");
     });
   };
 
@@ -532,13 +533,13 @@ const FlowChartTab = () => {
             )}
           </ReactFlow>
 
-          <NodeExpandMenu
+          <BlockExpandMenu
             selectedNode={selectedNode}
             modalIsOpen={nodeModalOpen}
             setModalOpen={setNodeModalOpen}
             nodeResults={programResults}
             pythonString={pythonString}
-            nodeFilePath={nodeFilePath}
+            blockFilePath={nodeFilePath}
           />
         </div>
       </ReactFlowProvider>

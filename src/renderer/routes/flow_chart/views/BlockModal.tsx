@@ -44,26 +44,26 @@ const jsonTheme = {
 SyntaxHighlighter.registerLanguage("python", python);
 SyntaxHighlighter.registerLanguage("json", json);
 
-export type NodeModalProps = {
+export type BlockModalProps = {
   modalIsOpen: boolean;
   setModalOpen: (open: boolean) => void;
   nd: NodeResult | null;
   pythonString: string;
-  nodeFilePath: string;
+  blockFilePath: string;
   selectedNode: Node<ElementsData>;
 };
 
-const NodeModal = ({
+const BlockModal = ({
   modalIsOpen,
   setModalOpen,
   nd,
-  nodeFilePath,
+  blockFilePath,
   pythonString,
   selectedNode,
-}: NodeModalProps) => {
+}: BlockModalProps) => {
   const { resolvedTheme } = useTheme();
 
-  const path = nodeFilePath.replace(/"\\"/g, "/");
+  const path = blockFilePath.replace(/"\\"/g, "/");
 
   const link = `${BLOCKS_REPO}/blocks/${path}`;
 
@@ -73,11 +73,7 @@ const NodeModal = ({
     .join("/")}`;
 
   return (
-    <Dialog
-      data-testid="node-modal"
-      open={modalIsOpen}
-      onOpenChange={setModalOpen}
-    >
+    <Dialog open={modalIsOpen} onOpenChange={setModalOpen}>
       <DialogContent className="my-12 max-h-screen overflow-y-scroll border-muted bg-background p-12 sm:max-w-2xl md:max-w-4xl">
         <DialogHeader>
           <DialogTitle className="text-3xl">
@@ -125,9 +121,13 @@ const NodeModal = ({
         </ScrollArea>
         <div className="py-2" />
         <h2 className="text-lg font-semibold text-muted-foreground">
-          Node data
+          Block data
         </h2>
-        <div className="rounded-md bg-modal px-4">
+        <div
+          className="rounded-md bg-modal px-4"
+          data-testid="block-info-json"
+          data-blockjson={JSON.stringify(selectedNode)}
+        >
           <JSONTree
             data={selectedNode}
             theme={{
@@ -180,4 +180,4 @@ const NodeModalDataViz = ({
   );
 };
 
-export default NodeModal;
+export default BlockModal;

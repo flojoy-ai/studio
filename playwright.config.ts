@@ -4,7 +4,7 @@ export default defineConfig({
   workers: 1,
   use: {
     trace: {
-      mode: "on",
+      mode: "retain-on-failure",
       sources: true,
     },
   },
