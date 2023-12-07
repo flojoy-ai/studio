@@ -1,6 +1,9 @@
 name: E2E Testing
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     types:
       - opened
@@ -16,7 +19,7 @@ env:
 
 jobs:
   electron_app:
-    if: ${{ github.event.pull_request.base.ref == 'main' }}
+    if: ${{ (github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'main') || (github.event_name == 'push' && github.ref == 'refs/heads/main') }}
     strategy:
       matrix:
         os: [macos-latest-xlarge, windows-latest, "ubuntu-latest"]
