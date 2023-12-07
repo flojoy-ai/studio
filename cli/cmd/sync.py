@@ -49,7 +49,7 @@ def sync():
         _remove_empty_folders(BLOCKS_DOCS_FOLDER)
         _remove_empty_folders(BLOCKS_SOURCE_FOLDER)
 
-        keep_files = ["intro.mdx"]
+        keep_files = ["intro.mdx", "tek_overview.mdx"]
 
         progress.add_task(
             f"Cleaning the blocks section except all the {keep_files} files."
