@@ -1,7 +1,7 @@
 {
   "name": "blocks",
   "type": "module",
-  "version": "0.1.21",
+  "version": "0.1.23",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
