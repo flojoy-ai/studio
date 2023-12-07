@@ -1,1 +1,0 @@
-In this example, `READ_S3` node extracts a file from AWS S3 bucket and displays it on the `Table` visualizer.

@@ -1,1 +1,0 @@
-It's an edge detection app which uses an edge detection filter node to detect edges on an image.

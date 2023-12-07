@@ -1,1 +1,0 @@
-In this example we're simulating data from `LINSPACE`, `TIMESERIES`, `MATRIX` and `R_DATASET` and visualizing them with `LINE` node which creates a Plotly Line visualization for each of the input node.

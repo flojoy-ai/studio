@@ -1,1 +1,0 @@
-In this example, a short phrase is entered to `TEXT` and it get displayed with `TEXT_VIEW`.

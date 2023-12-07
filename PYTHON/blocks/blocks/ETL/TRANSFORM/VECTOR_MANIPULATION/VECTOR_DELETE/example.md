@@ -1,1 +1,0 @@
-In this example, we generate a vector by using a `LINSPACE` node. Then starting from index 0, 2 elements are deleted using `VECTOR_DELETE`. The resulting vector is visualized with `SCATTER` node, and another node has been connected to `LINSPACE` for comparison.

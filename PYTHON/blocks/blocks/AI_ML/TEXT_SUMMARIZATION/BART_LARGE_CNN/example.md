@@ -1,2 +1,0 @@
-In this example, a `READ_CSV` node reads out a single-column dataframe containing a large text as a single row.
-Our `BART_LARGE_CNN` node produces an equivalent output dataframe containing the corresponding summaries.

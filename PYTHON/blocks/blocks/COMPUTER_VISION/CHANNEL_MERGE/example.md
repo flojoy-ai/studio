@@ -1,1 +1,0 @@
-This example shows the function of the `CHANNEL_MERGE` node. This node takes RGBA (Red Green Blue Alpha) layers (or channels) and merges them into a new image. 

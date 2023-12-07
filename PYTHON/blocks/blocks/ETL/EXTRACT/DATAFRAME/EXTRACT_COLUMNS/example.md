@@ -1,1 +1,0 @@
-In this example, we load `tips` dataset from `PLOTLY_DATASET` node and extract columns `tips, total bill` and `time` using two separate `EXTRACT_COLUMNS` node. The results are displayed through `TABLE` node

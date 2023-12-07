@@ -1,1 +1,0 @@
-In this example, a `REMOTE_FILE` node loads Flojoy's logo from the internet and plots using a `IMAGE` node.

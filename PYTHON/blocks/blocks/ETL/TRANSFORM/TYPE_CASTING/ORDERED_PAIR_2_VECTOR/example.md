@@ -1,1 +1,0 @@
-This example shows the function of the ORDERED_PAIR_2_VECTOR node. It changes an `Ordered Pair` into a `Vector`. Specifcally, the x axis is removed and the y axis is used as the vector.

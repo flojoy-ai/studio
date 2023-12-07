@@ -1,1 +1,0 @@
-In this example, we generate a vector by using a `LINSPACE` node. Then, the length of this vector is extracted with the `VECTOR_LENGTH` node. The length is visualized with `BIG_NUMBER`.
