@@ -41,7 +41,7 @@ export default {
   downloadLogs: (): void => ipcRenderer.send(API.downloadLogs),
   checkForUpdates: (): void => ipcRenderer.send(API.checkForUpdates),
   restartCaptain: (): Promise<void> => ipcRenderer.invoke(API.restartCaptain),
-  getCustomBlocksDir: (): Promise<string> =>
+  getCustomBlocksDir: (): Promise<string | undefined> =>
     ipcRenderer.invoke(API.getCustomBlocksDir),
   cacheCustomBlocksDir: (dirPath: string): void =>
     ipcRenderer.send(API.cacheCustomBlocksDir, dirPath),

@@ -20,7 +20,7 @@ type SidebarProps = {
   leafNodeClickHandler: LeafClickHandler;
   customContent?: JSX.Element;
   customSections: RootNode | null;
-  handleImportCustomBlocks: (e: unknown) => void;
+  handleImportCustomBlocks: (startup: boolean) => void;
 };
 
 const Sidebar = ({
@@ -138,7 +138,7 @@ const Sidebar = ({
         </div>
       </div>
       <Tabs defaultValue="standard" className="mb-8 h-[80%]">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid w-11/12 grid-cols-2">
           <TabsTrigger value="standard">Standard</TabsTrigger>
           <TabsTrigger value="custom">Custom</TabsTrigger>
         </TabsList>
@@ -179,7 +179,7 @@ const Sidebar = ({
                 />
               </div>
               <div className="flex w-full items-center justify-center pt-2">
-                <Button variant={"outline"} onClick={handleImportCustomBlocks}>
+                <Button variant={"outline"} onClick={() => handleImportCustomBlocks(false)}>
                   <ImportIcon size={26} className="pr-2" />
                   Change Custom Blocks Directory
                 </Button>
@@ -188,7 +188,7 @@ const Sidebar = ({
           ) : (
             <div className="flex h-full flex-col items-center justify-center">
               <p className="py-3">No custom blocks found</p>
-              <Button variant={"outline"} onClick={handleImportCustomBlocks}>
+              <Button variant={"outline"} onClick={() => handleImportCustomBlocks(false)}>
                 <ImportIcon size={26} className="pr-2" />
                 Import Custom Blocks
               </Button>

@@ -23,13 +23,11 @@ const getNodeNameFromId = (nodeId: string) => {
 };
 
 export const getEdgeTypes = (
-  nodeSection: RootNode | null,
+  nodeSection: RootNode,
   connection: Connection,
 ): [string, string] => {
-  if (!nodeSection) {
-    throw new Error("Manifest not found!");
-  }
   populateNodes(nodeSection);
+
   if (
     !connection.source ||
     !connection.target ||

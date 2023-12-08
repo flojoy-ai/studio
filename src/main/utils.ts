@@ -79,16 +79,20 @@ export const pickDirectory = async (): Promise<string> => {
 
 export const getCustomBlocksDir = async () => {
   const filePath = join(app.getPath("home"), ".flojoy/custom_blocks_path.txt");
-  if (fs.existsSync(filePath)) {
-    const blocksPath = fs
-      .readFileSync(filePath, { encoding: "utf-8" })
-      .toString();
-    if (fs.existsSync(blocksPath)) {
-      return blocksPath;
-    }
-    return "";
+
+  if (!fs.existsSync(filePath)) {
+    return undefined;
   }
-  return "";
+
+  const blocksPath = fs
+    .readFileSync(filePath, { encoding: "utf-8" })
+    .toString();
+
+  if (!fs.existsSync(blocksPath)) {
+    return undefined;
+  }
+
+  return blocksPath;
 };
 
 export const cacheCustomBlocksDir = (_, dirPath: string) => {

@@ -279,12 +279,18 @@ const FlowChartTab = () => {
   const onConnect: OnConnect = useCallback(
     (connection) =>
       setEdges((eds) => {
-        let edges: string[];
-        try {
-          edges = getEdgeTypes(manifest, connection);
-        } catch (error) {
-          edges = getEdgeTypes(customSections, connection);
+        if (!manifest) {
+          toast.error("Manifest not found, can't connect edge.");
+          return;
         }
+
+        const fullManifest = customSections ? {
+          ...manifest,
+          children: manifest.children.concat(customSections.children)
+        } : manifest;
+
+        const edges = getEdgeTypes(fullManifest, connection);
+
         if (edges.length > 0) {
           const [sourceType, targetType] = edges;
           if (isCompatibleType(sourceType, targetType)) {
@@ -469,9 +475,8 @@ const FlowChartTab = () => {
 
         <div
           style={{
-            height: `calc(100vh - ${
-              LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT + ACTIONS_HEIGHT
-            }px)`,
+            height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT + ACTIONS_HEIGHT
+              }px)`,
           }}
           className="relative overflow-hidden bg-background"
           data-testid="react-flow"

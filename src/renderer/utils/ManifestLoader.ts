@@ -53,9 +53,11 @@ const parentSchema = z.object({
 });
 export type ParentNode = z.infer<typeof parentSchema>;
 
+const nodeSchema = z.union([parentSchema, leafSchema]);
+
 const rootSchema = z.object({
   name: z.literal("ROOT"),
-  children: z.array(parentSchema),
+  children: z.array(nodeSchema),
 });
 
 export type RootNode = z.infer<typeof rootSchema>;

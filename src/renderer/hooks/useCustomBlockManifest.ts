@@ -6,20 +6,19 @@ import { toast } from "sonner";
 const customBlockManifestAtom = atom<RootNode | null>(null);
 export const manifestChangedAtom = atom<boolean>(true);
 
+
 export const useCustomSections = () => {
   const setCustomBlockManifest = useSetAtom(customBlockManifestAtom);
   const customSections = useAtomValue(customBlockManifestAtom);
+
   const handleImportCustomBlocks = useCallback(
-    async (_, startup: boolean = false) => {
-      let blocksDirPath: string;
-      if (!startup) {
-        blocksDirPath = await window.api.pickDirectory();
-      } else {
-        blocksDirPath = await window.api.getCustomBlocksDir();
-      }
+    async (startup: boolean) => {
+      const blocksDirPath = !startup ? await window.api.pickDirectory() : await window.api.getCustomBlocksDir();
+
       if (!blocksDirPath) {
         return;
       }
+
       const prevManifest = customSections;
       setCustomBlockManifest(null);
       try {
@@ -39,10 +38,10 @@ export const useCustomSections = () => {
         setCustomBlockManifest(res.data);
         window.api.cacheCustomBlocksDir(blocksDirPath);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (err:any) {
+      } catch (err: any) {
         const errTitle = `Failed to generate blocks manifest from ${blocksDirPath} !`;
         const errDescription = `${err.response?.data?.error ?? err.message}`;
-    
+
         toast.message(errTitle, {
           description: errDescription.toString(),
           duration: 60000,
@@ -52,6 +51,7 @@ export const useCustomSections = () => {
     },
     [customSections, setCustomBlockManifest],
   );
+
   return {
     handleImportCustomBlocks,
     customSections,
