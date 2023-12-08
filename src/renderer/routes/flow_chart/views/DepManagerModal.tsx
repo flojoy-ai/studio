@@ -16,7 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "@src/components/ui/table";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { PoetryGroupInfo, PythonDependency } from "src/types/poetry";
 
 type Props = {
@@ -37,30 +37,32 @@ const DepManagerModal = ({
 
   const [msg, setMsg] = useState<string>("");
 
-  const handleUpdate = async () => {
+  const handleUpdate = useCallback(async () => {
     const deps = await window.api.poetryShowTopLevel();
     const groups = await window.api.poetryGetGroupInfo();
     setAllDependencies(deps);
     setDepGroups(groups);
-  };
+  }, []);
 
-  const handleGroupInstall = async (groupName: string) => {
+  const handleGroupInstall = useCallback(async (groupName: string) => {
     setMsg("Installing...");
     setIsLoading(true);
     await window.api.poetryInstallDepGroup(groupName);
     await handleUpdate();
     setIsLoading(false);
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const handleGroupUninstall = async (groupName: string) => {
+  const handleGroupUninstall = useCallback(async (groupName: string) => {
     setMsg("Removing...");
     setIsLoading(true);
     await window.api.poetryUninstallDepGroup(groupName);
     await handleUpdate();
     setIsLoading(false);
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const getButtonLabel = (status: PoetryGroupInfo["status"]) => {
+  const getButtonLabel = useCallback((status: PoetryGroupInfo["status"]) => {
     switch (status) {
       case "installed":
         return "Uninstall";
@@ -71,12 +73,13 @@ const DepManagerModal = ({
       default:
         return "Unknown";
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (isDepManagerModalOpen) {
       handleUpdate();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDepManagerModalOpen]);
 
   useEffect(() => {
