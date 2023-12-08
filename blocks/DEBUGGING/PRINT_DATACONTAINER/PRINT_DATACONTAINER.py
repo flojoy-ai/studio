@@ -1,4 +1,5 @@
 from flojoy import DataContainer, String, flojoy
+from pprint import pformat, pprint
 
 
 @flojoy()
@@ -20,4 +21,4 @@ def PRINT_DATACONTAINER(
         String: Input datacontainer information
     """
 
-    return String(s=str(default))
+    return String(s=f"```\n{pformat(default.to_dict())}```")
