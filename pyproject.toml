@@ -31,20 +31,13 @@ watchfiles = "^0.21.0"
 keyrings-cryptfile = "^1.3.9"
 
 [tool.poetry.group.blocks.dependencies]
-scipy = "^1.11.4"
 scikit-image = "^0.22.0"
 lxml = "^4.9.3"
-numpy = "^1.26.2"
 boto3 = "^1.33.8"
-pandas = { extras = ["parquet"], version = "^2.1.3" }
 moto = "^4.2.11"
-pyyaml = "^6.0.1"
 openpyxl = "^3.1.2"
-opencv-python-headless = "^4.8.1.78"
 sympy = "^1.12"
 xlrd = "^2.0.1"
-qcodes = "^0.40.0"
-pyvisa-sim = "^0.6.0"
 
 [tool.poetry.group.dev]
 optional = true

@@ -8,7 +8,7 @@ import toml from "toml";
 const depGroups: Pick<PoetryGroupInfo, "name" | "description">[] = [
   {
     name: "blocks",
-    description: "Core dependencies for Flojoy Studio",
+    description: "Core dependencies for Flojoy Blocks",
   },
   {
     name: "dev",
