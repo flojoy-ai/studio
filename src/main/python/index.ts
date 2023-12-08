@@ -11,7 +11,6 @@ import {
 } from "./interpreter";
 import * as os from "os";
 import { existsSync, readFileSync } from "fs";
-import { killProcess } from "../utils";
 
 export async function checkPythonInstallation(
   _,
