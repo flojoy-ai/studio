@@ -90,7 +90,7 @@ export async function installPoetry(): Promise<void> {
 
 export async function installDependencies(): Promise<string> {
   const poetry = process.env.POETRY_PATH ?? "poetry";
-  return await execCommand(new Command(`${poetry} install`));
+  return await execCommand(new Command(`${poetry} install --no-root`));
 }
 
 export async function spawnCaptain(): Promise<void> {
