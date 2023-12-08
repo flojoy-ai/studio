@@ -118,30 +118,28 @@ const DepManagerModal = ({
           <div className="py-2" />
           <div className="text-2xl font-bold">All Dependencies</div>
           <div className="py-2" />
-          <div className="">
-            <ScrollArea className="h-80 rounded-md border">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead className="">Version</TableHead>
-                    <TableHead className="">Description</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {allDependencies
-                    .filter((dep) => dep.installed)
-                    .map((dep) => (
-                      <TableRow key={dep.name}>
-                        <TableCell>{dep.name}</TableCell>
-                        <TableCell>{dep.version}</TableCell>
-                        <TableCell>{dep.description}</TableCell>
-                      </TableRow>
-                    ))}
-                </TableBody>
-              </Table>
-            </ScrollArea>
-          </div>
+          <ScrollArea className="h-80 rounded-md border">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Name</TableHead>
+                  <TableHead>Version</TableHead>
+                  <TableHead>Description</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {allDependencies
+                  .filter((dep) => dep.installed)
+                  .map((dep) => (
+                    <TableRow key={dep.name}>
+                      <TableCell>{dep.name}</TableCell>
+                      <TableCell>{dep.version}</TableCell>
+                      <TableCell>{dep.description}</TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </ScrollArea>
         </div>
       </DialogContent>
     </Dialog>
