@@ -1,10 +1,12 @@
 export type PoetryGroupInfo = {
-  groupName: string;
+  name: string;
   dependencies: PythonDependency[];
+  status: "installed" | "outdated" | "dne";
 };
 
 export type PythonDependency = {
   name: string;
   version: string;
   description?: string;
+  installed: boolean;
 };

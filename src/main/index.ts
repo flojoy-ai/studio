@@ -44,7 +44,7 @@ import {
   browsePythonInterpreter,
   handlePythonInterpreter,
 } from "./python/interpreter";
-import { poetryGetGroupInfo, poetryShowTopLevel } from "./python/poetry";
+import { poetryGetGroupInfo, poetryInstallDepGroup, poetryShowTopLevel, poetryUninstallDepGroup } from "./python/poetry";
 
 log.initialize({ preload: true });
 log.info("Welcome to Flojoy Studio!");
@@ -244,6 +244,12 @@ app.whenReady().then(async () => {
 
   ipcMain.handle(API.poetryShowTopLevel, poetryShowTopLevel);
   ipcMain.handle(API.poetryGetGroupInfo, poetryGetGroupInfo);
+  ipcMain.handle(API.poetryInstallDepGroup, (_, group) => {
+    return poetryInstallDepGroup(group);
+  });
+  ipcMain.handle(API.poetryUninstallDepGroup, (_, group) => {
+    return poetryUninstallDepGroup(group);
+  });
 });
 
 app.on("window-all-closed", async () => {

@@ -43,6 +43,8 @@ openpyxl = "^3.1.2"
 opencv-python-headless = "^4.8.1.78"
 sympy = "^1.12"
 xlrd = "^2.0.1"
+qcodes = "^0.40.0"
+pyvisa-sim = "^0.6.0"
 
 [tool.poetry.group.dev]
 optional = true
@@ -59,10 +61,7 @@ optional = true
 
 [tool.poetry.group.hardware.dependencies]
 mecademicpy = "^2.0.0"
-qcodes = "^0.40.0"
 phidget22 = "^1.17.20231004"
-pyserial = "^3.5"
-pyvisa-sim = "^0.6.0"
 labjackpython = "^2.1.0"
 ticlib = "^0.2.2"
 

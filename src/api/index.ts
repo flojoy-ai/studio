@@ -2,7 +2,7 @@ import { app, ipcRenderer } from "electron";
 import * as fileSave from "./fileSave";
 import { API } from "../types/api";
 import { InterpretersList } from "../main/python/interpreter";
-import { PythonDependency } from "src/types/poetry";
+import { PoetryGroupInfo, PythonDependency } from "src/types/poetry";
 
 export default {
   ...fileSave,
@@ -45,6 +45,10 @@ export default {
 
   poetryShowTopLevel: (): Promise<PythonDependency[]> =>
     ipcRenderer.invoke(API.poetryShowTopLevel),
-  poetryGetGroupInfo: (): Promise<string> =>
+  poetryGetGroupInfo: (): Promise<PoetryGroupInfo[]> =>
     ipcRenderer.invoke(API.poetryGetGroupInfo),
+  poetryInstallDepGroup: (group: string): Promise<boolean> =>
+    ipcRenderer.invoke(API.poetryInstallDepGroup, group),
+  poetryUninstallDepGroup: (group: string): Promise<boolean> =>
+    ipcRenderer.invoke(API.poetryUninstallDepGroup, group),
 };
