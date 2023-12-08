@@ -76,13 +76,12 @@ export async function poetryGetGroupInfo(): Promise<PoetryGroupInfo[]> {
         };
       });
 
-      // TODO: Implement actual outdated checking
       return {
         name: key,
         dependencies,
         description:
           POETRY_DEP_GROUPS.find((group) => group.name === key)?.description ??
-          "Unknown (depGroups needs to be updated!)",
+          "Unknown (the POETRY_DEP_GROUPS constant needs to be updated!)",
         status: (dependencies.every((dep) => dep.installed)
           ? "installed"
           : "dne") as PoetryGroupInfo["status"],
@@ -96,6 +95,8 @@ export async function poetryInstallDepGroup(group: string): Promise<boolean> {
   await execCommand(new Command(`poetry install --with ${group} --no-root`));
 
   if (group !== "blocks") {
+    // We want to persist the optional groups such that we can call
+    // poetry install on them on every startup to ensure they are updated
     const groups = store.get("poetryOptionalGroups") as string[];
     if (!groups.includes(group)) {
       store.set("poetryOptionalGroups", [...groups, group]);
@@ -111,6 +112,8 @@ export async function poetryUninstallDepGroup(group: string): Promise<boolean> {
   );
 
   if (group !== "blocks") {
+    // We want to persist the optional groups such that we can call
+    // poetry install on them on every startup to ensure they are updated
     const groups = store.get("poetryOptionalGroups") as string[];
     if (groups) {
       const newGroups = groups.filter((g: string) => g !== group);
