@@ -68,8 +68,6 @@ const DepManagerModal = ({
         return "Uninstall";
       case "dne":
         return "Install";
-      case "outdated":
-        return "Update";
       default:
         return "Unknown";
     }

@@ -2,7 +2,7 @@ export type PoetryGroupInfo = {
   name: string;
   description: string;
   dependencies: PythonDependency[];
-  status: "installed" | "outdated" | "dne";
+  status: "installed" | "dne";
 };
 
 export type PythonDependency = {

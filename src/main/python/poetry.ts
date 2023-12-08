@@ -81,9 +81,7 @@ export async function poetryGetGroupInfo(): Promise<PoetryGroupInfo[]> {
           "Unknown (depGroups needs to be updated!)",
         status: (dependencies.every((dep) => dep.installed)
           ? "installed"
-          : dependencies.some((dep) => dep.installed)
-            ? "outdated"
-            : "dne") as PoetryGroupInfo["status"],
+          : "dne") as PoetryGroupInfo["status"],
       };
     },
   );
