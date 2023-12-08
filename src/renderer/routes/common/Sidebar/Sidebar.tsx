@@ -20,7 +20,7 @@ type SidebarProps = {
   leafNodeClickHandler: LeafClickHandler;
   customContent?: JSX.Element;
   customSections: RootNode | null;
-  handleImportCustomBlocks: () => void;
+  handleImportCustomBlocks: (e: unknown) => void;
 };
 
 const Sidebar = ({
