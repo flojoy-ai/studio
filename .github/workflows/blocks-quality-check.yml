@@ -33,7 +33,7 @@ jobs:
           key: venv-${{ hashFiles('poetry.lock') }}
 
       - name: Install Python dependencies
-        run: poetry install
+        run: poetry install --with dev
 
       - name: Check if there is any missing Block component
         run: poetry run python3 fjblock.py sync
