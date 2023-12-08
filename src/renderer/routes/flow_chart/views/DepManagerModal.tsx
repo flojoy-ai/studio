@@ -99,11 +99,13 @@ const DepManagerModal = ({
           <div className="py-2" />
 
           <div className="text-2xl font-bold">Extensions</div>
+          <div className="py-2" />
           <div>
             {depGroups.map((group) => {
               return (
-                <div className="flex items-center p-1" key={group.name}>
-                  <div>{group.name}</div>
+                <div className="flex p-1" key={group.name}>
+                  <div className="w-32">{group.name}</div>
+                  <div>{group.description}</div>
                   <div className="grow" />
                   <Button
                     disabled={isLoading}
@@ -132,7 +134,7 @@ const DepManagerModal = ({
                 {msg}
               </div>
             ) : (
-              <div>Dependency Manager Operational</div>
+              <div>Dependency Manager Idle</div>
             )}
           </div>
 

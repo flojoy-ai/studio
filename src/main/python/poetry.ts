@@ -4,10 +4,30 @@ import { execCommand } from "../executor";
 import pyproject from "../../../pyproject.toml?raw";
 import toml from "toml";
 
+// FIXME: do not hardcode the groups here
+const depGroups: Pick<PoetryGroupInfo, "name" | "description">[] = [
+  {
+    name: "blocks",
+    description: "Core dependencies for Flojoy Studio",
+  },
+  {
+    name: "dev",
+    description: "Development dependencies for Flojoy Studio",
+  },
+  {
+    name: "ai-ml",
+    description: "AI and Machine Learning dependencies",
+  },
+  {
+    name: "hardware",
+    description: "Hardware dependencies",
+  },
+];
+
 export async function poetryShowTopLevel(): Promise<PythonDependency[]> {
-  // FIXME: do not hardcode the groups here
+  const groups = depGroups.map((group) => group.name).join(",");
   const result = await execCommand(
-    new Command("poetry show --top-level --with dev,ai-ml,hardware --no-ansi"),
+    new Command(`poetry show --top-level --with ${groups} --no-ansi`),
   );
 
   return result.split("\n").map((line) => {
@@ -52,11 +72,13 @@ export async function poetryGetGroupInfo(): Promise<PoetryGroupInfo[]> {
         };
       });
 
-      console.log(dependencies);
       // TODO: Implement actual outdated checking
       return {
         name: key,
         dependencies,
+        description:
+          depGroups.find((group) => group.name === key)?.description ??
+          "Unknown (depGroups needs to be updated!)",
         status: (dependencies.every((dep) => dep.installed)
           ? "installed"
           : dependencies.some((dep) => dep.installed)
@@ -65,7 +87,6 @@ export async function poetryGetGroupInfo(): Promise<PoetryGroupInfo[]> {
       };
     },
   );
-  console.log(result);
   return result;
 }
 
