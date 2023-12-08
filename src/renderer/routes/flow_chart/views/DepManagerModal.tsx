@@ -45,6 +45,7 @@ const DepManagerModal = ({
   };
 
   const handleGroupInstall = async (groupName: string) => {
+    setMsg("Installing...");
     setIsLoading(true);
     await window.api.poetryInstallDepGroup(groupName);
     await handleUpdate();
@@ -52,6 +53,7 @@ const DepManagerModal = ({
   };
 
   const handleGroupUninstall = async (groupName: string) => {
+    setMsg("Removing...");
     setIsLoading(true);
     await window.api.poetryUninstallDepGroup(groupName);
     await handleUpdate();
@@ -79,7 +81,9 @@ const DepManagerModal = ({
 
   useEffect(() => {
     window.api.subscribeToElectronLogs((data) => {
-      setMsg(data);
+      if (data.trimStart().startsWith("•")) {
+        setMsg(data);
+      }
     });
   }, []);
 
