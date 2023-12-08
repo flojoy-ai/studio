@@ -44,7 +44,12 @@ import {
   browsePythonInterpreter,
   handlePythonInterpreter,
 } from "./python/interpreter";
-import { poetryGetGroupInfo, poetryInstallDepGroup, poetryShowTopLevel, poetryUninstallDepGroup } from "./python/poetry";
+import {
+  poetryGetGroupInfo,
+  poetryInstallDepGroup,
+  poetryShowTopLevel,
+  poetryUninstallDepGroup,
+} from "./python/poetry";
 
 log.initialize({ preload: true });
 log.info("Welcome to Flojoy Studio!");
