@@ -279,8 +279,14 @@ const FlowChartTab = () => {
   const onConnect: OnConnect = useCallback(
     (connection) =>
       setEdges((eds) => {
-        if (manifest) {
-          const [sourceType, targetType] = getEdgeTypes(manifest, connection);
+        let edges: string[];
+        try {
+          edges = getEdgeTypes(manifest, connection);
+        } catch (error) {
+          edges = getEdgeTypes(customSections, connection);
+        }
+        if (edges.length > 0) {
+          const [sourceType, targetType] = edges;
           if (isCompatibleType(sourceType, targetType)) {
             return addEdge(connection, eds);
           }
@@ -290,7 +296,7 @@ const FlowChartTab = () => {
           });
         }
       }),
-    [setEdges, manifest],
+    [setEdges, manifest, customSections],
   );
 
   const handleNodesDelete: OnNodesDelete = useCallback(

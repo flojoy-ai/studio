@@ -24,7 +24,7 @@ export const useCustomSections = () => {
       console.error(error);
       setCustomBlockManifest(prevManifest);
     }
-  }, [setCustomBlockManifest]);
+  }, [customSections, setCustomBlockManifest]);
   return {
     handleImportCustomBlocks,
     customSections,
