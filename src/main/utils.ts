@@ -3,7 +3,8 @@ import * as fs from "fs";
 import { isIP } from "net";
 import { execCommand } from "./executor";
 import { Command } from "./command";
-import { dialog } from "electron";
+import { app, dialog } from "electron";
+import { join } from "path";
 
 export const isPortFree = (port: number) =>
   new Promise((resolve) => {
@@ -74,4 +75,27 @@ export const pickDirectory = async (): Promise<string> => {
     properties: ["openDirectory"],
   });
   return handler.filePaths[0];
+};
+
+export const getCustomBlocksDir = async () => {
+  const filePath = join(app.getPath("home"), ".flojoy/custom_blocks_path.txt");
+  if (fs.existsSync(filePath)) {
+    const blocksPath = fs
+      .readFileSync(filePath, { encoding: "utf-8" })
+      .toString();
+    if (fs.existsSync(blocksPath)) {
+      return blocksPath;
+    }
+    return "";
+  }
+  return "";
+};
+
+export const cacheCustomBlocksDir = (_, dirPath: string) => {
+  const flojoyDir = join(app.getPath("home"), ".flojoy");
+  if (!fs.existsSync(flojoyDir)) {
+    fs.mkdirSync(flojoyDir);
+  }
+  const cacheFilePath = join(flojoyDir, "custom_blocks_path.txt");
+  fs.writeFileSync(cacheFilePath, dirPath);
 };

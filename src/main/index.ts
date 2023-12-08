@@ -32,6 +32,8 @@ import {
   sendToStatusBar,
 } from "./logging";
 import {
+  cacheCustomBlocksDir,
+  getCustomBlocksDir,
   ifconfig,
   isPortFree,
   killProcess,
@@ -218,6 +220,8 @@ app.whenReady().then(async () => {
   );
   ipcMain.on(API.downloadLogs, handleDownloadLogs);
   ipcMain.on(API.checkForUpdates, checkForUpdates);
+  ipcMain.on(API.cacheCustomBlocksDir, cacheCustomBlocksDir);
+  ipcMain.handle(API.getCustomBlocksDir, getCustomBlocksDir);
   ipcMain.handle(API.restartCaptain, restartCaptain);
   ipcMain.handle(API.setPythonInterpreter, handlePythonInterpreter);
   ipcMain.handle(API.showSaveDialog, handleShowSaveAsDialog);

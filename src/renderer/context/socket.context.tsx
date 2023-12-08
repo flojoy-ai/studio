@@ -11,6 +11,7 @@ import {
   useFetchNodesMetadata,
 } from "@src/hooks/useManifest";
 import { toast } from "sonner";
+import { useCustomSections } from "@src/hooks/useCustomBlockManifest";
 
 type States = {
   programResults: NodeResult[];
@@ -54,6 +55,7 @@ export const SocketContextProvider = ({
   const [programResults, setProgramResults] = useState<NodeResult[]>([]);
   const [logs, setLogs] = useState<string[]>([]);
   const hardwareRefetch = useHardwareRefetch();
+  const { handleImportCustomBlocks } = useCustomSections();
   const fetchManifest = useFetchManifest();
   const fetchMetadata = useFetchNodesMetadata();
   const setManifestChanged = useSetAtom(manifestChangedAtom);
@@ -87,6 +89,7 @@ export const SocketContextProvider = ({
           hardwareRefetch();
           fetchManifest();
           fetchMetadata();
+          handleImportCustomBlocks(undefined, true);
         },
         onManifestUpdate: () => {
           setManifestChanged(true);
@@ -103,6 +106,7 @@ export const SocketContextProvider = ({
     hardwareRefetch,
     socket,
     setManifestChanged,
+    handleImportCustomBlocks,
   ]);
   const values = useMemo(
     () => ({
