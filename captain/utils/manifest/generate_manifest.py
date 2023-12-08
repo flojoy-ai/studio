@@ -125,8 +125,8 @@ def sort_order(element: dict[str, Any]):
         return len(ORDERING)
 
 
-def generate_manifest():
-    blocks_path = get_blocks_path()
+def generate_manifest(blocks_path: str | None):
+    blocks_path = blocks_path if blocks_path else get_blocks_path()
     blocks_map = browse_directories(blocks_path)
     blocks_map["children"].sort(key=sort_order)  # type: ignore
     return blocks_map

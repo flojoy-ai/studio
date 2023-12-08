@@ -11,11 +11,11 @@ router = APIRouter(tags=["blocks"])
 
 
 @router.get("/blocks/manifest/")
-async def get_manifest():
+async def get_manifest(blocks_path: str | None = None):
     # Pre-generate the blocks map to synchronize it with the manifest
-    create_map()
+    create_map(custom_blocks_dir=blocks_path)
     try:
-        manifest = generate_manifest()
+        manifest = generate_manifest(blocks_path=blocks_path)
         return manifest
     except Exception as e:
         logger.error(

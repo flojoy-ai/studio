@@ -76,6 +76,7 @@ import VisorNode from "@src/components/nodes/VisorNode";
 import { syncFlowchartWithManifest } from "@src/lib/sync";
 import TextNode from "@src/components/nodes/TextNode";
 import ContextMenu, { MenuInfo } from "./components/NodeContextMenu";
+import { useCustomSections } from "@src/hooks/useCustomBlockManifest";
 
 const nodeTypes: NodeTypes = {
   default: DefaultNode,
@@ -136,6 +137,8 @@ const FlowChartTab = () => {
   } = useFlowChartGraph();
   const nodesMetadataMap = useNodesMetadata();
   const manifest = useManifest();
+
+  const { handleImportCustomBlocks, customSections } = useCustomSections();
   const [manifestChanged, setManifestChanged] = useAtom(manifestChangedAtom);
 
   useEffect(() => {
@@ -393,7 +396,7 @@ const FlowChartTab = () => {
                     className="gap-2"
                     variant="ghost"
                     onClick={toggleSidebar}
-                    disabled={!manifest}
+                    disabled={!manifest && !customSections}
                   >
                     <Workflow size={20} className="stroke-muted-foreground" />
                     Add Block
@@ -447,14 +450,14 @@ const FlowChartTab = () => {
           <Separator />
         </div>
 
-        {manifest && (
-          <Sidebar
-            sections={manifest}
-            leafNodeClickHandler={addNewNode as LeafClickHandler}
-            isSideBarOpen={isSidebarOpen}
-            setSideBarStatus={setIsSidebarOpen}
-          />
-        )}
+        <Sidebar
+          sections={manifest}
+          leafNodeClickHandler={addNewNode as LeafClickHandler}
+          isSideBarOpen={isSidebarOpen}
+          setSideBarStatus={setIsSidebarOpen}
+          customSections={customSections}
+          handleImportCustomBlocks={handleImportCustomBlocks}
+        />
 
         <WelcomeModal />
 

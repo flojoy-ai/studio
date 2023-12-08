@@ -59,7 +59,7 @@ def get_module_func(file_name: str):
 
     if not mapping:
         logger.info("creating blocks mapping for first time......")
-        create_map()
+        create_map(custom_blocks_dir=None)
 
     file_path = mapping.get(file_name)
 
@@ -73,25 +73,27 @@ def get_module_func(file_name: str):
         logger.error(f"File {file_name} not found in subdirectories of {blocks_path}..")
 
 
-def create_map():
-    blocks_dir = get_blocks_path()
-    if "root" in mapping and mapping["root"] != blocks_dir:
-        logger.info(
-            f"Path to blocks dir is changed creating blocks mapping again, previous path: {mapping.get('root')} and present path: {blocks_dir}"
-        )
-        old_parent_path = Path(os.path.abspath(mapping["root"])).parent.__str__()
-        mapping["root"] = blocks_dir
-        if old_parent_path in sys.path:
-            sys.path.remove(old_parent_path)
-        modules_to_delete: list[str] = []
-        for module_path in sys.modules:
-            if module_path.startswith("blocks"):
-                modules_to_delete.append(module_path)
+def create_map(custom_blocks_dir: str | None):
+    blocks_dir = custom_blocks_dir if custom_blocks_dir else get_blocks_path()
+    if custom_blocks_dir:
+        if "root" in mapping and mapping["root"] != blocks_dir:
+            logger.info(
+                f"Path to custom blocks dir is changed creating blocks mapping again, previous path: {mapping.get('root')} and present path: {blocks_dir}"
+            )
+            old_parent_path = Path(os.path.abspath(mapping["root"])).parent.__str__()
+            mapping["root"] = blocks_dir
+            if old_parent_path in sys.path:
+                sys.path.remove(old_parent_path)
+            modules_to_delete: list[str] = []
+            for module_path in sys.modules:
+                if module_path.startswith("blocks"):
+                    modules_to_delete.append(module_path)
 
-        for module_path in modules_to_delete:
-            del sys.modules[module_path]
+            for module_path in modules_to_delete:
+                del sys.modules[module_path]
     parent_dir = Path(os.path.abspath(blocks_dir)).parent.__str__()
-    mapping["root"] = blocks_dir
+    if custom_blocks_dir:
+        mapping["root"] = blocks_dir
     sys.path.append(parent_dir)
     for root, _, files in os.walk(blocks_dir):
         if root == blocks_dir:
@@ -103,5 +105,6 @@ def create_map():
                 block_path = (
                     os.path.join(root, file[:-3]).replace("\\", "/").replace("/", ".")
                 )
+                parent_dir_with_dot = parent_dir.replace("\\", "/").replace("/", ".")
 
-                mapping[file[:-3]] = block_path[block_path.rfind("blocks.") :]
+                mapping[file[:-3]] = block_path.replace(parent_dir_with_dot + ".", "")

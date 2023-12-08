@@ -42,9 +42,10 @@ export const useAddNewNode = (
       const outputs = node.outputs;
       const uiComponentId = node.ui_component_id;
       const pip_dependencies = node.pip_dependencies;
-      const path = nodesMetadataMap
-        ? nodesMetadataMap[`${funcName}.py`].path
-        : "";
+      const path =
+        nodesMetadataMap && `${funcName}.py` in nodesMetadataMap
+          ? nodesMetadataMap[`${funcName}.py`].path
+          : "";
 
       const nodeId = createNodeId(node.key);
       const nodeLabel =
