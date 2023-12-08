@@ -35,6 +35,8 @@ const DepManagerModal = ({
   const [depGroups, setDepGroups] = useState<PoetryGroupInfo[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const [msg, setMsg] = useState<string>("");
+
   const handleUpdate = async () => {
     const deps = await window.api.poetryShowTopLevel();
     const groups = await window.api.poetryGetGroupInfo();
@@ -70,8 +72,16 @@ const DepManagerModal = ({
   };
 
   useEffect(() => {
-    handleUpdate();
+    if (isDepManagerModalOpen) {
+      handleUpdate();
+    }
   }, [isDepManagerModalOpen]);
+
+  useEffect(() => {
+    window.api.subscribeToElectronLogs((data) => {
+      setMsg(data);
+    });
+  }, []);
 
   return (
     <Dialog
@@ -113,6 +123,17 @@ const DepManagerModal = ({
                 </div>
               );
             })}
+          </div>
+          <div className="py-2" />
+
+          <div className="mx-auto w-96 text-center">
+            {isLoading ? (
+              <div className="overflow-hidden text-ellipsis whitespace-nowrap">
+                {msg}
+              </div>
+            ) : (
+              <div>Dependency Manager Operational</div>
+            )}
           </div>
 
           <div className="py-2" />
