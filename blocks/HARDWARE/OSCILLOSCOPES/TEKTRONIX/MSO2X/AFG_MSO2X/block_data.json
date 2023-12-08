@@ -61,5 +61,12 @@
         "description": "AFG settings"
       }
     ]
-  }
+  },
+  "videos": [
+    {
+      "title": "Control Tektronix MSO Oscilloscope with Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=y-8hK6zIYwI"
+    }
+  ]
 }
