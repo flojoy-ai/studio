@@ -28,9 +28,9 @@ async def get_manifest(blocks_path: str | None = None):
 
 
 @router.get("/blocks/metadata/")
-async def get_metadata():
+async def get_metadata(blocks_path: str | None = None):
     try:
-        metadata_map = generate_metadata()
+        metadata_map = generate_metadata(custom_blocks_dir=blocks_path)
         return metadata_map
     except Exception as e:
         logger.error(

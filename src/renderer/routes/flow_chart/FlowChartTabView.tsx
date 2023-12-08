@@ -77,6 +77,7 @@ import { syncFlowchartWithManifest } from "@src/lib/sync";
 import TextNode from "@src/components/nodes/TextNode";
 import ContextMenu, { MenuInfo } from "./components/NodeContextMenu";
 import { useCustomSections } from "@src/hooks/useCustomBlockManifest";
+import { BlocksMetadataMap } from "@src/types/blocks-metadata";
 
 const nodeTypes: NodeTypes = {
   default: DefaultNode,
@@ -138,7 +139,7 @@ const FlowChartTab = () => {
   const nodesMetadataMap = useNodesMetadata();
   const manifest = useManifest();
 
-  const { handleImportCustomBlocks, customSections } = useCustomSections();
+  const { handleImportCustomBlocks, customSections, customBlocksMetadata } = useCustomSections();
   const [manifestChanged, setManifestChanged] = useAtom(manifestChangedAtom);
 
   useEffect(() => {
@@ -339,11 +340,15 @@ const FlowChartTab = () => {
     if (selectedNode === null || !nodesMetadataMap) {
       return;
     }
+    let metaData : BlocksMetadataMap = nodesMetadataMap;
+    if(customBlocksMetadata){
+      metaData = {...nodesMetadataMap, ...customBlocksMetadata};
+    }
     const nodeFileName = `${selectedNode?.data.func}.py`;
-    const nodeFileData = nodesMetadataMap[nodeFileName] ?? {};
+    const nodeFileData = metaData[nodeFileName] ?? {};
     setNodeFilePath(nodeFileData.path ?? "");
     setPythonString(nodeFileData.metadata ?? "");
-  }, [selectedNode, setNodeFilePath, setPythonString, nodesMetadataMap]);
+  }, [selectedNode, setNodeFilePath, setPythonString, nodesMetadataMap, customBlocksMetadata]);
 
   const deleteKeyCodes = ["Delete", "Backspace"];
 
