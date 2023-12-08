@@ -144,7 +144,7 @@ const Sidebar = ({
         </TabsList>
 
         <TabsContent value="standard" className="h-full overflow-y-scroll">
-          {sections && (
+          {sections ? (
             <div className="w-11/12">
               <SidebarNode
                 depth={0}
@@ -155,6 +155,12 @@ const Sidebar = ({
                 expand={expand}
                 collapse={collapse}
               />
+            </div>
+          ) : (
+            <div className="flex h-full items-center justify-center">
+              <p className="py-3">
+                Standard blocks manifest not fetched correctly!
+              </p>
             </div>
           )}
         </TabsContent>
