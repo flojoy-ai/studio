@@ -17,8 +17,8 @@ const MarkDown = ({
   return (
     <div
       className={clsx(
-        "prose p-6 max-w-full dark:prose-invert prose-headings:mb-0 prose-headings:mt-2 prose-p:mb-1 prose-p:mt-1 prose-p:first:mt-0 prose-ul:m-0 prose-li:m-0",
-        { "h-full overflow-hidden": isThumbnail },
+        "prose p-6 max-w-full dark:prose-invert",
+        { "h-full overflow-hidden prose-headings:mb-0 prose-headings:mt-2 prose-p:mb-1 prose-p:mt-1 prose-p:first:mt-0 prose-ul:m-0 prose-li:m-0": isThumbnail },
         containerClassName,
       )}
     >

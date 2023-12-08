@@ -1,4 +1,4 @@
-from typing import Any, Union, Callable
+from typing import Any, NewType, Union, Callable, NewType
 from abc import ABC
 
 
@@ -149,6 +149,9 @@ class Directory:
         return self.ref
 
 
+TextArea = NewType("TextArea", str)
+
+
 def format_param_value(value: Any, value_type: str):
     match value_type:
         case "Array":
@@ -163,6 +166,8 @@ def format_param_value(value: Any, value_type: str):
             return parse_array(str(value), [int], "list[int]")
         case "select" | "str":
             return str(value)
+        case "TextArea":
+            return TextArea(value)
         case "CameraDevice" | "CameraConnection":
             return (
                 CameraDevice(int(value)) if value.isnumeric() else CameraDevice(value)
