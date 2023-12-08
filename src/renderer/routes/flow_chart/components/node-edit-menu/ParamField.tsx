@@ -16,6 +16,7 @@ import { CameraSelect } from "./CameraSelect";
 import { SerialDeviceSelect } from "./SerialDeviceSelect";
 import { VisaDeviceSelect } from "./VisaDeviceSelect";
 import { Button } from "@src/components/ui/button";
+import { AutosizingTextarea } from "./AutosizingTextarea";
 
 type ParamFieldProps = {
   nodeId: string;
@@ -172,7 +173,13 @@ const ParamField = ({
           </Button>
         </div>
       );
-
+    case "TextArea":
+      return (
+        <AutosizingTextarea
+          onValueChange={handleChange}
+          value={value as string}
+        />
+      );
     case "CameraDevice":
     case "CameraConnection":
       return <CameraSelect onValueChange={handleChange} value={value} />;

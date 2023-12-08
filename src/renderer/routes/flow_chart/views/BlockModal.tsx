@@ -158,7 +158,7 @@ const NodeModalDataViz = ({
   return (
     <div>
       {nd.result.text_blob && (
-        <div className="h-[600px] overflow-auto whitespace-pre-wrap rounded-md bg-modal">
+        <div className="h-[600px] overflow-auto rounded-md bg-modal sm:max-w-xl md:max-w-4xl">
           <MarkDownText text={nd.result.text_blob} />
         </div>
       )}

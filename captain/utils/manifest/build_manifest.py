@@ -28,6 +28,7 @@ from flojoy import (
     VisaDevice,
     File,
     Directory,
+    TextArea,
 )
 
 from .build_ast import get_node_type, get_pip_dependencies, make_manifest_ast
@@ -40,6 +41,7 @@ ALLOWED_PARAM_TYPES = [
     list[int],
     list[float],
     list[str],
+    TextArea,
 ]
 
 SPECIAL_TYPES = [
