@@ -93,16 +93,15 @@ const DepManagerModal = ({
       open={isDepManagerModalOpen}
       onOpenChange={handleDepManagerModalOpen}
     >
-      <DialogContent className="h-4/5 max-w-5xl">
-        <div>
-          <DialogHeader>
-            <DialogTitle className="text-3xl">Dependency Manager</DialogTitle>
-            <DialogDescription>
-              Here you can manage all the Python dependencies for Flojoy.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="py-2" />
+      <DialogContent className="flex h-4/5 max-w-5xl flex-col">
+        <DialogHeader>
+          <DialogTitle className="text-3xl">Dependency Manager</DialogTitle>
+          <DialogDescription>
+            Here you can manage all the Python dependencies for Flojoy.
+          </DialogDescription>
+        </DialogHeader>
 
+        <ScrollArea className="p-4">
           <div className="text-2xl font-bold">Extensions</div>
           <div className="py-2" />
           <div>
@@ -146,29 +145,27 @@ const DepManagerModal = ({
           <div className="py-2" />
           <div className="text-2xl font-bold">All Dependencies</div>
           <div className="py-2" />
-          <ScrollArea className="h-80 rounded-md border">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Version</TableHead>
-                  <TableHead>Description</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {allDependencies
-                  .filter((dep) => dep.installed)
-                  .map((dep) => (
-                    <TableRow key={dep.name}>
-                      <TableCell>{dep.name}</TableCell>
-                      <TableCell>{dep.version}</TableCell>
-                      <TableCell>{dep.description}</TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
-          </ScrollArea>
-        </div>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>Version</TableHead>
+                <TableHead>Description</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {allDependencies
+                .filter((dep) => dep.installed)
+                .map((dep) => (
+                  <TableRow key={dep.name}>
+                    <TableCell>{dep.name}</TableCell>
+                    <TableCell>{dep.version}</TableCell>
+                    <TableCell>{dep.description}</TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );
