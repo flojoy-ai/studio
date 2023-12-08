@@ -1,4 +1,4 @@
-from typing import Any, NewType, Union, Callable, NewType
+from typing import Any, NewType, Union, Callable
 from abc import ABC
 
 

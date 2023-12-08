@@ -1,5 +1,5 @@
 from flojoy import DataContainer, String, flojoy
-from pprint import pformat, pprint
+from pprint import pformat
 
 
 @flojoy()

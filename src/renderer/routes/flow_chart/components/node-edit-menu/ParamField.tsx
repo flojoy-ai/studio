@@ -174,7 +174,12 @@ const ParamField = ({
         </div>
       );
     case "TextArea":
-      return <AutosizingTextarea onValueChange={handleChange} value={value as string} />
+      return (
+        <AutosizingTextarea
+          onValueChange={handleChange}
+          value={value as string}
+        />
+      );
     case "CameraDevice":
     case "CameraConnection":
       return <CameraSelect onValueChange={handleChange} value={value} />;
