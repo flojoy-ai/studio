@@ -68,6 +68,9 @@ importers:
       adm-zip:
         specifier: ^0.5.10
         version: 0.5.10
+      ajv:
+        specifier: ^8.12.0
+        version: 8.12.0
       axios:
         specifier: ^1.6.2
         version: 1.6.2
