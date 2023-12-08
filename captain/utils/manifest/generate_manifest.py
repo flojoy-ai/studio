@@ -24,6 +24,7 @@ NAME_MAP = {
     "STATS": "sp.stats",
     "GAMES": "Games",
     "COMPUTER_VISION": "Computer Vision",
+    "default": "Default Blocks",
 }
 
 # Types that are allowed in the manifest, this is for styling in the frontend.
@@ -65,14 +66,10 @@ ORDERING = [
 ]
 
 
-def browse_directories(dir_path: str, cur_type: Optional[str] = None):
+def browse_directories(dir_path: str, cur_type: Optional[str] = None, depth: int = 0):
     result: dict[str, Union[str, list[Any], None]] = {}
     basename = os.path.basename(dir_path)
-    result["name"] = (
-        "ROOT"
-        if os.path.basename(dir_path) == "blocks"
-        else NAME_MAP.get(basename, basename)
-    )
+    result["name"] = "ROOT" if depth == 0 else NAME_MAP.get(basename, basename)
     if result["name"] != "ROOT":
         result["key"] = basename
 
@@ -96,8 +93,8 @@ def browse_directories(dir_path: str, cur_type: Optional[str] = None):
             ):
                 continue
 
-            cur_type = basename if basename in ALLOWED_TYPES else cur_type
-            subdir = browse_directories(entry.path, cur_type)
+            cur_type = basename if basename in ALLOWED_TYPES else "default"
+            subdir = browse_directories(entry.path, cur_type, depth=depth + 1)
             result["children"].append(subdir)
         elif entry.is_file() and entry.name.endswith(".py"):
             continue

@@ -368,7 +368,6 @@ const FlowChartTab = () => {
       if (ref.current === null) {
         return;
       }
-      console.log(node.id);
 
       // Calculate position of the context menu. We want to make sure it
       // doesn't get positioned off-screen.
