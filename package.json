@@ -62,6 +62,7 @@
     "cors": "^2.8.5",
     "electron-context-menu": "^3.6.1",
     "electron-log": "^5.0.1",
+    "electron-store": "^8.1.0",
     "electron-updater": "^6.1.7",
     "electron-vite": "^1.0.29",
     "eslint-plugin-react-hooks": "^4.6.0",

@@ -3,9 +3,13 @@ import { Command } from "../command";
 import { execCommand } from "../executor";
 import pyproject from "../../../pyproject.toml?raw";
 import toml from "toml";
+import { store } from "../store";
 
 // FIXME: do not hardcode the groups here
-const depGroups: Pick<PoetryGroupInfo, "name" | "description">[] = [
+export const POETRY_DEP_GROUPS: Pick<
+  PoetryGroupInfo,
+  "name" | "description"
+>[] = [
   {
     name: "blocks",
     description: "Core dependencies for Flojoy Blocks",
@@ -25,7 +29,7 @@ const depGroups: Pick<PoetryGroupInfo, "name" | "description">[] = [
 ];
 
 export async function poetryShowTopLevel(): Promise<PythonDependency[]> {
-  const groups = depGroups.map((group) => group.name).join(",");
+  const groups = POETRY_DEP_GROUPS.map((group) => group.name).join(",");
   const result = await execCommand(
     new Command(`poetry show --top-level --with ${groups} --no-ansi`),
   );
@@ -77,7 +81,7 @@ export async function poetryGetGroupInfo(): Promise<PoetryGroupInfo[]> {
         name: key,
         dependencies,
         description:
-          depGroups.find((group) => group.name === key)?.description ??
+          POETRY_DEP_GROUPS.find((group) => group.name === key)?.description ??
           "Unknown (depGroups needs to be updated!)",
         status: (dependencies.every((dep) => dep.installed)
           ? "installed"
@@ -90,6 +94,14 @@ export async function poetryGetGroupInfo(): Promise<PoetryGroupInfo[]> {
 
 export async function poetryInstallDepGroup(group: string): Promise<boolean> {
   await execCommand(new Command(`poetry install --with ${group} --no-root`));
+
+  if (group !== "blocks") {
+    const groups = store.get("poetryOptionalGroups") as string[];
+    if (!groups.includes(group)) {
+      store.set("poetryOptionalGroups", [...groups, group]);
+    }
+  }
+
   return true;
 }
 
@@ -97,5 +109,14 @@ export async function poetryUninstallDepGroup(group: string): Promise<boolean> {
   await execCommand(
     new Command(`poetry install --sync --without ${group} --no-root`),
   );
+
+  if (group !== "blocks") {
+    const groups = store.get("poetryOptionalGroups") as string[];
+    if (groups) {
+      const newGroups = groups.filter((g: string) => g !== group);
+      store.set("poetryOptionalGroups", newGroups);
+    }
+  }
+
   return true;
 }
