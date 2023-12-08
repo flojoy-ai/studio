@@ -27,7 +27,7 @@ import RegionInspector from "@src/assets/nodes/RegionInspector";
 import TextView from "@src/assets/nodes/TextView";
 import Heatmap from "@src/assets/nodes/Heatmap";
 import { useNodeStatus } from "@src/hooks/useNodeStatus";
-import { NodeResizer } from "reactflow";
+import { NodeResizer, useUpdateNodeInternals } from "reactflow";
 import { useAtomValue } from "jotai";
 import { projectAtom } from "@src/hooks/useFlowChartState";
 
@@ -69,6 +69,8 @@ const VisorNode = ({ selected, id, data }: CustomNodeProps) => {
   const project = useAtomValue(projectAtom);
   const [dimensions, setDimensions] = useState({ width: 225, height: 225 });
 
+  const updateNodeInternals = useUpdateNodeInternals();
+
   useEffect(() => {
     // Weird hack to make it properly set the dimensions when loading an app...
     // I tried like 10 different things but this is the only thing that works without being crazy slow
@@ -81,7 +83,6 @@ const VisorNode = ({ selected, id, data }: CustomNodeProps) => {
   const ChartIcon = chartElemMap[data.func];
   const iconSideLength = Math.min(dimensions.width, dimensions.height);
 
-  console.log(iconSideLength);
 
   return (
     <>
@@ -93,6 +94,7 @@ const VisorNode = ({ selected, id, data }: CustomNodeProps) => {
         handleClassName="p-1"
         onResizeEnd={(e, params) => {
           setDimensions({ width: params.width, height: params.height });
+          updateNodeInternals(id);
         }}
       />
       <NodeWrapper
