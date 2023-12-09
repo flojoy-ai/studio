@@ -34,14 +34,17 @@ const DepManagerModal = ({
 
   const [depGroups, setDepGroups] = useState<PoetryGroupInfo[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isFetching, setIsFetching] = useState<boolean>(true);
 
   const [msg, setMsg] = useState<string>("");
 
   const handleUpdate = useCallback(async () => {
+    setIsFetching(true);
     const deps = await window.api.poetryShowTopLevel();
     const groups = await window.api.poetryGetGroupInfo();
     setAllDependencies(deps);
     setDepGroups(groups);
+    setIsFetching(false);
   }, []);
 
   const handleGroupInstall = useCallback(async (groupName: string) => {
@@ -102,7 +105,10 @@ const DepManagerModal = ({
         </DialogHeader>
 
         <ScrollArea className="p-4">
-          <div className="text-2xl font-bold">Extensions</div>
+          <div className="flex items-center gap-2">
+            <div className="text-2xl font-bold">Extensions</div>
+            {isFetching && <Spinner />}
+          </div>
           <div className="py-2" />
           <div>
             {depGroups.map((group) => {
@@ -143,7 +149,10 @@ const DepManagerModal = ({
           </div>
 
           <div className="py-2" />
-          <div className="text-2xl font-bold">All Dependencies</div>
+          <div className="flex items-center gap-2">
+            <div className="text-2xl font-bold">All Dependencies</div>
+            {isFetching && <Spinner />}
+          </div>
           <div className="py-2" />
           <Table>
             <TableHeader>
