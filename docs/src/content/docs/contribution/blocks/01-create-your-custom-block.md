@@ -85,8 +85,13 @@ For example, let's say you created a custom block called `DIVIDE.py` in `~/custo
 
 Congratulations! you just imported your custom block to Flojoy. You should see your custom block in the sidebar. Click on the block to add it to flow chart.
 
-You can create as many block as you want in one folder. Every time you create a new block, right click anywhere in the app and then click on "Reload Studio". You'll find your newly created block listed in blocks sidebar under `Custom` tab.
+:::note
+Every time you create a new block, Studio will hot reload to include it in the sidebar under the `Custom` tab.
+:::
 
+:::note
+You can use the same sections as the standard library if you want blocks to have the same icons/colors. For example, you can create blocks under a `HARDWARE` folder inside your custom blocks directory to make them look like hardware blocks.
+:::
 
 ## Contributing to Flojoy standard blocks
 
