@@ -20,7 +20,6 @@ def SPEECH_2_TEXT(
     String
         Filename and path of the recording.
     """
-    print("log  ")
     file_path = file_path.unwrap() if file_path else None
     model = SpeechRecognitionModel("jonatasgrosman/wav2vec2-large-xlsr-53-english")
 
