@@ -8,4 +8,5 @@ export default defineConfig({
       sources: true,
     },
   },
+  maxFailures: 1,
 });

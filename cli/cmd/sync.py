@@ -138,6 +138,7 @@ def sync():
                         if "videos" in block_data
                         else None
                     )
+                    thumbnail = block_data["image"] if "image" in block_data else None
 
                 # Keep track of the file tree structure in order to generate
                 # overview pages for all of the top level categories
@@ -148,6 +149,7 @@ def sync():
                         link="/blocks/" + get_markdown_slug(current_block_folder_path),
                         name=file_name,
                         description=description,
+                        thumbnail=thumbnail,
                     ),
                 )
 

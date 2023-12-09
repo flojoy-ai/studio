@@ -21,6 +21,7 @@ import { useTheme } from "@src/providers/themeProvider";
 import { IS_CLOUD_DEMO } from "@src/data/constants";
 import { DemoWarningTooltip } from "@src/components/ui/demo-warning-tooltip";
 import { DebugSettingsModal } from "./DebugSettingsModal";
+import DepManagerModal from "./DepManagerModal";
 
 const ControlBar = () => {
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
@@ -29,6 +30,7 @@ const ControlBar = () => {
   const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
   const [isDebugSettingsOpen, setIsDebugSettingsOpen] = useState(false);
   const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
+  const [isDepManagerModalOpen, setIsDepManagerModalOpen] = useState(false);
   const { resolvedTheme } = useTheme();
 
   const handleCheckForUpdates = () => {
@@ -80,6 +82,11 @@ const ControlBar = () => {
         isSettingsModalOpen={isDebugSettingsOpen}
       />
 
+      <DepManagerModal
+        handleDepManagerModalOpen={setIsDepManagerModalOpen}
+        isDepManagerModalOpen={isDepManagerModalOpen}
+      />
+
       <FlowControlButtons />
 
       <div className="flex">
@@ -117,6 +124,12 @@ const ControlBar = () => {
               Settings
             </MenubarTrigger>
             <MenubarContent>
+              <MenubarItem
+                data-testid="dep-manager-modal-button"
+                onClick={() => setIsDepManagerModalOpen(true)}
+              >
+                Dependency Manager
+              </MenubarItem>
               <MenubarItem
                 data-testid="env-var-modal-button"
                 onClick={() => setIsEnvVarModalOpen(true)}

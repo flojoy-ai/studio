@@ -11,7 +11,8 @@ import {
 } from "./interpreter";
 import * as os from "os";
 import { existsSync, readFileSync } from "fs";
-import { killProcess } from "../utils";
+import { store } from "../store";
+import { POETRY_DEP_GROUPS, poetryGroupEnsureValid } from "./poetry";
 
 export async function checkPythonInstallation(
   _,
@@ -90,7 +91,16 @@ export async function installPoetry(): Promise<void> {
 
 export async function installDependencies(): Promise<string> {
   const poetry = process.env.POETRY_PATH ?? "poetry";
-  return await execCommand(new Command(`${poetry} install`));
+
+  const validGroups = await poetryGroupEnsureValid();
+  if (validGroups.length > 0) {
+    return await execCommand(
+      new Command(
+        `${poetry} install --sync --with ${validGroups.join(",")} --no-root`,
+      ),
+    );
+  }
+  return await execCommand(new Command(`${poetry} install --no-root`));
 }
 
 export async function spawnCaptain(): Promise<void> {

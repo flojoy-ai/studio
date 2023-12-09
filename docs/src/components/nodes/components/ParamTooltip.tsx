@@ -84,14 +84,14 @@ export const ParamTooltip = ({
         ? createPortal(
             <div
               className={clsx(
-                "text-foreground bg-modal pointer-events-none absolute z-50 h-fit w-64 rounded-lg border p-4 text-left font-sans text-sm font-normal opacity-0 shadow-md transition-opacity duration-150 hover:pointer-events-auto hover:opacity-100",
+                "pointer-events-none absolute z-50 h-fit w-64 rounded-lg border bg-modal p-4 text-left font-sans text-sm font-normal text-foreground opacity-0 shadow-md transition-opacity duration-150 hover:pointer-events-auto hover:opacity-100",
                 { "!pointer-events-auto opacity-100": tooltipOpen },
               )}
               style={getTooltipStyle(elemRef.current, offsetX, offsetY)}
             >
               <div className="whitespace-nowrap text-lg font-medium">
                 {param.name}{" "}
-                <span className="text-foreground/60 text-sm font-normal">
+                <span className="text-sm font-normal text-foreground/60">
                   {annotation}
                 </span>
               </div>
