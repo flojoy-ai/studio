@@ -22,7 +22,7 @@ export const useAddNewNode = (
       | ((draft: Draft<Node<ElementsData>>[]) => void),
   ) => void,
   getTakenNodeLabels: (func: string) => string[][],
-  nodesMetadataMap: BlocksMetadataMap | null,
+  nodesMetadataMap: BlocksMetadataMap | undefined | null,
 ) => {
   const center = useAtomValue(centerPositionAtom);
   const setHasUnsavedChanges = useSetAtom(unsavedChangesAtom);

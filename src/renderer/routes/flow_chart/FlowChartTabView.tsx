@@ -210,7 +210,7 @@ const FlowChartTab = () => {
   const addNewNode = useAddNewNode(
     setNodes,
     getTakenNodeLabels,
-    nodesMetadataMap,
+    fullBlocksMetadata,
   );
   const addTextNode = useAddTextNode();
 
@@ -316,11 +316,10 @@ const FlowChartTab = () => {
   const onConnect: OnConnect = useCallback(
     (connection) =>
       setEdges((eds) => {
-        if (!manifest) {
+        if (!fullManifest) {
           toast.error("Manifest not found, can't connect edge.");
           return;
         }
-
 
         const edges = getEdgeTypes(fullManifest, connection);
 
@@ -335,7 +334,7 @@ const FlowChartTab = () => {
           });
         }
       }),
-    [setEdges, manifest, customBlockManifest],
+    [setEdges, fullManifest],
   );
 
   const handleNodesDelete: OnNodesDelete = useCallback(
@@ -498,14 +497,14 @@ const FlowChartTab = () => {
           <Separator />
         </div>
 
-        <Sidebar
+        {manifest !== undefined && customBlockManifest !== undefined && (<Sidebar
           sections={manifest}
           leafNodeClickHandler={addNewNode as LeafClickHandler}
           isSideBarOpen={isSidebarOpen}
           setSideBarStatus={setIsSidebarOpen}
           customSections={customBlockManifest}
           handleImportCustomBlocks={handleImportCustomBlocks}
-        />
+        />)}
 
         <WelcomeModal />
 

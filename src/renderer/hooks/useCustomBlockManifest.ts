@@ -19,8 +19,8 @@ export const useCustomSections = () => {
     customBlockManifestAtom,
   );
   const handleImportCustomBlocks = useCallback(
-    async (showPicker: boolean) => {
-      const blocksDirPath = !showPicker
+    async (startup: boolean) => {
+      const blocksDirPath = !startup
         ? await window.api.pickDirectory()
         : await window.api.getCustomBlocksDir();
 
@@ -47,11 +47,9 @@ export const useCustomSections = () => {
         }
         setCustomBlockManifest(res.data);
         window.api.cacheCustomBlocksDir(blocksDirPath);
-        baseClient
-          .get(`blocks/metadata?blocks_path=${blocksDirPath}`)
-          .then((res) => {
-            setCustomBlocksMetadata(res.data);
-          });
+        const res2 = await baseClient
+          .get(`blocks/metadata?blocks_path=${blocksDirPath}&custom_dir_changed=${!startup}`);
+        setCustomBlocksMetadata(res2.data);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         const errTitle = `Failed to generate blocks manifest from ${blocksDirPath} !`;
