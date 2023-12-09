@@ -10,12 +10,11 @@ sidebar:
 
 Watch a video of Flojoy in action with a Tektronix AFG31000.
 
-import { YouTube } from '@astro-community/astro-embed-youtube';
+import { YouTube } from "@astro-community/astro-embed-youtube";
 
 <div className="not-content">
-<YouTube id="hFrr2NlbqEg" />
+  <YouTube id="hFrr2NlbqEg" />
 </div>
-
 
 Flojoy makes instrumentation easy and powerful. The visual programming nature of Flojoy allows for easy control of instruments, but we've also built Flojoy to allow users to write their own custom Blocks.
 
@@ -30,12 +29,11 @@ The majority of Tektronix instrument use [SCPI](https://en.wikipedia.org/wiki/St
 1. Establish Connection:
    - **`Connect`**: Begin by setting up the connection between Flojoy and the instrument (usually called `CONNECT_...`).
 2. Configuration:
-    - Blocks for programming the instruments settings (e.g. changing the voltage for a power supply).
+   - Blocks for programming the instruments settings (e.g. changing the voltage for a power supply).
 3. Control:
-    - Blocks for extracting data from the instrument and turning outputs on or off (e.g. turning on output on for a power supply).
+   - Blocks for extracting data from the instrument and turning outputs on or off (e.g. turning on output on for a power supply).
 4. Ending the program
-   - Disconnection: When an app completes, instruments are *automatically* disconnected until the next time the app is run.
-
+   - Disconnection: When an app completes, instruments are _automatically_ disconnected until the next time the app is run.
 
 ## Example: Blocks for AFG31000
 
@@ -61,14 +59,52 @@ Most instrument blocks names follow the convention: `FUNCTION_INSTRUMENTNAME` su
 
 #### Control Blocks
 
-- **`OUTPUT`**: Turns the output of the channels on or off. 
+- **`OUTPUT`**: Turns the output of the channels on or off.
 
 - **`ALIGN_PHASES`**: Aligns the phases of the two channels, using one of them as the reference.
-
 
 ## Instruments (Tektronix and Keithley)
 
 import BlockCategory from "@/components/BlockCategory.astro";
 
-<BlockCategory blocks={[{'link': '/blocks/hardware/oscilloscopes/tektronix/mdo3xxx/connection-mdo3xxx', 'name': 'CONNECTION_MDO3XXX', 'description': 'Connect Flojoy to a MDO3XXX oscilloscope.'}, {'link': '/blocks/hardware/oscilloscopes/tektronix/mso2x/connect-mso2x', 'name': 'CONNECT_MSO2X', 'description': 'Open a VISA connection to an MSO2X Tektronix oscilloscope.'}, {'link': '/blocks/hardware/function-generators/tektronix/afg31000/connect-afg31000', 'name': 'CONNECT_AFG31000', 'description': 'Connect Flojoy to a AFG31000 function generator.'}, {'link': '/blocks/hardware/sourcemeters/keithley/2450/connect-2450', 'name': 'CONNECT_2450', 'description': 'Open a VISA connection to an Keithley 2450 SourceMeter.'}, {'link': '/blocks/hardware/multimeters/keithley/dmm7510/connect-dmm7510', 'name': 'CONNECT_DMM7510', 'description': 'Open a VISA connection to a Keithley DMM7510.'}, {'link': '/blocks/hardware/signal-analyzers/tektronix/rsa500/extract-spectrum-rsa500', 'name': 'EXTRACT_SPECTRUM_RSA500', 'description': 'Extracts and returns the spectrum trace from an Tektronix RSA.'}]} />
-
+<BlockCategory
+  blocks={[
+    {
+      link: "/blocks/hardware/oscilloscopes/tektronix/mdo3xxx/connection-mdo3xxx",
+      name: "CONNECTION_MDO3XXX",
+      description: "Connect Flojoy to a MDO3XXX oscilloscope.",
+      thumbnail: "https://www.tek.com/-/media/images/datasheets/mdo3000_48w3002014/tekmdo310436001ai2cwdigitalandmonitorjpg.jpg?h=200&iar=0",
+    },
+    {
+      link: "/blocks/hardware/oscilloscopes/tektronix/mso2x/connect-mso2x",
+      name: "CONNECT_MSO2X",
+      description: "Open a VISA connection to an MSO2X Tektronix oscilloscope.",
+      thumbnail: "https://www.tek.com/-/media/images/datasheets/2sseriesmso_48w738577/mso2coverimagejpg.jpg?h=200&iar=0",
+    },
+    {
+      link: "/blocks/hardware/function-generators/tektronix/afg31000/connect-afg31000",
+      name: "CONNECT_AFG31000",
+      description: "Connect Flojoy to a AFG31000 function generator.",
+      thumbnail: "https://www.tek.com/-/media/images/product-series/afg31000/afg31000-front_0.jpg?w=569",
+    },
+    {
+      link: "/blocks/hardware/sourcemeters/keithley/2450/connect-2450",
+      name: "CONNECT_2450",
+      description: "Open a VISA connection to an Keithley 2450 SourceMeter.",
+      thumbnail: "https://www.tek.com/-/media/datasheets/model-2450-touchscreen-source-measure-unit-smu-instrument/fig-1.png?w=589",
+    },
+    {
+      link: "/blocks/hardware/multimeters/keithley/dmm7510/connect-dmm7510",
+      name: "CONNECT_DMM7510",
+      description: "Open a VISA connection to a Keithley DMM7510.",
+      thumbnail: "https://www.tek.com/-/media/images/product-series/dmm7510/dmm7510_front_graphsquiggle_5in_0.jpg?h=375&iar=0&w=500",
+    },
+    {
+      link: "/blocks/hardware/signal-analyzers/tektronix/rsa500/extract-spectrum-rsa500",
+      name: "EXTRACT_SPECTRUM_RSA500",
+      description:
+        "Extracts and returns the spectrum trace from an Tektronix RSA.",
+      thumbnail: "https://www.tek.com/-/media/images/product-series/rsa500/tek-rsa507a_04a-504px.png?h=219&iar=0&w=504",
+    },
+  ]}
+/>

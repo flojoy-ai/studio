@@ -36,9 +36,9 @@ const DownloadButton = ({ distro, link, version }: Props) => {
       <a
         href={link}
         target="_blank"
-        className="not-content no-underline p-4 rounded bg-accent-600 dark:bg-accent-200 text-gray-100 dark:text-gray-900 items-center flex justify-center gap-4 text-lg"
+        className="not-content bg-accent-600 dark:bg-accent-200 flex items-center justify-center gap-4 rounded p-4 text-lg text-gray-100 no-underline dark:text-gray-900"
       >
-        <FontAwesomeIcon className="w-6 h-6" icon={getIcon(distro)} /> Download
+        <FontAwesomeIcon className="h-6 w-6" icon={getIcon(distro)} /> Download
         for {capitalize(distro)} ({version})
       </a>
     </div>

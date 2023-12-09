@@ -19,7 +19,7 @@ These changes require some permission changes or downloads from the internet. Pr
 Many VISA compatible instruments also have an ethernet/TCPIP connection in addition to a USB connection. This should require no drivers to use. If you do not have an available connection, an ethernet to USB adapter should suffice.
 :::
 
-Only proceed if you are sure your device does not appear with the following Python script (requires `pyvisa` *and* `pyvisa-py` packages):
+Only proceed if you are sure your device does not appear with the following Python script (requires `pyvisa` _and_ `pyvisa-py` packages):
 
 ```python
 import pyvisa
@@ -44,7 +44,7 @@ Or, you can allow root access on a per-device basis by following this tutorial: 
 Fljoy currently requires a Powershell version >7 to launch. Additionally Flojoy has not been tested on any system below Windows 10.
 :::
 
-For Windows, the only change that should be required is to install a generic USB driver for the instrument. *Note that if a specific driver is already installed (e.g. TekVISA), it must be overwritten.* There are two ways to accomplish this:
+For Windows, the only change that should be required is to install a generic USB driver for the instrument. _Note that if a specific driver is already installed (e.g. TekVISA), it must be overwritten._ There are two ways to accomplish this:
 
 1. Download [Zadig](https://zadig.akeo.ie/) and replace/install the driver (mostly) automatically.
 2. Manually download the driver and install it in `Device Manager`.
@@ -59,7 +59,7 @@ In both methods ensure your device is plugged in and showing up in `Device Manag
 
 - Install [Zadig](https://zadig.akeo.ie/) (v2.8 as of Sept-22-2023)
 - Run `zadig-2.8.exe`
-- Find your device in the top dropdown menu. 
+- Find your device in the top dropdown menu.
 - If a driver is already installed, you may need to press `Options` `->` `List All Devices`.
 - Choose `WinUSB` (> v6.1) to the right of the green arrow.
 - Press `Install Driver`.

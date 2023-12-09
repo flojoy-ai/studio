@@ -1,4 +1,5 @@
 import dataclasses
+from typing import Optional
 
 from cli.utils.markdown_helper import get_markdown_slug
 
@@ -37,6 +38,10 @@ class BlockInfo:
     link: str
     name: str
     description: str
+    thumbnail: Optional[str] = None
+
+    def to_dict(self):
+        return {k: v for k, v in self.__dict__.items() if v is not None}
 
 
 CategoryTree = list[BlockInfo] | dict[str, "CategoryTree"]
@@ -52,7 +57,7 @@ def make_category_content(
     match contents:
         # leaf (bottom level category)
         case list():
-            blocks = [dataclasses.asdict(b) for b in contents]
+            blocks = [b.to_dict() for b in contents]
             content = "<BlockCategory blocks={{{blocks}}} />".format(blocks=blocks)
         # inner node (recurse on children)
         case dict():
