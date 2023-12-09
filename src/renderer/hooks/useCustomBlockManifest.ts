@@ -28,9 +28,6 @@ export const useCustomSections = () => {
         return;
       }
 
-      const prevManifest = customBlockManifest;
-      setCustomBlockManifest(undefined);
-      setCustomBlocksMetadata(undefined);
       try {
         const res = await baseClient.get(
           `blocks/manifest?blocks_path=${blocksDirPath}`,
@@ -60,7 +57,6 @@ export const useCustomSections = () => {
           description: errDescription.toString(),
           duration: 60000,
         });
-        setCustomBlockManifest(prevManifest);
       }
     },
     [setCustomBlockManifest, setCustomBlocksMetadata],
