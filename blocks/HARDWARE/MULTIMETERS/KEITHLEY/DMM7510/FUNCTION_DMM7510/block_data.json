@@ -21,5 +21,12 @@
         "description": "Measurement"
       }
     ]
-  }
+  },
+  "videos": [
+    {
+      "title": "Control the DMM7510 Multimeter with Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=hVQ_PMtVgYM"
+    }
+  ]
 }

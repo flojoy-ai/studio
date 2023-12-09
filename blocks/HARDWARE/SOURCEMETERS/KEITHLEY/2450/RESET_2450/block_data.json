@@ -16,5 +16,12 @@
         "description": "Reset"
       }
     ]
-  }
+  },
+  "videos": [
+    {
+      "title": "Control the Sourcemeter 2450 with Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=3Ja55y8rHUM"
+    }
+  ]
 }

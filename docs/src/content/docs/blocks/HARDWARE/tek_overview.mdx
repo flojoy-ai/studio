@@ -8,17 +8,17 @@ sidebar:
 
 ## Introduction
 
-Watch a video of Flojoy in action with a Tektronix AFG31000.
+Watch a video of Flojoy in action with a Tektronix MSO24.
 
 import { YouTube } from "@astro-community/astro-embed-youtube";
 
 <div className="not-content">
-  <YouTube id="hFrr2NlbqEg" />
+  <YouTube id="y-8hK6zIYwI" />
 </div>
 
 Flojoy makes instrumentation easy and powerful. The visual programming nature of Flojoy allows for easy control of instruments, but we've also built Flojoy to allow users to write their own custom Blocks.
 
-You can also [request](https://toqo276pj36.typeform.com/to/F5rSHVu1) a custom Block that the team will create for you.
+You can also [request](https://toqo276pj36.typeform.com/to/F5rSHVu1) a custom Block that the team will create for you. For faster response time with creating Blocks (or other techincal issues), please contact us using our [Discord Server](https://discord.gg/dPCrKxZR).
 
 This documentation outlines the first few, of many, officially supported Tektronix instruments.
 
@@ -41,7 +41,7 @@ Most instrument blocks names follow the convention: `FUNCTION_INSTRUMENTNAME` su
 
 #### Initialization Blocks
 
-- **`CONNECT`**: Establishes the connection the AFG31000 (ethernet/TCPIP recommended).
+- **`CONNECT`**: Establishes the connection to the AFG31000 (ethernet/TCPIP recommended).
 
 - **`SAVE_STATE`**: Saves or recalls the instrument's state.
 
@@ -70,41 +70,35 @@ import BlockCategory from "@/components/BlockCategory.astro";
 <BlockCategory
   blocks={[
     {
-      link: "/blocks/hardware/oscilloscopes/tektronix/mdo3xxx/connection-mdo3xxx",
-      name: "CONNECTION_MDO3XXX",
-      description: "Connect Flojoy to a MDO3XXX oscilloscope.",
-      thumbnail: "https://www.tek.com/-/media/images/datasheets/mdo3000_48w3002014/tekmdo310436001ai2cwdigitalandmonitorjpg.jpg?h=200&iar=0",
-    },
-    {
       link: "/blocks/hardware/oscilloscopes/tektronix/mso2x/connect-mso2x",
       name: "CONNECT_MSO2X",
       description: "Open a VISA connection to an MSO2X Tektronix oscilloscope.",
-      thumbnail: "https://www.tek.com/-/media/images/datasheets/2sseriesmso_48w738577/mso2coverimagejpg.jpg?h=200&iar=0",
     },
     {
       link: "/blocks/hardware/function-generators/tektronix/afg31000/connect-afg31000",
       name: "CONNECT_AFG31000",
       description: "Connect Flojoy to a AFG31000 function generator.",
-      thumbnail: "https://www.tek.com/-/media/images/product-series/afg31000/afg31000-front_0.jpg?w=569",
     },
     {
       link: "/blocks/hardware/sourcemeters/keithley/2450/connect-2450",
       name: "CONNECT_2450",
       description: "Open a VISA connection to an Keithley 2450 SourceMeter.",
-      thumbnail: "https://www.tek.com/-/media/datasheets/model-2450-touchscreen-source-measure-unit-smu-instrument/fig-1.png?w=589",
     },
     {
       link: "/blocks/hardware/multimeters/keithley/dmm7510/connect-dmm7510",
       name: "CONNECT_DMM7510",
       description: "Open a VISA connection to a Keithley DMM7510.",
-      thumbnail: "https://www.tek.com/-/media/images/product-series/dmm7510/dmm7510_front_graphsquiggle_5in_0.jpg?h=375&iar=0&w=500",
+    },
+    {
+      link: "/blocks/hardware/oscilloscopes/tektronix/mdo3xxx/connection-mdo3xxx",
+      name: "CONNECTION_MDO3XXX",
+      description: "Connect Flojoy to a MDO3XXX oscilloscope.",
     },
     {
       link: "/blocks/hardware/signal-analyzers/tektronix/rsa500/extract-spectrum-rsa500",
       name: "EXTRACT_SPECTRUM_RSA500",
       description:
         "Extracts and returns the spectrum trace from an Tektronix RSA.",
-      thumbnail: "https://www.tek.com/-/media/images/product-series/rsa500/tek-rsa507a_04a-504px.png?h=219&iar=0&w=504",
     },
   ]}
 />
