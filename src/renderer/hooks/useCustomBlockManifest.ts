@@ -7,14 +7,22 @@ import { toast } from "sonner";
 
 // undefined = loading state
 const customBlockManifestAtom = atom<RootNode | undefined | null>(null);
-const customBlocksMetadataMapAtom = atom<BlocksMetadataMap | undefined | null>(null);
+const customBlocksMetadataMapAtom = atom<BlocksMetadataMap | undefined | null>(
+  null,
+);
 
 export const useCustomSections = () => {
-  const [customBlocksMetadata, setCustomBlocksMetadata] = useAtom(customBlocksMetadataMapAtom);
-  const [customBlockManifest, setCustomBlockManifest] = useAtom(customBlockManifestAtom);
+  const [customBlocksMetadata, setCustomBlocksMetadata] = useAtom(
+    customBlocksMetadataMapAtom,
+  );
+  const [customBlockManifest, setCustomBlockManifest] = useAtom(
+    customBlockManifestAtom,
+  );
   const handleImportCustomBlocks = useCallback(
     async (showPicker: boolean) => {
-      const blocksDirPath = !showPicker ? await window.api.pickDirectory() : await window.api.getCustomBlocksDir();
+      const blocksDirPath = !showPicker
+        ? await window.api.pickDirectory()
+        : await window.api.getCustomBlocksDir();
 
       if (!blocksDirPath) {
         return;
@@ -39,9 +47,11 @@ export const useCustomSections = () => {
         }
         setCustomBlockManifest(res.data);
         window.api.cacheCustomBlocksDir(blocksDirPath);
-        baseClient.get(`blocks/metadata?blocks_path=${blocksDirPath}`).then(res => {
-          setCustomBlocksMetadata(res.data);
-        })
+        baseClient
+          .get(`blocks/metadata?blocks_path=${blocksDirPath}`)
+          .then((res) => {
+            setCustomBlocksMetadata(res.data);
+          });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         const errTitle = `Failed to generate blocks manifest from ${blocksDirPath} !`;
@@ -60,8 +70,6 @@ export const useCustomSections = () => {
   return {
     handleImportCustomBlocks,
     customBlockManifest,
-    customBlocksMetadata
+    customBlocksMetadata,
   };
 };
-
-
