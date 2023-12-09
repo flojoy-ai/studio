@@ -12,7 +12,11 @@ Suppose we wanted to contribute a block that divides two items element-wise (for
 
 ### Creating the source files
 
-To start, we create a `DIVIDE.py` file.
+To start, we create a `DIVIDE` folder and inside that folder create a new Python file with the same name as folder `DIVIDE.py`.
+
+:::note
+Each block should have it's own folder and The name of the folder, file and block function should be the same and in uppercase. We use this convention to efficiently generate manifest from blocks and use it in Frontend to visualize correctly
+:::
 
 We can then create our new function as follows:
 
@@ -34,6 +38,8 @@ The type hints are important! This is how Flojoy differentiates between block in
 ## A more advanced example
 
 Let's say we want to create a block to wrap the `train_test_split` function from `scikit-learn`. This block will have to return two different `DataContainers`.
+
+For that we start with creating a folder called `TRAIN_TEST_SPLIT` and a Python file inside that folder called `TRAIN_TEST_SPLIT.py`. Then we put following code in the file:
 
 ```python {title="TRAIN_TEST_SPLIT.py"}
 
@@ -75,7 +81,7 @@ There are few steps to import your custom block to Flojoy:
 
 4. Now head to your directory where you have created your custom block and select it's parent folder.
 
-For example, let's say you created a custom block called `DIVIDE.py` in `~/custom-blocks/DIVIDE.py` directory, then you would choose the `custom-blocks` folder from file window.
+For example, let's say you created a custom block called `DIVIDE.py` in `~/custom-blocks/DIVIDE/DIVIDE.py` directory, then you would choose the `custom-blocks` folder from file window.
 
 Congratulations! you just imported your custom block to Flojoy. You should see your custom block in the sidebar. Click on the block to add it to flow chart.
 
