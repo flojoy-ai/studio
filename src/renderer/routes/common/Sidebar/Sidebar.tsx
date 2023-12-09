@@ -179,7 +179,10 @@ const Sidebar = ({
                 />
               </div>
               <div className="flex w-full items-center justify-center pt-2">
-                <Button variant={"outline"} onClick={() => handleImportCustomBlocks(false)}>
+                <Button
+                  variant={"outline"}
+                  onClick={() => handleImportCustomBlocks(false)}
+                >
                   <ImportIcon size={26} className="pr-2" />
                   Change Custom Blocks Directory
                 </Button>
@@ -188,7 +191,10 @@ const Sidebar = ({
           ) : (
             <div className="flex h-full flex-col items-center justify-center">
               <p className="py-3">No custom blocks found</p>
-              <Button variant={"outline"} onClick={() => handleImportCustomBlocks(false)}>
+              <Button
+                variant={"outline"}
+                onClick={() => handleImportCustomBlocks(false)}
+              >
                 <ImportIcon size={26} className="pr-2" />
                 Import Custom Blocks
               </Button>

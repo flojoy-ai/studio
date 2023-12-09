@@ -65,7 +65,10 @@ const BlockModal = ({
 
   const path = blockFilePath.replace(/"\\"/g, "/");
 
-  const link = path.startsWith("/") || path.includes(":") ? null : `${BLOCKS_REPO}/blocks/${path}`;
+  const link =
+    path.startsWith("/") || path.includes(":")
+      ? null
+      : `${BLOCKS_REPO}/blocks/${path}`;
 
   const docsLink = `${DOCS_LINK}/nodes/${path
     .split("/")
@@ -80,22 +83,24 @@ const BlockModal = ({
             {selectedNode?.data.func}
           </DialogTitle>
         </DialogHeader>
-        {link && <div className="flex gap-x-4">
-          <a
-            className="rounded-full border border-accent1 px-6 py-2 text-sm font-semibold uppercase text-accent1 duration-200 hover:bg-accent1/10"
-            href={link}
-            target="_blank"
-          >
-            View on GitHub
-          </a>
-          <a
-            className="rounded-full border border-accent1 px-6 py-2 text-sm font-semibold uppercase text-accent1 duration-200 hover:bg-accent1/10"
-            href={docsLink}
-            target="_blank"
-          >
-            View Examples
-          </a>
-        </div>}
+        {link && (
+          <div className="flex gap-x-4">
+            <a
+              className="rounded-full border border-accent1 px-6 py-2 text-sm font-semibold uppercase text-accent1 duration-200 hover:bg-accent1/10"
+              href={link}
+              target="_blank"
+            >
+              View on GitHub
+            </a>
+            <a
+              className="rounded-full border border-accent1 px-6 py-2 text-sm font-semibold uppercase text-accent1 duration-200 hover:bg-accent1/10"
+              href={docsLink}
+              target="_blank"
+            >
+              View Examples
+            </a>
+          </div>
+        )}
         <div className="py-1" />
         <h3 className="text-gray-800 dark:text-gray-200">
           Function Type:{" "}

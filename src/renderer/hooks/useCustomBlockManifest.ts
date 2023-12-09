@@ -47,8 +47,9 @@ export const useCustomSections = () => {
         }
         setCustomBlockManifest(res.data);
         window.api.cacheCustomBlocksDir(blocksDirPath);
-        const res2 = await baseClient
-          .get(`blocks/metadata?blocks_path=${blocksDirPath}&custom_dir_changed=${!startup}`);
+        const res2 = await baseClient.get(
+          `blocks/metadata?blocks_path=${blocksDirPath}&custom_dir_changed=${!startup}`,
+        );
         setCustomBlocksMetadata(res2.data);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {

@@ -62,12 +62,12 @@ export const SocketContextProvider = ({
 
   const handleStateChange =
     (state: keyof States) =>
-      (value: string | number | Record<string, string> | IServerStatus) => {
-        setStates((prev) => ({
-          ...prev,
-          [state]: value,
-        }));
-      };
+    (value: string | number | Record<string, string> | IServerStatus) => {
+      setStates((prev) => ({
+        ...prev,
+        [state]: value,
+      }));
+    };
 
   useEffect(() => {
     if (!socket) {

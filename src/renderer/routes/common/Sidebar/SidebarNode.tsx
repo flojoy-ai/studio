@@ -86,11 +86,7 @@ const SidebarNode = ({
         )}
         onClick={() => {
           if (query !== "") {
-            sendEventToMix(
-              "Node Searched",
-              node.name ?? "",
-              "nodeTitle",
-            );
+            sendEventToMix("Node Searched", node.name ?? "", "nodeTitle");
           }
           leafClickHandler(node);
         }}
@@ -166,8 +162,8 @@ const SidebarNode = ({
   const shouldFilter = query !== "" && !matchedParent;
   const searchMatches = shouldFilter
     ? leaves?.filter(
-      (c) => matchesQuery(c.key, query) || matchesQuery(c.name, query),
-    )
+        (c) => matchesQuery(c.key, query) || matchesQuery(c.name, query),
+      )
     : leaves;
 
   if (searchMatches?.length === 0 && node.children) {

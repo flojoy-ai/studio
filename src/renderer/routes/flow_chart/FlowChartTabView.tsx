@@ -139,7 +139,11 @@ const FlowChartTab = () => {
   const nodesMetadataMap = useNodesMetadata();
   const manifest = useManifest();
 
-  const { handleImportCustomBlocks, customBlockManifest, customBlocksMetadata } = useCustomSections();
+  const {
+    handleImportCustomBlocks,
+    customBlockManifest,
+    customBlocksMetadata,
+  } = useCustomSections();
   const [manifestChanged, setManifestChanged] = useAtom(manifestChangedAtom);
 
   const fullManifest = useMemo(() => {
@@ -150,11 +154,13 @@ const FlowChartTab = () => {
       return null;
     }
 
-    return customBlockManifest ? {
-      ...manifest,
-      children: manifest.children.concat(customBlockManifest.children)
-    } : manifest
-  }, [manifest, customBlockManifest])
+    return customBlockManifest
+      ? {
+          ...manifest,
+          children: manifest.children.concat(customBlockManifest.children),
+        }
+      : manifest;
+  }, [manifest, customBlockManifest]);
 
   const fullBlocksMetadata = useMemo(() => {
     if (nodesMetadataMap === undefined || customBlocksMetadata === undefined) {
@@ -164,12 +170,13 @@ const FlowChartTab = () => {
       return null;
     }
 
-    return customBlocksMetadata ? {
-      ...nodesMetadataMap,
-      ...customBlocksMetadata
-    } : nodesMetadataMap
-
-  }, [nodesMetadataMap, customBlocksMetadata])
+    return customBlocksMetadata
+      ? {
+          ...nodesMetadataMap,
+          ...customBlocksMetadata,
+        }
+      : nodesMetadataMap;
+  }, [nodesMetadataMap, customBlocksMetadata]);
 
   useEffect(() => {
     if (fullManifest && fullBlocksMetadata && manifestChanged) {
@@ -373,7 +380,13 @@ const FlowChartTab = () => {
     const nodeFileData = metaData[nodeFileName] ?? {};
     setNodeFilePath(nodeFileData.path ?? "");
     setPythonString(nodeFileData.metadata ?? "");
-  }, [selectedNode, setNodeFilePath, setPythonString, nodesMetadataMap, customBlocksMetadata]);
+  }, [
+    selectedNode,
+    setNodeFilePath,
+    setPythonString,
+    nodesMetadataMap,
+    customBlocksMetadata,
+  ]);
 
   const deleteKeyCodes = ["Delete", "Backspace"];
 
@@ -491,21 +504,24 @@ const FlowChartTab = () => {
           <Separator />
         </div>
 
-        {manifest !== undefined && customBlockManifest !== undefined && (<Sidebar
-          sections={manifest}
-          leafNodeClickHandler={addNewNode as LeafClickHandler}
-          isSideBarOpen={isSidebarOpen}
-          setSideBarStatus={setIsSidebarOpen}
-          customSections={customBlockManifest}
-          handleImportCustomBlocks={handleImportCustomBlocks}
-        />)}
+        {manifest !== undefined && customBlockManifest !== undefined && (
+          <Sidebar
+            sections={manifest}
+            leafNodeClickHandler={addNewNode as LeafClickHandler}
+            isSideBarOpen={isSidebarOpen}
+            setSideBarStatus={setIsSidebarOpen}
+            customSections={customBlockManifest}
+            handleImportCustomBlocks={handleImportCustomBlocks}
+          />
+        )}
 
         <WelcomeModal />
 
         <div
           style={{
-            height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT + ACTIONS_HEIGHT
-              }px)`,
+            height: `calc(100vh - ${
+              LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT + ACTIONS_HEIGHT
+            }px)`,
           }}
           className="relative overflow-hidden bg-background"
           data-testid="react-flow"
