@@ -81,8 +81,6 @@ const VisorNode = ({ selected, id, data }: CustomNodeProps) => {
   const ChartIcon = chartElemMap[data.func];
   const iconSideLength = Math.min(dimensions.width, dimensions.height);
 
-  console.log(iconSideLength);
-
   return (
     <>
       <NodeResizer

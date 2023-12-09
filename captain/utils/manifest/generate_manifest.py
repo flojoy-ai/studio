@@ -93,7 +93,14 @@ def browse_directories(dir_path: str, cur_type: Optional[str] = None, depth: int
             ):
                 continue
 
-            cur_type = basename if basename in ALLOWED_TYPES else "default"
+            cur_type = (
+                basename
+                if basename in ALLOWED_TYPES  # give current type precedence
+                else cur_type
+                if cur_type in ALLOWED_TYPES  # otherwise inherit if allowed
+                else "default"  # else use default
+            )
+
             subdir = browse_directories(entry.path, cur_type, depth=depth + 1)
             result["children"].append(subdir)
         elif entry.is_file() and entry.name.endswith(".py"):

@@ -92,10 +92,11 @@ export const SocketContextProvider = ({
           handleImportCustomBlocks(true);
         },
         onManifestUpdate: () => {
-          setManifestChanged(true);
-          toast("Changes detected, syncing blocks with changes...");
           fetchManifest();
           fetchMetadata();
+          handleImportCustomBlocks(true);
+          setManifestChanged(true);
+          toast("Changes detected, syncing blocks with changes...");
         },
       });
       setSocket(ws);

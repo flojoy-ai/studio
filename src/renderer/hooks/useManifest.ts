@@ -7,14 +7,15 @@ import { RootNode } from "@src/utils/ManifestLoader";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { useCallback } from "react";
 
-const manifestAtom = atom<RootNode | null>(null);
+// undefined = loading state
+const manifestAtom = atom<RootNode | undefined | null>(null);
 export const manifestChangedAtom = atom<boolean>(true);
 
 export const useFetchManifest = () => {
   const setManifest = useSetAtom(manifestAtom);
 
   return useCallback(async () => {
-    setManifest(null);
+    setManifest(undefined);
     const manifest = await getManifest();
     setManifest(manifest);
   }, [setManifest]);
@@ -22,13 +23,13 @@ export const useFetchManifest = () => {
 
 export const useManifest = () => useAtomValue(manifestAtom);
 
-const nodesMetadataMapAtom = atom<BlocksMetadataMap | null>(null);
+const nodesMetadataMapAtom = atom<BlocksMetadataMap | undefined | null>(null);
 
 export const useFetchNodesMetadata = () => {
   const setNodesMetadata = useSetAtom(nodesMetadataMapAtom);
 
   return useCallback(async () => {
-    setNodesMetadata(null);
+    setNodesMetadata(undefined);
     const manifest = await getBlocksMetadata();
     setNodesMetadata(manifest);
   }, [setNodesMetadata]);

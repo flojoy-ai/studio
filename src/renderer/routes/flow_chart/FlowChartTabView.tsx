@@ -3,7 +3,7 @@ import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
 import { TreeNode } from "@src/utils/ManifestLoader";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ConnectionLineType,
   MiniMap,
@@ -139,23 +139,59 @@ const FlowChartTab = () => {
   const nodesMetadataMap = useNodesMetadata();
   const manifest = useManifest();
 
-  const { handleImportCustomBlocks, customSections, customBlocksMetadata } = useCustomSections();
+  const { handleImportCustomBlocks, customBlockManifest, customBlocksMetadata } = useCustomSections();
   const [manifestChanged, setManifestChanged] = useAtom(manifestChangedAtom);
 
+  const fullManifest = useMemo(() => {
+    if (manifest === undefined || customBlockManifest === undefined) {
+      return undefined;
+    }
+    if (manifest === null) {
+      return null;
+    }
+
+    console.log(customBlockManifest);
+
+    return customBlockManifest ? {
+      ...manifest,
+      children: manifest.children.concat(customBlockManifest.children)
+    } : manifest
+  }, [manifest, customBlockManifest])
+
+  const fullBlocksMetadata = useMemo(() => {
+    if (nodesMetadataMap === undefined || customBlocksMetadata === undefined) {
+      return undefined;
+    }
+    if (nodesMetadataMap === null) {
+      return null;
+    }
+
+    return customBlocksMetadata ? {
+      ...nodesMetadataMap,
+      ...customBlocksMetadata
+    } : nodesMetadataMap
+
+  }, [nodesMetadataMap, customBlocksMetadata])
+
   useEffect(() => {
-    if (manifest && nodesMetadataMap && manifestChanged) {
+    if (fullManifest && fullBlocksMetadata && manifestChanged) {
+      console.log("Syncing...");
+      console.log("Full manifest: ", fullManifest);
+      console.log("Full blocks metadata: ", fullBlocksMetadata);
+
       const [syncedNodes, syncedEdges] = syncFlowchartWithManifest(
         nodes,
         edges,
-        manifest,
-        nodesMetadataMap,
+        fullManifest,
+        fullBlocksMetadata,
       );
+
       setNodes(syncedNodes);
       setEdges(syncedEdges);
       toast("Synced blocks with manifest.");
       setManifestChanged(false);
     }
-  }, [manifest, nodesMetadataMap, manifestChanged]);
+  }, [fullManifest, fullBlocksMetadata, manifestChanged]);
 
   const getTakenNodeLabels = useCallback(
     (func: string) => {
@@ -285,10 +321,6 @@ const FlowChartTab = () => {
           return;
         }
 
-        const fullManifest = customSections ? {
-          ...manifest,
-          children: manifest.children.concat(customSections.children)
-        } : manifest;
 
         const edges = getEdgeTypes(fullManifest, connection);
 
@@ -303,7 +335,7 @@ const FlowChartTab = () => {
           });
         }
       }),
-    [setEdges, manifest, customSections],
+    [setEdges, manifest, customBlockManifest],
   );
 
   const handleNodesDelete: OnNodesDelete = useCallback(
@@ -340,9 +372,9 @@ const FlowChartTab = () => {
     if (selectedNode === null || !nodesMetadataMap) {
       return;
     }
-    let metaData : BlocksMetadataMap = nodesMetadataMap;
-    if(customBlocksMetadata){
-      metaData = {...nodesMetadataMap, ...customBlocksMetadata};
+    let metaData: BlocksMetadataMap = nodesMetadataMap;
+    if (customBlocksMetadata) {
+      metaData = { ...nodesMetadataMap, ...customBlocksMetadata };
     }
     const nodeFileName = `${selectedNode?.data.func}.py`;
     const nodeFileData = metaData[nodeFileName] ?? {};
@@ -412,7 +444,7 @@ const FlowChartTab = () => {
                     className="gap-2"
                     variant="ghost"
                     onClick={toggleSidebar}
-                    disabled={!manifest && !customSections}
+                    disabled={!manifest && !customBlockManifest}
                   >
                     <Workflow size={20} className="stroke-muted-foreground" />
                     Add Block
@@ -471,7 +503,7 @@ const FlowChartTab = () => {
           leafNodeClickHandler={addNewNode as LeafClickHandler}
           isSideBarOpen={isSidebarOpen}
           setSideBarStatus={setIsSidebarOpen}
-          customSections={customSections}
+          customSections={customBlockManifest}
           handleImportCustomBlocks={handleImportCustomBlocks}
         />
 

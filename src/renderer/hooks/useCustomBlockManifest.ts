@@ -1,30 +1,28 @@
 import { baseClient } from "@src/lib/base-client";
 import { BlocksMetadataMap } from "@src/types/blocks-metadata";
 import { RootNode, validateRootSchema } from "@src/utils/ManifestLoader";
-import { atom, useAtomValue, useSetAtom } from "jotai";
+import { atom, useAtom } from "jotai";
 import { useCallback } from "react";
 import { toast } from "sonner";
-const customBlockManifestAtom = atom<RootNode | null>(null);
-export const manifestChangedAtom = atom<boolean>(true);
 
-const customBlocksMetadataMapAtom = atom<BlocksMetadataMap | null>(null);
+// undefined = loading state
+const customBlockManifestAtom = atom<RootNode | undefined | null>(null);
+const customBlocksMetadataMapAtom = atom<BlocksMetadataMap | undefined | null>(null);
 
 export const useCustomSections = () => {
-  const setCustomBlocksMetadata = useSetAtom(customBlocksMetadataMapAtom);
-  const setCustomBlockManifest = useSetAtom(customBlockManifestAtom);
-  const customSections = useAtomValue(customBlockManifestAtom);
-  const customBlocksMetadata = useAtomValue(customBlocksMetadataMapAtom)
+  const [customBlocksMetadata, setCustomBlocksMetadata] = useAtom(customBlocksMetadataMapAtom);
+  const [customBlockManifest, setCustomBlockManifest] = useAtom(customBlockManifestAtom);
   const handleImportCustomBlocks = useCallback(
-    async (startup: boolean) => {
-      const blocksDirPath = !startup ? await window.api.pickDirectory() : await window.api.getCustomBlocksDir();
+    async (showPicker: boolean) => {
+      const blocksDirPath = !showPicker ? await window.api.pickDirectory() : await window.api.getCustomBlocksDir();
 
       if (!blocksDirPath) {
         return;
       }
 
-      const prevManifest = customSections;
-      setCustomBlockManifest(null);
-      setCustomBlocksMetadata(null);
+      const prevManifest = customBlockManifest;
+      setCustomBlockManifest(undefined);
+      setCustomBlocksMetadata(undefined);
       try {
         const res = await baseClient.get(
           `blocks/manifest?blocks_path=${blocksDirPath}`,
@@ -41,8 +39,8 @@ export const useCustomSections = () => {
         }
         setCustomBlockManifest(res.data);
         window.api.cacheCustomBlocksDir(blocksDirPath);
-        baseClient.get(`blocks/metadata?blocks_path=${blocksDirPath}`).then(res=>{
-            setCustomBlocksMetadata(res.data);
+        baseClient.get(`blocks/metadata?blocks_path=${blocksDirPath}`).then(res => {
+          setCustomBlocksMetadata(res.data);
         })
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
@@ -56,12 +54,12 @@ export const useCustomSections = () => {
         setCustomBlockManifest(prevManifest);
       }
     },
-    [customSections, setCustomBlockManifest, setCustomBlocksMetadata],
+    [setCustomBlockManifest, setCustomBlocksMetadata],
   );
 
   return {
     handleImportCustomBlocks,
-    customSections,
+    customBlockManifest,
     customBlocksMetadata
   };
 };
