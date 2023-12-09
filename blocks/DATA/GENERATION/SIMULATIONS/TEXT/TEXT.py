@@ -1,11 +1,11 @@
-from flojoy import String, flojoy, DataContainer
+from flojoy import String, flojoy, DataContainer, TextArea
 from typing import Optional
 
 
 @flojoy
 def TEXT(
     _: Optional[DataContainer] = None,
-    value: str = "Hello World!",
+    value: TextArea = TextArea("Hello World!"),
 ) -> String:
     """Return a String DataContainer with given input text.
 

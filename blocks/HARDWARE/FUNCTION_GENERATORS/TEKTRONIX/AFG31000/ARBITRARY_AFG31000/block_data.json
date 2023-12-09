@@ -46,5 +46,12 @@
         "description": "Set FG parameters"
       }
     ]
-  }
+  },
+  "videos": [
+    {
+      "title": "Control the AFG31000 Function Generator with Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=pEJ8JgsIYNo"
+    }
+  ]
 }

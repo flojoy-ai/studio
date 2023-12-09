@@ -27,7 +27,7 @@ const TextNode = ({ data }: TextNodeProps) => {
         minHeight: 100,
         minWidth: 100,
       }}
-      className="prose dark:prose-invert prose-headings:mb-0 prose-headings:mt-2 prose-p:mb-1 prose-p:mt-1 prose-p:first:mt-0 prose-ul:m-0 prose-li:m-0 relative max-w-full rounded-md border p-2"
+      className="prose relative max-w-full rounded-md border p-2 dark:prose-invert prose-headings:mb-0 prose-headings:mt-2 prose-p:mb-1 prose-p:mt-1 prose-p:first:mt-0 prose-ul:m-0 prose-li:m-0"
     >
       <ReactMarkdown className="break-words" components={{ a: LinkRenderer }}>
         {data.text || "Empty Text Node"}

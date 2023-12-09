@@ -23,6 +23,8 @@ extraResources:
     to: "main.py"
   - from: "pyproject.toml"
     to: "pyproject.toml"
+  - from: "poetry.toml"
+    to: "poetry.toml"
   - from: "poetry.lock"
     to: "poetry.lock"
   - from: "blocks"

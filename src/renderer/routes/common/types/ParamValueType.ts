@@ -17,4 +17,5 @@ export type ParamValueType =
   | "VisaConnection"
   | "File"
   | "Directory"
+  | "TextArea"
   | "unknown";

@@ -3,6 +3,7 @@ type BlockInfo = {
   name: string;
   link: string;
   description: string;
+  thumbnail?: string;
 };
 
 interface Props {
@@ -11,13 +12,19 @@ interface Props {
 
 const { blocks } = Astro.props;
 
-import { LinkCard, CardGrid } from "@astrojs/starlight/components";
+import { CardGrid } from "@astrojs/starlight/components";
+import LinkCard from "./override/LinkCard.astro";
 ---
 
 <CardGrid>
   {
     blocks.map((b) => (
-      <LinkCard title={b.name} href={b.link} description={b.description} />
+      <LinkCard
+        title={b.name}
+        href={b.link}
+        description={b.description}
+        thumbnail={b.thumbnail}
+      />
     ))
   }
 </CardGrid>
