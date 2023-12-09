@@ -9,7 +9,7 @@ import { ExampleProjects } from "../data/docs-example-apps";
 import { toast } from "sonner";
 import { TextData } from "@src/types/node";
 import { sendEventToMix } from "@src/services/MixpanelServices";
-import { useManifest, useNodesMetadata } from "./useManifest";
+import { useFullManifest, useFullMetadata } from "./useManifest";
 import { syncFlowchartWithManifest } from "@src/lib/sync";
 
 const project = resolveDefaultProjectReference();
@@ -36,19 +36,19 @@ export const useFlowChartGraph = () => {
     return { selectedNodes, unSelectedNodes };
   }, [nodes]);
   const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
-  const manifest = useManifest();
-  const nodesMetadata = useNodesMetadata();
+  const manifest = useFullManifest();
+  const nodesMetadata = useFullMetadata();
 
   const loadFlowExportObject = useCallback(
     (flow: ReactFlowJsonObject<ElementsData>, textNodes?: Node<TextData>[]) => {
       if (!flow) {
         return false;
       }
-      if (manifest === null) {
+      if (!manifest) {
         toast.error("Manifest not found!");
         throw new Error("Manifest not found!");
       }
-      if (nodesMetadata === null) {
+      if (!nodesMetadata) {
         toast.error("Block metadata not found!");
         throw new Error("Block metadata not found!");
       }

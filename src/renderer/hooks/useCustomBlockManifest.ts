@@ -1,9 +1,10 @@
 import { baseClient } from "@src/lib/base-client";
 import { BlocksMetadataMap } from "@src/types/blocks-metadata";
 import { RootNode, validateRootSchema } from "@src/utils/ManifestLoader";
-import { atom, useAtom } from "jotai";
+import { atom, useAtom, useSetAtom } from "jotai";
 import { useCallback } from "react";
 import { toast } from "sonner";
+import { manifestChangedAtom } from "./useManifest";
 
 // undefined = loading state
 const customBlockManifestAtom = atom<RootNode | undefined | null>(null);
@@ -18,6 +19,7 @@ export const useCustomSections = () => {
   const [customBlockManifest, setCustomBlockManifest] = useAtom(
     customBlockManifestAtom,
   );
+  const setManifestChanged = useSetAtom(manifestChangedAtom);
   const handleImportCustomBlocks = useCallback(
     async (startup: boolean) => {
       const blocksDirPath = !startup
@@ -48,6 +50,7 @@ export const useCustomSections = () => {
           `blocks/metadata?blocks_path=${blocksDirPath}&custom_dir_changed=${!startup}`,
         );
         setCustomBlocksMetadata(res2.data);
+        setManifestChanged(true);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         const errTitle = `Failed to generate blocks manifest from ${blocksDirPath} !`;

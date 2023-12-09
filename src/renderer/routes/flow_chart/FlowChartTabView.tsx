@@ -3,7 +3,7 @@ import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
 import { TreeNode } from "@src/utils/ManifestLoader";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ConnectionLineType,
   MiniMap,
@@ -57,6 +57,8 @@ import {
 } from "@src/components/ui/tooltip";
 import {
   manifestChangedAtom,
+  useFullManifest,
+  useFullMetadata,
   useManifest,
   useNodesMetadata,
 } from "@src/hooks/useManifest";
@@ -146,37 +148,8 @@ const FlowChartTab = () => {
   } = useCustomSections();
   const [manifestChanged, setManifestChanged] = useAtom(manifestChangedAtom);
 
-  const fullManifest = useMemo(() => {
-    if (manifest === undefined || customBlockManifest === undefined) {
-      return undefined;
-    }
-    if (manifest === null) {
-      return null;
-    }
-
-    return customBlockManifest
-      ? {
-          ...manifest,
-          children: manifest.children.concat(customBlockManifest.children),
-        }
-      : manifest;
-  }, [manifest, customBlockManifest]);
-
-  const fullBlocksMetadata = useMemo(() => {
-    if (nodesMetadataMap === undefined || customBlocksMetadata === undefined) {
-      return undefined;
-    }
-    if (nodesMetadataMap === null) {
-      return null;
-    }
-
-    return customBlocksMetadata
-      ? {
-          ...nodesMetadataMap,
-          ...customBlocksMetadata,
-        }
-      : nodesMetadataMap;
-  }, [nodesMetadataMap, customBlocksMetadata]);
+  const fullManifest = useFullManifest();
+  const fullBlocksMetadata = useFullMetadata();
 
   useEffect(() => {
     if (fullManifest && fullBlocksMetadata && manifestChanged) {
@@ -519,9 +492,8 @@ const FlowChartTab = () => {
 
         <div
           style={{
-            height: `calc(100vh - ${
-              LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT + ACTIONS_HEIGHT
-            }px)`,
+            height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT + ACTIONS_HEIGHT
+              }px)`,
           }}
           className="relative overflow-hidden bg-background"
           data-testid="react-flow"
