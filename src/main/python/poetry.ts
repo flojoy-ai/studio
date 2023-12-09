@@ -97,7 +97,7 @@ export async function poetryInstallDepGroup(group: string): Promise<boolean> {
   if (group !== "blocks") {
     // We want to persist the optional groups such that we can call
     // poetry install on them on every startup to ensure they are updated
-    const groups = store.get("poetryOptionalGroups") as string[];
+    const groups = store.get("poetryOptionalGroups");
     if (!groups.includes(group)) {
       store.set("poetryOptionalGroups", [...groups, group]);
     }
@@ -114,7 +114,7 @@ export async function poetryUninstallDepGroup(group: string): Promise<boolean> {
   if (group !== "blocks") {
     // We want to persist the optional groups such that we can call
     // poetry install on them on every startup to ensure they are updated
-    const groups = store.get("poetryOptionalGroups") as string[];
+    const groups = store.get("poetryOptionalGroups");
     if (groups) {
       const newGroups = groups.filter((g: string) => g !== group);
       store.set("poetryOptionalGroups", newGroups);

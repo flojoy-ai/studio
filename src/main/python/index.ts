@@ -93,7 +93,7 @@ export async function installDependencies(): Promise<string> {
   const groups = store.get("poetryOptionalGroups");
   const poetry = process.env.POETRY_PATH ?? "poetry";
 
-  if (groups) {
+  if (groups.length > 0) {
     // make sure the group actually exists
     const validGroups = groups.filter((group) =>
       POETRY_DEP_GROUPS.find((g) => g.name === group),
