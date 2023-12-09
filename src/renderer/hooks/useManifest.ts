@@ -52,12 +52,12 @@ export const useFullManifest = () => {
 
     return customBlockManifest
       ? {
-        ...manifest,
-        children: manifest.children.concat(customBlockManifest.children),
-      }
+          ...manifest,
+          children: manifest.children.concat(customBlockManifest.children),
+        }
       : manifest;
   }, [manifest, customBlockManifest]);
-}
+};
 
 export const useFullMetadata = () => {
   const nodesMetadataMap = useNodesMetadata();
@@ -73,9 +73,9 @@ export const useFullMetadata = () => {
 
     return customBlocksMetadata
       ? {
-        ...nodesMetadataMap,
-        ...customBlocksMetadata,
-      }
+          ...nodesMetadataMap,
+          ...customBlocksMetadata,
+        }
       : nodesMetadataMap;
   }, [nodesMetadataMap, customBlocksMetadata]);
-}
+};

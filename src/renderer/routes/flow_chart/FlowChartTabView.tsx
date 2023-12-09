@@ -492,8 +492,9 @@ const FlowChartTab = () => {
 
         <div
           style={{
-            height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT + ACTIONS_HEIGHT
-              }px)`,
+            height: `calc(100vh - ${
+              LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT + ACTIONS_HEIGHT
+            }px)`,
           }}
           className="relative overflow-hidden bg-background"
           data-testid="react-flow"
