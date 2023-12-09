@@ -113,11 +113,15 @@ export async function poetryInstallDepGroup(group: string): Promise<boolean> {
   }
 
   const validGroups = await poetryGroupEnsureValid();
-  await execCommand(
-    new Command(
-      `poetry install --sync --with ${validGroups.join(",")} --no-root`,
-    ),
-  );
+  if (validGroups.length > 0) {
+    await execCommand(
+      new Command(
+        `poetry install --sync --with ${validGroups.join(",")} --no-root`,
+      ),
+    );
+  } else {
+    await execCommand(new Command(`poetry install --sync --no-root`));
+  }
 
   return true;
 }
@@ -132,11 +136,15 @@ export async function poetryUninstallDepGroup(group: string): Promise<boolean> {
   }
 
   const validGroups = await poetryGroupEnsureValid();
-  await execCommand(
-    new Command(
-      `poetry install --sync --with ${validGroups.join(",")} --no-root`,
-    ),
-  );
+  if (validGroups.length > 0) {
+    await execCommand(
+      new Command(
+        `poetry install --sync --with ${validGroups.join(",")} --no-root`,
+      ),
+    );
+  } else {
+    await execCommand(new Command(`poetry install --sync --no-root`));
+  }
 
   return true;
 }

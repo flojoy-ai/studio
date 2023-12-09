@@ -112,7 +112,7 @@ const DepManagerModal = ({
                   <div>{group.description}</div>
                   <div className="grow" />
                   <Button
-                    disabled={isLoading}
+                    disabled={isLoading || group.name === "blocks"}
                     variant={
                       group.status === "installed" ? "destructive" : "default"
                     }
