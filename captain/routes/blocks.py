@@ -2,6 +2,7 @@ import json
 
 from fastapi import APIRouter, Response
 
+from captain.internal.manager import WatchManager
 from captain.utils.manifest.generate_manifest import generate_manifest
 from captain.utils.blocks_metadata import generate_metadata
 from captain.utils.import_blocks import create_map
@@ -28,9 +29,12 @@ async def get_manifest(blocks_path: str | None = None):
 
 
 @router.get("/blocks/metadata/")
-async def get_metadata(blocks_path: str | None = None):
+async def get_metadata(blocks_path: str | None = None, custom_dir_changed=False):
     try:
         metadata_map = generate_metadata(custom_blocks_dir=blocks_path)
+        if custom_dir_changed:
+            watch_manager = WatchManager.get_instance()
+            watch_manager.restart()
         return metadata_map
     except Exception as e:
         logger.error(

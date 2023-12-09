@@ -2,7 +2,6 @@ import fnmatch
 import os
 
 from captain.utils.blocks_path import get_blocks_path
-from captain.internal.manager import WatchManager
 
 # The pattern to match for Python files
 pattern = "*.py"
@@ -35,9 +34,6 @@ def get_file_paths(blocks_dir: str):
 
 def generate_metadata(custom_blocks_dir: str | None):
     blocks_dir = custom_blocks_dir if custom_blocks_dir else get_blocks_path()
-    if custom_blocks_dir:
-        watch_manager = WatchManager.get_instance()
-        watch_manager.restart()
     file_paths = get_file_paths(blocks_dir)
     # Print the list of file paths
     metadata_map: dict[str, dict[str, str]] = dict()
