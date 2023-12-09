@@ -1,13 +1,20 @@
 import Store from "electron-store";
 
-const schema = {
-  poetryOptionalGroups: {
-    type: "array",
-    default: [],
-    items: {
-      type: "string",
-    },
-  },
-} as const;
+type TypedStore = {
+  poetryOptionalGroups: string[];
+};
 
-export const store = new Store({ schema });
+export const store = new Store<TypedStore>({
+  defaults: {
+    poetryOptionalGroups: [],
+  },
+  // schema: {
+  //   poetryOptionalGroups: {
+  //     type: "array",
+  //     default: [],
+  //     items: {
+  //       type: "string",
+  //     },
+  //   },
+  // },
+});

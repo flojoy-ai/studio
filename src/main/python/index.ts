@@ -90,7 +90,7 @@ export async function installPoetry(): Promise<void> {
 }
 
 export async function installDependencies(): Promise<string> {
-  const groups = store.get("poetryOptionalGroups") as string[];
+  const groups = store.get("poetryOptionalGroups");
   const poetry = process.env.POETRY_PATH ?? "poetry";
 
   if (groups) {
