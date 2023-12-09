@@ -91,9 +91,18 @@ export async function poetryGetGroupInfo(): Promise<PoetryGroupInfo[]> {
   return result;
 }
 
-export async function poetryInstallDepGroup(group: string): Promise<boolean> {
-  await execCommand(new Command(`poetry install --with ${group} --no-root`));
+export async function poetryGroupEnsureValid(): Promise<string[]> {
+  const groups = store.get("poetryOptionalGroups");
 
+  // make sure the group actually exists
+  const validGroups = groups.filter((group) =>
+    POETRY_DEP_GROUPS.find((g) => g.name === group),
+  );
+  store.set("poetryOptionalGroups", validGroups);
+  return validGroups;
+}
+
+export async function poetryInstallDepGroup(group: string): Promise<boolean> {
   if (group !== "blocks") {
     // We want to persist the optional groups such that we can call
     // poetry install on them on every startup to ensure they are updated
@@ -103,23 +112,31 @@ export async function poetryInstallDepGroup(group: string): Promise<boolean> {
     }
   }
 
+  const validGroups = await poetryGroupEnsureValid();
+  await execCommand(
+    new Command(
+      `poetry install --sync --with ${validGroups.join(",")} --no-root`,
+    ),
+  );
+
   return true;
 }
 
 export async function poetryUninstallDepGroup(group: string): Promise<boolean> {
-  await execCommand(
-    new Command(`poetry install --sync --without ${group} --no-root`),
-  );
-
   if (group !== "blocks") {
     // We want to persist the optional groups such that we can call
     // poetry install on them on every startup to ensure they are updated
     const groups = store.get("poetryOptionalGroups");
-    if (groups) {
-      const newGroups = groups.filter((g: string) => g !== group);
-      store.set("poetryOptionalGroups", newGroups);
-    }
+    const newGroups = groups.filter((g: string) => g !== group);
+    store.set("poetryOptionalGroups", newGroups);
   }
+
+  const validGroups = await poetryGroupEnsureValid();
+  await execCommand(
+    new Command(
+      `poetry install --sync --with ${validGroups.join(",")} --no-root`,
+    ),
+  );
 
   return true;
 }

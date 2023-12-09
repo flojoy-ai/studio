@@ -12,7 +12,7 @@ import {
 import * as os from "os";
 import { existsSync, readFileSync } from "fs";
 import { store } from "../store";
-import { POETRY_DEP_GROUPS } from "./poetry";
+import { POETRY_DEP_GROUPS, poetryGroupEnsureValid } from "./poetry";
 
 export async function checkPythonInstallation(
   _,
@@ -90,24 +90,17 @@ export async function installPoetry(): Promise<void> {
 }
 
 export async function installDependencies(): Promise<string> {
-  const groups = store.get("poetryOptionalGroups");
   const poetry = process.env.POETRY_PATH ?? "poetry";
 
-  if (groups.length > 0) {
-    // make sure the group actually exists
-    const validGroups = groups.filter((group) =>
-      POETRY_DEP_GROUPS.find((g) => g.name === group),
-    );
-    store.set("poetryOptionalGroups", validGroups);
-
+  const validGroups = await poetryGroupEnsureValid();
+  if (validGroups.length > 0) {
     return await execCommand(
       new Command(
-        `${poetry} install --with ${validGroups.join(",")} --no-root `,
+        `${poetry} install --sync --with ${validGroups.join(",")} --no-root`,
       ),
     );
   }
-
-  return await execCommand(new Command(`${poetry} install --no-root `));
+  return await execCommand(new Command(`${poetry} install --no-root`));
 }
 
 export async function spawnCaptain(): Promise<void> {
