@@ -55,6 +55,7 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "@tisoap/react-flow-smart-edge": "file:bauhaus/tisoap-react-flow-smart-edge-v3.0.0.tgz",
     "adm-zip": "^0.5.10",
+    "ajv": "8",
     "axios": "^1.6.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
