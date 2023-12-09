@@ -150,8 +150,6 @@ const FlowChartTab = () => {
       return null;
     }
 
-    console.log(customBlockManifest);
-
     return customBlockManifest ? {
       ...manifest,
       children: manifest.children.concat(customBlockManifest.children)
@@ -175,10 +173,6 @@ const FlowChartTab = () => {
 
   useEffect(() => {
     if (fullManifest && fullBlocksMetadata && manifestChanged) {
-      console.log("Syncing...");
-      console.log("Full manifest: ", fullManifest);
-      console.log("Full blocks metadata: ", fullBlocksMetadata);
-
       const [syncedNodes, syncedEdges] = syncFlowchartWithManifest(
         nodes,
         edges,
