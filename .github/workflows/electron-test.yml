@@ -82,7 +82,7 @@ jobs:
           sleep 5
 
       - name: Run Test
-        run: pnpm run electron:test
+        run: npx playwright test playwright-test/01_app.spec.ts
 
       - name: Upload outputs
         if: always()
