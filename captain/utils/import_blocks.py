@@ -9,7 +9,6 @@ from flojoy import NoInitFunctionError, get_node_init_function
 from captain.models.topology import Topology
 from captain.utils.logger import logger
 from captain.utils.blocks_path import get_blocks_path
-from captain.internal.manager import WatchManager
 
 
 def pre_import_functions(topology: Topology):
