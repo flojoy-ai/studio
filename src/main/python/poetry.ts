@@ -10,28 +10,30 @@ export const POETRY_DEP_GROUPS: Pick<
   PoetryGroupInfo,
   "name" | "description"
 >[] = [
-  {
-    name: "blocks",
-    description: "Core dependencies for Flojoy Blocks",
-  },
-  {
-    name: "dev",
-    description: "Development dependencies for Flojoy Studio",
-  },
-  {
-    name: "ai-ml",
-    description: "AI and Machine Learning dependencies",
-  },
-  {
-    name: "hardware",
-    description: "Hardware dependencies",
-  },
-];
+    {
+      name: "blocks",
+      description: "Core dependencies for Flojoy Blocks",
+    },
+    {
+      name: "dev",
+      description: "Development dependencies for Flojoy Studio",
+    },
+    {
+      name: "ai-ml",
+      description: "AI and Machine Learning dependencies",
+    },
+    {
+      name: "hardware",
+      description: "Hardware dependencies",
+    },
+  ];
 
 export async function poetryShowTopLevel(): Promise<PythonDependency[]> {
+  const poetry = process.env.POETRY_PATH ?? "poetry";
   const groups = POETRY_DEP_GROUPS.map((group) => group.name).join(",");
+
   const result = await execCommand(
-    new Command(`poetry show --top-level --with ${groups} --no-ansi`),
+    new Command(`${poetry} show --top-level --with ${groups} --no-ansi`),
   );
 
   return result.split("\n").map((line) => {
@@ -112,11 +114,13 @@ export async function poetryInstallDepGroup(group: string): Promise<boolean> {
     }
   }
 
+  const poetry = process.env.POETRY_PATH ?? "poetry";
+
   const validGroups = await poetryGroupEnsureValid();
   if (validGroups.length > 0) {
     await execCommand(
       new Command(
-        `poetry install --sync --with ${validGroups.join(",")} --no-root`,
+        `${poetry} install --sync --with ${validGroups.join(",")} --no-root`,
       ),
     );
   } else {
@@ -135,15 +139,17 @@ export async function poetryUninstallDepGroup(group: string): Promise<boolean> {
     store.set("poetryOptionalGroups", newGroups);
   }
 
+  const poetry = process.env.POETRY_PATH ?? "poetry";
+
   const validGroups = await poetryGroupEnsureValid();
   if (validGroups.length > 0) {
     await execCommand(
       new Command(
-        `poetry install --sync --with ${validGroups.join(",")} --no-root`,
+        `${poetry} install --sync --with ${validGroups.join(",")} --no-root`,
       ),
     );
   } else {
-    await execCommand(new Command(`poetry install --sync --no-root`));
+    await execCommand(new Command(`${poetry} install --sync --no-root`));
   }
 
   return true;
