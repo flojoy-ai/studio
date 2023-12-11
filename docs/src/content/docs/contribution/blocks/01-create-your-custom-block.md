@@ -14,10 +14,11 @@ In this tutorial we will create a block that divides two items element-wise (for
 
 To start, we create a `custom-blocks` folder. You can name it as you wish. We will put our all custom blocks in this folder so that we can import them together.
 
-Now, we create a `DIVIDE` folder inside `custom-blocks` folder and inside `DIVIDE` folder create a new Python file with the same name as folder `DIVIDE.py`.
+Now, we create a `DIVIDE` folder inside `custom-blocks` folder. Inside the `DIVIDE` folder, create a new Python file with the same name as the folder, `DIVIDE.py`.
 
 :::note
-Each block should have it's own folder. The name of the folder, file and block function should be the same and in uppercase. We use this convention to efficiently generate manifest from blocks and use it in Frontend to visualize correctly
+Each block should have its own folder. The name of the folder, file and block function should be the same and in uppercase. We use this convention to allow the blocks to be automatically loaded into Flojoy Studio.
+
 :::
 
 We can then create our `DIVIDE` function as follows:
@@ -41,7 +42,7 @@ The type hints are important! This is how Flojoy differentiates between block in
 
 Let's say we want to create a block to wrap the `train_test_split` function from `scikit-learn`. This block will have to return two different `DataContainers`.
 
-For that we start with creating a new folder inside `custom-blocks` directory called `TRAIN_TEST_SPLIT` and a Python file inside `TRAIN_TEST_SPLIT` folder with the same name `TRAIN_TEST_SPLIT.py`. Then we put following code in the file:
+We start by creating a new folder inside the `custom-blocks` directory called `TRAIN_TEST_SPLIT`, and a Python file inside the `TRAIN_TEST_SPLIT` folder with the same name: `TRAIN_TEST_SPLIT.py`. Then we put the following code in the file:
 
 ```python {title="TRAIN_TEST_SPLIT.py"}
 
@@ -80,12 +81,12 @@ There are few steps to import your custom blocks to Flojoy:
 
 3. Click on `Import custom blocks` button. It'll open a file window.
 
-4. Now head to your directory where you have created your custom block, in this case that folder is `custom-blocks` folder. So select the folder.
+4. Now head to your directory where you have created your custom block and select it. In this case that folder is `custom-blocks`.
 
 Congratulations! you just imported your custom block to Flojoy. You should see your custom block in the sidebar. Click on the block to add it to flow chart.
 
 :::note
-Every time you create a new block, Studio will hot reload to include it in the sidebar under the `Custom` tab. And any modification you do in your custom blocks Studio hot load will automatically sync your changes. No reload is required.
+Every time you create a new block, Studio will hot reload to include it in the sidebar under the `Custom` tab. Any changes to custom blocks are immediately reflected in Studio, no reload is required.
 :::
 
 :::note
