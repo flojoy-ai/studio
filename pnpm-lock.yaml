@@ -128,9 +128,6 @@ dependencies:
   mixpanel-browser:
     specifier: ^2.48.1
     version: 2.48.1
-  ncp:
-    specifier: ^2.0.0
-    version: 2.0.0
   plotly.js:
     specifier: file:bauhaus/plotly.js-2.23.2.tgz
     version: file:bauhaus/plotly.js-2.23.2.tgz
@@ -176,9 +173,6 @@ dependencies:
   react-syntax-highlighter:
     specifier: ^15.5.0
     version: 15.5.0(react@18.2.0)
-  react-tabs:
-    specifier: ^6.0.2
-    version: 6.0.2(react@18.2.0)
   react-use:
     specifier: ^17.4.2
     version: 17.4.2(react-dom@18.2.0)(react@18.2.0)
@@ -235,9 +229,6 @@ devDependencies:
   '@types/lodash':
     specifier: ^4.14.202
     version: 4.14.202
-  '@types/ncp':
-    specifier: ^2.0.8
-    version: 2.0.8
   '@types/node':
     specifier: ^20.10.4
     version: 20.10.4
@@ -2741,12 +2732,6 @@ packages:
 
   /@types/ms@0.7.34:
     resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
-
-  /@types/ncp@2.0.8:
-    resolution: {integrity: sha512-pLNWVLCVWBLVM4F2OPjjK6FWFtByFKD7LhHryF+MbVLws7ENj09mKxRFlhkGPOXfJuaBAG+2iADKJsZwnAbYDw==}
-    dependencies:
-      '@types/node': 20.10.4
-    dev: true
 
   /@types/node@18.19.3:
     resolution: {integrity: sha512-k5fggr14DwAytoA/t8rPrIz++lXK7/DqckthCmoZOKNsEbJkId4Z//BqgApXBUGrGddrigYa1oqheo/7YmW4rg==}
@@ -6287,11 +6272,6 @@ packages:
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
-  /ncp@2.0.0:
-    resolution: {integrity: sha512-zIdGUrPRFTUELUvr3Gmc7KZ2Sw/h1PiVM0Af/oHB6zgnV1ikqSfRk+TOufi79aHYCW3NiOXmr1BP5nWbzojLaA==}
-    hasBin: true
-    dev: false
-
   /node-addon-api@1.7.2:
     resolution: {integrity: sha512-ibPK3iA+vaY1eEjESkQkM0BbCqFOaZMiXRTtdB0u7b4djtY6JnsjvPdUHVMg6xQt3B8fpTTWHI9A+ADjM9frzg==}
     requiresBuild: true
@@ -7135,16 +7115,6 @@ packages:
       prismjs: 1.29.0
       react: 18.2.0
       refractor: 3.6.0
-    dev: false
-
-  /react-tabs@6.0.2(react@18.2.0):
-    resolution: {integrity: sha512-aQXTKolnM28k3KguGDBSAbJvcowOQr23A+CUJdzJtOSDOtTwzEaJA+1U4KwhNL9+Obe+jFS7geuvA7ICQPXOnQ==}
-    peerDependencies:
-      react: ^18.0.0
-    dependencies:
-      clsx: 2.0.0
-      prop-types: 15.8.1
-      react: 18.2.0
     dev: false
 
   /react-transition-group@4.4.5(react-dom@18.2.0)(react@18.2.0):
