@@ -20,7 +20,7 @@ export const useLoadApp = () => {
   const { setHasUnsavedChanges } = useHasUnsavedChanges();
   const setShowWelcomeScreen = useSetAtom(showWelcomeScreenAtom);
 
-  const { openFilePicker } = useFilePicker({
+  const [openFilePicker] = useFilePicker({
     readAs: "Text",
     accept: [".json"],
     maxFileSize: 50,
