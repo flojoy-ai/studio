@@ -7,6 +7,7 @@ from flojoy import (
     DataFrame,
     Vector,
     OrderedTriple,
+    Surface,
 )
 import plotly.graph_objects as go
 import plotly.express as px
@@ -18,7 +19,13 @@ from blocks.DATA.VISUALIZATION.template import plot_layout
 
 @flojoy
 def HEATMAP(
-    default: OrderedPair | Matrix | Grayscale | DataFrame | Vector | OrderedTriple,
+    default: OrderedPair
+    | Matrix
+    | Grayscale
+    | DataFrame
+    | Vector
+    | OrderedTriple
+    | Surface,
     show_text: bool = False,
     histogram: bool = False,
 ) -> Plotly:
@@ -26,7 +33,7 @@ def HEATMAP(
 
     Inputs
     ------
-    default : OrderedPair|OrderedTriple|DataFrame|Vector|Matrix|Grayscale
+    default : OrderedPair|OrderedTriple|DataFrame|Vector|Matrix|Grayscale|Surface
         the DataContainer to be visualized
 
     Parameters
@@ -40,8 +47,8 @@ def HEATMAP(
     -------
     Plotly
         the DataContainer containing the Plotly heatmap visualization
-
     """
+
     layout = plot_layout(title="HEATMAP")
     if histogram:
         layout.sliders = [
@@ -189,7 +196,29 @@ def HEATMAP(
         case DataFrame():
             df = default.m
             fig = px.imshow(df, text_auto=show_text)
-
+        case Surface():
+            x = np.unique(default.x)
+            y = np.unique(default.y)
+            z = default.z
+            fig.add_trace(
+                go.Heatmap(
+                    z=z,
+                    x=x,
+                    y=y,
+                    text=z if show_text else None,
+                    texttemplate=text_template,
+                    colorscale="Electric",
+                ),
+                row=None if not histogram else 1,
+                col=None if not histogram else 1,
+            )
+            if histogram:
+                histogram = np.histogram(z, bins="auto")
+                x_values = histogram[1][:-1] + 0.05  # Center bars on bin edges
+                histogram_trace = go.Bar(
+                    x=x_values, y=histogram[0], orientation="h", showlegend=False
+                )
+                fig.add_trace(histogram_trace, row=1, col=2)
     if histogram:
         layout.xaxis2 = dict(
             tickmode="array",
