@@ -13,8 +13,6 @@ export const ShellCommandOutput = ({ command }: ShellCommandOutputProps) => {
     command().then(setOutput);
   }, [command]);
 
-  console.log(output);
-
   return (
     <div className="w-full">
       {output ? (

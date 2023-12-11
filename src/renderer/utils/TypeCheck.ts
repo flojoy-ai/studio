@@ -27,6 +27,7 @@ export const getEdgeTypes = (
   connection: Connection,
 ): [string, string] => {
   populateNodes(nodeSection);
+
   if (
     !connection.source ||
     !connection.target ||

@@ -22,7 +22,7 @@ export const useAddNewNode = (
       | ((draft: Draft<Node<ElementsData>>[]) => void),
   ) => void,
   getTakenNodeLabels: (func: string) => string[][],
-  nodesMetadataMap: BlocksMetadataMap | null,
+  nodesMetadataMap: BlocksMetadataMap | undefined | null,
 ) => {
   const center = useAtomValue(centerPositionAtom);
   const setHasUnsavedChanges = useSetAtom(unsavedChangesAtom);
@@ -34,17 +34,21 @@ export const useAddNewNode = (
       const parsedPos = previousBlockPos ? JSON.parse(previousBlockPos) : null;
       const pos = parsedPos ?? center;
       const nodePosition = addRandomPositionOffset(pos, 300);
-      const funcName = node.key;
-      const type = node.type;
-      const params = node.parameters;
-      const initParams = node.init_parameters;
-      const inputs = node.inputs;
-      const outputs = node.outputs;
-      const uiComponentId = node.ui_component_id;
-      const pip_dependencies = node.pip_dependencies;
-      const path = nodesMetadataMap
-        ? nodesMetadataMap[`${funcName}.py`].path
-        : "";
+      const {
+        key: funcName,
+        type,
+        parameters: params,
+        init_parameters: initParams,
+        inputs,
+        outputs,
+        ui_component_id: uiComponentId,
+        pip_dependencies,
+      } = node;
+
+      const path =
+        nodesMetadataMap && `${funcName}.py` in nodesMetadataMap
+          ? nodesMetadataMap[`${funcName}.py`].path
+          : "";
 
       const nodeId = createNodeId(node.key);
       const nodeLabel =

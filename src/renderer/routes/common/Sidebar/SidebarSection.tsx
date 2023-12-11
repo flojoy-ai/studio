@@ -55,8 +55,8 @@ const SidebarSection = ({
   if (Children.toArray(children).every((child) => child === null)) {
     return null;
   }
-
-  const variant = categoryMap[category ?? "TRANSFORMERS"] ?? "ETL";
+  const categoryKey = category ?? "TRANSFORMERS";
+  const variant = categoryKey in categoryMap ? categoryMap[categoryKey] : "ETL";
 
   return (
     <Collapsible open={opened} onOpenChange={setOpened}>

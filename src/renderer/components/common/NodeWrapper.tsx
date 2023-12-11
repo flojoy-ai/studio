@@ -24,7 +24,7 @@ const NodeWrapper = ({
     return (
       <div
         className={clsx(
-          "flex min-h-[160px] items-center justify-center break-words rounded-2xl border-2 border-solid border-red-400 bg-red-400/20 p-4",
+          "flex min-h-[160px] items-center justify-center break-words rounded-2xl border-2 border-solid border-red-400 bg-red-400/20",
           { "shadow-around shadow-red-500": selected },
         )}
       >

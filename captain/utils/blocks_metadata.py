@@ -32,8 +32,8 @@ def get_file_paths(blocks_dir: str):
     return file_paths
 
 
-def generate_metadata():
-    blocks_dir = get_blocks_path()
+def generate_metadata(custom_blocks_dir: str | None):
+    blocks_dir = custom_blocks_dir if custom_blocks_dir else get_blocks_path()
     file_paths = get_file_paths(blocks_dir)
     # Print the list of file paths
     metadata_map: dict[str, dict[str, str]] = dict()

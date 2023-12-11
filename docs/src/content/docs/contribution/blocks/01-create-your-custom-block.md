@@ -6,10 +6,98 @@ sidebar:
   order: 1
 ---
 
-## Getting Started!
+## A basic example
 
-To create a new Flojoy Block, you can use our CLI to generate the boilerplate
-code for you!
+Suppose we wanted to contribute a block that divides two items element-wise (for the case of vector inputs, for instance). Although we could do this with the built-in `invert` and `multiply` blocks, we could also do it from scratch.
+
+### Creating the source files
+
+To start, we create a `DIVIDE` folder and inside that folder create a new Python file with the same name as folder `DIVIDE.py`.
+
+:::note
+Each block should have it's own folder and The name of the folder, file and block function should be the same and in uppercase. We use this convention to efficiently generate manifest from blocks and use it in Frontend to visualize correctly
+:::
+
+We can then create our new function as follows:
+
+```python {title='DIVIDE.py'}
+import numpy as np
+from flojoy import flojoy, OrderedPair
+
+@flojoy()
+def DIVIDE(a: OrderedPair, b: OrderedPair) -> OrderedPair:
+    x = a.x
+    result = np.divide(a.y,b.y)
+    return OrderedPair(x=x, y=result)
+```
+
+:::note
+The type hints are important! This is how Flojoy differentiates between block inputs (that you connect the edges to) and parameters (that you can set in the block parameters panel). Anything that inherits from `DataContainer` (e.g. `OrderedPair`, `Matrix`, etc.) is an _input_, and everything else is a _parameter_.
+:::
+
+## A more advanced example
+
+Let's say we want to create a block to wrap the `train_test_split` function from `scikit-learn`. This block will have to return two different `DataContainers`.
+
+For that we start with creating a folder called `TRAIN_TEST_SPLIT` and a Python file inside that folder called `TRAIN_TEST_SPLIT.py`. Then we put following code in the file:
+
+```python {title="TRAIN_TEST_SPLIT.py"}
+
+from typing import TypedDict
+from flojoy import flojoy, DataFrame
+from sklearn.model_selection import train_test_split
+
+
+class TrainTestSplitOutput(TypedDict):
+    train: DataFrame
+    test: DataFrame
+
+@flojoy(deps={"scikit-learn": "1.2.2"})
+def TRAIN_TEST_SPLIT(
+    default: DataFrame, test_size: float = 0.2
+) -> TrainTestSplitOutput:
+    df = default.m
+
+    train, test = cast(list[pd.DataFrame], train_test_split(df, test_size))
+    return TrainTestSplitOutput(train=DataFrame(df=train), test=DataFrame(df=test))
+```
+
+In this example, the block needs to import `sklearn`, which might not be installed. We can specify this in the `deps` argument to the `flojoy` decorator. This will ensure that the library is installed before the block is run.
+
+This block needs to return two `DataContainers`. We do this by creating a `TypedDict` class with the names of the outputs as fields. Then, we return an instance of this class.
+
+Looking at the parameters, we have one `DataContainer` input, called `default`. When we only have one input and we do not want to label it in the Front-End, we can name it `default`, which is a special name that Flojoy recognizes. This block also has a `test_size` parameter that has a default value of 0.2.
+
+
+### Importing custom block in Flojoy
+
+There are few steps to import your custom block to Flojoy:
+
+1. First click on `Add block` button from top left of the Flojoy studio app. It will expand a side bar.
+
+2. Click on `Custom` tab from the blocks sidebar. Here you'll find a button named `Import custom blocks`.
+
+3. Click on `Import custom blocks` button. It'll open a file window.
+
+4. Now head to your directory where you have created your custom block and select it's parent folder.
+
+For example, let's say you created a custom block called `DIVIDE.py` in `~/custom-blocks/DIVIDE/DIVIDE.py` directory, then you would choose the `custom-blocks` folder from file window.
+
+Congratulations! you just imported your custom block to Flojoy. You should see your custom block in the sidebar. Click on the block to add it to flow chart.
+
+:::note
+Every time you create a new block, Studio will hot reload to include it in the sidebar under the `Custom` tab.
+:::
+
+:::note
+You can use the same sections as the standard library if you want blocks to have the same icons/colors. For example, you can create blocks under a `HARDWARE` folder inside your custom blocks directory to make them look like hardware blocks.
+:::
+
+## Contributing to Flojoy standard blocks
+
+### Use Flojoy CLI tool to create a new block
+
+If you have cloned Flojoy source code to your local machine then you can use our CLI to generate the boilerplate code for a new Flojoy block.
 
 First, we recommend you to have [just](https://just.systems/) installed, this
 allows you to type `just add BLOCK_NAME` anywhere in the blocks repository,
@@ -22,12 +110,12 @@ For example, if I am in the `blocks/AI_ML/CLASSIFICATION/` folder, I can run
 `just add MY_NEW_ML_BLOCK` and my new block will be located at
 `blocks/AI_ML/CLASSIFICATION/MY_NEW_ML_BLOCK/MY_NEW_ML_BLOCK.py`.
 
-## Contributute to Flojoy's Blocks Collection
+### Before you push to Github
 
 Here is a quick checklist to make sure everything is good before you make a PR.
 
 1. Make sure the block functions properly, and write a comprehensive docstring
-   describing what it deos.
+   describing what it does.
 2. Double check if there is any Python errors, looking for red squiggly lines
    in your code editor!
 3. We want the code format to look pretty and consistent!

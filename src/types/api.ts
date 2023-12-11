@@ -25,4 +25,10 @@ export enum API {
   checkForUpdates = "CHECK_FOR_UPDATES",
   restartCaptain = "RESTART_CAPTAIN",
   pickDirectory = "PICK_DIRECTORY",
+  getCustomBlocksDir = "GET_CUSTOM_BLOCKS_DIR",
+  cacheCustomBlocksDir = "CACHE_CUSTOM_BLOCKS_DIR",
+  poetryShowTopLevel = "POETRY_SHOW_TOP_LEVEL",
+  poetryGetGroupInfo = "POETRY_GET_GROUP_INFO",
+  poetryInstallDepGroup = "POETRY_INSTALL_DEP_GROUP",
+  poetryUninstallDepGroup = "POETRY_UNINSTALL_DEP_GROUP",
 }

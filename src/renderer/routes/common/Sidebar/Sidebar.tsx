@@ -1,4 +1,4 @@
-import { Search } from "lucide-react";
+import { ImportIcon, Search } from "lucide-react";
 
 import { memo, useEffect, useRef, useState } from "react";
 
@@ -9,17 +9,18 @@ import { ArrowDownWideNarrow, ArrowUpWideNarrow, XIcon } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { REQUEST_NODE_URL } from "@src/data/constants";
 import { cn } from "@src/lib/utils";
-import { ScrollArea } from "@src/components/ui/scroll-area";
-import { Input } from "@src/components/ui/input";
-
+import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 export type LeafClickHandler = (elem: Leaf) => void;
 
 type SidebarProps = {
   isSideBarOpen: boolean;
   setSideBarStatus: React.Dispatch<React.SetStateAction<boolean>>;
-  sections: RootNode;
+  sections: RootNode | null;
   leafNodeClickHandler: LeafClickHandler;
   customContent?: JSX.Element;
+  customSections: RootNode | null;
+  handleImportCustomBlocks: (startup: boolean) => void;
 };
 
 const Sidebar = ({
@@ -27,6 +28,8 @@ const Sidebar = ({
   setSideBarStatus,
   sections,
   leafNodeClickHandler,
+  customSections,
+  handleImportCustomBlocks,
 }: SidebarProps) => {
   const [query, setQuery] = useState("");
   const [searchFocused, setSearchFocused] = useState(false);
@@ -66,7 +69,7 @@ const Sidebar = ({
         height: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)`,
       }}
       className={cn(
-        "absolute bottom-0 z-50 flex flex-col bg-modal p-6 sm:w-96",
+        "absolute bottom-0 z-50 flex flex-col overflow-hidden bg-modal p-6 sm:w-96",
         isSideBarOpen ? "left-0 duration-500" : "-left-full duration-300",
       )}
     >
@@ -134,19 +137,71 @@ const Sidebar = ({
           </div>
         </div>
       </div>
-      <ScrollArea className="mt-3">
-        <div className="w-11/12">
-          <SidebarNode
-            depth={0}
-            leafClickHandler={leafNodeClickHandler}
-            node={sections}
-            query={query}
-            matchedParent={false}
-            expand={expand}
-            collapse={collapse}
-          />
-        </div>
-      </ScrollArea>
+      <Tabs defaultValue="standard" className="mb-8 h-[80%]">
+        <TabsList className="grid w-11/12 grid-cols-2">
+          <TabsTrigger value="standard">Standard</TabsTrigger>
+          <TabsTrigger value="custom">Custom</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="standard" className="h-full overflow-y-scroll">
+          {sections ? (
+            <div className="w-11/12">
+              <SidebarNode
+                depth={0}
+                leafClickHandler={leafNodeClickHandler}
+                node={sections}
+                query={query}
+                matchedParent={false}
+                expand={expand}
+                collapse={collapse}
+              />
+            </div>
+          ) : (
+            <div className="flex h-full items-center justify-center">
+              <p className="py-3">
+                Standard blocks manifest not fetched correctly!
+              </p>
+            </div>
+          )}
+        </TabsContent>
+        <TabsContent value="custom" className="h-full overflow-y-scroll">
+          {customSections ? (
+            <>
+              <div className="w-11/12">
+                <SidebarNode
+                  depth={0}
+                  leafClickHandler={leafNodeClickHandler}
+                  node={customSections}
+                  query={query}
+                  matchedParent={false}
+                  expand={expand}
+                  collapse={collapse}
+                />
+              </div>
+              <div className="flex w-full items-center justify-center pt-2">
+                <Button
+                  variant={"outline"}
+                  onClick={() => handleImportCustomBlocks(false)}
+                >
+                  <ImportIcon size={26} className="pr-2" />
+                  Change Custom Blocks Directory
+                </Button>
+              </div>
+            </>
+          ) : (
+            <div className="flex h-full flex-col items-center justify-center">
+              <p className="py-3">No custom blocks found</p>
+              <Button
+                variant={"outline"}
+                onClick={() => handleImportCustomBlocks(false)}
+              >
+                <ImportIcon size={26} className="pr-2" />
+                Import Custom Blocks
+              </Button>
+            </div>
+          )}
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };

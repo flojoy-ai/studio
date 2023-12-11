@@ -2,6 +2,7 @@ import json
 
 from fastapi import APIRouter, Response
 
+from captain.internal.manager import WatchManager
 from captain.utils.manifest.generate_manifest import generate_manifest
 from captain.utils.blocks_metadata import generate_metadata
 from captain.utils.import_blocks import create_map
@@ -11,11 +12,11 @@ router = APIRouter(tags=["blocks"])
 
 
 @router.get("/blocks/manifest/")
-async def get_manifest():
+async def get_manifest(blocks_path: str | None = None):
     # Pre-generate the blocks map to synchronize it with the manifest
-    create_map()
+    create_map(custom_blocks_dir=blocks_path)
     try:
-        manifest = generate_manifest()
+        manifest = generate_manifest(blocks_path=blocks_path)
         return manifest
     except Exception as e:
         logger.error(
@@ -28,9 +29,12 @@ async def get_manifest():
 
 
 @router.get("/blocks/metadata/")
-async def get_metadata():
+async def get_metadata(blocks_path: str | None = None, custom_dir_changed=False):
     try:
-        metadata_map = generate_metadata()
+        metadata_map = generate_metadata(custom_blocks_dir=blocks_path)
+        if custom_dir_changed:
+            watch_manager = WatchManager.get_instance()
+            watch_manager.restart()
         return metadata_map
     except Exception as e:
         logger.error(
