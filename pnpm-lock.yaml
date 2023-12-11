@@ -179,9 +179,6 @@ dependencies:
   toml:
     specifier: ^3.0.0
     version: 3.0.0
-  use-file-picker:
-    specifier: ^2.1.1
-    version: 2.1.1(react@18.2.0)
   uuid:
     specifier: ^9.0.1
     version: 9.0.1
@@ -4482,13 +4479,6 @@ packages:
     resolution: {integrity: sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==}
     dev: false
 
-  /file-selector@0.2.4:
-    resolution: {integrity: sha512-ZDsQNbrv6qRi1YTDOEWzf5J2KjZ9KMI1Q2SGeTkCJmNNW25Jg4TW4UMcmoqcg4WrAyKRcpBXdbWRxkfrOzVRbA==}
-    engines: {node: '>= 10'}
-    dependencies:
-      tslib: 2.6.2
-    dev: false
-
   /filelist@1.0.4:
     resolution: {integrity: sha512-w1cEuf3S+DrLCQL7ET6kz+gmlJdbq9J7yXCSjK/OZCPA+qEN1WyF4ZAf0YYJa4/shHJra2t/d/r8SV4Ji+x+8Q==}
     dependencies:
@@ -7930,16 +7920,6 @@ packages:
       '@types/react': 18.2.43
       react: 18.2.0
       tslib: 2.6.2
-    dev: false
-
-  /use-file-picker@2.1.1(react@18.2.0):
-    resolution: {integrity: sha512-IhKUL7pVL5m0D/1zM5vgAyamkpiMfSQYg16+P7OpYEp1zTkhdX6jSsWr3kbbrfvPjSxkyaPy3lbCSyOslz9PNg==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      react: '>=16'
-    dependencies:
-      file-selector: 0.2.4
-      react: 18.2.0
     dev: false
 
   /use-sidecar@1.1.2(@types/react@18.2.43)(react@18.2.0):

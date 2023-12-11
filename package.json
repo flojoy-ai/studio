@@ -90,7 +90,6 @@
     "sonner": "^1.2.4",
     "tailwind-merge": "^2.1.0",
     "toml": "^3.0.0",
-    "use-file-picker": "^2.1.1",
     "uuid": "^9.0.1",
     "zod": "^3.22.4",
     "zod-validation-error": "^2.1.0",

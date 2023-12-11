@@ -31,4 +31,5 @@ export enum API {
   poetryGetGroupInfo = "POETRY_GET_GROUP_INFO",
   poetryInstallDepGroup = "POETRY_INSTALL_DEP_GROUP",
   poetryUninstallDepGroup = "POETRY_UNINSTALL_DEP_GROUP",
+  openFilePicker = "OPEN_FILE_PICKER",
 }
