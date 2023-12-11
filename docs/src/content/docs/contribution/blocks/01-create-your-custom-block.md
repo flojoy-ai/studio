@@ -18,6 +18,7 @@ Now, we create a `DIVIDE` folder inside `custom-blocks` folder. Inside the `DIVI
 
 :::note
 Each block should have its own folder. The name of the folder, file and block function should be the same and in uppercase. We use this convention to allow the blocks to be automatically loaded into Flojoy Studio.
+
 :::
 
 We can then create our `DIVIDE` function as follows:
