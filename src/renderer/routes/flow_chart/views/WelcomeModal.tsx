@@ -11,9 +11,11 @@ import { showWelcomeScreenAtom } from "@src/hooks/useFlowChartState";
 import { useAtom } from "jotai";
 
 import packageJson from "../../../../../package.json";
+import { useFullManifest } from "@src/hooks/useManifest";
 
 export function WelcomeModal() {
   const openFileSelector = useLoadApp();
+  const manifest = useFullManifest();
   const [showWelcomeScreen, setShowWelcomeScreen] = useAtom(
     showWelcomeScreenAtom,
   );
@@ -42,6 +44,7 @@ export function WelcomeModal() {
           </Button>
           <Button
             variant="secondary"
+            disabled={!manifest}
             onClick={() => {
               openFileSelector();
             }}
