@@ -29,7 +29,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.base_ref }}
+          ref: ${{ github.ref }}
 
       - name: Setup Python
         uses: actions/setup-python@v3
