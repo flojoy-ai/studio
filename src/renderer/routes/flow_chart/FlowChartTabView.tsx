@@ -80,6 +80,7 @@ import TextNode from "@src/components/nodes/TextNode";
 import ContextMenu, { MenuInfo } from "./components/NodeContextMenu";
 import { useCustomSections } from "@src/hooks/useCustomBlockManifest";
 import { BlocksMetadataMap } from "@src/types/blocks-metadata";
+import { Spinner } from "@src/components/ui/spinner";
 
 const nodeTypes: NodeTypes = {
   default: DefaultNode,
@@ -408,6 +409,8 @@ const FlowChartTab = () => {
 
   // Close the context menu if it's open whenever the window is clicked.
   const onPaneClick = useCallback(() => setMenu(null), [setMenu]);
+  const addBlockReady =
+    manifest !== undefined && customBlockManifest !== undefined;
 
   return (
     <>
@@ -423,10 +426,22 @@ const FlowChartTab = () => {
                     className="gap-2"
                     variant="ghost"
                     onClick={toggleSidebar}
-                    disabled={!manifest && !customBlockManifest}
+                    disabled={!addBlockReady}
                   >
-                    <Workflow size={20} className="stroke-muted-foreground" />
-                    Add Block
+                    {addBlockReady ? (
+                      <>
+                        <Workflow
+                          size={20}
+                          className="stroke-muted-foreground"
+                        />
+                        Add Block
+                      </>
+                    ) : (
+                      <>
+                        <Spinner></Spinner>
+                        Loading Blocks
+                      </>
+                    )}
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>Try Ctrl/Cmd + K</TooltipContent>
