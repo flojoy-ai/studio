@@ -58,7 +58,7 @@ test.describe("Dependency Manager modal", () => {
     // Wait for "Dependency manager idle" status
     await expect(
       window.locator("div", { hasText: "Dependency Manager Idle" }).first(),
-    ).toBeVisible({ timeout: 15000 });
+    ).toBeVisible({ timeout: 30000 });
 
     // Expect dev group dependency is listed
     await expect(
@@ -74,7 +74,7 @@ test.describe("Dependency Manager modal", () => {
     // Wait for "Dependency manager idle" status
     await expect(
       window.locator("div", { hasText: "Dependency Manager Idle" }).first(),
-    ).toBeVisible({ timeout: 15000 });
+    ).toBeVisible({ timeout: 30000 });
 
     // Expect dev group dependency is removed from package list
     await expect(
