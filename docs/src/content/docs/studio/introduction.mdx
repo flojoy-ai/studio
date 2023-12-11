@@ -1,0 +1,76 @@
+---
+title: Introduction
+sidebar:
+  order: 1
+---
+
+Welcome to the Flojoy Docs!
+
+Flojoy is a test & measurement app for the modern era. Here, you can find information on how to install, use, and customize Flojoy.
+
+Flojoy is made of two parts: *`Studio`* and *`Blocks`*. Studio is the main interface that you see (the app). Blocks are what Flojoy runs, and what Flojoy apps are made up of. For example, you would use the `SINE` block to create a sine wave.
+
+Therefore, the docs are split into two main sections: Studio and Blocks. There is also an advanced third section for contributing to Flojoy.
+
+import BlockCategory from "@/components/BlockCategory.astro";
+
+### Studio
+
+<BlockCategory
+  blocks={[
+    {
+      link: "/studio/installation/",
+      name: "Flojoy Installation",
+      description: "How to install Flojoy",
+    },
+    {
+      link: "/studio/interface/",
+      name: "Interface Introduction",
+      description: "Guide to Flojoy's interface",
+    },
+    {
+      link: "/studio/app-creation/",
+      name: "App Creation",
+      description: "How to create basic apps in Flojoy",
+    },
+  ]}
+/>
+
+### Blocks
+
+<BlockCategory
+  blocks={[
+    {
+      link: "/blocks/intro/",
+      name: "Blocks Introduction",
+      description: "Introduction to Flojoy's Blocks",
+    },
+    {
+      link: "/blocks/data/",
+      name: "Data Blocks",
+      description: "Overview of Data Blocks",
+    },
+    {
+      link: "/blocks/hardware/",
+      name: "Hardware Blocks",
+      description: "Overview of Hardware Blocks",
+    },
+  ]}
+/>
+
+### Contribution Guide
+
+<BlockCategory
+  blocks={[
+    {
+      link: "/contribution/blocks/custom-flojoy-block/",
+      name: "Create a Flojoy Block",
+      description: "How to create a basic Block",
+    },
+    {
+      link: "/contribution/docs/section-guide/",
+      name: "Flojoy Blocks Section",
+      description: "How to contribute to Flojoy's Docs",
+    },
+  ]}
+/>
