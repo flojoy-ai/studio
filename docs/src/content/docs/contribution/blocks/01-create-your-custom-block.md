@@ -8,23 +8,25 @@ sidebar:
 
 ## A basic example
 
-Suppose we wanted to contribute a block that divides two items element-wise (for the case of vector inputs, for instance). Although we could do this with the built-in `invert` and `multiply` blocks, we could also do it from scratch.
+In this tutorial we will create a block that divides two items element-wise (for the case of vector inputs, for instance). Although we could do this with the built-in `invert` and `multiply` blocks, we will do it from scratch.
 
-### Creating the source files
+### Creating the custom block `DIVIDE`
 
-To start, we create a `DIVIDE` folder and inside that folder create a new Python file with the same name as folder `DIVIDE.py`.
+To start, we create a `custom-blocks` folder. You can name it as you wish. We will put our all custom blocks in this folder so that we can import them together.
+
+Now, we create a `DIVIDE` folder inside `custom-blocks` folder and inside `DIVIDE` folder create a new Python file with the same name as folder `DIVIDE.py`.
 
 :::note
-Each block should have it's own folder and The name of the folder, file and block function should be the same and in uppercase. We use this convention to efficiently generate manifest from blocks and use it in Frontend to visualize correctly
+Each block should have it's own folder. The name of the folder, file and block function should be the same and in uppercase. We use this convention to efficiently generate manifest from blocks and use it in Frontend to visualize correctly
 :::
 
-We can then create our new function as follows:
+We can then create our `DIVIDE` function as follows:
 
 ```python {title='DIVIDE.py'}
 import numpy as np
 from flojoy import flojoy, OrderedPair
 
-@flojoy()
+@flojoy
 def DIVIDE(a: OrderedPair, b: OrderedPair) -> OrderedPair:
     x = a.x
     result = np.divide(a.y,b.y)
@@ -39,7 +41,7 @@ The type hints are important! This is how Flojoy differentiates between block in
 
 Let's say we want to create a block to wrap the `train_test_split` function from `scikit-learn`. This block will have to return two different `DataContainers`.
 
-For that we start with creating a folder called `TRAIN_TEST_SPLIT` and a Python file inside that folder called `TRAIN_TEST_SPLIT.py`. Then we put following code in the file:
+For that we start with creating a new folder inside `custom-blocks` directory called `TRAIN_TEST_SPLIT` and a Python file inside `TRAIN_TEST_SPLIT` folder with the same name `TRAIN_TEST_SPLIT.py`. Then we put following code in the file:
 
 ```python {title="TRAIN_TEST_SPLIT.py"}
 
@@ -68,10 +70,9 @@ This block needs to return two `DataContainers`. We do this by creating a `Typed
 
 Looking at the parameters, we have one `DataContainer` input, called `default`. When we only have one input and we do not want to label it in the Front-End, we can name it `default`, which is a special name that Flojoy recognizes. This block also has a `test_size` parameter that has a default value of 0.2.
 
-
 ### Importing custom block in Flojoy
 
-There are few steps to import your custom block to Flojoy:
+There are few steps to import your custom blocks to Flojoy:
 
 1. First click on `Add block` button from top left of the Flojoy studio app. It will expand a side bar.
 
@@ -79,14 +80,12 @@ There are few steps to import your custom block to Flojoy:
 
 3. Click on `Import custom blocks` button. It'll open a file window.
 
-4. Now head to your directory where you have created your custom block and select it's parent folder.
-
-For example, let's say you created a custom block called `DIVIDE.py` in `~/custom-blocks/DIVIDE/DIVIDE.py` directory, then you would choose the `custom-blocks` folder from file window.
+4. Now head to your directory where you have created your custom block, in this case that folder is `custom-blocks` folder. So select the folder.
 
 Congratulations! you just imported your custom block to Flojoy. You should see your custom block in the sidebar. Click on the block to add it to flow chart.
 
 :::note
-Every time you create a new block, Studio will hot reload to include it in the sidebar under the `Custom` tab.
+Every time you create a new block, Studio will hot reload to include it in the sidebar under the `Custom` tab. And any modification you do in your custom blocks Studio hot load will automatically sync your changes. No reload is required.
 :::
 
 :::note
