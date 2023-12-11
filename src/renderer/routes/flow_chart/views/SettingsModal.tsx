@@ -63,7 +63,6 @@ export const SettingsModal = ({
                   name={setting.key}
                   className="mt-2"
                   data-testid="settings-switch"
-                  placeholder="Search"
                   checked={setting.value}
                   onCheckedChange={(checked) =>
                     updateSettings(setting.key, checked)
