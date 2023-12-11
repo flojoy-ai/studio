@@ -1,4 +1,15 @@
 import { memo, useEffect, useState } from "react";
+
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { NodeSettingsModal } from "./NodeSettingsModal";
 import EnvVarModal from "./EnvVarModal";
@@ -21,6 +32,7 @@ import { IS_CLOUD_DEMO } from "@src/data/constants";
 import { DemoWarningTooltip } from "@src/components/ui/demo-warning-tooltip";
 import { DebugSettingsModal } from "./DebugSettingsModal";
 import DepManagerModal from "./DepManagerModal";
+import { Button } from "@src/components/ui/button";
 
 const ControlBar = () => {
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
@@ -169,11 +181,35 @@ const ControlBar = () => {
               </MenubarItem>
             </MenubarContent>
           </MenubarMenu>
-          <MenubarMenu>
-            <MenubarTrigger data-featurebase-feedback>Feedback</MenubarTrigger>
-            {/* Below is a small hack such that the Feedback btn won't stay highlighted after closing the window */}
-            <MenubarContent className="hidden" />
-          </MenubarMenu>
+          <Dialog>
+            <DialogTrigger>
+              <MenubarMenu>
+                <MenubarTrigger>Feedback</MenubarTrigger>
+              </MenubarMenu>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>We would love to hear what you think!</DialogTitle>
+                <DialogDescription>
+                  Join our Discord community to leave us a feedback :)
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <DialogClose>
+                  <Button type="submit" variant="secondary">
+                    Close
+                  </Button>
+                </DialogClose>
+                <DialogClose>
+                  <Button type="submit" asChild>
+                    <a href="https://discord.gg/7HEBr7yG8c" target="_blank">
+                      Join
+                    </a>
+                  </Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </Menubar>
       </div>
 
