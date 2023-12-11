@@ -1,6 +1,7 @@
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
+// TODO: Use electron-store instead
 import localforage from "localforage";
 import { useEffect } from "react";
 
