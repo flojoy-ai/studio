@@ -55,4 +55,7 @@ export default {
     ipcRenderer.invoke(API.poetryInstallDepGroup, group),
   poetryUninstallDepGroup: (group: string): Promise<boolean> =>
     ipcRenderer.invoke(API.poetryUninstallDepGroup, group),
+
+  openFilePicker: (): Promise<{ filePath: string; fileContent: string }> =>
+    ipcRenderer.invoke(API.openFilePicker),
 };

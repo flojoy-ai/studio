@@ -54,13 +54,21 @@ test.describe("Load and save app", () => {
   });
 
   test("Should load an app from local file system", async () => {
+    test.setTimeout(120000);
+
+    // Make sure manifest is loaded
+    await expect(window.getByTestId(Selectors.playBtn)).toBeEnabled({
+      timeout: 60000,
+    });
+
     // Click on file button from right top nav bar
     await window.getByTestId(Selectors.fileBtn).click();
 
-    // Add handler to filechooser event to return app.json path
-    window.on("filechooser", (filechooser) => {
-      filechooser.setFiles(join(__dirname, "fixtures/app.json"));
-    });
+    // Mock showOpenDialogSynce to return app.json path
+    const appPath = join(__dirname, "fixtures/app.json");
+    await app.evaluate(async ({ dialog }, appPath) => {
+      dialog.showOpenDialogSync = () => [appPath];
+    }, appPath);
 
     // Click on Load button from file dropdown
     await window.getByTestId(Selectors.loadAppBtn).click();
@@ -68,7 +76,7 @@ test.describe("Load and save app", () => {
     // Expect all blocks from the app.json file to be visible
     for (const block of blockApp.rfInstance.nodes) {
       const id = `rf__node-${block.id}`;
-      await expect(window.getByTestId(id)).toBeVisible();
+      await expect(window.getByTestId(id)).toBeVisible({ timeout: 15000 });
     }
 
     // Take a screenshot
