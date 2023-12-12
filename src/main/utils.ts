@@ -5,6 +5,9 @@ import { execCommand } from "./executor";
 import { Command } from "./command";
 import { app, dialog } from "electron";
 import { join } from "path";
+import { killCaptain } from "./python";
+import log from "electron-log";
+import { ChildProcess } from "node:child_process";
 
 export const isPortFree = (port: number) =>
   new Promise((resolve) => {
@@ -132,4 +135,21 @@ export const openFilePicker = (): Promise<
       reject(String(error));
     }
   });
+};
+
+export const cleanup = async () => {
+  const captainProcess = global.captainProcess as ChildProcess;
+  log.info(
+    "Cleanup function invoked, is captain running? ",
+    !(captainProcess?.killed ?? true),
+  );
+  if (captainProcess && captainProcess.exitCode === null) {
+    const success = killCaptain();
+    if (success) {
+      global.captainProcess = null;
+      log.info("Successfully terminated captain :)");
+    } else {
+      log.error("Something went wrong when terminating captain!");
+    }
+  }
 };
