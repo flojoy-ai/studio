@@ -74,7 +74,7 @@ export const pickDirectory = async (): Promise<string> => {
   const handler = await dialog.showOpenDialog({
     properties: ["openDirectory"],
   });
-  return handler.filePaths[0];
+  return handler.canceled ? "" : handler.filePaths[0];
 };
 
 export const getCustomBlocksDir = async () => {
