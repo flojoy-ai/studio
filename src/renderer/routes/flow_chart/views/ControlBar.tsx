@@ -1,5 +1,15 @@
-import { memo, useEffect, useState } from "react";
-import "react-tabs/style/react-tabs.css";
+import { memo, useState } from "react";
+
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { NodeSettingsModal } from "./NodeSettingsModal";
 import EnvVarModal from "./EnvVarModal";
@@ -17,11 +27,11 @@ import { SaveAsButton, SaveButton } from "./ControlBar/SaveButtons";
 import { LoadButton } from "./ControlBar/LoadButton";
 import { ExportResultButton } from "./ControlBar/ExportResultButton";
 import FlowControlButtons from "./ControlBar/FlowControlButtons";
-import { useTheme } from "@src/providers/themeProvider";
 import { IS_CLOUD_DEMO } from "@src/data/constants";
 import { DemoWarningTooltip } from "@src/components/ui/demo-warning-tooltip";
 import { DebugSettingsModal } from "./DebugSettingsModal";
 import DepManagerModal from "./DepManagerModal";
+import { Button } from "@src/components/ui/button";
 
 const ControlBar = () => {
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
@@ -31,31 +41,10 @@ const ControlBar = () => {
   const [isDebugSettingsOpen, setIsDebugSettingsOpen] = useState(false);
   const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
   const [isDepManagerModalOpen, setIsDepManagerModalOpen] = useState(false);
-  const { resolvedTheme } = useTheme();
 
   const handleCheckForUpdates = () => {
     window.api.checkForUpdates();
   };
-
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const win = window as any;
-
-    if (typeof win.Featurebase !== "function") {
-      win.Featurebase = function () {
-        // eslint-disable-next-line prefer-rest-params
-        (win.Featurebase.q = win.Featurebase.q || []).push(arguments);
-      };
-    }
-    win.Featurebase("initialize_feedback_widget", {
-      organization: "flojoy",
-      theme: resolvedTheme,
-      // dynamic theme currently does not work
-      // featurebase team is already working on supporting it
-      // so I will just leave this here for now and it will start working
-      // right away when they implement it.controlbar
-    });
-  }, [resolvedTheme]);
 
   return (
     <div className="flex items-center gap-2 p-2.5">
@@ -170,11 +159,35 @@ const ControlBar = () => {
               </MenubarItem>
             </MenubarContent>
           </MenubarMenu>
-          <MenubarMenu>
-            <MenubarTrigger data-featurebase-feedback>Feedback</MenubarTrigger>
-            {/* Below is a small hack such that the Feedback btn won't stay highlighted after closing the window */}
-            <MenubarContent className="hidden" />
-          </MenubarMenu>
+          <Dialog>
+            <DialogTrigger>
+              <MenubarMenu>
+                <MenubarTrigger>Feedback</MenubarTrigger>
+              </MenubarMenu>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>We would love to hear what you think!</DialogTitle>
+                <DialogDescription>
+                  Join our Discord community to leave us a feedback :)
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <DialogClose>
+                  <Button type="submit" variant="secondary">
+                    Close
+                  </Button>
+                </DialogClose>
+                <DialogClose>
+                  <Button type="submit" asChild>
+                    <a href="https://discord.gg/7HEBr7yG8c" target="_blank">
+                      Join
+                    </a>
+                  </Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </Menubar>
       </div>
 

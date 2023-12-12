@@ -1,6 +1,5 @@
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
-import { useFilePicker } from "use-file-picker";
 import { useSetAtom } from "jotai";
 import {
   projectAtom,
@@ -20,28 +19,27 @@ export const useLoadApp = () => {
   const { setHasUnsavedChanges } = useHasUnsavedChanges();
   const setShowWelcomeScreen = useSetAtom(showWelcomeScreenAtom);
 
-  const [openFileSelector] = useFilePicker({
-    readAs: "Text",
-    accept: [".json"],
-    maxFileSize: 50,
-    onFilesRejected: ({ errors }) => {
-      console.error("Errors when trying to load file: ", errors);
-    },
-    onFilesSuccessfulySelected: ({ plainFiles, filesContent }) => {
-      sendEventToMix("Selected Files", "");
-      const path = plainFiles[0].path;
-      // Just pick the first file that was selected
-      const parsedFileContent = JSON.parse(filesContent[0].content);
-      const flow = parsedFileContent.rfInstance;
-      setProject(parsedFileContent);
-      setProjectPath(path);
-      setHasUnsavedChanges(false);
-      const textNodes = parsedFileContent.textNodes;
-      loadFlowExportObject(flow, textNodes);
-      setProgramResults([]);
-      setShowWelcomeScreen(false);
-    },
-  });
+  const openFilePicker = () => {
+    window.api
+      .openFilePicker()
+      .then((result) => {
+        if (!result) return;
+        const { fileContent, filePath } = result;
+        sendEventToMix("Selected Files", "");
+        const parsedFileContent = JSON.parse(fileContent);
+        const flow = parsedFileContent.rfInstance;
+        setProject(parsedFileContent);
+        setProjectPath(filePath);
+        setHasUnsavedChanges(false);
+        const textNodes = parsedFileContent.textNodes;
+        loadFlowExportObject(flow, textNodes);
+        setProgramResults([]);
+        setShowWelcomeScreen(false);
+      })
+      .catch((errors) => {
+        console.error("Errors when trying to load file: ", errors);
+      });
+  };
 
-  return openFileSelector;
+  return openFilePicker;
 };
