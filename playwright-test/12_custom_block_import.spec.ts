@@ -8,7 +8,6 @@ import {
   writeLogFile,
 } from "./utils";
 import { Selectors } from "./selectors";
-import blockApp from "./fixtures/app.json";
 import { join } from "path";
 import { existsSync, unlinkSync } from "fs";
 
