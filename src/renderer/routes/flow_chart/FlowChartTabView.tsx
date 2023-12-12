@@ -472,7 +472,7 @@ const FlowChartTab = () => {
                     data-testid="toggle-edit-mode"
                   >
                     <Pencil size={18} className="stroke-muted-foreground" />
-                    Edit Node
+                    Edit Block
                   </Button>
                 ) : (
                   <Button
