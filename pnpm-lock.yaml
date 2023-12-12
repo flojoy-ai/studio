@@ -289,9 +289,6 @@ devDependencies:
   tailwindcss-animate:
     specifier: ^1.0.7
     version: 1.0.7(tailwindcss@3.3.6)
-  tree-kill:
-    specifier: ^1.2.2
-    version: 1.2.2
   typescript:
     specifier: ^5.3.3
     version: 5.3.3

@@ -128,7 +128,6 @@
     "prettier-plugin-tailwindcss": "^0.5.9",
     "tailwindcss": "^3.3.6",
     "tailwindcss-animate": "^1.0.7",
-    "tree-kill": "^1.2.2",
     "typescript": "^5.3.3",
     "vite": "^4.5.1",
     "vite-plugin-environment": "^1.1.3",
