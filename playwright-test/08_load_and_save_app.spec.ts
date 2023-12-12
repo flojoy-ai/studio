@@ -58,9 +58,10 @@ test.describe("Load and save app", () => {
     await window.getByTestId(Selectors.fileBtn).click();
 
     // Mock showOpenDialogSynce to return app.json path
-    await app.evaluate(async ({ dialog }) => {
-      dialog.showOpenDialogSync = () => [join(__dirname, "fixtures/app.json")];
-    });
+    const appPath = join(__dirname, "fixtures/app.json");
+    await app.evaluate(async ({ dialog }, appPath) => {
+      dialog.showOpenDialogSync = () => [appPath];
+    }, appPath);
 
     // Click on Load button from file dropdown
     await window.getByTestId(Selectors.loadAppBtn).click();
