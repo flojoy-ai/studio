@@ -103,3 +103,33 @@ export const cacheCustomBlocksDir = (_, dirPath: string) => {
   const cacheFilePath = join(flojoyDir, "custom_blocks_path.txt");
   fs.writeFileSync(cacheFilePath, dirPath);
 };
+
+export const openFilePicker = (): Promise<
+  { filePath: string; fileContent: string } | undefined
+> => {
+  return new Promise((resolve, reject) => {
+    try {
+      const selectedPaths = dialog.showOpenDialogSync(global.mainWindow, {
+        properties: ["openFile"],
+        filters: [
+          {
+            extensions: ["json"],
+            name: "Json file",
+          },
+        ],
+      });
+      if (selectedPaths && selectedPaths?.length > 0) {
+        const fileContent = fs.readFileSync(selectedPaths[0], {
+          encoding: "utf-8",
+        });
+        resolve({
+          filePath: selectedPaths[0],
+          fileContent,
+        });
+        resolve(undefined);
+      }
+    } catch (error) {
+      reject(String(error));
+    }
+  });
+};
