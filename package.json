@@ -32,7 +32,6 @@
     "electron:test": "npx playwright test"
   },
   "dependencies": {
-    "@plotly/d3": "^3.8.1",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-collapsible": "^1.0.3",
