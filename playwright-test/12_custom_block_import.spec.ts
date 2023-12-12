@@ -44,10 +44,10 @@ test.describe("Custom block import", () => {
 
   test("Should open custom blocks tab in sidebar", async () => {
     // Click on add block btn to expand blocks sidebar
-    await expect(window.getByTestId(Selectors.sidebarExpandBtn)).toBeEnabled({
+    await expect(window.getByTestId(Selectors.addBlockBtn)).toBeEnabled({
       timeout: 15000,
     });
-    await window.getByTestId(Selectors.sidebarExpandBtn).click();
+    await window.getByTestId(Selectors.addBlockBtn).click();
 
     // Click on custom blocks button to switch to custom blocks tab
     await window.getByTestId(Selectors.customBlocksTabBtn).click();
@@ -62,7 +62,7 @@ test.describe("Custom block import", () => {
     // Mock showSaveDialog to return customBlocksDir path
     const customBlocksDir = join(__dirname, "fixtures/custom-blocks");
     await app.evaluate(async ({ dialog }, customBlocksDir) => {
-      dialog.showSaveDialog = () =>
+      dialog.showOpenDialog = () =>
         Promise.resolve({ filePaths: [customBlocksDir], canceled: false });
     }, customBlocksDir);
 
@@ -77,9 +77,12 @@ test.describe("Custom block import", () => {
     // Click on block to add it to flow chart
     await window.locator("button", { hasText: "TEST_BLOCK" }).first().click();
 
+    // Close the sidebar
+    await window.getByTestId(Selectors.sidebarCloseBtn).click();
+
     // Expect `TEST_BLOCK` to visible in flow chart
     await expect(
-      window.locator("h2", { hasText: "TEST_BLOCK" }).first(),
+      window.locator("h2", { hasText: "TEST BLOCK" }).first(),
     ).toBeVisible();
 
     // Take a screenshot
