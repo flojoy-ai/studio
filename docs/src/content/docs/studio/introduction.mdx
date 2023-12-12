@@ -8,9 +8,13 @@ Welcome to the Flojoy Docs!
 
 Flojoy is a test & measurement app for the modern era. Here, you can find information on how to install, use, and customize Flojoy.
 
-Flojoy is made of two parts: *`Studio`* and *`Blocks`*. Studio is the main interface that you see (the app). Blocks are what Flojoy runs, and what Flojoy apps are made up of. For example, you would use the `SINE` block to create a sine wave.
+Flojoy is made of two parts: ***Studio*** and ***Blocks***. Studio is the main interface that you see (the app itself). Blocks are what Flojoy runs, and what Flojoy apps are made up of. For example, you would use the `BASIC_OSCILLATOR` block to create a sine wave. Below is a simple Flojoy app. Apps in Flojoy are comprised of multiple Blocks.
 
-Therefore, the docs are split into two main sections: Studio and Blocks. There is also an advanced third section for contributing to Flojoy.
+![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1702315082/flojoy-docs/intro-and-guide/basic-app.png)
+
+This app has two Blocks: `BASIC_OSCILLATOR` which creates a sine wave and `LINE` which plots the data. The grey line between the two Blocks is a ***connection*** which passes data from one Block to another. How Blocks are connected also defines the order in which Apps are run. Apps, in general, run from left to right.
+
+To learn more about Flojoy, the doc pages linked below are a good resource. The docs are split into two main sections: Studio and Blocks. There is also an advanced third section for contributing to Flojoy.
 
 import BlockCategory from "@/components/BlockCategory.astro";
 
