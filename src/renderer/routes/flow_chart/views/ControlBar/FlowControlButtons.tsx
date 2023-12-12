@@ -113,6 +113,9 @@ const FlowControlButtons = () => {
           Cancel
         </Button>
       )}
+      <Button onClick={() => window.api.openEditorWindow("test-code")}>
+        test-code
+      </Button>
 
       <div className="px-0.5" />
       <WatchBtn playFC={onRun} cancelFC={cancelFC} />

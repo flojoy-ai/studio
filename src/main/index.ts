@@ -43,7 +43,7 @@ import {
   poetryShowTopLevel,
   poetryUninstallDepGroup,
 } from "./python/poetry";
-import { createWindow } from "./window";
+import { createEditorWindow, createWindow } from "./window";
 
 log.initialize({ preload: true });
 log.info("Welcome to Flojoy Studio!");
@@ -158,6 +158,9 @@ app.whenReady().then(async () => {
     return poetryUninstallDepGroup(group);
   });
   ipcMain.handle(API.openFilePicker, openFilePicker);
+  ipcMain.handle(API.openEditorWindow, (_, filepath) => {
+    createEditorWindow(filepath);
+  });
 });
 
 app.on("window-all-closed", async () => {

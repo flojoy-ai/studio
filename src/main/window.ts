@@ -1,7 +1,16 @@
-import { app, BrowserWindow, shell, nativeImage, dialog } from "electron";
+import {
+  app,
+  BrowserWindow,
+  shell,
+  nativeImage,
+  dialog,
+  nativeTheme,
+} from "electron";
 import { update } from "./update";
 import log from "electron-log/main";
 import { cleanup, isPortFree, killProcess } from "./utils";
+
+import { is } from "@electron-toolkit/utils";
 
 import { join } from "node:path";
 import { DIST_ELECTRON, PUBLIC_DIR } from "./consts";
@@ -95,4 +104,67 @@ export async function createWindow() {
 
   // Apply electron-updater
   update(cleanup);
+}
+
+const editorWindowMap: Map<string, BrowserWindow> = new Map();
+
+export async function createEditorWindow(filepath: string) {
+  let editorWindow = editorWindowMap.get(filepath);
+  if (editorWindow) {
+    if (editorWindow.isMinimized()) {
+      editorWindow.restore();
+    }
+    editorWindow.focus();
+    return;
+  }
+
+  // Create the browser window.
+  editorWindow = new BrowserWindow({
+    width: 900,
+    height: 670,
+    show: false,
+    autoHideMenuBar: true,
+    titleBarStyle: "hidden",
+    backgroundColor: nativeTheme.shouldUseDarkColors ? "#000000" : "#ffffff",
+    trafficLightPosition: {
+      x: 15,
+      y: 15, // macOS traffic lights seem to be 14px in diameter. If you want them vertically centered, set this to `titlebar_height / 2 - 7`.
+    },
+    icon: getIcon(),
+    webPreferences: {
+      preload: join(__dirname, "../preload/index.js"),
+      sandbox: false,
+    },
+  });
+
+  editorWindow.on("ready-to-show", () => {
+    if (editorWindow) {
+      editorWindow.show();
+    }
+  });
+
+  editorWindow.webContents.setWindowOpenHandler((details) => {
+    shell.openExternal(details.url);
+    return { action: "deny" };
+  });
+
+  // HMR for renderer base on electron-vite cli.
+  // Load the remote URL for development or the local html file for production.
+  if (is.dev && process.env["ELECTRON_RENDERER_URL"]) {
+    editorWindow.loadURL(process.env["ELECTRON_RENDERER_URL"] + "#/editor");
+  } else {
+    editorWindow.loadFile(join(__dirname, "../renderer/index.html"), {
+      hash: "editor",
+    });
+  }
+
+  app.on("before-quit", () => {
+    if (editorWindow) {
+      editorWindow.removeAllListeners("close");
+    }
+  });
+
+  editorWindow.on("closed", () => {
+    editorWindowMap.delete(filepath);
+  });
 }
