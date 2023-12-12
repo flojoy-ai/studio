@@ -11,8 +11,7 @@ import {
 } from "./interpreter";
 import * as os from "os";
 import { existsSync, readFileSync } from "fs";
-import { store } from "../store";
-import { POETRY_DEP_GROUPS, poetryGroupEnsureValid } from "./poetry";
+import { poetryGroupEnsureValid } from "./poetry";
 
 export async function checkPythonInstallation(
   _,
