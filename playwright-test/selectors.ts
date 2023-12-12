@@ -35,4 +35,5 @@ export enum Selectors {
   envVarKeyInput = "env-var-key-input",
   envVarValueInput = "env-var-value-input",
   envVarSubmitBtn = "env-var-submit-btn",
+  customBlocksTabBtn = "custom-blocks-tab",
 }
