@@ -9,6 +9,8 @@ import {
 } from "./utils";
 import { Selectors } from "./selectors";
 import blockApp from "./fixtures/app.json";
+import { join } from "path";
+import { existsSync, unlinkSync } from "fs";
 
 test.describe("Custom block import", () => {
   let window: Page;
@@ -27,6 +29,17 @@ test.describe("Custom block import", () => {
 
   test.afterAll(async () => {
     await writeLogFile(app, "custom-block-import");
+    const homePath = await app.evaluate(async ({ app: _app }) => {
+      return _app.getPath("home");
+    });
+    const blocksCachePath = join(homePath, ".flojoy/custom_blocks_path.txt");
+    if (existsSync(blocksCachePath)) {
+      try {
+        unlinkSync(blocksCachePath);
+      } catch (error) {
+        //
+      }
+    }
     await app.close();
   });
 
@@ -47,14 +60,28 @@ test.describe("Custom block import", () => {
   });
 
   test("Should import custom blocks from local file system", async () => {
-    // Click on Load button from file dropdown
-    await window.getByTestId(Selectors.loadAppBtn).click();
+    // Mock showSaveDialog to return customBlocksDir path
+    const customBlocksDir = join(__dirname, "fixtures/custom-blocks");
+    await app.evaluate(async ({ dialog }, customBlocksDir) => {
+      dialog.showSaveDialog = () =>
+        Promise.resolve({ filePaths: [customBlocksDir], canceled: false });
+    }, customBlocksDir);
 
-    // Expect all blocks from the app.json file to be visible
-    for (const block of blockApp.rfInstance.nodes) {
-      const id = `rf__node-${block.id}`;
-      await expect(window.getByTestId(id)).toBeVisible();
-    }
+    // Click on 'Import custom blocks' button
+    await window.getByTestId(Selectors.importCustomBlockBtn).click();
+
+    // Expect `TEST_BLOCK` to be listed in sidebar
+    await expect(
+      window.locator("button", { hasText: "TEST_BLOCK" }).first(),
+    ).toBeVisible();
+
+    // Click on block to add it to flow chart
+    await window.locator("button", { hasText: "TEST_BLOCK" }).first().click();
+
+    // Expect `TEST_BLOCK` to visible in flow chart
+    await expect(
+      window.locator("h2", { hasText: "TEST_BLOCK" }).first(),
+    ).toBeVisible();
 
     // Take a screenshot
     await window.screenshot({
