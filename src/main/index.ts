@@ -40,6 +40,7 @@ import {
   netstat,
   pickDirectory,
   ping,
+  openFilePicker,
   writeFileSync,
 } from "./utils";
 import {
@@ -259,6 +260,7 @@ app.whenReady().then(async () => {
   ipcMain.handle(API.poetryUninstallDepGroup, (_, group) => {
     return poetryUninstallDepGroup(group);
   });
+  ipcMain.handle(API.openFilePicker, openFilePicker);
 });
 
 app.on("window-all-closed", async () => {
