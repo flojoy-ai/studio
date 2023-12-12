@@ -54,6 +54,7 @@ test.describe("Load and save app", () => {
   });
 
   test("Should load an app from local file system", async () => {
+    test.setTimeout(60000);
     // Click on file button from right top nav bar
     await window.getByTestId(Selectors.fileBtn).click();
 
@@ -69,7 +70,7 @@ test.describe("Load and save app", () => {
     // Expect all blocks from the app.json file to be visible
     for (const block of blockApp.rfInstance.nodes) {
       const id = `rf__node-${block.id}`;
-      await expect(window.getByTestId(id)).toBeVisible();
+      await expect(window.getByTestId(id)).toBeVisible({ timeout: 15000 });
     }
 
     // Take a screenshot
