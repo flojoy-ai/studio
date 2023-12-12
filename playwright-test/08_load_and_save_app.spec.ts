@@ -57,9 +57,9 @@ test.describe("Load and save app", () => {
     // Click on file button from right top nav bar
     await window.getByTestId(Selectors.fileBtn).click();
 
-    // Add handler to filechooser event to return app.json path
-    window.on("filechooser", (filechooser) => {
-      filechooser.setFiles(join(__dirname, "fixtures/app.json"));
+    // Mock showOpenDialogSynce to return app.json path
+    await app.evaluate(async ({ dialog }) => {
+      dialog.showOpenDialogSync = () => [join(__dirname, "fixtures/app.json")];
     });
 
     // Click on Load button from file dropdown
