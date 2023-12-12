@@ -118,6 +118,9 @@ const DepManagerModal = ({
                   <div>{group.description}</div>
                   <div className="grow" />
                   <Button
+                    data-testid={`${group.name}-${getButtonLabel(
+                      group.status,
+                    )}`}
                     disabled={isLoading || group.name === "blocks"}
                     variant={
                       group.status === "installed" ? "destructive" : "default"
@@ -139,13 +142,12 @@ const DepManagerModal = ({
           <div className="py-2" />
 
           <div className="mx-auto w-96 text-center">
-            {isLoading ? (
+            {isLoading && (
               <div className="overflow-hidden text-ellipsis whitespace-nowrap">
                 {msg}
               </div>
-            ) : (
-              <div>Dependency Manager Idle</div>
             )}
+            {!isLoading && !isFetching && <div>Dependency Manager Idle</div>}
           </div>
 
           <div className="py-2" />

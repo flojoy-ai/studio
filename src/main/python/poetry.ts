@@ -30,8 +30,9 @@ export const POETRY_DEP_GROUPS: Pick<
 
 export async function poetryShowTopLevel(): Promise<PythonDependency[]> {
   const groups = POETRY_DEP_GROUPS.map((group) => group.name).join(",");
+  const poetry = process.env.POETRY_PATH ?? "poetry";
   const result = await execCommand(
-    new Command(`poetry show --top-level --with ${groups} --no-ansi`),
+    new Command(`${poetry} show --top-level --with ${groups} --no-ansi`),
   );
 
   return result.split("\n").map((line) => {
@@ -113,14 +114,15 @@ export async function poetryInstallDepGroup(group: string): Promise<boolean> {
   }
 
   const validGroups = await poetryGroupEnsureValid();
+  const poetry = process.env.POETRY_PATH ?? "poetry";
   if (validGroups.length > 0) {
     await execCommand(
       new Command(
-        `poetry install --sync --with ${validGroups.join(",")} --no-root`,
+        `${poetry} install --sync --with ${validGroups.join(",")} --no-root`,
       ),
     );
   } else {
-    await execCommand(new Command(`poetry install --sync --no-root`));
+    await execCommand(new Command(`${poetry} install --sync --no-root`));
   }
 
   return true;
@@ -136,14 +138,15 @@ export async function poetryUninstallDepGroup(group: string): Promise<boolean> {
   }
 
   const validGroups = await poetryGroupEnsureValid();
+  const poetry = process.env.POETRY_PATH ?? "poetry";
   if (validGroups.length > 0) {
     await execCommand(
       new Command(
-        `poetry install --sync --with ${validGroups.join(",")} --no-root`,
+        `${poetry} install --sync --with ${validGroups.join(",")} --no-root`,
       ),
     );
   } else {
-    await execCommand(new Command(`poetry install --sync --no-root`));
+    await execCommand(new Command(`${poetry} install --sync --no-root`));
   }
 
   return true;
