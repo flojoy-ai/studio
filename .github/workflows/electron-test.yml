@@ -2,9 +2,13 @@ name: E2E Testing
 
 on:
   push:
+    paths-ignore:
+      - "docs/**"
     branches:
       - main
   pull_request:
+    paths-ignore:
+      - "docs/**"
     types:
       - opened
       - synchronize

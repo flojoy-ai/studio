@@ -93,6 +93,10 @@ Every time you create a new block, Studio will hot reload to include it in the s
 You can use the same sections as the standard library if you want blocks to have the same icons/colors. For example, you can create blocks under a `HARDWARE` folder inside your custom blocks directory to make them look like hardware blocks.
 :::
 
+:::caution
+Please consider avoiding the use of standard block names for your own blocks, as they may be overridden by the standard ones. Feel free to make use of the search input in the blocks sidebar to check if a block name is already in use. 
+:::
+
 ## Contributing to Flojoy standard blocks
 
 ### Use Flojoy CLI tool to create a new block
