@@ -66,17 +66,21 @@ test.describe("Load and save app", () => {
 
     // Click on Load button from file dropdown
     await window.getByTestId(Selectors.loadAppBtn).click();
-
+    // Take a screenshot
+    await window.screenshot({
+      fullPage: true,
+      path: "test-results/load-app.jpeg",
+    });
     // Expect all blocks from the app.json file to be visible
     for (const block of blockApp.rfInstance.nodes) {
       const id = `rf__node-${block.id}`;
       await expect(window.getByTestId(id)).toBeVisible({ timeout: 15000 });
     }
 
-    // Take a screenshot
-    await window.screenshot({
-      fullPage: true,
-      path: "test-results/load-app.jpeg",
-    });
+    // // Take a screenshot
+    // await window.screenshot({
+    //   fullPage: true,
+    //   path: "test-results/load-app.jpeg",
+    // });
   });
 });
