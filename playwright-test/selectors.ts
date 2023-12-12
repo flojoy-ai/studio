@@ -37,4 +37,5 @@ export enum Selectors {
   envVarSubmitBtn = "env-var-submit-btn",
   customBlocksTabBtn = "custom-blocks-tab",
   importCustomBlockBtn = "import-custom-block",
+  depManagerModalBtn = "dep-manager-modal-button",
 }
