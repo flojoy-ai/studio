@@ -89,7 +89,7 @@ jobs:
           sleep 5
 
       - name: Run Test
-        run: npx playwright test playwright-test/08_load_and_save_app.spec.ts
+        run: pnpm run e2e
 
       - name: Upload outputs
         if: always()
