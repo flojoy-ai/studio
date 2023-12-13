@@ -30,6 +30,10 @@ test.describe("Block context menu", () => {
   });
 
   test("Should open a context menu upon right clicking", async () => {
+    // Wait for manifest file to be fetched from backend
+    const playBtn = window.getByTestId(Selectors.playBtn);
+    await playBtn.isEnabled({ timeout: 20000 });
+
     // Right click on `SINE` block
     await window.locator("h2", { hasText: "SINE" }).click({
       button: "right",
