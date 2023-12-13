@@ -4,7 +4,7 @@
 
 Flojoy Studio is a desktop visual scripting IDE for running Python scripts - primarily for [DAQ](https://en.wikipedia.org/wiki/Data_acquisition), test benches, robotics control, and no-code embedded systems.
 
-Please see [CONTRIBUTING](https://github.com/flojoy-io/flojoy-desktop/blob/main/CONTRIBUTING.md) to add your own custom Python nodes to Flojoy apps.
+Please see [CONTRIBUTING](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/) to add your own custom Python blocks to Flojoy apps.
 
 ---
 

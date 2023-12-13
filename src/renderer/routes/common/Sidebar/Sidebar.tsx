@@ -139,8 +139,12 @@ const Sidebar = ({
       </div>
       <Tabs defaultValue="standard" className="mb-8 h-[80%]">
         <TabsList className="grid w-11/12 grid-cols-2">
-          <TabsTrigger value="standard">Standard</TabsTrigger>
-          <TabsTrigger value="custom">Custom</TabsTrigger>
+          <TabsTrigger data-testid={"standard-blocks-tab"} value="standard">
+            Standard
+          </TabsTrigger>
+          <TabsTrigger data-testid={"custom-blocks-tab"} value="custom">
+            Custom
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="standard" className="h-full overflow-y-scroll">
@@ -193,6 +197,7 @@ const Sidebar = ({
               <p className="py-3">No custom blocks found</p>
               <Button
                 variant={"outline"}
+                data-testid="import-custom-block"
                 onClick={() => handleImportCustomBlocks(false)}
               >
                 <ImportIcon size={26} className="pr-2" />

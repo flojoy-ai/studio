@@ -2,9 +2,13 @@ name: E2E Testing
 
 on:
   push:
+    paths-ignore:
+      - "docs/**"
     branches:
       - main
   pull_request:
+    paths-ignore:
+      - "docs/**"
     types:
       - opened
       - synchronize
@@ -27,13 +31,6 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Repository
-        if: ${{ github.event_name == 'pull_request' }}
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
-
-      - name: Checkout Repository
-        if: ${{ github.event_name == 'push' }}
         uses: actions/checkout@v3
 
       - name: Setup Python

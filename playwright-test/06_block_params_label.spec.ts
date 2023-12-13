@@ -29,7 +29,7 @@ test.describe("Block params and label", () => {
     await app.close();
   });
 
-  test("Should change SINE to TEST NODE", async () => {
+  test("Should change SINE to TEST BLOCK", async () => {
     // Click on `SINE` block to select it
     await window.locator("h2", { hasText: "SINE" }).click();
 
@@ -42,14 +42,14 @@ test.describe("Block params and label", () => {
     // Clear input field
     await window.getByTestId(Selectors.blockLabelInput).clear();
 
-    // Write "TEST NODE"
-    await window.getByTestId(Selectors.blockLabelInput).fill("TEST NODE");
+    // Write "TEST BLOCK"
+    await window.getByTestId(Selectors.blockLabelInput).fill("TEST BLOCK");
 
     // Click on submit button
     await window.getByTestId(Selectors.blockLabelSubmit).click();
 
-    // Expect SINE block to be changed to "TEST NODE"
-    await expect(window.locator("h2", { hasText: "TEST NODE" })).toBeVisible();
+    // Expect SINE block to be changed to "TEST BLOCK"
+    await expect(window.locator("h2", { hasText: "TEST BLOCK" })).toBeVisible();
     await expect(window.locator("h2", { hasText: "SINE" })).toBeHidden();
   });
 
