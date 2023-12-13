@@ -30,9 +30,10 @@ test.describe("Block context menu", () => {
   });
 
   test("Should open a context menu upon right clicking", async () => {
-    // Wait for manifest file to be fetched from backend
-    const playBtn = window.getByTestId(Selectors.playBtn);
-    await playBtn.isEnabled({ timeout: 20000 });
+    // Wait for blocks metadata file to be fetched from backend
+    await expect(window.locator('[data-blockmetadata="true"]')).toBeVisible({
+      timeout: 20000,
+    });
 
     // Right click on `SINE` block
     await window.locator("h2", { hasText: "SINE" }).click({
@@ -79,10 +80,10 @@ test.describe("Block context menu", () => {
     ).toBeVisible();
 
     // Close the modal
-    await window.locator('[role="dialog"] > button').click();
+    await window.getByRole("button", { name: "Close" }).first().click();
 
     // Ensure that modal is closed
-    await expect(window.locator('[role="dialog"] > button')).toBeHidden();
+    await expect(window.getByRole("button", { name: "Close" })).toBeHidden();
   });
 
   test("Should delete a block", async () => {
@@ -111,5 +112,11 @@ test.describe("Block context menu", () => {
 
     // Expect a new block named 'LINSPACE 1' is visible in flow chart
     await expect(window.locator("h2", { hasText: "LINSPACE 1" })).toBeVisible();
+
+    // Take a screenshot
+    await window.screenshot({
+      fullPage: true,
+      path: "test-results/duplicate-block.jpeg",
+    });
   });
 });
