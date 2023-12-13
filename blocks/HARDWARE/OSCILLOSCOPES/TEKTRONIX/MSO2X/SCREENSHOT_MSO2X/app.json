@@ -1,0 +1,201 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "id": "SCREENSHOT_MSO2X-ed5dd55f-2d07-41aa-b01e-d74ddfcd921f",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "SCREENSHOT_MSO2X-ed5dd55f-2d07-41aa-b01e-d74ddfcd921f",
+                    "label": "SCREENSHOT MSO2X",
+                    "func": "SCREENSHOT_MSO2X",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
+                            "overload": null,
+                            "functionName": "SCREENSHOT_MSO2X",
+                            "param": "connection",
+                            "value": ""
+                        },
+                        "local_file_path": {
+                            "type": "Directory",
+                            "default": null,
+                            "desc": "Choose a file where the image will be saved locally.",
+                            "overload": null,
+                            "functionName": "SCREENSHOT_MSO2X",
+                            "param": "local_file_path",
+                            "value": ""
+                        },
+                        "path_on_scope": {
+                            "type": "str",
+                            "default": "C:\\screenshots\\screenshot.png",
+                            "desc": "The file name and path on the scope",
+                            "overload": null,
+                            "functionName": "SCREENSHOT_MSO2X",
+                            "param": "path_on_scope",
+                            "value": "C:\\screenshots\\screenshot.png"
+                        },
+                        "filename": {
+                            "type": "str",
+                            "default": "screenshot.png",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SCREENSHOT_MSO2X",
+                            "param": "filename",
+                            "value": "screenshot.png"
+                        },
+                        "auto_index": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Adds '_XXX' to end of file name and increases that index automatically.",
+                            "overload": null,
+                            "functionName": "SCREENSHOT_MSO2X",
+                            "param": "auto_index",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "desc": "The screenshot"
+                        }
+                    ],
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/SCREENSHOT_MSO2X/SCREENSHOT_MSO2X.py"
+                },
+                "position": {
+                    "x": 264.92177010148936,
+                    "y": 22.76214254079747
+                },
+                "width": 192,
+                "height": 192
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CONNECT_MSO2X-64938f2c-dd05-40fc-9718-7a0fc9675932",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "CONNECT_MSO2X-64938f2c-dd05-40fc-9718-7a0fc9675932",
+                    "label": "CONNECT MSO2X",
+                    "func": "CONNECT_MSO2X",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "device": {
+                            "type": "VisaDevice",
+                            "default": null,
+                            "desc": "The connected VISA device.",
+                            "overload": null,
+                            "functionName": "CONNECT_MSO2X",
+                            "param": "device",
+                            "value": ""
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The IP or VISA address of the VISA device."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tm_devices",
+                            "v": "1"
+                        }
+                    ],
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/CONNECT_MSO2X/CONNECT_MSO2X.py"
+                },
+                "position": {
+                    "x": -20.396069961777386,
+                    "y": 26.544309721940635
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -20.396069961777386,
+                    "y": 26.544309721940635
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 225,
+                "id": "IMAGE-85d6ce75-0a91-40a0-b58b-d2c239965ce9",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "IMAGE-85d6ce75-0a91-40a0-b58b-d2c239965ce9",
+                    "label": "IMAGE",
+                    "func": "IMAGE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|Grayscale",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
+                },
+                "position": {
+                    "x": 554.612937547467,
+                    "y": 2.7757509852843896
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 554.612937547467,
+                    "y": 2.7757509852843896
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "CONNECT_MSO2X-64938f2c-dd05-40fc-9718-7a0fc9675932",
+                "sourceHandle": "default",
+                "target": "SCREENSHOT_MSO2X-ed5dd55f-2d07-41aa-b01e-d74ddfcd921f",
+                "targetHandle": "input",
+                "id": "reactflow__edge-CONNECT_MSO2X-64938f2c-dd05-40fc-9718-7a0fc9675932default-SCREENSHOT_MSO2X-ed5dd55f-2d07-41aa-b01e-d74ddfcd921finput"
+            },
+            {
+                "source": "SCREENSHOT_MSO2X-ed5dd55f-2d07-41aa-b01e-d74ddfcd921f",
+                "sourceHandle": "default",
+                "target": "IMAGE-85d6ce75-0a91-40a0-b58b-d2c239965ce9",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SCREENSHOT_MSO2X-ed5dd55f-2d07-41aa-b01e-d74ddfcd921fdefault-IMAGE-85d6ce75-0a91-40a0-b58b-d2c239965ce9default"
+            }
+        ],
+        "viewport": {
+            "x": 989.7402235606428,
+            "y": 582.5298224384069,
+            "zoom": 0.9879406118224267
+        }
+    },
+    "textNodes": []
+}
