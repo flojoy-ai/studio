@@ -125,9 +125,8 @@ const BlockModal = ({
             await window.api.openEditorWindow(blockFullPath);
           }}
         >
-          Edit this block
+          Edit Python Code
         </Button>
-        <div>Debug: {blockFullPath}</div>
 
         <ScrollArea className="h-full w-full rounded-lg">
           <ScrollBar orientation="vertical" />
