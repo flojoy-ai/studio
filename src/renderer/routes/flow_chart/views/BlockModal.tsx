@@ -124,6 +124,7 @@ const BlockModal = ({
           onClick={async () => {
             await window.api.openEditorWindow(blockFullPath);
           }}
+          data-testid="btn-edit-python"
         >
           Edit Python Code
         </Button>
