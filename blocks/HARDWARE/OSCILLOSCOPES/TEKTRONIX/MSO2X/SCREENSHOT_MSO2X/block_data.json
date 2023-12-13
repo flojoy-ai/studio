@@ -1,0 +1,40 @@
+{
+  "docstring": {
+    "long_description": "Saves a screenshot locally (on the PC) and on the scope.\nAlso outputs the image to Flojoy.\n\nNote the directory chosen on the scope must already exist.\n\nRequires a CONNECT_MSO2X block to create the connection.\n\nTested on MSO22 and MSO24. Should be compatible with many Tektronix MSO\nseries oscilloscopes.\n\nInput blocks - any (most)\nOutput blocks - IMAGE, COMPUTER_VISION blocks",
+    "short_description": "Save a screenshot from a Tektronix MSO oscilloscope.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_MSO2X block)."
+      },
+      {
+        "name": "local_file_path",
+        "type": "Directory",
+        "description": "Choose a file where the image will be saved locally."
+      },
+      {
+        "name": "path_on_scope",
+        "type": "str, default = \"C:\\screenshots\\screenshot.png\"",
+        "description": "The file name and path on the scope"
+      },
+      {
+        "name": "filename_pc",
+        "type": "str",
+        "description": "The file name of the screenshot saved locally."
+      },
+      {
+        "name": "auto_index",
+        "type": "bool",
+        "description": "Adds '_XXX' to end of file name and increases that index automatically."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Image",
+        "description": "The screenshot"
+      }
+    ]
+  }
+}
