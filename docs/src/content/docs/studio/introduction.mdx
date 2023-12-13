@@ -16,65 +16,27 @@ This app has two Blocks: `BASIC_OSCILLATOR` which creates a sine wave and `LINE`
 
 To learn more about Flojoy, the doc pages linked below are a good resource. The docs are split into two main sections: Studio and Blocks. There is also an advanced third section for contributing to Flojoy.
 
-import BlockCategory from "@/components/BlockCategory.astro";
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 
 ### Studio
 
-<BlockCategory
-  blocks={[
-    {
-      link: "/studio/installation/",
-      name: "Flojoy Installation",
-      description: "How to install Flojoy",
-    },
-    {
-      link: "/studio/interface/",
-      name: "Interface Introduction",
-      description: "Guide to Flojoy's interface",
-    },
-    {
-      link: "/studio/app-creation/",
-      name: "App Creation",
-      description: "How to create basic apps in Flojoy",
-    },
-  ]}
-/>
+<CardGrid>
+  <LinkCard title="Flojoy Installation" href="/studio/installation/" description="How to install Flojoy" />
+  <LinkCard href="/studio/interface/" title="Interface Introduction" description="Guide to Flojoy's interface" />
+  <LinkCard href="/studio/app-creation/" title="App Creation" description="How to create basic apps in Flojoy" />
+</CardGrid>
 
 ### Blocks
 
-<BlockCategory
-  blocks={[
-    {
-      link: "/blocks/intro/",
-      name: "Blocks Introduction",
-      description: "Introduction to Flojoy's Blocks",
-    },
-    {
-      link: "/blocks/data/",
-      name: "Data Blocks",
-      description: "Overview of Data Blocks",
-    },
-    {
-      link: "/blocks/hardware/",
-      name: "Hardware Blocks",
-      description: "Overview of Hardware Blocks",
-    },
-  ]}
-/>
+<CardGrid>
+  <LinkCard href="/blocks/intro/" title="Blocks Introduction" description="Introduction to Flojoy's Blocks"
+  <LinkCard href="/blocks/data/" title="Data Blocks" description="Overview of Data Blocks"
+  <LinkCard href="/blocks/hardware/" title="Hardware Blocks" description="Overview of Hardware Blocks"
+</CardGrid>
 
 ### Contribution Guide
 
-<BlockCategory
-  blocks={[
-    {
-      link: "/contribution/blocks/custom-flojoy-block/",
-      name: "Create a Flojoy Block",
-      description: "How to create a basic Block",
-    },
-    {
-      link: "/contribution/docs/section-guide/",
-      name: "Flojoy Blocks Section",
-      description: "How to contribute to Flojoy's Docs",
-    },
-  ]}
-/>
+<CardGrid>
+  <LinkCard href="/contribution/blocks/custom-flojoy-block/" title="Create a Flojoy Block" description="How to create a basic Block"
+  <LinkCard href="/contribution/docs/section-guide/" title="Flojoy Blocks Section" description="How to contribute to Flojoy's Docs"
+</CardGrid>
