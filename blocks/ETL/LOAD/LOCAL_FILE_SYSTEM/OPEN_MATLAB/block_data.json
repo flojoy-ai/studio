@@ -5,7 +5,7 @@
     "parameters": [
       {
         "name": "file_path",
-        "type": "str",
+        "type": "File",
         "description": "path to the file to be loaded"
       }
     ],

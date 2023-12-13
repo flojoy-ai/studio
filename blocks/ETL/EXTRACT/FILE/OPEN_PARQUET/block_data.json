@@ -5,7 +5,7 @@
     "parameters": [
       {
         "name": "file_path",
-        "type": "str",
+        "type": "File",
         "description": "File path to the .parquet file or an URL of a .parquet file."
       }
     ],

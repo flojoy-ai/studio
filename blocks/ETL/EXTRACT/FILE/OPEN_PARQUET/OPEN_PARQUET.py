@@ -1,10 +1,11 @@
 from os import path
-from flojoy import flojoy, DataFrame
+
 import pandas as pd
+from flojoy import DataFrame, File, flojoy
 
 
 @flojoy(deps={"pyarrow": "12.0.1", "fastparquet": "2023.7.0"})
-def OPEN_PARQUET(file_path: str = "") -> DataFrame:
+def OPEN_PARQUET(file_path: File | None = None) -> DataFrame:
     """Load a local parquet file, then return the data as a dataframe.
 
     Inputs
@@ -13,7 +14,7 @@ def OPEN_PARQUET(file_path: str = "") -> DataFrame:
 
     Parameters
     ----------
-    file_path : str
+    file_path : File
         File path to the .parquet file or an URL of a .parquet file.
 
     Returns
