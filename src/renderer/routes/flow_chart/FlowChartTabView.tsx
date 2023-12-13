@@ -390,9 +390,17 @@ const FlowChartTab = () => {
       // Prevent native context menu from showing
       event.preventDefault();
 
-      if (ref.current === null) {
+      if (ref.current === null || !nodesMetadataMap) {
         return;
       }
+
+      let metaData: BlocksMetadataMap = nodesMetadataMap;
+      if (customBlocksMetadata) {
+        metaData = { ...nodesMetadataMap, ...customBlocksMetadata };
+      }
+
+      const nodeFileName = `${node.data.func}.py`;
+      const nodeFileData = metaData[nodeFileName] ?? {};
 
       // Calculate position of the context menu. We want to make sure it
       // doesn't get positioned off-screen.
@@ -410,9 +418,10 @@ const FlowChartTab = () => {
           event.clientY >= pane.height - 200
             ? pane.height - event.clientY + 75
             : undefined,
+        fullPath: nodeFileData.full_path ?? "",
       });
     },
-    [setMenu],
+    [setMenu, nodesMetadataMap, customBlocksMetadata],
   );
 
   // Close the context menu if it's open whenever the window is clicked.
