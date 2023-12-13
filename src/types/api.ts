@@ -33,4 +33,6 @@ export enum API {
   poetryUninstallDepGroup = "POETRY_UNINSTALL_DEP_GROUP",
   openFilePicker = "OPEN_FILE_PICKER",
   openEditorWindow = "OPEN_EDITOR_WINDOW",
+  loadFileFromFullPath = "LOAD_FILE_FROM_FULL_PATH",
+  saveFileToFullPath = "SAVE_FILE_TO_FULL_PATH",
 }

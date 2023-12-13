@@ -63,7 +63,7 @@ const App = () => {
               errorElement={<ErrorBoundary />}
             />
           </Route>
-          <Route path="/editor" element={<EditorView />} />
+          <Route path="/editor/:id" element={<EditorView />} />
         </Routes>
       </div>
     </ThemeProvider>

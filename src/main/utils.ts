@@ -153,3 +153,17 @@ export const cleanup = async () => {
     }
   }
 };
+
+export const loadFileFromFullPath = async (
+  filePath: string,
+): Promise<string> => {
+  return fs.readFileSync(filePath, { encoding: "utf-8" }).toString();
+};
+
+export const saveFileToFullPath = async (
+  filePath: string,
+  content: string,
+): Promise<boolean> => {
+  fs.writeFileSync(filePath, content);
+  return true;
+};

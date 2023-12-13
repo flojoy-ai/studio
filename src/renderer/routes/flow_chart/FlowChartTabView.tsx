@@ -126,8 +126,14 @@ const FlowChartTab = () => {
   const { states } = useSocket();
   const { programResults, setProgramResults } = states;
 
-  const { pythonString, setPythonString, nodeFilePath, setNodeFilePath } =
-    useFlowChartTabState();
+  const {
+    pythonString,
+    setPythonString,
+    nodeFilePath,
+    setNodeFilePath,
+    blockFullPath,
+    setBlockFullPath,
+  } = useFlowChartTabState();
 
   const {
     nodes,
@@ -354,10 +360,12 @@ const FlowChartTab = () => {
     const nodeFileData = metaData[nodeFileName] ?? {};
     setNodeFilePath(nodeFileData.path ?? "");
     setPythonString(nodeFileData.metadata ?? "");
+    setBlockFullPath(nodeFileData.full_path ?? "");
   }, [
     selectedNode,
     setNodeFilePath,
     setPythonString,
+    setBlockFullPath,
     nodesMetadataMap,
     customBlocksMetadata,
   ]);
@@ -587,6 +595,7 @@ const FlowChartTab = () => {
             nodeResults={programResults}
             pythonString={pythonString}
             blockFilePath={nodeFilePath}
+            blockFullPath={blockFullPath}
           />
         </div>
       </ReactFlowProvider>

@@ -61,4 +61,13 @@ export default {
 
   openEditorWindow: (filepath: string): Promise<void> =>
     ipcRenderer.invoke(API.openEditorWindow, filepath),
+
+  loadFileFromFullPath: (filepath: string): Promise<string> =>
+    ipcRenderer.invoke(API.loadFileFromFullPath, filepath),
+
+  saveFileToFullPath: (
+    filepath: string,
+    fileContent: string,
+  ): Promise<boolean> =>
+    ipcRenderer.invoke(API.saveFileToFullPath, filepath, fileContent),
 };

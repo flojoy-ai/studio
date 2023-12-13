@@ -18,6 +18,7 @@ import { NodeResult } from "@src/routes/common/types/ResultsType";
 import { ElementsData } from "@src/types/node";
 import { ScrollArea, ScrollBar } from "@src/components/ui/scroll-area";
 import { useTheme } from "@src/providers/themeProvider";
+import { Button } from "@src/components/ui/button";
 
 const jsonTheme = {
   scheme: "flojoy",
@@ -50,6 +51,7 @@ export type BlockModalProps = {
   nd: NodeResult | null;
   pythonString: string;
   blockFilePath: string;
+  blockFullPath: string;
   selectedNode: Node<ElementsData>;
 };
 
@@ -58,6 +60,7 @@ const BlockModal = ({
   setModalOpen,
   nd,
   blockFilePath,
+  blockFullPath,
   pythonString,
   selectedNode,
 }: BlockModalProps) => {
@@ -117,6 +120,15 @@ const BlockModal = ({
         <h2 className="text-lg font-semibold text-muted-foreground">
           Python code
         </h2>
+        <Button
+          onClick={async () => {
+            await window.api.openEditorWindow(blockFullPath);
+          }}
+        >
+          Edit this block
+        </Button>
+        <div>Debug: {blockFullPath}</div>
+
         <ScrollArea className="h-full w-full rounded-lg">
           <ScrollBar orientation="vertical" />
           <ScrollBar orientation="horizontal" />

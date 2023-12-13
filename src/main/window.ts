@@ -151,10 +151,13 @@ export async function createEditorWindow(filepath: string) {
   // HMR for renderer base on electron-vite cli.
   // Load the remote URL for development or the local html file for production.
   if (is.dev && process.env["ELECTRON_RENDERER_URL"]) {
-    editorWindow.loadURL(process.env["ELECTRON_RENDERER_URL"] + "#/editor");
+    editorWindow.loadURL(
+      process.env["ELECTRON_RENDERER_URL"] + "#/editor/" + btoa(filepath),
+    );
   } else {
     editorWindow.loadFile(join(__dirname, "../renderer/index.html"), {
       hash: "editor",
+      search: btoa(filepath),
     });
   }
 

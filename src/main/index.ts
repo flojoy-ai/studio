@@ -32,6 +32,8 @@ import {
   openFilePicker,
   writeFileSync,
   cleanup,
+  loadFileFromFullPath,
+  saveFileToFullPath,
 } from "./utils";
 import {
   browsePythonInterpreter,
@@ -160,6 +162,14 @@ app.whenReady().then(async () => {
   ipcMain.handle(API.openFilePicker, openFilePicker);
   ipcMain.handle(API.openEditorWindow, (_, filepath) => {
     createEditorWindow(filepath);
+  });
+
+  ipcMain.handle(API.loadFileFromFullPath, (_, filepath) => {
+    return loadFileFromFullPath(filepath);
+  });
+
+  ipcMain.handle(API.saveFileToFullPath, (_, filepath, fileContent) => {
+    return saveFileToFullPath(filepath, fileContent);
   });
 });
 
