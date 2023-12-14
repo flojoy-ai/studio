@@ -4,9 +4,9 @@
     "short_description": "Upload a DataContainer to Flojoy Cloud (beta).",
     "parameters": [
       {
-        "name": "measurement_id",
+        "name": "hardware_device_id",
         "type": "str",
-        "description": "The measurement id of the data to be uploaded to Flojoy Cloud."
+        "description": "The hardware device id on Flojoy Cloud."
       }
     ],
     "returns": [
