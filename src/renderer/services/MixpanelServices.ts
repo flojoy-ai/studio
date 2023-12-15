@@ -1,5 +1,6 @@
 import mixpanel from "mixpanel-browser";
 import { Node } from "reactflow";
+
 const PROJECT_TOKEN = "e89f03371825eaccda13079d584bff8e";
 const enable = 1; // +(process?.env?.FLOJOY_ENABLE_TELEMETRY ?? "1");
 
@@ -17,6 +18,7 @@ export const sendFrontEndLoadsToMix = () => {
     }
   }
 };
+
 //for frontier, go to LOADER.py
 export const sendProgramToMix = (
   nodes: Node[],
@@ -39,13 +41,13 @@ export const sendProgramToMix = (
 };
 
 export const sendEventToMix = (
-  Event: string,
+  event: string,
   data: string,
   dataType = "data",
 ) => {
   if (enable) {
     try {
-      mixpanel.track(Event, { [dataType]: data });
+      mixpanel.track(event, { [dataType]: data });
     } catch (e) {
       console.error(`the request failed: ${e}`);
     }
@@ -54,7 +56,7 @@ export const sendEventToMix = (
 
 //pre-condition: the input array of data and dataType must be the same size
 export const sendMultipleDataEventToMix = (
-  Event: string,
+  event: string,
   data: string[],
   dataType = ["data"],
 ) => {
@@ -64,7 +66,7 @@ export const sendMultipleDataEventToMix = (
       for (let i = 0; i < data.length; i++) {
         obj[dataType[i]] = data[i];
       }
-      mixpanel.track(Event, obj);
+      mixpanel.track(event, obj);
     } catch (e) {
       console.error(`the request failed: ${e}`);
     }

@@ -3,7 +3,13 @@ title: Flojoy Robotics
 description: "Flojoy Robotics"
 ---
 
-![Watch a video of Flojoy in action with Mecademic Robotics](https://www.youtube.com/embed/pPCiDQ4IMRU)
+import { YouTube } from '@astro-community/astro-embed-youtube';
+
+Watch a video of Flojoy in action with Mecademic Robotics
+
+<div className="not-content">
+  <YouTube id="pPCiDQ4IMRU" />
+</div>
 
 Flojoy aims to revolutionize robotics visual programming and make robotics easy, useful, and powerful for all. 
 
