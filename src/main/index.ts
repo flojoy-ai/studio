@@ -54,6 +54,12 @@ import {
   poetryUninstallDepGroup,
 } from "./python/poetry";
 
+import * as Sentry from "@sentry/electron";
+
+Sentry.init({
+  dsn: "https://674ff2cff958ff67394f936eb7b67ae8@o4504914175131648.ingest.sentry.io/4506396981395456",
+});
+
 log.initialize({ preload: true });
 log.info("Welcome to Flojoy Studio!");
 process.env.ELECTRON_MODE = app.isPackaged ? "packaged" : "dev";
