@@ -1,0 +1,42 @@
+---
+title: Introduction
+sidebar:
+  order: 1
+---
+
+Welcome to the Flojoy Docs!
+
+Flojoy is a test & measurement app for the modern era. Here, you can find information on how to install, use, and customize Flojoy.
+
+Flojoy is made of two parts: ***Studio*** and ***Blocks***. Studio is the main interface that you see (the app itself). Blocks are what Flojoy runs, and what Flojoy apps are made up of. For example, you would use the `BASIC_OSCILLATOR` block to create a sine wave. Below is a simple Flojoy app. Apps in Flojoy are comprised of multiple Blocks.
+
+![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1702315082/flojoy-docs/intro-and-guide/basic-app.png)
+
+This app has two Blocks: `BASIC_OSCILLATOR` which creates a sine wave and `LINE` which plots the data. The grey line between the two Blocks is a ***connection*** which passes data from one Block to another. How Blocks are connected also defines the order in which Apps are run. Apps, in general, run from left to right.
+
+To learn more about Flojoy, the doc pages linked below are a good resource. The docs are split into two main sections: Studio and Blocks. There is also an advanced third section for contributing to Flojoy.
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+### Studio
+
+<CardGrid>
+  <LinkCard title="Flojoy Installation" href="/studio/installation/" description="How to install Flojoy" />
+  <LinkCard href="/studio/interface/" title="Interface Introduction" description="Guide to Flojoy's interface" />
+  <LinkCard href="/studio/app-creation/" title="App Creation" description="How to create basic apps in Flojoy" />
+</CardGrid>
+
+### Blocks
+
+<CardGrid>
+  <LinkCard href="/blocks/intro/" title="Blocks Introduction" description="Introduction to Flojoy's Blocks" />
+  <LinkCard href="/blocks/data/" title="Data Blocks" description="Overview of Data Blocks" />
+  <LinkCard href="/blocks/hardware/" title="Hardware Blocks" description="Overview of Hardware Blocks" />
+</CardGrid>
+
+### Contribution Guide
+
+<CardGrid>
+  <LinkCard href="/contribution/blocks/custom-flojoy-block/" title="Create a Flojoy Block" description="How to create a basic Block" />
+  <LinkCard href="/contribution/docs/section-guide/" title="Flojoy Blocks Section" description="How to contribute to Flojoy's Docs" />
+</CardGrid>

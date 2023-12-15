@@ -1,11 +1,12 @@
 from os import path
-from flojoy import flojoy, Image
+
+from flojoy import File, Image, flojoy
 from matplotlib import image
 from numpy import asarray
 
 
 @flojoy
-def OPEN_IMAGE(file_path: str = "") -> Image:
+def OPEN_IMAGE(file_path: File | None = None) -> Image:
     """Load an image file from disk and return a DataContainer of type 'image'.
 
     Inputs
@@ -14,7 +15,7 @@ def OPEN_IMAGE(file_path: str = "") -> Image:
 
     Parameters
     ----------
-    file_path : str
+    file_path : File
         path to the file to be loaded
 
     Returns

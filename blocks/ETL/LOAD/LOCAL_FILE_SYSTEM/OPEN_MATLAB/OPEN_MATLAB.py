@@ -1,19 +1,20 @@
-from flojoy import DataFrame, flojoy
-import numpy as np
-from scipy.io import loadmat
 from os import path
+
+import numpy as np
 import pandas as pd
+from flojoy import DataFrame, File, flojoy
+from scipy.io import loadmat
 
 
 @flojoy
-def OPEN_MATLAB(file_path: str = "") -> DataFrame:
+def OPEN_MATLAB(file_path: File | None = None) -> DataFrame:
     """The OPEN_MATLAB node loads a local file of the .mat file format.
 
     Note that if multiple 'tabs' of data are used, the number of rows must match in order to stack the arrays.
 
     Parameters
     ----------
-    file_path : str
+    file_path : File
         path to the file to be loaded
 
     Returns

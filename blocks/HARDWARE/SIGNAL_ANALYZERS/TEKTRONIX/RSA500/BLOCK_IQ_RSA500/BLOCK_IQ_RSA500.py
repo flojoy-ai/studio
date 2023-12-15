@@ -1,7 +1,7 @@
 from flojoy import flojoy, DataContainer, OrderedPair, File
 from typing import Optional, TypedDict
 from flojoy.instruments.tektronix.RSA_API import *  # noqa: F403
-from ctypes import cdll, c_int, c_bool, c_double, c_float, byref
+from ctypes import cdll, c_int, c_bool, c_double, c_float, byref, create_string_buffer
 import numpy as np
 
 
