@@ -18,6 +18,7 @@ export const sendFrontEndLoadsToMix = () => {
     }
   }
 };
+
 //for frontier, go to LOADER.py
 export const sendProgramToMix = (
   nodes: Node[],
