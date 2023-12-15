@@ -12,9 +12,9 @@ In this tutorial, we'll go further into the workings of Flojoy. Specifically we'
 
 Let's start off with the default App you see on startup. Scroll over the input connection of the `SINE` Block.
 
-![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1702315082/flojoy-docs/intro-and-guide/sine-input.png)
+![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1702315082/flojoy-docs/intro-and-guide/block-input.png)
 
-A window should automatically popup showing you information what this Block expects to be input. 
+A window should automatically popup showing you information what this Block expects to be input.
 
 - ***Default*** - the name of the input
 - ***OrderedPair*** and ***Vector*** the data types the Block can take.
@@ -24,7 +24,7 @@ A window should automatically popup showing you information what this Block expe
 
 Next, scroll over the output connection of the `SINE` Block.
 
-![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1702315082/flojoy-docs/intro-and-guide/sine-output.png)
+![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1702315082/flojoy-docs/intro-and-guide/block-output.png)
 
 Similar to the input, you can see a summary of the output data. Similar to the input, ***OrderedPair*** is present, but ***Vector*** is missing. This is because the Block can only output one data type.
 
@@ -40,7 +40,7 @@ Now let's stop and talk about data types in Flojoy. Data in Flojoy is currently 
 
 See [Contributing]("/contribution/blocks/custom-flojoy-block/") for more information on `DataContainer` types in Flojoy. To connect the import and output of two Blocks, they must have at least one matching type. If there is no matching type, an error like this will appear:
 
-![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1702315082/flojoy-docs/intro-and-guide/type-match-error.png)
+![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1702315082/flojoy-docs/intro-and-guide/type-match-errors.png)
 
 when connecting a Block outputing a `Scalar` to a Block expecting either `OrderedPair` or `Vector` as input (OrderedPair|Vector where | is short for 'or').
 
