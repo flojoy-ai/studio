@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Add context to a Plotly figure (title, caption, and axis labels).",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "Plotly",
+        "description": "The Plotly figure object"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Plotly",
+        "description": "The annotated Plotly object"
+      }
+    ]
+  }
+}
