@@ -12,6 +12,8 @@ import { useAtom } from "jotai";
 
 import packageJson from "../../../../../package.json";
 import { useFullManifest } from "@src/hooks/useManifest";
+import { useEffect } from "react";
+import { MixPanelEvents, sendEventToMix } from "@src/services/MixpanelServices";
 
 export function WelcomeModal() {
   const openFileSelector = useLoadApp();
@@ -19,6 +21,13 @@ export function WelcomeModal() {
   const [showWelcomeScreen, setShowWelcomeScreen] = useAtom(
     showWelcomeScreenAtom,
   );
+  useEffect(() => {
+    window.api.getSetupExecutionTime().then((t) => {
+      sendEventToMix(MixPanelEvents.flojoyLoaded, {
+        timeTaken: `${t} seconds`,
+      });
+    });
+  }, []);
 
   return (
     <AlertDialog open={showWelcomeScreen}>

@@ -58,4 +58,6 @@ export default {
 
   openFilePicker: (): Promise<{ filePath: string; fileContent: string }> =>
     ipcRenderer.invoke(API.openFilePicker),
+  getSetupExecutionTime: (): Promise<number> =>
+    ipcRenderer.invoke(API.setupExecutionTime),
 };

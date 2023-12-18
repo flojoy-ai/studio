@@ -1,10 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 
 import { useRouteError, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
-import { sendFrontEndLoadsToMix } from "@src/services/MixpanelServices";
 import { ErrorPage } from "@src/ErrorPage";
 import FlowChartTab from "./routes/flow_chart/FlowChartTabView";
 import DeviceTab from "./routes/device_panel/DeviceView";
@@ -13,6 +12,7 @@ import PythonManagerTabView from "./routes/python_manager_panel/PythonManagerTab
 import { Layout } from "./routes/common/Layout";
 import { Index } from "./routes/index";
 import packageJson from "../../package.json";
+import { initMixPanel } from "./services/MixpanelServices";
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;
@@ -31,11 +31,9 @@ const App = () => {
     setRunningNode(runningNode);
     setFailedNodes(failedNodes);
   }, [runningNode, failedNodes, setRunningNode, setFailedNodes]);
-
-  useEffect(() => {
-    sendFrontEndLoadsToMix();
+  useLayoutEffect(() => {
+    initMixPanel();
   }, []);
-
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div id="tw-theme-root">

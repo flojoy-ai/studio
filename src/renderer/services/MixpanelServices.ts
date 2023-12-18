@@ -4,20 +4,19 @@ import { Node } from "reactflow";
 const PROJECT_TOKEN = "e89f03371825eaccda13079d584bff8e";
 const enable = 1; // +(process?.env?.FLOJOY_ENABLE_TELEMETRY ?? "1");
 
-export const sendFrontEndLoadsToMix = () => {
-  if (enable) {
-    try {
-      mixpanel.init(PROJECT_TOKEN, {
-        debug: true,
-        loaded: function () {
-          mixpanel.track("Flojoy Loaded");
-        },
-      });
-    } catch (e) {
-      console.error(`the request failed: ${e}`);
-    }
-  }
+export const initMixPanel = () => {
+  mixpanel.init(PROJECT_TOKEN);
 };
+export enum MixPanelEvents {
+  setupStarted = "Setup started",
+  setupComplete = "Setup Complete",
+  flojoyLoaded = "Flojoy Loaded",
+  setupError = "Setup Error",
+  programRun = "Program Run",
+  nodeDeleted = "Node Deleted",
+  edgesChanged = "Edges Changed",
+  canvasCleared = "Canvas cleared",
+}
 
 //for frontier, go to LOADER.py
 export const sendProgramToMix = (
@@ -35,19 +34,22 @@ export const sendProgramToMix = (
       );
     }
     if (runProgram) {
-      sendEventToMix("Program Run", nodeList, "nodeList");
+      sendEventToMix(MixPanelEvents.programRun, nodeList, "nodeList");
     }
   }
 };
 
 export const sendEventToMix = (
-  event: string,
-  data: string,
-  dataType = "data",
+  event: MixPanelEvents | string,
+  data?: Record<string, unknown> | string,
+  dataType: string = "data",
 ) => {
   if (enable) {
     try {
-      mixpanel.track(event, { [dataType]: data });
+      mixpanel.track(
+        event,
+        typeof data === "string" ? { [dataType]: data } : data,
+      );
     } catch (e) {
       console.error(`the request failed: ${e}`);
     }

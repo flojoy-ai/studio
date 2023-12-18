@@ -119,18 +119,12 @@ export class WebSocketServer {
     };
     this.server.onclose = this.onClose || null;
     this.server.onerror = (event) => {
-      sendEventToMix("Inital Status", "Connection Failed", "Server Status");
       console.log("Error Event: ", event);
       this.handlePingResponse(IServerStatus.OFFLINE);
     };
   }
   disconnect() {
     console.log("Disconnecting WebSocket server");
-    sendEventToMix(
-      "Initial Status",
-      "Connection Disconnected",
-      "Server Status",
-    );
     this.server.close();
   }
   emit(data: string) {
