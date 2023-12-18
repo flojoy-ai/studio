@@ -138,7 +138,9 @@ def sync():
                         if "videos" in block_data
                         else None
                     )
-                    thumbnail = block_data["image"] if "image" in block_data else None
+                    thumbnail = (
+                        block_data["thumbnail"] if "thumbnail" in block_data else None
+                    )
 
                 # Keep track of the file tree structure in order to generate
                 # overview pages for all of the top level categories
@@ -167,6 +169,7 @@ def sync():
                             block_name=file_name,
                             block_folder_path=current_block_folder_path,
                             description=description,
+                            thumbnail=thumbnail or "https://docs.flojoy.ai/logo.png",
                         )
                         .add_python_docs_display()
                         .add_python_code()
