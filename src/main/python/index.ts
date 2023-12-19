@@ -12,13 +12,11 @@ import {
 import * as os from "os";
 import { existsSync, readFileSync } from "fs";
 import { poetryGroupEnsureValid } from "./poetry";
-import { store } from "../store";
 
 export async function checkPythonInstallation(
   _,
   force?: boolean,
 ): Promise<InterpretersList> {
-  store.set("setupStarted", performance.now());
   if (!global.pythonInterpreters || force) {
     global.pythonInterpreters =
       await new PythonManager().getInterpreterByVersion({

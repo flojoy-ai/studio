@@ -54,7 +54,6 @@ import {
   poetryShowTopLevel,
   poetryUninstallDepGroup,
 } from "./python/poetry";
-import { store } from "./store";
 
 log.initialize({ preload: true });
 log.info("Welcome to Flojoy Studio!");
@@ -163,6 +162,7 @@ async function createWindow() {
   });
   global.mainWindow = mainWindow;
   global.hasUnsavedChanges = true;
+  global.setupStarted = performance.now();
 
   mainWindow.on("ready-to-show", () => {
     mainWindow.show();
@@ -232,8 +232,7 @@ app.whenReady().then(async () => {
   ipcMain.on(API.cacheCustomBlocksDir, cacheCustomBlocksDir);
   ipcMain.handle(API.setupExecutionTime, async () => {
     const end = performance.now();
-    const executionTimeInSeconds = (end - store.get("setupStarted")) / 1000;
-    store.set("setupStarted", 0);
+    const executionTimeInSeconds = (end - global.setupStarted) / 1000;
     return await Promise.resolve(executionTimeInSeconds);
   });
   ipcMain.handle(API.isCI, () => {
