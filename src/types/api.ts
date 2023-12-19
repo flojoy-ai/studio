@@ -33,4 +33,5 @@ export enum API {
   poetryUninstallDepGroup = "POETRY_UNINSTALL_DEP_GROUP",
   openFilePicker = "OPEN_FILE_PICKER",
   setupExecutionTime = "SETUP_EXEC_TIME",
+  isCI = "IS_CI",
 }

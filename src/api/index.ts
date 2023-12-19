@@ -60,4 +60,6 @@ export default {
     ipcRenderer.invoke(API.openFilePicker),
   getSetupExecutionTime: (): Promise<number> =>
     ipcRenderer.invoke(API.setupExecutionTime),
+
+  isCI: (): Promise<boolean> => ipcRenderer.invoke(API.isCI),
 };

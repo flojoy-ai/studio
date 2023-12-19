@@ -235,6 +235,9 @@ app.whenReady().then(async () => {
     store.set("setupStarted", 0);
     return await Promise.resolve(executionTimeInSeconds);
   });
+  ipcMain.handle(API.isCI, () => {
+    return Promise.resolve(process.env.CI === "true");
+  });
   ipcMain.handle(API.getCustomBlocksDir, getCustomBlocksDir);
   ipcMain.handle(API.restartCaptain, restartCaptain);
   ipcMain.handle(API.setPythonInterpreter, handlePythonInterpreter);

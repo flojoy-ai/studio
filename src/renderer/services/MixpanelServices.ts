@@ -4,7 +4,8 @@ import { Node } from "reactflow";
 const PROJECT_TOKEN = "e89f03371825eaccda13079d584bff8e";
 const enable = 1; // +(process?.env?.FLOJOY_ENABLE_TELEMETRY ?? "1");
 
-export const initMixPanel = () => {
+export const initMixPanel = async () => {
+  if (await isCI()) return;
   mixpanel.init(PROJECT_TOKEN);
 };
 export enum MixPanelEvents {
@@ -18,12 +19,15 @@ export enum MixPanelEvents {
   canvasCleared = "Canvas cleared",
 }
 
+const isCI = async () => await window.api.isCI();
+
 //for frontier, go to LOADER.py
-export const sendProgramToMix = (
+export const sendProgramToMix = async (
   nodes: Node[],
   runProgram = false,
   saveProgram = true,
 ) => {
+  if (await isCI()) return;
   if (nodes && enable) {
     const nodeList = JSON.stringify(nodes.map((node) => node.data.label));
     if (saveProgram) {
@@ -39,11 +43,12 @@ export const sendProgramToMix = (
   }
 };
 
-export const sendEventToMix = (
+export const sendEventToMix = async (
   event: MixPanelEvents | string,
   data?: Record<string, unknown> | string,
   dataType: string = "data",
 ) => {
+  if (await isCI()) return;
   if (enable) {
     try {
       mixpanel.track(
@@ -57,11 +62,12 @@ export const sendEventToMix = (
 };
 
 //pre-condition: the input array of data and dataType must be the same size
-export const sendMultipleDataEventToMix = (
+export const sendMultipleDataEventToMix = async (
   event: string,
   data: string[],
   dataType = ["data"],
 ) => {
+  if (await isCI()) return;
   if (enable) {
     try {
       const obj = {};
