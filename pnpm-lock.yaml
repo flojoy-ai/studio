@@ -214,6 +214,9 @@ devDependencies:
   '@types/lodash':
     specifier: ^4.14.202
     version: 4.14.202
+  '@types/mixpanel-browser':
+    specifier: ^2.47.5
+    version: 2.47.5
   '@types/node':
     specifier: ^20.10.4
     version: 20.10.4
@@ -2580,6 +2583,10 @@ packages:
     dependencies:
       '@types/unist': 2.0.10
     dev: false
+
+  /@types/mixpanel-browser@2.47.5:
+    resolution: {integrity: sha512-qEKrYSN4nUCPLU39YCoF2vszON0KUkPox0mFlrvhdq+amE44CB25+rdfZV4M9n3pEggXuRH+fbdP9qxthvyFUw==}
+    dev: true
 
   /@types/ms@0.7.34:
     resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}

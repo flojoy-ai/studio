@@ -58,4 +58,9 @@ export default {
 
   openFilePicker: (): Promise<{ filePath: string; fileContent: string }> =>
     ipcRenderer.invoke(API.openFilePicker),
+  getSetupExecutionTime: (): Promise<number> =>
+    ipcRenderer.invoke(API.setupExecutionTime),
+
+  isCI: (): Promise<boolean> => ipcRenderer.invoke(API.isCI),
+  getAllLogs: (): Promise<string> => ipcRenderer.invoke(API.getAllLogs),
 };

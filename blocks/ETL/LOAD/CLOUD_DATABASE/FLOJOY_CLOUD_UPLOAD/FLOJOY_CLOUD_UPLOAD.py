@@ -18,7 +18,8 @@ def preflight():
 @flojoy
 def FLOJOY_CLOUD_UPLOAD(
     default: DataContainer,
-    measurement_id: str,
+    hardware_device_id: str,
+    name: str,
 ) -> DataContainer:
     """Upload a DataContainer to Flojoy Cloud (beta).
 
@@ -26,8 +27,10 @@ def FLOJOY_CLOUD_UPLOAD(
 
     Parameters
     ----------
-    measurement_id : str
+    hardware_device_id : str
         The measurement id of the data to be uploaded to Flojoy Cloud.
+    name: str
+        The name of the data to be uploaded to Flojoy Cloud.
 
     Returns
     -------
@@ -42,7 +45,7 @@ def FLOJOY_CLOUD_UPLOAD(
             "Flojoy Cloud key is not found! You can set it under Settings -> Environment Variables."
         )
 
-    if measurement_id is None or not measurement_id.startswith("meas_"):
+    if hardware_device_id is None or not hardware_device_id.startswith("meas_"):
         raise KeyError(
             "You must provide a valid measurement id in order to upload to Flojoy Cloud!"
         )
@@ -52,6 +55,6 @@ def FLOJOY_CLOUD_UPLOAD(
     if default:
         # This will stream the data to the cloud
 
-        cloud.store_dc(default, default.type, measurement_id)
+        cloud.store_dc(default, default.type, hardware_device_id, name)
 
     return default

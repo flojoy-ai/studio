@@ -26,6 +26,7 @@ import {
   spawnCaptain,
 } from "./python";
 import {
+  getAllLogs,
   handleDownloadLogs,
   logListener,
   openLogFolder,
@@ -161,6 +162,7 @@ async function createWindow() {
   });
   global.mainWindow = mainWindow;
   global.hasUnsavedChanges = true;
+  global.setupStarted = performance.now();
 
   mainWindow.on("ready-to-show", () => {
     mainWindow.show();
@@ -228,6 +230,15 @@ app.whenReady().then(async () => {
   ipcMain.on(API.downloadLogs, handleDownloadLogs);
   ipcMain.on(API.checkForUpdates, checkForUpdates);
   ipcMain.on(API.cacheCustomBlocksDir, cacheCustomBlocksDir);
+  ipcMain.handle(API.setupExecutionTime, async () => {
+    const end = performance.now();
+    const executionTimeInSeconds = (end - global.setupStarted) / 1000;
+    return await Promise.resolve(executionTimeInSeconds);
+  });
+  ipcMain.handle(API.isCI, () => {
+    return Promise.resolve(process.env.CI === "true");
+  });
+  ipcMain.handle(API.getAllLogs, getAllLogs);
   ipcMain.handle(API.getCustomBlocksDir, getCustomBlocksDir);
   ipcMain.handle(API.restartCaptain, restartCaptain);
   ipcMain.handle(API.setPythonInterpreter, handlePythonInterpreter);

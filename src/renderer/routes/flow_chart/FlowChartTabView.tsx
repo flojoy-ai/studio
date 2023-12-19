@@ -27,7 +27,7 @@ import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { BlockExpandMenu } from "./views/BlockExpandMenu";
-import { sendEventToMix } from "@src/services/MixpanelServices";
+import { MixPanelEvents, sendEventToMix } from "@src/services/MixpanelServices";
 import {
   ACTIONS_HEIGHT,
   BOTTOM_STATUS_BAR_HEIGHT,
@@ -247,7 +247,7 @@ const FlowChartTab = () => {
       setEdges((prev) =>
         prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId),
       );
-      sendEventToMix("Node Deleted", nodeLabel, "nodeTitle");
+      sendEventToMix(MixPanelEvents.nodeDeleted, { nodeTitle: nodeLabel });
       setHasUnsavedChanges(true);
     },
     [setNodes, setEdges, setHasUnsavedChanges],
@@ -279,7 +279,7 @@ const FlowChartTab = () => {
 
   const onEdgesChange: OnEdgesChange = useCallback(
     (changes) => {
-      sendEventToMix("Edges Changed", "");
+      sendEventToMix(MixPanelEvents.edgesChanged);
       setEdges((es) => applyEdgeChanges(changes, es));
       if (!changes.every((c) => c.type === "select")) {
         setHasUnsavedChanges(true);
@@ -315,7 +315,9 @@ const FlowChartTab = () => {
   const handleNodesDelete: OnNodesDelete = useCallback(
     (nodes) => {
       nodes.forEach((node) => {
-        sendEventToMix("Node Deleted", node.data.label, "nodeTitle");
+        sendEventToMix(MixPanelEvents.nodeDeleted, {
+          nodeTitle: node.data.label,
+        });
       });
       const selectedNodeIds = nodes.map((node) => node.id);
       setNodes((prev) =>
@@ -333,7 +335,7 @@ const FlowChartTab = () => {
     setHasUnsavedChanges(true);
     setProgramResults([]);
 
-    sendEventToMix("Canvas cleared", "");
+    sendEventToMix(MixPanelEvents.canvasCleared);
   }, [
     setNodes,
     setTextNodes,

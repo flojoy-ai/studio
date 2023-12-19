@@ -79,7 +79,7 @@ export const useAddNewNode = (
       setNodes((els) => els.concat(newNode));
       setHasUnsavedChanges(true);
       localStorage.setItem("prev_block_pos", JSON.stringify(nodePosition));
-      sendEventToMix("Node Added", newNode.data?.label ?? "");
+      sendEventToMix("Node Added", { nodeTitle: newNode.data?.label ?? "" });
     },
     [
       setNodes,

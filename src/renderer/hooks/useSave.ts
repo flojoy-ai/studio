@@ -14,7 +14,7 @@ export const useSave = () => {
 
   const handleSave = async () => {
     if (projectPath && "api" in window) {
-      sendEventToMix("Saving Project", ``);
+      sendEventToMix("Saving Project");
       const fileContent = makeAppFileContent(project, nodes, edges, textNodes);
       window.api.saveFile(projectPath, fileContent);
 
