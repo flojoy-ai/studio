@@ -38,23 +38,19 @@ export const sendProgramToMix = async (
       );
     }
     if (runProgram) {
-      sendEventToMix(MixPanelEvents.programRun, nodeList, "nodeList");
+      sendEventToMix(MixPanelEvents.programRun, { nodeList });
     }
   }
 };
 
 export const sendEventToMix = async (
   event: MixPanelEvents | string,
-  data?: Record<string, unknown> | string,
-  dataType: string = "data",
+  data?: Record<string, unknown>,
 ) => {
   if (await isCI()) return;
   if (enable) {
     try {
-      mixpanel.track(
-        event,
-        typeof data === "string" ? { [dataType]: data } : data,
-      );
+      mixpanel.track(event, data);
     } catch (e) {
       console.error(`the request failed: ${e}`);
     }

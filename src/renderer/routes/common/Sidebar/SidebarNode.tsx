@@ -86,7 +86,7 @@ const SidebarNode = ({
         )}
         onClick={() => {
           if (query !== "") {
-            sendEventToMix("Node Searched", node.name ?? "", "nodeTitle");
+            sendEventToMix("Node Searched", { nodeTitle: node.name ?? "" });
           }
           leafClickHandler(node);
         }}
@@ -193,11 +193,9 @@ const SidebarNode = ({
             )}
             onClick={() => {
               if (query !== "") {
-                sendEventToMix(
-                  "Node Searched",
-                  command.name ?? "",
-                  "nodeTitle",
-                );
+                sendEventToMix("Node Searched", {
+                  nodeTitle: command.name ?? "",
+                });
               }
               leafClickHandler(command);
             }}

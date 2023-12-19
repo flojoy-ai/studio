@@ -103,11 +103,9 @@ export class WebSocketServer {
             this.handlePingResponse(data[ResponseEnum.systemStatus]);
           }
           this.onConnectionEstablished();
-          sendEventToMix(
-            "Initial Status",
-            "Connection Established",
-            "Server Status",
-          );
+          sendEventToMix("Initial Status", {
+            "Server Status": "Connection Established",
+          });
           break;
         case "manifest_update":
           this.onManifestUpdate();

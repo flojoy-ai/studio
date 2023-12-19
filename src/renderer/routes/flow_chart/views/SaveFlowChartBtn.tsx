@@ -14,7 +14,7 @@ const SaveFlowChartBtn = () => {
     const res = await fetch(dataUrl);
     const blob = await res.blob();
 
-    sendEventToMix("Result downloaded", "");
+    sendEventToMix("Result downloaded");
     saveAs(blob, "output.jpeg");
   };
 

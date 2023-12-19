@@ -54,7 +54,7 @@ export const useSettings = (group: "frontend" | "backend") => {
   const [settings, setSettings] = useAtom(settingsAtom);
 
   const updateSettings = (key: string, value: number | boolean) => {
-    sendEventToMix("Update Settings", ``);
+    sendEventToMix("Update Settings");
     setSettings((prev) => {
       const setting = prev.find((s) => s.key === key);
       if (setting) {
