@@ -22,6 +22,6 @@ export const useAddTextNode = () => {
         },
       }),
     );
-    sendEventToMix("Text Node Added", "");
+    sendEventToMix("Text Node Added");
   }, [setTextNodes, center]);
 };

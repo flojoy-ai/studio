@@ -25,7 +25,7 @@ export const useLoadApp = () => {
       .then((result) => {
         if (!result) return;
         const { fileContent, filePath } = result;
-        sendEventToMix("Selected Files", "");
+        sendEventToMix("Selected Files");
         const parsedFileContent = JSON.parse(fileContent);
         const flow = parsedFileContent.rfInstance;
         setProject(parsedFileContent);
