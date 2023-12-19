@@ -34,4 +34,5 @@ export enum API {
   openFilePicker = "OPEN_FILE_PICKER",
   setupExecutionTime = "SETUP_EXEC_TIME",
   isCI = "IS_CI",
+  getAllLogs = "GET_ALL_LOGS",
 }

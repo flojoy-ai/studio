@@ -26,6 +26,7 @@ import {
   spawnCaptain,
 } from "./python";
 import {
+  getAllLogs,
   handleDownloadLogs,
   logListener,
   openLogFolder,
@@ -238,6 +239,7 @@ app.whenReady().then(async () => {
   ipcMain.handle(API.isCI, () => {
     return Promise.resolve(process.env.CI === "true");
   });
+  ipcMain.handle(API.getAllLogs, getAllLogs);
   ipcMain.handle(API.getCustomBlocksDir, getCustomBlocksDir);
   ipcMain.handle(API.restartCaptain, restartCaptain);
   ipcMain.handle(API.setPythonInterpreter, handlePythonInterpreter);

@@ -111,6 +111,7 @@ export const Index = (): JSX.Element => {
         stage: "install-dependencies",
         message: err.message,
         error: String(err),
+        logs: await window.api.getAllLogs(),
       });
       setErrorDesc(
         "Sorry about that! Please open the log folder and send the log to us on Discord!",
@@ -134,6 +135,7 @@ export const Index = (): JSX.Element => {
         stage: "spawn-captain",
         message: err.message,
         error: String(err),
+        logs: await window.api.getAllLogs(),
       });
       setErrorDesc(
         "Sorry about that! Please open the log folder and send the log to us on Discord!",

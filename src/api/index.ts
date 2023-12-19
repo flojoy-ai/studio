@@ -62,4 +62,5 @@ export default {
     ipcRenderer.invoke(API.setupExecutionTime),
 
   isCI: (): Promise<boolean> => ipcRenderer.invoke(API.isCI),
+  getAllLogs: (): Promise<string> => ipcRenderer.invoke(API.getAllLogs),
 };
