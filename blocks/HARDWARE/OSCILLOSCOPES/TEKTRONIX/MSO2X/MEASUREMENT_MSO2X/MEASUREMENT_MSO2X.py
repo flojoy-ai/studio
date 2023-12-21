@@ -6,44 +6,73 @@ from flojoy import VisaConnection, flojoy, DataContainer, Scalar
 def MEASUREMENT_MSO2X(
     connection: VisaConnection,
     input: Optional[DataContainer] = None,
-    channel: Literal["1", "2", "3", "4"] = "1",
+    delete_all: bool = False,
+    channel: Literal[
+        "1",
+        "2",
+        "3",
+        "4",
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8",
+        "D9",
+        "D10",
+        "D10",
+        "D12",
+        "D13",
+        "D14",
+        "D15",
+    ] = "1",
+    measure_num: int = 1,
     measurement: Literal[
-        "ACRMS",
-        "AMPLITUDE",
-        "AREA",
-        "BASE",
-        "BURSTWIDTH",
-        "DATARATE",
-        "DELAY",
-        "FALLSLEWRATE",
-        "FALLTIME",
-        "FREQUENCY",
-        "HIGHTIME",
-        "HOLD",
-        "LOWTIME",
-        "MAXIMUM",
-        "MEAN",
-        "MINIMUM",
-        "NDUTY",
-        "NOVERSHOOT",
-        "NPERIOD",
-        "NWIDTTH",
-        "PDUTY",
-        "PERIOD",
-        "PHASE",
-        "PK2PK",
-        "POVERSHOOT",
-        "PWIDTH",
-        "RISESLEWRATE",
-        "RISETIME",
-        "RMS",
-        "SETUP",
-        "SKEW",
-        "TIMEOUTSIDELEVEL",
-        "TIMETOMAX",
-        "TIMETOMIN",
-        "TOP",
-    ] = "FREQUENCY",
+        "acrms",
+        "amplitude",
+        "area",
+        "base",
+        "burstwidth",
+        "datarate",
+        "delay",
+        "fallslewrate",
+        "falltime",
+        "frequency",
+        "hightime",
+        "hold",
+        "lowtime",
+        "maximum",
+        "mean",
+        "minimum",
+        "nduty",
+        "novershoot",
+        "nperiod",
+        "nwidtth",
+        "pduty",
+        "period",
+        "phase",
+        "pk2pk",
+        "povershoot",
+        "pwidth",
+        "riseslewrate",
+        "risetime",
+        "rms",
+        "setup",
+        "skew",
+        "timeoutsidelevel",
+        "timetomax",
+        "timetomin",
+        "top",
+    ] = "frequency",
+    statistic: Literal[
+        "mean",
+        "minumum",
+        "maximum",
+        "population",
+        "stddev",
+    ] = "mean",
 ) -> Scalar:
     """Measure one of the waveforms for the MSO2X.
 
@@ -67,7 +96,16 @@ def MEASUREMENT_MSO2X(
     # Retrieve oscilloscope instrument connection
     scope = connection.get_handle()
 
-    scope.write(f"MEASUrement:ADDMEAS {measurement}")
-    c = scope.query(f"MEASUrement:CH{channel}?")
+    if delete_all:
+        scope.write("MEASUrement:DELETEALL")
 
-    return Scalar(c=c)
+    scope.write(f":MEASUrement:MEAS1:TYPE {measurement}")
+    if channel[0] == "D":
+        scope.write(f":MEASUrement:MEAS1:SOURCE DCH1_{channel}")
+    else:
+        scope.write(f":MEASUrement:MEAS1:SOURCE CH{channel}")
+
+    scope.query("*OPC?")
+    c = scope.query(f"MEASUrement:MEAS1:RESUlts:CURRentacq:{statistic}?")
+
+    return Scalar(c=float(c))

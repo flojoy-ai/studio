@@ -3,7 +3,7 @@ from typing import Literal
 
 
 @flojoy(inject_connection=True)
-def FUNCTION_AFG31000(
+def INPUT_PARAM_AFG31000(
     connection: VisaConnection,
     source: Literal["1", "2"] = "1",
     parameter: Literal[
