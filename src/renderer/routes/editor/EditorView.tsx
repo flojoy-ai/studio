@@ -4,6 +4,7 @@ import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button } from "@src/components/ui/button";
+import { HEADER_HEIGHT } from "../common/Layout";
 
 const EditorView = () => {
   const { id } = useParams<{ id: string }>();
@@ -44,15 +45,21 @@ const EditorView = () => {
   }
 
   return (
-    <div>
+    <div
+      style={{
+        height: `calc(100vh - ${HEADER_HEIGHT}px)`,
+      }}
+    >
       <div className="absolute right-5 z-50 flex items-center gap-2 p-4">
         {hasChanged && <div className="">Changed</div>}
         <Button onClick={saveFile}>Save</Button>
       </div>
       <CodeMirror
         value={value}
+        style={{
+          height: `calc(100vh - ${HEADER_HEIGHT}px)`,
+        }}
         height="100%"
-        className="h-screen"
         extensions={[python()]}
         theme={vscodeDark}
         onChange={handleChange}
