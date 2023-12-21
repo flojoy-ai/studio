@@ -18,7 +18,7 @@ export default defineConfig({
         starlightDocSearch({
           appId: "9U592SK52F",
           apiKey: "25c8dc480885d6b065b91ae05a540215",
-          indexName: "flojoy-docs",
+          indexName: "flojoy",
         }),
       ],
       logo: { src: "./src/assets/logo_purple.svg" },
