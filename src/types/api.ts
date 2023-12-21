@@ -38,4 +38,5 @@ export enum API {
   setupExecutionTime = "SETUP_EXEC_TIME",
   isCI = "IS_CI",
   getAllLogs = "GET_ALL_LOGS",
+  openLink = "OPEN_LINK",
 }

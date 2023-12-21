@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, dialog } from "electron";
+import { app, BrowserWindow, ipcMain, dialog, shell } from "electron";
 import contextMenu from "electron-context-menu";
 import { release } from "node:os";
 import { checkForUpdates } from "./update";
@@ -180,6 +180,9 @@ app.whenReady().then(async () => {
 
   ipcMain.handle(API.saveFileToFullPath, (_, filepath, fileContent) => {
     return saveFileToFullPath(filepath, fileContent);
+  });
+  ipcMain.handle(API.openLink, (_, url) => {
+    shell.openExternal(url);
   });
 });
 

@@ -75,4 +75,6 @@ export default {
 
   isCI: (): Promise<boolean> => ipcRenderer.invoke(API.isCI),
   getAllLogs: (): Promise<string> => ipcRenderer.invoke(API.getAllLogs),
+  openLink: (url: string): Promise<void> =>
+    ipcRenderer.invoke(API.openLink, url),
 };

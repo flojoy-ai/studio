@@ -120,14 +120,27 @@ const BlockModal = ({
         <h2 className="text-lg font-semibold text-muted-foreground">
           Python code
         </h2>
-        <Button
-          onClick={async () => {
-            await window.api.openEditorWindow(blockFullPath);
-          }}
-          data-testid="btn-edit-python"
-        >
-          Edit Python Code
-        </Button>
+
+        <div className="flex gap-2">
+          <Button
+            onClick={async () => {
+              await window.api.openEditorWindow(blockFullPath);
+            }}
+            data-testid="btn-edit-python"
+            variant="secondary"
+          >
+            Edit Python Code
+          </Button>
+          <Button
+            onClick={async () => {
+              await window.api.openLink(`vscode://file/${blockFullPath}`);
+            }}
+            data-testid="btn-edit-python"
+            variant="secondary"
+          >
+            Open in VSCode
+          </Button>
+        </div>
 
         <ScrollArea className="h-full w-full rounded-lg">
           <ScrollBar orientation="vertical" />

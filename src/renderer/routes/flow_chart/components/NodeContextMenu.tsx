@@ -1,3 +1,4 @@
+import VSCodeSvg from "@src/assets/VSCodeSvg";
 import { Button } from "@src/components/ui/button";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { ElementsData } from "@src/types";
@@ -97,6 +98,10 @@ export default function ContextMenu({
     duplicateNode(node);
   };
 
+  const openInVSC = async () => {
+    await window.api.openLink(`vscode://file/${fullPath}`);
+  };
+
   const deleteNode = useCallback(() => {
     setNodes((nodes) => nodes.filter((node) => node.id !== id));
     setEdges((edges) => edges.filter((edge) => edge.source !== id));
@@ -122,6 +127,13 @@ export default function ContextMenu({
         icon={Code}
       >
         Edit Python Code
+      </ContextMenuAction>
+      <ContextMenuAction
+        testId="open-in-vscode"
+        onClick={openInVSC}
+        icon={Code}
+      >
+        Open in VSCode
       </ContextMenuAction>
       <ContextMenuAction
         testId="context-duplicate-block"
