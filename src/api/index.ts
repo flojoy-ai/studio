@@ -70,4 +70,9 @@ export default {
     fileContent: string,
   ): Promise<boolean> =>
     ipcRenderer.invoke(API.saveFileToFullPath, filepath, fileContent),
+  getSetupExecutionTime: (): Promise<number> =>
+    ipcRenderer.invoke(API.setupExecutionTime),
+
+  isCI: (): Promise<boolean> => ipcRenderer.invoke(API.isCI),
+  getAllLogs: (): Promise<string> => ipcRenderer.invoke(API.getAllLogs),
 };

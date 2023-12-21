@@ -9,7 +9,7 @@ export const VisaDeviceSelect = (props: SelectProps) => {
     <DeviceSelect
       {...props}
       devices={cameras}
-      placeholder="No serial devices found"
+      placeholder="No VISA devices found"
       keySelector={(d) => d.address}
       valueSelector={(d) => d.address}
       nameSelector={(d) => d.description}

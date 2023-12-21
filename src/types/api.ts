@@ -35,4 +35,7 @@ export enum API {
   openEditorWindow = "OPEN_EDITOR_WINDOW",
   loadFileFromFullPath = "LOAD_FILE_FROM_FULL_PATH",
   saveFileToFullPath = "SAVE_FILE_TO_FULL_PATH",
+  setupExecutionTime = "SETUP_EXEC_TIME",
+  isCI = "IS_CI",
+  getAllLogs = "GET_ALL_LOGS",
 }

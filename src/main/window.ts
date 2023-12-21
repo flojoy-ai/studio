@@ -50,6 +50,7 @@ export async function createWindow() {
   });
   global.mainWindow = mainWindow;
   global.hasUnsavedChanges = true;
+  global.setupStarted = performance.now();
 
   mainWindow.on("ready-to-show", () => {
     mainWindow.show();

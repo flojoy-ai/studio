@@ -4,7 +4,7 @@
     "short_description": "Download a DataContainer from Flojoy Cloud (beta).",
     "parameters": [
       {
-        "name": "data_container_id",
+        "name": "measurement_id",
         "type": "str",
         "description": "The data container id of the data to be downloaded from Flojoy Cloud."
       }

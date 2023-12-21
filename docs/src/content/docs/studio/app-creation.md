@@ -1,7 +1,7 @@
 ---
 title: App Creation
 sidebar:
-  order: 4
+  order: 5
 ---
 
 As mentioned in the [last tutorial](/studio/interface/), the App you see on start up is made from 7 Blocks. In this tutorial, we are going to recreate the app.

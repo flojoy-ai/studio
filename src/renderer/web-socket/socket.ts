@@ -103,11 +103,9 @@ export class WebSocketServer {
             this.handlePingResponse(data[ResponseEnum.systemStatus]);
           }
           this.onConnectionEstablished();
-          sendEventToMix(
-            "Initial Status",
-            "Connection Established",
-            "Server Status",
-          );
+          sendEventToMix("Initial Status", {
+            "Server Status": "Connection Established",
+          });
           break;
         case "manifest_update":
           this.onManifestUpdate();
@@ -119,18 +117,12 @@ export class WebSocketServer {
     };
     this.server.onclose = this.onClose || null;
     this.server.onerror = (event) => {
-      sendEventToMix("Inital Status", "Connection Failed", "Server Status");
       console.log("Error Event: ", event);
       this.handlePingResponse(IServerStatus.OFFLINE);
     };
   }
   disconnect() {
     console.log("Disconnecting WebSocket server");
-    sendEventToMix(
-      "Initial Status",
-      "Connection Disconnected",
-      "Server Status",
-    );
     this.server.close();
   }
   emit(data: string) {
