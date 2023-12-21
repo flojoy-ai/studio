@@ -5,6 +5,10 @@ import { execCommand } from "./executor";
 import { Command } from "./command";
 import { app, dialog } from "electron";
 import { join } from "path";
+import { killCaptain } from "./python";
+import log from "electron-log";
+import { ChildProcess } from "node:child_process";
+import { Err, Result, Ok } from "../types/result";
 
 export const isPortFree = (port: number) =>
   new Promise((resolve) => {
@@ -132,4 +136,39 @@ export const openFilePicker = (): Promise<
       reject(String(error));
     }
   });
+};
+
+export const cleanup = async () => {
+  const captainProcess = global.captainProcess as ChildProcess;
+  log.info(
+    "Cleanup function invoked, is captain running? ",
+    !(captainProcess?.killed ?? true),
+  );
+  if (captainProcess && captainProcess.exitCode === null) {
+    const success = killCaptain();
+    if (success) {
+      global.captainProcess = null;
+      log.info("Successfully terminated captain :)");
+    } else {
+      log.error("Something went wrong when terminating captain!");
+    }
+  }
+};
+
+export const loadFileFromFullPath = async (
+  filePath: string,
+): Promise<string> => {
+  return fs.readFileSync(filePath, { encoding: "utf-8" }).toString();
+};
+
+export const saveFileToFullPath = async (
+  filePath: string,
+  content: string,
+): Promise<Result<void>> => {
+  try {
+    fs.writeFileSync(filePath, content);
+    return Ok(undefined);
+  } catch (error) {
+    return Err(error as Error);
+  }
 };

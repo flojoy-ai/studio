@@ -4,6 +4,7 @@ import log from "electron-log/main";
 import { sendToStatusBar } from "./logging";
 
 const CHECK_FOR_UPDATE_INTERVAL = 600000; // 10 mins default
+
 export function update(cleanupFunc: () => Promise<void>) {
   global.updateInterval = null;
   // When set to false, the update download will be triggered through the API

@@ -78,3 +78,7 @@ div {
   -webkit-user-select: none; /* Prevent user from selecting things */
   user-select: none;
 }
+
+body {
+  overflow: hidden; /* Make the HTML body be non-scrollable */
+}
