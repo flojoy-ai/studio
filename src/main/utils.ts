@@ -8,6 +8,7 @@ import { join } from "path";
 import { killCaptain } from "./python";
 import log from "electron-log";
 import { ChildProcess } from "node:child_process";
+import { Result } from "@src/types/result";
 
 export const isPortFree = (port: number) =>
   new Promise((resolve) => {
@@ -163,7 +164,7 @@ export const loadFileFromFullPath = async (
 export const saveFileToFullPath = async (
   filePath: string,
   content: string,
-): Promise<boolean> => {
+): Promise<Result<void>> => {
   fs.writeFileSync(filePath, content);
-  return true;
+  return { ok: true, data: undefined };
 };

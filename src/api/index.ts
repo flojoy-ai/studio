@@ -3,6 +3,7 @@ import * as fileSave from "./fileSave";
 import { API } from "../types/api";
 import { InterpretersList } from "../main/python/interpreter";
 import { PoetryGroupInfo, PythonDependency } from "src/types/poetry";
+import { Result } from "src/types/result";
 
 export default {
   ...fileSave,
@@ -68,7 +69,7 @@ export default {
   saveFileToFullPath: (
     filepath: string,
     fileContent: string,
-  ): Promise<boolean> =>
+  ): Promise<Result<void>> =>
     ipcRenderer.invoke(API.saveFileToFullPath, filepath, fileContent),
   getSetupExecutionTime: (): Promise<number> =>
     ipcRenderer.invoke(API.setupExecutionTime),

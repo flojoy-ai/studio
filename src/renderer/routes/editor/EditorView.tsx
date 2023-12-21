@@ -26,7 +26,7 @@ const EditorView = () => {
 
   const saveFile = async () => {
     const res = await window.api.saveFileToFullPath(fullPath, value);
-    if (res) {
+    if (res.ok) {
       setHasChanged(false);
     }
   };
