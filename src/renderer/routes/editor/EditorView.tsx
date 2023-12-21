@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button } from "@src/components/ui/button";
 import { HEADER_HEIGHT } from "../common/Layout";
+import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 
 const EditorView = () => {
   const { id } = useParams<{ id: string }>();
@@ -39,6 +40,9 @@ const EditorView = () => {
   useEffect(() => {
     loadFile();
   }, []);
+
+  useKeyboardShortcut("ctrl", "s", () => saveFile());
+  useKeyboardShortcut("meta", "s", () => saveFile());
 
   if (!id) {
     return <div>Invalid ID</div>;
