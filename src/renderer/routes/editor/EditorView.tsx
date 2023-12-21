@@ -48,7 +48,9 @@ const EditorView = () => {
       <div className="absolute right-5 z-50 flex items-center gap-2 p-4">
         {hasChanged && <div className="">Changed</div>}
         <Button onClick={saveFile}>Save</Button>
-        <Button onClick={saveFile}>Save</Button>
+        <Button asChild>
+          <a href={`vscode://file/${fullPath}`}>Open in VSCode</a>
+        </Button>
       </div>
       <CodeMirror
         value={value}
