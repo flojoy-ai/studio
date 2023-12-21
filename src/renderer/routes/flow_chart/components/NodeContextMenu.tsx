@@ -1,4 +1,3 @@
-import VSCodeSvg from "@src/assets/VSCodeSvg";
 import { Button } from "@src/components/ui/button";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { ElementsData } from "@src/types";
