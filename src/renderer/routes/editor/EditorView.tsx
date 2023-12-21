@@ -4,7 +4,6 @@ import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button } from "@src/components/ui/button";
-import { HEADER_HEIGHT } from "../common/Layout";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import invariant from "tiny-invariant";
 
@@ -45,11 +44,7 @@ const EditorView = () => {
   useKeyboardShortcut("meta", "s", () => saveFile());
 
   return (
-    <div
-      style={{
-        height: `calc(100vh - ${HEADER_HEIGHT}px)`,
-      }}
-    >
+    <div>
       <div className="absolute right-5 z-50 flex items-center gap-2 p-4">
         {hasChanged && <div className="">Changed</div>}
         <Button onClick={saveFile}>Save</Button>
@@ -58,9 +53,10 @@ const EditorView = () => {
       <CodeMirror
         value={value}
         style={{
-          height: `calc(100vh - ${HEADER_HEIGHT}px)`,
+          height: `calc(100vh - 48px)`,
         }}
         height="100%"
+        className=""
         extensions={[python()]}
         theme={vscodeDark}
         onChange={handleChange}
