@@ -6,27 +6,27 @@ import { useEffect, useState } from "react";
 import { Button } from "@src/components/ui/button";
 import { HEADER_HEIGHT } from "../common/Layout";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+import invariant from "tiny-invariant";
 
 const EditorView = () => {
   const { id } = useParams<{ id: string }>();
+
+  // Joey: https://github.com/remix-run/react-router/issues/8498
+  invariant(id, "Error: ID isn't set for the editor view route!");
+
+  const fullPath = atob(id);
 
   const [value, setValue] = useState("");
 
   const [hasChanged, setHasChanged] = useState<boolean>(false);
 
   const loadFile = async () => {
-    if (!id) {
-      return;
-    }
-    const res = await window.api.loadFileFromFullPath(atob(id));
+    const res = await window.api.loadFileFromFullPath(fullPath);
     setValue(res);
   };
 
   const saveFile = async () => {
-    if (!id) {
-      return;
-    }
-    const res = await window.api.saveFileToFullPath(atob(id), value);
+    const res = await window.api.saveFileToFullPath(fullPath, value);
     if (res) {
       setHasChanged(false);
     }
@@ -44,10 +44,6 @@ const EditorView = () => {
   useKeyboardShortcut("ctrl", "s", () => saveFile());
   useKeyboardShortcut("meta", "s", () => saveFile());
 
-  if (!id) {
-    return <div>Invalid ID</div>;
-  }
-
   return (
     <div
       style={{
@@ -56,6 +52,7 @@ const EditorView = () => {
     >
       <div className="absolute right-5 z-50 flex items-center gap-2 p-4">
         {hasChanged && <div className="">Changed</div>}
+        <Button onClick={saveFile}>Save</Button>
         <Button onClick={saveFile}>Save</Button>
       </div>
       <CodeMirror
