@@ -32,6 +32,7 @@
     "electron:test": "npx playwright test"
   },
   "dependencies": {
+    "@astrojs/starlight-docsearch": "^0.1.0",
     "@codemirror/lang-python": "^6.1.3",
     "@electron-toolkit/utils": "^2.0.1",
     "@radix-ui/react-alert-dialog": "^1.0.5",
