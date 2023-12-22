@@ -74,7 +74,7 @@
     "jotai-immer": "^0.2.0",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.279.0",
+    "lucide-react": "^0.294.0",
     "mixpanel-browser": "^2.48.1",
     "plotly.js": "file:bauhaus/plotly.js-2.23.2.tgz",
     "react": "^18.2.0",
