@@ -1,8 +1,7 @@
 import os
+from typing import Literal, Optional
 
 from flojoy import DataContainer, FlojoyCloud, flojoy, get_env_var, node_preflight
-
-FLOJOY_CLOUD_URI: str = os.environ.get("FLOJOY_CLOUD_URI") or "https://cloud.flojoy.ai"
 
 
 @node_preflight
@@ -20,6 +19,7 @@ def FLOJOY_CLOUD_UPLOAD(
     default: DataContainer,
     hardware_device_id: str,
     name: str,
+    status: Literal["None", "Pass", "Fail"] = "None",
 ) -> DataContainer:
     """Upload a DataContainer to Flojoy Cloud (beta).
 
@@ -54,7 +54,12 @@ def FLOJOY_CLOUD_UPLOAD(
 
     if default:
         # This will stream the data to the cloud
-
-        cloud.store_dc(default, default.type, hardware_device_id, name)
+        cloud.store_dc(
+            default,
+            default.type,
+            hardware_device_id,
+            name,
+            None if status == "None" else status,
+        )
 
     return default
