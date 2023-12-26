@@ -83,7 +83,7 @@ export async function pipxEnsurepath(): Promise<void> {
 
 export async function installPoetry(): Promise<void> {
   const py = process.env.PY_INTERPRETER ?? "python";
-  await execCommand(new Command(`${py} -m pipx install poetry --force`));
+  await execCommand(new Command(`"${py}" -m pipx install poetry --force`));
   const poetryPath = await getPoetryPath();
   process.env.POETRY_PATH = poetryPath;
 }
@@ -157,14 +157,14 @@ export function killCaptain(): boolean {
 
 export async function listPythonPackages() {
   const poetry = process.env.POETRY_PATH ?? "poetry";
-  return await execCommand(new Command(`${poetry} run pip freeze`), {
+  return await execCommand(new Command(`"${poetry}" run pip freeze`), {
     quiet: true,
   });
 }
 
 export async function pyvisaInfo() {
   const poetry = process.env.POETRY_PATH ?? "poetry";
-  return await execCommand(new Command(`${poetry} run pyvisa-info`), {
+  return await execCommand(new Command(`"${poetry}" run pyvisa-info`), {
     quiet: true,
   });
 }
