@@ -89,11 +89,11 @@ def DECODE_I2C_MSO2X(
     scope.write(f"DISPLAY:WAVEVIEW1:BUS:B{bus_number}:STATE")
 
     if clock_channel[0] == "D":
-        cchan = f"DCH1_D{clock_channel}"
+        cchan = f"DCH1_{clock_channel}"
     else:
         cchan = f"CH{clock_channel}"
     if data_channel[0] == "D":
-        dchan = f"DCH1_D{data_channel}"
+        dchan = f"DCH1_{data_channel}"
     else:
         dchan = f"CH{data_channel}"
 
@@ -116,21 +116,26 @@ def DECODE_I2C_MSO2X(
 
     for i in range(5):
         # Find indexes with strings containing "Read" and "Write".
-        read = next(
-            (i for i, e in enumerate(data) if "Read" in e),
-            len(data) - 1,
-        )
         write = next(
             (i for i, e in enumerate(data) if "Write" in e),
+            len(data) - 1,
+        )
+        if write < len(data) - 1:
+            formatted += data[write]
+            formatted += " "
+            formatted += data[write + 1]
+            formatted += "  "
+            data[write] = " "
+
+        read = next(
+            (i for i, e in enumerate(data) if "Read" in e),
             len(data) - 1,
         )
         if read < len(data) - 1:
             formatted += data[read]
             formatted += " "
             formatted += data[read + 1]
-        if write < len(data) - 1:
-            formatted += data[write]
-            formatted += " "
-            formatted += data[write + 1]
+            formatted += "  "
+            data[read] = " "
 
     return String(s=formatted)
