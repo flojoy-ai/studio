@@ -84,7 +84,7 @@ export async function pipxEnsurepath(): Promise<void> {
 
 export async function installPoetry(): Promise<void> {
   const py = process.env.PY_INTERPRETER ?? "python";
-  const localDir = `${os.homedir()}/.local`;
+  const localDir = join(os.homedir(), ".local");
   if (!existsSync(localDir)) {
     mkdirSync(localDir);
   }
