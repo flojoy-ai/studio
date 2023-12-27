@@ -42,3 +42,8 @@ export const handleDownloadLogs = () => {
       shell.openPath(savePath);
     });
 };
+
+export const getAllLogs = async () => {
+  const logFile = join(app.getPath("logs"), "main.log");
+  return await Promise.resolve(readFileSync(logFile).toString());
+};

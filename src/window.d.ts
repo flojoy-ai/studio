@@ -8,6 +8,7 @@ declare global {
   var mainWindow: BrowserWindow;
   var pythonInterpreters: InterpretersList;
   var captainProcess: ChildProcess | null;
+  var setupStarted: number;
 
   interface Window {
     api: typeof api;

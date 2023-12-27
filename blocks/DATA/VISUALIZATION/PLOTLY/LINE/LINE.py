@@ -93,6 +93,7 @@ def LINE(
         )
     if yaxis_title != "":
         fig.update_layout(
+            margin=dict(l=64, r=32, t=32, b=32),
             yaxis_title=yaxis_title,
         )
     if x_log_scale:

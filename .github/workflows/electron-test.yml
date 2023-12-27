@@ -18,6 +18,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
+  CI: "true"
   NODE_ENV: "dev"
   DISPLAY: :0
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
