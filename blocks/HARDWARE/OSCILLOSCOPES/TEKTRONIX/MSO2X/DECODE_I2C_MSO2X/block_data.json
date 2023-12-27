@@ -1,0 +1,45 @@
+{
+  "docstring": {
+    "long_description": "Requires a CONNECT_MSO2X block to create the connection.\n\nTested on MSO24.",
+    "short_description": "Creates a bus decode for decoding I2C.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_MSO2X block)."
+      },
+      {
+        "name": "bus_number",
+        "type": "int, default=1",
+        "description": "The bus number to use."
+      },
+      {
+        "name": "clock_channel",
+        "type": "select, default=1",
+        "description": "The clock channel to use."
+      },
+      {
+        "name": "data_channel",
+        "type": "select, default=1",
+        "description": "The data channel to use."
+      },
+      {
+        "name": "clock_threshold",
+        "type": "float, default=1",
+        "description": "The clock threshold voltage to use."
+      },
+      {
+        "name": "data_threshold",
+        "type": "float, default=1",
+        "description": "The data threshold voltage to use."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "String",
+        "description": "I2C messages"
+      }
+    ]
+  }
+}

@@ -38,14 +38,16 @@ def I2C_TRIGGER_MSO2X(
         What to trigger on
     addr_bits : select, default=10
         The number of bits in the address to trigger on
-    addr : str, default=000101010010
-        The address to trigger on (binary only currently). Can use X for wildcard (e.g. XXXXXXX).
+    addr : str, default=0101010010
+        The address to trigger on (binary only currently). Can use X (0 or 1).
+        Putting a lower number of bits: e.g. "1011" sets the address XXX1011.
     data_direction : select, default=read
         Trigger on read, write, or either data direction.
     data_size : int, default=1
         The data size, in bytes, to trigger on.
     data_value : str, default=11001101
-        The data to trigger on (binary only currently). Can use X for wildcard (e.g. XXXXXXXX).
+        The data to trigger on (binary only currently).
+        Can use X for wildcard (e.g. XXXXXXXX).
 
     Returns
     -------
@@ -55,6 +57,11 @@ def I2C_TRIGGER_MSO2X(
 
     # Retrieve oscilloscope instrument connection
     scope = connection.get_handle()
+
+    allowed = set("01Xx")
+
+    assert set(addr) <= allowed, "addr must contain only 0, 1, or X"
+    assert set(data_value) <= allowed, "addr must contain only 0, 1, or X"
 
     scope.write(f"TRIGger:A:BUS:B{bus_num}:I2C:CONDition {condition}")
 
