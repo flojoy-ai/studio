@@ -407,19 +407,37 @@ const FlowChartTab = () => {
       // Calculate position of the context menu. We want to make sure it
       // doesn't get positioned off-screen.
       const pane = ref.current.getBoundingClientRect();
+      const topToBlock = event.clientY;
+      const contextMenuHeight = 200;
+
+      const paneToBlock = topToBlock - 200;
+
+      let top: number | undefined = undefined;
+      let bottom: number | undefined = undefined;
+
+      if (paneToBlock < contextMenuHeight / 2) {
+        top = paneToBlock;
+      } else if (paneToBlock < contextMenuHeight) {
+        if (pane.height - paneToBlock < contextMenuHeight) {
+          top = contextMenuHeight - paneToBlock;
+        } else {
+          top = paneToBlock;
+        }
+      } else if (pane.height - paneToBlock < contextMenuHeight) {
+        top = undefined;
+        bottom = pane.height - paneToBlock;
+      } else {
+        top = paneToBlock;
+      }
       setMenu({
         id: node.id,
-        top:
-          event.clientY < pane.height - 200 ? event.clientY - 225 : undefined,
+        top,
         left: event.clientX < pane.width - 200 ? event.clientX : undefined,
         right:
           event.clientX >= pane.width - 200
             ? pane.width - event.clientX
             : undefined,
-        bottom:
-          event.clientY >= pane.height - 200
-            ? pane.height - event.clientY + 75
-            : undefined,
+        bottom,
         fullPath: nodeFileData.full_path ?? "",
       });
     },

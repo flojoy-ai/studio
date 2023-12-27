@@ -135,7 +135,7 @@ const BlockModal = ({
             onClick={async () => {
               await window.api.openLink(`vscode://file/${blockFullPath}`);
             }}
-            data-testid="btn-edit-python"
+            data-testid="btn-open-vscode"
             variant="secondary"
           >
             Open in VSCode

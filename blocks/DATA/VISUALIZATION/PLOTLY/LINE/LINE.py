@@ -6,13 +6,23 @@ from pandas.api.types import is_datetime64_any_dtype
 
 
 @flojoy
-def LINE(default: OrderedPair | DataFrame | Matrix | Vector) -> Plotly:
+def LINE(
+    default: OrderedPair | DataFrame | Matrix | Vector,
+    xaxis_title: str = "",
+    yaxis_title: str = "",
+    x_log_scale: bool = False,
+    y_log_scale: bool = False,
+) -> Plotly:
     """Create a Plotly Line visualization for a given input DataContainer.
 
     Parameters
     ----------
     default : OrderedPair|DataFrame|Matrix|Vector
         the DataContainer to be visualized
+    xaxis_title: str
+        Choose the label for the x axis.
+    yaxis_title: str
+        Choose the label for the y axis.
 
     Returns
     -------
@@ -76,5 +86,19 @@ def LINE(default: OrderedPair | DataFrame | Matrix | Vector) -> Plotly:
             y = default.v
             x = arange(len(y))
             fig.add_trace(go.Scatter(x=x, y=y, mode="lines"))
+
+    if xaxis_title != "":
+        fig.update_layout(
+            xaxis_title=xaxis_title,
+        )
+    if yaxis_title != "":
+        fig.update_layout(
+            margin=dict(l=64, r=32, t=32, b=32),
+            yaxis_title=yaxis_title,
+        )
+    if x_log_scale:
+        fig.update_xaxes(type="log")
+    if y_log_scale:
+        fig.update_yaxes(type="log")
 
     return Plotly(fig=fig)
