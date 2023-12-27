@@ -64,12 +64,15 @@ export const useFullMetadata = () => {
   const { customBlocksMetadata } = useCustomSections();
 
   return useMemo(() => {
+    const html = document.getElementsByTagName("html")[0];
     if (nodesMetadataMap === undefined || customBlocksMetadata === undefined) {
+      html.removeAttribute("data-blockmetadata");
       return undefined;
     }
     if (nodesMetadataMap === null) {
       return null;
     }
+    html.setAttribute("data-blockmetadata", "true");
 
     return customBlocksMetadata
       ? {

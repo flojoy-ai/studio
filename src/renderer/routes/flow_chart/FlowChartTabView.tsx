@@ -126,8 +126,14 @@ const FlowChartTab = () => {
   const { states } = useSocket();
   const { programResults, setProgramResults } = states;
 
-  const { pythonString, setPythonString, nodeFilePath, setNodeFilePath } =
-    useFlowChartTabState();
+  const {
+    pythonString,
+    setPythonString,
+    nodeFilePath,
+    setNodeFilePath,
+    blockFullPath,
+    setBlockFullPath,
+  } = useFlowChartTabState();
 
   const {
     nodes,
@@ -356,10 +362,12 @@ const FlowChartTab = () => {
     const nodeFileData = metaData[nodeFileName] ?? {};
     setNodeFilePath(nodeFileData.path ?? "");
     setPythonString(nodeFileData.metadata ?? "");
+    setBlockFullPath(nodeFileData.full_path ?? "");
   }, [
     selectedNode,
     setNodeFilePath,
     setPythonString,
+    setBlockFullPath,
     nodesMetadataMap,
     customBlocksMetadata,
   ]);
@@ -384,29 +392,56 @@ const FlowChartTab = () => {
       // Prevent native context menu from showing
       event.preventDefault();
 
-      if (ref.current === null) {
+      if (ref.current === null || !nodesMetadataMap) {
         return;
       }
+
+      let metaData: BlocksMetadataMap = nodesMetadataMap;
+      if (customBlocksMetadata) {
+        metaData = { ...nodesMetadataMap, ...customBlocksMetadata };
+      }
+
+      const nodeFileName = `${node.data.func}.py`;
+      const nodeFileData = metaData[nodeFileName] ?? {};
 
       // Calculate position of the context menu. We want to make sure it
       // doesn't get positioned off-screen.
       const pane = ref.current.getBoundingClientRect();
+      const topToBlock = event.clientY;
+      const contextMenuHeight = 200;
+
+      const paneToBlock = topToBlock - 200;
+
+      let top: number | undefined = undefined;
+      let bottom: number | undefined = undefined;
+
+      if (paneToBlock < contextMenuHeight / 2) {
+        top = paneToBlock;
+      } else if (paneToBlock < contextMenuHeight) {
+        if (pane.height - paneToBlock < contextMenuHeight) {
+          top = contextMenuHeight - paneToBlock;
+        } else {
+          top = paneToBlock;
+        }
+      } else if (pane.height - paneToBlock < contextMenuHeight) {
+        top = undefined;
+        bottom = pane.height - paneToBlock;
+      } else {
+        top = paneToBlock;
+      }
       setMenu({
         id: node.id,
-        top:
-          event.clientY < pane.height - 200 ? event.clientY - 225 : undefined,
+        top,
         left: event.clientX < pane.width - 200 ? event.clientX : undefined,
         right:
           event.clientX >= pane.width - 200
             ? pane.width - event.clientX
             : undefined,
-        bottom:
-          event.clientY >= pane.height - 200
-            ? pane.height - event.clientY + 75
-            : undefined,
+        bottom,
+        fullPath: nodeFileData.full_path ?? "",
       });
     },
-    [setMenu],
+    [setMenu, nodesMetadataMap, customBlocksMetadata],
   );
 
   // Close the context menu if it's open whenever the window is clicked.
@@ -589,6 +624,7 @@ const FlowChartTab = () => {
             nodeResults={programResults}
             pythonString={pythonString}
             blockFilePath={nodeFilePath}
+            blockFullPath={blockFullPath}
           />
         </div>
       </ReactFlowProvider>

@@ -10,8 +10,6 @@ export const plotLayout = (theme: "dark" | "light") => {
     autosize: true,
     font: { color: accentColor },
     margin: { t: 32, r: 32, b: 32, l: 32 },
-    xaxis: { zeroline: false, type: "-" },
-    template: {},
   };
   return defaultLayout;
 };

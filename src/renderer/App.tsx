@@ -12,6 +12,7 @@ import PythonManagerTabView from "./routes/python_manager_panel/PythonManagerTab
 import { Layout } from "./routes/common/Layout";
 import { Index } from "./routes/index";
 import packageJson from "../../package.json";
+import EditorView from "./routes/editor/EditorView";
 import { initMixPanel } from "./services/MixpanelServices";
 
 function ErrorBoundary() {
@@ -60,6 +61,7 @@ const App = () => {
               errorElement={<ErrorBoundary />}
             />
           </Route>
+          <Route path="/editor/:id" element={<EditorView />} />
         </Routes>
       </div>
     </ThemeProvider>

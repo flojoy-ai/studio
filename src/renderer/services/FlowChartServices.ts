@@ -1,7 +1,7 @@
 import { Setting } from "../hooks/useSettings";
 import { ReactFlowJsonObject } from "reactflow";
 import { ElementsData } from "@src/types";
-import { Result } from "@src/types/result";
+import { Result } from "src/types/result";
 import { baseClient } from "@src/lib/base-client";
 import { RootNode, validateRootSchema } from "@src/utils/ManifestLoader";
 import { toast } from "sonner";
@@ -23,7 +23,7 @@ export const postEnvironmentVariable = async (
 ): Promise<Result<null, unknown>> => {
   try {
     await baseClient.post("env", body);
-    return { ok: true, data: null };
+    return { ok: true, value: null };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return { ok: false, error: error.response?.data ?? error.message };
@@ -36,7 +36,7 @@ export const deleteEnvironmentVariable = async (
   try {
     await baseClient.delete(`env/${key}`);
 
-    return { ok: true, data: null };
+    return { ok: true, value: null };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return { ok: false, error: error.response?.data ?? error.message };

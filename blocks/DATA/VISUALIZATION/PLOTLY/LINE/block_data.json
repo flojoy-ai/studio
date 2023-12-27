@@ -7,6 +7,16 @@
         "name": "default",
         "type": "OrderedPair|DataFrame|Matrix|Vector",
         "description": "the DataContainer to be visualized"
+      },
+      {
+        "name": "xaxis_title",
+        "type": "str",
+        "description": "Choose the label for the x axis."
+      },
+      {
+        "name": "yaxis_title",
+        "type": "str",
+        "description": "Choose the label for the y axis."
       }
     ],
     "returns": [

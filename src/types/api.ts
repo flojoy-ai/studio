@@ -32,7 +32,11 @@ export enum API {
   poetryInstallDepGroup = "POETRY_INSTALL_DEP_GROUP",
   poetryUninstallDepGroup = "POETRY_UNINSTALL_DEP_GROUP",
   openFilePicker = "OPEN_FILE_PICKER",
+  openEditorWindow = "OPEN_EDITOR_WINDOW",
+  loadFileFromFullPath = "LOAD_FILE_FROM_FULL_PATH",
+  saveFileToFullPath = "SAVE_FILE_TO_FULL_PATH",
   setupExecutionTime = "SETUP_EXEC_TIME",
   isCI = "IS_CI",
   getAllLogs = "GET_ALL_LOGS",
+  openLink = "OPEN_LINK",
 }

@@ -3,6 +3,7 @@ import * as fileSave from "./fileSave";
 import { API } from "../types/api";
 import { InterpretersList } from "../main/python/interpreter";
 import { PoetryGroupInfo, PythonDependency } from "src/types/poetry";
+import { Result } from "src/types/result";
 
 export default {
   ...fileSave,
@@ -58,9 +59,23 @@ export default {
 
   openFilePicker: (): Promise<{ filePath: string; fileContent: string }> =>
     ipcRenderer.invoke(API.openFilePicker),
+
+  openEditorWindow: (filepath: string): Promise<void> =>
+    ipcRenderer.invoke(API.openEditorWindow, filepath),
+
+  loadFileFromFullPath: (filepath: string): Promise<string> =>
+    ipcRenderer.invoke(API.loadFileFromFullPath, filepath),
+
+  saveFileToFullPath: (
+    filepath: string,
+    fileContent: string,
+  ): Promise<Result<void>> =>
+    ipcRenderer.invoke(API.saveFileToFullPath, filepath, fileContent),
   getSetupExecutionTime: (): Promise<number> =>
     ipcRenderer.invoke(API.setupExecutionTime),
 
   isCI: (): Promise<boolean> => ipcRenderer.invoke(API.isCI),
   getAllLogs: (): Promise<string> => ipcRenderer.invoke(API.getAllLogs),
+  openLink: (url: string): Promise<void> =>
+    ipcRenderer.invoke(API.openLink, url),
 };

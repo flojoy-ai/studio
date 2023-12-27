@@ -5,6 +5,7 @@ import { plotLayout } from "./layout";
 import { useMemo } from "react";
 import { PlotProps } from "@src/types/plotly";
 import { useTheme } from "@src/providers/themeProvider";
+import _ from "lodash";
 
 const MATRIX_SIZE = {
   width: 240,
@@ -12,6 +13,13 @@ const MATRIX_SIZE = {
 };
 
 const Plot = createPlotlyComponent(Plotly);
+
+const DEFAULT_MARGIN = {
+  l: 0,
+  b: 0,
+  r: 0,
+  t: 30,
+};
 
 const PlotlyComponent = (props: PlotProps) => {
   const { data, layout, useResizeHandler, style, isThumbnail } = props;
@@ -21,13 +29,18 @@ const PlotlyComponent = (props: PlotProps) => {
   const isMatrix = data[0]?.header?.values?.length === 0;
   const is3dPlot = data[0]?.type === "surface" || data[0]?.type === "scatter3d";
 
+  const margin = _.isEqual(layout.margin, DEFAULT_MARGIN)
+    ? defaultPlotLayout.margin
+    : layout.margin;
+
   return (
     <Plot
       {...props}
       data={data}
       layout={{
-        ...layout,
         ...defaultPlotLayout,
+        ...layout,
+        margin,
         showlegend: !isThumbnail,
         ...(isThumbnail && isMatrix && MATRIX_SIZE),
       }}
