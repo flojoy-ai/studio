@@ -1,0 +1,35 @@
+{
+  "docstring": {
+    "long_description": "This block should also work with compatible Tektronix AFG31XXX instruments.",
+    "short_description": "Set the parameters using the input Scalar.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_AFG31000 block)."
+      },
+      {
+        "name": "channel",
+        "type": "select, default=1",
+        "description": "Choose the channel to alter."
+      },
+      {
+        "name": "parameter",
+        "type": "select, default=frequency",
+        "description": "Choose the parameter to alter."
+      },
+      {
+        "name": "input",
+        "type": "Scalar",
+        "description": "The value to change the selected parameter to."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Scalar",
+        "description": "The input value"
+      }
+    ]
+  }
+}
