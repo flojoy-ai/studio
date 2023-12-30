@@ -2,7 +2,7 @@ name: Danger CI
 on: pull_request
 
 jobs:
-  test:
+  code-review-shores:
     runs-on: ubuntu-latest
 
     steps:
