@@ -1,6 +1,6 @@
 import json
 import os
-from typing import Generic, Literal, Optional, TypeVar
+from typing import Generic, Optional, TypeVar
 
 import numpy as np
 import pandas as pd
