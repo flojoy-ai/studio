@@ -1,0 +1,88 @@
+---
+title: Connecting to Bronkhorstmassflowctrl by Bronkhorst in Python
+description: Compact Mass Flow and Pressure Controller for Gases
+keywords: [oscilloscopes, Tektronix, InstrumentKit] 
+slug: instruments-database/Mass Controllers/Bronkhorst/Bronkhorstmassflowctrl 
+
+sidebar:
+    label: Bronkhorstmassflowctrl 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+Compact Mass Flow and Pressure Controller for Gases
+
+
+
+Device Specification: [here](https://www.bronkhorst.com/int/products/gas-flow/flexi-flow/ff-c1x/?pdf=true)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: BRONKHORST</h2></summary>
+
+![BRONKHORST](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806111/Instruments/Vendor%20Logos/Bronkhorst.png)
+
+Bronkhorst offers a wide product portfolio of gas and liquid flow meters for low flow rates
+
+- Headquarters: Netherland
+- Yearly Revenue (millions, USD): 114
+- Vendor Website: [here](https://www.bronkhorst.com/int/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="MASS_CONTROLLERS"
+  manufacturer="BRONKHORST"
+></FeaturedInstrumentVideo>
+
+## Connect to the Bronkhorstmassflowctrl in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+<Tabs>
+
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category='OSCILLOSCOPES' manufacturer='TEKTRONIX'></NodeCardCollection>
+
+</TabItem>
+<TabItem value="InstrumentKit" label="InstrumentKit">
+
+
+```python
+from instrumentkit import Scope
+
+# Connect to the oscilloscope
+scope = Scope("TCPIP::192.168.1.1::INSTR")
+
+# Set the timebase and voltage scale
+scope.timebase = 1e-3  # 1 ms/div
+scope.channel1.voltage_scale = 0.1  # 0.1 V/div
+
+# Acquire a waveform
+waveform = scope.acquire_waveform(channel=1)
+
+# Print the waveform data
+print(waveform.data)
+
+# Disconnect from the oscilloscope
+scope.disconnect()
+```
+
+In this script, we first import the `Scope` class from the `instrumentkit` module. Then, we create an instance of the `Scope` class by passing the instrument's address as a string to the constructor.
+
+Next, we set the timebase and voltage scale of the oscilloscope using the `timebase` and `voltage_scale` properties of the `Scope` and `Channel` classes, respectively.
+
+We then acquire a waveform from channel 1 using the `acquire_waveform` method of the `Scope` class. The acquired waveform is stored in the `waveform` variable.
+
+Finally, we print the waveform data using the `data` property of the `Waveform` class. After that, we disconnect from the oscilloscope using the `disconnect` method of the `Scope` class.
+
+Note: Replace `"TCPIP::192.168.1.1::INSTR"` with the actual IP address or VISA resource string of your TDS224 Oscilloscope.
+
+</TabItem>
+</Tabs>

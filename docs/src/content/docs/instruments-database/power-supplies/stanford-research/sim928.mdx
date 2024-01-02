@@ -1,0 +1,79 @@
+---
+title: Connecting to SIM 928 by Stanford Research Systems in Python
+description: The SIM928 Isolated Voltage Source is ideal for applications where ultra-clean DC voltage is required. Voltage can be set between ±20 VDC with millivolt resolution, and the source can drive up to ±10 mA. The output circuit is optically isolated from all earth-referenced charging circuitry, providing maximum flexibility and noise immunity. The system can float to ±40 V, and the output is short-circuit protected.
+keywords: [power supplies, Stanford Research Systems, QCodes Community] 
+slug: instruments-database/power-supplies/stanford-research/sim928 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782666/Instruments/Power%20Supplies/SIM-928/SIM-928.jpg
+sidebar:
+    label: SIM 928 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The SIM928 Isolated Voltage Source is ideal for applications where ultra-clean DC voltage is required. Voltage can be set between ±20 VDC with millivolt resolution, and the source can drive up to ±10 mA. The output circuit is optically isolated from all earth-referenced charging circuitry, providing maximum flexibility and noise immunity. The system can float to ±40 V, and the output is short-circuit protected.
+
+![SIM 928](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782666/Instruments/Power%20Supplies/SIM-928/SIM-928.jpg)
+
+Device Specification: [here](https://www.thinksrs.com/downloads/pdfs/catalog/SIM928c.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: STANFORD RESEARCH SYSTEMS</h2></summary>
+
+![STANFORD RESEARCH SYSTEMS](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806206/Instruments/Vendor%20Logos/Stanford_Research.png)
+
+Stanford Research Systems is a maker of general test and measurement instruments. The company was founded in 1980, is privately held, and is not affiliated with Stanford University.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 25
+- Vendor Website: [here](https://www.thinksrs.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="POWER_SUPPLIES"
+  manufacturer="STANFORD RESEARCH SYSTEMS"
+></FeaturedInstrumentVideo>
+
+## Connect to the SIM 928 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+<Tabs>
+
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category='POWER_SUPPLIES' manufacturer='STANFORD'></NodeCardCollection>
+
+</TabItem>
+<TabItem value="QCodes Community" label="QCodes Community">
+
+To connect to a SIM928 Power Supply using Qcodes Community, you can use the following Python script:
+
+```python
+from qcodes.instrument.visa import VisaInstrument
+
+class SIM928(VisaInstrument):
+    def __init__(self, name, address, **kw):
+        super().__init__(name, address=address, terminator='\n', **kw)
+        self.add_parameter('voltage', unit='V', get_cmd='VOLT?', set_cmd='VOLT {:.3f}')
+        self.add_parameter('current', unit='A', get_cmd='CURR?', set_cmd='CURR {:.3f}')
+        self.add_parameter('output', get_cmd='OUTP?', set_cmd='OUTP {}', val_mapping={True: 'ON', False: 'OFF'})
+        self.connect_message()
+
+sim928 = SIM928('sim928', 'YOUR_VISA_ADDRESS')
+
+print(sim928.voltage())
+sim928.voltage(5)
+print(sim928.voltage())
+```
+
+Replace `'YOUR_VISA_ADDRESS'` with the actual VISA address of your SIM928 Power Supply.
+
+</TabItem>
+</Tabs>

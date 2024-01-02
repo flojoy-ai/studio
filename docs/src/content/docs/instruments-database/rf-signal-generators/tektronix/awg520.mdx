@@ -1,0 +1,73 @@
+---
+title: Connecting to AWG 520 by Tektronix in Python
+description: The AWG520's unique design combines a graphical editing display with powerful output capabilities to simplify the creation of arbitrary and complex waveforms and enable easy on-screen waveform editing. With the AWG520's many built-in intuitive and powerful features, you can easily develop and edit custom waveforms. Option 03 adds an independent 10–bit-wide digital data port that can be used in conjunction with marker outputs for data generation up to 14–bits wide at up to 1 GHz (14–bits, AWG520). Direct waveform transfer capability makes the AWG520 the perfect complement to selected Tektronix oscilloscopes.
+keywords: [rf signal generators, Tektronix, QCodes] 
+slug: instruments-database/rf-signal-generators/tektronix/awg520 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782468/Instruments/RF%20Signal%20Generator/AWG520/AWG520.jpg
+sidebar:
+    label: AWG 520 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The AWG520's unique design combines a graphical editing display with powerful output capabilities to simplify the creation of arbitrary and complex waveforms and enable easy on-screen waveform editing. With the AWG520's many built-in intuitive and powerful features, you can easily develop and edit custom waveforms. Option 03 adds an independent 10–bit-wide digital data port that can be used in conjunction with marker outputs for data generation up to 14–bits wide at up to 1 GHz (14–bits, AWG520). Direct waveform transfer capability makes the AWG520 the perfect complement to selected Tektronix oscilloscopes.
+
+![AWG 520](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782468/Instruments/RF%20Signal%20Generator/AWG520/AWG520.jpg)
+
+Device Specification: [here](https://download.tek.com/datasheet/76W_11846_5_1.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: TEKTRONIX</h2></summary>
+
+![TEKTRONIX](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806108/Instruments/Vendor%20Logos/Tektronix.png)
+
+Tektronix, Inc., historically widely known as Tek, is an American company best known for manufacturing test and measurement devices such as [oscilloscopes](https://en.wikipedia.org/wiki/Oscilloscope), [logic analyzers](https://en.wikipedia.org/wiki/Logic_analyzer), and video and mobile test protocol equipment.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5800
+- Vendor Website: [here](https://www.tek.com/en)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="RF_SIGNAL_GENERATORS"
+  manufacturer="TEKTRONIX"
+></FeaturedInstrumentVideo>
+
+## Connect to the AWG 520 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+<Tabs>
+
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category='RF_SIGNAL_GENERATORS' manufacturer='TEKTRONIX'></NodeCardCollection>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+```python
+import qcodes as qc
+from qcodes.instrument_drivers.tektronix.AWG5208 import AWG5208
+
+# Connect to the AWG5208 RF Signal Generator
+awg = AWG5208('awg', 'TCPIP0::192.168.1.1::inst0::INSTR')
+
+# Perform operations with the AWG5208
+awg.ch1.frequency(1e9)
+awg.ch1.amplitude(0.5)
+awg.ch1.output('ON')
+
+# Close the connection to the AWG5208
+awg.close()
+```
+
+</TabItem>
+</Tabs>

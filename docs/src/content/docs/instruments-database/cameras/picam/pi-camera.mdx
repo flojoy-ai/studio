@@ -1,0 +1,90 @@
+---
+title: Connecting to Pi camera by Picam in Python
+description: The v2 Camera Module has a Sony IMX219 8-megapixel sensor (compared to the 5-megapixel OmniVision OV5647 sensor of the original camera).
+keywords: [cameras, Picam, Instrumental] 
+slug: instruments-database/cameras/picam/pi-camera 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782640/Instruments/Cameras/Pi-Camera/Pi-Camera.jpg
+sidebar:
+    label: Pi camera 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The v2 Camera Module has a Sony IMX219 8-megapixel sensor (compared to the 5-megapixel OmniVision OV5647 sensor of the original camera).
+
+
+![Pi camera](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782640/Instruments/Cameras/Pi-Camera/Pi-Camera.jpg)
+
+Device Specification: [here](https://www.raspberrypi.com/documentation/accessories/camera.html)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: PICAM</h2></summary>
+
+![PICAM](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806122/Instruments/Vendor%20Logos/RaspberryPi.png)
+
+**Raspberry Pi** is a series of small single-board computers (SBCs) developed in the United Kingdom by the **Raspberry Pi** Foundation in association with Broadcom
+
+- Headquarters: UK
+- Yearly Revenue (millions, USD): 44
+- Vendor Website: [here](https://www.raspberrypi.org/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="CAMERAS"
+  manufacturer="PICAM"
+></FeaturedInstrumentVideo>
+
+## Connect to the Pi camera in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+<Tabs>
+
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category='CAMERAS' manufacturer='PICAM'></NodeCardCollection>
+
+</TabItem>
+<TabItem value="Instrumental" label="Instrumental">
+
+To use Instrumental to connect to a Pi Camera, you can follow these steps:
+
+1. Import the necessary modules:
+```python
+from instrumental import instrument, list_instruments
+```
+
+2. List the available instruments:
+```python
+instruments = list_instruments()
+print(instruments)
+```
+
+3. Connect to a Pi Camera:
+```python
+camera = instrument(instruments[0])
+```
+
+4. Use the camera to capture an image:
+```python
+image = camera.grab_image()
+```
+
+5. Display the captured image:
+```python
+import matplotlib.pyplot as plt
+plt.imshow(image)
+plt.show()
+```
+
+Note: Make sure you have the necessary dependencies installed, such as `numpy`, `matplotlib`, and `picamera`.
+
+</TabItem>
+</Tabs>

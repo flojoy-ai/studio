@@ -1,0 +1,149 @@
+---
+title: Connecting to TC 200 by Thorlabs in Python
+description: The TC200 Temperature Controller is a bench top controller intended for use with resistive heating elements rated up to 18 Watts. This general purpose instrument can drive various types of heaters, including foil and resistive coil types. It accepts feedback from either positive or negative temperature coefficient thermistors, has programmable P, I, and D gains, and will display the temperature in °C, °F, or K. In addition, it can be programmed for up to five sequential temperature settings along with associated ramp and hold times for each level. A user-programmable maximum temperature limit provides protection to the device being heated, and a user-programmable power limit protects the heating element from being over driven.
+keywords: [temperature controllers, Thorlabs, InstrumentKit] 
+slug: instruments-database/temperature-controllers/thorlabs/tc200 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782658/Instruments/Temperature%20Controllers/TC200/TC200.jpg
+sidebar:
+    label: TC 200 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The TC200 Temperature Controller is a bench top controller intended for use with resistive heating elements
+rated up to 18 Watts. This general purpose instrument can drive various types of heaters, including foil and
+resistive coil types. It accepts feedback from either positive or negative temperature coefficient thermistors, has
+programmable P, I, and D gains, and will display the temperature in °C, °F, or K. In addition, it can be
+programmed for up to five sequential temperature settings along with associated ramp and hold times for each
+level. A user-programmable maximum temperature limit provides protection to the device being heated, and a
+user-programmable power limit protects the heating element from being over driven. 
+
+![TC 200](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782658/Instruments/Temperature%20Controllers/TC200/TC200.jpg)
+
+Device Specification: [here](https://www.thorlabs.com/_sd.cfm?fileName=12597-D02.pdf&partNumber=TC200)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: THORLABS</h2></summary>
+
+![THORLABS](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692126009/Instruments/Vendor%20Logos/Thorlabs.png)
+
+Thorlabs, Inc. is an American privately held optical equipment company headquartered in Newton, New Jersey. The company was founded in 1989 by Alex Cable, who serves as its current president and CEO. As of 2018, Thorlabs has annual sales of approximately $500 million.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 550
+- Vendor Website: [here](https://www.thorlabs.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="TEMPERATURE_CONTROLLERS"
+  manufacturer="THORLABS"
+></FeaturedInstrumentVideo>
+
+## Connect to the TC 200 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+<Tabs>
+
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category='TEMPERATURE_CONTROLLERS' manufacturer='THORLABS'></NodeCardCollection>
+
+</TabItem>
+<TabItem value="InstrumentKit" label="InstrumentKit">
+
+
+```python
+from instrumentkit import SerialConnection
+from instrumentkit import TC200
+
+# Create a serial connection to the TC200 Temperature Controller
+connection = SerialConnection(port='/dev/ttyUSB0', baudrate=9600)
+tc200 = TC200(connection)
+
+# Get the name and version number of the device
+name = tc200.name()
+print(f"Device Name: {name}")
+
+# Get the current output mode of the TC200
+mode = tc200.mode
+print(f"Output Mode: {mode}")
+
+# Set the output mode to 'cycle'
+tc200.mode = TC200.Mode.cycle
+
+# Get the current enable status of the heater
+enable = tc200.enable
+print(f"Heater Enable: {enable}")
+
+# Set the enable status to True (turn on the heater)
+tc200.enable = True
+
+# Get the current temperature of the sensor
+temperature = tc200.temperature
+print(f"Temperature: {temperature}")
+
+# Get the maximum temperature setting
+max_temperature = tc200.max_temperature
+print(f"Max Temperature: {max_temperature}")
+
+# Set the maximum temperature to 100 degrees Celsius
+tc200.max_temperature = 100
+
+# Get the current set temperature
+temperature_set = tc200.temperature_set
+print(f"Set Temperature: {temperature_set}")
+
+# Set the temperature setpoint to 50 degrees Celsius
+tc200.temperature_set = 50
+
+# Get the current P, I, D gains of the PID controller
+pid = tc200.pid
+print(f"PID Gains: {pid}")
+
+# Set the P, I, D gains of the PID controller to [10, 5, 2]
+tc200.pid = [10, 5, 2]
+
+# Get the current temperature units
+degrees = tc200.degrees
+print(f"Temperature Units: {degrees}")
+
+# Set the temperature units to degrees Fahrenheit
+tc200.degrees = 'degF'
+
+# Get the current thermistor type
+sensor = tc200.sensor
+print(f"Thermistor Type: {sensor}")
+
+# Set the thermistor type to 'ptc1000'
+tc200.sensor = TC200.Sensor.ptc1000
+
+# Get the current beta value of the thermistor curve
+beta = tc200.beta
+print(f"Beta Value: {beta}")
+
+# Set the beta value of the thermistor curve to 3000
+tc200.beta = 3000
+
+# Get the maximum power setting
+max_power = tc200.max_power
+print(f"Max Power: {max_power}")
+
+# Set the maximum power to 10 Watts
+tc200.max_power = 10
+
+# Close the connection to the TC200 Temperature Controller
+tc200.close()
+```
+
+This script demonstrates how to connect to the TC200 Temperature Controller, retrieve and set various properties such as output mode, enable status, temperature, maximum temperature, temperature setpoint, PID gains, temperature units, thermistor type, beta value, and maximum power. Finally, it closes the connection to the TC200 Temperature Controller.
+
+</TabItem>
+</Tabs>

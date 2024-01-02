@@ -1,0 +1,86 @@
+---
+title: Connecting to RTO 1000 by Rohdes&Schwarz in Python
+description: With an acquisition memory of 400 Mpts per channel simultaneously for all four channels, the oscilloscope offers up to 100 times the memory depth of comparable devices as standard.  The R&S MXO 4 oscilloscopes offer the world's highest update rate of 4.5 million waveforms per second.
+keywords: [digital attenuators, Vaunix, QCodes Community] 
+slug: instruments-database/oscilloscopes/rohde-schwarz/r&s-rto1000 
+
+sidebar:
+    label: RTO 1000 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+With an acquisition memory of 400 Mpts per channel simultaneously for all four channels, the oscilloscope offers up to 100 times the memory depth of comparable devices as standard.
+
+The R&S MXO 4 oscilloscopes offer the world's highest update rate of 4.5 million waveforms per second.
+
+
+
+Device Specification: [here](https://scdn.rohde-schwarz.com/ur/pws/dl_downloads/dl_common_library/dl_brochures_and_datasheets/pdf_1/service_support_30/RTO_dat-sw_en_5214-5155-22_v2800.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: ROHDES&SCHWARZ</h2></summary>
+
+![ROHDES&SCHWARZ](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806194/Instruments/Vendor%20Logos/RohdeSchwarz.png)
+
+Rohde & Schwarz GmbH & Co KG is an international electronics group specializing in the fields of electronic test equipment, broadcast & media, cybersecurity, radiomonitoring and radiolocation, and radiocommunication.
+
+- Headquarters: Munich, Germany
+- Yearly Revenue (millions, USD): 2500
+- Vendor Website: [here](https://www.rohde-schwarz.com/ca/home_48230.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="OSCILLOSCOPES"
+  manufacturer="ROHDES&SCHWARZ"
+></FeaturedInstrumentVideo>
+
+## Connect to the RTO 1000 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+<Tabs>
+
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category='DIGITAL_ATTENUATORS' manufacturer='VAUNIX'></NodeCardCollection>
+
+</TabItem>
+<TabItem value="QCodes Community" label="QCodes Community">
+
+Here is a Python script that uses Qcodes Community to connect to a LDA-5018V Digital Attenuator:
+
+```python
+from qcodes import Station
+from qcodes.instrument_drivers.vaunix.LDA import LDA
+
+# Create a station to hold the instrument
+station = Station()
+
+# Connect to the LDA-5018V Digital Attenuator
+lda = LDA('lda', serial_number=5018)
+
+# Add the LDA instrument to the station
+station.add_component(lda)
+
+# Print the IDN of the instrument
+print(lda.get_idn())
+
+# Set the attenuation to 10 dB
+lda.attenuation(10)
+
+# Close the connection to the instrument
+lda.close()
+```
+
+Note: Make sure you have the necessary DLL files (`VNX_atten64.dll` or `VNX_atten.dll`) in the correct directory and set the `dll_path` accordingly in the script.
+
+</TabItem>
+</Tabs>

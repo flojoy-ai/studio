@@ -1,0 +1,84 @@
+---
+title: Connecting to HMC 8041 by Rohdes&Schwarz in Python
+description: The R&S® HMC8041 offers a wide range of logging functions, an integrated energy meter and electronic fuses that can be individually combined for each channel, making it ideal for hardware developers, labs and industrial environments. Linear switching power supplies ensure high efficiency, for minimum heat dissipation even at full load.
+keywords: [power supplies, Rohdes&Schwarz, QCodes Community] 
+slug: instruments-database/power-supplies/rohdeschwarz/hmc-8041 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782431/Instruments/Power%20Supplies/HMC-8041/HMC-8041.jpg
+sidebar:
+    label: HMC 8041 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The R&S® HMC8041 offers a wide range of logging functions, an integrated energy meter and electronic fuses that can be individually combined for each channel, making it ideal for hardware developers, labs and industrial environments. Linear switching power supplies ensure high efficiency, for minimum heat dissipation even at full load.
+
+![HMC 8041](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782431/Instruments/Power%20Supplies/HMC-8041/HMC-8041.jpg)
+
+Device Specification: [here](https://www.batronix.com/pdf/Rohde-Schwarz/HMC804X/HMC804X_Datasheet_DE.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: ROHDES&SCHWARZ</h2></summary>
+
+![ROHDES&SCHWARZ](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806194/Instruments/Vendor%20Logos/RohdeSchwarz.png)
+
+Rohde & Schwarz GmbH & Co KG is an international electronics group specializing in the fields of electronic test equipment, broadcast & media, cybersecurity, radiomonitoring and radiolocation, and radiocommunication.
+
+- Headquarters: Munich, Germany
+- Yearly Revenue (millions, USD): 2500
+- Vendor Website: [here](https://www.rohde-schwarz.com/ca/home_48230.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="POWER_SUPPLIES"
+  manufacturer="ROHDES&SCHWARZ"
+></FeaturedInstrumentVideo>
+
+## Connect to the HMC 8041 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+<Tabs>
+
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category='POWER_SUPPLIES' manufacturer='ROHDES&SCHWARZ'></NodeCardCollection>
+
+</TabItem>
+<TabItem value="QCodes Community" label="QCodes Community">
+
+To connect to a Rohde & Schwarz HMC8041 Power Supply using Qcodes Community, you can use the following Python script:
+
+```python
+from qcodes.instrument_drivers.rohde_schwarz.HMC8041 import RohdeSchwarzHMC8041
+
+# Create an instance of the RohdeSchwarzHMC8041 driver
+power_supply = RohdeSchwarzHMC8041('power_supply', 'TCPIP0::192.168.1.1::INSTR')
+
+# Connect to the power supply
+power_supply.connect()
+
+# Now you can use the power supply to perform various operations
+# For example, to set the voltage of channel 1 to 5V:
+power_supply.ch1.voltage.set(5)
+
+# To turn on channel 1:
+power_supply.ch1.output.set(True)
+
+# To turn off channel 1:
+power_supply.ch1.output.set(False)
+
+# Disconnect from the power supply
+power_supply.disconnect()
+```
+
+Note that you need to replace `'TCPIP0::192.168.1.1::INSTR'` with the actual IP address or VISA resource string of your HMC8041 Power Supply.
+
+</TabItem>
+</Tabs>

@@ -68,3 +68,4 @@ build
 bin
 out
 test-results
+docs/airtable-to-markdown.py

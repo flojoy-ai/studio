@@ -1,0 +1,79 @@
+---
+title: Connecting to Tekdpo 4104 by Tektronix in Python
+description: The DPO4104 Digital Phosphor Oscilloscope delivers the performance you need to visualize even your most demanding signals. With a 1 GHz Bandwidth and offering a minimum of 5x oversampling on all channels and si (x)/x interpolation standard, you can be confident that even the fastest transient events will be captured and displayed accurately. The standard 10 M record length on all channels enables you to capture long windows of signal activity while maintaining fine timing resolution.
+keywords: [oscilloscopes, Tektronix, InstrumentKit] 
+slug: instruments-database/oscilloscopes/tektronix/dpo4104 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782769/Instruments/Oscilloscopes/DPO4104/DPO4104.jpg
+sidebar:
+    label: Tekdpo 4104 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The DPO4104 Digital Phosphor Oscilloscope delivers the performance you need to visualize even your most demanding signals. With a 1 GHz Bandwidth and offering a minimum of 5x oversampling on all channels and si (x)/x interpolation standard, you can be confident that even the fastest transient events will be captured and displayed accurately. The standard 10 M record length on all channels enables you to capture long windows of signal activity while maintaining fine timing resolution.
+
+![Tekdpo 4104](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782769/Instruments/Oscilloscopes/DPO4104/DPO4104.jpg)
+
+Device Specification: [here](https://download.tek.com/datasheet/DPO4000-Digital-Phosphor-Oscilloscope-Datasheet-48W1903210.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: TEKTRONIX</h2></summary>
+
+![TEKTRONIX](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806108/Instruments/Vendor%20Logos/Tektronix.png)
+
+Tektronix, Inc., historically widely known as Tek, is an American company best known for manufacturing test and measurement devices such as [oscilloscopes](https://en.wikipedia.org/wiki/Oscilloscope), [logic analyzers](https://en.wikipedia.org/wiki/Logic_analyzer), and video and mobile test protocol equipment.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5800
+- Vendor Website: [here](https://www.tek.com/en)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="OSCILLOSCOPES"
+  manufacturer="TEKTRONIX"
+></FeaturedInstrumentVideo>
+
+## Connect to the Tekdpo 4104 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+<Tabs>
+
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category='OSCILLOSCOPES' manufacturer='TEKTRONIX'></NodeCardCollection>
+
+</TabItem>
+<TabItem value="InstrumentKit" label="InstrumentKit">
+
+
+```python
+import instrumentkit
+
+# Create a connection to the oscilloscope
+oscilloscope = instrumentkit.connect('dpo4104', 'TCPIP::192.168.1.1::INSTR')
+
+# Print the identification string of the oscilloscope
+print(oscilloscope.identification)
+
+# Close the connection to the oscilloscope
+oscilloscope.close()
+```
+
+In this script, we import the `instrumentkit` module and create a connection to the DPO4104 Oscilloscope using the `connect` function. The first argument to `connect` is the instrument type, which in this case is `'dpo4104'`. The second argument is the connection string, which specifies the communication protocol and address of the oscilloscope. In this example, we use the TCPIP protocol with the IP address `'192.168.1.1'`.
+
+After establishing the connection, we can access various properties and methods of the oscilloscope. In this example, we print the identification string of the oscilloscope using the `identification` property.
+
+Finally, we close the connection to the oscilloscope using the `close` method.
+
+Note: Make sure to replace `'192.168.1.1'` with the actual IP address of your oscilloscope.
+
+</TabItem>
+</Tabs>

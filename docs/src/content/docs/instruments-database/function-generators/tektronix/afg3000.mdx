@@ -1,0 +1,94 @@
+---
+title: Connecting to AFG 3000 by Tektronix in Python
+description: Unmatched performance, versatility, intuitive operation, and affordability make the AFG3000 Series of Function, Arbitrary Waveform, and Pulse Generators the most useful instruments in the industry.  Users can choose from 12 different standard waveforms. Arbitrary waveforms can be generated up to 128 K in length at high sampling rates. On pulse waveforms, leading and trailing edge time can be set independently. External signals can be connected and added to the output signal. Dual-channel models can generate two identical or completely different signals. All instruments feature a highly stable time base with only ±1 ppm drift per year.  A large screen shows all relevant waveform parameters and graphical wave shape at a single glance. This gives full confidence in the signal settings and lets you focus on the task at hand. Shortcut keys provide direct access to frequently used functions and parameters. Others can be selected conveniently through clearly structured menus. This reduces the time needed for learning and relearning how to use the instrument. Look and feel are identical to the world's most popular TDS3000 Oscilloscopes.
+keywords: [function generators, Tektronix, QCodes Community] 
+slug: instruments-database/function-generators/tektronix/afg3000 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782665/Instruments/Function%20Generators/AFG3000/AFG3000.webp
+sidebar:
+    label: AFG 3000 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+Unmatched performance, versatility, intuitive operation, and affordability make the AFG3000 Series of Function, Arbitrary Waveform, and Pulse Generators the most useful instruments in the industry.
+
+Users can choose from 12 different standard waveforms. Arbitrary waveforms can be generated up to 128 K in length at high sampling rates. On pulse waveforms, leading and trailing edge time can be set independently. External signals can be connected and added to the output signal. Dual-channel models can generate two identical or completely different signals. All instruments feature a highly stable time base with only ±1 ppm drift per year.
+
+A large screen shows all relevant waveform parameters and graphical wave shape at a single glance. This gives full confidence in the signal settings and lets you focus on the task at hand. Shortcut keys provide direct access to frequently used functions and parameters. Others can be selected conveniently through clearly structured menus. This reduces the time needed for learning and relearning how to use the instrument. Look and feel are identical to the world's most popular TDS3000 Oscilloscopes.
+
+![AFG 3000](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782665/Instruments/Function%20Generators/AFG3000/AFG3000.webp)
+
+Device Specification: [here](https://download.tek.com/datasheet/AFG3000_Series_Arbitrary-Function_Generators_Datasheet_76W-18656-5.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: TEKTRONIX</h2></summary>
+
+![TEKTRONIX](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806108/Instruments/Vendor%20Logos/Tektronix.png)
+
+Tektronix, Inc., historically widely known as Tek, is an American company best known for manufacturing test and measurement devices such as [oscilloscopes](https://en.wikipedia.org/wiki/Oscilloscope), [logic analyzers](https://en.wikipedia.org/wiki/Logic_analyzer), and video and mobile test protocol equipment.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5800
+- Vendor Website: [here](https://www.tek.com/en)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="FUNCTION_GENERATORS"
+  manufacturer="TEKTRONIX"
+></FeaturedInstrumentVideo>
+
+## Connect to the AFG 3000 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+<Tabs>
+
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category='FUNCTION_GENERATORS' manufacturer='TEKTRONIX'></NodeCardCollection>
+
+</TabItem>
+<TabItem value="QCodes Community" label="QCodes Community">
+
+To connect to an AFG3000 Function Generator using Qcodes, you can use the following Python script:
+
+```python
+from qcodes import Station, Instrument
+from qcodes.instrument_drivers.tektronix.AFG3000 import AFG3000
+
+# Create a station to hold the instruments
+station = Station()
+
+# Connect to the AFG3000 Function Generator
+afg = AFG3000('afg', 'TCPIP0::192.168.1.1::inst0::INSTR')
+station.add_component(afg)
+
+# Print the available parameters of the AFG3000
+print(afg.parameters)
+
+# Set the trigger mode to 'TRIG'
+afg.trigger_mode('TRIG')
+
+# Set the output impedance of channel 1 to 50 Ohm
+afg.impedance_output1(50)
+
+# Set the amplitude modulation depth of channel 2 to 10%
+afg.am_depth2(10)
+
+# Close the connection to the instruments
+station.close_all_registered_instruments()
+```
+
+This script creates a `Station` object to hold the instruments, then connects to the AFG3000 Function Generator using the `AFG3000` driver. The AFG3000 instrument is added to the station, and its available parameters are printed. The script then sets the trigger mode to 'TRIG' and the output impedance of channel 1 to 50 Ohm. Finally, it sets the amplitude modulation depth of channel 2 to 10%. The connection to the instruments is closed at the end of the script.
+
+Note: Replace `'TCPIP0::192.168.1.1::inst0::INSTR'` with the actual address of your AFG3000 Function Generator.
+
+</TabItem>
+</Tabs>

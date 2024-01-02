@@ -1,0 +1,133 @@
+---
+title: Connecting to Srs dg645 by Stanford Research Systems in Python
+description: The DG645 is a versatile digital delay/pulse generator that provides precisely defined pulses at repetition rates up to 10 MHz. The instrument offers several improvements over older designs—lower jitter, higher accuracy, faster trigger rates, and more outputs. The DG645 also has Ethernet, GPIB and RS-232 interfaces for computer or network control of the instrument.
+keywords: [pulse generators, Stanford Research Systems, InstrumentKit, QCodes Community] 
+slug: instruments-database/pulse-generators/stanford-research/dg645 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782433/Instruments/Pulse%20Generator/DG-645/DG-645.jpg
+sidebar:
+    label: Srs dg645 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The DG645 is a versatile digital delay/pulse generator that provides precisely defined pulses at repetition rates up to 10 MHz. The instrument offers several improvements over older designs—lower jitter, higher accuracy, faster trigger rates, and more outputs. The DG645 also has Ethernet, GPIB and RS-232 interfaces for computer or network control of the instrument.
+
+![Srs dg645](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782433/Instruments/Pulse%20Generator/DG-645/DG-645.jpg)
+
+Device Specification: [here](https://www.thinksrs.com/downloads/pdfs/catalog/DG645c.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: STANFORD RESEARCH SYSTEMS</h2></summary>
+
+![STANFORD RESEARCH SYSTEMS](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806206/Instruments/Vendor%20Logos/Stanford_Research.png)
+
+Stanford Research Systems is a maker of general test and measurement instruments. The company was founded in 1980, is privately held, and is not affiliated with Stanford University. Stanford Research Systems manufactures all of their products at their Sunnyvale, California facility.
+
+- Headquarters: Sunnyvale, California
+- Yearly Revenue (millions, USD): 24.9
+- Vendor Website: [here](https://www.thinksrs.com/index.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="PULSE_GENERATORS"
+  manufacturer="STANFORD RESEARCH SYSTEMS"
+></FeaturedInstrumentVideo>
+
+## Connect to the Srs dg645 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+<Tabs>
+<TabItem value="InstrumentKit" label="InstrumentKit">
+
+To connect to a DG645 Pulse Generator using Instrumentkit, you can use the following code:
+
+```python
+import instrumentkit as ik
+
+# Connect to the DG645 Pulse Generator
+dg645 = ik.srs.SRSDG645.open_gpibusb('/dev/ttyUSB0', 1)
+
+# Example usage
+dg645.channel[dg645.Channels.A].delay = (dg645.channel[dg645.Channels.T0], 10 * ik.units.ns)
+dg645.output[dg645.Outputs.AB].level_amplitude = 4.0 * ik.units.V
+# Close the connection
+dg645.close()
+```
+
+This code imports the `instrumentkit` module and opens a connection to the DG645 Pulse Generator using the `open_gpibusb` method of the `SRSDG645` class. The first argument is the device path (`'/dev/ttyUSB0'`) and the second argument is the GPIB address (`1`).
+
+After connecting, you can access the channels and outputs of the DG645 Pulse Generator using the `channel` and `output` properties. In the example usage, it sets the delay of channel A to 10 nanoseconds relative to channel T0 and sets the amplitude of output AB to 4.0 volts.
+
+</TabItem>
+<TabItem value="QCodes Community" label="QCodes Community">
+
+
+```python
+from qcodes import Station, Instrument
+from qcodes.instrument_drivers.stanford_research.DG645 import DG645
+
+# Create a station to hold the instruments
+station = Station()
+
+# Connect to the DG645 Pulse Generator
+dg645 = DG645('dg645', 'TCPIP0::192.168.1.1::inst0::INSTR')
+station.add_component(dg645)
+
+# Print the available parameters of the DG645
+print(dg645.parameters)
+
+# Set the trigger level to 0.5V
+dg645.trigger_level(0.5)
+
+# Set the trigger rate to 1kHz
+dg645.trigger_rate(1000)
+
+# Set the trigger source to external rising edge
+dg645.trigger_source('ext_rising')
+
+# Set the burst count to 10
+dg645.burst_count(10)
+
+# Set the burst delay to 1ms
+dg645.burst_delay(0.001)
+
+# Set the burst period to 1s
+dg645.burst_period(1)
+
+# Set the burst T0 configuration to 1
+dg645.burst_T0_config(1)
+
+# Set the delay of channel A relative to channel T0 to 1ms
+dg645.delay_A('2,+0.001')
+
+# Set the delay of channel B relative to channel T0 to 2ms
+dg645.delay_B('2,+0.002')
+
+# Set the amplitude of output T0 to 1V
+dg645.amp_out_T0(1)
+
+# Set the offset of output T0 to 0V
+dg645.offset_out_T0(0)
+
+# Set the polarity of output T0 to positive
+dg645.polarity_out_T0(1)
+
+# Trigger the pulse generator
+dg645.trigger()
+
+# Close the connection to the instruments
+station.close_all()
+```
+
+This script connects to a DG645 Pulse Generator using its IP address and sets various parameters such as trigger level, trigger rate, trigger source, burst count, burst delay, burst period, burst T0 configuration, channel delays, output amplitudes, output offsets, and output polarities. Finally, it triggers the pulse generator and closes the connection to the instruments.
+
+</TabItem>
+</Tabs>

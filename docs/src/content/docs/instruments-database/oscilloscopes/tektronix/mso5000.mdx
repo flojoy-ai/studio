@@ -1,0 +1,84 @@
+---
+title: Connecting to Tektronix MSO 5000 by Tektronix in Python
+description: With the MSO/DPO5000 Mixed Signal Oscilloscope Series, you can analyze up to 20 analog and digital signals with a single instrument to quickly find and diagnose problems in complex designs. Bandwidths up to 2 GHz and sample rates up to 10 GS/s ensure you have the performance you need to see fast-changing signal details. To capture long windows of signal activity while maintaining fine timing resolution, the MSO/DPO5000 Series offers a deep record length of up to 12.5 M points standard on all channels and an optional record length of up to 250 M points on two channels.
+keywords: [oscilloscopes, Tektronix, QCodes] 
+slug: instruments-database/oscilloscopes/tektronix/mso5000 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782600/Instruments/Oscilloscopes/MSO5000/MSO5000.webp
+sidebar:
+    label: Tektronix MSO 5000 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+With the MSO/DPO5000 Mixed Signal Oscilloscope Series, you can analyze up to 20 analog and digital signals with a single instrument to quickly find and diagnose problems in complex designs. Bandwidths up to 2 GHz and sample rates up to 10 GS/s ensure you have the performance you need to see fast-changing signal details. To capture long windows of signal activity while maintaining fine timing resolution, the MSO/DPO5000 Series offers a deep record length of up to 12.5 M points standard on all channels and an optional record length of up to 250 M points on two channels.
+
+![Tektronix MSO 5000](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782600/Instruments/Oscilloscopes/MSO5000/MSO5000.webp)
+
+Device Specification: [here](https://download.tek.com/datasheet/MSO5000-DPO5000-Mixed-Signal-Oscilloscope-Datasheet-9.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: TEKTRONIX</h2></summary>
+
+![TEKTRONIX](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806108/Instruments/Vendor%20Logos/Tektronix.png)
+
+Tektronix, Inc., historically widely known as Tek, is an American company best known for manufacturing test and measurement devices such as [oscilloscopes](https://en.wikipedia.org/wiki/Oscilloscope), [logic analyzers](https://en.wikipedia.org/wiki/Logic_analyzer), and video and mobile test protocol equipment.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5800
+- Vendor Website: [here](https://www.tek.com/en)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="OSCILLOSCOPES"
+  manufacturer="TEKTRONIX"
+></FeaturedInstrumentVideo>
+
+## Connect to the Tektronix MSO 5000 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+<Tabs>
+
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category='OSCILLOSCOPES' manufacturer='TEKTRONIX'></NodeCardCollection>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+Here is an example Python script that uses Qcodes to connect to a MSO5000 Oscilloscope:
+
+```python
+import qcodes as qc
+from qcodes.instrument_drivers.tektronix.Tektronix_DPO7000 import TektronixDPO7000xx
+
+# Connect to the oscilloscope
+oscilloscope = TektronixDPO7000xx("oscilloscope", "TCPIP0::192.168.1.1::INSTR")
+
+# Print the available channels
+print(oscilloscope.channel.names)
+
+# Set the time per division for channel 1
+oscilloscope.channel1.scale(0.1)  # Set to 0.1 seconds per division
+
+# Acquire a waveform from channel 1
+waveform = oscilloscope.channel1.waveform()
+
+# Plot the waveform
+waveform.plot()
+
+# Disconnect from the oscilloscope
+oscilloscope.close()
+```
+
+This script connects to the oscilloscope using the IP address "192.168.1.1" and creates an instance of the `TektronixDPO7000xx` driver. It then prints the names of the available channels, sets the time per division for channel 1 to 0.1 seconds, acquires a waveform from channel 1, and plots the waveform. Finally, it closes the connection to the oscilloscope.
+
+</TabItem>
+</Tabs>

@@ -1,0 +1,91 @@
+---
+title: Connecting to SR 830 by Stanford Research Systems in Python
+description: SR830 Lock-In Amplifier provide high performance at a reasonable cost. The SR830 simultaneously displays the magnitude and phase of a signal
+keywords: [lockin amplifiers, Stanford Research Systems, PyMeasure] 
+slug: instruments-database/lockin-amplifiers/srs/sr-830 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782548/Instruments/Lockin%20Amplifiers/SR-830/SR-830.jpg
+sidebar:
+    label: SR 830 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+SR830 Lock-In Amplifier provide high performance at a reasonable cost. The SR830 simultaneously displays the magnitude and phase of a signal
+
+![SR 830](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782548/Instruments/Lockin%20Amplifiers/SR-830/SR-830.jpg)
+
+Device Specification: [here](https://www.thinksrs.com/downloads/pdfs/catalog/SR810830c.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: STANFORD RESEARCH SYSTEMS</h2></summary>
+
+![STANFORD RESEARCH SYSTEMS](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806206/Instruments/Vendor%20Logos/Stanford_Research.png)
+
+Stanford Research Systems is a maker of general test and measurement instruments. The company was founded in 1980, is privately held, and is not affiliated with Stanford University. Stanford Research Systems manufactures all of their products at their Sunnyvale, California facility.
+
+- Headquarters: Sunnyvale, California
+- Yearly Revenue (millions, USD): 24.9
+- Vendor Website: [here](https://www.thinksrs.com/index.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="LOCKIN_AMPLIFIERS"
+  manufacturer="STANFORD RESEARCH SYSTEMS"
+></FeaturedInstrumentVideo>
+
+## Connect to the SR 830 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+<Tabs>
+
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category='LOCKIN_AMPLIFIERS' manufacturer='STANFORD'></NodeCardCollection>
+
+</TabItem>
+<TabItem value="PyMeasure" label="PyMeasure">
+
+
+```python
+from pymeasure.instruments.srs import SR830
+
+# Connect to the lock-in amplifier
+lia = SR830("GPIB0::8::INSTR")
+
+# Set the lock-in amplifier parameters
+lia.frequency = 1000  # Set the lock-in frequency to 1 kHz
+lia.sensitivity = 1e-6  # Set the sensitivity to 1 µV
+lia.time_constant = 1e-3  # Set the time constant to 1 ms
+
+# Read the X and Y values
+x = lia.x
+y = lia.y
+
+# Print the X and Y values
+print("X: ", x)
+print("Y: ", y)
+
+# Disconnect from the lock-in amplifier
+lia.disconnect()
+```
+
+In this script, we first import the `SR830` class from the `pymeasure.instruments.srs` module. We then create an instance of the `SR830` class, passing the GPIB address of the lock-in amplifier as the argument.
+
+Next, we set the lock-in amplifier parameters using the properties provided by the `SR830` class. In this example, we set the lock-in frequency to 1 kHz, sensitivity to 1 µV, and time constant to 1 ms.
+
+We then read the X and Y values from the lock-in amplifier using the `x` and `y` properties provided by the `SR830` class.
+
+Finally, we print the X and Y values and disconnect from the lock-in amplifier.
+
+Note: Make sure you have the necessary dependencies installed, such as `pymeasure` and the appropriate GPIB driver for your system.
+
+</TabItem>
+</Tabs>

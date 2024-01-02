@@ -1,0 +1,86 @@
+---
+title: Connecting to PCO by PCO in Python
+description: The pco.pixelfly™ 1.3 SWIR is a high-performance machine vision camera due to its special InGaAs image sensor which is sensitive in the shortwave infrared, near infrared and visible range of the electromagnetic spectrum.
+keywords: [cameras, PCO, Instrumental] 
+slug: instruments-database/cameras/pco/PCO-pixelfly 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782434/Instruments/Cameras/PCO-Pixelfly/PCO-Pixelfly.jpg
+sidebar:
+    label: PCO 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The pco.pixelfly™ 1.3 SWIR is a high-performance machine vision camera due to its special InGaAs image sensor which is sensitive in the shortwave infrared, near infrared and visible range of the electromagnetic spectrum.
+
+
+![PCO](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782434/Instruments/Cameras/PCO-Pixelfly/PCO-Pixelfly.jpg)
+
+Device Specification: [here](https://www.pco.de/fileadmin/user_upload/pco-product_sheets/FL_PCOPIXELFLY13SWIR_V101.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: PCO</h2></summary>
+
+![PCO](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806161/Instruments/Vendor%20Logos/PCO.png)
+
+**PCO** is one of the leading manufacturers of scientific **cameras**: sCMOS & Highspeed **camera** systems, developed and produced in Kelheim Bavaria Germany.
+
+- Headquarters: Germany
+- Yearly Revenue (millions, USD): 7
+- Vendor Website: [here](https://www.pco-tech.com)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="CAMERAS"
+  manufacturer="PCO"
+></FeaturedInstrumentVideo>
+
+## Connect to the PCO in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+<Tabs>
+
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category='CAMERAS' manufacturer='PCO'></NodeCardCollection>
+
+</TabItem>
+<TabItem value="Instrumental" label="Instrumental">
+
+To connect to a PCO Pixelfly camera using Instrumental, you can use the following Python script:
+
+```python
+from instrumental import instrument, list_instruments
+
+# List all available PCO Pixelfly cameras
+cameras = list_instruments('Pixelfly')
+
+# Connect to the first camera
+camera = instrument(cameras[0])
+
+# Set the camera mode
+camera.set_mode(shutter='single', trig='software', exposure='10ms', hbin=1, vbin=1, gain='low', depth=12)
+
+# Start live video
+camera.start_live_video()
+
+# Capture an image
+image = camera.latest_frame()
+
+# Stop live video
+camera.stop_live_video()
+# Close the camera connection
+camera.close()
+```
+
+This script uses the `instrumental` library to list all available PCO Pixelfly cameras using the `list_instruments` function. It then connects to the first camera in the list using the `instrument` function. You can perform camera operations using the `camera` object, and finally, close the camera connection using the `close` method.
+
+</TabItem>
+</Tabs>

@@ -1,0 +1,94 @@
+---
+title: Connecting to Keithley 2635 B by Keithley in Python
+description: The 2635B SourceMeter SMU instrument, is a new and improved one-channel SMU instrument with a tightly integrated four-quadrant design that allows it to simultaneously source and measure both voltage and current to boost productivity in applications ranging from R&D to automated production test. The wide range of 1.5A DC, 10A pulse, 200V output and 0.1fA measurement resolution makes it ideal to test a wide range of lower current devices and materials. In addition to retaining all the features of the Model 2635A, the Model 2635B has 6½-digit resolution, USB 2.0 connectivity, and software command emulation of the Model 2400 SourceMeter SMU Instrument to enable easy migration of legacy test code. The Model 2635B is equipped with Keithley's high speed TSP technology (over 190% faster than traditional PC-to-instrument communication techniques,) which dramatically improves the system-level speed to lower the cost of test.
+keywords: [power supplies, Keithley, QCodes] 
+slug: instruments-database/power-supplies/keithley/keithley-2635b 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782477/Instruments/Power%20Supplies/Keithley-2635B/Keithley-2635B.webp
+sidebar:
+    label: Keithley 2635 B 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The 2635B SourceMeter SMU instrument, is a new and improved one-channel SMU instrument with a tightly integrated four-quadrant design that allows it to simultaneously source and measure both voltage and current to boost productivity in applications ranging from R&D to automated production test. The wide range of 1.5A DC, 10A pulse, 200V output and 0.1fA measurement resolution makes it ideal to test a wide range of lower current devices and materials. In addition to retaining all the features of the Model 2635A, the Model 2635B has 6½-digit resolution, USB 2.0 connectivity, and software command emulation of the Model 2400 SourceMeter SMU Instrument to enable easy migration of legacy test code. The Model 2635B is equipped with Keithley's high speed TSP technology (over 190% faster than traditional PC-to-instrument communication techniques,) which dramatically improves the system-level speed to lower the cost of test.
+
+![Keithley 2635 B](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782477/Instruments/Power%20Supplies/Keithley-2635B/Keithley-2635B.webp)
+
+Device Specification: [here](https://www.farnell.com/datasheets/2619879.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: KEITHLEY</h2></summary>
+
+![KEITHLEY](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806202/Instruments/Vendor%20Logos/Keithley.png)
+
+Keithley Instruments is a measurement and instrument company headquartered in Solon, Ohio, that develops, manufactures, markets, and sells data acquisition products, as well as complete systems for high-volume production and assembly testing.
+
+- Headquarters: Cleveland, Ohio, United States
+- Yearly Revenue (millions, USD): 110.6
+- Vendor Website: [here](https://www.tek.com/en)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="POWER_SUPPLIES"
+  manufacturer="KEITHLEY"
+></FeaturedInstrumentVideo>
+
+## Connect to the Keithley 2635 B in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+<Tabs>
+
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category='POWER_SUPPLIES' manufacturer='KEITHLEY'></NodeCardCollection>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+Here's an example Python script that uses Qcodes to connect to a Keithley 2635B Power Supply:
+
+```python
+import qcodes as qc
+from qcodes.instrument_drivers.tektronix.Keithley_2600 import Keithley2600
+
+# Connect to the Keithley 2635B Power Supply
+keithley = Keithley2600("keithley", "TCPIP::192.168.1.1::INSTR")
+
+# Print the instrument ID
+print(keithley.get_idn())
+
+# Set the voltage and current limits
+keithley.smua.limitv(10)  # Set voltage limit to 10V
+keithley.smua.limiti(0.1)  # Set current limit to 0.1A
+
+# Enable the output
+keithley.smua.output(1)  # Turn on the output
+
+# Set the voltage and current levels
+keithley.smua.volt(5)  # Set the voltage to 5V
+keithley.smua.curr(0.05)  # Set the current to 0.05A
+
+# Measure the voltage and current
+voltage = keithley.smua.volt()
+current = keithley.smua.curr()
+print(f"Voltage: {voltage}V, Current: {current}A")
+
+# Disable the output
+keithley.smua.output(0)  # Turn off the output
+
+# Close the connection
+keithley.close()
+```
+
+Note: Replace `"TCPIP::192.168.1.1::INSTR"` with the actual IP address or VISA resource address of your Keithley 2635B Power Supply.
+
+</TabItem>
+</Tabs>

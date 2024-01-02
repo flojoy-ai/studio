@@ -1,0 +1,83 @@
+---
+title: Connecting to Keysightdsox 1102 G by Keysight in Python
+description: The DSOX1102G oscilloscope provides 70, 100 MHz of bandwidth on 2 analog channels, and waveform generator
+keywords: [oscilloscopes, Keysight, PyMeasure] 
+slug: instruments-database/oscilloscopes/keysight/keysight-dsox1102g 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782486/Instruments/Oscilloscopes/Keysight-DSOX1102G/Keysight-DSOX1102G.jpg
+sidebar:
+    label: Keysightdsox 1102 G 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The DSOX1102G oscilloscope provides 70, 100 MHz of bandwidth on 2 analog channels, and waveform generator
+
+
+
+![Keysightdsox 1102 G](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782486/Instruments/Oscilloscopes/Keysight-DSOX1102G/Keysight-DSOX1102G.jpg)
+
+Device Specification: [here](https://www.keysight.com/us/en/assets/7018-05520/data-sheets/5992-1965.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: KEYSIGHT</h2></summary>
+
+![KEYSIGHT](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692125973/Instruments/Vendor%20Logos/Keysight.png)
+
+Keysight Technologies, or Keysight, is an American company that manufactures electronics test and measurement equipment and software
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5420
+- Vendor Website: [here](https://www.keysight.com/us/en/home.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="OSCILLOSCOPES"
+  manufacturer="KEYSIGHT"
+></FeaturedInstrumentVideo>
+
+## Connect to the Keysightdsox 1102 G in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+<Tabs>
+
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category='OSCILLOSCOPES' manufacturer='KEYSIGHT'></NodeCardCollection>
+
+</TabItem>
+<TabItem value="PyMeasure" label="PyMeasure">
+
+
+```python
+from pymeasure.adapters import VISAAdapter
+from pymeasure.instruments import KeysightDSOX1102G
+
+# Connect to the oscilloscope
+adapter = VISAAdapter("USB0::0x0957::0x179B::MY44012345::INSTR")
+oscilloscope = KeysightDSOX1102G(adapter)
+
+# Perform some operations on the oscilloscope
+oscilloscope.clear_status()
+oscilloscope.autoscale()
+ch1_data, ch1_preamble = oscilloscope.download_data(source="channel1", points=2000)
+
+# Disconnect from the oscilloscope
+oscilloscope.shutdown()
+```
+
+In this script, we first import the necessary modules from Pymeasure. We then create a `VISAAdapter` object to connect to the oscilloscope using its VISA address. Next, we create a `KeysightDSOX1102G` object using the adapter.
+
+We can then perform various operations on the oscilloscope, such as clearing the status, autoscaling the channels, and downloading data from channel 1. Finally, we call the `shutdown()` method to disconnect from the oscilloscope.
+
+Note: Make sure to replace the VISA address in the `VISAAdapter` constructor with the correct address for your oscilloscope.
+
+</TabItem>
+</Tabs>

@@ -1,0 +1,84 @@
+---
+title: Connecting to Agilente 4421 B by Agilent in Python
+description: This Class Implements The Standard Signal Generator Interface For The Agilent E4421B Signal Gener...
+keywords: [rf signal generators, Erainstruments, QCodes Community] 
+slug: instruments-database/rf-signal-generators/erainstruments/erasynth 
+
+sidebar:
+    label: Agilente 4421 B 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+This Class Implements The Standard Signal Generator Interface For The Agilent E4421B Signal Gener...
+
+
+
+Device Specification: [here](https://www.keysight.com/us/en/support/E4421B/esga-series-analog-rf-signal-generator-3-ghz.html#drivers)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: AGILENT</h2></summary>
+
+![AGILENT](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692126006/Instruments/Vendor%20Logos/Agilent.png)
+
+**Keysight Technologies**, or **Keysight**, is an American company that manufactures electronics test and measurement equipment and software
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5420
+- Vendor Website: [here](https://www.keysight.com/us/en/home.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="RF_SIGNAL_GENERATORS"
+  manufacturer="AGILENT"
+></FeaturedInstrumentVideo>
+
+## Connect to the Agilente 4421 B in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+<Tabs>
+
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category='RF_SIGNAL_GENERATORS' manufacturer='ERAINSTRUMENTS'></NodeCardCollection>
+
+</TabItem>
+<TabItem value="QCodes Community" label="QCodes Community">
+
+
+```python
+from qcodes_contrib_drivers.drivers.ERAInstruments import ERASynth
+
+# Connect to the ERASynth signal generator
+lo = ERASynth("ERASynth", 'ASRL/dev/cu.usbmodem14101::INSTR')
+
+# Turn off the output
+lo.off()
+
+# Print updated snapshot once to make sure the snapshot will be up-to-date
+# This may take a few seconds
+lo.print_readable_snapshot(update=True)
+
+# Configure the local oscillator
+lo.ref_osc_source("int")  # Use internal reference
+lo.frequency(4.7e9)
+lo.power(10)  # Set the amplitude to 10 dBm
+lo.on()  # Turn on the output
+```
+
+This script connects to the ERASynth signal generator using the specified address (`ASRL/dev/cu.usbmodem14101::INSTR`). It then turns off the RF output, prints the updated snapshot of the instrument's parameters, configures the local oscillator with the desired frequency and power, and finally turns on the RF output.
+
+Note: Make sure to replace `'ASRL/dev/cu.usbmodem14101::INSTR'` with the actual address of your ERASynth signal generator.
+
+Let me know if you need any further assistance!
+
+</TabItem>
+</Tabs>

@@ -1,0 +1,89 @@
+---
+title: Connecting to KTM 960 Xdefs by Keysight in Python
+description: PXI source/measure units are the source and measurement resources of voltage and current for test applications requiring high accuracy, high resolution, and measurement flexibility
+keywords: [power meters, Keysight, QCodes] 
+slug: instruments-database/power-supplies/keysight/keysight-m960x-defs 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782538/Instruments/Power%20Supplies/Keysight-M960x-defs/Keysight-M960x-defs.png
+sidebar:
+    label: KTM 960 Xdefs 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+PXI source/measure units are the source and measurement resources of voltage and current for test applications requiring high accuracy, high resolution, and measurement flexibility
+
+
+
+![KTM 960 Xdefs](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782538/Instruments/Power%20Supplies/Keysight-M960x-defs/Keysight-M960x-defs.png)
+
+Device Specification: [here](/instruments-database/all-instruments)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: KEYSIGHT</h2></summary>
+
+![KEYSIGHT](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692125973/Instruments/Vendor%20Logos/Keysight.png)
+
+Keysight Technologies, or Keysight, is an American company that manufactures electronics test and measurement equipment and software
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5420
+- Vendor Website: [here](https://www.keysight.com/us/en/home.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="POWER_SUPPLIES"
+  manufacturer="KEYSIGHT"
+></FeaturedInstrumentVideo>
+
+## Connect to the KTM 960 Xdefs in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+<Tabs>
+
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category='POWER_METERS' manufacturer='KEYSIGHT'></NodeCardCollection>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+Here is a Python script that uses Qcodes to connect to a Keysight (Agilent) M960x Power Meter:
+
+```python
+import qcodes as qc
+from qcodes.instrument_drivers.Keysight.Keysight_M960x import Keysight_M960x
+
+# Connect to the power meter
+power_meter = Keysight_M960x("power_meter", "TCPIP0::192.168.1.1::inst0::INSTR")
+
+# Print the power meter identification
+print(power_meter.idn())
+
+# Set the power meter to measure power
+power_meter.measurement_function("POWER")
+
+# Set the power meter range
+power_meter.range_auto(True)
+
+# Read the power measurement
+power = power_meter.power()
+
+# Print the power measurement
+print(f"Power: {power} dBm")
+
+# Close the connection to the power meter
+power_meter.close()
+```
+
+This script connects to the power meter using the IP address "192.168.1.1" and sets up the measurement function to measure power. It then reads the power measurement and prints the result. Finally, it closes the connection to the power meter.
+
+</TabItem>
+</Tabs>

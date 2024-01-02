@@ -1,0 +1,93 @@
+---
+title: Connecting to Keithley 617 by Keithley in Python
+description: The Keithley Model 617 Programmable Electrometer is a highly sensitive instrument designed to measure voltage, current, charge, and resistance. Two forms of resistance measurements are included in the standard configuration, a constant current method, and a constant voltage method that uses a built in voltage source for greater sensitivity. The measuring range of the Model 617 is between 10uV and 200V for voltage measurements, 0.1fA and 20mA in the current mode, 0.1 ohm and 200 Gohm (up to 10^16 ohm using the built in voltage source), and 10fC and 20nC in the coulombs mode. The very high input impedance and extremely low input offset current allow accurate measurement in situations where many other instruments would have detrimental effects on the circuit being measured. A 4-1/2 digit display and standard IEEE-488 interface give the user easy access to instrument data.
+keywords: [rf signal generators, Tektronix, QCodes] 
+slug: instruments-database/Power Meters/Keithley/Keithley-617 
+
+sidebar:
+    label: Keithley 617 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The Keithley Model 617 Programmable Electrometer is a highly sensitive instrument designed to measure voltage, current, charge, and resistance. Two forms of resistance measurements are included in the standard configuration: a constant current method, and a constant voltage method that uses a built in voltage source for greater sensitivity. The measuring range of the Model 617 is between 10uV and 200V for voltage measurements, 0.1fA and 20mA in the current mode, 0.1 ohm and 200 Gohm (up to 10^16 ohm using the built in voltage source), and 10fC and 20nC in the coulombs mode. The very high input impedance and extremely low input offset current allow accurate measurement in situations where many other instruments would have detrimental effects on the circuit being measured. A 4-1/2 digit display and standard IEEE-488 interface give the user easy access to instrument data.
+
+
+
+Device Specification: [here](https://www.artisantg.com/TestMeasurement/51803-1/Keithley-617-Programmable-Electrometer)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: KEITHLEY</h2></summary>
+
+![KEITHLEY](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806202/Instruments/Vendor%20Logos/Keithley.png)
+
+Keithley Instruments is a measurement and instrument company headquartered in Solon, Ohio, that develops, manufactures, markets, and sells data acquisition products, as well as complete systems for high-volume production and assembly testing.
+
+- Headquarters: Cleveland, Ohio, United States
+- Yearly Revenue (millions, USD): 110.6
+- Vendor Website: [here](https://www.tek.com/en)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="POWER_METERS"
+  manufacturer="KEITHLEY"
+></FeaturedInstrumentVideo>
+
+## Connect to the Keithley 617 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+<Tabs>
+
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category='RF_SIGNAL_GENERATORS' manufacturer='TEKTRONIX'></NodeCardCollection>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+Here is an example Python script that uses Qcodes to connect to a Tektronix AWG5014 RF Signal Generator:
+
+```python
+import qcodes as qc
+from qcodes.instrument_drivers.tektronix.AWG5014 import TektronixAWG5014
+
+# Connect to the AWG5014
+awg = TektronixAWG5014('awg', 'TCPIP0::192.168.1.1::inst0::INSTR')
+
+# Set the waveform for channel 1
+awg.ch1_waveform('SINE')
+
+# Set the amplitude for channel 1
+awg.ch1_amplitude(0.5)
+
+# Set the offset for channel 1
+awg.ch1_offset(0.0)
+
+# Set the waveform for channel 2
+awg.ch2_waveform('SQUARE')
+
+# Set the amplitude for channel 2
+awg.ch2_amplitude(1.0)
+
+# Set the offset for channel 2
+awg.ch2_offset(0.0)
+
+# Run the AWG
+awg.run()
+
+# Disconnect from the AWG
+awg.close()
+```
+
+This script connects to the AWG5014 using the IP address '192.168.1.1'. It sets the waveform, amplitude, and offset for channels 1 and 2, and then runs the AWG. Finally, it disconnects from the AWG.
+
+</TabItem>
+</Tabs>
