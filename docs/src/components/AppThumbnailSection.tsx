@@ -1,6 +1,6 @@
-import React from 'react';
-import AppThumbnail from './AppThumbnail';
-import * as nodeData from './../../nodeSidebar.json';
+import React from "react";
+import AppThumbnail from "./AppThumbnail";
+import * as nodeData from "./../../nodeSidebar.json";
 
 type AppThumbnailSectionProps = {
   children: string;
@@ -21,26 +21,25 @@ export default function AppThumbnailSection({
   displayPath,
   nodes,
 }: AppThumbnailSectionProps) {
-
   let nodePath: string;
 
-  if( sectionSubRoot !== undefined ) {
+  if (sectionSubRoot !== undefined) {
     // For example, 'I/O > Function Generators'
     // Use subSectionRoot to list automatically list all nodes from this root directory
     // rather than specifying them explictly in the nodes prop
 
     nodes = [];
 
-    nodeData[sectionSubRoot].map(eachNode => {
-
+    nodeData[sectionSubRoot].map((eachNode) => {
       // Example of eachNode:
       // "nodes/IO/INSTRUMENTS/FUNCTION_GENERATORS/KEYSIGHT/33XXX/ADVANCED/BURST_MODE_33510B/BURST_MODE_33510B",
 
-      eachNode = eachNode.replace('nodes/' + sectionRoot + '/', '');
-      eachNode = eachNode.split('/'); eachNode.pop();
-      eachNode = eachNode.join('/');
+      eachNode = eachNode.replace("nodes/" + sectionRoot + "/", "");
+      eachNode = eachNode.split("/");
+      eachNode.pop();
+      eachNode = eachNode.join("/");
       nodes.push(eachNode);
-    })
+    });
   }
 
   return (
@@ -55,9 +54,9 @@ export default function AppThumbnailSection({
         .
       </p>
       <div>
-        {nodes.map(nodePath => {
+        {nodes.map((nodePath) => {
           return (
-            <AppThumbnail 
+            <AppThumbnail
               key={nodePath}
               path={`${sectionRoot}/${nodePath}`}
               displayPath={displayPath}
