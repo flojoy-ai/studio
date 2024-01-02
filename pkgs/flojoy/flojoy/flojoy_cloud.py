@@ -150,6 +150,23 @@ class ScalarModel(DefaultModel[DataC], Generic[DataC]):
         return dc
 
 
+class BooleanModel(DefaultModel[DataC], Generic[DataC]):
+    data: Optional[DataC]
+
+    @validator("dataContainer")
+    def type_must_match(cls, dc):
+        assert dc["type"] == "Boolean", "dataContainer type does not match."
+        return dc
+
+    @validator("dataContainer")
+    def keys_must_match(cls, dc):
+        assert "b" in dc, 'dataContainer does not contain "b" dataset.'
+        assert isinstance(dc["b"], float) or isinstance(
+            dc["b"], int
+        ), '"b" dataset is not a boolean'
+        return dc
+
+
 class VectorModel(DefaultModel[DataC], Generic[DataC]):
     data: Optional[DataC]
 
@@ -197,6 +214,8 @@ def check_deserialize(response):
             MatrixModel.parse_obj(response)
         case "Grayscale":
             GrayscaleModel.parse_obj(response)
+        case "Boolean":
+            BooleanModel.parse_obj(response)
         case "Scalar":
             ScalarModel.parse_obj(response)
         case "Vector":
@@ -240,6 +259,7 @@ class FlojoyCloud:
             "Scalar",
             "Vector",
             "Image",
+            "Boolean",
         ]
 
     def _create_payload(
@@ -247,22 +267,13 @@ class FlojoyCloud:
         data,
         dc_type: str,
         name: str,
-        status: Literal["Pass", "Fail"] | None = None,
     ) -> str:
         """
         A method that formats data into a payload that can be handled by
         the Flojoy cloud client.
         """
-        if status is None:
-            passed = None
-        else:
-            passed = status == "Pass"
-        print(f"Passed: {passed}", flush=True)
-
         if type(data) == DataContainer:
-            return json.dumps(
-                {"data": data, "name": name, "passed": passed}, cls=PlotlyJSONEncoder
-            )
+            return json.dumps({"data": data, "name": name}, cls=PlotlyJSONEncoder)
 
         assert (
             dc_type in self.valid_types
@@ -282,7 +293,6 @@ class FlojoyCloud:
                             "y": data["y"],
                         },
                         "name": name,
-                        "passed": passed,
                     },
                     cls=NumpyEncoder,
                 )
@@ -297,7 +307,6 @@ class FlojoyCloud:
                                 "z": data["z"],
                             },
                             "name": name,
-                            "passed": passed,
                         },
                         cls=NumpyEncoder,
                     )
@@ -312,7 +321,6 @@ class FlojoyCloud:
                     {
                         "data": {"type": "DataFrame", "m": data},
                         "name": name,
-                        "passed": passed,
                     },
                     cls=PlotlyJSONEncoder,
                 )
@@ -321,7 +329,6 @@ class FlojoyCloud:
                     {
                         "data": {"type": "Matrix", "m": data},
                         "name": name,
-                        "passed": passed,
                     },
                     cls=NumpyEncoder,
                 )
@@ -330,7 +337,14 @@ class FlojoyCloud:
                     {
                         "data": {"type": "Grayscale", "m": data},
                         "name": name,
-                        "passed": passed,
+                    },
+                    cls=NumpyEncoder,
+                )
+            case "Boolean":
+                payload = json.dumps(
+                    {
+                        "data": {"type": "Boolean", "b": data},
+                        "name": name,
                     },
                     cls=NumpyEncoder,
                 )
@@ -339,7 +353,6 @@ class FlojoyCloud:
                     {
                         "data": {"type": "Scalar", "c": data},
                         "name": name,
-                        "passed": passed,
                     },
                     cls=NumpyEncoder,
                 )
@@ -348,7 +361,6 @@ class FlojoyCloud:
                     {
                         "data": {"type": "Vector", "v": data},
                         "name": name,
-                        "passed": passed,
                     },
                     cls=NumpyEncoder,
                 )
@@ -372,7 +384,6 @@ class FlojoyCloud:
                             "a": alpha_channel,
                         },
                         "name": name,
-                        "passed": passed,
                     },
                     cls=NumpyEncoder,
                 )
@@ -510,13 +521,12 @@ class FlojoyCloud:
         dc_type: str,
         meas_id: str,
         name: str,
-        status: Literal["Pass", "Fail"] | None = None,
     ):
         """
         A method that stores a formatted data payload in a measurement.
         """
         url = f"{self.base_url}/dcs/add/{meas_id}"
-        payload = self._create_payload(data, dc_type, name, status)
+        payload = self._create_payload(data, dc_type, name)
         response = requests.request("POST", url, headers=self.headers, data=payload)
 
         return json.loads(response.text)

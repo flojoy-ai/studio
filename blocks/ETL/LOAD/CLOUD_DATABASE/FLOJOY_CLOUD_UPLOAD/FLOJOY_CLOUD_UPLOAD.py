@@ -18,7 +18,6 @@ def FLOJOY_CLOUD_UPLOAD(
     default: DataContainer,
     hardware_device_id: str,
     name: str,
-    status: Literal["None", "Pass", "Fail"] = "None",
 ) -> DataContainer:
     """Upload a DataContainer to Flojoy Cloud (beta).
 
@@ -58,7 +57,6 @@ def FLOJOY_CLOUD_UPLOAD(
             default.type,
             hardware_device_id,
             name,
-            None if status == "None" else status,
         )
 
     return default
