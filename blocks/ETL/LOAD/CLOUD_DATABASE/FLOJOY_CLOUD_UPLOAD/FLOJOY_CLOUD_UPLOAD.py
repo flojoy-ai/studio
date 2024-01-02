@@ -1,5 +1,3 @@
-from typing import Literal
-
 from flojoy import DataContainer, FlojoyCloud, flojoy, get_env_var, node_preflight
 
 
