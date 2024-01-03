@@ -1,0 +1,100 @@
+---
+title: Connecting to Keysight 33220A by Agilent in Python
+description: The Keysight 33220A is a 20 MHz synthesized function generator with built-in arbitrary waveform and pulse capabilities. Itscombination of bench-top and system features makes this function generator a versatile solution for your testing requirements now and in the future.
+keywords: [RF Signal Generators, Agilent, InstrumentKit] 
+slug: instruments-database/RF Signal Generators/agilent/keysight-33220a 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782698/Instruments/RF%20Signal%20Generator/Keysight-33220A/Keysight-33220A.webp
+sidebar:
+    label: Keysight 33220A 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The Keysight 33220A is a 20 MHz synthesized function generator with built-in arbitrary waveform and pulse capabilities. Itscombination of bench-top and system features makes this function generator a versatile solution for your testing requirements now and in the future.
+
+![Keysight 33220A](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782698/Instruments/RF%20Signal%20Generator/Keysight-33220A/Keysight-33220A.webp)
+
+Device Specification: [here](https://www.keysight.com/us/en/assets/7018-01144/data-sheets/5988-8544.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: AGILENT</h2></summary>
+
+![AGILENT](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692126006/Instruments/Vendor%20Logos/Agilent.png)
+
+Keysight Technologies, or Keysight, is an American company that manufactures electronics test and measurement equipment and software
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5420
+- Vendor Website: [here](https://www.keysight.com/us/en/home.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="RF_SIGNAL_GENERATORS"
+  manufacturer="AGILENT"
+></FeaturedInstrumentVideo>
+
+## Connect to the Keysight 33220A in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category="RF_SIGNAL_GENERATORS" manufacturer="Agilent"></NodeCardCollection>
+
+</TabItem>
+<TabItem value="InstrumentKit" label="InstrumentKit">
+
+
+```python
+from instrumentkit import Instrument, SCPIInstrument
+
+# Define the SCPI commands for the Keysight 33220A RF Signal Generator
+class Keysight33220A(SCPIInstrument):
+    def __init__(self, resource_name):
+        super().__init__(resource_name)
+    
+    def set_frequency(self, frequency):
+        self.send_command(f"FREQ {frequency}")
+    
+    def set_amplitude(self, amplitude):
+        self.send_command(f"VOLT {amplitude}")
+    
+    def enable_output(self):
+        self.send_command("OUTP ON")
+    
+    def disable_output(self):
+        self.send_command("OUTP OFF")
+
+# Connect to the Keysight 33220A RF Signal Generator
+signal_generator = Keysight33220A("TCPIP0::192.168.1.1::INSTR")
+
+# Set the frequency to 1 MHz
+signal_generator.set_frequency(1e6)
+
+# Set the amplitude to 1 Vpp
+signal_generator.set_amplitude(1)
+
+# Enable the output
+signal_generator.enable_output()
+
+# Disable the output after 5 seconds
+time.sleep(5)
+signal_generator.disable_output()
+
+# Disconnect from the signal generator
+signal_generator.disconnect()
+```
+
+Make sure to replace `"TCPIP0::192.168.1.1::INSTR"` with the actual resource name or address of your Keysight 33220A RF Signal Generator.
+
+</TabItem>
+</Tabs>

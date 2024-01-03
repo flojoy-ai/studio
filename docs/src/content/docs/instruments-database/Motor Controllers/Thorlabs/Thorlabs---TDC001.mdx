@@ -1,12 +1,12 @@
 ---
-title: Connecting to Thorlabs - TDC001  by Thorlabs in Python
+title: Connecting to Thorlabs-TDC001 by Thorlabs in Python
 description: TDC001 - T-Cube DC Servo Motor Controller (Power Supply Not Included)
-keywords: [digital attenuators, Vaunix, QCodes Community] 
+keywords: [Motor Controllers, Thorlabs, ] 
 slug: instruments-database/Motor Controllers/Thorlabs/Thorlabs---TDC001
  
 
 sidebar:
-    label: Thorlabs - TDC001 
+    label: Thorlabs-TDC001 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -40,47 +40,17 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
   manufacturer="THORLABS"
 ></FeaturedInstrumentVideo>
 
-## Connect to the Thorlabs - TDC001 in Python
+## Connect to the Thorlabs-TDC001 in Python
 
 [Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-<Tabs>
 
+<Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category='DIGITAL_ATTENUATORS' manufacturer='VAUNIX'></NodeCardCollection>
-
-</TabItem>
-<TabItem value="QCodes Community" label="QCodes Community">
-
-To connect to a LDA-602Q Digital Attenuator using Qcodes Community, you can use the following Python script:
-
-```python
-from qcodes import Station
-from qcodes_contrib_drivers.drivers.Vaunix_LDA import LDA
-
-# Create a station to hold the instruments
-station = Station()
-
-# Connect to the LDA-602Q Digital Attenuator
-lda = LDA('lda', serial_number=602, dll_path='path/to/dll')
-
-# Add the LDA to the station
-station.add_component(lda)
-
-# Print the IDN of the LDA
-print(lda.get_idn())
-
-# Set the attenuation to 10 dB
-lda.attenuation(10)
-
-# Close the connection to the LDA
-lda.close()
-```
-
-Make sure to replace `'path/to/dll'` with the actual path to the DLL file for the LDA-602Q Digital Attenuator.
+<NodeCardCollection category="MOTOR_CONTROLLERS" manufacturer="Thorlabs"></NodeCardCollection>
 
 </TabItem>
 </Tabs>

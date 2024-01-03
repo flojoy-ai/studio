@@ -1,11 +1,11 @@
 ---
-title: Connecting to Fwbell 5080 by F.W. Bell in Python
+title: Connecting to F.W. Bell 5280 by F.W. Bell in Python
 description: Handheld single-axis digital magnetometer gauss / tesla meter for measuring magnets, magnetism of steel, and other manufacturing and scientific applications.
-keywords: [power supplies, Keysight, QCodes Community] 
-slug: instruments-database/multimeters/fw-bell/fw-bell-5280 
+keywords: [Multimeters, F.W. Bell, PyMeasure] 
+slug: instruments-database/Multimeters/fw-bell/fw-bell-5280 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782705/Instruments/Multimeters/F.W.-Bell-5280/F.W.-Bell-5280.jpg
 sidebar:
-    label: Fwbell 5080 
+    label: F.W. Bell 5280 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -14,7 +14,7 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
 
 Handheld single-axis digital magnetometer gauss / tesla meter for measuring magnets, magnetism of steel, and other manufacturing and scientific applications.
 
-![Fwbell 5080](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782705/Instruments/Multimeters/F.W.-Bell-5280/F.W.-Bell-5280.jpg)
+![F.W. Bell 5280](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782705/Instruments/Multimeters/F.W.-Bell-5280/F.W.-Bell-5280.jpg)
 
 Device Specification: [here](https://store-5445uo.mybigcommerce.com/content/5200_Magsci_version_2pg.pdf)
 
@@ -38,57 +38,55 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
   manufacturer="F.W. BELL"
 ></FeaturedInstrumentVideo>
 
-## Connect to the Fwbell 5080 in Python
+## Connect to the F.W. Bell 5280 in Python
 
 [Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-<Tabs>
 
+<Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category='POWER_SUPPLIES' manufacturer='KEYSIGHT'></NodeCardCollection>
+<NodeCardCollection category="MULTIMETERS" manufacturer="F.W. Bell"></NodeCardCollection>
 
 </TabItem>
-<TabItem value="QCodes Community" label="QCodes Community">
+<TabItem value="PyMeasure" label="PyMeasure">
 
-To connect to a Keysight (Agilent) E36313A Power Supply using Qcodes, you can use the following Python script:
 
 ```python
-from qcodes.instrument_drivers.Keysight.E36313A import E36313A
+from pymeasure.instruments import SerialInstrument
+from pymeasure.adapters import SerialAdapter
 
-# Create an instance of the E36313A instrument
-power_supply = E36313A('power_supply', 'TCPIP0::192.168.1.1::INSTR')
+# Create a SerialAdapter for the instrument
+adapter = SerialAdapter(port='/dev/ttyUSB0', baudrate=2400, timeout=500)
+
+# Create a SerialInstrument object for the F.W. Bell 5080 Handheld Gaussmeter
+meter = SerialInstrument(adapter, name="F.W. Bell 5080 Handheld Gaussmeter")
 
 # Connect to the instrument
-power_supply.connect()
+meter.open()
 
-# Get the identification information of the instrument
-idn = power_supply.get_idn()
-print('Instrument ID:', idn)
+# Set the measurement units to Gauss
+meter.units = 'gauss'
 
-# Set the voltage and current for channel 1
-power_supply.ch1.source_voltage(5)  # Set the voltage to 5V
-power_supply.ch1.source_current(0.5)  # Set the current to 0.5A
+# Set the range to 1 (3 kG)
+meter.range = 1
 
-# Enable channel 1
-power_supply.ch1.enable('on')
+# Read and print a field measurement in G
+print(meter.field)
 
-# Read the voltage and current from channel 1
-voltage = power_supply.ch1.voltage()
-current = power_supply.ch1.current()
-print('Channel 1 Voltage:', voltage)
-print('Channel 1 Current:', current)
+# Sample 100 field measurements
+fields = meter.fields(100)
 
-# Disable channel 1
-power_supply.ch1.enable('off')
+# Print the mean and standard deviation of the samples
+print(fields.mean(), fields.std())
 
-# Disconnect from the instrument
-power_supply.disconnect()
+# Close the connection to the instrument
+meter.close()
 ```
 
-This script creates an instance of the `E36313A` instrument, connects to it using the specified address (replace `'TCPIP0::192.168.1.1::INSTR'` with the actual address of your instrument), retrieves the identification information, sets the voltage and current for channel 1, enables channel 1, reads the voltage and current from channel 1, disables channel 1, and finally disconnects from the instrument.
+This script connects to the F.W. Bell 5080 Handheld Gaussmeter using a SerialAdapter and creates a SerialInstrument object for it. It then sets the measurement units to Gauss and the range to 1 (3 kG). It reads and prints a field measurement in G, samples 100 field measurements, and prints the mean and standard deviation of the samples. Finally, it closes the connection to the instrument.
 
 </TabItem>
 </Tabs>

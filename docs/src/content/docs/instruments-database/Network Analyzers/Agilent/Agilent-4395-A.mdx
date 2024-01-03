@@ -1,11 +1,11 @@
 ---
-title: Connecting to Agilent 4395 A by Agilent in Python
+title: Connecting to Agilent 4395A by Agilent in Python
 description: This Classe Handle Agilent 4395A Device.
-keywords: [digital attenuators, Weinschel, QCodes] 
+keywords: [Network Analyzers, Agilent, ] 
 slug: instruments-database/Network Analyzers/Agilent/Agilent-4395-A 
 
 sidebar:
-    label: Agilent 4395 A 
+    label: Agilent 4395A 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -38,46 +38,17 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
   manufacturer="AGILENT"
 ></FeaturedInstrumentVideo>
 
-## Connect to the Agilent 4395 A in Python
+## Connect to the Agilent 4395A in Python
 
 [Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-<Tabs>
 
+<Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category='DIGITAL_ATTENUATORS' manufacturer='WEINSCHEL'></NodeCardCollection>
-
-</TabItem>
-<TabItem value="QCodes" label="QCodes">
-
-To connect to a Weinschel 8320 Digital Attenuator using Qcodes, you can use the following Python script:
-
-```python
-from qcodes.instrument.visa import VisaInstrument
-
-# Create an instance of the Weinschel8320 instrument
-weinschel = Weinschel8320('weinschel', 'your_visa_address')
-
-# Connect to the instrument
-weinschel.connect()
-
-# Set the attenuation to 10 dB
-weinschel.attenuation(10)
-
-# Get the current attenuation value
-attenuation_value = weinschel.attenuation()
-
-# Print the current attenuation value
-print(f"Current attenuation: {attenuation_value} dB")
-
-# Disconnect from the instrument
-weinschel.disconnect()
-```
-
-Make sure to replace `'your_visa_address'` with the actual VISA address of your Weinschel 8320 Digital Attenuator.
+<NodeCardCollection category="NETWORK_ANALYZERS" manufacturer="Agilent"></NodeCardCollection>
 
 </TabItem>
 </Tabs>

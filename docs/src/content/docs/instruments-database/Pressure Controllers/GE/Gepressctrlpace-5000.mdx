@@ -1,11 +1,11 @@
 ---
-title: Connecting to Gepressctrlpace 5000 by GE in Python
+title: Connecting to Druck PACE5000 by GE in Python
 description: Server For The Control Of The Pressure Automated Calibration Equipment 5000 From Ge
-keywords: [preamplifiers, Stanford Research Systems, PyMeasure] 
+keywords: [Pressure Controllers, GE, ] 
 slug: instruments-database/Pressure Controllers/GE/Gepressctrlpace-5000 
 
 sidebar:
-    label: Gepressctrlpace 5000 
+    label: Druck PACE5000 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -38,61 +38,17 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
   manufacturer="GE"
 ></FeaturedInstrumentVideo>
 
-## Connect to the Gepressctrlpace 5000 in Python
+## Connect to the Druck PACE5000 in Python
 
 [Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-<Tabs>
 
+<Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category='PREAMPLIFIERS' manufacturer='STANFORD'></NodeCardCollection>
-
-</TabItem>
-<TabItem value="PyMeasure" label="PyMeasure">
-
-
-```python
-from pymeasure.adapters import VISAAdapter
-from pymeasure.instruments.sr570 import SR570
-
-# Create a VISA adapter for the instrument
-adapter = VISAAdapter("GPIB0::1::INSTR")
-
-# Connect to the SR 570 Preamplifier
-preamplifier = SR570(adapter)
-
-# Set the sensitivity to 1e-9
-preamplifier.sensitivity = 1e-9
-
-# Set the filter type to '6dB Highpass'
-preamplifier.filter_type = '6dB Highpass'
-
-# Set the lowpass frequency to 1 Hz
-preamplifier.low_freq = 1
-
-# Set the highpass frequency to 0.03 Hz
-preamplifier.high_freq = 0.03
-
-# Enable the bias voltage
-preamplifier.enable_bias()
-
-# Enable the offset current
-preamplifier.enable_offset_current()
-
-# Clear any overload condition
-preamplifier.clear_overload()
-
-# Blank the frontend output
-preamplifier.blank_front()
-
-# Disconnect from the instrument
-preamplifier.disconnect()
-```
-
-This script connects to the SR 570 Preamplifier using a VISA adapter, sets various settings such as sensitivity, filter type, and frequency, enables the bias voltage and offset current, clears any overload condition, and blanks the frontend output. Finally, it disconnects from the instrument.
+<NodeCardCollection category="PRESSURE_CONTROLLERS" manufacturer="GE"></NodeCardCollection>
 
 </TabItem>
 </Tabs>

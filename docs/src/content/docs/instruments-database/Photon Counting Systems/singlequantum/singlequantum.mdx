@@ -1,0 +1,92 @@
+---
+title: Connecting to Singlequantum by Singlequantum in Python
+
+keywords: [Photon Counting Systems, Singlequantum, QCodes Community] 
+slug: instruments-database/Photon Counting Systems/singlequantum/singlequantum 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782463/Instruments/Photon%20Counting%20System/PicoHarp-300/PicoHarp-300.jpg
+sidebar:
+    label: Singlequantum 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+
+
+![Singlequantum](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782463/Instruments/Photon%20Counting%20System/PicoHarp-300/PicoHarp-300.jpg)
+
+Device Specification: [here](/instruments-database/all-instruments)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: SINGLEQUANTUM</h2></summary>
+
+![SINGLEQUANTUM](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806196/Instruments/Vendor%20Logos/SingleQuantum.png)
+
+At Single Quantum, we confront every challenge with innovation, dedication, and passion. Founded in 2012, our team emerged as true pioneers of single photon detection technology: we were among the first to manufacture and commercialize superconducting nanowire single photon detectors. Since then, our multi-channel Single Quantum Eos photon detection system has been chosen by more than 100 academic and industrial labs all over the world to perform complex optical measurements.
+
+- Headquarters: Delft, Zuid-Holland, The Netherlands
+- Yearly Revenue (millions, USD): 5
+- Vendor Website: [here](https://singlequantum.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="PHOTON_COUNTING_SYSTEMS"
+  manufacturer="SINGLEQUANTUM"
+></FeaturedInstrumentVideo>
+
+## Connect to the Singlequantum in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category="PHOTON_COUNTING_SYSTEMS" manufacturer="Singlequantum"></NodeCardCollection>
+
+</TabItem>
+<TabItem value="QCodes Community" label="QCodes Community">
+
+To connect to a Singlequantum Photon Counting System using Qcodes Community, you can use the provided `WebSQControlqcode` class. Here's an example script that demonstrates how to connect to the instrument and perform some basic operations:
+
+```python
+from qcodes import Station
+from qcodes.instrument_drivers.singlequantum.WebSQControlqcode import WebSQControlqcode
+
+# Create a station to hold the instrument
+station = Station()
+
+# Connect to the Singlequantum Photon Counting System
+instrument = WebSQControlqcode('singlequantum', address='localhost', port=12000)
+station.add_component(instrument)
+
+# Set the bias current to 10 uA
+instrument.bias_current(10)
+
+# Enable the detectors
+instrument.detectors(True)
+
+# Set the measurement period to 100 ms
+instrument.measurement_periode(100)
+
+# Acquire 5 points
+instrument.npts(5)
+counts = instrument.counters()
+
+# Print the acquired counts
+print(counts)
+
+# Disconnect from the instrument
+instrument.close()
+```
+
+In this script, we first create a `Station` object to hold the instrument. Then, we create an instance of the `WebSQControlqcode` class and add it to the station. We can then use the instrument's parameters and methods to interact with the Singlequantum Photon Counting System. In this example, we set the bias current, enable the detectors, set the measurement period, and acquire counts for 5 points. Finally, we print the acquired counts and close the connection to the instrument.
+
+</TabItem>
+</Tabs>

@@ -1,0 +1,99 @@
+---
+title: Connecting to S5048 2-Port 4.8 GHz Analyzer by Coppermountain in Python
+description: The S5048 Vector Network Analyzer delivers lab grade performance in a compact package, with all the features engineers have come to expect included standard in our software.
+keywords: [Network Analyzers, Coppermountain, QCodes Community] 
+slug: instruments-database/Network Analyzers/coppermountain/s5048-2-port-48-ghz-analyzer 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782558/Instruments/Network%20Analyzer/S5048-2-Port-4.8-GHz-Analyzer/S5048-2-Port-4.8-GHz-Analyzer.png
+sidebar:
+    label: S5048 2-Port 4.8 GHz Analyzer 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The S5048 Vector Network Analyzer delivers lab grade performance in a compact package, with all the features engineers have come to expect included standard in our software.
+
+![S5048 2-Port 4.8 GHz Analyzer](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782558/Instruments/Network%20Analyzer/S5048-2-Port-4.8-GHz-Analyzer/S5048-2-Port-4.8-GHz-Analyzer.png)
+
+Device Specification: [here](https://coppermountaintech.com/wp-content/uploads/2020/04/Compact-S5048-Extended-Specification-Sheet.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: COPPERMOUNTAIN</h2></summary>
+
+![COPPERMOUNTAIN](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806129/Instruments/Vendor%20Logos/Coppermountain.png)
+
+**Copper Mountain Technologies** develops innovative RF test and measurement solutions for engineers worldwide that enable engineers to extend their reach.
+
+- Headquarters: US
+- Yearly Revenue (millions, USD): 301
+- Vendor Website: [here](https://coppermountaintech.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="NETWORK_ANALYZERS"
+  manufacturer="COPPERMOUNTAIN"
+></FeaturedInstrumentVideo>
+
+## Connect to the S5048 2-Port 4.8 GHz Analyzer in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category="NETWORK_ANALYZERS" manufacturer="Coppermountain"></NodeCardCollection>
+
+</TabItem>
+<TabItem value="QCodes Community" label="QCodes Community">
+
+To connect to a S5048 2-Port 4.8 GHz Analyzer Network Analyzer using Qcodes Community, you can use the following Python script:
+
+```python
+from qcodes.instrument.visa import VisaInstrument
+from qcodes.instrument.parameter import ArrayParameter
+import qcodes.utils.validators as vals
+
+class CMTS5048Trace(ArrayParameter):
+    # ... (code omitted for brevity)
+
+class CMTS5048(VisaInstrument):
+    # ... (code omitted for brevity)
+
+# Create an instance of the S5048 Network Analyzer
+s5048 = CMTS5048('s5048', 'TCPIP0::192.168.1.1::inst0::INSTR')
+
+# Connect to the instrument
+s5048.connect()
+
+# Print the start frequency
+print(s5048.start_freq())
+
+# Set the stop frequency to 1 GHz
+s5048.stop_freq(1e9)
+
+# Prepare the trace
+s5048.trace.prepare_trace()
+
+# Get the trace data
+trace_data = s5048.trace()
+
+# Print the trace data
+print(trace_data)
+
+# Disconnect from the instrument
+s5048.disconnect()
+```
+
+This script creates a custom `CMTS5048Trace` class that extends `ArrayParameter` to hold the trace data from the S5048 network analyzer. It also creates a `CMTS5048` class that extends `VisaInstrument` and defines various parameters and methods to control the network analyzer.
+
+To use the script, you need to replace `'TCPIP0::192.168.1.1::inst0::INSTR'` with the actual address of your S5048 network analyzer. Then, you can connect to the instrument using `s5048.connect()`, set parameters, prepare the trace, and get the trace data using `s5048.trace()`. Finally, you can disconnect from the instrument using `s5048.disconnect()`.
+
+</TabItem>
+</Tabs>

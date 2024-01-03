@@ -1,0 +1,88 @@
+---
+title: Connecting to Keysight 33521A by Agilent in Python
+description: Keysight 33500 Series function/arbitrary waveform generators offer the highest signal fidelity and implement a new breakthrough technology that provides you with the ability to generate more accurate arbitrary waveforms. With 10x better jitter than anything in their class, they offer unparalleled control of signal frequency for your most challenging measurements.
+keywords: [RF Signal Generators, Agilent, PyMeasure] 
+slug: instruments-database/RF Signal Generators/agilent/keysight-33521a 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782702/Instruments/RF%20Signal%20Generator/Keysight-33521-A/Keysight-33521-A.png
+sidebar:
+    label: Keysight 33521A 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+Keysight 33500 Series function/arbitrary waveform generators offer the highest signal fidelity and implement a new breakthrough technology that provides you with the ability to generate more accurate arbitrary waveforms. With 10x better jitter than anything in their class, they offer unparalleled control of signal frequency for your most challenging measurements.
+
+![Keysight 33521A](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782702/Instruments/RF%20Signal%20Generator/Keysight-33521-A/Keysight-33521-A.png)
+
+Device Specification: [here](https://www.keysight.com/us/en/assets/7018-02567/data-sheets/5990-5914.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: AGILENT</h2></summary>
+
+![AGILENT](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692126006/Instruments/Vendor%20Logos/Agilent.png)
+
+Keysight Technologies, or Keysight, is an American company that manufactures electronics test and measurement equipment and software
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5420
+- Vendor Website: [here](https://www.keysight.com/us/en/home.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="RF_SIGNAL_GENERATORS"
+  manufacturer="AGILENT"
+></FeaturedInstrumentVideo>
+
+## Connect to the Keysight 33521A in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category="RF_SIGNAL_GENERATORS" manufacturer="Agilent"></NodeCardCollection>
+
+</TabItem>
+<TabItem value="PyMeasure" label="PyMeasure">
+
+
+```python
+from pymeasure.adapters import VISAAdapter
+from pymeasure.instruments import Agilent33500
+
+# Create a VISA adapter for the instrument
+adapter = VISAAdapter("GPIB::1")
+
+# Connect to the instrument
+instrument = Agilent33500(adapter)
+
+# Set the output waveform shape to sine
+instrument.shape = "SIN"
+
+# Set the frequency to 1 kHz
+instrument.frequency = 1e3
+
+# Set the amplitude to 1 Vpp
+instrument.amplitude = 1
+
+# Enable the output
+instrument.output = True
+
+# Disconnect from the instrument
+instrument.disconnect()
+```
+
+This script connects to the instrument using a VISA adapter and creates an instance of the `Agilent33500` class. It then sets the output waveform shape to sine, frequency to 1 kHz, amplitude to 1 Vpp, and enables the output. Finally, it disconnects from the instrument.
+
+Note: Make sure to replace `"GPIB::1"` with the appropriate address of your Keysight 33521A RF Signal Generator.
+
+</TabItem>
+</Tabs>

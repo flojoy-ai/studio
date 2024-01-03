@@ -1,0 +1,84 @@
+---
+title: Connecting to LDA-802Q by Vaunix in Python
+description: The LDA-802Q Digital Attenuator is a 4-channel high dynamic range, bidirectional, 50 Ohm step attenuator. The LDA-802Q provides 120 dB of attenuation control range from 200 to 8000 MHz with a step size of 0.1 dB. The attenuators are easily programmable for fixed attenuation, swept attenuation ramps and fading profiles directly from the included Graphical User Interface (GUI). Alternatively, for users wishing to develop their own interface, Vaunix supplies LabVIEW drivers, Windows API DLL files, Linux drivers, Python examples and much more.
+keywords: [Digital Attenuators, Vaunix, QCodes Community] 
+slug: instruments-database/Digital Attenuators/vaunix/lda-802q 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782422/Instruments/Digital%20Attenuator/LDA-802Q/LDA-802Q.png
+sidebar:
+    label: LDA-802Q 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The LDA-802Q Digital Attenuator is a 4-channel high dynamic range, bidirectional, 50 Ohm step attenuator. The LDA-802Q provides 120 dB of attenuation control range from 200 to 8000 MHz with a step size of 0.1 dB. The attenuators are easily programmable for fixed attenuation, swept attenuation ramps and fading profiles directly from the included Graphical User Interface (GUI). Alternatively, for users wishing to develop their own interface, Vaunix supplies LabVIEW drivers, Windows API DLL files, Linux drivers, Python examples and much more.
+
+![LDA-802Q](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782422/Instruments/Digital%20Attenuator/LDA-802Q/LDA-802Q.png)
+
+Device Specification: [here](https://vaunix.com/resources/digital%20attenuators-datasheet.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: VAUNIX</h2></summary>
+
+![VAUNIX](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692125985/Instruments/Vendor%20Logos/Vaunix.png)
+
+Vaunix Technology Corp. designs, manufactures, and services RF and microwave test equipment and digital radio communications products. Utilizing our deep RF and software engineering expertise, rooted in microwave radio and wireless equipment repair and testing, Vaunix developed the Lab Brick® family of electronic test products, which set a new standard for cost, size, and simplicity of wireless testing devices. Powered by a USB connection and controlled by easy-to-use, graphical-user-interface (GUI) software, Lab Bricks have been designed to meet the needs of wireless engineers and technicians who want to create flexible, customized system solutions either in the lab or in the field. We 've expanded our Lab Brick® family of electronic test products to include Attenuator Matrix solutions that double as Wireless [Handover Test Systems](https://vaunix.com/handover-test-systems/) to give our test technicians and product engineers the advanced capability to solve unique wireless _handover _testing challenges and bring affordability, functionality, reliability and simplicity to the microwave test bench.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5
+- Vendor Website: [here](https://vaunix.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="DIGITAL_ATTENUATORS"
+  manufacturer="VAUNIX"
+></FeaturedInstrumentVideo>
+
+## Connect to the LDA-802Q in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category="DIGITAL_ATTENUATORS" manufacturer="Vaunix"></NodeCardCollection>
+
+</TabItem>
+<TabItem value="QCodes Community" label="QCodes Community">
+
+To connect to a LDA-802Q Digital Attenuator using Qcodes Community, you can use the following Python script:
+
+```python
+from qcodes import Station
+from qcodes_contrib_drivers.drivers.Vaunix_LDA import LDA
+
+# Create a station to hold the instruments
+station = Station()
+
+# Connect to the LDA-802Q Digital Attenuator
+lda = LDA('lda', serial_number=802, dll_path='path/to/dll')
+
+# Add the LDA to the station
+station.add_component(lda)
+
+# Print the IDN of the LDA
+print(lda.get_idn())
+
+# Set the attenuation to 10 dB on channel 1
+lda.ch1.attenuation(10)
+
+# Close the connection to the LDA
+lda.close()
+```
+
+Make sure to replace `'path/to/dll'` with the actual path to the DLL file for the LDA-802Q Digital Attenuator.
+
+</TabItem>
+</Tabs>

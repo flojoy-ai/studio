@@ -1,11 +1,11 @@
 ---
-title: Connecting to Tekdpo 7000 by Tektronix in Python
+title: Connecting to DPO7000 by Tektronix in Python
 description: The MSO/DPO70000DX is one of the most advanced oscilloscopes in its class—enabling today's engineer to see signals better with minimal noise, debug signal anomalies faster and utilize measurement and analysis tools for automated compliance testing and other verifications
-keywords: [oscilloscopes, Tektronix, InstrumentKit, QCodes] 
-slug: instruments-database/oscilloscopes/tektronix/dpo7000 
+keywords: [Oscilloscopes, Tektronix, InstrumentKit] 
+slug: instruments-database/Oscilloscopes/tektronix/dpo7000 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782722/Instruments/Oscilloscopes/DPO7000/DPO7000.jpg
 sidebar:
-    label: Tekdpo 7000 
+    label: DPO7000 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -14,7 +14,7 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
 
 The MSO/DPO70000DX is one of the most advanced oscilloscopes in its class—enabling today's engineer to see signals better with minimal noise, debug signal anomalies faster and utilize measurement and analysis tools for automated compliance testing and other verifications
 
-![Tekdpo 7000](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782722/Instruments/Oscilloscopes/DPO7000/DPO7000.jpg)
+![DPO7000](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782722/Instruments/Oscilloscopes/DPO7000/DPO7000.jpg)
 
 Device Specification: [here](/instruments-database/all-instruments)
 
@@ -38,80 +38,52 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
   manufacturer="TEKTRONIX"
 ></FeaturedInstrumentVideo>
 
-## Connect to the Tekdpo 7000 in Python
+## Connect to the DPO7000 in Python
 
 [Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-<Tabs>
 
+<Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category='OSCILLOSCOPES' manufacturer='TEKTRONIX'></NodeCardCollection>
+<NodeCardCollection category="OSCILLOSCOPES" manufacturer="Tektronix"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="InstrumentKit" label="InstrumentKit">
 
-To connect to a DPO70000 oscilloscope using Instrumentkit, you can use the following code:
 
 ```python
-import instrumentkit as ik
+from instrumentkit import Scope
 
 # Connect to the oscilloscope
-tek = ik.tektronix.TekDPO70000.open_tcpip("192.168.0.2", 8888)
+scope = Scope("TCPIP::192.168.1.1::INSTR")
 
-# Perform operations on the oscilloscope
-# For example, read waveform from channel 0
-[x, y] = tek.channel[0].read_waveform()
+# Set up the oscilloscope
+scope.set_timebase(1e-6)  # Set timebase to 1us/div
+scope.set_channel_scale(1, 0.1)  # Set channel 1 scale to 0.1V/div
+scope.set_channel_scale(2, 0.2)  # Set channel 2 scale to 0.2V/div
 
-# Close the connection
-tek.close()
-```
+# Acquire waveform data
+waveform = scope.acquire_waveform(1)  # Acquire waveform from channel 1
 
-This code connects to the oscilloscope at IP address "192.168.0.2" and port 8888 using the `open_tcpip` method of the `TekDPO70000` class. It then reads a waveform from channel 0 using the `read_waveform` method of the `Channel` class. Finally, it closes the connection using the `close` method.
-
-</TabItem>
-<TabItem value="QCodes" label="QCodes">
-
-Here is an example Python script that uses Qcodes to connect to a DPO70000 Oscilloscope:
-
-```python
-import qcodes as qc
-from qcodes.instrument_drivers.tektronix.Tektronix_DPO7000xx import TektronixDPO7000xx
-
-# Connect to the oscilloscope
-oscilloscope = TektronixDPO7000xx("oscilloscope", "TCPIP::1.2.3.4::INSTR")
-
-# Print the available channels
-print(oscilloscope.channel.names)
-
-# Set the time per division for channel 1
-oscilloscope.channel1.scale(0.1)
-
-# Set the trigger type to edge and the source to channel 1
-oscilloscope.trigger.type("edge")
-oscilloscope.trigger.source("CH1")
-
-# Arm the trigger and wait for a trigger event
-oscilloscope.trigger.state(1)
-oscilloscope.trigger.wait_for_trigger()
-
-# Get the waveform data from channel 1
-waveform = oscilloscope.channel1.waveform()
-
-# Plot the waveform
-import matplotlib.pyplot as plt
-plt.plot(waveform.trace_axis(), waveform.trace())
-plt.xlabel(waveform.trace_axis().label)
-plt.ylabel(waveform.trace().label)
-plt.show()
+# Print the acquired waveform data
+print(waveform)
 
 # Disconnect from the oscilloscope
-oscilloscope.close()
+scope.disconnect()
 ```
 
-This script connects to the oscilloscope using the IP address "1.2.3.4" (replace with the actual IP address of your oscilloscope). It then sets the time per division for channel 1 to 0.1 seconds and configures the trigger type to edge with the source as channel 1. It arms the trigger and waits for a trigger event. After the trigger event, it retrieves the waveform data from channel 1 and plots it using matplotlib. Finally, it disconnects from the oscilloscope.
+In this script, we first import the `Scope` class from the `instrumentkit` module. Then, we create an instance of the `Scope` class by passing the instrument's address as a string to the constructor.
+
+Next, we set up the oscilloscope by calling various methods on the `scope` object. For example, we use the `set_timebase` method to set the timebase to 1us/div and the `set_channel_scale` method to set the scale of channel 1 to 0.1V/div and channel 2 to 0.2V/div.
+
+After setting up the oscilloscope, we can acquire waveform data using the `acquire_waveform` method. In this example, we acquire the waveform from channel 1 by passing `1` as an argument to the method.
+
+Finally, we print the acquired waveform data and disconnect from the oscilloscope using the `disconnect` method.
+
+Note: Replace `"TCPIP::192.168.1.1::INSTR"` with the actual IP address or VISA resource string of your DPO7000 Oscilloscope.
 
 </TabItem>
 </Tabs>

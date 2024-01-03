@@ -1,0 +1,81 @@
+---
+title: Connecting to APT Stepper Motor Control Module by Thorlabs in Python
+description: The APT™ MST602 module is a dual-channel, high-resolution, rack-mounted stepper motor driver designed for use with the APT MMR601 Motion Control 19" Modular Rack System. It has been designed to drive 2-phase bi-polar stepper motors up to 50 W, with or without encoder feedback, and is compatible with the full range of stepper-motor-equipped nanopositioning actuators and stages offered by Thorlabs. Alternatively, it is also compatible with any generic two-phase bi-polar motor of varying powers and varying cardinal step sizes.
+keywords: [Motor Controllers, Thorlabs, InstrumentKit] 
+slug: instruments-database/Motor Controllers/thorlabs/apt-stepper-motor-control-module 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782719/Instruments/Positional%20Controller/APT-Stepper-Motor-Control-Module/APT-Stepper-Motor-Control-Module.jpg
+sidebar:
+    label: APT Stepper Motor Control Module 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The APT™ MST602 module is a dual-channel, high-resolution, rack-mounted stepper motor driver designed for use with the APT MMR601 Motion Control 19" Modular Rack System. It has been designed to drive 2-phase bi-polar stepper motors up to 50 W, with or without encoder feedback, and is compatible with the full range of stepper-motor-equipped nanopositioning actuators and stages offered by Thorlabs. Alternatively, it is also compatible with any generic two-phase bi-polar motor of varying powers and varying cardinal step sizes. 
+
+![APT Stepper Motor Control Module](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782719/Instruments/Positional%20Controller/APT-Stepper-Motor-Control-Module/APT-Stepper-Motor-Control-Module.jpg)
+
+Device Specification: [here](https://www.thorlabs.com/_sd.cfm?fileName=ETN012478-D02.pdf&partNumber=MST602)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: THORLABS</h2></summary>
+
+![THORLABS](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692126009/Instruments/Vendor%20Logos/Thorlabs.png)
+
+Thorlabs, Inc. is an American privately held optical equipment company headquartered in Newton, New Jersey. The company was founded in 1989 by Alex Cable, who serves as its current president and CEO. As of 2018, Thorlabs has annual sales of approximately $500 million.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 550
+- Vendor Website: [here](https://www.thorlabs.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="MOTOR_CONTROLLERS"
+  manufacturer="THORLABS"
+></FeaturedInstrumentVideo>
+
+## Connect to the APT Stepper Motor Control Module in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category="MOTOR_CONTROLLERS" manufacturer="Thorlabs"></NodeCardCollection>
+
+</TabItem>
+<TabItem value="InstrumentKit" label="InstrumentKit">
+
+To connect to an APT Stepper Motor Control Module Positional Controller using Instrumentkit, you can use the following code:
+
+```python
+import instrumentkit as ik
+
+# Connect to the APT Stepper Motor Control Module Positional Controller
+controller = ik.thorlabs.APTMotorController.open_serial("/dev/ttyUSB0", baud=115200)
+
+# Get the first channel of the controller
+channel = controller.channel[0]
+
+# Set the motor model for the channel
+channel.motor_model = "PRM1-Z8"
+
+# Move the motor to a specific position
+channel.move(1000)  # Move to position 1000 (encoder counts)
+
+# Get the current position of the motor
+position = channel.position
+print(f"Current position: {position}")
+```
+
+This code connects to the APT Stepper Motor Control Module Positional Controller using the `open_serial` method, specifying the serial port and baud rate. It then gets the first channel of the controller and sets the motor model to "PRM1-Z8". Finally, it moves the motor to position 1000 and retrieves the current position of the motor.
+
+</TabItem>
+</Tabs>

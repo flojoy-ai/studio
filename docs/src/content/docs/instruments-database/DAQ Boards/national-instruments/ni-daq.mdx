@@ -1,0 +1,82 @@
+---
+title: Connecting to NI DAQ by National Instruments in Python
+description: Data acquisition (DAQ) is the process of measuring an electrical or physical phenomenon, such as voltage, current, temperature, pressure, or sound. A DAQ system consists of sensors, DAQ measurement hardware, and a computer with programmable software such as LabVIEW.
+keywords: [DAQ Boards, National Instruments, QCodes Community] 
+slug: instruments-database/DAQ Boards/national-instruments/ni-daq 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782582/Instruments/DAQ%20boards/NI-DAQ/NI-DAQ.jpg
+sidebar:
+    label: NI DAQ 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+Data acquisition (DAQ) is the process of measuring an electrical or physical phenomenon, such as voltage, current, temperature, pressure, or sound. A DAQ system consists of sensors, DAQ measurement hardware, and a computer with programmable software such as LabVIEW.
+
+
+
+![NI DAQ](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782582/Instruments/DAQ%20boards/NI-DAQ/NI-DAQ.jpg)
+
+Device Specification: [here](/instruments-database/all-instruments)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: NATIONAL INSTRUMENTS</h2></summary>
+
+![NATIONAL INSTRUMENTS](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806169/Instruments/Vendor%20Logos/National_Instruments.png)
+
+A producer of automated test equipment and virtual instrumentation software. Common applications include data acquisition, instrument control and machine vision.
+
+- Headquarters: Austin, Texas, USA
+- Yearly Revenue (millions, USD): 1657
+- Vendor Website: [here](https://www.ni.com/en-ca.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="DAQ_BOARDS"
+  manufacturer="NATIONAL INSTRUMENTS"
+></FeaturedInstrumentVideo>
+
+## Connect to the NI DAQ in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category="DAQ_BOARDS" manufacturer="National Instruments"></NodeCardCollection>
+
+</TabItem>
+<TabItem value="QCodes Community" label="QCodes Community">
+
+To connect to a NI DAQ board using Qcodes Community, you can use the following Python script:
+
+```python
+import qcodes as qc
+from qcodes_contrib_drivers.drivers.NI_DAQ import DAQAnalogInputs, DAQAnalogOutputs, DAQDigitalOutputs
+
+# Create a connection to the NI DAQ board
+daq = qc.Instrument('daq', 'DAQAnalogInputs', dev_name='Dev1', rate=1000, channels={'ch1': 0})
+
+# Read analog input voltage
+voltage = daq.voltage.get()
+
+# Write analog output voltage
+daq_ao = qc.Instrument('daq_ao', 'DAQAnalogOutputs', dev_name='Dev1', channels={'ch1': 0})
+daq_ao.voltage_ch1.set(1.23)
+
+# Write digital output state
+daq_do = qc.Instrument('daq_do', 'DAQDigitalOutputs', dev_name='Dev1', lines=['port0/line0'])
+daq_do.state.set(True)
+```
+
+Note: Replace `'Dev1'` with the appropriate device name for your NI DAQ board, and adjust the channel and line configurations as needed.
+
+</TabItem>
+</Tabs>

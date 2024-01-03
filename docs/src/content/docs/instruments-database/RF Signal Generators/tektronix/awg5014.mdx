@@ -1,0 +1,95 @@
+---
+title: Connecting to AWG5014 by Tektronix in Python
+description: AWG5000 Series models, with a 14 bits DA converter based sample rate from 600 MS/s to 1.2 GS/s, two to four output channels, synchronized four to eight digital marker outputs, and 28-channels of digital data outputs, easilysolve the toughest measurement challenges in wireless base band I/Q communications, digital consumer product design such as imaging devices, data conversion equipment and semiconductor design and test
+keywords: [RF Signal Generators, Tektronix, QCodes] 
+slug: instruments-database/RF Signal Generators/tektronix/awg5014 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782696/Instruments/RF%20Signal%20Generator/AWG5014/AWG5014.jpg
+sidebar:
+    label: AWG5014 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+AWG5000 Series models, with a 14
+bits DA converter based sample rate
+from 600 MS/s to 1.2 GS/s, two to four output channels, synchronized four to eight digital marker outputs, and 28-channels of digital data outputs, easilysolve the toughest measurement challenges in wireless base band I/Q communications, digital consumer product design such as imaging devices, data conversion equipment and semiconductor design and test
+
+![AWG5014](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782696/Instruments/RF%20Signal%20Generator/AWG5014/AWG5014.jpg)
+
+Device Specification: [here](https://download.tek.com/datasheet/76W-20381-3.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: TEKTRONIX</h2></summary>
+
+![TEKTRONIX](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806108/Instruments/Vendor%20Logos/Tektronix.png)
+
+Tektronix, Inc., historically widely known as Tek, is an American company best known for manufacturing test and measurement devices such as [oscilloscopes](https://en.wikipedia.org/wiki/Oscilloscope), [logic analyzers](https://en.wikipedia.org/wiki/Logic_analyzer), and video and mobile test protocol equipment.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5800
+- Vendor Website: [here](https://www.tek.com/en)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="RF_SIGNAL_GENERATORS"
+  manufacturer="TEKTRONIX"
+></FeaturedInstrumentVideo>
+
+## Connect to the AWG5014 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category="RF_SIGNAL_GENERATORS" manufacturer="Tektronix"></NodeCardCollection>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+Here is an example Python script that uses Qcodes to connect to a Tektronix AWG5014 RF Signal Generator:
+
+```python
+import qcodes as qc
+from qcodes.instrument_drivers.tektronix.AWG5014 import TektronixAWG5014
+
+# Connect to the AWG5014
+awg = TektronixAWG5014('awg', 'TCPIP0::192.168.1.1::inst0::INSTR')
+
+# Set the waveform for channel 1
+awg.ch1_waveform('SINE')
+
+# Set the amplitude for channel 1
+awg.ch1_amplitude(0.5)
+
+# Set the offset for channel 1
+awg.ch1_offset(0.0)
+
+# Set the waveform for channel 2
+awg.ch2_waveform('SQUARE')
+
+# Set the amplitude for channel 2
+awg.ch2_amplitude(1.0)
+
+# Set the offset for channel 2
+awg.ch2_offset(0.0)
+
+# Run the AWG
+awg.run()
+
+# Disconnect from the AWG
+awg.close()
+```
+
+This script connects to the AWG5014 using the IP address '192.168.1.1'. It sets the waveform, amplitude, and offset for channels 1 and 2, and then runs the AWG. Finally, it disconnects from the AWG.
+
+</TabItem>
+</Tabs>

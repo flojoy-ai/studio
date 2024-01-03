@@ -1,0 +1,77 @@
+---
+title: Connecting to 1830-C  by Newport in Python
+description: The Model 1830C Power Meter is a high-resolution autoranging picoammeter compatible with all of Newport’s 818 Series low-power silicon, germanium and indium gallium arsenide detectors
+keywords: [Power Meters, Newport, Instrumental] 
+slug: instruments-database/Power Meters/newport/1830-c 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782443/Instruments/Power%20Meters/1830-C/1830-C.jpg
+sidebar:
+    label: 1830-C 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The Model 1830C Power Meter is a high-resolution autoranging picoammeter compatible with all of Newport’s 818 Series low-power silicon, germanium and indium gallium arsenide detectors
+
+
+![1830-C](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782443/Instruments/Power%20Meters/1830-C/1830-C.jpg)
+
+Device Specification: [here](/instruments-database/all-instruments)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: NEWPORT</h2></summary>
+
+![NEWPORT](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806178/Instruments/Vendor%20Logos/Newport.png)
+
+Newport provides a wide range of photonics technology and products designed to enhance the capabilities and productivity of our customers' applications.
+
+- Headquarters: Irvine, California, United States
+- Yearly Revenue (millions, USD): 3500
+- Vendor Website: [here](https://www.newport.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="POWER_METERS"
+  manufacturer="NEWPORT"
+></FeaturedInstrumentVideo>
+
+## Connect to the 1830-C in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category="POWER_METERS" manufacturer="Newport"></NodeCardCollection>
+
+</TabItem>
+<TabItem value="Instrumental" label="Instrumental">
+
+Here is a Python script that uses Instrumental to connect to a Newport 1830-C Power Meter:
+
+```python
+from instrumental import instrument
+
+# Connect to the power meter on port COM1
+newport_power_meter = instrument(visa_address='COM1',
+                                 classname='Newport_1830_C',
+                                 module='powermeters.newport')
+
+# Get the current power measurement
+power = newport_power_meter.power
+print(power)
+```
+
+This script imports the `instrument` function from the `instrumental` module. It then uses the `instrument` function to connect to the Newport 1830-C Power Meter on port COM1. The `instrument` function takes the VISA address, classname, and module as arguments.
+
+After connecting to the power meter, the script retrieves the current power measurement using the `power` property of the `newport_power_meter` object. Finally, it prints the power measurement.
+
+</TabItem>
+</Tabs>

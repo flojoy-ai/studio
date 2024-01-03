@@ -1,0 +1,102 @@
+---
+title: Connecting to UHFQA by Zurich Instruments in Python
+description: The Zurich Instruments UHFQA Quantum Analyzer is a unique instrument for parallel readout of up to 10 superconducting or spin qubits with highest speed and fidelity. The UHFQA operates on a frequency span of up to ±600 MHz with nanosecond timing resolution, and it features 2 signal inputs and outputs for IQ base-band operation. Thanks to its low-latency signal processing chain of matched filters, real-time matrix operations, and state discrimination, the UHFQA supports the development of ambitious quantum computing projects for 100 qubits and more.
+keywords: [Quantum Analyzers, Zurich Instruments, QCodes] 
+slug: instruments-database/Quantum Analyzers/zurich-instruments/uhfqa 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782431/Instruments/Quantum%20Analyzer/UHFQA/UHFQA.webp
+sidebar:
+    label: UHFQA 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The Zurich Instruments UHFQA Quantum Analyzer is a unique instrument for parallel readout of up to 10 superconducting or spin qubits with highest speed and fidelity. The UHFQA operates on a frequency span of up to ±600 MHz with nanosecond timing resolution, and it features 2 signal inputs and outputs for IQ base-band operation. Thanks to its low-latency signal processing chain of matched filters, real-time matrix operations, and state discrimination, the UHFQA supports the development of ambitious quantum computing projects for 100 qubits and more.
+
+![UHFQA](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782431/Instruments/Quantum%20Analyzer/UHFQA/UHFQA.webp)
+
+Device Specification: [here](https://docs.zhinst.com/pdf/ziUHFQA_UserManual.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: ZURICH INSTRUMENTS</h2></summary>
+
+![ZURICH INSTRUMENTS](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806207/Instruments/Vendor%20Logos/Zurich_Instruments.png)
+
+Zurich Instruments Ltd. is a privately owned company developing and selling advanced test and measurement instruments equipped with software for dynamic signal analysis.
+
+- Headquarters: Switzerland
+- Yearly Revenue (millions, USD): 38
+- Vendor Website: [here](https://www.zhinst.com/americas/en)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="QUANTUM_ANALYZERS"
+  manufacturer="ZURICH INSTRUMENTS"
+></FeaturedInstrumentVideo>
+
+## Connect to the UHFQA in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category="QUANTUM_ANALYZERS" manufacturer="Zurich Instruments"></NodeCardCollection>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+Here is an example Python script that uses Qcodes to connect to a UHFQA Quantum Analyzer:
+
+```python
+import qcodes as qc
+from qcodes.instrument_drivers.zhinst import UHFQA
+
+# Connect to the UHFQA Quantum Analyzer
+uhfqa = UHFQA("uhfqa", "dev1234")
+
+# Print the instrument ID
+print("Instrument ID:", uhfqa.IDN())
+
+# Configure the channel
+uhfqa.qachannels[0].configure_channel(
+    input_range=0,
+    output_range=0,
+    center_frequency=5e9,
+    mode="spectroscopy"
+)
+
+# Configure the result logger
+uhfqa.qachannels[0].spectroscopy.configure_result_logger(
+    result_length=1000,
+    num_averages=10,
+    averaging_mode="cyclic"
+)
+
+# Run the spectroscopy measurement
+uhfqa.qachannels[0].spectroscopy.run()
+
+# Wait for the measurement to finish
+uhfqa.qachannels[0].spectroscopy.wait_done()
+
+# Read the measurement data
+data = uhfqa.qachannels[0].spectroscopy.read()
+
+# Print the measurement data
+print("Measurement Data:", data)
+
+# Disconnect from the UHFQA Quantum Analyzer
+uhfqa.close()
+```
+
+Note: Replace `"dev1234"` with the actual serial number of your UHFQA Quantum Analyzer.
+
+</TabItem>
+</Tabs>

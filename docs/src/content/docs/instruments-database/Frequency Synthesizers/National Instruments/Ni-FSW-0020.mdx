@@ -1,11 +1,11 @@
 ---
-title: Connecting to Ni FSW 0020 by National Instruments in Python
+title: Connecting to National InstrumentFSW-0200 by National Instruments in Python
 description: QuickSyn microwave synthesizers deliver instrument-grade performance, increased functionality, and efficient power consumption at a reduced size and low cost.
-keywords: [dilution refrigerators, Oxford Instruments, QCodes Community] 
+keywords: [Frequency Synthesizers, National Instruments, ] 
 slug: instruments-database/Frequency Synthesizers/National Instruments/Ni-FSW-0020 
 
 sidebar:
-    label: Ni FSW 0020 
+    label: National InstrumentFSW-0200 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -39,43 +39,17 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
   manufacturer="NATIONAL INSTRUMENTS"
 ></FeaturedInstrumentVideo>
 
-## Connect to the Ni FSW 0020 in Python
+## Connect to the National InstrumentFSW-0200 in Python
 
 [Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-<Tabs>
 
+<Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category='DILUTION_REFRIGERATORS' manufacturer='OXFORD'></NodeCardCollection>
-
-</TabItem>
-<TabItem value="QCodes Community" label="QCodes Community">
-
-
-```python
-import qcodes as qc
-from qcodes.instrument_drivers.oxford.Kelvinox_IGH import Kelvinox_IGH
-
-# Connect to the dilution refrigerator
-dilution_fridge = Kelvinox_IGH("dilution_fridge", "COM1")
-
-# Print the current temperature of the mixing chamber
-print(dilution_fridge.mixing_chamber.temperature())
-
-# Close the connection to the dilution refrigerator
-dilution_fridge.close()
-```
-
-In this example, we import the necessary modules from Qcodes and specifically import the `Kelvinox_IGH` instrument driver for the Kelvinox IGH Dilution Refrigerator. We then create an instance of the `Kelvinox_IGH` class, passing in the name of the instrument and the communication port (e.g., `"COM1"` for a serial connection).
-
-We can then use the various methods provided by the `Kelvinox_IGH` instrument driver to interact with the dilution refrigerator. In this example, we print the current temperature of the mixing chamber using the `temperature()` method.
-
-Finally, we close the connection to the dilution refrigerator using the `close()` method.
-
-Note: Make sure to replace `"COM1"` with the appropriate communication port for your setup.
+<NodeCardCollection category="FREQUENCY_SYNTHESIZERS" manufacturer="National Instruments"></NodeCardCollection>
 
 </TabItem>
 </Tabs>

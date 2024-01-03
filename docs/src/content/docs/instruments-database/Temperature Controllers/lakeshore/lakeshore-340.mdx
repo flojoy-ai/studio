@@ -1,0 +1,74 @@
+---
+title: Connecting to Lakeshore 340 by Lakeshore in Python
+description: The Model 340 cryogenic temperature controller is our most advanced temperature controller and offers unsurpassed resolution, accuracy, and stability for temperature measurement and control applications to as low as 100 mK. Operating with diodes, platinum RTDs, and negative temperature coefficient (NTC) resistor sensors, the Model 340 is expandable to ten sensor inputs or to operate with thermocouple or capacitance sensors. It has two control loops, with the first loop powered to 100 W.
+keywords: [Temperature Controllers, Lakeshore, InstrumentKit] 
+slug: instruments-database/Temperature Controllers/lakeshore/lakeshore-340 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782630/Instruments/Temperature%20Controllers/Lakeshore-340/Lakeshore-340.png
+sidebar:
+    label: Lakeshore 340 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The Model 340 cryogenic temperature controller is our most advanced temperature controller and offers unsurpassed resolution, accuracy, and stability for temperature measurement and control applications to as low as 100 mK. Operating with diodes, platinum RTDs, and negative temperature coefficient (NTC) resistor sensors, the Model 340 is expandable to ten sensor inputs or to operate with thermocouple or capacitance sensors. It has two control loops, with the first loop powered to 100 W.
+
+![Lakeshore 340](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782630/Instruments/Temperature%20Controllers/Lakeshore-340/Lakeshore-340.png)
+
+Device Specification: [here](https://www.lakeshore.com/docs/default-source/product-downloads/catalog/lstc_340_l.pdf?sfvrsn=ad773cdf_1)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: LAKESHORE</h2></summary>
+
+![LAKESHORE](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692813206/Instruments/Vendor%20Logos/Lakeshore_Cryotronics.png)
+
+Supporting advanced scientific research, Lake Shore is a leading global innovator in measurement and control solutions.
+
+- Headquarters: Westerville, Ohio, USA
+- Yearly Revenue (millions, USD): 21.4
+- Vendor Website: [here](https://www.lakeshore.com/home)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="TEMPERATURE_CONTROLLERS"
+  manufacturer="LAKESHORE"
+></FeaturedInstrumentVideo>
+
+## Connect to the Lakeshore 340 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category="TEMPERATURE_CONTROLLERS" manufacturer="Lakeshore"></NodeCardCollection>
+
+</TabItem>
+<TabItem value="InstrumentKit" label="InstrumentKit">
+
+To connect to a Lakeshore 340 Temperature Controller using Instrumentkit, you can use the following Python script:
+
+```python
+import instrumentkit as ik
+
+# Connect to the Lakeshore 340 Temperature Controller
+inst = ik.lakeshore.Lakeshore340.open_gpibusb('/dev/ttyUSB0', 1)
+
+# Read the temperature of the first sensor
+temperature = inst.sensor[0].temperature
+print(temperature)
+```
+
+This script imports the `instrumentkit` module and uses the `open_gpibusb` method of the `Lakeshore340` class to connect to the Temperature Controller. The `open_gpibusb` method takes the device path (`/dev/ttyUSB0`) and the GPIB address (1) as arguments.
+
+After connecting, the script reads the temperature of the first sensor using the `temperature` property of the `Sensor` class. The temperature is then printed to the console.
+
+</TabItem>
+</Tabs>

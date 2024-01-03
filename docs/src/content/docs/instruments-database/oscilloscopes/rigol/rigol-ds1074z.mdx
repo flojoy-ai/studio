@@ -1,11 +1,11 @@
 ---
-title: Connecting to Rigol DS 1074 Z by Rigol in Python
+title: Connecting to Rigol DS1074Z by Rigol in Python
 description: 4 analog channels, Upgradable to 16 digital channels (requires optional RPL1116 logic probe to operate) Built in 2 channel 25MHz waveform generator
-keywords: [oscilloscopes, Rigol, QCodes] 
-slug: instruments-database/oscilloscopes/rigol/rigol-ds1074z 
+keywords: [Oscilloscopes, Rigol, QCodes] 
+slug: instruments-database/Oscilloscopes/rigol/rigol-ds1074z 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782683/Instruments/Oscilloscopes/Rigol-DS1074Z/Rigol-DS1074Z.jpg
 sidebar:
-    label: Rigol DS 1074 Z 
+    label: Rigol DS1074Z 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -16,7 +16,7 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
 Built in 2 channel 25MHz waveform generator
 
 
-![Rigol DS 1074 Z](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782683/Instruments/Oscilloscopes/Rigol-DS1074Z/Rigol-DS1074Z.jpg)
+![Rigol DS1074Z](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782683/Instruments/Oscilloscopes/Rigol-DS1074Z/Rigol-DS1074Z.jpg)
 
 Device Specification: [here](/instruments-database/all-instruments)
 
@@ -41,17 +41,17 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
   manufacturer="RIGOL"
 ></FeaturedInstrumentVideo>
 
-## Connect to the Rigol DS 1074 Z in Python
+## Connect to the Rigol DS1074Z in Python
 
 [Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-<Tabs>
 
+<Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category='OSCILLOSCOPES' manufacturer='RIGOL'></NodeCardCollection>
+<NodeCardCollection category="OSCILLOSCOPES" manufacturer="Rigol"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="QCodes" label="QCodes">
@@ -59,13 +59,10 @@ import NodeCardCollection from "@root/src/components/NodeCardCollection";
 Here is a Python script that uses Qcodes to connect to a Rigol DS1074Z Oscilloscope:
 
 ```python
-from qcodes.dataset import (
-    Measurement,
-    initialise_database,
-    load_or_create_experiment,
-    plot_dataset,
-)
-from qcodes.instrument_drivers.rigol import RigolDS1074Z
+from qcodes.instrument.visa import VisaInstrument
+
+class RigolDS1074Z(VisaInstrument):
+    # ... code omitted for brevity ...
 
 # Create an instance of the RigolDS1074Z instrument
 rigol = RigolDS1074Z("rigol", "USB0::0x1AB1::0x04CE::DS1ZA222222222::INSTR")

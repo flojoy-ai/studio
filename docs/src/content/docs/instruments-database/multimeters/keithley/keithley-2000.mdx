@@ -1,8 +1,8 @@
 ---
 title: Connecting to Keithley 2000 by Keithley in Python
 description: The Model 2000 6½-Digit Multimeter is part of Keithley’s family of high performance DMMs. Based on the same high speed, low noise A/D converter technology as the Model 2001 and 2002, the 2000 is a fast, accurate, and highly stable instrument that’s as easy to operate as it is to afford. It combines broad measurement ranges with superior accuracy specifications
-keywords: [multimeters, Keithley, QCodes, PyMeasure] 
-slug: instruments-database/multimeters/keithley/keithley-2000 
+keywords: [Multimeters, Keithley, PyMeasure] 
+slug: instruments-database/Multimeters/keithley/keithley-2000 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782454/Instruments/Multimeters/Keithley-2000/Keithley-2000.webp
 sidebar:
     label: Keithley 2000 
@@ -47,53 +47,11 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-<Tabs>
 
+<Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category='MULTIMETERS' manufacturer='KEITHLEY'></NodeCardCollection>
-
-</TabItem>
-<TabItem value="QCodes" label="QCodes">
-
-To connect to a Keithley 2000 Multimeter using Qcodes, you can use the following Python script:
-
-```python
-from qcodes.instrument_drivers.tektronix.Keithley_2000 import Keithley_2000
-
-# Create an instance of the Keithley 2000 driver
-keithley = Keithley_2000("keithley", "TCPIP0::192.168.1.1::INSTR")
-
-# Connect to the instrument
-keithley.connect()
-
-# Print the instrument ID
-print(keithley.IDN())
-
-# Set the mode to DC voltage
-keithley.mode("dc voltage")
-
-# Set the range to 10V
-keithley.range(10)
-
-# Enable auto range
-keithley.auto_range_enabled(True)
-
-# Set the NPLC to 1
-keithley.nplc(1)
-
-# Trigger a measurement
-keithley.trigger()
-
-# Read the measured value
-value = keithley.amplitude()
-print("Measured value:", value)
-
-# Disconnect from the instrument
-keithley.disconnect()
-```
-
-This script creates an instance of the `Keithley_2000` driver and connects to the instrument using the specified address. It then sets various parameters such as mode, range, auto range, and NPLC. It triggers a measurement and reads the measured value using the `amplitude` parameter. Finally, it disconnects from the instrument.
+<NodeCardCollection category="MULTIMETERS" manufacturer="Keithley"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">

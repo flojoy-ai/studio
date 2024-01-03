@@ -1,11 +1,11 @@
 ---
-title: Connecting to HP 3478 A by HP in Python
+title: Connecting to Keysight 3478A by HP in Python
 description: The HP 3478A 5.5 digit DMM with HP-IB interface
-keywords: [multimeters, HP, PyMeasure] 
-slug: instruments-database/multimeters/hp/keysight-3478a 
+keywords: [Multimeters, HP, PyMeasure] 
+slug: instruments-database/Multimeters/hp/keysight-3478a 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782526/Instruments/Multimeters/Keysight-3478A/Keysight-3478A.jpg
 sidebar:
-    label: HP 3478 A 
+    label: Keysight 3478A 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -15,7 +15,7 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
 The HP 3478A 5.5 digit DMM with HP-IB interface
 
 
-![HP 3478 A](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782526/Instruments/Multimeters/Keysight-3478A/Keysight-3478A.jpg)
+![Keysight 3478A](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782526/Instruments/Multimeters/Keysight-3478A/Keysight-3478A.jpg)
 
 Device Specification: [here](https://www.keysight.com/us/en/assets/9018-05398/user-manuals/9018-05398.pdf)
 
@@ -39,22 +39,22 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
   manufacturer="HP"
 ></FeaturedInstrumentVideo>
 
-## Connect to the HP 3478 A in Python
+## Connect to the Keysight 3478A in Python
 
 [Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-<Tabs>
 
+<Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category='MULTIMETERS' manufacturer='HP'></NodeCardCollection>
+<NodeCardCollection category="MULTIMETERS" manufacturer="HP"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
 
-Here is a Python script that uses Pymeasure to connect to a Keysight (Agilent) 3478A Multimeter:
+Here is a Python script that uses Pymeasure to connect to a Keysight 3478A Multimeter:
 
 ```python
 from pymeasure.adapters import VISAAdapter

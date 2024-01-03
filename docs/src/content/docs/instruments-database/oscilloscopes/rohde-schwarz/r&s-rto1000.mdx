@@ -1,11 +1,11 @@
 ---
-title: Connecting to RTO 1000 by Rohdes&Schwarz in Python
+title: Connecting to R&S RTO1000 by Rohdes&Schwarz in Python
 description: With an acquisition memory of 400 Mpts per channel simultaneously for all four channels, the oscilloscope offers up to 100 times the memory depth of comparable devices as standard.  The R&S MXO 4 oscilloscopes offer the world's highest update rate of 4.5 million waveforms per second.
-keywords: [digital attenuators, Vaunix, QCodes Community] 
-slug: instruments-database/oscilloscopes/rohde-schwarz/r&s-rto1000 
+keywords: [Oscilloscopes, Rohdes&Schwarz, QCodes] 
+slug: instruments-database/Oscilloscopes/rohde-schwarz/r&s-rto1000 
 
 sidebar:
-    label: RTO 1000 
+    label: R&S RTO1000 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -40,47 +40,63 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
   manufacturer="ROHDES&SCHWARZ"
 ></FeaturedInstrumentVideo>
 
-## Connect to the RTO 1000 in Python
+## Connect to the R&S RTO1000 in Python
 
 [Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-<Tabs>
 
+<Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category='DIGITAL_ATTENUATORS' manufacturer='VAUNIX'></NodeCardCollection>
+<NodeCardCollection category="OSCILLOSCOPES" manufacturer="Rohdes&Schwarz"></NodeCardCollection>
 
 </TabItem>
-<TabItem value="QCodes Community" label="QCodes Community">
+<TabItem value="QCodes" label="QCodes">
 
-Here is a Python script that uses Qcodes Community to connect to a LDA-5018V Digital Attenuator:
+Here is an example Python script that uses Qcodes to connect to a R&S RTO1000 Oscilloscope:
 
 ```python
-from qcodes import Station
-from qcodes.instrument_drivers.vaunix.LDA import LDA
+import qcodes as qc
+from qcodes.instrument_drivers.rohde_schwarz.RTO1000 import RTO1000
 
-# Create a station to hold the instrument
-station = Station()
+# Connect to the oscilloscope
+oscilloscope = RTO1000('oscilloscope', 'TCPIP0::192.168.0.1::inst0::INSTR')
 
-# Connect to the LDA-5018V Digital Attenuator
-lda = LDA('lda', serial_number=5018)
+# Print the IDN of the oscilloscope
+print(oscilloscope.IDN())
 
-# Add the LDA instrument to the station
-station.add_component(lda)
+# Enable channel 1
+oscilloscope.ch1.state('ON')
 
-# Print the IDN of the instrument
-print(lda.get_idn())
+# Set the timebase scale to 1 us/div
+oscilloscope.timebase_scale(1e-6)
 
-# Set the attenuation to 10 dB
-lda.attenuation(10)
+# Set the trigger source to channel 1
+oscilloscope.trigger_source('CH1')
 
-# Close the connection to the instrument
-lda.close()
+# Set the trigger level to 0 V
+oscilloscope.trigger_level(0)
+
+# Acquire a single trace
+oscilloscope.run_single()
+
+# Wait for the acquisition to complete
+while not oscilloscope.is_acquiring():
+    pass
+
+# Get the trace from channel 1
+trace = oscilloscope.ch1.trace()
+
+# Plot the trace
+trace.plot()
+
+# Disconnect from the oscilloscope
+oscilloscope.close()
 ```
 
-Note: Make sure you have the necessary DLL files (`VNX_atten64.dll` or `VNX_atten.dll`) in the correct directory and set the `dll_path` accordingly in the script.
+Note: Replace `'TCPIP0::192.168.0.1::inst0::INSTR'` with the actual VISA resource address of your oscilloscope.
 
 </TabItem>
 </Tabs>

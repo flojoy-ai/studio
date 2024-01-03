@@ -1,0 +1,92 @@
+---
+title: Connecting to Ametek 7270 by Ametek in Python
+description: The model 7270 sets a new standard for general-purpose DSP lock-in amplifiers.
+keywords: [Lockin Amplifiers, Ametek, PyMeasure] 
+slug: instruments-database/Lockin Amplifiers/ametek/ametek-7270 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782591/Instruments/Lockin%20Amplifiers/Ametek-7270/Ametek-7270.jpg
+sidebar:
+    label: Ametek 7270 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The model 7270 sets a new standard for general-purpose DSP lock-in amplifiers.
+
+
+![Ametek 7270](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782591/Instruments/Lockin%20Amplifiers/Ametek-7270/Ametek-7270.jpg)
+
+Device Specification: [here](https://www.ameteksi.com/-/media/ameteksi/download_links/documentations/7270/model_7270.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: AMETEK</h2></summary>
+
+![AMETEK](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806123/Instruments/Vendor%20Logos/Ametek.png)
+
+Since 1930, our talented and diverse workforce has been delivering **differentiated technology solutions** to create strong, sustainable and profitable growth.
+
+- Headquarters: US
+- Yearly Revenue (millions, USD): 6200
+- Vendor Website: [here](https://www.ametek.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="LOCKIN_AMPLIFIERS"
+  manufacturer="AMETEK"
+></FeaturedInstrumentVideo>
+
+## Connect to the Ametek 7270 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category="LOCKIN_AMPLIFIERS" manufacturer="Ametek"></NodeCardCollection>
+
+</TabItem>
+<TabItem value="PyMeasure" label="PyMeasure">
+
+
+```python
+from pymeasure.adapters import VISAAdapter
+from pymeasure.instruments.ametek import Ametek7270
+
+# Create a connection to the instrument
+adapter = VISAAdapter("GPIB::1::INSTR")
+lockin = Ametek7270(adapter)
+
+# Set the instrument to voltage control mode
+lockin.set_voltage_mode()
+
+# Set the sensitivity to 100 nV
+lockin.sensitivity = 100e-9
+
+# Set the filter slope to 12 dB/octave
+lockin.slope = 12
+
+# Read the X and Y values
+x_value = lockin.x
+y_value = lockin.y
+
+# Print the X and Y values
+print("X value:", x_value)
+print("Y value:", y_value)
+
+# Close the connection to the instrument
+lockin.shutdown()
+```
+
+This script connects to the Ametek 7270 Lockin Amplifier using a VISA adapter and sets the instrument to voltage control mode. It then sets the sensitivity to 100 nV and the filter slope to 12 dB/octave. The script reads the X and Y values from the lockin amplifier and prints them. Finally, it shuts down the instrument and closes the connection.
+
+Note: Make sure to install the necessary dependencies (`pymeasure`, `pyvisa`, and `pyvisa-py`) before running the script.
+
+</TabItem>
+</Tabs>

@@ -1,0 +1,91 @@
+---
+title: Connecting to MS9710C by Anritsu in Python
+description: The MS9710C provides excellent wavelength accuracy, waveform shape, and new features
+keywords: [Spectrum Analyzers, Anritsu, PyMeasure] 
+slug: instruments-database/Spectrum Analyzers/anritsu/ms9710c 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782588/Instruments/Spectrum%20Analyzers/MS9710C/MS9710C.jpg
+sidebar:
+    label: MS9710C 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The MS9710C provides excellent wavelength accuracy, waveform shape, and new features
+
+
+![MS9710C](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782588/Instruments/Spectrum%20Analyzers/MS9710C/MS9710C.jpg)
+
+Device Specification: [here](https://dl.cdn-anritsu.com/en-us/test-measurement/files/Brochures-Datasheets-Catalogs/Brochure/MS9710C_E11000.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: ANRITSU</h2></summary>
+
+![ANRITSU](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692125977/Instruments/Vendor%20Logos/Anritsu.png)
+
+**Anritsu** Has Testing Solutions for Automotive, Government, Data Center, & IoT Industries. Test Solutions for IoT Devices, Government Radar, Automotive, & Signal Integrity.
+
+- Headquarters: JAPAN
+- Yearly Revenue (millions, USD): 670
+- Vendor Website: [here](https://www.anritsu.com/en-us/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="SPECTRUM_ANALYZERS"
+  manufacturer="ANRITSU"
+></FeaturedInstrumentVideo>
+
+## Connect to the MS9710C in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category="SPECTRUM_ANALYZERS" manufacturer="Anritsu"></NodeCardCollection>
+
+</TabItem>
+<TabItem value="PyMeasure" label="PyMeasure">
+
+
+```python
+from pymeasure.instruments.anritsu import AnritsuMS9710C
+
+# Connect to the Spectrum Analyzer
+spectrum_analyzer = AnritsuMS9710C("TCPIP::192.168.1.1::INSTR")
+
+# Perform a single sweep and wait for completion
+spectrum_analyzer.single_sweep()
+
+# Measure the peak and get the trace marker
+peak = spectrum_analyzer.measure_peak()
+print("Peak:", peak)
+
+# Read the scan saved in memory slot A
+wavelengths, power = spectrum_analyzer.read_memory(slot="A")
+print("Wavelengths:", wavelengths)
+print("Power:", power)
+
+# Disconnect from the Spectrum Analyzer
+spectrum_analyzer.disconnect()
+```
+
+In this script, we first import the `AnritsuMS9710C` class from `pymeasure.instruments.anritsu`. Then, we create an instance of the `AnritsuMS9710C` class by providing the instrument's address (e.g., `"TCPIP::192.168.1.1::INSTR"`).
+
+Next, we perform a single sweep using the `single_sweep()` method of the spectrum analyzer. This method sends the command to initiate a spectrum sweep and waits for the sweep to complete.
+
+After that, we use the `measure_peak()` method to measure the peak of the spectrum and get the trace marker. The method sets the peak search mode to "PEAK" and returns the wavelength and power of the peak.
+
+Finally, we read the scan saved in memory slot A using the `read_memory()` method. This method retrieves the wavelength and power values from the memory slot and returns them as numpy arrays.
+
+Note: Make sure to replace `"TCPIP::192.168.1.1::INSTR"` with the actual address of your Anritsu MS9710C Spectrum Analyzer.
+
+</TabItem>
+</Tabs>

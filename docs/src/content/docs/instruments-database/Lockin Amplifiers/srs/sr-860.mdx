@@ -1,0 +1,86 @@
+---
+title: Connecting to SR 860 by Stanford Research Systems in Python
+description: The new SR860 Lock-in Amplifier is the latest in a line of innovative lock-ins from SRS. With unparalleled analog performance, sophisticated new digital signal processing features, a thoroughly modern, intuitive user interface, and a wide range of computer connectivity options, the SR860 is the ideal choice for any synchronous detection application.
+keywords: [Lockin Amplifiers, Stanford Research Systems, PyMeasure] 
+slug: instruments-database/Lockin Amplifiers/srs/sr-860 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782674/Instruments/Lockin%20Amplifiers/SR-860/SR-860.jpg
+sidebar:
+    label: SR 860 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The new SR860 Lock-in Amplifier is the latest in a line of innovative lock-ins from SRS. With unparalleled analog performance, sophisticated new digital signal processing features, a thoroughly modern, intuitive user interface, and a wide range of computer connectivity options, the SR860 is the ideal choice for any synchronous detection application.
+
+![SR 860](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782674/Instruments/Lockin%20Amplifiers/SR-860/SR-860.jpg)
+
+Device Specification: [here](https://www.thinksrs.com/downloads/pdfs/catalog/SR860c.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: STANFORD RESEARCH SYSTEMS</h2></summary>
+
+![STANFORD RESEARCH SYSTEMS](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806206/Instruments/Vendor%20Logos/Stanford_Research.png)
+
+Stanford Research Systems is a maker of general test and measurement instruments. The company was founded in 1980, is privately held, and is not affiliated with Stanford University. Stanford Research Systems manufactures all of their products at their Sunnyvale, California facility.
+
+- Headquarters: Sunnyvale, California
+- Yearly Revenue (millions, USD): 24.9
+- Vendor Website: [here](https://www.thinksrs.com/index.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="LOCKIN_AMPLIFIERS"
+  manufacturer="STANFORD RESEARCH SYSTEMS"
+></FeaturedInstrumentVideo>
+
+## Connect to the SR 860 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category="LOCKIN_AMPLIFIERS" manufacturer="Stanford Research Systems"></NodeCardCollection>
+
+</TabItem>
+<TabItem value="PyMeasure" label="PyMeasure">
+
+
+```python
+from pymeasure.adapters import VISAAdapter
+from pymeasure.instruments.sr860 import SR860
+
+# Create a VISA adapter for the instrument
+adapter = VISAAdapter("GPIB0::1::INSTR")
+
+# Connect to the SR860 Lock-in Amplifier
+lockin = SR860(adapter)
+
+# Perform operations with the lock-in amplifier
+x_value = lockin.x
+y_value = lockin.y
+magnitude = lockin.magnitude
+theta = lockin.theta
+
+# Print the values
+print("X value:", x_value)
+print("Y value:", y_value)
+print("Magnitude:", magnitude)
+print("Theta:", theta)
+
+# Disconnect from the lock-in amplifier
+lockin.disconnect()
+```
+
+This script connects to the SR 860 Lock-in Amplifier using a VISA adapter and performs measurements of the X value, Y value, magnitude, and theta. The values are then printed to the console. Finally, the script disconnects from the lock-in amplifier.
+
+</TabItem>
+</Tabs>

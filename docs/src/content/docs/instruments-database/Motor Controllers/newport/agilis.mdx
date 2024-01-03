@@ -1,0 +1,95 @@
+---
+title: Connecting to Agilis by Newport in Python
+description: Agilis™ Piezo Motion Controllers provide convenient and compact fine positioning control of the Agilis family of piezo motion stages and mounts.
+keywords: [Motor Controllers, Newport, InstrumentKit] 
+slug: instruments-database/Motor Controllers/newport/agilis 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782528/Instruments/Positional%20Controller/Agilis/Agilis.jpg
+sidebar:
+    label: Agilis 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+Agilis™ Piezo Motion Controllers provide convenient and compact fine positioning control of the Agilis family of piezo motion stages and mounts.
+
+![Agilis](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782528/Instruments/Positional%20Controller/Agilis/Agilis.jpg)
+
+Device Specification: [here](https://www.newport.com/mam/celum/celum_assets/np/resources/Agilis_Piezo_Motor_Driven_Components_User_Manual.pdf?1)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: NEWPORT</h2></summary>
+
+![NEWPORT](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806178/Instruments/Vendor%20Logos/Newport.png)
+
+Newport provides a wide range of photonics technology and products designed to enhance the capabilities and productivity of our customers' applications.
+
+- Headquarters: Irvine, California, United States
+- Yearly Revenue (millions, USD): 3500
+- Vendor Website: [here](https://www.newport.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVideo";
+
+<FeaturedInstrumentVideo
+  category="MOTOR_CONTROLLERS"
+  manufacturer="NEWPORT"
+></FeaturedInstrumentVideo>
+
+## Connect to the Agilis in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import NodeCardCollection from "@root/src/components/NodeCardCollection";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<NodeCardCollection category="MOTOR_CONTROLLERS" manufacturer="Newport"></NodeCardCollection>
+
+</TabItem>
+<TabItem value="InstrumentKit" label="InstrumentKit">
+
+To connect to an Agilis Positional Controller using Instrumentkit, you can use the following code:
+
+```python
+from instrumentkit import serial
+from instrumentkit import newport
+
+# Connect to the controller
+port = serial.SerialPort("COM5", baudrate=921600)
+controller = newport.AGUC2(port)
+
+# Reset the controller
+controller.reset_controller()
+
+# Print the firmware version
+print(controller.firmware_version)
+
+# Move the X axis relative by 1000 steps
+controller.axis["X"].move_relative(1000)
+
+# Activate jogging in mode 3 for the X axis
+controller.axis["X"].jog = 3
+
+# Stop the X axis
+controller.axis["X"].stop()
+
+# Query the step amplitude for the X axis
+step_amplitude = controller.axis["X"].step_amplitude
+print(step_amplitude)
+
+# Set the positive step amplitude to +10 and the negative step amplitude to -20 for the X axis
+controller.axis["X"].step_amplitude = (10, -20)
+
+# Close the connection
+controller.close()
+```
+
+This code connects to the Agilis Positional Controller on COM5 with a baud rate of 921600. It then performs various operations such as resetting the controller, printing the firmware version, moving the X axis relative by 1000 steps, activating jogging in mode 3 for the X axis, stopping the X axis, querying and setting the step amplitude for the X axis. Finally, it closes the connection to the controller.
+
+</TabItem>
+</Tabs>
