@@ -1,9 +1,5 @@
 import * as React from "react";
-import {
-  CaretSortIcon,
-  ChevronDownIcon,
-  DotsHorizontalIcon,
-} from "@radix-ui/react-icons";
+import { ChevronDownIcon } from "@radix-ui/react-icons";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -23,12 +19,8 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -37,55 +29,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-const data: Test[] = [
-  {
-    id: "m5gr84i9",
-    test_name: "test_voltage.py",
-    run_in_parallel: false,
-    test_type: "Python",
-    status: "pass",
-    completion_time: 1,
-    is_saved_to_cloud: true,
-  },
-  {
-    id: "iqyubqCHB",
-    test_name: "measure_width.json",
-    run_in_parallel: false,
-    test_type: "Flojoy",
-    status: "failed",
-    completion_time: 3,
-    is_saved_to_cloud: true,
-  },
-  {
-    id: "aiubv123uajksc",
-    test_name: "measure_height.json",
-    run_in_parallel: false,
-    test_type: "Flojoy",
-    status: "pass",
-    completion_time: 3.2,
-    is_saved_to_cloud: false,
-  },
-  {
-    id: "ashd21319DBASA",
-    test_name: "cap_vs_freq.m",
-    run_in_parallel: true,
-    test_type: "Matlab",
-    status: "pass",
-    completion_time: 4,
-    is_saved_to_cloud: true,
-  },
-];
-
-export type Test = {
-  id: string;
-  test_name: string;
-  run_in_parallel: boolean;
-  test_type: "Python" | "Flojoy" | "Matlab";
-  status: "pending" | "processing" | "pass" | "failed";
-  completion_time: number;
-  is_saved_to_cloud: boolean;
-};
+import { Test } from "./TestSequencerInfo";
 
 export const columns: ColumnDef<Test>[] = [
   {
@@ -156,7 +100,7 @@ export const columns: ColumnDef<Test>[] = [
   },
 ];
 
-export function DataTable() {
+export function DataTable({ data }: { data: Test[] }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -186,7 +130,7 @@ export function DataTable() {
 
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
+      <div className="flex items-center py-0">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
