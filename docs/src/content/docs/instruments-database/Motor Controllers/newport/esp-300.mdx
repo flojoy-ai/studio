@@ -1,11 +1,11 @@
 ---
 title: Connecting to ESP 300 by Newport in Python
 description: This is a Newport ESP300 1 Axis Motion Controller, Model number ESP300-1NN111. It has a 150 Watt power supply and the driver module is rated at 3 amps. This is Newport's most universal motion controller, as it will drive most of Newports actuators and motorized stages. If your Newport stage is an ESP model, this controller will recognize it on power up, and allow you to drive it right away- basically a plug-and-play operation! This unit has been tested and is working correctly.
-keywords: [Motor Controllers, Newport, PyMeasure]
-slug: instruments-database/Motor Controllers/newport/esp-300
+keywords: [Motor Controllers, Newport, PyMeasure] 
+slug: instruments-database/Motor Controllers/newport/esp-300 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782457/Instruments/Positional%20Controller/ESP-300/ESP-300.jpg
 sidebar:
-  label: ESP 300
+    label: ESP 300 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,16 +44,15 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
+
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection
-  category="MOTOR_CONTROLLERS"
-  manufacturer="Newport"
-></NodeCardCollection>
+<NodeCardCollection category="MOTOR_CONTROLLERS" manufacturer="Newport"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
+
 
 ```python
 from pymeasure.adapters import VISAAdapter

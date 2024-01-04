@@ -1,11 +1,11 @@
 ---
 title: Connecting to HP 3437A by HP in Python
 description: The HP 3437A is a microprocessor controlled 3 and 1/2 digit, successive approximation voltmeter, capable of sampling voltages at rates up to 5,700 samples per second.
-keywords: [Multimeters, HP, PyMeasure]
-slug: instruments-database/Multimeters/hp/HP-3437a
+keywords: [Multimeters, HP, PyMeasure] 
+slug: instruments-database/Multimeters/hp/HP-3437a 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782622/Instruments/Multimeters/HP-3437A/HP-3437A.jpg
 sidebar:
-  label: HP 3437A
+    label: HP 3437A 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,16 +44,15 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
+
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection
-  category="MULTIMETERS"
-  manufacturer="HP"
-></NodeCardCollection>
+<NodeCardCollection category="MULTIMETERS" manufacturer="HP"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
+
 
 ```python
 from pymeasure.adapters import PrologixAdapter

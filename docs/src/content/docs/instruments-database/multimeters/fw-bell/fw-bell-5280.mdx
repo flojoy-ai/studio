@@ -1,11 +1,11 @@
 ---
 title: Connecting to F.W. Bell 5280 by F.W. Bell in Python
 description: Handheld single-axis digital magnetometer gauss / tesla meter for measuring magnets, magnetism of steel, and other manufacturing and scientific applications.
-keywords: [Multimeters, F.W. Bell, PyMeasure]
-slug: instruments-database/Multimeters/fw-bell/fw-bell-5280
+keywords: [Multimeters, F.W. Bell, PyMeasure] 
+slug: instruments-database/Multimeters/fw-bell/fw-bell-5280 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782705/Instruments/Multimeters/F.W.-Bell-5280/F.W.-Bell-5280.jpg
 sidebar:
-  label: F.W. Bell 5280
+    label: F.W. Bell 5280 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -26,7 +26,7 @@ Device Specification: [here](https://store-5445uo.mybigcommerce.com/content/5200
 Technology leaders in instrumentation. Designing and manufacturing **F.W. Bell** gaussmeters, probes, current sensors and Hall generators for over 60 years
 
 - Headquarters: UK (Meggit)
-- Yearly Revenue (millions, USD):
+- Yearly Revenue (millions, USD): 
 - Vendor Website: [here](https://fwbell.com/)
 
 </details>
@@ -44,16 +44,15 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
+
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection
-  category="MULTIMETERS"
-  manufacturer="F.W. Bell"
-></NodeCardCollection>
+<NodeCardCollection category="MULTIMETERS" manufacturer="F.W. Bell"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
+
 
 ```python
 from pymeasure.instruments import SerialInstrument

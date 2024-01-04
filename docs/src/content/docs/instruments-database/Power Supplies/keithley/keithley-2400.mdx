@@ -1,11 +1,11 @@
 ---
 title: Connecting to Keithley 2400 by Keithley in Python
 description: Keithley’s Standard Series 2400 Source Measure Unit (SMU) Instruments offer four-quadrant precision voltage and current source/load coupled with measurement. Each SMU instrument is both a highly stable DC power source and a true instrument-grade 6½-digit multimeter. The power source characteristics include low noise, precision, and readback. The multimeter capabilities include high repeatability and low noise.
-keywords: [Power Supplies, Keithley, PyMeasure]
-slug: instruments-database/Power Supplies/keithley/keithley-2400
+keywords: [Power Supplies, Keithley, PyMeasure] 
+slug: instruments-database/Power Supplies/keithley/keithley-2400 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782492/Instruments/Power%20Supplies/Keithley-2400/Keithley-2400.webp
 sidebar:
-  label: Keithley 2400
+    label: Keithley 2400 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,16 +44,15 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
+
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection
-  category="POWER_SUPPLIES"
-  manufacturer="Keithley"
-></NodeCardCollection>
+<NodeCardCollection category="POWER_SUPPLIES" manufacturer="Keithley"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
+
 
 ```python
 from pymeasure.instruments.keithley import Keithley2400

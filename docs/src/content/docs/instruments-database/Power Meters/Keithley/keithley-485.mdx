@@ -1,11 +1,11 @@
 ---
 title: Connecting to Keithley 485 by Keithley in Python
 description: The Keithley 485 Autoranging Picoammeter provides 100fA sensitivity with 4 1/2-digit resolution in a low-cost, highly sensitive, easy-to-use instrument. The 485 measures DC current on seven ranges covering 10 decades from 100fA to 2mA. The input can withstand overloads as high as 1000V (with 100kΩ limiting resistor) for flexibility in a wide range of applications in test, research, and student labs. An analog output linearly converts the incoming current to voltage for hard copy output or control loop applications.
-keywords: [Power Meters, Keithley, InstrumentKit]
-slug: instruments-database/Power Meters/keithley/keithley-485
+keywords: [Power Meters, Keithley, InstrumentKit] 
+slug: instruments-database/Power Meters/keithley/keithley-485 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782442/Instruments/Power%20Meters/Keithley-485/Keithley-485.jpg
 sidebar:
-  label: Keithley 485
+    label: Keithley 485 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -13,6 +13,7 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
 ## Instrument Card
 
 The Keithley 485 Autoranging Picoammeter provides 100fA sensitivity with 4 1/2-digit resolution in a low-cost, highly sensitive, easy-to-use instrument. The 485 measures DC current on seven ranges covering 10 decades from 100fA to 2mA. The input can withstand overloads as high as 1000V (with 100kΩ limiting resistor) for flexibility in a wide range of applications in test, research, and student labs. An analog output linearly converts the incoming current to voltage for hard copy output or control loop applications.
+
 
 ![Keithley 485](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782442/Instruments/Power%20Meters/Keithley-485/Keithley-485.jpg)
 
@@ -44,16 +45,15 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
+
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection
-  category="POWER_METERS"
-  manufacturer="Keithley"
-></NodeCardCollection>
+<NodeCardCollection category="POWER_METERS" manufacturer="Keithley"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="InstrumentKit" label="InstrumentKit">
+
 
 ```python
 import instrumentkit as ik

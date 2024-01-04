@@ -1,11 +1,11 @@
 ---
 title: Connecting to Keysight 33521A by Agilent in Python
 description: Keysight 33500 Series function/arbitrary waveform generators offer the highest signal fidelity and implement a new breakthrough technology that provides you with the ability to generate more accurate arbitrary waveforms. With 10x better jitter than anything in their class, they offer unparalleled control of signal frequency for your most challenging measurements.
-keywords: [RF Signal Generators, Agilent, PyMeasure]
-slug: instruments-database/RF Signal Generators/agilent/keysight-33521a
+keywords: [RF Signal Generators, Agilent, PyMeasure] 
+slug: instruments-database/RF Signal Generators/agilent/keysight-33521a 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782702/Instruments/RF%20Signal%20Generator/Keysight-33521-A/Keysight-33521-A.png
 sidebar:
-  label: Keysight 33521A
+    label: Keysight 33521A 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,16 +44,15 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
+
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection
-  category="RF_SIGNAL_GENERATORS"
-  manufacturer="Agilent"
-></NodeCardCollection>
+<NodeCardCollection category="RF_SIGNAL_GENERATORS" manufacturer="Agilent"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
+
 
 ```python
 from pymeasure.adapters import VISAAdapter

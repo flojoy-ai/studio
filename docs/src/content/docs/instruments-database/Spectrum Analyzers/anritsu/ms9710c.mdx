@@ -1,11 +1,11 @@
 ---
 title: Connecting to MS9710C by Anritsu in Python
 description: The MS9710C provides excellent wavelength accuracy, waveform shape, and new features
-keywords: [Spectrum Analyzers, Anritsu, PyMeasure]
-slug: instruments-database/Spectrum Analyzers/anritsu/ms9710c
+keywords: [Spectrum Analyzers, Anritsu, PyMeasure] 
+slug: instruments-database/Spectrum Analyzers/anritsu/ms9710c 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782588/Instruments/Spectrum%20Analyzers/MS9710C/MS9710C.jpg
 sidebar:
-  label: MS9710C
+    label: MS9710C 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -13,6 +13,7 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
 ## Instrument Card
 
 The MS9710C provides excellent wavelength accuracy, waveform shape, and new features
+
 
 ![MS9710C](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782588/Instruments/Spectrum%20Analyzers/MS9710C/MS9710C.jpg)
 
@@ -44,16 +45,15 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
+
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection
-  category="SPECTRUM_ANALYZERS"
-  manufacturer="Anritsu"
-></NodeCardCollection>
+<NodeCardCollection category="SPECTRUM_ANALYZERS" manufacturer="Anritsu"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
+
 
 ```python
 from pymeasure.instruments.anritsu import AnritsuMS9710C

@@ -1,11 +1,11 @@
 ---
 title: Connecting to SM 70-45D by Delta Elektronika in Python
 description: The Delta Elektronika BV Model SM70-45D Programmable DC Power Supply 0-70V 0-45A
-keywords: [Power Supplies, Delta Elektronika, PyMeasure]
-slug: instruments-database/Power Supplies/delta-elektronika/sm-70-45d
+keywords: [Power Supplies, Delta Elektronika, PyMeasure] 
+slug: instruments-database/Power Supplies/delta-elektronika/sm-70-45d 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782486/Instruments/Power%20Supplies/SM-70-45D/SM-70-45D.jpg
 sidebar:
-  label: SM 70-45D
+    label: SM 70-45D 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -26,7 +26,7 @@ Device Specification: [here](/instruments-database/all-instruments)
 **Telonic Instruments** is one of the leading Suppliers of Kikusui, Rigol and Lab-Power power supplies and frequency converters.
 
 - Headquarters: UK
-- Yearly Revenue (millions, USD):
+- Yearly Revenue (millions, USD): 
 - Vendor Website: [here](https://telonic.co.uk/jg/wp-content/uploads/2021/05/Delta-SM800-Product-Manual.pdf)
 
 </details>
@@ -44,13 +44,11 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
+
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection
-  category="POWER_SUPPLIES"
-  manufacturer="Delta Elektronika"
-></NodeCardCollection>
+<NodeCardCollection category="POWER_SUPPLIES" manufacturer="Delta Elektronika"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
@@ -65,7 +63,7 @@ from numpy import linspace
 
 class SM7045D(Instrument):
     """ This is the class for the SM 70-45 D power supply.
-
+    
     ... (code omitted for brevity) ...
     """
 

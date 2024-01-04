@@ -1,11 +1,11 @@
 ---
 title: Connecting to SR860 by Stanford Research Systems in Python
 description: The new SR860 Lock-in Amplifier is the latest in a line of innovative lock-ins from SRS. With unparalleled analog performance, sophisticated new digital signal processing features, a thoroughly modern, intuitive user interface, and a wide range of computer connectivity options, the SR860 is the ideal choice for any synchronous detection application.
-keywords: [Lockin Amplifiers, Stanford Research Systems, QCodes]
-slug: instruments-database/Lockin Amplifiers/stanford-research/sr860
+keywords: [Lockin Amplifiers, Stanford Research Systems, QCodes] 
+slug: instruments-database/Lockin Amplifiers/stanford-research/sr860 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782674/Instruments/Lockin%20Amplifiers/SR-860/SR-860.jpg
 sidebar:
-  label: SR860
+    label: SR860 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,13 +44,11 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
+
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection
-  category="LOCKIN_AMPLIFIERS"
-  manufacturer="Stanford Research Systems"
-></NodeCardCollection>
+<NodeCardCollection category="LOCKIN_AMPLIFIERS" manufacturer="Stanford Research Systems"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="QCodes" label="QCodes">
@@ -72,7 +70,6 @@ lockin.disconnect()
 ```
 
 Explanation:
-
 1. Import the `SR860` class from the `qcodes.instrument_drivers.stanford_research.SR86x` module.
 2. Create an instance of the `SR860` lock-in amplifier with the name `'lockin'` and the specified IP address `'TCPIP::192.168.1.1::INSTR'`.
 3. Connect to the lock-in amplifier using the `connect()` method.

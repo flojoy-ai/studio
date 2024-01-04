@@ -1,11 +1,11 @@
 ---
 title: Connecting to ATS 545 by Temptronic in Python
 description: Advanced Temperature Source for fast and precise thermal conditioning of components, parts, hybrids, modules, sub-assemblies, and printed circuit boards.
-keywords: [Temperature Controllers, Temptronic, PyMeasure]
-slug: instruments-database/Temperature Controllers/temptronic/ats-545
+keywords: [Temperature Controllers, Temptronic, PyMeasure] 
+slug: instruments-database/Temperature Controllers/temptronic/ats-545 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782427/Instruments/Temperature%20Controllers/ATS-545/ATS-545.webp
 sidebar:
-  label: ATS 545
+    label: ATS 545 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,16 +44,15 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
+
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection
-  category="TEMPERATURE_CONTROLLERS"
-  manufacturer="Temptronic"
-></NodeCardCollection>
+<NodeCardCollection category="TEMPERATURE_CONTROLLERS" manufacturer="Temptronic"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
+
 
 ```python
 from pymeasure.instruments.temptronic.temptronic_ats545 import ATS545

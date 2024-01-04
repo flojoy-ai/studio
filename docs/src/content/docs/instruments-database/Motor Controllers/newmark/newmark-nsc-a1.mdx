@@ -1,11 +1,11 @@
 ---
 title: Connecting to Newmark-NSC-A1 by Newmark in Python
 description: The NSC-A1 Series motion controller is a powerful single axis stepper motor control system which combines a microstepping driver with a programmable controller into a compact envelope
-keywords: [Motor Controllers, Newmark, Instrumental]
-slug: instruments-database/Motor Controllers/newmark/newmark-nsc-a1
+keywords: [Motor Controllers, Newmark, Instrumental] 
+slug: instruments-database/Motor Controllers/newmark/newmark-nsc-a1 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782686/Instruments/Motion/Newmark---NSC-A1/Newmark---NSC-A1.webp
 sidebar:
-  label: Newmark-NSC-A1
+    label: Newmark-NSC-A1 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,13 +44,11 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
+
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection
-  category="MOTOR_CONTROLLERS"
-  manufacturer="Newmark"
-></NodeCardCollection>
+<NodeCardCollection category="MOTOR_CONTROLLERS" manufacturer="Newmark"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="Instrumental" label="Instrumental">
@@ -72,7 +70,7 @@ for instrument in instruments:
 if newmark_instrument:
     motion = instrument(newmark_instrument)
     print("Connected to Newmark-NSC-A1 Motion")
-
+    
     # Get the current angle of the stage
     angle = motion.angle
     print(f"Current angle: {angle}")

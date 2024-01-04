@@ -1,11 +1,11 @@
 ---
 title: Connecting to CC1 by Qubitekk in Python
 description: Qubitekk’s 2-channel Coincidence Counter provides researchers with a low-cost solution for nanosecond resolution coincidence counting. A third gating channel makes the counter suitable for use with pulsed sources.
-keywords: [Coincidence Counters, Qubitekk, InstrumentKit]
-slug: instruments-database/Coincidence Counters/qubitekk/cc1
+keywords: [Coincidence Counters, Qubitekk, InstrumentKit] 
+slug: instruments-database/Coincidence Counters/qubitekk/cc1 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782456/Instruments/Coincidence%20Counter/CC1/CC1.jpg
 sidebar:
-  label: CC1
+    label: CC1 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,16 +44,15 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
+
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection
-  category="COINCIDENCE_COUNTERS"
-  manufacturer="Qubitekk"
-></NodeCardCollection>
+<NodeCardCollection category="COINCIDENCE_COUNTERS" manufacturer="Qubitekk"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="InstrumentKit" label="InstrumentKit">
+
 
 ```python
 import instrumentkit as ik

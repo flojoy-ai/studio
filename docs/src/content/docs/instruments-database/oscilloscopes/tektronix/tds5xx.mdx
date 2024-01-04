@@ -1,16 +1,18 @@
 ---
 title: Connecting to TDS5XX by Tektronix in Python
 
-keywords: [Oscilloscopes, Tektronix, InstrumentKit]
-slug: instruments-database/Oscilloscopes/tektronix/tds5xx
+keywords: [Oscilloscopes, Tektronix, InstrumentKit] 
+slug: instruments-database/Oscilloscopes/tektronix/tds5xx 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782600/Instruments/Oscilloscopes/TDS5XX/TDS5XX.jpg
 sidebar:
-  label: TDS5XX
+    label: TDS5XX 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
 
 ## Instrument Card
+
+
 
 ![TDS5XX](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782600/Instruments/Oscilloscopes/TDS5XX/TDS5XX.jpg)
 
@@ -42,16 +44,15 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
+
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection
-  category="OSCILLOSCOPES"
-  manufacturer="Tektronix"
-></NodeCardCollection>
+<NodeCardCollection category="OSCILLOSCOPES" manufacturer="Tektronix"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="InstrumentKit" label="InstrumentKit">
+
 
 ```python
 from instrumentkit import Scope

@@ -1,11 +1,11 @@
 ---
 title: Connecting to TC-038D by HCP in Python
 description: Temperature controller, TC-038D, goes along with different ovens (OV-30D, OV-50D, WG OVENs) with extreme temperature tunability up to 200 deg
-keywords: [Temperature Controllers, HCP, InstrumentKit]
-slug: instruments-database/Temperature Controllers/hcp/tc-038d
+keywords: [Temperature Controllers, HCP, InstrumentKit] 
+slug: instruments-database/Temperature Controllers/hcp/tc-038d 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782598/Instruments/Temperature%20Controllers/TC-038D/TC-038D.webp
 sidebar:
-  label: TC-038D
+    label: TC-038D 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -13,6 +13,7 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
 ## Instrument Card
 
 Temperature controller, TC-038D, goes along with different ovens (OV-30D, OV-50D, WG OVENs) with extreme temperature tunability up to 200 deg
+
 
 ![TC-038D](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782598/Instruments/Temperature%20Controllers/TC-038D/TC-038D.webp)
 
@@ -44,16 +45,15 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
+
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection
-  category="TEMPERATURE_CONTROLLERS"
-  manufacturer="HCP"
-></NodeCardCollection>
+<NodeCardCollection category="TEMPERATURE_CONTROLLERS" manufacturer="HCP"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="InstrumentKit" label="InstrumentKit">
+
 
 ```python
 from instrumentkit import hcp
@@ -71,7 +71,6 @@ print(temperature)
 ```
 
 Explanation:
-
 1. The script imports the `hcp` module from `instrumentkit`, which provides support for the TC038 AC crystal oven by HC Photonics.
 2. It then connects to the TC-038D Temperature Controller by calling the `open_serial` method of the `TC038D` class and passing the serial port name as an argument (e.g., `'COM10'`).
 3. The script sets the setpoint temperature of the temperature controller to 45.3 degrees Celsius by assigning the desired value to the `setpoint` property of the `inst` object.

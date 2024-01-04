@@ -1,11 +1,11 @@
 ---
 title: Connecting to Keysight 8722ES  by Agilent in Python
 description: The Agilent 8722ES Vector Network Analyzer (VNA) allows users to test a RF device’s amplitude and phase with one instrument. It works within 50 MHz to 40 GHz and enables the complete characterization of a device or network.
-keywords: [Network Analyzers, Agilent, PyMeasure]
-slug: instruments-database/Network Analyzers/agilent/keysight-8722es
+keywords: [Network Analyzers, Agilent, PyMeasure] 
+slug: instruments-database/Network Analyzers/agilent/keysight-8722es 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782485/Instruments/Network%20Analyzer/Keysight-8722ES/Keysight-8722ES.webp
 sidebar:
-  label: Keysight 8722ES
+    label: Keysight 8722ES 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -13,6 +13,8 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
 ## Instrument Card
 
 The Agilent 8722ES Vector Network Analyzer (VNA) allows users to test a RF device’s amplitude and phase with one instrument. It works within 50 MHz to 40 GHz and enables the complete characterization of a device or network.
+
+
 
 ![Keysight 8722ES](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782485/Instruments/Network%20Analyzer/Keysight-8722ES/Keysight-8722ES.webp)
 
@@ -44,16 +46,15 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
+
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection
-  category="NETWORK_ANALYZERS"
-  manufacturer="Agilent"
-></NodeCardCollection>
+<NodeCardCollection category="NETWORK_ANALYZERS" manufacturer="Agilent"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
+
 
 ```python
 from pymeasure.instruments import visa

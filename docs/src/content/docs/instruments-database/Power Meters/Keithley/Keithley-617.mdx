@@ -1,11 +1,11 @@
 ---
 title: Connecting to Keithley 617 by Keithley in Python
 description: The Keithley Model 617 Programmable Electrometer is a highly sensitive instrument designed to measure voltage, current, charge, and resistance. Two forms of resistance measurements are included in the standard configuration, a constant current method, and a constant voltage method that uses a built in voltage source for greater sensitivity. The measuring range of the Model 617 is between 10uV and 200V for voltage measurements, 0.1fA and 20mA in the current mode, 0.1 ohm and 200 Gohm (up to 10^16 ohm using the built in voltage source), and 10fC and 20nC in the coulombs mode. The very high input impedance and extremely low input offset current allow accurate measurement in situations where many other instruments would have detrimental effects on the circuit being measured. A 4-1/2 digit display and standard IEEE-488 interface give the user easy access to instrument data.
-keywords: [Power Meters, Keithley]
-slug: instruments-database/Power Meters/Keithley/Keithley-617
+keywords: [Power Meters, Keithley, ] 
+slug: instruments-database/Power Meters/Keithley/Keithley-617 
 
 sidebar:
-  label: Keithley 617
+    label: Keithley 617 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -13,6 +13,8 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
 ## Instrument Card
 
 The Keithley Model 617 Programmable Electrometer is a highly sensitive instrument designed to measure voltage, current, charge, and resistance. Two forms of resistance measurements are included in the standard configuration: a constant current method, and a constant voltage method that uses a built in voltage source for greater sensitivity. The measuring range of the Model 617 is between 10uV and 200V for voltage measurements, 0.1fA and 20mA in the current mode, 0.1 ohm and 200 Gohm (up to 10^16 ohm using the built in voltage source), and 10fC and 20nC in the coulombs mode. The very high input impedance and extremely low input offset current allow accurate measurement in situations where many other instruments would have detrimental effects on the circuit being measured. A 4-1/2 digit display and standard IEEE-488 interface give the user easy access to instrument data.
+
+
 
 Device Specification: [here](https://www.artisantg.com/TestMeasurement/51803-1/Keithley-617-Programmable-Electrometer)
 
@@ -42,13 +44,11 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
+
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection
-  category="POWER_METERS"
-  manufacturer="Keithley"
-></NodeCardCollection>
+<NodeCardCollection category="POWER_METERS" manufacturer="Keithley"></NodeCardCollection>
 
 </TabItem>
 </Tabs>

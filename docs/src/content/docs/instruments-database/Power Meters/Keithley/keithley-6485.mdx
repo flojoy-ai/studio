@@ -1,11 +1,11 @@
 ---
 title: Connecting to Keithley 6485 by Keithley in Python
 description: The 5½-digit Model 6485 Picoammeter combines Keithley’s expertise in sensitive current measurement instrumentation with enhanced speed and a robust design. With eight current measurement ranges and high speed autoranging, this cost effective instrument can measure currents from 2nA to 20mA, taking measurements at speeds up to 1000 readings per second. The Model 6485’s 10fA resolution and superior sensitivity make it well suited for characterising low current phenomena, while its 20mA range lets it measure currents high enough for applications such as measuring 4-20mA sensor loops.
-keywords: [Power Meters, Keithley, PyTango]
-slug: instruments-database/Power Meters/keithley/keithley-6485
+keywords: [Power Meters, Keithley, PyTango] 
+slug: instruments-database/Power Meters/keithley/keithley-6485 
 
 sidebar:
-  label: Keithley 6485
+    label: Keithley 6485 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -13,6 +13,8 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
 ## Instrument Card
 
 The 5½-digit Model 6485 Picoammeter combines Keithley’s expertise in sensitive current measurement instrumentation with enhanced speed and a robust design. With eight current measurement ranges and high speed autoranging, this cost effective instrument can measure currents from 2nA to 20mA, taking measurements at speeds up to 1000 readings per second. The Model 6485’s 10fA resolution and superior sensitivity make it well suited for characterising low current phenomena, while its 20mA range lets it measure currents high enough for applications such as measuring 4-20mA sensor loops.
+
+
 
 Device Specification: [here](https://www.testequipmenthq.com/datasheets/KEITHLEY-6485-Datasheet.pdf)
 
@@ -42,13 +44,11 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
+
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection
-  category="POWER_METERS"
-  manufacturer="Keithley"
-></NodeCardCollection>
+<NodeCardCollection category="POWER_METERS" manufacturer="Keithley"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyTango" label="PyTango">

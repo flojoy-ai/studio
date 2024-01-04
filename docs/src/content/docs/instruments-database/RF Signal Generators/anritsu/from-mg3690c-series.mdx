@@ -1,11 +1,11 @@
 ---
 title: Connecting to From MG3690C Series by Anritsu in Python
 description: The MG3690C series of broadband signal generators covers audio, HF, VHF, UHF, RF and microwave frequencies from 0.1 Hz to 70 GHz in single coaxial output and up to 500 GHz or beyond, with external multipliers
-keywords: [RF Signal Generators, Anritsu, PyMeasure]
-slug: instruments-database/RF Signal Generators/anritsu/from-mg3690c-series
+keywords: [RF Signal Generators, Anritsu, PyMeasure] 
+slug: instruments-database/RF Signal Generators/anritsu/from-mg3690c-series 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782625/Instruments/RF%20Signal%20Generator/From-MG3690C-Series/From-MG3690C-Series.jpg
 sidebar:
-  label: From MG3690C Series
+    label: From MG3690C Series 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,16 +44,15 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
+
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection
-  category="RF_SIGNAL_GENERATORS"
-  manufacturer="Anritsu"
-></NodeCardCollection>
+<NodeCardCollection category="RF_SIGNAL_GENERATORS" manufacturer="Anritsu"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
+
 
 ```python
 from pymeasure.adapters import VISAAdapter
@@ -82,7 +81,6 @@ signal_generator.shutdown()
 ```
 
 Explanation of the code:
-
 - First, we import the necessary modules from Pymeasure.
 - We create a `VISAAdapter` object, specifying the VISA address of the instrument. In this case, the address is "GPIB0::9::INSTR".
 - We create an `AnritsuMG3692C` object, passing the adapter as an argument.

@@ -1,11 +1,11 @@
 ---
 title: Connecting to Thermotron 3800 by Thermotron in Python
 description: The 3800 is a microprocessor-based programmer and controller. The programmer function allows you to program temperature, temperature/humidity, or other types of tests and store them in program memory
-keywords: [Temperature Controllers, Thermotron, PyMeasure]
-slug: instruments-database/Temperature Controllers/thermotron/thermotron-3800
+keywords: [Temperature Controllers, Thermotron, PyMeasure] 
+slug: instruments-database/Temperature Controllers/thermotron/thermotron-3800 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782623/Instruments/Temperature%20Controllers/Thermotron-3800/Thermotron-3800.jpg
 sidebar:
-  label: Thermotron 3800
+    label: Thermotron 3800 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,16 +44,15 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
+
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection
-  category="TEMPERATURE_CONTROLLERS"
-  manufacturer="Thermotron"
-></NodeCardCollection>
+<NodeCardCollection category="TEMPERATURE_CONTROLLERS" manufacturer="Thermotron"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
+
 
 ```python
 from pymeasure.adapters import VISAAdapter

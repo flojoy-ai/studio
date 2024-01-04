@@ -1,11 +1,11 @@
 ---
 title: Connecting to SYSTEM 8500-Model 854 by Danfysik in Python
 description: The System 8500 Power Supply program offers the ultrastable Model 854 specially designed for powering magnets in MRI applications
-keywords: [Power Supplies, Danfysik, PyMeasure]
-slug: instruments-database/Power Supplies/danfysik/system-8500-model-854
+keywords: [Power Supplies, Danfysik, PyMeasure] 
+slug: instruments-database/Power Supplies/danfysik/system-8500-model-854 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782474/Instruments/Power%20Supplies/SYSTEM-8500---Model-854/SYSTEM-8500---Model-854.jpg
 sidebar:
-  label: SYSTEM 8500-Model 854
+    label: SYSTEM 8500-Model 854 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,16 +44,15 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
+
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection
-  category="POWER_SUPPLIES"
-  manufacturer="Danfysik"
-></NodeCardCollection>
+<NodeCardCollection category="POWER_SUPPLIES" manufacturer="Danfysik"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
+
 
 ```python
 from pymeasure.instruments import SerialInstrument

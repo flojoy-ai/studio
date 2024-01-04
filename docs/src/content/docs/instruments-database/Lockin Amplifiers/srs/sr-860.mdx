@@ -1,11 +1,11 @@
 ---
 title: Connecting to SR 860 by Stanford Research Systems in Python
 description: The new SR860 Lock-in Amplifier is the latest in a line of innovative lock-ins from SRS. With unparalleled analog performance, sophisticated new digital signal processing features, a thoroughly modern, intuitive user interface, and a wide range of computer connectivity options, the SR860 is the ideal choice for any synchronous detection application.
-keywords: [Lockin Amplifiers, Stanford Research Systems, PyMeasure]
-slug: instruments-database/Lockin Amplifiers/srs/sr-860
+keywords: [Lockin Amplifiers, Stanford Research Systems, PyMeasure] 
+slug: instruments-database/Lockin Amplifiers/srs/sr-860 
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782674/Instruments/Lockin%20Amplifiers/SR-860/SR-860.jpg
 sidebar:
-  label: SR 860
+    label: SR 860 
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,16 +44,15 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
+
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection
-  category="LOCKIN_AMPLIFIERS"
-  manufacturer="Stanford Research Systems"
-></NodeCardCollection>
+<NodeCardCollection category="LOCKIN_AMPLIFIERS" manufacturer="Stanford Research Systems"></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
+
 
 ```python
 from pymeasure.adapters import VISAAdapter
