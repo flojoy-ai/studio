@@ -1,11 +1,11 @@
 ---
 title: Connecting to MFLI by Zurich Instruments in Python
 description: The Zurich Instruments MFLI is a digital lock-in amplifier that covers the frequency range from DC to 500 kHz (and up to 5 MHz when upgraded). Thanks to its embedded data and web servers, the MFLI can be used directly with any device running a web browser without further software installations
-keywords: [Lockin Amplifiers, Zurich Instruments, QCodes] 
-slug: instruments-database/Lockin Amplifiers/zurich-instruments/mfli 
+keywords: [Lockin Amplifiers, Zurich Instruments, QCodes]
+slug: instruments-database/Lockin Amplifiers/zurich-instruments/mfli
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782534/Instruments/Lockin%20Amplifiers/MFLI/MFLI.webp
 sidebar:
-    label: MFLI 
+  label: MFLI
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,11 +44,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="LOCKIN_AMPLIFIERS" manufacturer="Zurich Instruments"></NodeCardCollection>
+<NodeCardCollection
+  category="LOCKIN_AMPLIFIERS"
+  manufacturer="Zurich Instruments"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="QCodes" label="QCodes">

@@ -1,11 +1,11 @@
 ---
 title: Connecting to TC200 by Thorlabs in Python
 description: The TC200 Temperature Controller is a bench top controller intended for use with resistive heating elements rated up to 18 Watts. This general purpose instrument can drive various types of heaters, including foil and resistive coil types. It accepts feedback from either positive or negative temperature coefficient thermistors, has programmable P, I, and D gains, and will display the temperature in °C, °F, or K. In addition, it can be programmed for up to five sequential temperature settings along with associated ramp and hold times for each level. A user-programmable maximum temperature limit provides protection to the device being heated, and a user-programmable power limit protects the heating element from being over driven.
-keywords: [Temperature Controllers, Thorlabs, InstrumentKit] 
-slug: instruments-database/Temperature Controllers/thorlabs/tc200 
+keywords: [Temperature Controllers, Thorlabs, InstrumentKit]
+slug: instruments-database/Temperature Controllers/thorlabs/tc200
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782658/Instruments/Temperature%20Controllers/TC200/TC200.jpg
 sidebar:
-    label: TC200 
+  label: TC200
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -18,7 +18,7 @@ resistive coil types. It accepts feedback from either positive or negative tempe
 programmable P, I, and D gains, and will display the temperature in °C, °F, or K. In addition, it can be
 programmed for up to five sequential temperature settings along with associated ramp and hold times for each
 level. A user-programmable maximum temperature limit provides protection to the device being heated, and a
-user-programmable power limit protects the heating element from being over driven. 
+user-programmable power limit protects the heating element from being over driven.
 
 ![TC200](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782658/Instruments/Temperature%20Controllers/TC200/TC200.jpg)
 
@@ -50,15 +50,16 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="TEMPERATURE_CONTROLLERS" manufacturer="Thorlabs"></NodeCardCollection>
+<NodeCardCollection
+  category="TEMPERATURE_CONTROLLERS"
+  manufacturer="Thorlabs"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="InstrumentKit" label="InstrumentKit">
-
 
 ```python
 from instrumentkit import SerialConnection

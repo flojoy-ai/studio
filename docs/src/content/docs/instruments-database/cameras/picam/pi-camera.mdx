@@ -1,11 +1,11 @@
 ---
 title: Connecting to Pi Camera by Picam in Python
 description: The v2 Camera Module has a Sony IMX219 8-megapixel sensor (compared to the 5-megapixel OmniVision OV5647 sensor of the original camera).
-keywords: [Cameras, Picam, Instrumental] 
-slug: instruments-database/Cameras/picam/pi-camera 
+keywords: [Cameras, Picam, Instrumental]
+slug: instruments-database/Cameras/picam/pi-camera
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782640/Instruments/Cameras/Pi-Camera/Pi-Camera.jpg
 sidebar:
-    label: Pi Camera 
+  label: Pi Camera
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -13,7 +13,6 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
 ## Instrument Card
 
 The v2 Camera Module has a Sony IMX219 8-megapixel sensor (compared to the 5-megapixel OmniVision OV5647 sensor of the original camera).
-
 
 ![Pi Camera](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782640/Instruments/Cameras/Pi-Camera/Pi-Camera.jpg)
 
@@ -45,11 +44,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="CAMERAS" manufacturer="Picam"></NodeCardCollection>
+<NodeCardCollection
+  category="CAMERAS"
+  manufacturer="Picam"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="Instrumental" label="Instrumental">
@@ -57,27 +58,32 @@ import NodeCardCollection from "@root/src/components/NodeCardCollection";
 To use Instrumental to connect to a Pi Camera, you can follow these steps:
 
 1. Import the necessary modules:
+
 ```python
 from instrumental import instrument, list_instruments
 ```
 
 2. List the available instruments:
+
 ```python
 instruments = list_instruments()
 print(instruments)
 ```
 
 3. Connect to a Pi Camera:
+
 ```python
 camera = instrument(instruments[0])
 ```
 
 4. Use the camera to capture an image:
+
 ```python
 image = camera.grab_image()
 ```
 
 5. Display the captured image:
+
 ```python
 import matplotlib.pyplot as plt
 plt.imshow(image)

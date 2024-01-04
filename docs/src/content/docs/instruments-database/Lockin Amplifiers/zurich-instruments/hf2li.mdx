@@ -1,11 +1,11 @@
 ---
 title: Connecting to HF2LI by Zurich Instruments in Python
 description: The Zurich Instruments HF2LI is a digital lock-in amplifier covering the frequency range between DC and 50 MHz. It is the instrument of choice for the characterization of MEMS devices such as gyroscopes and for measurements in the area of microfluidics.
-keywords: [Lockin Amplifiers, Zurich Instruments, QCodes Community] 
-slug: instruments-database/Lockin Amplifiers/zurich-instruments/hf2li 
+keywords: [Lockin Amplifiers, Zurich Instruments, QCodes Community]
+slug: instruments-database/Lockin Amplifiers/zurich-instruments/hf2li
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782640/Instruments/Lockin%20Amplifiers/HF2LI/HF2LI.webp
 sidebar:
-    label: HF2LI 
+  label: HF2LI
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,11 +44,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="LOCKIN_AMPLIFIERS" manufacturer="Zurich Instruments"></NodeCardCollection>
+<NodeCardCollection
+  category="LOCKIN_AMPLIFIERS"
+  manufacturer="Zurich Instruments"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="QCodes Community" label="QCodes Community">

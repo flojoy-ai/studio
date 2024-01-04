@@ -1,11 +1,11 @@
 ---
 title: Connecting to HMP 2030 by Rohdes&Schwarz in Python
 description: 2 or 3 channels with max. 188 W total output power. Maximum output voltage of 32 V per channel. Maximum output power per channel, 80 W. Maximum output current per channel, 5 A. Intuitive, price-transparent online product configurator.
-keywords: [Power Supplies, Rohdes&Schwarz, QCodes Community] 
-slug: instruments-database/Power Supplies/rohdeschwarz/hmp-2030 
+keywords: [Power Supplies, Rohdes&Schwarz, QCodes Community]
+slug: instruments-database/Power Supplies/rohdeschwarz/hmp-2030
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782712/Instruments/Power%20Supplies/HMP-2030/HMP-2030.jpg
 sidebar:
-    label: HMP 2030 
+  label: HMP 2030
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -48,11 +48,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="POWER_SUPPLIES" manufacturer="Rohdes&Schwarz"></NodeCardCollection>
+<NodeCardCollection
+  category="POWER_SUPPLIES"
+  manufacturer="Rohdes&Schwarz"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="QCodes Community" label="QCodes Community">
@@ -73,6 +75,7 @@ hmp.disconnect()
 ```
 
 Explanation:
+
 1. Import the `RohdeSchwarzHMP4040` class from the `qcodes.instrument_drivers.rohde_schwarz.HMP` module.
 2. Create an instance of the `RohdeSchwarzHMP4040` driver with the desired name and address. Replace `'TCPIP0::192.168.0.1::INSTR'` with the actual address of your HMP 2030 Power Supply.
 3. Call the `connect()` method to establish a connection with the instrument.

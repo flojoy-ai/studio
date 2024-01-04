@@ -1,11 +1,11 @@
 ---
 title: Connecting to R&S RTO1000 by Rohdes&Schwarz in Python
 description: With an acquisition memory of 400 Mpts per channel simultaneously for all four channels, the oscilloscope offers up to 100 times the memory depth of comparable devices as standard.  The R&S MXO 4 oscilloscopes offer the world's highest update rate of 4.5 million waveforms per second.
-keywords: [Oscilloscopes, Rohdes&Schwarz, QCodes] 
-slug: instruments-database/Oscilloscopes/rohde-schwarz/r&s-rto1000 
+keywords: [Oscilloscopes, Rohdes&Schwarz, QCodes]
+slug: instruments-database/Oscilloscopes/rohde-schwarz/r&s-rto1000
 
 sidebar:
-    label: R&S RTO1000 
+  label: R&S RTO1000
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -15,8 +15,6 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
 With an acquisition memory of 400 Mpts per channel simultaneously for all four channels, the oscilloscope offers up to 100 times the memory depth of comparable devices as standard.
 
 The R&S MXO 4 oscilloscopes offer the world's highest update rate of 4.5 million waveforms per second.
-
-
 
 Device Specification: [here](https://scdn.rohde-schwarz.com/ur/pws/dl_downloads/dl_common_library/dl_brochures_and_datasheets/pdf_1/service_support_30/RTO_dat-sw_en_5214-5155-22_v2800.pdf)
 
@@ -46,11 +44,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="OSCILLOSCOPES" manufacturer="Rohdes&Schwarz"></NodeCardCollection>
+<NodeCardCollection
+  category="OSCILLOSCOPES"
+  manufacturer="Rohdes&Schwarz"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="QCodes" label="QCodes">

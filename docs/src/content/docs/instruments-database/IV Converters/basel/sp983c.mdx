@@ -1,11 +1,11 @@
 ---
 title: Connecting to SP983c by Basel in Python
 description: The low-noise high-stability (LNHS) I to V Converter offers ultra-low noise, excellent stability, and unique features such as a floating input and the possibility to apply an external bias voltage
-keywords: [IV Converters, Basel, QCodes] 
-slug: instruments-database/IV Converters/basel/sp983c 
+keywords: [IV Converters, Basel, QCodes]
+slug: instruments-database/IV Converters/basel/sp983c
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782441/Instruments/IV%20Converter/SP983c/SP983c.webp
 sidebar:
-    label: SP983c 
+  label: SP983c
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,11 +44,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="IV_CONVERTERS" manufacturer="Basel"></NodeCardCollection>
+<NodeCardCollection
+  category="IV_CONVERTERS"
+  manufacturer="Basel"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="QCodes" label="QCodes">
@@ -72,6 +74,7 @@ instrument.disconnect()
 ```
 
 Explanation:
+
 1. Import the necessary modules: `qcodes` and `BaselSP983c` from `qcodes.instrument_drivers.physical_instruments`.
 2. Create an instance of the `BaselSP983c` instrument with a desired name and optional `input_offset_voltage` parameter.
 3. Connect to the instrument using the `connect()` method.

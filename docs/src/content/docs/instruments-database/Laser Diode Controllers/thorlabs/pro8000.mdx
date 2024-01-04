@@ -1,11 +1,11 @@
 ---
 title: Connecting to PRO8000 by Thorlabs in Python
 description: The PRO8000 Chassis can accept up to 8 modules and is ideally suited for the needs of large test setups. This made-to-order chassis can be custom configured with up to eight modules that best meet individual experimental needs prior to purchase. The chassis can also be ordered empty, without any pre-installed modules. The empty slots of the PRO8000 can be covered using PRO8000-C front cover plates.
-keywords: [Laser Diode Controllers, Thorlabs, PyMeasure] 
-slug: instruments-database/Laser Diode Controllers/thorlabs/pro8000 
+keywords: [Laser Diode Controllers, Thorlabs, PyMeasure]
+slug: instruments-database/Laser Diode Controllers/thorlabs/pro8000
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782612/Instruments/Laser%20Diode%20Controllers/PRO8000/PRO8000.jpg
 sidebar:
-    label: PRO8000 
+  label: PRO8000
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,11 +44,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="LASER_DIODE_CONTROLLERS" manufacturer="Thorlabs"></NodeCardCollection>
+<NodeCardCollection
+  category="LASER_DIODE_CONTROLLERS"
+  manufacturer="Thorlabs"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
@@ -115,6 +117,7 @@ class ThorlabsPro8000(Instrument):
 The code defines a class `ThorlabsPro8000` that represents the Thorlabs Pro 8000 modular laser driver. It inherits from the `Instrument` class provided by the `pymeasure.instruments` module.
 
 The class has several class-level variables defined:
+
 - `SLOTS` is a range from 1 to 8, representing the available slots in the laser driver.
 - `LDC_POLARITIES` is a list of allowed laser diode polarities, which can be either 'AG' or 'CG'.
 - `STATUS` is a list of allowed status values, which can be either 'ON' or 'OFF'.

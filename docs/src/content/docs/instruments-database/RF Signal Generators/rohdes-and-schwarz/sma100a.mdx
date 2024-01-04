@@ -1,11 +1,11 @@
 ---
 title: Connecting to SMA100A by Rohdes&Schwarz in Python
 description: This Class Handles Rohdes And Schwarz Sma Signal Generators. Supported Model Is, -Sma100A. Signal quality, speed and flexibility these are the criteria by which signal generators are measured today. The R&S SMA100A perfectly meets these criteria, and thus is a premium-class analog generator that sets standards due to its outstanding characteristics.
-keywords: [RF Signal Generators, Rohdes&Schwarz, PyTango] 
-slug: instruments-database/RF Signal Generators/rohdes-and-schwarz/sma100a 
+keywords: [RF Signal Generators, Rohdes&Schwarz, PyTango]
+slug: instruments-database/RF Signal Generators/rohdes-and-schwarz/sma100a
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782521/Instruments/RF%20Signal%20Generator/SMA100A/SMA100A.jpg
 sidebar:
-    label: SMA100A 
+  label: SMA100A
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,11 +44,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="RF_SIGNAL_GENERATORS" manufacturer="Rohdes&Schwarz"></NodeCardCollection>
+<NodeCardCollection
+  category="RF_SIGNAL_GENERATORS"
+  manufacturer="Rohdes&Schwarz"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyTango" label="PyTango">

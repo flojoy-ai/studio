@@ -1,18 +1,18 @@
 ---
 title: Connecting to IVVI by Qutech in Python
 description: An ohmmeter is an electrical instrument that measures electrical resistance (the opposition offered by a circuit or component to the flow of electric current). Multimeters also function as ohmmeters when in resistance-measuring mode. An ohmmeter applies current to the circuit or component whose resistance is to be measured. It then measures the resulting voltage and calculates the resistance using Ohm’s law	https,//en.wikipedia.org/wiki/Ohmmeter
-keywords: [IV Converters, Qutech, QCodes Community] 
-slug: instruments-database/IV Converters/qutech/ivvi 
+keywords: [IV Converters, Qutech, QCodes Community]
+slug: instruments-database/IV Converters/qutech/ivvi
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782619/Instruments/IV%20Converter/IVVI/IVVI.jpg
 sidebar:
-    label: IVVI 
+  label: IVVI
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
 
 ## Instrument Card
 
-An ohmmeter is an electrical instrument that measures electrical resistance (the opposition offered by a circuit or component to the flow of electric current). Multimeters also function as ohmmeters when in resistance-measuring mode. An ohmmeter applies current to the circuit or component whose resistance is to be measured. It then measures the resulting voltage and calculates the resistance using Ohm’s law	https://en.wikipedia.org/wiki/Ohmmeter
+An ohmmeter is an electrical instrument that measures electrical resistance (the opposition offered by a circuit or component to the flow of electric current). Multimeters also function as ohmmeters when in resistance-measuring mode. An ohmmeter applies current to the circuit or component whose resistance is to be measured. It then measures the resulting voltage and calculates the resistance using Ohm’s law https://en.wikipedia.org/wiki/Ohmmeter
 
 ![IVVI](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782619/Instruments/IV%20Converter/IVVI/IVVI.jpg)
 
@@ -44,15 +44,16 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="IV_CONVERTERS" manufacturer="Qutech"></NodeCardCollection>
+<NodeCardCollection
+  category="IV_CONVERTERS"
+  manufacturer="Qutech"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="QCodes Community" label="QCodes Community">
-
 
 ```python
 from qcodes.instrument_drivers.ivvi import IVVI

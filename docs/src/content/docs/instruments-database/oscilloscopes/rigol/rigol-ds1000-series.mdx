@@ -1,11 +1,11 @@
 ---
 title: Connecting to Rigol DS1000-Series by Rigol in Python
 description: The 1000 Series from RIGOL include the B, D, and E series oscilloscopes. The E Series are the value leader with 50-100 MHz models that include 2 channels and 1 Million points of memory. The D Series add low speed digital capture enabling basic mixed signal analysis in a economic package. The B Series provide more speed and power including our economic 4 channel, 200 MHz DS1204B model which provides 2 GSa/sec sampling. With features including FFTs, record and replay, roll mode, alternate trigger mode, and adjustable trigger sensitivity the 1000 Series is a great entry for value oscilloscope requirements.
-keywords: [Oscilloscopes, Rigol, InstrumentKit] 
-slug: instruments-database/Oscilloscopes/rigol/rigol-ds1000-series 
+keywords: [Oscilloscopes, Rigol, InstrumentKit]
+slug: instruments-database/Oscilloscopes/rigol/rigol-ds1000-series
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782681/Instruments/Oscilloscopes/Rigol-DS1000-Series/Rigol-DS1000-Series.png
 sidebar:
-    label: Rigol DS1000-Series 
+  label: Rigol DS1000-Series
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -45,15 +45,16 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="OSCILLOSCOPES" manufacturer="Rigol"></NodeCardCollection>
+<NodeCardCollection
+  category="OSCILLOSCOPES"
+  manufacturer="Rigol"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="InstrumentKit" label="InstrumentKit">
-
 
 ```python
 from instrumentkit import RigolDS1000Series

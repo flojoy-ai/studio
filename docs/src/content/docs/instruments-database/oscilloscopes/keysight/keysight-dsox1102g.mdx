@@ -1,11 +1,11 @@
 ---
 title: Connecting to Keysight DSOX1102G by Keysight in Python
 description: The DSOX1102G oscilloscope provides 70, 100 MHz of bandwidth on 2 analog channels, and waveform generator
-keywords: [Oscilloscopes, Keysight, PyMeasure] 
-slug: instruments-database/Oscilloscopes/keysight/keysight-dsox1102g 
+keywords: [Oscilloscopes, Keysight, PyMeasure]
+slug: instruments-database/Oscilloscopes/keysight/keysight-dsox1102g
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782486/Instruments/Oscilloscopes/Keysight-DSOX1102G/Keysight-DSOX1102G.jpg
 sidebar:
-    label: Keysight DSOX1102G 
+  label: Keysight DSOX1102G
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -13,8 +13,6 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
 ## Instrument Card
 
 The DSOX1102G oscilloscope provides 70, 100 MHz of bandwidth on 2 analog channels, and waveform generator
-
-
 
 ![Keysight DSOX1102G](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782486/Instruments/Oscilloscopes/Keysight-DSOX1102G/Keysight-DSOX1102G.jpg)
 
@@ -46,15 +44,16 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="OSCILLOSCOPES" manufacturer="Keysight"></NodeCardCollection>
+<NodeCardCollection
+  category="OSCILLOSCOPES"
+  manufacturer="Keysight"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
-
 
 ```python
 from pymeasure.adapters import VISAAdapter

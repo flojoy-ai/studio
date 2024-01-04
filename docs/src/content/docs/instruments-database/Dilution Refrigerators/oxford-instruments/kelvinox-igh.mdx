@@ -1,18 +1,16 @@
 ---
 title: Connecting to Kelvinox IGH by Oxford Instruments in Python
 
-keywords: [Dilution Refrigerators, Oxford Instruments, QCodes Community] 
-slug: instruments-database/Dilution Refrigerators/oxford-instruments/kelvinox-igh 
+keywords: [Dilution Refrigerators, Oxford Instruments, QCodes Community]
+slug: instruments-database/Dilution Refrigerators/oxford-instruments/kelvinox-igh
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782756/Instruments/Dilution%20Refrigerator/Kelvinox-IGH/Kelvinox-IGH.png
 sidebar:
-    label: Kelvinox IGH 
+  label: Kelvinox IGH
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
 
 ## Instrument Card
-
-
 
 ![Kelvinox IGH](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782756/Instruments/Dilution%20Refrigerator/Kelvinox-IGH/Kelvinox-IGH.png)
 
@@ -44,15 +42,16 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="DILUTION_REFRIGERATORS" manufacturer="Oxford Instruments"></NodeCardCollection>
+<NodeCardCollection
+  category="DILUTION_REFRIGERATORS"
+  manufacturer="Oxford Instruments"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="QCodes Community" label="QCodes Community">
-
 
 ```python
 import qcodes as qc

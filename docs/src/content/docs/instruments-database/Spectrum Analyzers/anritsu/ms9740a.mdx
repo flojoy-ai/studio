@@ -1,11 +1,11 @@
 ---
 title: Connecting to MS9740A by Anritsu in Python
 description: The MS9740A supports nine application measurement modes (DFBLD, FP-LD, LED, PMD, Opt. Amp, Opt. Amp (Multi-channel), WDM, LD Module, WDM Filter) for measurement targets
-keywords: [Spectrum Analyzers, Anritsu, PyMeasure] 
-slug: instruments-database/Spectrum Analyzers/anritsu/ms9740a 
+keywords: [Spectrum Analyzers, Anritsu, PyMeasure]
+slug: instruments-database/Spectrum Analyzers/anritsu/ms9740a
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782557/Instruments/Spectrum%20Analyzers/MS9740A/MS9740A.png
 sidebar:
-    label: MS9740A 
+  label: MS9740A
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,15 +44,16 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="SPECTRUM_ANALYZERS" manufacturer="Anritsu"></NodeCardCollection>
+<NodeCardCollection
+  category="SPECTRUM_ANALYZERS"
+  manufacturer="Anritsu"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
-
 
 ```python
 import logging

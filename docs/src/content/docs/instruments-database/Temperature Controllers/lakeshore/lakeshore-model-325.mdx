@@ -1,11 +1,11 @@
 ---
 title: Connecting to Lakeshore Model 325 by Lakeshore in Python
 description: The Model 325 dual-channel cryogenic temperature controller is capable of supporting nearly any diode, RTD, or thermocouple temperature sensor. Two independent PID control loops with heater outputs of 25 W and 2 W are configured to drive either a 50 Ω or 25 Ω load for optimal cryocooler control flexibility. Designed with ease of use, functionality, and value in mind, the Model 325 is ideal for general-purpose laboratory and industrial temperature measurement and control applications.
-keywords: [Temperature Controllers, Lakeshore, QCodes] 
-slug: instruments-database/Temperature Controllers/lakeshore/lakeshore-model-325 
+keywords: [Temperature Controllers, Lakeshore, QCodes]
+slug: instruments-database/Temperature Controllers/lakeshore/lakeshore-model-325
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782744/Instruments/Temperature%20Controllers/Lakeshore-Model-325/Lakeshore-Model-325.png
 sidebar:
-    label: Lakeshore Model 325 
+  label: Lakeshore Model 325
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,11 +44,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="TEMPERATURE_CONTROLLERS" manufacturer="Lakeshore"></NodeCardCollection>
+<NodeCardCollection
+  category="TEMPERATURE_CONTROLLERS"
+  manufacturer="Lakeshore"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="QCodes" label="QCodes">

@@ -1,11 +1,11 @@
 ---
 title: Connecting to SR 510 by Stanford Research Systems in Python
 description: The SR510 is analog lock-in amplifiers which can measure AC signals as small as nanovolts in the presence of much larger noise levels.
-keywords: [Lockin Amplifiers, Stanford Research Systems, PyMeasure] 
-slug: instruments-database/Lockin Amplifiers/srs/sr-510 
+keywords: [Lockin Amplifiers, Stanford Research Systems, PyMeasure]
+slug: instruments-database/Lockin Amplifiers/srs/sr-510
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782770/Instruments/Lockin%20Amplifiers/SR-510/SR-510.jpg
 sidebar:
-    label: SR 510 
+  label: SR 510
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,15 +44,16 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="LOCKIN_AMPLIFIERS" manufacturer="Stanford Research Systems"></NodeCardCollection>
+<NodeCardCollection
+  category="LOCKIN_AMPLIFIERS"
+  manufacturer="Stanford Research Systems"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
-
 
 ```python
 from pymeasure.adapters import VISAAdapter

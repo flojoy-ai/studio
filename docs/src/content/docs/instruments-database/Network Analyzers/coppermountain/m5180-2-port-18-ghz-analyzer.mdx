@@ -1,17 +1,16 @@
 ---
 title: Connecting to M5180 2-Port 18 GHz Analyzer by Coppermountain in Python
 description: The M5180 is a 2-port, 18 GHz Vector Network Analyzer that delivers metrology-grade performance in a more economical package that excludes a number of advanced features
-keywords: [Network Analyzers, Coppermountain, QCodes Community] 
-slug: instruments-database/Network Analyzers/coppermountain/m5180-2-port-18-ghz-analyzer 
+keywords: [Network Analyzers, Coppermountain, QCodes Community]
+slug: instruments-database/Network Analyzers/coppermountain/m5180-2-port-18-ghz-analyzer
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782516/Instruments/Network%20Analyzer/M5180-2-Port-18-GHz-Analyzer/M5180-2-Port-18-GHz-Analyzer.png
 sidebar:
-    label: M5180 2-Port 18 GHz Analyzer 
+  label: M5180 2-Port 18 GHz Analyzer
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
 
 ## Instrument Card
-
 
 The M5180 is a 2-port, 18 GHz Vector Network Analyzer that delivers metrology-grade performance in a more economical package that excludes a number of advanced features
 
@@ -45,11 +44,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="NETWORK_ANALYZERS" manufacturer="Coppermountain"></NodeCardCollection>
+<NodeCardCollection
+  category="NETWORK_ANALYZERS"
+  manufacturer="Coppermountain"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="QCodes Community" label="QCodes Community">
@@ -89,6 +90,7 @@ print("S11 Phase:", s11_phase)
 # Disconnect from the instruments
 m5180.close()
 ```
+
 Note: Replace `'TCPIP0::192.168.1.1::inst0::INSTR'` with the actual address of your M5180 instrument.
 
 </TabItem>

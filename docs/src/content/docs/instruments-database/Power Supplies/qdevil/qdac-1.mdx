@@ -1,11 +1,11 @@
 ---
 title: Connecting to Qdac 1 by Qdevil in Python
 description: The original and popular QDAC from QDevil is a high-precision low-noise computer-controlled voltage generator designed for DC and low-frequency control of high impedance devices, such as gates in quantum electronics and quantum computer qubits. It also comes in a “high-current” version which can source up to 10 mA, for example for flux biasing of superconducting qubits. In addition to precise and stable voltage output, the QDAC can measure output currents, for example, to detect leaking gates or shorted bonding wires. The QDAC originates from the laboratories of the Center for Quantum Devices at the University of Copenhagen, where it is used for quantum computing research. The QDAC has 24 channels and offers a cost-effective way of getting many high-quality D/A converter channels.
-keywords: [Power Supplies, Qdevil, QCodes Community] 
-slug: instruments-database/Power Supplies/qdevil/qdac-1 
+keywords: [Power Supplies, Qdevil, QCodes Community]
+slug: instruments-database/Power Supplies/qdevil/qdac-1
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782554/Instruments/Digital-Analog%20Converter/Qdac-1/Qdac-1.png
 sidebar:
-    label: Qdac 1 
+  label: Qdac 1
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,11 +44,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="POWER_SUPPLIES" manufacturer="Qdevil"></NodeCardCollection>
+<NodeCardCollection
+  category="POWER_SUPPLIES"
+  manufacturer="Qdevil"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="QCodes Community" label="QCodes Community">

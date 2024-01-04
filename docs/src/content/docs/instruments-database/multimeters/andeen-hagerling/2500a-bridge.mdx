@@ -1,11 +1,11 @@
 ---
 title: Connecting to 2500A Bridge by Andeen Hagerling in Python
 description: The AH 2500A offers unparalleled stability, resolution and accuracy in a capacitance/loss1 bridge (whether manual or automatic)
-keywords: [Multimeters, Andeen Hagerling, PyMeasure] 
-slug: instruments-database/Multimeters/andeen-hagerling/2500a-bridge 
+keywords: [Multimeters, Andeen Hagerling, PyMeasure]
+slug: instruments-database/Multimeters/andeen-hagerling/2500a-bridge
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782748/Instruments/Multimeters/2500A-Bridge/2500A-Bridge.jpg
 sidebar:
-    label: 2500A Bridge 
+  label: 2500A Bridge
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,15 +44,16 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="MULTIMETERS" manufacturer="Andeen Hagerling"></NodeCardCollection>
+<NodeCardCollection
+  category="MULTIMETERS"
+  manufacturer="Andeen Hagerling"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
-
 
 ```python
 from pymeasure.adapters import VISAAdapter
@@ -77,6 +78,7 @@ multimeter.disconnect()
 ```
 
 Explanation:
+
 1. We import the necessary modules from Pymeasure: `VISAAdapter` for communication and `AH2500A` for the 2500A Bridge Multimeter instrument.
 2. We create a `VISAAdapter` object, specifying the appropriate address for the instrument. In this example, we assume the instrument is connected via GPIB at address 1.
 3. We create an `AH2500A` object, passing the adapter as an argument to establish the connection.

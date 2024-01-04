@@ -1,11 +1,11 @@
 ---
 title: Connecting to Keithley 6517B by Keithley in Python
 description: 6517B Electrometer/High Resistance Meter is capable of measuring the largest voltage range—up to 200 V—with an input impedance exceeding 200 TΩ. All this performance is built into an instrument that operates as simply as a digital multimeter.
-keywords: [Power Meters, Keithley, PyMeasure] 
-slug: instruments-database/Power Meters/keithley/keithley-6517b 
+keywords: [Power Meters, Keithley, PyMeasure]
+slug: instruments-database/Power Meters/keithley/keithley-6517b
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782706/Instruments/Power%20Meters/Keithley-6517B/Keithley-6517B.webp
 sidebar:
-    label: Keithley 6517B 
+  label: Keithley 6517B
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,15 +44,16 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="POWER_METERS" manufacturer="Keithley"></NodeCardCollection>
+<NodeCardCollection
+  category="POWER_METERS"
+  manufacturer="Keithley"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
-
 
 ```python
 from pymeasure.adapters import VISAAdapter

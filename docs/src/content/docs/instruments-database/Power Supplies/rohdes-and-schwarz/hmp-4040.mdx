@@ -1,11 +1,11 @@
 ---
 title: Connecting to HMP 4040 by Rohdes&Schwarz in Python
 description: The Rohde & Schwarz HMP4040 power supply belongs to the HMP series and has 4 channels and a power of 384W. All four channels have an output voltage of 0-32V and an output current of 0-10A.
-keywords: [Power Supplies, Rohdes&Schwarz, PyMeasure] 
-slug: instruments-database/Power Supplies/rohdes-and-schwarz/hmp-4040 
+keywords: [Power Supplies, Rohdes&Schwarz, PyMeasure]
+slug: instruments-database/Power Supplies/rohdes-and-schwarz/hmp-4040
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782700/Instruments/Power%20Supplies/HMP-4040/HMP-4040.jpg
 sidebar:
-    label: HMP 4040 
+  label: HMP 4040
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,15 +44,16 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="POWER_SUPPLIES" manufacturer="Rohdes&Schwarz"></NodeCardCollection>
+<NodeCardCollection
+  category="POWER_SUPPLIES"
+  manufacturer="Rohdes&Schwarz"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
-
 
 ```python
 from pymeasure.adapters import VISAAdapter

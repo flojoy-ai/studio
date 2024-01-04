@@ -1,11 +1,11 @@
 ---
 title: Connecting to SHFSG by Zurich Instruments in Python
 description: The Zurich Instruments SHFSG Signal Generator produces qubit control signals in the frequency range from DC to 8.5 GHz with a spurious-free modulation bandwidth of 1 GHz. The SHFSG uses a double superheterodyne technique for frequency up-conversion, which eliminates the need for mixer calibration and saves time on system tune-up. Each SHFSG comes with 4 or 8 analog output channels with 14-bit vertical resolution. Controlled by LabOne, its APIs or the LabOne Q Software, the SHFSG supports quantum computing projects with sizes ranging from a few to several hundred qubits.
-keywords: [RF Signal Generators, Zurich Instruments, QCodes] 
-slug: instruments-database/RF Signal Generators/zurich-instruments/shfsg 
+keywords: [RF Signal Generators, Zurich Instruments, QCodes]
+slug: instruments-database/RF Signal Generators/zurich-instruments/shfsg
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782679/Instruments/RF%20Signal%20Generator/SHFSG/SHFSG.webp
 sidebar:
-    label: SHFSG 
+  label: SHFSG
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,11 +44,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="RF_SIGNAL_GENERATORS" manufacturer="Zurich Instruments"></NodeCardCollection>
+<NodeCardCollection
+  category="RF_SIGNAL_GENERATORS"
+  manufacturer="Zurich Instruments"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="QCodes" label="QCodes">

@@ -1,18 +1,18 @@
 ---
 title: Connecting to SPD1305X Power Supply by Siglent Technologies in Python
 description: Siglent’s SPD1305X Series Programmable Linear DC Power Supply has a 2.8 inch TFT-LCD (240 * 320) color display. The SPD1305X outputs up to 150 Watts of power and has a Voltage range of 0-30 V and Current range of 0-5 A. The Voltage resolution is 1 uV while the Current resolution is 1 mA.  Because higher currents supplied through smaller gauge wire or longer distances can cause a drop in voltage to the supplied load, the SPD1305X incorporates Remote Sensing in order to measure the actual supplied voltage at the load. The remote sensed voltage is fed back to the power supply and output voltage is adjusted almost instantaneously.
-keywords: [Power Supplies, Siglent Technologies, PyMeasure] 
-slug: instruments-database/Power Supplies/siglent-technologies/spd1305x-power-supply 
+keywords: [Power Supplies, Siglent Technologies, PyMeasure]
+slug: instruments-database/Power Supplies/siglent-technologies/spd1305x-power-supply
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782556/Instruments/Power%20Supplies/SPD1305X-Power-Supply/SPD1305X-Power-Supply.jpg
 sidebar:
-    label: SPD1305X Power Supply 
+  label: SPD1305X Power Supply
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
 
 ## Instrument Card
 
-Siglent’s SPD1305X Series Programmable Linear DC Power Supply has a 2.8 inch TFT-LCD (240 * 320) color display. The SPD1305X outputs up to 150 Watts of power and has a Voltage range of 0-30 V and Current range of 0-5 A. The Voltage resolution is 1 uV while the Current resolution is 1 mA.
+Siglent’s SPD1305X Series Programmable Linear DC Power Supply has a 2.8 inch TFT-LCD (240 \* 320) color display. The SPD1305X outputs up to 150 Watts of power and has a Voltage range of 0-30 V and Current range of 0-5 A. The Voltage resolution is 1 uV while the Current resolution is 1 mA.
 
 Because higher currents supplied through smaller gauge wire or longer distances can cause a drop in voltage to the supplied load, the SPD1305X incorporates Remote Sensing in order to measure the actual supplied voltage at the load. The remote sensed voltage is fed back to the power supply and output voltage is adjusted almost instantaneously.
 
@@ -46,11 +46,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="POWER_SUPPLIES" manufacturer="Siglent Technologies"></NodeCardCollection>
+<NodeCardCollection
+  category="POWER_SUPPLIES"
+  manufacturer="Siglent Technologies"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">

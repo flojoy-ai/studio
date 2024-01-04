@@ -1,11 +1,11 @@
 ---
 title: Connecting to ATS 525 by Temptronic in Python
 description: Temptronic ATS-525 Thermostream -60° to +225°C
-keywords: [Temperature Controllers, Temptronic, PyMeasure] 
-slug: instruments-database/Temperature Controllers/temptronic/ats-525 
+keywords: [Temperature Controllers, Temptronic, PyMeasure]
+slug: instruments-database/Temperature Controllers/temptronic/ats-525
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782438/Instruments/Temperature%20Controllers/ATS-525/ATS-525.jpg
 sidebar:
-    label: ATS 525 
+  label: ATS 525
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -13,7 +13,6 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
 ## Instrument Card
 
 Temptronic ATS-525 Thermostream -60° to +225°C
-
 
 ![ATS 525](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782438/Instruments/Temperature%20Controllers/ATS-525/ATS-525.jpg)
 
@@ -45,15 +44,16 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="TEMPERATURE_CONTROLLERS" manufacturer="Temptronic"></NodeCardCollection>
+<NodeCardCollection
+  category="TEMPERATURE_CONTROLLERS"
+  manufacturer="Temptronic"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
-
 
 ```python
 from pymeasure.adapters import VISAAdapter
@@ -76,6 +76,7 @@ ats525.disconnect()
 ```
 
 Explanation:
+
 1. Import the necessary modules from Pymeasure.
 2. Create a VISA adapter by providing the appropriate connection details (e.g., IP address).
 3. Create an instance of the `ATS525` class, passing the adapter as an argument.

@@ -1,11 +1,11 @@
 ---
 title: Connecting to S5i by Qutech in Python
 description: The S5i module is a RF source ranging from 40 MHz to 4 GHz, initially designed for reflectometry. The output power of the fundamental frequency ranges from -20 dBm to 14 dBm and can be controlled by both the front panel and via software. The RF output can be muted by an external source, which gives an on/off ratio of larger than 60 dB.
-keywords: [RF Signal Generators, Qutech, QCodes Community] 
-slug: instruments-database/RF Signal Generators/qutech/s5i 
+keywords: [RF Signal Generators, Qutech, QCodes Community]
+slug: instruments-database/RF Signal Generators/qutech/s5i
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782708/Instruments/RF%20Signal%20Generator/S5i/S5i.png
 sidebar:
-    label: S5i 
+  label: S5i
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -13,8 +13,6 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
 ## Instrument Card
 
 The S5i module is a RF source ranging from 40 MHz to 4 GHz, initially designed for reflectometry. The output power of the fundamental frequency ranges from -20 dBm to 14 dBm and can be controlled by both the front panel and via software. The RF output can be muted by an external source, which gives an on/off ratio of larger than 60 dB.
-
-
 
 ![S5i](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782708/Instruments/RF%20Signal%20Generator/S5i/S5i.png)
 
@@ -46,11 +44,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="RF_SIGNAL_GENERATORS" manufacturer="Qutech"></NodeCardCollection>
+<NodeCardCollection
+  category="RF_SIGNAL_GENERATORS"
+  manufacturer="Qutech"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="QCodes Community" label="QCodes Community">

@@ -1,11 +1,11 @@
 ---
 title: Connecting to Orbit 3 Sensor by Orbit3 in Python
 description: Orbit 3 is a wireless sensor for ambient temperature and humidity monitoring. Install Orbit 3 at a suitable location, and it will wirelessly transmit temperature and humidity readings continuously. It can be used in precast factories, concrete laboratories, on-site – or wherever ambient climate creates value for you.
-keywords: [Humidity Sensors, Orbit3, PyTango] 
-slug: instruments-database/Humidity Sensors/orbit3/orbit-3-sensor 
+keywords: [Humidity Sensors, Orbit3, PyTango]
+slug: instruments-database/Humidity Sensors/orbit3/orbit-3-sensor
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782607/Instruments/Temperature%20Sensor/Orbit-3-Sensor/Orbit-3-Sensor.webp
 sidebar:
-    label: Orbit 3 Sensor 
+  label: Orbit 3 Sensor
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,11 +44,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="HUMIDITY_SENSORS" manufacturer="Orbit3"></NodeCardCollection>
+<NodeCardCollection
+  category="HUMIDITY_SENSORS"
+  manufacturer="Orbit3"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyTango" label="PyTango">

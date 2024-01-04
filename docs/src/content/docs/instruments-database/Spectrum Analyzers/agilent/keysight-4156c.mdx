@@ -1,11 +1,11 @@
 ---
 title: Connecting to Keysight 4156C by Agilent in Python
 description: 4156C Precision Semiconductor Parameter Analyzer
-keywords: [Spectrum Analyzers, Agilent, PyMeasure] 
-slug: instruments-database/Spectrum Analyzers/agilent/keysight-4156c 
+keywords: [Spectrum Analyzers, Agilent, PyMeasure]
+slug: instruments-database/Spectrum Analyzers/agilent/keysight-4156c
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782628/Instruments/Spectrum%20Analyzers/Keysight-4156C/Keysight-4156C.png
 sidebar:
-    label: Keysight 4156C 
+  label: Keysight 4156C
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,15 +44,16 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="SPECTRUM_ANALYZERS" manufacturer="Agilent"></NodeCardCollection>
+<NodeCardCollection
+  category="SPECTRUM_ANALYZERS"
+  manufacturer="Agilent"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
-
 
 ```python
 from pymeasure.instruments.agilent import Agilent4156

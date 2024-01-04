@@ -1,11 +1,11 @@
 ---
 title: Connecting to Keithley 2700 by Keithley in Python
 description: The Model 2750 offers extended low ohms measurement capability and supports up to 5 7700 Switch cards for a maximum 200, 2-pole multiplexed channels. It also contains a built-in 20mV clamp that helps protect sensitive devices from damage and prevents self-heating errors during dry circuit testing.
-keywords: [Multimeters, Keithley, PyMeasure] 
-slug: instruments-database/Multimeters/keithley/keithley-2700 
+keywords: [Multimeters, Keithley, PyMeasure]
+slug: instruments-database/Multimeters/keithley/keithley-2700
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782676/Instruments/Multimeters/Keithley-2700/Keithley-2700.webp
 sidebar:
-    label: Keithley 2700 
+  label: Keithley 2700
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,15 +44,16 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="MULTIMETERS" manufacturer="Keithley"></NodeCardCollection>
+<NodeCardCollection
+  category="MULTIMETERS"
+  manufacturer="Keithley"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
-
 
 ```python
 from pymeasure.instruments.keithley import Keithley2700

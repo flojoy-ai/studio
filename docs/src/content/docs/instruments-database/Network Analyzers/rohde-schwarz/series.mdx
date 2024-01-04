@@ -1,20 +1,16 @@
 ---
 title: Connecting to Series by Rohdes&Schwarz in Python
 
-keywords: [Network Analyzers, Rohdes&Schwarz, QCodes] 
-slug: instruments-database/Network Analyzers/rohde-schwarz/series 
+keywords: [Network Analyzers, Rohdes&Schwarz, QCodes]
+slug: instruments-database/Network Analyzers/rohde-schwarz/series
 
 sidebar:
-    label: Series 
+  label: Series
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
 
 ## Instrument Card
-
-
-
-
 
 Device Specification: [here](https://scdn.rohde-schwarz.com/ur/pws/dl_downloads/dl_common_library/dl_brochures_and_datasheets/pdf_1/ZNB_bro_en_3608-3278-12_v0301.pdf)
 
@@ -44,11 +40,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="NETWORK_ANALYZERS" manufacturer="Rohdes&Schwarz"></NodeCardCollection>
+<NodeCardCollection
+  category="NETWORK_ANALYZERS"
+  manufacturer="Rohdes&Schwarz"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="QCodes" label="QCodes">
@@ -86,6 +84,7 @@ znb.rf_power(False)
 # Close the connection to the instrument
 znb.close()
 ```
+
 Note: Replace `"TCPIP0::192.168.15.100::inst0::INSTR"` with the actual address of your Series Network Analyzer.
 
 </TabItem>

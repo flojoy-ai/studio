@@ -1,11 +1,11 @@
 ---
 title: Connecting to SIM928 by Stanford Research Systems in Python
 description: The SIM928 Isolated Voltage Source is ideal for applications where ultra-clean DC voltage is required. Voltage can be set between ±20 VDC with millivolt resolution, and the source can drive up to ±10 mA. The output circuit is optically isolated from all earth-referenced charging circuitry, providing maximum flexibility and noise immunity. The system can float to ±40 V, and the output is short-circuit protected.
-keywords: [Power Supplies, Stanford Research Systems, QCodes Community] 
-slug: instruments-database/Power Supplies/stanford-research/sim928 
+keywords: [Power Supplies, Stanford Research Systems, QCodes Community]
+slug: instruments-database/Power Supplies/stanford-research/sim928
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782666/Instruments/Power%20Supplies/SIM-928/SIM-928.jpg
 sidebar:
-    label: SIM928 
+  label: SIM928
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,11 +44,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="POWER_SUPPLIES" manufacturer="Stanford Research Systems"></NodeCardCollection>
+<NodeCardCollection
+  category="POWER_SUPPLIES"
+  manufacturer="Stanford Research Systems"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="QCodes Community" label="QCodes Community">

@@ -1,11 +1,11 @@
 ---
 title: Connecting to TDS2000 by Tektronix in Python
 description: The TDS1000 Series and TDS2000 Series digital storage oscilloscopes deliver an unbeatable combination of superior performance, unmatched ease-of-use, and affordability in an ultra lightweight, portable package.
-keywords: [Oscilloscopes, Tektronix, PyMeasure] 
-slug: instruments-database/Oscilloscopes/tektronix/tds2000 
+keywords: [Oscilloscopes, Tektronix, PyMeasure]
+slug: instruments-database/Oscilloscopes/tektronix/tds2000
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782473/Instruments/Oscilloscopes/TDS2000/TDS2000.jpg
 sidebar:
-    label: TDS2000 
+  label: TDS2000
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,11 +44,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="OSCILLOSCOPES" manufacturer="Tektronix"></NodeCardCollection>
+<NodeCardCollection
+  category="OSCILLOSCOPES"
+  manufacturer="Tektronix"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
@@ -75,6 +77,7 @@ scope.disconnect()
 ```
 
 Explanation:
+
 1. Import the necessary modules from Pymeasure.
 2. Create a VISA adapter with the appropriate address for your TDS2000 Oscilloscope.
 3. Connect to the TDS2000 Oscilloscope using the adapter.

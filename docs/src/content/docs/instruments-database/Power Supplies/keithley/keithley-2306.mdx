@@ -1,11 +1,11 @@
 ---
 title: Connecting to Keithley 2306 by Keithley in Python
 description: The dual channel Battery/Charger Simulator was designed specifically for development and test applications of portable, battery-operated products, such as cellular and cordless telephones, mobile radios, and pagers. This precision DC power supply product has ultrafast transient response so it can have output characteristics identical to actual batteries. This supply employs a unique variable output resistance so the voltage output can emulate a battery's response. It provides stable voltage outputs, even when a device-under-test (DUT) makes the rapid transition from the standby (low current) state to the RF transmission (high current) state. In addition, they can monitor DUT power consumption by measuring both DC currents and pulse load currents. The battery-simulator channel can be programmed to operate like a discharged rechargeable battery, sinking current from a separate charger.
-keywords: [Power Supplies, Keithley, PyMeasure] 
-slug: instruments-database/Power Supplies/keithley/keithley-2306 
+keywords: [Power Supplies, Keithley, PyMeasure]
+slug: instruments-database/Power Supplies/keithley/keithley-2306
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782472/Instruments/Power%20Supplies/Keithley-2306/Keithley-2306.webp
 sidebar:
-    label: Keithley 2306 
+  label: Keithley 2306
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,15 +44,16 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="POWER_SUPPLIES" manufacturer="Keithley"></NodeCardCollection>
+<NodeCardCollection
+  category="POWER_SUPPLIES"
+  manufacturer="Keithley"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
-
 
 ```python
 from pymeasure.adapters import VISAAdapter

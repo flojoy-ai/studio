@@ -1,11 +1,11 @@
 ---
 title: Connecting to PT 104 Picoch by Pico Technology in Python
 description: The PT-104 is a four-channel temperature measuring data logger. It offers the ultimate in resolution (0.001 °C) and accuracy (0.015 °C). Along with temperature it can also be used to measure resistance.
-keywords: [Thermometers, Pico Technology, PyTango] 
-slug: instruments-database/Thermometers/pico-technology/pt-104-picoch 
+keywords: [Thermometers, Pico Technology, PyTango]
+slug: instruments-database/Thermometers/pico-technology/pt-104-picoch
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782684/Instruments/Thermometer/PT-104-Picoch/PT-104-Picoch.jpg
 sidebar:
-    label: PT 104 Picoch 
+  label: PT 104 Picoch
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -45,11 +45,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="THERMOMETERS" manufacturer="Pico Technology"></NodeCardCollection>
+<NodeCardCollection
+  category="THERMOMETERS"
+  manufacturer="Pico Technology"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyTango" label="PyTango">

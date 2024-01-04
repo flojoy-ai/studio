@@ -1,11 +1,11 @@
 ---
 title: Connecting to HMC 8042 by Rohdes&Schwarz in Python
 description: the two-channel HMC8042 delivers a maximum of 5 A. The HMC804x family offers a wide range of logging functions, an integrated energy meter and electronic fuses that can be individually combined for each channel, making it ideal for hardware developers, labs and industrial environments. Linear switching power supplies ensure high efficiency, for minimum heat dissipation even at full load. Developers and industrial users benefit from useful functions such as sequenced start of channels, EasyArb and EasyRamp functions that are directly programmable on the device, an analog input for external control of voltage values, an external trigger input for controlling channels and arb steps, and adjustable overvoltage/overpower protection for each channel.
-keywords: [Power Supplies, Rohdes&Schwarz, QCodes Community] 
-slug: instruments-database/Power Supplies/rohdeschwarz/hmc-8042 
+keywords: [Power Supplies, Rohdes&Schwarz, QCodes Community]
+slug: instruments-database/Power Supplies/rohdeschwarz/hmc-8042
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782545/Instruments/Power%20Supplies/HMC-8042/HMC-8042.jpg
 sidebar:
-    label: HMC 8042 
+  label: HMC 8042
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,11 +44,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="POWER_SUPPLIES" manufacturer="Rohdes&Schwarz"></NodeCardCollection>
+<NodeCardCollection
+  category="POWER_SUPPLIES"
+  manufacturer="Rohdes&Schwarz"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="QCodes Community" label="QCodes Community">

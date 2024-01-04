@@ -1,11 +1,11 @@
 ---
 title: Connecting to Keithley 6221 by Keithley in Python
 description: The 6221 AC and DC Current Source combine ease of use with exceptionally low current noise. Low current sourcing is critical to applications in test environments ranging from R&D to production, especially in the semiconductor, nanotechnology, and superconductor industries. High sourcing accuracy and built-in control functions make the 6221 ideal for applications like Hall measurements, resistance measurements using delta mode, pulsed measurements, and differential conductance measurements.
-keywords: [Power Supplies, Keithley, PyMeasure] 
-slug: instruments-database/Power Supplies/keithley/keithley-6221 
+keywords: [Power Supplies, Keithley, PyMeasure]
+slug: instruments-database/Power Supplies/keithley/keithley-6221
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782550/Instruments/Power%20Supplies/Keithley-6221/Keithley-6221.webp
 sidebar:
-    label: Keithley 6221 
+  label: Keithley 6221
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,11 +44,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="POWER_SUPPLIES" manufacturer="Keithley"></NodeCardCollection>
+<NodeCardCollection
+  category="POWER_SUPPLIES"
+  manufacturer="Keithley"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">

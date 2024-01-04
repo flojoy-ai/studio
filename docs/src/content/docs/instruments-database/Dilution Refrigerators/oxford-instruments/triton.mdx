@@ -1,11 +1,11 @@
 ---
 title: Connecting to Triton by Oxford Instruments in Python
 description: The Triton family of cryogen free dilution refrigerators has led the way in ultra-low temperature experiment-readiness with its leading-edge superconducting magnet integration, sample loading mechanisms and sample wiring options. With over 300 systems installed worldwide, Triton is used in worldleading science across quantum technology, spintronics, optics and many other cutting-edge applications of condensed matter physics.
-keywords: [Dilution Refrigerators, Oxford Instruments, QCodes] 
-slug: instruments-database/Dilution Refrigerators/oxford-instruments/triton 
+keywords: [Dilution Refrigerators, Oxford Instruments, QCodes]
+slug: instruments-database/Dilution Refrigerators/oxford-instruments/triton
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782655/Instruments/Dilution%20Refrigerator/Triton/Triton.jpg
 sidebar:
-    label: Triton 
+  label: Triton
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -49,15 +49,16 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="DILUTION_REFRIGERATORS" manufacturer="Oxford Instruments"></NodeCardCollection>
+<NodeCardCollection
+  category="DILUTION_REFRIGERATORS"
+  manufacturer="Oxford Instruments"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="QCodes" label="QCodes">
-
 
 ```python
 import qcodes as qc
@@ -76,7 +77,7 @@ triton.mixing_chamber.temperature(0.1)
 triton.close()
 ```
 
-In this example, we import the necessary modules and classes from Qcodes. We then create an instance of the `Triton` class, passing the IP address and port number of the Triton Dilution Refrigerator as arguments. 
+In this example, we import the necessary modules and classes from Qcodes. We then create an instance of the `Triton` class, passing the IP address and port number of the Triton Dilution Refrigerator as arguments.
 
 Next, we initialize the instrument using the `init()` method. This step is important to establish communication with the instrument and ensure that it is ready for use.
 

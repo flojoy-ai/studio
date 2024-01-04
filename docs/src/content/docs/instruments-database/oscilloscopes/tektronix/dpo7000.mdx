@@ -1,11 +1,11 @@
 ---
 title: Connecting to DPO7000 by Tektronix in Python
 description: The MSO/DPO70000DX is one of the most advanced oscilloscopes in its class—enabling today's engineer to see signals better with minimal noise, debug signal anomalies faster and utilize measurement and analysis tools for automated compliance testing and other verifications
-keywords: [Oscilloscopes, Tektronix, InstrumentKit] 
-slug: instruments-database/Oscilloscopes/tektronix/dpo7000 
+keywords: [Oscilloscopes, Tektronix, InstrumentKit]
+slug: instruments-database/Oscilloscopes/tektronix/dpo7000
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782722/Instruments/Oscilloscopes/DPO7000/DPO7000.jpg
 sidebar:
-    label: DPO7000 
+  label: DPO7000
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,15 +44,16 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="OSCILLOSCOPES" manufacturer="Tektronix"></NodeCardCollection>
+<NodeCardCollection
+  category="OSCILLOSCOPES"
+  manufacturer="Tektronix"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="InstrumentKit" label="InstrumentKit">
-
 
 ```python
 from instrumentkit import Scope

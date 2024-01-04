@@ -1,11 +1,11 @@
 ---
 title: Connecting to Keysight 8657B by HP in Python
 description: The Agilent Technologies 8657A and 8657B signal generators are designed to test AM, FM, and pulsed receivers as well as components.
-keywords: [RF Signal Generators, HP, PyMeasure] 
-slug: instruments-database/RF Signal Generators/hp/keysight-8657b 
+keywords: [RF Signal Generators, HP, PyMeasure]
+slug: instruments-database/RF Signal Generators/hp/keysight-8657b
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782753/Instruments/RF%20Signal%20Generator/Keysight-8657B/Keysight-8657B.jpg
 sidebar:
-    label: Keysight 8657B 
+  label: Keysight 8657B
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -13,7 +13,6 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
 ## Instrument Card
 
 The Agilent Technologies 8657A and 8657B signal generators are designed to test AM, FM, and pulsed receivers as well as components.
-
 
 ![Keysight 8657B](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782753/Instruments/RF%20Signal%20Generator/Keysight-8657B/Keysight-8657B.jpg)
 
@@ -45,11 +44,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="RF_SIGNAL_GENERATORS" manufacturer="HP"></NodeCardCollection>
+<NodeCardCollection
+  category="RF_SIGNAL_GENERATORS"
+  manufacturer="HP"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
@@ -80,6 +81,7 @@ instrument.shutdown()
 ```
 
 Explanation of the code:
+
 1. Import the necessary modules from Pymeasure.
 2. Create a `VISAAdapter` object with the appropriate address for the instrument.
 3. Create an `HP8657B` object with the adapter.

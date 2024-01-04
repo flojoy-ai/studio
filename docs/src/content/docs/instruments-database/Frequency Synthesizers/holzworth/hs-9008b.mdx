@@ -1,11 +1,11 @@
 ---
 title: Connecting to HS 9008B by Holzworth in Python
 description: HS9008B - 8 Channel, 1U RF Synthesizer - Phase Coherent
-keywords: [Frequency Synthesizers, Holzworth, InstrumentKit] 
-slug: instruments-database/Frequency Synthesizers/holzworth/hs-9008b 
+keywords: [Frequency Synthesizers, Holzworth, InstrumentKit]
+slug: instruments-database/Frequency Synthesizers/holzworth/hs-9008b
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782458/Instruments/Frequency%20synthesizer/HS-9008B/HS-9008B.jpg
 sidebar:
-    label: HS 9008B 
+  label: HS 9008B
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,11 +44,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="FREQUENCY_SYNTHESIZERS" manufacturer="Holzworth"></NodeCardCollection>
+<NodeCardCollection
+  category="FREQUENCY_SYNTHESIZERS"
+  manufacturer="Holzworth"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="InstrumentKit" label="InstrumentKit">
@@ -90,11 +92,11 @@ print(f"Is HS 9008B ready: {is_ready}")
 
 This script imports the `instrumentkit` module as `ik` and then uses the `open_tcpip` method of the `HS9000` class to connect to the HS 9008B Frequency synthesizer at the specified IP address and port number.
 
-After connecting, you can access the channels of the synthesizer using the `channel` property of the `HS9000` object. In the example script, it loops over all the channels and prints their frequencies. 
+After connecting, you can access the channels of the synthesizer using the `channel` property of the `HS9000` object. In the example script, it loops over all the channels and prints their frequencies.
 
 It then performs various operations such as getting and setting the frequency and power of the channels, and turning on the output of a channel. Finally, it checks if the synthesizer is ready for operation.
 
-Note: Make sure to replace `"192.168.0.2"` with the actual IP address of your HS 9008B Frequency synthesizer and `8080` with the appropriate port number. 
+Note: Make sure to replace `"192.168.0.2"` with the actual IP address of your HS 9008B Frequency synthesizer and `8080` with the appropriate port number.
 
 </TabItem>
 </Tabs>

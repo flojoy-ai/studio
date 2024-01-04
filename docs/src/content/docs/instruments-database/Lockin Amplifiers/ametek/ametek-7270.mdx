@@ -1,11 +1,11 @@
 ---
 title: Connecting to Ametek 7270 by Ametek in Python
 description: The model 7270 sets a new standard for general-purpose DSP lock-in amplifiers.
-keywords: [Lockin Amplifiers, Ametek, PyMeasure] 
-slug: instruments-database/Lockin Amplifiers/ametek/ametek-7270 
+keywords: [Lockin Amplifiers, Ametek, PyMeasure]
+slug: instruments-database/Lockin Amplifiers/ametek/ametek-7270
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782591/Instruments/Lockin%20Amplifiers/Ametek-7270/Ametek-7270.jpg
 sidebar:
-    label: Ametek 7270 
+  label: Ametek 7270
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -13,7 +13,6 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
 ## Instrument Card
 
 The model 7270 sets a new standard for general-purpose DSP lock-in amplifiers.
-
 
 ![Ametek 7270](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782591/Instruments/Lockin%20Amplifiers/Ametek-7270/Ametek-7270.jpg)
 
@@ -45,15 +44,16 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="LOCKIN_AMPLIFIERS" manufacturer="Ametek"></NodeCardCollection>
+<NodeCardCollection
+  category="LOCKIN_AMPLIFIERS"
+  manufacturer="Ametek"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
-
 
 ```python
 from pymeasure.adapters import VISAAdapter

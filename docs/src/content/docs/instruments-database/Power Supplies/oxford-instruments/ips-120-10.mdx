@@ -1,11 +1,11 @@
 ---
 title: Connecting to IPS 120  10 by Oxford Instruments in Python
 description: MERC-IPS-120 MercuryIPS 120 A 10 V superconducting magnet power supply. The Mercury iPS is configurable and is made up of two units, The Mercury main unit E1-060 and Mercury secondary slave unit E1-061.
-keywords: [Power Supplies, Oxford Instruments, PyMeasure] 
-slug: instruments-database/Power Supplies/oxford-instruments/ips-120-10 
+keywords: [Power Supplies, Oxford Instruments, PyMeasure]
+slug: instruments-database/Power Supplies/oxford-instruments/ips-120-10
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782768/Instruments/Power%20Supplies/IPS-120-10/IPS-120-10.jpg
 sidebar:
-    label: IPS 120  10 
+  label: IPS 120  10
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -38,21 +38,22 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
   manufacturer="OXFORD INSTRUMENTS"
 ></FeaturedInstrumentVideo>
 
-## Connect to the IPS 120  10 in Python
+## Connect to the IPS 120 10 in Python
 
 [Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="POWER_SUPPLIES" manufacturer="Oxford Instruments"></NodeCardCollection>
+<NodeCardCollection
+  category="POWER_SUPPLIES"
+  manufacturer="Oxford Instruments"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
-
 
 ```python
 from pymeasure.instruments import OxfordInstrumentsIPS120_10

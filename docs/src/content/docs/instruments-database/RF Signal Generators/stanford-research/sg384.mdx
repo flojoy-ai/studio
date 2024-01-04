@@ -1,11 +1,11 @@
 ---
 title: Connecting to SG384 by Stanford Research Systems in Python
 description: The SG380 Series RF Signal Generators use a unique, innovative architecture (Rational Approximation Frequency Synthesis) to deliver ultra-high frequency resolution (1 µHz), excellent phase noise, and versatile modulation capabilities (AM, FM, ØM, pulse modulation and sweeps) at a fraction of the cost of competing designs. The standard models produce sine waves from DC to 2.025 GHz (SG382), 4.05 GHz (SG384) and 6.075 GHz (SG386).
-keywords: [RF Signal Generators, Stanford Research Systems, QCodes] 
-slug: instruments-database/RF Signal Generators/stanford-research/sg384 
+keywords: [RF Signal Generators, Stanford Research Systems, QCodes]
+slug: instruments-database/RF Signal Generators/stanford-research/sg384
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782577/Instruments/RF%20Signal%20Generator/SG-384/SG-384.jpg
 sidebar:
-    label: SG384 
+  label: SG384
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,11 +44,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="RF_SIGNAL_GENERATORS" manufacturer="Stanford Research Systems"></NodeCardCollection>
+<NodeCardCollection
+  category="RF_SIGNAL_GENERATORS"
+  manufacturer="Stanford Research Systems"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="QCodes" label="QCodes">

@@ -1,11 +1,11 @@
 ---
 title: Connecting to M2j by Qutech in Python
 description: The M2j module is a low noise amplifier initially designed for use in reflectometry. It has been optimised for use with the F1d IQ Demodulator with a 40 MHz to 1.5 GHz frequency range. This is reflected in the gain flatness of M2j, within 3dB from 40 MHz to 1.4 GHz.
-keywords: [Lockin Amplifiers, Qutech, QCodes Community] 
-slug: instruments-database/Lockin Amplifiers/qutech/m2j 
+keywords: [Lockin Amplifiers, Qutech, QCodes Community]
+slug: instruments-database/Lockin Amplifiers/qutech/m2j
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782498/Instruments/Lockin%20Amplifiers/M2j/M2j.png
 sidebar:
-    label: M2j 
+  label: M2j
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,11 +44,13 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="LOCKIN_AMPLIFIERS" manufacturer="Qutech"></NodeCardCollection>
+<NodeCardCollection
+  category="LOCKIN_AMPLIFIERS"
+  manufacturer="Qutech"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="QCodes Community" label="QCodes Community">

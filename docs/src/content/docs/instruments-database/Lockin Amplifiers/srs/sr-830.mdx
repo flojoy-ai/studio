@@ -1,11 +1,11 @@
 ---
 title: Connecting to SR 830 by Stanford Research Systems in Python
 description: SR830 Lock-In Amplifier provide high performance at a reasonable cost. The SR830 simultaneously displays the magnitude and phase of a signal
-keywords: [Lockin Amplifiers, Stanford Research Systems, PyMeasure] 
-slug: instruments-database/Lockin Amplifiers/srs/sr-830 
+keywords: [Lockin Amplifiers, Stanford Research Systems, PyMeasure]
+slug: instruments-database/Lockin Amplifiers/srs/sr-830
 image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782548/Instruments/Lockin%20Amplifiers/SR-830/SR-830.jpg
 sidebar:
-    label: SR 830 
+  label: SR 830
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -44,15 +44,16 @@ import FeaturedInstrumentVideo from "@root/src/components/FeaturedInstrumentVide
 
 import NodeCardCollection from "@root/src/components/NodeCardCollection";
 
-
 <Tabs>
 <TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
 
-<NodeCardCollection category="LOCKIN_AMPLIFIERS" manufacturer="Stanford Research Systems"></NodeCardCollection>
+<NodeCardCollection
+  category="LOCKIN_AMPLIFIERS"
+  manufacturer="Stanford Research Systems"
+></NodeCardCollection>
 
 </TabItem>
 <TabItem value="PyMeasure" label="PyMeasure">
-
 
 ```python
 from pymeasure.instruments.srs import SR830
