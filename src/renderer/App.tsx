@@ -6,6 +6,7 @@ import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
 import { ErrorPage } from "@src/ErrorPage";
 import FlowChartTab from "./routes/flow_chart/FlowChartTabView";
+import TestSequencerTab from "./routes/test_sequencer_panel/TestSequencerView";
 import DeviceTab from "./routes/device_panel/DeviceView";
 import { ThemeProvider } from "@src/providers/themeProvider";
 import PythonManagerTabView from "./routes/python_manager_panel/PythonManagerTabView";
@@ -45,6 +46,11 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/" element={<Layout />}>
+            <Route
+              path="/test-sequencer"
+              element={<TestSequencerTab />}
+              errorElement={<ErrorBoundary />}
+            />
             <Route
               path="/flowchart"
               element={<FlowChartTab />}
