@@ -1,0 +1,55 @@
+{
+  "docstring": {
+    "long_description": "Requires a CONNECT_MSO2X block to create the connection.\n\nTested on MSO22 and MSO24.",
+    "short_description": "Set the MSO2XX I2C trigger settings.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_MSO2X block)."
+      },
+      {
+        "name": "bus_num",
+        "type": "int, default=1",
+        "description": "Bus number to use as the trigger."
+      },
+      {
+        "name": "condition",
+        "type": "select, default=start",
+        "description": "What to trigger on"
+      },
+      {
+        "name": "addr_bits",
+        "type": "select, default=10",
+        "description": "The number of bits in the address to trigger on"
+      },
+      {
+        "name": "addr",
+        "type": "str, default=0101010010",
+        "description": "The address to trigger on (binary only currently). Can use X (0 or 1).\nPutting a lower number of bits: e.g. \"1011\" sets the address XXX1011."
+      },
+      {
+        "name": "data_direction",
+        "type": "select, default=read",
+        "description": "Trigger on read, write, or either data direction."
+      },
+      {
+        "name": "data_size",
+        "type": "int, default=1",
+        "description": "The data size, in bytes, to trigger on."
+      },
+      {
+        "name": "data_value",
+        "type": "str, default=11001101",
+        "description": "The data to trigger on (binary only currently).\nCan use X for wildcard (e.g. XXXXXXXX)."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "String",
+        "description": "Trigger settings"
+      }
+    ]
+  }
+}
