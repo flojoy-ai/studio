@@ -1,475 +1,390 @@
+import datetime
 import json
-from typing import Generic, Optional, TypeVar
+import os
+from typing import Literal, Optional, TypeVar, overload
 
 import numpy as np
-import pandas as pd
+from pydantic.utils import to_camel
 import requests
-from PIL import Image as PILImage
-from pydantic import BaseModel, validator
-
-from flojoy import DataContainer
-from flojoy.data_container import (
-    DataFrame,
-    Grayscale,
-    Image,
-    Matrix,
-    OrderedPair,
-    OrderedTriple,
-    Scalar,
-    Vector,
-)
-from flojoy.utils import PlotlyJSONEncoder
+from pydantic import BaseModel, ConfigDict, TypeAdapter
 
 
 class NumpyEncoder(json.JSONEncoder):
     """json encoder for numpy types."""
 
-    def default(self, obj):
-        if isinstance(obj, np.integer):
-            return int(obj)
-        elif isinstance(obj, np.floating):
-            return float(obj)
-        elif isinstance(obj, np.ndarray):
-            return obj.tolist()
-        return json.JSONEncoder.default(self, obj)
+    def default(self, o):
+        if isinstance(o, np.integer):
+            return int(o)
+        elif isinstance(o, np.floating):
+            return float(o)
+        elif isinstance(o, np.ndarray):
+            return o.tolist()
+        return json.JSONEncoder.default(self, o)
 
 
-DataC = TypeVar("DataC")
+T = TypeVar("T", bound=BaseModel)
+U = TypeVar("U")
 
 
-class DefaultModel(BaseModel, Generic[DataC]):
-    ref: str
-    dataContainer: dict
-    workspaceId: str
-    location: str
-    note: str
+class CloudModel(BaseModel):
+    model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True)
+    id: str
+    created_at: datetime.datetime
 
 
-class OrderedPairModel(DefaultModel[DataC], Generic[DataC]):
-    data: Optional[DataC]
-
-    @validator("dataContainer")
-    def type_must_match(cls, dc):
-        assert dc["type"] == "OrderedPair", "dataContainer type does not match."
-        return dc
-
-    @validator("dataContainer")
-    def keys_must_match(cls, dc):
-        assert "x" in dc, 'dataContainer does not contain "x" dataset.'
-        assert "y" in dc, 'dataContainer does not contain "y" dataset.'
-        assert isinstance(dc["x"], list), '"x" dataset is not a list'
-        assert isinstance(dc["y"], list), '"y" dataset is not a list'
-        return dc
+class Device(CloudModel):
+    name: str
+    updated_at: datetime.datetime
+    project_id: str
 
 
-class OrderedTripleModel(DefaultModel[DataC], Generic[DataC]):
-    data: Optional[DataC]
+StorageProvider = Literal["s3", "local"]
 
-    @validator("dataContainer")
-    def type_must_match(cls, dc):
-        assert dc["type"] == "OrderedTriple", "dataContainer type does not match."
-        return dc
-
-    @validator("dataContainer")
-    def keys_must_match(cls, dc):
-        assert "x" in dc, 'dataContainer does not contain "x" dataset.'
-        assert "y" in dc, 'dataContainer does not contain "y" dataset.'
-        assert "z" in dc, 'dataContainer does not contain "z" dataset.'
-        assert isinstance(dc["x"], list), '"x" dataset is not a list'
-        assert isinstance(dc["y"], list), '"y" dataset is not a list'
-        assert isinstance(dc["z"], list), '"z" dataset is not a list'
-        return dc
+MeasurementType = Literal["boolean", "dataframe"]
 
 
-class DataFrameModel(DefaultModel[DataC], Generic[DataC]):
-    data: Optional[DataC]
-
-    @validator("dataContainer")
-    def type_must_match(cls, dc):
-        assert dc["type"] == "DataFrame", "dataContainer type does not match."
-        return dc
-
-    @validator("dataContainer")
-    def keys_must_match(cls, dc):
-        assert "m" in dc, 'dataContainer does not contain "m" dataset.'
-        assert isinstance(
-            dc["m"], dict
-        ), f'"m" dataset is not a list, type: {type(dc["m"])}'
-        return dc
+class Measurement(CloudModel):
+    name: str
+    device_id: str
+    test_id: str
+    measurement_type: MeasurementType
+    storage_provider: StorageProvider
+    data: dict
+    is_deleted: bool
 
 
-class MatrixModel(DefaultModel[DataC], Generic[DataC]):
-    data: Optional[DataC]
-
-    @validator("dataContainer")
-    def type_must_match(cls, dc):
-        assert dc["type"] == "Matrix", "dataContainer type does not match."
-        return dc
-
-    @validator("dataContainer")
-    def keys_must_match(cls, dc):
-        assert "m" in dc, 'dataContainer does not contain "m" dataset.'
-        assert isinstance(dc["m"], list), '"m" dataset is not a list'
-        assert isinstance(dc["m"][0], list), '"m" dataset is not a matrix'
-        assert not isinstance(dc["m"][0][0], list), '"m" dataset is not 2D'
-        return dc
+class Test(CloudModel):
+    name: str
+    updated_at: datetime.datetime
+    measurement_type: MeasurementType
+    project_id: str
 
 
-class GrayscaleModel(DefaultModel[DataC], Generic[DataC]):
-    data: Optional[DataC]
-
-    @validator("dataContainer")
-    def type_must_match(cls, dc):
-        assert dc["type"] == "Grayscale", "dataContainer type does not match."
-        return dc
-
-    @validator("dataContainer")
-    def keys_must_match(cls, dc):
-        assert "m" in dc, 'dataContainer does not contain "m" dataset.'
-        assert isinstance(dc["m"], list), '"m" dataset is not a list'
-        assert isinstance(dc["m"][0], list), '"m" dataset is not a matrix'
-        assert not isinstance(dc["m"][0][0], list), '"m" dataset is not 2D'
-        return dc
+class Project(CloudModel):
+    name: str
+    updated_at: Optional[datetime.datetime]
+    workspace_id: str
 
 
-class ScalarModel(DefaultModel[DataC], Generic[DataC]):
-    data: Optional[DataC]
-
-    @validator("dataContainer")
-    def type_must_match(cls, dc):
-        assert dc["type"] == "Scalar", "dataContainer type does not match."
-        return dc
-
-    @validator("dataContainer")
-    def keys_must_match(cls, dc):
-        assert "c" in dc, 'dataContainer does not contain "c" dataset.'
-        assert isinstance(dc["c"], float) or isinstance(
-            dc["c"], int
-        ), '"c" dataset is not a float or int'
-        return dc
+PlanType = Literal["hobby", "pro", "enterprise"]
 
 
-class VectorModel(DefaultModel[DataC], Generic[DataC]):
-    data: Optional[DataC]
-
-    @validator("dataContainer")
-    def type_must_match(cls, dc):
-        assert dc["type"] == "Vector", "dataContainer type does not match."
-        return dc
-
-    @validator("dataContainer")
-    def keys_must_match(cls, dc):
-        assert "v" in dc, 'dataContainer does not contain "v" dataset.'
-        assert isinstance(dc["v"], list)
-        return dc
-
-
-class ImageModel(DefaultModel[DataC], Generic[DataC]):
-    data: Optional[DataC]
-
-    @validator("dataContainer")
-    def type_must_match(cls, dc):
-        assert dc["type"] == "Image", "dataContainer type does not match."
-        return dc
-
-    @validator("dataContainer")
-    def keys_must_match(cls, dc):
-        assert "r" in dc, 'dataContainer does not contain "r" dataset.'
-        assert "g" in dc, 'dataContainer does not contain "g" dataset.'
-        assert "b" in dc, 'dataContainer does not contain "b" dataset.'
-        assert isinstance(dc["r"], list), '"r" dataset is not a list'
-        assert isinstance(dc["g"], list), '"g" dataset is not a list'
-        assert isinstance(dc["b"], list), '"b" dataset is not a list'
-        return dc
-
-
-def check_deserialize(response):
-    dc_type = response["dataContainer"]["type"]
-    match dc_type:
-        case "OrderedPair":
-            OrderedPairModel.parse_obj(response)
-        case "OrderedTriple":
-            OrderedTripleModel.parse_obj(response)
-        case "DataFrame":
-            DataFrameModel.parse_obj(response)
-        case "Matrix":
-            MatrixModel.parse_obj(response)
-        case "Grayscale":
-            GrayscaleModel.parse_obj(response)
-        case "Scalar":
-            ScalarModel.parse_obj(response)
-        case "Vector":
-            VectorModel.parse_obj(response)
-        case "Image":
-            ImageModel.parse_obj(response)
-        case _:
-            raise TypeError(
-                f"Unsupported DataContainer type: {dc_type}. Check case (e.g. OrderedPair)."
-            )
+class Workspace(CloudModel):
+    name: str
+    plan_type: PlanType
+    total_seats: int
+    updated_at: Optional[datetime.datetime]
 
 
 class FlojoyCloud:
-    """
-    A class that allows pulling and pushing DataContainers from the
-    Flojoy cloud client (cloud.flojoy.ai).
+    api_key: str
 
-    Returns data in a pythonic format (e.g. Pillow for images,
-    DataFrames for arrays/matrices).
-
-    Will support the majority of the Flojoy cloud API:
-    https://rest.flojoy.ai/api-reference
-
-    Recommended for api key:
-    utils.get_credentials()[0]["value"]
-    or
-    os.environ.get("FLOJOY_CLOUD_KEY")
-    """
-
-    def __init__(self, api_key: str):
-        self.headers = {"api_key": api_key}
-        self.base_url = "https://cloud.flojoy.ai/api/v1"
-        self.valid_types = [
-            "OrderedPair",
-            "OrderedTriple",
-            "DataFrame",
-            "Grayscale",
-            "Matrix",
-            "Scalar",
-            "Vector",
-            "Image",
-        ]
-
-    def _create_payload(self, data, dc_type: str, name: str) -> str:
-        """
-        A method that formats data into a payload that can be handled by
-        the Flojoy cloud client.
-        """
-        if isinstance(data, DataContainer):
-            return json.dumps({"data": data, "name": name}, cls=PlotlyJSONEncoder)
-
-        assert (
-            dc_type in self.valid_types
-        ), f"Type {dc_type} not supported. Check capitals (e.g. OrderedPair)."
-
-        match dc_type:
-            case "OrderedPair":
-                if not (isinstance(data, dict) and "x" in data and "y" in data):
-                    raise TypeError(
-                        "For ordered pair type, data must be in dictionary form with keys 'x' and 'y'"
-                    )
-                payload = json.dumps(
-                    {
-                        "data": {
-                            "type": "OrderedPair",
-                            "x": data["x"],
-                            "y": data["y"],
-                        },
-                        "name": name,
-                    },
-                    cls=NumpyEncoder,
+    def __init__(
+        self, api_key: Optional[str] = None, cloud_url="https://cloud.flojoy.ai"
+    ):
+        if api_key is None:
+            env = os.environ.get("FLOJOY_CLOUD_API_KEY")
+            if env is None:
+                raise EnvironmentError(
+                    "Flojoy cloud api key not set, and no 'FLOJOY_CLOUD_API_KEY' environment variable was found."
                 )
-            case "OrderedTriple":
-                if isinstance(data, dict) and "x" in data:
-                    payload = json.dumps(
-                        {
-                            "data": {
-                                "type": "OrderedTriple",
-                                "x": data["x"],
-                                "y": data["y"],
-                                "z": data["z"],
-                            },
-                            "name": name,
-                        },
-                        cls=NumpyEncoder,
-                    )
-                else:
-                    print(
-                        "For ordered triple type, data must be in"
-                        " dictionary form with keys 'x', 'y', and 'z'"
-                    )
-                    raise TypeError
-            case "DataFrame":
-                payload = json.dumps(
-                    {"data": {"type": "DataFrame", "m": data}, "name": name},
-                    cls=PlotlyJSONEncoder,
-                )
-            case "Matrix":
-                payload = json.dumps(
-                    {"data": {"type": "Matrix", "m": data}, "name": name},
-                    cls=NumpyEncoder,
-                )
-            case "Grayscale":
-                payload = json.dumps(
-                    {"data": {"type": "Grayscale", "m": data}, "name": name},
-                    cls=NumpyEncoder,
-                )
-            case "Scalar":
-                payload = json.dumps(
-                    {"data": {"type": "Scalar", "c": data}, "name": name},
-                    cls=NumpyEncoder,
-                )
-            case "Vector":
-                payload = json.dumps(
-                    {"data": {"type": "Vector", "v": data}, "name": name},
-                    cls=NumpyEncoder,
-                )
-            case "Image":
-                RGB_img = np.asarray(data)
-                red_channel = RGB_img[:, :, 0]
-                green_channel = RGB_img[:, :, 1]
-                blue_channel = RGB_img[:, :, 2]
+            api_key = env
+        self.api_key = api_key
+        self.base_url = cloud_url + "/api"
 
-                if RGB_img.shape[2] == 4:
-                    alpha_channel = RGB_img[:, :, 3]
-                else:
-                    alpha_channel = None
-                payload = json.dumps(
-                    {
-                        "data": {
-                            "type": "Image",
-                            "r": red_channel,
-                            "g": green_channel,
-                            "b": blue_channel,
-                            "a": alpha_channel,
-                        },
-                        "name": name,
-                    },
-                    cls=NumpyEncoder,
-                )
+    def __make_query_string(self, query_params: dict[str, int | str]):
+        if not query_params:
+            return ""
+
+        return "?" + "&".join(f"{k}={v}" for k, v in query_params.items())
+
+    @overload
+    def __parse(self, model: type[T], json_str: str) -> T:
+        ...
+
+    @overload
+    def __parse(self, model: TypeAdapter[U], json_str: str) -> U:
+        ...
+
+    def __parse(self, model: type[T] | TypeAdapter[U], json_str: str):
+        match model:
+            case TypeAdapter():
+                return model.validate_json(json_str)
             case _:
-                raise TypeError(
-                    f"Unsupported DataContainer type: {dc_type}. Check case (e.g. OrderedPair)."
-                )
+                return model.model_validate_json(json_str)
 
-        return payload
+    @overload
+    def __get(
+        self, endpoint: str, query_params: dict[str, int | str], parse_as: type[T]
+    ) -> T:
+        ...
 
-    def fetch_dc(self, dc_id: str) -> dict:
-        """
-        A method that retrieves DataContainers from the Flojoy cloud.
-        """
-        url = f"{self.base_url}/dcs/{dc_id}"
-        response = requests.request("GET", url, headers=self.headers)
-        response = json.loads(response.text)
-        check_deserialize(response)
-        return response
+    @overload
+    def __get(
+        self,
+        endpoint: str,
+        query_params: dict[str, int | str],
+        parse_as: TypeAdapter[U],
+    ) -> U:
+        ...
 
-    def to_python(self, dc: dict) -> pd.DataFrame | float | list | PILImage.Image:
-        """
-        A method that converts data from DataContainers into pythonic
-        data types like Pillow for images.
-        """
-        dc_type = dc["dataContainer"]["type"]
-        match dc_type:
-            case "OrderedPair" | "OrderedTriple":
-                df = pd.DataFrame(dc["dataContainer"])
-                return df.drop(columns=["type"])
-            case "DataFrame" | "Matrix" | "Grayscale":
-                df = pd.DataFrame(dc["dataContainer"]["m"])
-                return df
-            case "Scalar":
-                return float(dc["dataContainer"]["c"])
-            case "Vector":
-                return list(dc["dataContainer"]["v"])
-            case "Image":
-                image = dc["dataContainer"]
-                r = image["r"]
-                g = image["g"]
-                b = image["b"]
-                if "a" in image:
-                    a = image["a"]
-                    img_combined = np.stack((r, g, b, a), axis=2)
-                    return PILImage.fromarray(np.uint8(img_combined)).convert("RGBA")
-                else:
-                    img_combined = np.stack((r, g, b), axis=2)
-                    return PILImage.fromarray(np.uint8(img_combined)).convert("RGB")
+    def __get(
+        self,
+        endpoint: str,
+        query_params: dict[str, int | str],
+        parse_as: type[T] | TypeAdapter[U],
+    ) -> T | U:
+        res = requests.get(
+            self.base_url + endpoint + self.__make_query_string(query_params),
+            headers={"Authorization": self.api_key},
+        )
+        return self.__parse(parse_as, res.text)
 
-    def to_dc(self, dc: dict) -> DataContainer:
-        """
-        A method that converts data from DataContainers into pythonic
-        data types like Pillow for images.
-        """
-        dc = dc["dataContainer"]
-        match dc["type"]:
-            case "OrderedPair":
-                return OrderedPair(x=np.array(dc["x"]), y=np.array(dc["y"]))
-            case "OrderedTriple":
-                return OrderedTriple(
-                    x=np.array(dc["x"]), y=np.array(dc["y"]), z=np.array(dc["z"])
-                )
-            case "DataFrame":
-                return DataFrame(df=pd.DataFrame(dc["m"]))
-            case "Matrix":
-                return Matrix(m=np.array(dc["m"]))
-            case "Grayscale":
-                return Grayscale(img=np.array(dc["m"]))
-            case "Scalar":
-                return Scalar(c=float(dc["c"]))
-            case "Vector":
-                return Vector(v=np.array(dc["v"]))
-            case "Image":
-                r = np.array(dc["r"], dtype=np.uint8)
-                g = np.array(dc["g"], dtype=np.uint8)
-                b = np.array(dc["b"], dtype=np.uint8)
-                if "a" in dc:
-                    a = np.array(dc["a"], dtype=np.uint8)
-                    return Image(r=r, g=g, b=b, a=a)
-                else:
-                    return Image(r=r, g=g, b=b)
-            case _:
-                raise Exception("Unknown data container type")
+    @overload
+    def __put(
+        self, endpoint: str, query_params: dict[str, int | str], parse_as: type[T]
+    ) -> T:
+        ...
 
-    def create_measurement(self, name: str, privacy: str = "private") -> dict:
-        """
-        A method that creates a measurements with the name specified.
-        """
-        url = f"{self.base_url}/measurements"
-        payload = json.dumps({"name": name, "privacy": privacy})
-        response = requests.request("POST", url, headers=self.headers, data=payload)
-        response = json.loads(response.text)
+    @overload
+    def __put(
+        self,
+        endpoint: str,
+        query_params: dict[str, int | str],
+        parse_as: TypeAdapter[U],
+    ) -> U:
+        ...
 
-        return response
+    def __put(
+        self,
+        endpoint: str,
+        query_params: dict[str, int | str],
+        parse_as: type[T] | TypeAdapter[U],
+    ) -> T | U:
+        res = requests.put(
+            self.base_url + endpoint + self.__make_query_string(query_params),
+            headers={"Authorization": self.api_key},
+        )
+        return self.__parse(parse_as, res.text)
 
-    def list_measurements(self, size: int = 10) -> list:
-        """
-        A method that lists the number of measurements specified.
+    @overload
+    def __patch(
+        self, endpoint: str, query_params: dict[str, int | str], parse_as: type[T]
+    ) -> T:
+        ...
 
-        If the number of measurements is less than the specified number,
-        an error will be thrown.
-        """
-        url = f"{self.base_url}/measurements/?size={size}"
-        response = requests.request("GET", url, headers=self.headers)
-        response = json.loads(response.text)
-        response = response["data"]
+    @overload
+    def __patch(
+        self,
+        endpoint: str,
+        query_params: dict[str, int | str],
+        parse_as: TypeAdapter[U],
+    ) -> U:
+        ...
 
-        return response
+    def __patch(
+        self,
+        endpoint: str,
+        query_params: dict[str, int | str],
+        parse_as: type[T] | TypeAdapter[U],
+    ) -> T | U:
+        res = requests.put(
+            self.base_url + endpoint + self.__make_query_string(query_params),
+            headers={"Authorization": self.api_key},
+        )
+        return self.__parse(parse_as, res.text)
 
-    def fetch_measurement(self, meas_id: str):
-        """
-        A method fetchs measurements from the client.
-        """
-        url = f"{self.base_url}/measurements/{meas_id}"
-        response = requests.request("GET", url, headers=self.headers)
-        response = json.loads(response.text)
+    @overload
+    def __delete(
+        self, endpoint: str, query_params: dict[str, int | str], parse_as: type[T]
+    ) -> T:
+        ...
 
-        return response
+    @overload
+    def __delete(
+        self,
+        endpoint: str,
+        query_params: dict[str, int | str],
+        parse_as: TypeAdapter[U],
+    ) -> U:
+        ...
 
-    def rename_measurement(self, meas_id: str, name: str):
-        """
-        Rename the specified measurement.
-        """
-        url = f"{self.base_url}/measurements/{meas_id}"
-        payload = payload = json.dumps({"name": name})
-        response = requests.request("PATCH", url, headers=self.headers, data=payload)
-        response = json.loads(response.text)
+    @overload
+    def __delete(
+        self, endpoint: str, query_params: dict[str, int | str], parse_as: None = None
+    ) -> None:
+        ...
 
-        return response
+    def __delete(
+        self,
+        endpoint: str,
+        query_params: dict[str, int | str],
+        parse_as: type[T] | TypeAdapter[U] | None = None,
+    ) -> T | U | None:
+        res = requests.delete(
+            self.base_url + endpoint + self.__make_query_string(query_params),
+            headers={"Authorization": self.api_key},
+        )
+        if parse_as is None:
+            return None
 
-    def store_dc(self, data, dc_type: str, meas_id: str, name: str):
-        """
-        A method that stores a formatted data payload in a measurement.
-        """
-        url = f"{self.base_url}/dcs/add/{meas_id}"
-        payload = self._create_payload(data, dc_type, name)
-        response = requests.request("POST", url, headers=self.headers, data=payload)
+        return self.__parse(parse_as, res.text)
 
-        return json.loads(response.text)
+    @overload
+    def __post(self, endpoint: str, body: dict, parse_as: type[T]) -> T:
+        ...
+
+    @overload
+    def __post(
+        self,
+        endpoint: str,
+        body: dict,
+        parse_as: TypeAdapter[U],
+    ) -> U:
+        ...
+
+    @overload
+    def __post(
+        self,
+        endpoint: str,
+        body: dict,
+        parse_as: None = None,
+    ) -> None:
+        ...
+
+    def __post(
+        self,
+        endpoint: str,
+        body: dict,
+        parse_as: type[T] | TypeAdapter[U] | None = None,
+    ) -> T | U | None:
+        res = requests.post(
+            self.base_url + endpoint,
+            json=body,
+            headers={"Authorization": self.api_key},
+        )
+
+        if parse_as is None:
+            return None
+        return self.__parse(parse_as, res.text)
+
+    """Test Endpoints"""
+
+    def create_test(
+        self, name: str, project_id: str, measurement_type: MeasurementType
+    ) -> Test:
+        return self.__post(
+            "/tests",
+            {
+                "name": name,
+                "projectId": project_id,
+                "measurementType": measurement_type,
+            },
+            parse_as=Test,
+        )
+
+    def get_test_by_id(self, test_id: str, create_if_not_exist=False):
+        return self.__get("/tests", {"testId": test_id}, parse_as=Test)
+
+    def get_all_tests_by_project_id(self, project_id: str):
+        return self.__get(
+            "/tests", {"projectId": project_id}, parse_as=TypeAdapter(list[Test])
+        )
+
+    """Device Endpoints"""
+
+    def create_device(self, name: str, project_id: str):
+        return self.__post(
+            "/devices", {"name": name, "projectId": project_id}, parse_as=Device
+        )
+
+    def create_devices(self, name: str, project_id: str):
+        return self.__post(
+            "/devices",
+            {"name": name, "projectId": project_id},
+            parse_as=TypeAdapter(list[Device]),
+        )
+
+    def get_device_by_id(self, device_id: str, create_if_not_exist=False):
+        return self.__get("/devices", {"deviceId": device_id}, parse_as=Device)
+
+    def get_all_devices_by_project_id(self, project_id: str):
+        return self.__get(
+            "/devices", {"projectId": project_id}, parse_as=TypeAdapter(list[Device])
+        )
+
+    """Measurement Endpoints"""
+
+    def upload(
+        self,
+        *,
+        name: str | None,
+        test_id: str,
+        device_id: str,
+        data: dict,
+    ):
+        return self.__post(
+            "/measurements",
+            {
+                "name": name,
+                "testId": test_id,
+                "deviceId": device_id,
+                "data": json.dumps(data, encoder=NumpyEncoder),
+            },
+        )
+
+    def get_all_measurements_by_test_id(
+        self, test_id: str, start_date: datetime.datetime, end_date: datetime.datetime
+    ):
+        return self.__get(
+            "/measurements",
+            {
+                "testId": test_id,
+                "startDate": start_date.isoformat(),
+                "endDate": end_date.isoformat(),
+            },
+            parse_as=TypeAdapter(list[Measurement]),
+        )
+
+    """Project Routes"""
+
+    def create_project(self, name: str, workspace_id: str):
+        return self.__post(
+            "/projects", {"name": name, "workspaceId": workspace_id}, parse_as=Project
+        )
+
+    def get_project_by_id(self, project_id: str):
+        return self.__get("/projects", {"projectId": project_id}, parse_as=Project)
+
+    def get_all_projects_by_workspace_id(self, workspace_id: str):
+        return self.__get(
+            "/projects",
+            {"workspaceId": workspace_id},
+            parse_as=TypeAdapter(list[Project]),
+        )
+
+    """Workspace Routes"""
+
+    def create_workspace(self, name: str):
+        return self.__post("/workspaces", {"name": name}, parse_as=Workspace)
+
+    def update_workspace(self, workspace_id: str, name: str):
+        return self.__patch(
+            "/workspaces",
+            {"id": workspace_id, "name": name},
+            parse_as=Workspace,
+        )
+
+    def delete_workspace_by_id(self, workspace_id: str):
+        return self.__delete(
+            "/workspaces",
+            {"id": workspace_id},
+        )
+
+    def get_all_workspaces(self):
+        return self.__get("/workspaces", {}, parse_as=TypeAdapter(list[Workspace]))
+
+    def get_workspace_by_id(self, workspace_id: str):
+        return self.__get(
+            "/workspaces", {"workspaceId": workspace_id}, parse_as=Workspace
+        )
