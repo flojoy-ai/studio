@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "Equation: f(x) = 20 * log[10](x / ref_value)",
+    "short_description": "Take voltage values and convert them to dB.",
+    "parameters": [
+      {
+        "name": "data",
+        "type": "OrderedPair|Vector",
+        "description": "The input to apply the absolute value to."
+      },
+      {
+        "name": "ref_value",
+        "type": "float",
+        "description": "The reference"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "OrderedPair",
+        "description": "x: the x-axis of the input.\ny: the absolute value of the input."
+      }
+    ]
+  }
+}
