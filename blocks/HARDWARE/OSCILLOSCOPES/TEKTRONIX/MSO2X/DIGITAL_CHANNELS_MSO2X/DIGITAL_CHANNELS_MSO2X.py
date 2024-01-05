@@ -1,4 +1,4 @@
-from typing import Optional, Literal
+from typing import Optional
 from flojoy import VisaConnection, flojoy, DataContainer, String
 
 
