@@ -92,7 +92,7 @@ class FlojoyCloud:
         self.api_key = api_key
         self.base_url = cloud_url + "/api"
 
-    def __make_query_string(self, query_params: dict[str, int | str]):
+    def __make_query_string(self, query_params: dict[str, int | str] | None):
         if not query_params:
             return ""
 
@@ -115,7 +115,10 @@ class FlojoyCloud:
 
     @overload
     def __get(
-        self, endpoint: str, query_params: dict[str, int | str], parse_as: type[T]
+        self,
+        endpoint: str,
+        query_params: dict[str, int | str] | None,
+        parse_as: type[T],
     ) -> T:
         ...
 
@@ -123,7 +126,7 @@ class FlojoyCloud:
     def __get(
         self,
         endpoint: str,
-        query_params: dict[str, int | str],
+        query_params: dict[str, int | str] | None,
         parse_as: TypeAdapter[U],
     ) -> U:
         ...
@@ -131,7 +134,7 @@ class FlojoyCloud:
     def __get(
         self,
         endpoint: str,
-        query_params: dict[str, int | str],
+        query_params: dict[str, int | str] | None,
         parse_as: type[T] | TypeAdapter[U],
     ) -> T | U:
         res = requests.get(
@@ -141,16 +144,14 @@ class FlojoyCloud:
         return self.__parse(parse_as, res.text)
 
     @overload
-    def __put(
-        self, endpoint: str, query_params: dict[str, int | str], parse_as: type[T]
-    ) -> T:
+    def __put(self, endpoint: str, body: dict, parse_as: type[T]) -> T:
         ...
 
     @overload
     def __put(
         self,
         endpoint: str,
-        query_params: dict[str, int | str],
+        body: dict,
         parse_as: TypeAdapter[U],
     ) -> U:
         ...
@@ -158,26 +159,25 @@ class FlojoyCloud:
     def __put(
         self,
         endpoint: str,
-        query_params: dict[str, int | str],
+        body: dict,
         parse_as: type[T] | TypeAdapter[U],
     ) -> T | U:
         res = requests.put(
-            self.base_url + endpoint + self.__make_query_string(query_params),
+            self.base_url + endpoint,
+            json=body,
             headers={"Authorization": self.api_key},
         )
         return self.__parse(parse_as, res.text)
 
     @overload
-    def __patch(
-        self, endpoint: str, query_params: dict[str, int | str], parse_as: type[T]
-    ) -> T:
+    def __patch(self, endpoint: str, body: dict, parse_as: type[T]) -> T:
         ...
 
     @overload
     def __patch(
         self,
         endpoint: str,
-        query_params: dict[str, int | str],
+        body: dict,
         parse_as: TypeAdapter[U],
     ) -> U:
         ...
@@ -185,11 +185,12 @@ class FlojoyCloud:
     def __patch(
         self,
         endpoint: str,
-        query_params: dict[str, int | str],
+        body: dict,
         parse_as: type[T] | TypeAdapter[U],
     ) -> T | U:
         res = requests.put(
-            self.base_url + endpoint + self.__make_query_string(query_params),
+            self.base_url + endpoint,
+            json=body,
             headers={"Authorization": self.api_key},
         )
         return self.__parse(parse_as, res.text)
@@ -218,7 +219,7 @@ class FlojoyCloud:
     def __delete(
         self,
         endpoint: str,
-        query_params: dict[str, int | str],
+        query_params: dict[str, int | str] | None,
         parse_as: type[T] | TypeAdapter[U] | None = None,
     ) -> T | U | None:
         res = requests.delete(
@@ -382,7 +383,7 @@ class FlojoyCloud:
         )
 
     def get_all_workspaces(self):
-        return self.__get("/workspaces", {}, parse_as=TypeAdapter(list[Workspace]))
+        return self.__get("/workspaces", None, parse_as=TypeAdapter(list[Workspace]))
 
     def get_workspace_by_id(self, workspace_id: str):
         return self.__get(
