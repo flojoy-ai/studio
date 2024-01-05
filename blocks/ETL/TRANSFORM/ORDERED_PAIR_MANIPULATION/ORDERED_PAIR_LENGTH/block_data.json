@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Returns the length of the input OrderedPair.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "OrderedPair",
+        "description": "The input OrderedPair to find the length of."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Scalar",
+        "description": "The length of the input OrderedPair."
+      }
+    ]
+  }
+}
