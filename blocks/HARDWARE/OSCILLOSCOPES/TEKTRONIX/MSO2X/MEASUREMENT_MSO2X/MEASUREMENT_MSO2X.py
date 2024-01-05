@@ -84,8 +84,14 @@ def MEASUREMENT_MSO2X(
     ----------
     connection : VisaConnection
         The VISA address (requires the CONNECTION_MSO2X block).
+    channel : select, default=1
+        What channel to extract the measurement from.
+    measure_num : int, default=1
+        What measurement number to use on the scope.
     measurement : select, default=period
-        The type of measurement to make
+        The type of measurement to make.
+    statistic : select, default=mean
+        The type of statistic to use for the measurement.
 
     Returns
     -------
@@ -99,13 +105,13 @@ def MEASUREMENT_MSO2X(
     if delete_all:
         scope.write("MEASUrement:DELETEALL")
 
-    scope.write(f":MEASUrement:MEAS1:TYPE {measurement}")
+    scope.write(f":MEASUrement:MEAS{measure_num}:TYPE {measurement}")
     if channel[0] == "D":
-        scope.write(f":MEASUrement:MEAS1:SOURCE DCH1_{channel}")
+        scope.write(f":MEASUrement:MEAS{measure_num}:SOURCE DCH1_{channel}")
     else:
-        scope.write(f":MEASUrement:MEAS1:SOURCE CH{channel}")
+        scope.write(f":MEASUrement:MEAS{measure_num}:SOURCE CH{channel}")
 
     scope.query("*OPC?")
-    c = scope.query(f"MEASUrement:MEAS1:RESUlts:CURRentacq:{statistic}?")
+    c = scope.query(f"MEASUrement:MEAS{measure_num}:RESUlts:CURRentacq:{statistic}?")
 
     return Scalar(c=float(c))

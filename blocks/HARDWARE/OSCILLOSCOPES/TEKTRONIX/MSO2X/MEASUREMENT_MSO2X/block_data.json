@@ -9,9 +9,24 @@
         "description": "The VISA address (requires the CONNECTION_MSO2X block)."
       },
       {
+        "name": "channel",
+        "type": "select, default=1",
+        "description": "What channel to extract the measurement from."
+      },
+      {
+        "name": "measure_num",
+        "type": "int, default=1",
+        "description": "What measurement number to use on the scope."
+      },
+      {
         "name": "measurement",
         "type": "select, default=period",
-        "description": "The type of measurement to make"
+        "description": "The type of measurement to make."
+      },
+      {
+        "name": "statistic",
+        "type": "select, default=mean",
+        "description": "The type of statistic to use for the measurement."
       }
     ],
     "returns": [

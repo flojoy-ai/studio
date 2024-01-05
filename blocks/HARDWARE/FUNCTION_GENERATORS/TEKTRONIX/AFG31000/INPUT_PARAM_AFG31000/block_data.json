@@ -9,7 +9,7 @@
         "description": "The VISA address (requires the CONNECTION_AFG31000 block)."
       },
       {
-        "name": "channel",
+        "name": "source",
         "type": "select, default=1",
         "description": "Choose the channel to alter."
       },

@@ -24,7 +24,7 @@ def INPUT_PARAM_AFG31000(
     ----------
     connection: VisaConnection
         The VISA address (requires the CONNECTION_AFG31000 block).
-    channel: select, default=1
+    source: select, default=1
         Choose the channel to alter.
     parameter: select, default=frequency
         Choose the parameter to alter.
