@@ -121,10 +121,7 @@ def DECODE_I2C_MSO2X(
             len(data) - 1,
         )
         if write < len(data) - 1:
-            formatted += data[write]
-            formatted += " "
-            formatted += data[write + 1]
-            formatted += "  "
+            formatted += f"{data[write]} {data[write+1]} "
             data[write] = " "
 
         read = next(
@@ -135,7 +132,4 @@ def DECODE_I2C_MSO2X(
             formatted += data[read]
             formatted += " "
             formatted += data[read + 1]
-            formatted += "  "
-            data[read] = " "
-
-    return String(s=formatted)
+            formatted += f"{data[read]} {data[read+1]} "
