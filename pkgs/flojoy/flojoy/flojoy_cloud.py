@@ -97,6 +97,7 @@ class FlojoyCloudException(Exception):
 
 class FlojoyCloud:
     auth: str
+    base_url: str
 
     def __init__(
         self, api_key: Optional[str] = None, api_url="https://cloud.flojoy.ai/api/v1"
@@ -105,7 +106,7 @@ class FlojoyCloud:
             env = os.environ.get("FLOJOY_CLOUD_API_KEY")
             if env is None:
                 raise EnvironmentError(
-                    "Flojoy cloud api key not set, and no 'FLOJOY_CLOUD_API_KEY' environment variable was found."
+                    "Flojoy Cloud API key not set, and no 'FLOJOY_CLOUD_API_KEY' environment variable was found."
                 )
             api_key = env
         self.auth = f"Bearer {api_key}"
