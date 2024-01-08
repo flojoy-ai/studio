@@ -14,7 +14,7 @@ export default function InstrumentThumbnail({
     <div className="p-4">
       <a href={`/instruments-database/${path}/`}>
         <img
-          className="mr-3 !h-[200px] w-[185px] object-scale-down"
+          className="mr-3 !h-52 w-48 object-scale-down"
           alt={label}
           src={img}
         />
