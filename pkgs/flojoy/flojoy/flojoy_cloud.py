@@ -5,6 +5,7 @@ from typing import Literal, Optional, TypeVar, overload
 
 import numpy as np
 import requests
+import urllib.parse
 from pydantic import BaseModel, ConfigDict, TypeAdapter
 from pydantic.alias_generators import to_camel
 
@@ -112,12 +113,6 @@ class FlojoyCloud:
         self.auth = f"Bearer {api_key}"
         self.base_url = api_url
 
-    def __make_query_string(self, query_params: dict[str, int | str] | None):
-        if not query_params:
-            return ""
-
-        return "?" + "&".join(f"{k}={v}" for k, v in query_params.items())
-
     @overload
     def __parse(self, model: type[T], json_str: str) -> T:
         ...
@@ -184,7 +179,8 @@ class FlojoyCloud:
     ) -> T | U | None:
         res = requests.request(
             method,
-            self.base_url + endpoint + self.__make_query_string(query_params),
+            self.base_url + endpoint,
+            params=query_params,
             data=data,
             json=body,
             headers={"Authorization": self.auth, "Content-Type": "application/json"},
