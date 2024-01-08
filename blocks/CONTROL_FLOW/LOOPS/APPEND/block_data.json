@@ -5,7 +5,7 @@
     "parameters": [
       {
         "name": "primary_dp",
-        "type": "OrderedPair|Vector|Scalar|Matrix|DataFrame",
+        "type": "OrderedPair|Vector|Scalar|Matrix|DataFrame|None",
         "description": "Input that ends up \"on top\" of the resulting DataContainer."
       },
       {
