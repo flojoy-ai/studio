@@ -1,6 +1,7 @@
-type FeaturedInstrumentVideoProps = {
+---
+interface Props {
   category: string;
-};
+}
 
 const categoryVideoMap = {
   OSCILLOSCOPES: {
@@ -29,27 +30,24 @@ const categoryVideoMap = {
   },
 };
 
-export default function FeaturedInstrumentVideo({
-  category,
-}: FeaturedInstrumentVideoProps) {
-  if (!(category in categoryVideoMap)) {
-    return <></>;
-  }
-  const video = categoryVideoMap[category as keyof typeof categoryVideoMap];
+const { category } = Astro.props;
 
-  return (
-    <div className="mb-20 mt-20">
-      <h2>Demo: {video.hero}</h2>
-      <iframe
-        src={video.url}
-        title="YouTube video player"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-        style={{
-          width: "560px",
-          height: "315px",
-        }}
-      ></iframe>
-    </div>
-  );
-}
+import { YouTube } from "@astro-community/astro-embed-youtube";
+---
+
+<div>
+  {
+    category in categoryVideoMap
+      ? () => {
+          const video =
+            categoryVideoMap[category as keyof typeof categoryVideoMap];
+          return (
+            <div class="mb-20 mt-20">
+              <h2>Demo: {video.hero}</h2>
+              <YouTube id={video.url} />
+            </div>
+          );
+        }
+      : null
+  }
+</div>
