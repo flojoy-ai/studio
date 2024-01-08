@@ -24,7 +24,7 @@ def SETUP_FILE_MSO2X(
     save_or_recall : select, default=save
         Save or recall the file.
     filename : str, default=flojoy
-        The file name to save or recall (e.g. c:/flojoy.set).
+        The file name to save or recall ("flojoy" results in "C:/flojoy.set").
 
     Returns
     -------
