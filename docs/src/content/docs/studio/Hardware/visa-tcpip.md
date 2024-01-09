@@ -44,18 +44,17 @@ On Windows it's likely a link-local connection will be *automatic*. In case you 
 - Find the correct connection (perhaps by unplugging and plugging the connection back in).
 - Right click on that connection and press properties.
 
-![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1704736174/flojoy-docs/ethernet/windows-settings-1.png)
+![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1704739268/flojoy-docs/ethernet/windows-setttings-1.png)
 
 - Click on *Internet Protocol Version 4*.
 - Press *Properties*.
 
 ![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1704739269/flojoy-docs/ethernet/windows-settings-2.png)
 
-
 - In the resulting menu you can set a static IP address by pressing *Use the following IP address*.
 - You would then enter the address and mask as necessary.
 
-![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1704736174/flojoy-docs/ethernet/windows-settings-3.png)
+![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1704739266/flojoy-docs/ethernet/windows-settings-3.png)
 
 Some instruments will not require futher changes at this point (check Flojoy's Hardware Devices tab and refresh). However, you may have to manually change the instrument's IP settings. See below for instrument settings.
 
