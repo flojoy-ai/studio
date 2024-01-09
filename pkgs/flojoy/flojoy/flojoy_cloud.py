@@ -1,11 +1,10 @@
 import datetime
 import json
 import os
-from typing import Literal, Optional, TypeVar, overload
+from typing import Callable, Literal, Optional, ParamSpec, TypeVar, overload, cast
 
 import numpy as np
-import requests
-import urllib.parse
+import httpx
 from pydantic import BaseModel, ConfigDict, TypeAdapter
 from pydantic.alias_generators import to_camel
 
@@ -37,10 +36,6 @@ class Dataframe(BaseModel):
 
 
 MeasurementData = Boolean | Dataframe
-
-
-T = TypeVar("T", bound=BaseModel)
-U = TypeVar("U")
 
 
 class CloudModel(BaseModel):
@@ -96,9 +91,62 @@ class FlojoyCloudException(Exception):
     pass
 
 
+T = TypeVar("T", bound=BaseModel)
+U = TypeVar("U")
+P = ParamSpec("P")
+
+
+@overload
+def query(
+    model: None,
+) -> Callable[[Callable[P, httpx.Response]], Callable[P, None]]:
+    ...
+
+
+@overload
+def query(
+    model: type[T],
+) -> Callable[[Callable[P, httpx.Response]], Callable[P, T]]:
+    ...
+
+
+@overload
+def query(
+    model: TypeAdapter[U],
+) -> Callable[[Callable[P, httpx.Response]], Callable[P, U]]:
+    ...
+
+
+def query(
+    model: type[T] | TypeAdapter[U] | None,
+) -> Callable[[Callable[P, httpx.Response]], Callable[P, T | U | None]]:
+    def decorator(func: Callable[P, httpx.Response]):
+        def wrapper(*args: P.args, **kwargs: P.kwargs):
+            res = func(*args, **kwargs)
+
+            if res.status_code >= 400:
+                error_json = json.loads(res.text)
+                raise FlojoyCloudException(
+                    f"An exception occurred when making a request\n "
+                    f"{error_json['code']}: {error_json['message']}"
+                )
+            if model is None:
+                return None
+
+            match model:
+                case TypeAdapter():
+                    return model.validate_json(res.text)
+                case _:
+                    return model.model_validate_json(res.text)
+
+        return wrapper
+
+    return decorator
+
+
 class FlojoyCloud:
     auth: str
-    base_url: str
+    client: httpx.Client
 
     def __init__(
         self, api_key: Optional[str] = None, api_url="https://cloud.flojoy.ai/api/v1"
@@ -112,146 +160,67 @@ class FlojoyCloud:
             api_key = env
         self.auth = f"Bearer {api_key}"
         self.base_url = api_url
-
-    @overload
-    def __parse(self, model: type[T], json_str: str) -> T:
-        ...
-
-    @overload
-    def __parse(self, model: TypeAdapter[U], json_str: str) -> U:
-        ...
-
-    def __parse(self, model: type[T] | TypeAdapter[U], json_str: str):
-        match model:
-            case TypeAdapter():
-                return model.validate_json(json_str)
-            case _:
-                return model.model_validate_json(json_str)
-
-    @overload
-    def __req(
-        self,
-        method: HttpMethod,
-        endpoint: str,
-        *,
-        query_params: dict[str, int | str] | None = None,
-        data: str | None = None,
-        body: dict | None = None,
-        parse_as: type[T],
-    ) -> T:
-        ...
-
-    @overload
-    def __req(
-        self,
-        method: HttpMethod,
-        endpoint: str,
-        *,
-        query_params: dict[str, int | str] | None = None,
-        data: str | None = None,
-        body: dict | None = None,
-        parse_as: TypeAdapter[U],
-    ) -> U:
-        ...
-
-    @overload
-    def __req(
-        self,
-        method: HttpMethod,
-        endpoint: str,
-        *,
-        query_params: dict[str, int | str] | None = None,
-        data: str | None = None,
-        body: dict | None = None,
-        parse_as: None = None,
-    ) -> None:
-        ...
-
-    def __req(
-        self,
-        method: HttpMethod,
-        endpoint: str,
-        *,
-        query_params: dict[str, int | str] | None = None,
-        data: str | None = None,
-        body: dict | None = None,
-        parse_as: type[T] | TypeAdapter[U] | None = None,
-    ) -> T | U | None:
-        res = requests.request(
-            method,
-            self.base_url + endpoint,
-            params=query_params,
-            data=data,
-            json=body,
-            headers={"Authorization": self.auth, "Content-Type": "application/json"},
+        self.client = httpx.Client(
+            base_url=api_url,
+            headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {self.auth}",
+            },
         )
-
-        if res.status_code >= 400:
-            error_json = json.loads(res.text)
-            raise FlojoyCloudException(
-                f"An exception occurred when making a request to {endpoint}\n "
-                f"{error_json['code']}: {error_json['message']}"
-            )
-
-        if parse_as is None:
-            return None
-
-        return self.__parse(parse_as, res.text)
 
     """Test Endpoints"""
 
+    @query(model=Test)
     def create_test(
         self, name: str, project_id: str, measurement_type: MeasurementType
-    ) -> Test:
-        return self.__req(
-            "POST",
+    ):
+        return self.client.post(
             "/tests",
-            body={
+            json={
                 "name": name,
                 "projectId": project_id,
                 "measurementType": measurement_type,
             },
-            parse_as=Test,
         )
 
+    @query(model=Test)
     def get_test_by_id(self, test_id: str):
-        return self.__req("GET", f"/tests/{test_id}", parse_as=Test)
+        return self.client.get(f"/tests/{test_id}")
 
+    @query(model=TypeAdapter(list[Test]))
     def get_all_tests_by_project_id(self, project_id: str):
-        return self.__req(
-            "GET",
+        return self.client.get(
             "/tests",
-            query_params={"projectId": project_id},
-            parse_as=TypeAdapter(list[Test]),
+            params={"projectId": project_id},
         )
 
     """Device Endpoints"""
 
+    @query(model=Device)
     def create_device(self, name: str, project_id: str):
-        return self.__req(
-            "POST",
+        return self.client.post(
             "/devices",
-            body={"name": name, "projectId": project_id},
-            parse_as=Device,
+            json={"name": name, "projectId": project_id},
         )
 
+    @query(model=Device)
     def get_device_by_id(self, device_id: str):
-        return self.__req("GET", f"/devices/{device_id}", parse_as=Device)
+        return self.client.get(f"/devices/{device_id}")
 
+    @query(model=TypeAdapter(list[Device]))
     def get_all_devices_by_project_id(self, project_id: str):
-        return self.__req(
-            "GET",
+        return self.client.get(
             "/devices",
-            query_params={"projectId": project_id},
-            parse_as=TypeAdapter(list[Device]),
+            params={"projectId": project_id},
         )
 
+    @query(model=Device)
     def delete_device_by_id(self, device_id: str):
-        return self.__req("DELETE", f"/devices/{device_id}", parse_as=Device)
+        return self.client.delete(f"/devices/{device_id}")
 
     """Measurement Endpoints"""
 
-    # TODO: Fix
+    @query(model=None)
     def upload(
         self,
         data: MeasurementData,
@@ -271,12 +240,12 @@ class FlojoyCloud:
         if created_at is not None:
             body["createdAt"] = created_at.isoformat()
 
-        return self.__req(
-            "POST",
+        return self.client.post(
             "/measurements",
-            data=json.dumps(body, cls=NumpyEncoder),
+            content=json.dumps(body, cls=NumpyEncoder),
         )
 
+    @query(model=TypeAdapter(list[Measurement]))
     def get_all_measurements_by_test_id(
         self,
         test_id: str,
@@ -291,51 +260,52 @@ class FlojoyCloud:
         if end_date is not None:
             query_params["endDate"] = end_date.isoformat()
 
-        return self.__req(
-            "GET",
+        return self.client.get(
             "/measurements",
-            query_params=query_params,
-            parse_as=TypeAdapter(list[Measurement]),
+            params=query_params,
         )
 
     """Project Routes"""
 
+    @query(model=Project)
     def create_project(self, name: str, workspace_id: str):
-        return self.__req(
-            "POST",
+        return self.client.post(
             "/projects",
-            body={"name": name, "workspaceId": workspace_id},
-            parse_as=Project,
+            json={"name": name, "workspaceId": workspace_id},
         )
 
+    @query(model=Project)
     def get_project_by_id(self, project_id: str):
-        return self.__req("GET", f"/projects/{project_id}", parse_as=Project)
+        return self.client.get(f"/projects/{project_id}")
 
+    @query(model=TypeAdapter(list[Project]))
     def get_all_projects_by_workspace_id(self, workspace_id: str):
-        return self.__req(
-            "GET",
+        return self.client.get(
             "/projects",
-            query_params={"workspaceId": workspace_id},
-            parse_as=TypeAdapter(list[Project]),
+            params={"workspaceId": workspace_id},
         )
 
     """Workspace Routes"""
 
+    @query(model=None)
     def update_workspace(self, workspace_id: str, name: str):
-        return self.__req(
-            "PATCH",
+        return self.client.patch(
             f"/workspaces/{workspace_id}",
-            body={"name": name},
+            json={"name": name},
         )
 
+    @query(model=None)
     def delete_workspace_by_id(self, workspace_id: str):
-        return self.__req(
-            "DELETE",
-            f"/workspaces/{workspace_id}",
-        )
+        return self.client.delete(f"/workspaces/{workspace_id}")
 
+    @query(model=TypeAdapter(list[Workspace]))
     def get_all_workspaces(self):
-        return self.__req("GET", "/workspaces", parse_as=TypeAdapter(list[Workspace]))
+        return self.client.get("/workspaces")
 
+    @query(model=Workspace)
     def get_workspace_by_id(self, workspace_id: str):
-        return self.__req("GET", f"/workspaces/{workspace_id}", parse_as=Workspace)
+        return self.client.get(f"/workspaces/{workspace_id}")
+
+
+if __name__ == "__main__":
+    client = FlojoyCloud()

@@ -31,6 +31,7 @@ matplotlib = "~3"
 portalocker = "~2"
 qcodes = "~0"
 tm-devices = "^1.0.0"
+httpx = "^0.26.0"
 
 
 [tool.poetry.group.dev.dependencies]
