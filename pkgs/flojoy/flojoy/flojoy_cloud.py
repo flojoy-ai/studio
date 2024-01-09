@@ -145,7 +145,6 @@ def query(
 
 
 class FlojoyCloud:
-    auth: str
     client: httpx.Client
 
     def __init__(
@@ -160,13 +159,12 @@ class FlojoyCloud:
                     "Flojoy Cloud workspace secret not set, and no 'FLOJOY_CLOUD_WORKSPACE_SECRET' environment variable was found."
                 )
             workspace_secret = env
-        self.auth = f"Bearer {workspace_secret}"
         self.base_url = api_url
         self.client = httpx.Client(
             base_url=api_url,
             headers={
                 "Content-Type": "application/json",
-                "Authorization": f"Bearer {self.auth}",
+                "Authorization": f"Bearer {workspace_secret}",
             },
         )
 
