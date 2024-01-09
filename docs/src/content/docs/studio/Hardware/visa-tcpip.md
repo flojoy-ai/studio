@@ -27,7 +27,7 @@ These settings may look slightly different on other Linux distros but likely fun
 
 On Ubuntu, the connection type must be changed to link-local.
 
-- Go to *Settings* -> *Networking*
+- Go to *Settings* → *Networking*
 - Press the setting icon beside the wired connection.
 - *IPv4*
 - select *Link-Local Only*
@@ -64,7 +64,7 @@ Link-local settings do not work on Mac. An IP address of 169.254.Y.X must be set
 
 To change the IP address:
 
-- Go to *Settings* -> *Network*
+- Go to *Settings* → *Network*
 - Find the correct connection (perhaps by unplugging and plugging the connection back in).
 - Click on the connection
 
@@ -84,7 +84,7 @@ To change the IP address:
 
 ## Instrument settings
 
-A link-local IP address must be 169.254.X.X with a subnet mask of 255.255.0.0. For example, 169.254.111.112, but this value should not be equal to the IP address on the computer. You can find your computers IP addresses in the *Debug Menu* on the *Hardware Devices* tab in Flojoy. Here the instrument is a Tektronix AFG31000, and the network settings are found under *Utility* -> *I/O Interface* -> *LAN* (on the instrument).
+A link-local IP address must be 169.254.X.X with a subnet mask of 255.255.0.0. For example, 169.254.111.112, but this value should not be equal to the IP address on the computer. You can find your computers IP addresses in the *Debug Menu* on the *Hardware Devices* tab in Flojoy. Here the instrument is a Tektronix AFG31000, and the network settings are found under *Utility* → *I/O Interface* → *LAN* (on the instrument).
 
 ![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1704736174/flojoy-docs/ethernet/afg-settings.jpg)
 
@@ -96,6 +96,6 @@ For MacOS, use a 169.254.Y.X IP address where *Y* matches the value used on the 
 
 ## Multiple instruments
 
-I was not able to get multiple instruments connected through different ethernet ports. An ethernet switch will likely be needed to create multiple connections (or connect through LAN). The connection should still be set to link-local on Ubuntu and static 169.254.Y.X on MacOS. Windows will still likely connect automatically.
+Connecting two instruments through two different ethernet ports seems impossible with link-local settings. An ethernet switch will likely be needed to create multiple connections (or connect through LAN). This results in connecting both instruments through one ethernet port on the computer. The connection should still be set to link-local on Ubuntu and static 169.254.Y.X on MacOS. Windows will still likely connect automatically.
 
 ![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1704736174/flojoy-docs/ethernet/two-devices.png)
