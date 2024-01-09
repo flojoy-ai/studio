@@ -13,9 +13,9 @@ Ethernet is the recommended connection type for VISA instruments.
 
 Note that there's three different types of connections here:
 
-- internet - not discussed here.
+- Internet - not discussed here.
 - LAN - instrument and computer and both connected to the router (recommended if possible).
-- link-local - the instrument is connected directly to the computer (aka APIPA).
+- Link-local - the instrument is connected directly to the computer (aka APIPA).
 
 If you are using a LAN connection make sure the instrument is set to DCHP (Dynamic Host Configuration Protocol). This should connect to multiple instruments without any changes. If you have static IP addresses this does not apply. Please contact your network admin.
 
@@ -30,7 +30,7 @@ On Ubuntu, the connection type must be changed to link-local.
 - Go to *Settings* → *Networking*
 - Press the setting icon beside the wired connection.
 - *IPv4*
-- select *Link-Local Only*
+- Select *Link-Local Only*
 
 ![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1704736174/flojoy-docs/ethernet/ubuntu-link-local.png)
 
