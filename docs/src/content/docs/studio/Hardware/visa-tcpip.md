@@ -49,7 +49,8 @@ On Windows it's likely a link-local connection will be *automatic*. In case you 
 - Click on *Internet Protocol Version 4*.
 - Press *Properties*.
 
-![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1704736174/flojoy-docs/ethernet/windows-settings-2.png)
+![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1704739269/flojoy-docs/ethernet/windows-settings-2.png)
+
 
 - In the resulting menu you can set a static IP address by pressing *Use the following IP address*.
 - You would then enter the address and mask as necessary.
