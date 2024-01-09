@@ -1,0 +1,40 @@
+{
+  "docstring": {
+    "long_description": "Requires a CONNECT_MSO2X block to create the connection.\n\nTested on MSO22 and MSO24.",
+    "short_description": "Measure one of the waveforms for the MSO2X.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_MSO2X block)."
+      },
+      {
+        "name": "channel",
+        "type": "select, default=1",
+        "description": "What channel to extract the measurement from."
+      },
+      {
+        "name": "measure_num",
+        "type": "int, default=1",
+        "description": "What measurement number to use on the scope."
+      },
+      {
+        "name": "measurement",
+        "type": "select, default=period",
+        "description": "The type of measurement to make."
+      },
+      {
+        "name": "statistic",
+        "type": "select, default=mean",
+        "description": "The type of statistic to use for the measurement."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Scalar",
+        "description": "The measured value"
+      }
+    ]
+  }
+}

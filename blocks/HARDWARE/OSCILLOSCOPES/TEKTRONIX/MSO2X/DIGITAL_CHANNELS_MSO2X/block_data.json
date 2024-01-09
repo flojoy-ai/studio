@@ -1,0 +1,110 @@
+{
+  "docstring": {
+    "long_description": "Requires a CONNECT_MSO2X block to create the connection.\n\nTested on MSO22 and MSO24.",
+    "short_description": "Set the digital MSO2XX channels on (1) or off (0).",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECTION_MSO2X block)."
+      },
+      {
+        "name": "all_channels",
+        "type": "bool, default=False",
+        "description": "Turn all channels on? The display parameters aren't used if True."
+      },
+      {
+        "name": "D0_display",
+        "type": "select, default=0",
+        "description": "Turn the channel on (1) or off (0)."
+      },
+      {
+        "name": "D1_display",
+        "type": "select, default=0",
+        "description": "Turn the channel on (1) or off (0)."
+      },
+      {
+        "name": "D2_display",
+        "type": "select, default=0",
+        "description": "Turn the channel on (1) or off (0)."
+      },
+      {
+        "name": "D3_display",
+        "type": "select, default=0",
+        "description": "Turn the channel on (1) or off (0)."
+      },
+      {
+        "name": "D4_display",
+        "type": "select, default=0",
+        "description": "Turn the channel on (1) or off (0)."
+      },
+      {
+        "name": "D5_display",
+        "type": "select, default=0",
+        "description": "Turn the channel on (1) or off (0)."
+      },
+      {
+        "name": "D6_display",
+        "type": "select, default=0",
+        "description": "Turn the channel on (1) or off (0)."
+      },
+      {
+        "name": "D7_display",
+        "type": "select, default=0",
+        "description": "Turn the channel on (1) or off (0)."
+      },
+      {
+        "name": "D8_display",
+        "type": "select, default=0",
+        "description": "Turn the channel on (1) or off (0)."
+      },
+      {
+        "name": "D9_display",
+        "type": "select, default=0",
+        "description": "Turn the channel on (1) or off (0)."
+      },
+      {
+        "name": "D10_display",
+        "type": "select, default=0",
+        "description": "Turn the channel on (1) or off (0)."
+      },
+      {
+        "name": "D11_display",
+        "type": "select, default=0",
+        "description": "Turn the channel on (1) or off (0)."
+      },
+      {
+        "name": "D12_display",
+        "type": "select, default=0",
+        "description": "Turn the channel on (1) or off (0)."
+      },
+      {
+        "name": "D13_display",
+        "type": "select, default=0",
+        "description": "Turn the channel on (1) or off (0)."
+      },
+      {
+        "name": "D14_display",
+        "type": "select, default=0",
+        "description": "Turn the channel on (1) or off (0)."
+      },
+      {
+        "name": "D15_display",
+        "type": "select, default=0",
+        "description": "Turn the channel on (1) or off (0)."
+      },
+      {
+        "name": "D16_display",
+        "type": "select, default=0",
+        "description": "Turn the channel on (1) or off (0)."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "String",
+        "description": "Channel display"
+      }
+    ]
+  }
+}

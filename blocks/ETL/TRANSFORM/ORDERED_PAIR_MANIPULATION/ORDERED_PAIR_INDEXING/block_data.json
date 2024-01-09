@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Returns the value of the OrderedPair at the requested index.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "OrderedPair",
+        "description": "The input OrderedPair to index."
+      },
+      {
+        "name": "index",
+        "type": "int",
+        "description": "The index of the OrderedPair to return."
+      },
+      {
+        "name": "x_axis",
+        "type": "bool",
+        "description": "Index x axis? If not y is indexed."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Scalar",
+        "description": "The scalar index of the input OrderedPair."
+      }
+    ]
+  }
+}

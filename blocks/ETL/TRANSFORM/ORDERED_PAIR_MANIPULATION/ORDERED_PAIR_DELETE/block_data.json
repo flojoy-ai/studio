@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "Deletes from both x and y axes.",
+    "short_description": "Returns an OrderedPair with elements deleted from requested indices.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "OrderedPair",
+        "description": "The input OrderedPair to delete from"
+      },
+      {
+        "name": "indices",
+        "type": "Array",
+        "description": "specified indices to delete value(s) at from the input OrderedPair"
+      },
+      {
+        "name": "length",
+        "type": "int",
+        "description": "number of elements to delete from the input OrderedPair, default is 1 (this only applies when one index is specified for indices parameter)"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "OrderedPair",
+        "description": "The new OrderedPair with element(s) deleted from the input OrderedPair"
+      }
+    ]
+  }
+}
