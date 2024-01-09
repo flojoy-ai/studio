@@ -10,8 +10,9 @@ import {
   interpreterCachePath,
 } from "./interpreter";
 import * as os from "os";
-import { existsSync, readFileSync } from "fs";
+import { existsSync, mkdirSync, readFileSync } from "fs";
 import { poetryGroupEnsureValid } from "./poetry";
+import { join } from "path";
 
 export async function checkPythonInstallation(
   _,
@@ -83,7 +84,16 @@ export async function pipxEnsurepath(): Promise<void> {
 
 export async function installPoetry(): Promise<void> {
   const py = process.env.PY_INTERPRETER ?? "python";
-  await execCommand(new Command(`${py} -m pipx install poetry --force`));
+  const localDir = join(os.homedir(), ".local");
+  if (!existsSync(localDir)) {
+    mkdirSync(localDir);
+  }
+  const defaultPipxDir = join(localDir, "pipx");
+  if (!existsSync(defaultPipxDir)) {
+    mkdirSync(defaultPipxDir);
+  }
+  process.env.PIPX_HOME = defaultPipxDir;
+  await execCommand(new Command(`"${py}" -m pipx install poetry --force`));
   const poetryPath = await getPoetryPath();
   process.env.POETRY_PATH = poetryPath;
 }
@@ -157,14 +167,14 @@ export function killCaptain(): boolean {
 
 export async function listPythonPackages() {
   const poetry = process.env.POETRY_PATH ?? "poetry";
-  return await execCommand(new Command(`${poetry} run pip freeze`), {
+  return await execCommand(new Command(`"${poetry}" run pip freeze`), {
     quiet: true,
   });
 }
 
 export async function pyvisaInfo() {
   const poetry = process.env.POETRY_PATH ?? "poetry";
-  return await execCommand(new Command(`${poetry} run pyvisa-info`), {
+  return await execCommand(new Command(`"${poetry}" run pyvisa-info`), {
     quiet: true,
   });
 }
