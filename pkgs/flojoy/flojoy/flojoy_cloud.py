@@ -307,7 +307,3 @@ class FlojoyCloud:
     @query(model=Workspace)
     def get_workspace_by_id(self, workspace_id: str):
         return self.client.get(f"/workspaces/{workspace_id}")
-
-
-if __name__ == "__main__":
-    client = FlojoyCloud()
