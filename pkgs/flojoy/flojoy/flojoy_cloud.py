@@ -1,7 +1,7 @@
 import datetime
 import json
 import os
-from typing import Callable, Literal, Optional, ParamSpec, TypeVar, overload, cast
+from typing import Callable, Literal, Optional, ParamSpec, TypeVar, overload
 
 import numpy as np
 import httpx
