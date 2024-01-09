@@ -44,27 +44,6 @@ export const writeLogFile = async (
   );
 };
 
-export const killBackend = async () => {
-  let cmd: string;
-  switch (process.platform) {
-    case "win32":
-      cmd = `FOR /F "tokens=5" %i IN ('netstat -aon ^| find "5392"') DO Taskkill /F /PID %i`;
-      break;
-    case "darwin":
-    case "linux":
-      cmd = `kill -9 $(lsof -t -i :5392)`;
-      break;
-    default:
-      cmd = "";
-      break;
-  }
-  try {
-    execSync(cmd);
-  } catch (error) {
-    //
-  }
-};
-
 export const mockDialogMessage = async (app: ElectronApplication) => {
   await app.evaluate(async ({ dialog }) => {
     const originalShowMessageBoxSync = dialog.showMessageBoxSync;
