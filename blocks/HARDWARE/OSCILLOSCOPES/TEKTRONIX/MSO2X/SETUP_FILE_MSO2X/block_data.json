@@ -16,7 +16,7 @@
       {
         "name": "filename",
         "type": "str, default=flojoy",
-        "description": "The file name to save or recall (e.g. c:/flojoy.set)."
+        "description": "The file name to save or recall (\"flojoy\" results in \"C:/flojoy.set\")."
       }
     ],
     "returns": [

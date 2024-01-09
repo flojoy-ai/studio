@@ -4,9 +4,9 @@ from flojoy import flojoy, OrderedPair, Matrix, DataFrame, Vector, Scalar
 
 @flojoy
 def APPEND(
-    primary_dp: OrderedPair | Matrix | DataFrame | Scalar | Vector,
+    primary_dp: OrderedPair | Matrix | DataFrame | Scalar | Vector | None,
     secondary_dp: OrderedPair | Matrix | DataFrame | Scalar | Vector,
-) -> OrderedPair | Matrix | DataFrame | Vector:
+) -> OrderedPair | Matrix | DataFrame | Vector | Scalar:
     """Append a single data point to an array.
 
     The large array must be passed to the bottom "array" connection.
@@ -15,7 +15,7 @@ def APPEND(
 
     Parameters
     ----------
-    primary_dp : OrderedPair|Vector|Scalar|Matrix|DataFrame
+    primary_dp : OrderedPair|Vector|Scalar|Matrix|DataFrame|None
         Input that ends up "on top" of the resulting DataContainer.
     secondary_dp : OrderedPair|Vector|Scalar|Matrix|DataFrame
         Input that ends up "on the bottom" of the resulting DataContainer.
@@ -72,6 +72,13 @@ def APPEND(
 
         v = append([c0], [c1], axis=0)
         return Vector(v=v)
+
+    # When primary_dp is None during the first loop:
+    elif primary_dp is None and isinstance(secondary_dp, Scalar):
+        return secondary_dp
+
+    elif primary_dp is None and isinstance(secondary_dp, OrderedPair):
+        return secondary_dp
 
     else:
         raise ValueError(
