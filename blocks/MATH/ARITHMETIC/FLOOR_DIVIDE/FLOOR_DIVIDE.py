@@ -8,14 +8,16 @@ from functools import reduce
 def FLOOR_DIVIDE(
     a: OrderedPair | Scalar | Vector, b: list[OrderedPair | Scalar | Vector]
 ) -> OrderedPair | Scalar | Vector:
-    """Divide two or more numeric arrays, matrices, dataframes, or constants element-wise.
+    """Floor divide two or more numeric arrays, matrices, dataframes, or constants element-wise.
+
+    AKA interger division.
 
     When a constant is divided into an array or matrix, each element in the array or matrix will be divided by the constant value.
 
     Parameters
     ----------
     a : OrderedPair|Scalar|Vector
-        The input that will be divide by b.
+        The input that will be divided by b.
     b : OrderedPair|Scalar|Vector
         The input that will divide a.
 
@@ -24,13 +26,13 @@ def FLOOR_DIVIDE(
     OrderedPair|Scalar|Vector
         OrderedPair if a is an OrderedPair.
         x: the x-axis of input a.
-        y: the result of the division of input a by input b.
+        y: the result of the floor division of input a by input b.
 
         Scalar if a is a Scalar.
-        c: the result of the division of input a by input b.
+        c: the result of the floor division of input a by input b.
 
         Vector if a is a Vector.
-        v: the result of the division of input a by input b.
+        v: the result of the floor division of input a by input b.
     """
 
     initial = get_val(a)

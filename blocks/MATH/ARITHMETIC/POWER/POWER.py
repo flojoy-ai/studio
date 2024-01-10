@@ -8,27 +8,27 @@ from functools import reduce
 def POWER(
     a: OrderedPair | Scalar | Vector, b: list[OrderedPair | Scalar | Vector]
 ) -> OrderedPair | Scalar | Vector:
-    """Multiply two numeric arrays, vectors, matrices, or constants element-wise.
+    """Calculate the power of two numeric arrays, vectors, matrices, or constants element-wise.
 
     Parameters
     ----------
     a : OrderedPair|Scalar|Vector
-        The input a use to compute the product of a and b.
+        The input a used to compute a to the power of b.
     b : OrderedPair|Scalar|Vector
-        The input b use to compute the product of a and b.
+        The input b used to compute a to the power of b.
 
     Returns
     -------
     OrderedPair|Scalar|Vector
         OrderedPair if a is an OrderedPair.
         x: the x-axis of input a.
-        y: the result of the product of input a and input b.
+        y: the result of a^b (or a**b).
 
         Scalar if a is a Scalar.
-        c: the result of the product of input a and input b.
+        c: the result of a^b (or a**b).
 
         Vector if a is a Vector.
-        v: the result of the product of input a and input b.
+        v: the result of a^b (or a**b).
     """
 
     initial = get_val(a)

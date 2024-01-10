@@ -11,46 +11,45 @@ def LOG(
     b: list[OrderedPair | Scalar | Vector],
     log_base: Literal["input", "e", "10", "2"] = "e",
 ) -> OrderedPair | Scalar | Vector:
-    """Multiply two numeric arrays, vectors, matrices, or constants element-wise.
+    """Find the logarithm of input a with base b.
+
+    Calculated element-wise for a Vector or OrderedPair input.
+
+    Use log_base "input" to use the bottom input as the base.
 
     Parameters
     ----------
     a : OrderedPair|Scalar|Vector
-        The input a use to compute the product of a and b.
-    b : Scalar
-        The input b use to compute the product of a and b.
+        The input a use to compute the log of a.
+    b : OrderedPair|Scalar|Vector
+        The input b use to compute the log with base b.
 
     Returns
     -------
     OrderedPair|Scalar|Vector
         OrderedPair if a is an OrderedPair.
         x: the x-axis of input a.
-        y: the result of the product of input a and input b.
+        y: the result of the logarithm.
 
         Scalar if a is a Scalar.
-        c: the result of the product of input a and input b.
+        c: the result of the logarithm.
 
         Vector if a is a Vector.
-        v: the result of the product of input a and input b.
+        v: the result of the logarithm.
     """
-
-    # match log_base:
-    #     case "e":
-    #         b = Scalar(c=np.e)
-    #     case "10":
-    #         b = Scalar(c=10)
-    #     case "2":
-    #         b = Scalar(c=2)
-    #     case _:
-    #         pass
 
     initial = get_val(a)
     seq = map(lambda dc: get_val(dc), b)
-    print("debug ", initial, seq, flush=True)
-    # y = lambda u, v: np.log(u) / np.log(v)  # , seq, initial
-    # print("debug ", y, flush=True)
-    # y = reduce(lambda u: np.log(u), seq)
-    y = reduce(lambda u, v: np.log(u) / np.log(v), seq, initial)
+
+    match log_base:
+        case "e":
+            y = reduce(lambda u, v: np.log(u), seq, initial)
+        case "10":
+            y = reduce(lambda u, v: np.log10(u), seq, initial)
+        case "2":
+            y = reduce(lambda u, v: np.log2(u), seq, initial)
+        case "input":
+            y = reduce(lambda u, v: np.log(u) / np.log(v), seq, initial)
 
     match a:
         case OrderedPair():

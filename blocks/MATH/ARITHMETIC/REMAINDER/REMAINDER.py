@@ -8,14 +8,14 @@ from functools import reduce
 def REMAINDER(
     a: OrderedPair | Scalar | Vector, b: list[OrderedPair | Scalar | Vector]
 ) -> OrderedPair | Scalar | Vector:
-    """Divide two or more numeric arrays, matrices, dataframes, or constants element-wise.
+    """Find the remainder (division) of two numeric arrays, matrices, dataframes, or constants element-wise.
 
     When a constant is divided into an array or matrix, each element in the array or matrix will be divided by the constant value.
 
     Parameters
     ----------
     a : OrderedPair|Scalar|Vector
-        The input that will be divide by b.
+        The input that will be divided by b.
     b : OrderedPair|Scalar|Vector
         The input that will divide a.
 
@@ -24,13 +24,13 @@ def REMAINDER(
     OrderedPair|Scalar|Vector
         OrderedPair if a is an OrderedPair.
         x: the x-axis of input a.
-        y: the result of the division of input a by input b.
+        y: the remainder of input a by input b.
 
         Scalar if a is a Scalar.
-        c: the result of the division of input a by input b.
+        c: the remainder of input a by input b.
 
         Vector if a is a Vector.
-        v: the result of the division of input a by input b.
+        v: the remainder of input a by input b.
     """
 
     initial = get_val(a)
