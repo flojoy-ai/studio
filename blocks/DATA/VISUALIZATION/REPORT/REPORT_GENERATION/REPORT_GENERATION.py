@@ -5,7 +5,8 @@ import string
 import webbrowser
 
 import plotly
-from flojoy import Boolean, Optional, Plotly, String, flojoy
+from typing import Optional
+from flojoy import Boolean, Plotly, String, flojoy
 
 
 @flojoy
