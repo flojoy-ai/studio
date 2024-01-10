@@ -162,7 +162,6 @@ class FlojoyCloud:
         self.client = httpx.Client(
             base_url=api_url,
             headers={
-                "Content-Type": "application/json",
                 "Authorization": f"Bearer {workspace_secret}",
             },
         )
@@ -243,6 +242,9 @@ class FlojoyCloud:
         return self.client.post(
             "/measurements",
             content=json.dumps(body, cls=NumpyEncoder),
+            headers={
+                "Content-Type": "application/json",
+            },
         )
 
     @query(model=TypeAdapter(list[Measurement]))
