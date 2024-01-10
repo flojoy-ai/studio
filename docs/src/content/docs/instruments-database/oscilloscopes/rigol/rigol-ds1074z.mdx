@@ -1,0 +1,88 @@
+---
+title: Connecting to Rigol DS1074Z by Rigol in Python
+description: 4 analog channels, Upgradable to 16 digital channels (requires optional RPL1116 logic probe to operate) Built in 2 channel 25MHz waveform generator
+keywords: [Oscilloscopes, Rigol, QCodes] 
+slug: instruments-database/Oscilloscopes/rigol/rigol-ds1074z 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782683/Instruments/Oscilloscopes/Rigol-DS1074Z/Rigol-DS1074Z.jpg
+sidebar:
+    label: Rigol DS1074Z 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+4 analog channels, Upgradable to 16 digital channels (requires optional RPL1116 logic probe to operate)
+Built in 2 channel 25MHz waveform generator
+
+
+![Rigol DS1074Z](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782683/Instruments/Oscilloscopes/Rigol-DS1074Z/Rigol-DS1074Z.jpg)
+
+Device Specification: [here](/instruments-database/all-instruments)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: RIGOL</h2></summary>
+
+![RIGOL](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806170/Instruments/Vendor%20Logos/Rigol.png)
+
+RIGOL Technologies, Inc. specializes in development and production of test and measuring equipment and is one of the fastest growing Chinese companies in this sphere.
+RIGOL’s line of products includes [digital storage oscilloscopes](https://www.tmatlantic.com/e-store/index.php?SECTION_ID=227), [function/arbitrary waveform generators](https://www.tmatlantic.com/e-store/index.php?SECTION_ID=230), [digital multimeters](https://www.tmatlantic.com/e-store/index.php?SECTION_ID=233), PC-based devices compatible with LXI standard etc.
+
+- Headquarters: Beijing, China
+- Yearly Revenue (millions, USD): 23
+- Vendor Website: [here](https://www.rigol.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="OSCILLOSCOPES" />
+
+## Connect to the Rigol DS1074Z in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="OSCILLOSCOPES" manufacturer="Rigol"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+Here is a Python script that uses Qcodes to connect to a Rigol DS1074Z Oscilloscope:
+
+```python
+from qcodes.instrument.visa import VisaInstrument
+
+class RigolDS1074Z(VisaInstrument):
+    # ... code omitted for brevity ...
+
+# Create an instance of the RigolDS1074Z instrument
+rigol = RigolDS1074Z("rigol", "USB0::0x1AB1::0x04CE::DS1ZA222222222::INSTR")
+
+# Connect to the instrument
+rigol.connect()
+
+# Access and set parameters
+rigol.trigger_mode("edge")
+rigol.trigger_level(0.5)
+
+# Access channel parameters
+channel1 = rigol.channels.ch1
+channel1.vertical_scale(0.1)
+
+# Get the trace data from channel 1
+trace_data = channel1.trace()
+
+# Disconnect from the instrument
+rigol.disconnect()
+```
+
+This script creates an instance of the `RigolDS1074Z` instrument, sets the trigger mode and level, accesses the parameters of channel 1, retrieves the trace data from channel 1, and finally disconnects from the instrument.
+
+</TabItem>
+</Tabs>
