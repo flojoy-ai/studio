@@ -1,3 +1,9 @@
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "@/components/ui/context-menu";
 import * as React from "react";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import {
@@ -29,78 +35,115 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Test } from "./TestSequencerInfo";
+import { TestSequenceElement } from "@src/types/testSequencer";
+import { useTestSequencerState } from "@src/hooks/useTestSequencerState";
+import { parseInt, filter } from "lodash";
 
-export const columns: ColumnDef<Test>[] = [
-  {
-    id: "selected",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: "test_name",
-    header: "Test name",
-    cell: ({ row }) => <div>{row.getValue("test_name")}</div>,
-  },
-  {
-    accessorKey: "run_in_parallel",
-    header: "Run in parallel",
-    cell: ({ row }) => {
-      return row.getValue("run_in_parallel") ? <div>✅</div> : null;
-    },
-  },
-  {
-    accessorKey: "test_type",
-    header: "Test type",
-    cell: ({ row }) => (
-      <div className="lowercase">{row.getValue("test_type")}</div>
-    ),
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => {
-      return <div>{row.getValue("status")}</div>;
-    },
-  },
-  {
-    accessorKey: "completion_time",
-    header: "Time complete",
-    enableHiding: false,
-    cell: ({ row }) => {
-      return <div>{parseFloat(row.getValue("completion_time"))}s</div>;
-    },
-  },
-  {
-    accessorKey: "is_saved_to_cloud",
-    header: "Saved to Flojoy Cloud",
-    enableHiding: false,
-    cell: ({ row }) => {
-      return row.getValue("is_saved_to_cloud") ? (
-        <Button>OPEN TEST</Button>
-      ) : null;
-    },
-  },
-];
+export function DataTable() {
+  const { elems, setElements } = useTestSequencerState();
 
-export function DataTable({ data }: { data: Test[] }) {
+  const columns: ColumnDef<TestSequenceElement>[] = [
+    {
+      id: "selected",
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
+    {
+      accessorKey: "test_name",
+      header: "Test name",
+      cell: ({ row }) => <div>{row.getValue("test_name")}</div>,
+    },
+    {
+      accessorKey: "run_in_parallel",
+      header: "Run in parallel",
+      cell: ({ row }) => {
+        return row.getValue("run_in_parallel") ? <div>✅</div> : <div>No</div>;
+      },
+    },
+    {
+      accessorKey: "test_type",
+      header: "Test type",
+      cell: ({ row }) => (
+        <div className="lowercase">{row.getValue("test_type")}</div>
+      ),
+    },
+    {
+      accessorKey: "status",
+      header: "Status",
+      cell: ({ row }) => {
+        return <div>{row.getValue("status")}</div>;
+      },
+    },
+    {
+      accessorKey: "completion_time",
+      header: "Time complete",
+      enableHiding: false,
+      cell: ({ row }) => {
+        return <div>{parseFloat(row.getValue("completion_time"))}s</div>;
+      },
+    },
+    {
+      accessorKey: "is_saved_to_cloud",
+      header: "Saved to Flojoy Cloud",
+      enableHiding: false,
+      cell: ({ row }) => {
+        return row.getValue("is_saved_to_cloud") ? (
+          <Button>OPEN TEST</Button>
+        ) : null;
+      },
+    },
+    {
+      accessorKey: "up-down",
+      header: "Reorder",
+      enableHiding: false,
+      cell: ({ row }) => {
+        const onUpClick = () => {
+          setElements((data) => {
+            const index = parseInt(row.id);
+            if (index == 0) return data;
+            const tmp = data[index];
+            data[index] = data[index - 1];
+            data[index - 1] = tmp;
+            return data;
+          });
+        };
+        const onDownClick = () => {
+          setElements((data) => {
+            const index = parseInt(row.id);
+            if (index == data.length) return data;
+            const tmp = data[index];
+            data[index] = data[index + 1];
+            data[index + 1] = tmp;
+            return data;
+          });
+        };
+        return (
+          <div className="flex flex-row">
+            <Button onClick={onUpClick}>UP</Button>
+            <Button onClick={onDownClick}>DOWN</Button>
+          </div>
+        );
+      },
+    },
+  ];
+
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -108,6 +151,14 @@ export function DataTable({ data }: { data: Test[] }) {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const data = elems; // this is necessary for some reason for the table to work no idea why
+
+  const onRemoveTest = (testIdx: number) => {
+    console.log("lol", testIdx);
+    setElements((data) => {
+      return filter(data, (_, idx) => idx != testIdx);
+    });
+  };
 
   const table = useReactTable({
     data,
@@ -186,12 +237,23 @@ export function DataTable({ data }: { data: Test[] }) {
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
+                    <ContextMenu>
+                      <TableCell key={cell.id}>
+                        <ContextMenuTrigger>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                        </ContextMenuTrigger>
+                      </TableCell>
+                      <ContextMenuContent>
+                        <ContextMenuItem>Add Conditional</ContextMenuItem>
+                        <ContextMenuItem>Show Output Plot</ContextMenuItem>
+                        <ContextMenuItem onClick={() => onRemoveTest(row.id)}>
+                          Remove Test
+                        </ContextMenuItem>
+                      </ContextMenuContent>
+                    </ContextMenu>
                   ))}
                 </TableRow>
               ))

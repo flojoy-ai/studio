@@ -1,5 +1,4 @@
 import * as React from "react";
-import { filter, max, sum } from "lodash";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -21,13 +20,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Test } from "./TestSequencerInfo";
+import { filter, max, sum } from "lodash";
+import { Summary, Test, TestSequenceElement } from "@src/types/testSequencer";
+import { useTestSequencerState } from "@src/hooks/useTestSequencerState";
 
-const getCompletionTime = (data: Test[]) => {
-  const parallel = filter(data, (elem) => elem.run_in_parallel).map(
+const getOnlyTests = (data: TestSequenceElement[]): Test[] => {
+  return filter(data, (elem) => elem.type === "test");
+};
+
+const getCompletionTime = (data: TestSequenceElement[]) => {
+  const onlyTests = getOnlyTests(data);
+  const parallel = filter(onlyTests, (elem) => elem.run_in_parallel).map(
     (elem) => elem.completion_time,
   );
-  const non_parallel = filter(data, (elem) => !elem.run_in_parallel).map(
+  const non_parallel = filter(onlyTests, (elem) => !elem.run_in_parallel).map(
     (elem) => elem.completion_time,
   );
   let max_p = max(parallel);
@@ -37,11 +43,14 @@ const getCompletionTime = (data: Test[]) => {
   return max_p + sum_np;
 };
 
-const getSuccessRate = (data: Test[]) => {
-  return filter(data, (elem) => elem.status == "pass").length / data.length;
+const getSuccessRate = (data: TestSequenceElement[]): number => {
+  return (
+    filter(getOnlyTests(data), (elem) => elem.status == "pass").length /
+    data.length
+  );
 };
 
-export function SummaryTable({ data }: { data: Test[] }) {
+export function SummaryTable() {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -49,40 +58,43 @@ export function SummaryTable({ data }: { data: Test[] }) {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const { elems } = useTestSequencerState();
+  const [summary, setSummary] = React.useState<Summary[]>([]);
 
-  const [summary, setSummary] = useState([
-    {
-      success_rate: getSuccessRate(data),
-      completion_time: getCompletionTime(data),
-    },
-  ]);
+  React.useEffect(() => {
+    setSummary([
+      {
+        id: "1",
+        success_rate: getSuccessRate(elems),
+        completion_time: getCompletionTime(elems),
+      },
+    ]);
+  }, [elems]);
 
-  const columns: ColumnDef<Test>[] = [
+  const columns: ColumnDef<Summary>[] = [
     {
-      id: "summary",
+      accessorKey: "id",
       header: "",
       cell: () => <div>Summary:</div>,
-      enableSorting: false,
-      enableHiding: false,
     },
     {
       accessorKey: "success_rate",
       header: "Success Rate",
-      cell: () => {
-        return <div>{getSuccessRate(data)}%</div>;
+      cell: ({ row }) => {
+        return <div>{row.getValue("success_rate")}%</div>;
       },
     },
     {
       accessorKey: "completion_time",
       header: "Total time",
-      enableHiding: false,
-      cell: () => {
-        return <div>{getCompletionTime(data)}s</div>;
+      cell: ({ row }) => {
+        return <div>{row.getValue("completion_time")}s</div>;
       },
     },
   ];
 
-  const table = useReactTable({
+  const data = summary;
+  const summaryTable = useReactTable({
     data,
     columns,
     onSortingChange: setSorting,
@@ -106,7 +118,7 @@ export function SummaryTable({ data }: { data: Test[] }) {
       <div className="rounded-md border">
         <Table>
           <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
+            {summaryTable.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
@@ -124,8 +136,8 @@ export function SummaryTable({ data }: { data: Test[] }) {
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
+            {summaryTable.getRowModel().rows?.length ? (
+              summaryTable.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
