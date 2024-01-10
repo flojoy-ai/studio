@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "The connection is made with the VISA address in the Flojoy UI.\n\nThis block should work with any Teledyne LeCroy T3DSO1000(A)-2000 series oscilloscope.",
+    "short_description": "Connect to a Teledyne Lecroy T3DSO1000(A)-2000 oscilloscope.",
+    "parameters": [
+      {
+        "name": "device",
+        "type": "VisaDevice",
+        "description": "The VISA address to connect to."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "None."
+      }
+    ]
+  }
+}

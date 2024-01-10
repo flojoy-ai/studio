@@ -1,0 +1,1 @@
+Connect your T3DSO1000(A)-2000 oscilloscope, re-initialize the oscilloscope's state, perform an auto-adjustment, capture measurements on the primary channel, and present the frequency, amplitude, and trace data for comprehensive analysis and visualization.
