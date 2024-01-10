@@ -17,8 +17,11 @@ export type Test = {
 
 export type Conditional = {
   id: string;
-  type: "if" | "else if" | "else";
+  type: CONDITIONAL_TYPES;
   condition: string;
 };
+
+export type CONDITIONAL_TYPES = "if" | "else" | "elif" | "end";
+export const CONDITIONALS = ["if", "else", "elif", "end"];
 
 export type TestSequenceElement = Test | Conditional;

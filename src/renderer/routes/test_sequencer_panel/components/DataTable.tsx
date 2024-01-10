@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import {
   ContextMenu,
   ContextMenuContent,
@@ -35,9 +36,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { TestSequenceElement } from "@src/types/testSequencer";
+import {
+  TestSequenceElement,
+  CONDITIONAL_TYPES,
+} from "@src/types/testSequencer";
 import { useTestSequencerState } from "@src/hooks/useTestSequencerState";
 import { parseInt, filter } from "lodash";
+import { AddConditionalModal } from "./AddConditionalModal";
 
 export function DataTable() {
   const { elems, setElements } = useTestSequencerState();
@@ -116,22 +121,22 @@ export function DataTable() {
       cell: ({ row }) => {
         const onUpClick = () => {
           setElements((data) => {
+            const new_data = [...data];
             const index = parseInt(row.id);
             if (index == 0) return data;
-            const tmp = data[index];
-            data[index] = data[index - 1];
-            data[index - 1] = tmp;
-            return data;
+            new_data[index] = data[index - 1];
+            new_data[index - 1] = data[index];
+            return new_data;
           });
         };
         const onDownClick = () => {
           setElements((data) => {
+            const new_data = [...data];
             const index = parseInt(row.id);
             if (index == data.length) return data;
-            const tmp = data[index];
-            data[index] = data[index + 1];
-            data[index + 1] = tmp;
-            return data;
+            new_data[index] = data[index + 1];
+            new_data[index + 1] = data[index];
+            return new_data;
           });
         };
         return (
@@ -179,9 +184,34 @@ export function DataTable() {
     },
   });
 
+  const [showAddConditionalModal, setShowAddConditionalModal] =
+    React.useState(false);
+  const addConditionalAfterIdx = React.useRef(-1);
+
+  const handleAddConditionalModal = (type: CONDITIONAL_TYPES) => {
+    setElements((data) => {
+      const new_data = [...data];
+      return new_data.splice(addConditionalAfterIdx.current, 0, {
+        id: uuidv4(), // generate id
+        type: type,
+        condition: "",
+      });
+    });
+  };
+
+  const handleClickAddConditional = (idx: number) => {
+    addConditionalAfterIdx.current = idx;
+    setShowAddConditionalModal(true);
+  };
+
   return (
     <div className="w-full">
       <div className="flex items-center py-0">
+        <AddConditionalModal
+          isConditionalModalOpen={showAddConditionalModal}
+          handleAddConditionalModalOpen={setShowAddConditionalModal}
+          handleAdd={handleAddConditionalModal}
+        />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
@@ -247,9 +277,17 @@ export function DataTable() {
                         </ContextMenuTrigger>
                       </TableCell>
                       <ContextMenuContent>
-                        <ContextMenuItem>Add Conditional</ContextMenuItem>
+                        <ContextMenuItem
+                          onClick={() =>
+                            handleClickAddConditional(parseInt(row.id))
+                          }
+                        >
+                          Add Conditional
+                        </ContextMenuItem>
                         <ContextMenuItem>Show Output Plot</ContextMenuItem>
-                        <ContextMenuItem onClick={() => onRemoveTest(row.id)}>
+                        <ContextMenuItem
+                          onClick={() => onRemoveTest(parseInt(row.id))}
+                        >
                           Remove Test
                         </ContextMenuItem>
                       </ContextMenuContent>
