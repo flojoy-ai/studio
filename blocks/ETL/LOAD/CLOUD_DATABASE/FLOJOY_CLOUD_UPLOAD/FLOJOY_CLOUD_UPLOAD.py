@@ -1,6 +1,7 @@
 import os
 
-from flojoy import DataContainer, FlojoyCloud, flojoy, get_env_var, node_preflight
+from flojoy import DataContainer, flojoy, get_env_var, node_preflight
+from flojoy.cloud import FlojoyCloud
 
 FLOJOY_CLOUD_URI: str = os.environ.get("FLOJOY_CLOUD_URI") or "https://cloud.flojoy.ai"
 

@@ -1,0 +1,90 @@
+---
+title: Connecting to Keysight M960XA-Series by Keysight in Python
+description: PXI source/measure units are the source and measurement resources of voltage and current for test applications requiring high accuracy, high resolution, and measurement flexibility
+keywords: [Power Supplies, Keysight, QCodes] 
+slug: instruments-database/Power Supplies/keysight/keysight-m960xa-series 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782494/Instruments/Power%20Supplies/Keysight-M960XA-Series/Keysight-M960XA-Series.png
+sidebar:
+    label: Keysight M960XA-Series 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+PXI source/measure units are the source and measurement resources of voltage and current for test applications requiring high accuracy, high resolution, and measurement flexibility
+
+
+
+![Keysight M960XA-Series](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782494/Instruments/Power%20Supplies/Keysight-M960XA-Series/Keysight-M960XA-Series.png)
+
+Device Specification: [here](/instruments-database/all-instruments)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: KEYSIGHT</h2></summary>
+
+![KEYSIGHT](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692125973/Instruments/Vendor%20Logos/Keysight.png)
+
+Keysight Technologies, or Keysight, is an American company that manufactures electronics test and measurement equipment and software
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5420
+- Vendor Website: [here](https://www.keysight.com/us/en/home.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="POWER_SUPPLIES" />
+
+## Connect to the Keysight M960XA-Series in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="POWER_SUPPLIES" manufacturer="Keysight"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+Here is a Python script that uses Qcodes to connect to a Keysight M960XA-Series Power Meters:
+
+```python
+import qcodes as qc
+from qcodes.instrument_drivers.Keysight.KeysightM960x import KeysightM960x
+
+# Create an instance of the instrument
+power_meter = KeysightM960x("power_meter", address="TCPIP0::192.168.1.1::inst0::INSTR")
+
+# Connect to the instrument
+power_meter.connect()
+
+# Print the instrument ID
+print(power_meter.get_idn())
+
+# Set the output voltage level
+power_meter.voltage_level(1.0)
+
+# Enable the output
+power_meter.output(True)
+
+# Measure the current
+current = power_meter.measure_data()[1]
+print(f"Current: {current} A")
+
+# Disable the output
+power_meter.output(False)
+
+# Disconnect from the instrument
+power_meter.disconnect()
+```
+
+Note: Replace `"TCPIP0::192.168.1.1::inst0::INSTR"` with the actual address of your power meter.
+
+</TabItem>
+</Tabs>

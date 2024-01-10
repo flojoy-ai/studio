@@ -1,0 +1,72 @@
+---
+title: Connecting to R&S ZNB20 by Rohdes&Schwarz in Python
+description: The R&S ZNB20 from R&S is a mid range vector network analyzer with two or four test ports for the frequency range from 100 kHz to 20 GHz. It has a dynamic range of 135 dB which makes it possible to perform precise measurements on wideband DUTs or components whose behavior at low frequencies is especially important. The analyzer has a large 12.1 inches touch screen interface which makes it easy to control and review test results. The ports on the R&S 20 have 2.92 mm Male connectors.
+keywords: [Network Analyzers, Rohdes&Schwarz, QCodes] 
+slug: instruments-database/Network Analyzers/rohde-schwarz/r&s-znb20 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782557/Instruments/Network%20Analyzer/RS-ZNB20/RS-ZNB20.webp
+sidebar:
+    label: R&S ZNB20 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The R&S ZNB20 from R&S is a mid range vector network analyzer with two or four test ports for the frequency range from 100 kHz to 20 GHz. It has a dynamic range of 135 dB which makes it possible to perform precise measurements on wideband DUTs or components whose behavior at low frequencies is especially important. The analyzer has a large 12.1 inches touch screen interface which makes it easy to control and review test results. The ports on the R&S 20 have 2.92 mm Male connectors.
+
+![R&S ZNB20](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782557/Instruments/Network%20Analyzer/RS-ZNB20/RS-ZNB20.webp)
+
+Device Specification: [here](https://www.testequipmenthq.com/datasheets/Rohde-Schwarz-ZNB20-Datasheet.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: ROHDES&SCHWARZ</h2></summary>
+
+![ROHDES&SCHWARZ](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806194/Instruments/Vendor%20Logos/RohdeSchwarz.png)
+
+Rohde & Schwarz GmbH & Co KG is an international electronics group specializing in the fields of electronic test equipment, broadcast & media, cybersecurity, radiomonitoring and radiolocation, and radiocommunication.
+
+- Headquarters: Munich, Germany
+- Yearly Revenue (millions, USD): 2500
+- Vendor Website: [here](https://www.rohde-schwarz.com/ca/home_48230.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="NETWORK_ANALYZERS" />
+
+## Connect to the R&S ZNB20 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="NETWORK_ANALYZERS" manufacturer="Rohdes&Schwarz"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+To connect to a R&S ZNB20 Network Analyzer using Qcodes, you can use the following code:
+
+```python
+from qcodes.instrument_drivers.rohde_schwarz.ZNB.ZNB import ZNB
+
+# Create an instance of the ZNB20 Network Analyzer
+znb = ZNB('znb', 'TCPIP0::192.168.1.1::inst0::INSTR')
+
+# Connect to the instrument
+znb.connect()
+```
+
+In the code above, we import the `ZNB` class from the `qcodes.instrument_drivers.rohde_schwarz.ZNB.ZNB` module. Then, we create an instance of the `ZNB` class with the desired name (`znb`) and the appropriate VISA resource string (`TCPIP0::192.168.1.1::inst0::INSTR`) for your specific instrument.
+
+Finally, we call the `connect()` method to establish a connection to the instrument.
+
+Note: Make sure to replace `'TCPIP0::192.168.1.1::inst0::INSTR'` with the correct VISA resource string for your specific instrument.
+
+</TabItem>
+</Tabs>

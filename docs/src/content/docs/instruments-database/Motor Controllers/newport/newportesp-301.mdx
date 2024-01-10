@@ -1,0 +1,77 @@
+---
+title: Connecting to Newportesp 301 by Newport in Python
+description: The ESP301-3N 3 Axis Motion Controller and Driver is the successor of the popular ESP300 motion controller. The ESP301 provides the same functionality as the ESP300 with a standard USB interface and extended front panel functions. For maximum backward compatibility, the ESP301 features the same motion commands and control algorithms and the same casing as the ESP300. The ESP301-3N drives and controls up to three axes of motion using any combination of DC or 2-phase stepper motors up to 3A per axis. This capability enables driving a large selection of Newport stages and actuators. Featuring an integrated manual front panel interface and Newport's unique ESP stage auto-detection and auto-configuration, the ESP301 provides most easy operation and excellent functionality at an affordable price.
+keywords: [Motor Controllers, Newport, InstrumentKit] 
+slug: instruments-database/Motor Controllers/newport/newportesp-301 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782436/Instruments/Positional%20Controller/Newportesp-301/Newportesp-301.jpg
+sidebar:
+    label: Newportesp 301 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The ESP301-3N 3 Axis Motion Controller and Driver is the successor of the popular ESP300 motion controller. The ESP301 provides the same functionality as the ESP300 with a standard USB interface and extended front panel functions. For maximum backward compatibility, the ESP301 features the same motion commands and control algorithms and the same casing as the ESP300. The ESP301-3N drives and controls up to three axes of motion using any combination of DC or 2-phase stepper motors up to 3A per axis. This capability enables driving a large selection of Newport stages and actuators. Featuring an integrated manual front panel interface and Newport's unique ESP stage auto-detection and auto-configuration, the ESP301 provides most easy operation and excellent functionality at an affordable price.
+
+![Newportesp 301](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782436/Instruments/Positional%20Controller/Newportesp-301/Newportesp-301.jpg)
+
+Device Specification: [here](https://www.newport.com/medias/sys_master/images/images/hda/h3e/9117547069470/ESP301-User-s-Manual.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: NEWPORT</h2></summary>
+
+![NEWPORT](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806178/Instruments/Vendor%20Logos/Newport.png)
+
+Newport provides a wide range of photonics technology and products designed to enhance the capabilities and productivity of our customers' applications.
+
+- Headquarters: Irvine, California, United States
+- Yearly Revenue (millions, USD): 3500
+- Vendor Website: [here](https://www.newport.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="MOTOR_CONTROLLERS" />
+
+## Connect to the Newportesp 301 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="MOTOR_CONTROLLERS" manufacturer="Newport"></SectionsCard>
+
+</TabItem>
+<TabItem value="InstrumentKit" label="InstrumentKit">
+
+To connect to a Newport ESP-301 Positional Controller using Instrumentkit, you can use the following code:
+
+```python
+from instrumentkit import NewportESP301
+
+# Connect to the controller
+controller = NewportESP301.open_serial("COM3")
+
+# Move the axis to a specific position
+controller.axis[0].move(0.001, absolute=False)
+
+# Close the connection
+controller.close()
+```
+
+In this code, we first import the `NewportESP301` class from the `instrumentkit` module. Then, we use the `open_serial` method to connect to the controller using the specified serial port (in this case, "COM3").
+
+Next, we can use the `controller.axis` property to access the individual axes of the controller. In this example, we move the first axis (`controller.axis[0]`) by 0.001 units relative to its current position.
+
+Finally, we close the connection to the controller using the `close` method.
+
+Note: Make sure to replace "COM3" with the correct serial port for your setup.
+
+</TabItem>
+</Tabs>

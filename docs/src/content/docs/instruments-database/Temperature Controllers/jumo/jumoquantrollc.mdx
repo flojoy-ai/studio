@@ -1,0 +1,81 @@
+---
+title: Connecting to Jumoquantrollc by Jumo in Python
+description: Control Of The Jumo Quantrol Lc100/Lc200/Lc300, Universal Pid Controller
+keywords: [Temperature Controllers, Jumo, PyTango] 
+slug: instruments-database/Temperature Controllers/jumo/jumoquantrollc 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782763/Instruments/Temperature%20Controllers/Jumoquantrollc/Jumoquantrollc.jpg
+sidebar:
+    label: Jumoquantrollc 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+Control Of The Jumo Quantrol Lc100/Lc200/Lc300, Universal Pid Controller
+
+![Jumoquantrollc](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782763/Instruments/Temperature%20Controllers/Jumoquantrollc/Jumoquantrollc.jpg)
+
+Device Specification: [here](https://www.jumo.net/attachments/JUMO/attachmentdownload?id=64643)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: JUMO</h2></summary>
+
+![JUMO](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806195/Instruments/Vendor%20Logos/Jumo.png)
+
+**JUMO** is your expert partner and manufacturer for industrial sensor technology up to the automation solution for temperature, pressure, and liquids.
+
+- Headquarters: Canada
+- Yearly Revenue (millions, USD): 69
+- Vendor Website: [here](https://jumo.ca/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="TEMPERATURE_CONTROLLERS" />
+
+## Connect to the Jumoquantrollc in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="TEMPERATURE_CONTROLLERS" manufacturer="Jumo"></SectionsCard>
+
+</TabItem>
+<TabItem value="PyTango" label="PyTango">
+
+
+```python
+import PyTango
+
+# Define the Tango device name for the Jumoquantrollc Temperature Controller
+device_name = "tango://localhost:10000/sys/tg_test/1"
+
+# Create a Tango device proxy for the Jumoquantrollc Temperature Controller
+device_proxy = PyTango.DeviceProxy(device_name)
+
+# Read the current temperature from the device
+temperature = device_proxy.read_attribute("Temperature").value
+
+# Print the temperature
+print("Current temperature: {} °C".format(temperature))
+```
+
+In this script, we first import the `PyTango` module. Then, we define the Tango device name for the Jumoquantrollc Temperature Controller. This device name is in the format `tango://<host>:<port>/<device>`, where `<host>` is the hostname or IP address of the Tango server, `<port>` is the port number of the Tango server, and `<device>` is the device name.
+
+Next, we create a Tango device proxy using the `PyTango.DeviceProxy()` function and pass in the device name. This proxy allows us to interact with the Jumoquantrollc Temperature Controller.
+
+We then use the `read_attribute()` method of the device proxy to read the current temperature attribute of the device. The attribute name is specified as a string, in this case, "Temperature". The `read_attribute()` method returns a `PyTango.AttributeValue` object, from which we extract the value using the `value` attribute.
+
+Finally, we print the current temperature using the `print()` function.
+
+Note: Make sure to replace the `device_name` variable with the actual Tango device name of your Jumoquantrollc Temperature Controller.
+
+</TabItem>
+</Tabs>

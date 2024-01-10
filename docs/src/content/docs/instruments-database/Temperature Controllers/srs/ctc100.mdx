@@ -1,0 +1,91 @@
+---
+title: Connecting to CTC100 by Stanford Research Systems in Python
+description: CTC100 Cryogenic Temperature Controller—a high performance instrument that can monitor and control temperatures with millikelvin resolution.  The CTC100 Cryogenic Temperature Controller is configured to suit a wide range of research and industrial applications. The system consists of four sensor inputs, two powered and four analog voltage outputs, and up to six feedback control loops.
+keywords: [Temperature Controllers, Stanford Research Systems, InstrumentKit] 
+slug: instruments-database/Temperature Controllers/srs/ctc100 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782728/Instruments/Temperature%20Controllers/CTC100/CTC100.jpg
+sidebar:
+    label: CTC100 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+CTC100 Cryogenic Temperature Controller—a high performance instrument that can monitor and control temperatures with millikelvin resolution.
+
+The CTC100 Cryogenic Temperature Controller is configured to suit a wide range of research and industrial applications. The system consists of four sensor inputs, two powered and four analog voltage outputs, and up to six feedback control loops.
+
+![CTC100](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782728/Instruments/Temperature%20Controllers/CTC100/CTC100.jpg)
+
+Device Specification: [here](https://www.thinksrs.com/downloads/pdfs/catalog/CTC100c.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: STANFORD RESEARCH SYSTEMS</h2></summary>
+
+![STANFORD RESEARCH SYSTEMS](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806206/Instruments/Vendor%20Logos/Stanford_Research.png)
+
+Stanford Research Systems is a maker of general test and measurement instruments. The company was founded in 1980, is privately held, and is not affiliated with Stanford University. Stanford Research Systems manufactures all of their products at their Sunnyvale, California facility.
+
+- Headquarters: Sunnyvale, California
+- Yearly Revenue (millions, USD): 24.9
+- Vendor Website: [here](https://www.thinksrs.com/index.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="TEMPERATURE_CONTROLLERS" />
+
+## Connect to the CTC100 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="TEMPERATURE_CONTROLLERS" manufacturer="Stanford Research Systems"></SectionsCard>
+
+</TabItem>
+<TabItem value="InstrumentKit" label="InstrumentKit">
+
+
+```python
+from instrumentkit import Instrument, ConnectionType
+
+# Define the CTC100 Temperature Controller class
+class CTC100(Instrument):
+    def __init__(self, connection_type, address):
+        super().__init__(connection_type, address)
+
+    # Define specific commands for the CTC100 Temperature Controller
+    def get_temperature(self, channel):
+        return self.query(f"{channel}.value")
+
+    def set_temperature(self, channel, temperature):
+        self.sendcmd(f"{channel}.value = {temperature}")
+
+# Create an instance of the CTC100 Temperature Controller
+ctc100 = CTC100(ConnectionType.TCP_IP, "192.168.1.100")
+
+# Connect to the CTC100 Temperature Controller
+ctc100.connect()
+
+# Get the temperature from channel 1
+temperature = ctc100.get_temperature("chan1")
+print(f"Temperature: {temperature}")
+
+# Set the temperature of channel 2 to 25 degrees Celsius
+ctc100.set_temperature("chan2", 25)
+
+# Disconnect from the CTC100 Temperature Controller
+ctc100.disconnect()
+```
+
+Note: This code assumes that you have Instrumentkit installed and that you have the necessary dependencies (such as numpy) installed as well.
+
+</TabItem>
+</Tabs>
