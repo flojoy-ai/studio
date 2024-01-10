@@ -16,8 +16,8 @@ Let's start off with the default App you see on startup. Scroll over the input c
 
 A window should automatically popup showing you information what this Block expects to be input.
 
-- ***Default*** - the name of the input
-- ***OrderedPair*** and ***Vector*** the data types the Block can take.
+- **_Default_** - the name of the input
+- **_OrderedPair_** and **_Vector_** the data types the Block can take.
 - The bottom is a description of what the input is used for. Here, it defines the x-axis of the output data.
 
 ### Output
@@ -26,7 +26,7 @@ Next, scroll over the output connection of the `SINE` Block.
 
 ![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1702315082/flojoy-docs/intro-and-guide/block-output.png)
 
-Similar to the input, you can see a summary of the output data. Similar to the input, ***OrderedPair*** is present, but ***Vector*** is missing. This is because the Block can only output one data type.
+Similar to the input, you can see a summary of the output data. Similar to the input, **_OrderedPair_** is present, but **_Vector_** is missing. This is because the Block can only output one data type.
 
 ### DataContainers
 
@@ -50,4 +50,4 @@ Note that not all inputs have a required data type for the input. Scroll over th
 
 ![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1702315082/flojoy-docs/intro-and-guide/any-input-blocks.png)
 
-the data type specified here is ***Any***. However, also see that the description says the input is unused. In this case the input is not for data, instead it's for runtime or flow control. We'll go into this subject more in the next tutorial.
+the data type specified here is **_Any_**. However, also see that the description says the input is unused. In this case the input is not for data, instead it's for runtime or flow control. We'll go into this subject more in the next tutorial.

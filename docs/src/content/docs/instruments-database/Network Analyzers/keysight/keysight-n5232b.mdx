@@ -1,0 +1,111 @@
+---
+title: Connecting to Keysight N5232B by Keysight in Python
+description: The Keysight N5232B PNA-L series network analyzer is designed for S-parameter and simple nonlinear testing of passive components, amplifiers, and frequency converters. With the same core firmware as the PNA, the PNA-L offers the perfect balance of value and performance. The PNA-L provides efficiency and flexibility in both manufacturing and R&D applications, for industries ranging from mobile-telecomm and wireless-LAN component production to aerospace and defense.
+keywords: [Network Analyzers, Keysight, QCodes] 
+slug: instruments-database/Network Analyzers/keysight/keysight-n5232b 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782475/Instruments/Network%20Analyzer/Keysight-N5232B/Keysight-N5232B.jpg
+sidebar:
+    label: Keysight N5232B 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The Keysight N5232B PNA-L series network analyzer is designed for S-parameter and simple nonlinear testing of passive components, amplifiers, and frequency converters. With the same core firmware as the PNA, the PNA-L offers the perfect balance of value and performance. The PNA-L provides efficiency and flexibility in both manufacturing and R&D applications, for industries ranging from mobile-telecomm and wireless-LAN component production to aerospace and defense. 
+
+![Keysight N5232B](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782475/Instruments/Network%20Analyzer/Keysight-N5232B/Keysight-N5232B.jpg)
+
+Device Specification: [here](https://www.keysight.com/us/en/assets/9018-04392/technical-specifications/9018-04392.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: KEYSIGHT</h2></summary>
+
+![KEYSIGHT](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692125973/Instruments/Vendor%20Logos/Keysight.png)
+
+Keysight Technologies, or Keysight, is an American company that manufactures electronics test and measurement equipment and software
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5420
+- Vendor Website: [here](https://www.keysight.com/us/en/home.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="NETWORK_ANALYZERS" />
+
+## Connect to the Keysight N5232B in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="NETWORK_ANALYZERS" manufacturer="Keysight"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+```python
+from qcodes import Station
+from qcodes.instrument_drivers.Keysight.Keysight_P9372A import Keysight_P9372A
+
+# Create a station to hold the instruments
+station = Station()
+
+# Connect to the Keysight N5232B Network Analyzer
+na = Keysight_P9372A('na', 'TCPIP0::192.168.1.1::inst0::INSTR')
+station.add_component(na)
+
+# Print the available options on the Network Analyzer
+print(na.get_options())
+
+# Set the frequency range
+na.start(1e9)
+na.stop(10e9)
+
+# Set the power range
+na._set_power_limits(-30, 10)
+
+# Enable trace averaging
+na.averages_on()
+
+# Set the number of averages
+na.averages(10)
+
+# Set the IF bandwidth
+na.if_bandwidth(1e3)
+
+# Set the number of points in a sweep
+na.points(1001)
+
+# Set the electrical delay
+na.electrical_delay(0)
+
+# Set the sweep mode to continuous
+na.sweep_mode('CONT')
+
+# Set the trigger source to external
+na.trigger_source('EXT')
+
+# Select the active trace
+na.active_trace(1)
+
+# Run a sweep on the Network Analyzer
+na.run_sweep()
+
+# Get the data from the active trace
+data = na.traces[0].get()
+
+# Print the data
+print(data)
+```
+
+Note: The above code assumes that the IP address of the Keysight N5232B Network Analyzer is `192.168.1.1`. Please replace it with the correct IP address of your instrument.
+
+</TabItem>
+</Tabs>

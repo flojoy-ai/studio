@@ -96,6 +96,14 @@ export default defineConfig({
             },
           ],
         },
+        {
+          label: "📟 Instruments Database",
+          collapsed: false,
+          autogenerate: {
+            directory: "instruments-database",
+            collapsed: true,
+          },
+        },
       ],
       defaultLocale: "root",
       locales: {

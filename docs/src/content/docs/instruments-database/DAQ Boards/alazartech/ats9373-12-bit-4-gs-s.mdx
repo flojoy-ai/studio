@@ -1,0 +1,85 @@
+---
+title: Connecting to ATS9373-12 bit, 4 GS/s by Alazartech in Python
+description: ATS9373 is a 12-bit waveform digitizer board that can sample one analog input at rates up to 4 GS/s or two inputs at 2 GS/s.
+keywords: [DAQ Boards, Alazartech, QCodes] 
+slug: instruments-database/DAQ Boards/alazartech/ats9373-12-bit-4-gs-s 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782448/Instruments/DAQ%20boards/ATS9373---12-bit%2C-4-GS-s/ATS9373---12-bit_-4-GS-s.jpg
+sidebar:
+    label: ATS9373-12 bit, 4 GS/s 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+ATS9373 is a 12-bit waveform digitizer board that can sample one analog input at rates up to 4 GS/s or two inputs at 2 GS/s.
+
+![ATS9373-12 bit, 4 GS/s](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782448/Instruments/DAQ%20boards/ATS9373---12-bit%2C-4-GS-s/ATS9373---12-bit_-4-GS-s.jpg)
+
+Device Specification: [here](https://www.alazartech.com/en/download/product/9064/300/ats9373-datasheet-and-specifications/1-6n/)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: ALAZARTECH</h2></summary>
+
+![ALAZARTECH](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806158/Instruments/Vendor%20Logos/Alazartech.png)
+
+Alazar Technologies Inc. (AlazarTech) was founded in 2003 with the goal of serving the test and measurement market, in general, and the embedded waveform digitizer (OEM) market segment, in particular, by providing highly differentiated, high performance instrumentation products at affordable prices.
+
+- Headquarters: CANADA - QC
+- Yearly Revenue (millions, USD): 4
+- Vendor Website: [here](https://www.alazartech.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="DAQ_BOARDS" />
+
+## Connect to the ATS9373-12 bit, 4 GS/s in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="DAQ_BOARDS" manufacturer="Alazartech"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+Here is a Python script that uses Qcodes to connect to an ATS9373-12 bit, 4 GS/s DAQ board:
+
+```python
+from qcodes.instrument_drivers.AlazarTech.ATS import AlazarTech_ATS
+from qcodes.instrument_drivers.AlazarTech.ATS9373 import AlazarTechATS9373
+
+# Connect to the ATS9373 board
+ats = AlazarTechATS9373('ats', dll_path='C:\\WINDOWS\\System32\\ATSApi.dll')
+
+# Print the board ID
+print(ats.get_idn())
+
+# Set the clock source to INTERNAL_CLOCK
+ats.clock_source('INTERNAL_CLOCK')
+
+# Set the sample rate to 4 GS/s
+ats.sample_rate(4_000_000_000)
+
+# Set other parameters as needed
+
+# Perform data acquisition
+data = ats.acquire()
+
+# Process the acquired data as needed
+
+# Disconnect from the board
+ats.close()
+```
+
+Note that you need to have the `ATSApi.dll` file in the specified path for the script to work.
+
+</TabItem>
+</Tabs>

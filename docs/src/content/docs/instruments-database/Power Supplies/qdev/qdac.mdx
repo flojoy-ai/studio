@@ -1,0 +1,53 @@
+---
+title: Connecting to QDAC Channels by Qdevil in Python
+description: QDAC is a high-precision, 25-bit resolution, ultra-low-noise computer-controlled DAC with 24 voltage channel generators operating at a sample rate of 1MS/s. It is designed for DC and intermediate-frequency control of quantum devices, including, for example, gate electrodes and flux bias coils in qubits. It is also a very versatile instrument that can be used for many other purposes.
+keywords: [Power Supplies, Qdevil, QCodes] 
+slug: instruments-database/Power Supplies/qdev/qdac 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782644/Instruments/Digital-Analog%20Converter/QDAC/QDAC.png
+sidebar:
+    label: QDAC Channels 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+QDAC is a high-precision, 25-bit resolution, ultra-low-noise computer-controlled DAC with 24 voltage channel generators operating at a sample rate of 1MS/s. It is designed for DC and intermediate-frequency control of quantum devices, including, for example, gate electrodes and flux bias coils in qubits. It is also a very versatile instrument that can be used for many other purposes.
+
+
+
+![QDAC Channels](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782644/Instruments/Digital-Analog%20Converter/QDAC/QDAC.png)
+
+Device Specification: [here](/instruments-database/all-instruments)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: QDEVIL</h2></summary>
+
+![QDEVIL](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692125970/Instruments/Vendor%20Logos/QDevils.png)
+
+Founded in 2016, QDevil is an international quantum technology company focused on developing and manufacturing auxiliary electronics and specialized components, operating from mK to room temperature. The mission is to accelerate research and development in quantum electronics labs. To fulfill the mission QDevil helps customers around the world by supplying world-class auxiliary electronics.
+
+- Headquarters: COPENHAGEN, DENMARK
+- Yearly Revenue (millions, USD): 2
+- Vendor Website: [here](https://qdevil.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="POWER_SUPPLIES" />
+
+## Connect to the QDAC Channels in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="POWER_SUPPLIES" manufacturer="Qdevil"></SectionsCard>
+
+</TabItem>
+</Tabs>

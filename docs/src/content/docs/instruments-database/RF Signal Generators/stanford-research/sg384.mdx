@@ -1,0 +1,86 @@
+---
+title: Connecting to SG384 by Stanford Research Systems in Python
+description: The SG380 Series RF Signal Generators use a unique, innovative architecture (Rational Approximation Frequency Synthesis) to deliver ultra-high frequency resolution (1 µHz), excellent phase noise, and versatile modulation capabilities (AM, FM, ØM, pulse modulation and sweeps) at a fraction of the cost of competing designs. The standard models produce sine waves from DC to 2.025 GHz (SG382), 4.05 GHz (SG384) and 6.075 GHz (SG386).
+keywords: [RF Signal Generators, Stanford Research Systems, QCodes] 
+slug: instruments-database/RF Signal Generators/stanford-research/sg384 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782577/Instruments/RF%20Signal%20Generator/SG-384/SG-384.jpg
+sidebar:
+    label: SG384 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The SG380 Series RF Signal Generators use a unique, innovative architecture (Rational Approximation Frequency Synthesis) to deliver ultra-high frequency resolution (1 µHz), excellent phase noise, and versatile modulation capabilities (AM, FM, ØM, pulse modulation and sweeps) at a fraction of the cost of competing designs. The standard models produce sine waves from DC to 2.025 GHz (SG382), 4.05 GHz (SG384) and 6.075 GHz (SG386).
+
+![SG384](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782577/Instruments/RF%20Signal%20Generator/SG-384/SG-384.jpg)
+
+Device Specification: [here](https://www.thinksrs.com/downloads/pdfs/catalog/SG380c.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: STANFORD RESEARCH SYSTEMS</h2></summary>
+
+![STANFORD RESEARCH SYSTEMS](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806206/Instruments/Vendor%20Logos/Stanford_Research.png)
+
+Stanford Research Systems is a maker of general test and measurement instruments. The company was founded in 1980, is privately held, and is not affiliated with Stanford University.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 25
+- Vendor Website: [here](https://www.thinksrs.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="RF_SIGNAL_GENERATORS" />
+
+## Connect to the SG384 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="RF_SIGNAL_GENERATORS" manufacturer="Stanford Research Systems"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+```python
+from qcodes.instrument_drivers.stanford_research.SG384 import SG384
+
+# Connect to the SG384 RF Signal Generator
+sg = SG384('sg', 'TCPIP0::192.168.1.1::inst0::INSTR')
+
+# Set the frequency to 1 MHz
+sg.frequency(1e6)
+
+# Get the current frequency
+frequency = sg.frequency()
+print(frequency)
+
+# Set the amplitude of the BNC output to -10 dBm
+sg.amplitude_LF(-10)
+
+# Get the current amplitude of the BNC output
+amplitude = sg.amplitude_LF()
+print(amplitude)
+
+# Enable the RF output
+sg.enable_RF('ON')
+
+# Disable the BNC output
+sg.enable_LF('OFF')
+
+# Close the connection to the SG384 RF Signal Generator
+sg.close()
+```
+
+This script connects to the SG384 RF Signal Generator using the IP address '192.168.1.1'. It sets the frequency to 1 MHz, gets the current frequency, sets the amplitude of the BNC output to -10 dBm, gets the current amplitude of the BNC output, enables the RF output, disables the BNC output, and finally closes the connection to the SG384 RF Signal Generator.
+
+</TabItem>
+</Tabs>

@@ -1,0 +1,76 @@
+---
+title: Connecting to MDA8000HD by Teledyne in Python
+description: The Motor Drive Analyzer is built on an 8 channel, 12-bit resolution oscilloscope platform. It acquires any signal and performs three-phase electrical and mechanical power calculations. It provides complete power section and embedded control test coverage.
+keywords: [Oscilloscopes, Teledyne, InstrumentKit] 
+slug: instruments-database/Oscilloscopes/teledyne/mda8000hd 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782631/Instruments/Oscilloscopes/MDA8000HD/MDA8000HD.webp
+sidebar:
+    label: MDA8000HD 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The Motor Drive Analyzer is built on an 8 channel, 12-bit resolution oscilloscope platform. It acquires any signal and performs three-phase electrical and mechanical power calculations. It provides complete power section and embedded control test coverage.
+
+![MDA8000HD](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782631/Instruments/Oscilloscopes/MDA8000HD/MDA8000HD.webp)
+
+Device Specification: [here](https://cdn.teledynelecroy.com/files/pdf/mda8000hd-datasheet.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: TELEDYNE</h2></summary>
+
+![TELEDYNE](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692812958/Instruments/Vendor%20Logos/Teledyne_technologies.png)
+
+Teledyne LeCroy is an American manufacturer of oscilloscopes, protocol analyzers and other test equipment. LeCroy is now a subsidiary of Teledyne Technologies.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5458.6
+- Vendor Website: [here](https://www.teledynelecroy.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="OSCILLOSCOPES" />
+
+## Connect to the MDA8000HD in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="OSCILLOSCOPES" manufacturer="Teledyne"></SectionsCard>
+
+</TabItem>
+<TabItem value="InstrumentKit" label="InstrumentKit">
+
+To connect to a MDA8000HD Oscilloscope using Instrumentkit, you can use the following code:
+
+```python
+import instrumentkit as ik
+
+# Connect to the oscilloscope
+oscilloscope = ik.teledyne.MAUI.open_visa("TCPIP0::192.168.0.10::INSTR")
+
+# Perform operations on the oscilloscope
+oscilloscope.run()
+print(oscilloscope.trigger_state)
+
+# Close the connection
+oscilloscope.close()
+```
+
+This code imports the `instrumentkit` library and uses the `open_visa` function from the `ik.teledyne.MAUI` module to connect to the oscilloscope. The IP address "192.168.0.10" is used as an example, and you should replace it with the actual IP address of your oscilloscope.
+
+Once connected, you can perform operations on the oscilloscope, such as starting the trigger in automatic mode and printing the trigger state. Finally, you can close the connection to the oscilloscope using the `close` method.
+
+Note: This code assumes that you have already installed the necessary dependencies and have the correct VISA backend configured.
+
+</TabItem>
+</Tabs>

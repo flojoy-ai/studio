@@ -1,0 +1,79 @@
+---
+title: Connecting to DPO5000 by Tektronix in Python
+description: The MSO/DPO5000 Series offers the industry's most complete visualization of signals, providing fast insight into the real operation of your device. Tektronix proprietary FastAcq™ technology delivers a fast waveform capture – greater than 250,000 waveforms per second – that enables you to see glitches and other infrequent transients within seconds, revealing the true nature of device faults. A digital phosphor display with color intensity grading shows the history of a signal's activity by using color to identify areas of the signal that occur more frequently, providing a visual display of just how often anomalies occur.
+keywords: [Oscilloscopes, Tektronix, QCodes] 
+slug: instruments-database/Oscilloscopes/tektronix/dpo5000 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782485/Instruments/Oscilloscopes/DPO5000/DPO5000.webp
+sidebar:
+    label: DPO5000 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The MSO/DPO5000 Series offers the industry's most complete visualization of signals, providing fast insight into the real operation of your device. Tektronix proprietary FastAcq™ technology delivers a fast waveform capture – greater than 250,000 waveforms per second – that enables you to see glitches and other infrequent transients within seconds, revealing the true nature of device faults. A digital phosphor display with color intensity grading shows the history of a signal's activity by using color to identify areas of the signal that occur more frequently, providing a visual display of just how often anomalies occur.
+
+![DPO5000](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782485/Instruments/Oscilloscopes/DPO5000/DPO5000.webp)
+
+Device Specification: [here](https://download.tek.com/datasheet/MSO5000-DPO5000-Mixed-Signal-Oscilloscope-Datasheet-9.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: TEKTRONIX</h2></summary>
+
+![TEKTRONIX](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806108/Instruments/Vendor%20Logos/Tektronix.png)
+
+Tektronix, Inc., historically widely known as Tek, is an American company best known for manufacturing test and measurement devices such as [oscilloscopes](https://en.wikipedia.org/wiki/Oscilloscope), [logic analyzers](https://en.wikipedia.org/wiki/Logic_analyzer), and video and mobile test protocol equipment.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5800
+- Vendor Website: [here](https://www.tek.com/en)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="OSCILLOSCOPES" />
+
+## Connect to the DPO5000 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="OSCILLOSCOPES" manufacturer="Tektronix"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+Here is an example Python script that uses Qcodes to connect to a DPO5000 Oscilloscope:
+
+```python
+import qcodes as qc
+from qcodes.instrument_drivers.tektronix.Tektronix_DPO7000xx import TektronixDPO7000xx
+
+# Connect to the oscilloscope
+oscilloscope = TektronixDPO7000xx("oscilloscope", "TCPIP::1.2.3.4::INSTR")
+
+# Print the available channels
+print(oscilloscope.channel.names)
+
+# Set the time per division
+oscilloscope.channel1.scale(0.1)  # Set channel 1 time per division to 0.1s
+
+# Acquire and plot a waveform
+waveform = oscilloscope.channel1.waveform()
+waveform.plot()
+
+# Close the connection to the oscilloscope
+oscilloscope.close()
+```
+
+This script connects to the oscilloscope using the IP address "1.2.3.4" and creates an instance of the `TektronixDPO7000xx` driver. It then prints the names of the available channels, sets the time per division for channel 1 to 0.1s, acquires a waveform from channel 1, and plots the waveform. Finally, it closes the connection to the oscilloscope.
+
+</TabItem>
+</Tabs>

@@ -1,0 +1,78 @@
+---
+title: Connecting to Qdac 1 by Qdevil in Python
+description: The original and popular QDAC from QDevil is a high-precision low-noise computer-controlled voltage generator designed for DC and low-frequency control of high impedance devices, such as gates in quantum electronics and quantum computer qubits. It also comes in a “high-current” version which can source up to 10 mA, for example for flux biasing of superconducting qubits. In addition to precise and stable voltage output, the QDAC can measure output currents, for example, to detect leaking gates or shorted bonding wires. The QDAC originates from the laboratories of the Center for Quantum Devices at the University of Copenhagen, where it is used for quantum computing research. The QDAC has 24 channels and offers a cost-effective way of getting many high-quality D/A converter channels.
+keywords: [Power Supplies, Qdevil, QCodes Community] 
+slug: instruments-database/Power Supplies/qdevil/qdac-1 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782554/Instruments/Digital-Analog%20Converter/Qdac-1/Qdac-1.png
+sidebar:
+    label: Qdac 1 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The original and popular QDAC from QDevil is a high-precision low-noise computer-controlled voltage generator designed for DC and low-frequency control of high impedance devices, such as gates in quantum electronics and quantum computer qubits. It also comes in a “high-current” version which can source up to 10 mA, for example for flux biasing of superconducting qubits. In addition to precise and stable voltage output, the QDAC can measure output currents, for example, to detect leaking gates or shorted bonding wires. The QDAC originates from the laboratories of the Center for Quantum Devices at the University of Copenhagen, where it is used for quantum computing research. The QDAC has 24 channels and offers a cost-effective way of getting many high-quality D/A converter channels.
+
+![Qdac 1](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782554/Instruments/Digital-Analog%20Converter/Qdac-1/Qdac-1.png)
+
+Device Specification: [here](/instruments-database/all-instruments)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: QDEVIL</h2></summary>
+
+![QDEVIL](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692125970/Instruments/Vendor%20Logos/QDevils.png)
+
+Founded in 2016, QDevil is an international quantum technology company focused on developing and manufacturing auxiliary electronics and specialized components, operating from mK to room temperature. The mission is to accelerate research and development in quantum electronics labs. To fulfill the mission QDevil helps customers around the world by supplying world-class auxiliary electronics.
+
+- Headquarters: COPENHAGEN, DENMARK
+- Yearly Revenue (millions, USD): 2
+- Vendor Website: [here](https://qdevil.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="POWER_SUPPLIES" />
+
+## Connect to the Qdac 1 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="POWER_SUPPLIES" manufacturer="Qdevil"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes Community" label="QCodes Community">
+
+To connect to a Qdac 1 Power Supply using Qcodes Community, you can use the following code:
+
+```python
+from qcodes.instrument_drivers.QDevil.QDac import QDac
+
+# Create an instance of the QDac instrument
+qdac = QDac('qdac', 'TCPIP0::192.168.1.1::inst0::INSTR')
+
+# Print the IDN of the instrument
+print(qdac.IDN())
+
+# Set the voltage of channel 1 to 1V
+qdac.channels.ch01.v(1)
+
+# Get the voltage of channel 1
+voltage = qdac.channels.ch01.v()
+print(f"Voltage of channel 1: {voltage} V")
+
+# Close the connection to the instrument
+qdac.close()
+```
+
+Note: Replace `'TCPIP0::192.168.1.1::inst0::INSTR'` with the actual VISA address of your Qdac instrument.
+
+</TabItem>
+</Tabs>

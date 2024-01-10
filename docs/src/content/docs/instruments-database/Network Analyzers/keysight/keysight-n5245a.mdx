@@ -1,0 +1,70 @@
+---
+title: Connecting to Keysight N5245A by Keysight in Python
+description: The Keysight N5245A Network Analyzer provides a wide range of measurement applications for amplifiers, converters, antennas, or mixers with a single connection.
+keywords: [Network Analyzers, Keysight, QCodes] 
+slug: instruments-database/Network Analyzers/keysight/keysight-n5245a 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782682/Instruments/Network%20Analyzer/Keysight-N5245A/Keysight-N5245A.webp
+sidebar:
+    label: Keysight N5245A 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The Keysight N5245A Network Analyzer provides a wide range of measurement applications for amplifiers, converters, antennas, or mixers with a single connection.
+
+![Keysight N5245A](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782682/Instruments/Network%20Analyzer/Keysight-N5245A/Keysight-N5245A.webp)
+
+Device Specification: [here](https://xdevs.com/doc/HP_Agilent_Keysight/N5245-90001%20Service%20Guide%2C%20N5244A%20and%20N5245A%202-Port%20and%204-Port%20PNA-X%20Microwave%20Network%20Analyzers%20%5B456%5D.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: KEYSIGHT</h2></summary>
+
+![KEYSIGHT](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692125973/Instruments/Vendor%20Logos/Keysight.png)
+
+Keysight Technologies, or Keysight, is an American company that manufactures electronics test and measurement equipment and software
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5420
+- Vendor Website: [here](https://www.keysight.com/us/en/home.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="NETWORK_ANALYZERS" />
+
+## Connect to the Keysight N5245A in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="NETWORK_ANALYZERS" manufacturer="Keysight"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+```python
+import qcodes as qc
+from qcodes.instrument_drivers.Keysight.Keysight_N5245A import Keysight_N5245A
+
+# Connect to the instrument
+n5245a = Keysight_N5245A("n5245a", "TCPIP0::192.168.1.1::inst0::INSTR")
+
+# Print the instrument ID
+print(n5245a.IDN())
+
+# Close the connection
+n5245a.close()
+```
+
+This code imports the necessary modules and connects to the Keysight N5245A Network Analyzer using the `Keysight_N5245A` driver from the Qcodes library. It then prints the instrument ID and closes the connection.
+
+</TabItem>
+</Tabs>
