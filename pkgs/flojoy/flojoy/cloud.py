@@ -77,7 +77,6 @@ class Project(CloudModel):
 
 
 PlanType = Literal["hobby", "pro", "enterprise"]
-HttpMethod = Literal["GET", "POST", "PUT", "PATCH", "DELETE"]
 
 
 class Workspace(CloudModel):
@@ -208,11 +207,12 @@ class FlojoyCloud:
         return self.client.get(f"/devices/{device_id}")
 
     @query(model=TypeAdapter(list[Device]))
-    def get_all_devices_by_project_id(self, project_id: str):
-        return self.client.get(
-            "/devices",
-            params={"projectId": project_id},
-        )
+    def get_all_devices(self, workspace_id: str, project_id: Optional[str] = None):
+        params = {"workspaceId": workspace_id}
+        if project_id is not None:
+            params["projectId"] = project_id
+
+        return self.client.get("/devices", params=params)
 
     @query(model=Device)
     def delete_device_by_id(self, device_id: str):
@@ -283,6 +283,18 @@ class FlojoyCloud:
         return self.client.get(
             "/projects",
             params={"workspaceId": workspace_id},
+        )
+
+    @query(model=None)
+    def add_device_to_project(self, device_id: str, project_id: str):
+        return self.client.put(
+            f"/projects/{project_id}/devices/add/{device_id}",
+        )
+
+    @query(model=None)
+    def remove_device_from_project(self, device_id: str, project_id: str):
+        return self.client.delete(
+            f"/projects/{project_id}/devices/remove/{device_id}",
         )
 
     """Workspace Routes"""
