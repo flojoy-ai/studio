@@ -1,0 +1,495 @@
+{
+    "name": "Intro to Loops",
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 72,
+                "height": 72,
+                "id": "LOG-07f1112d-0e68-412c-874e-b62de4eb4e08",
+                "type": "ARITHMETIC",
+                "data": {
+                    "id": "LOG-07f1112d-0e68-412c-874e-b62de4eb4e08",
+                    "label": "LOG",
+                    "func": "LOG",
+                    "type": "ARITHMETIC",
+                    "ctrls": {
+                        "log_base": {
+                            "type": "select",
+                            "options": [
+                                "input",
+                                "e",
+                                "10",
+                                "2"
+                            ],
+                            "default": "e",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LOG",
+                            "param": "log_base",
+                            "value": "input"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "a",
+                            "id": "a",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "The input a use to compute the log of a."
+                        },
+                        {
+                            "name": "b",
+                            "id": "b",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": true,
+                            "desc": "The input b use to compute the log with base b."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the result of the logarithm.\n\nScalar if a is a Scalar.\nc: the result of the logarithm.\n\nVector if a is a Vector.\nv: the result of the logarithm."
+                        }
+                    ],
+                    "path": "MATH/ARITHMETIC/LOG/LOG.py"
+                },
+                "position": {
+                    "x": 536.127226910247,
+                    "y": 61.30048564745533
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 536.127226910247,
+                    "y": 61.30048564745533
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "CONSTANT-eb11eb65-6792-4c89-a2ac-a489ccfe5dfb",
+                "type": "DATA",
+                "data": {
+                    "id": "CONSTANT-eb11eb65-6792-4c89-a2ac-a489ccfe5dfb",
+                    "label": "3",
+                    "func": "CONSTANT",
+                    "type": "DATA",
+                    "ctrls": {
+                        "dc_type": {
+                            "type": "select",
+                            "options": [
+                                "Scalar",
+                                "Vector",
+                                "OrderedPair"
+                            ],
+                            "default": "OrderedPair",
+                            "desc": "The type of DataContainer to return.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "dc_type",
+                            "value": "Scalar"
+                        },
+                        "constant": {
+                            "type": "float",
+                            "default": 3,
+                            "desc": "The value of the y axis output.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "constant",
+                            "value": 3
+                        },
+                        "step": {
+                            "type": "float",
+                            "default": 1000,
+                            "desc": "The size of the y and x axes.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "step",
+                            "value": 1000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "multiple": false,
+                            "desc": "Optional input that defines the size of the output."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Vector|Scalar",
+                            "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
+                },
+                "position": {
+                    "x": 174.71466430745514,
+                    "y": 354.0344238670953
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 174.71466430745514,
+                    "y": 354.0344238670953
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 225,
+                "id": "LINE-f5fe8fa8-810c-4243-ae02-57e029818a28",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-f5fe8fa8-810c-4243-ae02-57e029818a28",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": 761.0278374669548,
+                    "y": -14.908699902106434
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 761.0278374669548,
+                    "y": -14.908699902106434
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "LINSPACE-e0e069e4-2231-4850-984b-8381c6675600",
+                "type": "DATA",
+                "data": {
+                    "id": "LINSPACE-e0e069e4-2231-4850-984b-8381c6675600",
+                    "label": "LINSPACE",
+                    "func": "LINSPACE",
+                    "type": "DATA",
+                    "ctrls": {
+                        "start": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "The start point of the data.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": 0
+                        },
+                        "end": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The end point of the data.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": 10
+                        },
+                        "step": {
+                            "type": "int",
+                            "default": 1000,
+                            "desc": "The number of points in the vector.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": 1000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "multiple": false,
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
+                },
+                "position": {
+                    "x": 164.6685427721214,
+                    "y": 41.51249406836007
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 164.6685427721214,
+                    "y": 41.51249406836007
+                },
+                "dragging": true
+            },
+            {
+                "width": 72,
+                "height": 72,
+                "id": "POWER-98cdbe2d-9e2c-4530-aa29-db31d7fab15b",
+                "type": "ARITHMETIC",
+                "data": {
+                    "id": "POWER-98cdbe2d-9e2c-4530-aa29-db31d7fab15b",
+                    "label": "POWER",
+                    "func": "POWER",
+                    "type": "ARITHMETIC",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "a",
+                            "id": "a",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "The input a used to compute a to the power of b."
+                        },
+                        {
+                            "name": "b",
+                            "id": "b",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": true,
+                            "desc": "The input b used to compute a to the power of b."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the result of a^b (or a**b).\n\nScalar if a is a Scalar.\nc: the result of a^b (or a**b).\n\nVector if a is a Vector.\nv: the result of a^b (or a**b)."
+                        }
+                    ],
+                    "path": "MATH/ARITHMETIC/POWER/POWER.py"
+                },
+                "position": {
+                    "x": 528.6108877861144,
+                    "y": 355.67633009555345
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 528.6108877861144,
+                    "y": 355.67633009555345
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 225,
+                "id": "LINE-aeb85ccf-a852-40cc-bded-ee964eeae686",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-aeb85ccf-a852-40cc-bded-ee964eeae686",
+                    "label": "LINE 1",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": 753.1025002972111,
+                    "y": 278.40602986815543
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 753.1025002972111,
+                    "y": 278.40602986815543
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "CONSTANT-eb11eb65-6792-4c89-a2ac-a489ccfe5dfb",
+                "sourceHandle": "default",
+                "target": "LOG-07f1112d-0e68-412c-874e-b62de4eb4e08",
+                "targetHandle": "b",
+                "id": "reactflow__edge-CONSTANT-eb11eb65-6792-4c89-a2ac-a489ccfe5dfbdefault-LOG-07f1112d-0e68-412c-874e-b62de4eb4e08b"
+            },
+            {
+                "source": "LINSPACE-e0e069e4-2231-4850-984b-8381c6675600",
+                "sourceHandle": "default",
+                "target": "LOG-07f1112d-0e68-412c-874e-b62de4eb4e08",
+                "targetHandle": "a",
+                "id": "reactflow__edge-LINSPACE-e0e069e4-2231-4850-984b-8381c6675600default-LOG-07f1112d-0e68-412c-874e-b62de4eb4e08a"
+            },
+            {
+                "source": "LOG-07f1112d-0e68-412c-874e-b62de4eb4e08",
+                "sourceHandle": "default",
+                "target": "LINE-f5fe8fa8-810c-4243-ae02-57e029818a28",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LOG-07f1112d-0e68-412c-874e-b62de4eb4e08default-LINE-f5fe8fa8-810c-4243-ae02-57e029818a28default"
+            },
+            {
+                "source": "LINSPACE-e0e069e4-2231-4850-984b-8381c6675600",
+                "sourceHandle": "default",
+                "target": "POWER-98cdbe2d-9e2c-4530-aa29-db31d7fab15b",
+                "targetHandle": "a",
+                "id": "reactflow__edge-LINSPACE-e0e069e4-2231-4850-984b-8381c6675600default-POWER-98cdbe2d-9e2c-4530-aa29-db31d7fab15ba"
+            },
+            {
+                "source": "CONSTANT-eb11eb65-6792-4c89-a2ac-a489ccfe5dfb",
+                "sourceHandle": "default",
+                "target": "POWER-98cdbe2d-9e2c-4530-aa29-db31d7fab15b",
+                "targetHandle": "b",
+                "id": "reactflow__edge-CONSTANT-eb11eb65-6792-4c89-a2ac-a489ccfe5dfbdefault-POWER-98cdbe2d-9e2c-4530-aa29-db31d7fab15bb"
+            },
+            {
+                "source": "POWER-98cdbe2d-9e2c-4530-aa29-db31d7fab15b",
+                "sourceHandle": "default",
+                "target": "LINE-aeb85ccf-a852-40cc-bded-ee964eeae686",
+                "targetHandle": "default",
+                "id": "reactflow__edge-POWER-98cdbe2d-9e2c-4530-aa29-db31d7fab15bdefault-LINE-aeb85ccf-a852-40cc-bded-ee964eeae686default"
+            }
+        ],
+        "viewport": {
+            "x": 596.4078106925898,
+            "y": 284.264848938833,
+            "zoom": 1.1129640394988185
+        },
+        "textNodes": [
+            {
+                "id": "TextNode-8b717d9b-272d-40a6-9dd8-942d6ffc227f",
+                "position": {
+                    "x": -76.12615774739446,
+                    "y": -211.88790565368888
+                },
+                "type": "TextNode",
+                "data": {
+                    "text": "bruhurhalskdjaskljdaklsjd"
+                },
+                "width": 200,
+                "height": 150,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -76.12615774739446,
+                    "y": -211.88790565368888
+                },
+                "dragging": false
+            }
+        ]
+    },
+    "textNodes": []
+}
