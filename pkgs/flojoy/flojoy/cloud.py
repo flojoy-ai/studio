@@ -288,13 +288,13 @@ class FlojoyCloud:
     @query(model=None)
     def add_device_to_project(self, device_id: str, project_id: str):
         return self.client.put(
-            f"/projects/{project_id}/devices/add/{device_id}",
+            f"/projects/{project_id}/devices/{device_id}",
         )
 
     @query(model=None)
     def remove_device_from_project(self, device_id: str, project_id: str):
         return self.client.delete(
-            f"/projects/{project_id}/devices/remove/{device_id}",
+            f"/projects/{project_id}/devices/{device_id}",
         )
 
     """Workspace Routes"""
