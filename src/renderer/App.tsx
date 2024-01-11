@@ -14,6 +14,7 @@ import { Index } from "./routes/index";
 import packageJson from "../../package.json";
 import EditorView from "./routes/editor/EditorView";
 import { initMixPanel } from "./services/MixpanelServices";
+import Auth from "./routes/auth/Auth";
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;
@@ -44,6 +45,7 @@ const App = () => {
         {/* <ElectronLogsDialog /> */}
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/" element={<Layout />}>
             <Route
               path="/flowchart"

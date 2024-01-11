@@ -39,4 +39,8 @@ export enum API {
   isCI = "IS_CI",
   getAllLogs = "GET_ALL_LOGS",
   openLink = "OPEN_LINK",
+  getUserProfiles = "GET_USER_PROFILES",
+  setUserProfile = "SET_USER_PROFILE",
+  setUserProfilePassword = "SET_USER_PROFILE_PASSWORD",
+  validatePassword = "VALIDATE_PASSWORD",
 }

@@ -12,6 +12,7 @@ import {
 } from "@src/hooks/useManifest";
 import { toast } from "sonner";
 import { useCustomSections } from "@src/hooks/useCustomBlockManifest";
+import { User } from "src/types/auth";
 
 type States = {
   programResults: NodeResult[];
@@ -21,6 +22,8 @@ type States = {
   failedNodes: Record<string, string>;
   socketId: string;
   logs: string[];
+  user: User | null;
+  setUser: Dispatch<SetStateAction<User | null>>;
 };
 
 export enum IServerStatus {
@@ -59,6 +62,7 @@ export const SocketContextProvider = ({
   const fetchManifest = useFetchManifest();
   const fetchMetadata = useFetchNodesMetadata();
   const setManifestChanged = useSetAtom(manifestChangedAtom);
+  const [user, setUser] = useState<User | null>(null);
 
   const handleStateChange =
     (state: keyof States) =>
@@ -68,6 +72,16 @@ export const SocketContextProvider = ({
         [state]: value,
       }));
     };
+
+  const authenticateUser = async () => {
+    const users = await window.api.getUserProfiles();
+    console.log("users: ", users);
+    setUser(users[0]);
+    // const loggedUser = users.find((u) => u.logged);
+    // if (loggedUser) {
+    //   setUser(loggedUser);
+    // }
+  };
 
   useEffect(() => {
     if (!socket) {
@@ -109,6 +123,9 @@ export const SocketContextProvider = ({
     setManifestChanged,
     handleImportCustomBlocks,
   ]);
+  useEffect(() => {
+    authenticateUser();
+  }, []);
   const values = useMemo(
     () => ({
       states: {
@@ -116,9 +133,11 @@ export const SocketContextProvider = ({
         programResults,
         setProgramResults,
         logs,
+        user,
+        setUser,
       },
     }),
-    [programResults, states, logs],
+    [programResults, states, logs, user, setUser],
   );
   return (
     <SocketContext.Provider value={values}>{children}</SocketContext.Provider>

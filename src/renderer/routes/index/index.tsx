@@ -275,7 +275,7 @@ export const Index = (): JSX.Element => {
     if (
       ![IServerStatus.OFFLINE, IServerStatus.CONNECTING].includes(serverStatus)
     ) {
-      navigate("/flowchart");
+      navigate("/auth");
     }
   }, [navigate, serverStatus]);
 

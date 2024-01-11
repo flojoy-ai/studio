@@ -32,6 +32,7 @@ import { DemoWarningTooltip } from "@src/components/ui/demo-warning-tooltip";
 import { DebugSettingsModal } from "./DebugSettingsModal";
 import DepManagerModal from "./DepManagerModal";
 import { Button } from "@src/components/ui/button";
+import ProfileMenu from "./user-profile/ProfileMenu";
 
 const ControlBar = () => {
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
@@ -159,6 +160,7 @@ const ControlBar = () => {
               </MenubarItem>
             </MenubarContent>
           </MenubarMenu>
+
           <Dialog>
             <DialogTrigger>
               <MenubarMenu>
@@ -190,7 +192,7 @@ const ControlBar = () => {
           </Dialog>
         </Menubar>
       </div>
-
+      <ProfileMenu />
       <DarkModeToggle />
     </div>
   );
