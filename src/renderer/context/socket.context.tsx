@@ -75,12 +75,8 @@ export const SocketContextProvider = ({
 
   const authenticateUser = async () => {
     const users = await window.api.getUserProfiles();
-    console.log("users: ", users);
-    setUser(users[0]);
-    // const loggedUser = users.find((u) => u.logged);
-    // if (loggedUser) {
-    //   setUser(loggedUser);
-    // }
+    const loggedUser = users.find((u) => u.logged);
+    setUser(loggedUser ?? users[0]);
   };
 
   useEffect(() => {
