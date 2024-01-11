@@ -18,7 +18,6 @@ import {
 import { cn } from "@src/lib/utils";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
 import { User } from "src/types/auth";
 type CreateUserProfileProps = {
   open: boolean;

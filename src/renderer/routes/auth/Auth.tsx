@@ -1,92 +1,61 @@
-import { Button } from "@src/components/ui/button";
-import { Input } from "@src/components/ui/input";
-import { Label } from "@src/components/ui/label";
+import ProfileBox from "@src/components/auth/ProfileBox";
+import useAuth from "@src/hooks/useAuth";
 import { useSocket } from "@src/hooks/useSocket";
-import { cn } from "@src/lib/utils";
-import { EyeIcon, EyeOffIcon } from "lucide-react";
-import React, { useEffect } from "react";
+import { PlusIcon } from "lucide-react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Auth = () => {
+const AuthPage = () => {
   const {
-    states: { user },
+    states: { user, setUser },
   } = useSocket();
-  const [errorMsg, setErrorMsg] = React.useState("");
-  const [hidePass, setHidePass] = React.useState(true);
-  const [password, setPassword] = React.useState("");
+  const { users } = useAuth();
+
   const navigate = useNavigate();
   const validateUser = async () => {
     if (!user) return;
-    if (!user?.password) {
+    if (!user.password) {
       navigate("/flowchart");
       window.api.setUserProfile(user.name);
     }
   };
-  const handleSubmit = async () => {
-    if (password === "" || !user) return;
-
-    const passMatched = await window.api.validatePassword(user.name, password);
-    if (!passMatched) {
-      setErrorMsg("Wrong password");
-      return;
-    }
-    window.api.setUserProfile(user.name);
-    navigate("/flowchart");
-  };
   useEffect(() => {
     validateUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  //   useEffect(() => {
-  //     authenticate();
-  //     // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   }, []);
   return (
-    <div className="flex h-screen w-screen items-center justify-center">
-      <div className="flex flex-col items-center rounded-md border bg-background p-5">
-        <h2 className="text-2xl">
-          Hi, <strong>{user?.name}</strong>!
-        </h2>
-        <p className="text-sm">Please enter your password to continue...</p>
-        <div className="flex w-full flex-col gap-4 py-4">
-          <div className="flex flex-col items-start gap-2">
-            <Label className="min-w-fit" htmlFor="password">
-              Password
-            </Label>
-            <div className="relative w-full">
-              <Input
-                className={cn({
-                  "border-red-400": errorMsg,
-                })}
-                type={hidePass ? "password" : "text"}
-                id="password"
-                name="password"
-                value={password}
-                onChange={(e) => {
-                  setErrorMsg("");
-                  setPassword(e.target.value);
-                }}
-                placeholder="Enter your password"
-              />
-              <div
-                className="absolute inset-y-0 right-0 flex items-center pr-2"
-                title={hidePass ? "Show password" : "Hide password"}
-                onClick={() => setHidePass((p) => !p)}
-              >
-                {hidePass ? (
-                  <EyeIcon className="cursor-pointer" />
-                ) : (
-                  <EyeOffIcon className="cursor-pointer" />
-                )}
-              </div>
+    <div className="flex h-screen w-screen flex-col items-center justify-center">
+      <div className="flex min-w-[400px] max-w-5xl flex-col items-center gap-4 rounded-md border bg-background p-6">
+        <div className="flex flex-col items-center justify-center gap-1 pb-3">
+          <img
+            src="/assets/logo.png"
+            alt="logo"
+            className="h-12 w-12 rounded-full"
+          />
+          <h3 className="text-2xl">Who's using Studio ?</h3>
+          <h6 className="px-5 text-sm">
+            With profiles you can control over all of your studio stuff like who
+            can edit block scripts, apps etc
+          </h6>
+        </div>
+        <div className="flex flex-wrap items-center justify-center gap-3 pb-5">
+          {!!users.length &&
+            users.map((u) => (
+              <ProfileBox key={u.name} user={u} setUser={setUser} />
+            ))}
+          <div
+            title="Add new profile"
+            className="flex h-56 w-52 cursor-pointer items-center justify-center gap-4 rounded-md border p-5 hover:bg-muted"
+          >
+            <div className="flex h-24 w-24 items-center justify-center rounded-full border bg-muted p-2">
+              <PlusIcon />
             </div>
-            {errorMsg && <p className="text-sm text-red-500">{errorMsg}</p>}
           </div>
         </div>
-        <Button onClick={handleSubmit}>Launch Studio</Button>
       </div>
     </div>
   );
 };
 
-export default Auth;
+export default AuthPage;

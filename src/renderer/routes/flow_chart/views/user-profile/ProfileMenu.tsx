@@ -8,27 +8,21 @@ import {
   DropdownMenuTrigger,
 } from "@src/components/ui/dropdown-menu";
 import { KeyIcon, UserPlus2 } from "lucide-react";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { PasswordModal } from "./PasswordModal";
 import { useSocket } from "@src/hooks/useSocket";
 import { getAlphabetAvatar } from "@src/utils/TextWrap";
 import { CreateUserProfile } from "./CreateProfileModal";
-import { User } from "src/types/auth";
+import useAuth from "@src/hooks/useAuth";
 
 const ProfileMenu = () => {
   const {
     states: { user, setUser },
   } = useSocket();
+  const { users } = useAuth();
   const [openPasswordModal, setOpenPasswordModal] = useState(false);
   const [openCreateModal, setOpenCreateModal] = useState(false);
-  const [users, setUsers] = useState<User[]>([]);
-  const fetchUsers = async () => {
-    const users = await window.api.getUserProfiles();
-    setUsers(users);
-  };
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+
   if (!user) return null;
   return (
     <Fragment>
@@ -36,18 +30,17 @@ const ProfileMenu = () => {
         <DropdownMenuTrigger>
           <Avatar>
             <AvatarFallback>
-              {getAlphabetAvatar(user?.name ?? "")}
+              {getAlphabetAvatar(user.name ?? "")}
             </AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>Admin</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          {!user?.password && (
-            <DropdownMenuItem onClick={() => setOpenPasswordModal(true)}>
-              <KeyIcon size={14} className="mr-2" /> Set a password
-            </DropdownMenuItem>
-          )}
+          <DropdownMenuItem onClick={() => setOpenPasswordModal(true)}>
+            <KeyIcon size={14} className="mr-2" />{" "}
+            {user.password ? "Change password" : "Set a password"}
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => setOpenCreateModal(true)}>
             <UserPlus2 size={14} className="mr-2" /> Create new profile
@@ -57,7 +50,7 @@ const ProfileMenu = () => {
           <DropdownMenuSeparator />
           {!!users.length &&
             users
-              .filter((u) => u.name !== user?.name)
+              .filter((u) => u.name !== user.name)
               .map((u) => (
                 <DropdownMenuItem key={u.name}>
                   <Avatar className="mr-2">

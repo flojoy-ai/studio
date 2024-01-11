@@ -1,6 +1,13 @@
 import { NodeResult } from "@src/routes/common/types/ResultsType";
 import { SetStateAction, useSetAtom } from "jotai";
-import { createContext, Dispatch, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { WebSocketServer } from "../web-socket/socket";
 import { v4 as UUID } from "uuid";
 import { SOCKET_URL } from "@src/data/constants";
@@ -13,6 +20,7 @@ import {
 import { toast } from "sonner";
 import { useCustomSections } from "@src/hooks/useCustomBlockManifest";
 import { User } from "src/types/auth";
+import useAuth from "@src/hooks/useAuth";
 
 type States = {
   programResults: NodeResult[];
@@ -63,6 +71,7 @@ export const SocketContextProvider = ({
   const fetchMetadata = useFetchNodesMetadata();
   const setManifestChanged = useSetAtom(manifestChangedAtom);
   const [user, setUser] = useState<User | null>(null);
+  const { users } = useAuth();
 
   const handleStateChange =
     (state: keyof States) =>
@@ -73,11 +82,10 @@ export const SocketContextProvider = ({
       }));
     };
 
-  const authenticateUser = async () => {
-    const users = await window.api.getUserProfiles();
+  const authenticateUser = useCallback(() => {
     const loggedUser = users.find((u) => u.logged);
     setUser(loggedUser ?? users[0]);
-  };
+  }, [users]);
 
   useEffect(() => {
     if (!socket) {
@@ -121,7 +129,7 @@ export const SocketContextProvider = ({
   ]);
   useEffect(() => {
     authenticateUser();
-  }, []);
+  }, [authenticateUser, users]);
   const values = useMemo(
     () => ({
       states: {
