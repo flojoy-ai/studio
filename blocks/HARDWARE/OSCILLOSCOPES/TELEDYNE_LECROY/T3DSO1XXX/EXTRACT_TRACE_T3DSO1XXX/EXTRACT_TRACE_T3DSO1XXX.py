@@ -69,7 +69,7 @@ def EXTRACT_TRACE_T3DSO1XXX(
         time_value.append(time_data)
 
     # Downsample base on user input
-    if type(resolution) is int:
+    if isinstance(resolution, int):
         assert resolution > 0, "Resolution must be greater than zero"
         if resolution > len(time_value):
             logging.warning(

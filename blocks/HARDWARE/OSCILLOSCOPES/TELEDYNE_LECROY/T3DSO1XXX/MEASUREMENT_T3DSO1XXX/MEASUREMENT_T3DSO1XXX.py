@@ -107,7 +107,6 @@ def MEASUREMENT_T3DSO1XXX(
 
         def is_statistic_enabled():
             scope.write("PACU FREQ,C1")
-            value = scope.query("PAVA? STAT1")
             return "STAT1:OFF" not in scope.query("PAVA? STAT1")
 
         if is_statistic_enabled():

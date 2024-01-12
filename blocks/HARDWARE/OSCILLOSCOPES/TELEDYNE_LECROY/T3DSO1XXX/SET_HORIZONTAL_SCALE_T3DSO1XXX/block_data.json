@@ -1,6 +1,6 @@
 {
   "docstring": {
-    "long_description": "Sets the horizontal sensitivity in Volts/div. \n\nRequires a CONNECT_T3DSO1XXX block at the start of the app to connect with\nthe instrument. The VISA address will then be listed under 'connection'.\n\nThis block should work with any Teledyne LeCroy T3DSO1000(A)-2000 series oscilloscope.",
+    "long_description": "Sets the horizontal sensitivity in Volts/div.\n\nRequires a CONNECT_T3DSO1XXX block at the start of the app to connect with\nthe instrument. The VISA address will then be listed under 'connection'.\n\nThis block should work with any Teledyne LeCroy T3DSO1000(A)-2000 series oscilloscope.",
     "short_description": "Sets the horizontal sensitivity in Volts/div of an T3DSO1000(A)-2000 oscilloscope.",
     "parameters": [
       {
