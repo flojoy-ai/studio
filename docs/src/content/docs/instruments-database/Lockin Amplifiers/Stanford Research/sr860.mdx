@@ -1,0 +1,77 @@
+---
+title: Connecting to SR860 by Stanford Research Systems in Python
+description: The new SR860 Lock-in Amplifier is the latest in a line of innovative lock-ins from SRS. With unparalleled analog performance, sophisticated new digital signal processing features, a thoroughly modern, intuitive user interface, and a wide range of computer connectivity options, the SR860 is the ideal choice for any synchronous detection application.
+keywords: [Lockin Amplifiers, Stanford Research Systems, QCodes] 
+slug: instruments-database/Lockin Amplifiers/Stanford Research/sr860 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782674/Instruments/Lockin%20Amplifiers/SR-860/SR-860.jpg
+sidebar:
+    label: SR860 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The new SR860 Lock-in Amplifier is the latest in a line of innovative lock-ins from SRS. With unparalleled analog performance, sophisticated new digital signal processing features, a thoroughly modern, intuitive user interface, and a wide range of computer connectivity options, the SR860 is the ideal choice for any synchronous detection application.
+
+![SR860](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782674/Instruments/Lockin%20Amplifiers/SR-860/SR-860.jpg)
+
+Device Specification: [here](https://www.thinksrs.com/downloads/pdfs/catalog/SR860c.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: STANFORD RESEARCH SYSTEMS</h2></summary>
+
+![STANFORD RESEARCH SYSTEMS](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806206/Instruments/Vendor%20Logos/Stanford_Research.png)
+
+Stanford Research Systems is a maker of general test and measurement instruments. The company was founded in 1980, is privately held, and is not affiliated with Stanford University.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 25
+- Vendor Website: [here](https://www.thinksrs.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="LOCKIN_AMPLIFIERS" />
+
+## Connect to the SR860 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="LOCKIN_AMPLIFIERS" manufacturer="Stanford Research Systems"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+```python
+from qcodes.instrument_drivers.stanford_research.SR86x import SR860
+
+# Create an instance of the SR860 lock-in amplifier
+lockin = SR860('lockin', 'TCPIP::192.168.1.1::INSTR')
+
+# Connect to the lock-in amplifier
+lockin.connect()
+
+# Perform operations with the lock-in amplifier
+# ...
+
+# Disconnect from the lock-in amplifier
+lockin.disconnect()
+```
+
+Explanation:
+1. Import the `SR860` class from the `qcodes.instrument_drivers.stanford_research.SR86x` module.
+2. Create an instance of the `SR860` lock-in amplifier with the name `'lockin'` and the specified IP address `'TCPIP::192.168.1.1::INSTR'`.
+3. Connect to the lock-in amplifier using the `connect()` method.
+4. Perform any desired operations with the lock-in amplifier.
+5. Disconnect from the lock-in amplifier using the `disconnect()` method.
+
+</TabItem>
+</Tabs>

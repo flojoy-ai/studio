@@ -1,0 +1,86 @@
+---
+title: Connecting to R&S SGS100A by Rohdes&Schwarz in Python
+description: The R&S®SGS100A is an RF source designed to meet the requirements of automated test systems. It is available as a CW source or as a vector signal generator with an integrated I/Q modulator. With its frequency range of up to 12.75 GHz, the vector signal generation version covers the essential digital signals. The CW version can be used as a flexible local oscillator and for interference testing against mobile radio standards.
+keywords: [Rf Signal Generators, Rohdes&Schwarz, QCodes] 
+slug: instruments-database/Rf Signal Generators/Rohde Schwarz/r&s-sgs100a 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782716/Instruments/RF%20Signal%20Generator/RS-SGS100A/RS-SGS100A.jpg
+sidebar:
+    label: R&S SGS100A 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The R&S®SGS100A is an RF source designed to meet the requirements of automated test systems. It is available as a CW source or as a vector signal generator with an integrated I/Q modulator. With its frequency range of up to 12.75 GHz, the vector signal generation version covers the essential digital signals. The CW version can be used as a flexible local oscillator and for interference testing against mobile radio standards.
+
+
+
+![R&S SGS100A](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782716/Instruments/RF%20Signal%20Generator/RS-SGS100A/RS-SGS100A.jpg)
+
+Device Specification: [here](/instruments-database/all-instruments)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: ROHDES&SCHWARZ</h2></summary>
+
+![ROHDES&SCHWARZ](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806194/Instruments/Vendor%20Logos/RohdeSchwarz.png)
+
+Rohde & Schwarz GmbH & Co KG is an international electronics group specializing in the fields of electronic test equipment, broadcast & media, cybersecurity, radiomonitoring and radiolocation, and radiocommunication.
+
+- Headquarters: Munich, Germany
+- Yearly Revenue (millions, USD): 2500
+- Vendor Website: [here](https://www.rohde-schwarz.com/ca/home_48230.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="RF_SIGNAL_GENERATORS" />
+
+## Connect to the R&S SGS100A in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="RF_SIGNAL_GENERATORS" manufacturer="Rohdes&Schwarz"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+Here is a Python script that uses Qcodes to connect to a R&S SGS100A RF Signal Generator:
+
+```python
+import qcodes as qc
+from qcodes.instrument_drivers.rohde_schwarz.SGS100A import RohdeSchwarzSGS100A
+
+# Create an instance of the instrument
+sg = RohdeSchwarzSGS100A('sg', 'TCPIP0::192.168.1.1::inst0::INSTR')
+
+# Connect to the instrument
+sg.connect()
+
+# Print the frequency of the signal generator
+print(sg.frequency())
+
+# Set the frequency to 1 GHz
+sg.frequency(1e9)
+
+# Turn on the RF output
+sg.on()
+
+# Turn off the RF output
+sg.off()
+
+# Disconnect from the instrument
+sg.disconnect()
+```
+
+Note: Replace `'TCPIP0::192.168.1.1::inst0::INSTR'` with the actual address of your signal generator.
+
+</TabItem>
+</Tabs>

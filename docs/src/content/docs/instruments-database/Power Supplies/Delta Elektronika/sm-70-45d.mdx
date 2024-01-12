@@ -1,0 +1,186 @@
+---
+title: Connecting to SM 70-45D by Delta Elektronika in Python
+description: The Delta Elektronika BV Model SM70-45D Programmable DC Power Supply 0-70V 0-45A
+keywords: [Power Supplies, Delta Elektronika, PyMeasure] 
+slug: instruments-database/Power Supplies/Delta Elektronika/sm-70-45d 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782486/Instruments/Power%20Supplies/SM-70-45D/SM-70-45D.jpg
+sidebar:
+    label: SM 70-45D 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The Delta Elektronika BV Model SM70-45D Programmable DC Power Supply 0-70V 0-45A
+
+![SM 70-45D](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782486/Instruments/Power%20Supplies/SM-70-45D/SM-70-45D.jpg)
+
+Device Specification: [here](/instruments-database/all-instruments)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: DELTA ELEKTRONIKA</h2></summary>
+
+![DELTA ELEKTRONIKA](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806158/Instruments/Vendor%20Logos/Delta_Elektronika.png)
+
+**Telonic Instruments** is one of the leading Suppliers of Kikusui, Rigol and Lab-Power power supplies and frequency converters.
+
+- Headquarters: UK
+- Yearly Revenue (millions, USD): 
+- Vendor Website: [here](https://telonic.co.uk/jg/wp-content/uploads/2021/05/Delta-SM800-Product-Manual.pdf)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="POWER_SUPPLIES" />
+
+## Connect to the SM 70-45D in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="POWER_SUPPLIES" manufacturer="Delta Elektronika"></SectionsCard>
+
+</TabItem>
+<TabItem value="PyMeasure" label="PyMeasure">
+
+Here is a Python script that uses Pymeasure to connect to a SM 70-45D Power Supply:
+
+```python
+from pymeasure.instruments import Instrument
+from pymeasure.instruments.validators import strict_range
+from time import sleep
+from numpy import linspace
+
+class SM7045D(Instrument):
+    """ This is the class for the SM 70-45 D power supply.
+    
+    ... (code omitted for brevity) ...
+    """
+
+    # Define the voltage and current ranges
+    VOLTAGE_RANGE = [0, 70]
+    CURRENT_RANGE = [0, 45]
+
+    # Define the instrument properties
+    voltage = Instrument.control(
+        "SO:VO?", "SO:VO %g",
+        """ A floating point property that represents the output voltage
+        setting of the power supply in Volts. This property can be set. """,
+        validator=strict_range,
+        values=VOLTAGE_RANGE
+    )
+
+    current = Instrument.control(
+        "SO:CU?", "SO:CU %g",
+        """ A floating point property that represents the output current of
+        the power supply in Amps. This property can be set. """,
+        validator=strict_range,
+        values=CURRENT_RANGE
+    )
+
+    max_voltage = Instrument.control(
+        "SO:VO:MA?", "SO:VO:MA %g",
+        """ A floating point property that represents the maximum output
+        voltage of the power supply in Volts. This property can be set. """,
+        validator=strict_range,
+        values=VOLTAGE_RANGE
+    )
+
+    max_current = Instrument.control(
+        "SO:CU:MA?", "SO:CU:MA %g",
+        """ A floating point property that represents the maximum output
+        current of the power supply in Amps. This property can be set. """,
+        validator=strict_range,
+        values=CURRENT_RANGE
+    )
+
+    measure_voltage = Instrument.measurement(
+        "ME:VO?",
+        """ Measures the actual output voltage of the power supply in
+        Volts. """,
+    )
+
+    measure_current = Instrument.measurement(
+        "ME:CU?",
+        """ Measures the actual output current of the power supply in
+        Amps. """,
+    )
+
+    rsd = Instrument.measurement(
+        "SO:FU:RSD?",
+        """ Check whether remote shutdown is enabled/disabled and thus if the
+        output of the power supply is disabled/enabled. """,
+    )
+
+    def __init__(self, adapter, name="Delta Elektronika SM 70-45 D", **kwargs):
+        super().__init__(
+            adapter,
+            name,
+            **kwargs
+        )
+
+    def enable(self):
+        """
+        Disable remote shutdown, hence output will be enabled.
+        """
+        self.write("SO:FU:RSD 0")
+
+    def disable(self):
+        """
+        Enables remote shutdown, hence input will be disabled.
+        """
+        self.write("SO:FU:RSD 1")
+
+    def ramp_to_current(self, target_current, current_step=0.1):
+        """
+        Gradually increase/decrease current to target current.
+
+        :param target_current: Float that sets the target current (in A)
+        :param current_step: Optional float that sets the current steps
+                             / ramp rate (in A/s)
+        """
+
+        curr = self.current
+        n = round(abs(curr - target_current) / current_step) + 1
+        for i in linspace(curr, target_current, n):
+            self.current = i
+            sleep(0.1)
+
+    def ramp_to_zero(self, current_step=0.1):
+        """
+        Gradually decrease the current to zero.
+
+        :param current_step: Optional float that sets the current steps
+                             / ramp rate (in A/s)
+        """
+
+        self.ramp_to_current(0, current_step)
+
+    def shutdown(self):
+        """
+        Set the current to 0 A and disable the output of the power source.
+        """
+        self.ramp_to_zero()
+        self.disable()
+        super().shutdown()
+
+# Connect to the power supply
+source = SM7045D("GPIB::8")
+
+# Example usage
+source.ramp_to_zero(1)               # Set output to 0 before enabling
+source.enable()                      # Enables the output
+source.current = 1                   # Sets a current of 1 Amps
+```
+
+This script defines a class `SM7045D` that represents the SM 70-45 D power supply. It provides methods to control the power supply, such as setting the voltage and current, enabling/disabling the output, and ramping the current up or down. The script also includes an example usage at the end, where it connects to the power supply and performs some operations.
+
+</TabItem>
+</Tabs>

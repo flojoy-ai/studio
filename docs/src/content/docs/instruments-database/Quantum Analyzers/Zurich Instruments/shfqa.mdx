@@ -1,0 +1,93 @@
+---
+title: Connecting to SHFQA by Zurich Instruments in Python
+description: The Zurich Instruments SHFQA Quantum Analyzer integrates in a single instrument a full real-time readout setup for up to 64 superconducting and spin qubits. The SHFQA operates in a frequency range from 0.5 to 8.5 GHz with a clean analysis bandwidth of 1 GHz and without the need for mixer calibration. Each of its 2 or 4 readout channels can analyze up to 16 qubits, 8 qutrits or 5 ququads
+keywords: [Quantum Analyzers, Zurich Instruments, QCodes] 
+slug: instruments-database/Quantum Analyzers/Zurich Instruments/shfqa 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782631/Instruments/Quantum%20Analyzer/SHFQA/SHFQA.webp
+sidebar:
+    label: SHFQA 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The Zurich Instruments SHFQA Quantum Analyzer integrates in a single instrument a full real-time readout setup for up to 64 superconducting and spin qubits. The SHFQA operates in a frequency range from 0.5 to 8.5 GHz with a clean analysis bandwidth of 1 GHz and without the need for mixer calibration. Each of its 2 or 4 readout channels can analyze up to 16 qubits, 8 qutrits or 5 ququads
+
+![SHFQA](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782631/Instruments/Quantum%20Analyzer/SHFQA/SHFQA.webp)
+
+Device Specification: [here](https://docs.zhinst.com/pdf/ziSHFQA_UserManual.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: ZURICH INSTRUMENTS</h2></summary>
+
+![ZURICH INSTRUMENTS](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806207/Instruments/Vendor%20Logos/Zurich_Instruments.png)
+
+Zurich Instruments Ltd. is a privately owned company developing and selling advanced test and measurement instruments equipped with software for dynamic signal analysis.
+
+- Headquarters: Switzerland
+- Yearly Revenue (millions, USD): 38
+- Vendor Website: [here](https://www.zhinst.com/americas/en)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="QUANTUM_ANALYZERS" />
+
+## Connect to the SHFQA in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="QUANTUM_ANALYZERS" manufacturer="Zurich Instruments"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+Here is an example Python script that uses Qcodes to connect to a SHFQA Quantum Analyzer:
+
+```python
+import qcodes as qc
+from qcodes.instrument_drivers.zhinst import SHFQA
+
+# Connect to the SHFQA Quantum Analyzer
+shfqa = SHFQA("shfqa", "dev1234")
+
+# Print the available QA channels
+print(shfqa.qachannels())
+
+# Configure the first QA channel
+channel = shfqa.qachannels[0]
+channel.configure_channel(
+    input_range=0,
+    output_range=0,
+    center_frequency=5e9,
+    mode="spectroscopy"
+)
+
+# Run the spectroscopy measurement
+channel.spectroscopy.run()
+
+# Wait for the measurement to finish
+channel.spectroscopy.wait_done()
+
+# Read the measurement data
+data = channel.spectroscopy.read()
+
+# Print the measurement data
+print(data)
+
+# Disconnect from the SHFQA Quantum Analyzer
+shfqa.close()
+```
+
+Note: Replace `"dev1234"` with the actual serial number of your SHFQA Quantum Analyzer.
+
+</TabItem>
+</Tabs>
