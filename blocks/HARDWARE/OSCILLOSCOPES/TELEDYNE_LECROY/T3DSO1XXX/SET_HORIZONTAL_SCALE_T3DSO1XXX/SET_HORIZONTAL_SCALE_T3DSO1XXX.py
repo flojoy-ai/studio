@@ -11,7 +11,7 @@ def SET_HORIZONTAL_SCALE_T3DSO1XXX(
 ) -> Optional[DataContainer]:
     """Sets the horizontal sensitivity in Volts/div of an T3DSO1000(A)-2000 oscilloscope.
 
-    Sets the horizontal sensitivity in Volts/div. 
+    Sets the horizontal sensitivity in Volts/div.
 
     Requires a CONNECT_T3DSO1XXX block at the start of the app to connect with
     the instrument. The VISA address will then be listed under 'connection'.
