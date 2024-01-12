@@ -1,0 +1,101 @@
+---
+title: Connecting to K10CR1 by Thorlabs in Python
+description: The Kinesis K10CR1 is a compact, precision motorized rotation mount that accepts Ø1" optics and SM1-threaded components. It is also compatible with our 30 mm cage systems (and 60 mm cage systems when used with adapter K10CR1A3)
+keywords: [Motor Controllers, Thorlabs, QCodes Community] 
+slug: instruments-database/motor-controllers/thorlabs/k10cr1 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782544/Instruments/Motion/K10CR1/K10CR1.jpg
+sidebar:
+    label: K10CR1 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The Kinesis K10CR1 is a compact, precision motorized rotation mount that accepts
+Ø1" optics and SM1-threaded components. It is also compatible with our 30 mm cage
+systems (and 60 mm cage systems when used with adapter K10CR1A3)
+
+![K10CR1](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782544/Instruments/Motion/K10CR1/K10CR1.jpg)
+
+Device Specification: [here](https://www.thorlabs.com/_sd.cfm?fileName=ETN015302-D02.pdf&partNumber=K10CR1/M)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: THORLABS</h2></summary>
+
+![THORLABS](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692126009/Instruments/Vendor%20Logos/Thorlabs.png)
+
+Thorlabs, Inc. is an American privately held optical equipment company headquartered in Newton, New Jersey. The company was founded in 1989 by Alex Cable, who serves as its current president and CEO. As of 2018, Thorlabs has annual sales of approximately $500 million.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 550
+- Vendor Website: [here](https://www.thorlabs.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="MOTOR_CONTROLLERS" />
+
+## Connect to the K10CR1 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="MOTOR_CONTROLLERS" manufacturer="Thorlabs"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes Community" label="QCodes Community">
+
+To connect to a K10CR1 Motion using Qcodes Community, you can use the following Python script:
+
+```python
+import qcodes as qc
+from qcodes.instrument_drivers.Thorlabs import Thorlabs_K10CR1
+
+# Connect to the Thorlabs K10CR1 instrument
+k10cr1 = Thorlabs_K10CR1("k10cr1", device_id=1, apt=apt)
+
+# Print the hardware information of the device
+print(k10cr1.get_idn())
+
+# Set the position of the rotator
+k10cr1.position(90)
+
+# Get the current position of the rotator
+print(k10cr1.position())
+
+# Set the minimum velocity of the rotator
+k10cr1.velocity_min(1)
+
+# Get the minimum velocity of the rotator
+print(k10cr1.velocity_min())
+
+# Move the rotator in the forward direction
+k10cr1.move_direction(Thorlabs_K10CR1.RotationDirection.FORWARD)
+
+# Stop the rotator
+k10cr1.stop()
+
+# Move the rotator to the home position
+k10cr1.move_home()
+
+# Enable the rotator
+k10cr1.enable()
+
+# Disable the rotator
+k10cr1.disable()
+
+# Disconnect from the instrument
+k10cr1.close()
+```
+
+Note: Make sure to replace `device_id=1` with the appropriate device ID for your setup.
+
+</TabItem>
+</Tabs>

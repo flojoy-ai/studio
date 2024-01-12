@@ -1,0 +1,126 @@
+---
+title: Connecting to PL068-P by Aimtti in Python
+description: Bench/System Linear Regulated DC Power Supply Single Output, 6V/8A, USB, RS232, LAN(LXI) and Analogue interfaces
+keywords: [Power Supplies, Aimtti, QCodes] 
+slug: instruments-database/power-supplies/aimtti/pl068-p 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782490/Instruments/Power%20Supplies/PL068-P/PL068-P.jpg
+sidebar:
+    label: PL068-P 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+Bench/System Linear Regulated DC Power Supply Single Output, 6V/8A, USB, RS232, LAN(LXI) and Analogue interfaces
+
+
+![PL068-P](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782490/Instruments/Power%20Supplies/PL068-P/PL068-P.jpg)
+
+Device Specification: [here](https://resources.aimtti.com/datasheets/AIM-PL+PL-P_series_DC_power_supplies_data_sheet-Iss5.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: AIMTTI</h2></summary>
+
+![AIMTTI](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692125963/Instruments/Vendor%20Logos/Aimtti.png)
+
+TTi (Thurlby Thandar Instruments) is a leading manufacturer of electronic test and measurement instruments. These products are sold throughout the world via carefully selected distributors and agents in each country. We are located in Huntingdon near to the famous university city of Cambridge, within one of the high technology areas of the United Kingdom.
+
+- Headquarters: UK
+- Yearly Revenue (millions, USD): 9000
+- Vendor Website: [here](https://www.aimtti.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="POWER_SUPPLIES" />
+
+## Connect to the PL068-P in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="POWER_SUPPLIES" manufacturer="Aimtti"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+Here is a Python script that uses Qcodes to connect to a PL068-P Power Supply:
+
+```python
+from qcodes.instrument.visa import VisaInstrument
+from qcodes.instrument.channel import ChannelList
+from qcodes.instrument.parameter import Parameter
+from qcodes import validators as vals
+
+
+class AimTTiChannel(Parameter):
+    def __init__(self, parent, name, channel):
+        super().__init__(name, label=name, unit='', get_cmd=None, set_cmd=None)
+        self.parent = parent
+        self.channel = channel
+
+    def get_raw(self):
+        return self.parent.ask(f"V{self.channel}?")
+
+    def set_raw(self, value):
+        self.parent.write(f"V{self.channel} {value}")
+
+
+class AimTTi(VisaInstrument):
+    def __init__(self, name, address):
+        super().__init__(name, address)
+        self.channels = ChannelList(self, "Channels", AimTTiChannel, snapshotable=False)
+        self.add_submodule("channels", self.channels)
+
+        self.add_parameter(
+            "output",
+            get_cmd="OP?",
+            set_cmd="OP {}",
+            val_mapping={0: 'off', 1: 'on'}
+        )
+
+        self.add_parameter(
+            "voltage",
+            get_cmd="V?",
+            set_cmd="V {}",
+            get_parser=float,
+            set_parser=float,
+            unit="V",
+            vals=vals.Numbers(0, 30)
+        )
+
+        self.connect_message()
+
+    def get_idn(self):
+        return {'vendor': 'Aim', 'model': 'PL068-P', 'serial': '1234', 'firmware': '1.0'}
+
+    def get_address(self):
+        return 1
+
+
+aim_tti = AimTTi("aim_tti", "TCPIP::192.168.1.1::INSTR")
+print(aim_tti.get_idn())
+print(aim_tti.get_address())
+print(aim_tti.channels)
+print(aim_tti.voltage())
+aim_tti.voltage(10)
+print(aim_tti.voltage())
+aim_tti.output('on')
+print(aim_tti.output())
+```
+
+This script creates a custom `AimTTiChannel` class that inherits from `Parameter` and represents a single channel of the Aim TTi power supply. It also creates a `AimTTi` class that inherits from `VisaInstrument` and represents the entire power supply instrument.
+
+The `AimTTi` class defines parameters for the output state (`output`) and voltage (`voltage`). It also overrides the `get_idn` and `get_address` methods to provide the identification and address information of the power supply.
+
+The script creates an instance of the `AimTTi` class, connects to the power supply at the specified address, and demonstrates how to use the defined parameters to get and set values.
+
+</TabItem>
+</Tabs>

@@ -1,0 +1,81 @@
+---
+title: Connecting to ATS 545 by Temptronic in Python
+description: Advanced Temperature Source for fast and precise thermal conditioning of components, parts, hybrids, modules, sub-assemblies, and printed circuit boards.
+keywords: [Temperature Controllers, Temptronic, PyMeasure] 
+slug: instruments-database/temperature-controllers/temptronic/ats-545 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782427/Instruments/Temperature%20Controllers/ATS-545/ATS-545.webp
+sidebar:
+    label: ATS 545 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+Advanced Temperature Source for fast and precise thermal conditioning of components, parts, hybrids, modules, sub-assemblies, and printed circuit boards.
+
+![ATS 545](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782427/Instruments/Temperature%20Controllers/ATS-545/ATS-545.webp)
+
+Device Specification: [here](https://maximinstruments.com/pdf_files/TEMPTRONIC_ATS_545M_Datasheet.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: TEMPTRONIC</h2></summary>
+
+![TEMPTRONIC](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806163/Instruments/Vendor%20Logos/Temptronic.png)
+
+**Temptronic** temperature forcing systems, are designed for testing and characterization of semiconductors, ICs, chips, electronics, and materials
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 19
+- Vendor Website: [here](https://www.intestthermal.com/temptronic)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="TEMPERATURE_CONTROLLERS" />
+
+## Connect to the ATS 545 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="TEMPERATURE_CONTROLLERS" manufacturer="Temptronic"></SectionsCard>
+
+</TabItem>
+<TabItem value="PyMeasure" label="PyMeasure">
+
+
+```python
+from pymeasure.instruments.temptronic.temptronic_ats545 import ATS545
+
+# Connect to the ATS 545 Temperature Controller
+ts = ATS545('ASRL3::INSTR')  # Replace 'ASRL3::INSTR' with the appropriate adapter address
+
+# Configure the Temperature Controller
+ts.configure()  # Basic configuration (defaults to T-DUT)
+
+# Start the flow
+ts.start()  # Starts the flow (head position not changed)
+
+# Set the temperature to 25 degrees Celsius
+ts.set_temperature(25)  # Sets the temperature to 25 degC
+
+# Wait for the temperature to settle
+ts.wait_for_settling()  # Blocks script execution and polls for settling
+
+# Shutdown the Temperature Controller
+ts.shutdown(head=False)  # Disables the thermostream, keeps head down
+```
+
+This script connects to the ATS 545 Temperature Controller using the specified adapter address. It then configures the Temperature Controller, starts the flow, sets the temperature to 25 degrees Celsius, waits for the temperature to settle, and finally shuts down the Temperature Controller.
+
+Note: Make sure to replace `'ASRL3::INSTR'` with the appropriate adapter address for your setup.
+
+</TabItem>
+</Tabs>

@@ -1,0 +1,84 @@
+---
+title: Connecting to DS345 by Stanford Research Systems in Python
+description: The DS345 Function Generator is a full-featured 30 MHz synthesized function generator that uses an innovative Direct Digital Synthesis (DDS) architecture. It generates many standard waveforms with excellent frequency resolution (1 µHz), and has versatile modulation capabilities including AM, FM, Burst, PM and frequency sweeps. It also generates arbitrary waveforms with a fast 40 Msample/s update rate.
+keywords: [Function Generators, Stanford Research Systems, InstrumentKit] 
+slug: instruments-database/function-generators/srs/ds345 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782645/Instruments/Function%20Generators/DS345/DS345.jpg
+sidebar:
+    label: DS345 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The DS345 Function Generator is a full-featured 30 MHz synthesized function generator that uses an innovative Direct Digital Synthesis (DDS) architecture. It generates many standard waveforms with excellent frequency resolution (1 µHz), and has versatile modulation capabilities including AM, FM, Burst, PM and frequency sweeps. It also generates arbitrary waveforms with a fast 40 Msample/s update rate.
+
+![DS345](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782645/Instruments/Function%20Generators/DS345/DS345.jpg)
+
+Device Specification: [here](https://www.thinksrs.com/downloads/pdfs/catalog/DS345c.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: STANFORD RESEARCH SYSTEMS</h2></summary>
+
+![STANFORD RESEARCH SYSTEMS](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806206/Instruments/Vendor%20Logos/Stanford_Research.png)
+
+Stanford Research Systems is a maker of general test and measurement instruments. The company was founded in 1980, is privately held, and is not affiliated with Stanford University. Stanford Research Systems manufactures all of their products at their Sunnyvale, California facility.
+
+- Headquarters: Sunnyvale, California
+- Yearly Revenue (millions, USD): 24.9
+- Vendor Website: [here](https://www.thinksrs.com/index.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="FUNCTION_GENERATORS" />
+
+## Connect to the DS345 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="FUNCTION_GENERATORS" manufacturer="Stanford Research Systems"></SectionsCard>
+
+</TabItem>
+<TabItem value="InstrumentKit" label="InstrumentKit">
+
+To connect to a DS345 Function Generator using Instrumentkit, you can use the following Python script:
+
+```python
+import instrumentkit as ik
+import instrumentkit.devices.srs as srs
+import instrumentkit.units as u
+
+# Connect to the DS345 Function Generator
+srs345 = srs.SRS345.open_gpib('/dev/ttyUSB0', 1)
+
+# Set the output frequency to 1 MHz
+srs345.frequency = 1 * u.MHz
+
+# Get the offset voltage
+offset_voltage = srs345.offset
+
+# Set the output function to triangle
+srs345.function = srs345.Function.triangle
+```
+
+This script imports the necessary modules from Instrumentkit (`instrumentkit`), as well as the specific module for the SRS DS345 Function Generator (`instrumentkit.srs`). It also imports the units module (`instrumentkit.units`) for specifying the frequency and voltage units.
+
+The script then connects to the DS345 Function Generator using the `open_gpib` method, specifying the device path (`/dev/ttyUSB0`) and the GPIB address (1).
+
+After connecting, it sets the output frequency to 1 MHz by assigning the desired frequency to the `frequency` property of the `srs345` object.
+
+Next, it retrieves the offset voltage by accessing the `offset` property of the `srs345` object.
+
+Finally, it sets the output function to triangle by assigning the `srs345.Function.triangle` value to the `function` property of the `srs345` object.
+
+</TabItem>
+</Tabs>
