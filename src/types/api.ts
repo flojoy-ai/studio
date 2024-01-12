@@ -45,4 +45,5 @@ export enum API {
   setUserProfilePassword = "SET_USER_PROFILE_PASSWORD",
   validatePassword = "VALIDATE_PASSWORD",
   createUserProfile = "CREATE_USER_PROFILE",
+  deleteUserProfile = "DELETE_USER_PROFILE",
 }

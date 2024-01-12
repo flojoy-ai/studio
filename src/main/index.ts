@@ -48,6 +48,8 @@ import {
 } from "./python/poetry";
 import { createEditorWindow, createWindow } from "./window";
 import {
+  createUserProfile,
+  deleteUserProfile,
   getUsers,
   setUserProfile,
   setUserProfilePassword,
@@ -197,6 +199,8 @@ app.whenReady().then(async () => {
   ipcMain.on(API.setUserProfile, setUserProfile);
   ipcMain.handle(API.setUserProfilePassword, setUserProfilePassword);
   ipcMain.handle(API.validatePassword, validatePassword);
+  ipcMain.handle(API.createUserProfile, createUserProfile);
+  ipcMain.handle(API.deleteUserProfile, deleteUserProfile);
 });
 
 app.on("window-all-closed", async () => {

@@ -15,10 +15,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@src/components/ui/select";
+import { useAuth } from "@src/context/auth.context";
 import { cn } from "@src/lib/utils";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
-import { User } from "src/types/auth";
+import { toast } from "sonner";
+import { Roles, User } from "../../../types/auth";
 type CreateUserProfileProps = {
   open: boolean;
   handleOpenChange: (open: boolean) => void;
@@ -27,19 +29,27 @@ export function CreateUserProfile({
   open,
   handleOpenChange,
 }: CreateUserProfileProps) {
+  const { users, refreshUsers } = useAuth();
   const [hidePass, setHidePass] = useState(true);
   const [data, setData] = useState<User>({
     name: "",
     password: "",
-    role: "Moderator",
+    role: Roles.codeOnly,
   });
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState({
+    name: "",
+    password: "",
+  } as const);
   const handleInputChange =
     (key: keyof typeof data, value?: string) =>
     (e?: React.ChangeEvent<HTMLInputElement>) => {
-      setErrorMsg("");
+      setErrorMsg({ name: "", password: "" });
       setData((prev) => ({ ...prev, [key]: value ? value : e?.target.value }));
     };
+
+  const updateErrorMsg = (key: keyof typeof errorMsg, value: string) => {
+    setErrorMsg((prev) => ({ ...prev, [key]: value }));
+  };
   const isStrongPassword = (password: string) => {
     const regex = /^(?=.*\d).{8,}$/;
     return regex.test(password);
@@ -48,11 +58,30 @@ export function CreateUserProfile({
   const handleSubmit = async () => {
     if (data.password) {
       if (!isStrongPassword(data.password)) {
-        setErrorMsg(
+        updateErrorMsg(
+          "password",
           "Password should be 8 characters long and contain at least one number!",
         );
         return;
       }
+    }
+    if (!data.name) {
+      updateErrorMsg("name", "User name is required!");
+      return;
+    }
+    if (!data.role) return;
+    const nameExists = users.find((u) => u.name === data.name);
+    if (nameExists) {
+      updateErrorMsg("name", "User name already exists!");
+      return;
+    }
+    try {
+      await window.api.createUserProfile(data);
+      toast.message("User profile created successfully!");
+      refreshUsers();
+      handleOpenChange(false);
+    } catch (error) {
+      toast.error("Failed to create user profile, reason: " + String(error));
     }
     return;
   };
@@ -69,7 +98,7 @@ export function CreateUserProfile({
             </Label>
             <Input
               className={cn({
-                "border-red-400": errorMsg,
+                "border-red-400": errorMsg["name"],
               })}
               id="profile_user_name"
               placeholder="Enter a user name"
@@ -77,6 +106,9 @@ export function CreateUserProfile({
               value={data.name}
               onChange={handleInputChange("name")}
             />
+            {errorMsg["name"] && (
+              <p className="text-sm text-red-400">{errorMsg["name"]}</p>
+            )}
           </div>
           <div className="flex flex-col items-start gap-2">
             <Label className="min-w-fit" htmlFor="profile_user_password">
@@ -85,7 +117,7 @@ export function CreateUserProfile({
             <div className="relative w-full">
               <Input
                 className={cn({
-                  "border-red-400": errorMsg,
+                  "border-red-400": errorMsg["password"],
                 })}
                 type={hidePass ? "password" : "text"}
                 id="profile_user_password"
@@ -106,11 +138,15 @@ export function CreateUserProfile({
                 )}
               </div>
             </div>
+            {errorMsg["password"] && (
+              <p className="text-sm text-red-400">{errorMsg["password"]}</p>
+            )}
           </div>
           <div className="flex flex-col items-start gap-2">
             <Label className="min-w-fit" htmlFor="re_typed_password">
               Role
             </Label>
+
             <Select onValueChange={(v) => handleInputChange("role", v)}>
               <SelectTrigger>
                 <SelectValue
@@ -119,7 +155,9 @@ export function CreateUserProfile({
                 />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Moderator">Moderator</SelectItem>
+                {Object.values(Roles).map((role) => (
+                  <SelectItem value={role}>{role}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>

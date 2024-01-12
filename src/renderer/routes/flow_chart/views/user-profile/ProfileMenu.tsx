@@ -10,19 +10,20 @@ import {
 import { KeyIcon, UserPlus2 } from "lucide-react";
 import { Fragment, useState } from "react";
 import { PasswordModal } from "./PasswordModal";
-import { useSocket } from "@src/hooks/useSocket";
 import { getAlphabetAvatar } from "@src/utils/TextWrap";
-import { CreateUserProfile } from "./CreateProfileModal";
-import useAuth from "@src/hooks/useAuth";
+import { CreateUserProfile } from "../../../../components/common/CreateProfileModal";
+import { useAuth } from "@src/context/auth.context";
+import { Roles } from "@root/types/auth";
+import { useNavigate } from "react-router-dom";
 
 const ProfileMenu = () => {
-  const {
-    states: { user, setUser },
-  } = useSocket();
-  const { users } = useAuth();
+  const { users, user, setUser } = useAuth();
+  const navigate = useNavigate();
   const [openPasswordModal, setOpenPasswordModal] = useState(false);
   const [openCreateModal, setOpenCreateModal] = useState(false);
-
+  const handleSwitchUser = () => {
+    navigate(`/auth/user`);
+  };
   if (!user) return null;
   return (
     <Fragment>
@@ -35,30 +36,28 @@ const ProfileMenu = () => {
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuLabel>Admin</DropdownMenuLabel>
+          <DropdownMenuLabel>{user.role}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => setOpenPasswordModal(true)}>
-            <KeyIcon size={14} className="mr-2" />{" "}
-            {user.password ? "Change password" : "Set a password"}
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => setOpenCreateModal(true)}>
-            <UserPlus2 size={14} className="mr-2" /> Create new profile
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuLabel>Other profiles</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          {!!users.length &&
-            users
-              .filter((u) => u.name !== user.name)
-              .map((u) => (
-                <DropdownMenuItem key={u.name}>
-                  <Avatar className="mr-2">
-                    <AvatarFallback>{getAlphabetAvatar(u.name)}</AvatarFallback>
-                  </Avatar>
-                  {u.name}
-                </DropdownMenuItem>
-              ))}
+          {user.role === Roles.admin && (
+            <>
+              <DropdownMenuItem onClick={() => setOpenPasswordModal(true)}>
+                <KeyIcon size={14} className="mr-2" />{" "}
+                {user.password ? "Change password" : "Set a password"}
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+            </>
+          )}
+          {user.role === Roles.admin && (
+            <DropdownMenuItem onClick={() => setOpenCreateModal(true)}>
+              <UserPlus2 size={14} className="mr-2" /> Create new profile
+            </DropdownMenuItem>
+          )}
+
+          {!!users.length && (
+            <DropdownMenuItem onClick={() => handleSwitchUser()}>
+              Switch user profile
+            </DropdownMenuItem>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
       {openPasswordModal && (

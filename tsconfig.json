@@ -18,6 +18,7 @@
     "noImplicitAny": false,
     "baseUrl": ".",
     "paths": {
+      "@root/*": ["src/*"],
       "@src/*": ["src/renderer/*"],
       "@feature/*": ["src/renderer/routes/*"],
       "@hooks/*": ["src/renderer/hooks/*"],

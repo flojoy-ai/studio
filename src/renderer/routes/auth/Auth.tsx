@@ -1,20 +1,21 @@
+import { useAuth } from "@src/context/auth.context";
 import ProfileBox from "@src/components/auth/ProfileBox";
-import useAuth from "@src/hooks/useAuth";
-import { useSocket } from "@src/hooks/useSocket";
+
 import { PlusIcon } from "lucide-react";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { CreateUserProfile } from "@root/renderer/components/common/CreateProfileModal";
+import { Roles } from "@root/types/auth";
 
 const AuthPage = () => {
-  const {
-    states: { user, setUser },
-  } = useSocket();
-  const { users } = useAuth();
+  const { user, users, setUser } = useAuth();
+  const [openCreateProfile, setOpenCreateProfile] = useState(false);
+  const { username } = useParams();
 
   const navigate = useNavigate();
   const validateUser = async () => {
     if (!user) return;
-    if (!user.password) {
+    if (!user.password && !username) {
       navigate("/flowchart");
       window.api.setUserProfile(user.name);
     }
@@ -42,18 +43,34 @@ const AuthPage = () => {
         <div className="flex flex-wrap items-center justify-center gap-3 pb-5">
           {!!users.length &&
             users.map((u) => (
-              <ProfileBox key={u.name} user={u} setUser={setUser} />
+              <ProfileBox
+                key={u.name}
+                user={u}
+                setUser={setUser}
+                currentUser={user ?? users[0]}
+                showPassOption={
+                  username ? u.name !== user?.name : u.name === user?.name
+                }
+                startup={username ? false : true}
+              />
             ))}
-          <div
-            title="Add new profile"
-            className="flex h-56 w-52 cursor-pointer items-center justify-center gap-4 rounded-md border p-5 hover:bg-muted"
-          >
-            <div className="flex h-24 w-24 items-center justify-center rounded-full border bg-muted p-2">
-              <PlusIcon />
+          {user?.role === Roles.admin && username && (
+            <div
+              onClick={() => setOpenCreateProfile(true)}
+              title="Add new profile"
+              className="flex h-56 w-52 cursor-pointer items-center justify-center gap-4 rounded-md border p-5 hover:bg-muted"
+            >
+              <div className="flex h-24 w-24 items-center justify-center rounded-full border bg-muted p-2">
+                <PlusIcon />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
+      <CreateUserProfile
+        open={openCreateProfile}
+        handleOpenChange={setOpenCreateProfile}
+      />
     </div>
   );
 };

@@ -1,13 +1,6 @@
 import { NodeResult } from "@src/routes/common/types/ResultsType";
 import { SetStateAction, useSetAtom } from "jotai";
-import {
-  createContext,
-  Dispatch,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { createContext, Dispatch, useEffect, useMemo, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";
 import { v4 as UUID } from "uuid";
 import { SOCKET_URL } from "@src/data/constants";
@@ -19,8 +12,6 @@ import {
 } from "@src/hooks/useManifest";
 import { toast } from "sonner";
 import { useCustomSections } from "@src/hooks/useCustomBlockManifest";
-import { User } from "src/types/auth";
-import useAuth from "@src/hooks/useAuth";
 
 type States = {
   programResults: NodeResult[];
@@ -30,8 +21,6 @@ type States = {
   failedNodes: Record<string, string>;
   socketId: string;
   logs: string[];
-  user: User | null;
-  setUser: Dispatch<SetStateAction<User | null>>;
 };
 
 export enum IServerStatus {
@@ -70,8 +59,6 @@ export const SocketContextProvider = ({
   const fetchManifest = useFetchManifest();
   const fetchMetadata = useFetchNodesMetadata();
   const setManifestChanged = useSetAtom(manifestChangedAtom);
-  const [user, setUser] = useState<User | null>(null);
-  const { users } = useAuth();
 
   const handleStateChange =
     (state: keyof States) =>
@@ -81,11 +68,6 @@ export const SocketContextProvider = ({
         [state]: value,
       }));
     };
-
-  const authenticateUser = useCallback(() => {
-    const loggedUser = users.find((u) => u.logged);
-    setUser(loggedUser ?? users[0]);
-  }, [users]);
 
   useEffect(() => {
     if (!socket) {
@@ -127,9 +109,7 @@ export const SocketContextProvider = ({
     setManifestChanged,
     handleImportCustomBlocks,
   ]);
-  useEffect(() => {
-    authenticateUser();
-  }, [authenticateUser, users]);
+
   const values = useMemo(
     () => ({
       states: {
@@ -137,11 +117,9 @@ export const SocketContextProvider = ({
         programResults,
         setProgramResults,
         logs,
-        user,
-        setUser,
       },
     }),
-    [programResults, states, logs, user, setUser],
+    [programResults, states, logs],
   );
   return (
     <SocketContext.Provider value={values}>{children}</SocketContext.Provider>

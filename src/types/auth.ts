@@ -1,6 +1,11 @@
+export enum Roles {
+  admin = "Admin",
+  codeOnly = "Code-only",
+}
+
 export type User = {
   name: string;
-  role: "Admin" | "Moderator";
+  role: Roles;
   password?: string;
   logged?: boolean;
 };

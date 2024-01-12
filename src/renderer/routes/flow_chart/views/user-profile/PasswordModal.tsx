@@ -9,7 +9,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import useAuth from "@src/hooks/useAuth";
+import ConfirmPrompt from "@src/components/common/ConfirmPrompt";
+import { useAuth } from "@src/context/auth.context";
 import { cn } from "@src/lib/utils";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
@@ -183,35 +184,9 @@ export function PasswordModal({
         open={openConfirmPrompt}
         handleOpenChange={setOpenConfirmPrompt}
         handleConfirm={handleDisablePassword}
+        description="This will reset and disable current password for this profile"
+        confirmBtnText="Disable"
       />
     </>
   );
 }
-
-const ConfirmPrompt = (props: {
-  open: boolean;
-  handleOpenChange: (open: boolean) => void;
-  handleConfirm: () => void;
-}) => {
-  const { open, handleOpenChange, handleConfirm } = props;
-  return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Are you sure?</DialogTitle>
-          <DialogDescription>
-            This will reset and disable current password for this profile
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter>
-          <Button variant="outline" onClick={() => handleOpenChange(false)}>
-            Cancel
-          </Button>
-          <Button variant="destructive" onClick={handleConfirm}>
-            Disable
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  );
-};

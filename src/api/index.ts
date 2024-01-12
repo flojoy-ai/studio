@@ -90,4 +90,8 @@ export default {
     ipcRenderer.invoke(API.setUserProfilePassword, username, password),
   validatePassword: (username: string, password: string): Promise<boolean> =>
     ipcRenderer.invoke(API.validatePassword, username, password),
+  createUserProfile: (user: User) =>
+    ipcRenderer.invoke(API.createUserProfile, user),
+  deleteUserProfile: (username: string, currentUser: User): Promise<void> =>
+    ipcRenderer.invoke(API.deleteUserProfile, username, currentUser),
 };
