@@ -17,7 +17,7 @@ import { Roles } from "@root/types/auth";
 import { useNavigate } from "react-router-dom";
 
 const ProfileMenu = () => {
-  const { users, user, setUser } = useAuth();
+  const { user, setUser } = useAuth();
   const navigate = useNavigate();
   const [openPasswordModal, setOpenPasswordModal] = useState(false);
   const [openCreateModal, setOpenCreateModal] = useState(false);
@@ -53,11 +53,9 @@ const ProfileMenu = () => {
             </DropdownMenuItem>
           )}
 
-          {!!users.length && (
-            <DropdownMenuItem onClick={() => handleSwitchUser()}>
-              Switch user profile
-            </DropdownMenuItem>
-          )}
+          <DropdownMenuItem onClick={() => handleSwitchUser()}>
+            Switch user profile
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       {openPasswordModal && (

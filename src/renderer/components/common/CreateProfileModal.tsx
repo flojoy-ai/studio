@@ -156,7 +156,9 @@ export function CreateUserProfile({
               </SelectTrigger>
               <SelectContent>
                 {Object.values(Roles).map((role) => (
-                  <SelectItem value={role}>{role}</SelectItem>
+                  <SelectItem key={role} value={role}>
+                    {role}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
