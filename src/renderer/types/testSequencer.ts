@@ -16,12 +16,16 @@ export type Test = {
 };
 
 export type Conditional = {
+  type: "conditional";
+  conditional_type: CONDITIONAL_TYPES;
+  role: ROLE_TYPES;
   id: string;
-  type: CONDITIONAL_TYPES;
+  groupId: string;
   condition: string;
 };
 
+export type ROLE_TYPES = "start" | "between" | "end"; //for example, "if" is a "start", "else" is a "between" and "end" is an "end"
 export type CONDITIONAL_TYPES = "if" | "else" | "elif" | "end";
-export const CONDITIONALS = ["if", "else", "elif", "end"];
+export const CONDITIONALS = ["if"];
 
 export type TestSequenceElement = Test | Conditional;

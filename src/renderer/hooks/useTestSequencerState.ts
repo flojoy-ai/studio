@@ -1,6 +1,11 @@
 import { useAtom } from "jotai";
-import { Conditional, Test } from "@src/types/testSequencer";
+import {
+  Conditional,
+  Test,
+  TestSequenceElement,
+} from "@src/types/testSequencer";
 import { atomWithImmer } from "jotai-immer";
+import { useRef } from "react";
 
 export const elements = atomWithImmer<(Test | Conditional)[]>([
   {
@@ -45,10 +50,60 @@ export const elements = atomWithImmer<(Test | Conditional)[]>([
   },
 ]);
 
+const validateElements = (elems: TestSequenceElement[]): boolean => {
+  const conditional_stack: string[] = [];
+  for (let i = 0; i < elems.length; i++) {
+    const elem = elems[i];
+    if (elem.type === "conditional") {
+      switch (elem.role) {
+        case "start":
+          conditional_stack.push(elem.groupId);
+          break;
+        case "between":
+          if (
+            conditional_stack.length == 0 ||
+            conditional_stack.at(-1) !== elem.groupId
+          )
+            return false;
+          break;
+        case "end":
+          if (conditional_stack.at(-1) !== elem.groupId) return false;
+          conditional_stack.pop();
+          break;
+      }
+    }
+  }
+  return true;
+};
+
 export function useTestSequencerState() {
   const [elems, setElements] = useAtom(elements);
+
+  // wrapper around setElements to check if elems is valid
+  function setElems(elems: TestSequenceElement[]);
+  function setElems(fn: (elems: TestSequenceElement[]) => TestSequenceElement);
+  function setElems(p: any) {
+    let candidateElems;
+
+    //handle overloads
+    if (Array.isArray(p)) {
+      candidateElems = p;
+    } else if (typeof p === "function") {
+      candidateElems = p(elems);
+    }
+
+    //validate new elements
+    if (!validateElements(candidateElems)) {
+      setElements(prevElems.current);
+    } else {
+      prevElems.current = candidateElems;
+      setElements(candidateElems);
+    }
+  }
+
+  const prevElems = useRef(elems);
   return {
     elems,
-    setElements,
+    setElems,
   };
 }

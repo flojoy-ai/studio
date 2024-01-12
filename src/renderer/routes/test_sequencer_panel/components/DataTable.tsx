@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
 import {
   ContextMenu,
   ContextMenuContent,
@@ -39,13 +38,25 @@ import {
 import {
   TestSequenceElement,
   CONDITIONAL_TYPES,
+  Conditional,
+  Test,
 } from "@src/types/testSequencer";
 import { useTestSequencerState } from "@src/hooks/useTestSequencerState";
 import { parseInt, filter } from "lodash";
 import { AddConditionalModal } from "./AddConditionalModal";
+import {
+  generateConditional,
+  getIndentLevels,
+  handleConditionalDelete,
+} from "../utils/ConditionalUtils";
 
 export function DataTable() {
-  const { elems, setElements } = useTestSequencerState();
+  const { elems, setElems } = useTestSequencerState();
+  // const indentLevels = React.useMemo(() => {
+  //   return getIndentLevels(elems);
+  // }, [elems]);
+
+  const indentLevels = getIndentLevels(elems);
 
   const columns: ColumnDef<TestSequenceElement>[] = [
     {
@@ -71,9 +82,48 @@ export function DataTable() {
       enableHiding: false,
     },
     {
-      accessorKey: "test_name",
+      accessorFn: (elem, idx) => {
+        console.log(idx);
+        return elem.type === "test" ? "test_name" : "conditional_type";
+      },
       header: "Test name",
-      cell: ({ row }) => <div>{row.getValue("test_name")}</div>,
+      cell: ({ row }) => {
+        const isTest = row.original.type === "test";
+        return isTest ? (
+          <div className="flex h-full space-x-2">
+            {/* Indent levels */}
+            <div className="flex flex-row space-x-1">
+              {Array.from({ length: indentLevels[row.id] }).map((_, index) => (
+                <div
+                  key={index}
+                  style={{ borderLeft: "1px solid black" }}
+                  className="h-full"
+                >
+                  |
+                </div>
+              ))}
+            </div>
+
+            {(row.original as Test).test_name}
+          </div>
+        ) : (
+          <div className="flex flex-row space-x-2">
+            {/* Indent levels */}
+            <div className="flex flex-row space-x-1">
+              {Array.from({ length: indentLevels[row.id] }).map((_, index) => (
+                <div
+                  key={index}
+                  style={{ borderLeft: "1px solid black" }}
+                  className="h-full"
+                >
+                  |
+                </div>
+              ))}
+            </div>
+            {(row.original as Conditional).conditional_type}
+          </div>
+        );
+      },
     },
     {
       accessorKey: "run_in_parallel",
@@ -120,7 +170,7 @@ export function DataTable() {
       enableHiding: false,
       cell: ({ row }) => {
         const onUpClick = () => {
-          setElements((data) => {
+          setElems((data) => {
             const new_data = [...data];
             const index = parseInt(row.id);
             if (index == 0) return data;
@@ -130,7 +180,7 @@ export function DataTable() {
           });
         };
         const onDownClick = () => {
-          setElements((data) => {
+          setElems((data) => {
             const new_data = [...data];
             const index = parseInt(row.id);
             if (index == data.length) return data;
@@ -159,10 +209,19 @@ export function DataTable() {
   const data = elems; // this is necessary for some reason for the table to work no idea why
 
   const onRemoveTest = (testIdx: number) => {
-    console.log("lol", testIdx);
-    setElements((data) => {
-      return filter(data, (_, idx) => idx != testIdx);
-    });
+    //case 1: removing a test
+    switch (elems[testIdx].type) {
+      case "test":
+        setElems((data) => {
+          return filter(data, (_, idx) => idx != testIdx);
+        });
+        break;
+      case "conditional":
+        handleConditionalDelete(elems[testIdx] as Conditional, setElems);
+        break;
+    }
+
+    //case 2:
   };
 
   const table = useReactTable({
@@ -189,13 +248,16 @@ export function DataTable() {
   const addConditionalAfterIdx = React.useRef(-1);
 
   const handleAddConditionalModal = (type: CONDITIONAL_TYPES) => {
-    setElements((data) => {
+    setElems((data) => {
       const new_data = [...data];
-      return new_data.splice(addConditionalAfterIdx.current, 0, {
-        id: uuidv4(), // generate id
-        type: type,
-        condition: "",
-      });
+      console.log(new_data);
+      console.log(addConditionalAfterIdx.current);
+      new_data.splice(
+        addConditionalAfterIdx.current,
+        0,
+        ...generateConditional(type),
+      );
+      return new_data;
     });
   };
 

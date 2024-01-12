@@ -44,10 +44,8 @@ const getCompletionTime = (data: TestSequenceElement[]) => {
 };
 
 const getSuccessRate = (data: TestSequenceElement[]): number => {
-  return (
-    filter(getOnlyTests(data), (elem) => elem.status == "pass").length /
-    data.length
-  );
+  const tests = getOnlyTests(data);
+  return filter(tests, (elem) => elem.status == "pass").length / tests.length;
 };
 
 export function SummaryTable() {
