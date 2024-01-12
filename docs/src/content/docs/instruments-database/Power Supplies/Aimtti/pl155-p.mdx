@@ -1,0 +1,88 @@
+---
+title: Connecting to PL155-P by Aimtti in Python
+description: Bench/System Linear Regulated DC Power Supply Single Output, 15V/5A, USB, RS232, LAN(LXI) and Analogue Interfaces
+keywords: [Power Supplies, Aimtti, QCodes] 
+slug: instruments-database/power-supplies/aimtti/pl155-p 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782760/Instruments/Power%20Supplies/PL155-P/PL155-P.jpg
+sidebar:
+    label: PL155-P 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+Bench/System Linear Regulated DC Power Supply Single Output, 15V/5A, USB, RS232, LAN(LXI) and Analogue Interfaces
+
+
+![PL155-P](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782760/Instruments/Power%20Supplies/PL155-P/PL155-P.jpg)
+
+Device Specification: [here](https://resources.aimtti.com/datasheets/AIM-PL+PL-P_series_DC_power_supplies_data_sheet-Iss5.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: AIMTTI</h2></summary>
+
+![AIMTTI](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692125963/Instruments/Vendor%20Logos/Aimtti.png)
+
+TTi (Thurlby Thandar Instruments) is a leading manufacturer of electronic test and measurement instruments. These products are sold throughout the world via carefully selected distributors and agents in each country. We are located in Huntingdon near to the famous university city of Cambridge, within one of the high technology areas of the United Kingdom.
+
+- Headquarters: UK
+- Yearly Revenue (millions, USD): 9000
+- Vendor Website: [here](https://www.aimtti.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="POWER_SUPPLIES" />
+
+## Connect to the PL155-P in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="POWER_SUPPLIES" manufacturer="Aimtti"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+Here is a Python script that uses Qcodes to connect to a PL155-P Power Supply:
+
+```python
+from qcodes.instrument.visa import VisaInstrument
+from qcodes.instrument.channel import ChannelList
+
+class AimTTiChannel(VisaInstrument):
+    # Define the parameters and methods for the channel
+
+class AimTTi(VisaInstrument):
+    # Define the parameters and methods for the power supply
+
+# Create an instance of the power supply
+power_supply = AimTTi('power_supply', 'TCPIP::192.168.1.1::INSTR')
+
+# Print the identification of the power supply
+print(power_supply.get_idn())
+
+# Access the channels of the power supply
+channels = power_supply.channels
+
+# Print the voltage of channel 1
+print(channels.ch1.volt())
+
+# Set the voltage of channel 1 to 5V
+channels.ch1.volt(5)
+
+# Close the connection to the power supply
+power_supply.close()
+```
+
+Note: Replace `'TCPIP::192.168.1.1::INSTR'` with the actual VISA resource address of your PL155-P Power Supply.
+
+</TabItem>
+</Tabs>
