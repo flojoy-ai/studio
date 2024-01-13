@@ -1,0 +1,92 @@
+---
+title: Connecting to ANC 350 PIEZO Controller by Attocube in Python
+description: multi-functional piezo controller for closed loop positioners
+keywords: [Motor Controllers, Attocube, QCodes Community] 
+slug: instruments-database/motor-controllers/attocube/anc-350-piezo-controller 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782675/Instruments/Positional%20Controller/ANC-350-PIEZO-Controller/ANC-350-PIEZO-Controller.jpg
+sidebar:
+    label: ANC 350 PIEZO Controller 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+multi-functional piezo controller for closed loop positioners
+
+![ANC 350 PIEZO Controller](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782675/Instruments/Positional%20Controller/ANC-350-PIEZO-Controller/ANC-350-PIEZO-Controller.jpg)
+
+Device Specification: [here](https://www.attocube.com/downloads/anc350-piezo-motion-und-readout-controller.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: ATTOCUBE</h2></summary>
+
+![ATTOCUBE](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806147/Instruments/Vendor%20Logos/Attocube.png)
+
+**Attocube** is a leading pioneer for nanotechnology solutions in precision motion and nanopositioning applications, cryogenic microscopy,
+
+- Headquarters: Germany
+- Yearly Revenue (millions, USD): 14
+- Vendor Website: [here](https://www.attocube.com/en)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="MOTOR_CONTROLLERS" />
+
+## Connect to the ANC 350 PIEZO Controller in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="MOTOR_CONTROLLERS" manufacturer="Attocube"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes Community" label="QCodes Community">
+
+Here is an example Python script that uses Qcodes Community to connect to an ANC350 PIEZO Controller Positional Controller:
+
+```python
+import qcodes as qc
+from qcodes.instrument_drivers.attocube.ANC350 import ANC350, ANC350v3Lib
+
+# Create an instance of the ANC350v3Lib library
+lib = ANC350v3Lib()
+
+# Create an instance of the ANC350 instrument
+anc350 = ANC350("anc350", lib)
+
+# Connect to the ANC350 device
+anc350.connect()
+
+# Print the device information
+print(anc350.get_idn())
+
+# Access the individual axis channels
+x_axis = anc350.axis_channels.x_axis
+y_axis = anc350.axis_channels.y_axis
+z_axis = anc350.axis_channels.z_axis
+
+# Set the frequency of the x-axis to 1000 Hz
+x_axis.frequency(1000)
+
+# Set the amplitude of the y-axis to 50 V
+y_axis.amplitude(50)
+
+# Move the z-axis to a target position of 10 mm
+z_axis.target_position(10)
+
+# Close the connection to the ANC350 device
+anc350.close()
+```
+
+Note: Make sure to install the required dependencies (`qcodes` and `pyanc350`) before running the script.
+
+</TabItem>
+</Tabs>

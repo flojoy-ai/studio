@@ -1,0 +1,83 @@
+---
+title: Connecting to Keithley 2400 by Keithley in Python
+description: Keithley’s Standard Series 2400 Source Measure Unit (SMU) Instruments offer four-quadrant precision voltage and current source/load coupled with measurement. Each SMU instrument is both a highly stable DC power source and a true instrument-grade 6½-digit multimeter. The power source characteristics include low noise, precision, and readback. The multimeter capabilities include high repeatability and low noise.
+keywords: [Power Supplies, Keithley, PyMeasure] 
+slug: instruments-database/power-supplies/keithley/keithley-2400 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782492/Instruments/Power%20Supplies/Keithley-2400/Keithley-2400.webp
+sidebar:
+    label: Keithley 2400 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+Keithley’s Standard Series 2400 Source Measure Unit (SMU) Instruments offer four-quadrant precision voltage and current source/load coupled with measurement. Each SMU instrument is both a highly stable DC power source and a true instrument-grade 6½-digit multimeter. The power source characteristics include low noise, precision, and readback. The multimeter capabilities include high repeatability and low noise.
+
+![Keithley 2400](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782492/Instruments/Power%20Supplies/Keithley-2400/Keithley-2400.webp)
+
+Device Specification: [here](https://www.testequipmenthq.com/datasheets/KEITHLEY-2400-Datasheet.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: KEITHLEY</h2></summary>
+
+![KEITHLEY](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806202/Instruments/Vendor%20Logos/Keithley.png)
+
+Keithley Instruments is a measurement and instrument company headquartered in Solon, Ohio, that develops, manufactures, markets, and sells data acquisition products, as well as complete systems for high-volume production and assembly testing.
+
+- Headquarters: Cleveland, Ohio, United States
+- Yearly Revenue (millions, USD): 110.6
+- Vendor Website: [here](https://www.tek.com/en)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="POWER_SUPPLIES" />
+
+## Connect to the Keithley 2400 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="POWER_SUPPLIES" manufacturer="Keithley"></SectionsCard>
+
+</TabItem>
+<TabItem value="PyMeasure" label="PyMeasure">
+
+
+```python
+from pymeasure.instruments.keithley import Keithley2400
+
+# Connect to the Keithley 2400
+keithley = Keithley2400("GPIB::1")
+
+# Configure the measurement settings
+keithley.measure_voltage()
+keithley.voltage_range = 10
+keithley.voltage_nplc = 1
+
+# Enable the source and set the voltage
+keithley.enable_source()
+keithley.source_voltage = 5
+
+# Perform a measurement
+voltage = keithley.voltage
+print("Measured voltage:", voltage)
+
+# Disable the source and disconnect from the instrument
+keithley.disable_source()
+keithley.disconnect()
+```
+
+This script connects to a Keithley 2400 Power Supply using the GPIB interface (replace "GPIB::1" with the appropriate address for your setup). It configures the instrument to measure voltage, sets the voltage range and integration time, enables the source, sets the desired voltage, performs a measurement, and then disables the source and disconnects from the instrument.
+
+Note: Make sure you have the `pymeasure` package installed before running this script.
+
+</TabItem>
+</Tabs>

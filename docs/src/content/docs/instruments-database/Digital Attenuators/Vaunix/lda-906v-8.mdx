@@ -1,0 +1,81 @@
+---
+title: Connecting to LDA-906V-8 by Vaunix in Python
+description: The LDA906V-8 Digital Attenuator is a highly accurate, bidirectional, 8-channel step attenuator. It provides calibrated attenuation from 200 to 6000 MHz with an amazing step size of 0.1 dB and typical accuracy < 0.25 dB over 90 dB of control range. This Digital Attenuator is an easily portable USB powered device and is sized to fit into a single rack unit for ATE applications. It can be used with WiMAX, 3G, 4G, 5G, LTE, DVB and microwave radio fading simulators as well as in engineering and production test labs.
+keywords: [Digital Attenuators, Vaunix, QCodes Community] 
+slug: instruments-database/digital-attenuators/vaunix/lda-906v-8 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782584/Instruments/Digital%20Attenuator/LDA-908V-8/LDA-908V-8.png
+sidebar:
+    label: LDA-906V-8 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The LDA906V-8 Digital Attenuator is a highly accurate, bidirectional, 8-channel step attenuator. It provides calibrated attenuation from 200 to 6000 MHz with an amazing step size of 0.1 dB and typical accuracy < 0.25 dB over 90 dB of control range. This Digital Attenuator is an easily portable USB powered device and is sized to fit into a single rack unit for ATE applications. It can be used with WiMAX, 3G, 4G, 5G, LTE, DVB and microwave radio fading simulators as well as in engineering and production test labs.
+
+![LDA-906V-8](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782584/Instruments/Digital%20Attenuator/LDA-908V-8/LDA-908V-8.png)
+
+Device Specification: [here](https://vaunix.com/resources/digital%20attenuators-datasheet.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: VAUNIX</h2></summary>
+
+![VAUNIX](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692125985/Instruments/Vendor%20Logos/Vaunix.png)
+
+Vaunix Technology Corp. designs, manufactures, and services RF and microwave test equipment and digital radio communications products. Utilizing our deep RF and software engineering expertise, rooted in microwave radio and wireless equipment repair and testing, Vaunix developed the Lab Brick® family of electronic test products, which set a new standard for cost, size, and simplicity of wireless testing devices. Powered by a USB connection and controlled by easy-to-use, graphical-user-interface (GUI) software, Lab Bricks have been designed to meet the needs of wireless engineers and technicians who want to create flexible, customized system solutions either in the lab or in the field. We 've expanded our Lab Brick® family of electronic test products to include Attenuator Matrix solutions that double as Wireless [Handover Test Systems](https://vaunix.com/handover-test-systems/) to give our test technicians and product engineers the advanced capability to solve unique wireless _handover _testing challenges and bring affordability, functionality, reliability and simplicity to the microwave test bench.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5
+- Vendor Website: [here](https://vaunix.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="DIGITAL_ATTENUATORS" />
+
+## Connect to the LDA-906V-8 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="DIGITAL_ATTENUATORS" manufacturer="Vaunix"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes Community" label="QCodes Community">
+
+Here is a Python script that uses Qcodes Community to connect to a LDA-906V-8 Digital Attenuator:
+
+```python
+from qcodes import Station
+from qcodes_contrib_drivers.drivers.Vaunix_LDA import LDA
+
+# Create a station to hold the instrument
+station = Station()
+
+# Connect to the LDA-906V-8 Digital Attenuator
+lda = LDA('lda', serial_number=906, dll_path='path/to/dll')
+
+# Add the LDA to the station
+station.add_component(lda)
+
+# Print the IDN of the LDA
+print(lda.get_idn())
+
+# Set the attenuation to 10 dB on channel 1
+lda.ch1.attenuation(10)
+
+# Close the connection to the LDA
+lda.close()
+```
+
+Make sure to replace `'path/to/dll'` with the actual path to the DLL file for the LDA-906V-8 Digital Attenuator.
+
+</TabItem>
+</Tabs>

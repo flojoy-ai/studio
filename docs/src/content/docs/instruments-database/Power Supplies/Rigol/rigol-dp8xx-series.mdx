@@ -1,0 +1,96 @@
+---
+title: Connecting to Rigol DP8xx-Series by Rigol in Python
+description: The DP800 Series Power Supplies combine the ability to source, analyze, and coordinate over time on a powerful platform. The DP800 Series is a family of linear power supplies systems with 1, 2, or 3 outputs and 140 to 200 Watts in total. With one channel isolated users can reconfigure instruments into any number of systems or applications. Built in V, A, and W measurements make power monitoring easy, but additional wave tracking, timing, and analysis features in the advanced "A" models means there are even more ways to use the instruments. Digital triggering between instruments also makes it possible to reliably combine and connect supplies together. Intuitive to use for everything from education labs to the R & D bench, the DP800 family of power supplies provide incredible value for any application. Select the value models for best price performance or upgrade to the "A" model to improve resolution and add advanced monitoring, triggering, and programming capabilities.
+keywords: [Power Supplies, Rigol, QCodes] 
+slug: instruments-database/power-supplies/rigol/rigol-dp8xx-series 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782754/Instruments/Power%20Supplies/Rigol-DP8xx-Series/Rigol-DP8xx-Series.jpg
+sidebar:
+    label: Rigol DP8xx-Series 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The DP800 Series Power Supplies combine the ability to source, analyze, and coordinate over time on a powerful platform. The DP800 Series is a family of linear power supplies systems with 1, 2, or 3 outputs and 140 to 200 Watts in total. With one channel isolated users can reconfigure instruments into any number of systems or applications. Built in V, A, and W measurements make power monitoring easy, but additional wave tracking, timing, and analysis features in the advanced "A" models means there are even more ways to use the instruments. Digital triggering between instruments also makes it possible to reliably combine and connect supplies together. Intuitive to use for everything from education labs to the R & D bench, the DP800 family of power supplies provide incredible value for any application. Select the value models for best price performance or upgrade to the "A" model to improve resolution and add advanced monitoring, triggering, and programming capabilities.
+
+![Rigol DP8xx-Series](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782754/Instruments/Power%20Supplies/Rigol-DP8xx-Series/Rigol-DP8xx-Series.jpg)
+
+Device Specification: [here](https://www.batronix.com/files/Rigol/Labornetzteile/DP800/DP800_-datasheet-2022.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: RIGOL</h2></summary>
+
+![RIGOL](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806170/Instruments/Vendor%20Logos/Rigol.png)
+
+RIGOL Technologies, Inc. specializes in development and production of test and measuring equipment and is one of the fastest growing Chinese companies in this sphere.
+RIGOL’s line of products includes [digital storage oscilloscopes](https://www.tmatlantic.com/e-store/index.php?SECTION_ID=227), [function/arbitrary waveform generators](https://www.tmatlantic.com/e-store/index.php?SECTION_ID=230), [digital multimeters](https://www.tmatlantic.com/e-store/index.php?SECTION_ID=233), PC-based devices compatible with LXI standard etc.
+
+- Headquarters: Beijing, China
+- Yearly Revenue (millions, USD): 23
+- Vendor Website: [here](https://www.rigol.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="POWER_SUPPLIES" />
+
+## Connect to the Rigol DP8xx-Series in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="POWER_SUPPLIES" manufacturer="Rigol"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+Here's an example Python script that uses Qcodes to connect to a Rigol DP8xx-Series Power Supply:
+
+```python
+from qcodes.instrument_drivers.rigol.DP8xx import DP832
+
+# Create an instance of the DP832 power supply
+power_supply = DP832("power_supply", "USB0::0x1AB1::0x0E11::DP8C203600050::INSTR")
+
+# Connect to the power supply
+power_supply.connect()
+
+# Print the installed options
+print(power_supply.installed_options())
+
+# Set the voltage and current for channel 1
+power_supply.ch1.set_voltage(3.0)
+power_supply.ch1.set_current(1.0)
+
+# Enable the output for channel 1
+power_supply.ch1.state(True)
+
+# Read the measured voltage and current for channel 1
+voltage = power_supply.ch1.voltage()
+current = power_supply.ch1.current()
+
+# Print the measured voltage and current
+print(f"Measured Voltage: {voltage} V")
+print(f"Measured Current: {current} A")
+
+# Disconnect from the power supply
+power_supply.disconnect()
+```
+
+This script creates an instance of the `DP832` class from the `qcodes.instrument_drivers.rigol.DP8xx` module. It then connects to the power supply using the specified address (in this case, a USB connection). The installed options are printed using the `installed_options()` method.
+
+The voltage and current for channel 1 are set using the `set_voltage()` and `set_current()` methods. The output for channel 1 is enabled using the `state()` method.
+
+The measured voltage and current for channel 1 are read using the `voltage()` and `current()` methods. The values are then printed.
+
+Finally, the script disconnects from the power supply using the `disconnect()` method.
+
+</TabItem>
+</Tabs>

@@ -1,0 +1,83 @@
+---
+title: Connecting to TDS5XX by Tektronix in Python
+
+keywords: [Oscilloscopes, Tektronix, InstrumentKit] 
+slug: instruments-database/oscilloscopes/tektronix/tds5xx 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782600/Instruments/Oscilloscopes/TDS5XX/TDS5XX.jpg
+sidebar:
+    label: TDS5XX 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+
+
+![TDS5XX](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782600/Instruments/Oscilloscopes/TDS5XX/TDS5XX.jpg)
+
+Device Specification: [here](/instruments-database/all-instruments)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: TEKTRONIX</h2></summary>
+
+![TEKTRONIX](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806108/Instruments/Vendor%20Logos/Tektronix.png)
+
+Tektronix, Inc., historically widely known as Tek, is an American company best known for manufacturing test and measurement devices such as [oscilloscopes](https://en.wikipedia.org/wiki/Oscilloscope), [logic analyzers](https://en.wikipedia.org/wiki/Logic_analyzer), and video and mobile test protocol equipment.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5800
+- Vendor Website: [here](https://www.tek.com/en)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="OSCILLOSCOPES" />
+
+## Connect to the TDS5XX in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="OSCILLOSCOPES" manufacturer="Tektronix"></SectionsCard>
+
+</TabItem>
+<TabItem value="InstrumentKit" label="InstrumentKit">
+
+
+```python
+from instrumentkit import Scope
+
+# Connect to the oscilloscope
+scope = Scope("TCPIP::192.168.1.1::INSTR")
+
+# Set the timebase and voltage scale
+scope.timebase = 1e-3  # 1 ms/div
+scope.channel1.voltage_scale = 0.1  # 0.1 V/div
+
+# Acquire a waveform
+waveform = scope.acquire_waveform()
+
+# Print the waveform data
+print(waveform.data)
+
+# Disconnect from the oscilloscope
+scope.disconnect()
+```
+
+In this example, we first import the `Scope` class from the `instrumentkit` module. Then, we create an instance of the `Scope` class by passing the instrument's address as a string to the constructor.
+
+Next, we set the timebase and voltage scale of the oscilloscope using the `timebase` and `voltage_scale` properties of the `Scope` and `Channel` classes, respectively.
+
+We then acquire a waveform from the oscilloscope using the `acquire_waveform` method of the `Scope` class. This method returns a `Waveform` object that contains the acquired waveform data.
+
+Finally, we print the waveform data using the `data` property of the `Waveform` class, and disconnect from the oscilloscope using the `disconnect` method of the `Scope` class.
+
+</TabItem>
+</Tabs>
