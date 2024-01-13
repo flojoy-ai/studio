@@ -29,7 +29,7 @@ async def is_admin(req: Request):
         )
     [username, password] = auth
     authorized = validate_credentials(username, password)
-    print(" is auth: ", authorized)
+
     if authorized:
         return
     else:
