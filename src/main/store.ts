@@ -1,6 +1,6 @@
 import Store from "electron-store";
 import os from "os";
-import { User } from "../types/auth";
+import { Roles, User } from "../types/auth";
 
 type TypedStore = {
   poetryOptionalGroups: string[];
@@ -12,7 +12,7 @@ export const store = new Store<TypedStore>({
     users: [
       {
         name: os.userInfo().username,
-        role: "Admin",
+        role: Roles.admin,
         logged: true,
       },
     ],

@@ -29,7 +29,9 @@ async def get_manifest(blocks_path: str | None = None):
 
 
 @router.get("/blocks/metadata/")
-async def get_metadata(blocks_path: str | None = None, custom_dir_changed=False):
+async def get_metadata(
+    blocks_path: str | None = None, custom_dir_changed: bool = False
+):
     try:
         metadata_map = generate_metadata(custom_blocks_dir=blocks_path)
         if custom_dir_changed:
