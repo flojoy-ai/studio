@@ -1,0 +1,95 @@
+---
+title: Connecting to Keithley 2602A by Keithley in Python
+description: The Keithley 2602A SourceMeter is used as either a bench-top I-V characterization tool or as a building block component of multi-channel I-V test systems. For bench-top use, the Keithley 2602A SourceMeter features an embedded TSP® Express Software Tool that allows users to quickly and easily perform common I-V tests without programming or installing software. For system level applications, the Keithley 2602A SourceMeter's Test Script Processor (TSP®) architecture along with new capabilities such as parallel test execution and precision timing provide the highest throughput in the industry to lower the cost of test.
+keywords: [Power Supplies, Keithley, QCodes] 
+slug: instruments-database/power-supplies/keithley/keithley-2602a 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782585/Instruments/Power%20Supplies/Keithley-2602A/Keithley-2602A.jpg
+sidebar:
+    label: Keithley 2602A 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The Keithley 2602A SourceMeter is used as either a bench-top I-V characterization tool or as a building block component of multi-channel I-V test systems. For bench-top use, the Keithley 2602A SourceMeter features an embedded TSP® Express Software Tool that allows users to quickly and easily perform common I-V tests without programming or installing software. For system level applications, the Keithley 2602A SourceMeter's Test Script Processor (TSP®) architecture along with new capabilities such as parallel test execution and precision timing provide the highest throughput in the industry to lower the cost of test.
+
+![Keithley 2602A](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782585/Instruments/Power%20Supplies/Keithley-2602A/Keithley-2602A.jpg)
+
+Device Specification: [here](https://www.testequipmenthq.com/datasheets/KEITHLEY-2602-Datasheet.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: KEITHLEY</h2></summary>
+
+![KEITHLEY](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806202/Instruments/Vendor%20Logos/Keithley.png)
+
+Keithley Instruments is a measurement and instrument company headquartered in Solon, Ohio, that develops, manufactures, markets, and sells data acquisition products, as well as complete systems for high-volume production and assembly testing.
+
+- Headquarters: Cleveland, Ohio, United States
+- Yearly Revenue (millions, USD): 110.6
+- Vendor Website: [here](https://www.tek.com/en)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="POWER_SUPPLIES" />
+
+## Connect to the Keithley 2602A in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="POWER_SUPPLIES" manufacturer="Keithley"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+
+```python
+import qcodes as qc
+from qcodes.instrument_drivers.tektronix.Keithley_2600_channels import Keithley2600
+
+# Create an instance of the Keithley 2602A instrument
+keithley = Keithley2600('keithley', 'TCPIP::192.168.1.1::INSTR')
+
+# Connect to the instrument
+keithley.connect()
+
+# Print the instrument ID
+print(keithley.get_idn())
+
+# Set the voltage and current limits
+keithley.smua.limitv(10)  # Set voltage limit to 10V
+keithley.smua.limiti(0.1)  # Set current limit to 0.1A
+
+# Enable the output
+keithley.smua.output(1)  # Turn on the output
+
+# Set the voltage and current levels
+keithley.smua.volt(5)  # Set voltage to 5V
+keithley.smua.curr(0.05)  # Set current to 50mA
+
+# Measure the voltage and current
+voltage = keithley.smua.volt()
+current = keithley.smua.curr()
+print(f"Voltage: {voltage}V, Current: {current}A")
+
+# Disable the output
+keithley.smua.output(0)  # Turn off the output
+
+# Disconnect from the instrument
+keithley.disconnect()
+```
+
+Note: Replace `'TCPIP::192.168.1.1::INSTR'` with the actual IP address or VISA resource address of your Keithley 2602A Power Supply.
+
+This script connects to the Keithley 2602A instrument, sets the voltage and current limits, enables the output, sets the voltage and current levels, measures the voltage and current, and finally disables the output.
+
+</TabItem>
+</Tabs>

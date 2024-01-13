@@ -1,0 +1,89 @@
+---
+title: Connecting to Keysight 8657B by HP in Python
+description: The Agilent Technologies 8657A and 8657B signal generators are designed to test AM, FM, and pulsed receivers as well as components.
+keywords: [Rf Signal Generators, HP, PyMeasure] 
+slug: instruments-database/rf-signal-generators/hp/keysight-8657b 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782753/Instruments/RF%20Signal%20Generator/Keysight-8657B/Keysight-8657B.jpg
+sidebar:
+    label: Keysight 8657B 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The Agilent Technologies 8657A and 8657B signal generators are designed to test AM, FM, and pulsed receivers as well as components.
+
+
+![Keysight 8657B](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782753/Instruments/RF%20Signal%20Generator/Keysight-8657B/Keysight-8657B.jpg)
+
+Device Specification: [here](https://www.testequipmenthq.com/datasheets/Agilent-8657B-Datasheet.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: HP</h2></summary>
+
+![HP](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692125999/Instruments/Vendor%20Logos/HP.png)
+
+Keysight Technologies, or Keysight, is an American company that manufactures electronics test and measurement equipment and software
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5420
+- Vendor Website: [here](https://www.keysight.com/us/en/home.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="RF_SIGNAL_GENERATORS" />
+
+## Connect to the Keysight 8657B in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="RF_SIGNAL_GENERATORS" manufacturer="HP"></SectionsCard>
+
+</TabItem>
+<TabItem value="PyMeasure" label="PyMeasure">
+
+Here is a Python script that uses Pymeasure to connect to a Keysight 8657B RF Signal Generator:
+
+```python
+from pymeasure.adapters import VISAAdapter
+from pymeasure.instruments.hp import HP8657B
+
+# Create a VISA adapter for the instrument
+adapter = VISAAdapter("GPIB::7")
+
+# Connect to the instrument
+instrument = HP8657B(adapter)
+
+# Set the output frequency to 1 MHz
+instrument.frequency = 1E6
+
+# Set the output level to -10 dBm
+instrument.level = -10
+
+# Enable the output
+instrument.output_enabled = True
+
+# Disconnect from the instrument
+instrument.shutdown()
+```
+
+Explanation of the code:
+1. Import the necessary modules from Pymeasure.
+2. Create a `VISAAdapter` object with the appropriate address for the instrument.
+3. Create an `HP8657B` object with the adapter.
+4. Use the `frequency` property to set the output frequency of the instrument.
+5. Use the `level` property to set the output level of the instrument.
+6. Use the `output_enabled` property to enable the output of the instrument.
+7. Use the `shutdown` method to disconnect from the instrument.
+
+</TabItem>
+</Tabs>
