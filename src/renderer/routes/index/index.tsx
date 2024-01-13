@@ -56,12 +56,14 @@ export const Index = (): JSX.Element => {
       try {
         const interpreters = await window.api.checkPythonInstallation(force);
         if (interpreters.length > 0) {
-          setSelectedInterpreter(interpreters[0].path);
-          await window.api.setPythonInterpreter(interpreters[0].path);
+          const interpreter =
+            interpreters.find((i) => i.default) ?? interpreters[0];
+          setSelectedInterpreter(interpreter.path);
+          await window.api.setPythonInterpreter(interpreter.path);
           updateSetupStatus({
             stage: "check-python-installation",
             status: "completed",
-            message: `Python v${interpreters[0].version.major}.${interpreters[0].version.minor} found!`,
+            message: `Python v${interpreter.version.major}.${interpreter.version.minor} found!`,
           });
           return;
         }

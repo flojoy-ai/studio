@@ -1,11 +1,11 @@
 import os
 import json
 from flojoy import (
-    PlotlyJSONEncoder,
     flojoy,
     DataContainer,
     Directory,
 )
+from flojoy.utils import PlotlyJSONEncoder
 from typing import Optional
 
 

@@ -1,0 +1,87 @@
+---
+title: Connecting to AWG2005 by Tektronix in Python
+description: The AWG2005 offers 20 MS/s and 64 k deep memory. As with the entire AWG2000 Series, the graphical user interface allows on-screen viewing of waveform editing, simplifying "what if" test scenarios by allowing the easy creation of composite signals. The standard AWG2005 configuration provides two independent 10 V outputs or a third and fourth 10 V output (Option 02) each with 12-Bits vertical resolution. Option 04 adds TTL digital levels with (2) 12-Bit, 100 MS/s ports and combines with the marker outputs to provide a total of 28-Bits wide. The built-in sweep generator (Option 05) provides even more flexibility by offering linear and logarithmic swept frequencies, but even more significantly the AWG2005 has user definable sweep capability. This allows creation of digitally modulated signals at IF frequencies. The built-in frequency domain (FFT) editor (Option 09) is a perfect addition for customers performing proprietary or standard I & Q modulation simulations, filter design or in circuit testing of physical layer. Real time waveform sequencing extends the effective record length output to over a billion points! The AWG2005 easily simulates signals where moderate point definition and long records are required for simulating complex waveform conditions. Direct waveform transfer capability makes the AWG2005 the perfect complement to selected Tektronix oscilloscopes.
+keywords: [RF Signal Generators, Tektronix, InstrumentKit] 
+slug: instruments-database/RF Signal Generators/tektronix/awg2005 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782481/Instruments/RF%20Signal%20Generator/AWG2005/AWG2005.jpg
+sidebar:
+    label: AWG2005 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The AWG2005 offers 20 MS/s and 64 k deep memory. As with the entire AWG2000 Series, the graphical user interface allows on-screen viewing of waveform editing, simplifying "what if" test scenarios by allowing the easy creation of composite signals. The standard AWG2005 configuration provides two independent 10 V outputs or a third and fourth 10 V output (Option 02) each with 12-Bits vertical resolution. Option 04 adds TTL digital levels with (2) 12-Bit, 100 MS/s ports and combines with the marker outputs to provide a total of 28-Bits wide. The built-in sweep generator (Option 05) provides even more flexibility by offering linear and logarithmic swept frequencies, but even more significantly the AWG2005 has user definable sweep capability. This allows creation of digitally modulated signals at IF frequencies. The built-in frequency domain (FFT) editor (Option 09) is a perfect addition for customers performing proprietary or standard I & Q modulation simulations, filter design or in circuit testing of physical layer. Real time waveform sequencing extends the effective record length output to over a billion points! The AWG2005 easily simulates signals where moderate point definition and long records are required for simulating complex waveform conditions. Direct waveform transfer capability makes the AWG2005 the perfect complement to selected Tektronix oscilloscopes.
+
+![AWG2005](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782481/Instruments/RF%20Signal%20Generator/AWG2005/AWG2005.jpg)
+
+Device Specification: [here](https://download.tek.com/datasheet/76W_10020_2_1.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: TEKTRONIX</h2></summary>
+
+![TEKTRONIX](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806108/Instruments/Vendor%20Logos/Tektronix.png)
+
+Tektronix, Inc., historically widely known as Tek, is an American company best known for manufacturing test and measurement devices such as [oscilloscopes](https://en.wikipedia.org/wiki/Oscilloscope), [logic analyzers](https://en.wikipedia.org/wiki/Logic_analyzer), and video and mobile test protocol equipment.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5800
+- Vendor Website: [here](https://www.tek.com/en)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="RF_SIGNAL_GENERATORS" />
+
+## Connect to the AWG2005 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="RF_SIGNAL_GENERATORS" manufacturer="Tektronix"></SectionsCard>
+
+</TabItem>
+<TabItem value="InstrumentKit" label="InstrumentKit">
+
+Here's an example Python script that uses Instrumentkit to connect to a AWG2005 RF Signal Generator:
+
+```python
+import instrumentkit as ik
+
+# Connect to the AWG2005 RF Signal Generator
+awg = ik.tektronix.TekAWG2000.open_gpibusb("/dev/ttyUSB0", 1)
+
+# Set the amplitude of channel 1 to 1 V
+awg.channel[0].amplitude = 1
+
+# Set the frequency of channel 1 to 1 MHz
+awg.channel[0].frequency = 1e6
+
+# Set the waveform shape of channel 1 to sine
+awg.channel[0].shape = awg.Shape.sine
+
+# Upload a waveform to the AWG2005 RF Signal Generator
+yzero = 0
+ymult = 1
+xincr = 1
+waveform = [0, 0.5, 1, 0.5, 0, -0.5, -1, -0.5]  # Example waveform data
+awg.upload_waveform(yzero, ymult, xincr, waveform)
+
+# Set the waveform name to "my_waveform"
+awg.waveform_name = "my_waveform"
+
+# Disconnect from the AWG2005 RF Signal Generator
+awg.close()
+```
+
+Note: This script assumes that you have already installed the Instrumentkit library and its dependencies.
+
+</TabItem>
+</Tabs>

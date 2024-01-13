@@ -1,0 +1,87 @@
+---
+title: Connecting to WaveSurfer 4000HD by Teledyne in Python
+description: WaveSurfer 4000HD extends Teledyne LeCroy’s leadership in High Definition Oscilloscopes with a bright, 12.1” touch screen display, performance without compromise, and price points that fit your budget.
+keywords: [Oscilloscopes, Teledyne, InstrumentKit] 
+slug: instruments-database/Oscilloscopes/teledyne/wavesurfer-4000hd 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782604/Instruments/Oscilloscopes/WaveSurfer-4000HD/WaveSurfer-4000HD.webp
+sidebar:
+    label: WaveSurfer 4000HD 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+WaveSurfer 4000HD extends Teledyne LeCroy’s leadership in High Definition Oscilloscopes with a bright, 12.1” touch screen display, performance without compromise, and price points that fit your budget.
+
+![WaveSurfer 4000HD](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782604/Instruments/Oscilloscopes/WaveSurfer-4000HD/WaveSurfer-4000HD.webp)
+
+Device Specification: [here](https://cdn.teledynelecroy.com/files/pdf/wavesurfer-4000hd-datasheet.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: TELEDYNE</h2></summary>
+
+![TELEDYNE](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692812958/Instruments/Vendor%20Logos/Teledyne_technologies.png)
+
+Teledyne LeCroy is an American manufacturer of oscilloscopes, protocol analyzers and other test equipment. LeCroy is now a subsidiary of Teledyne Technologies.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5458.6
+- Vendor Website: [here](https://www.teledynelecroy.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="OSCILLOSCOPES" />
+
+## Connect to the WaveSurfer 4000HD in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="OSCILLOSCOPES" manufacturer="Teledyne"></SectionsCard>
+
+</TabItem>
+<TabItem value="InstrumentKit" label="InstrumentKit">
+
+To connect to a WaveSurfer 4000HD Oscilloscope using Instrumentkit, you can use the following code:
+
+```python
+import instrumentkit as ik
+
+# Connect to the oscilloscope
+oscilloscope = ik.teledyne.MAUI.open_visa("TCPIP0::192.168.0.10::INSTR")
+
+# Perform operations on the oscilloscope
+# For example, you can set the time division
+oscilloscope.time_div = 200e-9
+
+# You can also access and control the channels
+channel = oscilloscope.channel[0]
+channel.trace = True
+channel.coupling = channel.Coupling.dc50
+channel.scale = 1.0
+
+# Read waveform data from the channel
+xdat, ydat = channel.read_waveform()
+
+# Print the waveform data
+print("X Data:", xdat)
+print("Y Data:", ydat)
+
+# Close the connection to the oscilloscope
+oscilloscope.close()
+```
+
+This code connects to the oscilloscope at the specified IP address ("TCPIP0::192.168.0.10::INSTR") using the VISA protocol. It then reads the waveform data from the first channel and prints the X and Y data.
+
+Note: Make sure to replace "TCPIP0::192.168.0.10::INSTR" with the actual IP address of your WaveSurfer 4000HD Oscilloscope.
+
+</TabItem>
+</Tabs>
