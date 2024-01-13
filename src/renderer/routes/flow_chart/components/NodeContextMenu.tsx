@@ -1,9 +1,11 @@
+import { authenticate } from "@src/services/auth-service";
 import { Button } from "@src/components/ui/button";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { ElementsData } from "@src/types";
 import { Code, CopyPlus, Info, LucideIcon, Pencil, X } from "lucide-react";
 import { useCallback } from "react";
 import { useStore, Node, useReactFlow } from "reactflow";
+import { useAuth } from "@src/context/auth.context";
 
 export type MenuInfo = {
   id: string;
@@ -65,6 +67,7 @@ export default function ContextMenu({
   duplicateNode,
   setNodeModalOpen,
 }: ContextMenuProps) {
+  const { user } = useAuth();
   const { getNode, setNodes, setEdges } = useReactFlow();
 
   const { setIsEditMode } = useFlowChartState();
@@ -85,26 +88,46 @@ export default function ContextMenu({
   };
 
   const editPythonCode = async () => {
-    console.log(fullPath);
-    await window.api.openEditorWindow(fullPath);
+    try {
+      authenticate(user);
+      console.log(fullPath);
+      await window.api.openEditorWindow(fullPath);
+    } catch (e) {
+      //
+    }
   };
 
   const duplicate = () => {
-    const node = getNode(id);
-    if (!node) {
-      return;
+    try {
+      authenticate(user);
+      const node = getNode(id);
+      if (!node) {
+        return;
+      }
+      duplicateNode(node);
+    } catch (e) {
+      //
     }
-    duplicateNode(node);
   };
 
   const openInVSC = async () => {
-    await window.api.openLink(`vscode://file/${fullPath}`);
+    try {
+      authenticate(user);
+      await window.api.openLink(`vscode://file/${fullPath}`);
+    } catch (e) {
+      //
+    }
   };
 
   const deleteNode = useCallback(() => {
-    setNodes((nodes) => nodes.filter((node) => node.id !== id));
-    setEdges((edges) => edges.filter((edge) => edge.source !== id));
-  }, [id, setNodes, setEdges]);
+    try {
+      authenticate(user);
+      setNodes((nodes) => nodes.filter((node) => node.id !== id));
+      setEdges((edges) => edges.filter((edge) => edge.source !== id));
+    } catch (e) {
+      //
+    }
+  }, [user, setNodes, setEdges, id]);
 
   return (
     <div

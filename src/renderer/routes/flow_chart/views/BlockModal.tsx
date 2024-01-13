@@ -19,6 +19,8 @@ import { ElementsData } from "@src/types/node";
 import { ScrollArea, ScrollBar } from "@src/components/ui/scroll-area";
 import { useTheme } from "@src/providers/themeProvider";
 import { Button } from "@src/components/ui/button";
+import { useAuth } from "@root/renderer/context/auth.context";
+import { authenticate } from "@root/renderer/services/auth-service";
 
 const jsonTheme = {
   scheme: "flojoy",
@@ -65,6 +67,7 @@ const BlockModal = ({
   selectedNode,
 }: BlockModalProps) => {
   const { resolvedTheme } = useTheme();
+  const { user } = useAuth();
 
   const path = blockFilePath.replace(/"\\"/g, "/");
 
@@ -124,7 +127,12 @@ const BlockModal = ({
         <div className="flex gap-2">
           <Button
             onClick={async () => {
-              await window.api.openEditorWindow(blockFullPath);
+              try {
+                authenticate(user);
+                await window.api.openEditorWindow(blockFullPath);
+              } catch (e) {
+                //
+              }
             }}
             data-testid="btn-edit-python"
             variant="secondary"
@@ -133,7 +141,12 @@ const BlockModal = ({
           </Button>
           <Button
             onClick={async () => {
-              await window.api.openLink(`vscode://file/${blockFullPath}`);
+              try {
+                authenticate(user);
+                await window.api.openLink(`vscode://file/${blockFullPath}`);
+              } catch (e) {
+                //
+              }
             }}
             data-testid="btn-open-vscode"
             variant="secondary"

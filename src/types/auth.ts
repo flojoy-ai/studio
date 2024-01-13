@@ -1,6 +1,6 @@
 export enum Roles {
   admin = "Admin",
-  codeOnly = "Code-only",
+  viewer = "Viewer",
 }
 
 export type User = {

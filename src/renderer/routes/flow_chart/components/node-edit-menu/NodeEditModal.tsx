@@ -10,6 +10,8 @@ import { Button } from "@src/components/ui/button";
 import { Input } from "@src/components/ui/input";
 import { LAYOUT_TOP_HEIGHT } from "@src/routes/common/Layout";
 import { ScrollArea } from "@src/components/ui/scroll-area";
+import { authenticate } from "@root/renderer/services/auth-service";
+import { useAuth } from "@root/renderer/context/auth.context";
 
 type NodeEditModalProps = {
   node: Node<ElementsData>;
@@ -26,6 +28,7 @@ const NodeEditModal = ({
 }: NodeEditModalProps) => {
   const { updateInitCtrlInputDataForNode, updateCtrlInputDataForNode } =
     useFlowChartGraph();
+  const { user } = useAuth();
   const [newTitle, setNewTitle] = useState(node.data.label);
   const [editRenamingTitle, setEditRenamingTitle] = useState(false);
   const { nodeParamChanged, setIsEditMode } = useFlowChartState();
@@ -82,7 +85,12 @@ const NodeEditModal = ({
                   variant="ghost"
                   data-testid="block-label-edit"
                   onClick={() => {
-                    setEditRenamingTitle(true);
+                    try {
+                      authenticate(user);
+                      setEditRenamingTitle(true);
+                    } catch (error) {
+                      //
+                    }
                   }}
                 >
                   <Pencil size={20} className="stroke-muted-foreground" />
@@ -156,7 +164,14 @@ const NodeEditModal = ({
           <Button
             size="icon"
             variant="ghost"
-            onClick={() => handleDelete(node.id, node.data.label)}
+            onClick={() => {
+              try {
+                authenticate(user);
+                handleDelete(node.id, node.data.label);
+              } catch (e) {
+                //
+              }
+            }}
             className="mr-4"
             data-testid="delete-node-button"
           >

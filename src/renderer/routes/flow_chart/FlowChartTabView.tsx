@@ -22,7 +22,7 @@ import {
   applyEdgeChanges,
   applyNodeChanges,
 } from "reactflow";
-import Sidebar, { LeafClickHandler } from "../common/Sidebar/Sidebar";
+import Sidebar from "../common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import { useAddNewNode } from "./hooks/useAddNewNode";
@@ -81,6 +81,8 @@ import ContextMenu, { MenuInfo } from "./components/NodeContextMenu";
 import { useCustomSections } from "@src/hooks/useCustomBlockManifest";
 import { BlocksMetadataMap } from "@src/types/blocks-metadata";
 import { Spinner } from "@src/components/ui/spinner";
+import { authenticate, checkPermission } from "@src/services/auth-service";
+import { useAuth } from "@src/context/auth.context";
 
 const nodeTypes: NodeTypes = {
   default: DefaultNode,
@@ -122,7 +124,7 @@ const FlowChartTab = () => {
 
   const { isSidebarOpen, setIsSidebarOpen, isEditMode, setIsEditMode } =
     useFlowChartState();
-
+  const { user } = useAuth();
   const { states } = useSocket();
   const { programResults, setProgramResults } = states;
 
@@ -172,6 +174,7 @@ const FlowChartTab = () => {
       toast("Synced blocks with manifest.");
       setManifestChanged(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fullManifest, fullBlocksMetadata, manifestChanged]);
 
   const getTakenNodeLabels = useCallback(
@@ -295,59 +298,76 @@ const FlowChartTab = () => {
   );
 
   const onConnect: OnConnect = useCallback(
-    (connection) =>
-      setEdges((eds) => {
-        if (!fullManifest) {
-          toast.error("Manifest not found, can't connect edge.");
-          return;
-        }
-
-        const edges = getEdgeTypes(fullManifest, connection);
-
-        if (edges.length > 0) {
-          const [sourceType, targetType] = edges;
-          if (isCompatibleType(sourceType, targetType)) {
-            return addEdge(connection, eds);
+    (connection) => {
+      try {
+        authenticate(user);
+        setEdges((eds) => {
+          if (!fullManifest) {
+            toast.error("Manifest not found, can't connect edge.");
+            return;
           }
 
-          toast.message("Type error", {
-            description: `Source type ${sourceType} and target type ${targetType} are not compatible`,
-          });
-        }
-      }),
-    [setEdges, fullManifest],
+          const edges = getEdgeTypes(fullManifest, connection);
+
+          if (edges.length > 0) {
+            const [sourceType, targetType] = edges;
+            if (isCompatibleType(sourceType, targetType)) {
+              return addEdge(connection, eds);
+            }
+
+            toast.message("Type error", {
+              description: `Source type ${sourceType} and target type ${targetType} are not compatible`,
+            });
+          }
+        });
+      } catch (e) {
+        //
+      }
+    },
+    [setEdges, fullManifest, user],
   );
 
   const handleNodesDelete: OnNodesDelete = useCallback(
     (nodes) => {
-      nodes.forEach((node) => {
-        sendEventToMix(MixPanelEvents.nodeDeleted, {
-          nodeTitle: node.data.label,
+      try {
+        authenticate(user);
+        nodes.forEach((node) => {
+          sendEventToMix(MixPanelEvents.nodeDeleted, {
+            nodeTitle: node.data.label,
+          });
         });
-      });
-      const selectedNodeIds = nodes.map((node) => node.id);
-      setNodes((prev) =>
-        prev.filter((node) => !selectedNodeIds.includes(node.id)),
-      );
-      setHasUnsavedChanges(true);
+        const selectedNodeIds = nodes.map((node) => node.id);
+        setNodes((prev) =>
+          prev.filter((node) => !selectedNodeIds.includes(node.id)),
+        );
+        setHasUnsavedChanges(true);
+      } catch (e) {
+        //
+      }
     },
-    [setNodes, setHasUnsavedChanges],
+    [setNodes, setHasUnsavedChanges, user],
   );
 
   const clearCanvas = useCallback(() => {
-    setNodes([]);
-    setTextNodes([]);
-    setEdges([]);
-    setHasUnsavedChanges(true);
-    setProgramResults([]);
+    try {
+      authenticate(user);
+      setNodes([]);
+      setTextNodes([]);
+      setEdges([]);
+      setHasUnsavedChanges(true);
+      setProgramResults([]);
 
-    sendEventToMix(MixPanelEvents.canvasCleared);
+      sendEventToMix(MixPanelEvents.canvasCleared);
+    } catch (e) {
+      //
+    }
   }, [
     setNodes,
     setTextNodes,
     setEdges,
     setHasUnsavedChanges,
     setProgramResults,
+    user,
   ]);
 
   useEffect(() => {
@@ -380,7 +400,12 @@ const FlowChartTab = () => {
     nodes.filter((n) => n.selected).length > 1 ? null : selectedNode;
 
   const onCommandMenuItemSelect = (node: TreeNode) => {
-    addNewNode(node);
+    try {
+      authenticate(user);
+      addNewNode(node);
+    } catch (e) {
+      //
+    }
     setCommandMenuOpen(false);
   };
 
@@ -532,7 +557,14 @@ const FlowChartTab = () => {
         {manifest !== undefined && customBlockManifest !== undefined && (
           <Sidebar
             sections={manifest}
-            leafNodeClickHandler={addNewNode as LeafClickHandler}
+            leafNodeClickHandler={(elem) => {
+              try {
+                authenticate(user);
+                addNewNode(elem);
+              } catch (e) {
+                //
+              }
+            }}
             isSideBarOpen={isSidebarOpen}
             setSideBarStatus={setIsSidebarOpen}
             customSections={customBlockManifest}
@@ -569,7 +601,7 @@ const FlowChartTab = () => {
             id="flow-chart"
             ref={ref}
             className="!absolute"
-            deleteKeyCode={deleteKeyCodes}
+            deleteKeyCode={checkPermission(user) ? deleteKeyCodes : null}
             proOptions={proOptions}
             nodes={[...nodes, ...textNodes]}
             nodeTypes={nodeTypes}
@@ -580,6 +612,7 @@ const FlowChartTab = () => {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
+            nodesDraggable={checkPermission(user)}
             onNodeDragStop={handleNodeDrag}
             onNodesDelete={handleNodesDelete}
             fitViewOptions={{

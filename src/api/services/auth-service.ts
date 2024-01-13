@@ -1,6 +1,5 @@
 import { Roles, User } from "@root/types/auth";
 import { store } from "@root/main/store";
-import log from "electron-log/main";
 
 export const authenticateUser = (
   username: string,
@@ -39,7 +38,7 @@ export const setUserProfile = (_, username: string) => {
   try {
     store.set("users", filteredUsers);
   } catch (error) {
-    log.error("error setting users", error);
+    throw new Error("error setting users" + String(error));
   }
 };
 
@@ -82,7 +81,7 @@ export const createUserProfile = (_, user: User) => {
   try {
     store.set("users", users);
   } catch (error) {
-    log.error("error setting users", error);
+    throw new Error("error setting users" + String(error));
   }
 };
 
@@ -96,6 +95,6 @@ export const deleteUserProfile = (_, username: string, currentUser: User) => {
     store.set("users", modifiedUsers);
     Promise.resolve(void 0);
   } catch (error) {
-    log.error("error setting users", error);
+    throw new Error("error setting users" + String(error));
   }
 };

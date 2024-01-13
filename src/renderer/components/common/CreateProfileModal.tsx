@@ -34,7 +34,7 @@ export function CreateUserProfile({
   const [data, setData] = useState<User>({
     name: "",
     password: "",
-    role: Roles.codeOnly,
+    role: Roles.viewer,
   });
   const [errorMsg, setErrorMsg] = useState({
     name: "",
