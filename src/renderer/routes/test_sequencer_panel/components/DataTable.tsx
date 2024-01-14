@@ -49,6 +49,31 @@ import {
   getIndentLevels,
   handleConditionalDelete,
 } from "../utils/ConditionalUtils";
+import { ChevronUpIcon } from "lucide-react";
+
+const IndentLine = ({
+  name,
+  level = 0,
+}: {
+  name: React.ReactNode;
+  level: number;
+}) =>
+  level == 0 ? (
+    <div className="relative ml-5 pl-1">
+      <div style={{ marginLeft: level == 0 ? `${level * 20}px` : 0 }}>
+        {level == 0 ? name : <IndentLine name={name} level={level - 1} />}
+      </div>
+    </div>
+  ) : (
+    <div className="relative ml-5 pl-1">
+      <div
+        className={"border-l-2 border-blue-800 py-1 pl-4"}
+        style={{ marginLeft: level == 0 ? `${level * 20}px` : 0 }}
+      >
+        {level == 0 ? name : <IndentLine name={name} level={level - 1} />}
+      </div>
+    </div>
+  );
 
 export function DataTable() {
   const { elems, setElems } = useTestSequencerState();
@@ -81,6 +106,7 @@ export function DataTable() {
       enableSorting: false,
       enableHiding: false,
     },
+
     {
       accessorFn: (elem, idx) => {
         console.log(idx);
@@ -93,45 +119,46 @@ export function DataTable() {
           <div className="flex h-full space-x-2">
             {/* Indent levels */}
             <div className="flex flex-row space-x-1">
-              {Array.from({ length: indentLevels[row.id] }).map((_, index) => (
-                <div
-                  key={index}
-                  style={{ borderLeft: "1px solid black" }}
-                  className="h-full"
-                >
-                  |
-                </div>
-              ))}
+              <IndentLine
+                name={(row.original as Test).test_name}
+                level={indentLevels[row.id]}
+              />
             </div>
-
-            {(row.original as Test).test_name}
+            {/* {(row.original as Test).test_name} */}
           </div>
         ) : (
-          <div className="flex flex-row space-x-2">
+          <div>
             {/* Indent levels */}
             <div className="flex flex-row space-x-1">
-              {Array.from({ length: indentLevels[row.id] }).map((_, index) => (
-                <div
-                  key={index}
-                  style={{ borderLeft: "1px solid black" }}
-                  className="h-full"
-                >
-                  |
-                </div>
-              ))}
+              <IndentLine
+                name={
+                  <b>
+                    {(
+                      row.original as Conditional
+                    ).conditional_type.toUpperCase()}
+                  </b>
+                }
+                level={indentLevels[row.id]}
+              />
             </div>
-            {(row.original as Conditional).conditional_type}
           </div>
         );
       },
     },
+
     {
-      accessorKey: "run_in_parallel",
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      accessorFn: (elem, _) => {
+        return elem.type === "test" ? "run_in_parallel" : null;
+      },
       header: "Run in parallel",
       cell: ({ row }) => {
-        return row.getValue("run_in_parallel") ? <div>✅</div> : <div>No</div>;
+        return row.original.type === "test" ? (
+          <div>{row.original.run_in_parallel}</div>
+        ) : null;
       },
     },
+
     {
       accessorKey: "test_type",
       header: "Test type",
@@ -139,6 +166,7 @@ export function DataTable() {
         <div className="lowercase">{row.getValue("test_type")}</div>
       ),
     },
+
     {
       accessorKey: "status",
       header: "Status",
@@ -146,14 +174,21 @@ export function DataTable() {
         return <div>{row.getValue("status")}</div>;
       },
     },
+
     {
-      accessorKey: "completion_time",
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      accessorFn: (elem, _) => {
+        return elem.type === "test" ? "completion_time" : null;
+      },
       header: "Time complete",
       enableHiding: false,
       cell: ({ row }) => {
-        return <div>{parseFloat(row.getValue("completion_time"))}s</div>;
+        return row.original.type === "test" ? (
+          <div>{row.original.completion_time}</div>
+        ) : null;
       },
     },
+
     {
       accessorKey: "is_saved_to_cloud",
       header: "Saved to Flojoy Cloud",
@@ -164,6 +199,7 @@ export function DataTable() {
         ) : null;
       },
     },
+
     {
       accessorKey: "up-down",
       header: "Reorder",
@@ -191,8 +227,8 @@ export function DataTable() {
         };
         return (
           <div className="flex flex-row">
-            <Button onClick={onUpClick}>UP</Button>
-            <Button onClick={onDownClick}>DOWN</Button>
+            <ChevronUpIcon className="ml-2 h-4 w-4" onClick={onUpClick} />
+            <ChevronDownIcon className="ml-2 h-4 w-4" onClick={onDownClick} />
           </div>
         );
       },
@@ -274,6 +310,7 @@ export function DataTable() {
           handleAddConditionalModalOpen={setShowAddConditionalModal}
           handleAdd={handleAddConditionalModal}
         />
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
@@ -321,6 +358,7 @@ export function DataTable() {
               </TableRow>
             ))}
           </TableHeader>
+
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
@@ -375,6 +413,7 @@ export function DataTable() {
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
+
         <div className="space-x-2">
           <Button
             variant="outline"

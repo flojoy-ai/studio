@@ -76,12 +76,21 @@ const validateElements = (elems: TestSequenceElement[]): boolean => {
   return true;
 };
 
+// sycn this with the definition of setElems
+export type SetElemsFn = {
+  (elems: TestSequenceElement[]): void;
+  (fn: (elems: TestSequenceElement[]) => TestSequenceElement[]): void;
+};
+
 export function useTestSequencerState() {
   const [elems, setElements] = useAtom(elements);
 
   // wrapper around setElements to check if elems is valid
   function setElems(elems: TestSequenceElement[]);
-  function setElems(fn: (elems: TestSequenceElement[]) => TestSequenceElement);
+  function setElems(
+    fn: (elems: TestSequenceElement[]) => TestSequenceElement[],
+  );
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function setElems(p: any) {
     let candidateElems;
 

@@ -5,6 +5,7 @@ import {
 } from "@src/types/testSequencer";
 import { v4 as uuidv4 } from "uuid";
 import { filter } from "lodash";
+import { SetElemsFn } from "@src/hooks/useTestSequencerState";
 
 /**
  * Generates proper conditional elements in sequencer.
@@ -45,7 +46,7 @@ export const generateConditional: {
  */
 export const handleConditionalDelete = (
   conditional: Conditional,
-  setter: React.Dispatch<React.SetStateAction<TestSequenceElement[]>>,
+  setter: SetElemsFn,
 ): void => {
   setter((elems) =>
     filter(elems, (elem) => elem.groupId != conditional.groupId),
