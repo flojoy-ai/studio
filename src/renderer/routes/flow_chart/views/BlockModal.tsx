@@ -19,8 +19,8 @@ import { ElementsData } from "@src/types/node";
 import { ScrollArea, ScrollBar } from "@src/components/ui/scroll-area";
 import { useTheme } from "@src/providers/themeProvider";
 import { Button } from "@src/components/ui/button";
-import { useAuth } from "@root/renderer/context/auth.context";
-import { authenticate } from "@root/renderer/services/auth-service";
+import { useAuth } from "@/renderer/context/auth.context";
+import { authenticate } from "@/renderer/services/auth-service";
 
 const jsonTheme = {
   scheme: "flojoy",

@@ -1,9 +1,9 @@
 import { memo, useState } from "react";
 import clsx from "clsx";
 import { CustomNodeProps } from "@src/types/node";
-import NodeWrapper from "@/components/common/NodeWrapper";
-import { LogicHandleComponent } from "@/components/common/LogicHandleComponent";
-import NodeInput from "@/components/common/NodeInput";
+import NodeWrapper from "@components/common/NodeWrapper";
+import { LogicHandleComponent } from "@components/common/LogicHandleComponent";
+import NodeInput from "@components/common/NodeInput";
 import { useNodeStatus } from "@src/hooks/useNodeStatus";
 
 const LogicNode = ({

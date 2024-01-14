@@ -10,8 +10,8 @@ import { Button } from "@src/components/ui/button";
 import { Input } from "@src/components/ui/input";
 import { LAYOUT_TOP_HEIGHT } from "@src/routes/common/Layout";
 import { ScrollArea } from "@src/components/ui/scroll-area";
-import { authenticate } from "@root/renderer/services/auth-service";
-import { useAuth } from "@root/renderer/context/auth.context";
+import { authenticate } from "@/renderer/services/auth-service";
+import { useAuth } from "@/renderer/context/auth.context";
 
 type NodeEditModalProps = {
   node: Node<ElementsData>;

@@ -4,8 +4,8 @@ import ProfileBox from "@src/components/auth/ProfileBox";
 import { PlusIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CreateUserProfile } from "@root/renderer/components/common/CreateProfileModal";
-import { Roles } from "@root/types/auth";
+import { CreateUserProfile } from "@/renderer/components/common/CreateProfileModal";
+import { Roles } from "@/types/auth";
 type AuthPageProps = {
   startup: boolean;
 };

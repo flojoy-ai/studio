@@ -1,5 +1,5 @@
 import React from "react";
-import { Roles, User } from "@root/types/auth";
+import { Roles, User } from "@/types/auth";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { cn } from "@src/lib/utils";

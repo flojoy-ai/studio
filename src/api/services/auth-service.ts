@@ -1,5 +1,5 @@
-import { Roles, User } from "@root/types/auth";
-import { store } from "@root/main/store";
+import { Roles, User } from "@/types/auth";
+import { store } from "@/main/store";
 
 export const getUsers = () => {
   return store.get("users").map((u) => ({

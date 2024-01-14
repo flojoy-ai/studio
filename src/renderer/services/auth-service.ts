@@ -1,4 +1,4 @@
-import { Roles, User } from "@root/types/auth";
+import { Roles, User } from "@/types/auth";
 import { toast } from "sonner";
 
 export const checkPermission = (user: User | null) => {

@@ -13,7 +13,7 @@ import { PasswordModal } from "./PasswordModal";
 import { getAlphabetAvatar } from "@src/utils/TextWrap";
 import { CreateUserProfile } from "../../../../components/common/CreateProfileModal";
 import { useAuth } from "@src/context/auth.context";
-import { Roles } from "@root/types/auth";
+import { Roles } from "@/types/auth";
 import { useNavigate } from "react-router-dom";
 
 const ProfileMenu = () => {

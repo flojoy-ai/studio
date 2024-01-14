@@ -18,12 +18,13 @@
     "noImplicitAny": false,
     "baseUrl": ".",
     "paths": {
-      "@root/*": ["src/*"],
+      "@/*": ["src/*"],
       "@src/*": ["src/renderer/*"],
-      "@feature/*": ["src/renderer/routes/*"],
       "@hooks/*": ["src/renderer/hooks/*"],
-      "@utils/*": ["src/renderer/utils/*"],
-      "@/*": ["./src/renderer/*"]
+      "@feature/*": ["src/renderer/feature/*"],
+      "@components/*": ["src/renderer/components/*"],
+      "@assets/*": ["src/renderer/assets/*"],
+      "@lib/*": ["src/renderer/lib/*"]
     },
     "rootDir": ".",
     "outDir": "fe-dist"

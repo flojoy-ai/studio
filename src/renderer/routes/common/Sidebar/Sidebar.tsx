@@ -9,8 +9,8 @@ import { ArrowDownWideNarrow, ArrowUpWideNarrow, XIcon } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { REQUEST_NODE_URL } from "@src/data/constants";
 import { cn } from "@src/lib/utils";
-import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/ui/tabs";
 export type LeafClickHandler = (elem: Leaf) => void;
 
 type SidebarProps = {
