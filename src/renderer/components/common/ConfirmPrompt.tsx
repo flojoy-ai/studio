@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
+
 type ConfirmPromptProps = {
   open: boolean;
   handleOpenChange: (open: boolean) => void;
