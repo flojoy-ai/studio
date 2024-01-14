@@ -45,9 +45,11 @@ const App = () => {
       </div>
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/auth" element={<AuthPage />}>
-          <Route path=":username" element={<AuthPage />} />
-        </Route>
+        <Route path="/auth" element={<AuthPage startup />} />
+        <Route
+          path="/auth/user-switch"
+          element={<AuthPage startup={false} />}
+        />
         <Route path="/" element={<Layout />}>
           <Route
             path="/flowchart"

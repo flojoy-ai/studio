@@ -3,19 +3,19 @@ import ProfileBox from "@src/components/auth/ProfileBox";
 
 import { PlusIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CreateUserProfile } from "@root/renderer/components/common/CreateProfileModal";
 import { Roles } from "@root/types/auth";
-
-const AuthPage = () => {
+type AuthPageProps = {
+  startup: boolean;
+};
+const AuthPage = ({ startup }: AuthPageProps) => {
   const { user, users, setUser } = useAuth();
   const [openCreateProfile, setOpenCreateProfile] = useState(false);
-  const { username } = useParams();
-
   const navigate = useNavigate();
   const validateUser = async () => {
     if (!user) return;
-    if (!user.password && !username) {
+    if (!user.password && startup) {
       navigate("/flowchart");
       window.api.setUserProfile(user.name);
     }
@@ -49,12 +49,12 @@ const AuthPage = () => {
                 setUser={setUser}
                 currentUser={user ?? users[0]}
                 showPassOption={
-                  username ? u.name !== user?.name : u.name === user?.name
+                  !startup ? u.name !== user?.name : u.name === user?.name
                 }
-                startup={username ? false : true}
+                startup={startup}
               />
             ))}
-          {user?.role === Roles.admin && username && (
+          {user?.role === Roles.admin && !startup && (
             <div
               onClick={() => setOpenCreateProfile(true)}
               title="Add new profile"

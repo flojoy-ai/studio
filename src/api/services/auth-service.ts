@@ -1,21 +1,6 @@
 import { Roles, User } from "@root/types/auth";
 import { store } from "@root/main/store";
 
-export const authenticateUser = (
-  username: string,
-  password: string,
-  role: User["role"],
-) => {
-  const users = store.get("users");
-  const user = users.find(
-    (u) => u.name === username && u.password === password && u.role === role,
-  );
-  if (user) {
-    return true;
-  }
-  return false;
-};
-
 export const getUsers = () => {
   return store.get("users").map((u) => ({
     name: u.name,

@@ -22,7 +22,7 @@ const ProfileMenu = () => {
   const [openPasswordModal, setOpenPasswordModal] = useState(false);
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const handleSwitchUser = () => {
-    navigate(`/auth/user`);
+    navigate(`/auth/user-switch`);
   };
   if (!user) return null;
   return (
