@@ -5,10 +5,12 @@ from functools import reduce
 
 
 @flojoy
-def DIVIDE(
+def FLOOR_DIVIDE(
     a: OrderedPair | Scalar | Vector, b: list[OrderedPair | Scalar | Vector]
 ) -> OrderedPair | Scalar | Vector:
-    """Divide two or more numeric arrays, matrices, dataframes, or constants element-wise.
+    """Floor divide two or more numeric arrays, matrices, dataframes, or constants element-wise.
+
+    AKA interger division.
 
     When a constant is divided into an array or matrix, each element in the array or matrix will be divided by the constant value.
 
@@ -24,23 +26,23 @@ def DIVIDE(
     OrderedPair|Scalar|Vector
         OrderedPair if a is an OrderedPair.
         x: the x-axis of input a.
-        y: the result of the division of input a by input b.
+        y: the result of the floor division of input a by input b.
 
         Scalar if a is a Scalar.
-        c: the result of the division of input a by input b.
+        c: the result of the floor division of input a by input b.
 
         Vector if a is a Vector.
-        v: the result of the division of input a by input b.
+        v: the result of the floor division of input a by input b.
     """
 
     initial = get_val(a)
     seq = map(lambda dc: get_val(dc), b)
-    y = reduce(lambda u, v: np.divide(u, v), seq, initial)
+    y1 = reduce(lambda u, v: np.floor_divide(u, v), seq, initial)
 
     match a:
         case OrderedPair():
-            return OrderedPair(x=a.x, y=y)
+            return OrderedPair(x=a.x, y=y1)
         case Vector():
-            return Vector(v=y)
+            return Vector(v=y1)
         case Scalar():
-            return Scalar(c=y)
+            return Scalar(c=y1)
