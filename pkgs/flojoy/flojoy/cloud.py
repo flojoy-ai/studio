@@ -63,11 +63,19 @@ class Measurement(CloudModel):
     is_deleted: bool
 
 
+class MeasurementWithDevice(Measurement):
+    device: Device
+
+
 class Test(CloudModel):
     name: str
     updated_at: Optional[datetime.datetime]
     measurement_type: MeasurementType
     project_id: str
+
+
+class TestWithMeasurements(Test):
+    measurements: list[Measurement]
 
 
 class Project(CloudModel):
@@ -181,7 +189,7 @@ class FlojoyCloud:
             },
         )
 
-    @query(model=Test)
+    @query(model=TestWithMeasurements)
     def get_test_by_id(self, test_id: str):
         return self.client.get(f"/tests/{test_id}")
 
@@ -195,10 +203,10 @@ class FlojoyCloud:
     """Device Endpoints"""
 
     @query(model=Device)
-    def create_device(self, name: str, project_id: str):
+    def create_device(self, name: str, workspace_id: str):
         return self.client.post(
             "/devices",
-            json={"name": name, "projectId": project_id},
+            json={"name": name, "workspaceId": workspace_id},
         )
 
     @query(model=Device)
@@ -247,7 +255,7 @@ class FlojoyCloud:
             },
         )
 
-    @query(model=TypeAdapter(list[Measurement]))
+    @query(model=TypeAdapter(list[MeasurementWithDevice]))
     def get_all_measurements_by_test_id(
         self,
         test_id: str,
