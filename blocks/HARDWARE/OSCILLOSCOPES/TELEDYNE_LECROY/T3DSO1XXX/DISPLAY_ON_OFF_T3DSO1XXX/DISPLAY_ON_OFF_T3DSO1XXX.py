@@ -1,5 +1,5 @@
 from flojoy import flojoy, DataContainer, VisaConnection
-from typing import Literal, Optional
+from typing import Optional
 
 
 @flojoy(inject_connection=True)
