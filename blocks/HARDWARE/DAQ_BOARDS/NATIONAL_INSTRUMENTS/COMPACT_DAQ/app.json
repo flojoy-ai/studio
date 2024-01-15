@@ -1,0 +1,438 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CONNECT_CDAQ-ce89e40f-8e29-4f48-9bc0-e062babe4a9e",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "CONNECT_CDAQ-ce89e40f-8e29-4f48-9bc0-e062babe4a9e",
+                    "label": "CONNECT CDAQ",
+                    "func": "CONNECT_CDAQ",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "targeted_device": {
+                            "type": "str",
+                            "default": null,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "CONNECT_CDAQ",
+                            "param": "targeted_device",
+                            "value": "cDAQ1Mod1"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "None."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "nidaqmx",
+                            "v": "0.9.0"
+                        }
+                    ],
+                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CONNECT_CDAQ/CONNECT_CDAQ.py"
+                },
+                "position": {
+                    "x": -462.58711131546477,
+                    "y": -388.59041514891567
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -462.58711131546477,
+                    "y": -388.59041514891567
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CONNECT_CHANNEL_CDAQ-c0b2aa1e-29c8-4edc-856e-710352220782",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "CONNECT_CHANNEL_CDAQ-c0b2aa1e-29c8-4edc-856e-710352220782",
+                    "label": "CONNECT CHANNEL CDAQ",
+                    "func": "CONNECT_CHANNEL_CDAQ",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "targeted_channel": {
+                            "type": "str",
+                            "default": null,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "CONNECT_CHANNEL_CDAQ",
+                            "param": "targeted_channel",
+                            "value": "ai0"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "device_adress",
+                            "id": "device_adress",
+                            "type": "String",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "nidaqmx",
+                            "v": "0.9.0"
+                        }
+                    ],
+                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CONNECT_CHANNEL_CDAQ/CONNECT_CHANNEL_CDAQ.py"
+                },
+                "position": {
+                    "x": -206.10946258717019,
+                    "y": -382.3560332102621
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -206.10946258717019,
+                    "y": -382.3560332102621
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "READ_ANALOG_INPUT_CDAQ-2708267d-27b9-4134-bc53-265437a4642e",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "READ_ANALOG_INPUT_CDAQ-2708267d-27b9-4134-bc53-265437a4642e",
+                    "label": "READ ANALOG INPUT CDAQ",
+                    "func": "READ_ANALOG_INPUT_CDAQ",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "number_of_sample": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "READ_ANALOG_INPUT_CDAQ",
+                            "param": "number_of_sample",
+                            "value": 1000
+                        },
+                        "channel_type": {
+                            "type": "select",
+                            "options": [
+                                "Current",
+                                "Thermocouple",
+                                "Voltage"
+                            ],
+                            "default": "Current",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "READ_ANALOG_INPUT_CDAQ",
+                            "param": "channel_type",
+                            "value": "Current"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "channel",
+                            "id": "channel",
+                            "type": "String",
+                            "multiple": false,
+                            "desc": null
+                        },
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "None."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "nidaqmx",
+                            "v": "0.9.0"
+                        }
+                    ],
+                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/READ_ANALOG_INPUT_CDAQ/READ_ANALOG_INPUT_CDAQ.py"
+                },
+                "position": {
+                    "x": 405.40323999106477,
+                    "y": -338.75233182515274
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 405.40323999106477,
+                    "y": -338.75233182515274
+                },
+                "dragging": true
+            },
+            {
+                "width": 1473,
+                "height": 1049,
+                "id": "LINE-8683e96f-304c-4f5e-afcd-d79f57f6b63c",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-8683e96f-304c-4f5e-afcd-d79f57f6b63c",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": 692.6963210227404,
+                    "y": -770.3659167297266
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 692.6963210227404,
+                    "y": -770.3659167297266
+                },
+                "dragging": true,
+                "style": {
+                    "width": 1473,
+                    "height": 1049
+                },
+                "resizing": false
+            },
+            {
+                "width": 96,
+                "height": 96,
+                "id": "LOOP-b47074ae-7cf5-4c12-85d2-521c39839380",
+                "type": "CONTROL_FLOW",
+                "data": {
+                    "id": "LOOP-b47074ae-7cf5-4c12-85d2-521c39839380",
+                    "label": "LOOP",
+                    "func": "LOOP",
+                    "type": "CONTROL_FLOW",
+                    "ctrls": {
+                        "num_loops": {
+                            "type": "int",
+                            "default": -1,
+                            "desc": "number of times to iterate through body nodes, default is \"-1\" meaning infinity.",
+                            "overload": null,
+                            "functionName": "LOOP",
+                            "param": "num_loops",
+                            "value": 10
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "body",
+                            "id": "body",
+                            "type": "Any",
+                            "desc": "Forwards the input DataContainer to the body."
+                        },
+                        {
+                            "name": "end",
+                            "id": "end",
+                            "type": "Any",
+                            "desc": "Forwards the input DataContainer to the end."
+                        }
+                    ],
+                    "path": "CONTROL_FLOW/LOOPS/LOOP/LOOP.py"
+                },
+                "position": {
+                    "x": 140.29258581357533,
+                    "y": -6.435552507950092
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 140.29258581357533,
+                    "y": -6.435552507950092
+                },
+                "dragging": true
+            },
+            {
+                "width": 96,
+                "height": 96,
+                "id": "TIMER-b8901e0a-cb83-4cbc-98d2-2898cd298aa9",
+                "type": "CONTROL_FLOW",
+                "data": {
+                    "id": "TIMER-b8901e0a-cb83-4cbc-98d2-2898cd298aa9",
+                    "label": "TIMER",
+                    "func": "TIMER",
+                    "type": "CONTROL_FLOW",
+                    "ctrls": {
+                        "sleep_time": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "number of seconds to sleep",
+                            "overload": null,
+                            "functionName": "TIMER",
+                            "param": "sleep_time",
+                            "value": 0.1
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "Returns the input if one was passed in."
+                        }
+                    ],
+                    "path": "CONTROL_FLOW/TIMERS/TIMER/TIMER.py"
+                },
+                "position": {
+                    "x": 2331.093200871196,
+                    "y": -243.71096175985969
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 2331.093200871196,
+                    "y": -243.71096175985969
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "CONNECT_CDAQ-ce89e40f-8e29-4f48-9bc0-e062babe4a9e",
+                "sourceHandle": "default",
+                "target": "CONNECT_CHANNEL_CDAQ-c0b2aa1e-29c8-4edc-856e-710352220782",
+                "targetHandle": "device_adress",
+                "id": "reactflow__edge-CONNECT_CDAQ-ce89e40f-8e29-4f48-9bc0-e062babe4a9edefault-CONNECT_CHANNEL_CDAQ-c0b2aa1e-29c8-4edc-856e-710352220782device_adress"
+            },
+            {
+                "source": "CONNECT_CHANNEL_CDAQ-c0b2aa1e-29c8-4edc-856e-710352220782",
+                "sourceHandle": "default",
+                "target": "LOOP-b47074ae-7cf5-4c12-85d2-521c39839380",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONNECT_CHANNEL_CDAQ-c0b2aa1e-29c8-4edc-856e-710352220782default-LOOP-b47074ae-7cf5-4c12-85d2-521c39839380default"
+            },
+            {
+                "source": "LOOP-b47074ae-7cf5-4c12-85d2-521c39839380",
+                "sourceHandle": "body",
+                "target": "READ_ANALOG_INPUT_CDAQ-2708267d-27b9-4134-bc53-265437a4642e",
+                "targetHandle": "channel",
+                "id": "reactflow__edge-LOOP-b47074ae-7cf5-4c12-85d2-521c39839380body-READ_ANALOG_INPUT_CDAQ-2708267d-27b9-4134-bc53-265437a4642echannel"
+            },
+            {
+                "source": "READ_ANALOG_INPUT_CDAQ-2708267d-27b9-4134-bc53-265437a4642e",
+                "sourceHandle": "default",
+                "target": "LINE-8683e96f-304c-4f5e-afcd-d79f57f6b63c",
+                "targetHandle": "default",
+                "id": "reactflow__edge-READ_ANALOG_INPUT_CDAQ-2708267d-27b9-4134-bc53-265437a4642edefault-LINE-8683e96f-304c-4f5e-afcd-d79f57f6b63cdefault"
+            },
+            {
+                "source": "LINE-8683e96f-304c-4f5e-afcd-d79f57f6b63c",
+                "sourceHandle": "default",
+                "target": "TIMER-b8901e0a-cb83-4cbc-98d2-2898cd298aa9",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINE-8683e96f-304c-4f5e-afcd-d79f57f6b63cdefault-TIMER-b8901e0a-cb83-4cbc-98d2-2898cd298aa9default"
+            }
+        ],
+        "viewport": {
+            "x": 811.5885732768018,
+            "y": 439.15420524755007,
+            "zoom": 0.7447829407266607
+        }
+    },
+    "textNodes": []
+}
