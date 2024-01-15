@@ -81,8 +81,7 @@ import ContextMenu, { MenuInfo } from "./components/NodeContextMenu";
 import { useCustomSections } from "@src/hooks/useCustomBlockManifest";
 import { BlocksMetadataMap } from "@src/types/blocks-metadata";
 import { Spinner } from "@src/components/ui/spinner";
-import { authenticate, checkPermission } from "@src/services/auth-service";
-import { useAuth } from "@src/context/auth.context";
+import useWithPermission from "@/renderer/hooks/useWithPermission";
 
 const nodeTypes: NodeTypes = {
   default: DefaultNode,
@@ -124,7 +123,6 @@ const FlowChartTab = () => {
 
   const { isSidebarOpen, setIsSidebarOpen, isEditMode, setIsEditMode } =
     useFlowChartState();
-  const { user } = useAuth();
   const { states } = useSocket();
   const { programResults, setProgramResults } = states;
 
@@ -149,6 +147,7 @@ const FlowChartTab = () => {
   } = useFlowChartGraph();
   const nodesMetadataMap = useNodesMetadata();
   const manifest = useManifest();
+  const { withPermissionCheck, isAdmin } = useWithPermission();
 
   const {
     handleImportCustomBlocks,
@@ -299,75 +298,59 @@ const FlowChartTab = () => {
 
   const onConnect: OnConnect = useCallback(
     (connection) => {
-      try {
-        authenticate(user);
-        setEdges((eds) => {
-          if (!fullManifest) {
-            toast.error("Manifest not found, can't connect edge.");
-            return;
+      setEdges((eds) => {
+        if (!fullManifest) {
+          toast.error("Manifest not found, can't connect edge.");
+          return;
+        }
+
+        const edges = getEdgeTypes(fullManifest, connection);
+
+        if (edges.length > 0) {
+          const [sourceType, targetType] = edges;
+          if (isCompatibleType(sourceType, targetType)) {
+            return addEdge(connection, eds);
           }
 
-          const edges = getEdgeTypes(fullManifest, connection);
-
-          if (edges.length > 0) {
-            const [sourceType, targetType] = edges;
-            if (isCompatibleType(sourceType, targetType)) {
-              return addEdge(connection, eds);
-            }
-
-            toast.message("Type error", {
-              description: `Source type ${sourceType} and target type ${targetType} are not compatible`,
-            });
-          }
-        });
-      } catch (e) {
-        //
-      }
+          toast.message("Type error", {
+            description: `Source type ${sourceType} and target type ${targetType} are not compatible`,
+          });
+        }
+      });
     },
-    [setEdges, fullManifest, user],
+    [setEdges, fullManifest],
   );
 
   const handleNodesDelete: OnNodesDelete = useCallback(
     (nodes) => {
-      try {
-        authenticate(user);
-        nodes.forEach((node) => {
-          sendEventToMix(MixPanelEvents.nodeDeleted, {
-            nodeTitle: node.data.label,
-          });
+      nodes.forEach((node) => {
+        sendEventToMix(MixPanelEvents.nodeDeleted, {
+          nodeTitle: node.data.label,
         });
-        const selectedNodeIds = nodes.map((node) => node.id);
-        setNodes((prev) =>
-          prev.filter((node) => !selectedNodeIds.includes(node.id)),
-        );
-        setHasUnsavedChanges(true);
-      } catch (e) {
-        //
-      }
+      });
+      const selectedNodeIds = nodes.map((node) => node.id);
+      setNodes((prev) =>
+        prev.filter((node) => !selectedNodeIds.includes(node.id)),
+      );
+      setHasUnsavedChanges(true);
     },
-    [setNodes, setHasUnsavedChanges, user],
+    [setNodes, setHasUnsavedChanges],
   );
 
   const clearCanvas = useCallback(() => {
-    try {
-      authenticate(user);
-      setNodes([]);
-      setTextNodes([]);
-      setEdges([]);
-      setHasUnsavedChanges(true);
-      setProgramResults([]);
+    setNodes([]);
+    setTextNodes([]);
+    setEdges([]);
+    setHasUnsavedChanges(true);
+    setProgramResults([]);
 
-      sendEventToMix(MixPanelEvents.canvasCleared);
-    } catch (e) {
-      //
-    }
+    sendEventToMix(MixPanelEvents.canvasCleared);
   }, [
     setNodes,
     setTextNodes,
     setEdges,
     setHasUnsavedChanges,
     setProgramResults,
-    user,
   ]);
 
   useEffect(() => {
@@ -400,12 +383,7 @@ const FlowChartTab = () => {
     nodes.filter((n) => n.selected).length > 1 ? null : selectedNode;
 
   const onCommandMenuItemSelect = (node: TreeNode) => {
-    try {
-      authenticate(user);
-      addNewNode(node);
-    } catch (e) {
-      //
-    }
+    addNewNode(node);
     setCommandMenuOpen(false);
   };
 
@@ -548,7 +526,7 @@ const FlowChartTab = () => {
                 )}
               </>
             )}
-            <ClearCanvasBtn clearCanvas={clearCanvas} />
+            <ClearCanvasBtn clearCanvas={withPermissionCheck(clearCanvas)} />
           </div>
           <div className="py-1" />
           <Separator />
@@ -557,14 +535,7 @@ const FlowChartTab = () => {
         {manifest !== undefined && customBlockManifest !== undefined && (
           <Sidebar
             sections={manifest}
-            leafNodeClickHandler={(elem) => {
-              try {
-                authenticate(user);
-                addNewNode(elem);
-              } catch (e) {
-                //
-              }
-            }}
+            leafNodeClickHandler={withPermissionCheck(addNewNode)}
             isSideBarOpen={isSidebarOpen}
             setSideBarStatus={setIsSidebarOpen}
             customSections={customBlockManifest}
@@ -601,7 +572,7 @@ const FlowChartTab = () => {
             id="flow-chart"
             ref={ref}
             className="!absolute"
-            deleteKeyCode={checkPermission(user) ? deleteKeyCodes : null}
+            deleteKeyCode={isAdmin() ? deleteKeyCodes : null}
             proOptions={proOptions}
             nodes={[...nodes, ...textNodes]}
             nodeTypes={nodeTypes}
@@ -611,10 +582,10 @@ const FlowChartTab = () => {
             onInit={onInit}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
-            nodesDraggable={checkPermission(user)}
+            onConnect={withPermissionCheck(onConnect)}
+            nodesDraggable={isAdmin()}
             onNodeDragStop={handleNodeDrag}
-            onNodesDelete={handleNodesDelete}
+            onNodesDelete={withPermissionCheck(handleNodesDelete)}
             fitViewOptions={{
               padding: 0.8,
             }}
@@ -666,7 +637,7 @@ const FlowChartTab = () => {
         open={isCommandMenuOpen}
         placeholder="Search for a node..."
         setOpen={setCommandMenuOpen}
-        onItemSelect={onCommandMenuItemSelect}
+        onItemSelect={withPermissionCheck(onCommandMenuItemSelect)}
       />
     </>
   );

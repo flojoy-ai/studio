@@ -1,11 +1,10 @@
-import { authenticate } from "@src/services/auth-service";
 import { Button } from "@src/components/ui/button";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { ElementsData } from "@src/types";
 import { Code, CopyPlus, Info, LucideIcon, Pencil, X } from "lucide-react";
 import { useCallback } from "react";
 import { useStore, Node, useReactFlow } from "reactflow";
-import { useAuth } from "@src/context/auth.context";
+import useWithPermission from "@/renderer/hooks/useWithPermission";
 
 export type MenuInfo = {
   id: string;
@@ -67,7 +66,7 @@ export default function ContextMenu({
   duplicateNode,
   setNodeModalOpen,
 }: ContextMenuProps) {
-  const { user } = useAuth();
+  const { withPermissionCheck } = useWithPermission();
   const { getNode, setNodes, setEdges } = useReactFlow();
 
   const { setIsEditMode } = useFlowChartState();
@@ -88,46 +87,25 @@ export default function ContextMenu({
   };
 
   const editPythonCode = async () => {
-    try {
-      authenticate(user);
-      console.log(fullPath);
-      await window.api.openEditorWindow(fullPath);
-    } catch (e) {
-      //
-    }
+    await window.api.openEditorWindow(fullPath);
   };
 
   const duplicate = () => {
-    try {
-      authenticate(user);
-      const node = getNode(id);
-      if (!node) {
-        return;
-      }
-      duplicateNode(node);
-    } catch (e) {
-      //
+    const node = getNode(id);
+    if (!node) {
+      return;
     }
+    duplicateNode(node);
   };
 
   const openInVSC = async () => {
-    try {
-      authenticate(user);
-      await window.api.openLink(`vscode://file/${fullPath}`);
-    } catch (e) {
-      //
-    }
+    await window.api.openLink(`vscode://file/${fullPath}`);
   };
 
   const deleteNode = useCallback(() => {
-    try {
-      authenticate(user);
-      setNodes((nodes) => nodes.filter((node) => node.id !== id));
-      setEdges((edges) => edges.filter((edge) => edge.source !== id));
-    } catch (e) {
-      //
-    }
-  }, [user, setNodes, setEdges, id]);
+    setNodes((nodes) => nodes.filter((node) => node.id !== id));
+    setEdges((edges) => edges.filter((edge) => edge.source !== id));
+  }, [setNodes, setEdges, id]);
 
   return (
     <div
@@ -145,21 +123,21 @@ export default function ContextMenu({
       </ContextMenuAction>
       <ContextMenuAction
         testId="context-edit-python"
-        onClick={editPythonCode}
+        onClick={withPermissionCheck(editPythonCode)}
         icon={Code}
       >
         Edit Python Code
       </ContextMenuAction>
       <ContextMenuAction
         testId="open-in-vscode"
-        onClick={openInVSC}
+        onClick={withPermissionCheck(openInVSC)}
         icon={Code}
       >
         Open in VSCode
       </ContextMenuAction>
       <ContextMenuAction
         testId="context-duplicate-block"
-        onClick={duplicate}
+        onClick={withPermissionCheck(duplicate)}
         icon={CopyPlus}
       >
         Duplicate Block
@@ -175,7 +153,7 @@ export default function ContextMenu({
       <hr />
       <ContextMenuAction
         testId="context-delete-block"
-        onClick={deleteNode}
+        onClick={withPermissionCheck(deleteNode)}
         icon={X}
       >
         Delete Block

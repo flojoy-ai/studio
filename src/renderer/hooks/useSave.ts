@@ -5,50 +5,38 @@ import { projectAtom, projectPathAtom } from "./useFlowChartState";
 import { useHasUnsavedChanges } from "./useHasUnsavedChanges";
 import { makeAppFileContent, saveFileAs } from "@src/lib/save";
 import { sendEventToMix } from "@src/services/MixpanelServices";
-import { useAuth } from "../context/auth.context";
-import { authenticate } from "../services/auth-service";
+import useWithPermission from "./useWithPermission";
 
 export const useSave = () => {
-  const { user } = useAuth();
+  const { withPermissionCheck } = useWithPermission();
   const { nodes, edges, textNodes } = useFlowChartGraph();
   const { setHasUnsavedChanges } = useHasUnsavedChanges();
   const project = useAtomValue(projectAtom);
   const [projectPath, setProjectPath] = useAtom(projectPathAtom);
 
   const handleSave = async () => {
+    if (projectPath && "api" in window) {
+      sendEventToMix("Saving Project");
+      const fileContent = makeAppFileContent(project, nodes, edges, textNodes);
+      window.api.saveFile(projectPath, fileContent);
+
+      toast.success("App saved!");
+      setHasUnsavedChanges(false);
+      return;
+    }
     try {
-      authenticate(user);
+      const path = await saveFileAs(project, nodes, edges, textNodes);
+      setProjectPath(path);
 
-      if (projectPath && "api" in window) {
-        sendEventToMix("Saving Project");
-        const fileContent = makeAppFileContent(
-          project,
-          nodes,
-          edges,
-          textNodes,
-        );
-        window.api.saveFile(projectPath, fileContent);
-
-        toast.success("App saved!");
-        setHasUnsavedChanges(false);
-        return;
-      }
-      try {
-        const path = await saveFileAs(project, nodes, edges, textNodes);
-        setProjectPath(path);
-
-        const message = path
-          ? `Saved app to ${path}!`
-          : "Saved app successfully!";
-        toast.success(message);
-        setHasUnsavedChanges(false);
-      } catch {
-        // exception just means user cancelled save
-      }
-    } catch (error) {
-      //
+      const message = path
+        ? `Saved app to ${path}!`
+        : "Saved app successfully!";
+      toast.success(message);
+      setHasUnsavedChanges(false);
+    } catch {
+      // exception just means user cancelled save
     }
   };
 
-  return handleSave;
+  return withPermissionCheck(handleSave);
 };

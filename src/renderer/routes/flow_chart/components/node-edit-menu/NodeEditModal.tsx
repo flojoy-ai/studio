@@ -10,8 +10,7 @@ import { Button } from "@src/components/ui/button";
 import { Input } from "@src/components/ui/input";
 import { LAYOUT_TOP_HEIGHT } from "@src/routes/common/Layout";
 import { ScrollArea } from "@src/components/ui/scroll-area";
-import { authenticate } from "@/renderer/services/auth-service";
-import { useAuth } from "@/renderer/context/auth.context";
+import useWithPermission from "@/renderer/hooks/useWithPermission";
 
 type NodeEditModalProps = {
   node: Node<ElementsData>;
@@ -28,7 +27,7 @@ const NodeEditModal = ({
 }: NodeEditModalProps) => {
   const { updateInitCtrlInputDataForNode, updateCtrlInputDataForNode } =
     useFlowChartGraph();
-  const { user } = useAuth();
+  const { withPermissionCheck } = useWithPermission();
   const [newTitle, setNewTitle] = useState(node.data.label);
   const [editRenamingTitle, setEditRenamingTitle] = useState(false);
   const { nodeParamChanged, setIsEditMode } = useFlowChartState();
@@ -84,14 +83,9 @@ const NodeEditModal = ({
                   size="icon"
                   variant="ghost"
                   data-testid="block-label-edit"
-                  onClick={() => {
-                    try {
-                      authenticate(user);
-                      setEditRenamingTitle(true);
-                    } catch (error) {
-                      //
-                    }
-                  }}
+                  onClick={withPermissionCheck(() =>
+                    setEditRenamingTitle(true),
+                  )}
                 >
                   <Pencil size={20} className="stroke-muted-foreground" />
                 </Button>
@@ -164,14 +158,9 @@ const NodeEditModal = ({
           <Button
             size="icon"
             variant="ghost"
-            onClick={() => {
-              try {
-                authenticate(user);
-                handleDelete(node.id, node.data.label);
-              } catch (e) {
-                //
-              }
-            }}
+            onClick={withPermissionCheck(() =>
+              handleDelete(node.id, node.data.label),
+            )}
             className="mr-4"
             data-testid="delete-node-button"
           >
