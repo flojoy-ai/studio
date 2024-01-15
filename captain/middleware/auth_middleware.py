@@ -1,5 +1,6 @@
 from fastapi import Request, HTTPException
 from captain.services.auth.auth_service import validate_credentials
+import base64
 
 
 async def is_admin(req: Request):
@@ -15,24 +16,26 @@ async def is_admin(req: Request):
     exception_txt = "You are not authorized to perform this action"
     auth_header = req.headers.get("Authorization")
 
-    if auth_header is None:
+    if not auth_header or not auth_header.startswith("Basic "):
         raise HTTPException(
             status_code=403,
             detail=exception_txt,
         )
+    try:
+        credentials_b64 = auth_header[6:]
+        credentials = base64.b64decode(credentials_b64).decode("utf-8")
 
-    auth = auth_header.split(" ")
-    if len(auth) != 2:
-        raise HTTPException(
-            status_code=403,
-            detail=exception_txt,
-        )
-    [username, password] = auth
-    authorized = validate_credentials(username, password)
+        username, password = credentials.split(":", 1)
+        authorized = validate_credentials(username, password)
 
-    if authorized:
-        return
-    else:
+        if authorized:
+            return
+        else:
+            raise HTTPException(
+                status_code=403,
+                detail=exception_txt,
+            )
+    except Exception:
         raise HTTPException(
             status_code=403,
             detail=exception_txt,
