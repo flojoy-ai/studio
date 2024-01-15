@@ -9,22 +9,22 @@
         "description": "The VISA address (requires the CONNECT_T3DSO1XXX block)"
       },
       {
-        "name": "ch1",
+        "name": "display_ch1",
         "type": "select",
         "description": "Turn channel 1 on or off"
       },
       {
-        "name": "ch2",
+        "name": "display_ch2",
         "type": "select",
         "description": "Turn channel 2 on or off"
       },
       {
-        "name": "ch3",
+        "name": "display_ch3",
         "type": "select",
         "description": "Turn channel 3 on or off"
       },
       {
-        "name": "ch4",
+        "name": "display_ch4",
         "type": "select",
         "description": "Turn channel 4 on or off"
       }
