@@ -1,0 +1,92 @@
+---
+title: Connecting to PL601-P by Aimtti in Python
+description: Bench/System Linear Regulated DC Power Supply Single Output, 60V/1.5A, USB, RS232 & LAN Interfaces
+keywords: [Power Supplies, Aimtti, QCodes] 
+slug: instruments-database/power-supplies/aimtti/pl601-p 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782624/Instruments/Power%20Supplies/PL601-P/PL601-P.jpg
+sidebar:
+    label: PL601-P 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+Bench/System Linear Regulated DC Power Supply Single Output, 60V/1.5A, USB, RS232 & LAN Interfaces
+
+
+![PL601-P](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782624/Instruments/Power%20Supplies/PL601-P/PL601-P.jpg)
+
+Device Specification: [here](https://resources.aimtti.com/datasheets/AIM-PL+PL-P_series_DC_power_supplies_data_sheet-Iss5.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: AIMTTI</h2></summary>
+
+![AIMTTI](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692125963/Instruments/Vendor%20Logos/Aimtti.png)
+
+TTi (Thurlby Thandar Instruments) is a leading manufacturer of electronic test and measurement instruments. These products are sold throughout the world via carefully selected distributors and agents in each country. We are located in Huntingdon near to the famous university city of Cambridge, within one of the high technology areas of the United Kingdom.
+
+- Headquarters: UK
+- Yearly Revenue (millions, USD): 9000
+- Vendor Website: [here](https://www.aimtti.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="POWER_SUPPLIES" />
+
+## Connect to the PL601-P in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="POWER_SUPPLIES" manufacturer="Aimtti"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+To connect to a PL601-P Power Supply using Qcodes, you can use the following Python script:
+
+```python
+from qcodes.instrument.visa import VisaInstrument
+from qcodes.instrument.channel import ChannelList
+
+class AimTTiChannel(VisaInstrument):
+    # ... implementation of AimTTiChannel class ...
+
+class AimTTi(VisaInstrument):
+    # ... implementation of AimTTi class ...
+
+# Create an instance of the AimTTi instrument
+aim_tti = AimTTi('aim_tti', 'TCPIP0::192.168.1.1::inst0::INSTR')
+
+# Connect to the instrument
+aim_tti.connect()
+
+# Access the channels of the power supply
+channels = aim_tti.channels
+
+# Access individual channels
+channel1 = channels.ch1
+channel2 = channels.ch2
+
+# Set the voltage of channel 1 to 5V
+channel1.volt(5)
+
+# Set the current of channel 2 to 1A
+channel2.curr(1)
+
+# Disconnect from the instrument
+aim_tti.disconnect()
+```
+
+Note: Replace `'TCPIP0::192.168.1.1::inst0::INSTR'` with the actual VISA resource address of your PL601-P Power Supply.
+
+</TabItem>
+</Tabs>

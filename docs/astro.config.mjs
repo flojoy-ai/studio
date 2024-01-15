@@ -79,6 +79,7 @@ export default defineConfig({
         },
         {
           label: "📚 Contribution Guide",
+          collapsed: true,
           items: [
             {
               label: "Contribute to Blocks",
@@ -95,6 +96,14 @@ export default defineConfig({
               },
             },
           ],
+        },
+        {
+          label: "📟 Instruments Database",
+          collapsed: true,
+          autogenerate: {
+            directory: "instruments-database",
+            collapsed: true,
+          },
         },
       ],
       defaultLocale: "root",

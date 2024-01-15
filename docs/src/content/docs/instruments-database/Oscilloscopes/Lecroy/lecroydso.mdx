@@ -1,0 +1,81 @@
+---
+title: Connecting to Lecroydso  by Lecroy in Python
+description: This Class Allows The Acquisition Of A Waveform (The Description And The Data), From A Specific C...
+keywords: [Oscilloscopes, Lecroy, PyTango] 
+slug: instruments-database/oscilloscopes/lecroy/lecroydso 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782648/Instruments/Oscilloscopes/Lecroydso/Lecroydso.png
+sidebar:
+    label: Lecroydso 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+This Class Allows The Acquisition Of A Waveform (The Description And The Data), From A Specific C...
+
+![Lecroydso](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782648/Instruments/Oscilloscopes/Lecroydso/Lecroydso.png)
+
+Device Specification: [here](/instruments-database/all-instruments)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: LECROY</h2></summary>
+
+![LECROY](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806142/Instruments/Vendor%20Logos/Lecroy.png)
+
+Teledyne LeCroy, Inc. manufactures and distributes electronic measuring instruments. The Company produces analyzers, measurement, and testing solutions including oscilloscopes, production test digitizers, and electronic components. Teledyne LeCroy serves customers worldwide.
+
+- Headquarters: s	Chestnut Ridge, New York, USA
+- Yearly Revenue (millions, USD): 178
+- Vendor Website: [here](https://www.teledynelecroy.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="OSCILLOSCOPES" />
+
+## Connect to the Lecroydso in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="OSCILLOSCOPES" manufacturer="Lecroy"></SectionsCard>
+
+</TabItem>
+<TabItem value="PyTango" label="PyTango">
+
+To connect to a LeCroy Oscilloscope using Pytango, you can use the following code:
+
+```python
+import PyTango
+from lecroydso import DSOConnection
+from lecroydso import LeCroyDSO
+
+# Create a connection to the oscilloscope
+connection = DSOConnection("your_oscilloscope_address")
+
+# Connect to the oscilloscope
+connection.connect()
+
+# Create an instance of the LeCroyDSO class
+lecroy_dso = LeCroyDSO(connection)
+
+# Now you can use the LeCroyDSO instance to interact with the oscilloscope
+# For example, you can get the serial number of the oscilloscope
+serial_number = lecroy_dso.get_serial_number()
+print("Serial Number:", serial_number)
+
+# Disconnect from the oscilloscope
+connection.disconnect()
+```
+
+Note: Replace "your_oscilloscope_address" with the actual address of your oscilloscope.
+
+</TabItem>
+</Tabs>

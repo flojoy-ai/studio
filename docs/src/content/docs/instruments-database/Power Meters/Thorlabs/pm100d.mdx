@@ -1,0 +1,94 @@
+---
+title: Connecting to PM100D by Thorlabs in Python
+description: The PM100D Handheld Optical Power and Energy Meter is designed to measure the optical power of laser light or other monochromatic or near monochromatic light sources and the energy of pulsed light sources.
+keywords: [Power Meters, Thorlabs, Instrumental] 
+slug: instruments-database/power-meters/thorlabs/pm100d 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782642/Instruments/Power%20Meters/PM100D/PM100D.jpg
+sidebar:
+    label: PM100D 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The PM100D Handheld Optical Power and Energy Meter is designed to measure the
+optical power of laser light or other monochromatic or near monochromatic light
+sources and the energy of pulsed light sources.
+
+![PM100D](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782642/Instruments/Power%20Meters/PM100D/PM100D.jpg)
+
+Device Specification: [here](https://www.thorlabs.com/_sd.cfm?fileName=17654-D02.pdf&partNumber=PM100D)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: THORLABS</h2></summary>
+
+![THORLABS](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692126009/Instruments/Vendor%20Logos/Thorlabs.png)
+
+Thorlabs, Inc. is an American privately held optical equipment company headquartered in Newton, New Jersey. The company was founded in 1989 by Alex Cable, who serves as its current president and CEO. As of 2018, Thorlabs has annual sales of approximately $500 million.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 550
+- Vendor Website: [here](https://www.thorlabs.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="POWER_METERS" />
+
+## Connect to the PM100D in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="POWER_METERS" manufacturer="Thorlabs"></SectionsCard>
+
+</TabItem>
+<TabItem value="Instrumental" label="Instrumental">
+
+Here's a Python script that uses Instrumental to connect to a PM100D Power Meter:
+
+```python
+from instrumental import instrument, list_instruments
+
+# List all available instruments
+print(list_instruments())
+
+# Connect to the PM100D Power Meter
+pm100d = instrument('Thorlabs PM100D')
+
+# Get the current power reading
+power = pm100d.power()
+print(f"Current power reading: {power}")
+
+# Set the input signal wavelength to 1550 nm
+pm100d.wavelength = 1550
+
+# Get the input signal wavelength
+wavelength = pm100d.wavelength
+print(f"Current wavelength setting: {wavelength}")
+
+# Make a multi-sample power measurement
+measurement = pm100d.measure(n_samples=10)
+print(f"Average power: {measurement.nominal_value} ± {measurement.std_dev}")
+
+# Close the connection to the PM100D Power Meter
+pm100d.close()
+```
+
+This script first lists all available instruments using `list_instruments()` function. Then, it connects to the PM100D Power Meter using the `instrument()` function and assigns it to the `pm100d` variable.
+
+The script then demonstrates various operations with the power meter. It retrieves the current power reading using the `power()` method, sets the input signal wavelength to 1550 nm using the `wavelength` attribute, and retrieves the current wavelength setting.
+
+Finally, it makes a multi-sample power measurement using the `measure()` method and prints the average power and standard deviation.
+
+The script ends by closing the connection to the power meter using the `close()` method.
+
+</TabItem>
+</Tabs>

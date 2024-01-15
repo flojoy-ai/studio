@@ -1,0 +1,106 @@
+---
+title: Connecting to ATS9360-12bit, 1.8GS/s by Alazartech in Python
+description: ATS9360 is a fast, 12-bit waveform digitizer based on the 8-lane PCI Express Gen2 interface.
+keywords: [Daq Boards, Alazartech, QCodes] 
+slug: instruments-database/daq-boards/alazartech/ats9360-12bit-18gs-s 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782729/Instruments/DAQ%20boards/ATS9360---12bit%2C-1.8GS-s/ATS9360---12bit_-1.8GS-s.jpg
+sidebar:
+    label: ATS9360-12bit, 1.8GS/s 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+ATS9360 is a fast, 12-bit waveform digitizer based on the 8-lane PCI Express Gen2 interface.
+
+
+![ATS9360-12bit, 1.8GS/s](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782729/Instruments/DAQ%20boards/ATS9360---12bit%2C-1.8GS-s/ATS9360---12bit_-1.8GS-s.jpg)
+
+Device Specification: [here](http://www.octsources.com/otcadmin/document/pdf/20180815/1534322934.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: ALAZARTECH</h2></summary>
+
+![ALAZARTECH](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806158/Instruments/Vendor%20Logos/Alazartech.png)
+
+Alazar Technologies Inc. (AlazarTech) was founded in 2003 with the goal of serving the test and measurement market, in general, and the embedded waveform digitizer (OEM) market segment, in particular, by providing highly differentiated, high performance instrumentation products at affordable prices.
+
+- Headquarters: CANADA - QC
+- Yearly Revenue (millions, USD): 4
+- Vendor Website: [here](https://www.alazartech.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="DAQ_BOARDS" />
+
+## Connect to the ATS9360-12bit, 1.8GS/s in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="DAQ_BOARDS" manufacturer="Alazartech"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+
+```python
+import qcodes as qc
+from qcodes.instrument_drivers.AlazarTech.ATS9360 import AlazarTech_ATS9360
+
+# Connect to the ATS9360 DAQ board
+daq = AlazarTech_ATS9360("daq", "ATS9360")
+
+# Configure the DAQ board settings
+daq.clock_source("INTERNAL_CLOCK")
+daq.sample_rate(1.8e9)
+daq.clock_edge("CLOCK_EDGE_RISING")
+daq.decimation(1)
+daq.coupling1("DC")
+daq.coupling2("DC")
+daq.channel_range1(0.4)
+daq.channel_range2(0.4)
+daq.trigger_operation("TRIG_ENGINE_OP_J")
+daq.trigger_engine1("TRIG_ENGINE_J")
+daq.trigger_source1("EXTERNAL")
+daq.trigger_slope1("TRIG_SLOPE_POSITIVE")
+daq.trigger_level1(160)
+daq.external_trigger_coupling("DC")
+daq.external_trigger_range("ETR_2V5")
+daq.trigger_delay(0)
+daq.timeout_ticks(0)
+
+# Configure the acquisition parameters
+daq.set_acquisition_mode("NPT")
+daq.set_record_length(1024)
+daq.set_buffers_per_acquisition(10)
+daq.set_trigger_delay(0)
+daq.set_trigger_timeout(0)
+
+# Start the acquisition
+daq.start_acquisition()
+
+# Read the acquired data
+data = daq.acquire()
+
+# Stop the acquisition
+daq.stop_acquisition()
+
+# Disconnect from the DAQ board
+daq.close()
+```
+
+This script connects to the ATS9360 DAQ board using the `AlazarTech_ATS9360` driver from Qcodes. It then configures various settings such as clock source, sample rate, trigger settings, and acquisition parameters. After starting the acquisition, it reads the acquired data and stops the acquisition. Finally, it disconnects from the DAQ board.
+
+Note: This script assumes that you have already installed the necessary dependencies, including Qcodes and the AlazarTech driver for the ATS9360 board.
+
+</TabItem>
+</Tabs>

@@ -42,7 +42,7 @@ import cloudpickle
 import portalocker
 
 from .CONSTANTS import FLOJOY_CACHE_DIR
-from .logging import LogPipe, LogPipeMode, StreamEnum
+from ._logging import LogPipe, LogPipeMode, StreamEnum
 
 __all__ = ["run_in_venv"]
 

@@ -1,0 +1,79 @@
+---
+title: Connecting to Keysight 34411A Submodules by Keysight in Python
+description: The 34411A offers Temperature and Capacitance capabilities, in addition to those measurements you have come to expect, such as DCV, ACV, DCI, ACI, 2-wire and 4-wire Resistance, Frequency, Period, Continuity and Diode Test.
+keywords: [Multimeters, Keysight, QCodes] 
+slug: instruments-database/multimeters/keysight/keysight-34411a-submodules 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782621/Instruments/Multimeters/Keysight-34411A-Submodules/Keysight-34411A-Submodules.jpg
+sidebar:
+    label: Keysight 34411A Submodules 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The 34411A offers Temperature and Capacitance capabilities, in addition to those measurements you have come to expect, such as DCV, ACV, DCI, ACI, 2-wire and 4-wire Resistance, Frequency, Period, Continuity and Diode Test.
+
+![Keysight 34411A Submodules](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782621/Instruments/Multimeters/Keysight-34411A-Submodules/Keysight-34411A-Submodules.jpg)
+
+Device Specification: [here](https://www.keysight.com/us/en/assets/7018-01326/data-sheets/5989-3738.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: KEYSIGHT</h2></summary>
+
+![KEYSIGHT](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692125973/Instruments/Vendor%20Logos/Keysight.png)
+
+Keysight Technologies, or Keysight, is an American company that manufactures electronics test and measurement equipment and software
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5420
+- Vendor Website: [here](https://www.keysight.com/us/en/home.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="MULTIMETERS" />
+
+## Connect to the Keysight 34411A Submodules in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="MULTIMETERS" manufacturer="Keysight"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+To connect to a Keysight 34411A Multimeter using Qcodes, you can use the following Python script:
+
+```python
+from qcodes.instrument_drivers.Keysight.Keysight_34411A import Keysight_34411A
+
+# Create an instance of the Keysight_34411A driver
+multimeter = Keysight_34411A(name='multimeter', address='your_device_address')
+
+# Connect to the multimeter
+multimeter.connect()
+
+# Perform measurements or other operations with the multimeter
+
+# Disconnect from the multimeter
+multimeter.disconnect()
+```
+
+This script imports the `Keysight_34411A` driver from the `qcodes.instrument_drivers.Keysight` module. It then creates an instance of the `Keysight_34411A` driver, specifying a name for the instrument and the address of the device.
+
+After creating the instance, you can connect to the multimeter using the `connect()` method. Once connected, you can perform measurements or other operations with the multimeter.
+
+Finally, you can disconnect from the multimeter using the `disconnect()` method.
+
+Note: Make sure you replace `'your_device_address'` with the actual address of your Keysight 34411A Multimeter.
+
+</TabItem>
+</Tabs>

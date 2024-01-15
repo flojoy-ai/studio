@@ -67,7 +67,7 @@ class DefaultDeviceFinder:
                 )
                 device.close()
                 used_addrs.add(addr)
-            except pyvisa.VisaIOError:
+            except (pyvisa.VisaIOError, serial.serialutil.SerialException):
                 pass
 
         return devices
