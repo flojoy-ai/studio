@@ -30,23 +30,6 @@ def READ_ANALOG_INPUT_CDAQ(
         None.
     """
 
-    # sample_count: int = 1
-    # rate: (int, float) = 1000.0
-    # mode: Literal[
-    #     "differential",
-    #     "pseudo-differential",
-    #     "single-ended referenced",
-    #     "single-ended non-referenced",
-    # ] = "differential"
-
-    # mode_lookup = {
-    #     "differential": nidaqmx.DAQ PyDAQmx.DAQmx_Val_Diff,
-    #     "pseudo-differential": PyDAQmx.DAQmx_Val_PseudoDiff,
-    #     "single-ended referenced": PyDAQmx.DAQmx_Val_RSE,
-    #     "single-ended non-referenced": PyDAQmx.DAQmx_Val_NRSE,
-    # }
-    #
-
     # To check if everything is properly setup
     channel: nidaqmx.system.physical_channel.PhysicalChannel = DeviceConnectionManager.get_connection(channel.s)._handle
 
