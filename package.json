@@ -9,7 +9,6 @@
   "main": "out/main/index.js",
   "scripts": {
     "start": "electron-vite preview",
-    "postinstall": "electron-builder install-app-deps",
     "dev": "electron-vite dev --inspect --watch",
     "build": "tsc && electron-vite build",
     "backend": "poetry run python3 main.py",
