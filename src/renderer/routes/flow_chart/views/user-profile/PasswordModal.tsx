@@ -46,16 +46,19 @@ export function PasswordModal({
     const regex = /^(?=.*\d).{8,}$/;
     return regex.test(password);
   };
-
   const handleSubmit = async () => {
-    if (user.password && data.currentPass === "") return;
-    const passMatched = await window.api.validatePassword(
-      user.name,
-      data.currentPass,
-    );
-    if (!passMatched) {
-      setErrorMsg("Invalid current password!");
+    if (user.password && data.currentPass === "") {
       return;
+    }
+    if (user.password) {
+      const passMatched = await window.api.validatePassword(
+        user.name,
+        data.currentPass,
+      );
+      if (!passMatched) {
+        setErrorMsg("Invalid current password!");
+        return;
+      }
     }
     if (data.password === "") return;
     if (!isStrongPassword(data.password)) {

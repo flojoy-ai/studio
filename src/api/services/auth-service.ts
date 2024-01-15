@@ -1,5 +1,15 @@
 import { Roles, User } from "@/types/auth";
 import { store } from "@/main/store";
+import bcrypt from "bcrypt";
+
+const hashPassword = (plainPassword: string) => {
+  const salt = bcrypt.genSaltSync(10);
+  return bcrypt.hashSync(plainPassword, salt);
+};
+
+const comparePassword = (plainPassword: string, hashedPassword: string) => {
+  return bcrypt.compareSync(plainPassword, hashedPassword);
+};
 
 export const getUsers = () => {
   return store.get("users").map((u) => ({
@@ -35,7 +45,8 @@ export const setUserProfilePassword = (
   const users = store.get("users");
   const modifiedUsers = users.map((u) => {
     if (u.name === username) {
-      u.password = password;
+      const hashedPassword = hashPassword(password);
+      u.password = hashedPassword;
     }
     return u;
   });
@@ -52,7 +63,7 @@ export const setUserProfilePassword = (
 export const validatePassword = (_, username: string, password: string) => {
   const users = store.get("users");
   const user = users.find(
-    (u) => u.name === username && u.password === password,
+    (u) => u.name === username && comparePassword(password, u.password ?? ""),
   );
   if (user) {
     return Promise.resolve(true);
@@ -62,6 +73,10 @@ export const validatePassword = (_, username: string, password: string) => {
 
 export const createUserProfile = (_, user: User) => {
   const users = store.get("users");
+  if (user.password) {
+    const hashedPassword = hashPassword(user.password);
+    user.password = hashedPassword;
+  }
   users.push(user);
   try {
     store.set("users", users);
