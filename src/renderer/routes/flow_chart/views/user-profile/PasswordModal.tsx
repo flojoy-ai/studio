@@ -1,4 +1,13 @@
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@components/ui/form";
 import { Button } from "@components/ui/button";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Dialog,
   DialogContent,
@@ -8,20 +17,32 @@ import {
   DialogTitle,
 } from "@components/ui/dialog";
 import { Input } from "@components/ui/input";
-import { Label } from "@components/ui/label";
 import ConfirmPrompt from "@src/components/common/ConfirmPrompt";
 import { useAuth } from "@src/context/auth.context";
-import { cn } from "@src/lib/utils";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { User } from "src/types/auth";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 type PasswordModalProps = {
   open: boolean;
   handleOpenChange: (open: boolean) => void;
   user: User;
   setUser: (user: User) => void;
 };
+
+const formSchema = z.object({
+  currentPassword: z.string().optional(),
+  newPassword: z
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .refine(
+      (value) => /\d/.test(value),
+      "Password must contain at least one number",
+    ),
+  retypedPassword: z.string(),
+});
 export function PasswordModal({
   open,
   handleOpenChange,
@@ -29,50 +50,40 @@ export function PasswordModal({
   setUser,
 }: PasswordModalProps) {
   const { refreshUsers } = useAuth();
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      currentPassword: undefined,
+      newPassword: "",
+      retypedPassword: "",
+    },
+  });
   const [openConfirmPrompt, setOpenConfirmPrompt] = useState(false);
   const [hidePass, setHidePass] = useState(true);
-  const [data, setData] = useState({
-    password: "",
-    reTypedPass: "",
-    currentPass: "",
-  });
   const [errorMsg, setErrorMsg] = useState("");
-  const handleInputChange =
-    (key: keyof typeof data) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      setErrorMsg("");
-      setData((prev) => ({ ...prev, [key]: e.target.value }));
-    };
-  const isStrongPassword = (password: string) => {
-    const regex = /^(?=.*\d).{8,}$/;
-    return regex.test(password);
-  };
-  const handleSubmit = async () => {
-    if (user.password && data.currentPass === "") {
+
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    setErrorMsg("");
+    if (user.password && !data.currentPassword) {
+      setErrorMsg("Current password is required to change password!");
       return;
     }
     if (user.password) {
       const passMatched = await window.api.validatePassword(
         user.name,
-        data.currentPass,
+        data.currentPassword ?? "",
       );
       if (!passMatched) {
         setErrorMsg("Invalid current password!");
         return;
       }
     }
-    if (data.password === "") return;
-    if (!isStrongPassword(data.password)) {
-      setErrorMsg(
-        "Password should be 8 characters long and contain at least one number!",
-      );
-      return;
-    }
-    if (data.password !== data.reTypedPass) {
-      setErrorMsg("Password didn't match!");
+    if (data.newPassword !== data.retypedPassword) {
+      setErrorMsg("Re-typed password didn't match!");
       return;
     }
     try {
-      await window.api.setUserProfilePassword(user.name, data.password);
+      await window.api.setUserProfilePassword(user.name, data.newPassword);
       toast.message("Password set successfully!");
       const users = await window.api.getUserProfiles();
       setUser(users.find((u) => u.name === user.name) ?? user);
@@ -102,85 +113,86 @@ export function PasswordModal({
               Password will be used to authenticate current profile
             </DialogDescription>
           </DialogHeader>
-          <div className="flex flex-col gap-4 py-4">
-            {user.password && (
-              <div className="flex flex-col items-start gap-2">
-                <Label className="min-w-fit" htmlFor="current_password">
-                  Current password
-                </Label>
-
-                <Input
-                  className={cn({
-                    "border-red-400": errorMsg,
-                  })}
-                  type={"password"}
-                  id="current_password"
-                  name="current_password"
-                  value={data.currentPass}
-                  onChange={handleInputChange("currentPass")}
-                  placeholder="Enter your password"
-                />
-              </div>
+          <div className="flex flex-col gap-2 py-2">
+            {errorMsg && (
+              <p className="text-center text-sm text-red-500">{errorMsg}</p>
             )}
-            <div className="flex flex-col items-start gap-2">
-              <Label className="min-w-fit" htmlFor="password">
-                New password
-              </Label>
-              <div className="relative w-full">
-                <Input
-                  className={cn({
-                    "border-red-400": errorMsg,
-                  })}
-                  type={hidePass ? "password" : "text"}
-                  id="password"
-                  name="password"
-                  value={data.password}
-                  onChange={handleInputChange("password")}
-                  placeholder="Enter your password"
-                />
-                <div
-                  className="absolute inset-y-0 right-0 flex items-center pr-2"
-                  title={hidePass ? "Show password" : "Hide password"}
-                  onClick={() => setHidePass((p) => !p)}
-                >
-                  {hidePass ? (
-                    <EyeIcon className="cursor-pointer" />
-                  ) : (
-                    <EyeOffIcon className="cursor-pointer" />
-                  )}
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-col items-start gap-2">
-              <Label className="min-w-fit" htmlFor="re_typed_password">
-                Re-type password
-              </Label>
-              <Input
-                className={cn({
-                  "border-red-400": errorMsg,
-                })}
-                id="re_typed_password"
-                placeholder="Re type your password"
-                type="password"
-                value={data.reTypedPass}
-                onChange={handleInputChange("reTypedPass")}
-              />
-              {errorMsg && <p className="text-sm text-red-500">{errorMsg}</p>}
-            </div>
-          </div>
-          <DialogFooter>
-            {user.password && (
-              <Button
-                variant="outline"
-                onClick={() => setOpenConfirmPrompt(true)}
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-2"
               >
-                Disable password
-              </Button>
-            )}
-            <Button onClick={handleSubmit} type="submit">
-              Save changes
-            </Button>
-          </DialogFooter>
+                {user.password && (
+                  <FormField
+                    control={form.control}
+                    name="currentPassword"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Current Password</FormLabel>
+                        <FormControl>
+                          <Input type={"password"} {...field} />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                )}
+                <FormField
+                  control={form.control}
+                  name="newPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>New Password</FormLabel>
+                      <FormControl>
+                        <div className="relative w-full">
+                          <Input
+                            type={hidePass ? "password" : "text"}
+                            {...field}
+                          />
+                          <div
+                            className="absolute inset-y-0 right-0 flex items-center pr-2"
+                            title={hidePass ? "Show password" : "Hide password"}
+                            onClick={() => setHidePass((p) => !p)}
+                          >
+                            {hidePass ? (
+                              <EyeIcon className="cursor-pointer" />
+                            ) : (
+                              <EyeOffIcon className="cursor-pointer" />
+                            )}
+                          </div>
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="retypedPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Re-type Password</FormLabel>
+                      <FormControl>
+                        <Input type="password" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <DialogFooter>
+                  {user.password && (
+                    <Button
+                      variant="outline"
+                      onClick={() => setOpenConfirmPrompt(true)}
+                    >
+                      Disable password
+                    </Button>
+                  )}
+                  <Button type="submit">Save changes</Button>
+                </DialogFooter>
+              </form>
+            </Form>
+          </div>
         </DialogContent>
       </Dialog>
       <ConfirmPrompt
