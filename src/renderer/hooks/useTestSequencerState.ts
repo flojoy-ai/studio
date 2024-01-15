@@ -1,4 +1,4 @@
-import { useAtom } from "jotai";
+import { atom, useAtom } from "jotai";
 import {
   Conditional,
   Test,
@@ -6,6 +6,9 @@ import {
 } from "@src/types/testSequencer";
 import { atomWithImmer } from "jotai-immer";
 import { useRef } from "react";
+import { v4 as uuidv4 } from "uuid";
+
+export const websocketIdAtom = atom<string>(uuidv4());
 
 export const elements = atomWithImmer<(Test | Conditional)[]>([
   {
@@ -84,6 +87,7 @@ export type SetElemsFn = {
 
 export function useTestSequencerState() {
   const [elems, setElements] = useAtom(elements);
+  const [websocketId] = useAtom(websocketIdAtom);
 
   // wrapper around setElements to check if elems is valid
   function setElems(elems: TestSequenceElement[]);
@@ -114,5 +118,6 @@ export function useTestSequencerState() {
   return {
     elems,
     setElems,
+    websocketId,
   };
 }

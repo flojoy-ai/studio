@@ -8,3 +8,4 @@ const SOCKET_HOST = "127.0.0.1";
 export const SOCKET_URL = `ws://${SOCKET_HOST}:${BACKEND_PORT}/ws`;
 export const REQUEST_NODE_URL = "https://toqo276pj36.typeform.com/to/F5rSHVu1";
 export const IS_CLOUD_DEMO = false; //TODO: get this value from electron API as process is not defined at this level
+export const TS_SOCKET_URL = `ws://${SOCKET_HOST}:${BACKEND_PORT}/ts-ws`;

@@ -15,6 +15,7 @@ import { Index } from "./routes/index";
 import packageJson from "../../package.json";
 import EditorView from "./routes/editor/EditorView";
 import { initMixPanel } from "./services/MixpanelServices";
+import TestSequencerWS from "./routes/test_sequencer_panel/utils/TestSequencerWS";
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;
@@ -38,6 +39,8 @@ const App = () => {
   }, []);
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      {/* Creates the websocket connection and maintains it for the test sequencer */}
+      <TestSequencerWS></TestSequencerWS>
       <div id="tw-theme-root">
         <div className="titlebar flex h-12 items-center justify-center bg-background font-bold">
           Flojoy Studio ({packageJson.version})
