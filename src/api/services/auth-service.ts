@@ -1,6 +1,6 @@
 import { Roles, User } from "@/types/auth";
 import { store } from "@/main/store";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 const hashPassword = (plainPassword: string) => {
   const salt = bcrypt.genSaltSync(10);
