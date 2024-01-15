@@ -1,41 +1,39 @@
 import numpy as np
-from flojoy import flojoy, OrderedPair, Scalar, Vector
+from flojoy import OrderedPair, flojoy, Scalar, Vector
 from blocks.MATH.ARITHMETIC.utils.arithmetic_utils import get_val
 from functools import reduce
 
 
 @flojoy
-def DIVIDE(
+def POWER(
     a: OrderedPair | Scalar | Vector, b: list[OrderedPair | Scalar | Vector]
 ) -> OrderedPair | Scalar | Vector:
-    """Divide two or more numeric arrays, matrices, dataframes, or constants element-wise.
-
-    When a constant is divided into an array or matrix, each element in the array or matrix will be divided by the constant value.
+    """Calculate the power of two numeric arrays, vectors, matrices, or constants element-wise.
 
     Parameters
     ----------
     a : OrderedPair|Scalar|Vector
-        The input that will be divided by b.
+        The input a used to compute a to the power of b.
     b : OrderedPair|Scalar|Vector
-        The input that will divide a.
+        The input b used to compute a to the power of b.
 
     Returns
     -------
     OrderedPair|Scalar|Vector
         OrderedPair if a is an OrderedPair.
         x: the x-axis of input a.
-        y: the result of the division of input a by input b.
+        y: the result of a^b (or a**b).
 
         Scalar if a is a Scalar.
-        c: the result of the division of input a by input b.
+        c: the result of a^b (or a**b).
 
         Vector if a is a Vector.
-        v: the result of the division of input a by input b.
+        v: the result of a^b (or a**b).
     """
 
     initial = get_val(a)
     seq = map(lambda dc: get_val(dc), b)
-    y = reduce(lambda u, v: np.divide(u, v), seq, initial)
+    y = reduce(lambda u, v: np.power(u, v), seq, initial)
 
     match a:
         case OrderedPair():
