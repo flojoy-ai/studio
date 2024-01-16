@@ -19,7 +19,7 @@ def validate_credentials(username: str, password: str):
         return False
 
     with open(db_path, "r") as f:
-        config = json.loads(f.read())
+        config = json.load(f)
         users = config.get("users", [])
 
     for user in users:
