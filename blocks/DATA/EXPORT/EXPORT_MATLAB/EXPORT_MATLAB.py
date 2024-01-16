@@ -18,7 +18,7 @@ from typing import Literal
 def EXPORT_MATLAB(
     dc: OrderedPair | OrderedTriple | DataFrame | Matrix,
     dir: Directory,
-    filename: str = "exported.csv",
+    filename: str = "exported.mat",
     format: Literal["5", "4"] = "5",
     long_field_names: bool = False,
     do_compression: bool = False,
