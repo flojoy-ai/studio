@@ -1,9 +1,12 @@
 import os
 import pytest
-
 import pandas as pd
-
 from flojoy import DataFrame
+
+try:
+    import torch
+except ImportError:
+    torch = None
 
 
 @pytest.fixture
@@ -14,6 +17,9 @@ def long_text():
     return text
 
 
+@pytest.mark.skipif(
+    torch is None, reason="BART_LARGE_CNN requires torch to be installed | Ignore this test in CI"
+)
 @pytest.mark.slow
 def test_BART_LARGE_CNN(
     mock_flojoy_decorator,

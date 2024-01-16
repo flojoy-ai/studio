@@ -17,7 +17,7 @@ def test_LOG_Vector_Scalar(mock_flojoy_decorator):
     import LOG
 
     x = Vector(v=np.arange(-10, 10, 1))
-    res = LOG.LOG(a=x, b=Scalar(c=2))
+    res = LOG.LOG(a=x, b=[Scalar(c=2)])
 
     np.testing.assert_allclose(res.v, np.log(x.v, 2))
 

@@ -1,10 +1,13 @@
 import os
 import pytest
-
 import PIL.Image
 import numpy as np
-
 from flojoy import Image
+
+try:
+    import torch
+except ImportError:
+    torch = None
 
 
 @pytest.fixture
@@ -15,6 +18,9 @@ def obama_image_array_rgb():
 
 
 @pytest.mark.slow
+@pytest.mark.skipif(
+    torch is None, reason="NLP_CONNECT_VIT_GPT2 requires torch to be installed | Ignore this test in CI"
+)
 def test_NLP_CONNECT_VIT_GPT2(
     mock_flojoy_decorator,
     mock_flojoy_venv_cache_directory,

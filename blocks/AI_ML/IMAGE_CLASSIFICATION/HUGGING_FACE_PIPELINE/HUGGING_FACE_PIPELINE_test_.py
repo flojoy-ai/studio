@@ -7,6 +7,11 @@ import pandas as pd
 from flojoy import Image, DataFrame
 from PIL import Image as PIL_Image
 
+try:
+    import transformers
+except ImportError:
+    transformers = None
+
 
 @pytest.fixture
 def ada_lovelace_array_rgb():
@@ -19,6 +24,9 @@ def ada_lovelace_array_rgb():
     return np.array(image, copy=True)
 
 
+@pytest.mark.skipif(
+    transformers is None, reason="HUGGING_FACE_PIPELINE requires transformers to be installed | Ignore this test in CI"
+)
 def test_HUGGING_FACE_PIPELINE_default(
     mock_flojoy_decorator,
     mock_flojoy_venv_cache_directory,
@@ -59,7 +67,12 @@ def test_HUGGING_FACE_PIPELINE_default(
         ("google/mobilenet_v1_0.75_192", "56dde11"),
     ),
 )
+
+
 @pytest.mark.slow
+@pytest.mark.skipif(
+    transformers is None, reason="HUGGING_FACE_PIPELINE requires transformers to be installed | Ignore this test in CI"
+)
 def test_HUGGING_FACE_PIPELINE_common_model_and_revisions(
     mock_flojoy_decorator,
     mock_flojoy_venv_cache_directory,
@@ -86,3 +99,4 @@ def test_HUGGING_FACE_PIPELINE_common_model_and_revisions(
 
     assert isinstance(df_classification_confidence_scores, DataFrame)
     assert isinstance(df_classification_confidence_scores.m, pd.DataFrame)
+

@@ -35,7 +35,9 @@ def FLOOR_DIVIDE(
         v: the result of the floor division of input a by input b.
     """
 
+    print("a", a)
     initial = get_val(a)
+    print("initial", initial)
     seq = map(lambda dc: get_val(dc), b)
     y1 = reduce(lambda u, v: np.floor_divide(u, v), seq, initial)
 

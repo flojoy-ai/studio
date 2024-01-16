@@ -1,10 +1,13 @@
 import os
 import pytest
-
 from PIL import Image as PIL_Image
 import numpy as np
-
 from flojoy import Image
+
+try:
+    import torch
+except ImportError:
+    torch = None
 
 
 @pytest.fixture
@@ -27,6 +30,9 @@ def obama_segmentation_array_rgb():
     return np.array(image, copy=True)
 
 
+@pytest.mark.skipif(
+    torch is None, reason="DEEPLAB_V3 requires torch to be installed | Ignore this test in CI"
+)
 @pytest.mark.slow
 def test_DEEPLAB_V3(
     mock_flojoy_decorator,
