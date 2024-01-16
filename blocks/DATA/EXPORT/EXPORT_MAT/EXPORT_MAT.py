@@ -1,4 +1,5 @@
 import os
+import pandas as pd
 from flojoy import (
     DataFrame,
     OrderedPair,
@@ -13,9 +14,9 @@ from scipy.io import savemat
 from typing import Literal
 
 
-# @flojoy
+@flojoy
 def EXPORT_MAT(
-    dc: DataFrame,
+    dc: OrderedPair | OrderedTriple | DataFrame | Matrix,
     dir: Directory,
     filename: str = "exported.csv",
     format: Literal["5", "4"] = "5",
@@ -24,12 +25,10 @@ def EXPORT_MAT(
 ) -> Optional[DataContainer]:
     """Export a Dataframe into MAT-file.
 
-    TODO: Support other Type
-
     Parameters
     ----------
-    dc : DataFrame
-        The dataframe to export.
+    dc : OrderedPair|OrderedTriple|DataFrame
+        The DataContainer to export.
     dir : Directory
         The directory to export to.
     filename : str
@@ -54,10 +53,28 @@ def EXPORT_MAT(
     filename = f"{filename}.mat" if filename[-4:] != ".mat" else filename
     path = os.path.join(dir.unwrap(), filename)
 
-    np_array_dict = {name: col.values for name, col in dc.m.items()}
+    np_array_dict = None
+    match dc:
+        case OrderedPair() | OrderedTriple():
+            df = pd.DataFrame(dc)
+            df = df.drop(columns=["type", "extra"])
+            np_array_dict = {name: col.values for name, col in df.items()}
+        case DataFrame():
+            df = dc.m
+            np_array_dict = {name: col.values for name, col in df.items()}
+        case Matrix():
+            np_array_dict = {"matrix": dc.m}
+        case _:
+            raise ValueError(
+                f"Invalid DataContainer type: {dc.type} cannot be exported as MAT."
+            )
 
-    print(np_array_dict)
-    savemat(path, np_array_dict, format=format, long_field_names=long_field_names, do_compression=do_compression)
+    savemat(
+        path,
+        np_array_dict,
+        format=format,
+        long_field_names=long_field_names,
+        do_compression=do_compression,
+    )
 
     return None
-
