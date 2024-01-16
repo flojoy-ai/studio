@@ -54,7 +54,7 @@ const AuthPage = ({ startup }: AuthPageProps) => {
                 startup={startup}
               />
             ))}
-          {user?.role === "admin" && !startup && (
+          {user?.role === "Admin" && !startup && (
             <div
               onClick={() => setOpenCreateProfile(true)}
               title="Add new profile"

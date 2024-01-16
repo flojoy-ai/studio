@@ -37,7 +37,7 @@ const ProfileMenu = () => {
         <DropdownMenuContent>
           <DropdownMenuLabel>{user.role}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          {user.role === "admin" && (
+          {user.role === "Admin" && (
             <>
               <DropdownMenuItem onClick={() => setOpenPasswordModal(true)}>
                 <KeyIcon size={14} className="mr-2" />{" "}
@@ -46,7 +46,7 @@ const ProfileMenu = () => {
               <DropdownMenuSeparator />
             </>
           )}
-          {user.role === "admin" && (
+          {user.role === "Admin" && (
             <DropdownMenuItem onClick={() => setOpenCreateModal(true)}>
               <UserPlus2 size={14} className="mr-2" /> Create new profile
             </DropdownMenuItem>

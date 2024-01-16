@@ -88,7 +88,7 @@ const ProfileBox = ({
       >
         <div className="relative flex w-full items-center justify-center">
           <p className="text-md">{user.role}</p>
-          {currentUser.role === "admin" &&
+          {currentUser.role === "Admin" &&
             user.name !== currentUser.name &&
             !startup && (
               <div className="absolute right-1 top-2 z-20">

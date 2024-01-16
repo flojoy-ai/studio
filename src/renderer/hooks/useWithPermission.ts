@@ -10,7 +10,7 @@ const useWithPermission = () => {
       innerFn: S,
     ): (...args: Parameters<S>) => void {
       return function (...args: Parameters<S>) {
-        if (user?.role !== "admin") {
+        if (user?.role !== "Admin") {
           toast.error("Action not allowed!");
           return;
         }
@@ -19,7 +19,7 @@ const useWithPermission = () => {
     },
     [user],
   );
-  const isAdmin = useCallback(() => user?.role === "admin", [user]);
+  const isAdmin = useCallback(() => user?.role === "Admin", [user]);
   return { withPermissionCheck, isAdmin };
 };
 
