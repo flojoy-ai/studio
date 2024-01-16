@@ -1,5 +1,5 @@
 import React from "react";
-import { Roles, User } from "@/types/auth";
+import { User } from "@/types/auth";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { cn } from "@src/lib/utils";
@@ -88,7 +88,7 @@ const ProfileBox = ({
       >
         <div className="relative flex w-full items-center justify-center">
           <p className="text-md">{user.role}</p>
-          {currentUser.role === Roles.admin &&
+          {currentUser.role === "admin" &&
             user.name !== currentUser.name &&
             !startup && (
               <div className="absolute right-1 top-2 z-20">

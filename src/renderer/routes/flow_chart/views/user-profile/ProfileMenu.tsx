@@ -13,7 +13,6 @@ import { PasswordModal } from "./PasswordModal";
 import { getAlphabetAvatar } from "@src/utils/TextWrap";
 import { CreateUserProfile } from "../../../../components/common/CreateProfileModal";
 import { useAuth } from "@src/context/auth.context";
-import { Roles } from "@/types/auth";
 import { useNavigate } from "react-router-dom";
 
 const ProfileMenu = () => {
@@ -38,7 +37,7 @@ const ProfileMenu = () => {
         <DropdownMenuContent>
           <DropdownMenuLabel>{user.role}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          {user.role === Roles.admin && (
+          {user.role === "admin" && (
             <>
               <DropdownMenuItem onClick={() => setOpenPasswordModal(true)}>
                 <KeyIcon size={14} className="mr-2" />{" "}
@@ -47,7 +46,7 @@ const ProfileMenu = () => {
               <DropdownMenuSeparator />
             </>
           )}
-          {user.role === Roles.admin && (
+          {user.role === "admin" && (
             <DropdownMenuItem onClick={() => setOpenCreateModal(true)}>
               <UserPlus2 size={14} className="mr-2" /> Create new profile
             </DropdownMenuItem>

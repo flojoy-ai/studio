@@ -5,7 +5,7 @@ import { PlusIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CreateUserProfile } from "@/renderer/components/common/CreateProfileModal";
-import { Roles } from "@/types/auth";
+
 type AuthPageProps = {
   startup: boolean;
 };
@@ -54,7 +54,7 @@ const AuthPage = ({ startup }: AuthPageProps) => {
                 startup={startup}
               />
             ))}
-          {user?.role === Roles.admin && !startup && (
+          {user?.role === "admin" && !startup && (
             <div
               onClick={() => setOpenCreateProfile(true)}
               title="Add new profile"

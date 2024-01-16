@@ -1,6 +1,5 @@
 import { useCallback } from "react";
 import { useAuth } from "../context/auth.context";
-import { Roles } from "@/types/auth";
 import { toast } from "sonner";
 
 const useWithPermission = () => {
@@ -11,7 +10,7 @@ const useWithPermission = () => {
       innerFn: S,
     ): (...args: Parameters<S>) => void {
       return function (...args: Parameters<S>) {
-        if (user?.role !== Roles.admin) {
+        if (user?.role !== "admin") {
           toast.error("Action not allowed!");
           return;
         }
@@ -20,7 +19,7 @@ const useWithPermission = () => {
     },
     [user],
   );
-  const isAdmin = useCallback(() => user?.role === Roles.admin, [user]);
+  const isAdmin = useCallback(() => user?.role === "admin", [user]);
   return { withPermissionCheck, isAdmin };
 };
 

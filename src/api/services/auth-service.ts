@@ -87,7 +87,7 @@ export const createUserProfile = (_, user: User) => {
 
 export const deleteUserProfile = (_, username: string, currentUser: User) => {
   const users = store.get("users");
-  if (currentUser.role !== Roles.admin) {
+  if (currentUser.role !== "admin") {
     throw new Error("Only admin can delete users!");
   }
   const modifiedUsers = users.filter((u) => u.name !== username);

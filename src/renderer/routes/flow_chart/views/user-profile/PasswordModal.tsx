@@ -32,22 +32,22 @@ type PasswordModalProps = {
   setUser: (user: User) => void;
 };
 
-const formSchema = z.object({
-  currentPassword: z.string().optional(),
-  newPassword: z
-    .string()
-    .min(8, "Password must be at least 8 characters")
-    .refine(
-      (value) => /\d/.test(value),
-      "Password must contain at least one number",
-    ),
-  retypedPassword: z
-    .string()
-    .refine((value) => value === formSchema.shape.newPassword, {
-      message: "Password didn't match!",
-      path: ["retypedPassword"],
-    }),
-});
+const formSchema = z
+  .object({
+    currentPassword: z.string().optional(),
+    newPassword: z
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .refine(
+        (value) => /\d/.test(value),
+        "Password must contain at least one number",
+      ),
+    retypedPassword: z.string(),
+  })
+  .refine((data) => data.newPassword === data.retypedPassword, {
+    message: "Passwords do not match",
+    path: ["retypedPassword"],
+  });
 export function PasswordModal({
   open,
   handleOpenChange,
@@ -84,10 +84,6 @@ export function PasswordModal({
         });
         return;
       }
-    }
-    if (data.newPassword !== data.retypedPassword) {
-      form.setError("retypedPassword", { message: "Password didn't match!" });
-      return;
     }
     try {
       await window.api.setUserProfilePassword(user.name, data.newPassword);
