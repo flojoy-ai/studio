@@ -18,7 +18,7 @@ import { useAuth } from "@src/context/auth.context";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Roles, User } from "@/types/auth";
+import { User, allRoles } from "@/types/auth";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -30,6 +30,7 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
+import { capitalize } from "lodash";
 
 type CreateUserProfileProps = {
   open: boolean;
@@ -62,13 +63,10 @@ export function CreateUserProfile({
     },
   });
 
-  const [errorMsg, setErrorMsg] = useState("");
-
   const handleSubmit = async (data: z.infer<typeof formSchema>) => {
-    setErrorMsg("");
     const nameExists = users.find((u) => u.name === data.name);
     if (nameExists) {
-      setErrorMsg("User name already exists!");
+      form.setError("name", { message: "User name already exists!" });
       return;
     }
     try {
@@ -88,9 +86,6 @@ export function CreateUserProfile({
           <DialogTitle>Create a new user profile</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col gap-4 py-4">
-          {errorMsg && (
-            <p className="text-center text-sm text-red-500">{errorMsg}</p>
-          )}
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(handleSubmit)}
@@ -151,9 +146,9 @@ export function CreateUserProfile({
                           <SelectValue placeholder="Select role" />
                         </SelectTrigger>
                         <SelectContent>
-                          {Object.values(Roles).map((role) => (
+                          {allRoles.map((role) => (
                             <SelectItem key={role} value={role}>
-                              {role}
+                              {capitalize(role)}
                             </SelectItem>
                           ))}
                         </SelectContent>

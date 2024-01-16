@@ -41,7 +41,12 @@ const formSchema = z.object({
       (value) => /\d/.test(value),
       "Password must contain at least one number",
     ),
-  retypedPassword: z.string(),
+  retypedPassword: z
+    .string()
+    .refine((value) => value === formSchema.shape.newPassword, {
+      message: "Password didn't match!",
+      path: ["retypedPassword"],
+    }),
 });
 export function PasswordModal({
   open,
@@ -60,12 +65,12 @@ export function PasswordModal({
   });
   const [openConfirmPrompt, setOpenConfirmPrompt] = useState(false);
   const [hidePass, setHidePass] = useState(true);
-  const [errorMsg, setErrorMsg] = useState("");
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    setErrorMsg("");
     if (user.password && !data.currentPassword) {
-      setErrorMsg("Current password is required to change password!");
+      form.setError("currentPassword", {
+        message: "Current password is required to change password!",
+      });
       return;
     }
     if (user.password) {
@@ -74,12 +79,14 @@ export function PasswordModal({
         data.currentPassword ?? "",
       );
       if (!passMatched) {
-        setErrorMsg("Invalid current password!");
+        form.setError("currentPassword", {
+          message: "Invalid current password!",
+        });
         return;
       }
     }
     if (data.newPassword !== data.retypedPassword) {
-      setErrorMsg("Re-typed password didn't match!");
+      form.setError("retypedPassword", { message: "Password didn't match!" });
       return;
     }
     try {
@@ -114,9 +121,6 @@ export function PasswordModal({
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col gap-2 py-2">
-            {errorMsg && (
-              <p className="text-center text-sm text-red-500">{errorMsg}</p>
-            )}
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
