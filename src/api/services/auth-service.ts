@@ -1,4 +1,4 @@
-import { Roles, User } from "@/types/auth";
+import { User } from "@/types/auth";
 import { store } from "@/main/store";
 import bcrypt from "bcryptjs";
 

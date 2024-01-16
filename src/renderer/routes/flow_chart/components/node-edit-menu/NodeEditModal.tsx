@@ -158,9 +158,7 @@ const NodeEditModal = ({
           <Button
             size="icon"
             variant="ghost"
-            onClick={withPermissionCheck(() =>
-              handleDelete(node.id, node.data.label),
-            )}
+            onClick={() => handleDelete(node.id, node.data.label)}
             className="mr-4"
             data-testid="delete-node-button"
           >

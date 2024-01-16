@@ -144,10 +144,12 @@ const FlowChartTab = () => {
     setEdges,
     selectedNode,
     unSelectedNodes,
+    handleNodeChanges,
+    handleEdgeChanges,
   } = useFlowChartGraph();
   const nodesMetadataMap = useNodesMetadata();
   const manifest = useManifest();
-  const { withPermissionCheck, isAdmin } = useWithPermission();
+  const { isAdmin } = useWithPermission();
 
   const {
     handleImportCustomBlocks,
@@ -279,21 +281,21 @@ const FlowChartTab = () => {
 
   const onNodesChange: OnNodesChange = useCallback(
     (changes) => {
-      setNodes((ns) => applyNodeChanges(changes, ns));
+      handleNodeChanges((ns) => applyNodeChanges(changes, ns));
       setTextNodes((ns) => applyNodeChanges(changes, ns));
     },
-    [setNodes, setTextNodes],
+    [handleNodeChanges, setTextNodes],
   );
 
   const onEdgesChange: OnEdgesChange = useCallback(
     (changes) => {
       sendEventToMix(MixPanelEvents.edgesChanged);
-      setEdges((es) => applyEdgeChanges(changes, es));
+      handleEdgeChanges((es) => applyEdgeChanges(changes, es));
       if (!changes.every((c) => c.type === "select")) {
         setHasUnsavedChanges(true);
       }
     },
-    [setEdges, setHasUnsavedChanges],
+    [handleEdgeChanges, setHasUnsavedChanges],
   );
 
   const onConnect: OnConnect = useCallback(
@@ -526,7 +528,7 @@ const FlowChartTab = () => {
                 )}
               </>
             )}
-            <ClearCanvasBtn clearCanvas={withPermissionCheck(clearCanvas)} />
+            <ClearCanvasBtn clearCanvas={clearCanvas} />
           </div>
           <div className="py-1" />
           <Separator />
@@ -535,7 +537,7 @@ const FlowChartTab = () => {
         {manifest !== undefined && customBlockManifest !== undefined && (
           <Sidebar
             sections={manifest}
-            leafNodeClickHandler={withPermissionCheck(addNewNode)}
+            leafNodeClickHandler={addNewNode}
             isSideBarOpen={isSidebarOpen}
             setSideBarStatus={setIsSidebarOpen}
             customSections={customBlockManifest}
@@ -582,10 +584,10 @@ const FlowChartTab = () => {
             onInit={onInit}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
-            onConnect={withPermissionCheck(onConnect)}
+            onConnect={onConnect}
             nodesDraggable={isAdmin()}
             onNodeDragStop={handleNodeDrag}
-            onNodesDelete={withPermissionCheck(handleNodesDelete)}
+            onNodesDelete={handleNodesDelete}
             fitViewOptions={{
               padding: 0.8,
             }}
@@ -637,7 +639,7 @@ const FlowChartTab = () => {
         open={isCommandMenuOpen}
         placeholder="Search for a node..."
         setOpen={setCommandMenuOpen}
-        onItemSelect={withPermissionCheck(onCommandMenuItemSelect)}
+        onItemSelect={onCommandMenuItemSelect}
       />
     </>
   );

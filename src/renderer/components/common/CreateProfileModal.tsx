@@ -59,7 +59,7 @@ export function CreateUserProfile({
     defaultValues: {
       name: "",
       password: "",
-      role: "Viewer",
+      role: "viewer",
     },
   });
 
@@ -141,7 +141,7 @@ export function CreateUserProfile({
                   <FormItem>
                     <FormLabel>Role</FormLabel>
                     <FormControl>
-                      <Select {...field}>
+                      <Select onValueChange={field.onChange}>
                         <SelectTrigger>
                           <SelectValue placeholder="Select role" />
                         </SelectTrigger>

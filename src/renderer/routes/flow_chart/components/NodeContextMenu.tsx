@@ -137,7 +137,7 @@ export default function ContextMenu({
       </ContextMenuAction>
       <ContextMenuAction
         testId="context-duplicate-block"
-        onClick={withPermissionCheck(duplicate)}
+        onClick={duplicate}
         icon={CopyPlus}
       >
         Duplicate Block
@@ -153,7 +153,7 @@ export default function ContextMenu({
       <hr />
       <ContextMenuAction
         testId="context-delete-block"
-        onClick={withPermissionCheck(deleteNode)}
+        onClick={deleteNode}
         icon={X}
       >
         Delete Block
