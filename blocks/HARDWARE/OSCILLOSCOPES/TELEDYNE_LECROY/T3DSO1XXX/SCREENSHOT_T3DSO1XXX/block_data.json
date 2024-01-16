@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "Dump the screen of the T3DSO to an Image that can be display or saved.\n\nRequires a CONNECT_T3DSO1XXX block at the start of the app to connect with\nthe instrument. The VISA address will then be listed under 'connection'.\n\nThis block should work with any Teledyne LeCroy T3DSO1000(A)-2000 series oscilloscope.",
+    "short_description": "Get an image of the screen from an T3DSO1000(A)-2000 oscilloscope.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECT_T3DSO1XXX block)."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Image",
+        "description": "The image of the screen of the T3DSO1000(A)-2000 oscilloscope."
+      }
+    ]
+  }
+}

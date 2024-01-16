@@ -54,6 +54,6 @@ test.describe("Block modal", () => {
     });
 
     // Close the modal
-    await window.locator('[role="dialog"] > button').click();
+    await window.locator('[role="dialog"] > button').last().click();
   });
 });

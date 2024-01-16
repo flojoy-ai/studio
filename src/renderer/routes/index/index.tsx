@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import { SetupStatus } from "@src/types/status";
 import SetupStep from "@src/components/index/SetupStep";
 import {
@@ -17,6 +17,7 @@ import { IServerStatus } from "@src/context/socket.context";
 import { useSocket } from "@src/hooks/useSocket";
 import StatusBar from "@src/routes/common/StatusBar";
 import { InterpretersList } from "src/main/python/interpreter";
+import { MixPanelEvents, sendEventToMix } from "@src/services/MixpanelServices";
 
 export const Index = (): JSX.Element => {
   const {
@@ -50,39 +51,45 @@ export const Index = (): JSX.Element => {
   const [errorActionName, setErrorActionName] = useState<string>("");
   const navigate = useNavigate();
 
-  const checkPythonInstallation = async (force?: boolean): Promise<void> => {
-    try {
-      const interpreters = await window.api.checkPythonInstallation(force);
-      if (interpreters.length > 0) {
-        setSelectedInterpreter(interpreters[0].path);
-        await window.api.setPythonInterpreter(interpreters[0].path);
+  const checkPythonInstallation = useCallback(
+    async (force?: boolean): Promise<void> => {
+      try {
+        const interpreters = await window.api.checkPythonInstallation(force);
+        if (interpreters.length > 0) {
+          const interpreter =
+            interpreters.find((i) => i.default) ?? interpreters[0];
+          setSelectedInterpreter(interpreter.path);
+          await window.api.setPythonInterpreter(interpreter.path);
+          updateSetupStatus({
+            stage: "check-python-installation",
+            status: "completed",
+            message: `Python v${interpreter.version.major}.${interpreter.version.minor} found!`,
+          });
+          return;
+        }
+        setPyInterpreters([]);
         updateSetupStatus({
           stage: "check-python-installation",
-          status: "completed",
-          message: `Python v${interpreters[0].version.major}.${interpreters[0].version.minor} found!`,
+          status: "running",
+          message: "No Python 3.11 interpreter found!",
         });
-        return;
+      } catch (err) {
+        console.log("err: ", err);
+        updateSetupStatus({
+          stage: "check-python-installation",
+          status: "error",
+          message:
+            "Cannot find any Python 3.11 installation on this machine :(",
+        });
+        setErrorTitle("Could not find Python 3.11 :(");
+        setErrorDesc("Please install Python 3.11 and try again!");
+        setErrorActionName("Download");
       }
-      setPyInterpreters([]);
-      updateSetupStatus({
-        stage: "check-python-installation",
-        status: "running",
-        message: "No Python 3.11 interpreter found!",
-      });
-    } catch (err) {
-      console.log("err: ", err);
-      updateSetupStatus({
-        stage: "check-python-installation",
-        status: "error",
-        message: "Cannot find any Python 3.11 installation on this machine :(",
-      });
-      setErrorTitle("Could not find Python 3.11 :(");
-      setErrorDesc("Please install Python 3.11 and try again!");
-      setErrorActionName("Download");
-    }
-  };
+    },
+    [],
+  );
 
-  const installDependencies = async (): Promise<void> => {
+  const installDependencies = useCallback(async (): Promise<void> => {
     try {
       await window.api.installPipx();
       await window.api.pipxEnsurepath();
@@ -94,38 +101,50 @@ export const Index = (): JSX.Element => {
         status: "completed",
         message: "Finished setting up all the magic behind Flojoy Studio.",
       });
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
       updateSetupStatus({
         stage: "install-dependencies",
         status: "error",
         message: "Something went wrong when installing dependencies...",
       });
       setErrorTitle("Something went wrong :(");
-      // TODO: automate the log reporting part
+      sendEventToMix(MixPanelEvents.setupError, {
+        stage: "install-dependencies",
+        message: err.message,
+        error: String(err),
+        logs: await window.api.getAllLogs(),
+      });
       setErrorDesc(
         "Sorry about that! Please open the log folder and send the log to us on Discord!",
       );
       setErrorActionName("Open Log Folder");
     }
-  };
+  }, []);
 
-  const spawnCaptain = async (): Promise<void> => {
+  const spawnCaptain = useCallback(async (): Promise<void> => {
     try {
       await window.api.spawnCaptain();
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
       updateSetupStatus({
         stage: "spawn-captain",
         status: "error",
         message: "Something went wrong when starting Flojoy Studio...",
       });
       setErrorTitle("Failed to spawn captain!");
-      // TODO: automate the log reporting part
+      sendEventToMix(MixPanelEvents.setupError, {
+        stage: "spawn-captain",
+        message: err.message,
+        error: String(err),
+        logs: await window.api.getAllLogs(),
+      });
       setErrorDesc(
         "Sorry about that! Please open the log folder and send the log to us on Discord!",
       );
       setErrorActionName("Open Log Folder");
     }
-  };
+  }, []);
 
   const handleSelectedPyInterpreter = async (interpreter: string) => {
     await window.api.setPythonInterpreter(interpreter);
@@ -193,7 +212,9 @@ export const Index = (): JSX.Element => {
 
   useEffect(() => {
     // Kick off the setup process with this useEffect
+    sendEventToMix(MixPanelEvents.setupStarted);
     checkPythonInstallation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -245,7 +266,12 @@ export const Index = (): JSX.Element => {
         break;
       }
     }
-  }, [setupStatuses]);
+  }, [
+    checkPythonInstallation,
+    installDependencies,
+    setupStatuses,
+    spawnCaptain,
+  ]);
 
   useEffect(() => {
     if (
@@ -253,7 +279,7 @@ export const Index = (): JSX.Element => {
     ) {
       navigate("/flowchart");
     }
-  }, [serverStatus]);
+  }, [navigate, serverStatus]);
 
   return (
     <div className="flex h-screen flex-col bg-muted">

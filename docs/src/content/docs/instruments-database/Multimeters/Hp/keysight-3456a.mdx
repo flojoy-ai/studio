@@ -1,0 +1,79 @@
+---
+title: Connecting to Keysight 3456A by HP in Python
+description: 3456A 6 1/2 Digit Digital Multimeter
+keywords: [Multimeters, HP, InstrumentKit] 
+slug: instruments-database/multimeters/hp/keysight-3456a 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782761/Instruments/Multimeters/Keysight-3456A/Keysight-3456A.jpg
+sidebar:
+    label: Keysight 3456A 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+3456A 6 1/2 Digit Digital Multimeter
+
+![Keysight 3456A](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782761/Instruments/Multimeters/Keysight-3456A/Keysight-3456A.jpg)
+
+Device Specification: [here](/instruments-database/all-instruments)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: HP</h2></summary>
+
+![HP](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692125999/Instruments/Vendor%20Logos/HP.png)
+
+Keysight Technologies, or Keysight, is an American company that manufactures electronics test and measurement equipment and software
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5420
+- Vendor Website: [here](https://www.keysight.com/us/en/home.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="MULTIMETERS" />
+
+## Connect to the Keysight 3456A in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="MULTIMETERS" manufacturer="HP"></SectionsCard>
+
+</TabItem>
+<TabItem value="InstrumentKit" label="InstrumentKit">
+
+
+```python
+import instrumentkit as ik
+
+# Connect to the multimeter
+multimeter = ik.keysight.Keysight3456A.open_gpibusb("/dev/ttyUSB0", 22)
+
+# Set the measurement mode to DC voltage
+multimeter.mode = multimeter.Mode.dcv
+
+# Perform a measurement
+measurement = multimeter.measure()
+
+# Print the measurement result
+print("Measurement: {}".format(measurement))
+```
+
+This script first imports the `instrumentkit` module and then uses the `open_gpibusb` method of the `ik.keysight.Keysight3456A` class to connect to the multimeter. You'll need to replace `"/dev/ttyUSB0"` with the appropriate device path for your system.
+
+Next, it sets the measurement mode to DC voltage using the `mode` property of the multimeter object. In this example, we're using the `Mode.dcv` enum value.
+
+Finally, it performs a measurement using the `measure` method of the multimeter object and prints the result.
+
+Note that this script assumes you have already installed the `instrumentkit` library. If not, you can install it using `pip install instrumentkit`.
+
+</TabItem>
+</Tabs>

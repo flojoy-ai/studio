@@ -21,6 +21,7 @@ def BIG_NUMBER(
     suffix: str,
     prefix: str,
     title: str,
+    dec_places: int = 0,
     relative_delta: bool = True,
     scientific_notation: bool = False,
 ) -> Plotly:
@@ -41,6 +42,10 @@ def BIG_NUMBER(
         any prefix to show with big number
     title : str
         title of the plot, default = "BIG_NUMBER"
+    dec_places : int
+        Number of decimal places. Use 0 to not round. default = "BIG_NUMBER"
+    scientific_notation : bool
+        Use scientific notation? Defaults to 4 decimal places.
 
     Returns
     -------
@@ -65,7 +70,12 @@ def BIG_NUMBER(
             raise ValueError(f"Invalid input type {type(default)} for node {node_name}")
 
     delta_val_format = ".1%" if relative_delta is True else ".1f"
-    val_format = "%g" if scientific_notation is False else ".4e"
+    if dec_places == 0:
+        val_format = "%g" if scientific_notation is False else ".4e"
+    else:
+        val_format = (
+            f".{dec_places}f" if scientific_notation is False else f".{dec_places}e"
+        )
 
     fig.add_trace(
         go.Indicator(

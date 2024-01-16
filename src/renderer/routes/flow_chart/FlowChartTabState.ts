@@ -5,6 +5,7 @@ export function useFlowChartTabState() {
   const { width } = useWindowSize();
   const [pythonString, setPythonString] = useState("...");
   const [nodeFilePath, setNodeFilePath] = useState("...");
+  const [blockFullPath, setBlockFullPath] = useState("");
 
   return {
     windowWidth: width,
@@ -12,5 +13,7 @@ export function useFlowChartTabState() {
     pythonString,
     setNodeFilePath,
     setPythonString,
+    blockFullPath,
+    setBlockFullPath,
   };
 }

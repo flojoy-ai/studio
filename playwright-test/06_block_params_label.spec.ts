@@ -97,6 +97,6 @@ test.describe("Block params and label", () => {
     expect(parsedInfo.data.ctrls.waveform.value).toEqual("sawtooth");
 
     // Close the modal
-    await window.locator('[role="dialog"] > button').click();
+    await window.locator('[role="dialog"] > button').last().click();
   });
 });

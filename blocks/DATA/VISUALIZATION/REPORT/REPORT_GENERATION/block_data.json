@@ -1,0 +1,35 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Generate an HTML report (saved to user's desktop)",
+    "parameters": [
+      {
+        "name": "title",
+        "type": "String",
+        "description": "The title of the report"
+      },
+      {
+        "name": "img_url",
+        "type": "String",
+        "description": "URL for the logo in the report letterhead"
+      },
+      {
+        "name": "introduction",
+        "type": "String",
+        "description": "Report preamble"
+      },
+      {
+        "name": "figures",
+        "type": "List[Plotly]",
+        "description": "List of Plotly charts to display"
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "None",
+        "description": null
+      }
+    ]
+  }
+}

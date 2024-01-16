@@ -27,7 +27,7 @@ import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { BlockExpandMenu } from "./views/BlockExpandMenu";
-import { sendEventToMix } from "@src/services/MixpanelServices";
+import { MixPanelEvents, sendEventToMix } from "@src/services/MixpanelServices";
 import {
   ACTIONS_HEIGHT,
   BOTTOM_STATUS_BAR_HEIGHT,
@@ -126,8 +126,14 @@ const FlowChartTab = () => {
   const { states } = useSocket();
   const { programResults, setProgramResults } = states;
 
-  const { pythonString, setPythonString, nodeFilePath, setNodeFilePath } =
-    useFlowChartTabState();
+  const {
+    pythonString,
+    setPythonString,
+    nodeFilePath,
+    setNodeFilePath,
+    blockFullPath,
+    setBlockFullPath,
+  } = useFlowChartTabState();
 
   const {
     nodes,
@@ -247,7 +253,7 @@ const FlowChartTab = () => {
       setEdges((prev) =>
         prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId),
       );
-      sendEventToMix("Node Deleted", nodeLabel, "nodeTitle");
+      sendEventToMix(MixPanelEvents.nodeDeleted, { nodeTitle: nodeLabel });
       setHasUnsavedChanges(true);
     },
     [setNodes, setEdges, setHasUnsavedChanges],
@@ -279,7 +285,7 @@ const FlowChartTab = () => {
 
   const onEdgesChange: OnEdgesChange = useCallback(
     (changes) => {
-      sendEventToMix("Edges Changed", "");
+      sendEventToMix(MixPanelEvents.edgesChanged);
       setEdges((es) => applyEdgeChanges(changes, es));
       if (!changes.every((c) => c.type === "select")) {
         setHasUnsavedChanges(true);
@@ -315,7 +321,9 @@ const FlowChartTab = () => {
   const handleNodesDelete: OnNodesDelete = useCallback(
     (nodes) => {
       nodes.forEach((node) => {
-        sendEventToMix("Node Deleted", node.data.label, "nodeTitle");
+        sendEventToMix(MixPanelEvents.nodeDeleted, {
+          nodeTitle: node.data.label,
+        });
       });
       const selectedNodeIds = nodes.map((node) => node.id);
       setNodes((prev) =>
@@ -333,7 +341,7 @@ const FlowChartTab = () => {
     setHasUnsavedChanges(true);
     setProgramResults([]);
 
-    sendEventToMix("Canvas cleared", "");
+    sendEventToMix(MixPanelEvents.canvasCleared);
   }, [
     setNodes,
     setTextNodes,
@@ -354,10 +362,12 @@ const FlowChartTab = () => {
     const nodeFileData = metaData[nodeFileName] ?? {};
     setNodeFilePath(nodeFileData.path ?? "");
     setPythonString(nodeFileData.metadata ?? "");
+    setBlockFullPath(nodeFileData.full_path ?? "");
   }, [
     selectedNode,
     setNodeFilePath,
     setPythonString,
+    setBlockFullPath,
     nodesMetadataMap,
     customBlocksMetadata,
   ]);
@@ -382,29 +392,56 @@ const FlowChartTab = () => {
       // Prevent native context menu from showing
       event.preventDefault();
 
-      if (ref.current === null) {
+      if (ref.current === null || !nodesMetadataMap) {
         return;
       }
+
+      let metaData: BlocksMetadataMap = nodesMetadataMap;
+      if (customBlocksMetadata) {
+        metaData = { ...nodesMetadataMap, ...customBlocksMetadata };
+      }
+
+      const nodeFileName = `${node.data.func}.py`;
+      const nodeFileData = metaData[nodeFileName] ?? {};
 
       // Calculate position of the context menu. We want to make sure it
       // doesn't get positioned off-screen.
       const pane = ref.current.getBoundingClientRect();
+      const topToBlock = event.clientY;
+      const contextMenuHeight = 200;
+
+      const paneToBlock = topToBlock - 200;
+
+      let top: number | undefined = undefined;
+      let bottom: number | undefined = undefined;
+
+      if (paneToBlock < contextMenuHeight / 2) {
+        top = paneToBlock;
+      } else if (paneToBlock < contextMenuHeight) {
+        if (pane.height - paneToBlock < contextMenuHeight) {
+          top = contextMenuHeight - paneToBlock;
+        } else {
+          top = paneToBlock;
+        }
+      } else if (pane.height - paneToBlock < contextMenuHeight) {
+        top = undefined;
+        bottom = pane.height - paneToBlock;
+      } else {
+        top = paneToBlock;
+      }
       setMenu({
         id: node.id,
-        top:
-          event.clientY < pane.height - 200 ? event.clientY - 225 : undefined,
+        top,
         left: event.clientX < pane.width - 200 ? event.clientX : undefined,
         right:
           event.clientX >= pane.width - 200
             ? pane.width - event.clientX
             : undefined,
-        bottom:
-          event.clientY >= pane.height - 200
-            ? pane.height - event.clientY + 75
-            : undefined,
+        bottom,
+        fullPath: nodeFileData.full_path ?? "",
       });
     },
-    [setMenu],
+    [setMenu, nodesMetadataMap, customBlocksMetadata],
   );
 
   // Close the context menu if it's open whenever the window is clicked.
@@ -587,6 +624,7 @@ const FlowChartTab = () => {
             nodeResults={programResults}
             pythonString={pythonString}
             blockFilePath={nodeFilePath}
+            blockFullPath={blockFullPath}
           />
         </div>
       </ReactFlowProvider>

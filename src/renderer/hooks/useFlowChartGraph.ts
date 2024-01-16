@@ -68,7 +68,7 @@ export const useFlowChartGraph = () => {
       if (textNodes) {
         setTextNodes(textNodes);
       }
-      sendEventToMix("Flow Export Object Loaded", "");
+      sendEventToMix("Flow Export Object Loaded");
       return true;
     },
     [setNodes, setEdges, setTextNodes, manifest, nodesMetadata],
@@ -87,7 +87,7 @@ export const useFlowChartGraph = () => {
         }
       }
     });
-    sendEventToMix("Control Input Data Updated", `${nodeId}: ${inputData}`);
+    sendEventToMix("Control Input Data Updated", { nodeId, inputData });
   };
 
   const updateInitCtrlInputDataForNode = (
@@ -102,10 +102,7 @@ export const useFlowChartGraph = () => {
         }
       }
     });
-    sendEventToMix(
-      "Initial Control Input Data Updated",
-      `${nodeId}: ${inputData}`,
-    );
+    sendEventToMix("Initial Control Input Data Updated", { nodeId, inputData });
   };
 
   const handleTitleChange = (value: string, id: string) => {
@@ -128,7 +125,7 @@ export const useFlowChartGraph = () => {
       }
       return n;
     });
-    sendEventToMix("Title Changed", `${id}: ${value}`);
+    sendEventToMix("Title Changed", { id, value });
     setNodes(updatedNodes);
   };
 
@@ -140,7 +137,7 @@ export const useFlowChartGraph = () => {
         delete node.data.ctrls[paramId];
       }
     });
-    sendEventToMix("Control Input Data Removed", `${nodeId}: ${paramId}`);
+    sendEventToMix("Control Input Data Removed", { nodeId, paramId });
   };
 
   return {

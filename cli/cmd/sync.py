@@ -108,8 +108,7 @@ def sync():
 
                 # example: VISUALIZERS/DATA_STRUCTURE/ARRAY_VIEW
                 current_block_folder_path = root.split("blocks", 1)[1].strip("/")
-
-                current_block_category = current_block_folder_path.split("/")[0]
+                current_block_category = current_block_folder_path.split(os.sep)[0]
 
                 if not os.path.exists(os.path.join(root, "example.md")):
                     if current_block_category not in auto_gen_categories:
@@ -138,7 +137,9 @@ def sync():
                         if "videos" in block_data
                         else None
                     )
-                    thumbnail = block_data["image"] if "image" in block_data else None
+                    thumbnail = (
+                        block_data["thumbnail"] if "thumbnail" in block_data else None
+                    )
 
                 # Keep track of the file tree structure in order to generate
                 # overview pages for all of the top level categories
@@ -167,6 +168,7 @@ def sync():
                             block_name=file_name,
                             block_folder_path=current_block_folder_path,
                             description=description,
+                            thumbnail=thumbnail or "https://docs.flojoy.ai/logo.png",
                         )
                         .add_python_docs_display()
                         .add_python_code()
@@ -281,7 +283,7 @@ def _split_path(path: str) -> list[str]:
 
 
 def _get_nested_dict_value(data: CategoryTree, path):
-    keys = path.split("/")
+    keys = path.split(os.sep)
     value = data
     for key in keys:
         if key and isinstance(value, dict):

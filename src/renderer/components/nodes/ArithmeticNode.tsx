@@ -8,6 +8,10 @@ const operatorMap = {
   SUBTRACT: "-",
   DIVIDE: "÷",
   ABS: "|x|",
+  POWER: "^",
+  LOG: "log",
+  FLOOR_DIVIDE: "//",
+  REMAINDER: "%",
 };
 
 const ArithmeticNode = (props: CustomNodeProps) => {

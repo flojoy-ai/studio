@@ -1,0 +1,73 @@
+---
+title: Connecting to Keysight 34410A by Agilent in Python
+description: The Keysight Technologies, Inc. 34410A and 34411A 6½-Digit DMMs build on the phenomenal success of the industry-standard Keysight 34401A. These new meters offer improved accuracy, expanded measurement capability, dramatically improved measurement speed and throughput, and modern computer interfaces including LAN and USB.
+keywords: [Multimeters, Agilent, QCodes] 
+slug: instruments-database/multimeters/agilent/keysight-34410a 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782435/Instruments/Multimeters/Keysight-34410A/Keysight-34410A.png
+sidebar:
+    label: Keysight 34410A 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The Keysight Technologies, Inc. 34410A and 34411A 6½-Digit DMMs build on the phenomenal success of the industry-standard Keysight 34401A. These new meters offer improved accuracy, expanded measurement capability, dramatically improved measurement speed and throughput, and modern computer interfaces including LAN and USB.
+
+![Keysight 34410A](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782435/Instruments/Multimeters/Keysight-34410A/Keysight-34410A.png)
+
+Device Specification: [here](https://www.keysight.com/us/en/assets/7018-01326/data-sheets/5989-3738.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: AGILENT</h2></summary>
+
+![AGILENT](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692126006/Instruments/Vendor%20Logos/Agilent.png)
+
+Keysight Technologies, or Keysight, is an American company that manufactures electronics test and measurement equipment and software
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5420
+- Vendor Website: [here](https://www.keysight.com/us/en/home.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="MULTIMETERS" />
+
+## Connect to the Keysight 34410A in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="MULTIMETERS" manufacturer="Agilent"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+To connect to a Keysight 34410A Multimeter using Qcodes, you can use the following Python script:
+
+```python
+from qcodes.instrument_drivers.Keysight.Keysight_344XXA import Keysight_344XXA
+
+# Create an instance of the Keysight_344XXA driver
+multimeter = Keysight_344XXA('multimeter', 'TCPIP0::192.168.1.1::INSTR')
+
+# Connect to the multimeter
+multimeter.connect()
+
+# Perform measurements or set parameters using the multimeter object
+
+# Disconnect from the multimeter
+multimeter.disconnect()
+```
+
+This script imports the `Keysight_344XXA` driver from the `qcodes.instrument_drivers.Keysight` module. It then creates an instance of the driver, specifying a name for the instrument and the VISA resource address of the multimeter. The `connect()` method is called to establish a connection to the multimeter. You can then perform measurements or set parameters using the `multimeter` object. Finally, the `disconnect()` method is called to disconnect from the multimeter.
+
+</TabItem>
+</Tabs>

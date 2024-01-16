@@ -13,6 +13,7 @@ type BlockExpandMenuProps = {
   selectedNode: Node<ElementsData> | null;
   pythonString: string;
   blockFilePath: string;
+  blockFullPath: string;
 };
 
 export const BlockExpandMenu = ({

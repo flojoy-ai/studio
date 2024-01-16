@@ -44,5 +44,6 @@ def generate_metadata(custom_blocks_dir: str | None):
             metadata_map[os.path.basename(single_file)] = {
                 "metadata": f.read(),
                 "path": file_path,
+                "full_path": single_file,
             }
     return metadata_map

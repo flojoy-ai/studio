@@ -2,7 +2,7 @@
 id: visa-usb
 title: VISA USB Troubleshooting
 sidebar:
-  order: 5
+  order: 9
 ---
 
 :::note

@@ -1,28 +1,33 @@
 import mixpanel from "mixpanel-browser";
 import { Node } from "reactflow";
+
 const PROJECT_TOKEN = "e89f03371825eaccda13079d584bff8e";
 const enable = 1; // +(process?.env?.FLOJOY_ENABLE_TELEMETRY ?? "1");
 
-export const sendFrontEndLoadsToMix = () => {
-  if (enable) {
-    try {
-      mixpanel.init(PROJECT_TOKEN, {
-        debug: true,
-        loaded: function () {
-          mixpanel.track("Flojoy Loaded");
-        },
-      });
-    } catch (e) {
-      console.error(`the request failed: ${e}`);
-    }
-  }
+export const initMixPanel = async () => {
+  if (await isCI()) return;
+  mixpanel.init(PROJECT_TOKEN);
 };
+export enum MixPanelEvents {
+  setupStarted = "Setup started",
+  setupComplete = "Setup Complete",
+  flojoyLoaded = "Flojoy Loaded",
+  setupError = "Setup Error",
+  programRun = "Program Run",
+  nodeDeleted = "Node Deleted",
+  edgesChanged = "Edges Changed",
+  canvasCleared = "Canvas cleared",
+}
+
+const isCI = async () => await window.api.isCI();
+
 //for frontier, go to LOADER.py
-export const sendProgramToMix = (
+export const sendProgramToMix = async (
   nodes: Node[],
   runProgram = false,
   saveProgram = true,
 ) => {
+  if (await isCI()) return;
   if (nodes && enable) {
     const nodeList = JSON.stringify(nodes.map((node) => node.data.label));
     if (saveProgram) {
@@ -33,19 +38,19 @@ export const sendProgramToMix = (
       );
     }
     if (runProgram) {
-      sendEventToMix("Program Run", nodeList, "nodeList");
+      sendEventToMix(MixPanelEvents.programRun, { nodeList });
     }
   }
 };
 
-export const sendEventToMix = (
-  Event: string,
-  data: string,
-  dataType = "data",
+export const sendEventToMix = async (
+  event: MixPanelEvents | string,
+  data?: Record<string, unknown>,
 ) => {
+  if (await isCI()) return;
   if (enable) {
     try {
-      mixpanel.track(Event, { [dataType]: data });
+      mixpanel.track(event, data);
     } catch (e) {
       console.error(`the request failed: ${e}`);
     }
@@ -53,18 +58,19 @@ export const sendEventToMix = (
 };
 
 //pre-condition: the input array of data and dataType must be the same size
-export const sendMultipleDataEventToMix = (
-  Event: string,
+export const sendMultipleDataEventToMix = async (
+  event: string,
   data: string[],
   dataType = ["data"],
 ) => {
+  if (await isCI()) return;
   if (enable) {
     try {
       const obj = {};
       for (let i = 0; i < data.length; i++) {
         obj[dataType[i]] = data[i];
       }
-      mixpanel.track(Event, obj);
+      mixpanel.track(event, obj);
     } catch (e) {
       console.error(`the request failed: ${e}`);
     }

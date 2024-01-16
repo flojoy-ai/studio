@@ -1,0 +1,94 @@
+---
+title: Connecting to Keithley 2700 by Keithley in Python
+description: The Model 2750 offers extended low ohms measurement capability and supports up to 5 7700 Switch cards for a maximum 200, 2-pole multiplexed channels. It also contains a built-in 20mV clamp that helps protect sensitive devices from damage and prevents self-heating errors during dry circuit testing.
+keywords: [Multimeters, Keithley, PyMeasure] 
+slug: instruments-database/multimeters/keithley/keithley-2700 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782676/Instruments/Multimeters/Keithley-2700/Keithley-2700.webp
+sidebar:
+    label: Keithley 2700 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The Model 2750 offers extended low ohms measurement capability and supports up to 5 7700 Switch cards for a maximum 200, 2-pole multiplexed channels. It also contains a built-in 20mV clamp that helps protect sensitive devices from damage and prevents self-heating errors during dry circuit testing.
+
+![Keithley 2700](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782676/Instruments/Multimeters/Keithley-2700/Keithley-2700.webp)
+
+Device Specification: [here](https://download.tek.com/datasheet/Series2700DAQSystemDataSheet.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: KEITHLEY</h2></summary>
+
+![KEITHLEY](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806202/Instruments/Vendor%20Logos/Keithley.png)
+
+Keithley Instruments is a measurement and instrument company headquartered in Solon, Ohio, that develops, manufactures, markets, and sells data acquisition products, as well as complete systems for high-volume production and assembly testing.
+
+- Headquarters: Cleveland, Ohio, United States
+- Yearly Revenue (millions, USD): 110.6
+- Vendor Website: [here](https://www.tek.com/en)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="MULTIMETERS" />
+
+## Connect to the Keithley 2700 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="MULTIMETERS" manufacturer="Keithley"></SectionsCard>
+
+</TabItem>
+<TabItem value="PyMeasure" label="PyMeasure">
+
+
+```python
+from pymeasure.instruments.keithley import Keithley2700
+
+# Connect to the Keithley 2700
+keithley = Keithley2700("GPIB::1")
+
+# Perform measurements or other operations with the instrument
+# For example, you can read the state of the channels
+state = keithley.get_state_of_channels([101, 102, 103])
+print("State of channels 101, 102, 103:", state)
+
+# Close specific channels
+keithley.closed_channels = [101, 102, 103]
+
+# Open all channels
+keithley.open_all_channels()
+
+# Close rows to columns on the 7709 connection matrix
+keithley.close_rows_to_columns([1, 2], [1, 2])
+
+# Open rows to columns on the 7709 connection matrix
+keithley.open_rows_to_columns([1, 2], [1, 2])
+
+# Perform system operations
+keithley.beep(1000, 1)
+keithley.triad(1000, 1)
+keithley.reset()
+
+# Display closed channels on the instrument's display
+keithley.display_closed_channels()
+
+# Disconnect from the instrument
+keithley.disconnect()
+```
+
+This script connects to the Keithley 2700 using the GPIB address "GPIB::1". It then performs some operations with the instrument, such as getting the state of channels 1 and 2, closing all channels, and finally disconnecting from the instrument.
+
+Note that you may need to install the `pymeasure` package before running this script. You can install it using `pip install pymeasure`.
+
+</TabItem>
+</Tabs>

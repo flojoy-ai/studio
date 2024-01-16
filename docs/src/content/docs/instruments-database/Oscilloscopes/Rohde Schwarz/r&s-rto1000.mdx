@@ -1,0 +1,99 @@
+---
+title: Connecting to R&S RTO1000 by Rohdes&Schwarz in Python
+description: With an acquisition memory of 400 Mpts per channel simultaneously for all four channels, the oscilloscope offers up to 100 times the memory depth of comparable devices as standard.  The R&S MXO 4 oscilloscopes offer the world's highest update rate of 4.5 million waveforms per second.
+keywords: [Oscilloscopes, Rohdes&Schwarz, QCodes] 
+slug: instruments-database/oscilloscopes/rohde-schwarz/r&s-rto1000 
+
+sidebar:
+    label: R&S RTO1000 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+With an acquisition memory of 400 Mpts per channel simultaneously for all four channels, the oscilloscope offers up to 100 times the memory depth of comparable devices as standard.
+
+The R&S MXO 4 oscilloscopes offer the world's highest update rate of 4.5 million waveforms per second.
+
+
+
+Device Specification: [here](https://scdn.rohde-schwarz.com/ur/pws/dl_downloads/dl_common_library/dl_brochures_and_datasheets/pdf_1/service_support_30/RTO_dat-sw_en_5214-5155-22_v2800.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: ROHDES&SCHWARZ</h2></summary>
+
+![ROHDES&SCHWARZ](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806194/Instruments/Vendor%20Logos/RohdeSchwarz.png)
+
+Rohde & Schwarz GmbH & Co KG is an international electronics group specializing in the fields of electronic test equipment, broadcast & media, cybersecurity, radiomonitoring and radiolocation, and radiocommunication.
+
+- Headquarters: Munich, Germany
+- Yearly Revenue (millions, USD): 2500
+- Vendor Website: [here](https://www.rohde-schwarz.com/ca/home_48230.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="OSCILLOSCOPES" />
+
+## Connect to the R&S RTO1000 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="OSCILLOSCOPES" manufacturer="Rohdes&Schwarz"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+Here is an example Python script that uses Qcodes to connect to a R&S RTO1000 Oscilloscope:
+
+```python
+import qcodes as qc
+from qcodes.instrument_drivers.rohde_schwarz.RTO1000 import RTO1000
+
+# Connect to the oscilloscope
+oscilloscope = RTO1000('oscilloscope', 'TCPIP0::192.168.0.1::inst0::INSTR')
+
+# Print the IDN of the oscilloscope
+print(oscilloscope.IDN())
+
+# Enable channel 1
+oscilloscope.ch1.state('ON')
+
+# Set the timebase scale to 1 us/div
+oscilloscope.timebase_scale(1e-6)
+
+# Set the trigger source to channel 1
+oscilloscope.trigger_source('CH1')
+
+# Set the trigger level to 0 V
+oscilloscope.trigger_level(0)
+
+# Acquire a single trace
+oscilloscope.run_single()
+
+# Wait for the acquisition to complete
+while not oscilloscope.is_acquiring():
+    pass
+
+# Get the trace from channel 1
+trace = oscilloscope.ch1.trace()
+
+# Plot the trace
+trace.plot()
+
+# Disconnect from the oscilloscope
+oscilloscope.close()
+```
+
+Note: Replace `'TCPIP0::192.168.0.1::inst0::INSTR'` with the actual VISA resource address of your oscilloscope.
+
+</TabItem>
+</Tabs>
