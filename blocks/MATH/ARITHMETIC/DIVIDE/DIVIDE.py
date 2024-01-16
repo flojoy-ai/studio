@@ -15,7 +15,7 @@ def DIVIDE(
     Parameters
     ----------
     a : OrderedPair|Scalar|Vector
-        The input that will be divide by b.
+        The input that will be divided by b.
     b : OrderedPair|Scalar|Vector
         The input that will divide a.
 

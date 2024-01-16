@@ -1,0 +1,82 @@
+---
+title: Connecting to SR865A by Stanford Research Systems in Python
+
+keywords: [Lockin Amplifiers, Stanford Research Systems, QCodes] 
+slug: instruments-database/lockin-amplifiers/stanford-research/sr865a 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782703/Instruments/Lockin%20Amplifiers/SR-865/SR-865.jpg
+sidebar:
+    label: SR865A 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+
+
+![SR865A](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782703/Instruments/Lockin%20Amplifiers/SR-865/SR-865.jpg)
+
+Device Specification: [here](/instruments-database/all-instruments)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: STANFORD RESEARCH SYSTEMS</h2></summary>
+
+![STANFORD RESEARCH SYSTEMS](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806206/Instruments/Vendor%20Logos/Stanford_Research.png)
+
+Stanford Research Systems is a maker of general test and measurement instruments. The company was founded in 1980, is privately held, and is not affiliated with Stanford University.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 25
+- Vendor Website: [here](https://www.thinksrs.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="LOCKIN_AMPLIFIERS" />
+
+## Connect to the SR865A in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="LOCKIN_AMPLIFIERS" manufacturer="Stanford Research Systems"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+To connect to a SR865A Lockin Amplifier using Qcodes, you can use the following code:
+
+```python
+from qcodes.instrument_drivers.stanford_research.SR865A import SR865A
+
+# Create an instance of the SR865A driver
+address = "TCPIP::192.168.1.1::INSTR"
+lockin = SR865A("lockin", address)
+
+# Connect to the instrument
+lockin.connect()
+
+# Now you can use the instrument to perform various operations
+# For example, you can get the X and Y values
+x = lockin.X()
+y = lockin.Y()
+
+# You can also set the frequency and amplitude
+lockin.frequency(1000)  # Set the frequency to 1000 Hz
+lockin.amplitude(0.1)   # Set the amplitude to 0.1 V
+
+
+# Disconnect from the instrument
+lockin.disconnect()
+```
+
+This code creates an instance of the `SR865A` driver and connects to the lock-in amplifier using the specified address (`TCPIP::192.168.1.1::INSTR`). You can then use the `lockin` object to interact with the instrument by calling its methods or accessing its parameters. Finally, you can disconnect from the instrument using the `disconnect()` method.
+
+</TabItem>
+</Tabs>

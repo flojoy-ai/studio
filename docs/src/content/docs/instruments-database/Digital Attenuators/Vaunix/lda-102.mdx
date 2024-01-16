@@ -1,0 +1,82 @@
+---
+title: Connecting to LDA-102 by Vaunix in Python
+description: The LDA-102 Lab Brick USB programmable 50 Ohm digital attenuator has an input power of up to +22 dBm, and offers frequency coverage of 10 to 1,000 MHz. It has an attenuation range of 63 dB and a step size of 0.5 dB. The unit is powered and controlled by USB connection to a PC or self-powered hub, and is programmable for fixed attenuation or swept attenuation ramps directly from the included graphical user interface (GUI) software.
+keywords: [Digital Attenuators, Vaunix, QCodes Community] 
+slug: instruments-database/digital-attenuators/vaunix/lda-102 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782508/Instruments/Digital%20Attenuator/LDA-102/LDA-102.png
+sidebar:
+    label: LDA-102 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The LDA-102 Lab Brick USB programmable 50 Ohm digital attenuator has an input power of up to +22 dBm, and offers frequency coverage of 10 to 1,000 MHz. It has an attenuation range of 63 dB and a step size of 0.5 dB. The unit is powered and controlled by USB connection to a PC or self-powered hub, and is programmable for fixed attenuation or swept attenuation ramps directly from the included graphical user interface (GUI) software.
+
+![LDA-102](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782508/Instruments/Digital%20Attenuator/LDA-102/LDA-102.png)
+
+Device Specification: [here](https://vaunix.com/resources/digital%20attenuators-datasheet.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: VAUNIX</h2></summary>
+
+![VAUNIX](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692125985/Instruments/Vendor%20Logos/Vaunix.png)
+
+Vaunix Technology Corp. designs, manufactures, and services RF and microwave test equipment and digital radio communications products. Utilizing our deep RF and software engineering expertise, rooted in microwave radio and wireless equipment repair and testing, Vaunix developed the Lab Brick® family of electronic test products, which set a new standard for cost, size, and simplicity of wireless testing devices. Powered by a USB connection and controlled by easy-to-use, graphical-user-interface (GUI) software, Lab Bricks have been designed to meet the needs of wireless engineers and technicians who want to create flexible, customized system solutions either in the lab or in the field. We 've expanded our Lab Brick® family of electronic test products to include Attenuator Matrix solutions that double as Wireless [Handover Test Systems](https://vaunix.com/handover-test-systems/) to give our test technicians and product engineers the advanced capability to solve unique wireless _handover _testing challenges and bring affordability, functionality, reliability and simplicity to the microwave test bench.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5
+- Vendor Website: [here](https://vaunix.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="DIGITAL_ATTENUATORS" />
+
+## Connect to the LDA-102 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="DIGITAL_ATTENUATORS" manufacturer="Vaunix"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes Community" label="QCodes Community">
+
+Here is an example Python script that uses Qcodes Community to connect to a LDA-102 Digital Attenuator:
+
+```python
+from qcodes import Station
+from qcodes.instrument_drivers.vaunix.LDA import LDA
+
+# Create a station to hold the instruments
+station = Station()
+
+# Connect to the LDA-102 Digital Attenuator
+lda = LDA('lda', serial_number=55102, dll_path='path/to/dll')
+
+# Add the LDA to the station
+station.add_component(lda)
+
+# Print the IDN of the LDA
+print(lda.get_idn())
+
+# Set the attenuation to 10 dB
+lda.attenuation(10)
+
+# Close the connection to the LDA
+lda.close()
+```
+
+Note: Replace `'path/to/dll'` with the actual path to the directory that contains the Vaunix LDA DLL (`VNX_atten.dll` for 32-bit Windows or `VNX_atten64.dll` for 64-bit Windows).
+This script creates a `Station` object to hold the instruments. It then connects to the LDA-102 Digital Attenuator using the `LDA` driver from the Qcodes Community. The LDA is added to the station, and its IDN information is printed. The attenuation is set to 10 dB, and finally, the connection to the LDA is closed.
+
+</TabItem>
+</Tabs>
