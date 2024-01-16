@@ -24,6 +24,7 @@ export default defineConfig({
       logo: { src: "./src/assets/logo_purple.svg" },
       components: {
         Sidebar: "./src/components/override/Sidebar.astro",
+        SocialIcons: "./src/components/override/SocialIcons.astro",
       },
       customCss: [
         // Path to your Tailwind base styles:
