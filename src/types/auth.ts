@@ -1,7 +1,5 @@
-export const Roles = {
-  admin: "Admin",
-  viewer: "Viewer",
-} as const;
+export const allRoles = ["admin", "viewer"] as const;
+export type Role = typeof allRoles[number];
 
 export type User = {
   name: string;
