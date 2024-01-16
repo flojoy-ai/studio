@@ -22,6 +22,16 @@
         "name": "title",
         "type": "str",
         "description": "title of the plot, default = \"BIG_NUMBER\""
+      },
+      {
+        "name": "dec_places",
+        "type": "int",
+        "description": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\""
+      },
+      {
+        "name": "scientific_notation",
+        "type": "bool",
+        "description": "Use scientific notation? Defaults to 4 decimal places."
       }
     ],
     "returns": [
