@@ -28,9 +28,7 @@ async def is_admin(req: Request):
         username, password = credentials.split(":", 1)
         authorized = validate_credentials(username, password)
 
-        if authorized:
-            return
-        else:
+        if not authorized:
             raise HTTPException(
                 status_code=403,
                 detail=exception_txt,
