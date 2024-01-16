@@ -5,8 +5,8 @@ import os
 import scipy
 
 
-def test_EXPORT_MAT_dataframe(mock_flojoy_decorator):
-    import EXPORT_MAT
+def test_EXPORT_MATLAB_dataframe(mock_flojoy_decorator):
+    import EXPORT_MATLAB
 
     m = 10
     data = {
@@ -18,7 +18,7 @@ def test_EXPORT_MAT_dataframe(mock_flojoy_decorator):
     df = DataFrame(pd.DataFrame(data))
     directory = os.path.expanduser("~")
 
-    EXPORT_MAT.EXPORT_MAT(
+    EXPORT_MATLAB.EXPORT_MATLAB(
         dc=df,
         dir=Directory(directory),
         filename="testmatfile",
@@ -41,8 +41,8 @@ def test_EXPORT_MAT_dataframe(mock_flojoy_decorator):
             os.remove(file_path)
 
 
-def test_EXPORT_MAT_pair(mock_flojoy_decorator):
-    import EXPORT_MAT
+def test_EXPORT_MATLAB_pair(mock_flojoy_decorator):
+    import EXPORT_MATLAB
 
     m = 10
     data = {
@@ -52,7 +52,7 @@ def test_EXPORT_MAT_pair(mock_flojoy_decorator):
     pair = OrderedPair(x=data["x"], y=data["y"])
     directory = os.path.expanduser("~")
 
-    EXPORT_MAT.EXPORT_MAT(
+    EXPORT_MATLAB.EXPORT_MATLAB(
         dc=pair,
         dir=Directory(directory),
         filename="testmatfile",
@@ -75,14 +75,14 @@ def test_EXPORT_MAT_pair(mock_flojoy_decorator):
             os.remove(file_path)
 
 
-def test_EXPORT_MAT_matrix(mock_flojoy_decorator):
-    import EXPORT_MAT
+def test_EXPORT_MATLAB_matrix(mock_flojoy_decorator):
+    import EXPORT_MATLAB
 
     data = np.random.rand(10, 10, 10)
     matrix = Matrix(data)
     directory = os.path.expanduser("~")
 
-    EXPORT_MAT.EXPORT_MAT(
+    EXPORT_MATLAB.EXPORT_MATLAB(
         dc=matrix,
         dir=Directory(directory),
         filename="testmatfile",

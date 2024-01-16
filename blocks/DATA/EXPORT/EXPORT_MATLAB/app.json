@@ -168,12 +168,12 @@
             {
                 "width": 208,
                 "height": 96,
-                "id": "EXPORT_MAT-e97b008b-863a-4952-9603-2f758b21fc85",
+                "id": "EXPORT_MATLAB-e97b008b-863a-4952-9603-2f758b21fc85",
                 "type": "DATA",
                 "data": {
-                    "id": "EXPORT_MAT-e97b008b-863a-4952-9603-2f758b21fc85",
+                    "id": "EXPORT_MATLAB-e97b008b-863a-4952-9603-2f758b21fc85",
                     "label": "EXPORT MAT",
-                    "func": "EXPORT_MAT",
+                    "func": "EXPORT_MATLAB",
                     "type": "DATA",
                     "ctrls": {
                         "dir": {
@@ -181,16 +181,16 @@
                             "default": null,
                             "desc": "The directory to export to.",
                             "overload": null,
-                            "functionName": "EXPORT_MAT",
+                            "functionName": "EXPORT_MATLAB",
                             "param": "dir",
-                            "value": "C:\\Users\\Gui\\Desktop"
+                            "value": "/Users/Flojoy/Documents"
                         },
                         "filename": {
                             "type": "str",
                             "default": "exported.csv",
                             "desc": "The name of the file to output.",
                             "overload": null,
-                            "functionName": "EXPORT_MAT",
+                            "functionName": "EXPORT_MATLAB",
                             "param": "filename",
                             "value": "test.mat"
                         },
@@ -203,7 +203,7 @@
                             "default": "5",
                             "desc": "'5' (the default) for MATLAB 5 and up (to 7.2),\n'4' for MATLAB 4 .mat files.",
                             "overload": null,
-                            "functionName": "EXPORT_MAT",
+                            "functionName": "EXPORT_MATLAB",
                             "param": "format",
                             "value": "5"
                         },
@@ -212,7 +212,7 @@
                             "default": false,
                             "desc": "False - maximum field name length in a structure is 31 characters which is the documented maximum length.\nTrue - maximum field name length in a structure is 63 characters which works for MATLAB 7.6+.",
                             "overload": null,
-                            "functionName": "EXPORT_MAT",
+                            "functionName": "EXPORT_MATLAB",
                             "param": "long_field_names",
                             "value": false
                         },
@@ -221,7 +221,7 @@
                             "default": false,
                             "desc": "Whether or not to compress matrices on write.",
                             "overload": null,
-                            "functionName": "EXPORT_MAT",
+                            "functionName": "EXPORT_MATLAB",
                             "param": "do_compression",
                             "value": false
                         }
@@ -244,7 +244,7 @@
                             "desc": null
                         }
                     ],
-                    "path": "DATA/EXPORT/EXPORT_MAT/EXPORT_MAT.py"
+                    "path": "DATA/EXPORT/EXPORT_MATLAB/EXPORT_MATLAB.py"
                 },
                 "position": {
                     "x": 330.32660573014545,
@@ -269,9 +269,9 @@
             {
                 "source": "SINE-e3058354-d58c-49ac-9590-97f739e56270",
                 "sourceHandle": "default",
-                "target": "EXPORT_MAT-e97b008b-863a-4952-9603-2f758b21fc85",
+                "target": "EXPORT_MATLAB-e97b008b-863a-4952-9603-2f758b21fc85",
                 "targetHandle": "dc",
-                "id": "reactflow__edge-SINE-e3058354-d58c-49ac-9590-97f739e56270default-EXPORT_MAT-e97b008b-863a-4952-9603-2f758b21fc85dc"
+                "id": "reactflow__edge-SINE-e3058354-d58c-49ac-9590-97f739e56270default-EXPORT_MATLAB-e97b008b-863a-4952-9603-2f758b21fc85dc"
             }
         ],
         "viewport": {

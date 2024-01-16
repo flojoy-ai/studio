@@ -15,7 +15,7 @@ from typing import Literal
 
 
 @flojoy
-def EXPORT_MAT(
+def EXPORT_MATLAB(
     dc: OrderedPair | OrderedTriple | DataFrame | Matrix,
     dir: Directory,
     filename: str = "exported.csv",
