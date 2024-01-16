@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "The trace is defined by the x and y limits as seen on the instrument.\n\nRequires a CONNECT_T3DSO1XXX block at the start of the app to connect with\nthe instrument. The VISA address will then be listed under 'connection'.\n\nThis block should work with any Teledyne LeCroy T3DSO1000(A)-2000 series oscilloscope.",
+    "short_description": "Extracts the digital trace from an from an T3DSO1000(A)-2000 oscilloscope",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECT_T3DSO1XXX block)."
+      },
+      {
+        "name": "trace",
+        "type": "Literal",
+        "description": "The digital trace to read the waveform from."
+      },
+      {
+        "name": "resolution",
+        "type": "int | None",
+        "description": "The number of points to read from the trace. If None, the full trace is return."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "OrderedPair",
+        "description": "The trace of the oscilloscope."
+      }
+    ]
+  }
+}
