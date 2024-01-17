@@ -8,7 +8,7 @@ def test_LOG_Vector_Vector(mock_flojoy_decorator):
 
     x = Vector(v=np.arange(10, 20, 1))
     y = Vector(v=np.arange(20, 30, 1))
-    res = LOG.LOG(a=x, b=[y])
+    res = LOG.LOG(a=x, b=[y], log_base="input")
 
     np.testing.assert_allclose(res.v, np.log(x.v, y.v))
 
@@ -17,7 +17,7 @@ def test_LOG_Vector_Scalar(mock_flojoy_decorator):
     import LOG
 
     x = Vector(v=np.arange(-10, 10, 1))
-    res = LOG.LOG(a=x, b=[Scalar(c=2)])
+    res = LOG.LOG(a=x, b=[Scalar(c=2)], log_base="input")
 
     np.testing.assert_allclose(res.v, np.log(x.v, 2))
 
@@ -28,7 +28,7 @@ def test_LOG_OrderedPair_Vector(mock_flojoy_decorator):
     x = np.arange(10, 20, 1)
     y = np.arange(20, 30, 1)
     z = np.arange(30, 40, 1)
-    res = LOG.LOG(a=OrderedPair(x=x, y=y), b=[Vector(v=z)])
+    res = LOG.LOG(a=OrderedPair(x=x, y=y), b=[Vector(v=z)], log_base="input")
 
     np.testing.assert_allclose(res.x, x)
     np.testing.assert_allclose(res.y, np.log(y, z))

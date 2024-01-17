@@ -23,6 +23,8 @@ def LOG(
         The input a use to compute the log of a.
     b : OrderedPair|Scalar|Vector
         The input b use to compute the log with base b.
+    log_base : "input", "e", "10", "2"
+        The base to use for the logarithm, by default "e".
 
     Returns
     -------
