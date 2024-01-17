@@ -18,7 +18,8 @@ def long_text():
 
 
 @pytest.mark.skipif(
-    torch is None, reason="BART_LARGE_CNN requires torch to be installed | Ignore this test in CI"
+    torch is None,
+    reason="BART_LARGE_CNN requires torch to be installed | Ignore this test in CI",
 )
 @pytest.mark.slow
 def test_BART_LARGE_CNN(

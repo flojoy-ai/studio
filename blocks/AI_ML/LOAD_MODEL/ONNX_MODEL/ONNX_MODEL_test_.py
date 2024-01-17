@@ -12,7 +12,6 @@ except ImportError:
     onnx = None
 
 
-
 # The ONNX model zoo is a collection of pre-trained models for common
 # machine learning tasks. The models are stored in ONNX format.
 # The repository is not updated frequently.
@@ -25,7 +24,8 @@ ALEX_NET_MODEL = f"{ONNX_MODEL_ZOO_BASE_URL}/vision/classification/alexnet/model
 
 
 @pytest.mark.skipif(
-    onnx is None, reason="ONNX_MODEL requires onnx to be installed | Ignore this test in CI"
+    onnx is None,
+    reason="ONNX_MODEL requires onnx to be installed | Ignore this test in CI",
 )
 @pytest.mark.slow
 def test_ONNX_MODEL_local_file_path(

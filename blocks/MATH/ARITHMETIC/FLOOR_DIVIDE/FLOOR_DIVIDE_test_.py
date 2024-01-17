@@ -32,4 +32,3 @@ def test_FLOOR_DIVIDE_OrderedPair_Vector(mock_flojoy_decorator):
 
     np.testing.assert_allclose(res.x, x)
     np.testing.assert_allclose(res.y, np.floor_divide(y, z))
-

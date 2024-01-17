@@ -31,7 +31,8 @@ def obama_segmentation_array_rgb():
 
 
 @pytest.mark.skipif(
-    torch is None, reason="DEEPLAB_V3 requires torch to be installed | Ignore this test in CI"
+    torch is None,
+    reason="DEEPLAB_V3 requires torch to be installed | Ignore this test in CI",
 )
 @pytest.mark.slow
 def test_DEEPLAB_V3(

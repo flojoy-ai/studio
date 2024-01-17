@@ -8,7 +8,8 @@ except ImportError:
 
 
 @pytest.mark.skipif(
-    sklear_imported == None, reason="LOAD_IRIS requires torch to be installed | Ignore this test in CI"
+    sklear_imported is None,
+    reason="LOAD_IRIS requires torch to be installed | Ignore this test in CI",
 )
 def test_load_iris(mock_flojoy_decorator):
     import SCIKIT_LEARN_DATASET
@@ -19,7 +20,8 @@ def test_load_iris(mock_flojoy_decorator):
 
 
 @pytest.mark.skipif(
-    sklear_imported == None, reason="LOAD_IRIS requires torch to be installed | Ignore this test in CI"
+    sklear_imported is None,
+    reason="LOAD_IRIS requires torch to be installed | Ignore this test in CI",
 )
 def test_load_diabetes(mock_flojoy_decorator):
     import SCIKIT_LEARN_DATASET

@@ -1,5 +1,3 @@
-
-
 def test_MATRIX_VIEW(mock_flojoy_decorator):
     import MATRIX_VIEW
     from blocks.DATA.GENERATION.SIMULATIONS.MATRIX.MATRIX import MATRIX

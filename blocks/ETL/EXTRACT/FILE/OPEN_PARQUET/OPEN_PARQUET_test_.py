@@ -2,14 +2,15 @@ import os
 import pytest
 
 try:
-    import pyarrow
-    import fastparquet
+    import pyarrow  # noqa: F401
+    import fastparquet  # noqa: F401
 except ImportError:
     import_error = True
 
 
 @pytest.mark.skipif(
-    import_error, reason="OPEN_PARQUET requires pyarrow and fastparquet to be installed | Ignore this test in CI"
+    import_error,
+    reason="OPEN_PARQUET requires pyarrow and fastparquet to be installed | Ignore this test in CI",
 )
 @pytest.mark.slow
 def test_OPEN_PARQUET(mock_flojoy_decorator):

@@ -3,7 +3,7 @@ from flojoy import Matrix, DataFrame, Vector
 import pytest
 
 try:
-    import sklearn
+    import sklearn  # noqa: F401
 except ImportError:
     sklearn_installed = False
 

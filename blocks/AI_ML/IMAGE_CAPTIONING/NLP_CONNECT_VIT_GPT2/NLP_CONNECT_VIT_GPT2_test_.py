@@ -19,7 +19,8 @@ def obama_image_array_rgb():
 
 @pytest.mark.slow
 @pytest.mark.skipif(
-    torch is None, reason="NLP_CONNECT_VIT_GPT2 requires torch to be installed | Ignore this test in CI"
+    torch is None,
+    reason="NLP_CONNECT_VIT_GPT2 requires torch to be installed | Ignore this test in CI",
 )
 def test_NLP_CONNECT_VIT_GPT2(
     mock_flojoy_decorator,

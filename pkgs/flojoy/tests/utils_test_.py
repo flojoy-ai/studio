@@ -1,8 +1,6 @@
 import os
 import shutil
 import tempfile
-from unittest.mock import patch
-
 import pytest
 
 

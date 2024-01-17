@@ -89,4 +89,3 @@ def cleanup_flojoy_cache_fixture():
 
     with watch_directory(FLOJOY_CACHE_DIR):
         yield
-
