@@ -34,8 +34,6 @@ def test_LOG_OrderedPair_Vector(mock_flojoy_decorator):
     res = LOG.LOG(a=OrderedPair(x=x, y=y), b=[Vector(v=z)], log_base="input")
     test = np.log(y)
     test /= np.log(z)
-    print(res.y, flush=True)
-    print(test, flush=True)
 
     np.testing.assert_allclose(res.x, x)
     np.testing.assert_allclose(res.y, test)
