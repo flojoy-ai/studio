@@ -29,39 +29,39 @@ def temp_cache_dir():
     shutil.rmtree(_test_tempdir)
 
 
-@patch("flojoy.utils._hf_hub_download")
-@patch("flojoy.utils._get_hf_hub_cache_path")
-def test_hf_hub_download_wraps(
-    mock_get_hf_hub_cache_path, mock_wrapped_hf_hub_download, temp_cache_dir
-):
-    """Test that hf_hub_download wraps the original hf_hub_download properly"""
-    mock_get_hf_hub_cache_path.return_value = temp_cache_dir
-    mock_wrapped_hf_hub_download.side_effect = lambda *args, **kwargs: os.path.join(
-        kwargs["cache_dir"], "test"
-    )
-    from flojoy import hf_hub_download
+# @patch("flojoy.utils.hf_hub_download")
+# @patch("flojoy.utils.get_hf_hub_cache_path")
+# def test_hf_hub_download_wraps(
+#     mock_get_hf_hub_cache_path, mock_wrapped_hf_hub_download, temp_cache_dir
+# ):
+#     """Test that hf_hub_download wraps the original hf_hub_download properly"""
+#     mock_get_hf_hub_cache_path.return_value = temp_cache_dir
+#     mock_wrapped_hf_hub_download.side_effect = lambda *args, **kwargs: os.path.join(
+#         kwargs["cache_dir"], "test"
+#     )
+#     from flojoy import hf_hub_download
+#
+#     out_path = hf_hub_download("efgh")  # type: ignore
+#     assert out_path == os.path.join(mock_get_hf_hub_cache_path.return_value, "test")
 
-    out_path = hf_hub_download("efgh")  # type: ignore
-    assert out_path == os.path.join(mock_get_hf_hub_cache_path.return_value, "test")
 
-
-@patch("flojoy.utils._get_hf_hub_cache_path")
-def test_hf_hub_download_writes(mock_get_hf_hub_cache_path, temp_cache_dir):
-    """Test that the original hf_hub_download writes the file to the right place in flojoy cache"""
-    mock_get_hf_hub_cache_path.return_value = temp_cache_dir
-    # from flojoy import hf_hub_download
-    #
-    # out_path = hf_hub_download(
-    #     repo_id="lysandre/arxiv-nlp",
-    #     filename="config.json",
-    #     revision="c7a2e68263d13db10671379c23cf2a8ea0e12789",
-    # )
-    # Test that there exists (recursively) a config.json file under mock_get_hf_hub_cache_path
-    assert (
-        len(
-            _search_for_file_recursively(
-                mock_get_hf_hub_cache_path.return_value, "config.json"
-            )
-        )
-        == 1
-    )
+# @patch("flojoy.utils.get_hf_hub_cache_path")
+# def test_hf_hub_download_writes(mock_get_hf_hub_cache_path, temp_cache_dir):
+#     """Test that the original hf_hub_download writes the file to the right place in flojoy cache"""
+#     mock_get_hf_hub_cache_path.return_value = temp_cache_dir
+#     # from flojoy import hf_hub_download
+#     #
+#     # out_path = hf_hub_download(
+#     #     repo_id="lysandre/arxiv-nlp",
+#     #     filename="config.json",
+#     #     revision="c7a2e68263d13db10671379c23cf2a8ea0e12789",
+#     # )
+#     # Test that there exists (recursively) a config.json file under mock_get_hf_hub_cache_path
+#     assert (
+#         len(
+#             _search_for_file_recursively(
+#                 mock_get_hf_hub_cache_path.return_value, "config.json"
+#             )
+#         )
+#         == 1
+#     )

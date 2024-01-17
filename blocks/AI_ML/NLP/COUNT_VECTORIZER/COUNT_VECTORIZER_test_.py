@@ -1,7 +1,16 @@
 import numpy
 from flojoy import Matrix, DataFrame, Vector
+import pytest
+
+try:
+    import sklearn
+except ImportError:
+    sklearn_installed = False
 
 
+@pytest.mark.skipif(
+    not sklearn_installed, reason="sklearn is not installed | Skipping test in CI"
+)
 def test_COUNT_VECTORIZER(mock_flojoy_decorator):
     # create the CountVectorizerOutput container
 
