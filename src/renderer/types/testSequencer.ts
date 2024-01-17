@@ -7,6 +7,7 @@ export type Summary = {
 export type Test = {
   type: "test";
   id: string;
+  path: string;
   test_name: string;
   run_in_parallel: boolean;
   test_type: "Python" | "Flojoy" | "Matlab";
@@ -29,3 +30,22 @@ export type CONDITIONAL_TYPES = "if" | "else" | "elif" | "end";
 export const CONDITIONALS = ["if"];
 
 export type TestSequenceElement = Test | Conditional;
+
+/* DEFINITIONS FOR TREE STRUCTURE OF TEST SEQUENCER */
+
+export type IfNode = Conditional & {
+  conditional_type: "if";
+  main: TestSequenceElementNode[];
+  else: TestSequenceElementNode[];
+};
+
+export type ConditionalNode = IfNode;
+
+export type TestNode = Test;
+
+export type RootNode = {
+  type: "root";
+  children: TestSequenceElementNode[];
+};
+
+export type TestSequenceElementNode = ConditionalNode | TestNode | RootNode;

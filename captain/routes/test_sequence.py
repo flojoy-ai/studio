@@ -10,7 +10,6 @@ router = APIRouter(tags=["ws"])
 
 @router.websocket("/ts-ws/{socket_id}")
 async def websocket_endpoint(websocket: WebSocket, socket_id: str):
-    print("got connection", flush=True)
     if socket_id in list(ts_manager.ws.active_connections_map.keys()):
         logger.info("client {socket_id} is already connected!")
         return
