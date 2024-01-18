@@ -4,10 +4,10 @@
             {
                 "width": 192,
                 "height": 192,
-                "id": "CONNECT_CDAQ-677c7795-51d8-484f-b0c5-249ae70ab11a",
+                "id": "CONNECT_CDAQ-11ceb08d-8351-4295-b3e9-0159d6dc2425",
                 "type": "HARDWARE",
                 "data": {
-                    "id": "CONNECT_CDAQ-677c7795-51d8-484f-b0c5-249ae70ab11a",
+                    "id": "CONNECT_CDAQ-11ceb08d-8351-4295-b3e9-0159d6dc2425",
                     "label": "CONNECT CDAQ",
                     "func": "CONNECT_CDAQ",
                     "type": "HARDWARE",
@@ -49,23 +49,23 @@
                     "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CONNECT_CDAQ/CONNECT_CDAQ.py"
                 },
                 "position": {
-                    "x": -557.0961194178931,
-                    "y": -517.2395800629165
+                    "x": -99.99424158492481,
+                    "y": -298.41167490548526
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -557.0961194178931,
-                    "y": -517.2395800629165
+                    "x": -99.99424158492481,
+                    "y": -298.41167490548526
                 },
                 "dragging": true
             },
             {
                 "width": 192,
                 "height": 192,
-                "id": "CONNECT_CHANNEL_CDAQ-c8a9aa6a-a20c-4894-ad69-266b2fe9f051",
+                "id": "CONNECT_CHANNEL_CDAQ-32ba699a-7e09-4bce-a287-f2914a3d1f6c",
                 "type": "HARDWARE",
                 "data": {
-                    "id": "CONNECT_CHANNEL_CDAQ-c8a9aa6a-a20c-4894-ad69-266b2fe9f051",
+                    "id": "CONNECT_CHANNEL_CDAQ-32ba699a-7e09-4bce-a287-f2914a3d1f6c",
                     "label": "CONNECT CHANNEL CDAQ",
                     "func": "CONNECT_CHANNEL_CDAQ",
                     "type": "HARDWARE",
@@ -77,7 +77,7 @@
                             "overload": null,
                             "functionName": "CONNECT_CHANNEL_CDAQ",
                             "param": "targeted_channel",
-                            "value": "ai0"
+                            "value": "ai1"
                         }
                     },
                     "initCtrls": {},
@@ -107,23 +107,107 @@
                     "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CONNECT_CHANNEL_CDAQ/CONNECT_CHANNEL_CDAQ.py"
                 },
                 "position": {
-                    "x": -477.8030451436002,
-                    "y": -165.0531191923829
+                    "x": -62.42976302280877,
+                    "y": -34.622885972753465
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -477.8030451436002,
-                    "y": -165.0531191923829
+                    "x": -62.42976302280877,
+                    "y": -34.622885972753465
                 },
                 "dragging": true
             },
             {
+                "width": 975,
+                "height": 703,
+                "id": "LINE-f0006c31-ca1a-4739-abbb-8223055d37fb",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-f0006c31-ca1a-4739-abbb-8223055d37fb",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": 255.71261838089345,
+                    "y": -294.74019472148893
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 255.71261838089345,
+                    "y": -294.74019472148893
+                },
+                "dragging": true,
+                "style": {
+                    "width": 975,
+                    "height": 703
+                },
+                "resizing": false
+            },
+            {
                 "width": 192,
                 "height": 192,
-                "id": "READ_ANALOG_CURRENT-bac67342-2387-4080-934c-e602c62cd0c8",
+                "id": "READ_ANALOG_CURRENT-4ab4527b-957c-4642-93ca-fa96642695dc",
                 "type": "HARDWARE",
                 "data": {
-                    "id": "READ_ANALOG_CURRENT-bac67342-2387-4080-934c-e602c62cd0c8",
+                    "id": "READ_ANALOG_CURRENT-4ab4527b-957c-4642-93ca-fa96642695dc",
                     "label": "READ ANALOG CURRENT",
                     "func": "READ_ANALOG_CURRENT",
                     "type": "HARDWARE",
@@ -213,122 +297,38 @@
                     "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/READ_ANALOG_CURRENT/READ_ANALOG_CURRENT.py"
                 },
                 "position": {
-                    "x": -365.38384108601053,
-                    "y": 199.47577568595455
+                    "x": -17.637633819077124,
+                    "y": 217.44097645152522
                 },
                 "selected": true,
                 "positionAbsolute": {
-                    "x": -365.38384108601053,
-                    "y": 199.47577568595455
+                    "x": -17.637633819077124,
+                    "y": 217.44097645152522
                 },
                 "dragging": true
-            },
-            {
-                "width": 1177,
-                "height": 1029,
-                "id": "LINE-9d77a035-9657-4c7e-bbb3-87ef2d5aeda5",
-                "type": "VISUALIZATION",
-                "data": {
-                    "id": "LINE-9d77a035-9657-4c7e-bbb3-87ef2d5aeda5",
-                    "label": "LINE",
-                    "func": "LINE",
-                    "type": "VISUALIZATION",
-                    "ctrls": {
-                        "xaxis_title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": "Choose the label for the x axis.",
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "xaxis_title",
-                            "value": ""
-                        },
-                        "yaxis_title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": "Choose the label for the y axis.",
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "yaxis_title",
-                            "value": ""
-                        },
-                        "x_log_scale": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "x_log_scale",
-                            "value": false
-                        },
-                        "y_log_scale": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "y_log_scale",
-                            "value": false
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
-                        }
-                    ],
-                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
-                },
-                "position": {
-                    "x": -66.92244842578754,
-                    "y": -589.0387139439122
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 373.07755157421246,
-                    "y": -589.0387139439122
-                },
-                "dragging": true,
-                "style": {
-                    "width": 1177,
-                    "height": 1029
-                },
-                "resizing": false
             }
         ],
         "edges": [
             {
-                "source": "CONNECT_CDAQ-677c7795-51d8-484f-b0c5-249ae70ab11a",
+                "source": "CONNECT_CDAQ-11ceb08d-8351-4295-b3e9-0159d6dc2425",
                 "sourceHandle": "default",
-                "target": "CONNECT_CHANNEL_CDAQ-c8a9aa6a-a20c-4894-ad69-266b2fe9f051",
+                "target": "CONNECT_CHANNEL_CDAQ-32ba699a-7e09-4bce-a287-f2914a3d1f6c",
                 "targetHandle": "device_adress",
-                "id": "reactflow__edge-CONNECT_CDAQ-677c7795-51d8-484f-b0c5-249ae70ab11adefault-CONNECT_CHANNEL_CDAQ-c8a9aa6a-a20c-4894-ad69-266b2fe9f051device_adress"
+                "id": "reactflow__edge-CONNECT_CDAQ-11ceb08d-8351-4295-b3e9-0159d6dc2425default-CONNECT_CHANNEL_CDAQ-32ba699a-7e09-4bce-a287-f2914a3d1f6cdevice_adress"
             },
             {
-                "source": "CONNECT_CHANNEL_CDAQ-c8a9aa6a-a20c-4894-ad69-266b2fe9f051",
+                "source": "CONNECT_CHANNEL_CDAQ-32ba699a-7e09-4bce-a287-f2914a3d1f6c",
                 "sourceHandle": "default",
-                "target": "READ_ANALOG_CURRENT-bac67342-2387-4080-934c-e602c62cd0c8",
+                "target": "READ_ANALOG_CURRENT-4ab4527b-957c-4642-93ca-fa96642695dc",
                 "targetHandle": "device_input_adress",
-                "id": "reactflow__edge-CONNECT_CHANNEL_CDAQ-c8a9aa6a-a20c-4894-ad69-266b2fe9f051default-READ_ANALOG_CURRENT-bac67342-2387-4080-934c-e602c62cd0c8device_input_adress"
+                "id": "reactflow__edge-CONNECT_CHANNEL_CDAQ-32ba699a-7e09-4bce-a287-f2914a3d1f6cdefault-READ_ANALOG_CURRENT-4ab4527b-957c-4642-93ca-fa96642695dcdevice_input_adress"
             },
             {
-                "source": "READ_ANALOG_CURRENT-bac67342-2387-4080-934c-e602c62cd0c8",
+                "source": "READ_ANALOG_CURRENT-4ab4527b-957c-4642-93ca-fa96642695dc",
                 "sourceHandle": "default",
-                "target": "LINE-9d77a035-9657-4c7e-bbb3-87ef2d5aeda5",
+                "target": "LINE-f0006c31-ca1a-4739-abbb-8223055d37fb",
                 "targetHandle": "default",
-                "id": "reactflow__edge-READ_ANALOG_CURRENT-bac67342-2387-4080-934c-e602c62cd0c8default-LINE-9d77a035-9657-4c7e-bbb3-87ef2d5aeda5default"
+                "id": "reactflow__edge-READ_ANALOG_CURRENT-4ab4527b-957c-4642-93ca-fa96642695dcdefault-LINE-f0006c31-ca1a-4739-abbb-8223055d37fbdefault"
             }
         ],
         "viewport": {
