@@ -47,7 +47,7 @@ def READ_ANALOG_CURRENT(
     timeout = timeout if not wait_infinitely else nidaqmx.constants.WAIT_INFINITELY
 
     with nidaqmx.Task() as task:
-        task.ai_channels.add_ai_current_chan(device_input_adress.s, min_val=min_val, max_val=max_val, units=units)  # TODO: Add Chunk resisitance option
+        task.ai_channels.add_ai_current_chan(device_input_adress.s, min_val=min_val, max_val=max_val, units=units)  # TODO: Add shunt resistor option
         values = task.read(number_of_samples_per_channel=number_of_samples_per_channel, timeout=timeout)
         return Vector(values)
 
