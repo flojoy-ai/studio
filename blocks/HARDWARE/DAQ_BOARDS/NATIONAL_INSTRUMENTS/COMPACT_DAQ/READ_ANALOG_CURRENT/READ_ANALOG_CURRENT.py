@@ -21,12 +21,12 @@ def READ_ANALOG_CURRENT(
     ----------
     device_input_adress : String
         The device and channel(s) to read from. The device should be in the format "Dev1/ai0" or "Dev1/ai0:3" for multiple channels.
-    min_val (Optional[float]): Specifies in **units** the
-        minimum value you expect to measure.
-    max_val (Optional[float]): Specifies in **units** the
-        maximum value you expect to measure.
-    units (Optional[nidaqmx.constants.CurrentUnits]): Specifies
-        the units to use to return current measurements.
+    min_val : float
+        Specifies in **units** the minimum value you expect to measure.
+    max_val : float
+        Specifies in **units** the maximum value you expect to measure.
+    units : Literal
+        The units to use to return current measurements.
     number_of_samples_per_channel : int
         Number of samples to read.
     timeout : float
