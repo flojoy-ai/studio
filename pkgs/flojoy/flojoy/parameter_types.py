@@ -49,6 +49,11 @@ class VisaDevice(HardwareDevice):
         return str(self.get_id())
 
 
+class NIDAQmxDevice(HardwareDevice):
+    def get_addresses(self):
+        return str(self.get_id())
+
+
 class NIDevice(HardwareDevice):
     pass
 

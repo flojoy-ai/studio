@@ -1,12 +1,12 @@
 import subprocess
 from sys import platform
 import os
-
+import nidaqmx
 import cv2
 import pyvisa
 import serial.tools.list_ports
 
-from captain.types.devices import CameraDevice, SerialDevice, VISADevice
+from captain.types.devices import CameraDevice, SerialDevice, VISADevice, NIDAQmxDevice
 
 __all__ = ["get_device_finder"]
 
@@ -69,6 +69,23 @@ class DefaultDeviceFinder:
                 used_addrs.add(addr)
             except (pyvisa.VisaIOError, serial.serialutil.SerialException):
                 pass
+
+        return devices
+
+    def get_nidaqmx_devices(self) -> list[NIDAQmxDevice]:
+        """Returns a list of NI-DAQmx devices connected to the system."""
+        # TODO: Add check if NI-DAQmx is installed
+        system = nidaqmx.system.System.local()
+        devices = []
+
+        for device in system.devices:
+            devices.append(
+                NIDAQmxDevice(
+                    name=device.name,
+                    addresses=[chan.name for chan in device.ai_physical_chans] + [chan.name for chan in device.ao_physical_chans] + [chan.name for chan in device.di_lines] + [chan.name for chan in device.do_lines],
+                    description=device.product_type,
+                )
+            )
 
         return devices
 

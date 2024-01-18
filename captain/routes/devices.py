@@ -13,4 +13,5 @@ async def get_devices() -> dict[str, str] | DeviceInfo:
         cameras=device_finder.get_cameras(),
         serialDevices=device_finder.get_serial_devices(),
         visaDevices=device_finder.get_visa_devices(),
+        niDevices=device_finder.get_nidaqmx_devices(),
     )
