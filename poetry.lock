@@ -1151,6 +1151,16 @@ files = [
 numpy = ">=1.17.3"
 
 [[package]]
+name = "hightime"
+version = "0.2.1"
+description = "Hightime Python API"
+optional = false
+python-versions = "*"
+files = [
+    {file = "hightime-0.2.1-py3-none-any.whl", hash = "sha256:a300434692de16273ce46f9c1f2de01e90091b151ccfb4e0973a6a6e1d51f032"},
+]
+
+[[package]]
 name = "httpcore"
 version = "1.0.2"
 description = "A minimal low-level HTTP client."
@@ -2356,6 +2366,26 @@ developer = ["changelist (==0.4)", "mypy (>=1.1)", "pre-commit (>=3.2)", "rtoml"
 doc = ["nb2plots (>=0.7)", "nbconvert (<7.9)", "numpydoc (>=1.6)", "pillow (>=9.4)", "pydata-sphinx-theme (>=0.14)", "sphinx (>=7)", "sphinx-gallery (>=0.14)", "texext (>=0.6.7)"]
 extra = ["lxml (>=4.6)", "pydot (>=1.4.2)", "pygraphviz (>=1.11)", "sympy (>=1.10)"]
 test = ["pytest (>=7.2)", "pytest-cov (>=4.0)"]
+
+[[package]]
+name = "nidaqmx"
+version = "0.9.0"
+description = "NI-DAQmx Python API"
+optional = false
+python-versions = ">=3.8,<4.0"
+files = [
+    {file = "nidaqmx-0.9.0-py3-none-any.whl", hash = "sha256:8f79c4929f19f8dca3c19d517ccb7f9a76850e4c80a78ac2a9e7f5f5743cc700"},
+    {file = "nidaqmx-0.9.0.tar.gz", hash = "sha256:08e3f5f3369fb71116df8fb1e5577ecbbda1530058b16bf4b8be3145c2ffcd96"},
+]
+
+[package.dependencies]
+deprecation = ">=2.1"
+hightime = ">=0.2.1,<0.3.0"
+numpy = {version = ">=1.22", markers = "python_version >= \"3.8\" and python_version < \"3.12\""}
+
+[package.extras]
+docs = ["Sphinx (>=4.3,<5.0)", "sphinx_rtd_theme (>=1.0,<2.0)"]
+grpc = ["grpcio (>=1.49.0,<2.0)", "protobuf (>=4.21,<5.0)"]
 
 [[package]]
 name = "numpy"
@@ -4961,4 +4991,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.11"
-content-hash = "e73751040fab3856768d18aba862020c20cabf3ae1477c93fec82a15f820641e"
+content-hash = "378ae44915006547d4e4b8e093620e4539c16196ccb70230a5bc2884cec0be2a"
