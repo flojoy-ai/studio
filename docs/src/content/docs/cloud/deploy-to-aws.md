@@ -19,7 +19,7 @@ Additionally, you can deploy your own cloud app with our public AWS AMI. In this
 
 - First, Log into your AWS account. And head to EC2 dashboard. You can use search bar from top left corner for this. Just type `ec2` and you'll find the link for EC2 dashboard.
 
-- From left side bar select AMIs. Then change AMI type from `owned by me` to `public images` from dropdown before AMI search bar. 
+- From left side bar select AMIs. Then change AMI type from `owned by me` to `public images` from dropdown before AMI search bar.
 
 - Now, in the AMI search input type for `Flojoy-Cloud-AMI` and you'll find our public AMI for cloud app. Select it then click on `Launch instances from AMI`.
 
@@ -64,7 +64,7 @@ EOF
 
 Almost there! now click on `launch instance` button.
 
-Done! you've just spawned your own version of Flojoy Cloud.
+Done! you've just deployed your own version of Flojoy Cloud app.
 
 :::note
 Allow 5-10 mins for app to be ready. Then you can access your app with EC2 public ip or your assigned domain
