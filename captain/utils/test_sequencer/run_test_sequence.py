@@ -1,4 +1,9 @@
+import asyncio
+import json
+import threading
 import time
+from captain.types.test_sequence import TestSequenceMessage
+from captain.utils.config import ts_manager
 from types import SimpleNamespace
 import subprocess
 from captain.utils.logger import logger
@@ -42,7 +47,7 @@ def _recursive_namespace(d):
 
 
 # TODO create custom expression parser, but for now this is quick and easy
-def _eval_condition(condition):
+def _eval_condition(result_dict, condition):
     """
     evaluates condition expression.
     returns true or false
@@ -54,13 +59,22 @@ def _eval_condition(condition):
     return res
 
 
+# TODO use TSSignaler class to abstract this funcitonality
+async def _stream_result_to_frontend(state, test_id, result="", time_taken=0):
+    asyncio.create_task(
+        ts_manager.ws.broadcast(TestSequenceMessage(state, test_id, result, time_taken))
+    )
+    await asyncio.sleep(0)  # necessary for task yield
+    await asyncio.sleep(0)  # necessary for task yield
+
+
 # TODO have pydantic model for data
-def run_test_sequence(data):
+async def run_test_sequence(data):
     data = _recursive_namespace(data)
 
     result_dict = {}  # maps test name to result of test (should be id in the future?)
 
-    def run_dfs(node):
+    async def run_dfs(node):
         logger.info(node)
 
         if not bool(node.__dict__):
@@ -69,27 +83,32 @@ def run_test_sequence(data):
         match node.type:
             case "root":
                 for child in node.children:
-                    run_dfs(child)
+                    await run_dfs(child)
+
             case "test":
                 # TODO: support run in parallel feature
 
-                # _stream_result_to_frontend(state="RUNNING", test_name=node.testName)
-
+                await _stream_result_to_frontend(state="RUNNING", test_id=node.id)
                 path = node.path
                 result, time_taken = _run_pytest(path)
                 result_dict[node.testName] = TestResult(*(result, time_taken))
+                await _stream_result_to_frontend(
+                    state="TEST_DONE",
+                    test_id=node.id,
+                    result=result,
+                    time_taken=time_taken,  # TODO result, time_taken should be together
+                )
 
-                # _stream_result_to_frontend(state="TEST_DONE", test_name=node.testName)
             case "conditional":
                 match node.conditionalType:
                     case "if":
-                        expression_eval = _eval_condition(node.condition)
+                        expression_eval = _eval_condition(result_dict, node.condition)
                         if expression_eval:
                             for child in node.main:
-                                run_dfs(child)
+                                await run_dfs(child)
                         else:
                             for child in node.__dict__["else"]:
-                                run_dfs(child)
+                                await run_dfs(child)
 
-    run_dfs(data)
+    await run_dfs(data)
     logger.info(result_dict)

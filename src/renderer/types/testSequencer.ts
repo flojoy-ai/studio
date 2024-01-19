@@ -4,14 +4,25 @@ export type Summary = {
   completionTime: number;
 };
 
+export type TestTypes = "Python" | "Flojoy" | "Matlab";
+
+export type StatusTypes = "pending" | "pass" | "failed";
+
+export type BackendMsg = {
+  state: "RUNNING" | "TEST_DONE";
+  target_id: string;
+  result: boolean;
+  time_taken: number;
+};
+
 export type Test = {
   type: "test";
   id: string;
   path: string;
   testName: string;
   runInParallel: boolean;
-  testType: "Python" | "Flojoy" | "Matlab";
-  status: "pending" | "processing" | "pass" | "failed";
+  testType: TestTypes;
+  status: StatusTypes;
   completionTime: number;
   isSavedToCloud: boolean;
 };

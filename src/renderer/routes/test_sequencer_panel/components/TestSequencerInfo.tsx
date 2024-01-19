@@ -7,6 +7,8 @@ import { SummaryTable } from "./SummaryTable";
 import { useTestSequencerState } from "@src/hooks/useTestSequencerState";
 import { testSequenceRunRequest } from "../models/models";
 import TSWebSocketContext from "../context/TSWebSocketContext";
+import { map } from "zod";
+import { TestSequenceElement } from "@src/types/testSequencer";
 
 const INPUT_FIELD_STYLE =
   "h-10 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap border-muted/60 text-sm focus:border-muted-foreground focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 sm:w-48";
@@ -14,10 +16,22 @@ const INPUT_FIELD_STYLE =
 const TestSequencerView = () => {
   const [deviceId, setDeviceID] = useState("");
   const [testRunTag, setTestRunTag] = useState("");
-  const { tree } = useTestSequencerState();
+  const { setElems, tree } = useTestSequencerState();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
 
+  const resetStatus = () => {
+    setElems((elems: TestSequenceElement[]) => {
+      const new_elems = [...elems];
+      return new_elems.map((elem) => {
+        return elem.type === "test"
+          ? { ...elem, status: "pending", completionTime: null }
+          : { ...elem };
+      });
+    });
+  };
+
   const handleClickRunTest = () => {
+    resetStatus();
     tSSendJsonMessage(testSequenceRunRequest(tree));
   };
 

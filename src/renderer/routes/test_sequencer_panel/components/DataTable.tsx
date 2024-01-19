@@ -50,7 +50,7 @@ import {
   getIndentLevels,
   handleConditionalDelete,
 } from "../utils/ConditionalUtils";
-import { ChevronUpIcon } from "lucide-react";
+import { ChevronUpIcon, Loader } from "lucide-react";
 import { WriteConditionalModal } from "./AddWriteConditionalModal";
 
 const IndentLine = ({
@@ -78,7 +78,8 @@ const IndentLine = ({
   );
 
 export function DataTable() {
-  const { elems, setElems } = useTestSequencerState();
+  const { elems, setElems, running } = useTestSequencerState();
+  console.log(running);
   // const indentLevels = React.useMemo(() => {
   //   return getIndentLevels(elems);
   // }, [elems]);
@@ -125,6 +126,9 @@ export function DataTable() {
                 name={(row.original as Test).testName}
                 level={indentLevels[row.id]}
               />
+              {running.includes(row.original.id) && (
+                <Loader className="scale-50" />
+              )}
             </div>
             {/* {(row.original as Test).test_name} */}
           </div>
@@ -194,7 +198,10 @@ export function DataTable() {
       enableHiding: false,
       cell: ({ row }) => {
         return row.original.type === "test" ? (
-          <div>{row.original.completionTime}</div>
+          <div>
+            {row.original.completionTime &&
+              row.original.completionTime.toFixed(2)}
+          </div>
         ) : null;
       },
     },

@@ -1,4 +1,5 @@
 import json
+import asyncio
 from captain.utils.logger import logger
 from captain.utils.test_sequencer.run_test_sequence import run_test_sequence
 
@@ -8,7 +9,7 @@ def _handle_subscribe(data):
 
 
 def _handle_run(data):
-    run_test_sequence(data["data"]["tree"])
+    asyncio.create_task(run_test_sequence(data["data"]["tree"]))
 
 
 event_to_handle = {

@@ -14,6 +14,8 @@ import { v4 as uuidv4 } from "uuid";
 
 export const testSequenceTree = atom<TestRootNode>({} as TestRootNode);
 
+export const curRun = atom<string[]>([]);
+
 export const websocketIdAtom = atom<string>(uuidv4());
 
 export const elements = atomWithImmer<(Test | Conditional)[]>([
@@ -140,6 +142,7 @@ export function useTestSequencerState() {
   const [elems, setElements] = useAtom(elements);
   const [websocketId] = useAtom(websocketIdAtom);
   const [tree, setTree] = useAtom(testSequenceTree);
+  const [running, setRunning] = useAtom(curRun);
 
   // wrapper around setElements to check if elems is valid
   function setElems(elems: TestSequenceElement[]);
@@ -179,5 +182,7 @@ export function useTestSequencerState() {
     websocketId,
     setElems,
     tree,
+    running,
+    setRunning,
   };
 }
