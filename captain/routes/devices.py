@@ -4,7 +4,7 @@ from captain.types.devices import DeviceInfo
 
 router = APIRouter(tags=["devices"])
 
-
+import logging
 @router.get("/devices")
 async def get_devices() -> dict[str, str] | DeviceInfo:
     device_finder = get_device_finder()
