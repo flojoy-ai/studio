@@ -36,6 +36,7 @@ def FLOOR_DIVIDE(
     """
 
     initial = get_val(a)
+
     seq = map(lambda dc: get_val(dc), b)
     y1 = reduce(lambda u, v: np.floor_divide(u, v), seq, initial)
 
