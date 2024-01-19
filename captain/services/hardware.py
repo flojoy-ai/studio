@@ -78,15 +78,19 @@ class DefaultDeviceFinder:
         system = nidaqmx.system.System.local()
         devices = []
 
+        def extract_device(channel, device) -> NIDAQmxDevice:
+            return NIDAQmxDevice(
+                name=channel.name,
+                address=channel.name,
+                description=f"{device.product_type} - {channel.name.split('/')[-1]}",
+            )
+
         for device in system.devices:
-            for chan in device.ai_physical_chans:
-                devices.append(
-                    NIDAQmxDevice(
-                        name=device.name,
-                        address=chan.name,
-                        description=f"{device.product_type} - {chan.name}",
-                    )
-                )
+            devices += [extract_device(chan, device) for chan in device.ai_physical_chans]
+            devices += [extract_device(chan, device) for chan in device.ao_physical_chans]
+            devices += [extract_device(line, device) for line in device.di_lines]
+            devices += [extract_device(line, device) for line in device.do_lines]
+
         logging.info(f"Devices found are: {devices}")
         return devices
 
