@@ -1,4 +1,20 @@
-from captain.models.test_sequencer import Message
+import json
+from captain.utils.logger import logger
+from captain.utils.test_sequencer.run_test_sequence import run_test_sequence
+
+
+def _handle_subscribe(data):
+    logger.info("Connection test passed")
+
+
+def _handle_run(data):
+    run_test_sequence(data["data"]["tree"])
+
+
+event_to_handle = {
+    "subscribe": _handle_subscribe,
+    "run": _handle_run,
+}
 
 
 def handle_data(json_str):
@@ -8,7 +24,5 @@ def handle_data(json_str):
     Parameters:
     data (string): the text received from the websocket
     """
-    data = Message.parse_raw(json_str)
-    print(data, "bruh", flush=True)
-
-    pass
+    data = json.loads(json_str)
+    event_to_handle[data["event"]](data)

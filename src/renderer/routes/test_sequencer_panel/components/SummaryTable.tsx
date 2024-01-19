@@ -30,11 +30,11 @@ const getOnlyTests = (data: TestSequenceElement[]): Test[] => {
 
 const getCompletionTime = (data: TestSequenceElement[]) => {
   const onlyTests = getOnlyTests(data);
-  const parallel = filter(onlyTests, (elem) => elem.run_in_parallel).map(
-    (elem) => elem.completion_time,
+  const parallel = filter(onlyTests, (elem) => elem.runInParallel).map(
+    (elem) => elem.completionTime,
   );
-  const non_parallel = filter(onlyTests, (elem) => !elem.run_in_parallel).map(
-    (elem) => elem.completion_time,
+  const non_parallel = filter(onlyTests, (elem) => !elem.runInParallel).map(
+    (elem) => elem.completionTime,
   );
   let max_p = max(parallel);
   let sum_np = sum(non_parallel);
@@ -63,8 +63,8 @@ export function SummaryTable() {
     setSummary([
       {
         id: "1",
-        success_rate: getSuccessRate(elems),
-        completion_time: getCompletionTime(elems),
+        successRate: getSuccessRate(elems),
+        completionTime: getCompletionTime(elems),
       },
     ]);
   }, [elems]);

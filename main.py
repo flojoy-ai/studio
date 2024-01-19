@@ -14,7 +14,7 @@ if __name__ == "__main__":
         "captain.main:app",
         port=5392,
         log_level=log_level,
-        reload=is_dev,
+        reload=True,
         reload_excludes=[
             os.path.join(os.getcwd(), p)
             for p in __ignore_list

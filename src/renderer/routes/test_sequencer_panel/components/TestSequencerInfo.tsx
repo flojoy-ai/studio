@@ -1,9 +1,12 @@
 import { Button } from "@src/components/ui/button";
 import { Input } from "@src/components/ui/input";
 import { IS_CLOUD_DEMO } from "@src/data/constants";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { DataTable } from "./DataTable";
 import { SummaryTable } from "./SummaryTable";
+import { useTestSequencerState } from "@src/hooks/useTestSequencerState";
+import { testSequenceRunRequest } from "../models/models";
+import TSWebSocketContext from "../context/TSWebSocketContext";
 
 const INPUT_FIELD_STYLE =
   "h-10 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap border-muted/60 text-sm focus:border-muted-foreground focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 sm:w-48";
@@ -11,6 +14,12 @@ const INPUT_FIELD_STYLE =
 const TestSequencerView = () => {
   const [deviceId, setDeviceID] = useState("");
   const [testRunTag, setTestRunTag] = useState("");
+  const { tree } = useTestSequencerState();
+  const { tSSendJsonMessage } = useContext(TSWebSocketContext);
+
+  const handleClickRunTest = () => {
+    tSSendJsonMessage(testSequenceRunRequest(tree));
+  };
 
   return (
     <div className="flex flex-col space-y-5">
@@ -38,6 +47,7 @@ const TestSequencerView = () => {
         <Button>+ Import test</Button>
         <Button>Save test run</Button>
         <Button>Export test</Button>
+        <Button onClick={handleClickRunTest}>Run Test</Button>
       </div>
     </div>
   );

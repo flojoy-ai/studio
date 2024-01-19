@@ -1,24 +1,24 @@
 export type Summary = {
   id: string;
-  success_rate: number;
-  completion_time: number;
+  successRate: number;
+  completionTime: number;
 };
 
 export type Test = {
   type: "test";
   id: string;
   path: string;
-  test_name: string;
-  run_in_parallel: boolean;
-  test_type: "Python" | "Flojoy" | "Matlab";
+  testName: string;
+  runInParallel: boolean;
+  testType: "Python" | "Flojoy" | "Matlab";
   status: "pending" | "processing" | "pass" | "failed";
-  completion_time: number;
-  is_saved_to_cloud: boolean;
+  completionTime: number;
+  isSavedToCloud: boolean;
 };
 
 export type Conditional = {
   type: "conditional";
-  conditional_type: CONDITIONAL_TYPES;
+  conditionalType: CONDITIONAL_TYPES;
   role: ROLE_TYPES;
   id: string;
   groupId: string;
@@ -34,7 +34,7 @@ export type TestSequenceElement = Test | Conditional;
 /* DEFINITIONS FOR TREE STRUCTURE OF TEST SEQUENCER */
 
 export type IfNode = Conditional & {
-  conditional_type: "if";
+  conditionalType: "if";
   main: TestSequenceElementNode[];
   else: TestSequenceElementNode[];
 };
@@ -43,9 +43,9 @@ export type ConditionalNode = IfNode;
 
 export type TestNode = Test;
 
-export type RootNode = {
+export type TestRootNode = {
   type: "root";
   children: TestSequenceElementNode[];
 };
 
-export type TestSequenceElementNode = ConditionalNode | TestNode | RootNode;
+export type TestSequenceElementNode = ConditionalNode | TestNode | TestRootNode;

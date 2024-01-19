@@ -3,7 +3,7 @@ import {
   Conditional,
   Test,
   TestSequenceElement,
-  RootNode,
+  TestRootNode,
   TestSequenceElementNode,
   IfNode,
   TestNode,
@@ -12,7 +12,7 @@ import { atomWithImmer } from "jotai-immer";
 import { useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-export const testSequenceTree = atom<RootNode>({} as RootNode);
+export const testSequenceTree = atom<TestRootNode>({} as TestRootNode);
 
 export const websocketIdAtom = atom<string>(uuidv4());
 
@@ -21,45 +21,45 @@ export const elements = atomWithImmer<(Test | Conditional)[]>([
     type: "test",
     id: "m5gr84i9",
     path: ".",
-    test_name: "test_voltage.py",
-    run_in_parallel: false,
-    test_type: "Python",
+    testName: "test_voltage.py",
+    runInParallel: false,
+    testType: "Python",
     status: "pass",
-    completion_time: 1,
-    is_saved_to_cloud: true,
+    completionTime: 1,
+    isSavedToCloud: true,
   },
   {
     type: "test",
     id: "iqyubqCHB",
     path: ".",
-    test_name: "measure_width.json",
-    run_in_parallel: false,
-    test_type: "Flojoy",
+    testName: "measure_width.json",
+    runInParallel: false,
+    testType: "Flojoy",
     status: "failed",
-    completion_time: 3,
-    is_saved_to_cloud: true,
+    completionTime: 3,
+    isSavedToCloud: true,
   },
   {
     type: "test",
     id: "aiubv123uajksc",
     path: ".",
-    test_name: "measure_height.json",
-    run_in_parallel: false,
-    test_type: "Flojoy",
+    testName: "measure_height.json",
+    runInParallel: false,
+    testType: "Flojoy",
     status: "pass",
-    completion_time: 3.2,
-    is_saved_to_cloud: false,
+    completionTime: 3.2,
+    isSavedToCloud: false,
   },
   {
     type: "test",
     id: "ashd21319DBASA",
     path: ".",
-    test_name: "cap_vs_freq.m",
-    run_in_parallel: true,
-    test_type: "Matlab",
+    testName: "cap_vs_freq.m",
+    runInParallel: true,
+    testType: "Matlab",
     status: "pass",
-    completion_time: 4,
-    is_saved_to_cloud: true,
+    completionTime: 4,
+    isSavedToCloud: true,
   },
 ]);
 
@@ -100,15 +100,15 @@ export type SetElemsFn = {
  * This test sequence element is guaranteed to be valid.
  * @param elems - The array of test sequence elements
  */
-const createTestSequenceTree = (elems: TestSequenceElement[]): RootNode => {
-  const root = { type: "root", children: [] } as RootNode;
+const createTestSequenceTree = (elems: TestSequenceElement[]): TestRootNode => {
+  const root = { type: "root", children: [] } as TestRootNode;
   const stack: TestSequenceElementNode[][] = [root.children];
   for (let i = 0; i < elems.length; i++) {
     const curElem = elems[i];
 
     //handle non-leaf nodes
     if (curElem.type === "conditional") {
-      switch (curElem.conditional_type) {
+      switch (curElem.conditionalType) {
         case "if":
           const ifNode = {
             ...curElem,
@@ -170,14 +170,14 @@ export function useTestSequencerState() {
     /* _________________________ */
 
     //creates tree to send to backend
-    const root = createTestSequenceTree(candidateElems);
-    setTree(root);
+    setTree(createTestSequenceTree(candidateElems));
   }
 
   const prevElems = useRef(elems);
   return {
     elems,
-    setElems,
     websocketId,
+    setElems,
+    tree,
   };
 }

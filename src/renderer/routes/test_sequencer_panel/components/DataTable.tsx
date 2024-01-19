@@ -9,6 +9,7 @@ import { ChevronDownIcon } from "@radix-ui/react-icons";
 import {
   ColumnDef,
   ColumnFiltersState,
+  Row,
   SortingState,
   VisibilityState,
   flexRender,
@@ -50,6 +51,7 @@ import {
   handleConditionalDelete,
 } from "../utils/ConditionalUtils";
 import { ChevronUpIcon } from "lucide-react";
+import { WriteConditionalModal } from "./AddWriteConditionalModal";
 
 const IndentLine = ({
   name,
@@ -120,7 +122,7 @@ export function DataTable() {
             {/* Indent levels */}
             <div className="flex flex-row space-x-1">
               <IndentLine
-                name={(row.original as Test).test_name}
+                name={(row.original as Test).testName}
                 level={indentLevels[row.id]}
               />
             </div>
@@ -132,11 +134,19 @@ export function DataTable() {
             <div className="flex flex-row space-x-1">
               <IndentLine
                 name={
-                  <b>
-                    {(
-                      row.original as Conditional
-                    ).conditional_type.toUpperCase()}
-                  </b>
+                  <div className="flex flex-col">
+                    <b>
+                      {(
+                        row.original as Conditional
+                      ).conditionalType.toUpperCase()}
+                    </b>
+                    <i>
+                      {(row.original as Conditional).condition.substring(0, 45)}
+                      {(row.original as Conditional).condition.length >= 45 && (
+                        <>...</>
+                      )}
+                    </i>
+                  </div>
                 }
                 level={indentLevels[row.id]}
               />
@@ -154,7 +164,7 @@ export function DataTable() {
       header: "Run in parallel",
       cell: ({ row }) => {
         return row.original.type === "test" ? (
-          <div>{row.original.run_in_parallel}</div>
+          <div>{row.original.runInParallel}</div>
         ) : null;
       },
     },
@@ -184,7 +194,7 @@ export function DataTable() {
       enableHiding: false,
       cell: ({ row }) => {
         return row.original.type === "test" ? (
-          <div>{row.original.completion_time}</div>
+          <div>{row.original.completionTime}</div>
         ) : null;
       },
     },
@@ -283,11 +293,27 @@ export function DataTable() {
     React.useState(false);
   const addConditionalAfterIdx = React.useRef(-1);
 
+  const [showWriteConditionalModal, setShowWriteConditionalModal] =
+    React.useState(false);
+  const writeConditionalForIdx = React.useRef(-1);
+
+  const handleWriteConditionalModal = (input: string) => {
+    setElems((data) => {
+      const new_data = [...data];
+      const conditional = new_data[
+        writeConditionalForIdx.current
+      ] as Conditional;
+      new_data[writeConditionalForIdx.current] = {
+        ...conditional,
+        condition: input,
+      };
+      return new_data;
+    });
+  };
+
   const handleAddConditionalModal = (type: CONDITIONAL_TYPES) => {
     setElems((data) => {
       const new_data = [...data];
-      console.log(new_data);
-      console.log(addConditionalAfterIdx.current);
       new_data.splice(
         addConditionalAfterIdx.current,
         0,
@@ -302,6 +328,29 @@ export function DataTable() {
     setShowAddConditionalModal(true);
   };
 
+  const onClickWriteCondition = (idx: number) => {
+    writeConditionalForIdx.current = idx;
+    console.log("here");
+    setShowWriteConditionalModal(true);
+  };
+
+  const getSpecificContextMenuItems = (row: Row<TestSequenceElement>) => {
+    switch (row.original.type) {
+      case "test":
+        return <></>;
+      case "conditional":
+        return (
+          <>
+            <ContextMenuItem
+              onClick={() => onClickWriteCondition(parseInt(row.id))}
+            >
+              Write Condition
+            </ContextMenuItem>
+          </>
+        );
+    }
+  };
+
   return (
     <div className="w-full">
       <div className="flex items-center py-0">
@@ -310,7 +359,11 @@ export function DataTable() {
           handleAddConditionalModalOpen={setShowAddConditionalModal}
           handleAdd={handleAddConditionalModal}
         />
-
+        <WriteConditionalModal
+          isConditionalModalOpen={showWriteConditionalModal}
+          handleWriteConditionalModalOpen={setShowWriteConditionalModal}
+          handleWrite={handleWriteConditionalModal}
+        />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
@@ -377,6 +430,7 @@ export function DataTable() {
                         </ContextMenuTrigger>
                       </TableCell>
                       <ContextMenuContent>
+                        {getSpecificContextMenuItems(row)}
                         <ContextMenuItem
                           onClick={() =>
                             handleClickAddConditional(parseInt(row.id))

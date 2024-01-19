@@ -40,39 +40,40 @@ const App = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       {/* Creates the websocket connection and maintains it for the test sequencer */}
-      <TestSequencerWS></TestSequencerWS>
-      <div id="tw-theme-root">
-        <div className="titlebar flex h-12 items-center justify-center bg-background font-bold">
-          Flojoy Studio ({packageJson.version})
+      <TestSequencerWS>
+        <div id="tw-theme-root">
+          <div className="titlebar flex h-12 items-center justify-center bg-background font-bold">
+            Flojoy Studio ({packageJson.version})
+          </div>
+          {/* <ElectronLogsDialog /> */}
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/" element={<Layout />}>
+              <Route
+                path="/test-sequencer"
+                element={<TestSequencerTab />}
+                errorElement={<ErrorBoundary />}
+              />
+              <Route
+                path="/flowchart"
+                element={<FlowChartTab />}
+                errorElement={<ErrorBoundary />}
+              />
+              <Route
+                path="/devices"
+                element={<DeviceTab />}
+                errorElement={<ErrorBoundary />}
+              />
+              <Route
+                path="/pymgr"
+                element={<PythonManagerTabView />}
+                errorElement={<ErrorBoundary />}
+              />
+            </Route>
+            <Route path="/editor/:id" element={<EditorView />} />
+          </Routes>
         </div>
-        {/* <ElectronLogsDialog /> */}
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/" element={<Layout />}>
-            <Route
-              path="/test-sequencer"
-              element={<TestSequencerTab />}
-              errorElement={<ErrorBoundary />}
-            />
-            <Route
-              path="/flowchart"
-              element={<FlowChartTab />}
-              errorElement={<ErrorBoundary />}
-            />
-            <Route
-              path="/devices"
-              element={<DeviceTab />}
-              errorElement={<ErrorBoundary />}
-            />
-            <Route
-              path="/pymgr"
-              element={<PythonManagerTabView />}
-              errorElement={<ErrorBoundary />}
-            />
-          </Route>
-          <Route path="/editor/:id" element={<EditorView />} />
-        </Routes>
-      </div>
+      </TestSequencerWS>
     </ThemeProvider>
   );
 };

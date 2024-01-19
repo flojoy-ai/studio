@@ -2,7 +2,7 @@ import TestSequencerInfo from "./components/TestSequencerInfo";
 
 const TestSequencerView = () => {
   return (
-    <div className="p-12">
+    <div className="overflow-y-auto p-12">
       <TestSequencerInfo />
     </div>
   );

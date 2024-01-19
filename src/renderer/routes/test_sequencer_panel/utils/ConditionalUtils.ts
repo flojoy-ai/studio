@@ -24,7 +24,7 @@ export const generateConditional: {
           id: uuidv4(),
           groupId: groupId,
           role: "start",
-          conditional_type: "if",
+          conditionalType: "if",
           condition: "",
         },
         {
@@ -32,7 +32,7 @@ export const generateConditional: {
           id: uuidv4(),
           groupId: groupId,
           role: "between",
-          conditional_type: "else",
+          conditionalType: "else",
           condition: "",
         },
         {
@@ -40,7 +40,7 @@ export const generateConditional: {
           id: uuidv4(),
           groupId: groupId,
           role: "end",
-          conditional_type: "end",
+          conditionalType: "end",
           condition: "",
         },
       ];
