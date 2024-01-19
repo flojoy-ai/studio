@@ -1,16 +1,17 @@
-from flojoy import flojoy, DataContainer, String, NIDevice, DeviceConnectionManager, NIDAQmxDevice
+from flojoy import flojoy, DataContainer, NIDevice, DeviceConnectionManager, NIDAQmxDevice
 from typing import Optional
 import nidaqmx
 
 
 @flojoy(deps={"nidaqmx": "0.9.0"})
 def CONNECT_CDAQ(
-    NI_device: NIDAQmxDevice,
+    cDAQ: NIDAQmxDevice,
     default: Optional[DataContainer] = None,
-) -> String:
-    """Connect to a National-Instrument compactDAQ device
+) -> Optional[DataContainer]:
+    """Connect to a National Instrument compactDAQ device
 
-    Todo
+    Connect to a National Instrument compactDAQ device. This function should be compatiable with all NI-DAQmx devices.
+    Tested with a NI cDAQ-9171 chassis and a NI 9203 analog input module.
 
     Parameters
     ----------
@@ -23,13 +24,11 @@ def CONNECT_CDAQ(
         None.
     """
 
+    id = cDAQ.get_id()
+    device, channel = id.split('/')
     devices = nidaqmx.system.System().devices
-    device_names = devices.device_names
 
-    assert len(device_names) > 0, "No NI-cDAQ detected"
-    assert targeted_device in device_names, f"No NI-cDAQ with the name {targeted_device}, please select of of the following: {', '.join(device_names)}"
+    device = devices[device]
+    DeviceConnectionManager.register_connection(NIDevice(id), device)
 
-    device = devices[targeted_device]
-    DeviceConnectionManager.register_connection(NIDevice(targeted_device), device, cleanup=lambda x: x)
-
-    return String(targeted_device)
+    return None

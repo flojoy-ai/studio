@@ -12,7 +12,7 @@ from flojoy.parameter_types import (
     VisaDevice,
     VisaConnection,
     NIDevice,
-    NIConnection,
+    NIDAQmxConnection,
 )
 from tm_devices import DeviceManager
 from tm_devices.helpers import PYVISA_PY_BACKEND
@@ -51,7 +51,7 @@ class DeviceConnectionManager:
                 case VisaDevice():
                     cls.handles[id] = VisaConnection(connection, cleanup=cleanup)
                 case NIDevice():
-                    cls.handles[id] = NIConnection(connection, cleanup=cleanup)
+                    cls.handles[id] = NIDAQmxConnection(connection, cleanup=cleanup)
 
     @classmethod
     def get_connection(cls, id: str | int) -> HardwareConnection:

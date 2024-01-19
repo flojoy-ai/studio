@@ -64,7 +64,7 @@ export const ctrlsFromParams = (
               return devices.visaDevices.length === 1
                 ? devices.visaDevices[0].address
                 : "";
-            case "NxDAQmxDevice":
+            case "NIDAQmxDevice":
             case "NIDAQmxConnection":
               return devices.NIDAQmxDevices.length === 1
                 ? devices.NIDAQmxDevices[0].address

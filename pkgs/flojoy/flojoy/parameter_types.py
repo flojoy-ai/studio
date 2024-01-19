@@ -94,7 +94,7 @@ class VisaConnection(HardwareConnection):
         super().__del__()
 
 
-class NIConnection(HardwareConnection):
+class NIDAQmxConnection(HardwareConnection):
     def __init__(
         self, handle: Any, cleanup: Callable[[Any], Any] | None = None
     ) -> None:
@@ -181,6 +181,8 @@ def format_param_value(value: Any, value_type: str):
             return SerialDevice(value)
         case "VisaDevice" | "VisaConnection":
             return VisaDevice(value)
+        case "NIDAQmxDevice" | "NIDAQmxConnection":
+            return NIDAQmxDevice(value)
 
     if value == "":
         return None

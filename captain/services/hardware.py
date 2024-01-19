@@ -90,6 +90,11 @@ class DefaultDeviceFinder:
             devices += [extract_device(chan, device) for chan in device.ao_physical_chans]
             devices += [extract_device(line, device) for line in device.di_lines]
             devices += [extract_device(line, device) for line in device.do_lines]
+            devices += [extract_device(chan, device) for chan in device.ci_physical_chans]
+            devices += [extract_device(chan, device) for chan in device.co_physical_chans]
+            devices += [extract_device(line, device) for line in device.di_ports]
+            devices += [extract_device(line, device) for line in device.do_ports]
+
 
         logging.info(f"Devices found are: {devices}")
         return devices

@@ -33,6 +33,8 @@ const NIDAQmxDevice = z.object({
   description: z.string(),
 });
 
+type NIDAQmxDevice = z.infer<typeof NIDAQmxDevice>;
+
 const DeviceInfo = z.object({
   cameras: z.array(CameraDevice),
   serialDevices: z.array(SerialDevice),

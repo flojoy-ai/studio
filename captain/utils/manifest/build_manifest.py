@@ -24,6 +24,7 @@ from flojoy import (
     NodeReference,
     SerialConnection,
     SerialDevice,
+    NIDAQmxConnection,
     NIDAQmxDevice,
     VisaConnection,
     VisaDevice,
@@ -55,6 +56,7 @@ SPECIAL_TYPES = [
     CameraConnection,
     SerialConnection,
     VisaConnection,
+    NIDAQmxConnection,
     File,
     Directory,
 ]
