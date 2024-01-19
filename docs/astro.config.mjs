@@ -112,9 +112,9 @@ export default defineConfig({
           lang: "en",
           label: "English",
         },
-        fr: {
-          label: "Français",
-        },
+        // fr: {
+        //   label: "Français",
+        // },
         // "zh-cn": {
         //   label: "简体中文",
         //   lang: "zh-CN",
