@@ -15,6 +15,7 @@ import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { CameraSelect } from "./CameraSelect";
 import { SerialDeviceSelect } from "./SerialDeviceSelect";
 import { VisaDeviceSelect } from "./VisaDeviceSelect";
+import { NIDAQmxDeviceSelect } from "./NIDAQmxDeviceSelect";
 import { Button } from "@src/components/ui/button";
 import { AutosizingTextarea } from "./AutosizingTextarea";
 
@@ -189,6 +190,9 @@ const ParamField = ({
     case "VisaDevice":
     case "VisaConnection":
       return <VisaDeviceSelect onValueChange={handleChange} value={value} />;
+    case "NIDAQmxDevice":
+    case "NIDAQmxConnection":
+      return <NIDAQmxDeviceSelect onValueChange={handleChange} value={value} />;
     case "str":
     case "list[int]":
     case "list[float]":

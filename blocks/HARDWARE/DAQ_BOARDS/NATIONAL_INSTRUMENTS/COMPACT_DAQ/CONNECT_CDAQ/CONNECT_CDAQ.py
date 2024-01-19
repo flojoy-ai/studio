@@ -6,7 +6,6 @@ import nidaqmx
 @flojoy(deps={"nidaqmx": "0.9.0"})
 def CONNECT_CDAQ(
     NI_device: NIDAQmxDevice,
-    targeted_device: str,
     default: Optional[DataContainer] = None,
 ) -> String:
     """Connect to a National-Instrument compactDAQ device

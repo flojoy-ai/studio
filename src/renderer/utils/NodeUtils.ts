@@ -37,7 +37,6 @@ export const createNodeLabel = (nodeFunc: string, takenLabels: string[][]) => {
 
   return nodeLabel.replaceAll("_", " ");
 };
-
 export const ctrlsFromParams = (
   params: NodeElement["parameters"] | undefined,
   funcName: string,
@@ -64,6 +63,11 @@ export const ctrlsFromParams = (
             case "VisaConnection":
               return devices.visaDevices.length === 1
                 ? devices.visaDevices[0].address
+                : "";
+            case "NxDAQmxDevice":
+            case "NIDAQmxConnection":
+              return devices.NIDAQmxDevices.length === 1
+                ? devices.NIDAQmxDevices[0].address
                 : "";
             default:
               return param.default ?? "";

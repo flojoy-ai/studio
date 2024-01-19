@@ -27,10 +27,17 @@ const VISADevice = z.object({
 
 type VISADevice = z.infer<typeof VISADevice>;
 
+const NIDAQmxDevice = z.object({
+  name: z.string(),
+  address: z.string(),
+  description: z.string(),
+});
+
 const DeviceInfo = z.object({
   cameras: z.array(CameraDevice),
   serialDevices: z.array(SerialDevice),
   visaDevices: z.array(VISADevice),
+  nidaqmxDevices: z.array(NIDAQmxDevice),
 });
 
 export type DeviceInfo = z.infer<typeof DeviceInfo>;

@@ -5,7 +5,7 @@ import nidaqmx
 import cv2
 import pyvisa
 import serial.tools.list_ports
-
+import logging
 from captain.types.devices import CameraDevice, SerialDevice, VISADevice, NIDAQmxDevice
 
 __all__ = ["get_device_finder"]
@@ -79,14 +79,15 @@ class DefaultDeviceFinder:
         devices = []
 
         for device in system.devices:
-            devices.append(
-                NIDAQmxDevice(
-                    name=device.name,
-                    addresses=[chan.name for chan in device.ai_physical_chans] + [chan.name for chan in device.ao_physical_chans] + [chan.name for chan in device.di_lines] + [chan.name for chan in device.do_lines],
-                    description=device.product_type,
+            for chan in device.ai_physical_chans:
+                devices.append(
+                    NIDAQmxDevice(
+                        name=device.name,
+                        address=chan.name,
+                        description=f"{device.product_type} - {chan.name}",
+                    )
                 )
-            )
-
+        logging.info(f"Devices found are: {devices}")
         return devices
 
 

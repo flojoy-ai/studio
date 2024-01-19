@@ -24,7 +24,7 @@ class VISADevice(BaseModel):
 
 class NIDAQmxDevice(BaseModel):
     name: str
-    addresses: list[str]
+    address: str  # Need to handle multiple addresse for a single device
     description: str
 
 
@@ -32,3 +32,4 @@ class DeviceInfo(BaseModel):
     cameras: list[CameraDevice]
     serialDevices: list[SerialDevice]
     visaDevices: list[VISADevice]
+    nidaqmxDevices: list[NIDAQmxDevice]
