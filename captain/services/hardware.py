@@ -101,7 +101,6 @@ class DefaultDeviceFinder:
                 ]
                 devices += [extract_device(line, device) for line in device.di_ports]
                 devices += [extract_device(line, device) for line in device.do_ports]
-
             logging.info(f"Devices found are: {devices}")
             return devices
         except nidaqmx.errors.DaqNotFoundError as e:

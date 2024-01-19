@@ -1,21 +1,21 @@
-from flojoy import flojoy, DataContainer, String, DeviceConnectionManager, NIDevice, Vector, Boolean
-from typing import Optional, Literal
+from flojoy import flojoy, DataContainer, String, DeviceConnectionManager, NIDevice, Vector, NIDAQmxDevice, NIDAQmxConnection
+from typing import Literal
 import nidaqmx
 
 
 @flojoy(deps={"nidaqmx": "0.9.0"})
 def READ_ANALOG_CURRENT(
-    device_input_adress: String,
+    cDAQ: NIDAQmxConnection,
     min_val: float = -0.01,
     max_val: float = 0.01,
     units: Literal["AMPS"] = "AMPS",
     number_of_samples_per_channel: int = 1,
     timeout: float = 10.0,
     wait_infinitely: bool = False,
-) -> Optional[DataContainer]:
+) -> Vector:
     """Reads one or more current samples from a National Instruments compactDAQ device.
     
-    TODO: Add more info and add input for current channel
+    Read one or more current samples from a National Instruments compactDAQ device. The device must have a current input channel. The method returns an error if the device does not have a current input channel.
 
     Parameters
     ----------
@@ -36,10 +36,12 @@ def READ_ANALOG_CURRENT(
 
     Returns
     -------
-   Vector
+    Vector
         The me
     """
-
+    
+    # Verify the connection was initialized
+    DeviceConnectionManager().get_connection(cDAQ.get_id())
     units = nidaqmx.constants.CurrentUnits.AMPS  # TODO: Support TEDS info associated with the channel and custom scale
 
     assert number_of_samples_per_channel > 0, "number_of_samples_per_channel must be greater than 0"
@@ -47,7 +49,7 @@ def READ_ANALOG_CURRENT(
     timeout = timeout if not wait_infinitely else nidaqmx.constants.WAIT_INFINITELY
 
     with nidaqmx.Task() as task:
-        task.ai_channels.add_ai_current_chan(device_input_adress.s, min_val=min_val, max_val=max_val, units=units)  # TODO: Add shunt resistor option
+        task.ai_channels.add_ai_current_chan(cDAQ.get_id(), min_val=min_val, max_val=max_val, units=units)  # TODO: Add shunt resistor option
         values = task.read(number_of_samples_per_channel=number_of_samples_per_channel, timeout=timeout)
         return Vector(values)
 

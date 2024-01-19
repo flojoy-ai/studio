@@ -94,7 +94,7 @@ class VisaConnection(HardwareConnection):
         super().__del__()
 
 
-class NIConnection(HardwareConnection):
+class NIDAQmxConnection(HardwareConnection):
     def __init__(
         self, handle: Any, cleanup: Callable[[Any], Any] | None = None
     ) -> None:
