@@ -78,6 +78,14 @@ export default defineConfig({
           },
         },
         {
+          label: "☁️ Flojoy Cloud",
+          collapsed: false,
+          autogenerate: {
+            directory: "cloud",
+            collapsed: true,
+          },
+        },
+        {
           label: "📚 Contribution Guide",
           collapsed: true,
           items: [
