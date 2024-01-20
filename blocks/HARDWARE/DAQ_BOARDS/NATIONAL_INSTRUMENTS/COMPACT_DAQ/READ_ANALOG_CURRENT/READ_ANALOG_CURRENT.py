@@ -1,12 +1,14 @@
-from flojoy import flojoy, DataContainer, String, DeviceConnectionManager, NIDevice, Vector, NIDAQmxDevice, NIDAQmxConnection
+from flojoy import flojoy, DataContainer, Vector, NIDAQmxDevice, Matrix
 from typing import Literal, Optional
 import nidaqmx
 import logging
+import numpy as np
 
 
 @flojoy(deps={"nidaqmx": "0.9.0"})
 def READ_ANALOG_CURRENT(
-    cDAQ: NIDAQmxConnection,
+    cDAQ_start_channel: NIDAQmxDevice,
+    cDAQ_end_channel: NIDAQmxDevice,
     min_val: float = -0.01,
     max_val: float = 0.01,
     units: Literal["AMPS"] = "AMPS",
@@ -14,15 +16,17 @@ def READ_ANALOG_CURRENT(
     timeout: float = 10.0,
     wait_infinitely: bool = False,
     default: Optional[DataContainer] = None,
-) -> Vector:
+) -> Vector | Matrix:
     """Reads one or more current samples from a National Instruments compactDAQ device.
     
     Read one or more current samples from a National Instruments compactDAQ device. The device must have a current input channel. The method returns an error if the device does not have a current input channel.
 
     Parameters
     ----------
-    device_input_adress : String
-        The device and channel(s) to read from. The device should be in the format "Dev1/ai0" or "Dev1/ai0:3" for multiple channels.
+    cDAQ_start_channel : NIDAQmxDevice
+        The device and channel to read from.
+    cDAQ_end_channel : NIDAQmxDevice
+        To read from only one channel, set this to the same as cDAQ_start_channel. To read from multiple channels, set this to the last channel you want to read from.
     min_val : float
         Specifies in **units** the minimum value you expect to measure.
     max_val : float
@@ -42,8 +46,13 @@ def READ_ANALOG_CURRENT(
         The me
     """
     
-    # Verify the connection was initialized
-    DeviceConnectionManager().get_connection(cDAQ.get_id())
+    # Build the physical channels strin
+    name, address = cDAQ_start_channel.get_id().split('/')
+    if cDAQ_end_channel:
+        _, address_end = cDAQ_end_channel.get_id().split('/')
+        address = f"{address}:{address_end[2:]}"
+    physical_channels = f"{name}/{address}"
+
     units = nidaqmx.constants.CurrentUnits.AMPS  # TODO: Support TEDS info associated with the channel and custom scale
 
     assert number_of_samples_per_channel > 0, "number_of_samples_per_channel must be greater than 0"
@@ -51,7 +60,6 @@ def READ_ANALOG_CURRENT(
     timeout = timeout if not wait_infinitely else nidaqmx.constants.WAIT_INFINITELY
 
     with nidaqmx.Task() as task:
-        task.ai_channels.add_ai_current_chan(cDAQ.get_id(), min_val=min_val, max_val=max_val, units=units)  # TODO: Add shunt resistor option
-        values = task.read(number_of_samples_per_channel=number_of_samples_per_channel, timeout=timeout)
-        return Vector(values)
-
+        task.ai_channels.add_ai_current_chan(physical_channels, min_val=min_val, max_val=max_val, units=units)  # TODO: Add shunt resistor option
+        values = np.array(task.read(number_of_samples_per_channel=number_of_samples_per_channel, timeout=timeout))
+        return Vector(values) if len(values) == 1 else Matrix(values)
