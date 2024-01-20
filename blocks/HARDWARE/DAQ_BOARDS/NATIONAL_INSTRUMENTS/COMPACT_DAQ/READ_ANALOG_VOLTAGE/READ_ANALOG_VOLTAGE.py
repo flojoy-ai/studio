@@ -1,19 +1,20 @@
 
-from flojoy import flojoy, DataContainer, String, DeviceConnectionManager, NIDevice, Vector, Boolean
+from flojoy import flojoy, DataContainer, NIDAQmxConnection, DeviceConnectionManager, NIDevice, Vector
 from typing import Optional, Literal
 import nidaqmx
 
 
 @flojoy(deps={"nidaqmx": "0.9.0"})
 def READ_ANALOG_VOLTAGE(
-    device_input_adress: String,
+    cDAQ: NIDAQmxConnection,
     min_val: float = -5.00,
     max_val: float = 5.00,
     units: Literal["VOLTS"] = "VOLTS",
     number_of_samples_per_channel: int = 1,
     timeout: float = 10.0,
     wait_infinitely: bool = False,
-) -> Optional[DataContainer]:
+    default: Optional[DataContainer] = None,
+) -> Vector:
     """Reads one or more voltage samples from a National Instruments compactDAQ device.
     
     TODO: Add more info and add input for current channel
@@ -48,8 +49,7 @@ def READ_ANALOG_VOLTAGE(
     timeout = timeout if not wait_infinitely else nidaqmx.constants.WAIT_INFINITELY
 
     with nidaqmx.Task() as task:
-        task.ai_channels.add
-        task.ai_channels.add_ai_voltage_chan(device_input_adress.s, min_val=min_val, max_val=max_val, units=units)
+        task.ai_channels.add_ai_voltage_chan(cDAQ.get_id(), min_val=min_val, max_val=max_val, units=units)
         values = task.read(number_of_samples_per_channel=number_of_samples_per_channel, timeout=timeout)
         return Vector(values)
 

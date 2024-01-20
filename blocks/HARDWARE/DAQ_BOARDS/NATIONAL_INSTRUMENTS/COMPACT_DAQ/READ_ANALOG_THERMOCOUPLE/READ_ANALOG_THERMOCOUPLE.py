@@ -1,12 +1,12 @@
 
-from flojoy import flojoy, DataContainer, String, DeviceConnectionManager, NIDevice, Vector
+from flojoy import flojoy, DataContainer, String, DeviceConnectionManager, NIDAQmxConnection, Vector
 from typing import Optional, Literal
 import nidaqmx
 
 
 @flojoy(deps={"nidaqmx": "0.9.0"})
 def READ_ANALOG_THERMOCOUPLE(
-    device_input_adress: String,
+    cDAQ: NIDAQmxConnection,
     min_val: float = 0.0,
     max_val: float = 100.0,
     units: Literal["Celsius", "Fahrenheit", "Rankine", "Kelvin"] = "Celcius",
@@ -17,7 +17,8 @@ def READ_ANALOG_THERMOCOUPLE(
     number_of_samples_per_channel: int = 1,
     timeout: float = 10.0,
     wait_infinitely: bool = False,
-) -> Optional[DataContainer]:
+    default: Optional[DataContainer] = None,
+) -> Vector:
     """Reads one or more thermocouple samples from a National Instruments compactDAQ device.
     
     Read one or more thermocouple samples from a National Instruments compactDAQ device. The device must support thermocouple measurements.
@@ -81,7 +82,7 @@ def READ_ANALOG_THERMOCOUPLE(
 
     with nidaqmx.Task() as task:
         task.ai_channels.add_ai_thrmcpl_chan(
-            device_input_adress.s,
+            cDAQ.get_id(),
             min_val=min_val,
             max_val=max_val,
             units=units,
