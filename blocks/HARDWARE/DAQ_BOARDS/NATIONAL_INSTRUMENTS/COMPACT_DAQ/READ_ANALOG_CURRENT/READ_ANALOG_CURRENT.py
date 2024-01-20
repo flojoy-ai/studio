@@ -1,6 +1,7 @@
 from flojoy import flojoy, DataContainer, String, DeviceConnectionManager, NIDevice, Vector, NIDAQmxDevice, NIDAQmxConnection
-from typing import Literal
+from typing import Literal, Optional
 import nidaqmx
+import logging
 
 
 @flojoy(deps={"nidaqmx": "0.9.0"})
@@ -12,6 +13,7 @@ def READ_ANALOG_CURRENT(
     number_of_samples_per_channel: int = 1,
     timeout: float = 10.0,
     wait_infinitely: bool = False,
+    default: Optional[DataContainer] = None,
 ) -> Vector:
     """Reads one or more current samples from a National Instruments compactDAQ device.
     
