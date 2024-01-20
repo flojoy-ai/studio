@@ -1,9 +1,8 @@
-
 from flojoy import flojoy, DataContainer, Vector, NIDAQmxDevice, Matrix
 from typing import Optional, Literal
 import nidaqmx
 import numpy as np
-
+import logging
 
 @flojoy(deps={"nidaqmx": "0.9.0"})
 def READ_ANALOG_THERMOCOUPLE(
@@ -11,7 +10,7 @@ def READ_ANALOG_THERMOCOUPLE(
     cDAQ_end_channel: NIDAQmxDevice,
     min_val: float = 0.0,
     max_val: float = 100.0,
-    units: Literal["Celsius", "Fahrenheit", "Rankine", "Kelvin"] = "Celcius",
+    units: Literal["Celsius", "Fahrenheit", "Rankine", "Kelvin"] = "Celsius",
     thermocouple_type: Literal["K", "R", "N", "E", "J", "S", "T", "B"] = "J",
     cold_junction_source: Literal["Constant", "Channel", "Built In"] = "Constant",
     cold_junction_value: float = 25.0,
@@ -103,5 +102,5 @@ def READ_ANALOG_THERMOCOUPLE(
             cjc_channel=cold_junction_channel,
         )
         values = np.array(task.read(number_of_samples_per_channel=number_of_samples_per_channel, timeout=timeout))
-        return Vector(values) if len(values) > 1 else values[0]
-
+        logging.info(values)
+        return Vector(values) if len(values) == 1 else Matrix(values)
