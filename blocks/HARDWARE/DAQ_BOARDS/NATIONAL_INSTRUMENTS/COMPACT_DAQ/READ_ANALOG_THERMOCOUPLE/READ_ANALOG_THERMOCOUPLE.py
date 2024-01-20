@@ -1,12 +1,14 @@
 
-from flojoy import flojoy, DataContainer, String, DeviceConnectionManager, NIDAQmxConnection, Vector
+from flojoy import flojoy, DataContainer, Vector, NIDAQmxDevice, Matrix
 from typing import Optional, Literal
 import nidaqmx
+import numpy as np
 
 
 @flojoy(deps={"nidaqmx": "0.9.0"})
 def READ_ANALOG_THERMOCOUPLE(
-    cDAQ: NIDAQmxConnection,
+    cDAQ_start_channel: NIDAQmxDevice,
+    cDAQ_end_channel: NIDAQmxDevice,
     min_val: float = 0.0,
     max_val: float = 100.0,
     units: Literal["Celsius", "Fahrenheit", "Rankine", "Kelvin"] = "Celcius",
@@ -18,15 +20,17 @@ def READ_ANALOG_THERMOCOUPLE(
     timeout: float = 10.0,
     wait_infinitely: bool = False,
     default: Optional[DataContainer] = None,
-) -> Vector:
+) -> Vector | Matrix:
     """Reads one or more thermocouple samples from a National Instruments compactDAQ device.
     
     Read one or more thermocouple samples from a National Instruments compactDAQ device. The device must support thermocouple measurements.
 
     Parameters
     ----------
-    device_input_adress : String
-        The device and channel(s) to read from. The device should be in the format "Dev1/ai0" or "Dev1/ai0:3" for multiple channels.
+    cDAQ_start_channel : NIDAQmxDevice
+        The device and channel to read from.
+    cDAQ_end_channel : NIDAQmxDevice
+        To read from only one channel, set this to the same as cDAQ_start_channel. To read from multiple channels, set this to the last channel you want to read from.
     min_val : float
         Specifies in **units** the minimum value you expect to measure.
     max_val : float
@@ -48,7 +52,7 @@ def READ_ANALOG_THERMOCOUPLE(
 
     Returns
     -------
-    Vector
+    Vector | Matrix
         Samples read from the device.
     """
     
@@ -76,13 +80,20 @@ def READ_ANALOG_THERMOCOUPLE(
         "Built In": nidaqmx.constants.CJCSource.BUILT_IN,
     }[cold_junction_source]
 
+    # Build the physical channels strin
+    name, address = cDAQ_start_channel.get_id().split('/')
+    if cDAQ_end_channel:
+        _, address_end = cDAQ_end_channel.get_id().split('/')
+        address = f"{address}:{address_end[2:]}"
+    physical_channels = f"{name}/{address}"
+
     assert number_of_samples_per_channel > 0, "number_of_samples_per_channel must be greater than 0"
     # TODO Add REAL_ALL_AVAIALBLE | nb_sample = number_of_samples_per_channel if not real_all_available_samples else nidaqmx.constants.READ_ALL_AVAILABLE
     timeout = timeout if not wait_infinitely else nidaqmx.constants.WAIT_INFINITELY
 
     with nidaqmx.Task() as task:
         task.ai_channels.add_ai_thrmcpl_chan(
-            cDAQ.get_id(),
+            physical_channels,
             min_val=min_val,
             max_val=max_val,
             units=units,
@@ -91,6 +102,6 @@ def READ_ANALOG_THERMOCOUPLE(
             cjc_val=cold_junction_value,
             cjc_channel=cold_junction_channel,
         )
-        values = task.read(number_of_samples_per_channel=number_of_samples_per_channel, timeout=timeout)
-        return Vector(values)
+        values = np.array(task.read(number_of_samples_per_channel=number_of_samples_per_channel, timeout=timeout))
+        return Vector(values) if len(values) > 1 else values[0]
 

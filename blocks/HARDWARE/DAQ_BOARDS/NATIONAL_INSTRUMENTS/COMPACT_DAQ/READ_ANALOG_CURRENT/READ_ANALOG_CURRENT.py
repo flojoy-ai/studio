@@ -1,7 +1,6 @@
 from flojoy import flojoy, DataContainer, Vector, NIDAQmxDevice, Matrix
 from typing import Literal, Optional
 import nidaqmx
-import logging
 import numpy as np
 
 
@@ -42,8 +41,8 @@ def READ_ANALOG_CURRENT(
 
     Returns
     -------
-    Vector
-        The me
+    Vector | Matrix
+        Samples read from the device.
     """
     
     # Build the physical channels strin
