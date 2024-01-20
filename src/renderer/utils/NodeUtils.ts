@@ -66,8 +66,8 @@ export const ctrlsFromParams = (
                 : "";
             case "NIDAQmxDevice":
             case "NIDAQmxConnection":
-              return devices.NIDAQmxDevices.length === 1
-                ? devices.NIDAQmxDevices[0].address
+              return devices.nidaqmxDevices.length === 1
+                ? devices.nidaqmxDevices[0].address
                 : "";
             default:
               return param.default ?? "";
