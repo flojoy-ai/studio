@@ -11,6 +11,7 @@ def READ_ANALOG_VOLTAGE(
     min_val: float = -5.00,
     max_val: float = 5.00,
     units: Literal["VOLTS"] = "VOLTS",
+    sample_clock_rate: float = 1000.0,
     number_of_samples_per_channel: int = 1,
     timeout: float = 10.0,
     wait_infinitely: bool = False,
@@ -18,7 +19,7 @@ def READ_ANALOG_VOLTAGE(
 ) -> Vector:
     """Reads one or more voltage samples from a National Instruments compactDAQ device.
     
-    TODO: Add more info and add input for current channel
+    Tested on a simulated NI-9229
 
     Parameters
     ----------
@@ -32,6 +33,8 @@ def READ_ANALOG_VOLTAGE(
         Specifies in **units** the maximum value you expect to measure.
     units : Literal
         The units to use to return current measurements.
+    sample_clock_rate : float
+        Specifies in hertz the rate of the Sample Clock
     number_of_samples_per_channel : int
         Number of samples to read.
     timeout : float
@@ -60,6 +63,7 @@ def READ_ANALOG_VOLTAGE(
 
     with nidaqmx.Task() as task:
         task.ai_channels.add_ai_voltage_chan(physical_channels, min_val=min_val, max_val=max_val, units=units)
+        task.timing.cfg_samp_clk_timing(rate=sample_clock_rate, samps_per_chan=number_of_samples_per_channel)
         values = np.array(task.read(number_of_samples_per_channel=number_of_samples_per_channel, timeout=timeout))
         return Vector(values) if len(values) == 1 else Matrix(values)
 
