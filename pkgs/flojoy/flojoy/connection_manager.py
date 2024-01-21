@@ -11,7 +11,7 @@ from flojoy.parameter_types import (
     SerialConnection,
     VisaDevice,
     VisaConnection,
-    NIDevice,
+    NIDAQmxDevice,
     NIDAQmxConnection,
 )
 from tm_devices import DeviceManager
@@ -50,7 +50,7 @@ class DeviceConnectionManager:
                     cls.handles[id] = SerialConnection(connection, cleanup=cleanup)
                 case VisaDevice():
                     cls.handles[id] = VisaConnection(connection, cleanup=cleanup)
-                case NIDevice():
+                case NIDAQmxDevice():
                     cls.handles[id] = NIDAQmxConnection(connection, cleanup=cleanup)
 
     @classmethod

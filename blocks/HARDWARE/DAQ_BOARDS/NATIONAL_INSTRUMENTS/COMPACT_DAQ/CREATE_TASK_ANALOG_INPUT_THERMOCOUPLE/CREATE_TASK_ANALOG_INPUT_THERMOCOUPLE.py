@@ -1,11 +1,10 @@
-from flojoy import flojoy, DataContainer, Vector, NIDAQmxDevice, Matrix
+from flojoy import flojoy, DataContainer, NIDAQmxDevice, DeviceConnectionManager
 from typing import Optional, Literal
 import nidaqmx
-import numpy as np
-import logging
+
 
 @flojoy(deps={"nidaqmx": "0.9.0"})
-def READ_ANALOG_THERMOCOUPLE(
+def CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE(
     cDAQ_start_channel: NIDAQmxDevice,
     cDAQ_end_channel: NIDAQmxDevice,
     min_val: float = 0.0,
@@ -15,14 +14,12 @@ def READ_ANALOG_THERMOCOUPLE(
     cold_junction_source: Literal["Constant", "Channel", "Built In"] = "Constant",
     cold_junction_value: float = 25.0,
     cold_junction_channel: str = "",
-    number_of_samples_per_channel: int = 1,
-    timeout: float = 10.0,
-    wait_infinitely: bool = False,
     default: Optional[DataContainer] = None,
-) -> Vector | Matrix:
-    """Reads one or more thermocouple samples from a National Instruments compactDAQ device.
-    
-    Read one or more thermocouple samples from a National Instruments compactDAQ device. The device must support thermocouple measurements.
+) -> Optional[DataContainer]:
+    """Create and prepare a task to interact with an analog input thermocouple channel.
+
+    Compatible with National Instruments compactDAQ devices. The device must have a analog thermocouple input channel.
+    Tested with a simulated NI-9219 module.
 
     Parameters
     ----------
@@ -42,17 +39,11 @@ def READ_ANALOG_THERMOCOUPLE(
         Optional, specifies the cold junction temperature in **units** if cold_junction_source is set to "Constant".
     cold_junction_channel : str
         Optional, specifies the source of cold junction compensation if cold_junction_source is set to "Channel".
-    number_of_samples_per_channel : int
-        Number of samples to read.
-    timeout : float
-        Time to wait for samples to become available. If you set timeout to 0, the method tries once to read the requested samples and returns an error if it is unable to.
-    wait_infinitely : bool
-        If True, the method waits indefinitely for samples to become available. If False, the method waits for the amount of time specified by timeout.
 
     Returns
     -------
-    Vector | Matrix
-        Samples read from the device.
+    Optional[DataContainer]
+        None
     """
     
     units = {
@@ -86,21 +77,16 @@ def READ_ANALOG_THERMOCOUPLE(
         address = f"{address}:{address_end[2:]}"
     physical_channels = f"{name}/{address}"
 
-    assert number_of_samples_per_channel > 0, "number_of_samples_per_channel must be greater than 0"
-    # TODO Add REAL_ALL_AVAIALBLE | nb_sample = number_of_samples_per_channel if not real_all_available_samples else nidaqmx.constants.READ_ALL_AVAILABLE
-    timeout = timeout if not wait_infinitely else nidaqmx.constants.WAIT_INFINITELY
+    task = nidaqmx.Task()
+    task.ai_channels.add_ai_thrmcpl_chan(
+        physical_channels,
+        min_val=min_val,
+        max_val=max_val,
+        units=units,
+        thermocouple_type=thermocouple_type,
+        cjc_source=cold_junction_source,
+        cjc_val=cold_junction_value,
+        cjc_channel=cold_junction_channel,
+    )
+    DeviceConnectionManager.register_connection(cDAQ_start_channel, task, task.__exit__)
 
-    with nidaqmx.Task() as task:
-        task.ai_channels.add_ai_thrmcpl_chan(
-            physical_channels,
-            min_val=min_val,
-            max_val=max_val,
-            units=units,
-            thermocouple_type=thermocouple_type,
-            cjc_source=cold_junction_source,
-            cjc_val=cold_junction_value,
-            cjc_channel=cold_junction_channel,
-        )
-        values = np.array(task.read(number_of_samples_per_channel=number_of_samples_per_channel, timeout=timeout))
-        logging.info(values)
-        return Vector(values) if len(values) == 1 else Matrix(values)
