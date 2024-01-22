@@ -27,7 +27,7 @@ def CREATE_TASK_ANALOG_INPUT_ACCELEROMETER(
     """Creates a task with (a) channel(s) that use an accelerometer to measure acceleration.
 
     Compatible with National Instruments compactDAQ devices. The device must have a analog accelerometer input channel.
-    Tested with a simulated NI-XXXX module.
+    Tested with a simulated NI-9234 module.
 
     Parameters
     ----------
