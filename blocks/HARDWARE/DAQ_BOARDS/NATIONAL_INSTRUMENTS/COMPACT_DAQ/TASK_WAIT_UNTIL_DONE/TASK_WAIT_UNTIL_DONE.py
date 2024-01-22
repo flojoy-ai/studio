@@ -1,8 +1,6 @@
-
-from flojoy import flojoy, DataContainer, Vector, Matrix, NIDAQmxConnection
+from flojoy import flojoy, DataContainer, NIDAQmxConnection
 import nidaqmx
 from typing import Optional
-import numpy as np
 
 
 @flojoy(deps={"nidaqmx": "0.9.0"}, inject_connection=True)
