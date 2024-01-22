@@ -74,30 +74,35 @@ class DefaultDeviceFinder:
 
     def get_nidaqmx_devices(self) -> list[NIDAQmxDevice]:
         """Returns a list of NI-DAQmx devices connected to the system."""
-        # TODO: Add check if NI-DAQmx is installed
-        system = nidaqmx.system.System.local()
-        devices = []
+        try:
+            system = nidaqmx.system.System.local()
+            devices = []
 
-        def extract_device(channel, device) -> NIDAQmxDevice:
-            return NIDAQmxDevice(
-                name=channel.name,
-                address=channel.name,
-                description=f"{device.product_type} - {channel.name.split('/')[-1]}",
-            )
+            def extract_device(channel, device) -> NIDAQmxDevice:
+                return NIDAQmxDevice(
+                    name=channel.name,
+                    address=channel.name,
+                    description=f"{device.product_type} - {channel.name.split('/')[-1]}",
+                )
 
-        for device in system.devices:
-            devices += [extract_device(chan, device) for chan in device.ai_physical_chans]
-            devices += [extract_device(chan, device) for chan in device.ao_physical_chans]
-            devices += [extract_device(line, device) for line in device.di_lines]
-            devices += [extract_device(line, device) for line in device.do_lines]
-            devices += [extract_device(chan, device) for chan in device.ci_physical_chans]
-            devices += [extract_device(chan, device) for chan in device.co_physical_chans]
-            devices += [extract_device(line, device) for line in device.di_ports]
-            devices += [extract_device(line, device) for line in device.do_ports]
+            for device in system.devices:
+                devices += [extract_device(chan, device) for chan in device.ai_physical_chans]
+                devices += [extract_device(chan, device) for chan in device.ao_physical_chans]
+                devices += [extract_device(line, device) for line in device.di_lines]
+                devices += [extract_device(line, device) for line in device.do_lines]
+                devices += [extract_device(chan, device) for chan in device.ci_physical_chans]
+                devices += [extract_device(chan, device) for chan in device.co_physical_chans]
+                devices += [extract_device(line, device) for line in device.di_ports]
+                devices += [extract_device(line, device) for line in device.do_ports]
 
 
-        logging.info(f"Devices found are: {devices}")
-        return devices
+            logging.info(f"Devices found are: {devices}")
+            return devices
+        except nidaqmx.errors.DaqNotFoundError as e:
+            logging.warn(f"NI-DAQmx driver not installed - {e}")
+        except Exception as e:
+            logging.error(f"Error in get_nidaqmx_devices: {e}")
+        return []
 
 
 class MacDeviceFinder(DefaultDeviceFinder):
