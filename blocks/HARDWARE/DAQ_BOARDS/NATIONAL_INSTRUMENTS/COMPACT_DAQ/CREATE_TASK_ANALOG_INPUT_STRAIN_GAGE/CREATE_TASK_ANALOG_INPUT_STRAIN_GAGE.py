@@ -33,10 +33,10 @@ def CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE(
     poisson_ratio: float = 0.3,
     lead_wire_resistance: float = 0.0,
 ) -> Optional[DataContainer]:
-    """Creates a task with (a) channel(s) to measure voltage.
+    """Creates a task with (a) channel(s) to measure strain.
 
-    Compatible with National Instruments compactDAQ devices. The device must have a voltage input channel.
-    Tested on a simulated NI-9229 module.
+    Compatible with National Instruments compactDAQ devices. The device must have a strain input channel.
+    Tested on a simulated NI-9236 module.
 
     Parameters
     ----------
