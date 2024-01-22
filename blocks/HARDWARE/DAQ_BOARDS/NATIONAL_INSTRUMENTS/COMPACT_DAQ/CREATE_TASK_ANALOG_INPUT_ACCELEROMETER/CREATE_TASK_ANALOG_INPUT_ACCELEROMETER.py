@@ -21,6 +21,11 @@ def CREATE_TASK_ANALOG_INPUT_ACCELEROMETER(
     Compatible with National Instruments compactDAQ devices. The device must have a analog accelerometer input channel.
     Tested with a simulated NI-9234 module.
 
+    This instrument will likely only be compatible with Windows systems due to
+    NI driver availablity. To use the instrument you must install the runtime:
+
+    https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html
+
     Parameters
     ----------
     cDAQ_start_channel : NIDAQmxDevice
@@ -65,7 +70,6 @@ def CREATE_TASK_ANALOG_INPUT_ACCELEROMETER(
         "None": nidaqmx.constants.ExcitationSource.NONE,
     }[current_excitation_source]
 
-    # Build the physical channels strin
     name, address = cDAQ_start_channel.get_id().split("/")
     if cDAQ_end_channel:
         _, address_end = cDAQ_end_channel.get_id().split("/")

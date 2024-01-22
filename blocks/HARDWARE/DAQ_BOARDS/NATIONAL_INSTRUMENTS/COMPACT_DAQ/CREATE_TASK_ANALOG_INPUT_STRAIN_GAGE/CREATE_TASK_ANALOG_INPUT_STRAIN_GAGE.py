@@ -33,6 +33,11 @@ def CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE(
     Compatible with National Instruments compactDAQ devices. The device must have a strain input channel.
     Tested on a simulated NI-9236 module.
 
+    This instrument will likely only be compatible with Windows systems due to
+    NI driver availablity. To use the instrument you must install the runtime:
+
+    https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html
+
     Parameters
     ----------
     cDAQ_start_channel : NIDAQmxDevice

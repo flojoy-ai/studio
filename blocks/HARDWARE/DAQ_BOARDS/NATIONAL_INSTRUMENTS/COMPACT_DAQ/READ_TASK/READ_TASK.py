@@ -16,9 +16,14 @@ def READ_TASK(
 
     Read one or more current samples from a National Instruments compactDAQ device. The connection must have been initialized with a create task before calling this blocks.
 
+    This instrument will likely only be compatible with Windows systems due to
+    NI driver availablity. To use the instrument you must install the runtime:
+
+    https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html
+
     Parameters
     ----------
-    cDAQ_start_channel : NIDAQmxDevice
+    connection : NIDAQmxDevice
         The first input channel for which a created task has been initialized.
     number_of_samples_per_channel : int
         Number of samples to read.

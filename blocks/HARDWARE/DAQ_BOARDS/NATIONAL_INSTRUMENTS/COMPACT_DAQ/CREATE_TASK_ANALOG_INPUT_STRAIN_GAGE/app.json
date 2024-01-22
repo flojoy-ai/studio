@@ -19,7 +19,7 @@
                             "overload": null,
                             "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
                             "param": "cDAQ_start_channel",
-                            "value": "cDAQ2Mod2/ai1"
+                            "value": "cDAQ2Mod1/ai0"
                         },
                         "cDAQ_end_channel": {
                             "type": "NIDAQmxDevice",
@@ -28,7 +28,7 @@
                             "overload": null,
                             "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
                             "param": "cDAQ_end_channel",
-                            "value": "cDAQ2Mod2/ai1"
+                            "value": "cDAQ2Mod1/ai2"
                         },
                         "min_val": {
                             "type": "float",
@@ -202,7 +202,7 @@
                             "overload": null,
                             "functionName": "READ_TASK",
                             "param": "connection",
-                            "value": "cDAQ2Mod2/ai1"
+                            "value": "cDAQ2Mod1/ai0"
                         },
                         "number_of_samples_per_channel": {
                             "type": "int",
@@ -211,7 +211,7 @@
                             "overload": null,
                             "functionName": "READ_TASK",
                             "param": "number_of_samples_per_channel",
-                            "value": 10
+                            "value": 100
                         },
                         "timeout": {
                             "type": "float",
@@ -338,13 +338,13 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
                 },
                 "position": {
-                    "x": -422.7722788018289,
-                    "y": 34.57342113556342
+                    "x": -419.25550300758516,
+                    "y": 36.91793833172602
                 },
-                "selected": false,
+                "selected": true,
                 "positionAbsolute": {
-                    "x": -422.7722788018289,
-                    "y": 34.57342113556342
+                    "x": -419.25550300758516,
+                    "y": 36.91793833172602
                 },
                 "dragging": true,
                 "style": {
@@ -371,7 +371,7 @@
                             "overload": null,
                             "functionName": "CONFIG_TASK_SAMPLE_CLOCK_TIMING",
                             "param": "connection",
-                            "value": "cDAQ2Mod2/ai1"
+                            "value": "cDAQ2Mod1/ai0"
                         },
                         "sample_clock_rate": {
                             "type": "float",
@@ -422,7 +422,7 @@
                     "x": -70.73135130057162,
                     "y": -209.77856480874675
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
                     "x": -70.73135130057162,
                     "y": -209.77856480874675
@@ -431,6 +431,13 @@
             }
         ],
         "edges": [
+            {
+                "source": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-9c309463-9603-45a3-b29a-c5484c1aeae4",
+                "sourceHandle": "default",
+                "target": "READ_TASK-eeab7450-8d5f-42f5-86fc-3c2a63f0d691",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONFIG_TASK_SAMPLE_CLOCK_TIMING-9c309463-9603-45a3-b29a-c5484c1aeae4default-READ_TASK-eeab7450-8d5f-42f5-86fc-3c2a63f0d691default"
+            },
             {
                 "source": "READ_TASK-eeab7450-8d5f-42f5-86fc-3c2a63f0d691",
                 "sourceHandle": "default",
@@ -444,13 +451,6 @@
                 "target": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-9c309463-9603-45a3-b29a-c5484c1aeae4",
                 "targetHandle": "default",
                 "id": "reactflow__edge-CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE-87be0141-7953-4259-87d0-1c4eef42cf33default-CONFIG_TASK_SAMPLE_CLOCK_TIMING-9c309463-9603-45a3-b29a-c5484c1aeae4default"
-            },
-            {
-                "source": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-9c309463-9603-45a3-b29a-c5484c1aeae4",
-                "sourceHandle": "default",
-                "target": "READ_TASK-eeab7450-8d5f-42f5-86fc-3c2a63f0d691",
-                "targetHandle": "default",
-                "id": "reactflow__edge-CONFIG_TASK_SAMPLE_CLOCK_TIMING-9c309463-9603-45a3-b29a-c5484c1aeae4default-READ_TASK-eeab7450-8d5f-42f5-86fc-3c2a63f0d691default"
             }
         ],
         "viewport": {

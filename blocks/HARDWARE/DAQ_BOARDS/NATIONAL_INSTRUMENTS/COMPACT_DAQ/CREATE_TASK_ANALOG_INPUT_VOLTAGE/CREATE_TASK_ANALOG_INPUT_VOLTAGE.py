@@ -17,6 +17,11 @@ def CREATE_TASK_ANALOG_INPUT_VOLTAGE(
     Compatible with National Instruments compactDAQ devices. The device must have a voltage input channel.
     Tested on a simulated NI-9229 module.
 
+    This instrument will likely only be compatible with Windows systems due to
+    NI driver availablity. To use the instrument you must install the runtime:
+
+    https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html
+
     Parameters
     ----------
     cDAQ_start_channel : NIDAQmxDevice

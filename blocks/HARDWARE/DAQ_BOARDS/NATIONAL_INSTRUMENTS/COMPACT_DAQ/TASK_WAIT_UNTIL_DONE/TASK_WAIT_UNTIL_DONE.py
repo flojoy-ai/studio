@@ -13,9 +13,15 @@ def TASK_WAIT_UNTIL_DONE(
 
     Use this method to ensure that the specified operation is complete before you stop the task.
 
+    This instrument will likely only be compatible with Windows systems due to
+    NI driver availablity. To use the instrument you must install the runtime:
+
+    https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html
+    
+
     Parameters
     ----------
-    cDAQ_start_channel : NIDAQmxDevice
+    connection : NIDAQmxDevice
         The first input channel for which a created task has been initialized.
     timeout : float
         Specifies the maximum amount of time in seconds to wait for the measurement or generation to complete. This method returns an error if the time elapses.

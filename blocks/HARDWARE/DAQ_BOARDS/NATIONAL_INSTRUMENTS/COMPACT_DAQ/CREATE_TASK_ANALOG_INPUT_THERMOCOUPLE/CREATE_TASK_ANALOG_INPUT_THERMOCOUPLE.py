@@ -21,6 +21,11 @@ def CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE(
     Compatible with National Instruments compactDAQ devices. The device must have a analog thermocouple input channel.
     Tested with a simulated NI-9219 module.
 
+    This instrument will likely only be compatible with Windows systems due to
+    NI driver availablity. To use the instrument you must install the runtime:
+
+    https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html
+
     Parameters
     ----------
     cDAQ_start_channel : NIDAQmxDevice

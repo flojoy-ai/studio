@@ -15,9 +15,14 @@ def READ_INPUT_STREAM(
     Raw samples constitute the internal representation of samples in a device, read directly from the device or buffer without scaling or reordering.
     This block determines a Vector of appropriate size and data type to create and return based on your device specifications.
 
+    This instrument will likely only be compatible with Windows systems due to
+    NI driver availablity. To use the instrument you must install the runtime:
+
+    https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html
+
     Parameters
     ----------
-    cDAQ_start_channel : NIDAQmxDevice
+    connection : NIDAQmxDevice
         The first input channel for which a created task has been initialized.
     read_all : bool
         If True, reads all available samples in the buffer. If False, reads the number of samples you specify in number_of_samples_per_channel.

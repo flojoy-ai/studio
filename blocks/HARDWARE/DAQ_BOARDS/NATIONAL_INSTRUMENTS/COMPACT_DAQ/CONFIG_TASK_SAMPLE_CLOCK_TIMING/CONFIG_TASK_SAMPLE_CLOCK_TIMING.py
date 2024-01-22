@@ -10,14 +10,19 @@ def CONFIG_TASK_SAMPLE_CLOCK_TIMING(
     number_of_samples_per_channel: int = 1000,
     default: Optional[DataContainer] = None,
 ) -> Optional[DataContainer]:
-    """.
+    """Configures the timing for the sample clock of a task.
 
     Compatible with National Instruments compactDAQ devices.
     Tested on a simulated NI-9229 module.
 
+    This instrument will likely only be compatible with Windows systems due to
+    NI driver availablity. To use the instrument you must install the runtime:
+
+    https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html
+
     Parameters
     ----------
-    cDAQ_start_channel : NIDAQmxDevice
+    connection : NIDAQmxDevice
         The device and channel to read from.
     sample_clock_rate : float
         Specifies the sampling rate in samples per channel per second.

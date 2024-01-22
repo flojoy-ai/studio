@@ -1,0 +1,785 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "TASK_WAIT_UNTIL_DONE-557b6dcd-ce98-4e83-a55c-6a669a6e73ed",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "TASK_WAIT_UNTIL_DONE-557b6dcd-ce98-4e83-a55c-6a669a6e73ed",
+                    "label": "TASK WAIT UNTIL DONE",
+                    "func": "TASK_WAIT_UNTIL_DONE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "NIDAQmxConnection",
+                            "default": null,
+                            "desc": "The first input channel for which a created task has been initialized.",
+                            "overload": null,
+                            "functionName": "TASK_WAIT_UNTIL_DONE",
+                            "param": "connection",
+                            "value": "cDAQ2Mod1/ai0"
+                        },
+                        "timeout": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "Specifies the maximum amount of time in seconds to wait for the measurement or generation to complete. This method returns an error if the time elapses.",
+                            "overload": null,
+                            "functionName": "TASK_WAIT_UNTIL_DONE",
+                            "param": "timeout",
+                            "value": 10
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "Return the input"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "nidaqmx",
+                            "v": "0.9.0"
+                        }
+                    ],
+                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/TASK_WAIT_UNTIL_DONE/TASK_WAIT_UNTIL_DONE.py"
+                },
+                "position": {
+                    "x": 325.7129185409903,
+                    "y": -472.6778797000508
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 325.7129185409903,
+                    "y": -472.6778797000508
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CREATE_TASK_ANALOG_INPUT_VOLTAGE-6ef876a3-0c35-4c0e-a75a-76fa1acc3ea6",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "CREATE_TASK_ANALOG_INPUT_VOLTAGE-6ef876a3-0c35-4c0e-a75a-76fa1acc3ea6",
+                    "label": "CREATE TASK ANALOG INPUT VOLTAGE",
+                    "func": "CREATE_TASK_ANALOG_INPUT_VOLTAGE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "cDAQ_start_channel": {
+                            "type": "NIDAQmxDevice",
+                            "default": null,
+                            "desc": "The device and channel to read from.",
+                            "overload": null,
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_VOLTAGE",
+                            "param": "cDAQ_start_channel",
+                            "value": "cDAQ2Mod2/ai0"
+                        },
+                        "cDAQ_end_channel": {
+                            "type": "NIDAQmxDevice",
+                            "default": null,
+                            "desc": "To read from only one channel, set this to the same as cDAQ_start_channel. To read from multiple channels, set this to the last channel you want to read from.",
+                            "overload": null,
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_VOLTAGE",
+                            "param": "cDAQ_end_channel",
+                            "value": "cDAQ2Mod2/ai1"
+                        },
+                        "min_val": {
+                            "type": "float",
+                            "default": -5,
+                            "desc": "Specifies in **units** the minimum value you expect to measure.",
+                            "overload": null,
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_VOLTAGE",
+                            "param": "min_val",
+                            "value": -60
+                        },
+                        "max_val": {
+                            "type": "float",
+                            "default": 5,
+                            "desc": "Specifies in **units** the maximum value you expect to measure.",
+                            "overload": null,
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_VOLTAGE",
+                            "param": "max_val",
+                            "value": 60
+                        },
+                        "units": {
+                            "type": "select",
+                            "options": [
+                                "VOLTS"
+                            ],
+                            "default": "VOLTS",
+                            "desc": "The units to use to return current measurements.",
+                            "overload": null,
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_VOLTAGE",
+                            "param": "units",
+                            "value": "VOLTS"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "None"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "nidaqmx",
+                            "v": "0.9.0"
+                        }
+                    ],
+                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CREATE_TASK_ANALOG_INPUT_VOLTAGE/CREATE_TASK_ANALOG_INPUT_VOLTAGE.py"
+                },
+                "position": {
+                    "x": -248.61509334546548,
+                    "y": -95.54602701704624
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -248.61509334546548,
+                    "y": -95.54602701704624
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE-a900ac0e-e46f-4d32-82aa-f55fd34e34ef",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE-a900ac0e-e46f-4d32-82aa-f55fd34e34ef",
+                    "label": "CREATE TASK ANALOG INPUT THERMOCOUPLE",
+                    "func": "CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "cDAQ_start_channel": {
+                            "type": "NIDAQmxDevice",
+                            "default": null,
+                            "desc": "The device and channel to read from.",
+                            "overload": null,
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE",
+                            "param": "cDAQ_start_channel",
+                            "value": "cDAQ2Mod1/ai0"
+                        },
+                        "cDAQ_end_channel": {
+                            "type": "NIDAQmxDevice",
+                            "default": null,
+                            "desc": "To read from only one channel, set this to the same as cDAQ_start_channel. To read from multiple channels, set this to the last channel you want to read from.",
+                            "overload": null,
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE",
+                            "param": "cDAQ_end_channel",
+                            "value": "cDAQ2Mod1/ai2"
+                        },
+                        "min_val": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "Specifies in **units** the minimum value you expect to measure.",
+                            "overload": null,
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE",
+                            "param": "min_val",
+                            "value": 0
+                        },
+                        "max_val": {
+                            "type": "float",
+                            "default": 100,
+                            "desc": "Specifies in **units** the maximum value you expect to measure.",
+                            "overload": null,
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE",
+                            "param": "max_val",
+                            "value": 100
+                        },
+                        "units": {
+                            "type": "select",
+                            "options": [
+                                "Celsius",
+                                "Fahrenheit",
+                                "Rankine",
+                                "Kelvin"
+                            ],
+                            "default": "Celsius",
+                            "desc": "The units to use to return thermocouple measurements.",
+                            "overload": null,
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE",
+                            "param": "units",
+                            "value": "Celsius"
+                        },
+                        "thermocouple_type": {
+                            "type": "select",
+                            "options": [
+                                "K",
+                                "R",
+                                "N",
+                                "E",
+                                "J",
+                                "S",
+                                "T",
+                                "B"
+                            ],
+                            "default": "J",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE",
+                            "param": "thermocouple_type",
+                            "value": "J"
+                        },
+                        "cold_junction_source": {
+                            "type": "select",
+                            "options": [
+                                "Constant",
+                                "Channel",
+                                "Built In"
+                            ],
+                            "default": "Constant",
+                            "desc": "Optional, specifies the source of cold junction compensation.",
+                            "overload": null,
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE",
+                            "param": "cold_junction_source",
+                            "value": "Constant"
+                        },
+                        "cold_junction_value": {
+                            "type": "float",
+                            "default": 25,
+                            "desc": "Optional, specifies the cold junction temperature in **units** if cold_junction_source is set to \"Constant\".",
+                            "overload": null,
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE",
+                            "param": "cold_junction_value",
+                            "value": 25
+                        },
+                        "cold_junction_channel": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Optional, specifies the source of cold junction compensation if cold_junction_source is set to \"Channel\".",
+                            "overload": null,
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE",
+                            "param": "cold_junction_channel",
+                            "value": ""
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "None"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "nidaqmx",
+                            "v": "0.9.0"
+                        }
+                    ],
+                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE/CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE.py"
+                },
+                "position": {
+                    "x": -247.53409572714824,
+                    "y": -477.71542276991636
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -247.53409572714824,
+                    "y": -477.71542276991636
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-9aa59e99-f559-4b70-ba5c-7f85b0c5ac22",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-9aa59e99-f559-4b70-ba5c-7f85b0c5ac22",
+                    "label": "CONFIG TASK SAMPLE CLOCK TIMING",
+                    "func": "CONFIG_TASK_SAMPLE_CLOCK_TIMING",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "NIDAQmxConnection",
+                            "default": null,
+                            "desc": "The device and channel to read from.",
+                            "overload": null,
+                            "functionName": "CONFIG_TASK_SAMPLE_CLOCK_TIMING",
+                            "param": "connection",
+                            "value": "cDAQ2Mod2/ai0"
+                        },
+                        "sample_clock_rate": {
+                            "type": "float",
+                            "default": 1000,
+                            "desc": "Specifies the sampling rate in samples per channel per second.\nIf you use an external source for the Sample Clock, set this input to the maximum expected rate of that clock.\nUses the onboard clock of the device.",
+                            "overload": null,
+                            "functionName": "CONFIG_TASK_SAMPLE_CLOCK_TIMING",
+                            "param": "sample_clock_rate",
+                            "value": 100
+                        },
+                        "number_of_samples_per_channel": {
+                            "type": "int",
+                            "default": 1000,
+                            "desc": "Specifies the number of samples to acquire or generate for each channel in the task",
+                            "overload": null,
+                            "functionName": "CONFIG_TASK_SAMPLE_CLOCK_TIMING",
+                            "param": "number_of_samples_per_channel",
+                            "value": 1000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "None"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "nidaqmx",
+                            "v": "0.9.0"
+                        }
+                    ],
+                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CONFIG_TASK_SAMPLE_CLOCK_TIMING/CONFIG_TASK_SAMPLE_CLOCK_TIMING.py"
+                },
+                "position": {
+                    "x": 54.02695022512364,
+                    "y": -100.36639791034872
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 54.02695022512364,
+                    "y": -100.36639791034872
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "READ_TASK-2d4dab83-1ec8-4f4b-9e5f-8d36190b679a",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "READ_TASK-2d4dab83-1ec8-4f4b-9e5f-8d36190b679a",
+                    "label": "READ TASK",
+                    "func": "READ_TASK",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "NIDAQmxConnection",
+                            "default": null,
+                            "desc": "The first input channel for which a created task has been initialized.",
+                            "overload": null,
+                            "functionName": "READ_TASK",
+                            "param": "connection",
+                            "value": "cDAQ2Mod2/ai0"
+                        },
+                        "number_of_samples_per_channel": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "Number of samples to read.",
+                            "overload": null,
+                            "functionName": "READ_TASK",
+                            "param": "number_of_samples_per_channel",
+                            "value": 100
+                        },
+                        "timeout": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "Time to wait for samples to become available. If you set timeout to 0, the method tries once to read the requested samples and returns an error if it is unable to.",
+                            "overload": null,
+                            "functionName": "READ_TASK",
+                            "param": "timeout",
+                            "value": 10
+                        },
+                        "wait_infinitely": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "If True, the method waits indefinitely for samples to become available. If False, the method waits for the amount of time specified by timeout.",
+                            "overload": null,
+                            "functionName": "READ_TASK",
+                            "param": "wait_infinitely",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|Matrix",
+                            "desc": "Samples read from the device."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "nidaqmx",
+                            "v": "0.9.0"
+                        }
+                    ],
+                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/READ_TASK/READ_TASK.py"
+                },
+                "position": {
+                    "x": 331.63582591201816,
+                    "y": -104.10289025662587
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 331.63582591201816,
+                    "y": -104.10289025662587
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "READ_TASK-d8d2f089-ed46-45f7-b96e-31dcd4a4ad45",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "READ_TASK-d8d2f089-ed46-45f7-b96e-31dcd4a4ad45",
+                    "label": "READ TASK 1",
+                    "func": "READ_TASK",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "NIDAQmxConnection",
+                            "default": null,
+                            "desc": "The first input channel for which a created task has been initialized.",
+                            "overload": null,
+                            "functionName": "READ_TASK",
+                            "param": "connection",
+                            "value": "cDAQ2Mod1/ai0"
+                        },
+                        "number_of_samples_per_channel": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "Number of samples to read.",
+                            "overload": null,
+                            "functionName": "READ_TASK",
+                            "param": "number_of_samples_per_channel",
+                            "value": 10000
+                        },
+                        "timeout": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "Time to wait for samples to become available. If you set timeout to 0, the method tries once to read the requested samples and returns an error if it is unable to.",
+                            "overload": null,
+                            "functionName": "READ_TASK",
+                            "param": "timeout",
+                            "value": 10
+                        },
+                        "wait_infinitely": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "If True, the method waits indefinitely for samples to become available. If False, the method waits for the amount of time specified by timeout.",
+                            "overload": null,
+                            "functionName": "READ_TASK",
+                            "param": "wait_infinitely",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|Matrix",
+                            "desc": "Samples read from the device."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "nidaqmx",
+                            "v": "0.9.0"
+                        }
+                    ],
+                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/READ_TASK/READ_TASK.py"
+                },
+                "position": {
+                    "x": 48.463064981824715,
+                    "y": -473.1267926718417
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 48.463064981824715,
+                    "y": -473.1267926718417
+                },
+                "dragging": true
+            },
+            {
+                "width": 851,
+                "height": 296,
+                "id": "LINE-ff573e23-44a8-48a1-868d-6fb64acf4ed2",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-ff573e23-44a8-48a1-868d-6fb64acf4ed2",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": 624.1763400364101,
+                    "y": -130.88011889627796
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": 624.1763400364101,
+                    "y": -130.88011889627796
+                },
+                "dragging": true,
+                "style": {
+                    "width": 851,
+                    "height": 296
+                },
+                "resizing": false
+            },
+            {
+                "width": 857,
+                "height": 286,
+                "id": "LINE-83ef0d42-18eb-43c4-8204-d667558eabcc",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-83ef0d42-18eb-43c4-8204-d667558eabcc",
+                    "label": "LINE 1",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": 610.3435484478981,
+                    "y": -519.8444349540611
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 610.3435484478981,
+                    "y": -519.8444349540611
+                },
+                "dragging": true,
+                "style": {
+                    "width": 857,
+                    "height": 286
+                },
+                "resizing": false
+            }
+        ],
+        "edges": [
+            {
+                "source": "READ_TASK-2d4dab83-1ec8-4f4b-9e5f-8d36190b679a",
+                "sourceHandle": "default",
+                "target": "LINE-ff573e23-44a8-48a1-868d-6fb64acf4ed2",
+                "targetHandle": "default",
+                "id": "reactflow__edge-READ_TASK-2d4dab83-1ec8-4f4b-9e5f-8d36190b679adefault-LINE-ff573e23-44a8-48a1-868d-6fb64acf4ed2default"
+            },
+            {
+                "source": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-9aa59e99-f559-4b70-ba5c-7f85b0c5ac22",
+                "sourceHandle": "default",
+                "target": "READ_TASK-2d4dab83-1ec8-4f4b-9e5f-8d36190b679a",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONFIG_TASK_SAMPLE_CLOCK_TIMING-9aa59e99-f559-4b70-ba5c-7f85b0c5ac22default-READ_TASK-2d4dab83-1ec8-4f4b-9e5f-8d36190b679adefault"
+            },
+            {
+                "source": "CREATE_TASK_ANALOG_INPUT_VOLTAGE-6ef876a3-0c35-4c0e-a75a-76fa1acc3ea6",
+                "sourceHandle": "default",
+                "target": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-9aa59e99-f559-4b70-ba5c-7f85b0c5ac22",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CREATE_TASK_ANALOG_INPUT_VOLTAGE-6ef876a3-0c35-4c0e-a75a-76fa1acc3ea6default-CONFIG_TASK_SAMPLE_CLOCK_TIMING-9aa59e99-f559-4b70-ba5c-7f85b0c5ac22default"
+            },
+            {
+                "source": "CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE-a900ac0e-e46f-4d32-82aa-f55fd34e34ef",
+                "sourceHandle": "default",
+                "target": "READ_TASK-d8d2f089-ed46-45f7-b96e-31dcd4a4ad45",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE-a900ac0e-e46f-4d32-82aa-f55fd34e34efdefault-READ_TASK-d8d2f089-ed46-45f7-b96e-31dcd4a4ad45default"
+            },
+            {
+                "source": "READ_TASK-d8d2f089-ed46-45f7-b96e-31dcd4a4ad45",
+                "sourceHandle": "default",
+                "target": "TASK_WAIT_UNTIL_DONE-557b6dcd-ce98-4e83-a55c-6a669a6e73ed",
+                "targetHandle": "default",
+                "id": "reactflow__edge-READ_TASK-d8d2f089-ed46-45f7-b96e-31dcd4a4ad45default-TASK_WAIT_UNTIL_DONE-557b6dcd-ce98-4e83-a55c-6a669a6e73eddefault"
+            },
+            {
+                "source": "TASK_WAIT_UNTIL_DONE-557b6dcd-ce98-4e83-a55c-6a669a6e73ed",
+                "sourceHandle": "default",
+                "target": "LINE-83ef0d42-18eb-43c4-8204-d667558eabcc",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TASK_WAIT_UNTIL_DONE-557b6dcd-ce98-4e83-a55c-6a669a6e73eddefault-LINE-83ef0d42-18eb-43c4-8204-d667558eabccdefault"
+            }
+        ],
+        "viewport": {
+            "x": 623.1659027011923,
+            "y": 538.3314571575362,
+            "zoom": 0.6587164936252383
+        }
+    },
+    "textNodes": []
+}

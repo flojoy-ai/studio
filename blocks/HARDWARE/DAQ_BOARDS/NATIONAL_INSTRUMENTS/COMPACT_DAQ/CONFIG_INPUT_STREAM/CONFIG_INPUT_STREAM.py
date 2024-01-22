@@ -22,9 +22,14 @@ def CONFIG_INPUT_STREAM(
 
     This block is used to configure the input stream of a task before reading samples from this input stream.
 
+    This instrument will likely only be compatible with Windows systems due to
+    NI driver availablity. To use the instrument you must install the runtime:
+
+    https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html
+
     Parameters
     ----------
-    cDAQ_start_channel : NIDAQmxDevice
+    connection : NIDAQmxDevice
         The first input channel for which a created task has been initialized.
     timeout : float
         The amount of time, in seconds, to wait for the function to read the samples.
