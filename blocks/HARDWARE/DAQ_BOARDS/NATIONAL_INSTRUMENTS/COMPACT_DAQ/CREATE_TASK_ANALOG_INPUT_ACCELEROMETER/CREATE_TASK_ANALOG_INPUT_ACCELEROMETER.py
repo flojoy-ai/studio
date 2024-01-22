@@ -1,4 +1,3 @@
-
 from flojoy import flojoy, DataContainer, NIDAQmxDevice, DeviceConnectionManager
 from typing import Optional, Literal
 import nidaqmx
@@ -8,19 +7,12 @@ import nidaqmx
 def CREATE_TASK_ANALOG_INPUT_ACCELEROMETER(
     cDAQ_start_channel: NIDAQmxDevice,
     cDAQ_end_channel: NIDAQmxDevice,
-    min_val: float = - 5.0,
+    min_val: float = -5.0,
     max_val: float = 5.0,
     units: Literal["G", "Inches per second squared", "Meters per second squared"] = "G",
     sensitivity: float = 1000.0,
-    sensitivity_units: Literal[
-        "Millivolts per G"
-        "Volts per G"
-    ] = "Millivolts per G",
-    current_excitation_source: Literal[
-        "External",
-        "Internal",
-        "None"
-    ] = "Internal",
+    sensitivity_units: Literal["Millivolts per G" "Volts per G"] = "Millivolts per G",
+    current_excitation_source: Literal["External", "Internal", "None"] = "Internal",
     current_excitation_value: float = 0.004,
     default: Optional[DataContainer] = None,
 ) -> Optional[DataContainer]:
@@ -55,11 +47,11 @@ def CREATE_TASK_ANALOG_INPUT_ACCELEROMETER(
     Optional[DataContainer]
         None
     """
-    
+
     units = {
         "G": nidaqmx.constants.AccelUnits.G,
         "Inches per second squared": nidaqmx.constants.AccelUnits.INCHES_PER_SECOND_SQUARED,
-        "Meters per second squared": nidaqmx.constants.AccelUnits.METERS_PER_SECOND_SQUARED
+        "Meters per second squared": nidaqmx.constants.AccelUnits.METERS_PER_SECOND_SQUARED,
     }[units]
 
     sensitivity_units = {
@@ -70,18 +62,20 @@ def CREATE_TASK_ANALOG_INPUT_ACCELEROMETER(
     current_excitation_source = {
         "External": nidaqmx.constants.ExcitationSource.EXTERNAL,
         "Internal": nidaqmx.constants.ExcitationSource.INTERNAL,
-        "None": nidaqmx.constants.ExcitationSource.NONE
+        "None": nidaqmx.constants.ExcitationSource.NONE,
     }[current_excitation_source]
 
     # Build the physical channels strin
-    name, address = cDAQ_start_channel.get_id().split('/')
+    name, address = cDAQ_start_channel.get_id().split("/")
     if cDAQ_end_channel:
-        _, address_end = cDAQ_end_channel.get_id().split('/')
+        _, address_end = cDAQ_end_channel.get_id().split("/")
         address = f"{address}:{address_end[2:]}"
     physical_channels = f"{name}/{address}"
 
     task = nidaqmx.Task()
-    DeviceConnectionManager.register_connection(cDAQ_start_channel, task, lambda task: task.__exit__(None, None, None))
+    DeviceConnectionManager.register_connection(
+        cDAQ_start_channel, task, lambda task: task.__exit__(None, None, None)
+    )
     task.ai_channels.add_ai_accel_chan(
         physical_channels,
         min_val=min_val,
@@ -90,7 +84,5 @@ def CREATE_TASK_ANALOG_INPUT_ACCELEROMETER(
         sensitivity_units=sensitivity_units,
         sensitivity=sensitivity,
         current_excit_source=current_excitation_source,
-        current_excit_val=current_excitation_value
+        current_excit_val=current_excitation_value,
     )
-
-

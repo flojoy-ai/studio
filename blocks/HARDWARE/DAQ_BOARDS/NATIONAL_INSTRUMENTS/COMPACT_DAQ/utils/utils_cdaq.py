@@ -10,4 +10,3 @@ def get_devices():
 def get_devices_literal() -> Literal:
     available_devices = nidaqmx.system.System().devices.device_names
     return Literal(available_devices)
-      

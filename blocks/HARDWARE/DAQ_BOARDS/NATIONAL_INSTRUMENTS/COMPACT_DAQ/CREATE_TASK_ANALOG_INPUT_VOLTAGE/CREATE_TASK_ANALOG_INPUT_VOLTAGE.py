@@ -37,16 +37,21 @@ def CREATE_TASK_ANALOG_INPUT_VOLTAGE(
     """
 
     # Build the physical channels strin
-    name, address = cDAQ_start_channel.get_id().split('/')
+    name, address = cDAQ_start_channel.get_id().split("/")
     if cDAQ_end_channel:
-        _, address_end = cDAQ_end_channel.get_id().split('/')
+        _, address_end = cDAQ_end_channel.get_id().split("/")
         address = f"{address}:{address_end[2:]}"
     physical_channels = f"{name}/{address}"
 
-    units = nidaqmx.constants.VoltageUnits.VOLTS  # TODO: Support TEDS info associated with the channel and custom scale
+    units = (
+        nidaqmx.constants.VoltageUnits.VOLTS
+    )  # TODO: Support TEDS info associated with the channel and custom scale
 
     # Recreate a with Task() as task: behavior without the traceback on exit
     task = nidaqmx.Task()
-    DeviceConnectionManager.register_connection(cDAQ_start_channel, task, lambda task: task.__exit__(None, None, None))
-    task.ai_channels.add_ai_voltage_chan(physical_channels, min_val=min_val, max_val=max_val, units=units)
-
+    DeviceConnectionManager.register_connection(
+        cDAQ_start_channel, task, lambda task: task.__exit__(None, None, None)
+    )
+    task.ai_channels.add_ai_voltage_chan(
+        physical_channels, min_val=min_val, max_val=max_val, units=units
+    )

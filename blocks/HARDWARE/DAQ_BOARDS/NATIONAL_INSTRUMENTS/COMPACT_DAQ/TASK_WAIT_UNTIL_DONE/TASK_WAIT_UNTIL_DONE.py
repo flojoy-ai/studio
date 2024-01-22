@@ -10,7 +10,7 @@ def TASK_WAIT_UNTIL_DONE(
     default: Optional[DataContainer] = None,
 ) -> Optional[DataContainer]:
     """Waits for the measurement or generation to complete.
-    
+
     Use this method to ensure that the specified operation is complete before you stop the task.
 
     Parameters

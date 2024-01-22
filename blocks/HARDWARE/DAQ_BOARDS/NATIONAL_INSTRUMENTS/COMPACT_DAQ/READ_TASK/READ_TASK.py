@@ -13,7 +13,7 @@ def READ_TASK(
     default: Optional[DataContainer] = None,
 ) -> Vector | Matrix:
     """Reads one or more current samples from a National Instruments compactDAQ device.
-    
+
     Read one or more current samples from a National Instruments compactDAQ device. The connection must have been initialized with a create task before calling this blocks.
 
     Parameters
@@ -35,11 +35,16 @@ def READ_TASK(
 
     task: nidaqmx.task.Task = connection.get_handle()
 
-    assert number_of_samples_per_channel > 0, "number_of_samples_per_channel must be greater than 0"
+    assert (
+        number_of_samples_per_channel > 0
+    ), "number_of_samples_per_channel must be greater than 0"
     timeout = timeout if not wait_infinitely else nidaqmx.constants.WAIT_INFINITELY
 
     # TODO Add REAL_ALL_AVAIALBLE | nb_sample = number_of_samples_per_channel if not real_all_available_samples else nidaqmx.constants.READ_ALL_AVAILABLE
 
-    values = np.array(task.read(number_of_samples_per_channel=number_of_samples_per_channel, timeout=timeout))
+    values = np.array(
+        task.read(
+            number_of_samples_per_channel=number_of_samples_per_channel, timeout=timeout
+        )
+    )
     return Matrix(values) if values.ndim > 1 else Vector(values)
-

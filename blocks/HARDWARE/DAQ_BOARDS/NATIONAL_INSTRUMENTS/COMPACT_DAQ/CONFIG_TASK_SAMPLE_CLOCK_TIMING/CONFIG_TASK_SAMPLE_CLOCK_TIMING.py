@@ -11,7 +11,7 @@ def CONFIG_TASK_SAMPLE_CLOCK_TIMING(
     default: Optional[DataContainer] = None,
 ) -> Optional[DataContainer]:
     """.
-    
+
     Compatible with National Instruments compactDAQ devices.
     Tested on a simulated NI-9229 module.
 
@@ -33,5 +33,6 @@ def CONFIG_TASK_SAMPLE_CLOCK_TIMING(
     """
 
     task: nidaqmx.task.Task = connection.get_handle()
-    task.timing.cfg_samp_clk_timing(rate=sample_clock_rate, samps_per_chan=number_of_samples_per_channel)
-
+    task.timing.cfg_samp_clk_timing(
+        rate=sample_clock_rate, samps_per_chan=number_of_samples_per_channel
+    )

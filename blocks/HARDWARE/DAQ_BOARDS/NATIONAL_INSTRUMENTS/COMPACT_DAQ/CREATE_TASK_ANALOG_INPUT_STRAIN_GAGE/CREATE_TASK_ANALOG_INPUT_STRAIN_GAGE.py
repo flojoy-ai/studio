@@ -1,4 +1,3 @@
-
 from flojoy import flojoy, DataContainer, NIDAQmxDevice, DeviceConnectionManager
 from typing import Optional, Literal
 import nidaqmx
@@ -20,11 +19,7 @@ def CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE(
         "Quarter brige 1",
         "Quarter brige 2",
     ] = "Full brige 1",
-    voltage_excitation_source: Literal[
-        "None",
-        "External",
-        "Internal"
-    ] = "Internal",
+    voltage_excitation_source: Literal["None", "External", "Internal"] = "Internal",
     voltage_excitation_value: float = 2.5,
     default: Optional[DataContainer] = None,
     gage_factor: float = 2.0,
@@ -74,9 +69,9 @@ def CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE(
     """
 
     # Build the physical channels strin
-    name, address = cDAQ_start_channel.get_id().split('/')
+    name, address = cDAQ_start_channel.get_id().split("/")
     if cDAQ_end_channel:
-        _, address_end = cDAQ_end_channel.get_id().split('/')
+        _, address_end = cDAQ_end_channel.get_id().split("/")
         address = f"{address}:{address_end[2:]}"
     physical_channels = f"{name}/{address}"
 
@@ -94,11 +89,13 @@ def CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE(
     voltage_excitation_source = {
         "None": nidaqmx.constants.ExcitationSource.NONE,
         "External": nidaqmx.constants.ExcitationSource.EXTERNAL,
-        "Internal": nidaqmx.constants.ExcitationSource.INTERNAL
+        "Internal": nidaqmx.constants.ExcitationSource.INTERNAL,
     }[voltage_excitation_source]
 
     task = nidaqmx.Task()
-    DeviceConnectionManager.register_connection(cDAQ_start_channel, task, lambda task: task.__exit__(None, None, None))
+    DeviceConnectionManager.register_connection(
+        cDAQ_start_channel, task, lambda task: task.__exit__(None, None, None)
+    )
     task.ai_channels.add_ai_strain_gage_chan(
         physical_channels,
         min_val=min_val,
@@ -113,4 +110,3 @@ def CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE(
         poisson_ratio=poisson_ratio,
         lead_wire_resistance=lead_wire_resistance,
     )
-

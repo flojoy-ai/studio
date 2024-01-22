@@ -56,7 +56,11 @@ def CONFIG_INPUT_STREAM(
     }[relative_to]
     task.in_stream.relative_to = relative_to
 
-    overwrite = nidaqmx.constants.OverwriteMode.OVERWRITE_UNREAD_SAMPLES if overwrite else nidaqmx.constants.OverwriteMode.DO_NOT_OVERWRITE_UNREAD_SAMPLES
+    overwrite = (
+        nidaqmx.constants.OverwriteMode.OVERWRITE_UNREAD_SAMPLES
+        if overwrite
+        else nidaqmx.constants.OverwriteMode.DO_NOT_OVERWRITE_UNREAD_SAMPLES
+    )
     task.in_stream.overwrite = overwrite
 
     return None

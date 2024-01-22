@@ -32,5 +32,11 @@ def READ_INPUT_STREAM(
 
     task: nidaqmx.task.Task = connection.get_handle()
 
-    raw_data = task.in_stream.readall() if read_all else task.in_stream.read(number_of_samples_per_channel=number_of_samples_per_channel)
+    raw_data = (
+        task.in_stream.readall()
+        if read_all
+        else task.in_stream.read(
+            number_of_samples_per_channel=number_of_samples_per_channel
+        )
+    )
     return Vector(raw_data)

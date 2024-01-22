@@ -34,4 +34,3 @@ def READ_INPUT_STREAM_INTO_BUFFER(
     task.in_stream.readinto(buffer.v)
 
     return buffer
-
