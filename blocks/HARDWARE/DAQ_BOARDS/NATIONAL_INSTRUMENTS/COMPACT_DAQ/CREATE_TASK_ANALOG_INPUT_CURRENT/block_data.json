@@ -1,0 +1,40 @@
+{
+  "docstring": {
+    "long_description": "Compatible with National Instruments compactDAQ devices. The device must have a current input channel.\nTested with a NI-9203 module.\n\nThis instrument will likely only be compatible with Windows systems due to\nNI driver availablity. To use the instrument you must install the runtime:\n\nhttps://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html",
+    "short_description": "Creates a task with (a) channel(s) to measure current",
+    "parameters": [
+      {
+        "name": "cDAQ_start_channel",
+        "type": "NIDAQmxDevice",
+        "description": "The device and channel to read from. Flojoy will register this address as a connection."
+      },
+      {
+        "name": "cDAQ_end_channel",
+        "type": "NIDAQmxDevice",
+        "description": "To read from only one channel, set this to the same as cDAQ_start_channel. To read from multiple channels, set this to the last channel you want to read from."
+      },
+      {
+        "name": "min_val",
+        "type": "float",
+        "description": "Specifies in **units** the minimum value you expect to measure."
+      },
+      {
+        "name": "max_val",
+        "type": "float",
+        "description": "Specifies in **units** the maximum value you expect to measure."
+      },
+      {
+        "name": "units",
+        "type": "Literal",
+        "description": "The units to use to return current measurements."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Optional[DataContainer]",
+        "description": "None"
+      }
+    ]
+  }
+}

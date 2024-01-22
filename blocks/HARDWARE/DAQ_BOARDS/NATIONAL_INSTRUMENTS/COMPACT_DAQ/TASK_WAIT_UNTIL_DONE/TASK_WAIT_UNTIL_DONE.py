@@ -17,7 +17,7 @@ def TASK_WAIT_UNTIL_DONE(
     NI driver availablity. To use the instrument you must install the runtime:
 
     https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html
-    
+
 
     Parameters
     ----------

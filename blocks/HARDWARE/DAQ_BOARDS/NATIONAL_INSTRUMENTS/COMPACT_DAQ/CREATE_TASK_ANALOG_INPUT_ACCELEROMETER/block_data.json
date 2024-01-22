@@ -1,0 +1,60 @@
+{
+  "docstring": {
+    "long_description": "Compatible with National Instruments compactDAQ devices. The device must have a analog accelerometer input channel.\nTested with a simulated NI-9234 module.\n\nThis instrument will likely only be compatible with Windows systems due to\nNI driver availablity. To use the instrument you must install the runtime:\n\nhttps://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html",
+    "short_description": "Creates a task with (a) channel(s) that use an accelerometer to measure acceleration.",
+    "parameters": [
+      {
+        "name": "cDAQ_start_channel",
+        "type": "NIDAQmxDevice",
+        "description": "The device and channel to read from."
+      },
+      {
+        "name": "cDAQ_end_channel",
+        "type": "NIDAQmxDevice",
+        "description": "To read from only one channel, set this to the same as cDAQ_start_channel. To read from multiple channels, set this to the last channel you want to read from."
+      },
+      {
+        "name": "min_val",
+        "type": "float",
+        "description": "Specifies in **units** the minimum value you expect to measure."
+      },
+      {
+        "name": "max_val",
+        "type": "float",
+        "description": "Specifies in **units** the maximum value you expect to measure."
+      },
+      {
+        "name": "units",
+        "type": "Literal",
+        "description": "The units to use to return accelerometer measurements."
+      },
+      {
+        "name": "sensitivity",
+        "type": "float",
+        "description": "Is the sensitivity of the sensor. This value is in the units you specify with the sensitivity_units input. Refer to the sensor documentation to determine this value."
+      },
+      {
+        "name": "sensitivity_units",
+        "type": "Literal",
+        "description": "Specifies the units of the sensitivity input."
+      },
+      {
+        "name": "current_excitation_source",
+        "type": "Literal",
+        "description": "Specifies the source of excitation."
+      },
+      {
+        "name": "current_excitation_value",
+        "type": "float",
+        "description": "Specifies in amperes the amount of excitation to supply to the sensor. Refer to the sensor documentation to determine this value."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Optional[DataContainer]",
+        "description": "None"
+      }
+    ]
+  }
+}

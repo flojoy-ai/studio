@@ -1,0 +1,40 @@
+{
+  "docstring": {
+    "long_description": "This block is used to configure the input stream of a task before reading samples from this input stream.\n\nThis instrument will likely only be compatible with Windows systems due to\nNI driver availablity. To use the instrument you must install the runtime:\n\nhttps://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html",
+    "short_description": "Set the properties of an input stream.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "NIDAQmxDevice",
+        "description": "The first input channel for which a created task has been initialized."
+      },
+      {
+        "name": "timeout",
+        "type": "float",
+        "description": "The amount of time, in seconds, to wait for the function to read the samples."
+      },
+      {
+        "name": "offset",
+        "type": "int",
+        "description": "Specifies an offset in samples per channel at which to begin a read operation. This offset is relative to the location you specify with relative_to"
+      },
+      {
+        "name": "relative_to",
+        "type": "Literal",
+        "description": "Specifies the point in the buffer at which to begin a read operation."
+      },
+      {
+        "name": "overwrite",
+        "type": "bool",
+        "description": "Specifies whether to overwrite samples in the buffer that you have not yet read."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Optional[DataContainer]",
+        "description": "None"
+      }
+    ]
+  }
+}

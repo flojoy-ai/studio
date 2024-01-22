@@ -1,0 +1,80 @@
+{
+  "docstring": {
+    "long_description": "Compatible with National Instruments compactDAQ devices. The device must have a strain input channel.\nTested on a simulated NI-9236 module.\n\nThis instrument will likely only be compatible with Windows systems due to\nNI driver availablity. To use the instrument you must install the runtime:\n\nhttps://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html",
+    "short_description": "Creates a task with (a) channel(s) to measure strain.",
+    "parameters": [
+      {
+        "name": "cDAQ_start_channel",
+        "type": "NIDAQmxDevice",
+        "description": "The device and channel to read from."
+      },
+      {
+        "name": "cDAQ_end_channel",
+        "type": "NIDAQmxDevice",
+        "description": "To read from only one channel, set this to the same as cDAQ_start_channel. To read from multiple channels, set this to the last channel you want to read from."
+      },
+      {
+        "name": "min_val",
+        "type": "float",
+        "description": "Specifies in **units** the minimum value you expect to measure."
+      },
+      {
+        "name": "max_val",
+        "type": "float",
+        "description": "Specifies in **units** the maximum value you expect to measure."
+      },
+      {
+        "name": "units",
+        "type": "Literal",
+        "description": "The units to use to return strain measurements."
+      },
+      {
+        "name": "strain_config",
+        "type": "Literal",
+        "description": "Specifies information about the bridge configuration and measurement."
+      },
+      {
+        "name": "voltage_excit_source",
+        "type": "Literal",
+        "description": "Specifies information about the bridge configuration and measurement."
+      },
+      {
+        "name": "voltage_excit_val",
+        "type": "float",
+        "description": "Specifies information about the bridge configuration and measurement."
+      },
+      {
+        "name": "gage_factor",
+        "type": "float",
+        "description": "Contains information about the strain gage and measurement."
+      },
+      {
+        "name": "initial_bridge_voltage",
+        "type": "float",
+        "description": "Specifies information about the bridge configuration and measurement."
+      },
+      {
+        "name": "nominal_gage_resistance",
+        "type": "float",
+        "description": "Contains information about the strain gage and measurement."
+      },
+      {
+        "name": "poisson_ratio",
+        "type": "float",
+        "description": "Contains information about the strain gage and measurement."
+      },
+      {
+        "name": "lead_wire_resistance",
+        "type": "float",
+        "description": "Specifies information about the bridge configuration and measurement."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Optional[DataContainer]",
+        "description": "None"
+      }
+    ]
+  }
+}

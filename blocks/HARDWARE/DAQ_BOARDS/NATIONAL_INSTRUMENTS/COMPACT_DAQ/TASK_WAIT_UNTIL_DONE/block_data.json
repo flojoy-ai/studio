@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "Use this method to ensure that the specified operation is complete before you stop the task.\n\nThis instrument will likely only be compatible with Windows systems due to\nNI driver availablity. To use the instrument you must install the runtime:\n\nhttps://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html",
+    "short_description": "Waits for the measurement or generation to complete.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "NIDAQmxDevice",
+        "description": "The first input channel for which a created task has been initialized."
+      },
+      {
+        "name": "timeout",
+        "type": "float",
+        "description": "Specifies the maximum amount of time in seconds to wait for the measurement or generation to complete. This method returns an error if the time elapses."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Optional[DataContainer]",
+        "description": "Return the input"
+      }
+    ]
+  }
+}
