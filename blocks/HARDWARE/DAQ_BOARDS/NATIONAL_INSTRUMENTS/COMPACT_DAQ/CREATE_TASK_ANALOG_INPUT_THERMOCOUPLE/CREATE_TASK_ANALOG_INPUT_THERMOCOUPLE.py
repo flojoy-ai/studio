@@ -16,7 +16,7 @@ def CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE(
     cold_junction_channel: str = "",
     default: Optional[DataContainer] = None,
 ) -> Optional[DataContainer]:
-    """Create and prepare a task to interact with an analog input thermocouple channel.
+    """Creates a task with (a) channel(s) that use a thermocouple to measure temperature.
 
     Compatible with National Instruments compactDAQ devices. The device must have a analog thermocouple input channel.
     Tested with a simulated NI-9219 module.

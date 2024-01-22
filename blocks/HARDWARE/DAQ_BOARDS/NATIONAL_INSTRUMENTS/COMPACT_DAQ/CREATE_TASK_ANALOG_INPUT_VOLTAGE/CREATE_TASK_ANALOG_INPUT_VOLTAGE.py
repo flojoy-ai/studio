@@ -12,7 +12,7 @@ def CREATE_TASK_ANALOG_INPUT_VOLTAGE(
     units: Literal["VOLTS"] = "VOLTS",
     default: Optional[DataContainer] = None,
 ) -> Optional[DataContainer]:
-    """Create and prepare a task to interact with an analog input voltage channel.
+    """Creates a task with (a) channel(s) to measure voltage.
 
     Compatible with National Instruments compactDAQ devices. The device must have a voltage input channel.
     Tested on a simulated NI-9229 module.

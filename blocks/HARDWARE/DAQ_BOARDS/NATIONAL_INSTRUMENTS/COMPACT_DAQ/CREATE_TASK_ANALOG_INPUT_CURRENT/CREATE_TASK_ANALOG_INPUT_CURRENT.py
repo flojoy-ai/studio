@@ -12,7 +12,7 @@ def CREATE_TASK_ANALOG_INPUT_CURRENT(
     units: Literal["AMPS"] = "AMPS",
     default: Optional[DataContainer] = None,
 ) -> Optional[DataContainer]:
-    """Create and prepare a task to interact with an analog input current channel.
+    """Creates a task with (a) channel(s) to measure current
 
     Compatible with National Instruments compactDAQ devices. The device must have a current input channel.
     Tested with a NI-9203 module.
@@ -44,7 +44,6 @@ def CREATE_TASK_ANALOG_INPUT_CURRENT(
 
     units = nidaqmx.constants.CurrentUnits.AMPS  # TODO: Support TEDS info associated with the channel and custom scale
 
-    # Recreate a with Task() as task: behavior without the traceback on exit
     task = nidaqmx.Task()
     DeviceConnectionManager.register_connection(cDAQ_start_channel, task, lambda task: task.__exit__(None, None, None))
     task.ai_channels.add_ai_current_chan(physical_channels, min_val=min_val, max_val=max_val, units=units)  # TODO: Add shunt resistor option
