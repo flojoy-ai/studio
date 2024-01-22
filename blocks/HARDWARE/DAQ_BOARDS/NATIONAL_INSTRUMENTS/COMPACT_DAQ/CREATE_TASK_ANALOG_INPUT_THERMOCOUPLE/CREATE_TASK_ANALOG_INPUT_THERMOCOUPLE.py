@@ -77,7 +77,9 @@ def CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE(
         address = f"{address}:{address_end[2:]}"
     physical_channels = f"{name}/{address}"
 
+    # Recreate a with Task() as task: behavior without the traceback on exit
     task = nidaqmx.Task()
+    DeviceConnectionManager.register_connection(cDAQ_start_channel, task, lambda task: task.__exit__(None, None, None))
     task.ai_channels.add_ai_thrmcpl_chan(
         physical_channels,
         min_val=min_val,
@@ -88,5 +90,3 @@ def CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE(
         cjc_val=cold_junction_value,
         cjc_channel=cold_junction_channel,
     )
-    DeviceConnectionManager.register_connection(cDAQ_start_channel, task, task.__exit__)
-

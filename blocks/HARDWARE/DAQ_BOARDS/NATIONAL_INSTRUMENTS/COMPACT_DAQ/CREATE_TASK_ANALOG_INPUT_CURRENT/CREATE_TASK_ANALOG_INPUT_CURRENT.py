@@ -1,6 +1,6 @@
 from flojoy import flojoy, DataContainer, NIDAQmxDevice, DeviceConnectionManager
-import nidaqmx
 from typing import Optional, Literal
+import nidaqmx
 
 
 @flojoy(deps={"nidaqmx": "0.9.0"})
@@ -44,8 +44,9 @@ def CREATE_TASK_ANALOG_INPUT_CURRENT(
 
     units = nidaqmx.constants.CurrentUnits.AMPS  # TODO: Support TEDS info associated with the channel and custom scale
 
+    # Recreate a with Task() as task: behavior without the traceback on exit
     task = nidaqmx.Task()
+    DeviceConnectionManager.register_connection(cDAQ_start_channel, task, lambda task: task.__exit__(None, None, None))
     task.ai_channels.add_ai_current_chan(physical_channels, min_val=min_val, max_val=max_val, units=units)  # TODO: Add shunt resistor option
-    DeviceConnectionManager.register_connection(cDAQ_start_channel, task, task.__exit__)
 
     return None
