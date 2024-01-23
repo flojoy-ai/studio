@@ -1,6 +1,5 @@
 from flojoy import flojoy, Vector
 from numpy import array
-import numpy as np
 from typing import Literal
 
 
@@ -50,6 +49,6 @@ def VECTOR(
                     f"all elements of the vector must be numeric: {element}"
                 )
 
-        return Vector(v=array(all_numeric, dtype=np.int16))
+        return Vector(v=array(all_numeric))
 
     raise ValueError("all elements of the vector must be in boolean or integer type")
