@@ -1,20 +1,26 @@
 import serial
 from flojoy import flojoy, SerialConnection, DataContainer, String
-from typing import cast, Optional
+from typing import cast, Optional, Literal
 
 
 @flojoy(inject_connection=True)
-def PROLOGIX_ADDR(
+def PROLOGIX_READ(
     connection: SerialConnection,
     default: Optional[DataContainer] = None,
-    addr: int = 10,
 ) -> String:
-    """Set the GPIB address of an instrument using the Prologix USB-to-GPIB adapter.
+    """Returns the response from the GPIB instrument.
+
+    For example if you query a VISA instrument with "*IDN?\n" using a
+    SERIAL_WRITE block, this block must be used to return the response.
+
+    Not required if the PROLOGIX_AUTO setting is "on" (not recommended).
+
+    Requires an OPEN_SERIAL block.
 
     Inputs
     ------
     default: DataContainer
-        Any DataContainer - likely connected to the output of the OPEN_SERIAL block.
+        Any DataContainer
 
     Parameters
     ----------
@@ -33,9 +39,10 @@ def PROLOGIX_ADDR(
     if ser is None:
         raise ValueError("Serial communication is not open")
 
-    cmd = "++addr " + str(addr) + "\n"
+    cmd = "++read eoi\n"
     ser.write(cmd.encode())
-
     s = ser.read(256)
+    if isinstance(s, bytes):
+        s = s.decode("utf-8")
 
     return String(s)

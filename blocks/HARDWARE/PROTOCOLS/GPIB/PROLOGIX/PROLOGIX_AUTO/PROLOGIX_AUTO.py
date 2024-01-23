@@ -3,7 +3,7 @@ from flojoy import flojoy, SerialConnection, DataContainer, String
 from typing import cast, Optional, Literal
 
 
-@flojoy(deps={"pyserial": "3.5"}, inject_connection=True)
+@flojoy(inject_connection=True)
 def PROLOGIX_AUTO(
     connection: SerialConnection,
     default: Optional[DataContainer] = None,
@@ -11,12 +11,16 @@ def PROLOGIX_AUTO(
 ) -> String:
     """Toggle "Read-After-Write" mode on or off.
 
-    When Read-After-Write is on, the Prologix USB-to-GPIB controller automatically reads a bench-top instrument's response after writing a command to it.
+    When Read-After-Write is on, the Prologix USB-to-GPIB controller
+    automatically reads a bench-top instrument's response after writing a
+    command to it.
+
+    Requires an OPEN_SERIAL block.
 
     Inputs
     ------
     default: DataContainer
-        Any DataContainer - likely connected to the output of the OPEN_SERIAL block.
+        Any DataContainer
 
     Parameters
     ----------
@@ -37,11 +41,11 @@ def PROLOGIX_AUTO(
 
     auto_integer = 0
     if auto == "Current state":
-        ser.write(b"++auto\r\n")
+        ser.write(b"++auto\n")
     elif auto == "On":
         auto_integer = 1
     else:
-        cmd = "++auto " + str(auto_integer) + "\r\n"
+        cmd = "++auto " + str(auto_integer) + "\n"
         ser.write(cmd.encode())
 
     s = ser.read(256)

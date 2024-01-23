@@ -7,6 +7,7 @@ def SERIAL_WRITE(
     connection: SerialDevice,
     write: str = "",
     encoding: Literal["bytes", "utf-8", "ascii"] = "bytes",
+    terminator: Literal["CR+LF", "CR", "LF", "None"] = "None",
     default: Optional[DataContainer] = None,
 ) -> String:
     """Write a custom string to the selected serial device.
@@ -28,9 +29,21 @@ def SERIAL_WRITE(
 
     ser = connection.get_handle()
 
+    match terminator:
+        case "CR+LF":
+            terminator = "\r\n"
+        case "CR":
+            terminator = "\r"
+        case "LF":
+            terminator = "\n"
+        case "None":
+            terminator = ""
+
+    write += terminator
+
     match encoding:
         case "bytes":
-            ser.write(bytes(write, encoding="utf8"))
+            ser.write(write.encode())
         case "utf-8":
             ser.write(write)
         case "ascii":
