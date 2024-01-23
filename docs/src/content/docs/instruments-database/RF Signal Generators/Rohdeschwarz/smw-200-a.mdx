@@ -1,0 +1,77 @@
+---
+title: Connecting to SMW 200 A by Rohdes&Schwarz in Python
+description: The R&S®SMW200A offers integrated channel emulation for up to 800 MHz of fading bandwidth. Fading profiles for all major standards are available as presets. With up to 64 fading channels, all key MIMO fading scenarios such as 2x2, 3x3, 4x4, 8x4, 4x8 and 8x8 can be configured in a single instrument.
+keywords: [RF Signal Generators, Rohdes&Schwarz, QCodes Community] 
+slug: instruments-database/rf-signal-generators/rohdeschwarz/smw-200-a 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782496/Instruments/RF%20Signal%20Generator/SMW-200-A/SMW-200-A.jpg
+sidebar:
+    label: SMW 200 A 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The R&S®SMW200A offers integrated channel emulation for up to 800 MHz of fading bandwidth. Fading profiles for all major standards are available as presets. With up to 64 fading channels, all key MIMO fading scenarios such as 2x2, 3x3, 4x4, 8x4, 4x8 and 8x8 can be configured in a single instrument.
+
+![SMW 200 A](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782496/Instruments/RF%20Signal%20Generator/SMW-200-A/SMW-200-A.jpg)
+
+Device Specification: [here](https://www.testequipmenthq.com/datasheets/Rohde-Schwarz-SMW200A-Datasheet.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: ROHDES&SCHWARZ</h2></summary>
+
+![ROHDES&SCHWARZ](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806194/Instruments/Vendor%20Logos/RohdeSchwarz.png)
+
+Rohde & Schwarz GmbH & Co KG is an international electronics group specializing in the fields of electronic test equipment, broadcast & media, cybersecurity, radiomonitoring and radiolocation, and radiocommunication.
+
+- Headquarters: Munich, Germany
+- Yearly Revenue (millions, USD): 2500
+- Vendor Website: [here](https://www.rohde-schwarz.com/ca/home_48230.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="RF_SIGNAL_GENERATORS" />
+
+## Connect to the SMW 200 A in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="RF_SIGNAL_GENERATORS" manufacturer="Rohdes&Schwarz"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes Community" label="QCodes Community">
+
+To connect to the SMW 200 A RF Signal Generator using Qcodes, you can use the following code:
+
+```python
+from qcodes.instrument_drivers.rohde_schwarz.SMWSMU import SMWSMU
+
+# Create an instance of the SMWSMU driver
+smw = SMWSMU('smw', 'TCPIP0::192.168.0.1::inst0::INSTR')
+
+# Connect to the instrument
+smw.connect()
+
+# Now you can use the instrument to perform various operations
+# For example, you can set the output power
+smw.output_power(0)  # Set the output power to 0 dBm
+
+# Disconnect from the instrument
+smw.disconnect()
+```
+
+This code creates an instance of the `SMWSMU` driver and connects to the SMW 200 A RF Signal Generator using the specified VISA address. You can then use the various methods provided by the driver to control the instrument, such as setting the output power.
+
+Note that you need to replace `'TCPIP0::192.168.0.1::inst0::INSTR'` with the actual VISA address of your instrument.
+
+</TabItem>
+</Tabs>
