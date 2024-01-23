@@ -7,7 +7,6 @@ export const NIDAQmxDeviceSelect = (props: SelectProps) => {
 
   console.log("daq", daq);
 
-
   return (
     <DeviceSelect
       {...props}
