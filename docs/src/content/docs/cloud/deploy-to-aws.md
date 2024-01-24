@@ -70,7 +70,7 @@ cat <<EOF >/root/cloud/.env
 AWS_ACCESS_KEY_ID=""                    # AWS access key
 AWS_SECRET_ACCESS_KEY=""                # AWS secret key
 AWS_REGION=""                           # AWS region
-SENDER_EMAIL=""                         # Email registered with AWS SES for email verification mail sending
+SENDER_EMAIL=""                         # Email registered with AWS SES for sending verification mails
 GOOGLE_CLIENT_ID=""                     # Google auth client id
 GOOGLE_CLIENT_SECRET=""                 # Google client secret
 
