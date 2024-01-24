@@ -3,9 +3,7 @@ from cantools import database
 
 
 @flojoy(deps={"python-can": "4.2.2", "cantools": "39.4.2"})
-def LOAD_DBC(
-    file_path: File
-) -> Stateful:
+def LOAD_DBC(file_path: File) -> Stateful:
     """Load a DBC file.
 
     Open and parse a given database file. The database format is inferred from the file extension.
@@ -21,7 +19,7 @@ def LOAD_DBC(
     Stateful : cantools.database.Database
         Return a cantools database object.
     """
-    
+
     db = database.load_file(file_path.unwrap())
 
     return Stateful(db)

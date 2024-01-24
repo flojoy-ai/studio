@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "Open and parse a given database file. The database format is inferred from the file extension.\nThis block is compatible with the following database format. `dbc`, `arxml`, `kcd`, `sym`, `cdd`.",
+    "short_description": "Load a DBC file.",
+    "parameters": [
+      {
+        "name": "file_path",
+        "type": "File",
+        "description": "The path to the DBC file."
+      }
+    ],
+    "returns": [
+      {
+        "name": "Stateful",
+        "type": "cantools.database.Database",
+        "description": "Return a cantools database object."
+      }
+    ]
+  }
+}

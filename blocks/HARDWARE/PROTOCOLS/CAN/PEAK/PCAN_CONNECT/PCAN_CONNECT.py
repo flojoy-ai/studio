@@ -5,9 +5,7 @@ import can
 
 @flojoy(deps={"python-can": "4.2.2"})
 def PCAN_CONNECT(
-    PCAN_address: str,
-    bitrate: int = 500000,
-    default: Optional[DataContainer] = None
+    PCAN_address: str, bitrate: int = 500000, default: Optional[DataContainer] = None
 ) -> Optional[DataContainer]:
     """Connect to a PCAN device.
 
@@ -34,11 +32,7 @@ def PCAN_CONNECT(
 
     assert PCAN_address == "", "Please provide a valid PCAN address,"
 
-    session = can.interface.Bus(
-        interface='pcan',
-        channel=PCAN_address,
-        bitrate=bitrate
-    )
+    session = can.interface.Bus(interface="pcan", channel=PCAN_address, bitrate=bitrate)
 
     DeviceConnectionManager.register_connection(HardwareDevice(PCAN_address), session)
 

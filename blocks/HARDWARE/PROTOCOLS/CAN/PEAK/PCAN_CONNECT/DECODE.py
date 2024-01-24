@@ -35,4 +35,3 @@ def DECODE(
     logging.info(f"Decoded: {decoded} of type: {type(decoded)}")
 
     return DataFrame(df=pd.DataFrame([decoded]))
-
