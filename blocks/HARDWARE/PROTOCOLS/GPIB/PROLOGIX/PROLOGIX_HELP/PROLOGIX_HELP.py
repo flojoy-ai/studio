@@ -14,11 +14,6 @@ def PROLOGIX_HELP(
 
     Requires an OPEN_SERIAL block.
 
-    Inputs
-    ------
-    default: DataContainer
-        Any DataContainer
-
     Parameters
     ----------
     connection: Serial

@@ -1,6 +1,6 @@
 {
   "docstring": {
-    "long_description": "Only used for the GPIB port (not the serial port).\n\nEOI - end of interrupt (use terminator or not)\nEOS - end of string (termination character)\n\nRequires an OPEN_SERIAL block.",
+    "long_description": "Only used for the GPIB port (not the serial port). These settings depend on\nthe instrument you are using.\n\nEOI - end of interrupt (use terminator or not)\nEOS - end of string (termination character)\n\nRequires an OPEN_SERIAL block.",
     "short_description": "Sets the EOI and EOS settings for the Prologix GPIB-USB adapter.",
     "parameters": [
       {

@@ -12,7 +12,8 @@ def PROLOGIX_EOI(
 ) -> String:
     """Sets the EOI and EOS settings for the Prologix GPIB-USB adapter.
 
-    Only used for the GPIB port (not the serial port).
+    Only used for the GPIB port (not the serial port). These settings depend on
+    the instrument you are using.
 
     EOI - end of interrupt (use terminator or not)
     EOS - end of string (termination character)

@@ -9,12 +9,11 @@ def PROLOGIX_ADDR(
     default: Optional[DataContainer] = None,
     addr: int = 10,
 ) -> String:
-    """Set the GPIB address of an instrument using the Prologix USB-to-GPIB adapter.
+    """Set the GPIB address of the Prologix USB-to-GPIB adapter.
 
-    Inputs
-    ------
-    default: DataContainer
-        Any DataContainer - likely connected to the output of the OPEN_SERIAL block.
+    This setting should match the address for the GPIB instrument.
+
+    Requires an OPEN_SERIAL block.
 
     Parameters
     ----------

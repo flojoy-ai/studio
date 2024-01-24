@@ -12,10 +12,7 @@ def PROLOGIX_VER(
 ) -> String:
     """Query the Prologix USB-to-GPIB firmware version.
 
-    Inputs
-    ------
-    default: DataContainer
-        Any DataContainer - likely connected to the output of the OPEN_SERIAL block.
+    Requires an OPEN_SERIAL block.
 
     Parameters
     ----------

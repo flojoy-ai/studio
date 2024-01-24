@@ -17,11 +17,6 @@ def PROLOGIX_READ(
 
     Requires an OPEN_SERIAL block.
 
-    Inputs
-    ------
-    default: DataContainer
-        Any DataContainer
-
     Parameters
     ----------
     connection: Serial

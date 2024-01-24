@@ -1,6 +1,6 @@
 {
   "docstring": {
-    "long_description": "Requires an OPEN_SERIAL block.\n\nInputs\n------\ndefault: DataContainer\n    Any DataContainer",
+    "long_description": "Requires an OPEN_SERIAL block.",
     "short_description": "Return a list of available Prologix USB-to-GPIB firmware commands.",
     "parameters": [
       {
