@@ -126,7 +126,7 @@ sudo ln -s /snap/bin/certbot /usr/bin/certbot
 6. Get and install SSL certificate:
 
 ```bash
-sudo certbot --nginx - <your-domain-name>
+sudo certbot --nginx -d <your-domain-name>
 ```
 And follow on screen instruction. This will get and install SSL certificate. Now visit `https://your-domain.com` and you should able to see Flojoy cloud app.
 
