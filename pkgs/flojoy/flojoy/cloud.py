@@ -40,7 +40,7 @@ MeasurementData = Boolean | Dataframe
 
 
 class CloudModel(BaseModel):
-    model_config = ConfigDict(alias_generator=to_camel)
+    model_config = ConfigDict(alias_generator=to_camel, protected_namespaces=())
     id: str
     created_at: datetime.datetime
 
@@ -129,17 +129,6 @@ class Project(CloudModel):
 
 class ProjectWithModel(Project):
     model: Model
-
-
-PlanType = Literal["hobby", "pro", "enterprise"]
-
-
-class Workspace(CloudModel):
-    name: str
-    namespace: str
-    plan_type: PlanType
-    total_seats: int
-    updated_at: Optional[datetime.datetime]
 
 
 class FlojoyCloudException(Exception):
@@ -247,6 +236,18 @@ class FlojoyCloud:
             "/tests",
             params={"projectId": project_id},
         )
+
+    @query(model=None)
+    def update_test(
+        self,
+        name: str,
+        test_id: str,
+    ):
+        return self.client.patch(f"/tests/{test_id}", json={"name": name})
+
+    @query(model=None)
+    def delete_test(self, test_id: str):
+        return self.client.delete(f"/tests/{test_id}")
 
     """Model Endpoints"""
 
@@ -401,10 +402,10 @@ class FlojoyCloud:
     """Project Routes"""
 
     @query(model=Project)
-    def create_project(self, name: str, workspace_id: str):
+    def create_project(self, name: str, model_id: str, workspace_id: str):
         return self.client.post(
             "/projects",
-            json={"name": name, "workspaceId": workspace_id},
+            json={"name": name, "modelId": model_id, "workspaceId": workspace_id},
         )
 
     @query(model=ProjectWithModel)
@@ -432,29 +433,8 @@ class FlojoyCloud:
 
     @query(model=None)
     def update_project(self, name: str, project_id: str):
-        return self.client.patch(f"/projects/{project_id}", params={"name": name})
+        return self.client.patch(f"/projects/{project_id}", json={"name": name})
 
     @query(model=None)
     def delete_project(self, project_id: str):
         return self.client.delete(f"/projects/{project_id}")
-
-    """Workspace Routes"""
-
-    @query(model=None)
-    def update_workspace(self, workspace_id: str, name: str):
-        return self.client.patch(
-            f"/workspaces/{workspace_id}",
-            json={"name": name},
-        )
-
-    @query(model=None)
-    def delete_workspace_by_id(self, workspace_id: str):
-        return self.client.delete(f"/workspaces/{workspace_id}")
-
-    @query(model=TypeAdapter(list[Workspace]))
-    def get_workspaces(self):
-        return self.client.get("/workspaces")
-
-    @query(model=Workspace)
-    def get_workspace_by_id(self, workspace_id: str):
-        return self.client.get(f"/workspaces/{workspace_id}")
