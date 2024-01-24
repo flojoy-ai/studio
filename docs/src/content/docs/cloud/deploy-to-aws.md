@@ -68,14 +68,15 @@ EOF
 cat <<EOF >/root/cloud/.env
 
 AWS_ACCESS_KEY_ID=""                    # AWS access key
-AWS_BUCKET_NAME=""                      # AWS S3 bucket name
-AWS_REGION=""                           # AWS region
 AWS_SECRET_ACCESS_KEY=""                # AWS secret key
+AWS_REGION=""                           # AWS region
+SENDER_EMAIL=""                         # Email registered with AWS SES for email verification mail sending
 GOOGLE_CLIENT_ID=""                     # Google auth client id
 GOOGLE_CLIENT_SECRET=""                 # Google client secret
 
-# Don't change below env value
+# Don't modify below env values
 GOOGLE_REDIRECT_URI="https://${cloud_domain}/login/google/callback"
+URL_ORIGIN="https://${cloud_domain}"
 
 EOF
 
@@ -95,5 +96,40 @@ Done! you've just deployed your own version of Flojoy Cloud app.
 
 We have deployed our own version of Flojoy cloud app. Now to allow app work properly we need to configure SSL on launched EC2 instance. Let's do that:
 
+1. Go to EC2 dashboard from left sidebar. Then click on just launched instance and copy public ip. Then add an 'A' record in your domain with this public ip.
 
-[To be continued...]
+2. Now connect to your EC2 instance with key-pair previously selected during configuring instance. Run following command to connect:
+
+```sh
+  ssh -i <path/to/key.pem> ubuntu@<public-ip>
+```
+
+3. Enable `root` mode:
+
+```sh
+  sudo su
+```
+
+4. Install `Certbot`:
+
+```bash
+  sudo apt update
+  sudo snap install --classic certbot
+```
+
+5. Prepare `Certbot`:
+
+```bash
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+```
+
+6. Get and install SSL certificate:
+
+```bash
+sudo certbot --nginx - <your-domain-name>
+```
+And follow on screen instruction. This will get and install SSL certificate. Now visit `https://your-domain.com` and you should able to see Flojoy cloud app.
+
+:::note
+If you see "502 Bad Gateway", that means cloud app is still in build. Allow few minutes to start the app.
+:::
