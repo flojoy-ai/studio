@@ -1,11 +1,12 @@
 import datetime
 import json
 import os
-from typing import Callable, Literal, Optional, ParamSpec, TypeVar, overload
+from typing import Callable, Literal, Optional, ParamSpec, TypeVar, Union, overload
+from typing_extensions import Annotated
 
 import numpy as np
 import httpx
-from pydantic import BaseModel, ConfigDict, TypeAdapter
+from pydantic import BaseModel, ConfigDict, Field, TypeAdapter
 from pydantic.alias_generators import to_camel
 
 
@@ -44,10 +45,47 @@ class CloudModel(BaseModel):
     created_at: datetime.datetime
 
 
-class Device(CloudModel):
+class SystemModelPart(BaseModel):
+    modelId: str
+    count: int
+    name: str
+
+
+class Model(CloudModel):
+    name: str
+    workspace_id: str
+
+
+class DeviceModel(Model):
+    type: Literal["device"]
+
+
+class SystemModel(Model):
+    type: Literal["system"]
+    parts: list[SystemModelPart]
+
+
+class SystemPart(BaseModel):
+    id: str
+    name: str
+    model: Model
+
+
+class Hardware(CloudModel):
     name: str
     updated_at: Optional[datetime.datetime]
-    project_id: str
+    workspace_id: str
+    model_id: str
+    model: Model
+
+
+class Device(Hardware):
+    type: Literal["device"]
+
+
+class System(Hardware):
+    type: Literal["system"]
+    parts: list[SystemPart]
 
 
 StorageProvider = Literal["s3", "local"]
@@ -55,12 +93,20 @@ StorageProvider = Literal["s3", "local"]
 
 class Measurement(CloudModel):
     name: str
-    device_id: str
+    hardware_id: str
     test_id: str
     measurement_type: MeasurementType
     storage_provider: StorageProvider
     data: dict
     is_deleted: bool
+
+
+class MeasurementWithHardware(Measurement):
+    hardware: Hardware
+
+
+class HardwareWithMeasurements(Hardware):
+    measurements: list[MeasurementWithHardware]
 
 
 class Test(CloudModel):
@@ -70,10 +116,19 @@ class Test(CloudModel):
     project_id: str
 
 
+class TestWithMeasurements(Test):
+    measurements: list[MeasurementWithHardware]
+
+
 class Project(CloudModel):
     name: str
     updated_at: Optional[datetime.datetime]
     workspace_id: str
+    model_id: str
+
+
+class ProjectWithModel(Project):
+    model: Model
 
 
 PlanType = Literal["hobby", "pro", "enterprise"]
@@ -81,6 +136,7 @@ PlanType = Literal["hobby", "pro", "enterprise"]
 
 class Workspace(CloudModel):
     name: str
+    namespace: str
     plan_type: PlanType
     total_seats: int
     updated_at: Optional[datetime.datetime]
@@ -181,7 +237,7 @@ class FlojoyCloud:
             },
         )
 
-    @query(model=Test)
+    @query(model=TestWithMeasurements)
     def get_test_by_id(self, test_id: str):
         return self.client.get(f"/tests/{test_id}")
 
@@ -192,30 +248,102 @@ class FlojoyCloud:
             params={"projectId": project_id},
         )
 
-    """Device Endpoints"""
+    """Model Endpoints"""
 
-    @query(model=Device)
-    def create_device(self, name: str, project_id: str):
+    @query(model=DeviceModel)
+    def create_device_model(self, name: str):
+        return self.client.post("/models/devices", json={"name": name})
+
+    @query(model=SystemModel)
+    def create_system_model(self, name: str):
+        return self.client.post("/models/systems", json={"name": name})
+
+    @query(
+        model=TypeAdapter(
+            list[
+                Annotated[Union[DeviceModel, SystemModel], Field(discriminator="type")]
+            ]
+        )
+    )
+    def get_all_models(self):
+        return self.client.get("/models")
+
+    @query(model=TypeAdapter(list[DeviceModel]))
+    def get_all_device_models(self):
+        return self.client.get("/models/devices")
+
+    @query(model=TypeAdapter(list[SystemModel]))
+    def get_all_system_models(self):
+        return self.client.get("/models/systems")
+
+    """Hardware Endpoints"""
+
+    @query(model=Hardware)
+    def create_device(self, name: str, model_id: str, project_id: str):
         return self.client.post(
-            "/devices",
-            json={"name": name, "projectId": project_id},
+            "/hardware/devices",
+            json={"name": name, "projectId": project_id, "modelId": model_id},
         )
 
-    @query(model=Device)
-    def get_device_by_id(self, device_id: str):
-        return self.client.get(f"/devices/{device_id}")
+    @query(model=Hardware)
+    def create_system(
+        self, name: str, model_id: str, device_ids: list[str], project_id: str
+    ):
+        return self.client.post(
+            "/hardware/systems",
+            json={
+                "name": name,
+                "projectId": project_id,
+                "deviceIds": device_ids,
+                "modelId": model_id,
+            },
+        )
+
+    @query(model=HardwareWithMeasurements)
+    def get_hardware_by_id(self, hardware_id: str):
+        return self.client.get(f"/hardware/{hardware_id}")
+
+    @query(model=TypeAdapter(list[Hardware]))
+    def get_all_hardware(
+        self,
+        workspace_id: str,
+        project_id: Optional[str] = None,
+        only_available: bool = False,
+    ):
+        params = {"workspaceId": workspace_id, "onlyAvailable": only_available}
+        if project_id is not None:
+            params["projectId"] = project_id
+
+        return self.client.get("/hardware", params=params)
 
     @query(model=TypeAdapter(list[Device]))
-    def get_all_devices(self, workspace_id: str, project_id: Optional[str] = None):
+    def get_all_devices(
+        self,
+        workspace_id: str,
+        project_id: Optional[str] = None,
+        only_available: bool = False,
+    ):
+        params = {"workspaceId": workspace_id, "onlyAvailable": only_available}
+        if project_id is not None:
+            params["projectId"] = project_id
+
+        return self.client.get("/hardware/devices", params=params)
+
+    @query(model=TypeAdapter(list[System]))
+    def get_all_systems(
+        self,
+        workspace_id: str,
+        project_id: Optional[str] = None,
+    ):
         params = {"workspaceId": workspace_id}
         if project_id is not None:
             params["projectId"] = project_id
 
-        return self.client.get("/devices", params=params)
+        return self.client.get("/hardware/systems", params=params)
 
-    @query(model=Device)
-    def delete_device_by_id(self, device_id: str):
-        return self.client.delete(f"/devices/{device_id}")
+    @query(model=None)
+    def delete_device_by_id(self, hardware_id: str):
+        return self.client.delete(f"/hardware/{hardware_id}")
 
     """Measurement Endpoints"""
 
@@ -224,15 +352,14 @@ class FlojoyCloud:
         self,
         data: MeasurementData,
         test_id: str,
-        device_id: str,
+        hardware_id: str,
         name: str | None = None,
         created_at: datetime.datetime | None = None,
     ):
         body = {
             "testId": test_id,
-            "deviceId": device_id,
+            "hardwareId": hardware_id,
             "data": data.model_dump(),
-            "measurementType": data.type,
         }
         if name is not None:
             body["name"] = name
@@ -247,7 +374,7 @@ class FlojoyCloud:
             },
         )
 
-    @query(model=TypeAdapter(list[Measurement]))
+    @query(model=TypeAdapter(list[MeasurementWithHardware]))
     def get_all_measurements_by_test_id(
         self,
         test_id: str,
@@ -267,6 +394,10 @@ class FlojoyCloud:
             params=query_params,
         )
 
+    @query(model=MeasurementWithHardware)
+    def get_measurement_by_id(self, measurement_id: str):
+        return self.client.get(f"/measurements/{measurement_id}")
+
     """Project Routes"""
 
     @query(model=Project)
@@ -276,7 +407,7 @@ class FlojoyCloud:
             json={"name": name, "workspaceId": workspace_id},
         )
 
-    @query(model=Project)
+    @query(model=ProjectWithModel)
     def get_project_by_id(self, project_id: str):
         return self.client.get(f"/projects/{project_id}")
 
@@ -288,16 +419,24 @@ class FlojoyCloud:
         )
 
     @query(model=None)
-    def add_device_to_project(self, device_id: str, project_id: str):
+    def add_device_to_project(self, hardware_id: str, project_id: str):
         return self.client.put(
-            f"/projects/{project_id}/devices/{device_id}",
+            f"/projects/{project_id}/hardware/{hardware_id}",
         )
 
     @query(model=None)
-    def remove_device_from_project(self, device_id: str, project_id: str):
+    def remove_device_from_project(self, hardware_id: str, project_id: str):
         return self.client.delete(
-            f"/projects/{project_id}/devices/{device_id}",
+            f"/projects/{project_id}/hardware/{hardware_id}",
         )
+
+    @query(model=None)
+    def update_project(self, name: str, project_id: str):
+        return self.client.patch(f"/projects/{project_id}", params={"name": name})
+
+    @query(model=None)
+    def delete_project(self, project_id: str):
+        return self.client.delete(f"/projects/{project_id}")
 
     """Workspace Routes"""
 
@@ -313,7 +452,7 @@ class FlojoyCloud:
         return self.client.delete(f"/workspaces/{workspace_id}")
 
     @query(model=TypeAdapter(list[Workspace]))
-    def get_all_workspaces(self):
+    def get_workspaces(self):
         return self.client.get("/workspaces")
 
     @query(model=Workspace)
