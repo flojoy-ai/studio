@@ -4,7 +4,7 @@ from typing import cast, Optional, Literal
 
 
 @flojoy(inject_connection=True)
-def PROLOGIX_READ(
+def PROLOGIX_EOI(
     connection: SerialConnection,
     default: Optional[DataContainer] = None,
     eoi: bool = True,

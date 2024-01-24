@@ -4,13 +4,13 @@
             {
                 "width": 192,
                 "height": 192,
-                "id": "OPEN_SERIAL-e1fcb395-9071-48b5-9ad9-f79cb4f72dce",
-                "type": "IO",
+                "id": "OPEN_SERIAL-ada6382f-64a9-4428-a27e-b832c2d900cd",
+                "type": "HARDWARE",
                 "data": {
-                    "id": "OPEN_SERIAL-e1fcb395-9071-48b5-9ad9-f79cb4f72dce",
+                    "id": "OPEN_SERIAL-ada6382f-64a9-4428-a27e-b832c2d900cd",
                     "label": "OPEN SERIAL",
                     "func": "OPEN_SERIAL",
-                    "type": "IO",
+                    "type": "HARDWARE",
                     "ctrls": {
                         "device": {
                             "type": "SerialDevice",
@@ -19,7 +19,7 @@
                             "overload": null,
                             "functionName": "OPEN_SERIAL",
                             "param": "device",
-                            "value": "/dev/cu.usbserial-PX75GRVT"
+                            "value": "COM12"
                         },
                         "baudrate": {
                             "type": "int",
@@ -29,6 +29,15 @@
                             "functionName": "OPEN_SERIAL",
                             "param": "baudrate",
                             "value": 9600
+                        },
+                        "connection_time": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "connection_time",
+                            "value": 0
                         }
                     },
                     "initCtrls": {},
@@ -46,30 +55,90 @@
                             "v": "3.5"
                         }
                     ],
-                    "path": "IO/PROTOCOLS/SERIAL/BASIC/OPEN_SERIAL/OPEN_SERIAL.py",
-                    "selected": false
+                    "path": "HARDWARE/PROTOCOLS/SERIAL/OPEN_SERIAL/OPEN_SERIAL.py"
                 },
                 "position": {
-                    "x": -628.3695500442519,
-                    "y": -130.0833366506728
+                    "x": -184.06115547352934,
+                    "y": -179.44829418177812
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -628.3695500442519,
-                    "y": -130.0833366506728
+                    "x": -184.06115547352934,
+                    "y": -179.44829418177812
                 },
                 "dragging": true
             },
             {
                 "width": 192,
                 "height": 192,
-                "id": "PROLOGIX_AUTO-64c0f1cb-a181-42a1-a921-9e97066ae5db",
-                "type": "IO",
+                "id": "PROLOGIX_ADDR-40a9d5fc-6f41-4a99-8c8b-0a99e6a28f0c",
+                "type": "HARDWARE",
                 "data": {
-                    "id": "PROLOGIX_AUTO-64c0f1cb-a181-42a1-a921-9e97066ae5db",
+                    "id": "PROLOGIX_ADDR-40a9d5fc-6f41-4a99-8c8b-0a99e6a28f0c",
+                    "label": "PROLOGIX ADDR",
+                    "func": "PROLOGIX_ADDR",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The open serial connection with the instrument.",
+                            "overload": null,
+                            "functionName": "PROLOGIX_ADDR",
+                            "param": "connection",
+                            "value": "COM12"
+                        },
+                        "addr": {
+                            "type": "int",
+                            "default": 10,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "PROLOGIX_ADDR",
+                            "param": "addr",
+                            "value": 10
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": "Any DataContainer - likely connected to the output of the OPEN_SERIAL block."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Response from the Prologix USB-to-GPIB controller."
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_ADDR/PROLOGIX_ADDR.py"
+                },
+                "position": {
+                    "x": 808.0086630973208,
+                    "y": -175.22000744889766
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 808.0086630973208,
+                    "y": -175.22000744889766
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "PROLOGIX_AUTO-2f9098f5-b665-4e5f-bbce-249f206cf9cb",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "PROLOGIX_AUTO-2f9098f5-b665-4e5f-bbce-249f206cf9cb",
                     "label": "PROLOGIX AUTO",
                     "func": "PROLOGIX_AUTO",
-                    "type": "IO",
+                    "type": "HARDWARE",
                     "ctrls": {
                         "connection": {
                             "type": "SerialConnection",
@@ -78,7 +147,7 @@
                             "overload": null,
                             "functionName": "PROLOGIX_AUTO",
                             "param": "connection",
-                            "value": "/dev/cu.usbserial-PX75GRVT"
+                            "value": "COM12"
                         },
                         "auto": {
                             "type": "select",
@@ -92,7 +161,7 @@
                             "overload": null,
                             "functionName": "PROLOGIX_AUTO",
                             "param": "auto",
-                            "value": "Current state"
+                            "value": "Off"
                         }
                     },
                     "initCtrls": {},
@@ -102,7 +171,7 @@
                             "id": "default",
                             "type": "Any",
                             "multiple": false,
-                            "desc": "Any DataContainer - likely connected to the output of the OPEN_SERIAL node."
+                            "desc": "Any DataContainer"
                         }
                     ],
                     "outputs": [
@@ -113,104 +182,29 @@
                             "desc": "Response from the Prologix USB-to-GPIB controller."
                         }
                     ],
-                    "pip_dependencies": [
-                        {
-                            "name": "pyserial",
-                            "v": "3.5"
-                        }
-                    ],
-                    "path": "IO/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_AUTO/PROLOGIX_AUTO.py",
-                    "selected": false
+                    "path": "HARDWARE/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_AUTO/PROLOGIX_AUTO.py"
                 },
                 "position": {
-                    "x": -291.01330554393314,
-                    "y": 141.21176512962404
+                    "x": 71.74295044882757,
+                    "y": -178.2182398679792
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -291.01330554393314,
-                    "y": 141.21176512962404
+                    "x": 71.74295044882757,
+                    "y": -178.2182398679792
                 },
                 "dragging": true
             },
             {
                 "width": 192,
                 "height": 192,
-                "id": "PROLOGIX_ADDR-98c87b2a-b1c9-4b19-9caf-c51cc775694d",
-                "type": "IO",
+                "id": "PROLOGIX_MODE-387d8034-e316-4855-933e-046b17e80fb9",
+                "type": "HARDWARE",
                 "data": {
-                    "id": "PROLOGIX_ADDR-98c87b2a-b1c9-4b19-9caf-c51cc775694d",
-                    "label": "PROLOGIX ADDR",
-                    "func": "PROLOGIX_ADDR",
-                    "type": "IO",
-                    "ctrls": {
-                        "connection": {
-                            "type": "SerialConnection",
-                            "default": null,
-                            "desc": "The open serial connection with the instrument.",
-                            "overload": null,
-                            "functionName": "PROLOGIX_ADDR",
-                            "param": "connection",
-                            "value": "/dev/cu.usbserial-PX75GRVT"
-                        },
-                        "addr": {
-                            "type": "int",
-                            "default": 22,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "PROLOGIX_ADDR",
-                            "param": "addr",
-                            "value": 22
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": "Any DataContainer - likely connected to the output of the OPEN_SERIAL node."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "Response from the Prologix USB-to-GPIB controller."
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "pyserial",
-                            "v": "3.5"
-                        }
-                    ],
-                    "path": "IO/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_ADDR/PROLOGIX_ADDR.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -296.8867855429962,
-                    "y": -127.35186275581793
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -296.8867855429962,
-                    "y": -127.35186275581793
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "PROLOGIX_MODE-12977206-e963-47e7-85be-358235fee6eb",
-                "type": "IO",
-                "data": {
-                    "id": "PROLOGIX_MODE-12977206-e963-47e7-85be-358235fee6eb",
+                    "id": "PROLOGIX_MODE-387d8034-e316-4855-933e-046b17e80fb9",
                     "label": "PROLOGIX MODE",
                     "func": "PROLOGIX_MODE",
-                    "type": "IO",
+                    "type": "HARDWARE",
                     "ctrls": {
                         "connection": {
                             "type": "SerialConnection",
@@ -219,7 +213,7 @@
                             "overload": null,
                             "functionName": "PROLOGIX_MODE",
                             "param": "connection",
-                            "value": "/dev/cu.usbserial-PX75GRVT"
+                            "value": "COM12"
                         },
                         "mode": {
                             "type": "select",
@@ -242,7 +236,7 @@
                             "id": "default",
                             "type": "Any",
                             "multiple": false,
-                            "desc": "Any DataContainer - likely connected to the output of the OPEN_SERIAL node."
+                            "desc": "Any DataContainer"
                         }
                     ],
                     "outputs": [
@@ -253,37 +247,64 @@
                             "desc": "Response from the Prologix USB-to-GPIB controller."
                         }
                     ],
-                    "pip_dependencies": [
-                        {
-                            "name": "pyserial",
-                            "v": "3.5"
-                        }
-                    ],
-                    "path": "IO/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_MODE/PROLOGIX_MODE.py",
-                    "selected": false
+                    "path": "HARDWARE/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_MODE/PROLOGIX_MODE.py"
                 },
                 "position": {
-                    "x": -299.16744190685495,
-                    "y": -399.5041112278735
+                    "x": 321.0113101717688,
+                    "y": -180.729057562009
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -299.16744190685495,
-                    "y": -399.5041112278735
+                    "x": 321.0113101717688,
+                    "y": -180.729057562009
                 },
                 "dragging": true
             },
             {
-                "width": 273,
-                "height": 160,
-                "id": "PRINT_DATACONTAINER-7dc8d805-b10c-4145-a28a-ee9dcdf7855f",
-                "type": "EXTRACTORS",
+                "width": 192,
+                "height": 192,
+                "id": "PROLOGIX_EOI-2bdb9d2c-6b0e-409b-aa13-77ee150a1635",
+                "type": "HARDWARE",
                 "data": {
-                    "id": "PRINT_DATACONTAINER-7dc8d805-b10c-4145-a28a-ee9dcdf7855f",
-                    "label": "PRINT DATACONTAINER",
-                    "func": "PRINT_DATACONTAINER",
-                    "type": "EXTRACTORS",
-                    "ctrls": {},
+                    "id": "PROLOGIX_EOI-2bdb9d2c-6b0e-409b-aa13-77ee150a1635",
+                    "label": "PROLOGIX EOI",
+                    "func": "PROLOGIX_EOI",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The open serial connection with the instrument.",
+                            "overload": null,
+                            "functionName": "PROLOGIX_EOI",
+                            "param": "connection",
+                            "value": "COM12"
+                        },
+                        "eoi": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "Use EOI (1) or not (0).",
+                            "overload": null,
+                            "functionName": "PROLOGIX_EOI",
+                            "param": "eoi",
+                            "value": true
+                        },
+                        "eos": {
+                            "type": "select",
+                            "options": [
+                                "CR+LF",
+                                "CR",
+                                "LF",
+                                "None"
+                            ],
+                            "default": "None",
+                            "desc": "Which terminator to use.",
+                            "overload": null,
+                            "functionName": "PROLOGIX_EOI",
+                            "param": "eos",
+                            "value": "None"
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
@@ -299,338 +320,83 @@
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "desc": "String: Input datacontainer information"
+                            "desc": "Response from the Prologix USB-to-GPIB controller."
                         }
                     ],
-                    "path": "EXTRACTORS/DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py",
-                    "selected": true
+                    "path": "HARDWARE/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_EOI/PROLOGIX_EOI.py"
                 },
                 "position": {
-                    "x": 9.534992068056255,
-                    "y": 158.93742789390558
-                },
-                "selected": true,
-                "positionAbsolute": {
-                    "x": 9.534992068056255,
-                    "y": 158.93742789390558
-                },
-                "dragging": true
-            },
-            {
-                "width": 273,
-                "height": 160,
-                "id": "PRINT_DATACONTAINER-705faa47-4605-422d-b862-2a215836930d",
-                "type": "EXTRACTORS",
-                "data": {
-                    "id": "PRINT_DATACONTAINER-705faa47-4605-422d-b862-2a215836930d",
-                    "label": "PRINT DATACONTAINER 1",
-                    "func": "PRINT_DATACONTAINER",
-                    "type": "EXTRACTORS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "String: Input datacontainer information"
-                        }
-                    ],
-                    "path": "EXTRACTORS/DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 9.069179875222915,
-                    "y": -111.77518944899901
+                    "x": 563.3596575315087,
+                    "y": -180.93178072325523
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 9.069179875222915,
-                    "y": -111.77518944899901
-                },
-                "dragging": true
-            },
-            {
-                "width": 273,
-                "height": 160,
-                "id": "PRINT_DATACONTAINER-79a4affd-e9b5-4aef-a383-7d9bdc20138a",
-                "type": "EXTRACTORS",
-                "data": {
-                    "id": "PRINT_DATACONTAINER-79a4affd-e9b5-4aef-a383-7d9bdc20138a",
-                    "label": "PRINT DATACONTAINER 2",
-                    "func": "PRINT_DATACONTAINER",
-                    "type": "EXTRACTORS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "String: Input datacontainer information"
-                        }
-                    ],
-                    "path": "EXTRACTORS/DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 8.862712458982685,
-                    "y": -383.3113942703777
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 8.862712458982685,
-                    "y": -383.3113942703777
-                },
-                "dragging": true
-            },
-            {
-                "width": 384,
-                "height": 288,
-                "id": "TEXT_VIEW-e1176865-6d51-42f6-9bd4-1e2d1ad73ef9",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TEXT_VIEW-e1176865-6d51-42f6-9bd4-1e2d1ad73ef9",
-                    "label": "TEXT VIEW",
-                    "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {
-                        "prettify": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": "Whether to prettify the displayed text (defaults to True)",
-                            "overload": null,
-                            "functionName": "TEXT_VIEW",
-                            "param": "prettify",
-                            "value": true
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "The DataContainer to be visualized in text format"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "The DataContainer containing text data"
-                        }
-                    ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 435.3382469911546,
-                    "y": 175.17006923996496
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 435.3382469911546,
-                    "y": 175.17006923996496
-                },
-                "dragging": true
-            },
-            {
-                "width": 384,
-                "height": 288,
-                "id": "TEXT_VIEW-9306fdc7-f2d1-4650-a386-ad3ebe9fb1c3",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TEXT_VIEW-9306fdc7-f2d1-4650-a386-ad3ebe9fb1c3",
-                    "label": "TEXT VIEW 1",
-                    "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {
-                        "prettify": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": "Whether to prettify the displayed text (defaults to True)",
-                            "overload": null,
-                            "functionName": "TEXT_VIEW",
-                            "param": "prettify",
-                            "value": true
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "The DataContainer to be visualized in text format"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "The DataContainer containing text data"
-                        }
-                    ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 422.36257845690176,
-                    "y": -147.93370633164506
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 422.36257845690176,
-                    "y": -147.93370633164506
-                },
-                "dragging": true
-            },
-            {
-                "width": 384,
-                "height": 288,
-                "id": "TEXT_VIEW-005157b9-74d6-464a-abdb-47694b7017bc",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TEXT_VIEW-005157b9-74d6-464a-abdb-47694b7017bc",
-                    "label": "TEXT VIEW 2",
-                    "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {
-                        "prettify": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": "Whether to prettify the displayed text (defaults to True)",
-                            "overload": null,
-                            "functionName": "TEXT_VIEW",
-                            "param": "prettify",
-                            "value": true
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "The DataContainer to be visualized in text format"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "The DataContainer containing text data"
-                        }
-                    ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 416.3847981136062,
-                    "y": -484.9274809881268
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 416.3847981136062,
-                    "y": -484.9274809881268
+                    "x": 563.3596575315087,
+                    "y": -180.93178072325523
                 },
                 "dragging": true
             }
         ],
         "edges": [
             {
-                "source": "OPEN_SERIAL-e1fcb395-9071-48b5-9ad9-f79cb4f72dce",
+                "source": "OPEN_SERIAL-ada6382f-64a9-4428-a27e-b832c2d900cd",
                 "sourceHandle": "default",
-                "target": "PROLOGIX_ADDR-98c87b2a-b1c9-4b19-9caf-c51cc775694d",
+                "target": "PROLOGIX_AUTO-2f9098f5-b665-4e5f-bbce-249f206cf9cb",
                 "targetHandle": "default",
-                "id": "reactflow__edge-OPEN_SERIAL-e1fcb395-9071-48b5-9ad9-f79cb4f72dcedefault-PROLOGIX_ADDR-98c87b2a-b1c9-4b19-9caf-c51cc775694ddefault"
+                "id": "reactflow__edge-OPEN_SERIAL-ada6382f-64a9-4428-a27e-b832c2d900cddefault-PROLOGIX_AUTO-2f9098f5-b665-4e5f-bbce-249f206cf9cbdefault"
             },
             {
-                "source": "PROLOGIX_MODE-12977206-e963-47e7-85be-358235fee6eb",
+                "source": "PROLOGIX_AUTO-2f9098f5-b665-4e5f-bbce-249f206cf9cb",
                 "sourceHandle": "default",
-                "target": "PRINT_DATACONTAINER-79a4affd-e9b5-4aef-a383-7d9bdc20138a",
+                "target": "PROLOGIX_MODE-387d8034-e316-4855-933e-046b17e80fb9",
                 "targetHandle": "default",
-                "id": "reactflow__edge-PROLOGIX_MODE-12977206-e963-47e7-85be-358235fee6ebdefault-PRINT_DATACONTAINER-79a4affd-e9b5-4aef-a383-7d9bdc20138adefault"
+                "id": "reactflow__edge-PROLOGIX_AUTO-2f9098f5-b665-4e5f-bbce-249f206cf9cbdefault-PROLOGIX_MODE-387d8034-e316-4855-933e-046b17e80fb9default"
             },
             {
-                "source": "OPEN_SERIAL-e1fcb395-9071-48b5-9ad9-f79cb4f72dce",
+                "source": "PROLOGIX_MODE-387d8034-e316-4855-933e-046b17e80fb9",
                 "sourceHandle": "default",
-                "target": "PROLOGIX_MODE-12977206-e963-47e7-85be-358235fee6eb",
+                "target": "PROLOGIX_EOI-2bdb9d2c-6b0e-409b-aa13-77ee150a1635",
                 "targetHandle": "default",
-                "id": "reactflow__edge-OPEN_SERIAL-e1fcb395-9071-48b5-9ad9-f79cb4f72dcedefault-PROLOGIX_MODE-12977206-e963-47e7-85be-358235fee6ebdefault"
+                "id": "reactflow__edge-PROLOGIX_MODE-387d8034-e316-4855-933e-046b17e80fb9default-PROLOGIX_EOI-2bdb9d2c-6b0e-409b-aa13-77ee150a1635default"
             },
             {
-                "source": "OPEN_SERIAL-e1fcb395-9071-48b5-9ad9-f79cb4f72dce",
+                "source": "PROLOGIX_EOI-2bdb9d2c-6b0e-409b-aa13-77ee150a1635",
                 "sourceHandle": "default",
-                "target": "PROLOGIX_AUTO-64c0f1cb-a181-42a1-a921-9e97066ae5db",
+                "target": "PROLOGIX_ADDR-40a9d5fc-6f41-4a99-8c8b-0a99e6a28f0c",
                 "targetHandle": "default",
-                "id": "reactflow__edge-OPEN_SERIAL-e1fcb395-9071-48b5-9ad9-f79cb4f72dcedefault-PROLOGIX_AUTO-64c0f1cb-a181-42a1-a921-9e97066ae5dbdefault"
-            },
-            {
-                "source": "PROLOGIX_ADDR-98c87b2a-b1c9-4b19-9caf-c51cc775694d",
-                "sourceHandle": "default",
-                "target": "PRINT_DATACONTAINER-705faa47-4605-422d-b862-2a215836930d",
-                "targetHandle": "default",
-                "id": "reactflow__edge-PROLOGIX_ADDR-98c87b2a-b1c9-4b19-9caf-c51cc775694ddefault-PRINT_DATACONTAINER-705faa47-4605-422d-b862-2a215836930ddefault"
-            },
-            {
-                "source": "PROLOGIX_AUTO-64c0f1cb-a181-42a1-a921-9e97066ae5db",
-                "sourceHandle": "default",
-                "target": "PRINT_DATACONTAINER-7dc8d805-b10c-4145-a28a-ee9dcdf7855f",
-                "targetHandle": "default",
-                "id": "reactflow__edge-PROLOGIX_AUTO-64c0f1cb-a181-42a1-a921-9e97066ae5dbdefault-PRINT_DATACONTAINER-7dc8d805-b10c-4145-a28a-ee9dcdf7855fdefault"
-            },
-            {
-                "source": "PRINT_DATACONTAINER-79a4affd-e9b5-4aef-a383-7d9bdc20138a",
-                "sourceHandle": "default",
-                "target": "TEXT_VIEW-005157b9-74d6-464a-abdb-47694b7017bc",
-                "targetHandle": "default",
-                "id": "reactflow__edge-PRINT_DATACONTAINER-79a4affd-e9b5-4aef-a383-7d9bdc20138adefault-TEXT_VIEW-005157b9-74d6-464a-abdb-47694b7017bcdefault"
-            },
-            {
-                "source": "PRINT_DATACONTAINER-705faa47-4605-422d-b862-2a215836930d",
-                "sourceHandle": "default",
-                "target": "TEXT_VIEW-9306fdc7-f2d1-4650-a386-ad3ebe9fb1c3",
-                "targetHandle": "default",
-                "id": "reactflow__edge-PRINT_DATACONTAINER-705faa47-4605-422d-b862-2a215836930ddefault-TEXT_VIEW-9306fdc7-f2d1-4650-a386-ad3ebe9fb1c3default"
-            },
-            {
-                "source": "PRINT_DATACONTAINER-7dc8d805-b10c-4145-a28a-ee9dcdf7855f",
-                "sourceHandle": "default",
-                "target": "TEXT_VIEW-e1176865-6d51-42f6-9bd4-1e2d1ad73ef9",
-                "targetHandle": "default",
-                "id": "reactflow__edge-PRINT_DATACONTAINER-7dc8d805-b10c-4145-a28a-ee9dcdf7855fdefault-TEXT_VIEW-e1176865-6d51-42f6-9bd4-1e2d1ad73ef9default"
+                "id": "reactflow__edge-PROLOGIX_EOI-2bdb9d2c-6b0e-409b-aa13-77ee150a1635default-PROLOGIX_ADDR-40a9d5fc-6f41-4a99-8c8b-0a99e6a28f0cdefault"
             }
         ],
         "viewport": {
-            "x": 531.2578257632742,
-            "y": 458.93935293704044,
-            "zoom": 0.5
+            "x": 789.9703331218914,
+            "y": 505.07257789105404,
+            "zoom": 1.2011303724799078
         }
-    }
+    },
+    "textNodes": [
+        {
+            "id": "TextNode-e6980a5e-5106-4222-bbb8-fc74445ddc8a",
+            "position": {
+                "x": 163.88050589821353,
+                "y": 61.61524778253852
+            },
+            "type": "TextNode",
+            "data": {
+                "text": "### This app prepares the Prologix GPIB-USB adapter for use with a VISA instrument. AUTO mode should be turned off, CONTROLLER mode should be selected, EOI should be on with EOS set to None, and the GPIB address should match the instrument's."
+            },
+            "width": 560,
+            "height": 228,
+            "selected": false,
+            "positionAbsolute": {
+                "x": 163.88050589821353,
+                "y": 61.61524778253852
+            },
+            "dragging": false,
+            "style": {
+                "width": 560,
+                "height": 228
+            },
+            "resizing": false
+        }
+    ]
 }

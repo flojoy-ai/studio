@@ -1,6 +1,6 @@
 import serial
 from flojoy import flojoy, SerialConnection, DataContainer, String
-from typing import cast, Optional, Literal
+from typing import cast, Optional
 
 
 @flojoy(inject_connection=True)
@@ -10,7 +10,7 @@ def PROLOGIX_READ(
 ) -> String:
     """Returns the response from the GPIB instrument.
 
-    For example if you query a VISA instrument with "*IDN?\n" using a
+    For example if you query a VISA instrument with "*IDN?" using a
     SERIAL_WRITE block, this block must be used to return the response.
 
     Not required if the PROLOGIX_AUTO setting is "on" (not recommended).

@@ -1,6 +1,6 @@
 {
   "docstring": {
-    "long_description": "When Read-After-Write is on, the Prologix USB-to-GPIB controller automatically reads a bench-top instrument's response after writing a command to it.\n\nInputs\n------\ndefault: DataContainer\n    Any DataContainer - likely connected to the output of the OPEN_SERIAL block.",
+    "long_description": "When Read-After-Write is on, the Prologix USB-to-GPIB controller\nautomatically reads a bench-top instrument's response after writing a\ncommand to it.\n\nRequires an OPEN_SERIAL block.\n\nInputs\n------\ndefault: DataContainer\n    Any DataContainer",
     "short_description": "Toggle \"Read-After-Write\" mode on or off.",
     "parameters": [
       {

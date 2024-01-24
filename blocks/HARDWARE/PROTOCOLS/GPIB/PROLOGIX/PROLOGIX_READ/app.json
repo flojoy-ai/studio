@@ -1,0 +1,296 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "OPEN_SERIAL-ada6382f-64a9-4428-a27e-b832c2d900cd",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "OPEN_SERIAL-ada6382f-64a9-4428-a27e-b832c2d900cd",
+                    "label": "OPEN SERIAL",
+                    "func": "OPEN_SERIAL",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "device": {
+                            "type": "SerialDevice",
+                            "default": null,
+                            "desc": "The connected serial device.",
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "device",
+                            "value": "COM12"
+                        },
+                        "baudrate": {
+                            "type": "int",
+                            "default": 9600,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "baudrate",
+                            "value": 9600
+                        },
+                        "connection_time": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "connection_time",
+                            "value": 0
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": null
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "pyserial",
+                            "v": "3.5"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/SERIAL/OPEN_SERIAL/OPEN_SERIAL.py"
+                },
+                "position": {
+                    "x": -186.55880274707724,
+                    "y": -179.44829418177812
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -186.55880274707724,
+                    "y": -179.44829418177812
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "SERIAL_WRITE-50e29a18-4cf7-4c07-8544-c61710a6e3aa",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "SERIAL_WRITE-50e29a18-4cf7-4c07-8544-c61710a6e3aa",
+                    "label": "SERIAL WRITE",
+                    "func": "SERIAL_WRITE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialDevice",
+                            "default": null,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "connection",
+                            "value": "COM12"
+                        },
+                        "write": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "The string to write to the serial device.",
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "write",
+                            "value": "*IDN?"
+                        },
+                        "encoding": {
+                            "type": "select",
+                            "options": [
+                                "bytes",
+                                "utf-8",
+                                "ascii"
+                            ],
+                            "default": "bytes",
+                            "desc": "Which string encoding method to use.",
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "encoding",
+                            "value": "bytes"
+                        },
+                        "terminator": {
+                            "type": "select",
+                            "options": [
+                                "CR+LF",
+                                "CR",
+                                "LF",
+                                "None"
+                            ],
+                            "default": "None",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "terminator",
+                            "value": "LF"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The input string."
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/SERIAL/SERIAL_WRITE/SERIAL_WRITE.py"
+                },
+                "position": {
+                    "x": 66.20400886417897,
+                    "y": -176.27363520569713
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 66.20400886417897,
+                    "y": -176.27363520569713
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "PROLOGIX_READ-fe3235c1-6942-43ad-a58c-5d1fbb35f817",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "PROLOGIX_READ-fe3235c1-6942-43ad-a58c-5d1fbb35f817",
+                    "label": "PROLOGIX READ",
+                    "func": "PROLOGIX_READ",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The open serial connection with the instrument.",
+                            "overload": null,
+                            "functionName": "PROLOGIX_READ",
+                            "param": "connection",
+                            "value": "COM12"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": "Any DataContainer"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Response from the Prologix USB-to-GPIB controller."
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_READ/PROLOGIX_READ.py"
+                },
+                "position": {
+                    "x": 339.3261674880991,
+                    "y": -173.51738067805772
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 339.3261674880991,
+                    "y": -173.51738067805772
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 225,
+                "id": "TEXT_VIEW-18c8cefe-4bba-4dfc-977d-9fd47fe2f793",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TEXT_VIEW-18c8cefe-4bba-4dfc-977d-9fd47fe2f793",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String|Boolean",
+                            "multiple": false,
+                            "desc": "The DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
+                },
+                "position": {
+                    "x": 621.7288172661528,
+                    "y": -185.8301657669983
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 621.7288172661528,
+                    "y": -185.8301657669983
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "OPEN_SERIAL-ada6382f-64a9-4428-a27e-b832c2d900cd",
+                "sourceHandle": "default",
+                "target": "SERIAL_WRITE-50e29a18-4cf7-4c07-8544-c61710a6e3aa",
+                "targetHandle": "default",
+                "id": "reactflow__edge-OPEN_SERIAL-ada6382f-64a9-4428-a27e-b832c2d900cddefault-SERIAL_WRITE-50e29a18-4cf7-4c07-8544-c61710a6e3aadefault"
+            },
+            {
+                "source": "SERIAL_WRITE-50e29a18-4cf7-4c07-8544-c61710a6e3aa",
+                "sourceHandle": "default",
+                "target": "PROLOGIX_READ-fe3235c1-6942-43ad-a58c-5d1fbb35f817",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SERIAL_WRITE-50e29a18-4cf7-4c07-8544-c61710a6e3aadefault-PROLOGIX_READ-fe3235c1-6942-43ad-a58c-5d1fbb35f817default"
+            },
+            {
+                "source": "PROLOGIX_READ-fe3235c1-6942-43ad-a58c-5d1fbb35f817",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-18c8cefe-4bba-4dfc-977d-9fd47fe2f793",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PROLOGIX_READ-fe3235c1-6942-43ad-a58c-5d1fbb35f817default-TEXT_VIEW-18c8cefe-4bba-4dfc-977d-9fd47fe2f793default"
+            }
+        ],
+        "viewport": {
+            "x": 789.9703331218914,
+            "y": 505.07257789105404,
+            "zoom": 1.2011303724799078
+        }
+    },
+    "textNodes": []
+}
