@@ -5,9 +5,7 @@ import can
 
 @flojoy(deps={"python-can": "4.2.2"})
 def PCAN_READ(
-    PCAN_address: str,
-    timeout: int = 10,
-    default: Optional[DataContainer] = None
+    PCAN_address: str, timeout: int = 10, default: Optional[DataContainer] = None
 ) -> Stateful:
     """Read data from a PCAN device.
 
@@ -32,10 +30,12 @@ def PCAN_READ(
     Stateful : can.message.Message
         Return a can bus message
     """
-    
+
     assert PCAN_address == "", "Please provide a valid PCAN address"
 
-    connection: can.interface.Bus = DeviceConnectionManager.get_connection(PCAN_address).get_handle()
+    connection: can.interface.Bus = DeviceConnectionManager.get_connection(
+        PCAN_address
+    ).get_handle()
 
     msg = connection.recv(timeout)
 

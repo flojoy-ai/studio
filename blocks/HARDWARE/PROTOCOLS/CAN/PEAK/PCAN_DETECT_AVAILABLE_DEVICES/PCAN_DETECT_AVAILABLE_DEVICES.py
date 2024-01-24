@@ -4,9 +4,7 @@ from typing import Optional
 
 
 @flojoy(deps={"python-can": "4.2.2"})
-def PCAN_DETECT_AVAILABLE_DEVICES(
-    default: Optional[DataContainer]
-) -> String:
+def PCAN_DETECT_AVAILABLE_DEVICES(default: Optional[DataContainer]) -> String:
     """Detects available PCAN devices and returns a string containing the device name and the channel number.
 
     This blocks is use to detect available PCAN devices and returns a string containing the device name and the channel number.
@@ -27,12 +25,14 @@ def PCAN_DETECT_AVAILABLE_DEVICES(
         A string containing the device name and the channel number.
     """
     available_channels = can.detect_available_configs("pcan")
-    
+
     str_builder = ""
     for channel in available_channels:
         str_builder += f"{channel['device_name']}: {channel['channel']}\n"
 
     if str_builder == "":
-        raise Exception("No device available detected. Please make sure that the PCAN drivers are installed.")
+        raise Exception(
+            "No device available detected. Please make sure that the PCAN drivers are installed."
+        )
 
     return String(str_builder)
