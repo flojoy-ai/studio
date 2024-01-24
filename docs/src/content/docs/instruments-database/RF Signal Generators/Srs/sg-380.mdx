@@ -1,0 +1,86 @@
+---
+title: Connecting to SG 380 by Stanford Research Systems in Python
+description: The SG380 Series RF Signal Generators use a unique, innovative architecture (Rational Approximation Frequency Synthesis) to deliver ultra-high frequency resolution (1 µHz), excellent phase noise, and versatile modulation capabilities (AM, FM, ØM, pulse modulation and sweeps) at a fraction of the cost of competing designs. The standard models produce sine waves from DC to 2.025 GHz (SG382), 4.05 GHz (SG384) and 6.075 GHz (SG386).
+keywords: [RF Signal Generators, Stanford Research Systems, PyMeasure] 
+slug: instruments-database/rf-signal-generators/srs/sg-380 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782478/Instruments/RF%20Signal%20Generator/SG-380/SG-380.jpg
+sidebar:
+    label: SG 380 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The SG380 Series RF Signal Generators use a unique, innovative architecture (Rational Approximation Frequency Synthesis) to deliver ultra-high frequency resolution (1 µHz), excellent phase noise, and versatile modulation capabilities (AM, FM, ØM, pulse modulation and sweeps) at a fraction of the cost of competing designs. The standard models produce sine waves from DC to 2.025 GHz (SG382), 4.05 GHz (SG384) and 6.075 GHz (SG386).
+
+![SG 380](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782478/Instruments/RF%20Signal%20Generator/SG-380/SG-380.jpg)
+
+Device Specification: [here](https://www.thinksrs.com/downloads/pdfs/catalog/SG380c.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: STANFORD RESEARCH SYSTEMS</h2></summary>
+
+![STANFORD RESEARCH SYSTEMS](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806206/Instruments/Vendor%20Logos/Stanford_Research.png)
+
+Stanford Research Systems is a maker of general test and measurement instruments. The company was founded in 1980, is privately held, and is not affiliated with Stanford University. Stanford Research Systems manufactures all of their products at their Sunnyvale, California facility.
+
+- Headquarters: Sunnyvale, California
+- Yearly Revenue (millions, USD): 24.9
+- Vendor Website: [here](https://www.thinksrs.com/index.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="RF_SIGNAL_GENERATORS" />
+
+## Connect to the SG 380 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="RF_SIGNAL_GENERATORS" manufacturer="Stanford Research Systems"></SectionsCard>
+
+</TabItem>
+<TabItem value="PyMeasure" label="PyMeasure">
+
+```python
+from pymeasure.adapters import VISAAdapter
+from pymeasure.instruments import SG380
+
+# Create a VISA adapter for communication with the instrument
+adapter = VISAAdapter("TCPIP::192.168.1.1::INSTR")
+
+# Create an instance of the SG380 RF Signal Generator
+sg = SG380(adapter)
+
+# Connect to the instrument
+sg.open()
+
+# Access the properties and methods of the instrument
+frequency = sg.frequency
+print("Current frequency: {} Hz".format(frequency))
+
+sg.frequency = 1E6
+print("Frequency set to 1 MHz")
+
+mod_type = sg.mod_type
+print("Current modulation type: {}".format(mod_type))
+
+sg.mod_type = 'AM'
+print("Modulation type set to AM")
+
+# Close the connection to the instrument
+sg.close()
+```
+
+This script demonstrates how to connect to an SG380 RF Signal Generator using Pymeasure. It creates a VISA adapter for communication, creates an instance of the SG380 instrument, opens the connection, and then accesses and sets various properties of the instrument. Finally, it closes the connection.
+
+</TabItem>
+</Tabs>
