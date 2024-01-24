@@ -12,6 +12,11 @@
         "name": "b",
         "type": "OrderedPair|Scalar|Vector",
         "description": "The input b use to compute the log with base b."
+      },
+      {
+        "name": "log_base",
+        "type": "\"input\", \"e\", \"10\", \"2\"",
+        "description": "The base to use for the logarithm, by default \"e\"."
       }
     ],
     "returns": [
