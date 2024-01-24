@@ -15,6 +15,16 @@ You can use our public cloud app for your test and measurement from here -> <htt
 
 Additionally, you can deploy your own cloud app with our public AWS AMI. In this tutorial I'll show you how to deploy your own cloud version of Flojoy cloud app with few very straightforward steps.
 
+## Prerequisites
+
+- An AWS account
+
+- Enabled Google Oauth2.0 API. [See here](https://developers.google.com/identity/protocols/oauth2/javascript-implicit-flow)
+
+- A valid domain (For SSL and HTTPS connection).
+
+- Active AWS SES with domain (For sending verification emails)
+
 ## Steps to deploy on AWS
 
 - First, Log into your AWS account. And head to EC2 dashboard. You can use search bar from top left corner for this. Just type `ec2` and you'll find the link for EC2 dashboard.
@@ -88,6 +98,10 @@ EOF
 Don't forget to update the script with app domain name and other credentials information.
 :::
 
+:::note
+Credentials are required for app to run. App will fail to start if credentials are not provided.
+:::
+
 - Almost there! now click on `launch instance` button.
 
 Done! you've just deployed your own version of Flojoy Cloud app.
@@ -128,6 +142,7 @@ sudo ln -s /snap/bin/certbot /usr/bin/certbot
 ```bash
 sudo certbot --nginx -d <your-domain-name>
 ```
+
 And follow on screen instruction. This will get and install SSL certificate. Now visit `https://your-domain.com` and you should able to see Flojoy cloud app.
 
 :::note
