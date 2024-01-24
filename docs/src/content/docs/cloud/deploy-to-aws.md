@@ -133,3 +133,5 @@ And follow on screen instruction. This will get and install SSL certificate. Now
 :::note
 If you see "502 Bad Gateway", that means cloud app is still in build. Allow few minutes to start the app.
 :::
+
+Having issues with deployment? Join our [Discord Community](https://discord.gg/7HEBr7yG8c) and we will help you out!
