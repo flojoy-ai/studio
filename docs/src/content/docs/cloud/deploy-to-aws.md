@@ -21,53 +21,79 @@ Additionally, you can deploy your own cloud app with our public AWS AMI. In this
 
 - From left side bar select AMIs. Then change AMI type from `owned by me` to `public images` from dropdown before AMI search bar.
 
+![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1706057367/flojoy-docs/flojoy-cloud/pper1h8aqpgrsmzvy9iv.png)
+
 - Now, in the AMI search input type for `Flojoy-Cloud-AMI` and you'll find our public AMI for cloud app. Select it then click on `Launch instances from AMI`.
+
+![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1706057689/flojoy-docs/flojoy-cloud/vqo3c4h6ubypoteekhsr.png)
 
 - In the next page, provide a name to your instance. In `instance type` section select at least `t3.large`( 2cpu and 8gb ram) to allow app run smooth and fast.
 
-- In the next section select a key pair for SSH purpose. After that in `Network` section select `Allow HTTP traffic from the internet` option.
+- In the next section select a key pair for SSH purpose. After that in `Network` section select `Allow HTTP traffic from the internet`, `Allow HTTPS traffic from the internet` and `Allow SSH traffic from` option.
 
-- Scroll down and click on `Advanced details` to expand that section. Then head to `user data` input and paste following template with valid credentials.
+![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1706058441/flojoy-docs/flojoy-cloud/klw2yy5kjaqjqzfcupcl.png)
+
+:::caution
+It is recommended to specify only known ip address for SSH traffic.
+:::
+
+- Scroll down and click on `Advanced details` to expand that section.
+
+![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1706058310/flojoy-docs/flojoy-cloud/fo7vaykvzuvus76dfjil.png)
+
+- Now head to `user data` input at the bottom of `Advanced details` section and paste following template with valid credentials.
 
 ```sh
 #!/bin/bash
 
-public_ip=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)
+cloud_domain="your-domain.com" # Domain name to use for cloud e.g. cloud.flojoy.ai
+
+cat <<EOF >/etc/nginx/conf.d/default.conf
+server {
+listen 80;
+
+server_name ${cloud_domain};
+
+location / {
+    proxy_pass http://localhost:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade \$http_upgrade ;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host \$host;
+    proxy_cache_bypass \$http_upgrade;
+    }
+}
+EOF
 
 cat <<EOF >/root/cloud/.env
 
-AUTH0_APP_DOMAIN=""
-AUTH0_CLIENT_ID=""
-AUTH0_CLIENT_SECRET=""
+AWS_ACCESS_KEY_ID=""                    # AWS access key
+AWS_BUCKET_NAME=""                      # AWS S3 bucket name
+AWS_REGION=""                           # AWS region
+AWS_SECRET_ACCESS_KEY=""                # AWS secret key
+GOOGLE_CLIENT_ID=""                     # Google auth client id
+GOOGLE_CLIENT_SECRET=""                 # Google client secret
 
-# Replace "${public_ip}" with your domain name
-AUTH0_REDIRECT_URI="http://${public_ip}:80/login/auth0/callback"
-AWS_ACCESS_KEY_ID=""
-AWS_BUCKET_NAME=""
-AWS_REGION=""
-AWS_SECRET_ACCESS_KEY=""
-
-
-# Required
-GOOGLE_CLIENT_ID=""
-GOOGLE_CLIENT_SECRET=""
-
-# Replace "${public_ip}" with your domain name
-
-GOOGLE_REDIRECT_URI="http://${public_ip}:80/login/google/callback"
-
-
+# Don't change below env value
+GOOGLE_REDIRECT_URI="https://${cloud_domain}/login/google/callback"
 
 EOF
 
 ```
 
-Almost there! now click on `launch instance` button.
+![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1706058131/flojoy-docs/flojoy-cloud/rvgasne65widbj0zsoy5.png)
+
+:::caution
+Don't forget to update the script with app domain name and other credentials information.
+:::
+
+- Almost there! now click on `launch instance` button.
 
 Done! you've just deployed your own version of Flojoy Cloud app.
 
-:::note
-Allow 5-10 mins for app to be ready. Then you can access your app with EC2 public ip or your assigned domain
+### Enable HTTPS
 
-:::caution
-Flojoy Cloud AMI exposes app on HTTP 80. So you need to change url to http instead of https to access the app.
+We have deployed our own version of Flojoy cloud app. Now to allow app work properly we need to configure SSL on launched EC2 instance. Let's do that:
+
+
+[To be continued...]
