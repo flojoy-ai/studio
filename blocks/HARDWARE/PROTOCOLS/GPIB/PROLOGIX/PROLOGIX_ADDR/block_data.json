@@ -7,6 +7,11 @@
         "name": "connection",
         "type": "Serial",
         "description": "The open serial connection with the instrument."
+      },
+      {
+        "name": "addr",
+        "type": "int",
+        "description": "The GPIB address."
       }
     ],
     "returns": [

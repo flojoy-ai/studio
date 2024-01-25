@@ -9,7 +9,7 @@ def PROLOGIX_AUTO(
     default: Optional[DataContainer] = None,
     auto: Literal["On", "Off", "Current state"] = "Current state",
 ) -> String:
-    """Toggle "Read-After-Write" mode on or off.
+    """Toggle "Read-After-Write" mode on or off for the USB-to-GPIB adapter.
 
     When Read-After-Write is on, the Prologix USB-to-GPIB controller
     automatically reads a bench-top instrument's response after writing a
@@ -21,6 +21,8 @@ def PROLOGIX_AUTO(
     ----------
     connection: Serial
         The open serial connection with the instrument.
+    auto: select
+        Use the read-after-write mode or not.
 
     Returns
     -------

@@ -19,6 +19,8 @@ def PROLOGIX_ADDR(
     ----------
     connection: Serial
         The open serial connection with the instrument.
+    addr: int
+        The GPIB address.
 
     Returns
     -------

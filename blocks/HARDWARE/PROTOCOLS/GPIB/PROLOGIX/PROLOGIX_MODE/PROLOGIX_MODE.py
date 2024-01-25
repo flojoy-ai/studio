@@ -13,6 +13,11 @@ def PROLOGIX_MODE(
 
     1 for CONTROLLER mode and 0 for DEVICE mode.
 
+    If the device is stuck with the LISTEN light on, unplug the device from
+    the instrument and PC, and plug back into the computer. Run this Block
+    to change into CONTROLLER mode. You may have to repeat unplugging and
+    replugging into the computer.
+
     From the Prologix manual:
 
     `
@@ -39,6 +44,8 @@ def PROLOGIX_MODE(
     ----------
     connection: Serial
         The open serial connection with the instrument.
+    mode: select
+        Choose the operation mode for the Prologix adapter.
 
     Returns
     -------

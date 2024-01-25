@@ -58,13 +58,13 @@
                     "path": "HARDWARE/PROTOCOLS/SERIAL/OPEN_SERIAL/OPEN_SERIAL.py"
                 },
                 "position": {
-                    "x": -186.55880274707724,
-                    "y": -179.44829418177812
+                    "x": -377.602018227022,
+                    "y": 32.946810087101596
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -186.55880274707724,
-                    "y": -179.44829418177812
+                    "x": -377.602018227022,
+                    "y": 32.946810087101596
                 },
                 "dragging": true
             },
@@ -148,13 +148,13 @@
                     "path": "HARDWARE/PROTOCOLS/SERIAL/SERIAL_WRITE/SERIAL_WRITE.py"
                 },
                 "position": {
-                    "x": 66.20400886417897,
-                    "y": -176.27363520569713
+                    "x": 113.40292092393003,
+                    "y": 297.9630526327541
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 66.20400886417897,
-                    "y": -176.27363520569713
+                    "x": 113.40292092393003,
+                    "y": 297.9630526327541
                 },
                 "dragging": true
             },
@@ -186,7 +186,7 @@
                             "id": "default",
                             "type": "Any",
                             "multiple": false,
-                            "desc": "Any DataContainer"
+                            "desc": null
                         }
                     ],
                     "outputs": [
@@ -200,13 +200,13 @@
                     "path": "HARDWARE/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_READ/PROLOGIX_READ.py"
                 },
                 "position": {
-                    "x": 339.3261674880991,
-                    "y": -173.51738067805772
+                    "x": 388.7726467887907,
+                    "y": 298.47173991945294
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 339.3261674880991,
-                    "y": -173.51738067805772
+                    "x": 388.7726467887907,
+                    "y": 298.47173991945294
                 },
                 "dragging": true
             },
@@ -228,7 +228,7 @@
                             "overload": null,
                             "functionName": "TEXT_VIEW",
                             "param": "prettify",
-                            "value": false
+                            "value": true
                         }
                     },
                     "initCtrls": {},
@@ -252,18 +252,450 @@
                     "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
                 },
                 "position": {
-                    "x": 621.7288172661528,
-                    "y": -185.8301657669983
+                    "x": 659.9374603621416,
+                    "y": 286.15895483051247
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 621.7288172661528,
-                    "y": -185.8301657669983
+                    "x": 659.9374603621416,
+                    "y": 286.15895483051247
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "PROLOGIX_ADDR-5baef704-7306-4e26-a3c9-a2a8b782acc3",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "PROLOGIX_ADDR-5baef704-7306-4e26-a3c9-a2a8b782acc3",
+                    "label": "PROLOGIX ADDR",
+                    "func": "PROLOGIX_ADDR",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The open serial connection with the instrument.",
+                            "overload": null,
+                            "functionName": "PROLOGIX_ADDR",
+                            "param": "connection",
+                            "value": "COM12"
+                        },
+                        "addr": {
+                            "type": "int",
+                            "default": 10,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "PROLOGIX_ADDR",
+                            "param": "addr",
+                            "value": 10
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Response from the Prologix USB-to-GPIB controller."
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_ADDR/PROLOGIX_ADDR.py"
+                },
+                "position": {
+                    "x": 118.5040430748484,
+                    "y": 38.816589633363435
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 118.5040430748484,
+                    "y": 38.816589633363435
+                },
+                "dragging": true
+            },
+            {
+                "width": 96,
+                "height": 96,
+                "id": "CONDITIONAL-b7acf2a6-3aae-4f92-94ed-47f7de235d27",
+                "type": "CONDITIONALS",
+                "data": {
+                    "id": "CONDITIONAL-b7acf2a6-3aae-4f92-94ed-47f7de235d27",
+                    "label": "CONDITIONAL",
+                    "func": "CONDITIONAL",
+                    "type": "CONDITIONALS",
+                    "ctrls": {
+                        "operator_type": {
+                            "type": "select",
+                            "options": [
+                                "<=",
+                                ">",
+                                "<",
+                                ">=",
+                                "!=",
+                                "=="
+                            ],
+                            "default": ">=",
+                            "desc": "Specifies the type of comparison to be performed between the two inputs. The default value is \">=\".",
+                            "overload": null,
+                            "functionName": "CONDITIONAL",
+                            "param": "operator_type",
+                            "value": "=="
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "x",
+                            "id": "x",
+                            "type": "Scalar",
+                            "multiple": false,
+                            "desc": null
+                        },
+                        {
+                            "name": "y",
+                            "id": "y",
+                            "type": "Scalar",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "true",
+                            "id": "true",
+                            "type": "Any",
+                            "desc": "Forwards the first value to the true branch."
+                        },
+                        {
+                            "name": "false",
+                            "id": "false",
+                            "type": "Any",
+                            "desc": null
+                        }
+                    ],
+                    "path": "CONTROL_FLOW/CONDITIONALS/CONDITIONAL/CONDITIONAL.py"
+                },
+                "position": {
+                    "x": -145.56073391848298,
+                    "y": 310.91074709080783
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -145.56073391848298,
+                    "y": 310.91074709080783
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "CONSTANT-3b254347-f49f-4500-8732-627fdf23a0a6",
+                "type": "DATA",
+                "data": {
+                    "id": "CONSTANT-3b254347-f49f-4500-8732-627fdf23a0a6",
+                    "label": "2",
+                    "func": "CONSTANT",
+                    "type": "DATA",
+                    "ctrls": {
+                        "dc_type": {
+                            "type": "select",
+                            "options": [
+                                "Scalar",
+                                "Vector",
+                                "OrderedPair"
+                            ],
+                            "default": "OrderedPair",
+                            "desc": "The type of DataContainer to return.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "dc_type",
+                            "value": "Scalar"
+                        },
+                        "constant": {
+                            "type": "float",
+                            "default": 3,
+                            "desc": "The value of the y axis output.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "constant",
+                            "value": 2
+                        },
+                        "step": {
+                            "type": "float",
+                            "default": 1000,
+                            "desc": "The size of the y and x axes.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "step",
+                            "value": 1000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "multiple": false,
+                            "desc": "Optional input that defines the size of the output."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Vector|Scalar",
+                            "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
+                },
+                "position": {
+                    "x": -376.8491245614603,
+                    "y": 256.16730639553714
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -376.8491245614603,
+                    "y": 256.16730639553714
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "CONSTANT-727f1f03-353d-4aa2-8b6a-34fa7dd99a04",
+                "type": "DATA",
+                "data": {
+                    "id": "CONSTANT-727f1f03-353d-4aa2-8b6a-34fa7dd99a04",
+                    "label": "2",
+                    "func": "CONSTANT",
+                    "type": "DATA",
+                    "ctrls": {
+                        "dc_type": {
+                            "type": "select",
+                            "options": [
+                                "Scalar",
+                                "Vector",
+                                "OrderedPair"
+                            ],
+                            "default": "OrderedPair",
+                            "desc": "The type of DataContainer to return.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "dc_type",
+                            "value": "Scalar"
+                        },
+                        "constant": {
+                            "type": "float",
+                            "default": 3,
+                            "desc": "The value of the y axis output.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "constant",
+                            "value": 2
+                        },
+                        "step": {
+                            "type": "float",
+                            "default": 1000,
+                            "desc": "The size of the y and x axes.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "step",
+                            "value": 1000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "multiple": false,
+                            "desc": "Optional input that defines the size of the output."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Vector|Scalar",
+                            "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
+                },
+                "position": {
+                    "x": -367.190112823889,
+                    "y": 384.54188978684056
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -367.190112823889,
+                    "y": 384.54188978684056
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "PROLOGIX_MODE-baaf1088-3646-4d60-8142-9ae1be79aa6d",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "PROLOGIX_MODE-baaf1088-3646-4d60-8142-9ae1be79aa6d",
+                    "label": "PROLOGIX MODE",
+                    "func": "PROLOGIX_MODE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The open serial connection with the instrument.",
+                            "overload": null,
+                            "functionName": "PROLOGIX_MODE",
+                            "param": "connection",
+                            "value": "COM12"
+                        },
+                        "mode": {
+                            "type": "select",
+                            "options": [
+                                "CONTROLLER",
+                                "DEVICE"
+                            ],
+                            "default": "CONTROLLER",
+                            "desc": "Choose the operation mode for the Prologix adapter.",
+                            "overload": null,
+                            "functionName": "PROLOGIX_MODE",
+                            "param": "mode",
+                            "value": "CONTROLLER"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Response from the Prologix USB-to-GPIB controller."
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_MODE/PROLOGIX_MODE.py"
+                },
+                "position": {
+                    "x": 379.78880018930107,
+                    "y": 40.66710752230051
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 379.78880018930107,
+                    "y": 40.66710752230051
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "PROLOGIX_EOI-9460b729-ca76-462f-8d38-945ae37361e9",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "PROLOGIX_EOI-9460b729-ca76-462f-8d38-945ae37361e9",
+                    "label": "PROLOGIX EOI",
+                    "func": "PROLOGIX_EOI",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The open serial connection with the instrument.",
+                            "overload": null,
+                            "functionName": "PROLOGIX_EOI",
+                            "param": "connection",
+                            "value": "COM12"
+                        },
+                        "eoi": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "Use EOI (1) or not (0).",
+                            "overload": null,
+                            "functionName": "PROLOGIX_EOI",
+                            "param": "eoi",
+                            "value": true
+                        },
+                        "eos": {
+                            "type": "select",
+                            "options": [
+                                "CR+LF",
+                                "CR",
+                                "LF",
+                                "None"
+                            ],
+                            "default": "None",
+                            "desc": "Which terminator to use.",
+                            "overload": null,
+                            "functionName": "PROLOGIX_EOI",
+                            "param": "eos",
+                            "value": "None"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Response from the Prologix USB-to-GPIB controller."
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_EOI/PROLOGIX_EOI.py"
+                },
+                "position": {
+                    "x": 634.026697912751,
+                    "y": 40.58449846723852
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 634.026697912751,
+                    "y": 40.58449846723852
                 },
                 "dragging": true
             }
         ],
         "edges": [
+            {
+                "source": "CONDITIONAL-b7acf2a6-3aae-4f92-94ed-47f7de235d27",
+                "sourceHandle": "false",
+                "target": "SERIAL_WRITE-50e29a18-4cf7-4c07-8544-c61710a6e3aa",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONDITIONAL-b7acf2a6-3aae-4f92-94ed-47f7de235d27false-SERIAL_WRITE-50e29a18-4cf7-4c07-8544-c61710a6e3aadefault"
+            },
             {
                 "source": "OPEN_SERIAL-ada6382f-64a9-4428-a27e-b832c2d900cd",
                 "sourceHandle": "default",
@@ -284,6 +716,48 @@
                 "target": "TEXT_VIEW-18c8cefe-4bba-4dfc-977d-9fd47fe2f793",
                 "targetHandle": "default",
                 "id": "reactflow__edge-PROLOGIX_READ-fe3235c1-6942-43ad-a58c-5d1fbb35f817default-TEXT_VIEW-18c8cefe-4bba-4dfc-977d-9fd47fe2f793default"
+            },
+            {
+                "source": "CONDITIONAL-b7acf2a6-3aae-4f92-94ed-47f7de235d27",
+                "sourceHandle": "true",
+                "target": "PROLOGIX_ADDR-5baef704-7306-4e26-a3c9-a2a8b782acc3",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CONDITIONAL-b7acf2a6-3aae-4f92-94ed-47f7de235d27true-PROLOGIX_ADDR-5baef704-7306-4e26-a3c9-a2a8b782acc3default"
+            },
+            {
+                "source": "OPEN_SERIAL-ada6382f-64a9-4428-a27e-b832c2d900cd",
+                "sourceHandle": "default",
+                "target": "PROLOGIX_ADDR-5baef704-7306-4e26-a3c9-a2a8b782acc3",
+                "targetHandle": "default",
+                "id": "reactflow__edge-OPEN_SERIAL-ada6382f-64a9-4428-a27e-b832c2d900cddefault-PROLOGIX_ADDR-5baef704-7306-4e26-a3c9-a2a8b782acc3default"
+            },
+            {
+                "source": "CONSTANT-3b254347-f49f-4500-8732-627fdf23a0a6",
+                "sourceHandle": "default",
+                "target": "CONDITIONAL-b7acf2a6-3aae-4f92-94ed-47f7de235d27",
+                "targetHandle": "y",
+                "id": "reactflow__edge-CONSTANT-3b254347-f49f-4500-8732-627fdf23a0a6default-CONDITIONAL-b7acf2a6-3aae-4f92-94ed-47f7de235d27y"
+            },
+            {
+                "source": "CONSTANT-727f1f03-353d-4aa2-8b6a-34fa7dd99a04",
+                "sourceHandle": "default",
+                "target": "CONDITIONAL-b7acf2a6-3aae-4f92-94ed-47f7de235d27",
+                "targetHandle": "x",
+                "id": "reactflow__edge-CONSTANT-727f1f03-353d-4aa2-8b6a-34fa7dd99a04default-CONDITIONAL-b7acf2a6-3aae-4f92-94ed-47f7de235d27x"
+            },
+            {
+                "source": "PROLOGIX_ADDR-5baef704-7306-4e26-a3c9-a2a8b782acc3",
+                "sourceHandle": "default",
+                "target": "PROLOGIX_MODE-baaf1088-3646-4d60-8142-9ae1be79aa6d",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PROLOGIX_ADDR-5baef704-7306-4e26-a3c9-a2a8b782acc3default-PROLOGIX_MODE-baaf1088-3646-4d60-8142-9ae1be79aa6ddefault"
+            },
+            {
+                "source": "PROLOGIX_MODE-baaf1088-3646-4d60-8142-9ae1be79aa6d",
+                "sourceHandle": "default",
+                "target": "PROLOGIX_EOI-9460b729-ca76-462f-8d38-945ae37361e9",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PROLOGIX_MODE-baaf1088-3646-4d60-8142-9ae1be79aa6ddefault-PROLOGIX_EOI-9460b729-ca76-462f-8d38-945ae37361e9default"
             }
         ],
         "viewport": {
@@ -292,5 +766,30 @@
             "zoom": 1.2011303724799078
         }
     },
-    "textNodes": []
+    "textNodes": [
+        {
+            "id": "TextNode-9202b4b2-71fb-4b6c-923d-4bd262f31d53",
+            "position": {
+                "x": -383.5803289720387,
+                "y": 536.6429273189574
+            },
+            "type": "TextNode",
+            "data": {
+                "text": "### This app is for controlling the Prologix GPIB-USB adapter. ADDR, MODE, EOI are setup blocks and only need to be run once.\n\n### If the two constant are equal, the top row for setup will run. \n\n### If you change one of the constant (to 1 for example), the bottom row for writing to the instrument will run."
+            },
+            "width": 1299,
+            "height": 217,
+            "selected": false,
+            "dragging": false,
+            "positionAbsolute": {
+                "x": -383.5803289720387,
+                "y": 536.6429273189574
+            },
+            "style": {
+                "width": 1299,
+                "height": 217
+            },
+            "resizing": false
+        }
+    ]
 }
