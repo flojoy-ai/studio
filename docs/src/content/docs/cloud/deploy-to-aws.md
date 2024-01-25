@@ -86,7 +86,7 @@ GOOGLE_CLIENT_SECRET=""                 # Google client secret
 
 # Don't modify below env values
 GOOGLE_REDIRECT_URI="https://${cloud_domain}/login/google/callback"
-URL_ORIGIN="https://${cloud_domain}"
+NEXT_PUBLIC_URL_ORIGIN="https://${cloud_domain}"
 
 EOF
 
