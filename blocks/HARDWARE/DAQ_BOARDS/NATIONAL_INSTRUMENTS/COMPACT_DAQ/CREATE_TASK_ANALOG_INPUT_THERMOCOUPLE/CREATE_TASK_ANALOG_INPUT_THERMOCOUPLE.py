@@ -43,7 +43,7 @@ def CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE(
         Specifies the cold junction temperature in **units** if `cold_junction_source` is set to "Constant" (default is 25.0).
     cold_junction_channel : str, optional
         Specifies the source of cold junction compensation if `cold_junction_source` is set to "Channel" (default is "").
-        
+
     Returns
     -------
     Optional[DataContainer]

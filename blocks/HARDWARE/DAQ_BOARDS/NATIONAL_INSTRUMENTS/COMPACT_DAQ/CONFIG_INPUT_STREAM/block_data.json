@@ -1,7 +1,7 @@
 {
   "docstring": {
-    "long_description": "This block is used to configure the input stream of a task before reading samples from this input stream.\n\nThis instrument will likely only be compatible with Windows systems due to\nNI driver availablity. To use the instrument you must install the runtime:\n\nhttps://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html",
-    "short_description": "Set the properties of an input stream.",
+    "long_description": "This block is used to set the properties of an input stream for a given task before reading samples from the stream.\n\n**Compatibility:**\nThis block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from [NI-DAQmx Download Page](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html).",
+    "short_description": "Configure the properties of an input stream.",
     "parameters": [
       {
         "name": "connection",
@@ -11,29 +11,29 @@
       {
         "name": "timeout",
         "type": "float",
-        "description": "The amount of time, in seconds, to wait for the function to read the samples."
+        "description": "The amount of time, in seconds, to wait for the function to read the samples (default is 10.0 seconds)."
       },
       {
         "name": "offset",
         "type": "int",
-        "description": "Specifies an offset in samples per channel at which to begin a read operation. This offset is relative to the location you specify with relative_to"
+        "description": "Specifies an offset in samples per channel at which to begin a read operation. This offset is relative to the location you specify with `relative_to` (default is 0)."
       },
       {
         "name": "relative_to",
         "type": "Literal",
-        "description": "Specifies the point in the buffer at which to begin a read operation."
+        "description": "Specifies the point in the buffer at which to begin a read operation. Valid options are:\n- \"First Pretrigger Sample\"\n- \"First Sample\"\n- \"Reference Trigger\"\n- \"Most Recent Sample\"\n- \"Current Read Position\" (default)"
       },
       {
         "name": "overwrite",
         "type": "bool",
-        "description": "Specifies whether to overwrite samples in the buffer that you have not yet read."
+        "description": "Specifies whether to overwrite samples in the buffer that you have not yet read. If True, overwrite unread samples; if False, do not overwrite unread samples (default is False)."
       }
     ],
     "returns": [
       {
         "name": null,
         "type": "Optional[DataContainer]",
-        "description": "None"
+        "description": "This block does not return any meaningful data; it is designed for configuring the input stream properties."
       }
     ]
   }

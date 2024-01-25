@@ -1,29 +1,29 @@
 {
   "docstring": {
-    "long_description": "Compatible with National Instruments devices that utilize NI-DAQmx.\nTested on a simulated NI-9229 module.\n\nThis instrument will likely only be compatible with Windows systems due to\nNI driver availablity. To use the instrument you must install the runtime:\n\nhttps://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html",
+    "long_description": "**Compatibility:**\nCompatible with National Instruments devices that utilize NI-DAQmx. Tested on a simulated NI-9229 module.\n\nThis block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from [NI-DAQmx Download Page](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html).",
     "short_description": "Configures the timing for the sample clock of a task.",
     "parameters": [
       {
         "name": "connection",
         "type": "NIDAQmxDevice",
-        "description": "The device and channel to read from."
+        "description": "The device and channel to read from. A NIDAQmx task must be created and initialized using `create_task_xxxx` before passing it to this block."
       },
       {
         "name": "sample_clock_rate",
         "type": "float",
-        "description": "Specifies the sampling rate in samples per channel per second.\nIf you use an external source for the Sample Clock, set this input to the maximum expected rate of that clock.\nUses the onboard clock of the device."
+        "description": "Specifies the sampling rate in samples per channel per second. If using an external source for the Sample Clock, set this input to the maximum expected rate of that clock. Uses the onboard clock of the device (default is 1000.0)."
       },
       {
         "name": "number_of_samples_per_channel",
         "type": "int",
-        "description": "Specifies the number of samples to acquire or generate for each channel in the task"
+        "description": "Specifies the number of samples to acquire or generate for each channel in the task (default is 1000)."
       }
     ],
     "returns": [
       {
         "name": null,
         "type": "Optional[DataContainer]",
-        "description": "None"
+        "description": "This block does not return any meaningful data; it is designed for configuring the task's sample clock timing."
       }
     ]
   }

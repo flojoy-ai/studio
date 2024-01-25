@@ -1,7 +1,7 @@
 {
   "docstring": {
-    "long_description": "Compatible with National Instruments devices that utilize NI-DAQmx. The device must have a analog accelerometer input channel.\nTested with a simulated NI-9234 module.\n\nThis instrument will likely only be compatible with Windows systems due to\nNI driver availablity. To use the instrument you must install the runtime:\n\nhttps://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html",
-    "short_description": "Creates a task with (a) channel(s) that use an accelerometer to measure acceleration.",
+    "long_description": "**Compatibility:**\nCompatible with National Instruments devices that utilize NI-DAQmx. Tested with a simulated NI-9234 module.\n\nThis block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from [NI-DAQmx Download Page](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html).",
+    "short_description": "Creates a task with channel(s) to measure acceleration using an accelerometer.",
     "parameters": [
       {
         "name": "cDAQ_start_channel",
@@ -11,49 +11,49 @@
       {
         "name": "cDAQ_end_channel",
         "type": "NIDAQmxDevice",
-        "description": "To read from only one channel, set this to the same as cDAQ_start_channel. To read from multiple channels, set this to the last channel you want to read from."
+        "description": "To read from only one channel, set this to the same as `cDAQ_start_channel`. To read from multiple channels, set this to the last channel you want to read from."
       },
       {
         "name": "min_val",
         "type": "float",
-        "description": "Specifies in **units** the minimum value you expect to measure."
+        "description": "Specifies in **units** the minimum value you expect to measure (default is -5.0)."
       },
       {
         "name": "max_val",
         "type": "float",
-        "description": "Specifies in **units** the maximum value you expect to measure."
+        "description": "Specifies in **units** the maximum value you expect to measure (default is 5.0)."
       },
       {
         "name": "units",
         "type": "Literal",
-        "description": "The units to use to return accelerometer measurements."
+        "description": "The units to use to return accelerometer measurements (default is \"G\")."
       },
       {
         "name": "sensitivity",
         "type": "float",
-        "description": "Is the sensitivity of the sensor. This value is in the units you specify with the sensitivity_units input. Refer to the sensor documentation to determine this value."
+        "description": "The sensitivity of the sensor. This value is in the units you specify with the `sensitivity_units` input. Refer to the sensor documentation to determine this value (default is 1000.0)."
       },
       {
         "name": "sensitivity_units",
         "type": "Literal",
-        "description": "Specifies the units of the sensitivity input."
+        "description": "Specifies the units of the sensitivity input (default is \"Millivolts per G\")."
       },
       {
         "name": "current_excitation_source",
         "type": "Literal",
-        "description": "Specifies the source of excitation."
+        "description": "Specifies the source of excitation (default is \"Internal\")."
       },
       {
         "name": "current_excitation_value",
         "type": "float",
-        "description": "Specifies in amperes the amount of excitation to supply to the sensor. Refer to the sensor documentation to determine this value."
+        "description": "Specifies in amperes the amount of excitation to supply to the sensor. Refer to the sensor documentation to determine this value (default is 0.004)."
       }
     ],
     "returns": [
       {
         "name": null,
         "type": "Optional[DataContainer]",
-        "description": "None"
+        "description": "This block does not return any meaningful data; it is designed for creating a task to measure acceleration using an accelerometer."
       }
     ]
   }

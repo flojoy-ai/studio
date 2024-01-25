@@ -1,6 +1,6 @@
 {
   "docstring": {
-    "long_description": "Use this method to ensure that the specified operation is complete before you stop the task.\n\nThis instrument will likely only be compatible with Windows systems due to\nNI driver availablity. To use the instrument you must install the runtime:\n\nhttps://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html",
+    "long_description": "Use this method to ensure that the specified operation is complete before you stop the task.\n\n**Compatibility:**\nCompatible with National Instruments devices that utilize NI-DAQmx.\n\nThis block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from [NI-DAQmx Download Page](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html).",
     "short_description": "Waits for the measurement or generation to complete.",
     "parameters": [
       {

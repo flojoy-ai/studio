@@ -1,17 +1,22 @@
 {
   "docstring": {
-    "long_description": "Raw samples constitute the internal representation of samples in a device, read directly from the device or buffer without scaling or reordering.\n\nThis instrument will likely only be compatible with Windows systems due to\nNI driver availablity. To use the instrument you must install the runtime:\n\nhttps://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html",
-    "short_description": "Reads raw samples from the task or virtual channels you specified in the buffer.",
+    "long_description": "Raw samples constitute the internal representation of samples in a device, read directly from the device or buffer without scaling or reordering.\n\n**Compatibility:**\nCompatible with National Instruments devices that utilize NI-DAQmx.\n\nThis block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from [NI-DAQmx Download Page](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html).",
+    "short_description": "Reads raw samples from the specified task or virtual channels into the provided buffer.",
     "parameters": [
       {
         "name": "connection",
         "type": "NIDAQmxDevice",
-        "description": "The first input channel for which a created task has been initialized."
+        "description": "The device and channel for which a task has been initialized."
       },
       {
         "name": "buffer",
-        "type": "Optional[Vector]",
-        "description": "Reads raw samples from the task or virtual channels you specify into this pre-allocated buffer.\n\u2192 number_of_samples_per_channel = math.floor(buffer_size_in_bytes / (number_of_channels_to_read * raw_sample_size_in_bytes))."
+        "type": "Vector",
+        "description": "Reads raw samples from the specified task or virtual channels into this pre-allocated buffer.\nEnsure that the buffer size is appropriate for the expected number of samples and the raw sample size."
+      },
+      {
+        "name": "default",
+        "type": "Optional[DataContainer]",
+        "description": "Special parameter used by Flojoy to connect blocks together."
       }
     ],
     "returns": [
