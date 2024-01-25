@@ -15,7 +15,7 @@ def TASK_WAIT_UNTIL_DONE(
 
     **Compatibility:**
     Compatible with National Instruments devices that utilize NI-DAQmx.
-    
+
     This block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html.
 
     Parameters

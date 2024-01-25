@@ -1,6 +1,6 @@
 {
   "docstring": {
-    "long_description": "Raw samples constitute the internal representation of samples in a device, read directly from the device or buffer without scaling or reordering.\nThis block determines a Vector of appropriate size and data type based on your device specifications.\n\n**Compatibility:**\nCompatible with National Instruments devices that utilize NI-DAQmx.\n\nThis block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from [NI-DAQmx Download Page](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html).",
+    "long_description": "Raw samples constitute the internal representation of samples in a device, read directly from the device or buffer without scaling or reordering.\nThis block determines a Vector of appropriate size and data type based on your device specifications.\n\n**Compatibility:**\nCompatible with National Instruments devices that utilize NI-DAQmx.\n\nThis block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html.",
     "short_description": "Reads raw samples from the specified task or virtual channels.",
     "parameters": [
       {

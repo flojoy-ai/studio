@@ -1,6 +1,6 @@
 {
   "docstring": {
-    "long_description": "Read one or more current samples from a National Instruments compactDAQ device. The connection must have been initialized with a create task before calling this block.\n\n**Compatibility:**\nCompatible with National Instruments devices that utilize NI-DAQmx.\n\nThis block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from [NI-DAQmx Download Page](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html).",
+    "long_description": "Read one or more current samples from a National Instruments compactDAQ device. The connection must have been initialized with a create task before calling this block.\n\n**Compatibility:**\nCompatible with National Instruments devices that utilize NI-DAQmx.\n\nThis block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html.",
     "short_description": "Reads one or more current samples from a National Instruments compactDAQ device.",
     "parameters": [
       {
