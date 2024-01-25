@@ -12,6 +12,7 @@ import {
 import * as os from "os";
 import { existsSync, mkdirSync, readFileSync } from "fs";
 import { poetryGroupEnsureValid } from "./poetry";
+import { store } from "../store";
 import { join } from "path";
 
 export async function checkPythonInstallation(
@@ -124,6 +125,10 @@ export async function spawnCaptain(): Promise<void> {
       command.getCommand().split(" ").slice(1),
       {
         cwd: app.isPackaged ? process.resourcesPath : undefined,
+        env: {
+          ...process.env,
+          LOCAL_DB_PATH: store.path,
+        },
       },
     );
 

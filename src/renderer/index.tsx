@@ -12,6 +12,8 @@ import "reactflow/dist/base.css";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorPage } from "@src/ErrorPage";
 import { HashRouter } from "react-router-dom";
+import { AuthContextProvider } from "./context/auth.context";
+import { ThemeProvider } from "./providers/themeProvider";
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
 
@@ -23,9 +25,13 @@ root.render(
   /** Using HashRouter as BrowserRouter doesn't work after build */
   <HashRouter>
     <ErrorBoundary fallbackRender={fallbackRender}>
-      <SocketContextProvider>
-        <App />
-      </SocketContextProvider>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <AuthContextProvider>
+          <SocketContextProvider>
+            <App />
+          </SocketContextProvider>
+        </AuthContextProvider>
+      </ThemeProvider>
     </ErrorBoundary>
   </HashRouter>,
 );
