@@ -12,33 +12,30 @@ def CREATE_TASK_ANALOG_INPUT_VOLTAGE(
     units: Literal["VOLTS"] = "VOLTS",
     default: Optional[DataContainer] = None,
 ) -> Optional[DataContainer]:
-    """Creates a task with (a) channel(s) to measure voltage.
+    """Creates a task with channel(s) to measure voltage.
 
-    Compatible with National Instruments compactDAQ devices. The device must have a voltage input channel.
-    Tested on a simulated NI-9229 module.
+    **Compatibility:**
+    Compatible with National Instruments devices that utilize NI-DAQmx. Tested on a simulated NI-9229 module.
 
-    This instrument will likely only be compatible with Windows systems due to
-    NI driver availablity. To use the instrument you must install the runtime:
-
-    https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html
+    This block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from [NI-DAQmx Download Page](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html).
 
     Parameters
     ----------
     cDAQ_start_channel : NIDAQmxDevice
         The device and channel to read from.
     cDAQ_end_channel : NIDAQmxDevice
-        To read from only one channel, set this to the same as cDAQ_start_channel. To read from multiple channels, set this to the last channel you want to read from.
-    min_val : float
-        Specifies in **units** the minimum value you expect to measure.
-    max_val : float
-        Specifies in **units** the maximum value you expect to measure.
-    units : Literal
-        The units to use to return current measurements.
+        To read from only one channel, set this to the same as `cDAQ_start_channel`. To read from multiple channels, set this to the last channel you want to read from.
+    min_val : float, optional
+        Specifies in **units** the minimum value you expect to measure (default is -5.00).
+    max_val : float, optional
+        Specifies in **units** the maximum value you expect to measure (default is 5.00).
+    units : Literal, optional
+        The units to use to return voltage measurements (default is "VOLTS").
 
     Returns
     -------
     Optional[DataContainer]
-        None
+        This block does not return any meaningful data; it is designed for creating a task to measure voltage.
     """
 
     # Build the physical channels strin
@@ -52,7 +49,6 @@ def CREATE_TASK_ANALOG_INPUT_VOLTAGE(
         nidaqmx.constants.VoltageUnits.VOLTS
     )  # TODO: Support TEDS info associated with the channel and custom scale
 
-    # Recreate a with Task() as task: behavior without the traceback on exit
     task = nidaqmx.Task()
     DeviceConnectionManager.register_connection(
         cDAQ_start_channel, task, lambda task: task.__exit__(None, None, None)

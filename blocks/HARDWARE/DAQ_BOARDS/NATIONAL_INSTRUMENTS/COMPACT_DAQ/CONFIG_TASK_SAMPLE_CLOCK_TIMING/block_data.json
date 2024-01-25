@@ -1,6 +1,6 @@
 {
   "docstring": {
-    "long_description": "Compatible with National Instruments compactDAQ devices.\nTested on a simulated NI-9229 module.\n\nThis instrument will likely only be compatible with Windows systems due to\nNI driver availablity. To use the instrument you must install the runtime:\n\nhttps://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html",
+    "long_description": "Compatible with National Instruments devices that utilize NI-DAQmx.\nTested on a simulated NI-9229 module.\n\nThis instrument will likely only be compatible with Windows systems due to\nNI driver availablity. To use the instrument you must install the runtime:\n\nhttps://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html",
     "short_description": "Configures the timing for the sample clock of a task.",
     "parameters": [
       {

@@ -13,11 +13,10 @@ def TASK_WAIT_UNTIL_DONE(
 
     Use this method to ensure that the specified operation is complete before you stop the task.
 
-    This instrument will likely only be compatible with Windows systems due to
-    NI driver availablity. To use the instrument you must install the runtime:
-
-    https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html
-
+    **Compatibility:**
+    Compatible with National Instruments devices that utilize NI-DAQmx.
+    
+    This block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from [NI-DAQmx Download Page](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html).
 
     Parameters
     ----------

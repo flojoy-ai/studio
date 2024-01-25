@@ -10,24 +10,24 @@ def READ_INPUT_STREAM(
     number_of_samples_per_channel: int = 1000,
     default: Optional[DataContainer] = None,
 ) -> Vector:
-    """Reads raw samples from the task or virtual channels you specified.
+    """Reads raw samples from the specified task or virtual channels.
 
     Raw samples constitute the internal representation of samples in a device, read directly from the device or buffer without scaling or reordering.
-    This block determines a Vector of appropriate size and data type to create and return based on your device specifications.
+    This block determines a Vector of appropriate size and data type based on your device specifications.
 
-    This instrument will likely only be compatible with Windows systems due to
-    NI driver availablity. To use the instrument you must install the runtime:
+    **Compatibility:**
+    Compatible with National Instruments devices that utilize NI-DAQmx.
 
-    https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html
+    This block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from [NI-DAQmx Download Page](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html).
 
     Parameters
     ----------
     connection : NIDAQmxDevice
-        The first input channel for which a created task has been initialized.
-    read_all : bool
-        If True, reads all available samples in the buffer. If False, reads the number of samples you specify in number_of_samples_per_channel.
-    number_of_samples_per_channel : int
-        The number of samples, per channel, to read.
+        The device and channel for which a task has been initialized.
+    read_all : bool, optional
+        If True, reads all available samples in the buffer. If False, reads the number of samples specified in `number_of_samples_per_channel` (default is False).
+    number_of_samples_per_channel : int, optional
+        The number of samples per channel to read (default is 1000).
 
     Returns
     -------

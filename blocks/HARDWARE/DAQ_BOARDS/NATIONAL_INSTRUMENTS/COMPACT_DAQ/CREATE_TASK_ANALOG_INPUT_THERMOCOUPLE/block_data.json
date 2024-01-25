@@ -1,6 +1,6 @@
 {
   "docstring": {
-    "long_description": "Compatible with National Instruments compactDAQ devices. The device must have a analog thermocouple input channel.\nTested with a simulated NI-9219 module.\n\nThis instrument will likely only be compatible with Windows systems due to\nNI driver availablity. To use the instrument you must install the runtime:\n\nhttps://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html",
+    "long_description": "Compatible with National Instruments devices that utilize NI-DAQmx. The device must have a analog thermocouple input channel.\nTested with a simulated NI-9219 module.\n\nThis instrument will likely only be compatible with Windows systems due to\nNI driver availablity. To use the instrument you must install the runtime:\n\nhttps://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html",
     "short_description": "Creates a task with (a) channel(s) that use a thermocouple to measure temperature.",
     "parameters": [
       {

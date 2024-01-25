@@ -10,22 +10,24 @@ def READ_INPUT_STREAM_INTO_BUFFER(
     connection: NIDAQmxConnection,
     default: Optional[DataContainer] = None,
 ) -> Vector:
-    """Reads raw samples from the task or virtual channels you specified in the buffer.
+    """Reads raw samples from the specified task or virtual channels into the provided buffer.
 
     Raw samples constitute the internal representation of samples in a device, read directly from the device or buffer without scaling or reordering.
 
-    This instrument will likely only be compatible with Windows systems due to
-    NI driver availablity. To use the instrument you must install the runtime:
+    **Compatibility:**
+    Compatible with National Instruments devices that utilize NI-DAQmx.
 
-    https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html
+    This block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from [NI-DAQmx Download Page](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html).
 
     Parameters
     ----------
     connection : NIDAQmxDevice
-        The first input channel for which a created task has been initialized.
-    buffer: Optional[Vector]
-        Reads raw samples from the task or virtual channels you specify into this pre-allocated buffer.
-        → number_of_samples_per_channel = math.floor(buffer_size_in_bytes / (number_of_channels_to_read * raw_sample_size_in_bytes)).
+        The device and channel for which a task has been initialized.
+    buffer : Vector
+        Reads raw samples from the specified task or virtual channels into this pre-allocated buffer.
+        Ensure that the buffer size is appropriate for the expected number of samples and the raw sample size.
+    default : Optional[DataContainer], optional
+        Special parameter used by Flojoy to connect blocks together.
 
     Returns
     -------

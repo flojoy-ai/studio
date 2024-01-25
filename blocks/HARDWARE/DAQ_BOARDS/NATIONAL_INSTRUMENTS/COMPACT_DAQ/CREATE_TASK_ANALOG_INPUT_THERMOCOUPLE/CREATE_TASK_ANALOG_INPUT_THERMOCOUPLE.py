@@ -16,39 +16,38 @@ def CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE(
     cold_junction_channel: str = "",
     default: Optional[DataContainer] = None,
 ) -> Optional[DataContainer]:
-    """Creates a task with (a) channel(s) that use a thermocouple to measure temperature.
+    """Creates a task with channel(s) to measure temperature using a thermocouple.
 
-    Compatible with National Instruments compactDAQ devices. The device must have a analog thermocouple input channel.
-    Tested with a simulated NI-9219 module.
+    **Compatibility:**
+    Compatible with National Instruments devices that utilize NI-DAQmx. Tested with a simulated NI-9219 module.
 
-    This instrument will likely only be compatible with Windows systems due to
-    NI driver availablity. To use the instrument you must install the runtime:
-
-    https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html
+    This block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from [NI-DAQmx Download Page](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html).
 
     Parameters
     ----------
     cDAQ_start_channel : NIDAQmxDevice
         The device and channel to read from.
     cDAQ_end_channel : NIDAQmxDevice
-        To read from only one channel, set this to the same as cDAQ_start_channel. To read from multiple channels, set this to the last channel you want to read from.
-    min_val : float
-        Specifies in **units** the minimum value you expect to measure.
-    max_val : float
-        Specifies in **units** the maximum value you expect to measure.
-    units : Literal
-        The units to use to return thermocouple measurements.
-    cold_junction_source : Literal
-        Optional, specifies the source of cold junction compensation.
-    cold_junction_value: Optional[float]
-        Optional, specifies the cold junction temperature in **units** if cold_junction_source is set to "Constant".
-    cold_junction_channel : str
-        Optional, specifies the source of cold junction compensation if cold_junction_source is set to "Channel".
-
+        To read from only one channel, set this to the same as `cDAQ_start_channel`. To read from multiple channels, set this to the last channel you want to read from.
+    min_val : float, optional
+        Specifies in **units** the minimum value you expect to measure (default is 0.0).
+    max_val : float, optional
+        Specifies in **units** the maximum value you expect to measure (default is 100.0).
+    units : Literal, optional
+        The units to use to return thermocouple measurements (default is "Celsius").
+    thermocouple_type : Literal, optional
+        The type of thermocouple being used (default is "J").
+    cold_junction_source : Literal, optional
+        Specifies the source of cold junction compensation (default is "Constant").
+    cold_junction_value : Optional[float], optional
+        Specifies the cold junction temperature in **units** if `cold_junction_source` is set to "Constant" (default is 25.0).
+    cold_junction_channel : str, optional
+        Specifies the source of cold junction compensation if `cold_junction_source` is set to "Channel" (default is "").
+        
     Returns
     -------
     Optional[DataContainer]
-        None
+        This block does not return any meaningful data; it is designed for creating a task to measure temperature using a thermocouple.
     """
 
     units = {
@@ -82,7 +81,6 @@ def CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE(
         address = f"{address}:{address_end[2:]}"
     physical_channels = f"{name}/{address}"
 
-    # Recreate a with Task() as task: behavior without the traceback on exit
     task = nidaqmx.Task()
     DeviceConnectionManager.register_connection(
         cDAQ_start_channel, task, lambda task: task.__exit__(None, None, None)

@@ -14,23 +14,23 @@ def READ_TASK(
 ) -> Vector | Matrix:
     """Reads one or more current samples from a National Instruments compactDAQ device.
 
-    Read one or more current samples from a National Instruments compactDAQ device. The connection must have been initialized with a create task before calling this blocks.
+    Read one or more current samples from a National Instruments compactDAQ device. The connection must have been initialized with a create task before calling this block.
 
-    This instrument will likely only be compatible with Windows systems due to
-    NI driver availablity. To use the instrument you must install the runtime:
+    **Compatibility:**
+    Compatible with National Instruments devices that utilize NI-DAQmx.
 
-    https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html
+    This block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from [NI-DAQmx Download Page](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html).
 
     Parameters
     ----------
     connection : NIDAQmxDevice
-        The first input channel for which a created task has been initialized.
-    number_of_samples_per_channel : int
-        Number of samples to read.
-    timeout : float
-        Time to wait for samples to become available. If you set timeout to 0, the method tries once to read the requested samples and returns an error if it is unable to.
-    wait_infinitely : bool
-        If True, the method waits indefinitely for samples to become available. If False, the method waits for the amount of time specified by timeout.
+        The device and channel for which a task has been initialized.
+    number_of_samples_per_channel : int, optional
+        Number of samples to read (default is 1).
+    timeout : float, optional
+        Time to wait for samples to become available. If set to 0, the method tries once to read the requested samples and returns an error if it is unable to (default is 10.0 seconds).
+    wait_infinitely : bool, optional
+        If True, the method waits indefinitely for samples to become available. If False, the method waits for the amount of time specified by `timeout` (default is False).
 
     Returns
     -------

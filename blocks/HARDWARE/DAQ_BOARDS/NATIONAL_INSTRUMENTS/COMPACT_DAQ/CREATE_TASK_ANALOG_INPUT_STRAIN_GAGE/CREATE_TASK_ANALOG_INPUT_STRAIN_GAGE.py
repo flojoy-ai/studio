@@ -28,49 +28,46 @@ def CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE(
     poisson_ratio: float = 0.3,
     lead_wire_resistance: float = 0.0,
 ) -> Optional[DataContainer]:
-    """Creates a task with (a) channel(s) to measure strain.
+    """Creates a task with channel(s) to measure strain.
 
-    Compatible with National Instruments compactDAQ devices. The device must have a strain input channel.
-    Tested on a simulated NI-9236 module.
+    **Compatibility:**
+    Compatible with National Instruments devices that utilize NI-DAQmx. Tested on a simulated NI-9236 module.
 
-    This instrument will likely only be compatible with Windows systems due to
-    NI driver availablity. To use the instrument you must install the runtime:
-
-    https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html
+    This block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from [NI-DAQmx Download Page](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html).
 
     Parameters
     ----------
     cDAQ_start_channel : NIDAQmxDevice
         The device and channel to read from.
     cDAQ_end_channel : NIDAQmxDevice
-        To read from only one channel, set this to the same as cDAQ_start_channel. To read from multiple channels, set this to the last channel you want to read from.
-    min_val : float
-        Specifies in **units** the minimum value you expect to measure.
-    max_val : float
-        Specifies in **units** the maximum value you expect to measure.
-    units : Literal
-        The units to use to return strain measurements.
-    strain_config : Literal
-        Specifies information about the bridge configuration and measurement.
-    voltage_excit_source : Literal
-        Specifies information about the bridge configuration and measurement.
-    voltage_excit_val : float
-        Specifies information about the bridge configuration and measurement.
-    gage_factor : float
-        Contains information about the strain gage and measurement.
-    initial_bridge_voltage : float
-        Specifies information about the bridge configuration and measurement.
-    nominal_gage_resistance : float
-        Contains information about the strain gage and measurement.
-    poisson_ratio : float
-        Contains information about the strain gage and measurement.
-    lead_wire_resistance : float
-        Specifies information about the bridge configuration and measurement.
+        To read from only one channel, set this to the same as `cDAQ_start_channel`. To read from multiple channels, set this to the last channel you want to read from.
+    min_val : float, optional
+        Specifies in **units** the minimum value you expect to measure (default is -0.001).
+    max_val : float, optional
+        Specifies in **units** the maximum value you expect to measure (default is 0.001).
+    units : Literal, optional
+        The units to use to return strain measurements (default is "STRAIN").
+    strain_config : Literal, optional
+        Specifies information about the bridge configuration and measurement (default is "Full Bridge 1").
+    voltage_excitation_source : Literal, optional
+        Specifies the source of excitation (default is "Internal").
+    voltage_excitation_value : float, optional
+        Specifies in volts the amount of excitation to supply to the bridge (default is 2.5).
+    gage_factor : float, optional
+        Contains information about the strain gage and measurement (default is 2.0).
+    initial_bridge_voltage : float, optional
+        Specifies the initial voltage across the bridge before any strain is applied (default is 0.0).
+    nominal_gage_resistance : float, optional
+        Contains information about the strain gage and measurement (default is 350.0).
+    poisson_ratio : float, optional
+        Contains information about the strain gage and measurement (default is 0.3).
+    lead_wire_resistance : float, optional
+        Specifies the resistance of the lead wires connected to the strain gage (default is 0.0).
 
     Returns
     -------
     Optional[DataContainer]
-        None
+        This block does not return any meaningful data; it is designed for creating a task to measure strain.
     """
 
     # Build the physical channels strin

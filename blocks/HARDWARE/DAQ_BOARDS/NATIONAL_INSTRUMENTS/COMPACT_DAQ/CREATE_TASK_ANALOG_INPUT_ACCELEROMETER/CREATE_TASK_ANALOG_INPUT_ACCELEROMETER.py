@@ -16,41 +16,39 @@ def CREATE_TASK_ANALOG_INPUT_ACCELEROMETER(
     current_excitation_value: float = 0.004,
     default: Optional[DataContainer] = None,
 ) -> Optional[DataContainer]:
-    """Creates a task with (a) channel(s) that use an accelerometer to measure acceleration.
+    """Creates a task with channel(s) to measure acceleration using an accelerometer.
 
-    Compatible with National Instruments compactDAQ devices. The device must have a analog accelerometer input channel.
-    Tested with a simulated NI-9234 module.
+    **Compatibility:**
+    Compatible with National Instruments devices that utilize NI-DAQmx. Tested with a simulated NI-9234 module.
 
-    This instrument will likely only be compatible with Windows systems due to
-    NI driver availablity. To use the instrument you must install the runtime:
-
-    https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html
+    This block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from [NI-DAQmx Download Page](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html).
 
     Parameters
     ----------
     cDAQ_start_channel : NIDAQmxDevice
         The device and channel to read from.
     cDAQ_end_channel : NIDAQmxDevice
-        To read from only one channel, set this to the same as cDAQ_start_channel. To read from multiple channels, set this to the last channel you want to read from.
-    min_val : float
-        Specifies in **units** the minimum value you expect to measure.
-    max_val : float
-        Specifies in **units** the maximum value you expect to measure.
-    units : Literal
-        The units to use to return accelerometer measurements.
-    sensitivity : float
-        Is the sensitivity of the sensor. This value is in the units you specify with the sensitivity_units input. Refer to the sensor documentation to determine this value.
-    sensitivity_units : Literal
-        Specifies the units of the sensitivity input.
-    current_excitation_source : Literal
-        Specifies the source of excitation.
-    current_excitation_value : float
-        Specifies in amperes the amount of excitation to supply to the sensor. Refer to the sensor documentation to determine this value.
+        To read from only one channel, set this to the same as `cDAQ_start_channel`. To read from multiple channels, set this to the last channel you want to read from.
+    min_val : float, optional
+        Specifies in **units** the minimum value you expect to measure (default is -5.0).
+    max_val : float, optional
+        Specifies in **units** the maximum value you expect to measure (default is 5.0).
+    units : Literal, optional
+        The units to use to return accelerometer measurements (default is "G").
+    sensitivity : float, optional
+        The sensitivity of the sensor. This value is in the units you specify with the `sensitivity_units` input. Refer to the sensor documentation to determine this value (default is 1000.0).
+    sensitivity_units : Literal, optional
+        Specifies the units of the sensitivity input (default is "Millivolts per G").
+    current_excitation_source : Literal, optional
+        Specifies the source of excitation (default is "Internal").
+    current_excitation_value : float, optional
+        Specifies in amperes the amount of excitation to supply to the sensor. Refer to the sensor documentation to determine this value (default is 0.004).
 
     Returns
     -------
     Optional[DataContainer]
-        None
+        This block does not return any meaningful data; it is designed for creating a task to measure acceleration using an accelerometer.
+
     """
 
     units = {
