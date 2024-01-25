@@ -4,7 +4,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from "@components/ui/dialog";
 import { Button } from "@src/components/ui/button";
 import { ScrollArea } from "@src/components/ui/scroll-area";
 import { Spinner } from "@src/components/ui/spinner";

@@ -2,9 +2,9 @@ import { memo, useState } from "react";
 import clsx from "clsx";
 import NodeWrapper from "@src/components/common/NodeWrapper";
 import { CustomNodeProps } from "@src/types/node";
-import { ScipySvg } from "@/assets/ArithmeticSVG";
-import HandleComponent from "@/components/common/HandleComponent";
-import NodeInput from "@/components/common/NodeInput";
+import { ScipySvg } from "@assets/ArithmeticSVG";
+import HandleComponent from "@components/common/HandleComponent";
+import NodeInput from "@components/common/NodeInput";
 import { useNodeStatus } from "@src/hooks/useNodeStatus";
 
 const NumpyNode = ({ selected, data }: CustomNodeProps) => {

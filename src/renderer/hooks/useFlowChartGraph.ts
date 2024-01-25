@@ -11,6 +11,7 @@ import { TextData } from "@src/types/node";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import { useFullManifest, useFullMetadata } from "./useManifest";
 import { syncFlowchartWithManifest } from "@src/lib/sync";
+import useWithPermission from "./useWithPermission";
 
 const project = resolveDefaultProjectReference();
 const projectData = resolveProjectReference(project) || RECIPES.NOISY_SINE;
@@ -22,9 +23,12 @@ export const textNodesAtom = atomWithImmer<Node<TextData>[]>([]);
 const edgesAtom = atomWithImmer<Edge[]>(initialEdges);
 
 export const useFlowChartGraph = () => {
-  const [nodes, setNodes] = useAtom(nodesAtom);
+  const { withPermissionCheck } = useWithPermission();
+  const [nodes, setNodesOriginal] = useAtom(nodesAtom);
   const [textNodes, setTextNodes] = useAtom(textNodesAtom);
-  const [edges, setEdges] = useAtom(edgesAtom);
+  const [edges, setEdgesOriginal] = useAtom(edgesAtom);
+  const setNodes = withPermissionCheck(setNodesOriginal);
+  const setEdges = withPermissionCheck(setEdgesOriginal);
   const { selectedNodes, unSelectedNodes } = useMemo(() => {
     const selectedNodes: Node<ElementsData>[] = [];
     const unSelectedNodes: Node<ElementsData>[] = [];
@@ -78,7 +82,7 @@ export const useFlowChartGraph = () => {
     nodeId: string,
     inputData: ElementsData["ctrls"][string],
   ) => {
-    setNodes((element) => {
+    setNodesOriginal((element) => {
       const node = element.find((e) => e.id === nodeId);
       if (node) {
         node.data.ctrls[inputData.param].value = inputData.value;
@@ -94,7 +98,7 @@ export const useFlowChartGraph = () => {
     nodeId: string,
     inputData: ElementsData["ctrls"][string],
   ) => {
-    setNodes((element) => {
+    setNodesOriginal((element) => {
       const node = element.find((e) => e.id === nodeId);
       if (node) {
         if (node.data.initCtrls) {
@@ -140,9 +144,20 @@ export const useFlowChartGraph = () => {
     sendEventToMix("Control Input Data Removed", { nodeId, paramId });
   };
 
+  const handleNodeChanges = (
+    cb: (nodes: Node<ElementsData>[]) => Node<ElementsData>[],
+  ) => {
+    setNodesOriginal(cb);
+  };
+  const handleEdgeChanges = (cb: (edges: Edge[]) => Edge[]) => {
+    setEdgesOriginal(cb);
+  };
+
   return {
     nodes,
     setNodes,
+    handleNodeChanges,
+    handleEdgeChanges,
     textNodes,
     setTextNodes,
     edges,

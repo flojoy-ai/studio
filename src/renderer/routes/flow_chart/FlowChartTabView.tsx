@@ -22,7 +22,7 @@ import {
   applyEdgeChanges,
   applyNodeChanges,
 } from "reactflow";
-import Sidebar, { LeafClickHandler } from "../common/Sidebar/Sidebar";
+import Sidebar from "../common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import { useAddNewNode } from "./hooks/useAddNewNode";
@@ -81,6 +81,7 @@ import ContextMenu, { MenuInfo } from "./components/NodeContextMenu";
 import { useCustomSections } from "@src/hooks/useCustomBlockManifest";
 import { BlocksMetadataMap } from "@src/types/blocks-metadata";
 import { Spinner } from "@src/components/ui/spinner";
+import useWithPermission from "@/renderer/hooks/useWithPermission";
 
 const nodeTypes: NodeTypes = {
   default: DefaultNode,
@@ -122,7 +123,6 @@ const FlowChartTab = () => {
 
   const { isSidebarOpen, setIsSidebarOpen, isEditMode, setIsEditMode } =
     useFlowChartState();
-
   const { states } = useSocket();
   const { programResults, setProgramResults } = states;
 
@@ -144,9 +144,12 @@ const FlowChartTab = () => {
     setEdges,
     selectedNode,
     unSelectedNodes,
+    handleNodeChanges,
+    handleEdgeChanges,
   } = useFlowChartGraph();
   const nodesMetadataMap = useNodesMetadata();
   const manifest = useManifest();
+  const { isAdmin } = useWithPermission();
 
   const {
     handleImportCustomBlocks,
@@ -172,6 +175,7 @@ const FlowChartTab = () => {
       toast("Synced blocks with manifest.");
       setManifestChanged(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fullManifest, fullBlocksMetadata, manifestChanged]);
 
   const getTakenNodeLabels = useCallback(
@@ -277,25 +281,25 @@ const FlowChartTab = () => {
 
   const onNodesChange: OnNodesChange = useCallback(
     (changes) => {
-      setNodes((ns) => applyNodeChanges(changes, ns));
+      handleNodeChanges((ns) => applyNodeChanges(changes, ns));
       setTextNodes((ns) => applyNodeChanges(changes, ns));
     },
-    [setNodes, setTextNodes],
+    [handleNodeChanges, setTextNodes],
   );
 
   const onEdgesChange: OnEdgesChange = useCallback(
     (changes) => {
       sendEventToMix(MixPanelEvents.edgesChanged);
-      setEdges((es) => applyEdgeChanges(changes, es));
+      handleEdgeChanges((es) => applyEdgeChanges(changes, es));
       if (!changes.every((c) => c.type === "select")) {
         setHasUnsavedChanges(true);
       }
     },
-    [setEdges, setHasUnsavedChanges],
+    [handleEdgeChanges, setHasUnsavedChanges],
   );
 
   const onConnect: OnConnect = useCallback(
-    (connection) =>
+    (connection) => {
       setEdges((eds) => {
         if (!fullManifest) {
           toast.error("Manifest not found, can't connect edge.");
@@ -314,7 +318,8 @@ const FlowChartTab = () => {
             description: `Source type ${sourceType} and target type ${targetType} are not compatible`,
           });
         }
-      }),
+      });
+    },
     [setEdges, fullManifest],
   );
 
@@ -532,7 +537,7 @@ const FlowChartTab = () => {
         {manifest !== undefined && customBlockManifest !== undefined && (
           <Sidebar
             sections={manifest}
-            leafNodeClickHandler={addNewNode as LeafClickHandler}
+            leafNodeClickHandler={addNewNode}
             isSideBarOpen={isSidebarOpen}
             setSideBarStatus={setIsSidebarOpen}
             customSections={customBlockManifest}
@@ -569,7 +574,7 @@ const FlowChartTab = () => {
             id="flow-chart"
             ref={ref}
             className="!absolute"
-            deleteKeyCode={deleteKeyCodes}
+            deleteKeyCode={isAdmin() ? deleteKeyCodes : null}
             proOptions={proOptions}
             nodes={[...nodes, ...textNodes]}
             nodeTypes={nodeTypes}
@@ -580,6 +585,7 @@ const FlowChartTab = () => {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
+            nodesDraggable={isAdmin()}
             onNodeDragStop={handleNodeDrag}
             onNodesDelete={handleNodesDelete}
             fitViewOptions={{
