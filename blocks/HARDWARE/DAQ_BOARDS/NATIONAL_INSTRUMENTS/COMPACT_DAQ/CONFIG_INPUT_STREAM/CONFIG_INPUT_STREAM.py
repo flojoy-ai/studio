@@ -23,7 +23,7 @@ def CONFIG_INPUT_STREAM(
     This block is used to set the properties of an input stream for a given task before reading samples from the stream.
 
     **Compatibility:**
-    This block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from [NI-DAQmx Download Page](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html).
+    This block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html.
 
     Parameters
     ----------

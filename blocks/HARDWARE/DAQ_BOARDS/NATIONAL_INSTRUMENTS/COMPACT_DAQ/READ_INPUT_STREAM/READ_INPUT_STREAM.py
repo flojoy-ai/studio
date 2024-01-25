@@ -18,7 +18,7 @@ def READ_INPUT_STREAM(
     **Compatibility:**
     Compatible with National Instruments devices that utilize NI-DAQmx.
 
-    This block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from [NI-DAQmx Download Page](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html).
+    This block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html.
 
     Parameters
     ----------

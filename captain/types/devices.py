@@ -24,7 +24,7 @@ class VISADevice(BaseModel):
 
 class NIDAQmxDevice(BaseModel):
     name: str
-    address: str  # Need to handle multiple addresse for a single device
+    address: str
     description: str
 
 

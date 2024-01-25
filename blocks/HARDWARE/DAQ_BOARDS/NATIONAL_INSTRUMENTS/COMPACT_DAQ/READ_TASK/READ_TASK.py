@@ -19,7 +19,7 @@ def READ_TASK(
     **Compatibility:**
     Compatible with National Instruments devices that utilize NI-DAQmx.
 
-    This block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from [NI-DAQmx Download Page](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html).
+    This block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html.
 
     Parameters
     ----------
@@ -44,8 +44,6 @@ def READ_TASK(
         number_of_samples_per_channel > 0
     ), "number_of_samples_per_channel must be greater than 0"
     timeout = timeout if not wait_infinitely else nidaqmx.constants.WAIT_INFINITELY
-
-    # TODO Add REAL_ALL_AVAIALBLE | nb_sample = number_of_samples_per_channel if not real_all_available_samples else nidaqmx.constants.READ_ALL_AVAILABLE
 
     values = np.array(
         task.read(
