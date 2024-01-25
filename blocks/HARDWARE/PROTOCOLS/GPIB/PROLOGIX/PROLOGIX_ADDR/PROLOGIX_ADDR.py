@@ -3,23 +3,24 @@ from flojoy import flojoy, SerialConnection, DataContainer, String
 from typing import cast, Optional
 
 
-@flojoy(deps={"pyserial": "3.5"}, inject_connection=True)
+@flojoy(inject_connection=True)
 def PROLOGIX_ADDR(
     connection: SerialConnection,
     default: Optional[DataContainer] = None,
-    addr: int = 22,
+    addr: int = 10,
 ) -> String:
-    """Set the GPIB address of an instrument using the Prologix USB-to-GPIB or USB-to-Ethernet adapter.
+    """Set the GPIB address of the Prologix USB-to-GPIB adapter.
 
-    Inputs
-    ------
-    default: DataContainer
-        Any DataContainer - likely connected to the output of the OPEN_SERIAL block.
+    This setting should match the address for the GPIB instrument.
+
+    Requires an OPEN_SERIAL block.
 
     Parameters
     ----------
     connection: Serial
         The open serial connection with the instrument.
+    addr: int
+        The GPIB address.
 
     Returns
     -------
@@ -33,7 +34,7 @@ def PROLOGIX_ADDR(
     if ser is None:
         raise ValueError("Serial communication is not open")
 
-    cmd = "++addr " + str(addr) + "\r\n"
+    cmd = "++addr " + str(addr) + "\n"
     ser.write(cmd.encode())
 
     s = ser.read(256)

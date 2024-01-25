@@ -1,19 +1,19 @@
 import serial
 from flojoy import flojoy, SerialConnection, DataContainer, String
-from typing import cast, Optional, Literal
+from typing import cast, Optional
 
 
 @flojoy(inject_connection=True)
-def PROLOGIX_AUTO(
+def PROLOGIX_READ(
     connection: SerialConnection,
     default: Optional[DataContainer] = None,
-    auto: Literal["On", "Off", "Current state"] = "Current state",
 ) -> String:
-    """Toggle "Read-After-Write" mode on or off for the USB-to-GPIB adapter.
+    """Returns the response from the GPIB instrument.
 
-    When Read-After-Write is on, the Prologix USB-to-GPIB controller
-    automatically reads a bench-top instrument's response after writing a
-    command to it.
+    For example if you query a VISA instrument with "*IDN?" using a
+    SERIAL_WRITE block, this block must be used to return the response.
+
+    Not required if the PROLOGIX_AUTO setting is "on" (not recommended).
 
     Requires an OPEN_SERIAL block.
 
@@ -21,8 +21,6 @@ def PROLOGIX_AUTO(
     ----------
     connection: Serial
         The open serial connection with the instrument.
-    auto: select
-        Use the read-after-write mode or not.
 
     Returns
     -------
@@ -36,15 +34,10 @@ def PROLOGIX_AUTO(
     if ser is None:
         raise ValueError("Serial communication is not open")
 
-    auto_integer = 0
-    if auto == "Current state":
-        ser.write(b"++auto\n")
-    elif auto == "On":
-        auto_integer = 1
-    else:
-        cmd = "++auto " + str(auto_integer) + "\n"
-        ser.write(cmd.encode())
-
+    cmd = "++read eoi\n"
+    ser.write(cmd.encode())
     s = ser.read(256)
+    if isinstance(s, bytes):
+        s = s.decode("utf-8")
 
     return String(s)

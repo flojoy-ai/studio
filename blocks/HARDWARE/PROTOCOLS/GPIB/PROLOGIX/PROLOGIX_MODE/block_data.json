@@ -1,12 +1,17 @@
 {
   "docstring": {
-    "long_description": "From the Prologix manual:\n\nIn Controller mode, the GPIB-USB Controller acts as the Controller-In-Charge (CIC)\non the GPIB bus. When the controller receives a command over the USB port\nterminated by the USB terminator \u2013 CR (ASCII 13) or LF (ASCII 10) \u2013 it addresses the\nGPIB instrument at the currently specified address (See ++addr command) to listen, and\npasses along the received data.\n\nIn Device mode, Prologix GPIB-USB Controller acts as another peripheral on the GPIB\nbus. In this mode, the controller can act as a GPIB TALKER or GPIB LISTENER\nonly. Since Prologix GPIB-USB Controller is not the Controller-In-Charge while in this\nmode, it expects to receive commands from a GPIB controller. When Device mode is\nenabled Prologix GPIB-USB controller configures itself as a GPIB Listener. All data\nreceived by the controller over the GPIB port is passed along to the USB port without\nbuffering.\n\nInputs\n------\ndefault: DataContainer\n    Any DataContainer - likely connected to the output of the OPEN_SERIAL block.",
-    "short_description": "Set the mode of the Prologix USB-to-GPIB controller - 1 for CONTROLLER mode and 0 for DEVICE mode.",
+    "long_description": "1 for CONTROLLER mode and 0 for DEVICE mode.\n\nIf the device is stuck with the LISTEN light on, unplug the device from\nthe instrument and PC, and plug back into the computer. Run this Block\nto change into CONTROLLER mode. You may have to repeat unplugging and\nreplugging into the computer.\n\nFrom the Prologix manual:\n\n`\nIn Controller mode, the GPIB-USB Controller acts as the\nController-In-Charge (CIC) on the GPIB bus. When the controller receives a\ncommand over the USB port terminated by the USB terminator - CR (ASCII 13)\nor LF (ASCII 10) - it addresses the GPIB instrument at the currently\nspecified address (See ++addr command) to listen, and passes along the\nreceived data.\n\nIn Device mode, Prologix GPIB-USB Controller acts as another peripheral on\nthe GPIB bus. In this mode, the controller can act as a GPIB TALKER or GPIB\nLISTENER only. Since Prologix GPIB-USB Controller is not the\nController-In-Charge while in this mode, it expects to receive commands\nfrom a GPIB controller. When Device mode is enabled Prologix GPIB-USB\ncontroller configures itself as a GPIB Listener. All data received by the\ncontroller over the GPIB port is passed along to the USB port without\nbuffering.\n`\n\nRequires an OPEN_SERIAL block.",
+    "short_description": "Set the control mode of the Prologix USB-to-GPIB controller.",
     "parameters": [
       {
         "name": "connection",
         "type": "Serial",
         "description": "The open serial connection with the instrument."
+      },
+      {
+        "name": "mode",
+        "type": "select",
+        "description": "Choose the operation mode for the Prologix adapter."
       }
     ],
     "returns": [

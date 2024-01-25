@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "For example if you query a VISA instrument with \"*IDN?\" using a\nSERIAL_WRITE block, this block must be used to return the response.\n\nNot required if the PROLOGIX_AUTO setting is \"on\" (not recommended).\n\nRequires an OPEN_SERIAL block.",
+    "short_description": "Returns the response from the GPIB instrument.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "Serial",
+        "description": "The open serial connection with the instrument."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "String",
+        "description": "Response from the Prologix USB-to-GPIB controller."
+      }
+    ]
+  }
+}
