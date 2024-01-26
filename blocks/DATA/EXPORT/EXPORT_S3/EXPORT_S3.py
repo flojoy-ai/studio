@@ -2,6 +2,7 @@ from flojoy import flojoy, String, Boolean, File, get_env_var, DataContainer
 from typing import Optional, Literal
 import boto3
 import logging
+import os
 
 
 @flojoy(
@@ -10,6 +11,7 @@ import logging
     }
 )
 def EXPORT_S3(
+    object_name: String,
     s3_access_key: str = "",
     s3_secret_key: str = "",
     bucket: str = "",
@@ -51,17 +53,14 @@ def EXPORT_S3(
         "ap-southeast-4",
         "il-central-1",
     ] = "us-east-1",
-    object_name: str = "",
     enable_overwrite: bool = False,
     file: File = None,
-    objet_name_override: Optional[String] = None,
     default: Optional[DataContainer] = None,
-) -> Boolean:
+    ) -> Boolean:
     """Export a file to S3 Bucket.
 
     This function exports a file to an S3 bucket using the provided credentials and options.
-    The user must have previously set the AWS access and secret access keys in the Environment Variables settings
-    and have enabled the required permissions for such operations.
+    The user must have previously set the AWS access and secret access keys in the Environment Variables settings and have enabled the required permissions for such operations.
 
     Parameters
     ----------
@@ -79,8 +78,8 @@ def EXPORT_S3(
         Whether to overwrite the file if it already exists (default is False).
     file : File
         The file to be uploaded to the S3 bucket.
-    objet_name_override : Optional[String], optional
-        An optional flojoy input to dynamically provide a string serving as the object name in S3.
+    objet_name: Optional[String], optional
+        Flojoy input to dynamically provide a string for the name of the object in S3. If not specified, the name of the file will be used.
     default : Optional[DataContainer], optional
         An optional default value.
 
@@ -104,10 +103,11 @@ def EXPORT_S3(
     buckets = [b['Name'] for b in s3_client.list_buckets()['Buckets']]
     if bucket not in buckets:
         raise ValueError(f"Bucket {bucket} does not exist. Available buckets: {' '.join(buckets)}")
-    if objet_name_override is not None:
-        object_name = objet_name_override.unwrap()
-    if object_name == "":
-        object_name = filename.split("/")[-1]
+    logging.info(f"object_name: {object_name}")
+    if object_name is not None:
+        object_name = object_name.s
+    else:
+        object_name = filename.split(os.sep)[-1]
 
     # Check if the file already exists in S3
     if not enable_overwrite:

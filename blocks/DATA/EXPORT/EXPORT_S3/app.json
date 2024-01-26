@@ -1,0 +1,345 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 208,
+                "height": 96,
+                "id": "EXPORT_S3-96111357-0101-4887-b8f2-e1f3dd30d6b9",
+                "type": "DATA",
+                "data": {
+                    "id": "EXPORT_S3-96111357-0101-4887-b8f2-e1f3dd30d6b9",
+                    "label": "EXPORT S3",
+                    "func": "EXPORT_S3",
+                    "type": "DATA",
+                    "ctrls": {
+                        "s3_access_key": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "The name of the key used to save the AWS access key.",
+                            "overload": null,
+                            "functionName": "EXPORT_S3",
+                            "param": "s3_access_key",
+                            "value": "S3_ACCESSKEY"
+                        },
+                        "s3_secret_key": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "The name of the key used to save the AWS secret access key.",
+                            "overload": null,
+                            "functionName": "EXPORT_S3",
+                            "param": "s3_secret_key",
+                            "value": "S3_SECRETKEY"
+                        },
+                        "bucket": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "The S3 bucket to upload the file to.",
+                            "overload": null,
+                            "functionName": "EXPORT_S3",
+                            "param": "bucket",
+                            "value": "flojoy"
+                        },
+                        "region": {
+                            "type": "select",
+                            "options": [
+                                "us-east-1",
+                                "us-east-2",
+                                "us-west-1",
+                                "us-west-2",
+                                "ca-central-1",
+                                "ca-west-1",
+                                "eu-north-1",
+                                "eu-west-3",
+                                "eu-west-2",
+                                "eu-west-1",
+                                "eu-central-1",
+                                "eu-south-1",
+                                "ap-south-1",
+                                "ap-northeast-1",
+                                "ap-northeast-2",
+                                "ap-northeast-3",
+                                "ap-southeast-1",
+                                "ap-southeast-2",
+                                "ap-southeast-3",
+                                "ap-east-1",
+                                "sa-east-1",
+                                "cn-north-1",
+                                "cn-northwest-1",
+                                "us-gov-east-1",
+                                "us-gov-west-1",
+                                "us-isob-east-1",
+                                "us-iso-east-1",
+                                "us-iso-west-1",
+                                "me-south-1",
+                                "af-south-1",
+                                "me-central-1",
+                                "eu-south-2",
+                                "eu-central-2",
+                                "ap-south-2",
+                                "ap-southeast-4",
+                                "il-central-1"
+                            ],
+                            "default": "us-east-1",
+                            "desc": "The AWS region (default is \"us-east-1\").",
+                            "overload": null,
+                            "functionName": "EXPORT_S3",
+                            "param": "region",
+                            "value": "us-east-1"
+                        },
+                        "enable_overwrite": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to overwrite the file if it already exists (default is False).",
+                            "overload": null,
+                            "functionName": "EXPORT_S3",
+                            "param": "enable_overwrite",
+                            "value": false
+                        },
+                        "file": {
+                            "type": "File",
+                            "default": null,
+                            "desc": "The file to be uploaded to the S3 bucket.",
+                            "overload": null,
+                            "functionName": "EXPORT_S3",
+                            "param": "file",
+                            "value": "C:\\Users\\zzzgu\\Documents\\flojoy\\exported.csv"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "object_name",
+                            "id": "object_name",
+                            "type": "String",
+                            "multiple": false,
+                            "desc": "The name of the object in S3. If not specified, the name of the file will be used."
+                        },
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": "An optional default value."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Boolean",
+                            "desc": "Returns a Boolean indicating the success of the file export operation (True if successful, False otherwise)."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "boto3",
+                            "v": "1.34.21"
+                        }
+                    ],
+                    "path": "DATA/EXPORT/EXPORT_S3/EXPORT_S3.py"
+                },
+                "position": {
+                    "x": 366.6753862547578,
+                    "y": -151.72054514312666
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 366.6753862547578,
+                    "y": -151.72054514312666
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "TEXT-22c7278c-cf49-4d93-a188-30b945c7db73",
+                "type": "DATA",
+                "data": {
+                    "id": "TEXT-22c7278c-cf49-4d93-a188-30b945c7db73",
+                    "label": "TEXT",
+                    "func": "TEXT",
+                    "type": "DATA",
+                    "ctrls": {
+                        "value": {
+                            "type": "TextArea",
+                            "default": "Hello World!",
+                            "desc": "The value set in Parameters.",
+                            "overload": null,
+                            "functionName": "TEXT",
+                            "param": "value",
+                            "value": "test2.csv"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "_",
+                            "id": "_",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Return the value being set in Parameters."
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/TEXT/TEXT.py"
+                },
+                "position": {
+                    "x": -24.599532014767618,
+                    "y": -277.02846226169635
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -24.599532014767618,
+                    "y": -277.02846226169635
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "EXPORT_CSV-71d2538a-e0de-49ba-87c3-0dc72c83eef1",
+                "type": "DATA",
+                "data": {
+                    "id": "EXPORT_CSV-71d2538a-e0de-49ba-87c3-0dc72c83eef1",
+                    "label": "EXPORT CSV",
+                    "func": "EXPORT_CSV",
+                    "type": "DATA",
+                    "ctrls": {
+                        "dir": {
+                            "type": "Directory",
+                            "default": null,
+                            "desc": "The directory to export to.",
+                            "overload": null,
+                            "functionName": "EXPORT_CSV",
+                            "param": "dir",
+                            "value": "C:\\Users\\zzzgu\\Documents\\flojoy"
+                        },
+                        "filename": {
+                            "type": "str",
+                            "default": "exported.csv",
+                            "desc": "The name of the file to output.",
+                            "overload": null,
+                            "functionName": "EXPORT_CSV",
+                            "param": "filename",
+                            "value": "exported.csv"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "dc",
+                            "id": "dc",
+                            "type": "OrderedPair|OrderedTriple|DataFrame|Matrix",
+                            "multiple": false,
+                            "desc": "The DataContainer to export."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null
+                        }
+                    ],
+                    "path": "DATA/EXPORT/EXPORT_CSV/EXPORT_CSV.py"
+                },
+                "position": {
+                    "x": -11.67364621620878,
+                    "y": -18.81002642416854
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -11.67364621620878,
+                    "y": -18.81002642416854
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "MATRIX-f77594d8-fa58-4a89-8be9-4f45403e421e",
+                "type": "DATA",
+                "data": {
+                    "id": "MATRIX-f77594d8-fa58-4a89-8be9-4f45403e421e",
+                    "label": "MATRIX",
+                    "func": "MATRIX",
+                    "type": "DATA",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "row",
+                            "id": "row",
+                            "type": "Scalar",
+                            "multiple": false,
+                            "desc": "number of rows"
+                        },
+                        {
+                            "name": "column",
+                            "id": "column",
+                            "type": "Scalar",
+                            "multiple": false,
+                            "desc": "number of columns"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Matrix",
+                            "desc": "Randomly generated matrix"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/MATRIX/MATRIX.py"
+                },
+                "position": {
+                    "x": -301.6767330491187,
+                    "y": -17.765705441498312
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -301.6767330491187,
+                    "y": -17.765705441498312
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "TEXT-22c7278c-cf49-4d93-a188-30b945c7db73",
+                "sourceHandle": "default",
+                "target": "EXPORT_S3-96111357-0101-4887-b8f2-e1f3dd30d6b9",
+                "targetHandle": "object_name",
+                "id": "reactflow__edge-TEXT-22c7278c-cf49-4d93-a188-30b945c7db73default-EXPORT_S3-96111357-0101-4887-b8f2-e1f3dd30d6b9object_name"
+            },
+            {
+                "source": "EXPORT_CSV-71d2538a-e0de-49ba-87c3-0dc72c83eef1",
+                "sourceHandle": "default",
+                "target": "EXPORT_S3-96111357-0101-4887-b8f2-e1f3dd30d6b9",
+                "targetHandle": "default",
+                "id": "reactflow__edge-EXPORT_CSV-71d2538a-e0de-49ba-87c3-0dc72c83eef1default-EXPORT_S3-96111357-0101-4887-b8f2-e1f3dd30d6b9default"
+            },
+            {
+                "source": "MATRIX-f77594d8-fa58-4a89-8be9-4f45403e421e",
+                "sourceHandle": "default",
+                "target": "EXPORT_CSV-71d2538a-e0de-49ba-87c3-0dc72c83eef1",
+                "targetHandle": "dc",
+                "id": "reactflow__edge-MATRIX-f77594d8-fa58-4a89-8be9-4f45403e421edefault-EXPORT_CSV-71d2538a-e0de-49ba-87c3-0dc72c83eef1dc"
+            }
+        ],
+        "viewport": {
+            "x": 811.5885732768018,
+            "y": 439.15420524755007,
+            "zoom": 0.7447829407266607
+        }
+    },
+    "textNodes": []
+}
