@@ -23,7 +23,7 @@ def ATTACH_ANALOG_INPUT_CURRENT(
     Parameters
     ----------
     task_name : str
-        The name of the task to create.
+        The name of the task to attach the channel(s) to.
     cDAQ_start_channel : NIDAQmxDevice
         The device and channel to read from. Flojoy will register this address as a connection.
     cDAQ_end_channel : NIDAQmxDevice
