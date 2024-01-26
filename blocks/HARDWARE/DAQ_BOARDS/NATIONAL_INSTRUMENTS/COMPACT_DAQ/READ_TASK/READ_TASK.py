@@ -1,4 +1,4 @@
-from flojoy import flojoy, DataContainer, Vector, Matrix, NIDAQmxConnection
+from flojoy import flojoy, DataContainer, Vector, Matrix, HardwareConnection
 import nidaqmx
 from typing import Optional
 import numpy as np
@@ -6,7 +6,7 @@ import numpy as np
 
 @flojoy(deps={"nidaqmx": "0.9.0"}, inject_connection=True)
 def READ_TASK(
-    connection: NIDAQmxConnection,
+    connection: HardwareConnection,
     number_of_samples_per_channel: int = 1,
     timeout: float = 10.0,
     wait_infinitely: bool = False,

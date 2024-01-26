@@ -4,12 +4,12 @@
             {
                 "width": 192,
                 "height": 192,
-                "id": "CREATE_TASK_ANALOG_INPUT_ACCELEROMETER-90ef7bf1-5ac5-4831-ad96-6187da259bdf",
+                "id": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE-87be0141-7953-4259-87d0-1c4eef42cf33",
                 "type": "HARDWARE",
                 "data": {
-                    "id": "CREATE_TASK_ANALOG_INPUT_ACCELEROMETER-90ef7bf1-5ac5-4831-ad96-6187da259bdf",
-                    "label": "CREATE TASK ANALOG INPUT ACCELEROMETER",
-                    "func": "CREATE_TASK_ANALOG_INPUT_ACCELEROMETER",
+                    "id": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE-87be0141-7953-4259-87d0-1c4eef42cf33",
+                    "label": "CREATE TASK ANALOG INPUT STRAIN GAGE",
+                    "func": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
                     "type": "HARDWARE",
                     "ctrls": {
                         "cDAQ_start_channel": {
@@ -17,94 +17,134 @@
                             "default": null,
                             "desc": "The device and channel to read from.",
                             "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_ACCELEROMETER",
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
                             "param": "cDAQ_start_channel",
-                            "value": "cDAQ2Mod2/ai0"
+                            "value": "cDAQ2Mod1/ai0"
                         },
                         "cDAQ_end_channel": {
                             "type": "NIDAQmxDevice",
                             "default": null,
                             "desc": "To read from only one channel, set this to the same as cDAQ_start_channel. To read from multiple channels, set this to the last channel you want to read from.",
                             "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_ACCELEROMETER",
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
                             "param": "cDAQ_end_channel",
-                            "value": "cDAQ2Mod2/ai2"
+                            "value": "cDAQ2Mod1/ai2"
                         },
                         "min_val": {
                             "type": "float",
-                            "default": -5,
+                            "default": -0.001,
                             "desc": "Specifies in **units** the minimum value you expect to measure.",
                             "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_ACCELEROMETER",
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
                             "param": "min_val",
-                            "value": -5
+                            "value": -0.001
                         },
                         "max_val": {
                             "type": "float",
-                            "default": 5,
+                            "default": 0.001,
                             "desc": "Specifies in **units** the maximum value you expect to measure.",
                             "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_ACCELEROMETER",
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
                             "param": "max_val",
-                            "value": 5
+                            "value": 0.001
                         },
                         "units": {
                             "type": "select",
                             "options": [
-                                "G",
-                                "Inches per second squared",
-                                "Meters per second squared"
+                                "STRAIN"
                             ],
-                            "default": "G",
-                            "desc": "The units to use to return accelerometer measurements.",
+                            "default": "STRAIN",
+                            "desc": "The units to use to return strain measurements.",
                             "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_ACCELEROMETER",
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
                             "param": "units",
-                            "value": "G"
+                            "value": "STRAIN"
                         },
-                        "sensitivity": {
-                            "type": "float",
-                            "default": 1000,
-                            "desc": "Is the sensitivity of the sensor. This value is in the units you specify with the sensitivity_units input. Refer to the sensor documentation to determine this value.",
-                            "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_ACCELEROMETER",
-                            "param": "sensitivity",
-                            "value": 1000
-                        },
-                        "sensitivity_units": {
+                        "strain_config": {
                             "type": "select",
                             "options": [
-                                "Millivolts per GVolts per G"
+                                "Full brige 1",
+                                "Full brige 2",
+                                "Full brige 3",
+                                "Half brige 1",
+                                "Half brige 2",
+                                "Quarter brige 1",
+                                "Quarter brige 2"
                             ],
-                            "default": "Millivolts per G",
-                            "desc": "Specifies the units of the sensitivity input.",
+                            "default": "Full brige 1",
+                            "desc": "Specifies information about the bridge configuration and measurement.",
                             "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_ACCELEROMETER",
-                            "param": "sensitivity_units",
-                            "value": "Millivolts per G"
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "strain_config",
+                            "value": "Quarter brige 1"
                         },
-                        "current_excitation_source": {
+                        "voltage_excitation_source": {
                             "type": "select",
                             "options": [
+                                "None",
                                 "External",
-                                "Internal",
-                                "None"
+                                "Internal"
                             ],
                             "default": "Internal",
-                            "desc": "Specifies the source of excitation.",
+                            "desc": null,
                             "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_ACCELEROMETER",
-                            "param": "current_excitation_source",
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "voltage_excitation_source",
                             "value": "Internal"
                         },
-                        "current_excitation_value": {
+                        "voltage_excitation_value": {
                             "type": "float",
-                            "default": 0.004,
-                            "desc": "Specifies in amperes the amount of excitation to supply to the sensor. Refer to the sensor documentation to determine this value.",
+                            "default": 2.5,
+                            "desc": null,
                             "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_ACCELEROMETER",
-                            "param": "current_excitation_value",
-                            "value": 0.004
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "voltage_excitation_value",
+                            "value": 3.3
+                        },
+                        "gage_factor": {
+                            "type": "float",
+                            "default": 2,
+                            "desc": "Contains information about the strain gage and measurement.",
+                            "overload": null,
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "gage_factor",
+                            "value": 2
+                        },
+                        "initial_bridge_voltage": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "Specifies information about the bridge configuration and measurement.",
+                            "overload": null,
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "initial_bridge_voltage",
+                            "value": 0
+                        },
+                        "nominal_gage_resistance": {
+                            "type": "float",
+                            "default": 350,
+                            "desc": "Contains information about the strain gage and measurement.",
+                            "overload": null,
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "nominal_gage_resistance",
+                            "value": 350
+                        },
+                        "poisson_ratio": {
+                            "type": "float",
+                            "default": 0.3,
+                            "desc": "Contains information about the strain gage and measurement.",
+                            "overload": null,
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "poisson_ratio",
+                            "value": 0.3
+                        },
+                        "lead_wire_resistance": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "Specifies information about the bridge configuration and measurement.",
+                            "overload": null,
+                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "lead_wire_resistance",
+                            "value": 0
                         }
                     },
                     "initCtrls": {},
@@ -131,38 +171,38 @@
                             "v": "0.9.0"
                         }
                     ],
-                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CREATE_TASK_ANALOG_INPUT_ACCELEROMETER/CREATE_TASK_ANALOG_INPUT_ACCELEROMETER.py"
+                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE/CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE.py"
                 },
                 "position": {
-                    "x": -162.67176946783928,
-                    "y": -387.4191637598578
+                    "x": -388.86496618753233,
+                    "y": -203.5024957493555
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -162.67176946783928,
-                    "y": -387.4191637598578
+                    "x": -388.86496618753233,
+                    "y": -203.5024957493555
                 },
                 "dragging": true
             },
             {
                 "width": 192,
                 "height": 192,
-                "id": "READ_TASK-9aaa1c02-655b-4f2d-8209-af43fc3c6175",
+                "id": "READ_TASK-eeab7450-8d5f-42f5-86fc-3c2a63f0d691",
                 "type": "HARDWARE",
                 "data": {
-                    "id": "READ_TASK-9aaa1c02-655b-4f2d-8209-af43fc3c6175",
+                    "id": "READ_TASK-eeab7450-8d5f-42f5-86fc-3c2a63f0d691",
                     "label": "READ TASK",
                     "func": "READ_TASK",
                     "type": "HARDWARE",
                     "ctrls": {
                         "connection": {
-                            "type": "NIDAQmxConnection",
+                            "type": "HardwareConnection",
                             "default": null,
                             "desc": null,
                             "overload": null,
                             "functionName": "READ_TASK",
                             "param": "connection",
-                            "value": "cDAQ2Mod2/ai0"
+                            "value": "cDAQ2Mod1/ai0"
                         },
                         "number_of_samples_per_channel": {
                             "type": "int",
@@ -219,23 +259,23 @@
                     "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/READ_TASK/READ_TASK.py"
                 },
                 "position": {
-                    "x": 352.65303037039683,
-                    "y": -392.52217517932553
+                    "x": 215.4262002606963,
+                    "y": -205.34765193133154
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 352.65303037039683,
-                    "y": -392.52217517932553
+                    "x": 215.4262002606963,
+                    "y": -205.34765193133154
                 },
                 "dragging": true
             },
             {
-                "width": 740,
-                "height": 235,
-                "id": "LINE-c0cfb7f5-0206-415c-9008-52492f746975",
+                "width": 908,
+                "height": 317,
+                "id": "LINE-2da5889c-c892-4db0-b7a6-a519bdea5a5f",
                 "type": "VISUALIZATION",
                 "data": {
-                    "id": "LINE-c0cfb7f5-0206-415c-9008-52492f746975",
+                    "id": "LINE-2da5889c-c892-4db0-b7a6-a519bdea5a5f",
                     "label": "LINE",
                     "func": "LINE",
                     "type": "VISUALIZATION",
@@ -298,40 +338,40 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
                 },
                 "position": {
-                    "x": -178.55995004601476,
-                    "y": -158.65434926337804
+                    "x": -419.25550300758516,
+                    "y": 36.91793833172602
                 },
-                "selected": false,
+                "selected": true,
                 "positionAbsolute": {
-                    "x": -178.55995004601476,
-                    "y": -158.65434926337804
+                    "x": -419.25550300758516,
+                    "y": 36.91793833172602
                 },
                 "dragging": true,
                 "style": {
-                    "width": 740,
-                    "height": 235
+                    "width": 908,
+                    "height": 317
                 },
                 "resizing": false
             },
             {
                 "width": 192,
                 "height": 192,
-                "id": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-b35d2f39-62bc-4309-8f01-1f03ff30c5be",
+                "id": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-9c309463-9603-45a3-b29a-c5484c1aeae4",
                 "type": "HARDWARE",
                 "data": {
-                    "id": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-b35d2f39-62bc-4309-8f01-1f03ff30c5be",
+                    "id": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-9c309463-9603-45a3-b29a-c5484c1aeae4",
                     "label": "CONFIG TASK SAMPLE CLOCK TIMING",
                     "func": "CONFIG_TASK_SAMPLE_CLOCK_TIMING",
                     "type": "HARDWARE",
                     "ctrls": {
                         "connection": {
-                            "type": "NIDAQmxConnection",
+                            "type": "HardwareConnection",
                             "default": null,
                             "desc": null,
                             "overload": null,
                             "functionName": "CONFIG_TASK_SAMPLE_CLOCK_TIMING",
                             "param": "connection",
-                            "value": "cDAQ2Mod2/ai0"
+                            "value": "cDAQ2Mod1/ai0"
                         },
                         "sample_clock_rate": {
                             "type": "float",
@@ -379,45 +419,46 @@
                     "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CONFIG_TASK_SAMPLE_CLOCK_TIMING/CONFIG_TASK_SAMPLE_CLOCK_TIMING.py"
                 },
                 "position": {
-                    "x": 87.91588682113837,
-                    "y": -386.84584894934534
+                    "x": -70.73135130057162,
+                    "y": -209.77856480874675
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 87.91588682113837,
-                    "y": -386.84584894934534
+                    "x": -70.73135130057162,
+                    "y": -209.77856480874675
                 },
                 "dragging": true
             }
         ],
         "edges": [
             {
-                "source": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-b35d2f39-62bc-4309-8f01-1f03ff30c5be",
+                "source": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-9c309463-9603-45a3-b29a-c5484c1aeae4",
                 "sourceHandle": "default",
-                "target": "READ_TASK-9aaa1c02-655b-4f2d-8209-af43fc3c6175",
+                "target": "READ_TASK-eeab7450-8d5f-42f5-86fc-3c2a63f0d691",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CONFIG_TASK_SAMPLE_CLOCK_TIMING-b35d2f39-62bc-4309-8f01-1f03ff30c5bedefault-READ_TASK-9aaa1c02-655b-4f2d-8209-af43fc3c6175default"
+                "id": "reactflow__edge-CONFIG_TASK_SAMPLE_CLOCK_TIMING-9c309463-9603-45a3-b29a-c5484c1aeae4default-READ_TASK-eeab7450-8d5f-42f5-86fc-3c2a63f0d691default"
             },
             {
-                "source": "READ_TASK-9aaa1c02-655b-4f2d-8209-af43fc3c6175",
+                "source": "READ_TASK-eeab7450-8d5f-42f5-86fc-3c2a63f0d691",
                 "sourceHandle": "default",
-                "target": "LINE-c0cfb7f5-0206-415c-9008-52492f746975",
+                "target": "LINE-2da5889c-c892-4db0-b7a6-a519bdea5a5f",
                 "targetHandle": "default",
-                "id": "reactflow__edge-READ_TASK-9aaa1c02-655b-4f2d-8209-af43fc3c6175default-LINE-c0cfb7f5-0206-415c-9008-52492f746975default"
+                "id": "reactflow__edge-READ_TASK-eeab7450-8d5f-42f5-86fc-3c2a63f0d691default-LINE-2da5889c-c892-4db0-b7a6-a519bdea5a5fdefault"
             },
             {
-                "source": "CREATE_TASK_ANALOG_INPUT_ACCELEROMETER-90ef7bf1-5ac5-4831-ad96-6187da259bdf",
+                "source": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE-87be0141-7953-4259-87d0-1c4eef42cf33",
                 "sourceHandle": "default",
-                "target": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-b35d2f39-62bc-4309-8f01-1f03ff30c5be",
+                "target": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-9c309463-9603-45a3-b29a-c5484c1aeae4",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CREATE_TASK_ANALOG_INPUT_ACCELEROMETER-90ef7bf1-5ac5-4831-ad96-6187da259bdfdefault-CONFIG_TASK_SAMPLE_CLOCK_TIMING-b35d2f39-62bc-4309-8f01-1f03ff30c5bedefault"
+                "id": "reactflow__edge-CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE-87be0141-7953-4259-87d0-1c4eef42cf33default-CONFIG_TASK_SAMPLE_CLOCK_TIMING-9c309463-9603-45a3-b29a-c5484c1aeae4default"
             }
         ],
         "viewport": {
-            "x": 834.2329483859432,
-            "y": 568.7401475724156,
-            "zoom": 0.9755902783087886
+            "x": 811.5885732768018,
+            "y": 439.15420524755007,
+            "zoom": 0.7447829407266607
         }
     },
+    "name": "app",
     "textNodes": []
 }

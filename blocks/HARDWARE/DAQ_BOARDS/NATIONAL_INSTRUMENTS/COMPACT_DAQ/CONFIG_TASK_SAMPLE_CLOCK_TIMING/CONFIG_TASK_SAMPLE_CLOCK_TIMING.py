@@ -1,11 +1,11 @@
-from flojoy import flojoy, DataContainer, NIDAQmxConnection
+from flojoy import flojoy, DataContainer, HardwareConnection
 from typing import Optional
 import nidaqmx
 
 
 @flojoy(deps={"nidaqmx": "0.9.0"}, inject_connection=True)
 def CONFIG_TASK_SAMPLE_CLOCK_TIMING(
-    connection: NIDAQmxConnection,
+    connection: HardwareConnection,
     sample_clock_rate: float = 1000.0,
     number_of_samples_per_channel: int = 1000,
     default: Optional[DataContainer] = None,

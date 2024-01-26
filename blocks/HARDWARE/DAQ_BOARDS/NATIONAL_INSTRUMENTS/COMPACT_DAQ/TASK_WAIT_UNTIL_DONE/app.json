@@ -13,7 +13,7 @@
                     "type": "HARDWARE",
                     "ctrls": {
                         "connection": {
-                            "type": "NIDAQmxConnection",
+                            "type": "HardwareConnection",
                             "default": null,
                             "desc": "The first input channel for which a created task has been initialized.",
                             "overload": null,
@@ -328,7 +328,7 @@
                     "type": "HARDWARE",
                     "ctrls": {
                         "connection": {
-                            "type": "NIDAQmxConnection",
+                            "type": "HardwareConnection",
                             "default": null,
                             "desc": "The device and channel to read from.",
                             "overload": null,
@@ -404,7 +404,7 @@
                     "type": "HARDWARE",
                     "ctrls": {
                         "connection": {
-                            "type": "NIDAQmxConnection",
+                            "type": "HardwareConnection",
                             "default": null,
                             "desc": "The first input channel for which a created task has been initialized.",
                             "overload": null,
@@ -489,7 +489,7 @@
                     "type": "HARDWARE",
                     "ctrls": {
                         "connection": {
-                            "type": "NIDAQmxConnection",
+                            "type": "HardwareConnection",
                             "default": null,
                             "desc": "The first input channel for which a created task has been initialized.",
                             "overload": null,

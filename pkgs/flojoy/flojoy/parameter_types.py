@@ -106,18 +106,6 @@ class NIDAQmxConnection(HardwareConnection):
         super().__del__()
 
 
-class NIDAQmxConnection(HardwareConnection):
-    def __init__(
-        self, handle: Any, cleanup: Callable[[Any], Any] | None = None
-    ) -> None:
-        super().__init__(
-            handle, (lambda conn: conn.close()) if cleanup is None else cleanup
-        )
-
-    def __del__(self):
-        super().__del__()
-
-
 class NodeReference:
     """Node parameter type"""
 
@@ -193,7 +181,7 @@ def format_param_value(value: Any, value_type: str):
             return SerialDevice(value)
         case "VisaDevice" | "VisaConnection":
             return VisaDevice(value)
-        case "NIDAQmxDevice" | "NIDAQmxConnection":
+        case "NIDAQmxDevice":
             return NIDAQmxDevice(value)
 
     if value == "":

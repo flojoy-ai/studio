@@ -13,7 +13,7 @@
                     "type": "HARDWARE",
                     "ctrls": {
                         "connection": {
-                            "type": "NIDAQmxConnection",
+                            "type": "HardwareConnection",
                             "default": null,
                             "desc": null,
                             "overload": null,
@@ -114,7 +114,7 @@
                     "type": "HARDWARE",
                     "ctrls": {
                         "connection": {
-                            "type": "NIDAQmxConnection",
+                            "type": "HardwareConnection",
                             "default": null,
                             "desc": null,
                             "overload": null,
@@ -190,7 +190,7 @@
                     "type": "HARDWARE",
                     "ctrls": {
                         "connection": {
-                            "type": "NIDAQmxConnection",
+                            "type": "HardwareConnection",
                             "default": null,
                             "desc": null,
                             "overload": null,

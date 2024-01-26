@@ -1,11 +1,11 @@
-from flojoy import flojoy, DataContainer, NIDAQmxConnection
+from flojoy import flojoy, DataContainer, HardwareConnection
 import nidaqmx
 from typing import Optional
 
 
 @flojoy(deps={"nidaqmx": "0.9.0"}, inject_connection=True)
 def TASK_WAIT_UNTIL_DONE(
-    connection: NIDAQmxConnection,
+    connection: HardwareConnection,
     timeout: float = 10.0,
     default: Optional[DataContainer] = None,
 ) -> Optional[DataContainer]:

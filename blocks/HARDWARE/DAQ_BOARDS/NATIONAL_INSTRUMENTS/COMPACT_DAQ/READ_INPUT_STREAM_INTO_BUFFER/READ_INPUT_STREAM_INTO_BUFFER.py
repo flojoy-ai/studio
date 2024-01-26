@@ -1,4 +1,4 @@
-from flojoy import flojoy, DataContainer, NIDAQmxConnection, Vector
+from flojoy import flojoy, DataContainer, HardwareConnection, Vector
 import nidaqmx
 from typing import Optional
 import logging
@@ -7,7 +7,7 @@ import logging
 @flojoy(deps={"nidaqmx": "0.9.0"}, inject_connection=True)
 def READ_INPUT_STREAM_INTO_BUFFER(
     buffer: Vector,
-    connection: NIDAQmxConnection,
+    connection: HardwareConnection,
     default: Optional[DataContainer] = None,
 ) -> Vector:
     """Reads raw samples from the specified task or virtual channels into the provided buffer.

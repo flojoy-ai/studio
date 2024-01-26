@@ -191,7 +191,6 @@ const ParamField = ({
     case "VisaConnection":
       return <VisaDeviceSelect onValueChange={handleChange} value={value} />;
     case "NIDAQmxDevice":
-    case "NIDAQmxConnection":
       return <NIDAQmxDeviceSelect onValueChange={handleChange} value={value} />;
     case "str":
     case "list[int]":

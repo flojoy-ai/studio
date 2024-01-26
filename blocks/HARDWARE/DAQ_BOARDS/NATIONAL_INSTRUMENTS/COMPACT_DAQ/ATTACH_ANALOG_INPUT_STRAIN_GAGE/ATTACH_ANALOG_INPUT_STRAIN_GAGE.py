@@ -4,7 +4,8 @@ import nidaqmx
 
 
 @flojoy(deps={"nidaqmx": "0.9.0"})
-def CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE(
+def ATTACH_ANALOG_INPUT_STRAIN_GAGE(
+    task_name: str,
     cDAQ_start_channel: NIDAQmxDevice,
     cDAQ_end_channel: NIDAQmxDevice,
     min_val: float = -0.001,
@@ -28,7 +29,7 @@ def CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE(
     poisson_ratio: float = 0.3,
     lead_wire_resistance: float = 0.0,
 ) -> Optional[DataContainer]:
-    """Creates a task with channel(s) to measure strain.
+    """Attach channel(s) to a task measure strain.
 
     **Compatibility:**
     Compatible with National Instruments devices that utilize NI-DAQmx. Tested on a simulated NI-9236 module.
@@ -37,6 +38,8 @@ def CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE(
 
     Parameters
     ----------
+    task_name : str
+        The name of the task to create.
     cDAQ_start_channel : NIDAQmxDevice
         The device and channel to read from.
     cDAQ_end_channel : NIDAQmxDevice
@@ -69,8 +72,10 @@ def CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE(
     Optional[DataContainer]
         This block does not return any meaningful data; it is designed for creating a task to measure strain.
     """
+    # Check if task already exists
+    task = DeviceConnectionManager.get_connection(task_name).get_handle()
 
-    # Build the physical channels strin
+    # Attach the requested channel(s) to the task
     name, address = cDAQ_start_channel.get_id().split("/")
     if cDAQ_end_channel:
         _, address_end = cDAQ_end_channel.get_id().split("/")
@@ -94,10 +99,6 @@ def CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE(
         "Internal": nidaqmx.constants.ExcitationSource.INTERNAL,
     }[voltage_excitation_source]
 
-    task = nidaqmx.Task()
-    DeviceConnectionManager.register_connection(
-        cDAQ_start_channel, task, lambda task: task.__exit__(None, None, None)
-    )
     task.ai_channels.add_ai_strain_gage_chan(
         physical_channels,
         min_val=min_val,

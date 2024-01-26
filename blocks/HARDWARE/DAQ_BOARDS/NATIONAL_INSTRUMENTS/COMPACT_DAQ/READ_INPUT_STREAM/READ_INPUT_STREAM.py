@@ -1,11 +1,11 @@
-from flojoy import flojoy, DataContainer, NIDAQmxConnection, Vector
+from flojoy import flojoy, DataContainer, HardwareConnection, Vector
 import nidaqmx
 from typing import Optional
 
 
 @flojoy(deps={"nidaqmx": "0.9.0"}, inject_connection=True)
 def READ_INPUT_STREAM(
-    connection: NIDAQmxConnection,
+    connection: HardwareConnection,
     read_all: bool = False,
     number_of_samples_per_channel: int = 1000,
     default: Optional[DataContainer] = None,

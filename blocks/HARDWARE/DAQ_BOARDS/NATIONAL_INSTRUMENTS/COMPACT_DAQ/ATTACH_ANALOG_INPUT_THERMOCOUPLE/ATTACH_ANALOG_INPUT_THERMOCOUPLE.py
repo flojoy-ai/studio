@@ -4,7 +4,8 @@ import nidaqmx
 
 
 @flojoy(deps={"nidaqmx": "0.9.0"})
-def CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE(
+def ATTACH_ANALOG_INPUT_THERMOCOUPLE(
+    task_name: str,
     cDAQ_start_channel: NIDAQmxDevice,
     cDAQ_end_channel: NIDAQmxDevice,
     min_val: float = 0.0,
@@ -16,7 +17,7 @@ def CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE(
     cold_junction_channel: str = "",
     default: Optional[DataContainer] = None,
 ) -> Optional[DataContainer]:
-    """Creates a task with channel(s) to measure temperature using a thermocouple.
+    """Attach channel(s) to a task to measure temperature using a thermocouple.
 
     **Compatibility:**
     Compatible with National Instruments devices that utilize NI-DAQmx. Tested with a simulated NI-9219 module.
@@ -49,7 +50,10 @@ def CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE(
     Optional[DataContainer]
         This block does not return any meaningful data; it is designed for creating a task to measure temperature using a thermocouple.
     """
+    # Check if task already exists
+    task = DeviceConnectionManager.get_connection(task_name).get_handle()
 
+    # Attach the requested channel(s) to the task
     units = {
         "Celsius": nidaqmx.constants.TemperatureUnits.DEG_C,
         "Fahrenheit": nidaqmx.constants.TemperatureUnits.DEG_F,
@@ -81,10 +85,6 @@ def CREATE_TASK_ANALOG_INPUT_THERMOCOUPLE(
         address = f"{address}:{address_end[2:]}"
     physical_channels = f"{name}/{address}"
 
-    task = nidaqmx.Task()
-    DeviceConnectionManager.register_connection(
-        cDAQ_start_channel, task, lambda task: task.__exit__(None, None, None)
-    )
     task.ai_channels.add_ai_thrmcpl_chan(
         physical_channels,
         min_val=min_val,

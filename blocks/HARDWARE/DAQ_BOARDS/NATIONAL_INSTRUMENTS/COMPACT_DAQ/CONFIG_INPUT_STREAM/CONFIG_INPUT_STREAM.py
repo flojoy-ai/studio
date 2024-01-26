@@ -1,11 +1,11 @@
-from flojoy import flojoy, DataContainer, NIDAQmxConnection
+from flojoy import flojoy, DataContainer, HardwareConnection
 import nidaqmx
 from typing import Optional, Literal
 
 
 @flojoy(deps={"nidaqmx": "0.9.0"}, inject_connection=True)
 def CONFIG_INPUT_STREAM(
-    connection: NIDAQmxConnection,
+    connection: HardwareConnection,
     timeout: float = 10.0,
     offset: int = 0,
     relative_to: Literal[

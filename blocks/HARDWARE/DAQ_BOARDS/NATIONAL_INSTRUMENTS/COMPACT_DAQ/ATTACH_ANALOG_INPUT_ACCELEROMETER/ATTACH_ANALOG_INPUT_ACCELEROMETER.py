@@ -4,7 +4,8 @@ import nidaqmx
 
 
 @flojoy(deps={"nidaqmx": "0.9.0"})
-def CREATE_TASK_ANALOG_INPUT_ACCELEROMETER(
+def ATTACH_ANALOG_INPUT_ACCELEROMETER(
+    task_name: str,
     cDAQ_start_channel: NIDAQmxDevice,
     cDAQ_end_channel: NIDAQmxDevice,
     min_val: float = -5.0,
@@ -16,7 +17,7 @@ def CREATE_TASK_ANALOG_INPUT_ACCELEROMETER(
     current_excitation_value: float = 0.004,
     default: Optional[DataContainer] = None,
 ) -> Optional[DataContainer]:
-    """Creates a task with channel(s) to measure acceleration using an accelerometer.
+    """Attach channel(s) to a task to measure acceleration using an accelerometer.
 
     **Compatibility:**
     Compatible with National Instruments devices that utilize NI-DAQmx. Tested with a simulated NI-9234 module.
@@ -25,6 +26,8 @@ def CREATE_TASK_ANALOG_INPUT_ACCELEROMETER(
 
     Parameters
     ----------
+    task_name : str
+        The name of the task to create.
     cDAQ_start_channel : NIDAQmxDevice
         The device and channel to read from.
     cDAQ_end_channel : NIDAQmxDevice
@@ -50,7 +53,10 @@ def CREATE_TASK_ANALOG_INPUT_ACCELEROMETER(
         This block does not return any meaningful data; it is designed for creating a task to measure acceleration using an accelerometer.
 
     """
+    # Check if task already exists
+    task = DeviceConnectionManager.get_connection(task_name).get_handle()
 
+    # Attach the requested channel(s) to the task
     units = {
         "G": nidaqmx.constants.AccelUnits.G,
         "Inches per second squared": nidaqmx.constants.AccelUnits.INCHES_PER_SECOND_SQUARED,
@@ -74,10 +80,6 @@ def CREATE_TASK_ANALOG_INPUT_ACCELEROMETER(
         address = f"{address}:{address_end[2:]}"
     physical_channels = f"{name}/{address}"
 
-    task = nidaqmx.Task()
-    DeviceConnectionManager.register_connection(
-        cDAQ_start_channel, task, lambda task: task.__exit__(None, None, None)
-    )
     task.ai_channels.add_ai_accel_chan(
         physical_channels,
         min_val=min_val,
