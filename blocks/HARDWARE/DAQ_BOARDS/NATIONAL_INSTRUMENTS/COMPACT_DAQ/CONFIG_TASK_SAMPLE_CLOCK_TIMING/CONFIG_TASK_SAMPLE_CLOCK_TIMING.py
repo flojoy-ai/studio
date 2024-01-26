@@ -1,11 +1,10 @@
-from flojoy import flojoy, DataContainer, HardwareConnection
+from flojoy import flojoy, DataContainer, DeviceConnectionManager
 from typing import Optional
-import nidaqmx
 
 
-@flojoy(deps={"nidaqmx": "0.9.0"}, inject_connection=True)
+@flojoy(deps={"nidaqmx": "0.9.0"})
 def CONFIG_TASK_SAMPLE_CLOCK_TIMING(
-    connection: HardwareConnection,
+    task_name: str,
     sample_clock_rate: float = 1000.0,
     number_of_samples_per_channel: int = 1000,
     default: Optional[DataContainer] = None,
@@ -19,8 +18,8 @@ def CONFIG_TASK_SAMPLE_CLOCK_TIMING(
 
     Parameters
     ----------
-    connection : NIDAQmxDevice
-        The device and channel to read from. A NIDAQmx task must be created and initialized using `create_task_xxxx` before passing it to this block.
+    task_name : str
+        The name of the task to configure.
     sample_clock_rate : float, optional
         Specifies the sampling rate in samples per channel per second. If using an external source for the Sample Clock, set this input to the maximum expected rate of that clock. Uses the onboard clock of the device (default is 1000.0).
     number_of_samples_per_channel : int, optional
@@ -33,7 +32,7 @@ def CONFIG_TASK_SAMPLE_CLOCK_TIMING(
 
     """
 
-    task: nidaqmx.task.Task = connection.get_handle()
+    task = DeviceConnectionManager.get_connection(task_name).get_handle()
     task.timing.cfg_samp_clk_timing(
         rate=sample_clock_rate, samps_per_chan=number_of_samples_per_channel
     )

@@ -22,6 +22,8 @@ def ATTACH_ANALOG_INPUT_VOLTAGE(
 
     Parameters
     ----------
+    task_name : str
+        The name of the task to attach the channel(s) to.
     cDAQ_start_channel : NIDAQmxDevice
         The device and channel to read from.
     cDAQ_end_channel : NIDAQmxDevice
@@ -52,10 +54,6 @@ def ATTACH_ANALOG_INPUT_VOLTAGE(
         nidaqmx.constants.VoltageUnits.VOLTS
     )  # TODO: Support TEDS info associated with the channel and custom scale
 
-    task = nidaqmx.Task()
-    DeviceConnectionManager.register_connection(
-        cDAQ_start_channel, task, lambda task: task.__exit__(None, None, None)
-    )
     task.ai_channels.add_ai_voltage_chan(
         physical_channels, min_val=min_val, max_val=max_val, units=units
     )

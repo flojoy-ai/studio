@@ -1,11 +1,10 @@
-from flojoy import flojoy, DataContainer, HardwareConnection, Vector
-import nidaqmx
+from flojoy import flojoy, DataContainer, Vector, DeviceConnectionManager
 from typing import Optional
 
 
-@flojoy(deps={"nidaqmx": "0.9.0"}, inject_connection=True)
+@flojoy(deps={"nidaqmx": "0.9.0"})
 def READ_INPUT_STREAM(
-    connection: HardwareConnection,
+    task_name: str,
     read_all: bool = False,
     number_of_samples_per_channel: int = 1000,
     default: Optional[DataContainer] = None,
@@ -22,8 +21,8 @@ def READ_INPUT_STREAM(
 
     Parameters
     ----------
-    connection : NIDAQmxDevice
-        The device and channel for which a task has been initialized.
+    task_name : str
+        The name of the task to read from.
     read_all : bool, optional
         If True, reads all available samples in the buffer. If False, reads the number of samples specified in `number_of_samples_per_channel` (default is False).
     number_of_samples_per_channel : int, optional
@@ -35,8 +34,7 @@ def READ_INPUT_STREAM(
         Returns data in an interleaved or non-interleaved 1D array, depending on the raw ordering of the device. Refer to your device documentation for more information.
     """
 
-    task: nidaqmx.task.Task = connection.get_handle()
-
+    task = DeviceConnectionManager.get_connection(task_name).get_handle()
     raw_data = (
         task.in_stream.readall()
         if read_all

@@ -1,13 +1,11 @@
-from flojoy import flojoy, DataContainer, HardwareConnection, Vector
-import nidaqmx
+from flojoy import flojoy, DataContainer, DeviceConnectionManager, Vector
 from typing import Optional
-import logging
 
 
-@flojoy(deps={"nidaqmx": "0.9.0"}, inject_connection=True)
+@flojoy(deps={"nidaqmx": "0.9.0"})
 def READ_INPUT_STREAM_INTO_BUFFER(
+    task_name: str,
     buffer: Vector,
-    connection: HardwareConnection,
     default: Optional[DataContainer] = None,
 ) -> Vector:
     """Reads raw samples from the specified task or virtual channels into the provided buffer.
@@ -21,8 +19,8 @@ def READ_INPUT_STREAM_INTO_BUFFER(
 
     Parameters
     ----------
-    connection : NIDAQmxDevice
-        The device and channel for which a task has been initialized.
+    task_name : str
+        The name of the task to read from.
     buffer : Vector
         Reads raw samples from the specified task or virtual channels into this pre-allocated buffer.
         Ensure that the buffer size is appropriate for the expected number of samples and the raw sample size.
@@ -35,9 +33,8 @@ def READ_INPUT_STREAM_INTO_BUFFER(
         Returns data in an interleaved or non-interleaved 1D array, depending on the raw ordering of the device. Refer to your device documentation for more information.
     """
 
-    task: nidaqmx.task.Task = connection.get_handle()
+    task = DeviceConnectionManager.get_connection(task_name).get_handle()
 
-    logging.info(f"Reading {len(buffer)} bytes from {task.name}...")
     task.in_stream.readinto(buffer.v)
 
     return buffer

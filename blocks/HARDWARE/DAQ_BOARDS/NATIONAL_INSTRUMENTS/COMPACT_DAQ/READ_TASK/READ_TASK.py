@@ -1,12 +1,12 @@
-from flojoy import flojoy, DataContainer, Vector, Matrix, HardwareConnection
+from flojoy import flojoy, DataContainer, Vector, Matrix, DeviceConnectionManager
 import nidaqmx
 from typing import Optional
 import numpy as np
 
 
-@flojoy(deps={"nidaqmx": "0.9.0"}, inject_connection=True)
+@flojoy(deps={"nidaqmx": "0.9.0"})
 def READ_TASK(
-    connection: HardwareConnection,
+    task_name: str,
     number_of_samples_per_channel: int = 1,
     timeout: float = 10.0,
     wait_infinitely: bool = False,
@@ -23,8 +23,8 @@ def READ_TASK(
 
     Parameters
     ----------
-    connection : NIDAQmxDevice
-        The device and channel for which a task has been initialized.
+    task_name : str
+        The name of the task to read from.
     number_of_samples_per_channel : int, optional
         Number of samples to read (default is 1).
     timeout : float, optional
@@ -38,7 +38,7 @@ def READ_TASK(
         Samples read from the device.
     """
 
-    task: nidaqmx.task.Task = connection.get_handle()
+    task = DeviceConnectionManager.get_connection(task_name).get_handle()
 
     assert (
         number_of_samples_per_channel > 0

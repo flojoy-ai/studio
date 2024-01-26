@@ -1,11 +1,11 @@
-from flojoy import flojoy, DataContainer, HardwareConnection
+from flojoy import flojoy, DataContainer, DeviceConnectionManager
 import nidaqmx
 from typing import Optional, Literal
 
 
-@flojoy(deps={"nidaqmx": "0.9.0"}, inject_connection=True)
+@flojoy(deps={"nidaqmx": "0.9.0"})
 def CONFIG_INPUT_STREAM(
-    connection: HardwareConnection,
+    task_name: str,
     timeout: float = 10.0,
     offset: int = 0,
     relative_to: Literal[
@@ -27,8 +27,8 @@ def CONFIG_INPUT_STREAM(
 
     Parameters
     ----------
-    connection : NIDAQmxDevice
-        The first input channel for which a created task has been initialized.
+    task_name : str
+        The name of the task to configure.
     timeout : float, optional
         The amount of time, in seconds, to wait for the function to read the samples (default is 10.0 seconds).
     offset : int, optional
@@ -49,7 +49,7 @@ def CONFIG_INPUT_STREAM(
         This block does not return any meaningful data; it is designed for configuring the input stream properties.
     """
 
-    task: nidaqmx.task.Task = connection.get_handle()
+    task = DeviceConnectionManager.get_connection(task_name).get_handle()
 
     task.in_stream.timeout = timeout
 

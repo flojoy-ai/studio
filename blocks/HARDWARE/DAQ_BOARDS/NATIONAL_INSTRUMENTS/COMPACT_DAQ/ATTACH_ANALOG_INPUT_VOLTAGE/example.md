@@ -1,4 +1,4 @@
-This app demonstrates how to use thermocouple and voltage input blocks with National Instruments Compact DAQ modules.
+This app shows how to use a thermocouple and voltage input blocks for with National Instruments Compact DAQ modules.
 
 Blocks used:
 

@@ -1,11 +1,10 @@
-from flojoy import flojoy, DataContainer, HardwareConnection
-import nidaqmx
+from flojoy import flojoy, DataContainer, DeviceConnectionManager
 from typing import Optional
 
 
-@flojoy(deps={"nidaqmx": "0.9.0"}, inject_connection=True)
+@flojoy(deps={"nidaqmx": "0.9.0"})
 def TASK_WAIT_UNTIL_DONE(
-    connection: HardwareConnection,
+    task_name: str,
     timeout: float = 10.0,
     default: Optional[DataContainer] = None,
 ) -> Optional[DataContainer]:
@@ -20,8 +19,8 @@ def TASK_WAIT_UNTIL_DONE(
 
     Parameters
     ----------
-    connection : NIDAQmxDevice
-        The first input channel for which a created task has been initialized.
+    task_name: str
+        The name of the task to wait for.
     timeout : float
         Specifies the maximum amount of time in seconds to wait for the measurement or generation to complete. This method returns an error if the time elapses.
 
@@ -31,6 +30,6 @@ def TASK_WAIT_UNTIL_DONE(
         Return the input
     """
 
-    task: nidaqmx.task.Task = connection.get_handle()
+    task = DeviceConnectionManager.get_connection(task_name).get_handle()
     task.wait_until_done(timeout=timeout)
     return default

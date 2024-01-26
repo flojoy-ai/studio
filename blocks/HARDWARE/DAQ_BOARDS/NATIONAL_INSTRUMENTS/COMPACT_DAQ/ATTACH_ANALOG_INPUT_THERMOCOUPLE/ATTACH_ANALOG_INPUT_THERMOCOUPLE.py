@@ -26,6 +26,8 @@ def ATTACH_ANALOG_INPUT_THERMOCOUPLE(
 
     Parameters
     ----------
+    task_name : str
+        The name of the task to attach the channel(s) to.
     cDAQ_start_channel : NIDAQmxDevice
         The device and channel to read from.
     cDAQ_end_channel : NIDAQmxDevice

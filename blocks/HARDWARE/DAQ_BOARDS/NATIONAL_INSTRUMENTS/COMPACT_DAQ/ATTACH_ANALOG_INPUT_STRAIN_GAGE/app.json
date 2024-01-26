@@ -4,189 +4,6 @@
             {
                 "width": 192,
                 "height": 192,
-                "id": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE-87be0141-7953-4259-87d0-1c4eef42cf33",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE-87be0141-7953-4259-87d0-1c4eef42cf33",
-                    "label": "CREATE TASK ANALOG INPUT STRAIN GAGE",
-                    "func": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "cDAQ_start_channel": {
-                            "type": "NIDAQmxDevice",
-                            "default": null,
-                            "desc": "The device and channel to read from.",
-                            "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
-                            "param": "cDAQ_start_channel",
-                            "value": "cDAQ2Mod1/ai0"
-                        },
-                        "cDAQ_end_channel": {
-                            "type": "NIDAQmxDevice",
-                            "default": null,
-                            "desc": "To read from only one channel, set this to the same as cDAQ_start_channel. To read from multiple channels, set this to the last channel you want to read from.",
-                            "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
-                            "param": "cDAQ_end_channel",
-                            "value": "cDAQ2Mod1/ai2"
-                        },
-                        "min_val": {
-                            "type": "float",
-                            "default": -0.001,
-                            "desc": "Specifies in **units** the minimum value you expect to measure.",
-                            "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
-                            "param": "min_val",
-                            "value": -0.001
-                        },
-                        "max_val": {
-                            "type": "float",
-                            "default": 0.001,
-                            "desc": "Specifies in **units** the maximum value you expect to measure.",
-                            "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
-                            "param": "max_val",
-                            "value": 0.001
-                        },
-                        "units": {
-                            "type": "select",
-                            "options": [
-                                "STRAIN"
-                            ],
-                            "default": "STRAIN",
-                            "desc": "The units to use to return strain measurements.",
-                            "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
-                            "param": "units",
-                            "value": "STRAIN"
-                        },
-                        "strain_config": {
-                            "type": "select",
-                            "options": [
-                                "Full brige 1",
-                                "Full brige 2",
-                                "Full brige 3",
-                                "Half brige 1",
-                                "Half brige 2",
-                                "Quarter brige 1",
-                                "Quarter brige 2"
-                            ],
-                            "default": "Full brige 1",
-                            "desc": "Specifies information about the bridge configuration and measurement.",
-                            "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
-                            "param": "strain_config",
-                            "value": "Quarter brige 1"
-                        },
-                        "voltage_excitation_source": {
-                            "type": "select",
-                            "options": [
-                                "None",
-                                "External",
-                                "Internal"
-                            ],
-                            "default": "Internal",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
-                            "param": "voltage_excitation_source",
-                            "value": "Internal"
-                        },
-                        "voltage_excitation_value": {
-                            "type": "float",
-                            "default": 2.5,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
-                            "param": "voltage_excitation_value",
-                            "value": 3.3
-                        },
-                        "gage_factor": {
-                            "type": "float",
-                            "default": 2,
-                            "desc": "Contains information about the strain gage and measurement.",
-                            "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
-                            "param": "gage_factor",
-                            "value": 2
-                        },
-                        "initial_bridge_voltage": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "Specifies information about the bridge configuration and measurement.",
-                            "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
-                            "param": "initial_bridge_voltage",
-                            "value": 0
-                        },
-                        "nominal_gage_resistance": {
-                            "type": "float",
-                            "default": 350,
-                            "desc": "Contains information about the strain gage and measurement.",
-                            "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
-                            "param": "nominal_gage_resistance",
-                            "value": 350
-                        },
-                        "poisson_ratio": {
-                            "type": "float",
-                            "default": 0.3,
-                            "desc": "Contains information about the strain gage and measurement.",
-                            "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
-                            "param": "poisson_ratio",
-                            "value": 0.3
-                        },
-                        "lead_wire_resistance": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "Specifies information about the bridge configuration and measurement.",
-                            "overload": null,
-                            "functionName": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE",
-                            "param": "lead_wire_resistance",
-                            "value": 0
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "None"
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "nidaqmx",
-                            "v": "0.9.0"
-                        }
-                    ],
-                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE/CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE.py"
-                },
-                "position": {
-                    "x": -388.86496618753233,
-                    "y": -203.5024957493555
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -388.86496618753233,
-                    "y": -203.5024957493555
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
                 "id": "READ_TASK-eeab7450-8d5f-42f5-86fc-3c2a63f0d691",
                 "type": "HARDWARE",
                 "data": {
@@ -195,19 +12,19 @@
                     "func": "READ_TASK",
                     "type": "HARDWARE",
                     "ctrls": {
-                        "connection": {
-                            "type": "HardwareConnection",
+                        "task_name": {
+                            "type": "str",
                             "default": null,
-                            "desc": null,
+                            "desc": "The name of the task to read from.",
                             "overload": null,
                             "functionName": "READ_TASK",
-                            "param": "connection",
-                            "value": "cDAQ2Mod1/ai0"
+                            "param": "task_name",
+                            "value": "task"
                         },
                         "number_of_samples_per_channel": {
                             "type": "int",
                             "default": 1,
-                            "desc": "Number of samples to read.",
+                            "desc": "Number of samples to read (default is 1).",
                             "overload": null,
                             "functionName": "READ_TASK",
                             "param": "number_of_samples_per_channel",
@@ -216,7 +33,7 @@
                         "timeout": {
                             "type": "float",
                             "default": 10,
-                            "desc": "Time to wait for samples to become available. If you set timeout to 0, the method tries once to read the requested samples and returns an error if it is unable to.",
+                            "desc": "Time to wait for samples to become available. If set to 0, the method tries once to read the requested samples and returns an error if it is unable to (default is 10.0 seconds).",
                             "overload": null,
                             "functionName": "READ_TASK",
                             "param": "timeout",
@@ -225,7 +42,7 @@
                         "wait_infinitely": {
                             "type": "bool",
                             "default": false,
-                            "desc": "If True, the method waits indefinitely for samples to become available. If False, the method waits for the amount of time specified by timeout.",
+                            "desc": "If True, the method waits indefinitely for samples to become available. If False, the method waits for the amount of time specified by `timeout` (default is False).",
                             "overload": null,
                             "functionName": "READ_TASK",
                             "param": "wait_infinitely",
@@ -259,13 +76,13 @@
                     "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/READ_TASK/READ_TASK.py"
                 },
                 "position": {
-                    "x": 215.4262002606963,
-                    "y": -205.34765193133154
+                    "x": -298.64277225401344,
+                    "y": -167.64088133123056
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 215.4262002606963,
-                    "y": -205.34765193133154
+                    "x": -298.64277225401344,
+                    "y": -167.64088133123056
                 },
                 "dragging": true
             },
@@ -338,13 +155,13 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
                 },
                 "position": {
-                    "x": -419.25550300758516,
-                    "y": 36.91793833172602
+                    "x": -28.36198111987187,
+                    "y": -252.16730293571464
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
-                    "x": -419.25550300758516,
-                    "y": 36.91793833172602
+                    "x": -28.36198111987187,
+                    "y": -252.16730293571464
                 },
                 "dragging": true,
                 "style": {
@@ -364,19 +181,19 @@
                     "func": "CONFIG_TASK_SAMPLE_CLOCK_TIMING",
                     "type": "HARDWARE",
                     "ctrls": {
-                        "connection": {
-                            "type": "HardwareConnection",
+                        "task_name": {
+                            "type": "str",
                             "default": null,
-                            "desc": null,
+                            "desc": "The name of the task to configure.",
                             "overload": null,
                             "functionName": "CONFIG_TASK_SAMPLE_CLOCK_TIMING",
-                            "param": "connection",
-                            "value": "cDAQ2Mod1/ai0"
+                            "param": "task_name",
+                            "value": "task"
                         },
                         "sample_clock_rate": {
                             "type": "float",
                             "default": 1000,
-                            "desc": "Specifies the sampling rate in samples per channel per second.\nIf you use an external source for the Sample Clock, set this input to the maximum expected rate of that clock.\nUses the onboard clock of the device.",
+                            "desc": "Specifies the sampling rate in samples per channel per second. If using an external source for the Sample Clock, set this input to the maximum expected rate of that clock. Uses the onboard clock of the device (default is 1000.0).",
                             "overload": null,
                             "functionName": "CONFIG_TASK_SAMPLE_CLOCK_TIMING",
                             "param": "sample_clock_rate",
@@ -385,7 +202,7 @@
                         "number_of_samples_per_channel": {
                             "type": "int",
                             "default": 1000,
-                            "desc": "Specifies the number of samples to acquire or generate for each channel in the task",
+                            "desc": "Specifies the number of samples to acquire or generate for each channel in the task (default is 1000).",
                             "overload": null,
                             "functionName": "CONFIG_TASK_SAMPLE_CLOCK_TIMING",
                             "param": "number_of_samples_per_channel",
@@ -407,7 +224,7 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "desc": "None"
+                            "desc": "This block does not return any meaningful data; it is designed for configuring the task's sample clock timing."
                         }
                     ],
                     "pip_dependencies": [
@@ -419,13 +236,263 @@
                     "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CONFIG_TASK_SAMPLE_CLOCK_TIMING/CONFIG_TASK_SAMPLE_CLOCK_TIMING.py"
                 },
                 "position": {
-                    "x": -70.73135130057162,
-                    "y": -209.77856480874675
+                    "x": -470.4231196616418,
+                    "y": 111.98587764544806
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -70.73135130057162,
-                    "y": -209.77856480874675
+                    "x": -470.4231196616418,
+                    "y": 111.98587764544806
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "ATTACH_ANALOG_INPUT_STRAIN_GAGE-d8ed1ba7-f388-4b2c-90b4-59e6b2628cb2",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "ATTACH_ANALOG_INPUT_STRAIN_GAGE-d8ed1ba7-f388-4b2c-90b4-59e6b2628cb2",
+                    "label": "ATTACH ANALOG INPUT STRAIN GAGE",
+                    "func": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "task_name": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "The name of the task to create.",
+                            "overload": null,
+                            "functionName": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "task_name",
+                            "value": "task"
+                        },
+                        "cDAQ_start_channel": {
+                            "type": "NIDAQmxDevice",
+                            "default": null,
+                            "desc": "The device and channel to read from.",
+                            "overload": null,
+                            "functionName": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "cDAQ_start_channel",
+                            "value": "cDAQ2Mod4/ai0"
+                        },
+                        "cDAQ_end_channel": {
+                            "type": "NIDAQmxDevice",
+                            "default": null,
+                            "desc": "To read from only one channel, set this to the same as `cDAQ_start_channel`. To read from multiple channels, set this to the last channel you want to read from.",
+                            "overload": null,
+                            "functionName": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "cDAQ_end_channel",
+                            "value": "cDAQ2Mod4/ai1"
+                        },
+                        "min_val": {
+                            "type": "float",
+                            "default": -0.001,
+                            "desc": "Specifies in **units** the minimum value you expect to measure (default is -0.001).",
+                            "overload": null,
+                            "functionName": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "min_val",
+                            "value": -0.001
+                        },
+                        "max_val": {
+                            "type": "float",
+                            "default": 0.001,
+                            "desc": "Specifies in **units** the maximum value you expect to measure (default is 0.001).",
+                            "overload": null,
+                            "functionName": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "max_val",
+                            "value": 0.001
+                        },
+                        "units": {
+                            "type": "select",
+                            "options": [
+                                "STRAIN"
+                            ],
+                            "default": "STRAIN",
+                            "desc": "The units to use to return strain measurements (default is \"STRAIN\").",
+                            "overload": null,
+                            "functionName": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "units",
+                            "value": "STRAIN"
+                        },
+                        "strain_config": {
+                            "type": "select",
+                            "options": [
+                                "Full brige 1",
+                                "Full brige 2",
+                                "Full brige 3",
+                                "Half brige 1",
+                                "Half brige 2",
+                                "Quarter brige 1",
+                                "Quarter brige 2"
+                            ],
+                            "default": "Full brige 1",
+                            "desc": "Specifies information about the bridge configuration and measurement (default is \"Full Bridge 1\").",
+                            "overload": null,
+                            "functionName": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "strain_config",
+                            "value": "Quarter brige 1"
+                        },
+                        "voltage_excitation_source": {
+                            "type": "select",
+                            "options": [
+                                "None",
+                                "External",
+                                "Internal"
+                            ],
+                            "default": "Internal",
+                            "desc": "Specifies the source of excitation (default is \"Internal\").",
+                            "overload": null,
+                            "functionName": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "voltage_excitation_source",
+                            "value": "Internal"
+                        },
+                        "voltage_excitation_value": {
+                            "type": "float",
+                            "default": 2.5,
+                            "desc": "Specifies in volts the amount of excitation to supply to the bridge (default is 2.5).",
+                            "overload": null,
+                            "functionName": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "voltage_excitation_value",
+                            "value": 3.3
+                        },
+                        "gage_factor": {
+                            "type": "float",
+                            "default": 2,
+                            "desc": "Contains information about the strain gage and measurement (default is 2.0).",
+                            "overload": null,
+                            "functionName": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "gage_factor",
+                            "value": 2
+                        },
+                        "initial_bridge_voltage": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "Specifies the initial voltage across the bridge before any strain is applied (default is 0.0).",
+                            "overload": null,
+                            "functionName": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "initial_bridge_voltage",
+                            "value": 0
+                        },
+                        "nominal_gage_resistance": {
+                            "type": "float",
+                            "default": 350,
+                            "desc": "Contains information about the strain gage and measurement (default is 350.0).",
+                            "overload": null,
+                            "functionName": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "nominal_gage_resistance",
+                            "value": 350
+                        },
+                        "poisson_ratio": {
+                            "type": "float",
+                            "default": 0.3,
+                            "desc": "Contains information about the strain gage and measurement (default is 0.3).",
+                            "overload": null,
+                            "functionName": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "poisson_ratio",
+                            "value": 0.3
+                        },
+                        "lead_wire_resistance": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "Specifies the resistance of the lead wires connected to the strain gage (default is 0.0).",
+                            "overload": null,
+                            "functionName": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
+                            "param": "lead_wire_resistance",
+                            "value": 0
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "This block does not return any meaningful data; it is designed for creating a task to measure strain."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "nidaqmx",
+                            "v": "0.9.0"
+                        }
+                    ],
+                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/ATTACH_ANALOG_INPUT_STRAIN_GAGE/ATTACH_ANALOG_INPUT_STRAIN_GAGE.py"
+                },
+                "position": {
+                    "x": -556.9493161742778,
+                    "y": -119.1414166774826
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": -556.9493161742778,
+                    "y": -119.1414166774826
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CREATE_TASK-409ba857-06c2-4be4-bd14-1eca1d4654c9",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "CREATE_TASK-409ba857-06c2-4be4-bd14-1eca1d4654c9",
+                    "label": "CREATE TASK",
+                    "func": "CREATE_TASK",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "task_name": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "The name of the task to create.",
+                            "overload": null,
+                            "functionName": "CREATE_TASK",
+                            "param": "task_name",
+                            "value": "task"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "This block does not return any meaningful data;"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "nidaqmx",
+                            "v": "0.9.0"
+                        }
+                    ],
+                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CREATE_TASK/CREATE_TASK.py"
+                },
+                "position": {
+                    "x": -623.7637565963919,
+                    "y": -348.65602177036146
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -623.7637565963919,
+                    "y": -348.65602177036146
                 },
                 "dragging": true
             }
@@ -446,17 +513,24 @@
                 "id": "reactflow__edge-READ_TASK-eeab7450-8d5f-42f5-86fc-3c2a63f0d691default-LINE-2da5889c-c892-4db0-b7a6-a519bdea5a5fdefault"
             },
             {
-                "source": "CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE-87be0141-7953-4259-87d0-1c4eef42cf33",
+                "source": "ATTACH_ANALOG_INPUT_STRAIN_GAGE-d8ed1ba7-f388-4b2c-90b4-59e6b2628cb2",
                 "sourceHandle": "default",
                 "target": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-9c309463-9603-45a3-b29a-c5484c1aeae4",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CREATE_TASK_ANALOG_INPUT_STRAIN_GAGE-87be0141-7953-4259-87d0-1c4eef42cf33default-CONFIG_TASK_SAMPLE_CLOCK_TIMING-9c309463-9603-45a3-b29a-c5484c1aeae4default"
+                "id": "reactflow__edge-ATTACH_ANALOG_INPUT_STRAIN_GAGE-d8ed1ba7-f388-4b2c-90b4-59e6b2628cb2default-CONFIG_TASK_SAMPLE_CLOCK_TIMING-9c309463-9603-45a3-b29a-c5484c1aeae4default"
+            },
+            {
+                "source": "CREATE_TASK-409ba857-06c2-4be4-bd14-1eca1d4654c9",
+                "sourceHandle": "default",
+                "target": "ATTACH_ANALOG_INPUT_STRAIN_GAGE-d8ed1ba7-f388-4b2c-90b4-59e6b2628cb2",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CREATE_TASK-409ba857-06c2-4be4-bd14-1eca1d4654c9default-ATTACH_ANALOG_INPUT_STRAIN_GAGE-d8ed1ba7-f388-4b2c-90b4-59e6b2628cb2default"
             }
         ],
         "viewport": {
-            "x": 811.5885732768018,
-            "y": 439.15420524755007,
-            "zoom": 0.7447829407266607
+            "x": 933.9352888714216,
+            "y": 429.22336189960754,
+            "zoom": 0.7039763227823722
         }
     },
     "name": "app",
