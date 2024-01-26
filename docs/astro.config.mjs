@@ -67,11 +67,12 @@ export default defineConfig({
           label: "🕹️ Flojoy Studio",
           autogenerate: {
             directory: "studio",
+            collapsed: true,
           },
         },
         {
           label: "🔮 Flojoy Blocks",
-          collapsed: false,
+          collapsed: true,
           autogenerate: {
             directory: "blocks",
             collapsed: true,
@@ -79,7 +80,7 @@ export default defineConfig({
         },
         {
           label: "☁️ Flojoy Cloud",
-          collapsed: false,
+          collapsed: true,
           autogenerate: {
             directory: "cloud",
             collapsed: true,
