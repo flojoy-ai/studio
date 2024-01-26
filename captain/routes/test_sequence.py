@@ -1,8 +1,10 @@
-from fastapi import APIRouter, WebSocket, WebSocketDisconnect
-
+from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Depends
+from captain.models.pytest.pytest_models import TestDiscoverContainer
+from captain.utils.pytest.discover_tests import discover_pytest_file
 from captain.utils.config import ts_manager
 from captain.utils.test_sequencer.handle_data import handle_data
 from captain.utils.logger import logger
+from pydantic import BaseModel, Field
 
 router = APIRouter(tags=["ws"])
 
@@ -25,3 +27,18 @@ async def websocket_endpoint(websocket: WebSocket, socket_id: str):
     except WebSocketDisconnect:
         await ts_manager.ws.disconnect(socket_id=socket_id)
         logger.info(f"Client {socket_id} is disconnected")
+
+
+class DiscoverPytestParams(BaseModel):
+    path: str
+    one_file: bool = Field(..., alias="oneFile")
+
+
+@router.get("/discover-pytest/")
+async def discover_pytest(params: DiscoverPytestParams = Depends()):
+    path = params.path
+    one_file = params.one_file
+    logger.info("access discover")
+    return TestDiscoverContainer(
+        response=discover_pytest_file(path, one_file)
+    ).model_dump_json(by_alias=True)

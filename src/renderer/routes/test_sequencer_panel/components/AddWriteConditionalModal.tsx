@@ -16,7 +16,6 @@ export const WriteConditionalModal = ({
   const handleInputChange = (e) => {
     setValue(e.target.value);
   };
-  console.log("IS IT OPENED: ", isConditionalModalOpen);
   return (
     <Dialog
       open={isConditionalModalOpen}

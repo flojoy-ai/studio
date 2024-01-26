@@ -79,10 +79,6 @@ const IndentLine = ({
 
 export function DataTable() {
   const { elems, setElems, running } = useTestSequencerState();
-  console.log(running);
-  // const indentLevels = React.useMemo(() => {
-  //   return getIndentLevels(elems);
-  // }, [elems]);
 
   const indentLevels = getIndentLevels(elems);
 
@@ -283,6 +279,7 @@ export function DataTable() {
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
+    pageCount: 5,
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),

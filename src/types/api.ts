@@ -39,4 +39,5 @@ export enum API {
   isCI = "IS_CI",
   getAllLogs = "GET_ALL_LOGS",
   openLink = "OPEN_LINK",
+  openTestPicker = "OPEN_TEST_PICKER",
 }

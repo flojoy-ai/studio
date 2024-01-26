@@ -23,7 +23,7 @@ export type Test = {
   runInParallel: boolean;
   testType: TestTypes;
   status: StatusTypes;
-  completionTime: number;
+  completionTime: number | undefined;
   isSavedToCloud: boolean;
 };
 
@@ -60,3 +60,14 @@ export type TestRootNode = {
 };
 
 export type TestSequenceElementNode = ConditionalNode | TestNode | TestRootNode;
+
+export type TestDiscoverContainer = {
+  // sync with pydantic model in backend
+  response: TestDiscoveryResponse[];
+};
+
+export type TestDiscoveryResponse = {
+  // sync with pydantic model in backend
+  testName: string;
+  path: string;
+};
