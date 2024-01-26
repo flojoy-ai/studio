@@ -77,6 +77,7 @@ class DefaultDeviceFinder:
         try:
             system = nidaqmx.system.System.local()
             devices = []
+
             def extract_device(channel, device) -> NIDAQmxDevice:
                 return NIDAQmxDevice(
                     name=channel.name,

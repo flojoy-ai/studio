@@ -6,7 +6,7 @@
       {
         "name": "task_name",
         "type": "str",
-        "description": "The name of the task to create."
+        "description": "The name of the task to attach the channel(s) to."
       },
       {
         "name": "cDAQ_start_channel",
