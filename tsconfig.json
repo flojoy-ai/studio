@@ -24,12 +24,12 @@
       "@feature/*": ["src/renderer/feature/*"],
       "@components/*": ["src/renderer/components/*"],
       "@assets/*": ["src/renderer/assets/*"],
-      "@lib/*": ["src/renderer/lib/*"]
+      "@lib/*": ["src/renderer/lib/*"],
     },
     "rootDir": ".",
-    "outDir": "fe-dist"
+    "outDir": "fe-dist",
   },
   "include": ["src", "src/window.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }],
-  "exclude": ["node_modules", "dist", "build"]
+  "exclude": ["node_modules", "dist", "build"],
 }
