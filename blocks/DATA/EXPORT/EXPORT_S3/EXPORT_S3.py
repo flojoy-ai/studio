@@ -67,7 +67,7 @@ def EXPORT_S3(
     s3_access_key : str
         The name of the key used to save the AWS access key.
     s3_secret_key : str
-        The name of the key used to save the AWS secret access key.
+        The name of the key used to save the AWS secret key.
     bucket : str
         The S3 bucket to upload the file to.
     region : str

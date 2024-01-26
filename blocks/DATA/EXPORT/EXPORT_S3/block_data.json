@@ -11,7 +11,7 @@
       {
         "name": "s3_secret_key",
         "type": "str",
-        "description": "The name of the key used to save the AWS secret access key."
+        "description": "The name of the key used to save the AWS secret key."
       },
       {
         "name": "bucket",
