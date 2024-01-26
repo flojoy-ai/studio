@@ -4,9 +4,9 @@
     "short_description": "Reads raw samples from the specified task or virtual channels into the provided buffer.",
     "parameters": [
       {
-        "name": "connection",
-        "type": "NIDAQmxDevice",
-        "description": "The device and channel for which a task has been initialized."
+        "name": "task_name",
+        "type": "str",
+        "description": "The name of the task to read from."
       },
       {
         "name": "buffer",

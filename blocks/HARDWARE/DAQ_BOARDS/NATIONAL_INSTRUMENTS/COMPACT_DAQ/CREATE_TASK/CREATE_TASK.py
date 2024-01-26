@@ -26,7 +26,9 @@ def CREATE_TASK(
         This block does not return any meaningful data;
     """
 
-    assert task_name not in DeviceConnectionManager.handles, f"Task {task_name} already exists"
+    assert (
+        task_name not in DeviceConnectionManager.handles
+    ), f"Task {task_name} already exists"
     assert task_name != "" and task_name is not None, "Task name cannot be empty"
 
     task = nidaqmx.Task(new_task_name=task_name)

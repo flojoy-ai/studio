@@ -1,8 +1,13 @@
 {
   "docstring": {
     "long_description": "**Compatibility:**\nCompatible with National Instruments devices that utilize NI-DAQmx. Tested with a simulated NI-9234 module.\n\nThis block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html.",
-    "short_description": "Creates a task with channel(s) to measure acceleration using an accelerometer.",
+    "short_description": "Attach channel(s) to a task to measure acceleration using an accelerometer.",
     "parameters": [
+      {
+        "name": "task_name",
+        "type": "str",
+        "description": "The name of the task to create."
+      },
       {
         "name": "cDAQ_start_channel",
         "type": "NIDAQmxDevice",

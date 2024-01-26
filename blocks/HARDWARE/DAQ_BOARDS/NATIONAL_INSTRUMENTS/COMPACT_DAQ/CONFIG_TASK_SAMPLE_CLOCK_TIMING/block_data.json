@@ -4,9 +4,9 @@
     "short_description": "Configures the timing for the sample clock of a task.",
     "parameters": [
       {
-        "name": "connection",
-        "type": "NIDAQmxDevice",
-        "description": "The device and channel to read from. A NIDAQmx task must be created and initialized using `create_task_xxxx` before passing it to this block."
+        "name": "task_name",
+        "type": "str",
+        "description": "The name of the task to configure."
       },
       {
         "name": "sample_clock_rate",

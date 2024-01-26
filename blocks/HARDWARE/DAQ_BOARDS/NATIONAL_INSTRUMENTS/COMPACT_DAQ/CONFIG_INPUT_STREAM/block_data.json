@@ -4,9 +4,9 @@
     "short_description": "Configure the properties of an input stream.",
     "parameters": [
       {
-        "name": "connection",
-        "type": "NIDAQmxDevice",
-        "description": "The first input channel for which a created task has been initialized."
+        "name": "task_name",
+        "type": "str",
+        "description": "The name of the task to configure."
       },
       {
         "name": "timeout",

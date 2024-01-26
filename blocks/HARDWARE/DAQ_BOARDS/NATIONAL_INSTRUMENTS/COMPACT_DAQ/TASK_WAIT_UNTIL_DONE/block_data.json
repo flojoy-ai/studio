@@ -4,9 +4,9 @@
     "short_description": "Waits for the measurement or generation to complete.",
     "parameters": [
       {
-        "name": "connection",
-        "type": "NIDAQmxDevice",
-        "description": "The first input channel for which a created task has been initialized."
+        "name": "task_name",
+        "type": "str",
+        "description": "The name of the task to wait for."
       },
       {
         "name": "timeout",
