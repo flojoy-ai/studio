@@ -29,7 +29,6 @@ pyvisa = "^1.13.0"
 pyusb = "^1.2.1"
 tm-devices = "^1.1.0"
 watchfiles = "^0.21.0"
-keyrings-cryptfile = "^1.3.9"
 httpx = "^0.26.0"
 
 [tool.poetry.group.blocks.dependencies]
