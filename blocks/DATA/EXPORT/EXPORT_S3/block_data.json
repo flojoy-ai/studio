@@ -24,11 +24,6 @@
         "description": "The AWS region (default is \"us-east-1\")."
       },
       {
-        "name": "object_name",
-        "type": "str",
-        "description": "The name of the object in S3. If not specified, the name of the file will be used."
-      },
-      {
         "name": "enable_overwrite",
         "type": "bool",
         "description": "Whether to overwrite the file if it already exists (default is False)."
@@ -42,11 +37,6 @@
         "name": "objet_name",
         "type": "Optional[String]",
         "description": "Flojoy input to dynamically provide a string for the name of the object in S3. If not specified, the name of the file will be used."
-      },
-      {
-        "name": "default",
-        "type": "Optional[DataContainer]",
-        "description": "An optional default value."
       }
     ],
     "returns": [

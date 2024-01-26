@@ -70,18 +70,14 @@ def EXPORT_S3(
         The name of the key used to save the AWS secret access key.
     bucket : str
         The S3 bucket to upload the file to.
-    region : str, optional
+    region : str
         The AWS region (default is "us-east-1").
-    object_name : str, optional
-        The name of the object in S3. If not specified, the name of the file will be used.
     enable_overwrite : bool, optional
         Whether to overwrite the file if it already exists (default is False).
     file : File
         The file to be uploaded to the S3 bucket.
-    objet_name: Optional[String], optional
+    objet_name: Optional[String]
         Flojoy input to dynamically provide a string for the name of the object in S3. If not specified, the name of the file will be used.
-    default : Optional[DataContainer], optional
-        An optional default value.
 
     Returns
     -------
