@@ -11,7 +11,7 @@ import os
     }
 )
 def EXPORT_S3(
-    object_name: String,
+    object_name: Optional[String] = None,
     s3_access_key: str = "",
     s3_secret_key: str = "",
     bucket: str = "",
