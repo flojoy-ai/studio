@@ -56,7 +56,7 @@ def EXPORT_S3(
     enable_overwrite: bool = False,
     file: File = None,
     default: Optional[DataContainer] = None,
-    ) -> Boolean:
+) -> Boolean:
     """Export a file to S3 Bucket.
 
     This function exports a file to an S3 bucket using the provided credentials and options.
@@ -95,14 +95,16 @@ def EXPORT_S3(
     s3_client = boto3.Session(
         aws_access_key_id=access_key,
         aws_secret_access_key=secret_key,
-        region_name=region
-    ).client('s3')
+        region_name=region,
+    ).client("s3")
 
     # Some checks
     filename = file.unwrap()
-    buckets = [b['Name'] for b in s3_client.list_buckets()['Buckets']]
+    buckets = [b["Name"] for b in s3_client.list_buckets()["Buckets"]]
     if bucket not in buckets:
-        raise ValueError(f"Bucket {bucket} does not exist. Available buckets: {' '.join(buckets)}")
+        raise ValueError(
+            f"Bucket {bucket} does not exist. Available buckets: {' '.join(buckets)}"
+        )
     logging.info(f"object_name: {object_name}")
     if object_name is not None:
         object_name = object_name.s
@@ -114,7 +116,9 @@ def EXPORT_S3(
         try:
             # Throw an error "Not found" if the file doesn't exists
             s3_client.head_object(Bucket=bucket, Key=object_name)
-            logging.info(f"File {object_name} already exists in bucket {bucket}. Use enable_overwrite=True to overwrite it.")
+            logging.info(
+                f"File {object_name} already exists in bucket {bucket}. Use enable_overwrite=True to overwrite it."
+            )
             return Boolean(False)
         except Exception as err:
             if "Not Found" in str(err):
