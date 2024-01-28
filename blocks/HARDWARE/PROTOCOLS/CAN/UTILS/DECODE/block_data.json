@@ -9,7 +9,7 @@
         "description": "The database to use for decoding the message."
       },
       {
-        "name": "message",
+        "name": "messages",
         "type": "Stateful",
         "description": "The message to decode. Must be a can.Message object."
       }

@@ -9,7 +9,7 @@ def MF4_CLOSE_WRITER(
     default: Optional[Stateful] = None,
 ) -> Optional[DataContainer]:
     """Close a MF4 writer.
-    
+
     This closes the file that was opened by MF4_CREATE_WRITER.
     Optional since it is call automatically when the program ends.
     Usefull if you want to close (and save) the file before the program ends. Example, before uploading it to the cloud.

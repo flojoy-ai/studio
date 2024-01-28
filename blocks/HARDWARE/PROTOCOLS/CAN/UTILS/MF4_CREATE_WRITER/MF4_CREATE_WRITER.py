@@ -10,11 +10,11 @@ def MF4_CREATE_WRITER(
     compression_level: Literal[
         "No compression",
         "Deflate (slower, but produces smaller files)",
-        "Transposition + Deflate (slowest, but produces the smallest files)"
+        "Transposition + Deflate (slowest, but produces the smallest files)",
     ] = "No compression",
 ) -> Stateful:
     """Create a writer for the MF4 format.
-    
+
     Logs CAN data to an ASAM Measurement Data File v4 (.mf4) as specified by the ASAM MDF standard (see https://www.asam.net/standards/detail/mdf/).
 
     MF4Writer does not support append mode.
@@ -48,9 +48,7 @@ def MF4_CREATE_WRITER(
 
     # Handle cleanup automatically
     DeviceConnectionManager.register_connection(
-        HardwareDevice("MF4_writer"),
-        writer,
-        cleanup=lambda writer: writer.stop()
+        HardwareDevice("MF4_writer"), writer, cleanup=lambda writer: writer.stop()
     )
 
     return Stateful(writer)

@@ -5,9 +5,7 @@ import can
 
 @flojoy(deps={"python-can": "4.2.2"})
 def PCAN_READ(
-    PCAN_address: str,
-    timeout: int = 10,
-    default: Optional[DataContainer] = None
+    PCAN_address: str, timeout: int = 10, default: Optional[DataContainer] = None
 ) -> Stateful:
     """Read data from a PCAN device.
 
