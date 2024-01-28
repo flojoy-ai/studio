@@ -29,7 +29,7 @@ export const useTestImport = () => {
       const response = await baseClient.get("discover-pytest", {
         params: {
           path: path,
-          oneFile: settings.importAsOneRef.current,
+          oneFile: settings.importAsOneRef,
         },
       });
       const data: TestDiscoverContainer = JSON.parse(response.data);

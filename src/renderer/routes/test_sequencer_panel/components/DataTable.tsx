@@ -42,15 +42,18 @@ import {
   Conditional,
   Test,
 } from "@src/types/testSequencer";
-import { useTestSequencerState } from "@src/hooks/useTestSequencerState";
-import { parseInt, filter } from "lodash";
+import {
+  SetElemsFn,
+  useTestSequencerState,
+} from "@src/hooks/useTestSequencerState";
+import { parseInt, filter, map } from "lodash";
 import { AddConditionalModal } from "./AddConditionalModal";
 import {
   generateConditional,
   getIndentLevels,
   handleConditionalDelete,
 } from "../utils/ConditionalUtils";
-import { ChevronUpIcon, Loader } from "lucide-react";
+import { ChevronUpIcon, Loader, TrashIcon } from "lucide-react";
 import { WriteConditionalModal } from "./AddWriteConditionalModal";
 
 const IndentLine = ({
@@ -109,7 +112,7 @@ export function DataTable() {
     {
       accessorFn: (elem, idx) => {
         console.log(idx);
-        return elem.type === "test" ? "test_name" : "conditional_type";
+        return elem.type === "test" ? "testName" : "conditionalType";
       },
       header: "Test name",
       cell: ({ row }) => {
@@ -159,9 +162,9 @@ export function DataTable() {
     {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       accessorFn: (elem, _) => {
-        return elem.type === "test" ? "run_in_parallel" : null;
+        return elem.type === "test" ? "runInParallel" : null;
       },
-      header: "Run in parallel",
+      header: "run in parallel",
       cell: ({ row }) => {
         return row.original.type === "test" ? (
           <div>{row.original.runInParallel}</div>
@@ -170,10 +173,10 @@ export function DataTable() {
     },
 
     {
-      accessorKey: "test_type",
+      accessorKey: "test type",
       header: "Test type",
       cell: ({ row }) => (
-        <div className="lowercase">{row.getValue("test_type")}</div>
+        <div className="lowercase">{row.getValue("testType")}</div>
       ),
     },
 
@@ -188,7 +191,7 @@ export function DataTable() {
     {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       accessorFn: (elem, _) => {
-        return elem.type === "test" ? "completion_time" : null;
+        return elem.type === "test" ? "completionTime" : null;
       },
       header: "Time complete",
       enableHiding: false,
@@ -203,11 +206,11 @@ export function DataTable() {
     },
 
     {
-      accessorKey: "is_saved_to_cloud",
+      accessorKey: "isSavedToCloud",
       header: "Saved to Flojoy Cloud",
       enableHiding: false,
       cell: ({ row }) => {
-        return row.getValue("is_saved_to_cloud") ? (
+        return row.getValue("isSavedToCloud") ? (
           <Button>OPEN TEST</Button>
         ) : null;
       },
@@ -257,22 +260,6 @@ export function DataTable() {
   const [rowSelection, setRowSelection] = React.useState({});
   const data = elems; // this is necessary for some reason for the table to work no idea why
 
-  const onRemoveTest = (testIdx: number) => {
-    //case 1: removing a test
-    switch (elems[testIdx].type) {
-      case "test":
-        setElems((data) => {
-          return filter(data, (_, idx) => idx != testIdx);
-        });
-        break;
-      case "conditional":
-        handleConditionalDelete(elems[testIdx] as Conditional, setElems);
-        break;
-    }
-
-    //case 2:
-  };
-
   const table = useReactTable({
     data,
     columns,
@@ -292,6 +279,47 @@ export function DataTable() {
       rowSelection,
     },
   });
+
+  const handleClickRemoveTests = () => {
+    const keys = map(Object.keys(rowSelection), (key) => parseInt(key)).sort(
+      (a, b) => {
+        return a - b;
+      },
+    );
+    console.log(keys);
+    onRemoveTest([...keys]);
+    setRowSelection([]);
+  };
+
+  const onRemoveTest = (idxs: number[]) => {
+    setElems((elems) => {
+      let newElems = [...elems];
+      const setNewElems: SetElemsFn = (setFnOrArr) => {
+        if (Array.isArray(setFnOrArr)) newElems = setFnOrArr;
+        else newElems = setFnOrArr(newElems);
+      };
+
+      idxs
+        .sort((a, b) => a - b)
+        .forEach((testIdx, i) => {
+          const newIdx = testIdx - i;
+          switch (newElems[newIdx].type) {
+            case "test":
+              setNewElems((data) => {
+                return filter(data, (_, idx) => idx != newIdx);
+              });
+              break;
+            case "conditional":
+              handleConditionalDelete(
+                newElems[newIdx] as Conditional,
+                setNewElems,
+              );
+              break;
+          }
+        });
+      return newElems;
+    });
+  };
 
   const [showAddConditionalModal, setShowAddConditionalModal] =
     React.useState(false);
@@ -356,7 +384,7 @@ export function DataTable() {
   };
 
   return (
-    <div className="w-full">
+    <div className="flex flex-col">
       <div className="flex items-center py-0">
         <AddConditionalModal
           isConditionalModalOpen={showAddConditionalModal}
@@ -368,6 +396,13 @@ export function DataTable() {
           handleWriteConditionalModalOpen={setShowWriteConditionalModal}
           handleWrite={handleWriteConditionalModal}
         />
+        <Button
+          disabled={Object.keys(rowSelection).length === 0}
+          onClick={handleClickRemoveTests}
+          variant="outline"
+        >
+          <TrashIcon />
+        </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
@@ -444,7 +479,7 @@ export function DataTable() {
                         </ContextMenuItem>
                         <ContextMenuItem>Show Output Plot</ContextMenuItem>
                         <ContextMenuItem
-                          onClick={() => onRemoveTest(parseInt(row.id))}
+                          onClick={() => onRemoveTest([parseInt(row.id)])}
                         >
                           Remove Test
                         </ContextMenuItem>

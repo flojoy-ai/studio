@@ -25,7 +25,7 @@ import { Summary, Test, TestSequenceElement } from "@src/types/testSequencer";
 import { useTestSequencerState } from "@src/hooks/useTestSequencerState";
 
 const getOnlyTests = (data: TestSequenceElement[]): Test[] => {
-  return filter(data, (elem) => elem.type === "test");
+  return filter(data, (elem) => elem.type === "test") as Test[];
 };
 
 const getCompletionTime = (data: TestSequenceElement[]) => {
@@ -58,8 +58,9 @@ export function SummaryTable() {
   const [rowSelection, setRowSelection] = React.useState({});
   const { elems } = useTestSequencerState();
   const [summary, setSummary] = React.useState<Summary[]>([]);
-
+  console.log(summary);
   React.useEffect(() => {
+    console.log("summary triggered");
     setSummary([
       {
         id: "1",
@@ -79,14 +80,14 @@ export function SummaryTable() {
       accessorKey: "success_rate",
       header: "Success Rate",
       cell: ({ row }) => {
-        return <div>{row.getValue("success_rate")}%</div>;
+        return <div>{row.original.successRate}%</div>;
       },
     },
     {
       accessorKey: "completion_time",
       header: "Total time",
       cell: ({ row }) => {
-        return <div>{row.getValue("completion_time")}s</div>;
+        return <div>{row.original.completionTime.toFixed(2)}s</div>;
       },
     },
   ];
@@ -112,7 +113,7 @@ export function SummaryTable() {
   });
 
   return (
-    <div className="w-full">
+    <div className="flex flex-col">
       <div className="rounded-md border">
         <Table>
           <TableHeader>

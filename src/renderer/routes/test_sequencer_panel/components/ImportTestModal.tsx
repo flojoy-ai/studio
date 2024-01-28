@@ -2,10 +2,10 @@ import { Button } from "@src/components/ui/button";
 import { Checkbox } from "@src/components/ui/checkbox";
 import { Dialog, DialogContent } from "@src/components/ui/dialog";
 import { useTestImport } from "@src/hooks/useTestImport";
-import { Dispatch, MutableRefObject, SetStateAction, useRef } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 export type ImportTestSettings = {
-  importAsOneRef: MutableRefObject<boolean | string>;
+  importAsOneRef: boolean;
 };
 
 export const ImportTestModal = ({
@@ -22,10 +22,10 @@ export const ImportTestModal = ({
     openFilePicker(settings);
   };
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const isChecked = useRef<boolean | string>(false);
+  const [checked, setChecked] = useState<boolean>(false);
 
-  const testSettings = {
-    importAsOneRef: isChecked,
+  const testSettings: ImportTestSettings = {
+    importAsOneRef: checked,
   };
 
   return (
@@ -33,9 +33,9 @@ export const ImportTestModal = ({
       <DialogContent>
         <div className="flex items-center space-x-2">
           <Checkbox
+            checked={checked}
             onCheckedChange={(checked) => {
-              isChecked.current = checked;
-              console.log(isChecked.current);
+              setChecked(checked as boolean);
             }}
           />
           <label>Import file as one test</label>

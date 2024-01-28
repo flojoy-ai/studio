@@ -66,12 +66,13 @@ const TestSequencerView = () => {
         <Button>New Test</Button>
       </div>
 
-      <DataTable />
-
-      <SummaryTable />
+      <div className="w-5/6">
+        <DataTable />
+        <SummaryTable />
+      </div>
 
       {/* Test Flow Control buttons */}
-      <div className="flex flex-row justify-center space-x-5">
+      <div className="flex flex-row space-x-5">
         <Button onClick={handleClickImportTest}>+ Import test</Button>
         <Button>Save test run</Button>
         <Button>Export test</Button>
