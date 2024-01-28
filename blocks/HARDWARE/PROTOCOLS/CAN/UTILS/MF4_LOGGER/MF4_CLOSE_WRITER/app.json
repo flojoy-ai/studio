@@ -40,13 +40,13 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_LOGGER/MF4_WRITE/MF4_WRITE.py"
                 },
                 "position": {
-                    "x": 590.4035051654209,
-                    "y": -199.43864244706322
+                    "x": 398.8823812402737,
+                    "y": -403.14747425835606
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 590.4035051654209,
-                    "y": -199.43864244706322
+                    "x": 398.8823812402737,
+                    "y": -403.14747425835606
                 },
                 "dragging": true
             },
@@ -259,13 +259,13 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/UTILS/DECODE/DECODE.py"
                 },
                 "position": {
-                    "x": 592.5132878623796,
-                    "y": -617.1429985084042
+                    "x": 649.9696250399238,
+                    "y": -669.3760323061716
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 592.5132878623796,
-                    "y": -617.1429985084042
+                    "x": 649.9696250399238,
+                    "y": -669.3760323061716
                 },
                 "dragging": true
             },
@@ -301,13 +301,13 @@
                     "path": "DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py"
                 },
                 "position": {
-                    "x": 959.0873144960332,
-                    "y": -621.918066914066
+                    "x": 950.381808863072,
+                    "y": -674.1511007118335
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 959.0873144960332,
-                    "y": -621.918066914066
+                    "x": 950.381808863072,
+                    "y": -674.1511007118335
                 },
                 "dragging": true
             },
@@ -563,75 +563,13 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/UTILS/LOAD_DBC/LOAD_DBC.py"
                 },
                 "position": {
-                    "x": 51.02813196983266,
-                    "y": -644.4831923628175
+                    "x": 279.1123795534172,
+                    "y": -667.1175070085167
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 51.02813196983266,
-                    "y": -644.4831923628175
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "RAW_DATA_SIMULATION-17fafa7c-459b-479e-801d-0a3a61875526",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "RAW_DATA_SIMULATION-17fafa7c-459b-479e-801d-0a3a61875526",
-                    "label": "RAW DATA SIMULATION",
-                    "func": "RAW_DATA_SIMULATION",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "file_path": {
-                            "type": "File",
-                            "default": null,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "RAW_DATA_SIMULATION",
-                            "param": "file_path",
-                            "value": "C:\\Users\\zzzgu\\Downloads\\motohawk.dbc"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Stateful",
-                            "desc": null
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "python-can",
-                            "v": "4.2.2"
-                        },
-                        {
-                            "name": "cantools",
-                            "v": "39.4.2"
-                        }
-                    ],
-                    "path": "HARDWARE/RAW_DATA_SIMULATION/RAW_DATA_SIMULATION.py"
-                },
-                "position": {
-                    "x": 66.4160586811804,
-                    "y": -176.00649925033906
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 66.4160586811804,
-                    "y": -176.00649925033906
+                    "x": 279.1123795534172,
+                    "y": -667.1175070085167
                 },
                 "dragging": true
             },
@@ -711,7 +649,7 @@
                             "overload": null,
                             "functionName": "PCAN_READ",
                             "param": "PCAN_address",
-                            "value": "USB1"
+                            "value": "PCAN_USBBUS1"
                         },
                         "timeout": {
                             "type": "int",
@@ -750,13 +688,13 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/PEAK/PCAN_READ/PCAN_READ.py"
                 },
                 "position": {
-                    "x": 68.04285879069823,
-                    "y": -393.66690930339996
+                    "x": 134.2047016012037,
+                    "y": -68.08099863064956
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 68.04285879069823,
-                    "y": -393.66690930339996
+                    "x": 134.2047016012037,
+                    "y": -68.08099863064956
                 },
                 "dragging": true
             },
@@ -826,7 +764,7 @@
                             "overload": null,
                             "functionName": "PCAN_CONNECT",
                             "param": "PCAN_address",
-                            "value": "USB1"
+                            "value": "PCAN_USBBUS1"
                         },
                         "bitrate": {
                             "type": "int",
@@ -926,16 +864,75 @@
                     "y": -345.2933534754536
                 },
                 "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "MF4_CREATE_WRITER-7e439f9e-a9b1-4719-ae33-e0b34ae68617",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "MF4_CREATE_WRITER-7e439f9e-a9b1-4719-ae33-e0b34ae68617",
+                    "label": "MF4 CREATE WRITER",
+                    "func": "MF4_CREATE_WRITER",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "file": {
+                            "type": "File",
+                            "default": null,
+                            "desc": "The file to write to.",
+                            "overload": null,
+                            "functionName": "MF4_CREATE_WRITER",
+                            "param": "file",
+                            "value": "C:\\Users\\zzzgu\\Downloads\\test.mf4"
+                        },
+                        "database": {
+                            "type": "File",
+                            "default": null,
+                            "desc": "The database to use for decoding the CAN data.",
+                            "overload": null,
+                            "functionName": "MF4_CREATE_WRITER",
+                            "param": "database",
+                            "value": "C:\\Users\\zzzgu\\Downloads\\motohawk.dbc"
+                        },
+                        "compression_level": {
+                            "type": "select",
+                            "options": [
+                                "No compression",
+                                "Deflate (slower, but produces smaller files)",
+                                "Transposition + Deflate (slowest, but produces the smallest files)"
+                            ],
+                            "default": "No compression",
+                            "desc": "The compression level to use. Defaults to \"No compression\".",
+                            "overload": null,
+                            "functionName": "MF4_CREATE_WRITER",
+                            "param": "compression_level",
+                            "value": "No compression"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Stateful",
+                            "desc": "A stateful object that can be used to write CAN data to the file."
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_LOGGER/MF4_CREATE_WRITER/MF4_CREATE_WRITER.py"
+                },
+                "position": {
+                    "x": 117.71581318612931,
+                    "y": -305.6338446102531
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 117.71581318612931,
+                    "y": -305.6338446102531
+                },
+                "dragging": true
             }
         ],
         "edges": [
-            {
-                "source": "RAW_DATA_SIMULATION-17fafa7c-459b-479e-801d-0a3a61875526",
-                "sourceHandle": "default",
-                "target": "MF4_WRITE-af302e9b-471b-4cbd-a7c3-0821c43fa647",
-                "targetHandle": "messages",
-                "id": "reactflow__edge-RAW_DATA_SIMULATION-17fafa7c-459b-479e-801d-0a3a61875526default-MF4_WRITE-af302e9b-471b-4cbd-a7c3-0821c43fa647messages"
-            },
             {
                 "source": "LOOP-a84f6e19-db84-4fb8-9a4b-f1bdceff7033",
                 "sourceHandle": "end",
@@ -965,18 +962,18 @@
                 "id": "reactflow__edge-LOAD_DBC-6575e1ae-7d9c-4020-b388-fcb079b0906ddefault-DECODE-b4db4f7d-4fec-4a9e-9765-7e732a8a414cdbc"
             },
             {
-                "source": "RAW_DATA_SIMULATION-17fafa7c-459b-479e-801d-0a3a61875526",
-                "sourceHandle": "default",
-                "target": "DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1",
-                "targetHandle": "messages",
-                "id": "reactflow__edge-RAW_DATA_SIMULATION-17fafa7c-459b-479e-801d-0a3a61875526default-DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1messages"
-            },
-            {
                 "source": "LOAD_DBC-1f9ad040-854b-4ad2-ad24-880e3aec9f7e",
                 "sourceHandle": "default",
                 "target": "DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1",
                 "targetHandle": "dbc",
                 "id": "reactflow__edge-LOAD_DBC-1f9ad040-854b-4ad2-ad24-880e3aec9f7edefault-DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1dbc"
+            },
+            {
+                "source": "DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1",
+                "sourceHandle": "default",
+                "target": "PRINT_DATACONTAINER-fe8d8cc9-6e4b-45eb-85fb-95c527c95d2c",
+                "targetHandle": "default",
+                "id": "reactflow__edge-DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1default-PRINT_DATACONTAINER-fe8d8cc9-6e4b-45eb-85fb-95c527c95d2cdefault"
             },
             {
                 "source": "DECODE-b4db4f7d-4fec-4a9e-9765-7e732a8a414c",
@@ -1000,32 +997,18 @@
                 "id": "reactflow__edge-PRINT_DATACONTAINER-f17229c6-1043-494d-a933-cc9190f6a910default-TEXT_VIEW-f4b8b6c0-861a-4004-a9b8-eb9287ea0236default"
             },
             {
-                "source": "LOOP-a84f6e19-db84-4fb8-9a4b-f1bdceff7033",
-                "sourceHandle": "body",
-                "target": "RAW_DATA_SIMULATION-17fafa7c-459b-479e-801d-0a3a61875526",
-                "targetHandle": "default",
-                "id": "reactflow__edge-LOOP-a84f6e19-db84-4fb8-9a4b-f1bdceff7033body-RAW_DATA_SIMULATION-17fafa7c-459b-479e-801d-0a3a61875526default"
-            },
-            {
-                "source": "DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1",
-                "sourceHandle": "default",
-                "target": "PRINT_DATACONTAINER-fe8d8cc9-6e4b-45eb-85fb-95c527c95d2c",
-                "targetHandle": "default",
-                "id": "reactflow__edge-DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1default-PRINT_DATACONTAINER-fe8d8cc9-6e4b-45eb-85fb-95c527c95d2cdefault"
-            },
-            {
-                "source": "PCAN_READ-bd4e54a5-b069-4ded-b28f-c522a6c2bbfc",
-                "sourceHandle": "default",
-                "target": "MF4_WRITE-af302e9b-471b-4cbd-a7c3-0821c43fa647",
-                "targetHandle": "MF4_writer",
-                "id": "reactflow__edge-PCAN_READ-bd4e54a5-b069-4ded-b28f-c522a6c2bbfcdefault-MF4_WRITE-af302e9b-471b-4cbd-a7c3-0821c43fa647MF4_writer"
-            },
-            {
                 "source": "PCAN_CONNECT-43478a1f-c9f1-4db1-9c05-1fb7c46d136e",
                 "sourceHandle": "default",
                 "target": "PCAN_READ-bd4e54a5-b069-4ded-b28f-c522a6c2bbfc",
                 "targetHandle": "default",
                 "id": "reactflow__edge-PCAN_CONNECT-43478a1f-c9f1-4db1-9c05-1fb7c46d136edefault-PCAN_READ-bd4e54a5-b069-4ded-b28f-c522a6c2bbfcdefault"
+            },
+            {
+                "source": "TEXT_VIEW-36ad86d2-2565-4897-8866-624129e60369",
+                "sourceHandle": "default",
+                "target": "PCAN_CONNECT-43478a1f-c9f1-4db1-9c05-1fb7c46d136e",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TEXT_VIEW-36ad86d2-2565-4897-8866-624129e60369default-PCAN_CONNECT-43478a1f-c9f1-4db1-9c05-1fb7c46d136edefault"
             },
             {
                 "source": "PCAN_DETECT_AVAILABLE_DEVICES-35391129-f65d-4a51-aa7e-cc52587973fe",
@@ -1035,11 +1018,39 @@
                 "id": "reactflow__edge-PCAN_DETECT_AVAILABLE_DEVICES-35391129-f65d-4a51-aa7e-cc52587973fedefault-TEXT_VIEW-36ad86d2-2565-4897-8866-624129e60369default"
             },
             {
-                "source": "TEXT_VIEW-36ad86d2-2565-4897-8866-624129e60369",
-                "sourceHandle": "default",
-                "target": "PCAN_CONNECT-43478a1f-c9f1-4db1-9c05-1fb7c46d136e",
+                "source": "LOOP-a84f6e19-db84-4fb8-9a4b-f1bdceff7033",
+                "sourceHandle": "body",
+                "target": "PCAN_READ-bd4e54a5-b069-4ded-b28f-c522a6c2bbfc",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TEXT_VIEW-36ad86d2-2565-4897-8866-624129e60369default-PCAN_CONNECT-43478a1f-c9f1-4db1-9c05-1fb7c46d136edefault"
+                "id": "reactflow__edge-LOOP-a84f6e19-db84-4fb8-9a4b-f1bdceff7033body-PCAN_READ-bd4e54a5-b069-4ded-b28f-c522a6c2bbfcdefault"
+            },
+            {
+                "source": "PCAN_READ-bd4e54a5-b069-4ded-b28f-c522a6c2bbfc",
+                "sourceHandle": "default",
+                "target": "MF4_WRITE-af302e9b-471b-4cbd-a7c3-0821c43fa647",
+                "targetHandle": "messages",
+                "id": "reactflow__edge-PCAN_READ-bd4e54a5-b069-4ded-b28f-c522a6c2bbfcdefault-MF4_WRITE-af302e9b-471b-4cbd-a7c3-0821c43fa647messages"
+            },
+            {
+                "source": "MF4_CREATE_WRITER-7e439f9e-a9b1-4719-ae33-e0b34ae68617",
+                "sourceHandle": "default",
+                "target": "MF4_WRITE-af302e9b-471b-4cbd-a7c3-0821c43fa647",
+                "targetHandle": "MF4_writer",
+                "id": "reactflow__edge-MF4_CREATE_WRITER-7e439f9e-a9b1-4719-ae33-e0b34ae68617default-MF4_WRITE-af302e9b-471b-4cbd-a7c3-0821c43fa647MF4_writer"
+            },
+            {
+                "source": "MF4_WRITE-af302e9b-471b-4cbd-a7c3-0821c43fa647",
+                "sourceHandle": "default",
+                "target": "DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1",
+                "targetHandle": "messages",
+                "id": "reactflow__edge-MF4_WRITE-af302e9b-471b-4cbd-a7c3-0821c43fa647default-DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1messages"
+            },
+            {
+                "source": "MF4_CREATE_WRITER-7e439f9e-a9b1-4719-ae33-e0b34ae68617",
+                "sourceHandle": "default",
+                "target": "MF4_CLOSE_WRITER-ed99717f-217d-4142-8a8a-ff4463827bb0",
+                "targetHandle": "MF4_writer",
+                "id": "reactflow__edge-MF4_CREATE_WRITER-7e439f9e-a9b1-4719-ae33-e0b34ae68617default-MF4_CLOSE_WRITER-ed99717f-217d-4142-8a8a-ff4463827bb0MF4_writer"
             }
         ],
         "viewport": {
