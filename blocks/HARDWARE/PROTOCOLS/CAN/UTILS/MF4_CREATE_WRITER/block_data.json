@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "Logs CAN data to an ASAM Measurement Data File v4 (.mf4) as specified by the ASAM MDF standard (see https://www.asam.net/standards/detail/mdf/).\n\nMF4Writer does not support append mode.",
+    "short_description": "Create a writer for the MF4 format.",
+    "parameters": [
+      {
+        "name": "file",
+        "type": "File",
+        "description": "The file to write to."
+      },
+      {
+        "name": "database",
+        "type": "Optional[File]",
+        "description": "The database to use for decoding the CAN data."
+      },
+      {
+        "name": "compression_level",
+        "type": "Literal",
+        "description": "The compression level to use. Defaults to \"No compression\"."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Stateful",
+        "description": "A stateful object that can be used to write CAN data to the file."
+      }
+    ]
+  }
+}

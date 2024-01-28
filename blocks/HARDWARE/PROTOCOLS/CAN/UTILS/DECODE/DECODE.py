@@ -27,7 +27,8 @@ def DECODE(
     db = dbc.obj
     messages = messages.obj
 
-    decoded = [db.decode_message(message.arbitration_id, message.data) for message in messages]
-
+    decoded = [
+        db.decode_message(message.arbitration_id, message.data) for message in messages
+    ]
 
     return DataFrame(df=pd.DataFrame(decoded))

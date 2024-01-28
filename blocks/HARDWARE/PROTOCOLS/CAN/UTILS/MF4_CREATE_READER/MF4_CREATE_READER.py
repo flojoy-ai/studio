@@ -9,7 +9,7 @@ def MF4_CREATE_READER(
     default: Optional[DataContainer] = None,
 ) -> Stateful:
     """Create a file reader for the MF4 format.
-    
+
     Read CAN data from an ASAM Measurement Data File v4 (.mf4) as specified by the ASAM MDF standard (see https://www.asam.net/standards/detail/mdf/).
 
     Parameters
