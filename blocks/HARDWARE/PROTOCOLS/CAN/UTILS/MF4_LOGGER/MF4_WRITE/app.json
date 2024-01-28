@@ -1,0 +1,1052 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "MF4_WRITE-af302e9b-471b-4cbd-a7c3-0821c43fa647",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "MF4_WRITE-af302e9b-471b-4cbd-a7c3-0821c43fa647",
+                    "label": "MF4 WRITE",
+                    "func": "MF4_WRITE",
+                    "type": "HARDWARE",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "MF4_writer",
+                            "id": "MF4_writer",
+                            "type": "Stateful",
+                            "multiple": false,
+                            "desc": "A mf4 writer object from a MF4_CREATE_WRITER block."
+                        },
+                        {
+                            "name": "messages",
+                            "id": "messages",
+                            "type": "Stateful",
+                            "multiple": false,
+                            "desc": "A list of message in the python-can format."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "None"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_LOGGER/MF4_WRITE/MF4_WRITE.py"
+                },
+                "position": {
+                    "x": 590.4035051654209,
+                    "y": -199.43864244706322
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 590.4035051654209,
+                    "y": -199.43864244706322
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "MF4_CLOSE_WRITER-ed99717f-217d-4142-8a8a-ff4463827bb0",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "MF4_CLOSE_WRITER-ed99717f-217d-4142-8a8a-ff4463827bb0",
+                    "label": "MF4 CLOSE WRITER",
+                    "func": "MF4_CLOSE_WRITER",
+                    "type": "HARDWARE",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "MF4_writer",
+                            "id": "MF4_writer",
+                            "type": "Stateful",
+                            "multiple": false,
+                            "desc": "A mf4 writer object from a MF4_CREATE_WRITER block."
+                        },
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Stateful",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "None"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_LOGGER/MF4_CLOSE_WRITER/MF4_CLOSE_WRITER.py"
+                },
+                "position": {
+                    "x": 720.4435620178734,
+                    "y": 154.8302497260247
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 720.4435620178734,
+                    "y": 154.8302497260247
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "MF4_CREATE_READER-f485b773-cab0-49e2-9188-37bc7c4fdad1",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "MF4_CREATE_READER-f485b773-cab0-49e2-9188-37bc7c4fdad1",
+                    "label": "MF4 CREATE READER",
+                    "func": "MF4_CREATE_READER",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "file": {
+                            "type": "File",
+                            "default": null,
+                            "desc": "The file to write from.",
+                            "overload": null,
+                            "functionName": "MF4_CREATE_READER",
+                            "param": "file",
+                            "value": "C:\\Users\\zzzgu\\Downloads\\test.mf4"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Stateful",
+                            "desc": "A stateful object that contains can a list of message."
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_LOGGER/MF4_CREATE_READER/MF4_CREATE_READER.py"
+                },
+                "position": {
+                    "x": 981.2355642272878,
+                    "y": 147.98486000918132
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 981.2355642272878,
+                    "y": 147.98486000918132
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "DECODE-b4db4f7d-4fec-4a9e-9765-7e732a8a414c",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "DECODE-b4db4f7d-4fec-4a9e-9765-7e732a8a414c",
+                    "label": "DECODE",
+                    "func": "DECODE",
+                    "type": "HARDWARE",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "dbc",
+                            "id": "dbc",
+                            "type": "Stateful",
+                            "multiple": false,
+                            "desc": "The database to use for decoding the message."
+                        },
+                        {
+                            "name": "messages",
+                            "id": "messages",
+                            "type": "Stateful",
+                            "multiple": false,
+                            "desc": "The message to decode. Must be a can.Message object."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame",
+                            "desc": "Return dataframe containing the decoded message."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.2.2"
+                        },
+                        {
+                            "name": "cantools",
+                            "v": "39.4.2"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/DECODE/DECODE.py"
+                },
+                "position": {
+                    "x": 1299.1709276598472,
+                    "y": 63.14715084806494
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1299.1709276598472,
+                    "y": 63.14715084806494
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1",
+                    "label": "DECODE 1",
+                    "func": "DECODE",
+                    "type": "HARDWARE",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "dbc",
+                            "id": "dbc",
+                            "type": "Stateful",
+                            "multiple": false,
+                            "desc": "The database to use for decoding the message."
+                        },
+                        {
+                            "name": "messages",
+                            "id": "messages",
+                            "type": "Stateful",
+                            "multiple": false,
+                            "desc": "The message to decode. Must be a can.Message object."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame",
+                            "desc": "Return dataframe containing the decoded message."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.2.2"
+                        },
+                        {
+                            "name": "cantools",
+                            "v": "39.4.2"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/DECODE/DECODE.py"
+                },
+                "position": {
+                    "x": 592.5132878623796,
+                    "y": -617.1429985084042
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 592.5132878623796,
+                    "y": -617.1429985084042
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 180,
+                "id": "PRINT_DATACONTAINER-fe8d8cc9-6e4b-45eb-85fb-95c527c95d2c",
+                "type": "DEBUGGING",
+                "data": {
+                    "id": "PRINT_DATACONTAINER-fe8d8cc9-6e4b-45eb-85fb-95c527c95d2c",
+                    "label": "PRINT DATACONTAINER",
+                    "func": "PRINT_DATACONTAINER",
+                    "type": "DEBUGGING",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": "The input DataContainer to print."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Input datacontainer information"
+                        }
+                    ],
+                    "path": "DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py"
+                },
+                "position": {
+                    "x": 959.0873144960332,
+                    "y": -621.918066914066
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 959.0873144960332,
+                    "y": -621.918066914066
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 180,
+                "id": "PRINT_DATACONTAINER-f17229c6-1043-494d-a933-cc9190f6a910",
+                "type": "DEBUGGING",
+                "data": {
+                    "id": "PRINT_DATACONTAINER-f17229c6-1043-494d-a933-cc9190f6a910",
+                    "label": "PRINT DATACONTAINER 1",
+                    "func": "PRINT_DATACONTAINER",
+                    "type": "DEBUGGING",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": "The input DataContainer to print."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Input datacontainer information"
+                        }
+                    ],
+                    "path": "DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py"
+                },
+                "position": {
+                    "x": 1649.6074272773774,
+                    "y": 80.82918749070632
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1649.6074272773774,
+                    "y": 80.82918749070632
+                },
+                "dragging": true
+            },
+            {
+                "width": 1078,
+                "height": 341,
+                "id": "TEXT_VIEW-bae74bca-0dd7-449f-a4d1-41c9b2320a31",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TEXT_VIEW-bae74bca-0dd7-449f-a4d1-41c9b2320a31",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String|Boolean",
+                            "multiple": false,
+                            "desc": "The DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
+                },
+                "position": {
+                    "x": 1223.2113551389414,
+                    "y": -702.9769666406335
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1223.2113551389414,
+                    "y": -702.9769666406335
+                },
+                "dragging": true,
+                "style": {
+                    "width": 1078,
+                    "height": 341
+                },
+                "resizing": false
+            },
+            {
+                "width": 1397,
+                "height": 1284,
+                "id": "TEXT_VIEW-f4b8b6c0-861a-4004-a9b8-eb9287ea0236",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TEXT_VIEW-f4b8b6c0-861a-4004-a9b8-eb9287ea0236",
+                    "label": "TEXT VIEW 1",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String|Boolean",
+                            "multiple": false,
+                            "desc": "The DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
+                },
+                "position": {
+                    "x": 1901.5812519218553,
+                    "y": -321.7890073466948
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1901.5812519218553,
+                    "y": -321.7890073466948
+                },
+                "dragging": true,
+                "style": {
+                    "width": 1397,
+                    "height": 1284
+                },
+                "resizing": false
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "LOAD_DBC-6575e1ae-7d9c-4020-b388-fcb079b0906d",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "LOAD_DBC-6575e1ae-7d9c-4020-b388-fcb079b0906d",
+                    "label": "LOAD DBC",
+                    "func": "LOAD_DBC",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "file_path": {
+                            "type": "File",
+                            "default": null,
+                            "desc": "The path to the DBC file.",
+                            "overload": null,
+                            "functionName": "LOAD_DBC",
+                            "param": "file_path",
+                            "value": "C:\\Users\\zzzgu\\Downloads\\motohawk.dbc"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Stateful",
+                            "desc": "Return a cantools database object."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.2.2"
+                        },
+                        {
+                            "name": "cantools",
+                            "v": "39.4.2"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/LOAD_DBC/LOAD_DBC.py"
+                },
+                "position": {
+                    "x": 972.5514313180979,
+                    "y": -89.92990590077943
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 972.5514313180979,
+                    "y": -89.92990590077943
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "LOAD_DBC-1f9ad040-854b-4ad2-ad24-880e3aec9f7e",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "LOAD_DBC-1f9ad040-854b-4ad2-ad24-880e3aec9f7e",
+                    "label": "LOAD DBC 1",
+                    "func": "LOAD_DBC",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "file_path": {
+                            "type": "File",
+                            "default": null,
+                            "desc": "The path to the DBC file.",
+                            "overload": null,
+                            "functionName": "LOAD_DBC",
+                            "param": "file_path",
+                            "value": "C:\\Users\\zzzgu\\Downloads\\motohawk.dbc"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Stateful",
+                            "desc": "Return a cantools database object."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.2.2"
+                        },
+                        {
+                            "name": "cantools",
+                            "v": "39.4.2"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/LOAD_DBC/LOAD_DBC.py"
+                },
+                "position": {
+                    "x": 51.02813196983266,
+                    "y": -644.4831923628175
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 51.02813196983266,
+                    "y": -644.4831923628175
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "RAW_DATA_SIMULATION-17fafa7c-459b-479e-801d-0a3a61875526",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "RAW_DATA_SIMULATION-17fafa7c-459b-479e-801d-0a3a61875526",
+                    "label": "RAW DATA SIMULATION",
+                    "func": "RAW_DATA_SIMULATION",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "file_path": {
+                            "type": "File",
+                            "default": null,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "RAW_DATA_SIMULATION",
+                            "param": "file_path",
+                            "value": "C:\\Users\\zzzgu\\Downloads\\motohawk.dbc"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Stateful",
+                            "desc": null
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.2.2"
+                        },
+                        {
+                            "name": "cantools",
+                            "v": "39.4.2"
+                        }
+                    ],
+                    "path": "HARDWARE/RAW_DATA_SIMULATION/RAW_DATA_SIMULATION.py"
+                },
+                "position": {
+                    "x": 66.4160586811804,
+                    "y": -176.00649925033906
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 66.4160586811804,
+                    "y": -176.00649925033906
+                },
+                "dragging": true
+            },
+            {
+                "width": 96,
+                "height": 96,
+                "id": "LOOP-a84f6e19-db84-4fb8-9a4b-f1bdceff7033",
+                "type": "CONTROL_FLOW",
+                "data": {
+                    "id": "LOOP-a84f6e19-db84-4fb8-9a4b-f1bdceff7033",
+                    "label": "LOOP",
+                    "func": "LOOP",
+                    "type": "CONTROL_FLOW",
+                    "ctrls": {
+                        "num_loops": {
+                            "type": "int",
+                            "default": -1,
+                            "desc": "number of times to iterate through body nodes, default is \"-1\" meaning infinity.",
+                            "overload": null,
+                            "functionName": "LOOP",
+                            "param": "num_loops",
+                            "value": 25
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "body",
+                            "id": "body",
+                            "type": "Any",
+                            "desc": "Forwards the input DataContainer to the body."
+                        },
+                        {
+                            "name": "end",
+                            "id": "end",
+                            "type": "Any",
+                            "desc": "Forwards the input DataContainer to the end."
+                        }
+                    ],
+                    "path": "CONTROL_FLOW/LOOPS/LOOP/LOOP.py"
+                },
+                "position": {
+                    "x": -63.36251353658304,
+                    "y": 196.002699425537
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -63.36251353658304,
+                    "y": 196.002699425537
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "PCAN_READ-bd4e54a5-b069-4ded-b28f-c522a6c2bbfc",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "PCAN_READ-bd4e54a5-b069-4ded-b28f-c522a6c2bbfc",
+                    "label": "PCAN READ",
+                    "func": "PCAN_READ",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "PCAN_address": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "The PCAN device address to connect to. This address can be found by the PCAN_DETECT_AVAILABLE_DEVICES block.\nâ†’ Example: \"PCAN_USBBUS1\"",
+                            "overload": null,
+                            "functionName": "PCAN_READ",
+                            "param": "PCAN_address",
+                            "value": "USB1"
+                        },
+                        "timeout": {
+                            "type": "int",
+                            "default": 10,
+                            "desc": "The timeout in seconds to wait for a message. Default is 10.",
+                            "overload": null,
+                            "functionName": "PCAN_READ",
+                            "param": "timeout",
+                            "value": 10
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Stateful",
+                            "desc": "Return a can bus message"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.2.2"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/PEAK/PCAN_READ/PCAN_READ.py"
+                },
+                "position": {
+                    "x": 68.04285879069823,
+                    "y": -393.66690930339996
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 68.04285879069823,
+                    "y": -393.66690930339996
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "PCAN_DETECT_AVAILABLE_DEVICES-35391129-f65d-4a51-aa7e-cc52587973fe",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "PCAN_DETECT_AVAILABLE_DEVICES-35391129-f65d-4a51-aa7e-cc52587973fe",
+                    "label": "PCAN DETECT AVAILABLE DEVICES",
+                    "func": "PCAN_DETECT_AVAILABLE_DEVICES",
+                    "type": "HARDWARE",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "A string containing the device name and the channel number."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.2.2"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/PEAK/PCAN_DETECT_AVAILABLE_DEVICES/PCAN_DETECT_AVAILABLE_DEVICES.py"
+                },
+                "position": {
+                    "x": -551.8733337409215,
+                    "y": -631.37871065755
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -551.8733337409215,
+                    "y": -631.37871065755
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "PCAN_CONNECT-43478a1f-c9f1-4db1-9c05-1fb7c46d136e",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "PCAN_CONNECT-43478a1f-c9f1-4db1-9c05-1fb7c46d136e",
+                    "label": "PCAN CONNECT",
+                    "func": "PCAN_CONNECT",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "PCAN_address": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "The PCAN device address to connect to. This address can be found by the PCAN_DETECT_AVAILABLE_DEVICES block.\nâ†’ Example: \"PCAN_USBBUS1\"",
+                            "overload": null,
+                            "functionName": "PCAN_CONNECT",
+                            "param": "PCAN_address",
+                            "value": "USB1"
+                        },
+                        "bitrate": {
+                            "type": "int",
+                            "default": 500000,
+                            "desc": "The bitrate of the PCAN device. Default is 500000.",
+                            "overload": null,
+                            "functionName": "PCAN_CONNECT",
+                            "param": "bitrate",
+                            "value": 500000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "Optional: None"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.2.2"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/PEAK/PCAN_CONNECT/PCAN_CONNECT.py"
+                },
+                "position": {
+                    "x": -201.08211432608311,
+                    "y": -390.81167785546575
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -201.08211432608311,
+                    "y": -390.81167785546575
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 225,
+                "id": "TEXT_VIEW-36ad86d2-2565-4897-8866-624129e60369",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TEXT_VIEW-36ad86d2-2565-4897-8866-624129e60369",
+                    "label": "TEXT VIEW 2",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String|Boolean",
+                            "multiple": false,
+                            "desc": "The DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
+                },
+                "position": {
+                    "x": -568.3338852650802,
+                    "y": -345.2933534754536
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -568.3338852650802,
+                    "y": -345.2933534754536
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "RAW_DATA_SIMULATION-17fafa7c-459b-479e-801d-0a3a61875526",
+                "sourceHandle": "default",
+                "target": "MF4_WRITE-af302e9b-471b-4cbd-a7c3-0821c43fa647",
+                "targetHandle": "messages",
+                "id": "reactflow__edge-RAW_DATA_SIMULATION-17fafa7c-459b-479e-801d-0a3a61875526default-MF4_WRITE-af302e9b-471b-4cbd-a7c3-0821c43fa647messages"
+            },
+            {
+                "source": "LOOP-a84f6e19-db84-4fb8-9a4b-f1bdceff7033",
+                "sourceHandle": "end",
+                "target": "MF4_CLOSE_WRITER-ed99717f-217d-4142-8a8a-ff4463827bb0",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LOOP-a84f6e19-db84-4fb8-9a4b-f1bdceff7033end-MF4_CLOSE_WRITER-ed99717f-217d-4142-8a8a-ff4463827bb0default"
+            },
+            {
+                "source": "MF4_CLOSE_WRITER-ed99717f-217d-4142-8a8a-ff4463827bb0",
+                "sourceHandle": "default",
+                "target": "MF4_CREATE_READER-f485b773-cab0-49e2-9188-37bc7c4fdad1",
+                "targetHandle": "default",
+                "id": "reactflow__edge-MF4_CLOSE_WRITER-ed99717f-217d-4142-8a8a-ff4463827bb0default-MF4_CREATE_READER-f485b773-cab0-49e2-9188-37bc7c4fdad1default"
+            },
+            {
+                "source": "MF4_CREATE_READER-f485b773-cab0-49e2-9188-37bc7c4fdad1",
+                "sourceHandle": "default",
+                "target": "DECODE-b4db4f7d-4fec-4a9e-9765-7e732a8a414c",
+                "targetHandle": "messages",
+                "id": "reactflow__edge-MF4_CREATE_READER-f485b773-cab0-49e2-9188-37bc7c4fdad1default-DECODE-b4db4f7d-4fec-4a9e-9765-7e732a8a414cmessages"
+            },
+            {
+                "source": "LOAD_DBC-6575e1ae-7d9c-4020-b388-fcb079b0906d",
+                "sourceHandle": "default",
+                "target": "DECODE-b4db4f7d-4fec-4a9e-9765-7e732a8a414c",
+                "targetHandle": "dbc",
+                "id": "reactflow__edge-LOAD_DBC-6575e1ae-7d9c-4020-b388-fcb079b0906ddefault-DECODE-b4db4f7d-4fec-4a9e-9765-7e732a8a414cdbc"
+            },
+            {
+                "source": "RAW_DATA_SIMULATION-17fafa7c-459b-479e-801d-0a3a61875526",
+                "sourceHandle": "default",
+                "target": "DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1",
+                "targetHandle": "messages",
+                "id": "reactflow__edge-RAW_DATA_SIMULATION-17fafa7c-459b-479e-801d-0a3a61875526default-DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1messages"
+            },
+            {
+                "source": "LOAD_DBC-1f9ad040-854b-4ad2-ad24-880e3aec9f7e",
+                "sourceHandle": "default",
+                "target": "DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1",
+                "targetHandle": "dbc",
+                "id": "reactflow__edge-LOAD_DBC-1f9ad040-854b-4ad2-ad24-880e3aec9f7edefault-DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1dbc"
+            },
+            {
+                "source": "DECODE-b4db4f7d-4fec-4a9e-9765-7e732a8a414c",
+                "sourceHandle": "default",
+                "target": "PRINT_DATACONTAINER-f17229c6-1043-494d-a933-cc9190f6a910",
+                "targetHandle": "default",
+                "id": "reactflow__edge-DECODE-b4db4f7d-4fec-4a9e-9765-7e732a8a414cdefault-PRINT_DATACONTAINER-f17229c6-1043-494d-a933-cc9190f6a910default"
+            },
+            {
+                "source": "PRINT_DATACONTAINER-fe8d8cc9-6e4b-45eb-85fb-95c527c95d2c",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-bae74bca-0dd7-449f-a4d1-41c9b2320a31",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PRINT_DATACONTAINER-fe8d8cc9-6e4b-45eb-85fb-95c527c95d2cdefault-TEXT_VIEW-bae74bca-0dd7-449f-a4d1-41c9b2320a31default"
+            },
+            {
+                "source": "PRINT_DATACONTAINER-f17229c6-1043-494d-a933-cc9190f6a910",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-f4b8b6c0-861a-4004-a9b8-eb9287ea0236",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PRINT_DATACONTAINER-f17229c6-1043-494d-a933-cc9190f6a910default-TEXT_VIEW-f4b8b6c0-861a-4004-a9b8-eb9287ea0236default"
+            },
+            {
+                "source": "LOOP-a84f6e19-db84-4fb8-9a4b-f1bdceff7033",
+                "sourceHandle": "body",
+                "target": "RAW_DATA_SIMULATION-17fafa7c-459b-479e-801d-0a3a61875526",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LOOP-a84f6e19-db84-4fb8-9a4b-f1bdceff7033body-RAW_DATA_SIMULATION-17fafa7c-459b-479e-801d-0a3a61875526default"
+            },
+            {
+                "source": "DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1",
+                "sourceHandle": "default",
+                "target": "PRINT_DATACONTAINER-fe8d8cc9-6e4b-45eb-85fb-95c527c95d2c",
+                "targetHandle": "default",
+                "id": "reactflow__edge-DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1default-PRINT_DATACONTAINER-fe8d8cc9-6e4b-45eb-85fb-95c527c95d2cdefault"
+            },
+            {
+                "source": "PCAN_READ-bd4e54a5-b069-4ded-b28f-c522a6c2bbfc",
+                "sourceHandle": "default",
+                "target": "MF4_WRITE-af302e9b-471b-4cbd-a7c3-0821c43fa647",
+                "targetHandle": "MF4_writer",
+                "id": "reactflow__edge-PCAN_READ-bd4e54a5-b069-4ded-b28f-c522a6c2bbfcdefault-MF4_WRITE-af302e9b-471b-4cbd-a7c3-0821c43fa647MF4_writer"
+            },
+            {
+                "source": "PCAN_CONNECT-43478a1f-c9f1-4db1-9c05-1fb7c46d136e",
+                "sourceHandle": "default",
+                "target": "PCAN_READ-bd4e54a5-b069-4ded-b28f-c522a6c2bbfc",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PCAN_CONNECT-43478a1f-c9f1-4db1-9c05-1fb7c46d136edefault-PCAN_READ-bd4e54a5-b069-4ded-b28f-c522a6c2bbfcdefault"
+            },
+            {
+                "source": "PCAN_DETECT_AVAILABLE_DEVICES-35391129-f65d-4a51-aa7e-cc52587973fe",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-36ad86d2-2565-4897-8866-624129e60369",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PCAN_DETECT_AVAILABLE_DEVICES-35391129-f65d-4a51-aa7e-cc52587973fedefault-TEXT_VIEW-36ad86d2-2565-4897-8866-624129e60369default"
+            },
+            {
+                "source": "TEXT_VIEW-36ad86d2-2565-4897-8866-624129e60369",
+                "sourceHandle": "default",
+                "target": "PCAN_CONNECT-43478a1f-c9f1-4db1-9c05-1fb7c46d136e",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TEXT_VIEW-36ad86d2-2565-4897-8866-624129e60369default-PCAN_CONNECT-43478a1f-c9f1-4db1-9c05-1fb7c46d136edefault"
+            }
+        ],
+        "viewport": {
+            "x": 803.626355346428,
+            "y": 455.6158501842781,
+            "zoom": 0.7727010437043228
+        }
+    },
+    "textNodes": []
+}
