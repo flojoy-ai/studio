@@ -1,14 +1,11 @@
 from flojoy import flojoy, Stateful, DataFrame
-import can
-import cantools
-import logging
 import pandas as pd
 
 
 @flojoy(deps={"python-can": "4.2.2", "cantools": "39.4.2"})
 def DECODE(
     dbc: Stateful,
-    message: Stateful,
+    messages: Stateful,
 ) -> DataFrame:
     """Decode a CAN message.
 
@@ -18,7 +15,7 @@ def DECODE(
     ----------
     dbc : Stateful
         The database to use for decoding the message.
-    message : Stateful
+    messages : Stateful
         The message to decode. Must be a can.Message object.
 
     Returns
@@ -27,11 +24,10 @@ def DECODE(
         Return dataframe containing the decoded message.
     """
 
-    db: cantools.database.Database = dbc.obj
-    message: can.Message = message.obj
+    db = dbc.obj
+    messages = messages.obj
 
-    decoded = db.decode_message(message.arbitration_id, message.data)
+    decoded = [db.decode_message(message.arbitration_id, message.data) for message in messages]
 
-    logging.info(f"Decoded: {decoded} of type: {type(decoded)}")
 
-    return DataFrame(df=pd.DataFrame([decoded]))
+    return DataFrame(df=pd.DataFrame(decoded))
