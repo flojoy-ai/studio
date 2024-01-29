@@ -64,6 +64,8 @@ def EXPORT_S3(
 
     Parameters
     ----------
+    object_name: Optional[String]
+        Flojoy input to dynamically provide a string for the name of the object in S3. If not specified, the name of the file will be used.
     s3_access_key : str
         The name of the key used to save the AWS access key.
     s3_secret_key : str
@@ -76,8 +78,6 @@ def EXPORT_S3(
         Whether to overwrite the file if it already exists (default is False).
     file : File
         The file to be uploaded to the S3 bucket.
-    objet_name: Optional[String]
-        Flojoy input to dynamically provide a string for the name of the object in S3. If not specified, the name of the file will be used.
 
     Returns
     -------
