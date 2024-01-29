@@ -53,7 +53,7 @@ It is recommended to specify only known ip address for SSH traffic.
 
 ![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1706058310/flojoy-docs/flojoy-cloud/fo7vaykvzuvus76dfjil.png)
 
-- Select IAM role with `AmazonSESFullAccess` policy enabled in `IAM instance profile` option.
+- Select the IAM role with `AmazonSESFullAccess` policy enabled in `IAM instance profile` option.
 
 - Then head to `user data` input at the bottom of `Advanced details` section and paste following template with valid credentials.
 
@@ -61,19 +61,6 @@ It is recommended to specify only known ip address for SSH traffic.
 #!/bin/bash
 
 cloud_domain="your-domain.com" # Domain name to use for cloud e.g. cloud.flojoy.ai
-
-cat <<EOF >/root/cloud/.env
-
-AWS_REGION=""                           # AWS region
-SENDER_EMAIL=""                         # Email registered for AWS SES
-GOOGLE_CLIENT_ID=""                     # Google auth client id
-GOOGLE_CLIENT_SECRET=""                 # Google client secret
-
-
-# Don't modify below env values
-GOOGLE_REDIRECT_URI="https://${cloud_domain}/login/google/callback"
-NEXT_PUBLIC_URL_ORIGIN="https://${cloud_domain}"
-EOF
 
 cat <<EOF >/etc/nginx/conf.d/default.conf
 server {
@@ -97,22 +84,61 @@ EOF
 ![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1706058131/flojoy-docs/flojoy-cloud/rvgasne65widbj0zsoy5.png)
 
 :::caution
-Don't forget to update the script with app domain name and other credentials information.
-:::
-
-:::note
-Credentials are required for app to run. App will fail to start if credentials are not provided.
+Don't forget to update the script with app domain name.
 :::
 
 - Almost there! now click on `launch instance` button.
 
-Done! you've just deployed your own version of Flojoy Cloud app.
+- We're done with launching instance from Flojoy Cloud AMI. Now we're only two steps away from getting our app ready.
+
+### Setup Credentials
+
+Credentials are required for cloud app to run with it's all features. So we need to setup our own credentials. Let's do that in real quick with a few steps:
+
+1. Go to EC2 dashboard from left sidebar. Then click on just launched instance and copy public ip.
+
+2. Now connect to your EC2 instance with key-pair previously selected during configuring instance. Run following command to connect:
+
+```sh
+  ssh -i <path/to/key.pem> ubuntu@<public-ip>
+```
+
+3. Enable `root` mode:
+
+```sh
+  sudo su
+```
+
+4. Now open `/root/cloud/.env` file with your preferable editor `nano` or `vim` and paste following template with valid credentials:
+
+```txt
+AWS_REGION=""                           # AWS region
+SENDER_EMAIL=""                         # Email registered for AWS SES
+GOOGLE_CLIENT_ID=""                     # Google auth client id
+GOOGLE_CLIENT_SECRET=""                 # Google client secret
+
+GOOGLE_REDIRECT_URI="https://<cloud-domain>/login/google/callback"
+NEXT_PUBLIC_URL_ORIGIN="https://<cloud-domain>"
+```
+
+5. Restart Cloud app service:
+
+```sh
+systemctl stop cloud_app
+systemctl start cloud_app
+```
+
+This will build the app with new credentials and start the app.
 
 ### Enable HTTPS
 
 We have deployed our own version of Flojoy cloud app. Now to allow app work properly we need to configure SSL on launched EC2 instance. Let's do that:
 
-1. Go to EC2 dashboard from left sidebar. Then click on just launched instance and copy public ip. Then add an 'A' record in your domain with this public ip.
+1. Go to you domain provider website and add an 'A' record in your domain with the public ip of just launched EC2 instance.
+
+:::note
+If you're already connected to instance with SSH key then jump to 4th step.
+:::
 
 2. Now connect to your EC2 instance with key-pair previously selected during configuring instance. Run following command to connect:
 
