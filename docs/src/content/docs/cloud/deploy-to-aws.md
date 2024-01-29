@@ -17,9 +17,28 @@ Additionally, you can deploy your own cloud app with our public AWS AMI. In this
 
 ## Prerequisites
 
-- An AWS account
+- An AWS account.
 
-- An IAM role with following policy attached:
+- Active AWS SES with domain (For sending verification emails).
+
+- An IAM role with proper SES policy. (We'll describe this in next step)
+
+- Enabled Google Oauth2.0 API. [See here](https://developers.google.com/identity/protocols/oauth2/javascript-implicit-flow)
+
+- A valid domain (For SSL and HTTPS connection).
+
+
+## Create IAM role
+
+1. Search for `IAM` and go to `IAM` dashboard.
+
+2. From left sidebar click on `Policies`.
+
+3. Now click on `Create Policy`.
+
+4. Now click on `JSON` button from right top of `Policy Editor` section.
+
+5. Paste following data to input box:
 
 ```json
   {
@@ -29,20 +48,31 @@ Additionally, you can deploy your own cloud app with our public AWS AMI. In this
         "Effect": "Allow",
         "Action": [
           "ses:SendEmail",
-          "ses:SendTemplatedEmail",
           "ses:SendRawEmail"
         ],
-        "Resource":"*" // Adjust this as your need
+        "Resource":"*"
       }
     ]
   }
 ```
 
-- Enabled Google Oauth2.0 API. [See here](https://developers.google.com/identity/protocols/oauth2/javascript-implicit-flow)
+:::note
+Adjust the `Resource` option as your need.
+:::
 
-- A valid domain (For SSL and HTTPS connection).
+6. Provide a Policy name and click `Create Policy`.
 
-- Active AWS SES with domain (For sending verification emails)
+7. Now click on `Roles` from left sidebar.
+
+8. Click on `Create Role`.
+
+9. Select `AWS Service` and `EC2` in `use case` section then click `Next`.
+
+10. Now search for just created policy name and select it then again click `Next`.
+
+11. Give a Role name and click on `Create Role`
+
+Done! we've created an IAM role for SES service which we can attach with our EC2 instance to allow cloud app to send verification emails.
 
 ## Steps to deploy on AWS
 
@@ -70,7 +100,7 @@ It is recommended to specify only known ip address for SSH traffic.
 
 ![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1706058310/flojoy-docs/flojoy-cloud/fo7vaykvzuvus76dfjil.png)
 
-- Select the IAM role with `AmazonSESFullAccess` policy enabled in `IAM instance profile` option.
+- Select the IAM role just created with custom SES policy in `IAM instance profile` option.
 
 - Then head to `user data` input at the bottom of `Advanced details` section and paste following bash script with valid domain name.
 
