@@ -27,10 +27,9 @@ Additionally, you can deploy your own cloud app with our public AWS AMI. In this
 
 - A valid domain (For SSL and HTTPS connection).
 
-
 ## Create IAM role
 
-1. Search for `IAM` and go to `IAM` dashboard.
+1. Log in to AWS account and Search for `IAM`, then go to `IAM` dashboard.
 
 2. From left sidebar click on `Policies`.
 
