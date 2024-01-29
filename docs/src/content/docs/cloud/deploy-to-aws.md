@@ -55,7 +55,7 @@ It is recommended to specify only known ip address for SSH traffic.
 
 - Select the IAM role with `AmazonSESFullAccess` policy enabled in `IAM instance profile` option.
 
-- Then head to `user data` input at the bottom of `Advanced details` section and paste following template with valid credentials.
+- Then head to `user data` input at the bottom of `Advanced details` section and paste following bash script with valid domain name.
 
 ```sh
 #!/bin/bash
@@ -121,6 +121,10 @@ GOOGLE_REDIRECT_URI="https://<cloud-domain>/login/google/callback"
 NEXT_PUBLIC_URL_ORIGIN="https://<cloud-domain>"
 ```
 
+:::note
+Change `<cloud-domain>` with the domain name you want to use for this app
+:::
+
 5. Restart Cloud app service:
 
 ```sh
@@ -137,7 +141,7 @@ We have deployed our own version of Flojoy cloud app. Now to allow app work prop
 1. Go to you domain provider website and add an 'A' record in your domain with the public ip of just launched EC2 instance.
 
 :::note
-If you're already connected to instance with SSH key then jump to 4th step.
+If you're already connected to instance with SSH key and enabled root mode then jump to 4th step.
 :::
 
 2. Now connect to your EC2 instance with key-pair previously selected during configuring instance. Run following command to connect:
@@ -171,7 +175,15 @@ sudo ln -s /snap/bin/certbot /usr/bin/certbot
 sudo certbot --nginx -d <your-domain-name>
 ```
 
-And follow on screen instruction. This will get and install SSL certificate. Now visit `https://your-domain.com` and you should able to see Flojoy cloud app.
+And follow on screen instruction. This will get and install SSL certificate.
+
+7. Restart Nginx:
+
+```bash
+systemctl restart nginx
+```
+
+Now visit `https://your-domain.com` and you should able to see Flojoy cloud app.
 
 :::note
 If you see "502 Bad Gateway", that means cloud app is still in build. Allow few minutes to start the app.
