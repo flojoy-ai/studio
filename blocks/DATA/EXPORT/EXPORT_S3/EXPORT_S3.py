@@ -96,12 +96,16 @@ def EXPORT_S3(
 
     # Some checks
     filename = file.unwrap()
-    buckets = [b["Name"] for b in s3_client.list_buckets()["Buckets"]]
-    if bucket not in buckets:
-        raise ValueError(
-            f"Bucket {bucket} does not exist. Available buckets: {' '.join(buckets)}"
-        )
-    logging.info(f"object_name: {object_name}")
+    # Check if the bucket exist. Need the `s3:ListAllMyBuckets` permission, don't block the user if it doesn't have it.
+    try:
+        buckets = [b["Name"] for b in s3_client.list_buckets()["Buckets"]]
+        if bucket not in buckets:
+            raise ValueError(
+                f"Bucket {bucket} does not exist. Available buckets: {' '.join(buckets)}"
+            )
+        logging.info(f"object_name: {object_name}")
+    except Exception:
+        pass
     if object_name is not None:
         object_name = object_name.s
     else:
