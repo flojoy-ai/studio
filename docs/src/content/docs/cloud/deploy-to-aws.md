@@ -19,7 +19,24 @@ Additionally, you can deploy your own cloud app with our public AWS AMI. In this
 
 - An AWS account
 
-- An IAM role with `AmazonSESFullAccess` policy.
+- An IAM role with following policy attached:
+
+```json
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "ses:SendEmail",
+          "ses:SendTemplatedEmail",
+          "ses:SendRawEmail"
+        ],
+        "Resource":"*" // Adjust this as your need
+      }
+    ]
+  }
+```
 
 - Enabled Google Oauth2.0 API. [See here](https://developers.google.com/identity/protocols/oauth2/javascript-implicit-flow)
 
