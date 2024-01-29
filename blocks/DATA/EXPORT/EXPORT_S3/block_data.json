@@ -4,6 +4,11 @@
     "short_description": "Export a file to S3 Bucket.",
     "parameters": [
       {
+        "name": "object_name",
+        "type": "Optional[String]",
+        "description": "Flojoy input to dynamically provide a string for the name of the object in S3. If not specified, the name of the file will be used."
+      },
+      {
         "name": "s3_access_key",
         "type": "str",
         "description": "The name of the key used to save the AWS access key."
@@ -32,11 +37,6 @@
         "name": "file",
         "type": "File",
         "description": "The file to be uploaded to the S3 bucket."
-      },
-      {
-        "name": "objet_name",
-        "type": "Optional[String]",
-        "description": "Flojoy input to dynamically provide a string for the name of the object in S3. If not specified, the name of the file will be used."
       }
     ],
     "returns": [
