@@ -19,6 +19,8 @@ Additionally, you can deploy your own cloud app with our public AWS AMI. In this
 
 - An AWS account
 
+- An IAM role with `AmazonSESFullAccess` policy.
+
 - Enabled Google Oauth2.0 API. [See here](https://developers.google.com/identity/protocols/oauth2/javascript-implicit-flow)
 
 - A valid domain (For SSL and HTTPS connection).
@@ -51,12 +53,27 @@ It is recommended to specify only known ip address for SSH traffic.
 
 ![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1706058310/flojoy-docs/flojoy-cloud/fo7vaykvzuvus76dfjil.png)
 
-- Now head to `user data` input at the bottom of `Advanced details` section and paste following template with valid credentials.
+- Select IAM role with `AmazonSESFullAccess` policy enabled in `IAM instance profile` option.
+
+- Then head to `user data` input at the bottom of `Advanced details` section and paste following template with valid credentials.
 
 ```sh
 #!/bin/bash
 
 cloud_domain="your-domain.com" # Domain name to use for cloud e.g. cloud.flojoy.ai
+
+cat <<EOF >/root/cloud/.env
+
+AWS_REGION=""                           # AWS region
+SENDER_EMAIL=""                         # Email registered for AWS SES
+GOOGLE_CLIENT_ID=""                     # Google auth client id
+GOOGLE_CLIENT_SECRET=""                 # Google client secret
+
+
+# Don't modify below env values
+GOOGLE_REDIRECT_URI="https://${cloud_domain}/login/google/callback"
+NEXT_PUBLIC_URL_ORIGIN="https://${cloud_domain}"
+EOF
 
 cat <<EOF >/etc/nginx/conf.d/default.conf
 server {
@@ -73,21 +90,6 @@ location / {
     proxy_cache_bypass \$http_upgrade;
     }
 }
-EOF
-
-cat <<EOF >/root/cloud/.env
-
-AWS_ACCESS_KEY_ID=""                    # AWS access key
-AWS_SECRET_ACCESS_KEY=""                # AWS secret key
-AWS_REGION=""                           # AWS region
-SENDER_EMAIL=""                         # Email registered with AWS SES for sending verification mails
-GOOGLE_CLIENT_ID=""                     # Google auth client id
-GOOGLE_CLIENT_SECRET=""                 # Google client secret
-
-# Don't modify below env values
-GOOGLE_REDIRECT_URI="https://${cloud_domain}/login/google/callback"
-NEXT_PUBLIC_URL_ORIGIN="https://${cloud_domain}"
-
 EOF
 
 ```
