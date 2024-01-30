@@ -31,8 +31,6 @@ def PCAN_READ(
         Return a can bus message
     """
 
-    assert PCAN_address == "", "Please provide a valid PCAN address"
-
     connection: can.interface.Bus = DeviceConnectionManager.get_connection(
         PCAN_address
     ).get_handle()

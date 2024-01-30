@@ -30,8 +30,6 @@ def PCAN_CONNECT(
         Optional: None
     """
 
-    assert PCAN_address == "", "Please provide a valid PCAN address,"
-
     session = can.interface.Bus(interface="pcan", channel=PCAN_address, bitrate=bitrate)
 
     DeviceConnectionManager.register_connection(HardwareDevice(PCAN_address), session)

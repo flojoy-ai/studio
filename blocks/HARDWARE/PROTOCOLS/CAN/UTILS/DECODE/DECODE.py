@@ -1,5 +1,6 @@
 from flojoy import flojoy, Stateful, DataFrame
 import pandas as pd
+import logging
 
 
 @flojoy(deps={"python-can": "4.2.2", "cantools": "39.4.2"})
@@ -27,8 +28,12 @@ def DECODE(
     db = dbc.obj
     messages = messages.obj
 
-    decoded = [
-        db.decode_message(message.arbitration_id, message.data) for message in messages
-    ]
-
+    try:
+        decoded = [
+            db.decode_message(message.arbitration_id, message.data) for message in messages
+        ]
+    except Exception as err:
+        logging.error(f"Error decoding message: {err}")
+        raise Exception(f"Error decoding message: {err}")
+    
     return DataFrame(df=pd.DataFrame(decoded))
