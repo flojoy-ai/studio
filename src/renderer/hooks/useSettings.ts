@@ -48,9 +48,16 @@ const settingsAtom = atomWithImmer<Setting[]>([
     desc: "Center the view of the flow chart automatically when the window is resized",
     value: true,
   },
+  {
+    title: "Discover driver-dependent devices",
+    key: "driverDependentDevices",
+    group: "device",
+    desc: "Enable the discovery of devices that rely on specific drivers. Note that activating this option may lead to a longer loading time",
+    value: false,
+  },
 ]);
 
-export const useSettings = (group: "frontend" | "backend") => {
+export const useSettings = (group: "frontend" | "backend" | "device") => {
   const [settings, setSettings] = useAtom(settingsAtom);
 
   const updateSettings = (key: string, value: number | boolean) => {

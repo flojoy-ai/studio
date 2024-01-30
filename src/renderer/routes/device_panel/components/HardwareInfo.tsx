@@ -55,8 +55,17 @@ export const HardwareInfo = () => {
         }))
       : undefined;
 
+  const nidaqmxDevices: DeviceCardProps[] | undefined =
+    devices.nidaqmxDevices.length > 0
+      ? devices.nidaqmxDevices.map((d) => ({
+          name: d.name,
+          port: d.address,
+          description: d.description,
+        }))
+      : undefined;
+
   return (
-    <div>
+    <div class="max-h-screen overflow-y-auto">
       <div className="flex gap-2">
         <Button onClick={refetch}>Refresh</Button>
         <DebugMenu />
@@ -68,6 +77,8 @@ export const HardwareInfo = () => {
       <DeviceSection title="Serial" devices={serialDevices} />
       <div className="py-6" />
       <DeviceSection title="VISA" devices={visaDevices} />
+      <div className="py-6" />
+      <DeviceSection title="Driver-Dependent Devices" devices={nidaqmxDevices} />
     </div>
   );
 };
