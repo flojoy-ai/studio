@@ -20,7 +20,7 @@ export const HardwareInfo = () => {
         <Button
           onClick={() => {
             const setting = settings.find(
-              (setting) => setting.key === "driverDependentDevices",
+              (setting) => setting.key === "niDAQmxDeviceDiscovery",
             );
             refetch(setting ? setting.value : false);
           }}
@@ -91,7 +91,7 @@ export const HardwareInfo = () => {
         <Button
           onClick={() => {
             const setting = settings.find(
-              (setting) => setting.key === "driverDependentDevices",
+              (setting) => setting.key === "niDAQmxDeviceDiscovery",
             );
             refetch(setting ? setting.value : false);
           }}

@@ -9,7 +9,7 @@ const store = localforage.createInstance({
   name: "flojoy-settings",
 });
 
-type SettingsGroup = "frontend" | "backend";
+type SettingsGroup = "frontend" | "backend" | "device";
 
 export type Setting = {
   title: string;
@@ -49,10 +49,10 @@ const settingsAtom = atomWithImmer<Setting[]>([
     value: true,
   },
   {
-    title: "Discover driver-dependent devices",
-    key: "driverDependentDevices",
+    title: "Discover NI-DAQmx devices",
+    key: "niDAQmxDeviceDiscovery",
     group: "device",
-    desc: "Enable the discovery of devices that rely on specific drivers. Note that activating this option may lead to a longer loading time",
+    desc: "Enable the discovery of NI compactDAQ devices and other devices relying on NI-DAQmx. Note that activating this option may lead to a longer loading time.",
     value: false,
   },
 ]);

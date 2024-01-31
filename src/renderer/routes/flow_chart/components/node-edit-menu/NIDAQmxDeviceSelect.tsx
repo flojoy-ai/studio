@@ -8,7 +8,7 @@ export const NIDAQmxDeviceSelect = (props: SelectProps) => {
   
   const { settings } = useSettings("device");
   const setting = settings.find(
-    (setting) => setting.key === "driverDependentDevices",
+    (setting) => setting.key === "niDAQmxDeviceDiscovery",
   );
   const discoveryOn = setting ? setting.value : false;
 

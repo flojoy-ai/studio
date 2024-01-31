@@ -62,7 +62,7 @@ export const SocketContextProvider = ({
   const setManifestChanged = useSetAtom(manifestChangedAtom);
   const { settings } = useSettings("device");
   const setting = settings.find(
-    (setting) => setting.key === "driverDependentDevices",
+    (setting) => setting.key === "niDAQmxDeviceDiscovery",
   );
   const fetchDriverDevices = setting ? setting.value : false;
 
