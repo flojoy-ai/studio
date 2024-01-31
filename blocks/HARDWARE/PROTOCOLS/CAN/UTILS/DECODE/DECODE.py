@@ -30,10 +30,11 @@ def DECODE(
 
     try:
         decoded = [
-            db.decode_message(message.arbitration_id, message.data) for message in messages
+            db.decode_message(message.arbitration_id, message.data)
+            for message in messages
         ]
     except Exception as err:
         logging.error(f"Error decoding message: {err}")
         raise Exception(f"Error decoding message: {err}")
-    
+
     return DataFrame(df=pd.DataFrame(decoded))
