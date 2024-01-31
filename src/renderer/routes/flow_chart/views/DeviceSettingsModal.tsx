@@ -1,4 +1,3 @@
-
 import { useSettings } from "@src/hooks/useSettings";
 import { SettingsModalProps } from "./SettingsModal";
 import { SettingsModal } from "./SettingsModal";

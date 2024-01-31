@@ -10,17 +10,23 @@ import { ConnectionHelp } from "./ConnectionHelp";
 import { useSettings } from "@src/hooks/useSettings";
 
 export const HardwareInfo = () => {
-  const { settings } = useSettings("device");
-  const userDependentDevice = settings.find(setting => setting.key === 'driverDependentDevices');
-  const includeDrivers = Boolean(userDependentDevice?.value);
-  console.log("Drivers:", includeDrivers);
   const devices = useHardwareDevices();
-  const refetch = useHardwareRefetch(includeDrivers);
+  const refetch = useHardwareRefetch();
+  const { settings } = useSettings("device");
 
   if (!devices) {
     return (
       <>
-        <Button onClick={refetch}>Refresh</Button>
+        <Button
+          onClick={() => {
+            const setting = settings.find(
+              (setting) => setting.key === "driverDependentDevices",
+            );
+            refetch(setting ? setting.value : false);
+          }}
+        >
+          Refresh
+        </Button>
         <div className="py-3" />
         <div>loading...</div>
       </>
@@ -72,7 +78,16 @@ export const HardwareInfo = () => {
   return (
     <div class="max-h-screen overflow-y-auto">
       <div className="flex gap-2">
-        <Button onClick={refetch}>Refresh</Button>
+        <Button
+          onClick={() => {
+            const setting = settings.find(
+              (setting) => setting.key === "driverDependentDevices",
+            );
+            refetch(setting ? setting.value : false);
+          }}
+        >
+          Refresh
+        </Button>
         <DebugMenu />
         <ConnectionHelp />
       </div>
@@ -83,7 +98,10 @@ export const HardwareInfo = () => {
       <div className="py-6" />
       <DeviceSection title="VISA" devices={visaDevices} />
       <div className="py-6" />
-      <DeviceSection title="Driver-Dependent Devices" devices={nidaqmxDevices} />
+      <DeviceSection
+        title="Driver-Dependent Devices"
+        devices={nidaqmxDevices}
+      />
     </div>
   );
 };

@@ -85,7 +85,6 @@ export function cancelFlowChartRun(
 }
 
 export async function getDeviceInfo(includeDrivers = false) {
-  console.log("include", includeDrivers);
   const res = await baseClient.get("devices", {
     params: {
       include_drivers: includeDrivers,

@@ -5,8 +5,6 @@ export const NIDAQmxDeviceSelect = (props: SelectProps) => {
   const hardware = useHardwareDevices();
   const daq = hardware?.nidaqmxDevices.filter((d) => d.address !== "");
 
-  console.log("daq", daq);
-
   return (
     <DeviceSelect
       {...props}
