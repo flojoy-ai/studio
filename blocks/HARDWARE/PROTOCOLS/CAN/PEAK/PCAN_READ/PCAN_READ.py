@@ -3,7 +3,7 @@ from typing import Optional
 import can
 
 
-@flojoy(deps={"python-can": "4.2.2"})
+@flojoy(deps={"python-can": "4.3.1", "uptime": "3.0.1"})
 def PCAN_READ(
     PCAN_address: str, timeout: int = 10, default: Optional[DataContainer] = None
 ) -> Stateful:

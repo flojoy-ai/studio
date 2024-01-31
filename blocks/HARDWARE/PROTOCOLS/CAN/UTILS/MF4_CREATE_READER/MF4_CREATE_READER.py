@@ -3,7 +3,7 @@ import can
 from typing import Optional
 
 
-@flojoy()
+@flojoy(deps={"python-can": "4.3.1", "asammdf": "7.4.1"})
 def MF4_CREATE_READER(
     file: File,
     default: Optional[DataContainer] = None,

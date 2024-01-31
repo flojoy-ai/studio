@@ -2,7 +2,7 @@ from flojoy import flojoy, File, Stateful
 from cantools import database
 
 
-@flojoy(deps={"python-can": "4.2.2", "cantools": "39.4.2"})
+@flojoy(deps={"python-can": "4.3.1", "cantools": "39.4.2"})
 def LOAD_DBC(file_path: File) -> Stateful:
     """Load a DBC file.
 
