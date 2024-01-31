@@ -7,10 +7,15 @@ import { DeviceSection } from "./DeviceSection";
 import { Button } from "@src/components/ui/button";
 import { DebugMenu } from "./DebugMenu";
 import { ConnectionHelp } from "./ConnectionHelp";
+import { useSettings } from "@src/hooks/useSettings";
 
 export const HardwareInfo = () => {
+  const { settings } = useSettings("device");
+  const userDependentDevice = settings.find(setting => setting.key === 'driverDependentDevices');
+  const includeDrivers = Boolean(userDependentDevice?.value);
+  console.log("Drivers:", includeDrivers);
   const devices = useHardwareDevices();
-  const refetch = useHardwareRefetch();
+  const refetch = useHardwareRefetch(includeDrivers);
 
   if (!devices) {
     return (
