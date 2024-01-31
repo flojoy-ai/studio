@@ -46,8 +46,8 @@ export type DeviceInfo = z.infer<typeof DeviceInfo>;
 
 const deviceAtom = atom<DeviceInfo | undefined>(undefined);
 
-const refetchDeviceInfo = async (includeDrivers = false) => {
-  const data = await getDeviceInfo(includeDrivers);
+const refetchDeviceInfo = async (discoverNIDAQmxDevices = false) => {
+  const data = await getDeviceInfo(discoverNIDAQmxDevices);
   return DeviceInfo.parse(data);
 };
 
@@ -55,9 +55,9 @@ export const useHardwareRefetch = () => {
   const setDevices = useSetAtom(deviceAtom);
 
   return useCallback(
-    async (includeDrivers) => {
+    async (discoverNIDAQmxDevices) => {
       setDevices(undefined);
-      const data = await refetchDeviceInfo(includeDrivers);
+      const data = await refetchDeviceInfo(discoverNIDAQmxDevices);
       setDevices(data);
     },
     [setDevices],
