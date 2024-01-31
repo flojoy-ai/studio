@@ -27,6 +27,8 @@ Additionally, you can deploy your own cloud app with our public AWS AMI. In this
 
 - A valid domain (For SSL and HTTPS connection).
 
+- A PostgreSQL instance in AWS RDS (You can setup your own postgresql db as well)
+
 ## Create IAM role
 
 1. Log in to AWS account and Search for `IAM`, then go to `IAM` dashboard.
@@ -162,10 +164,21 @@ AWS_REGION=""                           # AWS region
 SENDER_EMAIL=""                         # Email registered for AWS SES
 GOOGLE_CLIENT_ID=""                     # Google auth client id
 GOOGLE_CLIENT_SECRET=""                 # Google client secret
+DATABASE_URL=""                         # Postgresql DB connection URL
 
 GOOGLE_REDIRECT_URI="https://<cloud-domain>/login/google/callback"
 NEXT_PUBLIC_URL_ORIGIN="https://<cloud-domain>"
 ```
+
+:::note
+For AWS RDS PostgreSQL instance provide database URL string in following pattern:
+`postgresql://<master-user>:<master-password>@<endpoint>:<port>/<db-name>`
+the default db name is `postgres` and default master username is `admin` for RDS.
+:::
+
+:::caution
+You need to connect you AWS RDS DB with EC2 instance in order to allow communication between EC2 instance and RDS DB. For that go to RDS dashboard, select the db you want to use for cloud app and click on Actions. Then click on `Set up EC2 connection`. Select just launched EC2 instance from dropdown and click `Continue`
+:::
 
 :::note
 Change `<cloud-domain>` with the domain name you want to use for this app
