@@ -6,11 +6,15 @@ router = APIRouter(tags=["devices"])
 
 
 @router.get("/devices")
-async def get_devices(include_nidaqmx_drivers: bool = False) -> dict[str, str] | DeviceInfo:
+async def get_devices(
+    include_nidaqmx_drivers: bool = False,
+) -> dict[str, str] | DeviceInfo:
     device_finder = get_device_finder()
     return DeviceInfo(
         cameras=device_finder.get_cameras(),
         serialDevices=device_finder.get_serial_devices(),
         visaDevices=device_finder.get_visa_devices(),
-        nidaqmxDevices=device_finder.get_nidaqmx_devices() if include_nidaqmx_drivers else [],
+        nidaqmxDevices=device_finder.get_nidaqmx_devices()
+        if include_nidaqmx_drivers
+        else [],
     )
