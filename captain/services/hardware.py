@@ -80,9 +80,9 @@ class DefaultDeviceFinder:
 
             def extract_device(channel, device) -> NIDAQmxDevice:
                 return NIDAQmxDevice(
-                    name=channel.name,
+                    name=f"{device.product_type} - {channel.name.split('/')[-1]}",
                     address=channel.name,
-                    description=f"{device.product_type} - {channel.name.split('/')[-1]}",
+                    description=device.product_type,
                 )
 
             for device in system.devices:

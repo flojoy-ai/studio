@@ -68,11 +68,17 @@ export const HardwareInfo = () => {
 
   const nidaqmxDevices: DeviceCardProps[] | undefined =
     devices.nidaqmxDevices.length > 0
-      ? devices.nidaqmxDevices.map((d) => ({
-          name: d.name,
-          port: d.address,
-          description: d.description,
-        }))
+      ? devices.nidaqmxDevices.reduce((uniqueDevices, d) => {
+          const existingDevice = uniqueDevices.find((ud) => ud.description === d.description);
+          if (!existingDevice) {
+            uniqueDevices.push({
+              name: d.name.replace(/ -.*/, " - Channel #"),
+              port: d.address.replace(/\/.*/, "/channel"),
+              description: d.description,
+            });
+          }
+          return uniqueDevices;
+        }, [] as DeviceCardProps[])
       : undefined;
 
   return (

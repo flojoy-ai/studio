@@ -12,7 +12,7 @@ export const NIDAQmxDeviceSelect = (props: SelectProps) => {
       placeholder="No NI-DAQmx devices found"
       keySelector={(d) => d.name}
       valueSelector={(d) => d.address}
-      nameSelector={(d) => d.description}
+      nameSelector={(d) => d.name}
     />
   );
 };
