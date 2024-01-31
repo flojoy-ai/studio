@@ -13,16 +13,17 @@ export const HardwareInfo = () => {
   const devices = useHardwareDevices();
   const refetch = useHardwareRefetch();
   const { settings } = useSettings("device");
+  const setting = settings.find(
+    (setting) => setting.key === "niDAQmxDeviceDiscovery",
+  );
+  const discoverNIDAQmxDevices = setting ? setting.value : false;
 
   if (!devices) {
     return (
       <>
         <Button
           onClick={() => {
-            const setting = settings.find(
-              (setting) => setting.key === "niDAQmxDeviceDiscovery",
-            );
-            refetch(setting ? setting.value : false);
+            refetch(discoverNIDAQmxDevices);
           }}
         >
           Refresh
@@ -88,14 +89,11 @@ export const HardwareInfo = () => {
       : undefined;
 
   return (
-    <div class="max-h-screen overflow-y-auto">
+    <div className="max-h-screen overflow-y-auto">
       <div className="flex gap-2">
         <Button
           onClick={() => {
-            const setting = settings.find(
-              (setting) => setting.key === "niDAQmxDeviceDiscovery",
-            );
-            refetch(setting ? setting.value : false);
+            refetch(discoverNIDAQmxDevices);
           }}
         >
           Refresh
