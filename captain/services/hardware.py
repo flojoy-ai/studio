@@ -82,7 +82,7 @@ class DefaultDeviceFinder:
                 return NIDAQmxDevice(
                     name=f"{device.product_type} - {channel.name.split('/')[-1]}",
                     address=channel.name,
-                    description=device.product_type,
+                    description=f"{device.product_type} - {device.compact_daq_chassis_device}/{device.compact_daq_slot_num}",
                 )
 
             for device in system.devices:

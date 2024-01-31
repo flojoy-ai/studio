@@ -33,6 +33,8 @@ export const HardwareInfo = () => {
     );
   }
 
+  // Base Devices
+
   const cameras: DeviceCardProps[] | undefined =
     devices.cameras.length > 0
       ? devices.cameras.map((c) => {
@@ -66,13 +68,15 @@ export const HardwareInfo = () => {
         }))
       : undefined;
 
-  const nidaqmxDevices: DeviceCardProps[] | undefined =
+  // Driver Dependent Devices
+
+  const driverDependentDevices: DeviceCardProps[] | undefined =
     devices.nidaqmxDevices.length > 0
       ? devices.nidaqmxDevices.reduce((uniqueDevices, d) => {
           const existingDevice = uniqueDevices.find((ud) => ud.description === d.description);
           if (!existingDevice) {
             uniqueDevices.push({
-              name: d.name.replace(/ -.*/, " - Channel #"),
+              name: d.name.replace(/ -.*/, ""),
               port: d.address.replace(/\/.*/, "/channel"),
               description: d.description,
             });
@@ -106,8 +110,13 @@ export const HardwareInfo = () => {
       <div className="py-6" />
       <DeviceSection
         title="Driver-Dependent Devices"
-        devices={nidaqmxDevices}
+        devices={driverDependentDevices}
       />
+      {driverDependentDevices === undefined && (
+        <h5 className="mb-2 text-xs text-accent5 pt-2">
+          To enable driver-dependent discovery, see: Settings → Device Settings
+        </h5>
+      )}
     </div>
   );
 };
