@@ -4,14 +4,19 @@
     "short_description": "Create a writer for the MF4 format.",
     "parameters": [
       {
-        "name": "file",
-        "type": "File",
-        "description": "The file to write to."
+        "name": "dir",
+        "type": "Directory",
+        "description": "The directory to export to."
+      },
+      {
+        "name": "filename",
+        "type": "str",
+        "description": "The name of the file to output."
       },
       {
         "name": "database",
         "type": "Optional[File]",
-        "description": "The database to use for decoding the CAN data."
+        "description": "Path to a DBC or ARXML file that contains message description."
       },
       {
         "name": "compression_level",

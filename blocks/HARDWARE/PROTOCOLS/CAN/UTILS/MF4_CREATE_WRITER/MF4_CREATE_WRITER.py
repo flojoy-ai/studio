@@ -1,4 +1,11 @@
-from flojoy import flojoy, Stateful, DeviceConnectionManager, HardwareDevice, Directory, File
+from flojoy import (
+    flojoy,
+    Stateful,
+    DeviceConnectionManager,
+    HardwareDevice,
+    Directory,
+    File,
+)
 from typing import Optional, Literal
 import can
 import os
