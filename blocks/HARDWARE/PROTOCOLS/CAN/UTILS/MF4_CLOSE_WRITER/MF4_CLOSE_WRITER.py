@@ -3,7 +3,7 @@ from typing import Optional
 import can
 
 
-@flojoy()
+@flojoy(deps={"python-can": "4.3.1", "asammdf": "7.4.1"})
 def MF4_CLOSE_WRITER(
     MF4_writer: Stateful,
     default: Optional[Stateful] = None,

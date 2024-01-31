@@ -6,7 +6,7 @@ import can
 from flojoy import DataContainer, SerialDevice, String, Vector, flojoy
 
 
-@flojoy(deps={"python-can": "4.2.2"})
+@flojoy(deps={"python-can": "4.3.1"})
 def CAN_MESSAGE(
     device: SerialDevice,
     message: Vector | Optional[DataContainer] = None,

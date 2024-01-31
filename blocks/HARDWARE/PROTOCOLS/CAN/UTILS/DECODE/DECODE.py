@@ -3,7 +3,7 @@ import pandas as pd
 import logging
 
 
-@flojoy(deps={"python-can": "4.2.2", "cantools": "39.4.2"})
+@flojoy(deps={"python-can": "4.3.1", "cantools": "39.4.2"})
 def DECODE(
     dbc: Stateful,
     messages: Stateful,

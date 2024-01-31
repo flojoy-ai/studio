@@ -3,7 +3,7 @@ from typing import Optional
 import can
 
 
-@flojoy(deps={"python-can": "4.2.2"})
+@flojoy(deps={"python-can": "4.3.1", "uptime": "3.0.1"})
 def PCAN_CONNECT(
     PCAN_address: str, bitrate: int = 500000, default: Optional[DataContainer] = None
 ) -> Optional[DataContainer]:

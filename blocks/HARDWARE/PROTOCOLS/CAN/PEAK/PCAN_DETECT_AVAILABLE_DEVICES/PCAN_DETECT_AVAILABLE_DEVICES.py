@@ -3,7 +3,7 @@ import can
 from typing import Optional
 
 
-@flojoy(deps={"python-can": "4.2.2"})
+@flojoy(deps={"python-can": "4.3.1", "uptime": "3.0.1"})
 def PCAN_DETECT_AVAILABLE_DEVICES(default: Optional[DataContainer]) -> String:
     """Detects available PCAN devices and returns a string containing the device name and the channel number.
 

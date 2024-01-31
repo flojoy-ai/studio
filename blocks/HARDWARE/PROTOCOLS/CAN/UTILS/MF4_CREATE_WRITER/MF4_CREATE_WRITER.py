@@ -1,12 +1,14 @@
-from flojoy import flojoy, File, Stateful, DeviceConnectionManager, HardwareDevice
+from flojoy import flojoy, Stateful, DeviceConnectionManager, HardwareDevice, Directory, File
 from typing import Optional, Literal
 import can
+import os
 
 
-@flojoy()
+@flojoy(deps={"python-can": "4.3.1", "asammdf": "7.4.1"})
 def MF4_CREATE_WRITER(
-    file: File,
-    database: Optional[File],
+    dir: Directory,
+    filename: str = "can_exported.mf4",
+    database: Optional[File] = None,
     compression_level: Literal[
         "No compression",
         "Deflate (slower, but produces smaller files)",
@@ -21,10 +23,12 @@ def MF4_CREATE_WRITER(
 
     Parameters
     ----------
-    file : File
-        The file to write to.
+    dir : Directory
+        The directory to export to.
+    filename : str
+        The name of the file to output.
     database : Optional[File]
-        The database to use for decoding the CAN data.
+        Path to a DBC or ARXML file that contains message description.
     compression_level : Literal
         The compression level to use. Defaults to "No compression".
 
@@ -34,6 +38,10 @@ def MF4_CREATE_WRITER(
         A stateful object that can be used to write CAN data to the file.
     """
 
+    if dir is None:
+        raise ValueError("Please select a directory to export the data to")
+    filename = f"{filename}.mf4" if filename[-4:] != ".mf4" else filename
+
     cpr_lvl = {
         "No compression": 0,
         "Deflate (slower, but produces smaller files)": 1,
@@ -41,7 +49,7 @@ def MF4_CREATE_WRITER(
     }[compression_level]
 
     writer = can.io.MF4Writer(
-        file.unwrap(),
+        os.path.join(dir.unwrap(), filename),
         database=database.unwrap() if database is not None else None,
         compression_level=cpr_lvl,
     )

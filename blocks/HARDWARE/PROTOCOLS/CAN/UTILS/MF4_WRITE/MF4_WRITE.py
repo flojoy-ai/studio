@@ -3,7 +3,7 @@ from typing import Optional
 import can
 
 
-@flojoy()
+@flojoy(deps={"python-can": "4.3.1", "asammdf": "7.4.1"})
 def MF4_WRITE(
     MF4_writer: Stateful,
     messages: Stateful,
