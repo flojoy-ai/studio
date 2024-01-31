@@ -88,7 +88,7 @@ export const HardwareInfo = () => {
       : undefined;
 
   return (
-    <div class="max-h-screen overflow-y-auto">
+    <div className="max-h-screen overflow-y-auto">
       <div className="flex gap-2">
         <Button
           onClick={() => {
