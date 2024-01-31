@@ -14,4 +14,3 @@ async def get_devices(include_drivers: bool = False) -> dict[str, str] | DeviceI
         visaDevices=device_finder.get_visa_devices(),
         nidaqmxDevices=device_finder.get_nidaqmx_devices() if include_drivers else [],
     )
-

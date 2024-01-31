@@ -73,7 +73,9 @@ export const HardwareInfo = () => {
   const driverDependentDevices: DeviceCardProps[] | undefined =
     devices.nidaqmxDevices.length > 0
       ? devices.nidaqmxDevices.reduce((uniqueDevices, d) => {
-          const existingDevice = uniqueDevices.find((ud) => ud.description === d.description);
+          const existingDevice = uniqueDevices.find(
+            (ud) => ud.description === d.description,
+          );
           if (!existingDevice) {
             uniqueDevices.push({
               name: d.name.replace(/ -.*/, ""),
@@ -113,7 +115,7 @@ export const HardwareInfo = () => {
         devices={driverDependentDevices}
       />
       {driverDependentDevices === undefined && (
-        <h5 className="mb-2 text-xs text-accent5 pt-2">
+        <h5 className="text-accent5 mb-2 pt-2 text-xs">
           To enable driver-dependent discovery, see: Settings → Device Settings
         </h5>
       )}
