@@ -7,20 +7,34 @@ import { DeviceSection } from "./DeviceSection";
 import { Button } from "@src/components/ui/button";
 import { DebugMenu } from "./DebugMenu";
 import { ConnectionHelp } from "./ConnectionHelp";
+import { useSettings } from "@src/hooks/useSettings";
 
 export const HardwareInfo = () => {
   const devices = useHardwareDevices();
   const refetch = useHardwareRefetch();
+  const { settings } = useSettings("device");
+  const setting = settings.find(
+    (setting) => setting.key === "niDAQmxDeviceDiscovery",
+  );
+  const discoverNIDAQmxDevices = setting ? setting.value : false;
 
   if (!devices) {
     return (
       <>
-        <Button onClick={refetch}>Refresh</Button>
+        <Button
+          onClick={() => {
+            refetch(discoverNIDAQmxDevices);
+          }}
+        >
+          Refresh
+        </Button>
         <div className="py-3" />
         <div>loading...</div>
       </>
     );
   }
+
+  // Base Devices
 
   const cameras: DeviceCardProps[] | undefined =
     devices.cameras.length > 0
@@ -55,10 +69,35 @@ export const HardwareInfo = () => {
         }))
       : undefined;
 
+  // Driver Dependent Devices
+
+  const driverDependentDevices: DeviceCardProps[] | undefined =
+    devices.nidaqmxDevices.length > 0
+      ? devices.nidaqmxDevices.reduce((uniqueDevices, d) => {
+          const existingDevice = uniqueDevices.find(
+            (ud) => ud.description === d.description,
+          );
+          if (!existingDevice) {
+            uniqueDevices.push({
+              name: d.name.replace(/ -.*/, ""),
+              port: d.address.replace(/\/.*/, "/channel"),
+              description: d.description,
+            });
+          }
+          return uniqueDevices;
+        }, [] as DeviceCardProps[])
+      : undefined;
+
   return (
-    <div>
+    <div className="max-h-screen overflow-y-auto">
       <div className="flex gap-2">
-        <Button onClick={refetch}>Refresh</Button>
+        <Button
+          onClick={() => {
+            refetch(discoverNIDAQmxDevices);
+          }}
+        >
+          Refresh
+        </Button>
         <DebugMenu />
         <ConnectionHelp />
       </div>
@@ -68,6 +107,16 @@ export const HardwareInfo = () => {
       <DeviceSection title="Serial" devices={serialDevices} />
       <div className="py-6" />
       <DeviceSection title="VISA" devices={visaDevices} />
+      <div className="py-6" />
+      <DeviceSection
+        title="Driver-Dependent Devices"
+        devices={driverDependentDevices}
+      />
+      {driverDependentDevices === undefined && (
+        <h5 className="text-accent5 mb-2 pt-2 text-xs">
+          To enable driver-dependent discovery, see: Settings → Device Settings
+        </h5>
+      )}
     </div>
   );
 };

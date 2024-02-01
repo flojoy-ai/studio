@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "Raw samples constitute the internal representation of samples in a device, read directly from the device or buffer without scaling or reordering.\nThis block determines a Vector of appropriate size and data type based on your device specifications.\n\n**Compatibility:**\nCompatible with National Instruments devices that utilize NI-DAQmx.\n\nThis block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html.",
+    "short_description": "Reads raw samples from the specified task or virtual channels.",
+    "parameters": [
+      {
+        "name": "task_name",
+        "type": "str",
+        "description": "The name of the task to read from."
+      },
+      {
+        "name": "read_all",
+        "type": "bool",
+        "description": "If True, reads all available samples in the buffer. If False, reads the number of samples specified in `number_of_samples_per_channel` (default is False)."
+      },
+      {
+        "name": "number_of_samples_per_channel",
+        "type": "int",
+        "description": "The number of samples per channel to read (default is 1000)."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Vector",
+        "description": "Returns data in an interleaved or non-interleaved 1D array, depending on the raw ordering of the device. Refer to your device documentation for more information."
+      }
+    ]
+  }
+}
