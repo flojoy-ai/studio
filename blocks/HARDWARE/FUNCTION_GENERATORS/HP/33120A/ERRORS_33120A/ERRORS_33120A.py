@@ -1,6 +1,5 @@
 from flojoy import flojoy, DataContainer, String, SerialConnection
 from typing import Optional
-from time import sleep
 
 
 @flojoy(inject_connection=True)
