@@ -87,7 +87,7 @@ Done! we've created an IAM role for SES service which we can attach with our EC2
 
 ![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1706057689/flojoy-docs/flojoy-cloud/vqo3c4h6ubypoteekhsr.png)
 
-- In the next page, provide a name to your instance. In `instance type` section select at least `t3.large`( 2cpu and 8gb ram) to allow app run smooth and fast.
+- In the next page, provide a name to your instance. In `instance type` section select at least `t3.xlarge`( 4vCPU and 16GiB ram) to allow app run smooth and fast.
 
 - In the next section select a key pair for SSH purpose. After that in `Network` section select `Allow HTTP traffic from the internet`, `Allow HTTPS traffic from the internet` and `Allow SSH traffic from` option.
 

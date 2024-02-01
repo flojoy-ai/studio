@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "**Compatibility:**\nCompatible with National Instruments devices that utilize NI-DAQmx.\n\nThis block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html.",
+    "short_description": "Creates a task",
+    "parameters": [
+      {
+        "name": "task_name",
+        "type": "str",
+        "description": "The name of the task to create."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Optional[DataContainer]",
+        "description": "This block does not return any meaningful data;"
+      }
+    ]
+  }
+}

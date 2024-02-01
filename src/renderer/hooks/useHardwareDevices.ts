@@ -27,29 +27,41 @@ const VISADevice = z.object({
 
 type VISADevice = z.infer<typeof VISADevice>;
 
+const NIDAQmxDevice = z.object({
+  name: z.string(),
+  address: z.string(),
+  description: z.string(),
+});
+
+type NIDAQmxDevice = z.infer<typeof NIDAQmxDevice>;
+
 const DeviceInfo = z.object({
   cameras: z.array(CameraDevice),
   serialDevices: z.array(SerialDevice),
   visaDevices: z.array(VISADevice),
+  nidaqmxDevices: z.array(NIDAQmxDevice),
 });
 
 export type DeviceInfo = z.infer<typeof DeviceInfo>;
 
 const deviceAtom = atom<DeviceInfo | undefined>(undefined);
 
-const refetchDeviceInfo = async () => {
-  const data = await getDeviceInfo();
+const refetchDeviceInfo = async (discoverNIDAQmxDevices = false) => {
+  const data = await getDeviceInfo(discoverNIDAQmxDevices);
   return DeviceInfo.parse(data);
 };
 
 export const useHardwareRefetch = () => {
   const setDevices = useSetAtom(deviceAtom);
 
-  return useCallback(async () => {
-    setDevices(undefined);
-    const data = await refetchDeviceInfo();
-    setDevices(data);
-  }, [setDevices]);
+  return useCallback(
+    async (discoverNIDAQmxDevices) => {
+      setDevices(undefined);
+      const data = await refetchDeviceInfo(discoverNIDAQmxDevices);
+      setDevices(data);
+    },
+    [setDevices],
+  );
 };
 
 export const useHardwareDevices = () => useAtomValue(deviceAtom);

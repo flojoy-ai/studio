@@ -12,6 +12,7 @@ export type ParamValueType =
   | "CameraDevice"
   | "SerialDevice"
   | "VisaDevice"
+  | "NIDAQmxDevice"
   | "CameraConnection"
   | "SerialConnection"
   | "VisaConnection"

@@ -1,0 +1,45 @@
+{
+  "docstring": {
+    "long_description": "**Compatibility:**\nCompatible with National Instruments devices that utilize NI-DAQmx. Tested with an NI-9203 module.\n\nThis block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html.",
+    "short_description": "Attach channel(s) to a task to measure current.",
+    "parameters": [
+      {
+        "name": "task_name",
+        "type": "str",
+        "description": "The name of the task to attach the channel(s) to."
+      },
+      {
+        "name": "cDAQ_start_channel",
+        "type": "NIDAQmxDevice",
+        "description": "The device and channel to read from. Flojoy will register this address as a connection."
+      },
+      {
+        "name": "cDAQ_end_channel",
+        "type": "NIDAQmxDevice",
+        "description": "To read from only one channel, set this to the same as `cDAQ_start_channel`. To read from multiple channels, set this to the last channel you want to read from."
+      },
+      {
+        "name": "min_val",
+        "type": "float",
+        "description": "Specifies in **units** the minimum value you expect to measure (default is -0.01)."
+      },
+      {
+        "name": "max_val",
+        "type": "float",
+        "description": "Specifies in **units** the maximum value you expect to measure (default is 0.01)."
+      },
+      {
+        "name": "units",
+        "type": "Literal",
+        "description": "The units to use to return current measurements (default is \"AMPS\")."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Optional[DataContainer]",
+        "description": "This block does not return any meaningful data; it is designed for creating a task to measure current."
+      }
+    ]
+  }
+}
