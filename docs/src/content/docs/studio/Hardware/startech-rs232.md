@@ -7,7 +7,7 @@ slug: "startech/rs232-to-usb"
 
 ## Device Setup
 
-:::warning
+:::caution
 This adapter is "male" on the RS232 side. If your instrument is also "male", it's possible you will need a [null modem](https://en.wikipedia.org/wiki/Null_modem) Female/Female adapter as well. A straight-through F/F adapter will likely not work.
 :::
 
