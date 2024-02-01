@@ -10,6 +10,10 @@ slug: "startech/rs232-to-usb"
 
 ## Device Setup
 
+:::warning
+This adapter is "male" on the RS232 side. If your instrument is also "male", it's possible you will need a [null modem](https://en.wikipedia.org/wiki/Null_modem) Female/Female adapter as well. A straight-through F/F adapter will likely not work.
+:::
+
 If the adapter is not present after refreshing the `Hardware Devices` menu, follow the instructions specific to your OS below. You may have to download the driver for Windows and MacOS, and for Linux you may have to change some permissions.
 
 ![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1706634425/flojoy-docs/rs232/rs232-website-drivers.png)
