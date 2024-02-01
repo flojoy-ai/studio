@@ -52,6 +52,8 @@ class DeviceConnectionManager:
                     cls.handles[id] = VisaConnection(connection, cleanup=cleanup)
                 case NIDevice():
                     cls.handles[id] = NIConnection(connection, cleanup=cleanup)
+                case HardwareDevice():
+                    cls.handles[id] = HardwareConnection(connection, cleanup=cleanup)
 
     @classmethod
     def get_connection(cls, id: str | int) -> HardwareConnection:

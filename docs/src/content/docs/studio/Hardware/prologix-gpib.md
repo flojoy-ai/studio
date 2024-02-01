@@ -1,9 +1,7 @@
 ---
-title: Using Prologix GPIB to USB
+title: Using the Prologix GPIB-USB adapter
 slug: "prologix/gpib-to-usb"
 ---
-
-# Using the Prologix GPIB-USB adapter to control VISA instruments with SCPI commands.
 
 ![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1706134282/flojoy-docs/prologix/prologix-adapter.png)
 

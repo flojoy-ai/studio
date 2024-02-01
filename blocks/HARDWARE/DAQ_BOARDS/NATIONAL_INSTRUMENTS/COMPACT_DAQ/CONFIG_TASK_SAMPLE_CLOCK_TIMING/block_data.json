@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "**Compatibility:**\nCompatible with National Instruments devices that utilize NI-DAQmx. Tested on a simulated NI-9229 module.\n\nThis block is designed for use with Windows and Linux systems due to NI driver availability. Ensure you have installed the NI-DAQmx runtime from https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html.",
+    "short_description": "Configures the timing for the sample clock of a task.",
+    "parameters": [
+      {
+        "name": "task_name",
+        "type": "str",
+        "description": "The name of the task to configure."
+      },
+      {
+        "name": "sample_clock_rate",
+        "type": "float",
+        "description": "Specifies the sampling rate in samples per channel per second. If using an external source for the Sample Clock, set this input to the maximum expected rate of that clock. Uses the onboard clock of the device (default is 1000.0)."
+      },
+      {
+        "name": "number_of_samples_per_channel",
+        "type": "int",
+        "description": "Specifies the number of samples to acquire or generate for each channel in the task (default is 1000)."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Optional[DataContainer]",
+        "description": "This block does not return any meaningful data; it is designed for configuring the task's sample clock timing."
+      }
+    ]
+  }
+}

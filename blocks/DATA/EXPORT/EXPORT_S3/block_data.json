@@ -1,0 +1,50 @@
+{
+  "docstring": {
+    "long_description": "This function exports a file to an S3 bucket using the provided credentials and options.\nThe user must have previously set the AWS access and secret access keys in the Environment Variables settings and have enabled the required permissions for such operations.",
+    "short_description": "Export a file to S3 Bucket.",
+    "parameters": [
+      {
+        "name": "object_name",
+        "type": "Optional[String]",
+        "description": "Flojoy input to dynamically provide a string for the name of the object in S3. If not specified, the name of the file will be used."
+      },
+      {
+        "name": "s3_access_key",
+        "type": "str",
+        "description": "The name of the key used to save the AWS access key."
+      },
+      {
+        "name": "s3_secret_key",
+        "type": "str",
+        "description": "The name of the key used to save the AWS secret key."
+      },
+      {
+        "name": "bucket",
+        "type": "str",
+        "description": "The S3 bucket to upload the file to."
+      },
+      {
+        "name": "region",
+        "type": "str",
+        "description": "The AWS region (default is \"us-east-1\")."
+      },
+      {
+        "name": "enable_overwrite",
+        "type": "bool",
+        "description": "Whether to overwrite the file if it already exists (default is False)."
+      },
+      {
+        "name": "file",
+        "type": "File",
+        "description": "The file to be uploaded to the S3 bucket."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Boolean",
+        "description": "Returns a Boolean indicating the success of the file export operation (True if successful, False otherwise)."
+      }
+    ]
+  }
+}
