@@ -12,6 +12,7 @@ import {
 } from "@src/hooks/useManifest";
 import { toast } from "sonner";
 import { useCustomSections } from "@src/hooks/useCustomBlockManifest";
+import { useSettings } from "@src/hooks/useSettings";
 
 type States = {
   programResults: NodeResult[];
@@ -59,6 +60,11 @@ export const SocketContextProvider = ({
   const fetchManifest = useFetchManifest();
   const fetchMetadata = useFetchNodesMetadata();
   const setManifestChanged = useSetAtom(manifestChangedAtom);
+  const { settings } = useSettings("device");
+  const setting = settings.find(
+    (setting) => setting.key === "niDAQmxDeviceDiscovery",
+  );
+  const fetchDriverDevices = setting ? setting.value : false;
 
   const handleStateChange =
     (state: keyof States) =>
@@ -86,7 +92,7 @@ export const SocketContextProvider = ({
           setSocket(undefined);
         },
         onConnectionEstablished: () => {
-          hardwareRefetch();
+          hardwareRefetch(fetchDriverDevices);
           fetchManifest();
           fetchMetadata();
           handleImportCustomBlocks(true);

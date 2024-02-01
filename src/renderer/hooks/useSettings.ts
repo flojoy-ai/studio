@@ -9,7 +9,7 @@ const store = localforage.createInstance({
   name: "flojoy-settings",
 });
 
-type SettingsGroup = "frontend" | "backend";
+type SettingsGroup = "frontend" | "backend" | "device";
 
 export type Setting = {
   title: string;
@@ -48,9 +48,16 @@ const settingsAtom = atomWithImmer<Setting[]>([
     desc: "Center the view of the flow chart automatically when the window is resized",
     value: true,
   },
+  {
+    title: "Discover NI-DAQmx devices",
+    key: "niDAQmxDeviceDiscovery",
+    group: "device",
+    desc: "Enable the discovery of NI compactDAQ devices and other devices relying on NI-DAQmx. Note that activating this option may lead to a longer loading time.",
+    value: false,
+  },
 ]);
 
-export const useSettings = (group: "frontend" | "backend") => {
+export const useSettings = (group: "frontend" | "backend" | "device") => {
   const [settings, setSettings] = useAtom(settingsAtom);
 
   const updateSettings = (key: string, value: number | boolean) => {
