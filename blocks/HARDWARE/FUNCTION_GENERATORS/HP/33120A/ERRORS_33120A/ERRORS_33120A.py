@@ -30,7 +30,7 @@ def ERRORS_33120A(
 
     instru = connection.get_handle()
 
-    errors = "k"
+    errors = ""
 
     for i in range(number):
         write = "SYST:ERR?\n"
@@ -40,11 +40,9 @@ def ERRORS_33120A(
             instru.write(write.encode())
 
         s = instru.read(256)
-        print("DEBUG: ", s, flush=True)
         if isinstance(s, bytes):
             s = s.decode("utf-8")
         errors += s
-        errors += ", "
-        sleep(0.5)
+        errors += "\\\n"
 
-    return String(s=errors)  # [:-1])
+    return String(s=errors[:-2])

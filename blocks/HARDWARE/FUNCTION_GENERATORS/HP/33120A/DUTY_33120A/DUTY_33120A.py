@@ -33,10 +33,12 @@ def DUTY_33120A(
 
     match options:
         case "input":
-            instru.write(f"PULS:DCYCL {duty}\n".encode("utf-8"))
+            write = f"PULS:DCYC {duty}\n".encode()
         case "max":
-            instru.write("PULS:DCYCL max\n".encode("utf-8"))
+            write = "PULS:DCYC max\n".encode()
         case "min":
-            instru.write("PULS:DCYCL min\n".encode("utf-8"))
+            write = "PULS:DCYC min\n".encode()
+
+    instru.write(write)
 
     return String(s=f"{duty}")

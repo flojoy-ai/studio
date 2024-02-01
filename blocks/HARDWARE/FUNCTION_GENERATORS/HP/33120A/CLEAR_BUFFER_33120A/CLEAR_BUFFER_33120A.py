@@ -25,12 +25,7 @@ def CLEAR_BUFFER_33120A(
 
     instru = connection.get_handle()
 
-    write = "FREQ?\n"
-    s = instru.read(512)
-    print("DEBUG: ", s, flush=True)
-
     write = "*CLS\n"
-
     instru.write(write.encode())
 
     return String(s="Buffer Cleared")

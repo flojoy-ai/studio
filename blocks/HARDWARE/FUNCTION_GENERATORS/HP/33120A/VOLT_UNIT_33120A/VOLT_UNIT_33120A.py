@@ -31,6 +31,9 @@ def VOLT_UNIT_33120A(
 
     instru = connection.get_handle()
 
-    instru.write(f"VOLT {unit}\n".encode("utf-8"))
+    if unit == "default":
+        unit = "DEF"
+    write = f"VOLT:UNIT {unit}\n".encode()
+    instru.write(write)
 
     return String(s=f"{unit}")
