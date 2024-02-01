@@ -1,10 +1,7 @@
 ---
-title: Using StarTech RS232 to USB
+title: Using the Startech RS232-USB adapter
 slug: "startech/rs232-to-usb"
 ---
-
-
-# Using the Startech RS232-USB adapter to control VISA instruments with SCPI commands.
 
 ![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1706634427/flojoy-docs/rs232/rs232-adapter.jpg)
 
