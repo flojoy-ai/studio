@@ -31,6 +31,7 @@ import { IS_CLOUD_DEMO } from "@src/data/constants";
 import { DemoWarningTooltip } from "@src/components/ui/demo-warning-tooltip";
 import { DebugSettingsModal } from "./DebugSettingsModal";
 import DepManagerModal from "./DepManagerModal";
+import { DeviceSettingsModal } from "./DeviceSettingsModal";
 import { Button } from "@src/components/ui/button";
 import ProfileMenu from "./user-profile/ProfileMenu";
 
@@ -41,6 +42,7 @@ const ControlBar = () => {
   const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
   const [isDebugSettingsOpen, setIsDebugSettingsOpen] = useState(false);
   const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
+  const [isDeviceSettingsOpen, setIsDeviceSettingsOpen] = useState(false);
   const [isDepManagerModalOpen, setIsDepManagerModalOpen] = useState(false);
 
   const handleCheckForUpdates = () => {
@@ -63,10 +65,17 @@ const ControlBar = () => {
         handleSettingsModalOpen={setIsNodeSettingsOpen}
         isSettingsModalOpen={isNodeSettingsOpen}
       />
+
       <EditorSettingsModal
         handleSettingsModalOpen={setIsEditorSettingsOpen}
         isSettingsModalOpen={isEditorSettingsOpen}
       />
+
+      <DeviceSettingsModal
+        handleSettingsModalOpen={setIsDeviceSettingsOpen}
+        isSettingsModalOpen={isDeviceSettingsOpen}
+      />
+
       <DebugSettingsModal
         handleSettingsModalOpen={setIsDebugSettingsOpen}
         isSettingsModalOpen={isDebugSettingsOpen}
@@ -143,6 +152,12 @@ const ControlBar = () => {
                 onClick={() => setIsNodeSettingsOpen(true)}
               >
                 Node Settings
+              </MenubarItem>
+              <MenubarItem
+                data-testid="btn-device-settings"
+                onClick={() => setIsDeviceSettingsOpen(true)}
+              >
+                Device Settings
               </MenubarItem>
               <MenubarItem
                 data-testid="btn-debug-settings"

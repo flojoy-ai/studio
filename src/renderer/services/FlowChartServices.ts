@@ -84,8 +84,12 @@ export function cancelFlowChartRun(
   }
 }
 
-export async function getDeviceInfo() {
-  const res = await baseClient.get("devices");
+export async function getDeviceInfo(discoverNIDAQmxDevices = false) {
+  const res = await baseClient.get("devices", {
+    params: {
+      include_nidaqmx_drivers: discoverNIDAQmxDevices,
+    },
+  });
   return res.data;
 }
 
