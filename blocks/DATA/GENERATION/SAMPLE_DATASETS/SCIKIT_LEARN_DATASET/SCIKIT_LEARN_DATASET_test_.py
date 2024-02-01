@@ -1,6 +1,7 @@
 from flojoy import DataFrame
 import pytest
 
+sklear_imported = True
 try:
     from sklearn.datasets import load_diabetes, load_iris
 except ImportError:
