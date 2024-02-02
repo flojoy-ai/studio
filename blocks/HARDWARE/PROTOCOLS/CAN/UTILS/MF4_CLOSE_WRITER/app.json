@@ -154,12 +154,12 @@
             {
                 "width": 192,
                 "height": 192,
-                "id": "DECODE-b4db4f7d-4fec-4a9e-9765-7e732a8a414c",
+                "id": "DECODE_CAN-b4db4f7d-4fec-4a9e-9765-7e732a8a414c",
                 "type": "HARDWARE",
                 "data": {
-                    "id": "DECODE-b4db4f7d-4fec-4a9e-9765-7e732a8a414c",
-                    "label": "DECODE",
-                    "func": "DECODE",
+                    "id": "DECODE_CAN-b4db4f7d-4fec-4a9e-9765-7e732a8a414c",
+                    "label": "DECODE_CAN",
+                    "func": "DECODE_CAN",
                     "type": "HARDWARE",
                     "ctrls": {},
                     "initCtrls": {},
@@ -176,7 +176,7 @@
                             "id": "messages",
                             "type": "Stateful",
                             "multiple": false,
-                            "desc": "The message to decode. Must be a can.Message object."
+                            "desc": "The message to DECODE_CAN. Must be a can.Message object."
                         }
                     ],
                     "outputs": [
@@ -184,7 +184,7 @@
                             "name": "default",
                             "id": "default",
                             "type": "DataFrame",
-                            "desc": "Return dataframe containing the decoded message."
+                            "desc": "Return dataframe containing the DECODE_CANd message."
                         }
                     ],
                     "pip_dependencies": [
@@ -197,7 +197,7 @@
                             "v": "39.4.2"
                         }
                     ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/DECODE/DECODE.py"
+                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/DECODE_CAN/DECODE_CAN.py"
                 },
                 "position": {
                     "x": 1299.1709276598472,
@@ -213,12 +213,12 @@
             {
                 "width": 192,
                 "height": 192,
-                "id": "DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1",
+                "id": "DECODE_CAN-2e083f89-08f6-46a6-b410-e5cee5e0add1",
                 "type": "HARDWARE",
                 "data": {
-                    "id": "DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1",
-                    "label": "DECODE 1",
-                    "func": "DECODE",
+                    "id": "DECODE_CAN-2e083f89-08f6-46a6-b410-e5cee5e0add1",
+                    "label": "DECODE_CAN 1",
+                    "func": "DECODE_CAN",
                     "type": "HARDWARE",
                     "ctrls": {},
                     "initCtrls": {},
@@ -235,7 +235,7 @@
                             "id": "messages",
                             "type": "Stateful",
                             "multiple": false,
-                            "desc": "The message to decode. Must be a can.Message object."
+                            "desc": "The message to DECODE_CAN. Must be a can.Message object."
                         }
                     ],
                     "outputs": [
@@ -243,7 +243,7 @@
                             "name": "default",
                             "id": "default",
                             "type": "DataFrame",
-                            "desc": "Return dataframe containing the decoded message."
+                            "desc": "Return dataframe containing the DECODE_CANd message."
                         }
                     ],
                     "pip_dependencies": [
@@ -256,7 +256,7 @@
                             "v": "39.4.2"
                         }
                     ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/DECODE/DECODE.py"
+                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/DECODE_CAN/DECODE_CAN.py"
                 },
                 "position": {
                     "x": 649.9696250399238,
@@ -971,44 +971,44 @@
             {
                 "source": "MF4_CREATE_READER-f485b773-cab0-49e2-9188-37bc7c4fdad1",
                 "sourceHandle": "default",
-                "target": "DECODE-b4db4f7d-4fec-4a9e-9765-7e732a8a414c",
+                "target": "DECODE_CAN-b4db4f7d-4fec-4a9e-9765-7e732a8a414c",
                 "targetHandle": "messages",
-                "id": "reactflow__edge-MF4_CREATE_READER-f485b773-cab0-49e2-9188-37bc7c4fdad1default-DECODE-b4db4f7d-4fec-4a9e-9765-7e732a8a414cmessages"
+                "id": "reactflow__edge-MF4_CREATE_READER-f485b773-cab0-49e2-9188-37bc7c4fdad1default-DECODE_CAN-b4db4f7d-4fec-4a9e-9765-7e732a8a414cmessages"
             },
             {
                 "source": "LOAD_DBC-6575e1ae-7d9c-4020-b388-fcb079b0906d",
                 "sourceHandle": "default",
-                "target": "DECODE-b4db4f7d-4fec-4a9e-9765-7e732a8a414c",
+                "target": "DECODE_CAN-b4db4f7d-4fec-4a9e-9765-7e732a8a414c",
                 "targetHandle": "dbc",
-                "id": "reactflow__edge-LOAD_DBC-6575e1ae-7d9c-4020-b388-fcb079b0906ddefault-DECODE-b4db4f7d-4fec-4a9e-9765-7e732a8a414cdbc"
+                "id": "reactflow__edge-LOAD_DBC-6575e1ae-7d9c-4020-b388-fcb079b0906ddefault-DECODE_CAN-b4db4f7d-4fec-4a9e-9765-7e732a8a414cdbc"
             },
             {
                 "source": "LOAD_DBC-1f9ad040-854b-4ad2-ad24-880e3aec9f7e",
                 "sourceHandle": "default",
-                "target": "DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1",
+                "target": "DECODE_CAN-2e083f89-08f6-46a6-b410-e5cee5e0add1",
                 "targetHandle": "dbc",
-                "id": "reactflow__edge-LOAD_DBC-1f9ad040-854b-4ad2-ad24-880e3aec9f7edefault-DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1dbc"
+                "id": "reactflow__edge-LOAD_DBC-1f9ad040-854b-4ad2-ad24-880e3aec9f7edefault-DECODE_CAN-2e083f89-08f6-46a6-b410-e5cee5e0add1dbc"
             },
             {
                 "source": "MF4_WRITE-af302e9b-471b-4cbd-a7c3-0821c43fa647",
                 "sourceHandle": "default",
-                "target": "DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1",
+                "target": "DECODE_CAN-2e083f89-08f6-46a6-b410-e5cee5e0add1",
                 "targetHandle": "messages",
-                "id": "reactflow__edge-MF4_WRITE-af302e9b-471b-4cbd-a7c3-0821c43fa647default-DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1messages"
+                "id": "reactflow__edge-MF4_WRITE-af302e9b-471b-4cbd-a7c3-0821c43fa647default-DECODE_CAN-2e083f89-08f6-46a6-b410-e5cee5e0add1messages"
             },
             {
-                "source": "DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1",
+                "source": "DECODE_CAN-2e083f89-08f6-46a6-b410-e5cee5e0add1",
                 "sourceHandle": "default",
                 "target": "PRINT_DATACONTAINER-fe8d8cc9-6e4b-45eb-85fb-95c527c95d2c",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DECODE-2e083f89-08f6-46a6-b410-e5cee5e0add1default-PRINT_DATACONTAINER-fe8d8cc9-6e4b-45eb-85fb-95c527c95d2cdefault"
+                "id": "reactflow__edge-DECODE_CAN-2e083f89-08f6-46a6-b410-e5cee5e0add1default-PRINT_DATACONTAINER-fe8d8cc9-6e4b-45eb-85fb-95c527c95d2cdefault"
             },
             {
-                "source": "DECODE-b4db4f7d-4fec-4a9e-9765-7e732a8a414c",
+                "source": "DECODE_CAN-b4db4f7d-4fec-4a9e-9765-7e732a8a414c",
                 "sourceHandle": "default",
                 "target": "PRINT_DATACONTAINER-f17229c6-1043-494d-a933-cc9190f6a910",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DECODE-b4db4f7d-4fec-4a9e-9765-7e732a8a414cdefault-PRINT_DATACONTAINER-f17229c6-1043-494d-a933-cc9190f6a910default"
+                "id": "reactflow__edge-DECODE_CAN-b4db4f7d-4fec-4a9e-9765-7e732a8a414cdefault-PRINT_DATACONTAINER-f17229c6-1043-494d-a933-cc9190f6a910default"
             },
             {
                 "source": "PRINT_DATACONTAINER-fe8d8cc9-6e4b-45eb-85fb-95c527c95d2c",

@@ -1,4 +1,4 @@
-In this example, we utilize the `LOAD_DBC` block to load a DBC file and decode CAN bus messages received from a CAN bus sniffer (PEAK Can USB) and present the output in a tabular format.
+In this example, we utilize the `LOAD_DBC` block to load a DBC file and DECODE_CAN CAN bus messages received from a CAN bus sniffer (PEAK Can USB) and present the output in a tabular format.
 
 To replicate this application, you must connect the PEAK-USB to your computer and install the required driver (refer to the `PCAN_CONNECT` blocks for more information on the necessary driver for your platform). Then, simply specify the PEAK-USB channel in the `PCAN_CONNECT` and `PCAN_READ` blocks, and this Flojoy application will log the messages received by the device!
 
