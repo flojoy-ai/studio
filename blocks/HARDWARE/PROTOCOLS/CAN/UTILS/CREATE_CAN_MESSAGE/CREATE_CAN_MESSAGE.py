@@ -20,16 +20,18 @@ def CREATE_CAN_MESSAGE(
     frame_id : int
         The frame ID.
     data : list[int]
-        The data to be sent. Will be converted in an array of bytes
+        The data to be sent. Will be converted in an array of bytes.
     error_frame : bool
-        Whether the frame is an error frame, by default False
+        Whether the frame is an error frame, by default False.
     can_fd : bool
-        Whether the frame is a CAN FD frame (Flexible Data-Rate), by default False
+        Whether the frame is a CAN FD frame (Flexible Data-Rate), by default False.
+    channel : Optional string
+        Optional Channel id.
 
     Returns
     -------
     Stateful
-        A list of can message with the message created
+        A list of can message with the message created.
     """
 
     is_extended_id = frame_id >= 0x800
