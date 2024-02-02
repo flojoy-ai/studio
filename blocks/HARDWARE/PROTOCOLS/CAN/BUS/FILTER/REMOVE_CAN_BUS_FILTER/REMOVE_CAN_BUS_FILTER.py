@@ -4,7 +4,7 @@ import can
 
 
 @flojoy(deps={"python-can": "4.3.1"})
-def SET_CAN_BUS_FILTER(
+def REMOVE_CAN_BUS_FILTER(
     CAN_address: str,
     default: Optional[DataContainer] = None
 ) -> Optional[DataContainer]:

@@ -4,7 +4,7 @@ import can
 
 
 @flojoy(deps={"python-can": "4.3.1"})
-def PCAN_READ(
+def RECEIVE_CAN_MESSAGE(
     CAN_address: str,
     timeout: int = 10,
     raise_error: bool = True,
