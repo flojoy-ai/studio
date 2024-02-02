@@ -6,7 +6,7 @@ import can
 @flojoy(deps={"python-can": "4.3.1"})
 def STOP_SEND_PERIODIC_CAN_MESSAGE(
     CAN_address: str,
-    default: Optional[DataContainer]
+    default: Optional[DataContainer] = None
 ) -> Optional[DataContainer]:
     """Stop sending periodic a message to a CAN Bus.
 

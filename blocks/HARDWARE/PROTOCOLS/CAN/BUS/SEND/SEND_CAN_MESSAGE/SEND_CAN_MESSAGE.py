@@ -7,7 +7,7 @@ import can
 def SEND_CAN_MESSAGE(
     CAN_address: str,
     message: Stateful,
-    default: Optional[DataContainer]
+    default: Optional[DataContainer] = None
 ) -> Optional[DataContainer]:
     """Send a message to a CAN system.
 

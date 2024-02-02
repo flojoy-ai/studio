@@ -9,11 +9,11 @@ def SET_CAN_BUS_FILTER(
     can_id: int,
     can_mask: int,
     extended: bool = False,
-    default: Optional[DataContainer]
+    default: Optional[DataContainer] = None
 ) -> Optional[DataContainer]:
     """Attach a message filter to a CAN bus connection.
 
-    Setup a message filtering can be set up for each bus. 
+    Setup a message filtering can be set up for each bus.
     Where the interface supports it, this is carried out in the hardware or kernel layer - not in Python.
     All messages that match at least one filter are returned.
 
