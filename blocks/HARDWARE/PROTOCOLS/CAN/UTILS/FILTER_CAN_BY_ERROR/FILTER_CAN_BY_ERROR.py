@@ -24,6 +24,6 @@ def FILTER_CAN_BY_ERROR(
 
     messages: can.Message = messages.obj
 
-    filtered = list(filter(lambda msg: msg.is_error_frame, messages))
+    filtered = list(filter(lambda msg: msg.is_error_frame or msg.error_state_indicator, messages))
 
     return Stateful(obj=filtered)
