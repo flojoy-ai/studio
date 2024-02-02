@@ -1,9 +1,8 @@
 from flojoy import flojoy, Stateful
 import can
-from typing import Optional, Literal
 
 
-@flojoy()
+@flojoy(deps={"python-can": "4.3.1"})
 def FILTER_CAN_BY_ID(
     message_id: int,
     messages: Stateful

@@ -3,7 +3,7 @@ from typing import Optional
 import can
 
 
-@flojoy()
+@flojoy(deps={"python-can": "4.3.1"})
 def CREATE_CAN_MESSAGE(
     frame_id: int,
     data: list[int],

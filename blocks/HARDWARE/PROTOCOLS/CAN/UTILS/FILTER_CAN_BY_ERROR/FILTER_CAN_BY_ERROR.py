@@ -3,7 +3,7 @@ import can
 from typing import Optional, Literal
 
 
-@flojoy()
+@flojoy(deps={"python-can": "4.3.1"})
 def FILTER_CAN_BY_ERROR(
     messages: Stateful
 ) -> Stateful:
