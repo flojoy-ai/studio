@@ -19,7 +19,7 @@
                             "overload": null,
                             "functionName": "PCAN_CONNECT",
                             "param": "PCAN_address",
-                            "value": ""
+                            "value": "PCAN_USBBUS1"
                         },
                         "bitrate": {
                             "type": "int",
@@ -62,13 +62,13 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/BUS/CONNECT/PEAK/PCAN_CONNECT/PCAN_CONNECT.py"
                 },
                 "position": {
-                    "x": -488.3712584621099,
-                    "y": -60.25045244459068
+                    "x": -513.8113799869323,
+                    "y": -65.6838221087375
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -488.3712584621099,
-                    "y": -60.25045244459068
+                    "x": -513.8113799869323,
+                    "y": -65.6838221087375
                 },
                 "dragging": true
             },
@@ -179,91 +179,6 @@
             {
                 "width": 192,
                 "height": 192,
-                "id": "SET_CAN_BUS_FILTER-cce03cb6-2ac2-4805-8f74-45482eaa01f1",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "SET_CAN_BUS_FILTER-cce03cb6-2ac2-4805-8f74-45482eaa01f1",
-                    "label": "SET CAN BUS FILTER",
-                    "func": "SET_CAN_BUS_FILTER",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "CAN_address": {
-                            "type": "str",
-                            "default": null,
-                            "desc": "The CAN bus address to attach the filter to.",
-                            "overload": null,
-                            "functionName": "SET_CAN_BUS_FILTER",
-                            "param": "CAN_address",
-                            "value": ""
-                        },
-                        "can_id": {
-                            "type": "int",
-                            "default": null,
-                            "desc": "The ID of the message to filter.",
-                            "overload": null,
-                            "functionName": "SET_CAN_BUS_FILTER",
-                            "param": "can_id",
-                            "value": ""
-                        },
-                        "can_mask": {
-                            "type": "int",
-                            "default": null,
-                            "desc": "todo",
-                            "overload": null,
-                            "functionName": "SET_CAN_BUS_FILTER",
-                            "param": "can_mask",
-                            "value": ""
-                        },
-                        "extended": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": "If true, only matches messages where <received_is_extended> == extended.",
-                            "overload": null,
-                            "functionName": "SET_CAN_BUS_FILTER",
-                            "param": "extended",
-                            "value": false
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "Optional: None"
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "python-can",
-                            "v": "4.3.1"
-                        }
-                    ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/FILTER/SET_CAN_BUS_FILTER/SET_CAN_BUS_FILTER.py"
-                },
-                "position": {
-                    "x": -498.4882082128637,
-                    "y": 174.85126243479573
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -498.4882082128637,
-                    "y": 174.85126243479573
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
                 "id": "RECEIVE_CAN_MESSAGE-eec770d2-94b0-4799-ab90-ddfadf9fdf43",
                 "type": "HARDWARE",
                 "data": {
@@ -279,7 +194,7 @@
                             "overload": null,
                             "functionName": "RECEIVE_CAN_MESSAGE",
                             "param": "CAN_address",
-                            "value": ""
+                            "value": "PCAN_USBBUS1"
                         },
                         "timeout": {
                             "type": "int",
@@ -414,7 +329,7 @@
                             "overload": null,
                             "functionName": "LOOP",
                             "param": "num_loops",
-                            "value": 100
+                            "value": 5
                         }
                     },
                     "initCtrls": {},
@@ -472,7 +387,7 @@
                             "overload": null,
                             "functionName": "MF4_CREATE_WRITER",
                             "param": "dir",
-                            "value": ""
+                            "value": "C:\\Users\\zzzgu\\Documents\\flojoy\\apps\\PEAK_EXAMPLE"
                         },
                         "filename": {
                             "type": "str",
@@ -526,7 +441,16 @@
                             "v": "7.4.1"
                         }
                     ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_CREATE_WRITER/MF4_CREATE_WRITER.py"
+                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_CREATE_WRITER/MF4_CREATE_WRITER.py",
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ]
                 },
                 "position": {
                     "x": -235.33517759254175,
@@ -588,13 +512,13 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_CLOSE_WRITER/MF4_CLOSE_WRITER.py"
                 },
                 "position": {
-                    "x": 118.17753941788519,
-                    "y": 163.99520600630075
+                    "x": 114.17753941788519,
+                    "y": 175.99520600630058
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 118.17753941788519,
-                    "y": 163.99520600630075
+                    "x": 114.17753941788519,
+                    "y": 175.99520600630058
                 },
                 "dragging": true
             },
@@ -616,7 +540,7 @@
                             "overload": null,
                             "functionName": "MF4_CREATE_READER",
                             "param": "file",
-                            "value": ""
+                            "value": "C:\\Users\\zzzgu\\Documents\\flojoy\\apps\\PEAK_EXAMPLE\\can_exported.mf4"
                         }
                     },
                     "initCtrls": {},
@@ -651,64 +575,12 @@
                 },
                 "position": {
                     "x": 388.441505380396,
-                    "y": 165.40806684459812
+                    "y": 171.87887472138067
                 },
                 "selected": false,
                 "positionAbsolute": {
                     "x": 388.441505380396,
-                    "y": 165.40806684459812
-                },
-                "dragging": true
-            },
-            {
-                "width": 96,
-                "height": 96,
-                "id": "TIMER-097fd240-a69e-4282-af52-4ddc559e0ef1",
-                "type": "CONTROL_FLOW",
-                "data": {
-                    "id": "TIMER-097fd240-a69e-4282-af52-4ddc559e0ef1",
-                    "label": "TIMER",
-                    "func": "TIMER",
-                    "type": "CONTROL_FLOW",
-                    "ctrls": {
-                        "sleep_time": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "number of seconds to sleep",
-                            "overload": null,
-                            "functionName": "TIMER",
-                            "param": "sleep_time",
-                            "value": 0.05
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "Returns the input if one was passed in."
-                        }
-                    ],
-                    "path": "CONTROL_FLOW/TIMERS/TIMER/TIMER.py"
-                },
-                "position": {
-                    "x": 721.0181512555522,
-                    "y": -479.86671539364204
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 721.0181512555522,
-                    "y": -479.86671539364204
+                    "y": 171.87887472138067
                 },
                 "dragging": true
             },
@@ -730,7 +602,7 @@
                             "overload": null,
                             "functionName": "LOAD_DBC",
                             "param": "file_path",
-                            "value": ""
+                            "value": "C:\\Users\\zzzgu\\Documents\\flojoy\\apps\\PEAK_EXAMPLE\\canmod-temp.dbc"
                         }
                     },
                     "initCtrls": {},
@@ -752,7 +624,16 @@
                             "v": "39.4.2"
                         }
                     ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/LOAD_DBC/LOAD_DBC.py"
+                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/LOAD_DBC/LOAD_DBC.py",
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ]
                 },
                 "position": {
                     "x": 374.6321131517166,
@@ -842,7 +723,7 @@
                             "overload": null,
                             "functionName": "EXPORT_CSV",
                             "param": "dir",
-                            "value": ""
+                            "value": "C:\\Users\\zzzgu\\Documents\\flojoy\\apps\\PEAK_EXAMPLE"
                         },
                         "filename": {
                             "type": "str",
@@ -875,13 +756,13 @@
                     "path": "DATA/EXPORT/EXPORT_CSV/EXPORT_CSV.py"
                 },
                 "position": {
-                    "x": 1005.4307184219663,
-                    "y": 104.38468607977438
+                    "x": 997.8521355894143,
+                    "y": -57.796986536838176
                 },
-                "selected": false,
+                "selected": true,
                 "positionAbsolute": {
-                    "x": 1005.4307184219663,
-                    "y": 104.38468607977438
+                    "x": 997.8521355894143,
+                    "y": -57.796986536838176
                 },
                 "dragging": true
             },
@@ -903,7 +784,7 @@
                             "overload": null,
                             "functionName": "EXPORT_S3",
                             "param": "s3_access_key",
-                            "value": ""
+                            "value": "S3_ACCESSKEY"
                         },
                         "s3_secret_key": {
                             "type": "str",
@@ -912,7 +793,7 @@
                             "overload": null,
                             "functionName": "EXPORT_S3",
                             "param": "s3_secret_key",
-                            "value": ""
+                            "value": "S3_SECRETKEY"
                         },
                         "bucket": {
                             "type": "str",
@@ -921,7 +802,7 @@
                             "overload": null,
                             "functionName": "EXPORT_S3",
                             "param": "bucket",
-                            "value": ""
+                            "value": "guillaume-flojoy"
                         },
                         "region": {
                             "type": "select",
@@ -977,7 +858,7 @@
                             "overload": null,
                             "functionName": "EXPORT_S3",
                             "param": "enable_overwrite",
-                            "value": false
+                            "value": true
                         },
                         "file": {
                             "type": "File",
@@ -986,7 +867,7 @@
                             "overload": null,
                             "functionName": "EXPORT_S3",
                             "param": "file",
-                            "value": ""
+                            "value": "C:\\Users\\zzzgu\\Documents\\flojoy\\apps\\PEAK_EXAMPLE\\exported.csv"
                         }
                     },
                     "initCtrls": {},
@@ -1023,19 +904,19 @@
                     "path": "DATA/EXPORT/EXPORT_S3/EXPORT_S3.py"
                 },
                 "position": {
-                    "x": 1266.2419037397315,
-                    "y": 105.00152125249502
+                    "x": 1263.9873925555482,
+                    "y": -71.64570094234563
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1266.2419037397315,
-                    "y": 105.00152125249502
+                    "x": 1263.9873925555482,
+                    "y": -71.64570094234563
                 },
                 "dragging": true
             },
             {
-                "width": 839,
-                "height": 357,
+                "width": 1277,
+                "height": 233,
                 "id": "TEXT_VIEW-aea39f9a-9b75-48d4-953a-67ea6dcb8424",
                 "type": "VISUALIZATION",
                 "data": {
@@ -1075,18 +956,18 @@
                     "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
                 },
                 "position": {
-                    "x": 855.8367204027951,
-                    "y": -407.5925930315358
+                    "x": 758.0636785154527,
+                    "y": -362.1210960362238
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 855.8367204027951,
-                    "y": -407.5925930315358
+                    "x": 758.0636785154527,
+                    "y": -362.1210960362238
                 },
                 "dragging": true,
                 "style": {
-                    "width": 839,
-                    "height": 357
+                    "width": 1277,
+                    "height": 233
                 },
                 "resizing": false
             },
@@ -1131,6 +1012,190 @@
                     "y": -318.16055682293177
                 },
                 "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "SET_CAN_BUS_FILTER-62976689-33e5-4ae0-b082-724efe31d24f",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "SET_CAN_BUS_FILTER-62976689-33e5-4ae0-b082-724efe31d24f",
+                    "label": "SET CAN BUS FILTER",
+                    "func": "SET_CAN_BUS_FILTER",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "CAN_address": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "The CAN bus address to attach the filter to.",
+                            "overload": null,
+                            "functionName": "SET_CAN_BUS_FILTER",
+                            "param": "CAN_address",
+                            "value": "PCAN_USBBUS1"
+                        },
+                        "can_id": {
+                            "type": "int",
+                            "default": null,
+                            "desc": "The ID of the message to filter.",
+                            "overload": null,
+                            "functionName": "SET_CAN_BUS_FILTER",
+                            "param": "can_id",
+                            "value": 1
+                        },
+                        "can_mask": {
+                            "type": "int",
+                            "default": null,
+                            "desc": "todo",
+                            "overload": null,
+                            "functionName": "SET_CAN_BUS_FILTER",
+                            "param": "can_mask",
+                            "value": 1
+                        },
+                        "extended": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "If true, only matches messages where <received_is_extended> == extended.",
+                            "overload": null,
+                            "functionName": "SET_CAN_BUS_FILTER",
+                            "param": "extended",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "Optional: None"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.3.1"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/FILTER/SET_CAN_BUS_FILTER/SET_CAN_BUS_FILTER.py"
+                },
+                "position": {
+                    "x": -530.2830613872087,
+                    "y": 202.01658230014704
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -530.2830613872087,
+                    "y": 202.01658230014704
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 180,
+                "id": "PRINT_DATACONTAINER-58037020-c1ce-4b7f-bb73-4a0bcc792ccd",
+                "type": "DEBUGGING",
+                "data": {
+                    "id": "PRINT_DATACONTAINER-58037020-c1ce-4b7f-bb73-4a0bcc792ccd",
+                    "label": "PRINT DATAFRAME",
+                    "func": "PRINT_DATACONTAINER",
+                    "type": "DEBUGGING",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": "The input DataContainer to print."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Input datacontainer information"
+                        }
+                    ],
+                    "path": "DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py"
+                },
+                "position": {
+                    "x": 765.5110803296554,
+                    "y": 328.7283502100298
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 765.5110803296554,
+                    "y": 328.7283502100298
+                },
+                "dragging": true
+            },
+            {
+                "width": 826,
+                "height": 444,
+                "id": "TEXT_VIEW-a9104702-01ea-405f-9ae3-ef5a59000834",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TEXT_VIEW-a9104702-01ea-405f-9ae3-ef5a59000834",
+                    "label": "TEXT VIEW 2",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String|Boolean",
+                            "multiple": false,
+                            "desc": "The DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
+                },
+                "position": {
+                    "x": 1003.2830202313246,
+                    "y": 89.59442517263096
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1003.2830202313246,
+                    "y": 89.59442517263096
+                },
+                "dragging": true,
+                "style": {
+                    "width": 826,
+                    "height": 444
+                },
+                "resizing": false
             }
         ],
         "edges": [
@@ -1147,13 +1212,6 @@
                 "target": "TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaab",
                 "targetHandle": "default",
                 "id": "reactflow__edge-PCAN_DETECT_AVAILABLE_DEVICES-69305ead-6130-4dd5-a799-53f77e98bc84default-TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaabdefault"
-            },
-            {
-                "source": "PCAN_CONNECT-c4b7f9b3-e317-4d54-910d-0634de291ab5",
-                "sourceHandle": "default",
-                "target": "SET_CAN_BUS_FILTER-cce03cb6-2ac2-4805-8f74-45482eaa01f1",
-                "targetHandle": "default",
-                "id": "reactflow__edge-PCAN_CONNECT-c4b7f9b3-e317-4d54-910d-0634de291ab5default-SET_CAN_BUS_FILTER-cce03cb6-2ac2-4805-8f74-45482eaa01f1default"
             },
             {
                 "source": "LOOP-744938fd-44a2-4d05-8589-3db5efb27bdf",
@@ -1177,11 +1235,11 @@
                 "id": "reactflow__edge-MF4_CREATE_WRITER-94c032f7-296e-47bc-96a2-053579212961default-MF4_WRITE-31da4262-dc81-46a7-b0e7-d9fe8774719fMF4_writer"
             },
             {
-                "source": "SET_CAN_BUS_FILTER-cce03cb6-2ac2-4805-8f74-45482eaa01f1",
+                "source": "SET_CAN_BUS_FILTER-62976689-33e5-4ae0-b082-724efe31d24f",
                 "sourceHandle": "default",
                 "target": "LOOP-744938fd-44a2-4d05-8589-3db5efb27bdf",
                 "targetHandle": "default",
-                "id": "reactflow__edge-SET_CAN_BUS_FILTER-cce03cb6-2ac2-4805-8f74-45482eaa01f1default-LOOP-744938fd-44a2-4d05-8589-3db5efb27bdfdefault"
+                "id": "reactflow__edge-SET_CAN_BUS_FILTER-62976689-33e5-4ae0-b082-724efe31d24fdefault-LOOP-744938fd-44a2-4d05-8589-3db5efb27bdfdefault"
             },
             {
                 "source": "LOOP-744938fd-44a2-4d05-8589-3db5efb27bdf",
@@ -1240,18 +1298,32 @@
                 "id": "reactflow__edge-PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0default-TEXT_VIEW-aea39f9a-9b75-48d4-953a-67ea6dcb8424default"
             },
             {
-                "source": "MF4_WRITE-31da4262-dc81-46a7-b0e7-d9fe8774719f",
-                "sourceHandle": "default",
-                "target": "TIMER-097fd240-a69e-4282-af52-4ddc559e0ef1",
-                "targetHandle": "default",
-                "id": "reactflow__edge-MF4_WRITE-31da4262-dc81-46a7-b0e7-d9fe8774719fdefault-TIMER-097fd240-a69e-4282-af52-4ddc559e0ef1default"
-            },
-            {
                 "source": "RECEIVE_CAN_MESSAGE-eec770d2-94b0-4799-ab90-ddfadf9fdf43",
                 "sourceHandle": "default",
                 "target": "PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0",
                 "targetHandle": "default",
                 "id": "reactflow__edge-RECEIVE_CAN_MESSAGE-eec770d2-94b0-4799-ab90-ddfadf9fdf43default-PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0default"
+            },
+            {
+                "source": "PCAN_CONNECT-c4b7f9b3-e317-4d54-910d-0634de291ab5",
+                "sourceHandle": "default",
+                "target": "SET_CAN_BUS_FILTER-62976689-33e5-4ae0-b082-724efe31d24f",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PCAN_CONNECT-c4b7f9b3-e317-4d54-910d-0634de291ab5default-SET_CAN_BUS_FILTER-62976689-33e5-4ae0-b082-724efe31d24fdefault"
+            },
+            {
+                "source": "DECODE_CAN_MESSAGE-51e00bc8-eda7-4816-a5cb-7651ad2ccc16",
+                "sourceHandle": "default",
+                "target": "PRINT_DATACONTAINER-58037020-c1ce-4b7f-bb73-4a0bcc792ccd",
+                "targetHandle": "default",
+                "id": "reactflow__edge-DECODE_CAN_MESSAGE-51e00bc8-eda7-4816-a5cb-7651ad2ccc16default-PRINT_DATACONTAINER-58037020-c1ce-4b7f-bb73-4a0bcc792ccddefault"
+            },
+            {
+                "source": "PRINT_DATACONTAINER-58037020-c1ce-4b7f-bb73-4a0bcc792ccd",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-a9104702-01ea-405f-9ae3-ef5a59000834",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PRINT_DATACONTAINER-58037020-c1ce-4b7f-bb73-4a0bcc792ccddefault-TEXT_VIEW-a9104702-01ea-405f-9ae3-ef5a59000834default"
             }
         ],
         "viewport": {
