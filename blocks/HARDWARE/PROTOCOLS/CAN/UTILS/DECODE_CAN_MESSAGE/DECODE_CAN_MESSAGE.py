@@ -30,7 +30,7 @@ def DECODE_CAN_MESSAGE(
 
     try:
         DECODE_CANd = [
-            db.DECODE_CAN_message(message.arbitration_id, message.data)
+            db.decode_message(message.arbitration_id, message.data)
             for message in messages
         ]
     except Exception as err:
