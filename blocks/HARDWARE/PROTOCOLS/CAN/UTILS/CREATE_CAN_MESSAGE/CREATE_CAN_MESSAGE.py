@@ -44,7 +44,7 @@ def CREATE_CAN_MESSAGE(
         is_extended_id=is_extended_id,
         data=data,
         is_error_frame=error_frame,
-        is_fd=True,
+        is_fd=can_fd,
         is_rx=False,
         error_state_indicator=error_state_indicator,
         channel=channel if channel != "" else None,
