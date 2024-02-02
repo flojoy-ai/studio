@@ -16,6 +16,7 @@ import { CameraSelect } from "./CameraSelect";
 import { SerialDeviceSelect } from "./SerialDeviceSelect";
 import { VisaDeviceSelect } from "./VisaDeviceSelect";
 import { NIDAQmxDeviceSelect } from "./NIDAQmxDeviceSelect";
+import { NIDMMDeviceSelect } from "./NIDMMDeviceSelect";
 import { Button } from "@src/components/ui/button";
 import { AutosizingTextarea } from "./AutosizingTextarea";
 
@@ -192,6 +193,8 @@ const ParamField = ({
       return <VisaDeviceSelect onValueChange={handleChange} value={value} />;
     case "NIDAQmxDevice":
       return <NIDAQmxDeviceSelect onValueChange={handleChange} value={value} />;
+    case "NIDMMDevice":
+      return <NIDMMDeviceSelect onValueChange={handleChange} value={value} />;
     case "str":
     case "list[int]":
     case "list[float]":

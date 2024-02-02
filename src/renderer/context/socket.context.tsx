@@ -64,6 +64,9 @@ export const SocketContextProvider = ({
   const setting = settings.find(
     (setting) => setting.key === "niDAQmxDeviceDiscovery",
   );
+  const setting = settings.find(
+    (setting) => setting.key === "nidmmDeviceDiscovery",
+  );
   const fetchDriverDevices = setting ? setting.value : false;
 
   const handleStateChange =

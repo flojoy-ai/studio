@@ -35,19 +35,29 @@ const NIDAQmxDevice = z.object({
 
 type NIDAQmxDevice = z.infer<typeof NIDAQmxDevice>;
 
+const NIDMMDevice = z.object({
+  name: z.string(),
+  address: z.string(),
+  description: z.string(),
+});
+
+type NIDMMDevice = z.infer<typeof NIDMMDevice>;
+
+
 const DeviceInfo = z.object({
   cameras: z.array(CameraDevice),
   serialDevices: z.array(SerialDevice),
   visaDevices: z.array(VISADevice),
   nidaqmxDevices: z.array(NIDAQmxDevice),
+  nidmmDevices: z.array(NIDMMDevice),
 });
 
 export type DeviceInfo = z.infer<typeof DeviceInfo>;
 
 const deviceAtom = atom<DeviceInfo | undefined>(undefined);
 
-const refetchDeviceInfo = async (discoverNIDAQmxDevices = false) => {
-  const data = await getDeviceInfo(discoverNIDAQmxDevices);
+const refetchDeviceInfo = async (discoverNIDAQmxDevices = false, discoverNIDMMDevices = false) => {
+  const data = await getDeviceInfo(discoverNIDAQmxDevices, discoverNIDMMDevices);
   return DeviceInfo.parse(data);
 };
 
@@ -55,9 +65,9 @@ export const useHardwareRefetch = () => {
   const setDevices = useSetAtom(deviceAtom);
 
   return useCallback(
-    async (discoverNIDAQmxDevices) => {
+    async (discoverNIDAQmxDevices, discoverNIDMMDevices) => {
       setDevices(undefined);
-      const data = await refetchDeviceInfo(discoverNIDAQmxDevices);
+      const data = await refetchDeviceInfo(discoverNIDAQmxDevices, discoverNIDMMDevices);
       setDevices(data);
     },
     [setDevices],

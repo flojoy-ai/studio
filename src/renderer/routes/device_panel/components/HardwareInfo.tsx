@@ -14,16 +14,20 @@ export const HardwareInfo = () => {
   const refetch = useHardwareRefetch();
   const { settings } = useSettings("device");
   const setting = settings.find(
-    (setting) => setting.key === "niDAQmxDeviceDiscovery",
+    (setting) => setting.key === "nidmmDeviceDiscovery",
   );
   const discoverNIDAQmxDevices = setting ? setting.value : false;
+  const setting = settings.find(
+    (setting) => setting.key === "nidmmDeviceDiscovery",
+  );
+  const discoverNIDMMDevices = setting ? setting.value : false;
 
   if (!devices) {
     return (
       <>
         <Button
           onClick={() => {
-            refetch(discoverNIDAQmxDevices);
+            refetch(discoverNIDAQmxDevices, discoverNIDMMDevices);
           }}
         >
           Refresh
@@ -93,7 +97,7 @@ export const HardwareInfo = () => {
       <div className="flex gap-2">
         <Button
           onClick={() => {
-            refetch(discoverNIDAQmxDevices);
+            refetch(discoverNIDAQmxDevices, discoverNIDMMDevices);
           }}
         >
           Refresh
