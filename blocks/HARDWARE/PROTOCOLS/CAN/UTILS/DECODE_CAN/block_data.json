@@ -1,7 +1,7 @@
 {
   "docstring": {
-    "long_description": "Decode a CAN message using the provided databse.",
-    "short_description": "Decode a CAN message.",
+    "long_description": "DECODE_CAN a CAN message using the provided databse.",
+    "short_description": "DECODE_CAN a CAN message.",
     "parameters": [
       {
         "name": "dbc",
@@ -11,14 +11,14 @@
       {
         "name": "messages",
         "type": "Stateful",
-        "description": "The message to decode. Must be a can.Message object."
+        "description": "The message to DECODE_CAN. Must be a can.Message object."
       }
     ],
     "returns": [
       {
         "name": "DataFrame",
         "type": "DataFrame",
-        "description": "Return dataframe containing the decoded message."
+        "description": "Return dataframe containing the DECODE_CANd message."
       }
     ]
   }

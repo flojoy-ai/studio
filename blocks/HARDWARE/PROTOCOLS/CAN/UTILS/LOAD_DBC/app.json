@@ -600,12 +600,12 @@
             {
                 "width": 192,
                 "height": 192,
-                "id": "DECODE-5634a245-4382-4144-a0d6-2c945032293e",
+                "id": "DECODE_CAN-5634a245-4382-4144-a0d6-2c945032293e",
                 "type": "HARDWARE",
                 "data": {
-                    "id": "DECODE-5634a245-4382-4144-a0d6-2c945032293e",
-                    "label": "DECODE",
-                    "func": "DECODE",
+                    "id": "DECODE_CAN-5634a245-4382-4144-a0d6-2c945032293e",
+                    "label": "DECODE_CAN",
+                    "func": "DECODE_CAN",
                     "type": "HARDWARE",
                     "ctrls": {},
                     "initCtrls": {},
@@ -650,7 +650,7 @@
                             "v": "39.4.2"
                         }
                     ],
-                    "path": "HARDWARE/DECODE/DECODE.py"
+                    "path": "HARDWARE/DECODE_CAN/DECODE_CAN.py"
                 },
                 "position": {
                     "x": -419.8448705963582,
@@ -666,12 +666,12 @@
             {
                 "width": 192,
                 "height": 192,
-                "id": "DECODE-f76d4c0e-5be4-4d59-a082-3860cafd2b8b",
+                "id": "DECODE_CAN-f76d4c0e-5be4-4d59-a082-3860cafd2b8b",
                 "type": "HARDWARE",
                 "data": {
-                    "id": "DECODE-f76d4c0e-5be4-4d59-a082-3860cafd2b8b",
-                    "label": "DECODE 1",
-                    "func": "DECODE",
+                    "id": "DECODE_CAN-f76d4c0e-5be4-4d59-a082-3860cafd2b8b",
+                    "label": "DECODE_CAN 1",
+                    "func": "DECODE_CAN",
                     "type": "HARDWARE",
                     "ctrls": {},
                     "initCtrls": {},
@@ -716,7 +716,7 @@
                             "v": "39.4.2"
                         }
                     ],
-                    "path": "HARDWARE/DECODE/DECODE.py"
+                    "path": "HARDWARE/DECODE_CAN/DECODE_CAN.py"
                 },
                 "position": {
                     "x": -1037.386043620455,
@@ -899,11 +899,11 @@
         ],
         "edges": [
             {
-                "source": "DECODE-f76d4c0e-5be4-4d59-a082-3860cafd2b8b",
+                "source": "DECODE_CAN-f76d4c0e-5be4-4d59-a082-3860cafd2b8b",
                 "sourceHandle": "default",
                 "target": "LOOP-f4c02749-cc76-4ebd-959b-6004c8a0e269",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DECODE-f76d4c0e-5be4-4d59-a082-3860cafd2b8bdefault-LOOP-f4c02749-cc76-4ebd-959b-6004c8a0e269default"
+                "id": "reactflow__edge-DECODE_CAN-f76d4c0e-5be4-4d59-a082-3860cafd2b8bdefault-LOOP-f4c02749-cc76-4ebd-959b-6004c8a0e269default"
             },
             {
                 "source": "FEEDBACK-808b13f9-6708-4eea-923f-0b4843dc7372",
@@ -927,11 +927,11 @@
                 "id": "reactflow__edge-PRINT_DATACONTAINER-e9856f3f-0b7e-42d8-bd2c-e51d6398fad2default-TEXT_VIEW-41137444-1733-43e2-b204-c07dba982415default"
             },
             {
-                "source": "DECODE-5634a245-4382-4144-a0d6-2c945032293e",
+                "source": "DECODE_CAN-5634a245-4382-4144-a0d6-2c945032293e",
                 "sourceHandle": "default",
                 "target": "PRINT_DATACONTAINER-8f2b59fa-7184-49db-9bb2-e57dbe403ab1",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DECODE-5634a245-4382-4144-a0d6-2c945032293edefault-PRINT_DATACONTAINER-8f2b59fa-7184-49db-9bb2-e57dbe403ab1default"
+                "id": "reactflow__edge-DECODE_CAN-5634a245-4382-4144-a0d6-2c945032293edefault-PRINT_DATACONTAINER-8f2b59fa-7184-49db-9bb2-e57dbe403ab1default"
             },
             {
                 "source": "FEEDBACK-02f01b73-58a3-4d53-82c5-54a061fade72",
@@ -965,30 +965,30 @@
             {
                 "source": "PCAN_READ-16c5a846-0ac1-4dc4-adbf-363c8c1203cd",
                 "sourceHandle": "default",
-                "target": "DECODE-5634a245-4382-4144-a0d6-2c945032293e",
+                "target": "DECODE_CAN-5634a245-4382-4144-a0d6-2c945032293e",
                 "targetHandle": "message",
-                "id": "reactflow__edge-PCAN_READ-16c5a846-0ac1-4dc4-adbf-363c8c1203cddefault-DECODE-5634a245-4382-4144-a0d6-2c945032293emessage"
+                "id": "reactflow__edge-PCAN_READ-16c5a846-0ac1-4dc4-adbf-363c8c1203cddefault-DECODE_CAN-5634a245-4382-4144-a0d6-2c945032293emessage"
             },
             {
                 "source": "LOAD_DBC-ebba9307-03f2-40a1-9e19-d08502826942",
                 "sourceHandle": "default",
-                "target": "DECODE-5634a245-4382-4144-a0d6-2c945032293e",
+                "target": "DECODE_CAN-5634a245-4382-4144-a0d6-2c945032293e",
                 "targetHandle": "dbc",
-                "id": "reactflow__edge-LOAD_DBC-ebba9307-03f2-40a1-9e19-d08502826942default-DECODE-5634a245-4382-4144-a0d6-2c945032293edbc"
+                "id": "reactflow__edge-LOAD_DBC-ebba9307-03f2-40a1-9e19-d08502826942default-DECODE_CAN-5634a245-4382-4144-a0d6-2c945032293edbc"
             },
             {
                 "source": "LOAD_DBC-ebba9307-03f2-40a1-9e19-d08502826942",
                 "sourceHandle": "default",
-                "target": "DECODE-f76d4c0e-5be4-4d59-a082-3860cafd2b8b",
+                "target": "DECODE_CAN-f76d4c0e-5be4-4d59-a082-3860cafd2b8b",
                 "targetHandle": "dbc",
-                "id": "reactflow__edge-LOAD_DBC-ebba9307-03f2-40a1-9e19-d08502826942default-DECODE-f76d4c0e-5be4-4d59-a082-3860cafd2b8bdbc"
+                "id": "reactflow__edge-LOAD_DBC-ebba9307-03f2-40a1-9e19-d08502826942default-DECODE_CAN-f76d4c0e-5be4-4d59-a082-3860cafd2b8bdbc"
             },
             {
                 "source": "PCAN_READ-2a801dfa-1a24-454b-8a48-a459e96272bd",
                 "sourceHandle": "default",
-                "target": "DECODE-f76d4c0e-5be4-4d59-a082-3860cafd2b8b",
+                "target": "DECODE_CAN-f76d4c0e-5be4-4d59-a082-3860cafd2b8b",
                 "targetHandle": "message",
-                "id": "reactflow__edge-PCAN_READ-2a801dfa-1a24-454b-8a48-a459e96272bddefault-DECODE-f76d4c0e-5be4-4d59-a082-3860cafd2b8bmessage"
+                "id": "reactflow__edge-PCAN_READ-2a801dfa-1a24-454b-8a48-a459e96272bddefault-DECODE_CAN-f76d4c0e-5be4-4d59-a082-3860cafd2b8bmessage"
             },
             {
                 "source": "PCAN_DETECT_AVAILABLE_DEVICES-30e42518-e82f-4c1c-a977-b993144fa756",
