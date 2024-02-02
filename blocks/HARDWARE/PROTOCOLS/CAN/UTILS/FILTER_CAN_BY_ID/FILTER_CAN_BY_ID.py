@@ -4,7 +4,7 @@ from typing import Optional, Literal
 
 
 @flojoy()
-def FILTER_CAN(
+def FILTER_CAN_BY_ID(
     message_id: int,
     messages: Stateful
 ) -> Stateful:
@@ -27,6 +27,6 @@ def FILTER_CAN(
 
     messages: can.Message = messages.obj
 
-    filtered = filter(lambda msg: msg.arbitration_id == message_id, messages)
+    filtered = list(filter(lambda msg: msg.arbitration_id == message_id, messages))
 
     return Stateful(obj=filtered)
