@@ -4,7 +4,7 @@ from typing import Optional, Literal
 
 
 @flojoy(deps={"python-can": "4.3.1"})
-def FILTER_CAN_BY_ERROR(
+def FILTER_CAN_MESSAGE_BY_ERROR(
     messages: Stateful
 ) -> Stateful:
     """Filter a list of can messages to only contain error messages

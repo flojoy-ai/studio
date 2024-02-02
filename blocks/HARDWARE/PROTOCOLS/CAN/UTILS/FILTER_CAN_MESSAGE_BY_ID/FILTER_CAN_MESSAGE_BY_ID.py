@@ -3,7 +3,7 @@ import can
 
 
 @flojoy(deps={"python-can": "4.3.1"})
-def FILTER_CAN_BY_ID(
+def FILTER_CAN_MESSAGE_BY_ID(
     message_id: int,
     messages: Stateful
 ) -> Stateful:

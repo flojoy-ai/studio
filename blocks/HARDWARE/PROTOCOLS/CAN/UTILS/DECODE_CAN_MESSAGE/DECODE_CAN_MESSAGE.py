@@ -4,7 +4,7 @@ import logging
 
 
 @flojoy(deps={"python-can": "4.3.1", "cantools": "39.4.2"})
-def DECODE_CAN(
+def DECODE_CAN_MESSAGE(
     dbc: Stateful,
     messages: Stateful,
 ) -> DataFrame:
