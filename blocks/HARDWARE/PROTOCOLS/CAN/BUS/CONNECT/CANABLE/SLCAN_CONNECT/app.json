@@ -1,0 +1,551 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "SLCAN_CONNECT-cf24174a-59ff-4871-89fb-a30923d9fd8e",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "SLCAN_CONNECT-cf24174a-59ff-4871-89fb-a30923d9fd8e",
+                    "label": "SLCAN CONNECT",
+                    "func": "SLCAN_CONNECT",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "device": {
+                            "type": "SerialDevice",
+                            "default": null,
+                            "desc": "The serial device to connect to.",
+                            "overload": null,
+                            "functionName": "SLCAN_CONNECT",
+                            "param": "device",
+                            "value": "COM1"
+                        },
+                        "CAN_address": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "The `CAN_address` to use in other blocks to refer to this connection.\nNote: This is not the physical address of the device, but rather a unique identifier for the connection. Needed since not all CAN bus connection can be retreive with a SerialDevice.",
+                            "overload": null,
+                            "functionName": "SLCAN_CONNECT",
+                            "param": "CAN_address",
+                            "value": ""
+                        },
+                        "bitrate": {
+                            "type": "int",
+                            "default": 500000,
+                            "desc": "The bitrate to use for the CAN bus.",
+                            "overload": null,
+                            "functionName": "SLCAN_CONNECT",
+                            "param": "bitrate",
+                            "value": 500000
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "None"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.3.1"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/CONNECT/CANABLE/SLCAN_CONNECT/SLCAN_CONNECT.py"
+                },
+                "position": {
+                    "x": -649.6416725839572,
+                    "y": -128.46919142457483
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -649.6416725839572,
+                    "y": -128.46919142457483
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CREATE_CAN_MESSAGE-d1f15c14-8c1e-4730-9c9f-c14f4fe7a15e",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "CREATE_CAN_MESSAGE-d1f15c14-8c1e-4730-9c9f-c14f4fe7a15e",
+                    "label": "CREATE CAN MESSAGE",
+                    "func": "CREATE_CAN_MESSAGE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "frame_id": {
+                            "type": "int",
+                            "default": null,
+                            "desc": "The frame ID.",
+                            "overload": null,
+                            "functionName": "CREATE_CAN_MESSAGE",
+                            "param": "frame_id",
+                            "value": ""
+                        },
+                        "data": {
+                            "type": "list[int]",
+                            "default": null,
+                            "desc": "The data to be sent. Will be converted in an array of bytes.",
+                            "overload": null,
+                            "functionName": "CREATE_CAN_MESSAGE",
+                            "param": "data",
+                            "value": ""
+                        },
+                        "error_frame": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether the frame is an error frame, by default False.",
+                            "overload": null,
+                            "functionName": "CREATE_CAN_MESSAGE",
+                            "param": "error_frame",
+                            "value": false
+                        },
+                        "can_fd": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether the frame is a CAN FD frame (Flexible Data-Rate), by default False.",
+                            "overload": null,
+                            "functionName": "CREATE_CAN_MESSAGE",
+                            "param": "can_fd",
+                            "value": false
+                        },
+                        "channel": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "Optional Channel id.",
+                            "overload": null,
+                            "functionName": "CREATE_CAN_MESSAGE",
+                            "param": "channel",
+                            "value": ""
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Stateful",
+                            "desc": "A list of can message with the message created."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.3.1"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/CREATE_CAN_MESSAGE/CREATE_CAN_MESSAGE.py"
+                },
+                "position": {
+                    "x": -647.3213531678277,
+                    "y": -428.84585284775625
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -647.3213531678277,
+                    "y": -428.84585284775625
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "SEND_PERIODIC_CAN_MESSAGE-a44e5077-d703-4bee-a50d-354ad7969ea1",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "SEND_PERIODIC_CAN_MESSAGE-a44e5077-d703-4bee-a50d-354ad7969ea1",
+                    "label": "SEND PERIODIC CAN MESSAGE",
+                    "func": "SEND_PERIODIC_CAN_MESSAGE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "CAN_address": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "The CAN device address to connect to.",
+                            "overload": null,
+                            "functionName": "SEND_PERIODIC_CAN_MESSAGE",
+                            "param": "CAN_address",
+                            "value": ""
+                        },
+                        "period": {
+                            "type": "float",
+                            "default": null,
+                            "desc": "The period in seconds between messages",
+                            "overload": null,
+                            "functionName": "SEND_PERIODIC_CAN_MESSAGE",
+                            "param": "period",
+                            "value": ""
+                        },
+                        "duration": {
+                            "type": "float",
+                            "default": null,
+                            "desc": "Approximate duration in seconds to continue sending messages. If no duration is provided, the task will continue indefinitely",
+                            "overload": null,
+                            "functionName": "SEND_PERIODIC_CAN_MESSAGE",
+                            "param": "duration",
+                            "value": ""
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "message",
+                            "id": "message",
+                            "type": "Stateful",
+                            "multiple": false,
+                            "desc": "A list of messages to send to the CAN device."
+                        },
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "Optional: None"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.3.1"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/SEND/SEND_PERIODIC_CAN_MESSAGE/SEND_PERIODIC_CAN_MESSAGE.py"
+                },
+                "position": {
+                    "x": -338.7535779623138,
+                    "y": -158.34649657044014
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -338.7535779623138,
+                    "y": -158.34649657044014
+                },
+                "dragging": true
+            },
+            {
+                "width": 96,
+                "height": 96,
+                "id": "TIMER-d953b311-b859-4fce-af65-f0fe3d5b02bf",
+                "type": "CONTROL_FLOW",
+                "data": {
+                    "id": "TIMER-d953b311-b859-4fce-af65-f0fe3d5b02bf",
+                    "label": "TIMER",
+                    "func": "TIMER",
+                    "type": "CONTROL_FLOW",
+                    "ctrls": {
+                        "sleep_time": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "number of seconds to sleep",
+                            "overload": null,
+                            "functionName": "TIMER",
+                            "param": "sleep_time",
+                            "value": 0
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "Returns the input if one was passed in."
+                        }
+                    ],
+                    "path": "CONTROL_FLOW/TIMERS/TIMER/TIMER.py"
+                },
+                "position": {
+                    "x": -43.36375367886331,
+                    "y": -121.64561152977637
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -43.36375367886331,
+                    "y": -121.64561152977637
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "STOP_SEND_PERIODIC_CAN_MESSAGE-01a2220d-1303-44c4-ae98-aff7d5230e8c",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "STOP_SEND_PERIODIC_CAN_MESSAGE-01a2220d-1303-44c4-ae98-aff7d5230e8c",
+                    "label": "STOP SEND PERIODIC CAN MESSAGE",
+                    "func": "STOP_SEND_PERIODIC_CAN_MESSAGE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "CAN_address": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "The CAN device address to connect to.",
+                            "overload": null,
+                            "functionName": "STOP_SEND_PERIODIC_CAN_MESSAGE",
+                            "param": "CAN_address",
+                            "value": ""
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "Optional: None"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.3.1"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/SEND/STOP_SEND_PERIODIC_CAN_MESSAGE/STOP_SEND_PERIODIC_CAN_MESSAGE.py"
+                },
+                "position": {
+                    "x": 158.32277685775682,
+                    "y": -170.5060799083172
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 158.32277685775682,
+                    "y": -170.5060799083172
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "SEND_CAN_MESSAGE-f6a15aa7-7179-4151-92e4-baffb92c3812",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "SEND_CAN_MESSAGE-f6a15aa7-7179-4151-92e4-baffb92c3812",
+                    "label": "SEND CAN MESSAGE",
+                    "func": "SEND_CAN_MESSAGE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "CAN_address": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "The CAN device address to connect to.",
+                            "overload": null,
+                            "functionName": "SEND_CAN_MESSAGE",
+                            "param": "CAN_address",
+                            "value": ""
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "message",
+                            "id": "message",
+                            "type": "Stateful",
+                            "multiple": false,
+                            "desc": "A list of messages to send to the CAN device."
+                        },
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "Optional: None"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.3.1"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/SEND/SEND_CAN_MESSAGE/SEND_CAN_MESSAGE.py"
+                },
+                "position": {
+                    "x": 479.757062631087,
+                    "y": -316.12266809905714
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 479.757062631087,
+                    "y": -316.12266809905714
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CREATE_CAN_MESSAGE-fff9a34d-e278-4255-b5bd-6cc86ba46b3f",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "CREATE_CAN_MESSAGE-fff9a34d-e278-4255-b5bd-6cc86ba46b3f",
+                    "label": "CREATE CAN MESSAGE STOP",
+                    "func": "CREATE_CAN_MESSAGE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "frame_id": {
+                            "type": "int",
+                            "default": null,
+                            "desc": "The frame ID.",
+                            "overload": null,
+                            "functionName": "CREATE_CAN_MESSAGE",
+                            "param": "frame_id",
+                            "value": ""
+                        },
+                        "data": {
+                            "type": "list[int]",
+                            "default": null,
+                            "desc": "The data to be sent. Will be converted in an array of bytes.",
+                            "overload": null,
+                            "functionName": "CREATE_CAN_MESSAGE",
+                            "param": "data",
+                            "value": ""
+                        },
+                        "error_frame": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether the frame is an error frame, by default False.",
+                            "overload": null,
+                            "functionName": "CREATE_CAN_MESSAGE",
+                            "param": "error_frame",
+                            "value": false
+                        },
+                        "can_fd": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether the frame is a CAN FD frame (Flexible Data-Rate), by default False.",
+                            "overload": null,
+                            "functionName": "CREATE_CAN_MESSAGE",
+                            "param": "can_fd",
+                            "value": false
+                        },
+                        "channel": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "Optional Channel id.",
+                            "overload": null,
+                            "functionName": "CREATE_CAN_MESSAGE",
+                            "param": "channel",
+                            "value": ""
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Stateful",
+                            "desc": "A list of can message with the message created."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.3.1"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/CREATE_CAN_MESSAGE/CREATE_CAN_MESSAGE.py"
+                },
+                "position": {
+                    "x": 151.6788899640791,
+                    "y": -456.9561925259384
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 151.6788899640791,
+                    "y": -456.9561925259384
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "CREATE_CAN_MESSAGE-d1f15c14-8c1e-4730-9c9f-c14f4fe7a15e",
+                "sourceHandle": "default",
+                "target": "SEND_PERIODIC_CAN_MESSAGE-a44e5077-d703-4bee-a50d-354ad7969ea1",
+                "targetHandle": "message",
+                "id": "reactflow__edge-CREATE_CAN_MESSAGE-d1f15c14-8c1e-4730-9c9f-c14f4fe7a15edefault-SEND_PERIODIC_CAN_MESSAGE-a44e5077-d703-4bee-a50d-354ad7969ea1message"
+            },
+            {
+                "source": "SLCAN_CONNECT-cf24174a-59ff-4871-89fb-a30923d9fd8e",
+                "sourceHandle": "default",
+                "target": "SEND_PERIODIC_CAN_MESSAGE-a44e5077-d703-4bee-a50d-354ad7969ea1",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SLCAN_CONNECT-cf24174a-59ff-4871-89fb-a30923d9fd8edefault-SEND_PERIODIC_CAN_MESSAGE-a44e5077-d703-4bee-a50d-354ad7969ea1default"
+            },
+            {
+                "source": "SEND_PERIODIC_CAN_MESSAGE-a44e5077-d703-4bee-a50d-354ad7969ea1",
+                "sourceHandle": "default",
+                "target": "TIMER-d953b311-b859-4fce-af65-f0fe3d5b02bf",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SEND_PERIODIC_CAN_MESSAGE-a44e5077-d703-4bee-a50d-354ad7969ea1default-TIMER-d953b311-b859-4fce-af65-f0fe3d5b02bfdefault"
+            },
+            {
+                "source": "TIMER-d953b311-b859-4fce-af65-f0fe3d5b02bf",
+                "sourceHandle": "default",
+                "target": "STOP_SEND_PERIODIC_CAN_MESSAGE-01a2220d-1303-44c4-ae98-aff7d5230e8c",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TIMER-d953b311-b859-4fce-af65-f0fe3d5b02bfdefault-STOP_SEND_PERIODIC_CAN_MESSAGE-01a2220d-1303-44c4-ae98-aff7d5230e8cdefault"
+            },
+            {
+                "source": "STOP_SEND_PERIODIC_CAN_MESSAGE-01a2220d-1303-44c4-ae98-aff7d5230e8c",
+                "sourceHandle": "default",
+                "target": "SEND_CAN_MESSAGE-f6a15aa7-7179-4151-92e4-baffb92c3812",
+                "targetHandle": "default",
+                "id": "reactflow__edge-STOP_SEND_PERIODIC_CAN_MESSAGE-01a2220d-1303-44c4-ae98-aff7d5230e8cdefault-SEND_CAN_MESSAGE-f6a15aa7-7179-4151-92e4-baffb92c3812default"
+            },
+            {
+                "source": "CREATE_CAN_MESSAGE-fff9a34d-e278-4255-b5bd-6cc86ba46b3f",
+                "sourceHandle": "default",
+                "target": "SEND_CAN_MESSAGE-f6a15aa7-7179-4151-92e4-baffb92c3812",
+                "targetHandle": "message",
+                "id": "reactflow__edge-CREATE_CAN_MESSAGE-fff9a34d-e278-4255-b5bd-6cc86ba46b3fdefault-SEND_CAN_MESSAGE-f6a15aa7-7179-4151-92e4-baffb92c3812message"
+            }
+        ],
+        "viewport": {
+            "x": 803.626355346428,
+            "y": 455.6158501842781,
+            "zoom": 0.7727010437043228
+        }
+    },
+    "textNodes": []
+}

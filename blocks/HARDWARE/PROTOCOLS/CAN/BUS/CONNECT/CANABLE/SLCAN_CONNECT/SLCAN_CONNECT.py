@@ -8,6 +8,7 @@ def SLCAN_CONNECT(
     device: SerialDevice,
     CAN_address: str,
     bitrate: int = 500000,
+    default: Optional[DataContainer] = None
 ) -> Optional[DataContainer]:
     """Connect to a slcan-compatible USB-to-CAN adapter.
 

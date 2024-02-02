@@ -1,4 +1,4 @@
-from flojoy import flojoy, Stateful
+from flojoy import flojoy, Stateful, DataContainer
 from typing import Optional
 import can
 
@@ -9,7 +9,8 @@ def CREATE_CAN_MESSAGE(
     data: list[int],
     error_frame: bool = False,
     can_fd: bool = False,
-    channel: Optional[str] = None
+    channel: Optional[str] = None,
+    default: Optional[DataContainer] = None
 ) -> Stateful:
     """Create a CAN message.
 
