@@ -2,15 +2,17 @@ import asyncio
 import json
 import threading
 import time
+from captain.bool_parser.bool_parser.expressions.models import Variable
 from captain.types.test_sequence import TestSequenceMessage
 from captain.utils.config import ts_manager
 from types import SimpleNamespace
 import subprocess
 from captain.utils.logger import logger
+from captain.bool_parser.bool_parser.bool_parser import eval_expression
 
 
 class TestResult:
-    def __init__(self, result=None, time_taken=None):
+    def __init__(self, result: bool, time_taken: float):
         self.result = result
         self.time_taken = time_taken
 
@@ -46,21 +48,29 @@ def _recursive_namespace(d):
     return d
 
 
-# TODO create custom expression parser, but for now this is quick and easy
-def _eval_condition(result_dict, condition):
+def _eval_condition(result_dict: dict[str, TestResult], condition: str):
     """
     evaluates condition expression.
     returns true or false
     """
+
+    # convert result_dict to symbol table
+    symbol_table: dict[str, Variable] = {}
+    for key, val in result_dict.items():
+        symbol_table[key] = Variable(val.result, val.time_taken)
+
     try:
-        res = eval(condition)
-    except SyntaxError:
-        res = False
+        res = eval_expression(condition, symbol_table)
+    except Exception as e:
+        logger.error(e)
+        return
     return res
 
 
 # TODO use TSSignaler class to abstract this funcitonality
-async def _stream_result_to_frontend(state, test_id, result="", time_taken=0):
+async def _stream_result_to_frontend(
+    state, test_id, result: bool = False, time_taken: float = 0
+):
     asyncio.create_task(
         ts_manager.ws.broadcast(TestSequenceMessage(state, test_id, result, time_taken))
     )
@@ -68,7 +78,7 @@ async def _stream_result_to_frontend(state, test_id, result="", time_taken=0):
     await asyncio.sleep(0)  # necessary for task yield
 
 
-# TODO have pydantic model for data
+# TODO have pydantic model for data, convert camelCase to snake_case
 async def run_test_sequence(data):
     data = _recursive_namespace(data)
 
@@ -91,7 +101,7 @@ async def run_test_sequence(data):
                 await _stream_result_to_frontend(state="RUNNING", test_id=node.id)
                 path = node.path
                 result, time_taken = _run_pytest(path)
-                result_dict[node.testName] = TestResult(*(result, time_taken))
+                result_dict[node.testName] = TestResult(result, time_taken)
                 await _stream_result_to_frontend(
                     state="TEST_DONE",
                     test_id=node.id,

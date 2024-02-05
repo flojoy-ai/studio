@@ -160,31 +160,40 @@ export function DataTable() {
     },
 
     {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      accessorFn: (elem, _) => {
+      accessorFn: (elem) => {
         return elem.type === "test" ? "runInParallel" : null;
       },
-      header: "run in parallel",
+      header: "Run in Parallel",
       cell: ({ row }) => {
+        console.log("type", row.original);
         return row.original.type === "test" ? (
-          <div>{row.original.runInParallel}</div>
+          <div>{row.original.runInParallel.toString()}</div>
         ) : null;
       },
     },
 
     {
-      accessorKey: "test type",
-      header: "Test type",
-      cell: ({ row }) => (
-        <div className="lowercase">{row.getValue("testType")}</div>
-      ),
+      accessorFn: (elem) => {
+        return elem.type === "test" ? "type" : null;
+      },
+      header: "Test Type",
+      cell: ({ row }) => {
+        return row.original.type === "test" ? (
+          <div>{row.original.testType}</div>
+        ) : null;
+      },
     },
 
     {
-      accessorKey: "status",
+      accessorFn: (elem) => {
+        return elem.type === "test" ? "status" : null;
+      },
       header: "Status",
       cell: ({ row }) => {
-        return <div>{row.getValue("status")}</div>;
+        console.log("status: ", row.original);
+        return row.original.type === "test" ? (
+          <div>{row.original.status}</div>
+        ) : null;
       },
     },
 
@@ -193,7 +202,7 @@ export function DataTable() {
       accessorFn: (elem, _) => {
         return elem.type === "test" ? "completionTime" : null;
       },
-      header: "Time complete",
+      header: "Completion Time",
       enableHiding: false,
       cell: ({ row }) => {
         return row.original.type === "test" ? (

@@ -9,10 +9,10 @@ class TestSequenceMessage(dict):
 
     state: str
     target_id: str
-    result: str
+    result: bool
     time_taken: float
 
-    def __init__(self, state, target_id, result="", time_taken=0):
+    def __init__(self, state, target_id, result, time_taken):
         self["state"] = state
         self["target_id"] = target_id
         self["result"] = result

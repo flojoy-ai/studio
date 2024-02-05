@@ -41,7 +41,7 @@ const TestSequencerView = () => {
   };
 
   return (
-    <div className="absolute h-3/4 w-full flex-col space-y-5 overflow-y-auto">
+    <div className="absolute ml-auto mr-auto h-2/3 w-full flex-col space-y-5 overflow-y-auto">
       <ImportTestModal
         isModalOpen={isImportModalOpen}
         handleModalOpen={setIsImportModalOpen}
