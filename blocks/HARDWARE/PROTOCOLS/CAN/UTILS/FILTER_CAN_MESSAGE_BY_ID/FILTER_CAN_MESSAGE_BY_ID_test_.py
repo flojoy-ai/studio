@@ -1,6 +1,7 @@
 import can
 from flojoy import Stateful
 
+
 def test_FILTER_CAN_MESSAGE_BY_ID(mock_flojoy_decorator):
     import FILTER_CAN_MESSAGE_BY_ID
 

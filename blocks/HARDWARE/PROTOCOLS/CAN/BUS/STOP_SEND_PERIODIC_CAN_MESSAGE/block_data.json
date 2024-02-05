@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "Stop sending a message to a CAN device. This block should be compatible with all devices that support the CAN interface.",
+    "short_description": "Stop sending periodic a message to a CAN Bus.",
+    "parameters": [
+      {
+        "name": "CAN_address",
+        "type": "str",
+        "description": "The CAN device address to connect to."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "Optional: None"
+      }
+    ]
+  }
+}

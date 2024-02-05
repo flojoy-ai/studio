@@ -10,7 +10,7 @@ def CREATE_CAN_MESSAGE(
     error_frame: bool = False,
     can_fd: bool = False,
     channel: Optional[str] = None,
-    default: Optional[DataContainer] = None
+    default: Optional[DataContainer] = None,
 ) -> Stateful:
     """Create a CAN message.
 
@@ -51,7 +51,7 @@ def CREATE_CAN_MESSAGE(
         is_rx=False,
         error_state_indicator=error_state_indicator,
         channel=channel if channel != "" else None,
-        check=True
+        check=True,
     )
 
     return Stateful([message])

@@ -5,9 +5,7 @@ import can
 
 @flojoy(deps={"python-can": "4.3.1"})
 def SEND_CAN_MESSAGE(
-    CAN_address: str,
-    message: Stateful,
-    default: Optional[DataContainer] = None
+    CAN_address: str, message: Stateful, default: Optional[DataContainer] = None
 ) -> Optional[DataContainer]:
     """Send a message to a CAN system.
 

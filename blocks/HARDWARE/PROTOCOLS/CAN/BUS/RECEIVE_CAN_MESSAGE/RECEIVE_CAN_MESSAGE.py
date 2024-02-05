@@ -8,7 +8,7 @@ def RECEIVE_CAN_MESSAGE(
     CAN_address: str,
     timeout: int = 10,
     raise_error: bool = True,
-    default: Optional[DataContainer] = None
+    default: Optional[DataContainer] = None,
 ) -> Stateful:
     """Read data from a CAN Bus connection.
 

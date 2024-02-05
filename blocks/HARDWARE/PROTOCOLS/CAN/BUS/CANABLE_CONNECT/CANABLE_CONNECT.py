@@ -1,4 +1,10 @@
-from flojoy import DataContainer, SerialDevice, flojoy, DeviceConnectionManager, HardwareDevice
+from flojoy import (
+    DataContainer,
+    SerialDevice,
+    flojoy,
+    DeviceConnectionManager,
+    HardwareDevice,
+)
 from typing import Optional
 import can
 
@@ -8,7 +14,7 @@ def CANABLE_CONNECT(
     device: SerialDevice,
     CAN_address: str,
     bitrate: int = 500000,
-    default: Optional[DataContainer] = None
+    default: Optional[DataContainer] = None,
 ) -> Optional[DataContainer]:
     """Connect to a slcan-compatible USB-to-CAN adapter.
 
@@ -29,15 +35,9 @@ def CANABLE_CONNECT(
     """
 
     session = can.interface.Bus(
-        interface="slcan",
-        channel=device.get_port(),
-        bitrate=bitrate
+        interface="slcan", channel=device.get_port(), bitrate=bitrate
     )
 
-    DeviceConnectionManager.register_connection(
-        HardwareDevice(CAN_address),
-        session
-    )
+    DeviceConnectionManager.register_connection(HardwareDevice(CAN_address), session)
 
     return None
-

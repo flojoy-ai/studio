@@ -1,0 +1,40 @@
+{
+  "docstring": {
+    "long_description": "Create a CAN message that can be used to send to real systems.",
+    "short_description": "Create a CAN message.",
+    "parameters": [
+      {
+        "name": "frame_id",
+        "type": "int",
+        "description": "The frame ID."
+      },
+      {
+        "name": "data",
+        "type": "list[int]",
+        "description": "The data to be sent. Will be converted in an array of bytes."
+      },
+      {
+        "name": "error_frame",
+        "type": "bool",
+        "description": "Whether the frame is an error frame, by default False."
+      },
+      {
+        "name": "can_fd",
+        "type": "bool",
+        "description": "Whether the frame is a CAN FD frame (Flexible Data-Rate), by default False."
+      },
+      {
+        "name": "channel",
+        "type": "Optional string",
+        "description": "Optional Channel id."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Stateful",
+        "description": "A list of can message with the message created."
+      }
+    ]
+  }
+}

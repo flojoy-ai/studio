@@ -22,7 +22,7 @@ def MF4_CREATE_WRITER(
         "Deflate (slower, but produces smaller files)",
         "Transposition + Deflate (slowest, but produces the smallest files)",
     ] = "No compression",
-    default: Optional[DataContainer] = None
+    default: Optional[DataContainer] = None,
 ) -> Stateful:
     """Create a writer for the MF4 format.
 

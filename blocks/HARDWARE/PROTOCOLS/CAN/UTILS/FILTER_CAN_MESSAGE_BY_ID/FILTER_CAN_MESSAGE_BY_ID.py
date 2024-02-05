@@ -3,10 +3,7 @@ import can
 
 
 @flojoy(deps={"python-can": "4.3.1"})
-def FILTER_CAN_MESSAGE_BY_ID(
-    message_id: int,
-    messages: Stateful
-) -> Stateful:
+def FILTER_CAN_MESSAGE_BY_ID(message_id: int, messages: Stateful) -> Stateful:
     """Filter a list of can messages
 
     Get a specific id message id from a list of messages

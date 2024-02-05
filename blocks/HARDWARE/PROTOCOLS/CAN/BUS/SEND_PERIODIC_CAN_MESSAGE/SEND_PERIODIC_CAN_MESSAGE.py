@@ -9,7 +9,7 @@ def SEND_PERIODIC_CAN_MESSAGE(
     message: Stateful,
     period: float,
     duration: Optional[float] = None,
-    default: Optional[DataContainer] = None
+    default: Optional[DataContainer] = None,
 ) -> Optional[DataContainer]:
     """Send a periodic message to a CAN bus.
 

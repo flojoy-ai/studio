@@ -9,7 +9,7 @@ def SET_CAN_BUS_FILTER(
     can_id: int,
     can_mask: int,
     extended: bool = False,
-    default: Optional[DataContainer] = None
+    default: Optional[DataContainer] = None,
 ) -> Optional[DataContainer]:
     """Attach a message filter to a CAN bus connection.
 
@@ -37,6 +37,8 @@ def SET_CAN_BUS_FILTER(
         CAN_address
     ).get_handle()
 
-    connection.set_filters([{"can_id": can_id, "can_mask": can_mask, "extended": extended}])
+    connection.set_filters(
+        [{"can_id": can_id, "can_mask": can_mask, "extended": extended}]
+    )
 
     return None

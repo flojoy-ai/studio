@@ -1,11 +1,20 @@
 import can
 from flojoy import Stateful
 
+
 def test_FILTER_CAN_MESSAGE_BY_ERROR(mock_flojoy_decorator):
     import FILTER_CAN_MESSAGE_BY_ERROR
 
-    will_remain = can.Message(arbitration_id=2, data=[1, 2, 3, 4], is_extended_id=False, is_error_frame=True)
-    will_also_remain = can.Message(arbitration_id=2, data=[1, 2, 3, 4], is_extended_id=False, is_fd=True, error_state_indicator=True)
+    will_remain = can.Message(
+        arbitration_id=2, data=[1, 2, 3, 4], is_extended_id=False, is_error_frame=True
+    )
+    will_also_remain = can.Message(
+        arbitration_id=2,
+        data=[1, 2, 3, 4],
+        is_extended_id=False,
+        is_fd=True,
+        error_state_indicator=True,
+    )
     messages = [
         can.Message(arbitration_id=1, data=[1, 2, 3, 4], is_extended_id=False),
         will_remain,

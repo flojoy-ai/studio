@@ -5,8 +5,7 @@ import can
 
 @flojoy(deps={"python-can": "4.3.1"})
 def REMOVE_CAN_BUS_FILTER(
-    CAN_address: str,
-    default: Optional[DataContainer] = None
+    CAN_address: str, default: Optional[DataContainer] = None
 ) -> Optional[DataContainer]:
     """Remove all filters attached to a CAN bus connection.
 
