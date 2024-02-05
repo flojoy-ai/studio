@@ -59,7 +59,7 @@
                             "v": "3.0.1"
                         }
                     ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/CONNECT/PEAK/PCAN_CONNECT/PCAN_CONNECT.py"
+                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/CONNECT_PEAK/PCAN_CONNECT/PCAN_CONNECT.py"
                 },
                 "position": {
                     "x": -513.8113799869323,
@@ -111,7 +111,7 @@
                             "v": "3.0.1"
                         }
                     ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/CONNECT/PEAK/PCAN_DETECT_AVAILABLE_DEVICES/PCAN_DETECT_AVAILABLE_DEVICES.py"
+                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/CONNECT_PEAK/PCAN_DETECT_AVAILABLE_DEVICES/PCAN_DETECT_AVAILABLE_DEVICES.py"
                 },
                 "position": {
                     "x": -494.5542400283655,
@@ -239,7 +239,7 @@
                             "v": "4.3.1"
                         }
                     ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/RECEIVE/RECEIVE_CAN_MESSAGE/RECEIVE_CAN_MESSAGE.py"
+                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/RECEIVE_CAN_MESSAGE/RECEIVE_CAN_MESSAGE.py"
                 },
                 "position": {
                     "x": 146.84861554506642,
@@ -759,7 +759,7 @@
                     "x": 997.8521355894143,
                     "y": -57.796986536838176
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
                     "x": 997.8521355894143,
                     "y": -57.796986536838176
@@ -1085,7 +1085,7 @@
                             "v": "4.3.1"
                         }
                     ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/FILTER/SET_CAN_BUS_FILTER/SET_CAN_BUS_FILTER.py"
+                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/SET_CAN_BUS_FILTER/SET_CAN_BUS_FILTER.py"
                 },
                 "position": {
                     "x": -530.2830613872087,
