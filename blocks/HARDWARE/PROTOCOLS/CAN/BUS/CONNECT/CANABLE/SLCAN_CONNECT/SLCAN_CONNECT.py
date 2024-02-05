@@ -1,4 +1,4 @@
-from flojoy import DataContainer, SerialDevice, String, Vector, flojoy
+from flojoy import DataContainer, SerialDevice, flojoy, DeviceConnectionManager, HardwareDevice
 from typing import Optional
 import can
 

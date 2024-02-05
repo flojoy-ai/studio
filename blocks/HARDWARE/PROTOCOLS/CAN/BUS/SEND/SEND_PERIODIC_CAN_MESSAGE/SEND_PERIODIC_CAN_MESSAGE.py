@@ -35,6 +35,6 @@ def SEND_PERIODIC_CAN_MESSAGE(
         CAN_address
     ).get_handle()
 
-    connection.send_periodic(message, period, duration=duration)
+    connection.send_periodic(message.obj, period, duration=duration)
 
     return None
