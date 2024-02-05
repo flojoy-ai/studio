@@ -14,13 +14,13 @@ export const HardwareInfo = () => {
   const refetch = useHardwareRefetch();
   const { settings } = useSettings("device");
   const setting = settings.find(
-    (setting) => setting.key === "nidmmDeviceDiscovery",
+    (setting) => setting.key === "niDAQmxDeviceDiscovery",
   );
   const discoverNIDAQmxDevices = setting ? setting.value : false;
-  const setting = settings.find(
-    (setting) => setting.key === "nidmmDeviceDiscovery",
+  const settingdmm = settings.find(
+    (settingdmm) => settingdmm.key === "nidmmDeviceDiscovery",
   );
-  const discoverNIDMMDevices = setting ? setting.value : false;
+  const discoverNIDMMDevices = settingdmm ? settingdmm.value : false;
 
   if (!devices) {
     return (
@@ -74,10 +74,11 @@ export const HardwareInfo = () => {
       : undefined;
 
   // Driver Dependent Devices
+  const niDevices = devices.nidaqmxDevices.concat(devices.nidmmDevices);
 
   const driverDependentDevices: DeviceCardProps[] | undefined =
-    devices.nidaqmxDevices.length > 0
-      ? devices.nidaqmxDevices.reduce((uniqueDevices, d) => {
+    niDevices.length > 0
+      ? niDevices.reduce((uniqueDevices, d) => {
           const existingDevice = uniqueDevices.find(
             (ud) => ud.description === d.description,
           );

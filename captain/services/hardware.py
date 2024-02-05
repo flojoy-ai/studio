@@ -2,12 +2,18 @@ import subprocess
 from sys import platform
 import os
 import nidaqmx
-import nidmm
+import nimodinst
 import cv2
 import pyvisa
 import serial.tools.list_ports
 import logging
-from captain.types.devices import CameraDevice, SerialDevice, VISADevice, NIDAQmxDevice, NIDMMDevice
+from captain.types.devices import (
+    CameraDevice,
+    SerialDevice,
+    VISADevice,
+    NIDAQmxDevice,
+    NIDMMDevice,
+)
 
 __all__ = ["get_device_finder"]
 
@@ -110,42 +116,28 @@ class DefaultDeviceFinder:
         except Exception as e:
             logging.error(f"Error in get_nidaqmx_devices: {e}")
         return []
-    
 
     def get_nidmm_devices(self) -> list[NIDMMDevice]:
         """Returns a list of NI-DAQmx devices connected to the system."""
+
+        def extract_device(device) -> NIDMMDevice:
+            return NIDMMDevice(
+                name=f"{device.device_model}",
+                address=f"{device.device_name}",
+                description=f"{device.device_model} - {device.device_name} - {device.serial_number}",
+            )
+
         try:
-            system = nidmm.system.System.local()
             devices = []
+            with nimodinst.Session("nidmm") as session:
+                for device in session:
+                    devices += [extract_device(device)]
 
-            def extract_device(channel, device) -> NIDMMDevice:
-                return NIDMMDevice(
-                    name=f"{device.product_type} - {channel.name.split('/')[-1]}",
-                    address=channel.name,
-                    description=f"{device.product_type} - {device.compact_daq_chassis_device}/{device.compact_daq_slot_num}",
-                )
-
-            for device in system.devices:
-                devices += [
-                    extract_device(chan, device) for chan in device.ai_physical_chans
-                ]
-                devices += [
-                    extract_device(chan, device) for chan in device.ao_physical_chans
-                ]
-                devices += [extract_device(line, device) for line in device.di_lines]
-                devices += [extract_device(line, device) for line in device.do_lines]
-                devices += [
-                    extract_device(chan, device) for chan in device.ci_physical_chans
-                ]
-                devices += [
-                    extract_device(chan, device) for chan in device.co_physical_chans
-                ]
-                devices += [extract_device(line, device) for line in device.di_ports]
-                devices += [extract_device(line, device) for line in device.do_ports]
             logging.info(f"Devices found are: {devices}")
+
             return devices
-        except nidmm.errors.DaqNotFoundError as e:
-            logging.warn(f"NI-DAQmx driver not installed - {e}")
+        # except nidmm.errors.DaqNotFoundError as e:
+        #     logging.warn(f"NI-DAQmx driver not installed - {e}")
         except Exception as e:
             logging.error(f"Error in get_nidmm_devices: {e}")
         return []
