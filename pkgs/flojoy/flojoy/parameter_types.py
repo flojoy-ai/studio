@@ -52,7 +52,7 @@ class VisaDevice(HardwareDevice):
 class NIDAQmxDevice(HardwareDevice):
     def get_addresses(self):
         return str(self.get_id())
-    
+
 
 class NIDMMDevice(HardwareDevice):
     def get_addresses(self):
