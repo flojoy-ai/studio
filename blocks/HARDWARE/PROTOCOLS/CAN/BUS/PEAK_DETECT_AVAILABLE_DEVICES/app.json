@@ -2,129 +2,6 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
-                "id": "PCAN_CONNECT-c4b7f9b3-e317-4d54-910d-0634de291ab5",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "PCAN_CONNECT-c4b7f9b3-e317-4d54-910d-0634de291ab5",
-                    "label": "PCAN CONNECT",
-                    "func": "PCAN_CONNECT",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "PCAN_address": {
-                            "type": "str",
-                            "default": null,
-                            "desc": "The PCAN device address to connect to. This address can be found by the PCAN_DETECT_AVAILABLE_DEVICES block.\nâ†’ Example: \"PCAN_USBBUS1\"",
-                            "overload": null,
-                            "functionName": "PCAN_CONNECT",
-                            "param": "PCAN_address",
-                            "value": "PCAN_USBBUS1"
-                        },
-                        "bitrate": {
-                            "type": "int",
-                            "default": 500000,
-                            "desc": "The bitrate of the PCAN device. Default is 500000.",
-                            "overload": null,
-                            "functionName": "PCAN_CONNECT",
-                            "param": "bitrate",
-                            "value": 500000
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "Optional: None"
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "python-can",
-                            "v": "4.3.1"
-                        },
-                        {
-                            "name": "uptime",
-                            "v": "3.0.1"
-                        }
-                    ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/CONNECT_PEAK/PCAN_CONNECT/PCAN_CONNECT.py"
-                },
-                "position": {
-                    "x": -513.8113799869323,
-                    "y": -65.6838221087375
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -513.8113799869323,
-                    "y": -65.6838221087375
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "PCAN_DETECT_AVAILABLE_DEVICES-69305ead-6130-4dd5-a799-53f77e98bc84",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "PCAN_DETECT_AVAILABLE_DEVICES-69305ead-6130-4dd5-a799-53f77e98bc84",
-                    "label": "PCAN DETECT AVAILABLE DEVICES",
-                    "func": "PCAN_DETECT_AVAILABLE_DEVICES",
-                    "type": "HARDWARE",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "A string containing the device name and the channel number."
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "python-can",
-                            "v": "4.3.1"
-                        },
-                        {
-                            "name": "uptime",
-                            "v": "3.0.1"
-                        }
-                    ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/CONNECT_PEAK/PCAN_DETECT_AVAILABLE_DEVICES/PCAN_DETECT_AVAILABLE_DEVICES.py"
-                },
-                "position": {
-                    "x": -494.5542400283655,
-                    "y": -545.9935443707147
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -494.5542400283655,
-                    "y": -545.9935443707147
-                },
-                "dragging": true
-            },
-            {
                 "width": 225,
                 "height": 225,
                 "id": "TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaab",
@@ -166,13 +43,13 @@
                     "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
                 },
                 "position": {
-                    "x": -516.046754096534,
-                    "y": -314.1712436906474
+                    "x": -553.5774397818724,
+                    "y": -292.1704969095868
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -516.046754096534,
-                    "y": -314.1712436906474
+                    "x": -553.5774397818724,
+                    "y": -292.1704969095868
                 },
                 "dragging": true
             },
@@ -1196,23 +1073,132 @@
                     "height": 444
                 },
                 "resizing": false
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "PEAK_DETECT_AVAILABLE_DEVICES-605db2ff-d926-4c92-a497-39a893557eeb",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "PEAK_DETECT_AVAILABLE_DEVICES-605db2ff-d926-4c92-a497-39a893557eeb",
+                    "label": "PEAK DETECT AVAILABLE DEVICES",
+                    "func": "PEAK_DETECT_AVAILABLE_DEVICES",
+                    "type": "HARDWARE",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "A string containing the device name and the channel number."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.3.1"
+                        },
+                        {
+                            "name": "uptime",
+                            "v": "3.0.1"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/PEAK_DETECT_AVAILABLE_DEVICES/PEAK_DETECT_AVAILABLE_DEVICES.py"
+                },
+                "position": {
+                    "x": -533.835511440627,
+                    "y": -519.9718131733046
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -533.835511440627,
+                    "y": -519.9718131733046
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "PEAK_CONNECT-0af05748-ac8e-4128-8ed2-279d6c5037dc",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "PEAK_CONNECT-0af05748-ac8e-4128-8ed2-279d6c5037dc",
+                    "label": "PEAK CONNECT",
+                    "func": "PEAK_CONNECT",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "PCAN_address": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "The PCAN device address to connect to. This address can be found by the PCAN_DETECT_AVAILABLE_DEVICES block.\nâ†’ Example: \"PCAN_USBBUS1\"",
+                            "overload": null,
+                            "functionName": "PEAK_CONNECT",
+                            "param": "PCAN_address",
+                            "value": "PCAN_USBBUS1"
+                        },
+                        "bitrate": {
+                            "type": "int",
+                            "default": 500000,
+                            "desc": "The bitrate of the PCAN device. Default is 500000.",
+                            "overload": null,
+                            "functionName": "PEAK_CONNECT",
+                            "param": "bitrate",
+                            "value": 500000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "Optional: None"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.3.1"
+                        },
+                        {
+                            "name": "uptime",
+                            "v": "3.0.1"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/PEAK_CONNECT/PEAK_CONNECT.py"
+                },
+                "position": {
+                    "x": -537.6624379731959,
+                    "y": -30.893926624488586
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -537.6624379731959,
+                    "y": -30.893926624488586
+                },
+                "dragging": true
             }
         ],
         "edges": [
-            {
-                "source": "TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaab",
-                "sourceHandle": "default",
-                "target": "PCAN_CONNECT-c4b7f9b3-e317-4d54-910d-0634de291ab5",
-                "targetHandle": "default",
-                "id": "reactflow__edge-TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaabdefault-PCAN_CONNECT-c4b7f9b3-e317-4d54-910d-0634de291ab5default"
-            },
-            {
-                "source": "PCAN_DETECT_AVAILABLE_DEVICES-69305ead-6130-4dd5-a799-53f77e98bc84",
-                "sourceHandle": "default",
-                "target": "TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaab",
-                "targetHandle": "default",
-                "id": "reactflow__edge-PCAN_DETECT_AVAILABLE_DEVICES-69305ead-6130-4dd5-a799-53f77e98bc84default-TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaabdefault"
-            },
             {
                 "source": "LOOP-744938fd-44a2-4d05-8589-3db5efb27bdf",
                 "sourceHandle": "body",
@@ -1305,13 +1291,6 @@
                 "id": "reactflow__edge-RECEIVE_CAN_MESSAGE-eec770d2-94b0-4799-ab90-ddfadf9fdf43default-PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0default"
             },
             {
-                "source": "PCAN_CONNECT-c4b7f9b3-e317-4d54-910d-0634de291ab5",
-                "sourceHandle": "default",
-                "target": "SET_CAN_BUS_FILTER-62976689-33e5-4ae0-b082-724efe31d24f",
-                "targetHandle": "default",
-                "id": "reactflow__edge-PCAN_CONNECT-c4b7f9b3-e317-4d54-910d-0634de291ab5default-SET_CAN_BUS_FILTER-62976689-33e5-4ae0-b082-724efe31d24fdefault"
-            },
-            {
                 "source": "DECODE_CAN_MESSAGE-51e00bc8-eda7-4816-a5cb-7651ad2ccc16",
                 "sourceHandle": "default",
                 "target": "PRINT_DATACONTAINER-58037020-c1ce-4b7f-bb73-4a0bcc792ccd",
@@ -1324,6 +1303,27 @@
                 "target": "TEXT_VIEW-a9104702-01ea-405f-9ae3-ef5a59000834",
                 "targetHandle": "default",
                 "id": "reactflow__edge-PRINT_DATACONTAINER-58037020-c1ce-4b7f-bb73-4a0bcc792ccddefault-TEXT_VIEW-a9104702-01ea-405f-9ae3-ef5a59000834default"
+            },
+            {
+                "source": "PEAK_DETECT_AVAILABLE_DEVICES-605db2ff-d926-4c92-a497-39a893557eeb",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaab",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PEAK_DETECT_AVAILABLE_DEVICES-605db2ff-d926-4c92-a497-39a893557eebdefault-TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaabdefault"
+            },
+            {
+                "source": "TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaab",
+                "sourceHandle": "default",
+                "target": "PEAK_CONNECT-0af05748-ac8e-4128-8ed2-279d6c5037dc",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaabdefault-PEAK_CONNECT-0af05748-ac8e-4128-8ed2-279d6c5037dcdefault"
+            },
+            {
+                "source": "PEAK_CONNECT-0af05748-ac8e-4128-8ed2-279d6c5037dc",
+                "sourceHandle": "default",
+                "target": "SET_CAN_BUS_FILTER-62976689-33e5-4ae0-b082-724efe31d24f",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PEAK_CONNECT-0af05748-ac8e-4128-8ed2-279d6c5037dcdefault-SET_CAN_BUS_FILTER-62976689-33e5-4ae0-b082-724efe31d24fdefault"
             }
         ],
         "viewport": {

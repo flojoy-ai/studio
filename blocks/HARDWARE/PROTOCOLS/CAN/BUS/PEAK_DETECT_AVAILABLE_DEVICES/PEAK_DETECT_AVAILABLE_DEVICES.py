@@ -4,7 +4,7 @@ from typing import Optional
 
 
 @flojoy(deps={"python-can": "4.3.1", "uptime": "3.0.1"})
-def PCAN_DETECT_AVAILABLE_DEVICES(default: Optional[DataContainer]) -> String:
+def PEAK_DETECT_AVAILABLE_DEVICES(default: Optional[DataContainer]) -> String:
     """Detects available PCAN devices and returns a string containing the device name and the channel number.
 
     This blocks is use to detect available PCAN devices and returns a string containing the device name and the channel number.

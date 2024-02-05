@@ -4,7 +4,7 @@ import can
 
 
 @flojoy(deps={"python-can": "4.3.1"})
-def SLCAN_CONNECT(
+def CANABLE_CONNECT(
     device: SerialDevice,
     CAN_address: str,
     bitrate: int = 500000,

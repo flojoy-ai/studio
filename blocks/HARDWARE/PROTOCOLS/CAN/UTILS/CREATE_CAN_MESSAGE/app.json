@@ -4,82 +4,6 @@
             {
                 "width": 192,
                 "height": 192,
-                "id": "SLCAN_CONNECT-158cabac-250a-44f7-8024-e2d168881146",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "SLCAN_CONNECT-158cabac-250a-44f7-8024-e2d168881146",
-                    "label": "SLCAN CONNECT",
-                    "func": "SLCAN_CONNECT",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "device": {
-                            "type": "SerialDevice",
-                            "default": null,
-                            "desc": "The serial device to connect to.",
-                            "overload": null,
-                            "functionName": "SLCAN_CONNECT",
-                            "param": "device",
-                            "value": "COM4"
-                        },
-                        "CAN_address": {
-                            "type": "str",
-                            "default": null,
-                            "desc": "The `CAN_address` to use in other blocks to refer to this connection.\nNote: This is not the physical address of the device, but rather a unique identifier for the connection. Needed since not all CAN bus connection can be retreive with a SerialDevice.",
-                            "overload": null,
-                            "functionName": "SLCAN_CONNECT",
-                            "param": "CAN_address",
-                            "value": "canable"
-                        },
-                        "bitrate": {
-                            "type": "int",
-                            "default": 500000,
-                            "desc": "The bitrate to use for the CAN bus.",
-                            "overload": null,
-                            "functionName": "SLCAN_CONNECT",
-                            "param": "bitrate",
-                            "value": 500000
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "None"
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "python-can",
-                            "v": "4.3.1"
-                        }
-                    ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/CONNECT_CANABLE/SLCAN_CONNECT/SLCAN_CONNECT.py"
-                },
-                "position": {
-                    "x": -349.11511848763524,
-                    "y": -486.89923358470816
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -349.11511848763524,
-                    "y": -486.89923358470816
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
                 "id": "CREATE_CAN_MESSAGE-7d0093f4-bf13-484c-b5e3-69eeb78d0873",
                 "type": "HARDWARE",
                 "data": {
@@ -309,13 +233,13 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/BUS/SEND_PERIODIC_CAN_MESSAGE/SEND_PERIODIC_CAN_MESSAGE.py"
                 },
                 "position": {
-                    "x": 266.2072783708166,
-                    "y": -497.0016476859352
+                    "x": 263.6189552201036,
+                    "y": -481.4717087816572
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 266.2072783708166,
-                    "y": -497.0016476859352
+                    "x": 263.6189552201036,
+                    "y": -481.4717087816572
                 },
                 "dragging": true
             },
@@ -610,7 +534,7 @@
                     "x": 731.8942981391345,
                     "y": -735.9085737377275
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
                     "x": 731.8942981391345,
                     "y": -735.9085737377275
@@ -681,6 +605,82 @@
                     "y": -499.9201431348866
                 },
                 "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CANABLE_CONNECT-1593919d-426e-4b29-a218-8d8a72eeac06",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "CANABLE_CONNECT-1593919d-426e-4b29-a218-8d8a72eeac06",
+                    "label": "CANABLE CONNECT",
+                    "func": "CANABLE_CONNECT",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "device": {
+                            "type": "SerialDevice",
+                            "default": null,
+                            "desc": "The serial device to connect to.",
+                            "overload": null,
+                            "functionName": "CANABLE_CONNECT",
+                            "param": "device",
+                            "value": "COM4"
+                        },
+                        "CAN_address": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "The `CAN_address` to use in other blocks to refer to this connection.\nNote: This is not the physical address of the device, but rather a unique identifier for the connection. Needed since not all CAN bus connection can be retreive with a SerialDevice.",
+                            "overload": null,
+                            "functionName": "CANABLE_CONNECT",
+                            "param": "CAN_address",
+                            "value": "canable"
+                        },
+                        "bitrate": {
+                            "type": "int",
+                            "default": 500000,
+                            "desc": "The bitrate to use for the CAN bus.",
+                            "overload": null,
+                            "functionName": "CANABLE_CONNECT",
+                            "param": "bitrate",
+                            "value": 500000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "None"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.3.1"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/CANABLE_CONNECT/CANABLE_CONNECT.py"
+                },
+                "position": {
+                    "x": -352.62305724251326,
+                    "y": -461.75603703441163
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -352.62305724251326,
+                    "y": -461.75603703441163
+                },
+                "dragging": true
             }
         ],
         "edges": [
@@ -690,13 +690,6 @@
                 "target": "SEND_CAN_MESSAGE-383458e7-ae08-4f3c-8d96-1f101efafeb0",
                 "targetHandle": "message",
                 "id": "reactflow__edge-CREATE_CAN_MESSAGE-7d0093f4-bf13-484c-b5e3-69eeb78d0873default-SEND_CAN_MESSAGE-383458e7-ae08-4f3c-8d96-1f101efafeb0message"
-            },
-            {
-                "source": "SLCAN_CONNECT-158cabac-250a-44f7-8024-e2d168881146",
-                "sourceHandle": "default",
-                "target": "SEND_CAN_MESSAGE-383458e7-ae08-4f3c-8d96-1f101efafeb0",
-                "targetHandle": "default",
-                "id": "reactflow__edge-SLCAN_CONNECT-158cabac-250a-44f7-8024-e2d168881146default-SEND_CAN_MESSAGE-383458e7-ae08-4f3c-8d96-1f101efafeb0default"
             },
             {
                 "source": "CREATE_CAN_MESSAGE-d182a5b8-065c-4669-b27f-f7b3eacc6755",
@@ -739,6 +732,13 @@
                 "target": "SEND_CAN_MESSAGE-44271640-fd1a-4198-8eb5-8b6d1234b6c6",
                 "targetHandle": "default",
                 "id": "reactflow__edge-STOP_SEND_PERIODIC_CAN_MESSAGE-67dc0129-d0f1-4af6-873c-ad24d856c586default-SEND_CAN_MESSAGE-44271640-fd1a-4198-8eb5-8b6d1234b6c6default"
+            },
+            {
+                "source": "CANABLE_CONNECT-1593919d-426e-4b29-a218-8d8a72eeac06",
+                "sourceHandle": "default",
+                "target": "SEND_CAN_MESSAGE-383458e7-ae08-4f3c-8d96-1f101efafeb0",
+                "targetHandle": "default",
+                "id": "reactflow__edge-CANABLE_CONNECT-1593919d-426e-4b29-a218-8d8a72eeac06default-SEND_CAN_MESSAGE-383458e7-ae08-4f3c-8d96-1f101efafeb0default"
             }
         ],
         "viewport": {
