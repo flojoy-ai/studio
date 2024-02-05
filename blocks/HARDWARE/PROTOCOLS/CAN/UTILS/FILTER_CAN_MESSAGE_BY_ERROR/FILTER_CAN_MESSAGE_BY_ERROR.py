@@ -1,6 +1,5 @@
 from flojoy import flojoy, Stateful
 import can
-from typing import Optional, Literal
 
 
 @flojoy(deps={"python-can": "4.3.1"})

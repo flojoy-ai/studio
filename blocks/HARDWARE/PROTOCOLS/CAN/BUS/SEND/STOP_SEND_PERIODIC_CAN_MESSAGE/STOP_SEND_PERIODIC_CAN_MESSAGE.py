@@ -1,5 +1,5 @@
 from typing import Optional
-from flojoy import flojoy, DeviceConnectionManager, Stateful, DataContainer
+from flojoy import flojoy, DeviceConnectionManager, DataContainer
 import can
 
 
