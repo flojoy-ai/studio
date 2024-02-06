@@ -6,7 +6,7 @@ import scipy.stats
 
 @flojoy
 def BINOM_TEST(
-    default: OrderedPair | Matrix,
+    default: Scalar,
     n: int = 2,
     p: float = 0.5,
     alternative: str = "two-sided",
@@ -23,7 +23,7 @@ def BINOM_TEST(
 
     Parameters
     ----------
-    x : int or array_like
+    c : int or array_like
         The number of successes, or if x has length 2, it is the
         number of successes and the number of failures.
     n : int
@@ -43,7 +43,7 @@ def BINOM_TEST(
     """
 
     result = scipy.stats.binomtest(
-        x=default.y,
+        k=default.c,
         n=n,
         p=p,
         alternative=alternative,
