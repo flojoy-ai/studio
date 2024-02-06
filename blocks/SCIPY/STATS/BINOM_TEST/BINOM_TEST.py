@@ -4,7 +4,7 @@ import scipy.stats
 
 @flojoy
 def BINOM_TEST(
-    default: Scalar,
+    k: Scalar,
     n: int = 2,
     p: float = 0.5,
     alternative: str = "two-sided",
@@ -21,9 +21,8 @@ def BINOM_TEST(
 
     Parameters
     ----------
-    c : int
-        The number of successes, or if x has length 2, it is the
-        number of successes and the number of failures.
+    k : Scalar
+        int, aka k. The number of successes.
     n : int
         The number of trials.  This is ignored if x gives both the
         number of successes and failures.
@@ -41,7 +40,7 @@ def BINOM_TEST(
     """
 
     result = scipy.stats.binomtest(
-        k=default.c,
+        k=k.c,
         n=n,
         p=p,
         alternative=alternative,
