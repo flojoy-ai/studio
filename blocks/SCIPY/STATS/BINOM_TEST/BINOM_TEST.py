@@ -1,4 +1,4 @@
-from flojoy import OrderedPair, flojoy, Matrix, Scalar
+from flojoy import flojoy, Vector, Scalar
 import numpy as np
 
 import scipy.stats
@@ -10,7 +10,7 @@ def BINOM_TEST(
     n: int = 2,
     p: float = 0.5,
     alternative: str = "two-sided",
-) -> OrderedPair | Matrix | Scalar:
+) -> Vector:
     """The BINOM_TEST node is based on a numpy or scipy function.
 
     The description of that function is as follows:
@@ -23,7 +23,7 @@ def BINOM_TEST(
 
     Parameters
     ----------
-    c : int or array_like
+    c : int
         The number of successes, or if x has length 2, it is the
         number of successes and the number of failures.
     n : int
@@ -39,7 +39,7 @@ def BINOM_TEST(
     Returns
     -------
     DataContainer
-        type 'ordered pair', 'scalar', or 'matrix'
+        type Vector with 2 values: statistic and pvalue.
     """
 
     result = scipy.stats.binomtest(
@@ -49,12 +49,6 @@ def BINOM_TEST(
         alternative=alternative,
     )
 
-    if isinstance(result, np.ndarray):
-        result = OrderedPair(x=default.x, y=result)
-    else:
-        assert isinstance(
-            result, np.number | float | int
-        ), f"Expected np.number, float or int for result, got {type(result)}"
-        result = Scalar(c=float(result))
+    result = [result.statistic, result.pvalue]
 
-    return result
+    return Vector(v=result)
