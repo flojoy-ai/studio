@@ -1,6 +1,4 @@
 from flojoy import flojoy, Vector, Scalar
-import numpy as np
-
 import scipy.stats
 
 
