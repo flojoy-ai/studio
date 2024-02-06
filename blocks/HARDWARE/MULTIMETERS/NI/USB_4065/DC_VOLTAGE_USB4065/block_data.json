@@ -1,22 +1,27 @@
 {
   "docstring": {
-    "long_description": "The USB-4065 is a NI (National Instruments) multimeter. It is possible that\nthe node will work with other NI DMMs (digital multimeters) such as the\n4070 and 4080 series.\n\nThis instrument will likely only be compatible with Windows systems due to\nNI driver availablity. To use the instrument you must install the runtime:\n\nhttps://www.ni.com/en/support/downloads/drivers/download.ni-dmm.html\n\nYou must also find the address/resource name for the instrument. You can\nfind this using the NI MAX programming which can be downloaded when\ninstalling the drivers.",
-    "short_description": "Read the DC voltage from an NI USB-4065 DAQ board.",
+    "long_description": "Also optionally reads the selected unit. You can also use the READ_USB4065\nblock to read the selected unit in a separate block.\n\nRequires a CONNECTION_USB4065 block to connect Flojoy to the instrument.\n\nThe USB-4065 is a NI (National Instruments) multimeter. It is possible\nthat the block will work with other NI DMMs (digital multimeters) such\nas the 4070 and 4080 series.\n\nThis instrument will likely only be compatible with Windows systems due to\nNI driver availablity. To use the instrument you must install the runtime:\n\nhttps://www.ni.com/en/support/downloads/drivers/download.ni-dmm.html",
+    "short_description": "Sets the measurement mode to DC voltage for a NI USB-4065 DMM.",
     "parameters": [
       {
         "name": "NI_address",
-        "type": "str",
-        "description": "The NI instrument address for the instrument (e.g. 'Dev0', 'Dev1')."
+        "type": "NIConnection",
+        "description": "The NI instrument."
       },
       {
         "name": "digits",
-        "type": "str",
-        "description": "The accuracy of the reading in digits. Lower values are faster."
+        "type": "select",
+        "description": "The number of digits for the measurement. Lower values are faster."
       },
       {
         "name": "voltage_limit",
-        "type": "str",
+        "type": "select",
         "description": "The maximum voltage to allow, in Volts."
+      },
+      {
+        "name": "read",
+        "type": "bool",
+        "description": "Read the selected unit, or not."
       }
     ],
     "returns": [
