@@ -1,4 +1,3 @@
-from os import times
 from flojoy import flojoy, File, Stateful
 import can
 
@@ -25,10 +24,11 @@ def READ_LOG_FILE(
     
     # Utils
     # -----
-    def process_timestamp(timestamp, configs) -> float:
+    def process_timestamp(timestamp, configs, zero=None) -> float:
         format = int(configs["Time format"]) # Format 0 to 6, kkk, sskkk, ... YYYYMMDDhhmmsskkk
         # YYYYMMDDhhmmss X kkk
         msSeparator = configs["Time separator ms"] if configs["Time separator ms"] != "" else None
+        print(f"msSeparator: {msSeparator}")
         # YYYYMMDDhh X mm X sskkk
         timeSeparator = configs["Time separator"] if configs["Time separator"] != "" else None
         # YYYY X MM X DDhhmmsskkk
@@ -74,13 +74,19 @@ def READ_LOG_FILE(
         if format >= 1:
             if msSeparator is not None:
                 sec = int(timestamp.split(msSeparator)[0])
-                ms = timestamp.split(msSeparator)[1]
+                ms = int(timestamp.split(msSeparator)[1])
             else:
                 sec = int(timestamp[:2])
                 timestamp = timestamp[2:]
-        ms = int(timestamp)
+                ms = int(timestamp)
+        if format == 0:
+            ms = int(timestamp)
 
-        return float(ms / 1000 + sec + min * 60 + hour * 3600 + day * 86400 + month * 2628000 + year * 31536000)
+        ref = 0 if zero is None else zero
+        elapsed = float(ms / 1000 + sec + min * 60 + hour * 3600 + day * 86400 + month * 2628000 + year * 31536000) - ref
+        for_stability = round(elapsed, 3)
+        return for_stability
+
 
     # Get the File
     # ------------
@@ -89,12 +95,11 @@ def READ_LOG_FILE(
         # --------------------------------
         configs = {}
         line = file.readline()
-        print(f"Fiest line: {line}")
         assert line, "The file is empty"
         while line.startswith("#"):
             line = line[2:]
             config, value = line.split(":")
-            configs[config] = value.strip().replace("\"", "")
+            configs[config] = value.strip().replace('"', '')
             line = file.readline()
             assert line, "No message found in the file"
         print(configs)
@@ -108,18 +113,23 @@ def READ_LOG_FILE(
         assert type is not None, "Type field not found in file - required for CAN messages"
         id_idx = header.index("ID") if "ID" in header else None
         assert id_idx is not None, "ID field not found in file - required for CAN messages"
-        data_idx = header.index("Data") if "Data" in header else None
+        data_idx = header.index("Data") if "Data" in header else None   # Data is optional
 
         # Read all messages
         # -----------------
         messages = []
+        zero = None
 
         while line := file.readline():
             message = line.split(configs["Value separator"])
-            print(f"Processs: {message}")
-            # Required
-            timestamp = process_timestamp(message[ts_idx], configs)
-            arbritation_id = int.from_bytes(bytes.fromhex(message[id_idx]))
+            # python-can handle timestamp in seconds
+            timestamp = process_timestamp(message[ts_idx], configs, zero)
+            if zero is None:
+                zero = timestamp
+                timestamp = 0
+            # extra 0 are not in the log file, fromhex expects it
+            id_hex = message[id_idx] = "0" + message[id_idx] if len(message[id_idx]) % 2 else message[id_idx]
+            arbritation_id = int.from_bytes(bytes.fromhex(id_hex))
             is_rx = True if int(message[type_idx]) in [0, 1] else False
             is_extended_id = True if int(message[type_idx]) in [1, 9] else False
             # Optional

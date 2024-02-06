@@ -21,9 +21,9 @@ def temp_file_15_msgs():
 
 
 @pytest.fixture
-def temp_file_msgs_anoying_date_format():
+def temp_file_msgs_annoying_date_format():
     # Setup
-    file_content = msgs_15
+    file_content = msgs_with_annoying_date_format
     file_path = create_temp_file(file_content)
     yield file_path
     # Teardown
@@ -34,18 +34,24 @@ def test_read_log_file_get_length(temp_file_15_msgs, mock_flojoy_decorator):
     import READ_LOG_FILE
     file = File(temp_file_15_msgs)
 
-    messages = READ_LOG_FILE.READ_LOG_FILE(file)
+    messages = READ_LOG_FILE.READ_LOG_FILE(file).obj
 
     assert len(messages) == 15
 
 
-def test_read_log_file_date_format(temp_file_msgs_anoying_date_format, mock_fljoy_decorator):
+def test_read_log_file_date_format(temp_file_msgs_annoying_date_format, mock_flojoy_decorator):
     import READ_LOG_FILE
-    file = File(temp_file_msgs_anoying_date_format)
+    file = File(temp_file_msgs_annoying_date_format)
+    first_ts = 0.210
+    last_ts = 0.612
 
-    messages = READ_LOG_FILE.READ_LOG_FILE(file)
+    messages = READ_LOG_FILE.READ_LOG_FILE(file).obj
+    from pprint import pprint
+    pprint(messages)
 
-    assert True
+    ts_diff = messages[-1].timestamp - messages[0].timestamp
+    assert ts_diff == last_ts - first_ts
+    assert len(messages) == 25
 
 
 # DATA
@@ -85,7 +91,7 @@ Timestamp;Type;ID;Data
 09T140808118;1;0c000003;ecffffffffffffff
 """
 
-msgs_with_anoying_date_format = """\
+msgs_with_annoying_date_format = """\
 # Logger type: CANLogger2000
 # HW rev: 6.xx
 # FW rev: 5.30
