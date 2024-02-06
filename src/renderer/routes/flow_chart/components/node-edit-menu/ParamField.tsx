@@ -194,6 +194,7 @@ const ParamField = ({
     case "NIDAQmxDevice":
       return <NIDAQmxDeviceSelect onValueChange={handleChange} value={value} />;
     case "NIDMMDevice":
+    case "NIConnection":
       return <NIDMMDeviceSelect onValueChange={handleChange} value={value} />;
     case "str":
     case "list[int]":

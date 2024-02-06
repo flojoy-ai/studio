@@ -17,6 +17,7 @@ export type ParamValueType =
   | "CameraConnection"
   | "SerialConnection"
   | "VisaConnection"
+  | "NIConnection"
   | "File"
   | "Directory"
   | "TextArea"

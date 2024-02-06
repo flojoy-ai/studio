@@ -4,17 +4,30 @@ import nidmm
 
 
 @flojoy(inject_connection=True)
-def AC_CURRENT_USB4065(
+def RESISTANCE_4W_USB4065(
     connection: NIConnection,
     digits: Literal["4.5", "5.5", "6.5"] = "5.5",
-    current_limit: Literal["0.01", "0.1", "0.5", "3"] = "3",
+    resist_limit: Literal[
+        "1",
+        "10",
+        "100",
+        "1000",
+        "1e4",
+        "1e5",
+        "1e6",
+    ] = "1e6",
     read: bool = False,
     default: Optional[DataContainer] = None,
 ) -> Scalar:
-    """Sets the measurement mode to AC current for a NI USB-4065 DMM.
+    """Sets the measurement mode to four-wire resistance for a NI USB-4065 DMM.
+
+    Four-wire resistance is more accurate than two-wire. Two-wire resistance
+    can be measured with the RESISTANCE_USB4065 block.
 
     Also optionally reads the selected unit. You can also use the READ_USB4065
     block to read the selected unit in a separate block.
+
+    Requires a CONNECTION_USB4065 block to connect Flojoy to the instrument.
 
     The USB-4065 is a NI (National Instruments) multimeter. It is possible
     that the block will work with other NI DMMs (digital multimeters) such
@@ -31,22 +44,22 @@ def AC_CURRENT_USB4065(
         The NI instrument.
     digits: select
         The number of digits for the measurement. Lower values are faster.
-    current_limit: select
-        The maximum current to allow, in Amps.
+    resist_limit: select
+        The maximum resistance to allow, in Ohms.
     read: bool
         Read the selected unit, or not.
 
     Returns
     -------
     DataContainer
-        Scalar: The AC current reading.
+        Scalar: The resistance reading.
     """
 
     session = connection.get_handle()
 
     session.configure_measurement_digits(
-        nidmm.Function.AC_CURRENT,
-        range=float(current_limit),
+        nidmm.Function.FOUR_WIRE_RES,
+        range=float(resist_limit),
         resolution_digits=float(digits),
     )
 

@@ -69,6 +69,7 @@ export const ctrlsFromParams = (
                 ? devices.nidaqmxDevices[0].address
                 : "";
             case "NIDMMDevice":
+            case "NIConnection":
               return devices.nidmmDevices.length === 1
                 ? devices.nidmmDevices[0].address
                 : "";
