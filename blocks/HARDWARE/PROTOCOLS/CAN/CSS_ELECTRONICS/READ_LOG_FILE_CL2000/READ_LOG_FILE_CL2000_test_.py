@@ -31,23 +31,21 @@ def temp_file_msgs_annoying_date_format():
     
 
 def test_read_log_file_get_length(temp_file_15_msgs, mock_flojoy_decorator):
-    import READ_LOG_FILE
+    import READ_LOG_FILE_CL2000
     file = File(temp_file_15_msgs)
 
-    messages = READ_LOG_FILE.READ_LOG_FILE(file).obj
+    messages = READ_LOG_FILE_CL2000.READ_LOG_FILE_CL2000(file).obj
 
     assert len(messages) == 15
 
 
 def test_read_log_file_date_format(temp_file_msgs_annoying_date_format, mock_flojoy_decorator):
-    import READ_LOG_FILE
+    import READ_LOG_FILE_CL2000
     file = File(temp_file_msgs_annoying_date_format)
     first_ts = 0.210
     last_ts = 0.612
 
-    messages = READ_LOG_FILE.READ_LOG_FILE(file).obj
-    from pprint import pprint
-    pprint(messages)
+    messages = READ_LOG_FILE_CL2000.READ_LOG_FILE_CL2000(file).obj
 
     ts_diff = messages[-1].timestamp - messages[0].timestamp
     assert ts_diff == last_ts - first_ts

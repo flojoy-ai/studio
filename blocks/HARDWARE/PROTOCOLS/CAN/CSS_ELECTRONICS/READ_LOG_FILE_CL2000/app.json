@@ -1,0 +1,244 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "READ_LOG_FILE_CL2000-130c92a8-e3af-4b82-942c-d9eb60063591",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "READ_LOG_FILE_CL2000-130c92a8-e3af-4b82-942c-d9eb60063591",
+                    "label": "READ LOG FILE CL2000",
+                    "func": "READ_LOG_FILE_CL2000",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "file_path": {
+                            "type": "File",
+                            "default": null,
+                            "desc": "The file to read",
+                            "overload": null,
+                            "functionName": "READ_LOG_FILE_CL2000",
+                            "param": "file_path",
+                            "value": "/Users/guillaumethibault/Documents/flojoy/repo/blocks/data/clx000-sample-data/sample-data/OBD2/0000003.TXT"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Stateful",
+                            "desc": "List with all message with the can.Message format"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/CSS_ELECTRONICS/READ_LOG_FILE_CL2000/READ_LOG_FILE_CL2000.py"
+                },
+                "position": {
+                    "x": -11.193432869375513,
+                    "y": -111.13232517162623
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -11.193432869375513,
+                    "y": -111.13232517162623
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "MF4_WRITE-5c9cd677-3a08-43e1-8c1e-55336803d69b",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "MF4_WRITE-5c9cd677-3a08-43e1-8c1e-55336803d69b",
+                    "label": "MF4 WRITE",
+                    "func": "MF4_WRITE",
+                    "type": "HARDWARE",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "MF4_writer",
+                            "id": "MF4_writer",
+                            "type": "Stateful",
+                            "multiple": false,
+                            "desc": "A mf4 writer object from a MF4_CREATE_WRITER block."
+                        },
+                        {
+                            "name": "messages",
+                            "id": "messages",
+                            "type": "Stateful",
+                            "multiple": false,
+                            "desc": "A list of message in the python-can format."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "None"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.3.1"
+                        },
+                        {
+                            "name": "asammdf",
+                            "v": "7.4.1"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_WRITE/MF4_WRITE.py"
+                },
+                "position": {
+                    "x": 304.2755813631567,
+                    "y": -305.0317303479152
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 304.2755813631567,
+                    "y": -305.0317303479152
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "MF4_CREATE_WRITER-f926d662-e852-411d-a933-5985a1bc3513",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "MF4_CREATE_WRITER-f926d662-e852-411d-a933-5985a1bc3513",
+                    "label": "MF4 CREATE WRITER",
+                    "func": "MF4_CREATE_WRITER",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "dir": {
+                            "type": "Directory",
+                            "default": null,
+                            "desc": "The directory to export to.",
+                            "overload": null,
+                            "functionName": "MF4_CREATE_WRITER",
+                            "param": "dir",
+                            "value": "/Users/guillaumethibault/Documents/flojoy/repo/blocks/data/clx000-sample-data/sample-data/OBD2"
+                        },
+                        "filename": {
+                            "type": "str",
+                            "default": "can_exported.mf4",
+                            "desc": "The name of the file to output.",
+                            "overload": null,
+                            "functionName": "MF4_CREATE_WRITER",
+                            "param": "filename",
+                            "value": "can_exported.mf4"
+                        },
+                        "database": {
+                            "type": "File",
+                            "default": null,
+                            "desc": "Path to a DBC or ARXML file that contains message description.",
+                            "overload": null,
+                            "functionName": "MF4_CREATE_WRITER",
+                            "param": "database",
+                            "value": ""
+                        },
+                        "compression_level": {
+                            "type": "select",
+                            "options": [
+                                "No compression",
+                                "Deflate (slower, but produces smaller files)",
+                                "Transposition + Deflate (slowest, but produces the smallest files)"
+                            ],
+                            "default": "No compression",
+                            "desc": "The compression level to use. Defaults to \"No compression\".",
+                            "overload": null,
+                            "functionName": "MF4_CREATE_WRITER",
+                            "param": "compression_level",
+                            "value": "No compression"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Stateful",
+                            "desc": "A stateful object that can be used to write CAN data to the file."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.3.1"
+                        },
+                        {
+                            "name": "asammdf",
+                            "v": "7.4.1"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_CREATE_WRITER/MF4_CREATE_WRITER.py"
+                },
+                "position": {
+                    "x": -29.047181639896777,
+                    "y": -336.0214933145361
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -29.047181639896777,
+                    "y": -336.0214933145361
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "MF4_CREATE_WRITER-f926d662-e852-411d-a933-5985a1bc3513",
+                "sourceHandle": "default",
+                "target": "MF4_WRITE-5c9cd677-3a08-43e1-8c1e-55336803d69b",
+                "targetHandle": "MF4_writer",
+                "id": "reactflow__edge-MF4_CREATE_WRITER-f926d662-e852-411d-a933-5985a1bc3513default-MF4_WRITE-5c9cd677-3a08-43e1-8c1e-55336803d69bMF4_writer"
+            },
+            {
+                "source": "READ_LOG_FILE_CL2000-130c92a8-e3af-4b82-942c-d9eb60063591",
+                "sourceHandle": "default",
+                "target": "MF4_WRITE-5c9cd677-3a08-43e1-8c1e-55336803d69b",
+                "targetHandle": "messages",
+                "id": "reactflow__edge-READ_LOG_FILE_CL2000-130c92a8-e3af-4b82-942c-d9eb60063591default-MF4_WRITE-5c9cd677-3a08-43e1-8c1e-55336803d69bmessages"
+            }
+        ],
+        "viewport": {
+            "x": 558.7008754750079,
+            "y": 333.48106516984456,
+            "zoom": 0.565566731289411
+        }
+    },
+    "textNodes": [
+        {
+            "id": "TextNode-0e56c435-4f8d-42ec-896e-73568f2d6059",
+            "position": {
+                "x": 306.84615318575544,
+                "y": -50.801316920783904
+            },
+            "type": "TextNode",
+            "data": {
+                "text": "Convert CL2000 log file to a MF4 file"
+            },
+            "width": 200,
+            "height": 150,
+            "selected": false,
+            "dragging": false,
+            "positionAbsolute": {
+                "x": 306.84615318575544,
+                "y": -50.801316920783904
+            }
+        }
+    ]
+}

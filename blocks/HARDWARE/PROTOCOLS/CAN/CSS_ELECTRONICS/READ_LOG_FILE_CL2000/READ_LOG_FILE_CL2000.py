@@ -1,12 +1,13 @@
-from flojoy import flojoy, File, Stateful
+from flojoy import flojoy, File, Stateful, DataContainer
+from typing import Optional
 import can
 
 
 @flojoy()
-def READ_LOG_FILE(
+def READ_LOG_FILE_CL2000(
     file_path: File,
-        
-):
+    default: Optional[DataContainer] = None,
+) -> Stateful:
     """Read the log file from the CSS Electronics CL2000 logger and return a list of can.Message
     
     This block reads a log file from the CSS Electronics CL2000 logger and returns a list of can.Message. The file is expected to follow the CL2000 documentation: https://canlogger.csselectronics.com/clx000-docs/cl2000/log/index.html#data-fields
@@ -28,7 +29,6 @@ def READ_LOG_FILE(
         format = int(configs["Time format"]) # Format 0 to 6, kkk, sskkk, ... YYYYMMDDhhmmsskkk
         # YYYYMMDDhhmmss X kkk
         msSeparator = configs["Time separator ms"] if configs["Time separator ms"] != "" else None
-        print(f"msSeparator: {msSeparator}")
         # YYYYMMDDhh X mm X sskkk
         timeSeparator = configs["Time separator"] if configs["Time separator"] != "" else None
         # YYYY X MM X DDhhmmsskkk
@@ -102,11 +102,10 @@ def READ_LOG_FILE(
             configs[config] = value.strip().replace('"', '')
             line = file.readline()
             assert line, "No message found in the file"
-        print(configs)
 
         # Read header to find data field position
         # ---------------------------------------
-        header: list = line.split(configs["Value separator"])
+        header: list = line.replace("\n", "").split(configs["Value separator"])
         ts_idx = header.index("Timestamp") if "Timestamp" in header else None
         assert ts_idx is not None, "Timestamp field not found in file - required for CAN messages"
         type_idx = header.index("Type") if "Type" in header else None
@@ -114,7 +113,6 @@ def READ_LOG_FILE(
         id_idx = header.index("ID") if "ID" in header else None
         assert id_idx is not None, "ID field not found in file - required for CAN messages"
         data_idx = header.index("Data") if "Data" in header else None   # Data is optional
-
         # Read all messages
         # -----------------
         messages = []
@@ -127,14 +125,13 @@ def READ_LOG_FILE(
             if zero is None:
                 zero = timestamp
                 timestamp = 0
-            # extra 0 are not in the log file, fromhex expects it
+            # Bytes are NOT left zero padded (always written using two characters) → fromhex expects it
             id_hex = message[id_idx] = "0" + message[id_idx] if len(message[id_idx]) % 2 else message[id_idx]
             arbritation_id = int.from_bytes(bytes.fromhex(id_hex))
             is_rx = True if int(message[type_idx]) in [0, 1] else False
             is_extended_id = True if int(message[type_idx]) in [1, 9] else False
             # Optional
             data = bytes.fromhex(message[data_idx]) if data_idx is not None else None
-
             message = can.Message(
                 timestamp=timestamp,
                 arbitration_id=arbritation_id,
