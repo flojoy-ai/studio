@@ -1,9 +1,10 @@
-from flojoy import flojoy, File, Stateful
+from flojoy import flojoy, File, Stateful, DataContainer
+from typing import Optional
 from cantools import database
 
 
 @flojoy(deps={"python-can": "4.3.1", "cantools": "39.4.2"})
-def LOAD_DBC(file_path: File) -> Stateful:
+def LOAD_DBC(file_path: File, default: Optional[DataContainer] = None) -> Stateful:
     """Load a DBC file.
 
     Open and parse a given database file. The database format is inferred from the file extension.

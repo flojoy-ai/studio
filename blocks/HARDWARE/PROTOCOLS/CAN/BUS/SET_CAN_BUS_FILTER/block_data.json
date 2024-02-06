@@ -1,0 +1,35 @@
+{
+  "docstring": {
+    "long_description": "Setup a message filtering can be set up for each bus.\nWhere the interface supports it, this is carried out in the hardware or kernel layer - not in Python.\nAll messages that match at least one filter are returned.",
+    "short_description": "Attach a message filter to a CAN bus connection.",
+    "parameters": [
+      {
+        "name": "CAN_address",
+        "type": "str",
+        "description": "The CAN bus address to attach the filter to."
+      },
+      {
+        "name": "can_id",
+        "type": "int",
+        "description": "The ID of the message to filter."
+      },
+      {
+        "name": "can_mask",
+        "type": "int",
+        "description": "todo"
+      },
+      {
+        "name": "extended",
+        "type": "bool",
+        "description": "If true, only matches messages where <received_is_extended> == extended."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "Optional: None"
+      }
+    ]
+  }
+}

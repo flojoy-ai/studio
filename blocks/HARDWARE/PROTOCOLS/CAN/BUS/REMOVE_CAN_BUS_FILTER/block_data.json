@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Remove all filters attached to a CAN bus connection.",
+    "parameters": [
+      {
+        "name": "CAN_address",
+        "type": "str",
+        "description": "The CAN bus address to attach the filter to."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "Optional: None"
+      }
+    ]
+  }
+}
