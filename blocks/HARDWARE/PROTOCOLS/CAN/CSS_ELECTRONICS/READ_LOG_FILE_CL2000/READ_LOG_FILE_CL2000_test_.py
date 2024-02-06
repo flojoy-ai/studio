@@ -5,7 +5,7 @@ import os
 
 def create_temp_file(file_content):
     file_path = "temp_test_file.txt"
-    with open(file_path, 'w') as file:
+    with open(file_path, "w") as file:
         file.write(file_content)
     return file_path
 
@@ -28,10 +28,11 @@ def temp_file_msgs_annoying_date_format():
     yield file_path
     # Teardown
     os.remove(file_path)
-    
+
 
 def test_read_log_file_get_length(temp_file_15_msgs, mock_flojoy_decorator):
     import READ_LOG_FILE_CL2000
+
     file = File(temp_file_15_msgs)
 
     messages = READ_LOG_FILE_CL2000.READ_LOG_FILE_CL2000(file).obj
@@ -39,8 +40,11 @@ def test_read_log_file_get_length(temp_file_15_msgs, mock_flojoy_decorator):
     assert len(messages) == 15
 
 
-def test_read_log_file_date_format(temp_file_msgs_annoying_date_format, mock_flojoy_decorator):
+def test_read_log_file_date_format(
+    temp_file_msgs_annoying_date_format, mock_flojoy_decorator
+):
     import READ_LOG_FILE_CL2000
+
     file = File(temp_file_msgs_annoying_date_format)
     first_ts = 0.210
     last_ts = 0.612

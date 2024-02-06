@@ -9,7 +9,7 @@ def READ_LOG_FILE_CL2000(
     default: Optional[DataContainer] = None,
 ) -> Stateful:
     """Read the log file from the CSS Electronics CL2000 logger and return a list of can.Message
-    
+
     This block reads a log file from the CSS Electronics CL2000 logger and returns a list of can.Message. The file is expected to follow the CL2000 documentation: https://canlogger.csselectronics.com/clx000-docs/cl2000/log/index.html#data-fields
 
     Parameters
@@ -22,19 +22,31 @@ def READ_LOG_FILE_CL2000(
     Stateful
         List with all message with the can.Message format
     """
-    
+
     # Utils
     # -----
     def process_timestamp(timestamp, configs, zero=None) -> float:
-        format = int(configs["Time format"]) # Format 0 to 6, kkk, sskkk, ... YYYYMMDDhhmmsskkk
+        format = int(
+            configs["Time format"]
+        )  # Format 0 to 6, kkk, sskkk, ... YYYYMMDDhhmmsskkk
         # YYYYMMDDhhmmss X kkk
-        msSeparator = configs["Time separator ms"] if configs["Time separator ms"] != "" else None
+        msSeparator = (
+            configs["Time separator ms"] if configs["Time separator ms"] != "" else None
+        )
         # YYYYMMDDhh X mm X sskkk
-        timeSeparator = configs["Time separator"] if configs["Time separator"] != "" else None
+        timeSeparator = (
+            configs["Time separator"] if configs["Time separator"] != "" else None
+        )
         # YYYY X MM X DDhhmmsskkk
-        dateSeparator = configs["Date separator"] if configs["Date separator"] != "" else None
+        dateSeparator = (
+            configs["Date separator"] if configs["Date separator"] != "" else None
+        )
         # YYYYMMDD X hhmmsskkk
-        dateTimeSeparator = configs["Time and date separator"] if configs["Time and date separator"] != "" else None
+        dateTimeSeparator = (
+            configs["Time and date separator"]
+            if configs["Time and date separator"] != ""
+            else None
+        )
 
         year, month, day, hour, min, sec, ms = 0, 0, 0, 0, 0, 0, 0
 
@@ -83,10 +95,20 @@ def READ_LOG_FILE_CL2000(
             ms = int(timestamp)
 
         ref = 0 if zero is None else zero
-        elapsed = float(ms / 1000 + sec + min * 60 + hour * 3600 + day * 86400 + month * 2628000 + year * 31536000) - ref
+        elapsed = (
+            float(
+                ms / 1000
+                + sec
+                + min * 60
+                + hour * 3600
+                + day * 86400
+                + month * 2628000
+                + year * 31536000
+            )
+            - ref
+        )
         for_stability = round(elapsed, 3)
         return for_stability
-
 
     # Get the File
     # ------------
@@ -99,7 +121,7 @@ def READ_LOG_FILE_CL2000(
         while line.startswith("#"):
             line = line[2:]
             config, value = line.split(":")
-            configs[config] = value.strip().replace('"', '')
+            configs[config] = value.strip().replace('"', "")
             line = file.readline()
             assert line, "No message found in the file"
 
@@ -107,12 +129,20 @@ def READ_LOG_FILE_CL2000(
         # ---------------------------------------
         header: list = line.replace("\n", "").split(configs["Value separator"])
         ts_idx = header.index("Timestamp") if "Timestamp" in header else None
-        assert ts_idx is not None, "Timestamp field not found in file - required for CAN messages"
+        assert (
+            ts_idx is not None
+        ), "Timestamp field not found in file - required for CAN messages"
         type_idx = header.index("Type") if "Type" in header else None
-        assert type is not None, "Type field not found in file - required for CAN messages"
+        assert (
+            type is not None
+        ), "Type field not found in file - required for CAN messages"
         id_idx = header.index("ID") if "ID" in header else None
-        assert id_idx is not None, "ID field not found in file - required for CAN messages"
-        data_idx = header.index("Data") if "Data" in header else None   # Data is optional
+        assert (
+            id_idx is not None
+        ), "ID field not found in file - required for CAN messages"
+        data_idx = (
+            header.index("Data") if "Data" in header else None
+        )  # Data is optional
         # Read all messages
         # -----------------
         messages = []
@@ -126,7 +156,9 @@ def READ_LOG_FILE_CL2000(
                 zero = timestamp
                 timestamp = 0
             # Bytes are NOT left zero padded (always written using two characters) → fromhex expects it
-            id_hex = message[id_idx] = "0" + message[id_idx] if len(message[id_idx]) % 2 else message[id_idx]
+            id_hex = message[id_idx] = (
+                "0" + message[id_idx] if len(message[id_idx]) % 2 else message[id_idx]
+            )
             arbritation_id = int.from_bytes(bytes.fromhex(id_hex))
             is_rx = True if int(message[type_idx]) in [0, 1] else False
             is_extended_id = True if int(message[type_idx]) in [1, 9] else False
@@ -138,7 +170,7 @@ def READ_LOG_FILE_CL2000(
                 data=data,
                 is_rx=is_rx,
                 is_extended_id=is_extended_id,
-                check=True
+                check=True,
             )
             messages.append(message)
 
