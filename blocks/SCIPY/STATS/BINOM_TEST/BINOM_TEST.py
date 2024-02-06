@@ -42,7 +42,7 @@ def BINOM_TEST(
         type 'ordered pair', 'scalar', or 'matrix'
     """
 
-    result = scipy.stats.binom_test(
+    result = scipy.stats.binomtest(
         x=default.y,
         n=n,
         p=p,
