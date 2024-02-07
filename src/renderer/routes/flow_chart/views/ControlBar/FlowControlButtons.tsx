@@ -3,7 +3,10 @@ import { Node, Edge } from "reactflow";
 import { ElementsData } from "@/renderer/types";
 import { Ban, Play } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
-import { projectAtom, useFlowChartState } from "@/renderer/hooks/useFlowChartState";
+import {
+  projectAtom,
+  useFlowChartState,
+} from "@/renderer/hooks/useFlowChartState";
 import { useSettings } from "@/renderer/hooks/useSettings";
 import { useSocket } from "@/renderer/hooks/useSocket";
 import {

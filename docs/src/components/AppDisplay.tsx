@@ -1,7 +1,7 @@
 import ReactFlow, { Background, Controls, MiniMap } from "reactflow";
 import "reactflow/dist/style.css";
-import nodeTypes from "./nodes/nodeTypes";
 import { Download } from "lucide-react";
+import nodeTypes from "./nodes/nodeTypes";
 
 type AppDisplayProps = {
   app: any;

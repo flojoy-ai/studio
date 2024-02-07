@@ -1,4 +1,7 @@
-import { projectAtom, useFlowChartState } from "@/renderer/hooks/useFlowChartState";
+import {
+  projectAtom,
+  useFlowChartState,
+} from "@/renderer/hooks/useFlowChartState";
 import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
 import { useSocket } from "@/renderer/hooks/useSocket";
 import { TreeNode } from "@/renderer/utils/ManifestLoader";
@@ -27,7 +30,10 @@ import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { BlockExpandMenu } from "./views/BlockExpandMenu";
-import { MixPanelEvents, sendEventToMix } from "@/renderer/services/MixpanelServices";
+import {
+  MixPanelEvents,
+  sendEventToMix,
+} from "@/renderer/services/MixpanelServices";
 import {
   ACTIONS_HEIGHT,
   BOTTOM_STATUS_BAR_HEIGHT,

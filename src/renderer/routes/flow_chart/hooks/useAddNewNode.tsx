@@ -11,7 +11,10 @@ import { addRandomPositionOffset } from "@/renderer/utils/RandomPositionOffset";
 import { BlocksMetadataMap } from "@/renderer/types/blocks-metadata";
 import { createNodeId, createNodeLabel } from "@/renderer/utils/NodeUtils";
 import { ctrlsFromParams } from "@/renderer/utils/NodeUtils";
-import { DeviceInfo, useHardwareDevices } from "@/renderer/hooks/useHardwareDevices";
+import {
+  DeviceInfo,
+  useHardwareDevices,
+} from "@/renderer/hooks/useHardwareDevices";
 
 export type AddNewNode = (node: NodeElement) => void;
 

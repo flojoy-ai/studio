@@ -17,7 +17,10 @@ import { IServerStatus } from "@/renderer/context/socket.context";
 import { useSocket } from "@/renderer/hooks/useSocket";
 import StatusBar from "@/renderer/routes/common/StatusBar";
 import { InterpretersList } from "src/main/python/interpreter";
-import { MixPanelEvents, sendEventToMix } from "@/renderer/services/MixpanelServices";
+import {
+  MixPanelEvents,
+  sendEventToMix,
+} from "@/renderer/services/MixpanelServices";
 
 export const Index = (): JSX.Element => {
   const {

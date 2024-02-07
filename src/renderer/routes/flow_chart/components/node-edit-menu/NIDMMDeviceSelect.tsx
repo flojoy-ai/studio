@@ -1,6 +1,6 @@
-import { useHardwareDevices } from "@src/hooks/useHardwareDevices";
+import { useHardwareDevices } from "@/renderer/hooks/useHardwareDevices";
 import { DeviceSelect, SelectProps } from "./DeviceSelect";
-import { useSettings } from "@src/hooks/useSettings";
+import { useSettings } from "@/renderer/hooks/useSettings";
 
 export const NIDMMDeviceSelect = (props: SelectProps) => {
   const hardware = useHardwareDevices();

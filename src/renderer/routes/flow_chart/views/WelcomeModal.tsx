@@ -13,7 +13,10 @@ import { useAtom } from "jotai";
 import packageJson from "../../../../../package.json";
 import { useFullManifest } from "@/renderer/hooks/useManifest";
 import { useEffect } from "react";
-import { MixPanelEvents, sendEventToMix } from "@/renderer/services/MixpanelServices";
+import {
+  MixPanelEvents,
+  sendEventToMix,
+} from "@/renderer/services/MixpanelServices";
 
 export function WelcomeModal() {
   const openFileSelector = useLoadApp();
