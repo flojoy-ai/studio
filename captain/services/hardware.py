@@ -137,7 +137,6 @@ class DefaultDeviceFinder:
 
             return devices
         # except nidmm.errors.DaqNotFoundError as e:
-        #     logging.warn(f"NI-DAQmx driver not installed - {e}")
         except Exception as e:
             logging.error(f"Error in get_nidmm_devices: {e}")
         return []
