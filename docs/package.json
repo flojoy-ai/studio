@@ -12,21 +12,21 @@
   },
   "dependencies": {
     "@astro-community/astro-embed-youtube": "^0.4.4",
-    "@astrojs/react": "^3.0.9",
-    "@astrojs/starlight": "^0.16.0",
+    "@astrojs/react": "^3.0.10",
+    "@astrojs/starlight": "^0.17.3",
     "@astrojs/starlight-docsearch": "^0.1.0",
     "@astrojs/starlight-tailwind": "^2.0.1",
     "@astrojs/tailwind": "^5.1.0",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@types/react": "^18.2.51",
-    "@types/react-dom": "^18.2.18",
-    "astro": "4.2.5",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
+    "astro": "4.3.5",
     "astro-robots-txt": "^1.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
-    "lucide-react": "^0.316.0",
+    "lucide-react": "^0.323.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^9.0.1",
@@ -37,7 +37,7 @@
     "tailwindcss": "^3.4.1"
   },
   "devDependencies": {
-    "prettier": "^3.2.4",
+    "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.13.0",
     "prettier-plugin-tailwindcss": "^0.5.11"
   }
