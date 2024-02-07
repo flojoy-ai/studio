@@ -1,4 +1,4 @@
-import { getDeviceInfo } from "@src/services/FlowChartServices";
+import { getDeviceInfo } from "@/renderer/services/FlowChartServices";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { useCallback } from "react";
 import { z } from "zod";

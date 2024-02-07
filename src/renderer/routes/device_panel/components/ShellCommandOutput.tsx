@@ -1,5 +1,5 @@
-import { ScrollArea, ScrollBar } from "@src/components/ui/scroll-area";
-import { Spinner } from "@src/components/ui/spinner";
+import { ScrollArea, ScrollBar } from "@/renderer/components/ui/scroll-area";
+import { Spinner } from "@/renderer/components/ui/spinner";
 import { useEffect, useState } from "react";
 
 type ShellCommandOutputProps = {

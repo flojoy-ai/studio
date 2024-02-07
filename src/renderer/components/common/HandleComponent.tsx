@@ -1,6 +1,6 @@
 import { Position } from "reactflow";
 import { CustomHandle, HandleVariantProps } from "./CustomHandle";
-import { CustomNodeProps } from "@src/types/node";
+import { CustomNodeProps } from "@/renderer/types/node";
 
 const HandleComponent = ({
   data,

@@ -1,13 +1,13 @@
 import {
   useHardwareRefetch,
   useHardwareDevices,
-} from "@src/hooks/useHardwareDevices";
+} from "@/renderer/hooks/useHardwareDevices";
 import { DeviceCardProps } from "./DeviceCard";
 import { DeviceSection } from "./DeviceSection";
-import { Button } from "@src/components/ui/button";
+import { Button } from "@/renderer/components/ui/button";
 import { DebugMenu } from "./DebugMenu";
 import { ConnectionHelp } from "./ConnectionHelp";
-import { useSettings } from "@src/hooks/useSettings";
+import { useSettings } from "@/renderer/hooks/useSettings";
 
 export const HardwareInfo = () => {
   const devices = useHardwareDevices();

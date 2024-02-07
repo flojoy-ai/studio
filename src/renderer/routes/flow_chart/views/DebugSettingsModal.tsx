@@ -4,16 +4,16 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@src/components/ui/dialog";
-import { Label } from "@src/components/ui/label";
+} from "@/renderer/components/ui/dialog";
+import { Label } from "@/renderer/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@src/components/ui/select";
-import { getLogLevel, setLogLevel } from "@src/services/FlowChartServices";
+} from "@/renderer/components/ui/select";
+import { getLogLevel, setLogLevel } from "@/renderer/services/FlowChartServices";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 

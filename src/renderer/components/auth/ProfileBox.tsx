@@ -2,9 +2,9 @@ import React from "react";
 import { User } from "@/types/auth";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { cn } from "@src/lib/utils";
+import { cn } from "@/renderer/lib/utils";
 import { Avatar, AvatarFallback } from "../ui/avatar";
-import { getAlphabetAvatar } from "@src/utils/TextWrap";
+import { getAlphabetAvatar } from "@/renderer/utils/TextWrap";
 import { useNavigate } from "react-router-dom";
 import {
   DropdownMenu,
@@ -15,8 +15,8 @@ import {
 import { MoreVerticalIcon } from "lucide-react";
 import ConfirmPrompt from "../common/ConfirmPrompt";
 import { toast } from "sonner";
-import { parseElectronError } from "@src/utils/parse-error";
-import { useAuth } from "@src/context/auth.context";
+import { parseElectronError } from "@/renderer/utils/parse-error";
+import { useAuth } from "@/renderer/context/auth.context";
 
 type ProfileBoxProps = {
   user: User;

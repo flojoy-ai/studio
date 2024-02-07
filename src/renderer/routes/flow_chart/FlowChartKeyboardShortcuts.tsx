@@ -1,6 +1,6 @@
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
-import { useSave } from "@src/hooks/useSave";
-import { useLoadApp } from "@src/hooks/useLoadApp";
+import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
+import { useSave } from "@/renderer/hooks/useSave";
+import { useLoadApp } from "@/renderer/hooks/useLoadApp";
 import { useReactFlow } from "reactflow";
 
 const FlowChartKeyboardShortcuts = () => {

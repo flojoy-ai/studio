@@ -4,9 +4,9 @@ import { Search } from "lucide-react";
 
 import * as React from "react";
 
-import { Dialog, DialogContent } from "@src/components/ui/dialog";
+import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 
-import { cn } from "@src/lib/utils";
+import { cn } from "@/renderer/lib/utils";
 
 const Command = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive>,

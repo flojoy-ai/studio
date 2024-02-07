@@ -1,4 +1,4 @@
-import { API_URI } from "@src/data/constants";
+import { API_URI } from "@/renderer/data/constants";
 import axios from "axios";
 
 export const baseClient = axios.create({

@@ -30,12 +30,6 @@ export default defineConfig({
     resolve: {
       alias: {
         "@": resolve(__dirname, "src"),
-        "@src": resolve(__dirname, "src/renderer"),
-        "@hooks": resolve(__dirname, "src/renderer/hooks"),
-        "@feature": resolve(__dirname, "src/renderer/feature"),
-        "@components": resolve(__dirname, "src/renderer/components"),
-        "@assets": resolve(__dirname, "src/renderer/assets"),
-        "@lib": resolve(__dirname, "src/renderer/lib"),
       },
     },
     plugins: [react()],

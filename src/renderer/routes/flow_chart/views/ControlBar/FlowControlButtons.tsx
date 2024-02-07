@@ -1,21 +1,21 @@
-import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
 import { Node, Edge } from "reactflow";
-import { ElementsData } from "@src/types";
+import { ElementsData } from "@/renderer/types";
 import { Ban, Play } from "lucide-react";
-import { Button } from "@src/components/ui/button";
-import { projectAtom, useFlowChartState } from "@src/hooks/useFlowChartState";
-import { useSettings } from "@src/hooks/useSettings";
-import { useSocket } from "@src/hooks/useSocket";
+import { Button } from "@/renderer/components/ui/button";
+import { projectAtom, useFlowChartState } from "@/renderer/hooks/useFlowChartState";
+import { useSettings } from "@/renderer/hooks/useSettings";
+import { useSocket } from "@/renderer/hooks/useSocket";
 import {
   saveAndRunFlowChartInServer,
   cancelFlowChartRun,
-} from "@src/services/FlowChartServices";
-import { sendProgramToMix } from "@src/services/MixpanelServices";
-import { IServerStatus } from "@src/context/socket.context";
+} from "@/renderer/services/FlowChartServices";
+import { sendProgramToMix } from "@/renderer/services/MixpanelServices";
+import { IServerStatus } from "@/renderer/context/socket.context";
 import WatchBtn from "./WatchBtn";
 import { useAtom } from "jotai";
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
-import { useManifest } from "@src/hooks/useManifest";
+import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
+import { useManifest } from "@/renderer/hooks/useManifest";
 import _ from "lodash";
 import { toast } from "sonner";
 

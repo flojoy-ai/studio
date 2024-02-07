@@ -1,9 +1,9 @@
-import { CustomNodeProps } from "@src/types";
+import { CustomNodeProps } from "@/renderer/types";
 import clsx from "clsx";
 import React from "react";
 import HandleComponent from "./HandleComponent";
 import { CSSProperties } from "react";
-import { cn } from "@src/lib/utils";
+import { cn } from "@/renderer/lib/utils";
 
 const NodeWrapper = ({
   selected,

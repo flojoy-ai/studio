@@ -3,8 +3,8 @@ import createPlotlyComponent from "react-plotly.js/factory";
 import Plotly from "plotly.js";
 import { plotLayout } from "./layout";
 import { useMemo } from "react";
-import { PlotProps } from "@src/types/plotly";
-import { useTheme } from "@src/providers/themeProvider";
+import { PlotProps } from "@/renderer/types/plotly";
+import { useTheme } from "@/renderer/providers/themeProvider";
 import _ from "lodash";
 
 const MATRIX_SIZE = {

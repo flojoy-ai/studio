@@ -1,5 +1,5 @@
-import { Input } from "@src/components/ui/input";
-import { InputProps } from "@src/components/ui/input";
+import { Input } from "@/renderer/components/ui/input";
+import { InputProps } from "@/renderer/components/ui/input";
 import { useMemo } from "react";
 
 type NumberInputProps = Omit<InputProps, "value" | "onChange"> & {

@@ -1,13 +1,13 @@
-import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
-import { useSocket } from "@src/hooks/useSocket";
+import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
+import { useSocket } from "@/renderer/hooks/useSocket";
 import { useSetAtom } from "jotai";
 import {
   projectAtom,
   projectPathAtom,
   showWelcomeScreenAtom,
-} from "@src/hooks/useFlowChartState";
-import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
-import { sendEventToMix } from "@src/services/MixpanelServices";
+} from "@/renderer/hooks/useFlowChartState";
+import { useHasUnsavedChanges } from "@/renderer/hooks/useHasUnsavedChanges";
+import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 
 export const useLoadApp = () => {
   const { loadFlowExportObject } = useFlowChartGraph();
