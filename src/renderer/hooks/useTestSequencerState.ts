@@ -20,6 +20,8 @@ export const websocketIdAtom = atom<string>(uuidv4());
 
 export const elements = atomWithImmer<(Test | Conditional)[]>([]);
 
+export const isLockedAtom = atomWithImmer<boolean>(false);
+
 // sync this with the definition of setElems
 export type SetElemsFn = {
   (elems: TestSequenceElement[]): void;
@@ -41,12 +43,13 @@ const createTestSequenceTree = (elems: TestSequenceElement[]): TestRootNode => {
     if (curElem.type === "conditional") {
       switch (curElem.conditionalType) {
         case "if":
+          // eslint-disable-next-line no-case-declarations
           const ifNode: IfNode = {
             ...curElem,
             main: [],
             else: [],
           } as IfNode;
-          stack.at(-1).push(ifNode);
+          (stack.at(-1) as TestSequenceElementNode[]).push(ifNode);
           stack.push(ifNode.else); // push else to stack so that when we reach else statement we just pop if array
           stack.push(ifNode.main);
           break;
@@ -62,7 +65,7 @@ const createTestSequenceTree = (elems: TestSequenceElement[]): TestRootNode => {
 
     //handle leaf nodes
     const testNode: TestNode = { ...curElem };
-    stack.at(-1).push(testNode);
+    (stack.at(-1) as TestSequenceElementNode[]).push(testNode);
   }
   return root;
 };
@@ -79,6 +82,7 @@ export function useTestSequencerState() {
   const [websocketId] = useAtom(websocketIdAtom);
   const [tree, setTree] = useAtom(testSequenceTree);
   const [running, setRunning] = useAtom(curRun);
+  const [isLocked, setIsLocked] = useAtom(isLockedAtom); // this is used to lock the UI while the test is running
 
   // wrapper around setElements to check if elems is valid
   function setElems(elems: TestSequenceElement[]);
@@ -119,5 +123,7 @@ export function useTestSequencerState() {
     tree,
     running,
     setRunning,
+    setIsLocked,
+    isLocked,
   };
 }

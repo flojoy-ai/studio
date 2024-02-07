@@ -11,6 +11,7 @@ function parseDiscoverContainer(data: TestDiscoverContainer) {
       ...container,
       type: "test",
       id: uuidv4(),
+      groupId: uuidv4(),
       runInParallel: false,
       testType: "Python",
       status: "pending",

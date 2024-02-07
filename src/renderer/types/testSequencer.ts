@@ -4,20 +4,33 @@ export type Summary = {
   completionTime: number;
 };
 
+export type LockedContextType = {
+  isLocked: boolean;
+};
+
 export type TestTypes = "Python" | "Flojoy" | "Matlab";
 
 export type StatusTypes = "pending" | "pass" | "failed";
 
+export type MsgState =
+  | "TEST_SET_START"
+  | "RUNNING"
+  | "TEST_DONE"
+  | "ERROR"
+  | "TEST_SET_DONE";
+
 export type BackendMsg = {
-  state: "RUNNING" | "TEST_DONE";
+  state: MsgState;
   target_id: string;
   result: boolean;
   time_taken: number;
+  error: string | null;
 };
 
 export type Test = {
   type: "test";
   id: string;
+  groupId: string;
   path: string;
   testName: string;
   runInParallel: boolean;

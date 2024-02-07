@@ -5,7 +5,6 @@ import {
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
 import * as React from "react";
-import { ChevronDownIcon } from "@radix-ui/react-icons";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -41,20 +40,23 @@ import {
   CONDITIONAL_TYPES,
   Conditional,
   Test,
+  StatusTypes,
 } from "@src/types/testSequencer";
-import {
-  SetElemsFn,
-  useTestSequencerState,
-} from "@src/hooks/useTestSequencerState";
+import { useTestSequencerState } from "@src/hooks/useTestSequencerState";
 import { parseInt, filter, map } from "lodash";
 import { AddConditionalModal } from "./AddConditionalModal";
 import {
   generateConditional,
   getIndentLevels,
-  handleConditionalDelete,
 } from "../utils/ConditionalUtils";
-import { ChevronUpIcon, Loader, TrashIcon } from "lucide-react";
+import {
+  ChevronUpIcon,
+  ChevronDownIcon,
+  Loader,
+  TrashIcon,
+} from "lucide-react";
 import { WriteConditionalModal } from "./AddWriteConditionalModal";
+import LockableButton from "./lockable/LockedButtons";
 
 const IndentLine = ({
   name,
@@ -79,6 +81,12 @@ const IndentLine = ({
       </div>
     </div>
   );
+
+const mapStatusToDisplay: { [k in StatusTypes]: React.ReactNode } = {
+  pass: <p className="text-green-500">PASS</p>,
+  failed: <p className="text-red-500">FAIL</p>,
+  pending: <p className="text-yellow-500">PENDING</p>,
+};
 
 export function DataTable() {
   const { elems, setElems, running } = useTestSequencerState();
@@ -110,8 +118,7 @@ export function DataTable() {
     },
 
     {
-      accessorFn: (elem, idx) => {
-        console.log(idx);
+      accessorFn: (elem) => {
         return elem.type === "test" ? "testName" : "conditionalType";
       },
       header: "Test name",
@@ -159,18 +166,17 @@ export function DataTable() {
       },
     },
 
-    {
-      accessorFn: (elem) => {
-        return elem.type === "test" ? "runInParallel" : null;
-      },
-      header: "Run in Parallel",
-      cell: ({ row }) => {
-        console.log("type", row.original);
-        return row.original.type === "test" ? (
-          <div>{row.original.runInParallel.toString()}</div>
-        ) : null;
-      },
-    },
+    // {
+    //   accessorFn: (elem) => {
+    //     return elem.type === "test" ? "runInParallel" : null;
+    //   },
+    //   header: "Run in Parallel",
+    //   cell: ({ row }) => {
+    //     return row.original.type === "test" ? (
+    //       <div>{row.original.runInParallel.toString()}</div>
+    //     ) : null;
+    //   },
+    // },
 
     {
       accessorFn: (elem) => {
@@ -190,9 +196,8 @@ export function DataTable() {
       },
       header: "Status",
       cell: ({ row }) => {
-        console.log("status: ", row.original);
         return row.original.type === "test" ? (
-          <div>{row.original.status}</div>
+          <div>{mapStatusToDisplay[row.original.status]}</div>
         ) : null;
       },
     },
@@ -231,6 +236,7 @@ export function DataTable() {
       enableHiding: false,
       cell: ({ row }) => {
         const onUpClick = () => {
+          setRowSelection([]);
           setElems((data) => {
             const new_data = [...data];
             const index = parseInt(row.id);
@@ -241,6 +247,7 @@ export function DataTable() {
           });
         };
         const onDownClick = () => {
+          setRowSelection([]);
           setElems((data) => {
             const new_data = [...data];
             const index = parseInt(row.id);
@@ -252,8 +259,12 @@ export function DataTable() {
         };
         return (
           <div className="flex flex-row">
-            <ChevronUpIcon className="ml-2 h-4 w-4" onClick={onUpClick} />
-            <ChevronDownIcon className="ml-2 h-4 w-4" onClick={onDownClick} />
+            <LockableButton variant="ghost">
+              <ChevronUpIcon onClick={onUpClick} />
+            </LockableButton>
+            <LockableButton variant="ghost">
+              <ChevronDownIcon onClick={onDownClick} />
+            </LockableButton>
           </div>
         );
       },
@@ -290,43 +301,18 @@ export function DataTable() {
   });
 
   const handleClickRemoveTests = () => {
-    const keys = map(Object.keys(rowSelection), (key) => parseInt(key)).sort(
-      (a, b) => {
-        return a - b;
-      },
-    );
-    console.log(keys);
-    onRemoveTest([...keys]);
+    onRemoveTest(map(Object.keys(rowSelection), (idxStr) => parseInt(idxStr)));
     setRowSelection([]);
   };
 
   const onRemoveTest = (idxs: number[]) => {
     setElems((elems) => {
-      let newElems = [...elems];
-      const setNewElems: SetElemsFn = (setFnOrArr) => {
-        if (Array.isArray(setFnOrArr)) newElems = setFnOrArr;
-        else newElems = setFnOrArr(newElems);
-      };
-
-      idxs
-        .sort((a, b) => a - b)
-        .forEach((testIdx, i) => {
-          const newIdx = testIdx - i;
-          switch (newElems[newIdx].type) {
-            case "test":
-              setNewElems((data) => {
-                return filter(data, (_, idx) => idx != newIdx);
-              });
-              break;
-            case "conditional":
-              handleConditionalDelete(
-                newElems[newIdx] as Conditional,
-                setNewElems,
-              );
-              break;
-          }
-        });
-      return newElems;
+      //first, collect all idxs to remove in a set
+      const toRemove = new Set();
+      idxs.forEach((idx) => {
+        toRemove.add(elems[idx].groupId);
+      });
+      return filter(elems, (elem) => !toRemove.has(elem.groupId));
     });
   };
 
@@ -371,7 +357,6 @@ export function DataTable() {
 
   const onClickWriteCondition = (idx: number) => {
     writeConditionalForIdx.current = idx;
-    console.log("here");
     setShowWriteConditionalModal(true);
   };
 

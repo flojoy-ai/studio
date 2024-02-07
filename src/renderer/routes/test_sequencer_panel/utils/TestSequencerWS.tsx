@@ -5,10 +5,11 @@ import { useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import TSWebSocketContext from "../context/TSWebSocketContext";
 import { mapToTestResult } from "./TestUtils";
-import { BackendMsg, Test } from "@src/types/testSequencer";
+import { BackendMsg, MsgState, Test } from "@src/types/testSequencer";
 
 function TestSequencerWS({ children }: { children: React.ReactNode }) {
-  const { websocketId, setRunning, setElems } = useTestSequencerState();
+  const { websocketId, setRunning, setElems, setIsLocked } =
+    useTestSequencerState();
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
     `${TS_SOCKET_URL}/${websocketId}`,
     {
@@ -43,21 +44,33 @@ function TestSequencerWS({ children }: { children: React.ReactNode }) {
     }
   }, [readyState]);
 
+  const mapToHandler: { [K in MsgState]: (data: BackendMsg) => void } = {
+    TEST_SET_START: (data) => {
+      console.log("starting tests", data);
+    },
+    TEST_DONE: (data) => {
+      setRunning((run) => filter(run, (r) => r !== data.target_id));
+      setResult(data.target_id, data.result, data.time_taken);
+    },
+    RUNNING: (data) => {
+      console.log("target id is:", data.target_id);
+      setRunning([data.target_id]);
+    },
+    ERROR: (data) => {
+      console.log(data.error);
+    },
+    TEST_SET_DONE: (data) => {
+      console.log("tests are done", data);
+      setIsLocked(false);
+    },
+  };
+
   // Run when a new WebSocket message is received (lastJsonMessage)
   useEffect(() => {
     const data = lastJsonMessage as BackendMsg;
-    console.log(data);
     if (data === null) return;
-    switch (data.state) {
-      case "RUNNING":
-        console.log("target id is:", data.target_id);
-        setRunning([data.target_id]);
-        break;
-      case "TEST_DONE":
-        setRunning((run) => filter(run, (r) => r !== data.target_id));
-        setResult(data.target_id, data.result, data.time_taken);
-        break;
-    }
+    console.log(data);
+    mapToHandler[data.state](data);
   }, [lastJsonMessage]);
 
   return (
