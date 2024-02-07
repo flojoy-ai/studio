@@ -16,6 +16,7 @@ def SET_CAN_BUS_FILTER(
     Setup a message filtering can be set up for each bus.
     Where the interface supports it, this is carried out in the hardware or kernel layer - not in Python.
     All messages that match at least one filter are returned.
+    A connection to the device is required. Use a CAN_CONNECT block to connect to a CAN device.
 
     Parameters
     ----------

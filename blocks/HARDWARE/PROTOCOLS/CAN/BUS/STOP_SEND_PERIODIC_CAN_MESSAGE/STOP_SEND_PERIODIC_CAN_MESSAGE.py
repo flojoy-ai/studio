@@ -10,6 +10,7 @@ def STOP_SEND_PERIODIC_CAN_MESSAGE(
     """Stop sending periodic a message to a CAN Bus.
 
     Stop sending a message to a CAN device. This block should be compatible with all devices that support the CAN interface.
+    A connection to the device is required. Use a CAN_CONNECT block to connect to a CAN device.
 
     Parameters
     ----------

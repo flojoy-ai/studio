@@ -9,6 +9,8 @@ def REMOVE_CAN_BUS_FILTER(
 ) -> Optional[DataContainer]:
     """Remove all filters attached to a CAN bus connection.
 
+    A connection to the device is required. Use a CAN_CONNECT block to connect to a CAN device.
+
     Parameters
     ----------
     CAN_address : str

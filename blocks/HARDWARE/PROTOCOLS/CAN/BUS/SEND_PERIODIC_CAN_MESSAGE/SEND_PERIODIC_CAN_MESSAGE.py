@@ -14,6 +14,7 @@ def SEND_PERIODIC_CAN_MESSAGE(
     """Send a periodic message to a CAN bus.
 
     Send a message to a CAN device periodically. This block should be compatible with all devices that support the CAN interface.
+    A connection to the device is required. Use a CAN_CONNECT block to connect to a CAN device.
 
     Parameters
     ----------
@@ -22,9 +23,9 @@ def SEND_PERIODIC_CAN_MESSAGE(
     message : Stateful
         A list of messages to send to the CAN device.
     period: float
-        The period in seconds between messages
+        The period in seconds between messages.
     duration: Optional float
-        Approximate duration in seconds to continue sending messages. If no duration is provided, the task will continue indefinitely
+        Approximate duration in seconds to continue sending messages. If no duration is provided, the task will continue indefinitely.
 
     Returns
     -------

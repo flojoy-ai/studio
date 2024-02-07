@@ -10,7 +10,7 @@ def SEND_CAN_MESSAGE(
     """Send a message to a CAN system.
 
     Send a message to a CAN device. This block should be compatible with all devices that support the CAN interface.
-    A connection to the device is required. Use a CONNECT_XCAN block to connect to a CAN device.
+    A connection to the device is required. Use a CAN_CONNECT block to connect to a CAN device.
 
     Parameters
     ----------
