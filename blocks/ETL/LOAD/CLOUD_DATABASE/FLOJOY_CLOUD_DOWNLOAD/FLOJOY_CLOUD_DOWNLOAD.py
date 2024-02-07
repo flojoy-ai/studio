@@ -28,12 +28,12 @@ def preflight():
 def FLOJOY_CLOUD_DOWNLOAD(
     measurement_id: str,
 ) -> DataContainer:
-    """Download a DataContainer from Flojoy Cloud (beta).
+    """Download a measurement from Flojoy Cloud (beta).
 
     Parameters
     ----------
     measurement_id : str
-        The data container id of the data to be downloaded from Flojoy Cloud.
+        The data measurement id of the data to be downloaded from Flojoy Cloud.
 
     Returns
     -------

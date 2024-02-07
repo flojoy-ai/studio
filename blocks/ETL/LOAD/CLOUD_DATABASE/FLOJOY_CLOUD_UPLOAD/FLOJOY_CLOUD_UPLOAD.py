@@ -49,13 +49,13 @@ def FLOJOY_CLOUD_UPLOAD(
     Parameters
     ----------
     default : DataContainer
-        The data to be uploaded to Flojoy Cloud. Currently only support DataFrame and Boolean.
+        The data to be uploaded to Flojoy Cloud.
     hardware_device_id : str
         The measurement id of the data to be uploaded to Flojoy Cloud.
     test_id : str
-        The test id of the data to be uploaded to Flojoy Cloud.(In Flojoy Cloud, right click on the desired test to select its "Copy ID"!)
+        The test id of the data to be uploaded to Flojoy Cloud.
     name: str
-        A custom name describing the test.
+        A name describing the test.
     pass_fail: Boolean
         Optional parameter to define if the test passed or failed.
 

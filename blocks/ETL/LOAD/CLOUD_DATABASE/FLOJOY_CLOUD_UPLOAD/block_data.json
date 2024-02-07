@@ -6,7 +6,7 @@
       {
         "name": "default",
         "type": "DataContainer",
-        "description": "The data to be uploaded to Flojoy Cloud. Currently only support DataFrame and Boolean."
+        "description": "The data to be uploaded to Flojoy Cloud."
       },
       {
         "name": "hardware_device_id",
@@ -16,12 +16,12 @@
       {
         "name": "test_id",
         "type": "str",
-        "description": "The test id of the data to be uploaded to Flojoy Cloud.(In Flojoy Cloud, right click on the desired test to select its \"Copy ID\"!)"
+        "description": "The test id of the data to be uploaded to Flojoy Cloud."
       },
       {
         "name": "name",
         "type": "str",
-        "description": "A custom name describing the test."
+        "description": "A name describing the test."
       },
       {
         "name": "pass_fail",
