@@ -20,6 +20,8 @@ def ERRORS_33120A(
         The VISA address (requires a OPEN SERIAL node).
     number: int
         The of errors to return.
+    prologix: bool
+        Is a Prologix GPIB adapter being used?
 
     Returns
     -------
