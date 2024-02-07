@@ -55,6 +55,13 @@ const settingsAtom = atomWithImmer<Setting[]>([
     desc: "Enable the discovery of NI compactDAQ devices and other devices relying on NI-DAQmx. Note that activating this option may lead to a longer loading time.",
     value: false,
   },
+  {
+    title: "Discover NI-DMM devices",
+    key: "nidmmDeviceDiscovery",
+    group: "device",
+    desc: "Enable the discovery of NI DMM devices and other devices relying on NI-DMM. Note that activating this option may lead to a longer loading time.",
+    value: false,
+  },
 ]);
 
 export const useSettings = (group: "frontend" | "backend" | "device") => {

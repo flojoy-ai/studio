@@ -64,7 +64,11 @@ export const SocketContextProvider = ({
   const setting = settings.find(
     (setting) => setting.key === "niDAQmxDeviceDiscovery",
   );
+  const settingdmm = settings.find(
+    (settingdmm) => settingdmm.key === "nidmmDeviceDiscovery",
+  );
   const fetchDriverDevices = setting ? setting.value : false;
+  const fetchDMMDevices = settingdmm ? settingdmm.value : false;
 
   const handleStateChange =
     (state: keyof States) =>
@@ -92,7 +96,7 @@ export const SocketContextProvider = ({
           setSocket(undefined);
         },
         onConnectionEstablished: () => {
-          hardwareRefetch(fetchDriverDevices);
+          hardwareRefetch(fetchDriverDevices, fetchDMMDevices);
           fetchManifest();
           fetchMetadata();
           handleImportCustomBlocks(true);

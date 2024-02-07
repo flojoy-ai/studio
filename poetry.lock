@@ -2476,6 +2476,37 @@ docs = ["Sphinx (>=4.3,<5.0)", "sphinx_rtd_theme (>=1.0,<2.0)"]
 grpc = ["grpcio (>=1.49.0,<2.0)", "protobuf (>=4.21,<5.0)"]
 
 [[package]]
+name = "nidmm"
+version = "1.4.7"
+description = "NI-DMM Python API"
+optional = false
+python-versions = "*"
+files = [
+    {file = "nidmm-1.4.7-py3-none-any.whl", hash = "sha256:b6616977647dff55b93a1087355a1775fbd4b085716d6e51b65cc91ca41a7ccb"},
+    {file = "nidmm-1.4.7.tar.gz", hash = "sha256:9b688403d3b74304d666ba5123a9bd0cd76bf18e9b5eae210baec2b91d8fcaa7"},
+]
+
+[package.dependencies]
+hightime = ">=0.2.0"
+
+[package.extras]
+grpc = ["grpcio (>=1.49.1,<2.0)", "protobuf (>=4.21,<5.0)"]
+
+[[package]]
+name = "nimodinst"
+version = "1.4.7"
+description = "NI-ModInst Python API"
+optional = false
+python-versions = "*"
+files = [
+    {file = "nimodinst-1.4.7-py3-none-any.whl", hash = "sha256:9d950277e0227c1983bd850771cdc006af1a07760ee0556d84a1de0636bf92f8"},
+    {file = "nimodinst-1.4.7.tar.gz", hash = "sha256:bd8277b69e488d357bb7dec0bb78633f3ed0633e0310993aa351a63015fc7a3b"},
+]
+
+[package.dependencies]
+hightime = ">=0.2.0"
+
+[[package]]
 name = "numpy"
 version = "1.26.4"
 description = "Fundamental package for array computing in Python"
@@ -5127,4 +5158,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.11"
-content-hash = "4be655604b16ac95808ea8c0bdd2e5354ee04a4fcd34d69d46a46aeeeee3fd46"
+content-hash = "456ff6d4724d8c0f8f680f52195b83f82ca91b81b7723a8585698211632bf530"
