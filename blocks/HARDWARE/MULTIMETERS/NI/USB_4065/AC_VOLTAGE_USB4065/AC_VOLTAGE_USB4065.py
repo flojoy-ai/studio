@@ -1,39 +1,42 @@
-from flojoy import flojoy, DataContainer, Scalar
-from flojoy.connection_manager import DeviceConnectionManager
+from flojoy import flojoy, DataContainer, Scalar, NIConnection
 from typing import Optional, Literal
 import nidmm
 
 
-@flojoy(deps={"nidmm": "1.4.6"})
+@flojoy(inject_connection=True)
 def AC_VOLTAGE_USB4065(
-    NI_address: str = "Dev1",
+    connection: NIConnection,
     digits: Literal["4.5", "5.5", "6.5"] = "5.5",
     voltage_limit: Literal["0.2", "2", "20", "300"] = "20",
+    read: bool = False,
     default: Optional[DataContainer] = None,
 ) -> Scalar:
-    """Read the AC voltage from a National Instrument's USB-4065 DAQ board.
+    """Sets the measurement mode to AC voltage for a NI USB-4065 DMM.
 
-    The USB-4065 is a NI (National Instruments) multimeter. It is possible that
-    the node will work with other NI DMMs (digital multimeters) such as the
-    4070 and 4080 series.
+    Also optionally reads the selected unit. You can also use the READ_USB4065
+    block to read the selected unit in a separate block.
+
+    Requires a CONNECTION_USB4065 block to connect Flojoy to the instrument.
+
+    The USB-4065 is a NI (National Instruments) multimeter. It is possible
+    that the block will work with other NI DMMs (digital multimeters) such
+    as the 4070 and 4080 series.
 
     This instrument will likely only be compatible with Windows systems due to
     NI driver availablity. To use the instrument you must install the runtime:
 
     https://www.ni.com/en/support/downloads/drivers/download.ni-dmm.html
 
-    You must also find the address/resource name for the instrument. You can
-    find this using the NI MAX programming which can be downloaded when
-    installing the drivers.
-
     Parameters
     ----------
-    NI_address: str
-        The NI instrument address for the instrument (e.g. 'Dev0', 'Dev1').
-    digits: str
-        The accuracy of the reading in digits. Lower values are faster.
-    voltage_limit: str
+    NI_address: NIConnection
+        The NI instrument.
+    digits: select
+        The number of digits for the measurement. Lower values are faster.
+    voltage_limit: select
         The maximum voltage to allow, in Volts.
+    read: bool
+        Read the selected unit, or not.
 
     Returns
     -------
@@ -41,7 +44,6 @@ def AC_VOLTAGE_USB4065(
         Scalar: The AC voltage reading.
     """
 
-    connection = DeviceConnectionManager.get_connection(NI_address)
     session = connection.get_handle()
 
     session.configure_measurement_digits(
@@ -50,6 +52,7 @@ def AC_VOLTAGE_USB4065(
         resolution_digits=float(digits),
     )
 
-    reading = session.read()
+    if read:
+        return Scalar(c=session.read())
 
-    return Scalar(c=reading)
+    return None

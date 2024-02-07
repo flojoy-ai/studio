@@ -17,13 +17,17 @@ export const HardwareInfo = () => {
     (setting) => setting.key === "niDAQmxDeviceDiscovery",
   );
   const discoverNIDAQmxDevices = setting ? setting.value : false;
+  const settingdmm = settings.find(
+    (settingdmm) => settingdmm.key === "nidmmDeviceDiscovery",
+  );
+  const discoverNIDMMDevices = settingdmm ? settingdmm.value : false;
 
   if (!devices) {
     return (
       <>
         <Button
           onClick={() => {
-            refetch(discoverNIDAQmxDevices);
+            refetch(discoverNIDAQmxDevices, discoverNIDMMDevices);
           }}
         >
           Refresh
@@ -70,10 +74,11 @@ export const HardwareInfo = () => {
       : undefined;
 
   // Driver Dependent Devices
+  const niDevices = devices.nidaqmxDevices.concat(devices.nidmmDevices);
 
   const driverDependentDevices: DeviceCardProps[] | undefined =
-    devices.nidaqmxDevices.length > 0
-      ? devices.nidaqmxDevices.reduce((uniqueDevices, d) => {
+    niDevices.length > 0
+      ? niDevices.reduce((uniqueDevices, d) => {
           const existingDevice = uniqueDevices.find(
             (ud) => ud.description === d.description,
           );
@@ -93,7 +98,7 @@ export const HardwareInfo = () => {
       <div className="flex gap-2">
         <Button
           onClick={() => {
-            refetch(discoverNIDAQmxDevices);
+            refetch(discoverNIDAQmxDevices, discoverNIDMMDevices);
           }}
         >
           Refresh
