@@ -1,6 +1,13 @@
 import os
 import logging
-from flojoy import DataContainer, flojoy, get_env_var, node_preflight, DataFrame, Boolean
+from flojoy import (
+    DataContainer,
+    flojoy,
+    get_env_var,
+    node_preflight,
+    DataFrame,
+    Boolean,
+)
 import flojoy_cloud
 import pandas as pd
 
@@ -51,4 +58,6 @@ def FLOJOY_CLOUD_DOWNLOAD(
         case "boolean":
             return Boolean(measurement.data["value"])
         case _:
-            raise NotImplementedError(f"Type {measurement.data['type']} is not implemented")
+            raise NotImplementedError(
+                f"Type {measurement.data['type']} is not implemented"
+            )

@@ -4,14 +4,29 @@
     "short_description": "Upload a DataContainer to Flojoy Cloud (beta).",
     "parameters": [
       {
+        "name": "default",
+        "type": "DataContainer",
+        "description": "The data to be uploaded to Flojoy Cloud. Currently only support DataFrame and Boolean."
+      },
+      {
         "name": "hardware_device_id",
         "type": "str",
         "description": "The measurement id of the data to be uploaded to Flojoy Cloud."
       },
       {
+        "name": "test_id",
+        "type": "str",
+        "description": "The test id of the data to be uploaded to Flojoy Cloud.(In Flojoy Cloud, right click on the desired test to select its \"Copy ID\"!)"
+      },
+      {
         "name": "name",
         "type": "str",
-        "description": "The name of the data to be uploaded to Flojoy Cloud."
+        "description": "A custom name describing the test."
+      },
+      {
+        "name": "pass_fail",
+        "type": "Boolean",
+        "description": "Optional parameter to define if the test passed or failed."
       }
     ],
     "returns": [
