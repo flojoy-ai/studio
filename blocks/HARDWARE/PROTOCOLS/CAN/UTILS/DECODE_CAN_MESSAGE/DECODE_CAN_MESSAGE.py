@@ -35,6 +35,7 @@ def DECODE_CAN_MESSAGE(
     for message in messages:
         try:
             decoded_message = db.decode_message(message.arbitration_id, message.data)
+            decoded_message["timestemp"] = message.timestamp
             decoded_messages.append(decoded_message)
         except Exception as err:
             logging.error(f"Error decoding message: {err}")

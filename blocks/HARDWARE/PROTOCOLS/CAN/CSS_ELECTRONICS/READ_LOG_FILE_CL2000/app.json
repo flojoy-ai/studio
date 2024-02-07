@@ -19,7 +19,7 @@
                             "overload": null,
                             "functionName": "READ_LOG_FILE_CL2000",
                             "param": "file_path",
-                            "value": "/Users/guillaumethibault/Documents/flojoy/repo/blocks/data/clx000-sample-data/sample-data/OBD2/0000003.TXT"
+                            "value": "C:\\Users\\zzzgu\\Documents\\flojoy\\repo\\my-blocks\\data\\clx000-sample-data\\sample-data\\OBD2\\0000003.TXT"
                         }
                     },
                     "initCtrls": {},
@@ -43,13 +43,13 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/CSS_ELECTRONICS/READ_LOG_FILE_CL2000/READ_LOG_FILE_CL2000.py"
                 },
                 "position": {
-                    "x": -11.193432869375513,
-                    "y": -111.13232517162623
+                    "x": -7.310948143306021,
+                    "y": -89.13157839056569
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -11.193432869375513,
-                    "y": -111.13232517162623
+                    "x": -7.310948143306021,
+                    "y": -89.13157839056569
                 },
                 "dragging": true
             },
@@ -102,13 +102,13 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_WRITE/MF4_WRITE.py"
                 },
                 "position": {
-                    "x": 304.2755813631567,
-                    "y": -305.0317303479152
+                    "x": 299.0989350617307,
+                    "y": -281.7368219914982
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 304.2755813631567,
-                    "y": -305.0317303479152
+                    "x": 299.0989350617307,
+                    "y": -281.7368219914982
                 },
                 "dragging": true
             },
@@ -130,7 +130,7 @@
                             "overload": null,
                             "functionName": "MF4_CREATE_WRITER",
                             "param": "dir",
-                            "value": "/Users/guillaumethibault/Documents/flojoy/repo/blocks/data/clx000-sample-data/sample-data/OBD2"
+                            "value": "C:\\Users\\zzzgu\\Documents\\flojoy\\repo\\my-blocks\\data\\"
                         },
                         "filename": {
                             "type": "str",
@@ -184,16 +184,376 @@
                             "v": "7.4.1"
                         }
                     ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_CREATE_WRITER/MF4_CREATE_WRITER.py"
+                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_CREATE_WRITER/MF4_CREATE_WRITER.py",
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ]
                 },
                 "position": {
-                    "x": -29.047181639896777,
-                    "y": -336.0214933145361
+                    "x": -16.10556588633176,
+                    "y": -319.19739283490156
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -29.047181639896777,
-                    "y": -336.0214933145361
+                    "x": -16.10556588633176,
+                    "y": -319.19739283490156
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "DECODE_CAN_MESSAGE-3e06a4de-81f0-44b9-b12f-9cef85ccd469",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "DECODE_CAN_MESSAGE-3e06a4de-81f0-44b9-b12f-9cef85ccd469",
+                    "label": "DECODE CAN MESSAGE",
+                    "func": "DECODE_CAN_MESSAGE",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "ignore_undefined_id_error": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "If True, ignore undefined id error. Default is False.",
+                            "overload": null,
+                            "functionName": "DECODE_CAN_MESSAGE",
+                            "param": "ignore_undefined_id_error",
+                            "value": true
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "dbc",
+                            "id": "dbc",
+                            "type": "Stateful",
+                            "multiple": false,
+                            "desc": "The database to use for decoding the message."
+                        },
+                        {
+                            "name": "messages",
+                            "id": "messages",
+                            "type": "Stateful",
+                            "multiple": false,
+                            "desc": "The message to DECODE_CAN. Must be a can.Message object."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame",
+                            "desc": "Return dataframe containing the DECODE_CANd message."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.3.1"
+                        },
+                        {
+                            "name": "cantools",
+                            "v": "39.4.2"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/DECODE_CAN_MESSAGE/DECODE_CAN_MESSAGE.py"
+                },
+                "position": {
+                    "x": 1101.0180494338101,
+                    "y": -278.66461076733424
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1101.0180494338101,
+                    "y": -278.66461076733424
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "LOAD_DBC-3b10c926-ed3c-43b8-8e09-274d473ba9ca",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "LOAD_DBC-3b10c926-ed3c-43b8-8e09-274d473ba9ca",
+                    "label": "LOAD DBC",
+                    "func": "LOAD_DBC",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "file_path": {
+                            "type": "File",
+                            "default": null,
+                            "desc": "The path to the DBC file.",
+                            "overload": null,
+                            "functionName": "LOAD_DBC",
+                            "param": "file_path",
+                            "value": "C:\\Users\\zzzgu\\Documents\\flojoy\\repo\\my-blocks\\data\\OBD2.dbc"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Stateful",
+                            "desc": "Return a cantools database object."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.3.1"
+                        },
+                        {
+                            "name": "cantools",
+                            "v": "39.4.2"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/LOAD_DBC/LOAD_DBC.py"
+                },
+                "position": {
+                    "x": 798.0179264324436,
+                    "y": -306.28766826207675
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 798.0179264324436,
+                    "y": -306.28766826207675
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 180,
+                "id": "PRINT_DATACONTAINER-3505b03f-d79e-4fc9-afca-96ea630c9a23",
+                "type": "DEBUGGING",
+                "data": {
+                    "id": "PRINT_DATACONTAINER-3505b03f-d79e-4fc9-afca-96ea630c9a23",
+                    "label": "PRINT DATACONTAINER",
+                    "func": "PRINT_DATACONTAINER",
+                    "type": "DEBUGGING",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": "The input DataContainer to print."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Input datacontainer information"
+                        }
+                    ],
+                    "path": "DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py"
+                },
+                "position": {
+                    "x": 1128.7367737080822,
+                    "y": -61.70317256774592
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1128.7367737080822,
+                    "y": -61.70317256774592
+                },
+                "dragging": true
+            },
+            {
+                "width": 1412,
+                "height": 708,
+                "id": "TEXT_VIEW-6eb802a6-6193-4e55-ad21-64c6507670d1",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TEXT_VIEW-6eb802a6-6193-4e55-ad21-64c6507670d1",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String|Boolean",
+                            "multiple": false,
+                            "desc": "The DataContainer to be visualized in text format"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
+                },
+                "position": {
+                    "x": -47.49268435631279,
+                    "y": 131.25921023588444
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -47.49268435631279,
+                    "y": 131.25921023588444
+                },
+                "dragging": true,
+                "style": {
+                    "width": 1412,
+                    "height": 708
+                },
+                "resizing": false
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "MF4_CLOSE_WRITER-f955b1ef-90a8-44e5-8726-1df66acbcc6c",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "MF4_CLOSE_WRITER-f955b1ef-90a8-44e5-8726-1df66acbcc6c",
+                    "label": "MF4 CLOSE WRITER",
+                    "func": "MF4_CLOSE_WRITER",
+                    "type": "HARDWARE",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "MF4_writer",
+                            "id": "MF4_writer",
+                            "type": "Stateful",
+                            "multiple": false,
+                            "desc": "A mf4 writer object from a MF4_CREATE_WRITER block."
+                        },
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Stateful",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "None"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.3.1"
+                        },
+                        {
+                            "name": "asammdf",
+                            "v": "7.4.1"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_CLOSE_WRITER/MF4_CLOSE_WRITER.py"
+                },
+                "position": {
+                    "x": 580.0599418891392,
+                    "y": -80.55776443123881
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 580.0599418891392,
+                    "y": -80.55776443123881
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "MF4_CREATE_READER-3b020401-11cb-4d25-9a9d-0b645a38995f",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "MF4_CREATE_READER-3b020401-11cb-4d25-9a9d-0b645a38995f",
+                    "label": "MF4 CREATE READER",
+                    "func": "MF4_CREATE_READER",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "file": {
+                            "type": "File",
+                            "default": null,
+                            "desc": "The file to write from.",
+                            "overload": null,
+                            "functionName": "MF4_CREATE_READER",
+                            "param": "file",
+                            "value": "C:\\Users\\zzzgu\\Documents\\flojoy\\repo\\my-blocks\\data\\can_exported.mf4"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Stateful",
+                            "desc": "A stateful object that contains can a list of message."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "python-can",
+                            "v": "4.3.1"
+                        },
+                        {
+                            "name": "asammdf",
+                            "v": "7.4.1"
+                        }
+                    ],
+                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_CREATE_READER/MF4_CREATE_READER.py"
+                },
+                "position": {
+                    "x": 832.9027910089521,
+                    "y": -77.06410251858324
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 832.9027910089521,
+                    "y": -77.06410251858324
                 },
                 "dragging": true
             }
@@ -212,6 +572,55 @@
                 "target": "MF4_WRITE-5c9cd677-3a08-43e1-8c1e-55336803d69b",
                 "targetHandle": "messages",
                 "id": "reactflow__edge-READ_LOG_FILE_CL2000-130c92a8-e3af-4b82-942c-d9eb60063591default-MF4_WRITE-5c9cd677-3a08-43e1-8c1e-55336803d69bmessages"
+            },
+            {
+                "source": "MF4_CREATE_READER-3b020401-11cb-4d25-9a9d-0b645a38995f",
+                "sourceHandle": "default",
+                "target": "DECODE_CAN_MESSAGE-3e06a4de-81f0-44b9-b12f-9cef85ccd469",
+                "targetHandle": "messages",
+                "id": "reactflow__edge-MF4_CREATE_READER-3b020401-11cb-4d25-9a9d-0b645a38995fdefault-DECODE_CAN_MESSAGE-3e06a4de-81f0-44b9-b12f-9cef85ccd469messages"
+            },
+            {
+                "source": "LOAD_DBC-3b10c926-ed3c-43b8-8e09-274d473ba9ca",
+                "sourceHandle": "default",
+                "target": "DECODE_CAN_MESSAGE-3e06a4de-81f0-44b9-b12f-9cef85ccd469",
+                "targetHandle": "dbc",
+                "id": "reactflow__edge-LOAD_DBC-3b10c926-ed3c-43b8-8e09-274d473ba9cadefault-DECODE_CAN_MESSAGE-3e06a4de-81f0-44b9-b12f-9cef85ccd469dbc"
+            },
+            {
+                "source": "DECODE_CAN_MESSAGE-3e06a4de-81f0-44b9-b12f-9cef85ccd469",
+                "sourceHandle": "default",
+                "target": "PRINT_DATACONTAINER-3505b03f-d79e-4fc9-afca-96ea630c9a23",
+                "targetHandle": "default",
+                "id": "reactflow__edge-DECODE_CAN_MESSAGE-3e06a4de-81f0-44b9-b12f-9cef85ccd469default-PRINT_DATACONTAINER-3505b03f-d79e-4fc9-afca-96ea630c9a23default"
+            },
+            {
+                "source": "PRINT_DATACONTAINER-3505b03f-d79e-4fc9-afca-96ea630c9a23",
+                "sourceHandle": "default",
+                "target": "TEXT_VIEW-6eb802a6-6193-4e55-ad21-64c6507670d1",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PRINT_DATACONTAINER-3505b03f-d79e-4fc9-afca-96ea630c9a23default-TEXT_VIEW-6eb802a6-6193-4e55-ad21-64c6507670d1default"
+            },
+            {
+                "source": "MF4_WRITE-5c9cd677-3a08-43e1-8c1e-55336803d69b",
+                "sourceHandle": "default",
+                "target": "MF4_CLOSE_WRITER-f955b1ef-90a8-44e5-8726-1df66acbcc6c",
+                "targetHandle": "default",
+                "id": "reactflow__edge-MF4_WRITE-5c9cd677-3a08-43e1-8c1e-55336803d69bdefault-MF4_CLOSE_WRITER-f955b1ef-90a8-44e5-8726-1df66acbcc6cdefault"
+            },
+            {
+                "source": "MF4_CREATE_WRITER-f926d662-e852-411d-a933-5985a1bc3513",
+                "sourceHandle": "default",
+                "target": "MF4_CLOSE_WRITER-f955b1ef-90a8-44e5-8726-1df66acbcc6c",
+                "targetHandle": "MF4_writer",
+                "id": "reactflow__edge-MF4_CREATE_WRITER-f926d662-e852-411d-a933-5985a1bc3513default-MF4_CLOSE_WRITER-f955b1ef-90a8-44e5-8726-1df66acbcc6cMF4_writer"
+            },
+            {
+                "source": "MF4_CLOSE_WRITER-f955b1ef-90a8-44e5-8726-1df66acbcc6c",
+                "sourceHandle": "default",
+                "target": "MF4_CREATE_READER-3b020401-11cb-4d25-9a9d-0b645a38995f",
+                "targetHandle": "default",
+                "id": "reactflow__edge-MF4_CLOSE_WRITER-f955b1ef-90a8-44e5-8726-1df66acbcc6cdefault-MF4_CREATE_READER-3b020401-11cb-4d25-9a9d-0b645a38995fdefault"
             }
         ],
         "viewport": {
@@ -224,8 +633,8 @@
         {
             "id": "TextNode-0e56c435-4f8d-42ec-896e-73568f2d6059",
             "position": {
-                "x": 306.84615318575544,
-                "y": -50.801316920783904
+                "x": 278.3745985279124,
+                "y": -57.27212479756639
             },
             "type": "TextNode",
             "data": {
@@ -236,9 +645,28 @@
             "selected": false,
             "dragging": false,
             "positionAbsolute": {
-                "x": 306.84615318575544,
-                "y": -50.801316920783904
+                "x": 278.3745985279124,
+                "y": -57.27212479756639
             }
+        },
+        {
+            "id": "TextNode-ccf99451-f6a3-49c6-a88a-cadb82c86234",
+            "position": {
+                "x": 572.0401243026548,
+                "y": -249.77121490635878
+            },
+            "type": "TextNode",
+            "data": {
+                "text": "Read the MF4 file and decode it"
+            },
+            "width": 200,
+            "height": 150,
+            "selected": false,
+            "positionAbsolute": {
+                "x": 572.0401243026548,
+                "y": -249.77121490635878
+            },
+            "dragging": false
         }
     ]
 }
