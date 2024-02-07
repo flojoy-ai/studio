@@ -1,6 +1,6 @@
 {
   "docstring": {
-    "long_description": "Send a message to a CAN device periodically. This block should be compatible with all devices that support the CAN interface.",
+    "long_description": "Send a message to a CAN device periodically. This block should be compatible with all devices that support the CAN interface.\nA connection to the device is required. Use a CAN_CONNECT block to connect to a CAN device.",
     "short_description": "Send a periodic message to a CAN bus.",
     "parameters": [
       {
@@ -16,12 +16,12 @@
       {
         "name": "period",
         "type": "float",
-        "description": "The period in seconds between messages"
+        "description": "The period in seconds between messages."
       },
       {
         "name": "duration",
         "type": "Optional float",
-        "description": "Approximate duration in seconds to continue sending messages. If no duration is provided, the task will continue indefinitely"
+        "description": "Approximate duration in seconds to continue sending messages. If no duration is provided, the task will continue indefinitely."
       }
     ],
     "returns": [

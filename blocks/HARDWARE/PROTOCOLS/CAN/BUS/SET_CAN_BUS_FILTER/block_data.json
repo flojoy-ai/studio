@@ -1,6 +1,6 @@
 {
   "docstring": {
-    "long_description": "Setup a message filtering can be set up for each bus.\nWhere the interface supports it, this is carried out in the hardware or kernel layer - not in Python.\nAll messages that match at least one filter are returned.",
+    "long_description": "Setup a message filtering can be set up for each bus.\nWhere the interface supports it, this is carried out in the hardware or kernel layer - not in Python.\nAll messages that match at least one filter are returned.\nA connection to the device is required. Use a CAN_CONNECT block to connect to a CAN device.",
     "short_description": "Attach a message filter to a CAN bus connection.",
     "parameters": [
       {
