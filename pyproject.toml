@@ -34,6 +34,7 @@ httpx = "^0.26.0"
 nidaqmx = "^0.9.0"
 nidmm = "^1.4.7"
 nimodinst = "^1.4.7"
+flojoy-cloud = "^0.1.1"
 
 [tool.poetry.group.blocks.dependencies]
 scikit-image = "^0.22.0"
