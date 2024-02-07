@@ -1,0 +1,81 @@
+---
+title: Connecting to Picomotorcontroller 8742 by Newport in Python
+description: The model 8742 is a 4-axis open-loop intelligent motion controller/driver that provides a compact and low cost solution for driving New Focus open-loop Picomotors products. It is a single-box solution that can be computer controlled via USB and Ethernet communication interfaces using Newport Motion Control Language (NMCL) command set. Both interfaces are well supported via Windows DLL, sample LabVIEW™VIs, and intuitive graphical user interface (GUI) Windows application with device auto-discovery feature. Each model 8742 controller/driver can control one of four 4-pin RJ-22 single output ports for use with any single-channel Picomotor actuator at any given time. The model 8725 multi-axis adapter can be used to connect the 4-pin RJ-22 output ports on the drivers to New Focus™ Picomotor products with 6-pin RJ-11 connectors. Note, Power Supply not included
+keywords: [Motor Controllers, Newport, InstrumentKit] 
+slug: instruments-database/motor-controllers/newport/picomotorcontroller-8742 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782424/Instruments/Positional%20Controller/Picomotorcontroller-8742/Picomotorcontroller-8742.jpg
+sidebar:
+    label: Picomotorcontroller 8742 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The model 8742 is a 4-axis open-loop intelligent motion controller/driver that provides a compact and low cost solution for driving New Focus open-loop Picomotors products. It is a single-box solution that can be computer controlled via USB and Ethernet communication interfaces using Newport Motion Control Language (NMCL) command set. Both interfaces are well supported via Windows DLL, sample LabVIEW™VIs, and intuitive graphical user interface (GUI) Windows application with device auto-discovery feature. Each model 8742 controller/driver can control one of four 4-pin RJ-22 single output ports for use with any single-channel Picomotor actuator at any given time. The model 8725 multi-axis adapter can be used to connect the 4-pin RJ-22 output ports on the drivers to New Focus™ Picomotor products with 6-pin RJ-11 connectors. Note: Power Supply not included
+
+![Picomotorcontroller 8742](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782424/Instruments/Positional%20Controller/Picomotorcontroller-8742/Picomotorcontroller-8742.jpg)
+
+Device Specification: [here](https://www.newport.com/medias/sys_master/images/images/h8e/hfa/8797030088734/8742-Datasheet.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: NEWPORT</h2></summary>
+
+![NEWPORT](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806178/Instruments/Vendor%20Logos/Newport.png)
+
+Newport provides a wide range of photonics technology and products designed to enhance the capabilities and productivity of our customers' applications.
+
+- Headquarters: Irvine, California, United States
+- Yearly Revenue (millions, USD): 3500
+- Vendor Website: [here](https://www.newport.com/)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="MOTOR_CONTROLLERS" />
+
+## Connect to the Picomotorcontroller 8742 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="MOTOR_CONTROLLERS" manufacturer="Newport"></SectionsCard>
+
+</TabItem>
+<TabItem value="InstrumentKit" label="InstrumentKit">
+
+To connect to a Picomotorcontroller 8742 Positional Controller using Instrumentkit, you can use the following code:
+
+```python
+import instrumentkit as ik
+
+# Define the IP address and port of the controller
+ip = "192.168.1.2"
+port = 23
+
+# Open a TCP/IP connection to the controller
+controller = ik.newport.PicoMotorController8742.open_tcpip(ip, port)
+
+# Set the controller address (if using multiple controllers)
+controller.controller_address = 1
+
+# Get the first axis of the controller
+axis = controller.axis[0]
+
+# Move the motor relative to its current position
+axis.move_relative = 100
+
+# Close the connection to the controller
+controller.close()
+```
+
+This code establishes a TCP/IP connection to the Picomotorcontroller 8742 at the specified IP address and port. It then sets the controller address (if using multiple controllers) and gets the first axis of the controller. Finally, it moves the motor relative to its current position by 100 steps and closes the connection to the controller.
+
+</TabItem>
+</Tabs>

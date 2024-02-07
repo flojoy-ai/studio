@@ -1,5 +1,5 @@
-import { Button } from "@src/components/ui/button";
-import { Input } from "@src/components/ui/input";
+import { Button } from "@/renderer/components/ui/button";
+import { Input } from "@/renderer/components/ui/input";
 import { IS_CLOUD_DEMO } from "@src/data/constants";
 import { useContext, useState } from "react";
 import { DataTable } from "./DataTable";

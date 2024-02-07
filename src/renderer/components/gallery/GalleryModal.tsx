@@ -4,9 +4,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@src/components/ui/dialog";
+} from "@/renderer/components/ui/dialog";
 import { LayoutGrid } from "lucide-react";
-import { ScrollArea } from "@src/components/ui/scroll-area";
+import { ScrollArea } from "@/renderer/components/ui/scroll-area";
 import { getGalleryData } from "@src/utils/GalleryLoader";
 import { Separator } from "../ui/separator";
 import { GalleryElement } from "./GalleryElement";

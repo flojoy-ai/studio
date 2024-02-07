@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "Calculated element-wise for a Vector or OrderedPair input.\n\nUse log_base \"input\" to use the bottom input as the base.",
+    "short_description": "Find the logarithm of input a with base b.",
+    "parameters": [
+      {
+        "name": "a",
+        "type": "OrderedPair|Scalar|Vector",
+        "description": "The input a use to compute the log of a."
+      },
+      {
+        "name": "b",
+        "type": "OrderedPair|Scalar|Vector",
+        "description": "The input b use to compute the log with base b."
+      },
+      {
+        "name": "log_base",
+        "type": "\"input\", \"e\", \"10\", \"2\"",
+        "description": "The base to use for the logarithm, by default \"e\"."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "OrderedPair|Scalar|Vector",
+        "description": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the result of the logarithm.\n\nScalar if a is a Scalar.\nc: the result of the logarithm.\n\nVector if a is a Vector.\nv: the result of the logarithm."
+      }
+    ]
+  }
+}

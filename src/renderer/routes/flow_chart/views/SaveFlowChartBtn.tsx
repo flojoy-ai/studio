@@ -1,4 +1,4 @@
-import { MenubarItem } from "@src/components/ui/menubar";
+import { MenubarItem } from "@/renderer/components/ui/menubar";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import saveAs from "file-saver";
 import * as htmlToImage from "html-to-image";

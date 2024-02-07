@@ -4,7 +4,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
   TooltipContent,
-} from "@src/components/ui/tooltip";
+} from "@/renderer/components/ui/tooltip";
 import { IS_CLOUD_DEMO } from "@src/data/constants";
 
 export const DemoWarningTooltip: FC<{

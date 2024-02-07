@@ -6,10 +6,11 @@ import Draggable from "react-draggable";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { ParamList } from "./ParamList";
 import { Check, Info, Pencil, TrashIcon, X } from "lucide-react";
-import { Button } from "@src/components/ui/button";
-import { Input } from "@src/components/ui/input";
+import { Button } from "@/renderer/components/ui/button";
+import { Input } from "@/renderer/components/ui/input";
 import { LAYOUT_TOP_HEIGHT } from "@src/routes/common/Layout";
-import { ScrollArea } from "@src/components/ui/scroll-area";
+import { ScrollArea } from "@/renderer/components/ui/scroll-area";
+import useWithPermission from "@/renderer/hooks/useWithPermission";
 
 type NodeEditModalProps = {
   node: Node<ElementsData>;
@@ -26,6 +27,7 @@ const NodeEditModal = ({
 }: NodeEditModalProps) => {
   const { updateInitCtrlInputDataForNode, updateCtrlInputDataForNode } =
     useFlowChartGraph();
+  const { withPermissionCheck } = useWithPermission();
   const [newTitle, setNewTitle] = useState(node.data.label);
   const [editRenamingTitle, setEditRenamingTitle] = useState(false);
   const { nodeParamChanged, setIsEditMode } = useFlowChartState();
@@ -81,9 +83,9 @@ const NodeEditModal = ({
                   size="icon"
                   variant="ghost"
                   data-testid="block-label-edit"
-                  onClick={() => {
-                    setEditRenamingTitle(true);
-                  }}
+                  onClick={withPermissionCheck(() =>
+                    setEditRenamingTitle(true),
+                  )}
                 >
                   <Pencil size={20} className="stroke-muted-foreground" />
                 </Button>

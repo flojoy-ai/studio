@@ -6,11 +6,11 @@ import { Leaf, RootNode } from "@src/utils/ManifestLoader";
 import SidebarNode from "./SidebarNode";
 import { LAYOUT_TOP_HEIGHT } from "@src/routes/common/Layout";
 import { ArrowDownWideNarrow, ArrowUpWideNarrow, XIcon } from "lucide-react";
-import { Button } from "@src/components/ui/button";
+import { Button } from "@/renderer/components/ui/button";
 import { REQUEST_NODE_URL } from "@src/data/constants";
 import { cn } from "@src/lib/utils";
-import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/renderer/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/renderer/components/ui/tabs";
 export type LeafClickHandler = (elem: Leaf) => void;
 
 type SidebarProps = {

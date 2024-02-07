@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "When a constant is divided into an array or matrix, each element in the array or matrix will be divided by the constant value.",
+    "short_description": "Find the remainder (division) of two numeric arrays, matrices, dataframes, or constants element-wise.",
+    "parameters": [
+      {
+        "name": "a",
+        "type": "OrderedPair|Scalar|Vector",
+        "description": "The input that will be divided by b."
+      },
+      {
+        "name": "b",
+        "type": "OrderedPair|Scalar|Vector",
+        "description": "The input that will divide a."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "OrderedPair|Scalar|Vector",
+        "description": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the remainder of input a by input b.\n\nScalar if a is a Scalar.\nc: the remainder of input a by input b.\n\nVector if a is a Vector.\nv: the remainder of input a by input b."
+      }
+    ]
+  }
+}

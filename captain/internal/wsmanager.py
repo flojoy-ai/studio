@@ -1,7 +1,7 @@
 from captain.types.test_sequence import TestSequenceMessage
 from fastapi import WebSocket
 from fastapi.websockets import WebSocketState
-from flojoy import PlotlyJSONEncoder
+from flojoy.utils import PlotlyJSONEncoder
 from queue import Queue
 from typing import Any, Union
 import json

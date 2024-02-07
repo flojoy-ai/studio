@@ -9,7 +9,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@src/components/ui/table";
+} from "@/renderer/components/ui/table";
 
 const PythonPackageList = () => {
   const { currentPythonEnv } = useFlowChartState();

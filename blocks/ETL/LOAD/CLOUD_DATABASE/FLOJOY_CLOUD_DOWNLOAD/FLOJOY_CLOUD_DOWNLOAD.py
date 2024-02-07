@@ -1,6 +1,15 @@
 import os
-
-from flojoy import DataContainer, FlojoyCloud, flojoy, get_env_var, node_preflight
+import logging
+from flojoy import (
+    DataContainer,
+    flojoy,
+    get_env_var,
+    node_preflight,
+    DataFrame,
+    Boolean,
+)
+import flojoy_cloud
+import pandas as pd
 
 FLOJOY_CLOUD_URI: str = os.environ.get("FLOJOY_CLOUD_URI") or "https://cloud.flojoy.ai"
 
@@ -19,12 +28,12 @@ def preflight():
 def FLOJOY_CLOUD_DOWNLOAD(
     measurement_id: str,
 ) -> DataContainer:
-    """Download a DataContainer from Flojoy Cloud (beta).
+    """Download a measurement from Flojoy Cloud (beta).
 
     Parameters
     ----------
     measurement_id : str
-        The data container id of the data to be downloaded from Flojoy Cloud.
+        The data measurement id of the data to be downloaded from Flojoy Cloud.
 
     Returns
     -------
@@ -39,11 +48,16 @@ def FLOJOY_CLOUD_DOWNLOAD(
             "Flojoy Cloud key is not found! You can set it under Settings -> Environment Variables."
         )
 
-    if measurement_id is None or not measurement_id.startswith("dc_"):
-        raise KeyError(
-            "You must provide a valid data container id in order to download from Flojoy Cloud!"
-        )
+    cloud = flojoy_cloud.FlojoyCloud(workspace_secret=api_key)
 
-    cloud = FlojoyCloud(api_key=api_key)
-
-    return cloud.to_dc(cloud.fetch_dc(measurement_id))
+    measurement = cloud.get_measurement(measurement_id)
+    logging.info(measurement)
+    match measurement.data["type"]:
+        case "dataframe":
+            return DataFrame(pd.DataFrame(measurement.data["value"]))
+        case "boolean":
+            return Boolean(measurement.data["value"])
+        case _:
+            raise NotImplementedError(
+                f"Type {measurement.data['type']} is not implemented"
+            )

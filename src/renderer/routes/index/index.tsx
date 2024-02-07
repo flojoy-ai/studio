@@ -1,6 +1,6 @@
 import { Fragment, useCallback, useEffect, useState } from "react";
 import { SetupStatus } from "@src/types/status";
-import SetupStep from "@src/components/index/SetupStep";
+import SetupStep from "@/renderer/components/index/SetupStep";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,8 +10,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@src/components/ui/alert-dialog";
-import { Button } from "@src/components/ui/button";
+} from "@/renderer/components/ui/alert-dialog";
+import { Button } from "@/renderer/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { IServerStatus } from "@src/context/socket.context";
 import { useSocket } from "@src/hooks/useSocket";
@@ -56,12 +56,14 @@ export const Index = (): JSX.Element => {
       try {
         const interpreters = await window.api.checkPythonInstallation(force);
         if (interpreters.length > 0) {
-          setSelectedInterpreter(interpreters[0].path);
-          await window.api.setPythonInterpreter(interpreters[0].path);
+          const interpreter =
+            interpreters.find((i) => i.default) ?? interpreters[0];
+          setSelectedInterpreter(interpreter.path);
+          await window.api.setPythonInterpreter(interpreter.path);
           updateSetupStatus({
             stage: "check-python-installation",
             status: "completed",
-            message: `Python v${interpreters[0].version.major}.${interpreters[0].version.minor} found!`,
+            message: `Python v${interpreter.version.major}.${interpreter.version.minor} found!`,
           });
           return;
         }
@@ -275,7 +277,7 @@ export const Index = (): JSX.Element => {
     if (
       ![IServerStatus.OFFLINE, IServerStatus.CONNECTING].includes(serverStatus)
     ) {
-      navigate("/flowchart");
+      navigate("/auth");
     }
   }, [navigate, serverStatus]);
 

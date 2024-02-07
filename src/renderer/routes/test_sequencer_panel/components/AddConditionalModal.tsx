@@ -1,6 +1,6 @@
-import { Dialog, DialogContent } from "@src/components/ui/dialog";
+import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { CONDITIONALS, CONDITIONAL_TYPES } from "@src/types/testSequencer";
-import { Button } from "@src/components/ui/button";
+import { Button } from "@/renderer/components/ui/button";
 import { Dispatch, SetStateAction } from "react";
 
 export const AddConditionalModal = ({

@@ -1,6 +1,6 @@
-import { Button } from "@src/components/ui/button";
-import { Checkbox } from "@src/components/ui/checkbox";
-import { Dialog, DialogContent } from "@src/components/ui/dialog";
+import { Button } from "@/renderer/components/ui/button";
+import { Checkbox } from "@/renderer/components/ui/checkbox";
+import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { useTestImport } from "@src/hooks/useTestImport";
 import { Dispatch, SetStateAction, useState } from "react";
 

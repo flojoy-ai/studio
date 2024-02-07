@@ -5,20 +5,21 @@ import { JSONTree } from "react-json-tree";
 import { Node } from "reactflow";
 import { flojoySyntaxTheme } from "@src/assets/FlojoyTheme";
 import { BLOCKS_REPO, DOCS_LINK } from "@src/data/constants";
-import PlotlyComponent from "@src/components/plotly/PlotlyComponent";
-import { makePlotlyData } from "@src/components/plotly/formatPlotlyData";
-import MarkDownText from "@src/components/common/MarkDownText";
+import PlotlyComponent from "@/renderer/components/plotly/PlotlyComponent";
+import { makePlotlyData } from "@/renderer/components/plotly/formatPlotlyData";
+import MarkDownText from "@/renderer/components/common/MarkDownText";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "@src/components/ui/dialog";
+} from "@/renderer/components/ui/dialog";
 import { NodeResult } from "@src/routes/common/types/ResultsType";
 import { ElementsData } from "@src/types/node";
-import { ScrollArea, ScrollBar } from "@src/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/renderer/components/ui/scroll-area";
 import { useTheme } from "@src/providers/themeProvider";
-import { Button } from "@src/components/ui/button";
+import { Button } from "@/renderer/components/ui/button";
+import useWithPermission from "@/renderer/hooks/useWithPermission";
 
 const jsonTheme = {
   scheme: "flojoy",
@@ -65,6 +66,7 @@ const BlockModal = ({
   selectedNode,
 }: BlockModalProps) => {
   const { resolvedTheme } = useTheme();
+  const { withPermissionCheck } = useWithPermission();
 
   const path = blockFilePath.replace(/"\\"/g, "/");
 
@@ -123,18 +125,19 @@ const BlockModal = ({
 
         <div className="flex gap-2">
           <Button
-            onClick={async () => {
-              await window.api.openEditorWindow(blockFullPath);
-            }}
+            onClick={withPermissionCheck(
+              async () => await window.api.openEditorWindow(blockFullPath),
+            )}
             data-testid="btn-edit-python"
             variant="secondary"
           >
             Edit Python Code
           </Button>
           <Button
-            onClick={async () => {
-              await window.api.openLink(`vscode://file/${blockFullPath}`);
-            }}
+            onClick={withPermissionCheck(
+              async () =>
+                await window.api.openLink(`vscode://file/${blockFullPath}`),
+            )}
             data-testid="btn-open-vscode"
             variant="secondary"
           >

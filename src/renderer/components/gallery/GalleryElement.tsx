@@ -2,8 +2,8 @@ import { useControlsState } from "@src/hooks/useControlsState";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useNodesInitialized, useReactFlow } from "reactflow";
 import { YoutubeIcon } from "lucide-react";
-import { Button } from "@src/components/ui/button";
-import { Avatar, AvatarImage } from "@src/components/ui/avatar";
+import { Button } from "@/renderer/components/ui/button";
+import { Avatar, AvatarImage } from "@/renderer/components/ui/avatar";
 import { GalleryApp } from "@src/types/gallery";
 import { useEffect } from "react";
 import { useSetAtom } from "jotai";
@@ -66,7 +66,7 @@ export const GalleryElement = ({
   }, [nodesInitialized]);
 
   return (
-    <div className="min-h-40 m-1">
+    <div className="m-1 min-h-40">
       <div className="flex w-full">
         <Avatar className="m-1 h-36 w-36">
           <AvatarImage className="object-contain" src={galleryApp.imagePath} />

@@ -1,4 +1,4 @@
-import { Button } from "@src/components/ui/button";
+import { Button } from "@/renderer/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -6,9 +6,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@src/components/ui/dialog";
-import { Input } from "@src/components/ui/input";
-import { Label } from "@src/components/ui/label";
+} from "@/renderer/components/ui/dialog";
+import { Input } from "@/renderer/components/ui/input";
+import { Label } from "@/renderer/components/ui/label";
 import { postEnvironmentVariable } from "@src/services/FlowChartServices";
 import { ChangeEvent, useState } from "react";
 import { toast } from "sonner";

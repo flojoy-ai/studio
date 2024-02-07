@@ -4,8 +4,8 @@ import {
   SelectValue,
   SelectContent,
   SelectItem,
-} from "@src/components/ui/select";
-import { Button } from "@src/components/ui/button";
+} from "@/renderer/components/ui/select";
+import { Button } from "@/renderer/components/ui/button";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { EnvironmentList } from "../types/environment";

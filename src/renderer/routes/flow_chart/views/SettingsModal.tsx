@@ -4,11 +4,11 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@src/components/ui/dialog";
-import { Input } from "@src/components/ui/input";
-import { Label } from "@src/components/ui/label";
-import { Separator } from "@src/components/ui/separator";
-import { Switch } from "@src/components/ui/switch";
+} from "@/renderer/components/ui/dialog";
+import { Input } from "@/renderer/components/ui/input";
+import { Label } from "@/renderer/components/ui/label";
+import { Separator } from "@/renderer/components/ui/separator";
+import { Switch } from "@/renderer/components/ui/switch";
 import { useSettings } from "@src/hooks/useSettings";
 
 export type SettingsModalProps = {

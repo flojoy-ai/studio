@@ -1,0 +1,77 @@
+---
+title: Connecting to Lakeshore 425 by Lakeshore in Python
+description: Class Connecting To The Lakeshore 425 Gaussmeter
+keywords: [Multimeters, Lakeshore, PyTango] 
+slug: instruments-database/multimeters/lakeshore/lakeshore-425 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782518/Instruments/Multimeters/Lakeshore-425/Lakeshore-425.png
+sidebar:
+    label: Lakeshore 425 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+Class Connecting To The Lakeshore 425 Gaussmeter
+
+![Lakeshore 425](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782518/Instruments/Multimeters/Lakeshore-425/Lakeshore-425.png)
+
+Device Specification: [here](/instruments-database/all-instruments)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: LAKESHORE</h2></summary>
+
+![LAKESHORE](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692813206/Instruments/Vendor%20Logos/Lakeshore_Cryotronics.png)
+
+Supporting advanced scientific research, Lake Shore is a leading global innovator in measurement and control solutions.
+
+- Headquarters: Westerville, Ohio, USA
+- Yearly Revenue (millions, USD): 21.4
+- Vendor Website: [here](https://www.lakeshore.com/home)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="MULTIMETERS" />
+
+## Connect to the Lakeshore 425 in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="MULTIMETERS" manufacturer="Lakeshore"></SectionsCard>
+
+</TabItem>
+<TabItem value="PyTango" label="PyTango">
+
+To connect to a Lake Shore Model 425 Gaussmeter using Pytango, you can use the following code:
+
+```python
+import PyTango
+
+# Create a DeviceProxy for the Lake Shore Model 425 Gaussmeter
+device_proxy = PyTango.DeviceProxy("device_name")
+
+# Connect to the device
+device_proxy.Connect()
+
+# Check if the device is connected
+if device_proxy.State() == PyTango.DevState.ON:
+    print("Device is connected.")
+else:
+    print("Device is not connected.")
+
+# Disconnect from the device
+device_proxy.Disconnect()
+```
+
+Replace `"device_name"` with the actual name of the device in your Tango database.
+
+</TabItem>
+</Tabs>

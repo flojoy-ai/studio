@@ -1,7 +1,7 @@
-import { Dialog, DialogContent } from "@src/components/ui/dialog";
-import { Button } from "@src/components/ui/button";
+import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
+import { Button } from "@/renderer/components/ui/button";
 import { Dispatch, SetStateAction, useState } from "react";
-import { Input } from "@src/components/ui/input";
+import { Input } from "@/renderer/components/ui/input";
 
 export const WriteConditionalModal = ({
   isConditionalModalOpen,

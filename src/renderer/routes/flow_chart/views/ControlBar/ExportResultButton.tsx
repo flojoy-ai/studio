@@ -1,4 +1,4 @@
-import { MenubarItem } from "@src/components/ui/menubar";
+import { MenubarItem } from "@/renderer/components/ui/menubar";
 import { useSocket } from "@src/hooks/useSocket";
 import saveAs from "file-saver";
 

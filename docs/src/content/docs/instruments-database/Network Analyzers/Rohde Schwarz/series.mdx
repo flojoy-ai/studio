@@ -1,0 +1,89 @@
+---
+title: Connecting to Series by Rohdes&Schwarz in Python
+
+keywords: [Network Analyzers, Rohdes&Schwarz, QCodes] 
+slug: instruments-database/network-analyzers/rohde-schwarz/series 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1692395638/Instruments/Network%20Analyzers/RS-ZNB8/file.png
+sidebar:
+    label: Series 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+
+
+![Series](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692395638/Instruments/Network%20Analyzers/RS-ZNB8/file.png)
+
+Device Specification: [here](https://scdn.rohde-schwarz.com/ur/pws/dl_downloads/dl_common_library/dl_brochures_and_datasheets/pdf_1/ZNB_bro_en_3608-3278-12_v0301.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: ROHDES&SCHWARZ</h2></summary>
+
+![ROHDES&SCHWARZ](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806194/Instruments/Vendor%20Logos/RohdeSchwarz.png)
+
+Rohde & Schwarz GmbH & Co KG is an international electronics group specializing in the fields of electronic test equipment, broadcast & media, cybersecurity, radiomonitoring and radiolocation, and radiocommunication.
+
+- Headquarters: Munich, Germany
+- Yearly Revenue (millions, USD): 2500
+- Vendor Website: [here](https://www.rohde-schwarz.com/ca/home_48230.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="NETWORK_ANALYZERS" />
+
+## Connect to the Series in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="NETWORK_ANALYZERS" manufacturer="Rohdes&Schwarz"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+```python
+import qcodes as qc
+from qcodes.instrument_drivers.rohde_schwarz.ZNB import ZNB
+
+# Connect to the Series Network Analyzer
+znb = ZNB("znb", "TCPIP0::192.168.15.100::inst0::INSTR")
+
+# Print the instrument ID
+print(znb.get_idn())
+
+# Turn on the RF output
+znb.rf_power(True)
+
+# Set the start and stop frequencies
+znb.channels.ch1.start(1e9)
+znb.channels.ch1.stop(10e9)
+
+# Set the number of points in the frequency sweep
+znb.channels.ch1.npts(1001)
+
+# Perform a frequency sweep and get the magnitude and phase data
+data = znb.channels.ch1.trace.get()
+
+# Print the magnitude and phase data
+print(data.magnitude)
+print(data.phase)
+
+# Turn off the RF output
+znb.rf_power(False)
+
+# Close the connection to the instrument
+znb.close()
+```
+Note: Replace `"TCPIP0::192.168.15.100::inst0::INSTR"` with the actual address of your Series Network Analyzer.
+
+</TabItem>
+</Tabs>

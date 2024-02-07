@@ -1,0 +1,40 @@
+{
+  "docstring": {
+    "long_description": "Install, starts, and get the measurement of the specified source.\n\nRequires a CONNECT_T3DSO1XXX block at the start of the app to connect with\nthe instrument. The VISA address will then be listed under 'connection'.\nRequires a STATISTIC_TOGGLE_T3DSO block to be enabled to get the statistics.\n\nThis block should work with any Teledyne LeCroy T3DSO1000(A)-2000 series oscilloscope.",
+    "short_description": "Take a measurement from an T3DSO1000(A)-2000 oscilloscope.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "VisaConnection",
+        "description": "The VISA address (requires the CONNECT_T3DSO1XXX block)."
+      },
+      {
+        "name": "trace",
+        "type": "Literal",
+        "description": "The trace to read the waveform from."
+      },
+      {
+        "name": "measurement",
+        "type": "Literal",
+        "description": "The name of the measurement to take."
+      },
+      {
+        "name": "statistic",
+        "type": "Literal",
+        "description": "The statistic to take."
+      },
+      {
+        "name": "default",
+        "type": "DataContainer",
+        "description": "The input data container."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Scalar",
+        "description": "The measured value."
+      }
+    ]
+  }
+}

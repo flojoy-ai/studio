@@ -3,7 +3,7 @@ import {
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuTrigger,
-} from "@/components/ui/context-menu";
+} from "@/renderer/components/ui/context-menu";
 import * as React from "react";
 import {
   ColumnDef,
@@ -19,14 +19,14 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/renderer/components/ui/button";
+import { Checkbox } from "@/renderer/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/renderer/components/ui/dropdown-menu";
 import {
   Table,
   TableBody,
@@ -34,7 +34,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/renderer/components/ui/table";
 import {
   TestSequenceElement,
   CONDITIONAL_TYPES,

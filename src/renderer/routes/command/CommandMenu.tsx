@@ -6,7 +6,7 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@src/components/ui/command";
+} from "@/renderer/components/ui/command";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { TreeNode, isLeaf, isRoot } from "@src/utils/ManifestLoader";
 import React, { Fragment } from "react";

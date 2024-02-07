@@ -1,4 +1,4 @@
-import { Badge } from "@src/components/ui/badge";
+import { Badge } from "@/renderer/components/ui/badge";
 import { useSocket } from "@src/hooks/useSocket";
 import { IServerStatus } from "@src/context/socket.context";
 import { useEffect, useRef, useState } from "react";
@@ -7,7 +7,7 @@ import {
   LAYOUT_TOP_HEIGHT,
 } from "@src/routes/common/Layout";
 import { cn } from "@src/lib/utils";
-import { Button } from "@src/components/ui/button";
+import { Button } from "@/renderer/components/ui/button";
 import { DownloadIcon } from "lucide-react";
 
 const StatusBar = (): JSX.Element => {

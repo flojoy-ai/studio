@@ -1,0 +1,84 @@
+---
+title: Connecting to AWG70002A by Tektronix in Python
+description: The industry-leading AWG70000A Series arbitrary waveform generator (AWG) provides you with unparalleled performance at the cutting edge for sample rate, signal fidelity, and waveform memory. In order to engineer the world's most complex data communications systems, the ability to create ideal, distorted and "real life" signals is essential. The AWG70000A Series of AWGs delivers this, giving you the industry's best signal stimulus solution for ever-increasing measurement challenges. With up to 50 GS/s and 10-bit vertical resolution, it offers easy generation of very complex signals and complete control over signal characteristics.
+keywords: [RF Signal Generators, Tektronix, QCodes] 
+slug: instruments-database/rf-signal-generators/tektronix/awg70002a 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782530/Instruments/RF%20Signal%20Generator/AWG70002A/AWG70002A.webp
+sidebar:
+    label: AWG70002A 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+The industry-leading AWG70000A Series arbitrary waveform generator (AWG) provides you with unparalleled performance at the cutting edge for sample rate, signal fidelity, and waveform memory. In order to engineer the world's most complex data communications systems, the ability to create ideal, distorted and "real life" signals is essential. The AWG70000A Series of AWGs delivers this, giving you the industry's best signal stimulus solution for ever-increasing measurement challenges. With up to 50 GS/s and 10-bit vertical resolution, it offers easy generation of very complex signals and complete control over signal characteristics.
+
+![AWG70002A](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782530/Instruments/RF%20Signal%20Generator/AWG70002A/AWG70002A.webp)
+
+Device Specification: [here](https://download.tek.com/datasheet/AWG70000A-Arbitrary-Waveform-Generator-Datasheet-76W283808.pdf)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: TEKTRONIX</h2></summary>
+
+![TEKTRONIX](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806108/Instruments/Vendor%20Logos/Tektronix.png)
+
+Tektronix, Inc., historically widely known as Tek, is an American company best known for manufacturing test and measurement devices such as [oscilloscopes](https://en.wikipedia.org/wiki/Oscilloscope), [logic analyzers](https://en.wikipedia.org/wiki/Logic_analyzer), and video and mobile test protocol equipment.
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5800
+- Vendor Website: [here](https://www.tek.com/en)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="RF_SIGNAL_GENERATORS" />
+
+## Connect to the AWG70002A in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="RF_SIGNAL_GENERATORS" manufacturer="Tektronix"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+Here is an example Python script that uses Qcodes to connect to a AWG70002A RF Signal Generator:
+
+```python
+import qcodes as qc
+from qcodes.instrument_drivers.tektronix.AWG70000A import AWG70000A
+
+# Connect to the AWG70002A RF Signal Generator
+awg = AWG70000A('awg', 'TCPIP0::192.168.1.1::inst0::INSTR')
+
+# Print the instrument ID
+print(awg.IDN())
+
+# Set the sample rate
+awg.sample_rate(1e9)
+
+# Set the amplitude of channel 1
+awg.channels.ch1.awg_amplitude(0.5)
+
+# Set the frequency of channel 1
+awg.channels.ch1.fgen_frequency(1e6)
+
+# Play the waveform
+awg.play()
+
+# Disconnect from the AWG70002A RF Signal Generator
+awg.close()
+```
+
+Note: Make sure to replace `'TCPIP0::192.168.1.1::inst0::INSTR'` with the actual VISA resource name of your AWG70002A RF Signal Generator.
+
+</TabItem>
+</Tabs>

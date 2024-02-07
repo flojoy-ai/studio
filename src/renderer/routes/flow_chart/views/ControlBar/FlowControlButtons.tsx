@@ -2,7 +2,7 @@ import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { Node, Edge } from "reactflow";
 import { ElementsData } from "@src/types";
 import { Ban, Play } from "lucide-react";
-import { Button } from "@src/components/ui/button";
+import { Button } from "@/renderer/components/ui/button";
 import { projectAtom, useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSettings } from "@src/hooks/useSettings";
 import { useSocket } from "@src/hooks/useSocket";

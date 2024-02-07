@@ -1,0 +1,2605 @@
+--- 
+title: Scientific Instruments Database by Python Library
+description: Copy/paste Python examples using PyMeasure, QCodes, PyVISA, PySerial, and more.
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1694137515/flojoy-docs/Marketing%20Images/instrument_menagerie_delnwb.jpg
+keywords: [PyMeasure, PyVISA, PySerial, QCodes, Python Driver, Agilent, Tektronix, Keysight, DAQ]
+hide_table_of_contents: true
+sidebar:
+    label: 🐍 By Python library
+    order: 1
+---
+
+## Welcome!
+
+Welcome to Flojoy's Scientific Instrument Database! 
+
+Here you can find information about some of the most popular Python libraries for scientific Instrument control - including InstrumentKit, QCodes, PyMeasure, PyVISA, and PySerial. 
+
+Flojoy uses these libraries (plus many others) to connect to Instruments with no-code, drag-and-drop blocks called "nodes" in Flojoy Studio. 
+
+Please use this Instruments Database as a resource to [download Studio](/) and [create your own nodes](/custom-nodes/creating-custom-node/) for connecting to scientific hardware in your lab, manufacturing facility, and test stations.
+
+import InstrumentThumbnail from '@root/src/components/InstrumentThumbnail';
+
+
+## InstrumentKit
+
+<details> 
+<summary>Library Description</summary> 
+InstrumentKit is a powerful and versatile Python library designed specifically for hardware engineers and scientists working with instruments. It provides a comprehensive set of tools and functionalities to control, automate, and interface with a wide range of instruments commonly used in various fields such as electronics, physics, and chemistry.
+
+One of the key features of InstrumentKit is its intuitive and user-friendly API, which simplifies the process of instrument control and data acquisition. The library offers a consistent interface across different instrument types, allowing users to seamlessly switch between instruments without having to learn new syntax or commands. This makes it incredibly convenient for engineers and scientists who work with multiple instruments simultaneously or need to switch between different setups frequently.
+
+InstrumentKit supports a wide variety of instruments, ranging from basic devices like multimeters and oscilloscopes to more complex instruments such as signal generators, power supplies, and spectrum analyzers. These instruments can be connected to the computer via various communication protocols, including USB, GPIB, Ethernet, and serial interfaces. The library provides built-in drivers for many popular instrument models, ensuring compatibility and ease of use.
+
+In addition to instrument control, InstrumentKit offers powerful data acquisition and analysis capabilities. It provides functions for acquiring and processing data from instruments, enabling users to perform real-time measurements, record data for later analysis, and generate detailed reports. The library also supports advanced features like triggering, synchronization, and data streaming, allowing for precise and efficient data acquisition in complex experimental setups.
+
+InstrumentKit is an open-source library, which means that it benefits from a vibrant and active community of developers and contributors. This ensures continuous improvement, bug fixes, and the addition of new features based on user feedback and requirements. The library is extensively documented, with comprehensive guides, tutorials, and examples to help users get started quickly and make the most of its capabilities.
+
+Now, let's explore some of the popular and commonly used instruments supported by InstrumentKit:
+
+1. Multimeters: InstrumentKit provides drivers for a wide range of multimeters, allowing users to measure voltage, current, resistance, and other electrical parameters accurately.
+
+2. Oscilloscopes: With InstrumentKit, you can control and acquire data from oscilloscopes, enabling you to visualize and analyze electrical waveforms in real-time.
+
+3. Signal Generators: InstrumentKit supports signal generators, which are essential for generating precise waveforms and signals for testing and calibration purposes.
+
+4. Power Supplies: The library offers drivers for power supplies, enabling users to control voltage and current outputs with high precision and stability.
+
+5. Spectrum Analyzers: InstrumentKit allows for interfacing with spectrum analyzers, facilitating the analysis and characterization of frequency-domain signals.
+
+6. Function Generators: With InstrumentKit, you can control function generators to generate a variety of waveforms, including sine, square, triangle, and arbitrary waveforms.
+
+7. Data Loggers: The library supports data loggers, which are useful for recording and analyzing data over extended periods, making them ideal for long-term experiments or monitoring applications.
+
+8. Temperature Controllers: InstrumentKit provides drivers for temperature controllers, allowing precise control and monitoring of temperature in various applications.
+
+These are just a few examples of the instruments supported by InstrumentKit. The library's extensive compatibility and flexibility make it an invaluable tool for hardware engineers and scientists working with instruments, enabling them to streamline their workflows, automate experiments, and extract meaningful insights from their data.
+</details> 
+
+<div className="flex flex-wrap">
+
+<InstrumentThumbnail 
+    path='power-meters/thorlabs/PM100USB'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782423/Instruments/Power%20Meters/PM100USB/PM100USB.jpg'
+    label='PM100USB'    
+/>
+
+<InstrumentThumbnail 
+    path='motor-controllers/newport/picomotorcontroller-8742'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782424/Instruments/Positional%20Controller/Picomotorcontroller-8742/Picomotorcontroller-8742.jpg'
+    label='Picomotorcontroller 8742'    
+/>
+
+<InstrumentThumbnail 
+    path='motor-controllers/newport/newportesp-301'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782436/Instruments/Positional%20Controller/Newportesp-301/Newportesp-301.jpg'
+    label='Newportesp 301'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/tektronix/tds224'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782513/Instruments/Oscilloscopes/TDS224/TDS224.jpg'
+    label='TDS224'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/keithley/keithley-485'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782442/Instruments/Power%20Meters/Keithley-485/Keithley-485.jpg'
+    label='Keithley 485'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/keithley/keithley-2182'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782450/Instruments/Power%20Meters/Keithley-2182/Keithley-2182.jpg'
+    label='Keithley 2182'    
+/>
+
+<InstrumentThumbnail 
+    path='coincidence-counters/qubitekk/cc1'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782456/Instruments/Coincidence%20Counter/CC1/CC1.jpg'
+    label='CC1'    
+/>
+
+<InstrumentThumbnail 
+    path='frequency-synthesizers/holzworth/hs-9008b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782458/Instruments/Frequency%20synthesizer/HS-9008B/HS-9008B.jpg'
+    label='HS 9008B'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/yokogawa/yokogawa-7651'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782436/Instruments/Power%20Supplies/Yokogawa-7651/Yokogawa-7651.jpg'
+    label='Yokogawa 7651'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/keithley/keithley-580'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782479/Instruments/Power%20Meters/Keithley-580/Keithley-580.jpg'
+    label='Keithley 580'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/tektronix/awg2005'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782481/Instruments/RF%20Signal%20Generator/AWG2005/AWG2005.jpg'
+    label='AWG2005'    
+/>
+
+<InstrumentThumbnail 
+    path='lasers/toptica/topmode'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782495/Instruments/Lasers/TopMode/TopMode.jpg'
+    label='TopMode'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/tektronix/tds520-tds540'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782499/Instruments/Oscilloscopes/TDS520-TDS540/TDS520-TDS540.jpg'
+    label='TDS520/TDS540'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/tektronix/dpo70000'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782501/Instruments/Oscilloscopes/DPO70000/DPO70000.webp'
+    label='DPO70000'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/lakeshore/lakeshore-370'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782502/Instruments/Power%20Meters/Lakeshore-370/Lakeshore-370.png'
+    label='Lakeshore 370'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/teledyne/waverunner-9000'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782511/Instruments/Oscilloscopes/WaveRunner-9000/WaveRunner-9000.webp'
+    label='WaveRunner 9000'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/tektronix/tds224'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782513/Instruments/Oscilloscopes/TDS224/TDS224.jpg'
+    label='TDS224'    
+/>
+
+<InstrumentThumbnail 
+    path='motor-controllers/newport/agilis'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782528/Instruments/Positional%20Controller/Agilis/Agilis.jpg'
+    label='Agilis'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/teledyne/hdo4000a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782540/Instruments/Oscilloscopes/HDO6000B/HDO6000B.webp'
+    label='HDO6000B'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/teledyne/waverunner-8000hd'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782542/Instruments/Oscilloscopes/WaveRunner-8000HD/WaveRunner-8000HD.webp'
+    label='WaveRunner 8000HD'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/tektronix/tds510a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782554/Instruments/Oscilloscopes/TDS510A/TDS510A.webp'
+    label='TDS510A'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/keithley/keithley-6220'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782562/Instruments/Power%20Meters/Keithley-6220/Keithley-6220.jpg'
+    label='Keithley 6220'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/teledyne/wavepro-hd'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782567/Instruments/Oscilloscopes/WavePro-HD/WavePro-HD.png'
+    label='WavePro HD'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/hp/keysight-e3631a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782569/Instruments/Power%20Supplies/Keysight-E3631A/Keysight-E3631A.png'
+    label='Keysight E3631A'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/teledyne/wavesurfer-510'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782572/Instruments/Oscilloscopes/WaveSurfer-510/WaveSurfer-510.jpg'
+    label='WaveSurfer 510'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/thorlabs/lcc25'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782574/Instruments/Power%20Supplies/LCC25/LCC25.jpg'
+    label='LCC25'    
+/>
+
+<InstrumentThumbnail 
+    path='motor-controllers/qubitekk/mc1'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1692741645/Instruments/Motor%20Controllers/MC1/file.png'
+    label='MC1'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/keithley/keithley-195'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782580/Instruments/Multimeters/Keithley-195/Keithley-195.jpg'
+    label='Keithley 195'    
+/>
+
+<InstrumentThumbnail 
+    path='motor-controllers/thorlabs/kim101'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782580/Instruments/Positional%20Controller/KIM101/KIM101.jpg'
+    label='KIM101'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/oxford-instruments/itc-503'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782452/Instruments/Temperature%20Controllers/ITC-503/ITC-503.jpg'
+    label='ITC 503'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/hcp/tc-038d'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782598/Instruments/Temperature%20Controllers/TC-038D/TC-038D.webp'
+    label='TC-038D'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/tektronix/tds5xx'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782600/Instruments/Oscilloscopes/TDS5XX/TDS5XX.jpg'
+    label='TDS5XX'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/teledyne/wavesurfer-3000z'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782601/Instruments/Oscilloscopes/WaveSurfer-3000z/WaveSurfer-3000z.jpg'
+    label='WaveSurfer 3000z'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/teledyne/wavesurfer-4000hd'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782604/Instruments/Oscilloscopes/WaveSurfer-4000HD/WaveSurfer-4000HD.webp'
+    label='WaveSurfer 4000HD'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/glassman/fj-series'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782626/Instruments/Power%20Supplies/FJ-Series/FJ-Series.webp'
+    label='FJ Series'    
+/>
+
+<InstrumentThumbnail 
+    path='function-generators/minghe/mhs-5200-a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782627/Instruments/Function%20Generators/MHS-5200-A/MHS-5200-A.jpg'
+    label='MHS 5200 A'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/lakeshore/lakeshore-340'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782630/Instruments/Temperature%20Controllers/Lakeshore-340/Lakeshore-340.png'
+    label='Lakeshore 340'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/teledyne/mda8000hd'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782631/Instruments/Oscilloscopes/MDA8000HD/MDA8000HD.webp'
+    label='MDA8000HD'    
+/>
+
+<InstrumentThumbnail 
+    path='spectrum-analyzers/yokogawa/aq6370'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782639/Instruments/Spectrum%20Analyzers/AQ6370/AQ6370.jpg'
+    label='AQ6370'    
+/>
+
+<InstrumentThumbnail 
+    path='function-generators/srs/ds345'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782645/Instruments/Function%20Generators/DS345/DS345.jpg'
+    label='DS345'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/teledyne/labmaster-10-zi-a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782647/Instruments/Oscilloscopes/LabMaster-10-Zi-A/LabMaster-10-Zi-A.webp'
+    label='LabMaster 10 Zi-A'    
+/>
+
+<InstrumentThumbnail 
+    path='motor-controllers/thorlabs/kim001'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782656/Instruments/Positional%20Controller/KIM001/KIM001.jpg'
+    label='KIM001'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/thorlabs/tc200'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782658/Instruments/Temperature%20Controllers/TC200/TC200.jpg'
+    label='TC200'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/teledyne/hdo4000a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782661/Instruments/Oscilloscopes/HDO4000A/HDO4000A.webp'
+    label='HDO4000A'    
+/>
+
+<InstrumentThumbnail 
+    path='motor-controllers/newport/ag-uc2'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782662/Instruments/Motor%20Controller/AG-UC2/AG-UC2.jpg'
+    label='AG-UC2'    
+/>
+
+<InstrumentThumbnail 
+    path='balance-scales/mettler-toledo/mt-standard-interface-communication-software'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1695707363/Instruments/Balance%20Scales/MT-Standard-Interface-Communication-Software/file_new.png'
+    label='MT Standard Interface Communication Software'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/lakeshore/lakeshore-475'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782669/Instruments/Power%20Meters/Lakeshore-475/Lakeshore-475.png'
+    label='Lakeshore 475'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-6220'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782676/Instruments/Power%20Supplies/Keithley-6220/Keithley-6220.jpg'
+    label='Keithley 6220'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/generic-scpi/SCPI-multimeter'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782678/Instruments/Multimeters/SCPI-multimeter/SCPI-multimeter.png'
+    label='SCPI multimeter'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/rigol/rigol-ds1000-series'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782681/Instruments/Oscilloscopes/Rigol-DS1000-Series/Rigol-DS1000-Series.png'
+    label='Rigol DS1000-Series'    
+/>
+
+<InstrumentThumbnail 
+    path='protocols/generic-scpi/SCPI-instrument'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1692639436/Instruments/Protocols/SCPI-Instrument/file.png'
+    label='SCPI Instrument'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/agilent/keysight-33220a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782698/Instruments/RF%20Signal%20Generator/Keysight-33220A/Keysight-33220A.webp'
+    label='Keysight 33220A'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/keithley/keithley-6514'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782717/Instruments/Power%20Meters/Keithley-6514/Keithley-6514.webp'
+    label='Keithley 6514'    
+/>
+
+<InstrumentThumbnail 
+    path='motor-controllers/thorlabs/apt-stepper-motor-control-module'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782719/Instruments/Positional%20Controller/APT-Stepper-Motor-Control-Module/APT-Stepper-Motor-Control-Module.jpg'
+    label='APT Stepper Motor Control Module'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/tektronix/dpo7000'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782722/Instruments/Oscilloscopes/DPO7000/DPO7000.jpg'
+    label='DPO7000'    
+/>
+
+<InstrumentThumbnail 
+    path='shutter-controllers/thorlabs/sc10'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782726/Instruments/Shutter%20Controller/SC10/SC10.jpg'
+    label='SC10'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/srs/ctc100'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782728/Instruments/Temperature%20Controllers/CTC100/CTC100.jpg'
+    label='CTC100'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/picowatt/avs-47'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782731/Instruments/Temperature%20Controllers/AVS-47/AVS-47.jpg'
+    label='AVS 47'    
+/>
+
+<InstrumentThumbnail 
+    path='motor-controllers/thorlabs/lps710e-m'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782731/Instruments/Positional%20Controller/LPS710E-M/LPS710E-M.jpg'
+    label='LPS710E/M'    
+/>
+
+<InstrumentThumbnail 
+    path='lockin-amplifiers/srs/srs-830'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782548/Instruments/Lockin%20Amplifiers/SR-830/SR-830.jpg'
+    label='SRS 830'    
+/>
+
+<InstrumentThumbnail 
+    path='pulse-generators/stanford-research/dg645'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782433/Instruments/Pulse%20Generator/DG-645/DG-645.jpg'
+    label='DG645'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/teledyne/wavemaster-sda-dda-8-zi-b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782751/Instruments/Oscilloscopes/WaveMaster---SDA--DDA-8-Zi-B/WaveMaster---SDA--DDA-8-Zi-B.png'
+    label='WaveMaster/SDA/DDA 8 Zi-B'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/hp/keysight-3456a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782761/Instruments/Multimeters/Keysight-3456A/Keysight-3456A.jpg'
+    label='Keysight 3456A'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/tektronix/tds500-series'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782757/Instruments/Oscilloscopes/TDS500-Series/TDS500-Series.jpg'
+    label='TDS500 Series'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/tektronix/dpo4104'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782769/Instruments/Oscilloscopes/DPO4104/DPO4104.jpg'
+    label='DPO4104'    
+/>
+
+</div>
+
+## Instrumental
+
+<details> 
+<summary>Library Description</summary> 
+Instrumental is a powerful Python library designed specifically for hardware engineers and scientists who work with instruments. It provides a comprehensive set of tools and functionalities to control, communicate with, and acquire data from a wide range of instruments. With its intuitive and user-friendly interface, Instrumental simplifies the process of instrument control and data acquisition, enabling users to focus on their experiments and analysis.
+
+One of the key features of Instrumental is its extensive support for various instrument communication protocols. It offers built-in support for popular protocols such as GPIB (General Purpose Interface Bus), USB (Universal Serial Bus), RS-232 (Recommended Standard 232), and Ethernet. This allows users to easily connect and communicate with instruments using the appropriate interface, without the need for complex low-level programming.
+
+Instrumental also provides a unified API (Application Programming Interface) for instrument control, making it easy to write code that is compatible with different instruments. This means that users can write instrument control code once and seamlessly switch between instruments without having to modify their code. This greatly enhances productivity and flexibility in experimental setups.
+
+Furthermore, Instrumental offers a wide range of functionalities for instrument control and data acquisition. It supports various instrument operations such as setting instrument parameters, querying instrument status, and triggering instrument actions. It also provides efficient data acquisition capabilities, allowing users to acquire data from instruments at high speeds and with precise timing.
+
+In addition to instrument control and data acquisition, Instrumental includes powerful data analysis and visualization tools. It provides functions for data processing, filtering, and analysis, as well as plotting and visualization capabilities. This enables users to perform real-time analysis of acquired data, visualize experimental results, and make informed decisions based on the data.
+
+Now, let's explore some of the popular and commonly used instruments supported by the Instrumental Python library:
+
+1. Oscilloscopes: Instrumental provides comprehensive support for controlling and acquiring data from oscilloscopes. Users can easily set trigger conditions, acquire waveforms, and perform real-time analysis on acquired data.
+
+2. Function Generators: With Instrumental, users can easily control function generators to generate precise waveforms for various applications such as signal testing and stimulus generation.
+
+3. Multimeters: Instrumental offers seamless integration with multimeters, allowing users to read and analyze voltage, current, resistance, and other electrical parameters with ease.
+
+4. Power Supplies: Instrumental provides extensive support for controlling power supplies, enabling users to set voltage and current levels, monitor power output, and perform automated power cycling.
+
+5. Spectrum Analyzers: Users can leverage Instrumental to control spectrum analyzers, enabling them to analyze and visualize frequency spectra of signals with high accuracy and resolution.
+
+6. Network Analyzers: Instrumental supports network analyzers, allowing users to measure and analyze the performance of electrical networks, including impedance, reflection, and transmission characteristics.
+
+7. Data Loggers: Instrumental facilitates data logging by providing functionalities to acquire and store data from various sensors and instruments over extended periods of time.
+
+These are just a few examples of the wide range of instruments supported by the Instrumental Python library. With its comprehensive features and intuitive interface, Instrumental empowers hardware engineers and scientists to efficiently control instruments, acquire data, and perform analysis, ultimately enhancing their productivity and enabling groundbreaking research and development.
+</details> 
+
+<div className="flex flex-wrap">
+
+<InstrumentThumbnail 
+    path='cameras/pco/PCO-pixelfly'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782434/Instruments/Cameras/PCO-Pixelfly/PCO-Pixelfly.jpg'
+    label='PCO Pixelfly'    
+/>
+
+<InstrumentThumbnail 
+    path='function-generators/agilent/keysight-81110a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782439/Instruments/Function%20Generators/Keysight-81110A/Keysight-81110A.jpg'
+    label='Keysight 81110A'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/newport/1830-c'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782443/Instruments/Power%20Meters/1830-C/1830-C.jpg'
+    label='1830-C'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/agilent/keysight-86100a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782480/Instruments/Oscilloscopes/Keysight-86100A/Keysight-86100A.jpg'
+    label='Keysight 86100A'    
+/>
+
+<InstrumentThumbnail 
+    path='cameras/thorlabs/cc126mu'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782536/Instruments/Cameras/CC126Mu/CC126Mu.jpg'
+    label='CC126Mu'    
+/>
+
+<InstrumentThumbnail 
+    path='motor-controllers/attocube/attocube-ecc-100'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782549/Instruments/Motion/Attocube-ECC-100/Attocube-ECC-100.gif'
+    label='Attocube ECC 100'    
+/>
+
+<InstrumentThumbnail 
+    path='cameras/thorlabs/thorlabs-dcu224c'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782595/Instruments/Cameras/Thorlabs---DCU224C/Thorlabs---DCU224C.jpg'
+    label='Thorlabs-DCU224C'    
+/>
+
+<InstrumentThumbnail 
+    path='cameras/pvcam/kinetix-sCMOS-all-cameras'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1692395146/Instruments/Cameras/Kinetix-sCMOS-all-cameras/file.png'
+    label='Kinetix sCMOS all_cameras'    
+/>
+
+<InstrumentThumbnail 
+    path='cameras/picam/pi-camera'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782640/Instruments/Cameras/Pi-Camera/Pi-Camera.jpg'
+    label='Pi Camera'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/thorlabs/pm100d'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782642/Instruments/Power%20Meters/PM100D/PM100D.jpg'
+    label='PM100D'    
+/>
+
+<InstrumentThumbnail 
+    path='lockin-amplifiers/sr-850/sr-850'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782672/Instruments/Lockin%20Amplifiers/SR-850/SR-850.jpg'
+    label='SR 850'    
+/>
+
+<InstrumentThumbnail 
+    path='motor-controllers/newmark/newmark-nsc-a1'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782686/Instruments/Motion/Newmark---NSC-A1/Newmark---NSC-A1.webp'
+    label='Newmark-NSC-A1'    
+/>
+
+<InstrumentThumbnail 
+    path='spectrum-analyzers/bristol/bristol-771'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782715/Instruments/Spectrum%20Analyzers/Bristol-771/Bristol-771.png'
+    label='Bristol 771'    
+/>
+
+<InstrumentThumbnail 
+    path='motor-controllers/smaract/smaract-mcs2'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1692639545/Instruments/Motor%20Controllers/Smaract-MCS2/file.png'
+    label='Smaract-MCS2'    
+/>
+
+</div>
+
+## PyMeasure
+
+<details> 
+<summary>Library Description</summary> 
+PyMeasure is a powerful and versatile Python library designed specifically for controlling and interfacing with various scientific instruments. It provides a comprehensive set of tools and utilities that simplify the process of instrument control, data acquisition, and analysis. With PyMeasure, Python developers and scientists can effortlessly automate experiments, collect data, and perform complex measurements with ease.
+
+One of the key features of PyMeasure is its extensive support for a wide range of instruments commonly used in scientific research and engineering applications. These instruments can be easily integrated into Python scripts, allowing for seamless control and data acquisition. Here are some popular and commonly used instruments supported by PyMeasure:
+
+1. Oscilloscopes: PyMeasure provides a convenient interface to control and acquire data from oscilloscopes. It supports popular models from various manufacturers, such as Tektronix, Agilent, and Keysight. Users can easily configure the oscilloscope settings, trigger measurements, and retrieve waveform data for further analysis.
+
+2. Multimeters: PyMeasure enables users to interact with multimeters, which are essential for measuring voltage, current, resistance, and other electrical parameters. It supports a wide range of multimeter models, including those from Keithley, Fluke, and Keysight. Users can easily read measurements, set measurement ranges, and perform various operations on the acquired data.
+
+3. Power Supplies: PyMeasure allows users to control power supplies, which are used to provide electrical power to devices under test. It supports popular power supply models from manufacturers like Agilent, Keithley, and Rohde & Schwarz. Users can set voltage and current limits, enable or disable outputs, and monitor the power supply status.
+
+4. Function Generators: PyMeasure provides a convenient interface to generate and control waveforms using function generators. It supports models from various manufacturers, including Tektronix, Agilent, and Rigol. Users can easily set waveform parameters such as frequency, amplitude, and offset, and generate complex waveforms for testing and experimentation.
+
+5. Temperature Controllers: PyMeasure offers support for temperature controllers, which are crucial for precise temperature control in scientific experiments. It supports popular temperature controller models from manufacturers like Lakeshore, Eurotherm, and Omega. Users can easily set temperature setpoints, read temperature measurements, and control heating or cooling elements.
+
+6. Spectrum Analyzers: PyMeasure allows users to control and acquire data from spectrum analyzers, which are used to analyze the frequency content of signals. It supports models from manufacturers such as Keysight, Rohde & Schwarz, and Anritsu. Users can configure frequency ranges, resolution bandwidths, and perform measurements such as power spectral density and harmonic distortion.
+
+These are just a few examples of the wide range of instruments supported by PyMeasure. The library's modular design and extensibility make it easy to add support for additional instruments or customize existing instrument drivers. PyMeasure empowers Python developers and scientists to seamlessly integrate instrument control and data acquisition into their workflows, enabling efficient and automated experimentation and analysis.
+</details> 
+
+<div className="flex flex-wrap">
+
+<InstrumentThumbnail 
+    path='power-meters/lakeshore/lakeshore-421'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782424/Instruments/Power%20Meters/Lakeshore-421/Lakeshore-421.png'
+    label='Lakeshore 421'    
+/>
+
+<InstrumentThumbnail 
+    path='preamplifiers/srs/sr-570'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782426/Instruments/Preamplifier/SR-570/SR-570.jpg'
+    label='SR 570'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/temptronic/ats-545'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782427/Instruments/Temperature%20Controllers/ATS-545/ATS-545.webp'
+    label='ATS 545'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/yokogawa/yokogawa-7651'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782436/Instruments/Power%20Supplies/Yokogawa-7651/Yokogawa-7651.jpg'
+    label='Yokogawa 7651'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/temptronic/ats-525'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782438/Instruments/Temperature%20Controllers/ATS-525/ATS-525.jpg'
+    label='ATS 525'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-buffer'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1692380380/Instruments/Power%20Supplies/Keithley-Buffer/file.png'
+    label='Keithley Buffer'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/temptronic/thermostream-ats-series'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782446/Instruments/Temperature%20Controllers/Thermostream-ATS-Series/Thermostream-ATS-Series.webp'
+    label='Thermostream ATS Series'    
+/>
+
+<InstrumentThumbnail 
+    path='spectrum-analyzers/agilent/keysight-e4408b-esa-l'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782447/Instruments/Spectrum%20Analyzers/Keysight-E4408B-ESA-L/Keysight-E4408B-ESA-L.webp'
+    label='Keysight E4408B ESA-L'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/oxford-instruments/itc-503'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782452/Instruments/Temperature%20Controllers/ITC-503/ITC-503.jpg'
+    label='ITC 503'    
+/>
+
+<InstrumentThumbnail 
+    path='motor-controllers/newport/esp-300'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782457/Instruments/Positional%20Controller/ESP-300/ESP-300.jpg'
+    label='ESP 300'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/agilent/keysight-34450a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782461/Instruments/Multimeters/Keysight-34450A/Keysight-34450A.png'
+    label='Keysight 34450A'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-2306'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782472/Instruments/Power%20Supplies/Keithley-2306/Keithley-2306.webp'
+    label='Keithley 2306'    
+/>
+
+<InstrumentThumbnail 
+    path='lasers/keysight/keysight-n7776c'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782473/Instruments/Lasers/Keysight-N7776C/Keysight-N7776C.png'
+    label='Keysight N7776C'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/tektronix/tds2000'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782473/Instruments/Oscilloscopes/TDS2000/TDS2000.jpg'
+    label='TDS2000'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/danfysik/system-8500-model-854'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1692639539/Instruments/Power%20Supplies/SYSTEM-8500-Model-854/file.png'
+    label='SYSTEM 8500-Model 854'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/srs/sg-380'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782478/Instruments/RF%20Signal%20Generator/SG-380/SG-380.jpg'
+    label='SG 380'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/anapico/apsin-26g'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782482/Instruments/RF%20Signal%20Generator/Apsin-26G/Apsin-26G.jpg'
+    label='Apsin 26G'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/keysight/keysight-e4980a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782484/Instruments/Multimeters/Keysight-E4980A/Keysight-E4980A.png'
+    label='Keysight E4980A'    
+/>
+
+<InstrumentThumbnail 
+    path='network-analyzers/agilent/keysight-8722es'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782485/Instruments/Network%20Analyzer/Keysight-8722ES/Keysight-8722ES.webp'
+    label='Keysight 8722ES'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/keysight/keysight-dsox1102g'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782486/Instruments/Oscilloscopes/Keysight-DSOX1102G/Keysight-DSOX1102G.jpg'
+    label='Keysight DSOX1102G'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/delta-elektronika/sm-70-45d'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782486/Instruments/Power%20Supplies/SM-70-45D/SM-70-45D.jpg'
+    label='SM 70-45D'    
+/>
+
+<InstrumentThumbnail 
+    path='function-generators/hp/keysight-33120a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782488/Instruments/Function%20Generators/Keysight-33120A/Keysight-33120A.jpg'
+    label='Keysight 33120A'    
+/>
+
+<InstrumentThumbnail 
+    path='function-generators/hp/keysight-8116a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782497/Instruments/Function%20Generators/Keysight-8116A/Keysight-8116A.jpg'
+    label='Keysight 8116A'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/lakeshore/lakeshore-425'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782503/Instruments/Power%20Meters/Lakeshore-425/Lakeshore-425.png'
+    label='Lakeshore 425'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/lakeshore/lakeshore-331'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782504/Instruments/Temperature%20Controllers/Lakeshore-331/Lakeshore-331.png'
+    label='Lakeshore 331'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/razorbill/razorbill-rp100'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782506/Instruments/Power%20Supplies/Razorbill-RP100/Razorbill-RP100.jpg'
+    label='Razorbill RP100'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-2400'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782492/Instruments/Power%20Supplies/Keithley-2400/Keithley-2400.webp'
+    label='Keithley 2400'    
+/>
+
+<InstrumentThumbnail 
+    path='network-analyzers/advantest/advantest-r3767cg'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782521/Instruments/Network%20Analyzer/Advantest-R3767CG/Advantest-R3767CG.jpg'
+    label='Advantest R3767CG'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/rohdes-and-schwarz/sfm'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782523/Instruments/RF%20Signal%20Generator/SFM/SFM.jpg'
+    label='SFM'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/hp/keysight-3478a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782526/Instruments/Multimeters/Keysight-3478A/Keysight-3478A.jpg'
+    label='Keysight 3478A'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/keithley/keithley-6517a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782543/Instruments/Power%20Meters/Keithley-6517A/Keithley-6517A.jpg'
+    label='Keithley 6517A'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/siglent-technologies/spd1305x-power-supply'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782556/Instruments/Power%20Supplies/SPD1305X-Power-Supply/SPD1305X-Power-Supply.jpg'
+    label='SPD1305X Power Supply'    
+/>
+
+<InstrumentThumbnail 
+    path='spectrum-analyzers/anritsu/ms9740a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782557/Instruments/Spectrum%20Analyzers/MS9740A/MS9740A.png'
+    label='MS9740A'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/keithley/keithley-2000'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782454/Instruments/Multimeters/Keithley-2000/Keithley-2000.webp'
+    label='Keithley 2000'    
+/>
+
+<InstrumentThumbnail 
+    path='lockin-amplifiers/srs/sr-830'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782548/Instruments/Lockin%20Amplifiers/SR-830/SR-830.jpg'
+    label='SR 830'    
+/>
+
+<InstrumentThumbnail 
+    path='spectrum-analyzers/anritsu/ms9710c'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782588/Instruments/Spectrum%20Analyzers/MS9710C/MS9710C.jpg'
+    label='MS9710C'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/thorlabs/PM100USB'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782423/Instruments/Power%20Meters/PM100USB/PM100USB.jpg'
+    label='PM100USB'    
+/>
+
+<InstrumentThumbnail 
+    path='lockin-amplifiers/ametek/ametek-7270'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782591/Instruments/Lockin%20Amplifiers/Ametek-7270/Ametek-7270.jpg'
+    label='Ametek 7270'    
+/>
+
+<InstrumentThumbnail 
+    path='spectrum-analyzers/rohdes-and-schwarz/fsl'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782599/Instruments/Spectrum%20Analyzers/FSL/FSL.jpg'
+    label='FSL'    
+/>
+
+<InstrumentThumbnail 
+    path='motor-controllers/anaheim-automation/dp-series-motor-controller'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782609/Instruments/Motor%20Controller/DP-Series-Motor-Controller/DP-Series-Motor-Controller.png'
+    label='DP Series Motor Controller'    
+/>
+
+<InstrumentThumbnail 
+    path='lasers/toptica/ibeam-smart'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782611/Instruments/Lasers/iBeam-smart/iBeam-smart.jpg'
+    label='iBeam smart'    
+/>
+
+<InstrumentThumbnail 
+    path='laser-diode-controllers/thorlabs/pro8000'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782612/Instruments/Laser%20Diode%20Controllers/PRO8000/PRO8000.jpg'
+    label='PRO8000'    
+/>
+
+<InstrumentThumbnail 
+    path='spectrum-analyzers/keysight/keysight-b1500a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782723/Instruments/Spectrum%20Analyzers/Keysight-B1500A/Keysight-B1500A.png'
+    label='Keysight B1500A'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/hp/HP-3437a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782622/Instruments/Multimeters/HP-3437A/HP-3437A.jpg'
+    label='HP 3437A'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/thermotron/thermotron-3800'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782623/Instruments/Temperature%20Controllers/Thermotron-3800/Thermotron-3800.jpg'
+    label='Thermotron 3800'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/anritsu/from-mg3690c-series'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782625/Instruments/RF%20Signal%20Generator/From-MG3690C-Series/From-MG3690C-Series.jpg'
+    label='From MG3690C Series'    
+/>
+
+<InstrumentThumbnail 
+    path='spectrum-analyzers/agilent/keysight-4156c'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782628/Instruments/Spectrum%20Analyzers/Keysight-4156C/Keysight-4156C.png'
+    label='Keysight 4156C'    
+/>
+
+<InstrumentThumbnail 
+    path='function-generators/tektronix/afg3152c'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782664/Instruments/Function%20Generators/AFG3152C/AFG3152C.jpg'
+    label='AFG3152C'    
+/>
+
+<InstrumentThumbnail 
+    path='lockin-amplifiers/srs/sr-860'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782674/Instruments/Lockin%20Amplifiers/SR-860/SR-860.jpg'
+    label='SR 860'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/keithley/keithley-2700'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782676/Instruments/Multimeters/Keithley-2700/Keithley-2700.webp'
+    label='Keithley 2700'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keysight/keysight-n5767a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782680/Instruments/Power%20Supplies/Keysight-N5767A/Keysight-N5767A.webp'
+    label='Keysight N5767A'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-2450'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782527/Instruments/Power%20Supplies/Keithley-2450/Keithley-2450.png'
+    label='Keithley 2450'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/keithley/keithley-2750'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782695/Instruments/Multimeters/Keithley-2750/Keithley-2750.webp'
+    label='Keithley 2750'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-2260b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782695/Instruments/Power%20Supplies/Keithley-2260B/Keithley-2260B.webp'
+    label='Keithley 2260B'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/rohdes-and-schwarz/hmp-4040'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782700/Instruments/Power%20Supplies/HMP-4040/HMP-4040.jpg'
+    label='HMP 4040'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/agilent/keysight-33521a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782702/Instruments/RF%20Signal%20Generator/Keysight-33521-A/Keysight-33521-A.png'
+    label='Keysight 33521A'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/fw-bell/fw-bell-5280'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782705/Instruments/Multimeters/F.W.-Bell-5280/F.W.-Bell-5280.jpg'
+    label='F.W. Bell 5280'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/keithley/keithley-6517b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782706/Instruments/Power%20Meters/Keithley-6517B/Keithley-6517B.webp'
+    label='Keithley 6517B'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/temptronic/eco-560'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782706/Instruments/Temperature%20Controllers/ECO-560/ECO-560.webp'
+    label='ECO 560'    
+/>
+
+<InstrumentThumbnail 
+    path='motor-controllers/parker/gemini-gv6'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782707/Instruments/Servo%20Drive/Controllers/Gemini-GV6/Gemini-GV6.jpg'
+    label='Gemini GV6'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/yokogawa/yokogawa-gs-200'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782709/Instruments/Power%20Supplies/Yokogawa-GS-200/Yokogawa-GS-200.jpg'
+    label='Yokogawa GS 200'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/andeen-hagerling/2700a-bridge'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782710/Instruments/Multimeters/2700A-Bridge/2700A-Bridge.jpg'
+    label='2700A Bridge'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-6221'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782550/Instruments/Power%20Supplies/Keithley-6221/Keithley-6221.webp'
+    label='Keithley 6221'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-2600'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782732/Instruments/Power%20Supplies/Keithley-2600/Keithley-2600.jpg'
+    label='Keithley 2600'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/fluke/fluke-7341'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782745/Instruments/Temperature%20Controllers/Fluke-7341/Fluke-7341.jpg'
+    label='Fluke 7341'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/andeen-hagerling/2500a-bridge'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782748/Instruments/Multimeters/2500A-Bridge/2500A-Bridge.jpg'
+    label='2500A Bridge'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/hp/keysight-8657b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782753/Instruments/RF%20Signal%20Generator/Keysight-8657B/Keysight-8657B.jpg'
+    label='Keysight 8657B'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/siglent-technologies/spd1168x-power-supply'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782760/Instruments/Power%20Supplies/SPD1168X-Power-Supply/SPD1168X-Power-Supply.jpg'
+    label='SPD1168X Power Supply'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/oxford-instruments/ips-120-10'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782768/Instruments/Power%20Supplies/IPS-120-10/IPS-120-10.jpg'
+    label='IPS 120  10'    
+/>
+
+<InstrumentThumbnail 
+    path='lockin-amplifiers/srs/sr-510'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782770/Instruments/Lockin%20Amplifiers/SR-510/SR-510.jpg'
+    label='SR 510'    
+/>
+
+</div>
+
+## PyTango
+
+<details> 
+<summary>Library Description</summary> 
+PyTango is a powerful Python library that provides a comprehensive framework for controlling and interacting with scientific instruments and devices. It is widely used in the field of experimental physics and engineering, offering a flexible and efficient solution for instrument control and data acquisition.
+
+At its core, PyTango is built on top of the Tango Control System, which is a distributed control system designed for scientific and industrial applications. Tango provides a standardized communication protocol and a set of tools for managing and controlling devices, making it easier to integrate different instruments into a unified control system.
+
+PyTango extends the capabilities of Tango by providing a Python interface that simplifies the development of instrument control applications. It offers a high-level API that abstracts the complexities of Tango, allowing users to focus on the specific functionality of their instruments. With PyTango, you can easily create device servers, which act as intermediaries between the instrument hardware and the control software.
+
+One of the key features of PyTango is its support for asynchronous programming. It leverages the power of Python's asyncio framework to enable concurrent and non-blocking communication with multiple devices. This allows for efficient handling of multiple instrument interactions, ensuring smooth and responsive control of complex experimental setups.
+
+PyTango also provides a rich set of tools for instrument configuration, monitoring, and data acquisition. It offers a graphical user interface called Jive, which allows users to interact with devices, visualize data, and configure instrument properties. Additionally, PyTango integrates well with popular scientific libraries such as NumPy and matplotlib, enabling seamless data analysis and visualization.
+
+Now, let's explore some popular and commonly used instruments that can be controlled using PyTango:
+
+1. Motor: The Motor device is used for controlling motorized stages or actuators. It provides methods for moving the motor to specific positions, setting velocity and acceleration profiles, and monitoring the motor's status.
+
+2. Camera: The Camera device is used for acquiring images from scientific cameras. It supports various image formats and provides methods for capturing images, adjusting exposure settings, and performing image processing operations.
+
+3. Spectrometer: The Spectrometer device is used for measuring the intensity of light at different wavelengths. It allows users to configure the spectrometer's parameters, perform spectral scans, and analyze the acquired data.
+
+4. Temperature Controller: The Temperature Controller device is used for controlling the temperature of a system or sample. It provides methods for setting the target temperature, monitoring the current temperature, and applying control algorithms to maintain temperature stability.
+
+5. Power Supply: The Power Supply device is used for controlling and monitoring electrical power supplies. It allows users to set voltage and current limits, measure output values, and protect the connected devices from overloads.
+
+6. Pressure Gauge: The Pressure Gauge device is used for measuring pressure in vacuum systems. It provides methods for reading pressure values, calibrating the gauge, and triggering alarms based on predefined thresholds.
+
+7. Magnetometer: The Magnetometer device is used for measuring magnetic fields. It allows users to perform magnetic field measurements, calibrate the sensor, and analyze the acquired data.
+
+These are just a few examples of the wide range of instruments that can be controlled using PyTango. The library's flexibility and extensibility make it suitable for controlling various scientific devices, enabling researchers and engineers to build sophisticated experimental setups and automate complex measurement processes.
+</details> 
+
+<div className="flex flex-wrap">
+
+<InstrumentThumbnail 
+    path='photon-counting-systems/picoquant/picoharp-300'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782750/Instruments/Photon%20Counting%20System/Singlequantum/Singlequantum.jpg'
+    label='PicoHarp 300'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/lakeshore/lakeshore-425'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782518/Instruments/Multimeters/Lakeshore-425/Lakeshore-425.png'
+    label='Lakeshore 425'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/rohdes-and-schwarz/sma100a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782521/Instruments/RF%20Signal%20Generator/SMA100A/SMA100A.jpg'
+    label='SMA100A'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/keithley/keithley-6485'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1692287133/Instruments/Power%20Meters/Keithley-6485/Keithley-6485.png'
+    label='Keithley 6485'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-sensors/orbit3/orbit-3-sensor'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782607/Instruments/Temperature%20Sensor/Orbit-3-Sensor/Orbit-3-Sensor.webp'
+    label='Orbit 3 Sensor'    
+/>
+
+<InstrumentThumbnail 
+    path='humidity-sensors/orbit3/orbit-3-sensor'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782607/Instruments/Temperature%20Sensor/Orbit-3-Sensor/Orbit-3-Sensor.webp'
+    label='Orbit 3 Sensor'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/lecroy/lecroydso'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782648/Instruments/Oscilloscopes/Lecroydso/Lecroydso.png'
+    label='Lecroydso'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/lakeshore/lks-425-gaussmeter'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782670/Instruments/Power%20Meters/LKS-425-Gaussmeter/LKS-425-Gaussmeter.png'
+    label='LKS 425 Gaussmeter'    
+/>
+
+<InstrumentThumbnail 
+    path='thermometers/pico-technology/pt-104-picoch'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782684/Instruments/Thermometer/PT-104-Picoch/PT-104-Picoch.jpg'
+    label='PT 104 Picoch'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/jumo/jumoquantrollc'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782763/Instruments/Temperature%20Controllers/Jumoquantrollc/Jumoquantrollc.jpg'
+    label='Jumoquantrollc'    
+/>
+
+</div>
+
+## QCodes
+
+<details> 
+<summary>Library Description</summary> 
+QCodes is a powerful Python library designed specifically for controlling and interacting with scientific instruments. It provides a comprehensive framework for instrument control, data acquisition, and analysis, making it an essential tool for researchers and engineers in various scientific fields.
+
+At its core, QCodes offers a unified and consistent interface for controlling a wide range of instruments, regardless of their underlying communication protocols or hardware interfaces. This means that you can seamlessly control instruments from different manufacturers using a single, intuitive API. QCodes abstracts away the complexities of instrument communication, allowing you to focus on your experiment or measurement rather than the intricacies of instrument control.
+
+One of the key features of QCodes is its modular architecture, which allows for easy integration of new instrument drivers. Instrument drivers are responsible for translating high-level commands into low-level instructions that the instrument understands. QCodes provides a growing collection of instrument drivers for popular devices, and you can also create your own drivers to support custom or specialized instruments.
+
+In addition to instrument control, QCodes provides a powerful data acquisition framework. It allows you to easily configure and synchronize multiple instruments, acquire data with high precision and speed, and store it in various formats for further analysis. QCodes also offers advanced features like real-time plotting, data streaming, and data logging, making it a versatile tool for experimental data acquisition.
+
+Furthermore, QCodes seamlessly integrates with other popular Python libraries such as NumPy, SciPy, and Matplotlib, enabling you to leverage their capabilities for data analysis, visualization, and processing. This integration makes QCodes a valuable tool for end-to-end scientific experimentation and analysis workflows.
+
+Now, let's explore some of the popular and commonly used instruments that can be controlled using QCodes:
+
+1. Keithley 2400 Series SourceMeter: This instrument combines the functionality of a precision power supply, current source, and digital multimeter. It is widely used in semiconductor characterization, materials research, and device testing.
+
+2. Keysight E5071C Network Analyzer: This network analyzer is used for measuring the scattering parameters (S-parameters) of high-frequency electrical networks. It is commonly employed in RF and microwave engineering, telecommunications, and signal integrity analysis.
+
+3. Agilent 34401A Digital Multimeter: This versatile multimeter offers high accuracy and resolution for measuring voltage, current, resistance, and other electrical parameters. It is widely used in electronics testing, calibration, and research applications.
+
+4. Thorlabs PM100D Power Meter: This power meter is designed for precise optical power measurements. It is commonly used in optics and photonics research, laser characterization, and fiber optic communications.
+
+5. Tektronix TDS3000 Series Oscilloscope: This digital oscilloscope provides high-speed waveform capture and analysis capabilities. It is extensively used in electronics design, signal analysis, and troubleshooting.
+
+6. Lakeshore 340 Temperature Controller: This instrument is used for precise temperature control in cryogenic and low-temperature experiments. It is commonly employed in condensed matter physics, superconductivity research, and quantum computing.
+
+These are just a few examples of the wide range of instruments that can be controlled using QCodes. The library's flexibility, extensibility, and integration capabilities make it a valuable asset for any scientist or engineer working with scientific instruments.
+</details> 
+
+<div className="flex flex-wrap">
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/keysight/keysight-33511b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782425/Instruments/RF%20Signal%20Generator/Keysight-33511B/Keysight-33511B.jpg'
+    label='Keysight 33511B'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/lakeshore/lakeshore-model-372'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782428/Instruments/Temperature%20Controllers/Lakeshore-Model-372/Lakeshore-Model-372.png'
+    label='Lakeshore Model 372'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/lakeshore/lakeshore-model-372'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782428/Instruments/Temperature%20Controllers/Lakeshore-Model-372/Lakeshore-Model-372.png'
+    label='Lakeshore Model 372'    
+/>
+
+<InstrumentThumbnail 
+    path='switches/keithley/keithley-s46'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782430/Instruments/Switch/Keithley-S46/Keithley-S46.jpg'
+    label='Keithley S46'    
+/>
+
+<InstrumentThumbnail 
+    path='quantum-analyzers/zurich-instruments/uhfqa'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782431/Instruments/Quantum%20Analyzer/UHFQA/UHFQA.webp'
+    label='UHFQA'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/aimtti/pl303qmd-p'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782432/Instruments/Power%20Supplies/PL303QMD-P/PL303QMD-P.jpg'
+    label='PL303QMD-P'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/agilent/keysight-34410a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782435/Instruments/Multimeters/Keysight-34410A/Keysight-34410A.png'
+    label='Keysight 34410A'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-2604b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782437/Instruments/Power%20Supplies/Keithley-2604B/Keithley-2604B.webp'
+    label='Keithley 2604B'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/tektronix/awg5208'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782440/Instruments/RF%20Signal%20Generator/AWG5208/AWG5208.webp'
+    label='AWG5208'    
+/>
+
+<InstrumentThumbnail 
+    path='iv-converters/basel/sp983c'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782441/Instruments/IV%20Converter/SP983c/SP983c.webp'
+    label='SP983c'    
+/>
+
+<InstrumentThumbnail 
+    path='qubit-controllers/zurich-instruments/shfqc'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782444/Instruments/Qubit%20Controller/SHFQC/SHFQC.webp'
+    label='SHFQC'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/keithley/dmm7510-keithley'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782445/Instruments/Multimeters/DMM7510-Keithley/DMM7510-Keithley.webp'
+    label='DMM7510 Keithley'    
+/>
+
+<InstrumentThumbnail 
+    path='network-analyzers/keysight/keysight-5222b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782445/Instruments/Network%20Analyzer/Keysight-5222B/Keysight-5222B.jpg'
+    label='Keysight 5222B'    
+/>
+
+<InstrumentThumbnail 
+    path='daq-boards/alazartech/ats9373-12-bit-4-gs-s'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782448/Instruments/DAQ%20boards/ATS9373---12-bit%2C-4-GS-s/ATS9373---12-bit_-4-GS-s.jpg'
+    label='ATS9373-12 bit, 4 GS/s'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/rohde-schwarz/r&s-rto1000'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1705522586/Instruments/Oscilloscopes/RS-RTO1000/rs-rto100.png'
+    label='R&S RTO1000'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/keithley/keithley-2000'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782454/Instruments/Multimeters/Keithley-2000/Keithley-2000.webp'
+    label='Keithley 2000'    
+/>
+
+<InstrumentThumbnail 
+    path='function-generators/keysight/keysight-33210a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782460/Instruments/Function%20Generators/Keysight-33210A/Keysight-33210A.jpg'
+    label='Keysight 33210A'    
+/>
+
+<InstrumentThumbnail 
+    path='spectrometers/quantum-design/ppms-dynacool'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782464/Instruments/Spectrometers/PPMS-Dynacool/PPMS-Dynacool.png'
+    label='PPMS Dynacool'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/quantum-design/ppms-dynacool'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782464/Instruments/Spectrometers/PPMS-Dynacool/PPMS-Dynacool.png'
+    label='PPMS Dynacool'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/quantum-design/ppms-dynacool'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782464/Instruments/Spectrometers/PPMS-Dynacool/PPMS-Dynacool.png'
+    label='PPMS Dynacool'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/agilent/keysight-e8257d'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782469/Instruments/RF%20Signal%20Generator/Keysight-E8257D/Keysight-E8257D.png'
+    label='Keysight E8257D'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/lakeshore/lakeshore-model-335'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782471/Instruments/Temperature%20Controllers/Lakeshore-Model-335/Lakeshore-Model-335.png'
+    label='Lakeshore Model 335'    
+/>
+
+<InstrumentThumbnail 
+    path='network-analyzers/keysight/keysight-n5232b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782475/Instruments/Network%20Analyzer/Keysight-N5232B/Keysight-N5232B.jpg'
+    label='Keysight N5232B'    
+/>
+
+<InstrumentThumbnail 
+    path='network-analyzers/hp/keysight-8753d'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782476/Instruments/Network%20Analyzer/Keysight-8753D/Keysight-8753D.webp'
+    label='Keysight 8753D'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-2635b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782477/Instruments/Power%20Supplies/Keithley-2635B/Keithley-2635B.webp'
+    label='Keithley 2635B'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/keithley/DMM6500-keithley'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782483/Instruments/Multimeters/DMM6500-Keithley/DMM6500-Keithley.webp'
+    label='DMM6500 Keithley'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/tektronix/dpo5000'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782485/Instruments/Oscilloscopes/DPO5000/DPO5000.webp'
+    label='DPO5000'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/aimtti/pl068-p'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782490/Instruments/Power%20Supplies/PL068-P/PL068-P.jpg'
+    label='PL068-P'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-2400'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782492/Instruments/Power%20Supplies/Keithley-2400/Keithley-2400.webp'
+    label='Keithley 2400'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/keysight/keysight-m960xa-series'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782494/Instruments/Power%20Supplies/Keysight-M960XA-Series/Keysight-M960XA-Series.png'
+    label='Keysight M960XA-Series'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keysight/keysight-m960xa-series'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782494/Instruments/Power%20Supplies/Keysight-M960XA-Series/Keysight-M960XA-Series.png'
+    label='Keysight M960XA-Series'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/keysight/keysight-n9030b-pxa'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782495/Instruments/RF%20Signal%20Generator/Keysight-N9030B-PXA/Keysight-N9030B-PXA.jpg'
+    label='Keysight N9030B PXA'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/keysight/keysight-mawgdef'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782497/Instruments/RF%20Signal%20Generator/Keysight-MAwgDef/Keysight-MAwgDef.jpg'
+    label='Keysight MAwgDef'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/keysight/keysight-34410a-submodules'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782505/Instruments/Multimeters/Keysight-34410A-Submodules/Keysight-34410A-Submodules.webp'
+    label='Keysight 34410A Submodules'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/keysight/keysight-n5171b-exg'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782507/Instruments/RF%20Signal%20Generator/Keysight-N5171B-EXG/Keysight-N5171B-EXG.jpg'
+    label='Keysight N5171B EXG'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/keysight/infiniium-oscilloscopes-series'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782509/Instruments/Oscilloscopes/Infiniium-oscilloscopes-Series/Infiniium-oscilloscopes-Series.jpg'
+    label='Infiniium oscilloscopes Series'    
+/>
+
+<InstrumentThumbnail 
+    path='preamplifiers/stanford-research/sr560'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782510/Instruments/Preamplifier/SR-560/SR-560.jpg'
+    label='SR560'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-2600'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782732/Instruments/Power%20Supplies/Keithley-2600/Keithley-2600.jpg'
+    label='Keithley 2600'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/zurich-instruments/hdawg'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782519/Instruments/RF%20Signal%20Generator/HDAWG/HDAWG.webp'
+    label='HDAWG'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/agilent/keysight-e8267c'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782522/Instruments/RF%20Signal%20Generator/Keysight-E8267C/Keysight-E8267C.webp'
+    label='Keysight E8267C'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keysight/keysight-b2962a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782524/Instruments/Power%20Supplies/Keysight-B2962A/Keysight-B2962A.jpg'
+    label='Keysight B2962A'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/tektronix/awg70002a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782530/Instruments/RF%20Signal%20Generator/AWG70002A/AWG70002A.webp'
+    label='AWG70002A'    
+/>
+
+<InstrumentThumbnail 
+    path='lockin-amplifiers/stanford-research/sr865a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782530/Instruments/Lockin%20Amplifiers/SR-865-A/SR-865-A.jpg'
+    label='SR865A'    
+/>
+
+<InstrumentThumbnail 
+    path='lockin-amplifiers/zurich-instruments/mfli'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782534/Instruments/Lockin%20Amplifiers/MFLI/MFLI.webp'
+    label='MFLI'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/tektronix/awg70001a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782537/Instruments/RF%20Signal%20Generator/AWG70001A/AWG70001A.jpg'
+    label='AWG70001A'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/keysight/keysight-m960x-defs'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782538/Instruments/Power%20Supplies/Keysight-M960x-defs/Keysight-M960x-defs.png'
+    label='Keysight M960x defs'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keysight/keysight-m960x-defs'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782538/Instruments/Power%20Supplies/Keysight-M960x-defs/Keysight-M960x-defs.png'
+    label='Keysight M960x defs'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/agilent/keysight-e8267d'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782543/Instruments/RF%20Signal%20Generator/Keysight-E8267D/Keysight-E8267D.png'
+    label='Keysight E8267D'    
+/>
+
+<InstrumentThumbnail 
+    path='network-analyzers/rohde-schwarz/r&s-znb8'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782546/Instruments/Network%20Analyzer/RS-ZNB8/RS-ZNB8.webp'
+    label='R&S ZNB8'    
+/>
+
+<InstrumentThumbnail 
+    path='lockin-amplifiers/stanford-research/sr830'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782548/Instruments/Lockin%20Amplifiers/SR-830/SR-830.jpg'
+    label='SR830'    
+/>
+
+<InstrumentThumbnail 
+    path='daq-boards/keysight/keysight-34980a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782551/Instruments/DAQ%20boards/Keysight-34980A/Keysight-34980A.png'
+    label='Keysight 34980A'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/keysight/keysight-34980a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782551/Instruments/DAQ%20boards/Keysight-34980A/Keysight-34980A.png'
+    label='Keysight 34980A'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/keysight/keysight-33510b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782555/Instruments/RF%20Signal%20Generator/Keysight-33510B/Keysight-33510B.jpg'
+    label='Keysight 33510B'    
+/>
+
+<InstrumentThumbnail 
+    path='network-analyzers/rohde-schwarz/r&s-znb20'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782557/Instruments/Network%20Analyzer/RS-ZNB20/RS-ZNB20.webp'
+    label='R&S ZNB20'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/keysight/keysight-33250a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782561/Instruments/RF%20Signal%20Generator/Keysight-33250A/Keysight-33250A.jpg'
+    label='Keysight 33250A'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-2611b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782565/Instruments/Power%20Supplies/Keithley-2611B/Keithley-2611B.webp'
+    label='Keithley 2611B'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/oxford-instruments/mercuryips'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782570/Instruments/Power%20Supplies/MercuryiPS/MercuryiPS.png'
+    label='MercuryiPS'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/stanford-research/sg384'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782577/Instruments/RF%20Signal%20Generator/SG-384/SG-384.jpg'
+    label='SG384'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/keysight/keysight-33522b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782578/Instruments/RF%20Signal%20Generator/Keysight-33522B/Keysight-33522B.jpg'
+    label='Keysight 33522B'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/tektronix/awg70001b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782579/Instruments/RF%20Signal%20Generator/AWG70001B/AWG70001B.png'
+    label='AWG70001B'    
+/>
+
+<InstrumentThumbnail 
+    path='switches/keysight/keysight-b2200a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782582/Instruments/Switch/Keysight-B2200A/Keysight-B2200A.png'
+    label='Keysight B2200A'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-2450'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782527/Instruments/Power%20Supplies/Keithley-2450/Keithley-2450.png'
+    label='Keithley 2450'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-2602a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782585/Instruments/Power%20Supplies/Keithley-2602A/Keithley-2602A.jpg'
+    label='Keithley 2602A'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/tektronix/mso70000'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782586/Instruments/Oscilloscopes/MSO70000/MSO70000.webp'
+    label='MSO70000'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-2634b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782597/Instruments/Power%20Supplies/Keithley-2634B/Keithley-2634B.webp'
+    label='Keithley 2634B'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/tektronix/mso5000'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782600/Instruments/Oscilloscopes/MSO5000/MSO5000.webp'
+    label='MSO5000'    
+/>
+
+<InstrumentThumbnail 
+    path='daq-boards/alazartech/ats9870-8-bit-1-gs-s'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782603/Instruments/DAQ%20boards/ATS9870---8-bit%2C-1-GS-s/ATS9870---8-bit_-1-GS-s.jpg'
+    label='ATS9870-8 bit, 1 GS/s'    
+/>
+
+<InstrumentThumbnail 
+    path='daq-boards/keysight/keysight-34934a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782604/Instruments/DAQ%20boards/Keysight-34934A/Keysight-34934A.jpg'
+    label='Keysight 34934A'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/aimtti/pl303-p'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782606/Instruments/Power%20Supplies/PL303-P/PL303-P.jpg'
+    label='PL303-P'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/rigol/rigol-dp831'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782610/Instruments/Power%20Supplies/Rigol-DP831/Rigol-DP831.jpg'
+    label='Rigol DP831'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/keysight/keysight-e4980a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782484/Instruments/Multimeters/Keysight-E4980A/Keysight-E4980A.png'
+    label='Keysight E4980A'    
+/>
+
+<InstrumentThumbnail 
+    path='lockin-amplifiers/zurich-instruments/uhfli'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782615/Instruments/Lockin%20Amplifiers/UHFLI/UHFLI.webp'
+    label='UHFLI'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-2602b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782616/Instruments/Power%20Supplies/Keithley-2602B/Keithley-2602B.webp'
+    label='Keithley 2602B'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/keysight/keysight-34411a-submodules'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782621/Instruments/Multimeters/Keysight-34411A-Submodules/Keysight-34411A-Submodules.jpg'
+    label='Keysight 34411A Submodules'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/aimtti/pl601-p'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782624/Instruments/Power%20Supplies/PL601-P/PL601-P.jpg'
+    label='PL601-P'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/american-magnetics/ami-430'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782624/Instruments/Power%20Supplies/AMI-430/AMI-430.jpg'
+    label='AMI 430'    
+/>
+
+<InstrumentThumbnail 
+    path='quantum-analyzers/zurich-instruments/shfqa'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782631/Instruments/Quantum%20Analyzer/SHFQA/SHFQA.webp'
+    label='SHFQA'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/keysight/keysight-34460a-submodules'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782632/Instruments/Multimeters/Keysight-34460A-Submodules/Keysight-34460A-Submodules.jpg'
+    label='Keysight 34460A Submodules'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/rigol/rigol-dp821'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782634/Instruments/Power%20Supplies/Rigol-DP821/Rigol-DP821.jpg'
+    label='Rigol DP821'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/keysight/keysight-n5173b-exg'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782636/Instruments/RF%20Signal%20Generator/Keysight-N5173B-EXG/Keysight-N5173B-EXG.png'
+    label='Keysight N5173B EXG'    
+/>
+
+<InstrumentThumbnail 
+    path='network-analyzers/keysight/keysight-p9374a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782637/Instruments/Network%20Analyzer/Keysight-P9374A/Keysight-P9374A.jpg'
+    label='Keysight P9374A'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/qdev/qdac'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782644/Instruments/Digital-Analog%20Converter/QDAC/QDAC.png'
+    label='QDAC'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-analog-converters/qdev/qdac'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782644/Instruments/Digital-Analog%20Converter/QDAC/QDAC.png'
+    label='QDAC'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-2612b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782646/Instruments/Power%20Supplies/Keithley-2612B/Keithley-2612B.webp'
+    label='Keithley 2612B'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/aimtti/pl303qmt-p'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782432/Instruments/Power%20Supplies/PL303QMD-P/PL303QMD-P.jpg'
+    label='PL303QMT-P'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/agilent/keysight-34411a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782650/Instruments/Multimeters/Keysight-34411A/Keysight-34411A.jpg'
+    label='Keysight 34411A'    
+/>
+
+<InstrumentThumbnail 
+    path='daq-boards/alazartech/ats9440-14-bit-125-ms-s-4-ch'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782652/Instruments/DAQ%20boards/ATS9440---14-bit%2C-125-MS-s%2C-4-ch/ATS9440---14-bit_-125-MS-s_-4-ch.jpg'
+    label='ATS9440-14 bit, 125 MS/s, 4 ch'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/keysight/keysight-34465a-submodules'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782654/Instruments/Multimeters/Keysight-34465A-Submodules/Keysight-34465A-Submodules.png'
+    label='Keysight 34465A Submodules'    
+/>
+
+<InstrumentThumbnail 
+    path='dilution-refrigerators/oxford-instruments/triton'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782655/Instruments/Dilution%20Refrigerator/Triton/Triton.jpg'
+    label='Triton'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/tektronix/dpo70000'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782501/Instruments/Oscilloscopes/DPO70000/DPO70000.webp'
+    label='DPO70000'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/tektronix/awg70000a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782662/Instruments/RF%20Signal%20Generator/AWG70000A/AWG70000A.webp'
+    label='AWG70000A'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/keysight/keysight-33512b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782667/Instruments/RF%20Signal%20Generator/Keysight-33512B/Keysight-33512B.jpg'
+    label='Keysight 33512B'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-2601b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782670/Instruments/Power%20Supplies/Keithley-2601B/Keithley-2601B.webp'
+    label='Keithley 2601B'    
+/>
+
+<InstrumentThumbnail 
+    path='quantum-computing-control-systems/zurich-instruments/pqsc'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782671/Instruments/Quantum%20Computing%20Control%20System/PQSC/PQSC.webp'
+    label='PQSC'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/keysight/ktmawg-ivi-c'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782673/Instruments/RF%20Signal%20Generator/KtMAwg-IVI-C/KtMAwg-IVI-C.jpg'
+    label='KtMAwg IVI-C'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/lakeshore/lakeshore-model-336'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782677/Instruments/Temperature%20Controllers/Lakeshore-Model-336/Lakeshore-Model-336.png'
+    label='Lakeshore Model 336'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/zurich-instruments/shfsg'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782679/Instruments/RF%20Signal%20Generator/SHFSG/SHFSG.webp'
+    label='SHFSG'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/weinschel/weinschel-8320'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782679/Instruments/Digital%20Attenuator/Weinschel-8320/Weinschel-8320.jpg'
+    label='Weinschel 8320'    
+/>
+
+<InstrumentThumbnail 
+    path='network-analyzers/keysight/keysight-n5245a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782682/Instruments/Network%20Analyzer/Keysight-N5245A/Keysight-N5245A.webp'
+    label='Keysight N5245A'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/rigol/rigol-ds1074z'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782683/Instruments/Oscilloscopes/Rigol-DS1074Z/Rigol-DS1074Z.jpg'
+    label='Rigol DS1074Z'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/aimtti/ql335-p'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782684/Instruments/Power%20Supplies/QL335-P/QL335-P.jpg'
+    label='QL335-P'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keysight/keysight-n6705b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782689/Instruments/Power%20Supplies/Keysight-N6705B/Keysight-N6705B.png'
+    label='Keysight N6705B'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/keysight/keysight-n6705b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782689/Instruments/Power%20Supplies/Keysight-N6705B/Keysight-N6705B.png'
+    label='Keysight N6705B'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/keysight/keysight-n6705b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782689/Instruments/Power%20Supplies/Keysight-N6705B/Keysight-N6705B.png'
+    label='Keysight N6705B'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/keysight/keysight-n6705b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782689/Instruments/Power%20Supplies/Keysight-N6705B/Keysight-N6705B.png'
+    label='Keysight N6705B'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/tektronix/dpo7000'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782722/Instruments/Oscilloscopes/DPO7000/DPO7000.jpg'
+    label='DPO7000'    
+/>
+
+<InstrumentThumbnail 
+    path='function-generators/keysight/keysight-33622a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782694/Instruments/Function%20Generators/Keysight-33622A/Keysight-33622A.jpg'
+    label='Keysight 33622A'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/tektronix/awg5014'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782696/Instruments/RF%20Signal%20Generator/AWG5014/AWG5014.jpg'
+    label='AWG5014'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-2636b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782699/Instruments/Power%20Supplies/Keithley-2636B/Keithley-2636B.webp'
+    label='Keithley 2636B'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/stahl/power-supply-series-8510'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1705522492/Instruments/Power%20Supplies/stahl-8510/stahl-8510.png'
+    label='Power Supply Series 8510'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-2614b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782701/Instruments/Power%20Supplies/Keithley-2614B/Keithley-2614B.webp'
+    label='Keithley 2614B'    
+/>
+
+<InstrumentThumbnail 
+    path='lockin-amplifiers/stanford-research/sr865a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782703/Instruments/Lockin%20Amplifiers/SR-865/SR-865.jpg'
+    label='SR865A'    
+/>
+
+<InstrumentThumbnail 
+    path='function-generators/rigol/rigol-dg1062z'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782710/Instruments/Function%20Generators/Rigol-DG1062Z/Rigol-DG1062Z.jpg'
+    label='Rigol DG1062Z'    
+/>
+
+<InstrumentThumbnail 
+    path='lockin-amplifiers/stanford-research/sr860'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782674/Instruments/Lockin%20Amplifiers/SR-860/SR-860.jpg'
+    label='SR860'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/rigol/rigol-ds4000-series'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782714/Instruments/Oscilloscopes/Rigol-DS4000-Series/Rigol-DS4000-Series.jpg'
+    label='Rigol DS4000-Series'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/rohde-schwarz/r&s-sgs100a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782716/Instruments/RF%20Signal%20Generator/RS-SGS100A/RS-SGS100A.jpg'
+    label='R&S SGS100A'    
+/>
+
+<InstrumentThumbnail 
+    path='spectrum-analyzers/keysight/keysight-b1500a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782723/Instruments/Spectrum%20Analyzers/Keysight-B1500A/Keysight-B1500A.png'
+    label='Keysight B1500A'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/rigol/rigol-dp832'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782725/Instruments/Power%20Supplies/Rigol-DP832/Rigol-DP832.jpg'
+    label='Rigol DP832'    
+/>
+
+<InstrumentThumbnail 
+    path='daq-boards/alazartech/ats9360-12bit-18gs-s'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782729/Instruments/DAQ%20boards/ATS9360---12bit%2C-1.8GS-s/ATS9360---12bit_-1.8GS-s.jpg'
+    label='ATS9360-12bit, 1.8GS/s'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/agilent/keysight-34401a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782730/Instruments/Multimeters/Keysight-34401A/Keysight-34401A.png'
+    label='Keysight 34401A'    
+/>
+
+<InstrumentThumbnail 
+    path='daq-boards/keysight/keysight-34980a-submodules'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782733/Instruments/DAQ%20boards/Keysight-34980A-Submodules/Keysight-34980A-Submodules.png'
+    label='Keysight 34980A Submodules'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/keysight/keysight-34980a-submodules'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782733/Instruments/DAQ%20boards/Keysight-34980A-Submodules/Keysight-34980A-Submodules.png'
+    label='Keysight 34980A Submodules'    
+/>
+
+<InstrumentThumbnail 
+    path='network-analyzers/keysight/keysight-n5230c'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782736/Instruments/Network%20Analyzer/Keysight-N5230C/Keysight-N5230C.jpg'
+    label='Keysight N5230C'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/keithley/keithley-3706a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782738/Instruments/Multimeters/Keithley-3706A/Keithley-3706A.webp'
+    label='Keithley 3706A'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/yokogawa/yokogawa-gs-200'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782709/Instruments/Power%20Supplies/Yokogawa-GS-200/Yokogawa-GS-200.jpg'
+    label='Yokogawa GS 200'    
+/>
+
+<InstrumentThumbnail 
+    path='oscilloscopes/tektronix/tsp2012'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782739/Instruments/Oscilloscopes/TSP2012/TSP2012.jpg'
+    label='TSP2012'    
+/>
+
+<InstrumentThumbnail 
+    path='lockin-amplifiers/ithaco/ithaco-1211'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782742/Instruments/Lockin%20Amplifiers/Ithaco-1211/Ithaco-1211.jpg'
+    label='Ithaco 1211'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/lakeshore/lakeshore-model-325'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782744/Instruments/Temperature%20Controllers/Lakeshore-Model-325/Lakeshore-Model-325.png'
+    label='Lakeshore Model 325'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/qdev/qdac'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782644/Instruments/Digital-Analog%20Converter/QDAC/QDAC.png'
+    label='QDAC Channels'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-analog-converters/qdev/qdac'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782644/Instruments/Digital-Analog%20Converter/QDAC/QDAC.png'
+    label='QDAC Channels'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/keysight/keysight-34461a-submodules'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782747/Instruments/Multimeters/Keysight-34461A-Submodules/Keysight-34461A-Submodules.jpg'
+    label='Keysight 34461A Submodules'    
+/>
+
+<InstrumentThumbnail 
+    path='network-analyzers/rohde-schwarz/series'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1692395638/Instruments/Network%20Analyzers/RS-ZNB8/file.png'
+    label='Series'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/keysight/keysight-n5183b-mxg'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782749/Instruments/RF%20Signal%20Generator/Keysight-N5183B-MXG/Keysight-N5183B-MXG.png'
+    label='Keysight N5183B MXG'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/tektronix/awg70002b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782752/Instruments/RF%20Signal%20Generator/AWG70002B/AWG70002B.jpg'
+    label='AWG70002B'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/rigol/rigol-dp8xx-series'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782754/Instruments/Power%20Supplies/Rigol-DP8xx-Series/Rigol-DP8xx-Series.jpg'
+    label='Rigol DP8xx-Series'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/aimtti/pl155-p'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782760/Instruments/Power%20Supplies/PL155-P/PL155-P.jpg'
+    label='PL155-P'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/keysight/keysight-34470a-submodules'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782766/Instruments/Multimeters/Keysight-34470A-Submodules/Keysight-34470A-Submodules.jpg'
+    label='Keysight 34470A Submodules'    
+/>
+
+<InstrumentThumbnail 
+    path='spectrum-analyzers/signal-hound/usb-sa-124-b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782769/Instruments/Spectrum%20Analyzers/USB-SA-124-B/USB-SA-124-B.jpg'
+    label='USB SA 124 B'    
+/>
+
+</div>
+
+## QCodes Community
+
+<details> 
+<summary>Library Description</summary> 
+QCodes Community is a powerful Python library that has revolutionized the way hardware engineers interact with instruments. It provides a comprehensive and user-friendly interface for controlling and acquiring data from a wide range of scientific instruments. With its extensive functionality and intuitive design, QCodes Community has become the go-to choice for researchers and engineers working in various fields.
+
+One of the key features of QCodes Community is its ability to seamlessly integrate with different instrument types, making it a versatile solution for any laboratory setup. Whether you are working with oscilloscopes, signal generators, power supplies, or any other instrument, QCodes Community provides a unified interface that simplifies instrument control and data acquisition.
+
+The library offers a modular architecture that allows users to easily extend its capabilities by adding support for new instruments. This flexibility ensures that QCodes Community can adapt to the evolving needs of the scientific community, making it a future-proof solution for instrument control.
+
+QCodes Community also provides a powerful data acquisition framework that enables users to efficiently collect and analyze experimental data. It offers various data storage options, including in-memory storage, SQLite databases, and HDF5 files, allowing users to choose the most suitable method for their specific requirements. Additionally, the library supports real-time plotting and visualization of acquired data, making it easier to monitor experiments and make informed decisions.
+
+Now, let's explore some of the popular and commonly used instruments supported by QCodes Community:
+
+1. Keithley 2400 SourceMeter: This instrument is widely used for sourcing and measuring electrical signals. With QCodes Community, you can easily control the Keithley 2400, set voltage and current levels, and acquire measurement data with high precision.
+
+2. Keysight E8267D PSG Vector Signal Generator: This signal generator is commonly used in RF and wireless communication applications. QCodes Community provides a comprehensive interface to control the E8267D PSG, allowing users to generate complex waveforms, modulate signals, and perform frequency sweeps effortlessly.
+
+3. Tektronix DPO7000 Series Oscilloscope: QCodes Community offers seamless integration with Tektronix DPO7000 series oscilloscopes, enabling users to control various oscilloscope settings, acquire waveform data, and perform advanced triggering and analysis.
+
+4. Agilent 34401A Digital Multimeter: This multimeter is a popular choice for measuring voltage, current, and resistance in a wide range of applications. QCodes Community provides a convenient interface to control the Agilent 34401A, allowing users to perform measurements with high accuracy and flexibility.
+
+5. Stanford Research Systems SR830 Lock-In Amplifier: QCodes Community offers comprehensive support for the SR830 Lock-In Amplifier, enabling users to control various amplifier settings, acquire data, and perform advanced signal processing and analysis.
+
+These are just a few examples of the instruments supported by QCodes Community. The library also provides support for many other instruments, including power supplies, function generators, spectrum analyzers, and more. With its extensive instrument compatibility, intuitive interface, and powerful data acquisition capabilities, QCodes Community has become an indispensable tool for hardware engineers and researchers in the scientific community.
+</details> 
+
+<div className="flex flex-wrap">
+
+<InstrumentThumbnail 
+    path='power-supplies/qutech/d5a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782421/Instruments/Power%20Supplies/D5a/D5a.png'
+    label='D5a'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-802q'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782422/Instruments/Digital%20Attenuator/LDA-802Q/LDA-802Q.png'
+    label='LDA-802Q'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/rohdeschwarz/hmc-8041'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782431/Instruments/Power%20Supplies/HMC-8041/HMC-8041.jpg'
+    label='HMC 8041'    
+/>
+
+<InstrumentThumbnail 
+    path='pulse-generators/stanford-research/dg645'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782433/Instruments/Pulse%20Generator/DG-645/DG-645.jpg'
+    label='DG645'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/keithley/keithley-6430'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782449/Instruments/Multimeters/Keithley-6430/Keithley-6430.webp'
+    label='Keithley 6430'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keithley/keithley-6430'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782449/Instruments/Multimeters/Keithley-6430/Keithley-6430.webp'
+    label='Keithley 6430'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-5018v'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782451/Instruments/Digital%20Attenuator/LDA-5018V/LDA-5018V.png'
+    label='LDA-5018V'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-908v-4'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782455/Instruments/Digital%20Attenuator/LDA-908V-4/LDA-908V-4.png'
+    label='LDA-908V-4'    
+/>
+
+<InstrumentThumbnail 
+    path='motor-controllers/newport/ag-uc-8'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782455/Instruments/Positional%20Controller/AG-UC-8/AG-UC-8.jpg'
+    label='AG UC 8'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-802-32'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782459/Instruments/Digital%20Attenuator/LDA-802-32/LDA-802-32.png'
+    label='LDA-802-32'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/rohdeschwarz/hmc-8043'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782462/Instruments/Power%20Supplies/HMC-8043/HMC-8043.jpg'
+    label='HMC 8043'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/rohdes-and-schwarz/hmp-4040'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782700/Instruments/Power%20Supplies/HMP-4040/HMP-4040.jpg'
+    label='HMP 4040'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/national-instruments/ni-pxie-5654'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782467/Instruments/RF%20Signal%20Generator/NI-PXIe-5654/NI-PXIe-5654.jpg'
+    label='NI PXIe-5654'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/tektronix/awg520'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782468/Instruments/RF%20Signal%20Generator/AWG520/AWG520.jpg'
+    label='AWG520'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-906v'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782470/Instruments/Digital%20Attenuator/LDA-906V/LDA-906V.png'
+    label='LDA-906V'    
+/>
+
+<InstrumentThumbnail 
+    path='multimeters/keithley/DMM6500'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782476/Instruments/Multimeters/DMM6500/DMM6500.webp'
+    label='DMM6500'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/qdevil/qdac-2-array'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782488/Instruments/Digital-Analog%20Converter/Qdac-2/Qdac-2.jpg'
+    label='Qdac 2'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-analog-converters/qdevil/qdac-2-array'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782488/Instruments/Digital-Analog%20Converter/Qdac-2/Qdac-2.jpg'
+    label='Qdac 2'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-302p-1n'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782489/Instruments/Digital%20Attenuator/LDA-302P-1N/LDA-302P-1N.png'
+    label='LDA-302P-1N'    
+/>
+
+<InstrumentThumbnail 
+    path='motor-controllers/thorlabs/mmf101-mmf102'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782491/Instruments/Motion/MMF101-MMF102/MMF101-MMF102.jpg'
+    label='MMF101/MMF102'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/rohdeschwarz/smw-200-a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782496/Instruments/RF%20Signal%20Generator/SMW-200-A/SMW-200-A.jpg'
+    label='SMW 200 A'    
+/>
+
+<InstrumentThumbnail 
+    path='lockin-amplifiers/qutech/m2j'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782498/Instruments/Lockin%20Amplifiers/M2j/M2j.png'
+    label='M2j'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/erainstruments/erasynth'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782500/Instruments/RF%20Signal%20Generator/ERASYNTH/ERASYNTH.jpg'
+    label='ERASYNTH'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/signalcore/5521a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782505/Instruments/RF%20Signal%20Generator/5521A/5521A.png'
+    label='5521A'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-102'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782508/Instruments/Digital%20Attenuator/LDA-102/LDA-102.png'
+    label='LDA-102'    
+/>
+
+<InstrumentThumbnail 
+    path='function-generators/spectrum/m4i6631-x8'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782514/Instruments/Function%20Generators/M4i.6631-x8/M4i.6631-x8.png'
+    label='M4i.6631-x8'    
+/>
+
+<InstrumentThumbnail 
+    path='network-analyzers/coppermountain/m5180-2-port-18-ghz-analyzer'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782516/Instruments/Network%20Analyzer/M5180-2-Port-18-GHz-Analyzer/M5180-2-Port-18-GHz-Analyzer.png'
+    label='M5180 2-Port 18 GHz Analyzer'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/national-instruments/rfsg'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1705522675/Instruments/RF%20Signal%20Generators/RFSG/ni-rfsg.png'
+    label='RFSG'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-302p-hn'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782520/Instruments/Digital%20Attenuator/LDA-302P-HN/LDA-302P-HN.png'
+    label='LDA-302P-HN'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/bluefors/bluefors-temperature-controller'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782523/Instruments/Temperature%20Controllers/Bluefors-temperature-controller/Bluefors-temperature-controller.png'
+    label='Bluefors temperature controller'    
+/>
+
+<InstrumentThumbnail 
+    path='screen-displays/gentec-eo/gentec-EO-maestro'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782525/Instruments/Screen%20Display/Gentec-EO-Maestro/Gentec-EO-Maestro.png'
+    label='Gentec EO Maestro'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-102-75f'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782520/Instruments/Digital%20Attenuator/LDA-302P-HN/LDA-302P-HN.png'
+    label='LDA-102-75F'    
+/>
+
+<InstrumentThumbnail 
+    path='network-analyzers/rohdeschwarz/zvl-13'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782531/Instruments/Network%20Analyzer/ZVL-13/ZVL-13.webp'
+    label='ZVL 13'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/rohdeschwarz/zvl-13'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782531/Instruments/Network%20Analyzer/ZVL-13/ZVL-13.webp'
+    label='ZVL 13'    
+/>
+
+<InstrumentThumbnail 
+    path='spectrum-analyzers/rohdeschwarz/zvl-13'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782531/Instruments/Network%20Analyzer/ZVL-13/ZVL-13.webp'
+    label='ZVL 13'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-302p-2n'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782535/Instruments/Digital%20Attenuator/LDA-302P-2N/LDA-302P-2N.png'
+    label='LDA-302P-2N'    
+/>
+
+<InstrumentThumbnail 
+    path='spectrum-analyzers/agilent/keysight-n9000a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782541/Instruments/Spectrum%20Analyzers/Keysight-N9000A/Keysight-N9000A.png'
+    label='Keysight N9000A'    
+/>
+
+<InstrumentThumbnail 
+    path='motor-controllers/thorlabs/k10cr1'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782544/Instruments/Motion/K10CR1/K10CR1.jpg'
+    label='K10CR1'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/rohdeschwarz/hmc-8042'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782545/Instruments/Power%20Supplies/HMC-8042/HMC-8042.jpg'
+    label='HMC 8042'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/keysight/keysight-m3201a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782547/Instruments/RF%20Signal%20Generator/Keysight-M3201A/Keysight-M3201A.png'
+    label='Keysight M3201A'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/qdevil/qdac-1'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782554/Instruments/Digital-Analog%20Converter/Qdac-1/Qdac-1.png'
+    label='Qdac 1'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-analog-converters/qdevil/qdac-1'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782554/Instruments/Digital-Analog%20Converter/Qdac-1/Qdac-1.png'
+    label='Qdac 1'    
+/>
+
+<InstrumentThumbnail 
+    path='network-analyzers/coppermountain/s5048-2-port-48-ghz-analyzer'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782558/Instruments/Network%20Analyzer/S5048-2-Port-4.8-GHz-Analyzer/S5048-2-Port-4.8-GHz-Analyzer.png'
+    label='S5048 2-Port 4.8 GHz Analyzer'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/keysight/keysight-m3202a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782559/Instruments/RF%20Signal%20Generator/Keysight-M3202A/Keysight-M3202A.png'
+    label='Keysight M3202A'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/qdevil/qdac-2'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782564/Instruments/Digital-Analog%20Converter/Qdac-2-Array/Qdac-2-Array.jpg'
+    label='Qdac 2 Array'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-analog-converters/qdevil/qdac-2'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782564/Instruments/Digital-Analog%20Converter/Qdac-2-Array/Qdac-2-Array.jpg'
+    label='Qdac 2 Array'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/rohdeschwarz/hmp-2020'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782566/Instruments/Power%20Supplies/HMP-2020/HMP-2020.jpg'
+    label='HMP 2020'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-802-12'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782573/Instruments/Digital%20Attenuator/LDA-802-12/LDA-802-12.png'
+    label='LDA-802-12'    
+/>
+
+<InstrumentThumbnail 
+    path='daq-boards/national-instruments/ni-daq'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782582/Instruments/DAQ%20boards/NI-DAQ/NI-DAQ.jpg'
+    label='NI DAQ'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-908v-8'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782584/Instruments/Digital%20Attenuator/LDA-908V-8/LDA-908V-8.png'
+    label='LDA-908V-8'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-403'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782587/Instruments/Digital%20Attenuator/LDA-403/LDA-403.png'
+    label='LDA-403'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-302p-2'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782592/Instruments/Digital%20Attenuator/LDA-302P-2/LDA-302P-2.png'
+    label='LDA-302P-2'    
+/>
+
+<InstrumentThumbnail 
+    path='lockin-amplifiers/standa/standa-10mwa168'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782593/Instruments/Lockin%20Amplifiers/Standa-10MWA168/Standa-10MWA168.jpg'
+    label='Standa 10MWA168'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-602e'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782602/Instruments/Digital%20Attenuator/LDA-602E/LDA-602E.png'
+    label='LDA-602E'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-802-8'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782605/Instruments/Digital%20Attenuator/LDA-802-8/LDA-802-8.png'
+    label='LDA-802-8'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/oxford-instruments/ilm-200'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782614/Instruments/Power%20Meters/ILM-200/ILM-200.jpg'
+    label='ILM 200'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-906v-8'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782584/Instruments/Digital%20Attenuator/LDA-908V-8/LDA-908V-8.png'
+    label='LDA-906V-8'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/keysight/keysight-e8267d-psg'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782618/Instruments/RF%20Signal%20Generator/Keysight-E8267D-PSG/Keysight-E8267D-PSG.png'
+    label='Keysight E8267D PSG'    
+/>
+
+<InstrumentThumbnail 
+    path='iv-converters/qutech/ivvi'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782619/Instruments/IV%20Converter/IVVI/IVVI.jpg'
+    label='IVVI'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-602eh'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782629/Instruments/Digital%20Attenuator/LDA-602EH/LDA-602EH.png'
+    label='LDA-602EH'    
+/>
+
+<InstrumentThumbnail 
+    path='electronic-loads/keysight/keysight-n3300a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782633/Instruments/Electronic%20Loads/Keysight-N3300A/Keysight-N3300A.png'
+    label='Keysight N3300A'    
+/>
+
+<InstrumentThumbnail 
+    path='power-meters/qutech/d4'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782635/Instruments/Power%20Meters/D4/D4.png'
+    label='D4'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-908v'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782638/Instruments/Digital%20Attenuator/LDA-908V/LDA-908V.png'
+    label='LDA-908V'    
+/>
+
+<InstrumentThumbnail 
+    path='lockin-amplifiers/zurich-instruments/hf2li'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782640/Instruments/Lockin%20Amplifiers/HF2LI/HF2LI.webp'
+    label='HF2LI'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-608v-4'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782641/Instruments/Digital%20Attenuator/LDA-608V-4/LDA-608V-4.jpg'
+    label='LDA-608V-4'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-203b'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782646/Instruments/Digital%20Attenuator/LDA-203B/LDA-203B.png'
+    label='LDA-203B'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-102n'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782649/Instruments/Digital%20Attenuator/LDA-102N/LDA-102N.png'
+    label='LDA-102N'    
+/>
+
+<InstrumentThumbnail 
+    path='motor-controllers/thorlabs/prm1z8'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782651/Instruments/Motion/PRM1Z8/PRM1Z8.jpg'
+    label='PRM1Z8'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-802-16'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782653/Instruments/Digital%20Attenuator/LDA-802-16/LDA-802-16.png'
+    label='LDA-802-16'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-133'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782658/Instruments/Digital%20Attenuator/LDA-133/LDA-133.png'
+    label='LDA-133'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/qutech/f1d'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782660/Instruments/RF%20Signal%20Generator/F1d/F1d.png'
+    label='F1d'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/rohdeschwarz/smw-200a-b140'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782663/Instruments/RF%20Signal%20Generator/SMW-200A---B140/SMW-200A---B140.webp'
+    label='SMW 200A-B140'    
+/>
+
+<InstrumentThumbnail 
+    path='function-generators/tektronix/afg3000'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782665/Instruments/Function%20Generators/AFG3000/AFG3000.webp'
+    label='AFG3000'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/stanford-research/sim928'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782666/Instruments/Power%20Supplies/SIM-928/SIM-928.jpg'
+    label='SIM928'    
+/>
+
+<InstrumentThumbnail 
+    path='motor-controllers/attocube/anc-350-piezo-controller'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782675/Instruments/Positional%20Controller/ANC-350-PIEZO-Controller/ANC-350-PIEZO-Controller.jpg'
+    label='ANC 350 PIEZO Controller'    
+/>
+
+<InstrumentThumbnail 
+    path='motor-controllers/attocube/anc300'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782687/Instruments/Positional%20Controller/ANC300/ANC300.jpg'
+    label='ANC300'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-302p-1'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782688/Instruments/Digital%20Attenuator/LDA-302P-1/LDA-302P-1.png'
+    label='LDA-302P-1'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-302p-h'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782697/Instruments/Digital%20Attenuator/LDA-302P-H/LDA-302P-H.png'
+    label='LDA-302P-H'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/keysight/keysight-e36313a'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782704/Instruments/Power%20Supplies/Keysight-E36313A/Keysight-E36313A.jpg'
+    label='Keysight E36313A'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/qutech/s5i'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782708/Instruments/RF%20Signal%20Generator/S5i/S5i.png'
+    label='S5i'    
+/>
+
+<InstrumentThumbnail 
+    path='spectrometers/andor/idus-401-ccd'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782711/Instruments/Spectrometers/IDUS-401-CCD/IDUS-401-CCD.png'
+    label='IDUS 401 CCD'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/rohdeschwarz/hmp-2030'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782712/Instruments/Power%20Supplies/HMP-2030/HMP-2030.jpg'
+    label='HMP 2030'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/aviosys/ip-power-9258-s'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782718/Instruments/Power%20Supplies/IP-Power-9258-S/IP-Power-9258-S.png'
+    label='IP Power 9258 S'    
+/>
+
+<InstrumentThumbnail 
+    path='multiplexer-switch-modules/national-instruments/ni-pxie-2597'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782720/Instruments/Multiplexer%20Switch%20Modules/NI-PXIe-2597/NI-PXIe-2597.jpg'
+    label='NI PXIe-2597'    
+/>
+
+<InstrumentThumbnail 
+    path='daq-boards/advantech/PCIE-1751'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782721/Instruments/DAQ%20boards/PCIE-1751/PCIE-1751.png'
+    label='PCIE 1751'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/rohdeschwarz/smr-40'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782727/Instruments/RF%20Signal%20Generator/SMR-40/SMR-40.jpg'
+    label='SMR 40'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/oxford-instruments/ips-120'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782768/Instruments/Power%20Supplies/IPS-120-10/IPS-120-10.jpg'
+    label='IPS 120'    
+/>
+
+<InstrumentThumbnail 
+    path='lockin-amplifiers/keysight/keysight-j7211-a-b-c-series'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782735/Instruments/Lockin%20Amplifiers/Keysight-J7211-A-B-C-Series/Keysight-J7211-A-B-C-Series.jpg'
+    label='Keysight J7211/A/B/C-Series'    
+/>
+
+<InstrumentThumbnail 
+    path='spectrometers/andor/shamrock-750'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782743/Instruments/Spectrometers/Shamrock-750/Shamrock-750.png'
+    label='Shamrock 750'    
+/>
+
+<InstrumentThumbnail 
+    path='photon-counting-systems/singlequantum/singlequantum'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782463/Instruments/Photon%20Counting%20System/PicoHarp-300/PicoHarp-300.jpg'
+    label='Singlequantum'    
+/>
+
+<InstrumentThumbnail 
+    path='rf-signal-generators/zurich-instruments/hdawg'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782519/Instruments/RF%20Signal%20Generator/HDAWG/HDAWG.webp'
+    label='HDAWG'    
+/>
+
+<InstrumentThumbnail 
+    path='dilution-refrigerators/oxford-instruments/kelvinox-igh'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782756/Instruments/Dilution%20Refrigerator/Kelvinox-IGH/Kelvinox-IGH.png'
+    label='Kelvinox IGH'    
+/>
+
+<InstrumentThumbnail 
+    path='temperature-controllers/lakeshore/model-331'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782758/Instruments/Temperature%20Controllers/Model-331/Model-331.png'
+    label='Model 331'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-602q'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782759/Instruments/Digital%20Attenuator/LDA-602Q/LDA-602Q.png'
+    label='LDA-602Q'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-802eh'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782762/Instruments/Digital%20Attenuator/LDA-802EH/LDA-802EH.png'
+    label='LDA-802EH'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/lakeshore/model-625'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782764/Instruments/Power%20Supplies/Model-625/Model-625.png'
+    label='Model 625'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-602n'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782764/Instruments/Digital%20Attenuator/LDA-602N/LDA-602N.png'
+    label='LDA-602N'    
+/>
+
+<InstrumentThumbnail 
+    path='digital-attenuators/vaunix/lda-602'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782767/Instruments/Digital%20Attenuator/LDA-602/LDA-602.png'
+    label='LDA-602'    
+/>
+
+<InstrumentThumbnail 
+    path='power-supplies/rohdeschwarz/hmp-4030'
+    img='https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782767/Instruments/Power%20Supplies/HMP-4030/HMP-4030.jpg'
+    label='HMP 4030'    
+/>
+
+</div>

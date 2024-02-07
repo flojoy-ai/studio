@@ -1,0 +1,480 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 72,
+                "height": 72,
+                "id": "FLOOR_DIVIDE-c46da156-a03e-4cd8-b963-bfe48c956fc6",
+                "type": "ARITHMETIC",
+                "data": {
+                    "id": "FLOOR_DIVIDE-c46da156-a03e-4cd8-b963-bfe48c956fc6",
+                    "label": "FLOOR DIVIDE",
+                    "func": "FLOOR_DIVIDE",
+                    "type": "ARITHMETIC",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "a",
+                            "id": "a",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "The input that will be divide by b."
+                        },
+                        {
+                            "name": "b",
+                            "id": "b",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": true,
+                            "desc": "The input that will divide a."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the result of the division of input a by input b.\n\nScalar if a is a Scalar.\nc: the result of the division of input a by input b.\n\nVector if a is a Vector.\nv: the result of the division of input a by input b."
+                        }
+                    ],
+                    "path": "MATH/ARITHMETIC/FLOOR_DIVIDE/FLOOR_DIVIDE.py"
+                },
+                "position": {
+                    "x": 246.01795031377316,
+                    "y": -141.7675184639236
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 246.01795031377316,
+                    "y": -141.7675184639236
+                },
+                "dragging": true
+            },
+            {
+                "width": 72,
+                "height": 72,
+                "id": "REMAINDER-6948736e-d257-445e-842c-cedae2d7ae3a",
+                "type": "ARITHMETIC",
+                "data": {
+                    "id": "REMAINDER-6948736e-d257-445e-842c-cedae2d7ae3a",
+                    "label": "REMAINDER",
+                    "func": "REMAINDER",
+                    "type": "ARITHMETIC",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "a",
+                            "id": "a",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "The input that will be divide by b."
+                        },
+                        {
+                            "name": "b",
+                            "id": "b",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": true,
+                            "desc": "The input that will divide a."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the result of the division of input a by input b.\n\nScalar if a is a Scalar.\nc: the result of the division of input a by input b.\n\nVector if a is a Vector.\nv: the result of the division of input a by input b."
+                        }
+                    ],
+                    "path": "MATH/ARITHMETIC/REMAINDER/REMAINDER.py"
+                },
+                "position": {
+                    "x": 250.67792774555954,
+                    "y": 68.06966783007044
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 250.67792774555954,
+                    "y": 68.06966783007044
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "CONSTANT-45dc72d3-baec-493d-82e1-8a818c9a9348",
+                "type": "DATA",
+                "data": {
+                    "id": "CONSTANT-45dc72d3-baec-493d-82e1-8a818c9a9348",
+                    "label": "10",
+                    "func": "CONSTANT",
+                    "type": "DATA",
+                    "ctrls": {
+                        "dc_type": {
+                            "type": "select",
+                            "options": [
+                                "Scalar",
+                                "Vector",
+                                "OrderedPair"
+                            ],
+                            "default": "OrderedPair",
+                            "desc": "The type of DataContainer to return.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "dc_type",
+                            "value": "Scalar"
+                        },
+                        "constant": {
+                            "type": "float",
+                            "default": 3,
+                            "desc": "The value of the y axis output.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "constant",
+                            "value": 10
+                        },
+                        "step": {
+                            "type": "float",
+                            "default": 1000,
+                            "desc": "The size of the y and x axes.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "step",
+                            "value": 1000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "multiple": false,
+                            "desc": "Optional input that defines the size of the output."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Vector|Scalar",
+                            "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
+                },
+                "position": {
+                    "x": -200.47958011610487,
+                    "y": -165.19541754610998
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -200.47958011610487,
+                    "y": -165.19541754610998
+                },
+                "dragging": true
+            },
+            {
+                "width": 208,
+                "height": 96,
+                "id": "CONSTANT-dff544a3-0bf5-469e-b478-074a01c0a110",
+                "type": "DATA",
+                "data": {
+                    "id": "CONSTANT-dff544a3-0bf5-469e-b478-074a01c0a110",
+                    "label": "3",
+                    "func": "CONSTANT",
+                    "type": "DATA",
+                    "ctrls": {
+                        "dc_type": {
+                            "type": "select",
+                            "options": [
+                                "Scalar",
+                                "Vector",
+                                "OrderedPair"
+                            ],
+                            "default": "OrderedPair",
+                            "desc": "The type of DataContainer to return.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "dc_type",
+                            "value": "Scalar"
+                        },
+                        "constant": {
+                            "type": "float",
+                            "default": 3,
+                            "desc": "The value of the y axis output.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "constant",
+                            "value": 3
+                        },
+                        "step": {
+                            "type": "float",
+                            "default": 1000,
+                            "desc": "The size of the y and x axes.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "step",
+                            "value": 1000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "multiple": false,
+                            "desc": "Optional input that defines the size of the output."
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Vector|Scalar",
+                            "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
+                },
+                "position": {
+                    "x": -203.93886589288093,
+                    "y": 76.71894895189558
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -203.93886589288093,
+                    "y": 76.71894895189558
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 225,
+                "id": "BIG_NUMBER-c7ac2dd5-f5d8-4f6e-91f7-741a7d888de3",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "BIG_NUMBER-c7ac2dd5-f5d8-4f6e-91f7-741a7d888de3",
+                    "label": "BIG NUMBER",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any suffix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": ""
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py"
+                },
+                "position": {
+                    "x": 567.7350123066145,
+                    "y": 26.47625977302897
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 567.7350123066145,
+                    "y": 26.47625977302897
+                },
+                "dragging": true
+            },
+            {
+                "width": 225,
+                "height": 225,
+                "id": "BIG_NUMBER-2739a2de-81a1-4fb4-9edc-811b038c1af2",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "BIG_NUMBER-2739a2de-81a1-4fb4-9edc-811b038c1af2",
+                    "label": "BIG NUMBER 2",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any suffix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": ""
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py"
+                },
+                "position": {
+                    "x": 562.0553470874513,
+                    "y": -222.56144869590264
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 562.0553470874513,
+                    "y": -222.56144869590264
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "CONSTANT-45dc72d3-baec-493d-82e1-8a818c9a9348",
+                "sourceHandle": "default",
+                "target": "FLOOR_DIVIDE-c46da156-a03e-4cd8-b963-bfe48c956fc6",
+                "targetHandle": "a",
+                "id": "reactflow__edge-CONSTANT-45dc72d3-baec-493d-82e1-8a818c9a9348default-FLOOR_DIVIDE-c46da156-a03e-4cd8-b963-bfe48c956fc6a"
+            },
+            {
+                "source": "CONSTANT-dff544a3-0bf5-469e-b478-074a01c0a110",
+                "sourceHandle": "default",
+                "target": "FLOOR_DIVIDE-c46da156-a03e-4cd8-b963-bfe48c956fc6",
+                "targetHandle": "b",
+                "id": "reactflow__edge-CONSTANT-dff544a3-0bf5-469e-b478-074a01c0a110default-FLOOR_DIVIDE-c46da156-a03e-4cd8-b963-bfe48c956fc6b"
+            },
+            {
+                "source": "CONSTANT-45dc72d3-baec-493d-82e1-8a818c9a9348",
+                "sourceHandle": "default",
+                "target": "REMAINDER-6948736e-d257-445e-842c-cedae2d7ae3a",
+                "targetHandle": "a",
+                "id": "reactflow__edge-CONSTANT-45dc72d3-baec-493d-82e1-8a818c9a9348default-REMAINDER-6948736e-d257-445e-842c-cedae2d7ae3aa"
+            },
+            {
+                "source": "CONSTANT-dff544a3-0bf5-469e-b478-074a01c0a110",
+                "sourceHandle": "default",
+                "target": "REMAINDER-6948736e-d257-445e-842c-cedae2d7ae3a",
+                "targetHandle": "b",
+                "id": "reactflow__edge-CONSTANT-dff544a3-0bf5-469e-b478-074a01c0a110default-REMAINDER-6948736e-d257-445e-842c-cedae2d7ae3ab"
+            },
+            {
+                "source": "REMAINDER-6948736e-d257-445e-842c-cedae2d7ae3a",
+                "sourceHandle": "default",
+                "target": "BIG_NUMBER-c7ac2dd5-f5d8-4f6e-91f7-741a7d888de3",
+                "targetHandle": "default",
+                "id": "reactflow__edge-REMAINDER-6948736e-d257-445e-842c-cedae2d7ae3adefault-BIG_NUMBER-c7ac2dd5-f5d8-4f6e-91f7-741a7d888de3default"
+            },
+            {
+                "source": "FLOOR_DIVIDE-c46da156-a03e-4cd8-b963-bfe48c956fc6",
+                "sourceHandle": "default",
+                "target": "BIG_NUMBER-2739a2de-81a1-4fb4-9edc-811b038c1af2",
+                "targetHandle": "default",
+                "id": "reactflow__edge-FLOOR_DIVIDE-c46da156-a03e-4cd8-b963-bfe48c956fc6default-BIG_NUMBER-2739a2de-81a1-4fb4-9edc-811b038c1af2default"
+            }
+        ],
+        "viewport": {
+            "x": 998.2402235606428,
+            "y": 582.5298224384069,
+            "zoom": 0.9879406118224267
+        }
+    },
+    "textNodes": []
+}

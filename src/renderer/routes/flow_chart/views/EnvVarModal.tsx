@@ -12,21 +12,21 @@ import {
 } from "@src/hooks/useFlowChartState";
 import { postEnvironmentVariable } from "@src/services/FlowChartServices";
 import EnvVarCredentialsInfo from "./EnvVarCredentials/EnvVarCredentialsInfo";
-import { Button } from "@src/components/ui/button";
+import { Button } from "@/renderer/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "@src/components/ui/dialog";
-import { Input } from "@src/components/ui/input";
-import { Label } from "@src/components/ui/label";
-import { ScrollArea } from "@src/components/ui/scroll-area";
+} from "@/renderer/components/ui/dialog";
+import { Input } from "@/renderer/components/ui/input";
+import { Label } from "@/renderer/components/ui/label";
+import { ScrollArea } from "@/renderer/components/ui/scroll-area";
 import EnvVarDelete from "./EnvVarCredentials/EnvVarDelete";
 import EnvVarEdit from "./EnvVarCredentials/EnvVarEdit";
 import { Key } from "lucide-react";
 import { toast } from "sonner";
-import { Separator } from "@src/components/ui/separator";
+import { Separator } from "@/renderer/components/ui/separator";
 import { baseClient } from "@src/lib/base-client";
 
 interface EnvVarModalProps {

@@ -1,0 +1,85 @@
+---
+title: Connecting to MT Standard Interface Communication Software by Mettler Toledo in Python
+description: Instrument class to communicate with Mettler Toledo balances using the MT-SICS Standared Interface Command Set.
+keywords: [Balance Scales, Mettler Toledo, InstrumentKit] 
+slug: instruments-database/balance-scales/mettler-toledo/mt-standard-interface-communication-software 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1695707363/Instruments/Balance%20Scales/MT-Standard-Interface-Communication-Software/file_new.png
+sidebar:
+    label: MT Standard Interface Communication Software 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+Instrument class to communicate with Mettler Toledo balances using the MT-SICS Standared Interface Command Set.
+
+
+
+![MT Standard Interface Communication Software](https://res.cloudinary.com/dhopxs1y3/image/upload/v1695707363/Instruments/Balance%20Scales/MT-Standard-Interface-Communication-Software/file_new.png)
+
+Device Specification: [here](/instruments-database/all-instruments)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: METTLER TOLEDO</h2></summary>
+
+![METTLER TOLEDO](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806124/Instruments/Vendor%20Logos/Mettler_Toledo.png)
+
+Mettler Toledo (NYSE: MTD) is a multinational manufacturer of scales and analytical instruments. It is the largest provider of weighing instruments for use in laboratory, industrial, and food retailing applications. The company also provides various analytical instruments, process analytics instruments, and end-of-line inspection systems. The company operates worldwide with 70% of net sales, derived in equal parts, from Europe and from the Americas. Asian business is included in the remaining 30%.[2] Mettler Toledo is headquartered in Switzerland and incorporated in the United States.[4]
+
+- Headquarters: Columbus, Ohio, USA
+- Yearly Revenue (millions, USD): 2819
+- Vendor Website: [here](https://www.mt.com/ca/en/home.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="BALANCE_SCALES" />
+
+## Connect to the MT Standard Interface Communication Software in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="BALANCE_SCALES" manufacturer="Mettler Toledo"></SectionsCard>
+
+</TabItem>
+<TabItem value="InstrumentKit" label="InstrumentKit">
+
+Here is an example Python script that uses Instrumentkit to connect to a Mettler Toledo balance using the MT Standard Interface Communication Software (MT-SICS):
+
+```python
+import instrumentkit as ik
+
+# Open a serial connection to the balance
+inst = ik.mettler_toledo.MTSICS.open_serial('/dev/ttyUSB0', 9600)
+
+# Perform operations on the balance
+inst.clear_tare()
+inst.reset()
+inst.tare()
+inst.zero()
+
+# Get information from the balance
+mt_sics_info = inst.mt_sics
+mt_sics_commands = inst.mt_sics_commands
+balance_name = inst.name
+serial_number = inst.serial_number
+tare_value = inst.tare_value
+weight = inst.weight
+weight_mode = inst.weight_mode
+
+# Close the connection to the balance
+inst.close()
+```
+
+Note: The code provided assumes that you have installed the `instrumentkit` package and imported it as `ik`.
+
+</TabItem>
+</Tabs>

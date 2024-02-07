@@ -1,0 +1,45 @@
+{
+  "docstring": {
+    "long_description": "",
+    "short_description": "Export a Dataframe into MAT-file.",
+    "parameters": [
+      {
+        "name": "dc",
+        "type": "OrderedPair|OrderedTriple|DataFrame",
+        "description": "The DataContainer to export."
+      },
+      {
+        "name": "dir",
+        "type": "Directory",
+        "description": "The directory to export to."
+      },
+      {
+        "name": "filename",
+        "type": "str",
+        "description": "The name of the file to output."
+      },
+      {
+        "name": "format",
+        "type": "Literal[\"4\", \"5\"]",
+        "description": "'5' (the default) for MATLAB 5 and up (to 7.2),\n'4' for MATLAB 4 .mat files."
+      },
+      {
+        "name": "long_field_names",
+        "type": "bool",
+        "description": "False - maximum field name length in a structure is 31 characters which is the documented maximum length.\nTrue - maximum field name length in a structure is 63 characters which works for MATLAB 7.6+."
+      },
+      {
+        "name": "do_compression",
+        "type": "bool",
+        "description": "Whether or not to compress matrices on write."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "None",
+        "description": null
+      }
+    ]
+  }
+}

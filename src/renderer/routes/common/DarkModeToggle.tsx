@@ -1,4 +1,4 @@
-import { Button } from "@src/components/ui/button";
+import { Button } from "@/renderer/components/ui/button";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "@src/providers/themeProvider";
 

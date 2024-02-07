@@ -19,7 +19,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/renderer/components/ui/table";
 import { filter, max, sum } from "lodash";
 import { Summary, Test, TestSequenceElement } from "@src/types/testSequencer";
 import { useTestSequencerState } from "@src/hooks/useTestSequencerState";

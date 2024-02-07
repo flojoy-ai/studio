@@ -7,7 +7,7 @@ import TSWebSocketContext from "../context/TSWebSocketContext";
 import { mapToTestResult } from "./TestUtils";
 import { BackendMsg, MsgState, Test } from "@src/types/testSequencer";
 
-function TestSequencerWS({ children }: { children: React.ReactNode }) {
+function TestSequencerWS({ children }: { children?: React.ReactNode }) {
   const { websocketId, setRunning, setElems, setIsLocked } =
     useTestSequencerState();
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(

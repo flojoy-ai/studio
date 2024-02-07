@@ -6,7 +6,7 @@ import react from "@astrojs/react";
 import robotsTxt from "astro-robots-txt";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-import starlightDocSearch from "@astrojs/starlight-docsearch";
+// import starlightDocSearch from "@astrojs/starlight-docsearch";
 
 // https://astro.build/config
 export default defineConfig({
@@ -14,13 +14,13 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "Flojoy Docs",
-      plugins: [
-        starlightDocSearch({
-          appId: "9U592SK52F",
-          apiKey: "25c8dc480885d6b065b91ae05a540215",
-          indexName: "flojoy",
-        }),
-      ],
+      // plugins: [
+      //   starlightDocSearch({
+      //     appId: "9U592SK52F",
+      //     apiKey: "25c8dc480885d6b065b91ae05a540215",
+      //     indexName: "flojoy",
+      //   }),
+      // ],
       logo: { src: "./src/assets/logo_purple.svg" },
       components: {
         Sidebar: "./src/components/override/Sidebar.astro",
@@ -67,18 +67,28 @@ export default defineConfig({
           label: "🕹️ Flojoy Studio",
           autogenerate: {
             directory: "studio",
+            collapsed: true,
           },
         },
         {
           label: "🔮 Flojoy Blocks",
-          collapsed: false,
+          collapsed: true,
           autogenerate: {
             directory: "blocks",
             collapsed: true,
           },
         },
         {
+          label: "☁️ Flojoy Cloud",
+          collapsed: true,
+          autogenerate: {
+            directory: "cloud",
+            collapsed: true,
+          },
+        },
+        {
           label: "📚 Contribution Guide",
+          collapsed: true,
           items: [
             {
               label: "Contribute to Blocks",
@@ -96,6 +106,14 @@ export default defineConfig({
             },
           ],
         },
+        {
+          label: "📟 Instruments Database",
+          collapsed: true,
+          autogenerate: {
+            directory: "instruments-database",
+            collapsed: true,
+          },
+        },
       ],
       defaultLocale: "root",
       locales: {
@@ -103,9 +121,9 @@ export default defineConfig({
           lang: "en",
           label: "English",
         },
-        fr: {
-          label: "Français",
-        },
+        // fr: {
+        //   label: "Français",
+        // },
         // "zh-cn": {
         //   label: "简体中文",
         //   lang: "zh-CN",

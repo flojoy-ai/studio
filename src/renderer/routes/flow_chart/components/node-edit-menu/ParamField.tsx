@@ -1,21 +1,22 @@
 import { ElementsData } from "@src/types";
 import { ParamValueType } from "@src/routes/common/types/ParamValueType";
-import { Input } from "@src/components/ui/input";
+import { Input } from "@/renderer/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@src/components/ui/select";
-import { Switch } from "@src/components/ui/switch";
+} from "@/renderer/components/ui/select";
+import { Switch } from "@/renderer/components/ui/switch";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { NumberInput } from "./NumberInput";
 import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { CameraSelect } from "./CameraSelect";
 import { SerialDeviceSelect } from "./SerialDeviceSelect";
 import { VisaDeviceSelect } from "./VisaDeviceSelect";
-import { Button } from "@src/components/ui/button";
+import { NIDAQmxDeviceSelect } from "./NIDAQmxDeviceSelect";
+import { Button } from "@/renderer/components/ui/button";
 import { AutosizingTextarea } from "./AutosizingTextarea";
 
 type ParamFieldProps = {
@@ -189,6 +190,8 @@ const ParamField = ({
     case "VisaDevice":
     case "VisaConnection":
       return <VisaDeviceSelect onValueChange={handleChange} value={value} />;
+    case "NIDAQmxDevice":
+      return <NIDAQmxDeviceSelect onValueChange={handleChange} value={value} />;
     case "str":
     case "list[int]":
     case "list[float]":

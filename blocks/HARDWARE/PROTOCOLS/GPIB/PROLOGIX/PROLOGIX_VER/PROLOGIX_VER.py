@@ -12,10 +12,7 @@ def PROLOGIX_VER(
 ) -> String:
     """Query the Prologix USB-to-GPIB firmware version.
 
-    Inputs
-    ------
-    default: DataContainer
-        Any DataContainer - likely connected to the output of the OPEN_SERIAL block.
+    Requires an OPEN_SERIAL block.
 
     Parameters
     ----------
@@ -33,7 +30,7 @@ def PROLOGIX_VER(
         set = cast(serial.Serial, connection.get_handle())
         if set is None:
             raise ValueError("Serial communication is not open")
-        set.write(b"++ver\r\n")
+        set.write(b"++ver\n")
         s = set.read(1000).decode()
     except Exception:
         s = traceback.format_exc()

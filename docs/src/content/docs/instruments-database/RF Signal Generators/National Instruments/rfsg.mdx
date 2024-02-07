@@ -1,0 +1,79 @@
+---
+title: Connecting to RFSG by National Instruments in Python
+
+keywords: [RF Signal Generators, National Instruments, QCodes Community] 
+slug: instruments-database/rf-signal-generators/national-instruments/rfsg 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1705522675/Instruments/RF%20Signal%20Generators/RFSG/ni-rfsg.png
+sidebar:
+    label: RFSG 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+
+
+![RFSG](https://res.cloudinary.com/dhopxs1y3/image/upload/v1705522675/Instruments/RF%20Signal%20Generators/RFSG/ni-rfsg.png)
+
+Device Specification: [here](/instruments-database/all-instruments)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: NATIONAL INSTRUMENTS</h2></summary>
+
+![NATIONAL INSTRUMENTS](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692806169/Instruments/Vendor%20Logos/National_Instruments.png)
+
+A producer of automated test equipment and virtual instrumentation software. Common applications include data acquisition, instrument control and machine vision.
+
+- Headquarters: Austin, Texas, USA
+- Yearly Revenue (millions, USD): 1657
+- Vendor Website: [here](https://www.ni.com/en-ca.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="RF_SIGNAL_GENERATORS" />
+
+## Connect to the RFSG in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="RF_SIGNAL_GENERATORS" manufacturer="National Instruments"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes Community" label="QCodes Community">
+
+Here is an example Python script that uses Qcodes Community to connect to a RFSG RF Signal Generator:
+
+```python
+import qcodes as qc
+from qcodes_contrib_drivers.drivers.NationalInstruments.NIRFSG import NI_RFSG
+
+# Connect to the RF Signal Generator
+rfsg = NI_RFSG("rfsg", "PXI1Slot2")
+
+# Print the IDN information
+print(rfsg.get_idn())
+
+# Set the frequency and power level
+rfsg.frequency(1e9)  # 1 GHz
+rfsg.power_level(-10)  # -10 dBm
+
+# Enable the RF output
+rfsg.output_enabled(True)
+
+# Close the connection
+rfsg.close()
+```
+
+Note: Make sure you have installed the `qcodes_contrib_drivers` package before running this script.
+
+</TabItem>
+</Tabs>

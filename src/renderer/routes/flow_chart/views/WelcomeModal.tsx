@@ -4,9 +4,9 @@ import {
   AlertDialogDescription,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@src/components/ui/alert-dialog";
+} from "@/renderer/components/ui/alert-dialog";
 import { useLoadApp } from "@src/hooks/useLoadApp";
-import { Button } from "@src/components/ui/button";
+import { Button } from "@/renderer/components/ui/button";
 import { showWelcomeScreenAtom } from "@src/hooks/useFlowChartState";
 import { useAtom } from "jotai";
 

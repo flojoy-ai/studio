@@ -7,7 +7,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@src/components/ui/alert-dialog";
+} from "@/renderer/components/ui/alert-dialog";
 import { deleteEnvironmentVariable } from "@src/services/FlowChartServices";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { EnvVarCredentialType } from "@src/hooks/useFlowChartState";

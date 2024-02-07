@@ -1,5 +1,5 @@
 import { createLockedEntity } from "../../utils/CreateLockedEntity";
-import { Button } from "@src/components/ui/button";
+import { Button } from "@/renderer/components/ui/button";
 
 let LockableButton = (props) => <Button {...props}>{props.children}</Button>;
 
