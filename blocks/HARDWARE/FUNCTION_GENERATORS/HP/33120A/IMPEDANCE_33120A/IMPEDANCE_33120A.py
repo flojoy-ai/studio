@@ -19,10 +19,8 @@ def IMPEDANCE_33120A(
     ----------
     connection: SerialConnection
         The VISA address (requires a OPEN SERIAL node).
-    offset: float
-        The offset of the output waveform, in volts.
-    option: Literal
-        Use the input value, or set to the maximum or minimum.
+    offset: select
+        Use 50 or HighZ (1M) Ohms as the impedance/termination.
 
     Returns
     -------
