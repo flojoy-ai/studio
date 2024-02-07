@@ -20,8 +20,8 @@ def VOLT_UNIT_33120A(
     ----------
     connection: SerialConnection
         The VISA address (requires a OPEN SERIAL node).
-    state: select
-        The state to save.
+    unit: select
+        The type of amplitude unit to use.
 
     Returns
     -------
