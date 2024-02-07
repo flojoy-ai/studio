@@ -1,5 +1,7 @@
 import os
-from flojoy import DataContainer, flojoy, get_env_var, node_preflight, Boolean, DataFrame
+import pandas as pd
+from flojoy import DataContainer, flojoy, get_env_var, node_preflight, Boolean, DataFrame, OrderedPair, OrderedTriple
+from flojoy.data_container import ParametricOrderedPair, ParametricOrderedTriple, ParametricSurface, Surface, Vector
 import flojoy_cloud
 from typing import Optional
 from datetime import datetime
@@ -59,11 +61,52 @@ def FLOJOY_CLOUD_UPLOAD(
         # Only upload if the data is not empty, otherwise pass through
         cloud = flojoy_cloud.FlojoyCloud(workspace_secret=api_key)
         data = None
+        # Optimist approach, assume that the data is at a castable dimension
         if isinstance(default, DataFrame):
             data = default.m
         elif isinstance(default, Boolean):
             data = default.b
+        elif isinstance(default, Vector):
+            data = pd.DataFrame(default.v)
+        elif isinstance(default, OrderedPair):
+            data = pd.DataFrame({
+                'x': default.x,
+                'y': default.y,
+            })
+        elif isinstance(default, ParametricOrderedPair):
+            data = pd.DataFrame({
+                'x': default.x,
+                'y': default.y,
+                't': default.t,
+            })
+        elif isinstance(default, OrderedTriple):
+            data = pd.DataFrame({
+                'x': default.x,
+                'y': default.y,
+                'z': default.z
+            })
+        elif isinstance(default, ParametricOrderedTriple):
+            data = pd.DataFrame({
+                'x': default.x,
+                'y': default.y,
+                'z': default.z,
+                't': default.t
+            })
+        elif isinstance(default, Surface):
+            data = pd.DataFrame({
+                'x': default.x,
+                'y': default.y,
+                'z': default.z
+            })
+        elif isinstance(default, ParametricSurface):
+            data = pd.DataFrame({
+                'x': default.x,
+                'y': default.y,
+                'z': default.z,
+                't': default.t,
+            })
         else:
+            # TODO: Add other data types as they become available
             raise TypeError(f"Unsupported data type: {type(default)}")
         cloud.upload(data=data,
                      test_id=test_id,
