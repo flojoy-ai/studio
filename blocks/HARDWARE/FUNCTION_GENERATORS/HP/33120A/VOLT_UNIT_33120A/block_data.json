@@ -9,9 +9,9 @@
         "description": "The VISA address (requires a OPEN SERIAL node)."
       },
       {
-        "name": "state",
+        "name": "unit",
         "type": "select",
-        "description": "The state to save."
+        "description": "The type of amplitude unit to use."
       }
     ],
     "returns": [

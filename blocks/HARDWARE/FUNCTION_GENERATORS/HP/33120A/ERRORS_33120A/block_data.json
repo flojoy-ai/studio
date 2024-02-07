@@ -12,6 +12,11 @@
         "name": "number",
         "type": "int",
         "description": "The of errors to return."
+      },
+      {
+        "name": "prologix",
+        "type": "bool",
+        "description": "Is a Prologix GPIB adapter being used?"
       }
     ],
     "returns": [

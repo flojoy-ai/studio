@@ -10,13 +10,8 @@
       },
       {
         "name": "offset",
-        "type": "float",
-        "description": "The offset of the output waveform, in volts."
-      },
-      {
-        "name": "option",
-        "type": "Literal",
-        "description": "Use the input value, or set to the maximum or minimum."
+        "type": "select",
+        "description": "Use 50 or HighZ (1M) Ohms as the impedance/termination."
       }
     ],
     "returns": [
