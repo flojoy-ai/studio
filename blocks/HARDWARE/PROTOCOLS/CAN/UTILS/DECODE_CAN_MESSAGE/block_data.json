@@ -12,6 +12,11 @@
         "name": "messages",
         "type": "Stateful",
         "description": "The message to DECODE_CAN. Must be a can.Message object."
+      },
+      {
+        "name": "ignore_undefined_id_error",
+        "type": "bool",
+        "description": "If True, ignore undefined id error. Default is False."
       }
     ],
     "returns": [

@@ -2,6 +2,7 @@ import numpy
 from flojoy import Matrix, DataFrame, Vector
 import pytest
 
+sklearn_installed = True
 try:
     import sklearn  # noqa: F401
 except ImportError:
