@@ -136,7 +136,6 @@ class DefaultDeviceFinder:
             logging.info(f"Devices found are: {devices}")
 
             return devices
-        # except nidmm.errors.DaqNotFoundError as e:
         except Exception as e:
             logging.error(f"Error in get_nidmm_devices: {e}")
         return []
