@@ -19,7 +19,7 @@ def IMPEDANCE_33120A(
     ----------
     connection: SerialConnection
         The VISA address (requires a OPEN SERIAL node).
-    offset: select
+    impedance: select
         Use 50 or HighZ (1M) Ohms as the impedance/termination.
 
     Returns

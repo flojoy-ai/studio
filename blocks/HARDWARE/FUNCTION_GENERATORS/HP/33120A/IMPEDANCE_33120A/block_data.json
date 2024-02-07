@@ -9,7 +9,7 @@
         "description": "The VISA address (requires a OPEN SERIAL node)."
       },
       {
-        "name": "offset",
+        "name": "impedance",
         "type": "select",
         "description": "Use 50 or HighZ (1M) Ohms as the impedance/termination."
       }
