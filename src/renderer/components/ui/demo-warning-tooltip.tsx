@@ -4,8 +4,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
   TooltipContent,
-} from "@src/components/ui/tooltip";
-import { IS_CLOUD_DEMO } from "@src/data/constants";
+} from "@/renderer/components/ui/tooltip";
+import { IS_CLOUD_DEMO } from "@/renderer/data/constants";
 
 export const DemoWarningTooltip: FC<{
   children: ReactNode;

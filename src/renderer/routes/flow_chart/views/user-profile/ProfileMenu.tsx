@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from "@src/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/renderer/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,13 +6,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@src/components/ui/dropdown-menu";
+} from "@/renderer/components/ui/dropdown-menu";
 import { KeyIcon, UserPlus2 } from "lucide-react";
 import { Fragment, useState } from "react";
 import { PasswordModal } from "./PasswordModal";
-import { getAlphabetAvatar } from "@src/utils/TextWrap";
+import { getAlphabetAvatar } from "@/renderer/utils/TextWrap";
 import { CreateUserProfile } from "../../../../components/common/CreateProfileModal";
-import { useAuth } from "@src/context/auth.context";
+import { useAuth } from "@/renderer/context/auth.context";
 import { useNavigate } from "react-router-dom";
 
 const ProfileMenu = () => {

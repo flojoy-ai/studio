@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { CustomNodeProps } from "@src/types/node";
+import { CustomNodeProps } from "@/renderer/types/node";
 import LogicNode from "./LogicNode";
 
 export const ConditionalNode = (props: CustomNodeProps) => {

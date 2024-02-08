@@ -11,8 +11,8 @@ from flojoy.parameter_types import (
     SerialConnection,
     VisaDevice,
     VisaConnection,
-    NIDevice,
     NIConnection,
+    NIDMMDevice,
 )
 from tm_devices import DeviceManager
 from tm_devices.helpers import PYVISA_PY_BACKEND
@@ -50,7 +50,7 @@ class DeviceConnectionManager:
                     cls.handles[id] = SerialConnection(connection, cleanup=cleanup)
                 case VisaDevice():
                     cls.handles[id] = VisaConnection(connection, cleanup=cleanup)
-                case NIDevice():
+                case NIDMMDevice():
                     cls.handles[id] = NIConnection(connection, cleanup=cleanup)
                 case HardwareDevice():
                     cls.handles[id] = HardwareConnection(connection, cleanup=cleanup)

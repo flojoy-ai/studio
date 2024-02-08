@@ -1,4 +1,4 @@
-import { TableCell, TableRow } from "@src/components/ui/table";
+import { TableCell, TableRow } from "@/renderer/components/ui/table";
 
 type Props = {
   name: string;

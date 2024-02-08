@@ -7,10 +7,10 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@src/components/ui/alert-dialog";
-import { deleteEnvironmentVariable } from "@src/services/FlowChartServices";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import { EnvVarCredentialType } from "@src/hooks/useFlowChartState";
+} from "@/renderer/components/ui/alert-dialog";
+import { deleteEnvironmentVariable } from "@/renderer/services/FlowChartServices";
+import { useFlowChartState } from "@/renderer/hooks/useFlowChartState";
+import { EnvVarCredentialType } from "@/renderer/hooks/useFlowChartState";
 import { toast } from "sonner";
 
 export type EnvVarDeleteProps = {

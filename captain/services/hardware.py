@@ -2,11 +2,18 @@ import subprocess
 from sys import platform
 import os
 import nidaqmx
+import nimodinst
 import cv2
 import pyvisa
 import serial.tools.list_ports
 import logging
-from captain.types.devices import CameraDevice, SerialDevice, VISADevice, NIDAQmxDevice
+from captain.types.devices import (
+    CameraDevice,
+    SerialDevice,
+    VISADevice,
+    NIDAQmxDevice,
+    NIDMMDevice,
+)
 
 __all__ = ["get_device_finder"]
 
@@ -108,6 +115,29 @@ class DefaultDeviceFinder:
             logging.warn(f"NI-DAQmx driver not installed - {e}")
         except Exception as e:
             logging.error(f"Error in get_nidaqmx_devices: {e}")
+        return []
+
+    def get_nidmm_devices(self) -> list[NIDMMDevice]:
+        """Returns a list of NI-DAQmx devices connected to the system."""
+
+        def extract_device(device) -> NIDMMDevice:
+            return NIDMMDevice(
+                name=f"{device.device_model}",
+                address=f"{device.device_name}",
+                description=f"{device.device_model} - {device.device_name} - {device.serial_number}",
+            )
+
+        try:
+            devices = []
+            with nimodinst.Session("nidmm") as session:
+                for device in session:
+                    devices += [extract_device(device)]
+
+            logging.info(f"Devices found are: {devices}")
+
+            return devices
+        except Exception as e:
+            logging.error(f"Error in get_nidmm_devices: {e}")
         return []
 
 

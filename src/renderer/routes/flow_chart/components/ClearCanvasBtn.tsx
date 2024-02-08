@@ -8,8 +8,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@src/components/ui/alert-dialog";
-import { Button } from "@src/components/ui/button";
+} from "@/renderer/components/ui/alert-dialog";
+import { Button } from "@/renderer/components/ui/button";
 import { Eraser } from "lucide-react";
 
 type ClearCanvasBtnProps = {

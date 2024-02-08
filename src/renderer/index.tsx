@@ -10,7 +10,7 @@ import "reactflow/dist/style.css";
 import "reactflow/dist/base.css";
 
 import { ErrorBoundary } from "react-error-boundary";
-import { ErrorPage } from "@src/ErrorPage";
+import { ErrorPage } from "@/renderer/ErrorPage";
 import { HashRouter } from "react-router-dom";
 import { AuthContextProvider } from "./context/auth.context";
 import { ThemeProvider } from "./providers/themeProvider";

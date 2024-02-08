@@ -1,4 +1,4 @@
-import { ElementsData } from "@src/types";
+import { ElementsData } from "@/renderer/types";
 import { ReactFlowJsonObject } from "reactflow";
 import { defaultApp } from "./apps";
 

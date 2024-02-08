@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "Pair with a block setting the measurement unit (e.g. DC_VOLTAGE_USB4065).\n\nRequires a CONNECTION_USB4065 block to connect Flojoy to the instrument.\n\nThe USB-4065 is a NI (National Instruments) multimeter. It is possible\nthat the block will work with other NI DMMs (digital multimeters) such\nas the 4070 and 4080 series.\n\nThis instrument will likely only be compatible with Windows systems due to\nNI driver availablity. To use the instrument you must install the runtime:\n\nhttps://www.ni.com/en/support/downloads/drivers/download.ni-dmm.html",
+    "short_description": "Reads a measurement from a NI USB-4065 DMM.",
+    "parameters": [
+      {
+        "name": "NI_address",
+        "type": "NIConnection",
+        "description": "The NI instrument."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "Scalar: The DMM reading."
+      }
+    ]
+  }
+}

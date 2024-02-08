@@ -1,4 +1,4 @@
-import { sendEventToMix } from "@src/services/MixpanelServices";
+import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 // TODO: Use electron-store instead
@@ -53,6 +53,13 @@ const settingsAtom = atomWithImmer<Setting[]>([
     key: "niDAQmxDeviceDiscovery",
     group: "device",
     desc: "Enable the discovery of NI compactDAQ devices and other devices relying on NI-DAQmx. Note that activating this option may lead to a longer loading time.",
+    value: false,
+  },
+  {
+    title: "Discover NI-DMM devices",
+    key: "nidmmDeviceDiscovery",
+    group: "device",
+    desc: "Enable the discovery of NI DMM devices and other devices relying on NI-DMM. Note that activating this option may lead to a longer loading time.",
     value: false,
   },
 ]);

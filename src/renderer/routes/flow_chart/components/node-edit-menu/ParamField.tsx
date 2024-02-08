@@ -1,22 +1,23 @@
-import { ElementsData } from "@src/types";
-import { ParamValueType } from "@src/routes/common/types/ParamValueType";
-import { Input } from "@src/components/ui/input";
+import { ElementsData } from "@/renderer/types";
+import { ParamValueType } from "@/renderer/routes/common/types/ParamValueType";
+import { Input } from "@/renderer/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@src/components/ui/select";
-import { Switch } from "@src/components/ui/switch";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
+} from "@/renderer/components/ui/select";
+import { Switch } from "@/renderer/components/ui/switch";
+import { useFlowChartState } from "@/renderer/hooks/useFlowChartState";
 import { NumberInput } from "./NumberInput";
-import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
+import { useHasUnsavedChanges } from "@/renderer/hooks/useHasUnsavedChanges";
 import { CameraSelect } from "./CameraSelect";
 import { SerialDeviceSelect } from "./SerialDeviceSelect";
 import { VisaDeviceSelect } from "./VisaDeviceSelect";
 import { NIDAQmxDeviceSelect } from "./NIDAQmxDeviceSelect";
-import { Button } from "@src/components/ui/button";
+import { NIDMMDeviceSelect } from "./NIDMMDeviceSelect";
+import { Button } from "@/renderer/components/ui/button";
 import { AutosizingTextarea } from "./AutosizingTextarea";
 
 type ParamFieldProps = {
@@ -192,6 +193,9 @@ const ParamField = ({
       return <VisaDeviceSelect onValueChange={handleChange} value={value} />;
     case "NIDAQmxDevice":
       return <NIDAQmxDeviceSelect onValueChange={handleChange} value={value} />;
+    case "NIDMMDevice":
+    case "NIConnection":
+      return <NIDMMDeviceSelect onValueChange={handleChange} value={value} />;
     case "str":
     case "list[int]":
     case "list[float]":

@@ -1,4 +1,4 @@
-import { Separator } from "@src/components/ui/separator";
+import { Separator } from "@/renderer/components/ui/separator";
 import PythonEnvSelector from "./components/PythonEnvSelector";
 import PythonPackageList from "./components/PythonPackageList";
 

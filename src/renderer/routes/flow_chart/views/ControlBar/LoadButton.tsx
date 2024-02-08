@@ -1,5 +1,5 @@
-import { MenubarItem, MenubarShortcut } from "@src/components/ui/menubar";
-import { useLoadApp } from "@src/hooks/useLoadApp";
+import { MenubarItem, MenubarShortcut } from "@/renderer/components/ui/menubar";
+import { useLoadApp } from "@/renderer/hooks/useLoadApp";
 
 export const LoadButton = () => {
   const openFileSelector = useLoadApp();

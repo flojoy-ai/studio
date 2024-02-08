@@ -3,8 +3,8 @@ import { python } from "@codemirror/lang-python";
 import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Button } from "@src/components/ui/button";
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+import { Button } from "@/renderer/components/ui/button";
+import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
 import invariant from "tiny-invariant";
 
 const EditorView = () => {

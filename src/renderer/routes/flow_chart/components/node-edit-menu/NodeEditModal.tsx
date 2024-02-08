@@ -1,15 +1,15 @@
 import { Node } from "reactflow";
-import { ElementsData } from "@src/types";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { ElementsData } from "@/renderer/types";
+import { useFlowChartState } from "@/renderer/hooks/useFlowChartState";
 import { memo, useEffect, useState } from "react";
 import Draggable from "react-draggable";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
 import { ParamList } from "./ParamList";
 import { Check, Info, Pencil, TrashIcon, X } from "lucide-react";
-import { Button } from "@src/components/ui/button";
-import { Input } from "@src/components/ui/input";
-import { LAYOUT_TOP_HEIGHT } from "@src/routes/common/Layout";
-import { ScrollArea } from "@src/components/ui/scroll-area";
+import { Button } from "@/renderer/components/ui/button";
+import { Input } from "@/renderer/components/ui/input";
+import { LAYOUT_TOP_HEIGHT } from "@/renderer/routes/common/Layout";
+import { ScrollArea } from "@/renderer/components/ui/scroll-area";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 
 type NodeEditModalProps = {

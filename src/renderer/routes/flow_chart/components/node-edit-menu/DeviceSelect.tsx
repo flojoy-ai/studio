@@ -5,7 +5,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@src/components/ui/select";
+} from "@/renderer/components/ui/select";
 
 export type SelectProps = {
   onValueChange: (value: string) => void;

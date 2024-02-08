@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useState, useRef, useEffect } from "react";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
 
 type NodeInputProps = {
   title: string;

@@ -1,17 +1,20 @@
-import { Leaf as NodeElement } from "@src/utils/ManifestLoader";
+import { Leaf as NodeElement } from "@/renderer/utils/ManifestLoader";
 import { Draft } from "immer";
 import { useCallback } from "react";
 import { Node } from "reactflow";
-import { ElementsData } from "@src/types";
-import { sendEventToMix } from "@src/services/MixpanelServices";
-import { centerPositionAtom } from "@src/hooks/useFlowChartState";
+import { ElementsData } from "@/renderer/types";
+import { sendEventToMix } from "@/renderer/services/MixpanelServices";
+import { centerPositionAtom } from "@/renderer/hooks/useFlowChartState";
 import { useAtomValue, useSetAtom } from "jotai";
-import { unsavedChangesAtom } from "@src/hooks/useHasUnsavedChanges";
-import { addRandomPositionOffset } from "@src/utils/RandomPositionOffset";
-import { BlocksMetadataMap } from "@src/types/blocks-metadata";
-import { createNodeId, createNodeLabel } from "@src/utils/NodeUtils";
-import { ctrlsFromParams } from "@src/utils/NodeUtils";
-import { DeviceInfo, useHardwareDevices } from "@src/hooks/useHardwareDevices";
+import { unsavedChangesAtom } from "@/renderer/hooks/useHasUnsavedChanges";
+import { addRandomPositionOffset } from "@/renderer/utils/RandomPositionOffset";
+import { BlocksMetadataMap } from "@/renderer/types/blocks-metadata";
+import { createNodeId, createNodeLabel } from "@/renderer/utils/NodeUtils";
+import { ctrlsFromParams } from "@/renderer/utils/NodeUtils";
+import {
+  DeviceInfo,
+  useHardwareDevices,
+} from "@/renderer/hooks/useHardwareDevices";
 
 export type AddNewNode = (node: NodeElement) => void;
 

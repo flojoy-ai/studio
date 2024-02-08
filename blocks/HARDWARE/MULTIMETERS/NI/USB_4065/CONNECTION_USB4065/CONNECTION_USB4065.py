@@ -1,20 +1,20 @@
-from flojoy import flojoy, DataContainer, NIDevice
+from flojoy import flojoy, DataContainer, NIDMMDevice, String
 from flojoy.connection_manager import DeviceConnectionManager
 from typing import Optional
 import nidmm
 
 
-@flojoy(deps={"nidmm": "1.4.6"})
+@flojoy
 def CONNECTION_USB4065(
-    NI_address: str = "Dev1",
+    NI_address: NIDMMDevice,
     default: Optional[DataContainer] = None,
 ) -> Optional[DataContainer]:
-    """Connect Flojoy to an NI USB4065 DAQ board.
+    """Connect Flojoy to a NI USB-4065 DMM.
 
     Parameters
     ----------
-    NI_address: str
-        The NI instrument address for the instrument (e.g. 'Dev0', 'Dev1').
+    NI_address: NIDMMDevice
+        The NI DMM instrument to connect to.
 
     Returns
     -------
@@ -22,7 +22,8 @@ def CONNECTION_USB4065(
         Optional: None
     """
 
-    session = nidmm.Session(NI_address)
-    DeviceConnectionManager.register_connection(NIDevice(NI_address), session)
+    device_addr = NI_address.get_address()
+    session = nidmm.Session(device_addr)
+    DeviceConnectionManager.register_connection(NI_address, session)
 
-    return None
+    return String(s=device_addr)
