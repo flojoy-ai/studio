@@ -1,4 +1,5 @@
-import { LockedContext } from "../context/LockContext";
+import { LockedContext } from "@/renderer/context/lock.context";
+
 export const createLockedEntity = (ComponentToDisable: React.ComponentType) => {
   return (props) => (
     <LockedContext.Consumer>

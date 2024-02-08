@@ -1,13 +1,26 @@
+import { createContext } from "react";
+import { SendJsonMessage } from "react-use-websocket/dist/lib/types";
 import { TS_SOCKET_URL } from "@/renderer/data/constants";
 import { filter } from "lodash";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
-import TSWebSocketContext from "../context/TSWebSocketContext";
-import { mapToTestResult } from "./TestUtils";
 import { BackendMsg, MsgState, Test } from "@/renderer/types/testSequencer";
+import { mapToTestResult } from "../routes/test_sequencer_panel/utils/TestUtils";
 
-function TestSequencerWS({ children }: { children?: React.ReactNode }) {
+type ContextType = {
+  tSSendJsonMessage: SendJsonMessage;
+};
+
+export const TSWebSocketContext = createContext<ContextType>({
+  tSSendJsonMessage: () => null,
+});
+
+export function TestSequencerWSProvider({
+  children,
+}: {
+  children?: React.ReactNode;
+}) {
   const { websocketId, setRunning, setElems, setIsLocked } =
     useTestSequencerState();
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
@@ -83,5 +96,3 @@ function TestSequencerWS({ children }: { children?: React.ReactNode }) {
     </TSWebSocketContext.Provider>
   );
 }
-
-export default TestSequencerWS;
