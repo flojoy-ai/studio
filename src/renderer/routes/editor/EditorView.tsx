@@ -4,7 +4,7 @@ import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button } from "@/renderer/components/ui/button";
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
 import invariant from "tiny-invariant";
 
 const EditorView = () => {

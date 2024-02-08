@@ -1,4 +1,4 @@
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { useFlowChartState } from "@/renderer/hooks/useFlowChartState";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { EnvironmentDetail } from "../types/environment";

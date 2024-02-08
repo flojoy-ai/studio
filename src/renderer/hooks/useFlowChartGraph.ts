@@ -1,4 +1,4 @@
-import { ElementsData } from "@src/types";
+import { ElementsData } from "@/renderer/types";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import { useCallback, useMemo } from "react";
@@ -7,10 +7,10 @@ import * as RECIPES from "../data/RECIPES";
 import * as galleryItems from "../data/apps";
 import { ExampleProjects } from "../data/docs-example-apps";
 import { toast } from "sonner";
-import { TextData } from "@src/types/node";
-import { sendEventToMix } from "@src/services/MixpanelServices";
+import { TextData } from "@/renderer/types/node";
+import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 import { useFullManifest, useFullMetadata } from "./useManifest";
-import { syncFlowchartWithManifest } from "@src/lib/sync";
+import { syncFlowchartWithManifest } from "@/renderer/lib/sync";
 import useWithPermission from "./useWithPermission";
 
 const project = resolveDefaultProjectReference();

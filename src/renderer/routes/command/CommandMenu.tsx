@@ -7,8 +7,8 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/renderer/components/ui/command";
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
-import { TreeNode, isLeaf, isRoot } from "@src/utils/ManifestLoader";
+import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
+import { TreeNode, isLeaf, isRoot } from "@/renderer/utils/ManifestLoader";
 import React, { Fragment } from "react";
 
 const commandGroups = (

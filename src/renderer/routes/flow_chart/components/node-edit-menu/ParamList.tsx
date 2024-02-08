@@ -1,6 +1,6 @@
-import { ParamValueType } from "@src/routes/common/types/ParamValueType";
+import { ParamValueType } from "@/renderer/routes/common/types/ParamValueType";
 import { ParamTooltip } from "@/renderer/components/common/ParamTooltip";
-import { ElementsData } from "@src/types/node";
+import { ElementsData } from "@/renderer/types/node";
 import ParamField from "./ParamField";
 
 type ParamListProps = {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MoreVertical, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
-import { EnvVarCredentialType } from "@src/hooks/useFlowChartState";
+import { EnvVarCredentialType } from "@/renderer/hooks/useFlowChartState";
 import {
   DropdownMenu,
   DropdownMenuContent,

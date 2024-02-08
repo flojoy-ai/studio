@@ -9,7 +9,7 @@ import { Input } from "@/renderer/components/ui/input";
 import { Label } from "@/renderer/components/ui/label";
 import { Separator } from "@/renderer/components/ui/separator";
 import { Switch } from "@/renderer/components/ui/switch";
-import { useSettings } from "@src/hooks/useSettings";
+import { useSettings } from "@/renderer/hooks/useSettings";
 
 export type SettingsModalProps = {
   handleSettingsModalOpen: (open: boolean) => void;

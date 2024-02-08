@@ -1,4 +1,4 @@
-import { cn } from "@src/lib/utils";
+import { cn } from "@/renderer/lib/utils";
 import { Link, useLocation } from "react-router-dom";
 
 type TabButtonProps = {

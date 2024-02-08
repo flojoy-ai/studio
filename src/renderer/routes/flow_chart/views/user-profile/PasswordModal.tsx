@@ -18,7 +18,7 @@ import {
 } from "@/renderer/components/ui/dialog";
 import { Input } from "@/renderer/components/ui/input";
 import ConfirmPrompt from "@/renderer/components/common/ConfirmPrompt";
-import { useAuth } from "@src/context/auth.context";
+import { useAuth } from "@/renderer/context/auth.context";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";

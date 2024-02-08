@@ -1,11 +1,11 @@
 import { memo, useState } from "react";
 import clsx from "clsx";
-import { CustomNodeProps } from "@src/types/node";
+import { CustomNodeProps } from "@/renderer/types/node";
 import NodeWrapper from "@/renderer/components/common/NodeWrapper";
-import { DodecahedronSVG } from "@assets/DodecahedronSVG";
+import { DodecahedronSVG } from "@/renderer/assets/DodecahedronSVG";
 import HandleComponent from "@/renderer/components/common/HandleComponent";
 import NodeInput from "@/renderer/components/common/NodeInput";
-import { useNodeStatus } from "@src/hooks/useNodeStatus";
+import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
 
 const IONode = ({ selected, data }: CustomNodeProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);

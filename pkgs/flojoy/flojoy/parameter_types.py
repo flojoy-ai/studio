@@ -54,6 +54,11 @@ class NIDAQmxDevice(HardwareDevice):
         return str(self.get_id())
 
 
+class NIDMMDevice(HardwareDevice):
+    def get_address(self):
+        return str(self.get_id())
+
+
 class NIDevice(HardwareDevice):
     pass
 
@@ -183,6 +188,8 @@ def format_param_value(value: Any, value_type: str):
             return VisaDevice(value)
         case "NIDAQmxDevice":
             return NIDAQmxDevice(value)
+        case "NIDMMDevice" | "NIConnection":
+            return NIDMMDevice(value)
 
     if value == "":
         return None

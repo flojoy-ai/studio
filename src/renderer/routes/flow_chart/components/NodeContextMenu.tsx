@@ -1,6 +1,6 @@
 import { Button } from "@/renderer/components/ui/button";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import { ElementsData } from "@src/types";
+import { useFlowChartState } from "@/renderer/hooks/useFlowChartState";
+import { ElementsData } from "@/renderer/types";
 import { Code, CopyPlus, Info, LucideIcon, Pencil, X } from "lucide-react";
 import { useCallback } from "react";
 import { useStore, Node, useReactFlow } from "reactflow";

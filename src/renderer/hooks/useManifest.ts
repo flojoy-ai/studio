@@ -1,9 +1,9 @@
 import {
   getManifest,
   getBlocksMetadata,
-} from "@src/services/FlowChartServices";
-import { BlocksMetadataMap } from "@src/types/blocks-metadata";
-import { RootNode } from "@src/utils/ManifestLoader";
+} from "@/renderer/services/FlowChartServices";
+import { BlocksMetadataMap } from "@/renderer/types/blocks-metadata";
+import { RootNode } from "@/renderer/utils/ManifestLoader";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { useCallback, useMemo } from "react";
 import { useCustomSections } from "./useCustomBlockManifest";

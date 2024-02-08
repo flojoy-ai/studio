@@ -13,7 +13,7 @@ import * as React from "react";
 
 import { Label } from "@/renderer/components/ui/label";
 
-import { cn } from "@src/lib/utils";
+import { cn } from "@/renderer/lib/utils";
 
 const Form = FormProvider;
 

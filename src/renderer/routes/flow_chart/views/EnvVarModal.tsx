@@ -9,8 +9,8 @@ import {
 import {
   EnvVarCredentialType,
   useFlowChartState,
-} from "@src/hooks/useFlowChartState";
-import { postEnvironmentVariable } from "@src/services/FlowChartServices";
+} from "@/renderer/hooks/useFlowChartState";
+import { postEnvironmentVariable } from "@/renderer/services/FlowChartServices";
 import EnvVarCredentialsInfo from "./EnvVarCredentials/EnvVarCredentialsInfo";
 import { Button } from "@/renderer/components/ui/button";
 import {
@@ -27,7 +27,7 @@ import EnvVarEdit from "./EnvVarCredentials/EnvVarEdit";
 import { Key } from "lucide-react";
 import { toast } from "sonner";
 import { Separator } from "@/renderer/components/ui/separator";
-import { baseClient } from "@src/lib/base-client";
+import { baseClient } from "@/renderer/lib/base-client";
 
 interface EnvVarModalProps {
   handleEnvVarModalOpen: (open: boolean) => void;

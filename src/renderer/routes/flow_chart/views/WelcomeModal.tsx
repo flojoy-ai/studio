@@ -5,15 +5,18 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/renderer/components/ui/alert-dialog";
-import { useLoadApp } from "@src/hooks/useLoadApp";
+import { useLoadApp } from "@/renderer/hooks/useLoadApp";
 import { Button } from "@/renderer/components/ui/button";
-import { showWelcomeScreenAtom } from "@src/hooks/useFlowChartState";
+import { showWelcomeScreenAtom } from "@/renderer/hooks/useFlowChartState";
 import { useAtom } from "jotai";
 
 import packageJson from "../../../../../package.json";
-import { useFullManifest } from "@src/hooks/useManifest";
+import { useFullManifest } from "@/renderer/hooks/useManifest";
 import { useEffect } from "react";
-import { MixPanelEvents, sendEventToMix } from "@src/services/MixpanelServices";
+import {
+  MixPanelEvents,
+  sendEventToMix,
+} from "@/renderer/services/MixpanelServices";
 
 export function WelcomeModal() {
   const openFileSelector = useLoadApp();

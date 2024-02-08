@@ -14,7 +14,7 @@ import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { NodeSettingsModal } from "./NodeSettingsModal";
 import EnvVarModal from "./EnvVarModal";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
-import { DarkModeToggle } from "@src/routes/common/DarkModeToggle";
+import { DarkModeToggle } from "@/renderer/routes/common/DarkModeToggle";
 import {
   Menubar,
   MenubarContent,
@@ -27,7 +27,7 @@ import { SaveAsButton, SaveButton } from "./ControlBar/SaveButtons";
 import { LoadButton } from "./ControlBar/LoadButton";
 import { ExportResultButton } from "./ControlBar/ExportResultButton";
 import FlowControlButtons from "./ControlBar/FlowControlButtons";
-import { IS_CLOUD_DEMO } from "@src/data/constants";
+import { IS_CLOUD_DEMO } from "@/renderer/data/constants";
 import { DemoWarningTooltip } from "@/renderer/components/ui/demo-warning-tooltip";
 import { DebugSettingsModal } from "./DebugSettingsModal";
 import DepManagerModal from "./DepManagerModal";

@@ -5,7 +5,7 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@/renderer/components/ui/tooltip";
-import { IS_CLOUD_DEMO } from "@src/data/constants";
+import { IS_CLOUD_DEMO } from "@/renderer/data/constants";
 
 export const DemoWarningTooltip: FC<{
   children: ReactNode;

@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { z } from "zod";
 import { EnvironmentList } from "../types/environment";
 import { toast } from "sonner";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { useFlowChartState } from "@/renderer/hooks/useFlowChartState";
 
 const PythonEnvSelector = () => {
   const [environments, setEnvironments] = useState<EnvironmentList>([]);

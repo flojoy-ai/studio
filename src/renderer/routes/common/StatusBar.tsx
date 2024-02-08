@@ -1,12 +1,12 @@
 import { Badge } from "@/renderer/components/ui/badge";
-import { useSocket } from "@src/hooks/useSocket";
-import { IServerStatus } from "@src/context/socket.context";
+import { useSocket } from "@/renderer/hooks/useSocket";
+import { IServerStatus } from "@/renderer/context/socket.context";
 import { useEffect, useRef, useState } from "react";
 import {
   BOTTOM_STATUS_BAR_HEIGHT,
   LAYOUT_TOP_HEIGHT,
-} from "@src/routes/common/Layout";
-import { cn } from "@src/lib/utils";
+} from "@/renderer/routes/common/Layout";
+import { cn } from "@/renderer/lib/utils";
 import { Button } from "@/renderer/components/ui/button";
 import { DownloadIcon } from "lucide-react";
 

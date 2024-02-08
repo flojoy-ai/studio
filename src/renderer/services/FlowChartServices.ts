@@ -1,11 +1,11 @@
 import { Setting } from "../hooks/useSettings";
 import { ReactFlowJsonObject } from "reactflow";
-import { ElementsData } from "@src/types";
+import { ElementsData } from "@/renderer/types";
 import { Result } from "src/types/result";
-import { baseClient } from "@src/lib/base-client";
-import { RootNode, validateRootSchema } from "@src/utils/ManifestLoader";
+import { baseClient } from "@/renderer/lib/base-client";
+import { RootNode, validateRootSchema } from "@/renderer/utils/ManifestLoader";
 import { toast } from "sonner";
-import { BlocksMetadataMap } from "@src/types/blocks-metadata";
+import { BlocksMetadataMap } from "@/renderer/types/blocks-metadata";
 
 // Note that you have to update the nodes/edges of the
 // flow chart instance manually before calling these functions.
@@ -84,10 +84,14 @@ export function cancelFlowChartRun(
   }
 }
 
-export async function getDeviceInfo(discoverNIDAQmxDevices = false) {
+export async function getDeviceInfo(
+  discoverNIDAQmxDevices = false,
+  discoverNIDMMDevices = false,
+) {
   const res = await baseClient.get("devices", {
     params: {
       include_nidaqmx_drivers: discoverNIDAQmxDevices,
+      include_nidmm_drivers: discoverNIDMMDevices,
     },
   });
   return res.data;

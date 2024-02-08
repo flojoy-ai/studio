@@ -3,7 +3,7 @@ import { Button } from "@/renderer/components/ui/button";
 import { Input } from "@/renderer/components/ui/input";
 import { Label } from "@/renderer/components/ui/label";
 import { Spinner } from "@/renderer/components/ui/spinner";
-import { parseElectronError } from "@src/utils/parse-error";
+import { parseElectronError } from "@/renderer/utils/parse-error";
 import { useEffect, useState } from "react";
 
 type PingResult = "success" | "failed" | "waiting";

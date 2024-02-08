@@ -9,7 +9,7 @@ import {
 } from "@/renderer/components/ui/dialog";
 import { Input } from "@/renderer/components/ui/input";
 import { Label } from "@/renderer/components/ui/label";
-import { postEnvironmentVariable } from "@src/services/FlowChartServices";
+import { postEnvironmentVariable } from "@/renderer/services/FlowChartServices";
 import { ChangeEvent, useState } from "react";
 import { toast } from "sonner";
 

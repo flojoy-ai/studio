@@ -1,5 +1,5 @@
-import { ElementsData } from "@src/types";
-import { ParamValueType } from "@src/routes/common/types/ParamValueType";
+import { ElementsData } from "@/renderer/types";
+import { ParamValueType } from "@/renderer/routes/common/types/ParamValueType";
 import { Input } from "@/renderer/components/ui/input";
 import {
   Select,
@@ -9,13 +9,14 @@ import {
   SelectValue,
 } from "@/renderer/components/ui/select";
 import { Switch } from "@/renderer/components/ui/switch";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { useFlowChartState } from "@/renderer/hooks/useFlowChartState";
 import { NumberInput } from "./NumberInput";
-import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
+import { useHasUnsavedChanges } from "@/renderer/hooks/useHasUnsavedChanges";
 import { CameraSelect } from "./CameraSelect";
 import { SerialDeviceSelect } from "./SerialDeviceSelect";
 import { VisaDeviceSelect } from "./VisaDeviceSelect";
 import { NIDAQmxDeviceSelect } from "./NIDAQmxDeviceSelect";
+import { NIDMMDeviceSelect } from "./NIDMMDeviceSelect";
 import { Button } from "@/renderer/components/ui/button";
 import { AutosizingTextarea } from "./AutosizingTextarea";
 
@@ -192,6 +193,9 @@ const ParamField = ({
       return <VisaDeviceSelect onValueChange={handleChange} value={value} />;
     case "NIDAQmxDevice":
       return <NIDAQmxDeviceSelect onValueChange={handleChange} value={value} />;
+    case "NIDMMDevice":
+    case "NIConnection":
+      return <NIDMMDeviceSelect onValueChange={handleChange} value={value} />;
     case "str":
     case "list[int]":
     case "list[float]":

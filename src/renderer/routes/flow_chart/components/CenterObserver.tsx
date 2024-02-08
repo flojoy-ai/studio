@@ -1,4 +1,4 @@
-import { centerPositionAtom } from "@src/hooks/useFlowChartState";
+import { centerPositionAtom } from "@/renderer/hooks/useFlowChartState";
 import { useAtom } from "jotai";
 import { useOnViewportChange, useStoreApi } from "reactflow";
 

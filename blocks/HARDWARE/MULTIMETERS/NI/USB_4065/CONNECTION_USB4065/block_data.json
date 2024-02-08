@@ -1,12 +1,12 @@
 {
   "docstring": {
     "long_description": "",
-    "short_description": "Connect Flojoy to an NI USB4065 DAQ board.",
+    "short_description": "Connect Flojoy to a NI USB-4065 DMM.",
     "parameters": [
       {
         "name": "NI_address",
-        "type": "str",
-        "description": "The NI instrument address for the instrument (e.g. 'Dev0', 'Dev1')."
+        "type": "NIDMMDevice",
+        "description": "The NI DMM instrument to connect to."
       }
     ],
     "returns": [

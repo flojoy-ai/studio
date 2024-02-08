@@ -1,8 +1,8 @@
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { useFlowChartState } from "@/renderer/hooks/useFlowChartState";
 import { useEffect, useState } from "react";
 import { Node, Edge } from "reactflow";
-import { ElementsData } from "@src/types";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { ElementsData } from "@/renderer/types";
+import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
 import { Label } from "@/renderer/components/ui/label";
 import { Switch } from "@/renderer/components/ui/switch";
 import {

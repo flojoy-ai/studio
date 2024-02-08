@@ -1,4 +1,7 @@
-import { DataContainer2PlotlyProps, OverridePlotData } from "@src/types/plotly";
+import {
+  DataContainer2PlotlyProps,
+  OverridePlotData,
+} from "@/renderer/types/plotly";
 
 const NUM_OF_COLUMNS = 2;
 const NUM_OF_ROWS = 20;

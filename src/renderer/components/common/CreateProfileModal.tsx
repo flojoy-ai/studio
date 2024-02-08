@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/renderer/components/ui/select";
-import { useAuth } from "@src/context/auth.context";
+import { useAuth } from "@/renderer/context/auth.context";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
