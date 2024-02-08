@@ -21,8 +21,8 @@ import {
   TableRow,
 } from "@/renderer/components/ui/table";
 import { filter, max, sum } from "lodash";
-import { Summary, Test, TestSequenceElement } from "@src/types/testSequencer";
-import { useTestSequencerState } from "@src/hooks/useTestSequencerState";
+import { Summary, Test, TestSequenceElement } from "@/renderer/types/testSequencer";
+import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 
 const getOnlyTests = (data: TestSequenceElement[]): Test[] => {
   return filter(data, (elem) => elem.type === "test") as Test[];

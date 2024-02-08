@@ -2,10 +2,10 @@ import {
   CONDITIONAL_TYPES,
   Conditional,
   TestSequenceElement,
-} from "@src/types/testSequencer";
+} from "@/renderer/types/testSequencer";
 import { v4 as uuidv4 } from "uuid";
 import { filter } from "lodash";
-import { SetElemsFn } from "@src/hooks/useTestSequencerState";
+import { SetElemsFn } from "@/renderer/hooks/useTestSequencerState";
 
 /**
  * Generates proper conditional elements in sequencer.

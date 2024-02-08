@@ -1,9 +1,9 @@
-import { baseClient } from "@src/lib/base-client";
-import { Test, TestDiscoverContainer } from "@src/types/testSequencer";
+import { baseClient } from "@/renderer/lib/base-client";
+import { Test, TestDiscoverContainer } from "@/renderer/types/testSequencer";
 import { useTestSequencerState } from "./useTestSequencerState";
 import { map } from "lodash";
 import { v4 as uuidv4 } from "uuid";
-import { ImportTestSettings } from "@src/routes/test_sequencer_panel/components/ImportTestModal";
+import { ImportTestSettings } from "@/renderer/routes/test_sequencer_panel/components/ImportTestModal";
 
 function parseDiscoverContainer(data: TestDiscoverContainer) {
   return map(data.response, (container) => {

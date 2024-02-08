@@ -1,5 +1,5 @@
 import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
-import { CONDITIONALS, CONDITIONAL_TYPES } from "@src/types/testSequencer";
+import { CONDITIONALS, CONDITIONAL_TYPES } from "@/renderer/types/testSequencer";
 import { Button } from "@/renderer/components/ui/button";
 import { Dispatch, SetStateAction } from "react";
 

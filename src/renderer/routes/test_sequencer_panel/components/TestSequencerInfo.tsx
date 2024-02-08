@@ -1,13 +1,13 @@
 import { Button } from "@/renderer/components/ui/button";
 import { Input } from "@/renderer/components/ui/input";
-import { IS_CLOUD_DEMO } from "@src/data/constants";
+import { IS_CLOUD_DEMO } from "@/renderer/data/constants";
 import { useContext, useState } from "react";
 import { DataTable } from "./DataTable";
 import { SummaryTable } from "./SummaryTable";
-import { useTestSequencerState } from "@src/hooks/useTestSequencerState";
+import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { testSequenceRunRequest } from "../models/models";
 import TSWebSocketContext from "../context/TSWebSocketContext";
-import { TestSequenceElement } from "@src/types/testSequencer";
+import { TestSequenceElement } from "@/renderer/types/testSequencer";
 import { ImportTestModal } from "./ImportTestModal";
 import { LockedContext } from "../context/LockContext";
 import LockableButton from "./lockable/LockedButtons";

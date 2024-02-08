@@ -1,4 +1,4 @@
-import { TestRootNode } from "@src/types/testSequencer";
+import { TestRootNode } from "@/renderer/types/testSequencer";
 
 export type TestSequenceRun = {
   event: "run";

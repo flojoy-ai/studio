@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { LockedContextType } from "@src/types/testSequencer";
+import { LockedContextType } from "@/renderer/types/testSequencer";
 
 export const LockedContext = createContext<LockedContextType>(
   {} as LockedContextType,

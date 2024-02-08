@@ -1,4 +1,4 @@
-import { TestSequenceElement } from "@src/types/testSequencer";
+import { TestSequenceElement } from "@/renderer/types/testSequencer";
 
 export type validator = (param: TestSequenceElement[]) => boolean;
 

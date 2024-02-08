@@ -41,8 +41,8 @@ import {
   Conditional,
   Test,
   StatusTypes,
-} from "@src/types/testSequencer";
-import { useTestSequencerState } from "@src/hooks/useTestSequencerState";
+} from "@/renderer/types/testSequencer";
+import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { parseInt, filter, map } from "lodash";
 import { AddConditionalModal } from "./AddConditionalModal";
 import {

@@ -1,11 +1,11 @@
-import { TS_SOCKET_URL } from "@src/data/constants";
+import { TS_SOCKET_URL } from "@/renderer/data/constants";
 import { filter } from "lodash";
-import { useTestSequencerState } from "@src/hooks/useTestSequencerState";
+import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import TSWebSocketContext from "../context/TSWebSocketContext";
 import { mapToTestResult } from "./TestUtils";
-import { BackendMsg, MsgState, Test } from "@src/types/testSequencer";
+import { BackendMsg, MsgState, Test } from "@/renderer/types/testSequencer";
 
 function TestSequencerWS({ children }: { children?: React.ReactNode }) {
   const { websocketId, setRunning, setElems, setIsLocked } =

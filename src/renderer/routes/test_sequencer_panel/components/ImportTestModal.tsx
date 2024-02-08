@@ -1,7 +1,7 @@
 import { Button } from "@/renderer/components/ui/button";
 import { Checkbox } from "@/renderer/components/ui/checkbox";
 import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
-import { useTestImport } from "@src/hooks/useTestImport";
+import { useTestImport } from "@/renderer/hooks/useTestImport";
 import { Dispatch, SetStateAction, useState } from "react";
 
 export type ImportTestSettings = {

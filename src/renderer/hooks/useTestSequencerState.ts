@@ -7,10 +7,10 @@ import {
   TestSequenceElementNode,
   IfNode,
   TestNode,
-} from "@src/types/testSequencer";
+} from "@/renderer/types/testSequencer";
 import { atomWithImmer } from "jotai-immer";
 import { v4 as uuidv4 } from "uuid";
-import { validateStructure, validator } from "@src/utils/TestSequenceValidator";
+import { validateStructure, validator } from "@/renderer/utils/TestSequenceValidator";
 
 export const testSequenceTree = atom<TestRootNode>({} as TestRootNode);
 
