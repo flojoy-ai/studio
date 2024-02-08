@@ -32,7 +32,7 @@ export function TestSequencerWSProvider({
 
   //set result when received from backend for specific test
   const setResult = (id: string, result: boolean, timeTaken: number) => {
-    setElems((elems) => {
+    setElems.withException((elems) => {
       const new_elems = [...elems];
       const idx = new_elems.findIndex((elem) => elem.id === id);
       new_elems[idx] = {

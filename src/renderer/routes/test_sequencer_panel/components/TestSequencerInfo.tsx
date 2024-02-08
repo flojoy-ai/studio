@@ -22,7 +22,7 @@ const TestSequencerView = () => {
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
 
   const resetStatus = () => {
-    setElems((elems: TestSequenceElement[]) => {
+    setElems.withException((elems: TestSequenceElement[]) => {
       const new_elems: TestSequenceElement[] = [...elems].map((elem) => {
         return elem.type === "test"
           ? { ...elem, status: "pending", completionTime: undefined }

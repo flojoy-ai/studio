@@ -10,7 +10,11 @@ import {
 } from "@/renderer/types/testSequencer";
 import { atomWithImmer } from "jotai-immer";
 import { v4 as uuidv4 } from "uuid";
-import { validateStructure, validator } from "@/renderer/utils/TestSequenceValidator";
+import {
+  validateStructure,
+  validator,
+} from "@/renderer/utils/TestSequenceValidator";
+import useWithPermission from "./useWithPermission";
 
 export const testSequenceTree = atom<TestRootNode>({} as TestRootNode);
 
@@ -83,6 +87,7 @@ export function useTestSequencerState() {
   const [tree, setTree] = useAtom(testSequenceTree);
   const [running, setRunning] = useAtom(curRun);
   const [isLocked, setIsLocked] = useAtom(isLockedAtom); // this is used to lock the UI while the test is running
+  const { withPermissionCheck } = useWithPermission();
 
   // wrapper around setElements to check if elems is valid
   function setElems(elems: TestSequenceElement[]);
@@ -115,11 +120,12 @@ export function useTestSequencerState() {
     //creates tree to send to backend
     setTree(createTestSequenceTree(candidateElems));
   }
+  const setElemsWithPermissions = withPermissionCheck(setElems);
 
   return {
     elems,
     websocketId,
-    setElems,
+    setElems: setElemsWithPermissions,
     tree,
     running,
     setRunning,
