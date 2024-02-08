@@ -14,6 +14,8 @@ def SEND_PERIODIC_CAN_MESSAGE(
     """Send a periodic message to a CAN bus.
 
     Send a message to a CAN device periodically. This block should be compatible with all devices that support the CAN interface.
+    `STOP_SEND_PERIODIC_CAN_MESSAGE` can be used to stop sending the messages.
+
     A connection to the device is required. Use a CAN_CONNECT block to connect to a CAN device.
 
     Parameters

@@ -14,7 +14,7 @@ def REMOVE_CAN_BUS_FILTER(
     Parameters
     ----------
     CAN_address : str
-        The CAN bus address to attach the filter to.
+        The CAN bus address to remove all filters from.
 
     Returns
     -------

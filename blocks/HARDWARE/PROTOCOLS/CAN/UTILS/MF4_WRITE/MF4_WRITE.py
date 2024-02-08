@@ -8,9 +8,11 @@ def MF4_WRITE(
     MF4_writer: Stateful,
     messages: Stateful,
 ) -> Optional[DataContainer]:
-    """Create a writer for the MF4 format.
+    """Write a message to a MF4 writer.
 
-    Logs CAN data to an ASAM Measurement Data File v4 (.mf4). MF4Writer does not support append mode.
+    Logs CAN data to an ASAM Measurement Data File v4 (.mf4).
+    The MF4 Writer does not support append mode.
+    A writer must be created and connected to this block before any data can be written to it, use `MF4_CREATE_WRTIER` to do so.
 
     Parameters
     ----------

@@ -15,10 +15,6 @@ def PEAK_DETECT_AVAILABLE_DEVICES(default: Optional[DataContainer]) -> String:
     For MacOS compatibilities, the following Drivers are required:
         → https://mac-can.github.io/
 
-    Parameters
-    ----------
-    None
-
     Returns
     -------
     String

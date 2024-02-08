@@ -25,7 +25,7 @@ def DECODE_CAN_MESSAGE(
     Returns
     -------
     DataFrame : DataFrame
-        Return dataframe containing the DECODE_CANd message.
+        Return dataframe containing the decoded message.
     """
 
     db = dbc.obj
