@@ -1,12 +1,12 @@
 import asyncio
 import time
-from captain.bool_parser.bool_parser.expressions.models import Variable
+from captain.parser.bool_parser.expressions.models import Variable
 from captain.types.test_sequence import MsgState, TestSequenceMessage
 from captain.utils.config import ts_manager
 from types import SimpleNamespace
 import subprocess
 from captain.utils.logger import logger
-from captain.bool_parser.bool_parser.bool_parser import eval_expression
+from captain.parser.bool_parser.bool_parser import eval_expression
 
 
 class TestResult:
