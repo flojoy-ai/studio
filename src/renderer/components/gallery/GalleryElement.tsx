@@ -1,19 +1,19 @@
-import { useControlsState } from "@src/hooks/useControlsState";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { useControlsState } from "@/renderer/hooks/useControlsState";
+import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
 import { useNodesInitialized, useReactFlow } from "reactflow";
 import { YoutubeIcon } from "lucide-react";
-import { Button } from "@src/components/ui/button";
-import { Avatar, AvatarImage } from "@src/components/ui/avatar";
-import { GalleryApp } from "@src/types/gallery";
+import { Button } from "@/renderer/components/ui/button";
+import { Avatar, AvatarImage } from "@/renderer/components/ui/avatar";
+import { GalleryApp } from "@/renderer/types/gallery";
 import { useEffect } from "react";
 import { useSetAtom } from "jotai";
 import {
   Project,
   projectAtom,
   projectPathAtom,
-} from "@src/hooks/useFlowChartState";
-import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
-import { useSocket } from "@src/hooks/useSocket";
+} from "@/renderer/hooks/useFlowChartState";
+import { useHasUnsavedChanges } from "@/renderer/hooks/useHasUnsavedChanges";
+import { useSocket } from "@/renderer/hooks/useSocket";
 
 export interface AppGalleryElementProps {
   galleryApp: GalleryApp;

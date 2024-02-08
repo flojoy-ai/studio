@@ -1,4 +1,4 @@
-import { CustomNodeProps } from "@src/types/node";
+import { CustomNodeProps } from "@/renderer/types/node";
 import { memo } from "react";
 import DefaultNode from "./DefaultNode";
 

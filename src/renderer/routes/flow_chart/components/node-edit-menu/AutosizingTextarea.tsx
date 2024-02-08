@@ -1,4 +1,4 @@
-import { Textarea } from "@src/components/ui/textarea";
+import { Textarea } from "@/renderer/components/ui/textarea";
 import { useEffect, useRef } from "react";
 
 type Props = {

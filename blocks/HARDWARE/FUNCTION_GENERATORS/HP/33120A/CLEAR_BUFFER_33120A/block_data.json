@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "Requires an OPEN SERIAL block at the start of the app to connect with\nthe instrument.",
+    "short_description": "Clear the buffer for a 33120A function generator.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "SerialConnection",
+        "description": "The VISA address (requires a OPEN SERIAL node)."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "String: Summary of waveform generator settings."
+      }
+    ]
+  }
+}

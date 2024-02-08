@@ -1,4 +1,4 @@
-import { useSettings } from "@src/hooks/useSettings";
+import { useSettings } from "@/renderer/hooks/useSettings";
 import { useEffect } from "react";
 import { useReactFlow, useStore } from "reactflow";
 

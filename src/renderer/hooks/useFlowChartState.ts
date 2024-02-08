@@ -1,5 +1,5 @@
-import { ElementsData } from "@src/types";
-import { TextData } from "@src/types/node";
+import { ElementsData } from "@/renderer/types";
+import { TextData } from "@/renderer/types/node";
 import { atom, useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import { ReactFlowJsonObject, Node } from "reactflow";

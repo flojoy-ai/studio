@@ -1,4 +1,4 @@
-import { GalleryData } from "@src/types/gallery";
+import { GalleryData } from "@/renderer/types/gallery";
 
 export const data: GalleryData = {
   Fundamentals: [

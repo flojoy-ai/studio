@@ -1,4 +1,4 @@
-import { OverridePlotData } from "@src/types";
+import { OverridePlotData } from "@/renderer/types";
 import { Layout } from "plotly.js";
 
 export type ResultIO = {

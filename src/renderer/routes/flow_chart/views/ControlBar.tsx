@@ -9,30 +9,30 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@components/ui/dialog";
+} from "@/renderer/components/ui/dialog";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { NodeSettingsModal } from "./NodeSettingsModal";
 import EnvVarModal from "./EnvVarModal";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
-import { DarkModeToggle } from "@src/routes/common/DarkModeToggle";
+import { DarkModeToggle } from "@/renderer/routes/common/DarkModeToggle";
 import {
   Menubar,
   MenubarContent,
   MenubarItem,
   MenubarMenu,
   MenubarTrigger,
-} from "@src/components/ui/menubar";
+} from "@/renderer/components/ui/menubar";
 import { EditorSettingsModal } from "./EditorSettingsModal";
 import { SaveAsButton, SaveButton } from "./ControlBar/SaveButtons";
 import { LoadButton } from "./ControlBar/LoadButton";
 import { ExportResultButton } from "./ControlBar/ExportResultButton";
 import FlowControlButtons from "./ControlBar/FlowControlButtons";
-import { IS_CLOUD_DEMO } from "@src/data/constants";
-import { DemoWarningTooltip } from "@src/components/ui/demo-warning-tooltip";
+import { IS_CLOUD_DEMO } from "@/renderer/data/constants";
+import { DemoWarningTooltip } from "@/renderer/components/ui/demo-warning-tooltip";
 import { DebugSettingsModal } from "./DebugSettingsModal";
 import DepManagerModal from "./DepManagerModal";
 import { DeviceSettingsModal } from "./DeviceSettingsModal";
-import { Button } from "@src/components/ui/button";
+import { Button } from "@/renderer/components/ui/button";
 import ProfileMenu from "./user-profile/ProfileMenu";
 
 const ControlBar = () => {

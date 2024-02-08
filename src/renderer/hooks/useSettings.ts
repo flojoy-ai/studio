@@ -1,4 +1,4 @@
-import { sendEventToMix } from "@src/services/MixpanelServices";
+import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 // TODO: Use electron-store instead

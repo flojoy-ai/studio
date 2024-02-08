@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { MoreVertical, Eye, EyeOff } from "lucide-react";
-import { Button } from "@src/components/ui/button";
-import { EnvVarCredentialType } from "@src/hooks/useFlowChartState";
+import { Button } from "@/renderer/components/ui/button";
+import { EnvVarCredentialType } from "@/renderer/hooks/useFlowChartState";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@src/components/ui/dropdown-menu";
+} from "@/renderer/components/ui/dropdown-menu";
 
 export type EnvVarCredentialsInfoProps = {
   credential: EnvVarCredentialType;

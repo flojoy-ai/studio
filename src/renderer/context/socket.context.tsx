@@ -1,18 +1,18 @@
-import { NodeResult } from "@src/routes/common/types/ResultsType";
+import { NodeResult } from "@/renderer/routes/common/types/ResultsType";
 import { SetStateAction, useSetAtom } from "jotai";
 import { createContext, Dispatch, useEffect, useMemo, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";
 import { v4 as UUID } from "uuid";
-import { SOCKET_URL } from "@src/data/constants";
-import { useHardwareRefetch } from "@src/hooks/useHardwareDevices";
+import { SOCKET_URL } from "@/renderer/data/constants";
+import { useHardwareRefetch } from "@/renderer/hooks/useHardwareDevices";
 import {
   manifestChangedAtom,
   useFetchManifest,
   useFetchNodesMetadata,
-} from "@src/hooks/useManifest";
+} from "@/renderer/hooks/useManifest";
 import { toast } from "sonner";
-import { useCustomSections } from "@src/hooks/useCustomBlockManifest";
-import { useSettings } from "@src/hooks/useSettings";
+import { useCustomSections } from "@/renderer/hooks/useCustomBlockManifest";
+import { useSettings } from "@/renderer/hooks/useSettings";
 
 type States = {
   programResults: NodeResult[];

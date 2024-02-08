@@ -1,5 +1,5 @@
-import { MenubarItem } from "@src/components/ui/menubar";
-import { useSocket } from "@src/hooks/useSocket";
+import { MenubarItem } from "@/renderer/components/ui/menubar";
+import { useSocket } from "@/renderer/hooks/useSocket";
 import saveAs from "file-saver";
 
 export const ExportResultButton = () => {

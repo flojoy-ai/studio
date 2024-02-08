@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
-import { Leaf as NodeElement } from "@src/utils/ManifestLoader";
-import { CtrlData } from "@src/types/node";
-import { DeviceInfo } from "@src/hooks/useHardwareDevices";
+import { Leaf as NodeElement } from "@/renderer/utils/ManifestLoader";
+import { CtrlData } from "@/renderer/types/node";
+import { DeviceInfo } from "@/renderer/hooks/useHardwareDevices";
 
 export const createNodeId = (nodeFunc: string) => `${nodeFunc}-${uuidv4()}`;
 

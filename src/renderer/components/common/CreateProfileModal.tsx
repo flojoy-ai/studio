@@ -1,20 +1,20 @@
-import { Button } from "@components/ui/button";
+import { Button } from "@/renderer/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@components/ui/dialog";
-import { Input } from "@components/ui/input";
+} from "@/renderer/components/ui/dialog";
+import { Input } from "@/renderer/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@src/components/ui/select";
-import { useAuth } from "@src/context/auth.context";
+} from "@/renderer/components/ui/select";
+import { useAuth } from "@/renderer/context/auth.context";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
