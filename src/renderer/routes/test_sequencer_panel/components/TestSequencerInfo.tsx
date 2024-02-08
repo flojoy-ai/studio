@@ -23,12 +23,12 @@ const TestSequencerView = () => {
 
   const resetStatus = () => {
     setElems((elems: TestSequenceElement[]) => {
-      const new_elems = [...elems];
-      return new_elems.map((elem) => {
+      const new_elems: TestSequenceElement[] = [...elems].map((elem) => {
         return elem.type === "test"
-          ? { ...elem, status: "pending", completionTime: null }
+          ? { ...elem, status: "pending", completionTime: undefined }
           : { ...elem };
       });
+      return new_elems;
     });
   };
 

@@ -37,7 +37,7 @@ import {
 } from "@/renderer/components/ui/table";
 import {
   TestSequenceElement,
-  CONDITIONAL_TYPES,
+  ConditionalComponent,
   Conditional,
   Test,
   StatusTypes,
@@ -338,7 +338,7 @@ export function DataTable() {
     });
   };
 
-  const handleAddConditionalModal = (type: CONDITIONAL_TYPES) => {
+  const handleAddConditionalModal = (type: ConditionalComponent) => {
     setElems((data) => {
       const new_data = [...data];
       new_data.splice(

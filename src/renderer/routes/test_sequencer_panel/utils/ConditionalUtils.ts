@@ -1,5 +1,5 @@
 import {
-  CONDITIONAL_TYPES,
+  ConditionalComponent,
   Conditional,
   TestSequenceElement,
 } from "@/renderer/types/testSequencer";
@@ -7,44 +7,47 @@ import { v4 as uuidv4 } from "uuid";
 import { filter } from "lodash";
 import { SetElemsFn } from "@/renderer/hooks/useTestSequencerState";
 
+const mapToConditionals: { [key: string]: Conditional[] } = {
+  if: [
+    {
+      type: "conditional",
+      id: uuidv4(),
+      role: "start",
+      groupId: "",
+      conditionalType: "if",
+      condition: "",
+    },
+    {
+      type: "conditional",
+      id: uuidv4(),
+      role: "between",
+      groupId: "",
+      conditionalType: "else",
+      condition: "",
+    },
+    {
+      type: "conditional",
+      id: uuidv4(),
+      role: "end",
+      groupId: "",
+      conditionalType: "end",
+      condition: "",
+    },
+  ],
+};
+
 /**
  * Generates proper conditional elements in sequencer.
  * For example, if "if" conditional requested, will generate also "end" element
- * @param {CONDITIONAL_TYPES} type - The type of conditional the user requested
+ * @param {ConditionalComponent} type - The type of conditional the user requested
  * */
 export const generateConditional: {
-  (type: CONDITIONAL_TYPES): Conditional[];
-} = (type: CONDITIONAL_TYPES) => {
+  (type: ConditionalComponent): Conditional[];
+} = (type: ConditionalComponent) => {
   const groupId = uuidv4();
-  switch (type) {
-    case "if":
-      return [
-        {
-          type: "conditional",
-          id: uuidv4(),
-          groupId: groupId,
-          role: "start",
-          conditionalType: "if",
-          condition: "",
-        },
-        {
-          type: "conditional",
-          id: uuidv4(),
-          groupId: groupId,
-          role: "between",
-          conditionalType: "else",
-          condition: "",
-        },
-        {
-          type: "conditional",
-          id: uuidv4(),
-          groupId: groupId,
-          role: "end",
-          conditionalType: "end",
-          condition: "",
-        },
-      ];
-  }
+  return mapToConditionals[type].map((conditional) => {
+    return { ...conditional, groupId: groupId };
+  });
 };
 
 /**

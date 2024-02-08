@@ -42,16 +42,17 @@ export type Test = {
 
 export type Conditional = {
   type: "conditional";
-  conditionalType: CONDITIONAL_TYPES;
-  role: ROLE_TYPES;
+  conditionalType: ConditionalComponent;
+  role: Role;
   id: string;
   groupId: string;
   condition: string;
 };
 
-export type ROLE_TYPES = "start" | "between" | "end"; //for example, "if" is a "start", "else" is a "between" and "end" is an "end"
-export type CONDITIONAL_TYPES = "if" | "else" | "elif" | "end";
-export const CONDITIONALS = ["if"];
+export type Role = "start" | "between" | "end"; //for example, "if" is a "start", "else" is a "between" and "end" is an "end"
+export type ConditionalComponent = "if" | "else" | "elif" | "end";
+export type ConditionalLeader = "if";
+export const CONDITIONALS: ConditionalLeader[] = ["if"];
 
 export type TestSequenceElement = Test | Conditional;
 
