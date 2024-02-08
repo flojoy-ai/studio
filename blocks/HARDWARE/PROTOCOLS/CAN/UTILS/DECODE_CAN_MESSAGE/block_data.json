@@ -23,7 +23,7 @@
       {
         "name": "DataFrame",
         "type": "DataFrame",
-        "description": "Return dataframe containing the DECODE_CANd message."
+        "description": "Return dataframe containing the decoded message."
       }
     ]
   }

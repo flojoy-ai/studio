@@ -1,6 +1,6 @@
 {
   "docstring": {
-    "long_description": "Send a message to a CAN device periodically. This block should be compatible with all devices that support the CAN interface.\nA connection to the device is required. Use a CAN_CONNECT block to connect to a CAN device.",
+    "long_description": "Send a message to a CAN device periodically. This block should be compatible with all devices that support the CAN interface.\n`STOP_SEND_PERIODIC_CAN_MESSAGE` can be used to stop sending the messages.\n\nA connection to the device is required. Use a CAN_CONNECT block to connect to a CAN device.",
     "short_description": "Send a periodic message to a CAN bus.",
     "parameters": [
       {

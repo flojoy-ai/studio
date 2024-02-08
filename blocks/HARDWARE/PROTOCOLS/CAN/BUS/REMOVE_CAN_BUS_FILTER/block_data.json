@@ -6,7 +6,7 @@
       {
         "name": "CAN_address",
         "type": "str",
-        "description": "The CAN bus address to attach the filter to."
+        "description": "The CAN bus address to remove all filters from."
       }
     ],
     "returns": [

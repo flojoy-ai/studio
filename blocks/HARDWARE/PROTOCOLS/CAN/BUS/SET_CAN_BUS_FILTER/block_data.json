@@ -1,6 +1,6 @@
 {
   "docstring": {
-    "long_description": "Setup a message filtering can be set up for each bus.\nWhere the interface supports it, this is carried out in the hardware or kernel layer - not in Python.\nAll messages that match at least one filter are returned.\nA connection to the device is required. Use a CAN_CONNECT block to connect to a CAN device.",
+    "long_description": "Setup a message filtering can be set up for each bus.\nThe binary operation is as follow: <received_can_id> & can_mask == can_id & can_mask\nAll messages that match at least one filter are returned.\n\nWhere the interface supports it, this is carried out in the hardware or kernel layer - not in Python.\nA connection to the device is required. Use a CAN_CONNECT block to connect to a CAN device.",
     "short_description": "Attach a message filter to a CAN bus connection.",
     "parameters": [
       {
@@ -16,7 +16,7 @@
       {
         "name": "can_mask",
         "type": "int",
-        "description": "todo"
+        "description": "Apply a binary mask to the ID and can_id."
       },
       {
         "name": "extended",

@@ -1,7 +1,7 @@
 {
   "docstring": {
-    "long_description": "Logs CAN data to an ASAM Measurement Data File v4 (.mf4). MF4Writer does not support append mode.",
-    "short_description": "Create a writer for the MF4 format.",
+    "long_description": "Logs CAN data to an ASAM Measurement Data File v4 (.mf4).\nThe MF4 Writer does not support append mode.\nA writer must be created and connected to this block before any data can be written to it, use `MF4_CREATE_WRTIER` to do so.",
+    "short_description": "Write a message to a MF4 writer.",
     "parameters": [
       {
         "name": "MF4_writer",
