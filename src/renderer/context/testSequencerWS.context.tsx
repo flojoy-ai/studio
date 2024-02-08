@@ -26,6 +26,8 @@ export function TestSequencerWSProvider({
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
     `${TS_SOCKET_URL}/${websocketId}`,
     {
+      shouldReconnect: () => true,
+      reconnectInterval: 2000,
       share: true,
     },
   );
