@@ -22,7 +22,7 @@ export function TestSequencerWSProvider({
 }: {
   children?: React.ReactNode;
 }) {
-  const { websocketId, setRunning, setElems, setIsLocked } =
+  const { websocketId, setRunning, setElems, setIsLocked, setIsLoading } =
     useTestSequencerState();
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
     `${TS_SOCKET_URL}/${websocketId}`,
@@ -51,12 +51,15 @@ export function TestSequencerWSProvider({
   useEffect(() => {
     console.log("Connection state changed: ", readyState);
     if (readyState === ReadyState.OPEN) {
+      setIsLoading(false);
       sendJsonMessage({
         event: "subscribe",
         data: {
           message: "Hello world",
         },
       });
+    } else {
+      setIsLoading(true);
     }
   }, [readyState]);
 

@@ -26,6 +26,8 @@ export const elements = atomWithImmer<(Test | Conditional)[]>([]);
 
 export const isLockedAtom = atomWithImmer<boolean>(false);
 
+export const isLoadingAtom = atomWithImmer<boolean>(true);
+
 // sync this with the definition of setElems
 export type SetElemsFn = {
   (elems: TestSequenceElement[]): void;
@@ -86,6 +88,7 @@ export function useTestSequencerState() {
   const [websocketId] = useAtom(websocketIdAtom);
   const [tree, setTree] = useAtom(testSequenceTree);
   const [running, setRunning] = useAtom(curRun);
+  const [isLoading, setIsLoading] = useAtom(isLoadingAtom);
   const [isLocked, setIsLocked] = useAtom(isLockedAtom); // this is used to lock the UI while the test is running
   const { withPermissionCheck } = useWithPermission();
 
@@ -131,5 +134,7 @@ export function useTestSequencerState() {
     setRunning,
     setIsLocked,
     isLocked,
+    isLoading,
+    setIsLoading,
   };
 }
