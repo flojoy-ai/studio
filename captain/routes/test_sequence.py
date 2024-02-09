@@ -20,7 +20,6 @@ async def websocket_endpoint(websocket: WebSocket, socket_id: str):
     try:
         # await for messages and send messages (no need to read from frontend, this is used to keep connection alive)
         while True:
-            logger.info("*" * 20)
             data = await websocket.receive_text()
             handle_data(data)
 
@@ -38,7 +37,6 @@ class DiscoverPytestParams(BaseModel):
 async def discover_pytest(params: DiscoverPytestParams = Depends()):
     path = params.path
     one_file = params.one_file
-    logger.info("access discover")
     return TestDiscoverContainer(
         response=discover_pytest_file(path, one_file)
     ).model_dump_json(by_alias=True)

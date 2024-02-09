@@ -5,7 +5,7 @@ from captain.utils.test_sequencer.run_test_sequence import run_test_sequence
 
 
 def _handle_subscribe(data):
-    logger.info("Connection test passed")
+    logger.info("TEST SEQUENCER WS CONNECTION TEST PASSED")
 
 
 def _handle_run(data):

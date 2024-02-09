@@ -34,7 +34,6 @@ export const useTestImport = () => {
         },
       });
       const data: TestDiscoverContainer = JSON.parse(response.data);
-      console.log(data);
       const new_elems = parseDiscoverContainer(data);
       setElems((elems) => {
         return [...elems, ...new_elems];
@@ -53,7 +52,7 @@ export const useTestImport = () => {
         getTests(filePath, settings);
       })
       .catch((errors) => {
-        console.log("Errors when trying to load file: ", errors);
+        console.error("Errors when trying to load file: ", errors);
       });
   };
 

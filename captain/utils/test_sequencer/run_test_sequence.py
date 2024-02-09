@@ -97,8 +97,6 @@ async def run_test_sequence(data):
         )  # maps test name to result of test (should be id in the future?)
 
         async def run_dfs(node):
-            logger.info(node)
-
             if not bool(node.__dict__):
                 return
 
@@ -139,6 +137,5 @@ async def run_test_sequence(data):
         await _stream_result_to_frontend(state=MsgState.TEST_SET_START)
         await run_dfs(data)  # run tests
         await _stream_result_to_frontend(state=MsgState.TEST_SET_DONE)
-        logger.info(result_dict)
     except Exception as e:
         await _stream_result_to_frontend(state=MsgState.ERROR, error=str(e))

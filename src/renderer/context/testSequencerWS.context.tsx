@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { BackendMsg, MsgState, Test } from "@/renderer/types/testSequencer";
 import { mapToTestResult } from "../routes/test_sequencer_panel/utils/TestUtils";
+import { toast } from "sonner";
 
 type ContextType = {
   tSSendJsonMessage: SendJsonMessage;
@@ -68,11 +69,17 @@ export function TestSequencerWSProvider({
       setResult(data.target_id, data.result, data.time_taken);
     },
     RUNNING: (data) => {
-      console.log("target id is:", data.target_id);
       setRunning([data.target_id]);
     },
     ERROR: (data) => {
-      console.log(data.error);
+      toast.error(
+        <div>
+          <p className="text-red-500">ERROR</p>
+          {data.error}
+        </div>,
+      );
+      console.error(data.error);
+      setIsLocked(false);
     },
     TEST_SET_DONE: (data) => {
       console.log("tests are done", data);
@@ -84,7 +91,6 @@ export function TestSequencerWSProvider({
   useEffect(() => {
     const data = lastJsonMessage as BackendMsg;
     if (data === null) return;
-    console.log(data);
     mapToHandler[data.state](data);
   }, [lastJsonMessage]);
 

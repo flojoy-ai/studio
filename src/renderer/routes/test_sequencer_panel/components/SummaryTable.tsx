@@ -21,11 +21,18 @@ import {
   TableRow,
 } from "@/renderer/components/ui/table";
 import { filter, max, sum } from "lodash";
-import { Summary, Test, TestSequenceElement } from "@/renderer/types/testSequencer";
+import {
+  Summary,
+  Test,
+  TestSequenceElement,
+} from "@/renderer/types/testSequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 
 const getOnlyTests = (data: TestSequenceElement[]): Test[] => {
-  return filter(data, (elem) => elem.type === "test") as Test[];
+  return filter(
+    data,
+    (elem) => elem.type === "test" && elem.status != "pending",
+  ) as Test[];
 };
 
 const getCompletionTime = (data: TestSequenceElement[]) => {
@@ -60,9 +67,7 @@ export function SummaryTable() {
   const [rowSelection, setRowSelection] = React.useState({});
   const { elems } = useTestSequencerState();
   const [summary, setSummary] = React.useState<Summary[]>([]);
-  console.log(summary);
   React.useEffect(() => {
-    console.log("summary triggered");
     setSummary([
       {
         id: "1",

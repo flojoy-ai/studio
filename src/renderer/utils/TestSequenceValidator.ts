@@ -29,6 +29,5 @@ export const validateStructure: validator = (elems) => {
       }
     }
   }
-  console.log("valid");
   return true;
 };

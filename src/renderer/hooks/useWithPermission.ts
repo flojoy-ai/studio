@@ -9,7 +9,7 @@ const useWithPermission = () => {
     function <S extends (...params: any[]) => void>(
       innerFn: S,
     ): ((...args: Parameters<S>) => void) & {
-      withException?: (...args: Parameters<S>) => void;
+      withException: (...args: Parameters<S>) => void;
     } {
       const fn = function (...args: Parameters<S>) {
         if (user?.role !== "Admin") {
