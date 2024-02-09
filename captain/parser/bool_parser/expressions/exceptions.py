@@ -4,21 +4,21 @@ class InvalidCharacter(Exception):
         super().__init__(self.message)
 
 
-class MissingRightParanthesis(Exception):
+class MissingRightParenthesis(Exception):
     def __init__(self, message=""):
-        self.message = "Missing right paranthesis: " + message
+        self.message = "Missing right parenthesis: " + message
         super().__init__(self.message)
 
 
-class MissingLeftParanthesis(Exception):
+class MissingLeftParenthesis(Exception):
     def __init__(self, message=""):
-        self.message = "Missing left paranthesis" + message
+        self.message = "Missing left parenthesis" + message
         super().__init__(self.message)
 
 
 class InvalidExpression(Exception):
     def __init__(self, message=""):
-        self.message = "The boolean expressoin is invalid: " + message
+        self.message = "The boolean expression is invalid: " + message
         super().__init__(self.message)
 
 
@@ -30,7 +30,7 @@ class TargetNumberMismatch(Exception):
 
 class TestNotRan(Exception):
     def __init__(self, message=""):
-        self.message = "The test hasn't been ran"
+        self.message = "The test hasn't been ran:" + message
         super().__init__(self.message)
 
 

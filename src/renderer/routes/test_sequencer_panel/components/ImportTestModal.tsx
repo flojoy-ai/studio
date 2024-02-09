@@ -8,20 +8,18 @@ export type ImportTestSettings = {
   importAsOneRef: boolean;
 };
 
-export const ImportTestModal = ({
-  isModalOpen,
-  handleModalOpen,
-}: {
+type Props = {
   isModalOpen: boolean;
   handleModalOpen: Dispatch<SetStateAction<boolean>>;
   handleImport: () => void;
-}) => {
+};
+
+export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
   const openFilePicker = useTestImport();
 
   const handleImportTest = (settings: ImportTestSettings) => {
     openFilePicker(settings);
   };
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [checked, setChecked] = useState<boolean>(false);
 
   const testSettings: ImportTestSettings = {

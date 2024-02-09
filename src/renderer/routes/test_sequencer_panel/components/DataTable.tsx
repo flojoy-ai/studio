@@ -4,7 +4,6 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from "@/renderer/components/ui/context-menu";
-import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -57,6 +56,7 @@ import {
 } from "lucide-react";
 import { WriteConditionalModal } from "./AddWriteConditionalModal";
 import LockableButton from "./lockable/LockedButtons";
+import { useRef, useState } from "react";
 
 const IndentLine = ({
   name,
@@ -64,23 +64,22 @@ const IndentLine = ({
 }: {
   name: React.ReactNode;
   level: number;
-}) =>
-  level == 0 ? (
-    <div className="relative ml-5 pl-1">
+}) => (
+  <div className="relative ml-5 pl-1">
+    {level == 0 ? (
       <div style={{ marginLeft: level == 0 ? `${level * 20}px` : 0 }}>
         {level == 0 ? name : <IndentLine name={name} level={level - 1} />}
       </div>
-    </div>
-  ) : (
-    <div className="relative ml-5 pl-1">
+    ) : (
       <div
         className={"border-l-2 border-blue-800 py-1 pl-4"}
         style={{ marginLeft: level == 0 ? `${level * 20}px` : 0 }}
       >
         {level == 0 ? name : <IndentLine name={name} level={level - 1} />}
       </div>
-    </div>
-  );
+    )}
+  </div>
+);
 
 const mapStatusToDisplay: { [k in StatusTypes]: React.ReactNode } = {
   pass: <p className="text-green-500">PASS</p>,
@@ -271,13 +270,10 @@ export function DataTable() {
     },
   ];
 
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = useState({});
   const data = elems; // this is necessary for some reason for the table to work no idea why
 
   const table = useReactTable({
@@ -316,13 +312,12 @@ export function DataTable() {
     });
   };
 
-  const [showAddConditionalModal, setShowAddConditionalModal] =
-    React.useState(false);
-  const addConditionalAfterIdx = React.useRef(-1);
+  const [showAddConditionalModal, setShowAddConditionalModal] = useState(false);
+  const addConditionalAfterIdx = useRef(-1);
 
   const [showWriteConditionalModal, setShowWriteConditionalModal] =
-    React.useState(false);
-  const writeConditionalForIdx = React.useRef(-1);
+    useState(false);
+  const writeConditionalForIdx = useRef(-1);
 
   const handleWriteConditionalModal = (input: string) => {
     setElems((data) => {

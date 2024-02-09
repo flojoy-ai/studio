@@ -130,7 +130,6 @@ export const openTestPicker = (): Promise<
           filePath: selectedPaths[0],
           fileContent,
         });
-        resolve(undefined);
       }
     } catch (error) {
       reject(String(error));

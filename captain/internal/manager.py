@@ -12,17 +12,14 @@ import asyncio
 """ Acts as a bridge between backend components """
 
 
-class WSManager(object):
+class WSManager:
     def __init__(self):
-        self.ws = ConnectionManager.get_instance()  # websocket manager
+        self.ws = ConnectionManager()
 
 
 # Manager for Test Sequencer activities
-class TSManager(object):
-    def __init__(self):
-        self.ws = (
-            ConnectionManager()
-        )  # get a separate instance such that we don't mix connections with main manager
+class TSManager(WSManager):
+    pass  # could potentially add more things in the future for this, that's why we keep it as such
 
 
 # Manager for flowchart activities (main manager)

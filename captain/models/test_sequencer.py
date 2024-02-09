@@ -1,34 +1,34 @@
-from __future__ import annotations
-from enum import Enum
-from typing import ForwardRef, Union, Optional, List, Literal, Any
-from pydantic import BaseModel, Field, root_validator
-
-
-class TestType(str, Enum):
-    Python = "Python"
-    Flojoy = "Flojoy"
-    Matlab = "Matlab"
-
-
-class TestStatus(str, Enum):
-    Pending = "pending"
-    Processing = "processing"
-    Pass = "pass"
-    Failed = "failed"
-
-
-class TestNode:
-    type: Literal["test"]
-    id: str
-    path: str
-    test_name: str = Field(alias="testName")
-    run_in_parallel: bool = Field(alias="runInParallel")
-    test_type: TestType = Field(alias="testType")
-    status: TestStatus
-    completion_time: float = Field(alias="completionTime")
-    is_saved_to_cloud: bool = Field(alias="isSavedToCloud")
-
-
+# from __future__ import annotations
+# from enum import Enum
+# from typing import ForwardRef, Union, Optional, List, Literal, Any
+# from pydantic import BaseModel, Field, root_validator
+#
+#
+# class TestType(str, Enum):
+#     Python = "Python"
+#     Flojoy = "Flojoy"
+#     Matlab = "Matlab"
+#
+#
+# class TestStatus(str, Enum):
+#     Pending = "pending"
+#     Processing = "processing"
+#     Pass = "pass"
+#     Failed = "failed"
+#
+#
+# class TestNode:
+#     type: Literal["test"]
+#     id: str
+#     path: str
+#     test_name: str = Field(alias="testName")
+#     run_in_parallel: bool = Field(alias="runInParallel")
+#     test_type: TestType = Field(alias="testType")
+#     status: TestStatus
+#     completion_time: float = Field(alias="completionTime")
+#     is_saved_to_cloud: bool = Field(alias="isSavedToCloud")
+#
+#
 #
 # class RoleTypes(str, Enum):
 #     Start = "start"

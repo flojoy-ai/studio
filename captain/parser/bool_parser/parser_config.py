@@ -1,12 +1,8 @@
-from typing import Type
 from bool_parser.expressions.models import (
     And,
     GetPassFail,
-    BinaryExpression,
     Not,
     Or,
-    UnaryExpression,
-    ExpressionType,
     Expression,
 )
 

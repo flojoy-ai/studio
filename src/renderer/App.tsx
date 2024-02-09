@@ -17,7 +17,6 @@ import EditorView from "./routes/editor/EditorView";
 import { initMixPanel } from "./services/MixpanelServices";
 import AuthPage from "./routes/auth/Auth";
 import { Toaster } from "sonner";
-import { TestSequencerWSProvider } from "./context/testSequencerWS.context";
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;
@@ -45,39 +44,37 @@ const App = () => {
       <div className="titlebar flex h-12 items-center justify-center bg-background font-bold">
         Flojoy Studio ({packageJson.version})
       </div>
-      <TestSequencerWSProvider>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/auth" element={<AuthPage startup />} />
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/auth" element={<AuthPage startup />} />
+        <Route
+          path="/auth/user-switch"
+          element={<AuthPage startup={false} />}
+        />
+        <Route path="/" element={<Layout />}>
           <Route
-            path="/auth/user-switch"
-            element={<AuthPage startup={false} />}
+            path="/test-sequencer"
+            element={<TestSequencerTab />}
+            errorElement={<ErrorBoundary />}
           />
-          <Route path="/" element={<Layout />}>
-            <Route
-              path="/test-sequencer"
-              element={<TestSequencerTab />}
-              errorElement={<ErrorBoundary />}
-            />
-            <Route
-              path="/flowchart"
-              element={<FlowChartTab />}
-              errorElement={<ErrorBoundary />}
-            />
-            <Route
-              path="/devices"
-              element={<DeviceTab />}
-              errorElement={<ErrorBoundary />}
-            />
-            <Route
-              path="/pymgr"
-              element={<PythonManagerTabView />}
-              errorElement={<ErrorBoundary />}
-            />
-          </Route>
-          <Route path="/editor/:id" element={<EditorView />} />
-        </Routes>
-      </TestSequencerWSProvider>
+          <Route
+            path="/flowchart"
+            element={<FlowChartTab />}
+            errorElement={<ErrorBoundary />}
+          />
+          <Route
+            path="/devices"
+            element={<DeviceTab />}
+            errorElement={<ErrorBoundary />}
+          />
+          <Route
+            path="/pymgr"
+            element={<PythonManagerTabView />}
+            errorElement={<ErrorBoundary />}
+          />
+        </Route>
+        <Route path="/editor/:id" element={<EditorView />} />
+      </Routes>
     </div>
   );
 };

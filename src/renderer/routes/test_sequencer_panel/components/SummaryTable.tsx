@@ -27,6 +27,7 @@ import {
   TestSequenceElement,
 } from "@/renderer/types/testSequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import { useEffect, useState } from "react";
 
 const getOnlyTests = (data: TestSequenceElement[]): Test[] => {
   return filter(
@@ -40,34 +41,53 @@ const getCompletionTime = (data: TestSequenceElement[]) => {
   const parallel = filter(onlyTests, (elem) => elem.runInParallel).map(
     (elem) => elem.completionTime,
   );
-  const non_parallel = filter(onlyTests, (elem) => !elem.runInParallel).map(
+  const nonParallel = filter(onlyTests, (elem) => !elem.runInParallel).map(
     (elem) => elem.completionTime,
   );
-  let max_p = max(parallel);
-  let sum_np = sum(non_parallel);
-  if (!max_p) max_p = 0;
-  if (!sum_np) sum_np = 0;
-  return max_p + sum_np;
+  let maxParallel = parallel.length > 0 ? max(parallel) : 0;
+  if (maxParallel === undefined) maxParallel = 0;
+  const nonParallelTotal = sum(nonParallel);
+  return maxParallel + nonParallelTotal;
 };
 
 const getSuccessRate = (data: TestSequenceElement[]): number => {
   const tests = getOnlyTests(data);
+  if (tests.length == 0) return 0;
   return (
     (filter(tests, (elem) => elem.status == "pass").length / tests.length) * 100
   );
 };
 
+const columns: ColumnDef<Summary>[] = [
+  {
+    accessorKey: "id",
+    header: "",
+    cell: () => <div>Summary:</div>,
+  },
+  {
+    accessorKey: "success_rate",
+    header: "Success Rate",
+    cell: ({ row }) => {
+      return <div>{row.original.successRate.toFixed(1)}%</div>;
+    },
+  },
+  {
+    accessorKey: "completion_time",
+    header: "Total time",
+    cell: ({ row }) => {
+      return <div>{row.original.completionTime.toFixed(2)}s</div>;
+    },
+  },
+];
+
 export function SummaryTable() {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = useState({});
   const { elems } = useTestSequencerState();
-  const [summary, setSummary] = React.useState<Summary[]>([]);
-  React.useEffect(() => {
+  const [summary, setSummary] = useState<Summary[]>([]);
+  useEffect(() => {
     setSummary([
       {
         id: "1",
@@ -76,28 +96,6 @@ export function SummaryTable() {
       },
     ]);
   }, [elems]);
-
-  const columns: ColumnDef<Summary>[] = [
-    {
-      accessorKey: "id",
-      header: "",
-      cell: () => <div>Summary:</div>,
-    },
-    {
-      accessorKey: "success_rate",
-      header: "Success Rate",
-      cell: ({ row }) => {
-        return <div>{row.original.successRate.toFixed(1)}%</div>;
-      },
-    },
-    {
-      accessorKey: "completion_time",
-      header: "Total time",
-      cell: ({ row }) => {
-        return <div>{row.original.completionTime.toFixed(2)}s</div>;
-      },
-    },
-  ];
 
   const data = summary;
   const summaryTable = useReactTable({

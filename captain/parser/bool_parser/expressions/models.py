@@ -175,21 +175,21 @@ class Or(BinaryExpression):
         return self.targets[0].operation() or self.targets[1].operation()
 
 
-class LeftParanthesis:
+class LeftParenthesis:
     def __init__(self):
         pass
 
 
-class RightParanthesis:
+class RightParenthesis:
     def __init__(self):
         pass
 
 
 PARANTHESES_TO_CLASS: dict[
-    str, Union[Type[LeftParanthesis], Type[RightParanthesis]]
+    str, Union[Type[LeftParenthesis], Type[RightParenthesis]]
 ] = {
-    "(": LeftParanthesis,
-    ")": RightParanthesis,
+    "(": LeftParenthesis,
+    ")": RightParenthesis,
 }
 
 TOKEN_TO_CLASS: dict[str, Type[Expression]] = {
