@@ -36,7 +36,7 @@ def discover_pytest_file(path: str, one_file: bool):
             case Result():
                 test_list.append(
                     TestDiscoveryResponse(
-                        test_name=node.nodeid,
+                        test_name=node.nodeid.replace(" ", "_"),
                         path=os.path.join(json_data.root, node.nodeid),
                     )
                 )

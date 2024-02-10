@@ -11,6 +11,7 @@ import {
 import { atomWithImmer } from "jotai-immer";
 import { v4 as uuidv4 } from "uuid";
 import {
+  checkUniqueNames,
   validateStructure,
   validator,
 } from "@/renderer/utils/TestSequenceValidator";
@@ -109,7 +110,10 @@ export function useTestSequencerState() {
     }
 
     //validate new elements
-    const res = validateElements([validateStructure], candidateElems);
+    const res = validateElements(
+      [validateStructure, checkUniqueNames],
+      candidateElems,
+    );
     if (!res) {
       console.error("Validation failed");
       return;

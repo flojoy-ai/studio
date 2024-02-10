@@ -1,4 +1,5 @@
 import { TestSequenceElement } from "@/renderer/types/testSequencer";
+import { toast } from "sonner";
 
 export type validator = (param: TestSequenceElement[]) => boolean;
 
@@ -28,6 +29,18 @@ export const validateStructure: validator = (elems) => {
           break;
       }
     }
+  }
+  return true;
+};
+
+export const checkUniqueNames: validator = (elems) => {
+  const names = new Set();
+  for (let i = 0; i < elems.length; i++) {
+    if (names.has(elems[i])) {
+      toast.error("Each test must have a unique name!");
+      return false;
+    }
+    names.add(elems[i]);
   }
   return true;
 };
