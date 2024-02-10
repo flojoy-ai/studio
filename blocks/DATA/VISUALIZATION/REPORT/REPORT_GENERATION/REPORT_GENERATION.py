@@ -35,10 +35,12 @@ def REPORT_GENERATION(
     None
     """
 
-    # cwd = os.getcwd()
-    cwd = "/Users/jp/Desktop/custom-blocks/REPORT_GEN"
-    template_path = os.path.join(cwd, "template.html")
-    print(template_path)
+    # Get the path of the current Python file
+    current_file_path = os.path.abspath(__file__)
+
+    # Get the path of the file in the same directory
+    file_name = "template.html"  # Replace with the actual file name
+    template_path = os.path.join(os.path.dirname(current_file_path), file_name)
 
     DEFAULT_LOGO = "https://mma.prnewswire.com/media/1708705/MDA_Inc__MDA_announces_CHORUS__as_the_name_of_its_next_market_le.jpg"
 
