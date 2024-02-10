@@ -1,4 +1,4 @@
-import { TestSequenceElement } from "@/renderer/types/testSequencer";
+import { Test, TestSequenceElement } from "@/renderer/types/testSequencer";
 import { toast } from "sonner";
 
 export type validator = (param: TestSequenceElement[]) => boolean;
@@ -36,11 +36,13 @@ export const validateStructure: validator = (elems) => {
 export const checkUniqueNames: validator = (elems) => {
   const names = new Set();
   for (let i = 0; i < elems.length; i++) {
-    if (names.has(elems[i])) {
+    if (elems[i].type !== "test") continue;
+    const cur = elems[i] as Test;
+    if (names.has(cur.testName)) {
       toast.error("Each test must have a unique name!");
       return false;
     }
-    names.add(elems[i]);
+    names.add(cur.testName);
   }
   return true;
 };

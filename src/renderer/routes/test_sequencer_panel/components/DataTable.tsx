@@ -13,7 +13,6 @@ import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
-  getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
@@ -274,16 +273,13 @@ export function DataTable() {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const data = elems; // this is necessary for some reason for the table to work no idea why
 
   const table = useReactTable({
-    data,
+    data: elems,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
-    pageCount: 5,
-    getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
@@ -308,7 +304,11 @@ export function DataTable() {
       idxs.forEach((idx) => {
         toRemove.add(elems[idx].groupId);
       });
-      return filter(elems, (elem) => !toRemove.has(elem.groupId));
+      console.log(elems);
+      console.log(idxs);
+      const new_elems = filter(elems, (elem) => !toRemove.has(elem.groupId));
+      console.log(new_elems);
+      return new_elems;
     });
   };
 
@@ -385,13 +385,13 @@ export function DataTable() {
           handleWriteConditionalModalOpen={setShowWriteConditionalModal}
           handleWrite={handleWriteConditionalModal}
         />
-        <Button
+        <LockableButton
           disabled={Object.keys(rowSelection).length === 0}
           onClick={handleClickRemoveTests}
           variant="outline"
         >
           <TrashIcon />
-        </Button>
+        </LockableButton>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
@@ -494,25 +494,6 @@ export function DataTable() {
         <div className="flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
-
-        <div className="space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </Button>
         </div>
       </div>
     </div>
