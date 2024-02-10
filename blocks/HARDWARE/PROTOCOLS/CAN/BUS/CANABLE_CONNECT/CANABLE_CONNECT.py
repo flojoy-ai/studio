@@ -38,6 +38,8 @@ def CANABLE_CONNECT(
         interface="slcan", channel=device.get_port(), bitrate=bitrate
     )
 
-    DeviceConnectionManager.register_connection(HardwareDevice(CAN_address), session, lambda slcan_bus: slcan_bus.shutdown())
+    DeviceConnectionManager.register_connection(
+        HardwareDevice(CAN_address), session, lambda slcan_bus: slcan_bus.shutdown()
+    )
 
     return None

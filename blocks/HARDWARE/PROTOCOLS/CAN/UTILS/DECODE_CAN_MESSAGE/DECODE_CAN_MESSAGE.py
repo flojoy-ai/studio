@@ -38,7 +38,9 @@ def DECODE_CAN_MESSAGE(
             decoded_message = db.decode_message(message.arbitration_id, message.data)
             # SG_ (signal) is not JSON encodable, so we need to convert it to its representation
             decoded_message = {
-                key: value.name if isinstance(value, namedsignalvalue.NamedSignalValue) else value
+                key: value.name
+                if isinstance(value, namedsignalvalue.NamedSignalValue)
+                else value
                 for key, value in decoded_message.items()
             }
             decoded_message["timestamp"] = message.timestamp
