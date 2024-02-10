@@ -1,7 +1,7 @@
 from flojoy import flojoy, Stateful, DataFrame
 import pandas as pd
 import logging
-from cantools.database import Message, namedsignalvalue, Database
+from cantools.database import namedsignalvalue
 
 
 @flojoy(deps={"python-can": "4.3.1", "cantools": "39.4.2"})

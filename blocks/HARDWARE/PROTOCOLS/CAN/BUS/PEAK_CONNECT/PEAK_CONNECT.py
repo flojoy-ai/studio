@@ -32,6 +32,6 @@ def PEAK_CONNECT(
 
     session = can.interface.Bus(interface="pcan", channel=PCAN_address, bitrate=bitrate)
 
-    DeviceConnectionManager.register_connection(HardwareDevice(PCAN_address), session)
+    DeviceConnectionManager.register_connection(HardwareDevice(PCAN_address), session, cleanup = lambda pcan_bus: pcan_bus.shutdown())
 
     return None
