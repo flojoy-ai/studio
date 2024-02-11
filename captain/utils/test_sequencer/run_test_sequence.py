@@ -1,5 +1,14 @@
 import asyncio
 import time
+from typing import cast
+
+import pydantic
+from captain.models.test_sequencer import (
+    ConditionalNode,
+    TestNode,
+    TestRootNode,
+    TestSequenceElementNode,
+)
 from captain.parser.bool_parser.expressions.models import Variable
 from captain.types.test_sequence import MsgState, TestSequenceMessage
 from captain.utils.config import ts_manager
@@ -89,31 +98,29 @@ async def _stream_result_to_frontend(
 
 # TODO have pydantic model for data, convert camelCase to snake_case
 async def run_test_sequence(data):
+    data = pydantic.TypeAdapter(TestRootNode).validate_python(data)
+    result_dict = {}  # maps test name to result of test (should be id in the future?)
     try:
-        data = _recursive_namespace(data)
 
-        result_dict = (
-            {}
-        )  # maps test name to result of test (should be id in the future?)
-
-        async def run_dfs(node):
+        async def run_dfs(node: TestRootNode | TestSequenceElementNode):
             if not bool(node.__dict__):
                 return
 
             match node.type:
                 case "root":
+                    node = cast(TestRootNode, node)
                     for child in node.children:
                         await run_dfs(child)
 
                 case "test":
                     # TODO: support run in parallel feature
-
+                    node = cast(TestNode, node)
                     await _stream_result_to_frontend(
                         state=MsgState.RUNNING, test_id=node.id
                     )
                     path = node.path
                     result, time_taken = _run_pytest(path)
-                    result_dict[node.testName] = TestResult(result, time_taken)
+                    result_dict[node.test_name] = TestResult(result, time_taken)
                     await _stream_result_to_frontend(
                         state=MsgState.TEST_DONE,
                         test_id=node.id,
@@ -122,7 +129,9 @@ async def run_test_sequence(data):
                     )
 
                 case "conditional":
-                    match node.conditionalType:
+                    node = cast(ConditionalNode, node)
+
+                    match node.conditional_type:
                         case "if":
                             expression_eval = _eval_condition(
                                 result_dict, node.condition

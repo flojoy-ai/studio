@@ -1,100 +1,111 @@
-# from __future__ import annotations
-# from enum import Enum
-# from typing import ForwardRef, Union, Optional, List, Literal, Any
-# from pydantic import BaseModel, Field, root_validator
-#
-#
-# class TestType(str, Enum):
-#     Python = "Python"
-#     Flojoy = "Flojoy"
-#     Matlab = "Matlab"
-#
-#
-# class TestStatus(str, Enum):
-#     Pending = "pending"
-#     Processing = "processing"
-#     Pass = "pass"
-#     Failed = "failed"
-#
-#
-# class TestNode:
-#     type: Literal["test"]
-#     id: str
-#     path: str
-#     test_name: str = Field(alias="testName")
-#     run_in_parallel: bool = Field(alias="runInParallel")
-#     test_type: TestType = Field(alias="testType")
-#     status: TestStatus
-#     completion_time: float = Field(alias="completionTime")
-#     is_saved_to_cloud: bool = Field(alias="isSavedToCloud")
-#
-#
-#
-# class RoleTypes(str, Enum):
-#     Start = "start"
-#     Between = "between"
-#     End = "end"
-#
-#
-# class ConditionalTypes(str, Enum):
-#     If = "if"
-#     Else = "else"
-#     Elif = "elif"
-#     End = "end"
-#
-#
-# class Summary(BaseModel):
-#     id: str = Field(alias="id")
-#     success_rate: float = Field(alias="successRate")
-#     completion_time: float = Field(alias="completionTime")
-#
-#
+from typing import Optional, List, Union
+from pydantic import BaseModel, Field
+from enum import Enum
 
 
-#
-#
-# class ConditionalNode(BaseModel):
-#     type: Literal["conditional"]
-#     conditional_type: ConditionalTypes = Field(alias="conditionalType")
-#     role: RoleTypes
-#     id: str
-#     group_id: str = Field(alias="groupId")
-#     condition: str
-#
-#
-# class IfNode(ConditionalNode):
-#     conditional_type: Literal["if"] = Field(alias="conditionalType")
-#     main: List[TestSequenceElementNode]
-#     else_: List[TestSequenceElementNode] = Field(alias="else")
-#
-#
-# class TestRootNode(BaseModel):
-#     type: str
-#     children: List[TestSequenceElementNode]
-#
-#
-# TestSequenceElementNode = Union[IfNode, TestNode, TestRootNode]
-# # _______________________________________________________________________
-#
-#
-# class Message(BaseModel):
-#     event: str
-#     data: Any
-#
-#
-# class Subscription(Message):
-#     event: Literal["subscribe"]
-#
-#     class Data(BaseModel):
-#         message: str
-#
-#     data: Data
-#
-#
-# class RunRequest(Message):
-#     event: Literal["run"]  # overwriting
-#
-#     class Data(BaseModel):
-#         tree: TestRootNode
-#
-#     data: Data
+class Summary(BaseModel):
+    id: str = Field(..., alias="id")
+    success_rate: float = Field(..., alias="successRate")
+    completion_time: int = Field(..., alias="completionTime")
+
+
+class LockedContextType(BaseModel):
+    is_locked: bool = Field(..., alias="isLocked")
+
+
+class TestTypes(str, Enum):
+    Python = "Python"
+    Flojoy = "Flojoy"
+    Matlab = "Matlab"
+
+
+class StatusTypes(str, Enum):
+    pending = "pending"
+    pass_ = "pass"
+    failed = "failed"
+
+
+class MsgState(str, Enum):
+    TEST_SET_START = "TEST_SET_START"
+    RUNNING = "RUNNING"
+    TEST_DONE = "TEST_DONE"
+    ERROR = "ERROR"
+    TEST_SET_DONE = "TEST_SET_DONE"
+
+
+class BackendMsg(BaseModel):
+    state: MsgState = Field(..., alias="state")
+    target_id: str = Field(..., alias="targetId")
+    result: bool = Field(..., alias="result")
+    time_taken: int = Field(..., alias="timeTaken")
+    error: Optional[str] = Field(None, alias="error")
+
+
+class Test(BaseModel):
+    type: str = Field("test", alias="type")
+    id: str = Field(..., alias="id")
+    group_id: str = Field(..., alias="groupId")
+    path: str = Field(..., alias="path")
+    test_name: str = Field(..., alias="testName")
+    run_in_parallel: bool = Field(..., alias="runInParallel")
+    test_type: TestTypes = Field(..., alias="testType")
+    status: StatusTypes = Field(..., alias="status")
+    completion_time: Optional[int] = Field(None, alias="completionTime")
+    is_saved_to_cloud: bool = Field(..., alias="isSavedToCloud")
+
+
+class Role(str, Enum):
+    start = "start"
+    between = "between"
+    end = "end"
+
+
+class ConditionalComponent(str, Enum):
+    if_ = "if"
+    else_ = "else"
+    elif_ = "elif"
+    end = "end"
+
+
+class ConditionalLeader(str, Enum):
+    if_ = "if"
+
+
+class Conditional(BaseModel):
+    type: str = Field("conditional", alias="type")
+    conditional_type: ConditionalComponent = Field(..., alias="conditionalType")
+    role: Role = Field(..., alias="role")
+    id: str = Field(..., alias="id")
+    group_id: str = Field(..., alias="groupId")
+    condition: str = Field(..., alias="condition")
+
+
+TestSequenceElementNode = Union[Conditional, Test]
+
+
+class IfNode(Conditional):
+    conditional_type: str = Field("if", alias="conditionalType")
+    main: List[TestSequenceElementNode] = Field(..., alias="main")
+    else_: List[TestSequenceElementNode] = Field(..., alias="else")
+
+
+class ConditionalNode(IfNode):
+    pass
+
+
+class TestNode(Test):
+    pass
+
+
+class TestRootNode(BaseModel):
+    type: str = Field("root", alias="type")
+    children: List[TestSequenceElementNode] = Field(..., alias="children")
+
+
+class TestDiscoveryResponse(BaseModel):
+    test_name: str = Field(..., alias="testName")
+    path: str = Field(..., alias="path")
+
+
+class TestDiscoverContainer(BaseModel):
+    response: List[TestDiscoveryResponse] = Field(..., alias="response")
