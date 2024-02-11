@@ -31,6 +31,7 @@ import {
   pickDirectory,
   ping,
   openFilePicker,
+  openTestPicker,
   writeFileSync,
   cleanup,
   loadFileFromFullPath,
@@ -178,6 +179,7 @@ app.whenReady().then(async () => {
     return poetryUninstallDepGroup(group);
   });
   ipcMain.handle(API.openFilePicker, openFilePicker);
+  ipcMain.handle(API.openTestPicker, openTestPicker);
   ipcMain.handle(API.openEditorWindow, (_, filepath) => {
     createEditorWindow(filepath);
   });
