@@ -1,4 +1,3 @@
-import json
 import asyncio
 from captain.models.test_sequencer import TestSequenceEvents, TestSequenceRun
 from captain.utils.logger import logger

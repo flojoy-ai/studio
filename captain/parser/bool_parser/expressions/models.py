@@ -1,5 +1,5 @@
-from abc import ABC, abstractclassmethod, abstractmethod
-from typing import Union, Type, List, Any, cast, Callable
+from abc import ABC, abstractmethod
+from typing import Union, Type, List, Any, cast
 from captain.parser.bool_parser.expressions.exceptions import (
     TargetNumberMismatch,
     TestNotRan,
