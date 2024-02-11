@@ -1,6 +1,9 @@
 from abc import ABC, abstractclassmethod, abstractmethod
 from typing import Union, Type, List, Any, cast, Callable
-from .exceptions import TargetNumberMismatch, TestNotRan
+from captain.parser.bool_parser.expressions.exceptions import (
+    TargetNumberMismatch,
+    TestNotRan,
+)
 
 
 class Operator:

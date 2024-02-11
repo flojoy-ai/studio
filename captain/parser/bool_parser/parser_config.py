@@ -1,4 +1,4 @@
-from bool_parser.expressions.models import (
+from captain.parser.bool_parser.expressions.models import (
     And,
     GetPassFail,
     Not,

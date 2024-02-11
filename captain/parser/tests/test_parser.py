@@ -1,8 +1,8 @@
 from functools import partial
-from bool_parser.expressions.models import (
+from captain.parser.bool_parser.expressions.models import (
     Variable,
 )
-from bool_parser.bool_parser import eval_expression
+from captain.parser.bool_parser.bool_parser import eval_expression
 
 
 symbol_table = {

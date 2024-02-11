@@ -1,5 +1,5 @@
 from typing import Union
-from ..expressions.models import (
+from captain.parser.bool_parser.expressions.models import (
     Identifier,
     LeftParenthesis,
     Operator,
