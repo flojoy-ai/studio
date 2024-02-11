@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "This blocks is use to detect available PCAN devices and returns a string containing the device name and the channel number.\n\u2192 Use the channel number to configure to connect to PEAK can hardware and other devices that support the PCAN interface using the PCAN_CONNECT block.\n\nFor Windows and Linux compatibilities, the following Drviers are required:\n    \u2192 https://www.peak-system.com/Drivers.523.0.html?&L=1\nFor MacOS compatibilities, the following Drivers are required:\n    \u2192 https://mac-can.github.io/",
+    "short_description": "Detects available PCAN devices and returns a string containing the device name and the channel number.",
+    "parameters": [
+      {
+        "name": "None",
+        "type": null,
+        "description": null
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "String",
+        "description": "A string containing the device name and the channel number."
+      }
+    ]
+  }
+}

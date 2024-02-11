@@ -73,6 +73,12 @@ def APPEND(
         v = append([c0], [c1], axis=0)
         return Vector(v=v)
 
+    elif isinstance(primary_dp, DataFrame) and isinstance(secondary_dp, DataFrame):
+        df0 = primary_dp.m
+        df1 = secondary_dp.m
+        df = df0._append(df1, ignore_index=True)
+        return DataFrame(df=df)
+
     # When primary_dp is None during the first loop:
     elif primary_dp is None and isinstance(secondary_dp, Scalar):
         return secondary_dp

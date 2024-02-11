@@ -8,7 +8,7 @@
     "paths": {
       "@/*": ["./docs/src/*"],
       "@blocks/*": ["/blocks/*"],
-      "@root/*": ["./docs/*"],
-    },
-  },
+      "@root/*": ["./docs/*"]
+    }
+  }
 }
