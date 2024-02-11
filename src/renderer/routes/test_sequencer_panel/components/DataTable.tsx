@@ -443,39 +443,39 @@ export function DataTable() {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <ContextMenu>
-                      <TableCell key={cell.id}>
-                        <ContextMenuTrigger>
+                <ContextMenu>
+                  <ContextMenuTrigger asChild>
+                    <TableRow
+                      key={row.id}
+                      data-state={row.getIsSelected() && "selected"}
+                    >
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext(),
                           )}
-                        </ContextMenuTrigger>
-                      </TableCell>
-                      <ContextMenuContent>
-                        {getSpecificContextMenuItems(row)}
-                        <ContextMenuItem
-                          onClick={() =>
-                            handleClickAddConditional(parseInt(row.id))
-                          }
-                        >
-                          Add Conditional
-                        </ContextMenuItem>
-                        <ContextMenuItem>Show Output Plot</ContextMenuItem>
-                        <ContextMenuItem
-                          onClick={() => onRemoveTest([parseInt(row.id)])}
-                        >
-                          Remove Test
-                        </ContextMenuItem>
-                      </ContextMenuContent>
-                    </ContextMenu>
-                  ))}
-                </TableRow>
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </ContextMenuTrigger>
+                  <ContextMenuContent>
+                    {getSpecificContextMenuItems(row)}
+                    <ContextMenuItem
+                      onClick={() =>
+                        handleClickAddConditional(parseInt(row.id))
+                      }
+                    >
+                      Add Conditional
+                    </ContextMenuItem>
+                    <ContextMenuItem>Show Output Plot</ContextMenuItem>
+                    <ContextMenuItem
+                      onClick={() => onRemoveTest([parseInt(row.id)])}
+                    >
+                      Remove Test
+                    </ContextMenuItem>
+                  </ContextMenuContent>
+                </ContextMenu>
               ))
             ) : (
               <TableRow>
