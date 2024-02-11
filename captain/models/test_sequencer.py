@@ -1,4 +1,4 @@
-from typing import Optional, List, Union
+from typing import Optional, List, Union, Any, Literal
 from pydantic import BaseModel, Field
 from enum import Enum
 
@@ -109,3 +109,15 @@ class TestDiscoveryResponse(BaseModel):
 
 class TestDiscoverContainer(BaseModel):
     response: List[TestDiscoveryResponse] = Field(..., alias="response")
+
+
+TestSequenceEvents = Literal["run", "subscribe"]
+
+
+class TestData(BaseModel):
+    tree: TestRootNode
+
+
+class TestSequenceRun(BaseModel):
+    event: TestSequenceEvents
+    data: Union[str, TestRootNode]

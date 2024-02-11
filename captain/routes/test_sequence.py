@@ -1,5 +1,8 @@
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Depends
+import json
+import pydantic
 from captain.models.pytest.pytest_models import TestDiscoverContainer
+from captain.models.test_sequencer import TestSequenceRun
 from captain.utils.pytest.discover_tests import discover_pytest_file
 from captain.utils.config import ts_manager
 from captain.utils.test_sequencer.handle_data import handle_data
@@ -21,6 +24,8 @@ async def websocket_endpoint(websocket: WebSocket, socket_id: str):
         # await for messages and send messages (no need to read from frontend, this is used to keep connection alive)
         while True:
             data = await websocket.receive_text()
+            data = json.loads(data)
+            data = pydantic.TypeAdapter(TestSequenceRun).validate_python(data)
             handle_data(data)
 
     except WebSocketDisconnect:
