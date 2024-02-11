@@ -12,6 +12,7 @@ from captain.parser.bool_parser.expressions.models import (
     ReturnTypes,
     RightParenthesis,
     SymbolTableType,
+    Empty,
 )
 from captain.parser.bool_parser.expressions.exceptions import (
     InvalidCharacter,
@@ -119,6 +120,21 @@ class TrieNode:
         self.is_end = is_end
 
 
+# class used to store details of a match
+class Match:
+    def __init__(
+        self,
+        matched: bool,
+        start_idx: int = -1,
+        end_idx: int = -1,
+        expression: Expression = Empty(),
+    ):
+        self.matched = matched
+        self.start_idx = start_idx
+        self.end_idx = end_idx
+        self.expression = expression
+
+
 def _build_ast(tokens: list[Token], symbol_table: SymbolTableType) -> Expression:
     """
     This function builds the abstract syntax tree for the boolean expression.
@@ -155,7 +171,7 @@ def _build_ast(tokens: list[Token], symbol_table: SymbolTableType) -> Expression
     def _match(
         to_parse: List[ParseItem],
         to_match: set[Expression],
-    ) -> tuple[bool, int, int, Expression]:
+    ) -> Match:
         def _build_trie(to_match: set[Expression]):
             root = TrieNode(children={}, is_end=False)
             for expression in to_match:
@@ -205,9 +221,9 @@ def _build_ast(tokens: list[Token], symbol_table: SymbolTableType) -> Expression
             matched, targets, expr_type = _is_a_match(i, trie)
             if matched:
                 expression = expr_type(targets)
-                return matched, i, i + len(expr_type.expects), expression
+                return Match(matched, i, i + len(expr_type.expects), expression)
 
-        return False, None, None, None  # type: ignore
+        return Match(False)
 
     """
     ____________________________
@@ -228,10 +244,14 @@ def _build_ast(tokens: list[Token], symbol_table: SymbolTableType) -> Expression
 
     # step 2: parse in order defined by parser_config
     for expressions in rules.order_of_operations:
-        matched, match_idx, end_idx, expr = _match(to_parse, expressions)
-        while matched:
-            to_parse = to_parse[:match_idx] + [expr] + to_parse[end_idx:]
-            matched, match_idx, end_idx, expr = _match(to_parse, expressions)
+        match_obj = _match(to_parse, expressions)
+        while match_obj.matched:
+            to_parse = (
+                to_parse[: match_obj.start_idx]
+                + [match_obj.expression]
+                + to_parse[match_obj.end_idx :]
+            )
+            match_obj = _match(to_parse, expressions)
 
     # step 3: verify that expression was successfully parsed
     if len(to_parse) != 1 or not isinstance(to_parse[0], Expression):

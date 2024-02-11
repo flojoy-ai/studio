@@ -50,6 +50,15 @@ class Expression(ABC):
         pass
 
 
+# basically a null
+class Empty(Expression):
+    def __init__(self):
+        pass
+
+    def operation(self) -> None:
+        pass
+
+
 # special class to retrieve variable information (in this case, the test run information)
 class Identifier(Expression):
     expects: ExpectAlias = [str]
