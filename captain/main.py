@@ -1,7 +1,17 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from captain.routes import blocks, devices, flowchart, key, pymgr, update, ws, log
+from captain.routes import (
+    blocks,
+    devices,
+    flowchart,
+    key,
+    pymgr,
+    update,
+    ws,
+    log,
+    test_sequence,
+)
 from captain.utils.config import origins
 from captain.utils.logger import logger
 from captain.internal.manager import WatchManager
@@ -27,6 +37,7 @@ app.include_router(update.router)
 app.include_router(blocks.router)
 app.include_router(devices.router)
 app.include_router(pymgr.router)
+app.include_router(test_sequence.router)
 
 
 @app.on_event("startup")
