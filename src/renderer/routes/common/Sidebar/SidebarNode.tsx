@@ -6,15 +6,15 @@ import {
   isLeaf,
   isRoot,
   isLeafParentNode,
-} from "@src/utils/ManifestLoader";
+} from "@/renderer/utils/ManifestLoader";
 import SidebarSection from "./SidebarSection";
-import { LeafClickHandler } from "@src/routes/common/Sidebar/Sidebar";
-import { sendEventToMix } from "@src/services/MixpanelServices";
-import { NumpySvg, ScipySvg } from "@src/assets/ArithmeticSVG";
+import { LeafClickHandler } from "@/renderer/routes/common/Sidebar/Sidebar";
+import { sendEventToMix } from "@/renderer/services/MixpanelServices";
+import { NumpySvg, ScipySvg } from "@/renderer/assets/ArithmeticSVG";
 import { twMerge } from "tailwind-merge";
 import { cva } from "class-variance-authority";
 import { ReactNode } from "react";
-import { matchesQuery } from "@src/utils/NodeSearch";
+import { matchesQuery } from "@/renderer/utils/NodeSearch";
 
 export const sidebarVariants = cva(undefined, {
   variants: {

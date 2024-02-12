@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "Read CAN data from an ASAM Measurement Data File v4 (.mf4) as specified by the ASAM MDF standard (see https://www.asam.net/standards/detail/mdf/).",
+    "short_description": "Create a file reader for the MF4 format.",
+    "parameters": [
+      {
+        "name": "file",
+        "type": "File",
+        "description": "The file to write from."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "Stateful",
+        "description": "A stateful object that contains can a list of message."
+      }
+    ]
+  }
+}

@@ -1,12 +1,17 @@
 {
   "docstring": {
-    "long_description": "Inputs\n------\ndefault: DataContainer\n    Any DataContainer - likely connected to the output of the OPEN_SERIAL block.",
-    "short_description": "Set the GPIB address of an instrument using the Prologix USB-to-GPIB or USB-to-Ethernet adapter.",
+    "long_description": "This setting should match the address for the GPIB instrument.\n\nRequires an OPEN_SERIAL block.",
+    "short_description": "Set the GPIB address of the Prologix USB-to-GPIB adapter.",
     "parameters": [
       {
         "name": "connection",
         "type": "Serial",
         "description": "The open serial connection with the instrument."
+      },
+      {
+        "name": "addr",
+        "type": "int",
+        "description": "The GPIB address."
       }
     ],
     "returns": [

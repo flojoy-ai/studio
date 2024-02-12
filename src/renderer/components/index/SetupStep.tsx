@@ -1,4 +1,4 @@
-import { SetupStatus } from "@/types/status";
+import { SetupStatus } from "@/renderer/types/status";
 import {
   CheckCircle,
   CircleDashed,

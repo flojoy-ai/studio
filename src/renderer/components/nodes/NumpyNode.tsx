@@ -1,11 +1,11 @@
 import { memo, useState } from "react";
 import clsx from "clsx";
-import { CustomNodeProps } from "@src/types/node";
-import NodeWrapper from "@/components/common/NodeWrapper";
-import { NumpySvg } from "@/assets/ArithmeticSVG";
-import HandleComponent from "@/components/common/HandleComponent";
-import NodeInput from "@/components/common/NodeInput";
-import { useNodeStatus } from "@src/hooks/useNodeStatus";
+import { CustomNodeProps } from "@/renderer/types/node";
+import NodeWrapper from "@/renderer/components/common/NodeWrapper";
+import { NumpySvg } from "@/renderer/assets/ArithmeticSVG";
+import HandleComponent from "@/renderer/components/common/HandleComponent";
+import NodeInput from "@/renderer/components/common/NodeInput";
+import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
 
 const NumpyNode = ({ selected, data }: CustomNodeProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);

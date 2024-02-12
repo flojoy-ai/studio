@@ -31,6 +31,7 @@ import {
   pickDirectory,
   ping,
   openFilePicker,
+  openTestPicker,
   writeFileSync,
   cleanup,
   loadFileFromFullPath,
@@ -47,6 +48,14 @@ import {
   poetryUninstallDepGroup,
 } from "./python/poetry";
 import { createEditorWindow, createWindow } from "./window";
+import {
+  createUserProfile,
+  deleteUserProfile,
+  getUsers,
+  setUserProfile,
+  setUserProfilePassword,
+  validatePassword,
+} from "../api/services/auth-service";
 
 log.initialize({ preload: true });
 log.info("Welcome to Flojoy Studio!");
@@ -170,6 +179,7 @@ app.whenReady().then(async () => {
     return poetryUninstallDepGroup(group);
   });
   ipcMain.handle(API.openFilePicker, openFilePicker);
+  ipcMain.handle(API.openTestPicker, openTestPicker);
   ipcMain.handle(API.openEditorWindow, (_, filepath) => {
     createEditorWindow(filepath);
   });
@@ -184,6 +194,15 @@ app.whenReady().then(async () => {
   ipcMain.handle(API.openLink, (_, url) => {
     shell.openExternal(url);
   });
+  // Authentication
+  ipcMain.handle(API.getUserProfiles, async () => {
+    return Promise.resolve(getUsers());
+  });
+  ipcMain.on(API.setUserProfile, setUserProfile);
+  ipcMain.handle(API.setUserProfilePassword, setUserProfilePassword);
+  ipcMain.handle(API.validatePassword, validatePassword);
+  ipcMain.handle(API.createUserProfile, createUserProfile);
+  ipcMain.handle(API.deleteUserProfile, deleteUserProfile);
 });
 
 app.on("window-all-closed", async () => {

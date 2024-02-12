@@ -1,7 +1,10 @@
-import { projectAtom, useFlowChartState } from "@src/hooks/useFlowChartState";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
-import { useSocket } from "@src/hooks/useSocket";
-import { TreeNode } from "@src/utils/ManifestLoader";
+import {
+  projectAtom,
+  useFlowChartState,
+} from "@/renderer/hooks/useFlowChartState";
+import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
+import { useSocket } from "@/renderer/hooks/useSocket";
+import { TreeNode } from "@/renderer/utils/ManifestLoader";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -22,30 +25,33 @@ import {
   applyEdgeChanges,
   applyNodeChanges,
 } from "reactflow";
-import Sidebar, { LeafClickHandler } from "../common/Sidebar/Sidebar";
+import Sidebar from "../common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { BlockExpandMenu } from "./views/BlockExpandMenu";
-import { MixPanelEvents, sendEventToMix } from "@src/services/MixpanelServices";
+import {
+  MixPanelEvents,
+  sendEventToMix,
+} from "@/renderer/services/MixpanelServices";
 import {
   ACTIONS_HEIGHT,
   BOTTOM_STATUS_BAR_HEIGHT,
   LAYOUT_TOP_HEIGHT,
 } from "../common/Layout";
-import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
+import { getEdgeTypes, isCompatibleType } from "@/renderer/utils/TypeCheck";
 import { CenterObserver } from "./components/CenterObserver";
-import { Separator } from "@src/components/ui/separator";
+import { Separator } from "@/renderer/components/ui/separator";
 import { Pencil, Text, Workflow, X } from "lucide-react";
-import { GalleryModal } from "@src/components/gallery/GalleryModal";
+import { GalleryModal } from "@/renderer/components/gallery/GalleryModal";
 import { toast } from "sonner";
-import { useTheme } from "@src/providers/themeProvider";
+import { useTheme } from "@/renderer/providers/themeProvider";
 import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
-import { Button } from "@src/components/ui/button";
+import { Button } from "@/renderer/components/ui/button";
 import { ResizeFitter } from "./components/ResizeFitter";
 import NodeEditModal from "./components/node-edit-menu/NodeEditModal";
 import { useAtom } from "jotai";
-import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
+import { useHasUnsavedChanges } from "@/renderer/hooks/useHasUnsavedChanges";
 import { useAddTextNode } from "./hooks/useAddTextNode";
 import { WelcomeModal } from "./views/WelcomeModal";
 import { CommandMenu } from "../command/CommandMenu";
@@ -54,33 +60,34 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@src/components/ui/tooltip";
+} from "@/renderer/components/ui/tooltip";
 import {
   manifestChangedAtom,
   useFullManifest,
   useFullMetadata,
   useManifest,
   useNodesMetadata,
-} from "@src/hooks/useManifest";
-import { ElementsData } from "@src/types";
-import { createNodeId, createNodeLabel } from "@src/utils/NodeUtils";
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
-import { filterMap } from "@src/utils/ArrayUtils";
-import ArithmeticNode from "@src/components/nodes/ArithmeticNode";
-import ConditionalNode from "@src/components/nodes/ConditionalNode";
-import DataNode from "@src/components/nodes/DataNode";
-import DefaultNode from "@src/components/nodes/DefaultNode";
-import IONode from "@src/components/nodes/IONode";
-import LogicNode from "@src/components/nodes/LogicNode";
-import NumpyNode from "@src/components/nodes/NumpyNode";
-import ScipyNode from "@src/components/nodes/ScipyNode";
-import VisorNode from "@src/components/nodes/VisorNode";
-import { syncFlowchartWithManifest } from "@src/lib/sync";
-import TextNode from "@src/components/nodes/TextNode";
+} from "@/renderer/hooks/useManifest";
+import { ElementsData } from "@/renderer/types";
+import { createNodeId, createNodeLabel } from "@/renderer/utils/NodeUtils";
+import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
+import { filterMap } from "@/renderer/utils/ArrayUtils";
+import ArithmeticNode from "@/renderer/components/nodes/ArithmeticNode";
+import ConditionalNode from "@/renderer/components/nodes/ConditionalNode";
+import DataNode from "@/renderer/components/nodes/DataNode";
+import DefaultNode from "@/renderer/components/nodes/DefaultNode";
+import IONode from "@/renderer/components/nodes/IONode";
+import LogicNode from "@/renderer/components/nodes/LogicNode";
+import NumpyNode from "@/renderer/components/nodes/NumpyNode";
+import ScipyNode from "@/renderer/components/nodes/ScipyNode";
+import VisorNode from "@/renderer/components/nodes/VisorNode";
+import { syncFlowchartWithManifest } from "@/renderer/lib/sync";
+import TextNode from "@/renderer/components/nodes/TextNode";
 import ContextMenu, { MenuInfo } from "./components/NodeContextMenu";
-import { useCustomSections } from "@src/hooks/useCustomBlockManifest";
-import { BlocksMetadataMap } from "@src/types/blocks-metadata";
-import { Spinner } from "@src/components/ui/spinner";
+import { useCustomSections } from "@/renderer/hooks/useCustomBlockManifest";
+import { BlocksMetadataMap } from "@/renderer/types/blocks-metadata";
+import { Spinner } from "@/renderer/components/ui/spinner";
+import useWithPermission from "@/renderer/hooks/useWithPermission";
 
 const nodeTypes: NodeTypes = {
   default: DefaultNode,
@@ -122,7 +129,6 @@ const FlowChartTab = () => {
 
   const { isSidebarOpen, setIsSidebarOpen, isEditMode, setIsEditMode } =
     useFlowChartState();
-
   const { states } = useSocket();
   const { programResults, setProgramResults } = states;
 
@@ -144,9 +150,12 @@ const FlowChartTab = () => {
     setEdges,
     selectedNode,
     unSelectedNodes,
+    handleNodeChanges,
+    handleEdgeChanges,
   } = useFlowChartGraph();
   const nodesMetadataMap = useNodesMetadata();
   const manifest = useManifest();
+  const { isAdmin } = useWithPermission();
 
   const {
     handleImportCustomBlocks,
@@ -172,6 +181,7 @@ const FlowChartTab = () => {
       toast("Synced blocks with manifest.");
       setManifestChanged(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fullManifest, fullBlocksMetadata, manifestChanged]);
 
   const getTakenNodeLabels = useCallback(
@@ -277,25 +287,25 @@ const FlowChartTab = () => {
 
   const onNodesChange: OnNodesChange = useCallback(
     (changes) => {
-      setNodes((ns) => applyNodeChanges(changes, ns));
+      handleNodeChanges((ns) => applyNodeChanges(changes, ns));
       setTextNodes((ns) => applyNodeChanges(changes, ns));
     },
-    [setNodes, setTextNodes],
+    [handleNodeChanges, setTextNodes],
   );
 
   const onEdgesChange: OnEdgesChange = useCallback(
     (changes) => {
       sendEventToMix(MixPanelEvents.edgesChanged);
-      setEdges((es) => applyEdgeChanges(changes, es));
+      handleEdgeChanges((es) => applyEdgeChanges(changes, es));
       if (!changes.every((c) => c.type === "select")) {
         setHasUnsavedChanges(true);
       }
     },
-    [setEdges, setHasUnsavedChanges],
+    [handleEdgeChanges, setHasUnsavedChanges],
   );
 
   const onConnect: OnConnect = useCallback(
-    (connection) =>
+    (connection) => {
       setEdges((eds) => {
         if (!fullManifest) {
           toast.error("Manifest not found, can't connect edge.");
@@ -314,7 +324,8 @@ const FlowChartTab = () => {
             description: `Source type ${sourceType} and target type ${targetType} are not compatible`,
           });
         }
-      }),
+      });
+    },
     [setEdges, fullManifest],
   );
 
@@ -532,7 +543,7 @@ const FlowChartTab = () => {
         {manifest !== undefined && customBlockManifest !== undefined && (
           <Sidebar
             sections={manifest}
-            leafNodeClickHandler={addNewNode as LeafClickHandler}
+            leafNodeClickHandler={addNewNode}
             isSideBarOpen={isSidebarOpen}
             setSideBarStatus={setIsSidebarOpen}
             customSections={customBlockManifest}
@@ -569,7 +580,7 @@ const FlowChartTab = () => {
             id="flow-chart"
             ref={ref}
             className="!absolute"
-            deleteKeyCode={deleteKeyCodes}
+            deleteKeyCode={isAdmin() ? deleteKeyCodes : null}
             proOptions={proOptions}
             nodes={[...nodes, ...textNodes]}
             nodeTypes={nodeTypes}
@@ -580,6 +591,7 @@ const FlowChartTab = () => {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
+            nodesDraggable={isAdmin()}
             onNodeDragStop={handleNodeDrag}
             onNodesDelete={handleNodesDelete}
             fitViewOptions={{

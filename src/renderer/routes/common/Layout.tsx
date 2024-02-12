@@ -1,14 +1,12 @@
 import { useAtom } from "jotai";
 import Header from "./Header";
-import { useSocket } from "@src/hooks/useSocket";
-import { projectAtom } from "@src/hooks/useFlowChartState";
-import { Input } from "@src/components/ui/input";
-import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
-import { IS_CLOUD_DEMO } from "@src/data/constants";
+import { useSocket } from "@/renderer/hooks/useSocket";
+import { projectAtom } from "@/renderer/hooks/useFlowChartState";
+import { Input } from "@/renderer/components/ui/input";
+import { useHasUnsavedChanges } from "@/renderer/hooks/useHasUnsavedChanges";
+import { IS_CLOUD_DEMO } from "@/renderer/data/constants";
 import { Outlet } from "react-router-dom";
-import { Toaster } from "sonner";
-import { useTheme } from "@src/providers/themeProvider";
-import StatusBar from "@src/routes/common/StatusBar";
+import StatusBar from "@/renderer/routes/common/StatusBar";
 
 export const HEADER_HEIGHT = 72;
 export const ACTIONS_HEIGHT = 52;
@@ -25,8 +23,6 @@ export const Layout = () => {
 
   const [project, setProject] = useAtom(projectAtom);
   const { hasUnsavedChanges, setHasUnsavedChanges } = useHasUnsavedChanges();
-
-  const { theme } = useTheme();
 
   const handleProjectRename = (e) => {
     setProject({ ...project, name: e.target.value });
@@ -71,7 +67,6 @@ export const Layout = () => {
           }px)`,
         }}
       >
-        <Toaster theme={theme} closeButton />
         <Outlet />
       </main>
       <StatusBar />

@@ -1,6 +1,6 @@
-import { Project } from "@src/hooks/useFlowChartState";
-import { ElementsData } from "@src/types";
-import { TextData } from "@src/types/node";
+import { Project } from "@/renderer/hooks/useFlowChartState";
+import { ElementsData } from "@/renderer/types";
+import { TextData } from "@/renderer/types/node";
 import saveAs from "file-saver";
 import { Node, Edge } from "reactflow";
 

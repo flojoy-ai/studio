@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "Send a message to a CAN device. This block should be compatible with all devices that support the CAN interface.\nA connection to the device is required. Use a CAN_CONNECT block to connect to a CAN device.",
+    "short_description": "Send a message to a CAN system.",
+    "parameters": [
+      {
+        "name": "CAN_address",
+        "type": "str",
+        "description": "The CAN device address to connect to."
+      },
+      {
+        "name": "message",
+        "type": "Stateful",
+        "description": "A list of messages to send to the CAN device."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "Optional: None"
+      }
+    ]
+  }
+}

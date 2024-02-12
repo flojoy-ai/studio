@@ -1,0 +1,42 @@
+{
+  "docstring": {
+    "long_description": "Four-wire resistance is more accurate than two-wire. Two-wire resistance\ncan be measured with the RESISTANCE_USB4065 block.\n\nAlso optionally reads the selected unit. You can also use the READ_USB4065\nblock to read the selected unit in a separate block.\n\nRequires a CONNECTION_USB4065 block to connect Flojoy to the instrument.\n\nThe USB-4065 is a NI (National Instruments) multimeter. It is possible\nthat the block will work with other NI DMMs (digital multimeters) such\nas the 4070 and 4080 series.\n\nThis instrument will likely only be compatible with Windows systems due to\nNI driver availablity. To use the instrument you must install the runtime:\n\nhttps://www.ni.com/en/support/downloads/drivers/download.ni-dmm.html",
+    "short_description": "Sets the measurement mode to four-wire resistance for a NI USB-4065 DMM.",
+    "parameters": [
+      {
+        "name": "NI_address",
+        "type": "NIConnection",
+        "description": "The NI instrument."
+      },
+      {
+        "name": "digits",
+        "type": "select",
+        "description": "The number of digits for the measurement. Lower values are faster."
+      },
+      {
+        "name": "resist_limit",
+        "type": "select",
+        "description": "The maximum resistance to allow, in Ohms."
+      },
+      {
+        "name": "read",
+        "type": "bool",
+        "description": "Read the selected unit, or not."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "Scalar: The resistance reading."
+      }
+    ]
+  },
+  "videos": [
+    {
+      "title": "Control USB-4605 multimeter with Flojoy",
+      "source": "youtube",
+      "link": "https://www.youtube.com/watch?v=FPSkvCFjKR4"
+    }
+  ]
+}

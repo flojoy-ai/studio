@@ -1,0 +1,20 @@
+{
+  "docstring": {
+    "long_description": "A connection to the device is required. Use a CAN_CONNECT block to connect to a CAN device.",
+    "short_description": "Remove all filters attached to a CAN bus connection.",
+    "parameters": [
+      {
+        "name": "CAN_address",
+        "type": "str",
+        "description": "The CAN bus address to remove all filters from."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "Optional: None"
+      }
+    ]
+  }
+}

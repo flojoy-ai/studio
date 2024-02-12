@@ -17,7 +17,7 @@ def test_POWER_Vector_Scalar(mock_flojoy_decorator):
     import POWER
 
     x = Vector(v=np.arange(-10, 10, 1))
-    res = POWER.POWER(a=x, b=Scalar(c=2))
+    res = POWER.POWER(a=x, b=[Scalar(c=2)])
 
     np.testing.assert_allclose(res.v, np.power(x.v, 2))
 

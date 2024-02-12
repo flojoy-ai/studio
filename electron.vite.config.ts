@@ -5,6 +5,11 @@ import react from "@vitejs/plugin-react-swc";
 export default defineConfig({
   main: {
     plugins: [externalizeDepsPlugin()],
+    resolve: {
+      alias: {
+        "@": resolve(__dirname, "src"),
+      },
+    },
   },
   preload: {
     plugins: [externalizeDepsPlugin()],
@@ -24,12 +29,7 @@ export default defineConfig({
     },
     resolve: {
       alias: {
-        "@src": resolve(__dirname, "src/renderer"),
-        "@hooks": resolve(__dirname, "src/renderer/hooks"),
-        "@feature": resolve(__dirname, "src/renderer/feature"),
-        "@/components": resolve(__dirname, "src/renderer/components"),
-        "@/assets": resolve(__dirname, "src/renderer/assets"),
-        "@/lib": resolve(__dirname, "src/renderer/lib"),
+        "@": resolve(__dirname, "src"),
       },
     },
     plugins: [react()],

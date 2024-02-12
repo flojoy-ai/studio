@@ -18,11 +18,7 @@
     "noImplicitAny": false,
     "baseUrl": ".",
     "paths": {
-      "@src/*": ["src/renderer/*"],
-      "@feature/*": ["src/renderer/routes/*"],
-      "@hooks/*": ["src/renderer/hooks/*"],
-      "@utils/*": ["src/renderer/utils/*"],
-      "@/*": ["./src/renderer/*"]
+      "@/*": ["src/*"]
     },
     "rootDir": ".",
     "outDir": "fe-dist"

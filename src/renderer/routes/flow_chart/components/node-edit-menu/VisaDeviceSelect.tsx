@@ -1,4 +1,4 @@
-import { useHardwareDevices } from "@src/hooks/useHardwareDevices";
+import { useHardwareDevices } from "@/renderer/hooks/useHardwareDevices";
 import { DeviceSelect, SelectProps } from "./DeviceSelect";
 
 export const VisaDeviceSelect = (props: SelectProps) => {

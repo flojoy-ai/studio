@@ -1,0 +1,91 @@
+---
+title: Connecting to Keysight E8267C by Agilent in Python
+description: E8267C PSG Vector Signal Generator, up to 20 GHz
+keywords: [RF Signal Generators, Agilent, QCodes] 
+slug: instruments-database/rf-signal-generators/agilent/keysight-e8267c 
+image: https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782522/Instruments/RF%20Signal%20Generator/Keysight-E8267C/Keysight-E8267C.webp
+sidebar:
+    label: Keysight E8267C 
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+## Instrument Card
+
+E8267C PSG Vector Signal Generator, up to 20 GHz
+
+![Keysight E8267C](https://res.cloudinary.com/dhopxs1y3/image/upload/v1691782522/Instruments/RF%20Signal%20Generator/Keysight-E8267C/Keysight-E8267C.webp)
+
+Device Specification: [here](/instruments-database/all-instruments)
+
+<details style={{ marginTop: "15px"}}>
+<summary><h2 style={{display:'inline'}}>Manufacturer card: AGILENT</h2></summary>
+
+![AGILENT](https://res.cloudinary.com/dhopxs1y3/image/upload/v1692126006/Instruments/Vendor%20Logos/Agilent.png)
+
+Keysight Technologies, or Keysight, is an American company that manufactures electronics test and measurement equipment and software
+
+- Headquarters: USA
+- Yearly Revenue (millions, USD): 5420
+- Vendor Website: [here](https://www.keysight.com/us/en/home.html)
+
+</details>
+
+import FeaturedInstrumentVideo from "@/components/FeaturedInstrumentVideo.astro";
+
+<FeaturedInstrumentVideo category="RF_SIGNAL_GENERATORS" />
+
+## Connect to the Keysight E8267C in Python
+
+[Read our guide for turning Python scripts into Flojoy nodes.](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/)
+
+import SectionsCard from "@root/src/components/SectionsCard";
+
+
+<Tabs>
+<TabItem value="Flojoy" label="Flojoy" className="flojoy-instrument-tabs">
+
+<SectionsCard category="RF_SIGNAL_GENERATORS" manufacturer="Agilent"></SectionsCard>
+
+</TabItem>
+<TabItem value="QCodes" label="QCodes">
+
+To connect to a Keysight E8267C RF Signal Generator using Qcodes, you can use the following Python script:
+
+```python
+from qcodes.instrument.visa import VisaInstrument
+
+# Create a class for the Keysight E8267C RF Signal Generator
+class KeysightE8267C(VisaInstrument):
+    def __init__(self, name, address, **kwargs):
+        super().__init__(name, address, terminator="\n", **kwargs)
+        # Add parameters and commands specific to the Keysight E8267C
+        self.add_parameter(
+            name="frequency",
+            label="Frequency",
+            unit="Hz",
+            get_cmd="FREQ?",
+            set_cmd="FREQ {}",
+            get_parser=float,
+            vals=Numbers(min_value=100e3, max_value=40e9),
+        )
+        # Add other parameters and commands as needed
+
+# Create an instance of the Keysight E8267C RF Signal Generator
+signal_generator = KeysightE8267C("signal_generator", "TCPIP0::192.168.1.1::INSTR")
+
+# Connect to the signal generator
+signal_generator.connect()
+
+# Use the parameters and commands of the signal generator
+frequency = signal_generator.frequency()
+print(f"Current frequency: {frequency} Hz")
+
+# Disconnect from the signal generator
+signal_generator.disconnect()
+```
+
+This script creates a custom class `KeysightE8267C` that inherits from `VisaInstrument` provided by Qcodes. It adds parameters and commands specific to the Keysight E8267C RF Signal Generator, such as `frequency`. The script then creates an instance of the `KeysightE8267C` class, connects to the signal generator, retrieves the current frequency, and finally disconnects from the signal generator.
+
+</TabItem>
+</Tabs>

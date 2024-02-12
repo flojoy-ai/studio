@@ -4,10 +4,10 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { Button } from "@src/components/ui/button";
-import { ScrollArea } from "@src/components/ui/scroll-area";
-import { Spinner } from "@src/components/ui/spinner";
+} from "@/renderer/components/ui/dialog";
+import { Button } from "@/renderer/components/ui/button";
+import { ScrollArea } from "@/renderer/components/ui/scroll-area";
+import { Spinner } from "@/renderer/components/ui/spinner";
 import {
   Table,
   TableBody,
@@ -15,7 +15,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@src/components/ui/table";
+} from "@/renderer/components/ui/table";
 import { useCallback, useEffect, useState } from "react";
 import { PoetryGroupInfo, PythonDependency } from "src/types/poetry";
 

@@ -6,6 +6,12 @@ import { HEADER_HEIGHT } from "./Layout";
 
 const tabs = [
   {
+    to: "/test-sequencer",
+    fullText: "Test Sequencer",
+    shortText: "Sequencer",
+    testId: "test-sequencer-btn",
+  },
+  {
     to: "/flowchart",
     fullText: "Visual Python Script",
     shortText: "Script",

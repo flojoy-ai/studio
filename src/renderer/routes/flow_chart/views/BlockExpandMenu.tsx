@@ -1,7 +1,7 @@
-import { NodeResult } from "@src/routes/common/types/ResultsType";
-// import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { NodeResult } from "@/renderer/routes/common/types/ResultsType";
+// import { useFlowChartState } from "@/renderer/hooks/useFlowChartState";
 import { Node } from "reactflow";
-import { ElementsData } from "@src/types";
+import { ElementsData } from "@/renderer/types";
 import BlockModal from "./BlockModal";
 import { useEffect, useState } from "react";
 // import { useFlowChartTabState } from "../FlowChartTabState";

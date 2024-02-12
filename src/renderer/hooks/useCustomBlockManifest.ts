@@ -1,6 +1,6 @@
-import { baseClient } from "@src/lib/base-client";
-import { BlocksMetadataMap } from "@src/types/blocks-metadata";
-import { RootNode, validateRootSchema } from "@src/utils/ManifestLoader";
+import { baseClient } from "@/renderer/lib/base-client";
+import { BlocksMetadataMap } from "@/renderer/types/blocks-metadata";
+import { RootNode, validateRootSchema } from "@/renderer/utils/ManifestLoader";
 import { atom, useAtom, useSetAtom } from "jotai";
 import { useCallback } from "react";
 import { toast } from "sonner";

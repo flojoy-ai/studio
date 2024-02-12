@@ -4,6 +4,7 @@ import { API } from "../types/api";
 import { InterpretersList } from "../main/python/interpreter";
 import { PoetryGroupInfo, PythonDependency } from "src/types/poetry";
 import { Result } from "src/types/result";
+import type { User } from "../types/auth";
 
 export default {
   ...fileSave,
@@ -57,6 +58,9 @@ export default {
   poetryUninstallDepGroup: (group: string): Promise<boolean> =>
     ipcRenderer.invoke(API.poetryUninstallDepGroup, group),
 
+  openTestPicker: (): Promise<{ filePath: string; fileContent: string }> =>
+    ipcRenderer.invoke(API.openTestPicker),
+
   openFilePicker: (): Promise<{ filePath: string; fileContent: string }> =>
     ipcRenderer.invoke(API.openFilePicker),
 
@@ -78,4 +82,19 @@ export default {
   getAllLogs: (): Promise<string> => ipcRenderer.invoke(API.getAllLogs),
   openLink: (url: string): Promise<void> =>
     ipcRenderer.invoke(API.openLink, url),
+
+  getUserProfiles: (): Promise<User[]> =>
+    ipcRenderer.invoke(API.getUserProfiles),
+
+  setUserProfile: (username: string): void => {
+    ipcRenderer.send(API.setUserProfile, username);
+  },
+  setUserProfilePassword: (username: string, password: string): Promise<void> =>
+    ipcRenderer.invoke(API.setUserProfilePassword, username, password),
+  validatePassword: (username: string, password: string): Promise<boolean> =>
+    ipcRenderer.invoke(API.validatePassword, username, password),
+  createUserProfile: (user: User) =>
+    ipcRenderer.invoke(API.createUserProfile, user),
+  deleteUserProfile: (username: string, currentUser: User): Promise<void> =>
+    ipcRenderer.invoke(API.deleteUserProfile, username, currentUser),
 };

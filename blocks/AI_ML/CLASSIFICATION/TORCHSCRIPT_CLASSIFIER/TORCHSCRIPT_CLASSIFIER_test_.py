@@ -6,6 +6,11 @@ import numpy as np
 import PIL
 from flojoy import run_in_venv, Image, DataFrame
 
+try:
+    import torch  # noqa: F401
+except ImportError:
+    torch_import = None
+
 
 @pytest.fixture
 def torchscript_model_path():
@@ -62,6 +67,10 @@ def obama_image():
     return Image(r=image[:, :, 0], g=image[:, :, 1], b=image[:, :, 2], a=None)
 
 
+@pytest.mark.skipif(
+    torch_import is None,
+    reason="torch is not installed, this test requires torch to be installed | Skipping in CI",
+)
 @pytest.mark.slow
 def test_TORHSCRIPT_CLASSIFIER(
     mock_flojoy_decorator,
