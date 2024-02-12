@@ -1,9 +1,9 @@
 import { ScrollArea } from "@radix-ui/react-scroll-area";
-import { Button } from "@src/components/ui/button";
-import { Input } from "@src/components/ui/input";
-import { Label } from "@src/components/ui/label";
-import { Spinner } from "@src/components/ui/spinner";
-import { parseElectronError } from "@src/utils/parse-error";
+import { Button } from "@/renderer/components/ui/button";
+import { Input } from "@/renderer/components/ui/input";
+import { Label } from "@/renderer/components/ui/label";
+import { Spinner } from "@/renderer/components/ui/spinner";
+import { parseElectronError } from "@/renderer/utils/parse-error";
 import { useEffect, useState } from "react";
 
 type PingResult = "success" | "failed" | "waiting";

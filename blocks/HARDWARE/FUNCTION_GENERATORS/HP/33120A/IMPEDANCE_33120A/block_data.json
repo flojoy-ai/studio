@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "Impedance - AKA termination or load.\n\nRequires an OPEN SERIAL block at the start of the app to connect with\nthe instrument.",
+    "short_description": "Set the output impedance for a 33120A function generator.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "SerialConnection",
+        "description": "The VISA address (requires a OPEN SERIAL node)."
+      },
+      {
+        "name": "impedance",
+        "type": "select",
+        "description": "Use 50 or HighZ (1M) Ohms as the impedance/termination."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "String: Summary of waveform generator settings."
+      }
+    ]
+  }
+}

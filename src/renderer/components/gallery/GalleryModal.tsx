@@ -4,16 +4,16 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@src/components/ui/dialog";
+} from "@/renderer/components/ui/dialog";
 import { LayoutGrid } from "lucide-react";
-import { ScrollArea } from "@src/components/ui/scroll-area";
-import { getGalleryData } from "@src/utils/GalleryLoader";
+import { ScrollArea } from "@/renderer/components/ui/scroll-area";
+import { getGalleryData } from "@/renderer/utils/GalleryLoader";
 import { Separator } from "../ui/separator";
 import { GalleryElement } from "./GalleryElement";
 import { Input } from "../ui/input";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import { IS_CLOUD_DEMO } from "@src/data/constants";
+import { IS_CLOUD_DEMO } from "@/renderer/data/constants";
 
 type AppGalleryModalProps = {
   isGalleryOpen: boolean;

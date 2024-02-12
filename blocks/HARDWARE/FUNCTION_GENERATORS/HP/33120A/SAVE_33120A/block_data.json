@@ -1,0 +1,25 @@
+{
+  "docstring": {
+    "long_description": "Note that the \"0\" state is the state saved when last powered down. This\nstate will be overwritten during power down.\n\nRequires an OPEN SERIAL block at the start of the app to connect with\nthe instrument.",
+    "short_description": "Saves the specified save state for a 33120A function generator.",
+    "parameters": [
+      {
+        "name": "connection",
+        "type": "SerialConnection",
+        "description": "The VISA address (requires a OPEN SERIAL node)."
+      },
+      {
+        "name": "state",
+        "type": "select",
+        "description": "The state to save."
+      }
+    ],
+    "returns": [
+      {
+        "name": null,
+        "type": "DataContainer",
+        "description": "String: Summary of waveform generator settings."
+      }
+    ]
+  }
+}

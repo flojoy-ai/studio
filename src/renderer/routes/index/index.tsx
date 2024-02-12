@@ -1,6 +1,6 @@
 import { Fragment, useCallback, useEffect, useState } from "react";
-import { SetupStatus } from "@src/types/status";
-import SetupStep from "@src/components/index/SetupStep";
+import { SetupStatus } from "@/renderer/types/status";
+import SetupStep from "@/renderer/components/index/SetupStep";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,14 +10,17 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@src/components/ui/alert-dialog";
-import { Button } from "@src/components/ui/button";
+} from "@/renderer/components/ui/alert-dialog";
+import { Button } from "@/renderer/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { IServerStatus } from "@src/context/socket.context";
-import { useSocket } from "@src/hooks/useSocket";
-import StatusBar from "@src/routes/common/StatusBar";
+import { IServerStatus } from "@/renderer/context/socket.context";
+import { useSocket } from "@/renderer/hooks/useSocket";
+import StatusBar from "@/renderer/routes/common/StatusBar";
 import { InterpretersList } from "src/main/python/interpreter";
-import { MixPanelEvents, sendEventToMix } from "@src/services/MixpanelServices";
+import {
+  MixPanelEvents,
+  sendEventToMix,
+} from "@/renderer/services/MixpanelServices";
 
 export const Index = (): JSX.Element => {
   const {

@@ -10,10 +10,11 @@ import "reactflow/dist/style.css";
 import "reactflow/dist/base.css";
 
 import { ErrorBoundary } from "react-error-boundary";
-import { ErrorPage } from "@src/ErrorPage";
+import { ErrorPage } from "@/renderer/ErrorPage";
 import { HashRouter } from "react-router-dom";
 import { AuthContextProvider } from "./context/auth.context";
 import { ThemeProvider } from "./providers/themeProvider";
+import { TestSequencerWSProvider } from "./context/testSequencerWS.context";
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
 
@@ -28,7 +29,9 @@ root.render(
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <AuthContextProvider>
           <SocketContextProvider>
-            <App />
+            <TestSequencerWSProvider>
+              <App />
+            </TestSequencerWSProvider>
           </SocketContextProvider>
         </AuthContextProvider>
       </ThemeProvider>

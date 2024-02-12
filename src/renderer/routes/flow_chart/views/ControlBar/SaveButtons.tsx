@@ -1,5 +1,5 @@
-import { MenubarItem, MenubarShortcut } from "@src/components/ui/menubar";
-import { useSave } from "@src/hooks/useSave";
+import { MenubarItem, MenubarShortcut } from "@/renderer/components/ui/menubar";
+import { useSave } from "@/renderer/hooks/useSave";
 
 export const SaveButton = () => {
   const handleSave = useSave();

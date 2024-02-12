@@ -1,12 +1,12 @@
 {
   "docstring": {
     "long_description": "",
-    "short_description": "Download a DataContainer from Flojoy Cloud (beta).",
+    "short_description": "Download a measurement from Flojoy Cloud (beta).",
     "parameters": [
       {
         "name": "measurement_id",
         "type": "str",
-        "description": "The data container id of the data to be downloaded from Flojoy Cloud."
+        "description": "The data measurement id of the data to be downloaded from Flojoy Cloud."
       }
     ],
     "returns": [

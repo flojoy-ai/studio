@@ -4,8 +4,8 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "@src/components/ui/dialog";
-import { ScrollArea } from "@src/components/ui/scroll-area";
+} from "@/renderer/components/ui/dialog";
+import { ScrollArea } from "@/renderer/components/ui/scroll-area";
 
 interface KeyboardShortcutProps {
   handleKeyboardShortcutModalOpen: (open: boolean) => void;

@@ -3,8 +3,8 @@ import { toast } from "sonner";
 import { useFlowChartGraph } from "./useFlowChartGraph";
 import { projectAtom, projectPathAtom } from "./useFlowChartState";
 import { useHasUnsavedChanges } from "./useHasUnsavedChanges";
-import { makeAppFileContent, saveFileAs } from "@src/lib/save";
-import { sendEventToMix } from "@src/services/MixpanelServices";
+import { makeAppFileContent, saveFileAs } from "@/renderer/lib/save";
+import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 import useWithPermission from "./useWithPermission";
 
 export const useSave = () => {

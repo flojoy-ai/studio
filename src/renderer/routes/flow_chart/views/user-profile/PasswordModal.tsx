@@ -5,8 +5,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@components/ui/form";
-import { Button } from "@components/ui/button";
+} from "@/renderer/components/ui/form";
+import { Button } from "@/renderer/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Dialog,
@@ -15,10 +15,10 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@components/ui/dialog";
-import { Input } from "@components/ui/input";
-import ConfirmPrompt from "@src/components/common/ConfirmPrompt";
-import { useAuth } from "@src/context/auth.context";
+} from "@/renderer/components/ui/dialog";
+import { Input } from "@/renderer/components/ui/input";
+import ConfirmPrompt from "@/renderer/components/common/ConfirmPrompt";
+import { useAuth } from "@/renderer/context/auth.context";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";

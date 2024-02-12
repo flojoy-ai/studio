@@ -22,7 +22,21 @@ class VISADevice(BaseModel):
     description: str
 
 
+class NIDAQmxDevice(BaseModel):
+    name: str
+    address: str
+    description: str
+
+
+class NIDMMDevice(BaseModel):
+    name: str
+    address: str
+    description: str
+
+
 class DeviceInfo(BaseModel):
     cameras: list[CameraDevice]
     serialDevices: list[SerialDevice]
     visaDevices: list[VISADevice]
+    nidaqmxDevices: list[NIDAQmxDevice]
+    nidmmDevices: list[NIDMMDevice]

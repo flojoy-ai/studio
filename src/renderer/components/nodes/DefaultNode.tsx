@@ -1,11 +1,11 @@
 import { memo, useState } from "react";
 import clsx from "clsx";
-import { CustomNodeProps } from "@src/types/node";
-import NodeWrapper from "@src/components/common/NodeWrapper";
-import HandleComponent from "@src/components/common/HandleComponent";
-import { textWrap } from "@src/utils/TextWrap";
-import NodeInput from "@components/common/NodeInput";
-import { useNodeStatus } from "@src/hooks/useNodeStatus";
+import { CustomNodeProps } from "@/renderer/types/node";
+import NodeWrapper from "@/renderer/components/common/NodeWrapper";
+import HandleComponent from "@/renderer/components/common/HandleComponent";
+import { textWrap } from "@/renderer/utils/TextWrap";
+import NodeInput from "@/renderer/components/common/NodeInput";
+import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
 
 const DefaultNode = ({
   selected,

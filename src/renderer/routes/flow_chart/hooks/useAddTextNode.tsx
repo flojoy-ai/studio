@@ -1,10 +1,10 @@
-import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
-import { centerPositionAtom } from "@src/hooks/useFlowChartState";
-import { addRandomPositionOffset } from "@src/utils/RandomPositionOffset";
+import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
+import { centerPositionAtom } from "@/renderer/hooks/useFlowChartState";
+import { addRandomPositionOffset } from "@/renderer/utils/RandomPositionOffset";
 import { useAtomValue } from "jotai";
 import { useCallback } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { sendEventToMix } from "@src/services/MixpanelServices";
+import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 
 export const useAddTextNode = () => {
   const { setTextNodes } = useFlowChartGraph();

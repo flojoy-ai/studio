@@ -1,0 +1,30 @@
+{
+  "docstring": {
+    "long_description": "This block is used to read data from a CAN Bus connection. A connection to the CAN device must be established using the CAN_CONNECT block.",
+    "short_description": "Read data from a CAN Bus connection.",
+    "parameters": [
+      {
+        "name": "PCAN_address",
+        "type": "str",
+        "description": "The CAN device address to connect to."
+      },
+      {
+        "name": "timeout",
+        "type": "int",
+        "description": "The timeout in seconds to wait for a message. Default is 10."
+      },
+      {
+        "name": "raise_error",
+        "type": "bool",
+        "description": "If True, an exception will be raised if no data is received. Default is True."
+      }
+    ],
+    "returns": [
+      {
+        "name": "Stateful",
+        "type": "can.message.Message",
+        "description": "Return a can bus message"
+      }
+    ]
+  }
+}

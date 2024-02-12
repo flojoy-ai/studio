@@ -7,7 +7,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@src/components/ui/collapsible";
+} from "@/renderer/components/ui/collapsible";
 
 const bgOverrideVariants = cva(undefined, {
   variants: {

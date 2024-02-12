@@ -8,14 +8,22 @@ const useWithPermission = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     function <S extends (...params: any[]) => void>(
       innerFn: S,
-    ): (...args: Parameters<S>) => void {
-      return function (...args: Parameters<S>) {
+    ): ((...args: Parameters<S>) => void) & {
+      withException: (...args: Parameters<S>) => void;
+    } {
+      const fn = function (...args: Parameters<S>) {
         if (user?.role !== "Admin") {
           toast.error("Action not allowed!");
           return;
         }
         return innerFn(...args);
       };
+
+      fn.withException = (...args: Parameters<S>) => {
+        return innerFn(...args);
+      };
+
+      return fn;
     },
     [user],
   );

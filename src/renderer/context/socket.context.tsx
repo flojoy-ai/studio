@@ -1,17 +1,18 @@
-import { NodeResult } from "@src/routes/common/types/ResultsType";
+import { NodeResult } from "@/renderer/routes/common/types/ResultsType";
 import { SetStateAction, useSetAtom } from "jotai";
 import { createContext, Dispatch, useEffect, useMemo, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";
 import { v4 as UUID } from "uuid";
-import { SOCKET_URL } from "@src/data/constants";
-import { useHardwareRefetch } from "@src/hooks/useHardwareDevices";
+import { SOCKET_URL } from "@/renderer/data/constants";
+import { useHardwareRefetch } from "@/renderer/hooks/useHardwareDevices";
 import {
   manifestChangedAtom,
   useFetchManifest,
   useFetchNodesMetadata,
-} from "@src/hooks/useManifest";
+} from "@/renderer/hooks/useManifest";
 import { toast } from "sonner";
-import { useCustomSections } from "@src/hooks/useCustomBlockManifest";
+import { useCustomSections } from "@/renderer/hooks/useCustomBlockManifest";
+import { useSettings } from "@/renderer/hooks/useSettings";
 
 type States = {
   programResults: NodeResult[];
@@ -59,6 +60,15 @@ export const SocketContextProvider = ({
   const fetchManifest = useFetchManifest();
   const fetchMetadata = useFetchNodesMetadata();
   const setManifestChanged = useSetAtom(manifestChangedAtom);
+  const { settings } = useSettings("device");
+  const setting = settings.find(
+    (setting) => setting.key === "niDAQmxDeviceDiscovery",
+  );
+  const settingdmm = settings.find(
+    (settingdmm) => settingdmm.key === "nidmmDeviceDiscovery",
+  );
+  const fetchDriverDevices = setting ? setting.value : false;
+  const fetchDMMDevices = settingdmm ? settingdmm.value : false;
 
   const handleStateChange =
     (state: keyof States) =>
@@ -86,7 +96,7 @@ export const SocketContextProvider = ({
           setSocket(undefined);
         },
         onConnectionEstablished: () => {
-          hardwareRefetch();
+          hardwareRefetch(fetchDriverDevices, fetchDMMDevices);
           fetchManifest();
           fetchMetadata();
           handleImportCustomBlocks(true);

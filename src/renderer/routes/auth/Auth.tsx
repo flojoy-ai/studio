@@ -1,5 +1,5 @@
-import { useAuth } from "@src/context/auth.context";
-import ProfileBox from "@src/components/auth/ProfileBox";
+import { useAuth } from "@/renderer/context/auth.context";
+import ProfileBox from "@/renderer/components/auth/ProfileBox";
 
 import { PlusIcon } from "lucide-react";
 import { useEffect, useState } from "react";

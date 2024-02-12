@@ -1,13 +1,13 @@
 import { memo, useEffect, useRef, useState } from "react";
-import { textNodesAtom } from "@src/hooks/useFlowChartGraph";
+import { textNodesAtom } from "@/renderer/hooks/useFlowChartGraph";
 import { useSetAtom } from "jotai";
 import { useNodeId, NodeResizer, NodeProps, useStore } from "reactflow";
 import { Textarea } from "../ui/textarea";
 import ReactMarkdown from "react-markdown";
 import { toast } from "sonner";
 import { Edit, Trash } from "lucide-react";
-import { cn } from "@src/lib/utils";
-import { TextData } from "@src/types/node";
+import { cn } from "@/renderer/lib/utils";
+import { TextData } from "@/renderer/types/node";
 
 const LinkRenderer = (props) => {
   const handleClick = () => {

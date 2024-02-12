@@ -5,6 +5,11 @@ from captain.types.worker import WorkerJobResponse
 from captain.utils.status_codes import STATUS_CODES
 
 
+class TSSignaler:
+    def __init__(self, ws: ConnectionManager):
+        self.ws = ws
+
+
 class Signaler:
     """
     Class used to signal the status of the topology to the front-end client

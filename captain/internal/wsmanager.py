@@ -1,3 +1,4 @@
+from captain.types.test_sequence import TestSequenceMessage
 from fastapi import WebSocket
 from fastapi.websockets import WebSocketState
 from flojoy.utils import PlotlyJSONEncoder
@@ -44,7 +45,9 @@ class ConnectionManager:
             del self.active_connections_map[socket_id]
 
     # this method sends a message to all connected websockets
-    async def broadcast(self, message: Union[dict[str, Any], WorkerJobResponse]):
+    async def broadcast(
+        self, message: Union[dict[str, Any], WorkerJobResponse, TestSequenceMessage]
+    ):
         dead_connections: set[str] = set()
 
         with socket_connection_lock:

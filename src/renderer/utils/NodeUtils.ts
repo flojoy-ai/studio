@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
-import { Leaf as NodeElement } from "@src/utils/ManifestLoader";
-import { CtrlData } from "@src/types/node";
-import { DeviceInfo } from "@src/hooks/useHardwareDevices";
+import { Leaf as NodeElement } from "@/renderer/utils/ManifestLoader";
+import { CtrlData } from "@/renderer/types/node";
+import { DeviceInfo } from "@/renderer/hooks/useHardwareDevices";
 
 export const createNodeId = (nodeFunc: string) => `${nodeFunc}-${uuidv4()}`;
 
@@ -37,7 +37,6 @@ export const createNodeLabel = (nodeFunc: string, takenLabels: string[][]) => {
 
   return nodeLabel.replaceAll("_", " ");
 };
-
 export const ctrlsFromParams = (
   params: NodeElement["parameters"] | undefined,
   funcName: string,
@@ -64,6 +63,15 @@ export const ctrlsFromParams = (
             case "VisaConnection":
               return devices.visaDevices.length === 1
                 ? devices.visaDevices[0].address
+                : "";
+            case "NIDAQmxDevice":
+              return devices.nidaqmxDevices.length === 1
+                ? devices.nidaqmxDevices[0].address
+                : "";
+            case "NIDMMDevice":
+            case "NIConnection":
+              return devices.nidmmDevices.length === 1
+                ? devices.nidmmDevices[0].address
                 : "";
             default:
               return param.default ?? "";

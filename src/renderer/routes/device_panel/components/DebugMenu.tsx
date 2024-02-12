@@ -1,17 +1,17 @@
-import { Button } from "@components/ui/button";
+import { Button } from "@/renderer/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@components/ui/dialog";
+} from "@/renderer/components/ui/dialog";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@src/components/ui/tabs";
+} from "@/renderer/components/ui/tabs";
 import { ShellCommandOutput } from "./ShellCommandOutput";
 import { PingTab } from "./PingTab";
 

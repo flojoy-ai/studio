@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" nonce="02f1202d90c347859e0482aef36" src="//local.adguard.org?ts=1707507023186&amp;type=content-script&amp;dmn=cdn.discordapp.com&amp;url=https%3A%2F%2Fcdn.discordapp.com%2Fattachments%2F1120883371099295755%2F1205595334110093384%2Ftemplate.html%3Fex%3D65d8f126%26is%3D65c67c26%26hm%3D53b7b96dbab5b0da65600a59971aca2eb74d32aa50084b1e4d82bdae67aec214%26&amp;app=company.thebrowser.Browser&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1"></script>
+<script type="text/javascript" nonce="02f1202d90c347859e0482aef36" src="//local.adguard.org?ts=1707507023186&amp;name=AdGuard%20Assistant&amp;name=Web%20of%20Trust&amp;name=AdGuard%20Popup%20Blocker&amp;name=AdGuard%20Extra&amp;type=user-script"></script><script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script
+      src="https://cdn.plot.ly/plotly-2.27.0.min.js"
+      charset="utf-8"
+    ></script>
+  </head>
+  <body>
+    <div
+      class="relative flex min-h-screen flex-col justify-center overflow-hidden py-8 lg:py-12"
+    >
+      <img
+        src="https://play.tailwindcss.com/img/beams.jpg"
+        alt=""
+        class="fixed left-1/2 top-48 max-w-none -translate-x-2/3 -translate-y-1/2"
+      />
+      <div
+        class="absolute inset-0 bg-[url(https://play.tailwindcss.com/img/grid.svg)] bg-top [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"
+      ></div>
+      <article
+        class="relative w-full bg-white px-6 py-12 shadow-xl shadow-slate-700/10 ring-1 ring-gray-900/5 md:mx-auto md:max-w-3xl lg:max-w-4xl lg:pb-28 lg:pt-16"
+      >
+        <div class="bg-white p-4">
+          <div class="flex">
+            <div class="flex flex-col">
+              <h1 class="text-3xl font-bold">{{TITLE}}</h1>
+              <div class="py-2"></div>
+              <div class="flex items-center gap-2">
+                <div>Status:</div>
+                <span class="inline-block">
+                  <h2 class="text-2xl font-bold">{{STATUS}}</h2>
+                </span>
+                <span class="inline-block">
+                  <svg height="30" width="30">
+                    <circle
+                      cx="15"
+                      cy="15"
+                      r="10"
+                      stroke="black"
+                      stroke-width="3"
+                      fill="{{STATUS_COLOR}}"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </div>
+            <div class="grow"></div>
+            <img
+              class="object-contain"
+              style="max-width: 200px"
+              src="{{LOGO_URL}}"
+            />
+          </div>
+          <div class="py-6"></div>
+
+          <p>{{INTRODUCTION}}</p>
+
+          {{FIGURES}}
+        </div>
+      </article>
+    </div>
+    <script>
+      {{SCRIPT}}
+    </script>
+  </body>
+</html>

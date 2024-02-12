@@ -1,10 +1,10 @@
-import { ElementsData } from "@src/types";
-import { BlocksMetadataMap } from "@src/types/blocks-metadata";
-import { Leaf, RootNode, TreeNode } from "@src/utils/ManifestLoader";
+import { ElementsData } from "@/renderer/types";
+import { BlocksMetadataMap } from "@/renderer/types/blocks-metadata";
+import { Leaf, RootNode, TreeNode } from "@/renderer/utils/ManifestLoader";
 import { Edge, Node } from "reactflow";
-import { CtrlData } from "@src/types/node";
-import { ctrlsFromParams } from "@src/utils/NodeUtils";
-import { isCompatibleType } from "@src/utils/TypeCheck";
+import { CtrlData } from "@/renderer/types/node";
+import { ctrlsFromParams } from "@/renderer/utils/NodeUtils";
+import { isCompatibleType } from "@/renderer/utils/TypeCheck";
 import _ from "lodash";
 
 export function syncFlowchartWithManifest(
