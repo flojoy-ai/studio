@@ -80,21 +80,23 @@ class Conditional(BaseModel):
     condition: str = Field(..., alias="condition")
 
 
-TestSequenceElementNode = Union[Conditional, Test]
-
-
 class IfNode(Conditional):
     conditional_type: str = Field("if", alias="conditionalType")
-    main: List[TestSequenceElementNode] = Field(..., alias="main")
-    else_: List[TestSequenceElementNode] = Field(..., alias="else")
+    main: List["TestSequenceElementNode"] = Field(..., alias="main")
+    else_: List["TestSequenceElementNode"] = Field(..., alias="else")
+
+
+class TestNode(Test):
+    pass
 
 
 class ConditionalNode(IfNode):
     pass
 
 
-class TestNode(Test):
-    pass
+TestSequenceElementNode = Union[ConditionalNode, TestNode]
+
+IfNode.model_rebuild()
 
 
 class TestRootNode(BaseModel):
