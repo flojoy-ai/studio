@@ -35,12 +35,17 @@ def _run_pytest(file_path):
     returns result in boolean form and the time taken to execute the test
     """
     start_time = time.time()
-    result = subprocess.run(["pytest", file_path], stdout=subprocess.PIPE)
+    result = subprocess.run(
+        ["pytest", file_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE
+    )
     end_time = time.time()
 
     if result.returncode == 0:
         is_pass = True
     else:
+        logger.info(
+            f"TEST {file_path} FAILED:\nSTDOUT: {result.stdout.decode()}\nSTDERR: {result.stderr.decode()}"
+        )
         is_pass = False
     return is_pass, end_time - start_time
 
