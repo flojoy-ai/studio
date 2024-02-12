@@ -6,7 +6,7 @@ from enum import Enum
 class Summary(BaseModel):
     id: str = Field(..., alias="id")
     success_rate: float = Field(..., alias="successRate")
-    completion_time: int = Field(..., alias="completionTime")
+    completion_time: float = Field(..., alias="completionTime")
 
 
 class LockedContextType(BaseModel):
@@ -37,7 +37,7 @@ class BackendMsg(BaseModel):
     state: MsgState = Field(..., alias="state")
     target_id: str = Field(..., alias="targetId")
     result: bool = Field(..., alias="result")
-    time_taken: int = Field(..., alias="timeTaken")
+    time_taken: float = Field(..., alias="timeTaken")
     error: Optional[str] = Field(None, alias="error")
 
 
@@ -50,7 +50,7 @@ class Test(BaseModel):
     run_in_parallel: bool = Field(..., alias="runInParallel")
     test_type: TestTypes = Field(..., alias="testType")
     status: StatusTypes = Field(..., alias="status")
-    completion_time: Optional[int] = Field(None, alias="completionTime")
+    completion_time: Optional[float] = Field(None, alias="completionTime")
     is_saved_to_cloud: bool = Field(..., alias="isSavedToCloud")
 
 
