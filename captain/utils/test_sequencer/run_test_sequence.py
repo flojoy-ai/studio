@@ -1,10 +1,10 @@
 import asyncio
 import time
 from typing import cast
-
 import pydantic
 from captain.models.test_sequencer import (
     ConditionalNode,
+    IfNode,
     TestNode,
     TestRootNode,
     TestSequenceElementNode,
@@ -138,6 +138,7 @@ async def run_test_sequence(data):
 
                     match node.conditional_type:
                         case "if":
+                            node = cast(IfNode, node)
                             expression_eval = _eval_condition(
                                 result_dict, node.condition
                             )
@@ -145,7 +146,7 @@ async def run_test_sequence(data):
                                 for child in node.main:
                                     await run_dfs(child)
                             else:
-                                for child in node.__dict__["else"]:
+                                for child in node.else_:
                                     await run_dfs(child)
 
         await _stream_result_to_frontend(state=MsgState.TEST_SET_START)
