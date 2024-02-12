@@ -1,6 +1,7 @@
 from flojoy import flojoy, Stateful, DataFrame
 import pandas as pd
 import logging
+from cantools.database import namedsignalvalue
 
 
 @flojoy(deps={"python-can": "4.3.1", "cantools": "39.4.2"})
@@ -35,7 +36,14 @@ def DECODE_CAN_MESSAGE(
     for message in messages:
         try:
             decoded_message = db.decode_message(message.arbitration_id, message.data)
-            decoded_message["timestemp"] = message.timestamp
+            # SG_ (signal) is not JSON encodable, so we need to convert it to its representation
+            decoded_message = {
+                key: value.name
+                if isinstance(value, namedsignalvalue.NamedSignalValue)
+                else value
+                for key, value in decoded_message.items()
+            }
+            decoded_message["timestamp"] = message.timestamp
             decoded_messages.append(decoded_message)
         except Exception as err:
             logging.error(f"Error decoding message: {err}")

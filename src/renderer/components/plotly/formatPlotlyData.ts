@@ -3,7 +3,7 @@ import {
   OverridePlotData,
 } from "@/renderer/types/plotly";
 
-const NUM_OF_COLUMNS = 2;
+const NUM_OF_COLUMNS = 4;
 const NUM_OF_ROWS = 20;
 const MATRIX_COLUMNS = 4;
 
