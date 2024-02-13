@@ -11,7 +11,7 @@ import pytest
 from pytest_jsonreport.plugin import JSONReport
 
 
-def discover_pytest_file(path: str, one_file: bool):
+def discover_pytest_file(path: str, one_file: bool, return_val: list):
     plugin = JSONReport()
     pytest.main(
         ["-s", "--json-report-file=none", "--collect-only", path], plugins=[plugin]
@@ -43,7 +43,8 @@ def discover_pytest_file(path: str, one_file: bool):
 
     test_list: List[TestDiscoveryResponse] = []
     if one_file:
-        return [TestDiscoveryResponse(test_name=os.path.basename(path), path=path)]
+        return_val.append(TestDiscoveryResponse(test_name=os.path.basename(path), path=path))
     dfs(test_list, json_data)
     logger.info(test_list)
-    return test_list
+    return_val.extend(test_list)
+

@@ -43,6 +43,8 @@ class DiscoverPytestParams(BaseModel):
 async def discover_pytest(params: DiscoverPytestParams = Depends()):
     path = params.path
     one_file = params.one_file
-    return TestDiscoverContainer(
-        response=discover_pytest_file(path, one_file)
-    ).model_dump_json(by_alias=True)
+    return_val = []
+    thread = Thread(target=discover_pytest_file, args=(path, one_file, return_val))
+    thread.start()
+    thread.join()
+    return TestDiscoverContainer(response=return_val).model_dump_json(by_alias=True)
