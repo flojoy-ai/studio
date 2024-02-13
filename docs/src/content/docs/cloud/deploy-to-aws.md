@@ -1,6 +1,6 @@
 ---
-title: Deploy cloud to AWS
-description: Deploy your own Flojoy Cloud app to AWS using Flojoy Cloud public AMI.
+title: Deploy Flojoy Cloud to AWS
+description: Deploy your own Flojoy Cloud instance to AWS using Flojoy Cloud public AMI.
 sidebar:
   order: 2
   badge:
@@ -8,12 +8,11 @@ sidebar:
     variant: tip
 ---
 
-Flojoy Cloud provides easiest way to supercharge your test & measurement data with
-powerful data visualizations, Easy to use - APIs for Python, LabVIEW, and MATLAB.
+Flojoy Cloud is the easiest way to supercharge your test & measurement data with powerful data visualizations, collaboration, and easy to use APIs for Python, LabVIEW, and MATLAB.
 
-You can use our public cloud app for your test and measurement from here -> <https://cloud.flojoy.ai>
+You can use our public Flojoy Cloud instance for your test and measurement data here: https://cloud.flojoy.ai
 
-Additionally, you can deploy your own cloud app with our public AWS AMI. In this tutorial I'll show you how to deploy your own cloud version of Flojoy cloud app with few very straightforward steps.
+Additionally, you can deploy your own Flojoy Cloud instance with our public AWS AMI. In this tutorial we’ll show you how with few very straightforward steps - all you need is an AWS account.
 
 ## Prerequisites
 
@@ -42,19 +41,16 @@ Additionally, you can deploy your own cloud app with our public AWS AMI. In this
 5. Paste following data to input box:
 
 ```json
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Effect": "Allow",
-        "Action": [
-          "ses:SendEmail",
-          "ses:SendRawEmail"
-        ],
-        "Resource":"*"
-      }
-    ]
-  }
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["ses:SendEmail", "ses:SendRawEmail"],
+      "Resource": "*"
+    }
+  ]
+}
 ```
 
 :::note
