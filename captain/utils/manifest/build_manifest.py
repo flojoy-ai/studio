@@ -33,6 +33,7 @@ from flojoy import (
     File,
     Directory,
     TextArea,
+    Secret
 )
 
 from .build_ast import get_node_type, get_pip_dependencies, make_manifest_ast
@@ -63,6 +64,7 @@ SPECIAL_TYPES = [
     HardwareConnection,
     File,
     Directory,
+    Secret
 ]
 
 SPECIAL_NODES = ["LOOP", "CONDITIONAL"]

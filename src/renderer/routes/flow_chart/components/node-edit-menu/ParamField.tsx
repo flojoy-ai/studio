@@ -11,6 +11,7 @@ import {
 import { Switch } from "@/renderer/components/ui/switch";
 import { useFlowChartState } from "@/renderer/hooks/useFlowChartState";
 import { NumberInput } from "./NumberInput";
+import { SecretSelect } from "./SecretSelect";
 import { useHasUnsavedChanges } from "@/renderer/hooks/useHasUnsavedChanges";
 import { CameraSelect } from "./CameraSelect";
 import { SerialDeviceSelect } from "./SerialDeviceSelect";
@@ -182,6 +183,8 @@ const ParamField = ({
           value={value as string}
         />
       );
+    case "Secret":
+      return <SecretSelect onValueChange={handleChange} value={value} />;
     case "CameraDevice":
     case "CameraConnection":
       return <CameraSelect onValueChange={handleChange} value={value} />;

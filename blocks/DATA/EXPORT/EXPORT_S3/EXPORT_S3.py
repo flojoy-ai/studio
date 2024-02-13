@@ -1,8 +1,9 @@
-from flojoy import flojoy, String, Boolean, File, get_env_var, DataContainer
+from flojoy import flojoy, String, Boolean, File, get_env_var, DataContainer, Secret
 from typing import Optional, Literal
 import boto3
 import logging
 import os
+
 
 
 @flojoy(
@@ -12,8 +13,8 @@ import os
 )
 def EXPORT_S3(
     object_name: Optional[String] = None,
+    s3_secret_key: Secret = Secret(""),
     s3_access_key: str = "",
-    s3_secret_key: str = "",
     bucket: str = "",
     region: Literal[
         "us-east-1",
