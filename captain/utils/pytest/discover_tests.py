@@ -43,8 +43,9 @@ def discover_pytest_file(path: str, one_file: bool, return_val: list):
 
     test_list: List[TestDiscoveryResponse] = []
     if one_file:
-        return_val.append(TestDiscoveryResponse(test_name=os.path.basename(path), path=path))
+        return_val.append(
+            TestDiscoveryResponse(test_name=os.path.basename(path), path=path)
+        )
     dfs(test_list, json_data)
     logger.info(test_list)
     return_val.extend(test_list)
-
