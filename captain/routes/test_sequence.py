@@ -8,6 +8,7 @@ from captain.utils.config import ts_manager
 from captain.utils.test_sequencer.handle_data import handle_data
 from captain.utils.logger import logger
 from pydantic import BaseModel, Field
+from threading import Thread
 
 router = APIRouter(tags=["ws"])
 
@@ -26,7 +27,7 @@ async def websocket_endpoint(websocket: WebSocket, socket_id: str):
             data = await websocket.receive_text()
             data = json.loads(data)
             data = pydantic.TypeAdapter(TestSequenceRun).validate_python(data)
-            handle_data(data)
+            Thread(target=handle_data, args=((data,))).start()
 
     except WebSocketDisconnect:
         await ts_manager.ws.disconnect(socket_id=socket_id)
