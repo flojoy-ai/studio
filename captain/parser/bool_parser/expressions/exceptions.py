@@ -44,3 +44,9 @@ class InvalidIdentifier(Exception):
     def __init__(self, message=""):
         self.message = "Invalid identifier: " + message
         super().__init__(self.message)
+
+
+class EarlyIdentifier(Exception):
+    def __init__(self, message=""):
+        self.message = f"Cannot access identifier {message} before evaluation"
+        super().__init__(self.message)

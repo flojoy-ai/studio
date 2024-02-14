@@ -77,20 +77,20 @@ class Conditional(BaseModel):
     role: Role = Field(..., alias="role")
     id: str = Field(..., alias="id")
     group_id: str = Field(..., alias="groupId")
-    condition: str = Field(..., alias="condition")
 
 
 class IfNode(Conditional):
     conditional_type: str = Field("if", alias="conditionalType")
+    condition: str = Field(..., alias="condition")
     main: List["TestSequenceElementNode"] = Field(..., alias="main")
     else_: List["TestSequenceElementNode"] = Field(..., alias="else")
 
 
-class TestNode(Test):
+class ConditionalNode(IfNode):
     pass
 
 
-class ConditionalNode(IfNode):
+class TestNode(Test):
     pass
 
 
@@ -102,6 +102,7 @@ IfNode.model_rebuild()
 class TestRootNode(BaseModel):
     type: str = Field("root", alias="type")
     children: List[TestSequenceElementNode] = Field(..., alias="children")
+    identifiers: List[str]
 
 
 class TestDiscoveryResponse(BaseModel):
