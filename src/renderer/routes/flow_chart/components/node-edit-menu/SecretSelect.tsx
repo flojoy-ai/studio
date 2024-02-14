@@ -20,7 +20,6 @@ import {
   useCallback,
 } from "react";
 
-
 export type SelectProps = {
   onValueChange: (value: string) => void;
   value: string | number | boolean | null | undefined;
@@ -31,11 +30,7 @@ type DeviceSelectProps = {
   value: string | number | boolean | null | undefined;
 };
 
-export const SecretSelect = ({
-  onValueChange,
-  value,
-}: SelectProps) => {
-
+export const SecretSelect = ({ onValueChange, value }: SelectProps) => {
   const { credentials, setCredentials } = useFlowChartState();
   const [secrets, setSecrets] = useState<string[]>([]);
   const [found, setFound] = useState<boolean>(false);
@@ -51,7 +46,7 @@ export const SecretSelect = ({
         const keys = res.data.map((d) => d.key);
         setSecrets(keys);
         setFound(keys.length > 0);
-        setSelected(keys[0] ?? "No Environment Variables found")
+        setSelected(keys[0] ?? "No Environment Variables found");
       } catch (error) {
         console.log(error);
       }
@@ -60,16 +55,13 @@ export const SecretSelect = ({
     fetchCredentials();
   }, [setCredentials]);
 
-
   return (
     <Select onValueChange={onValueChange}>
       <SelectTrigger
         className="border-none bg-background focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1 "
         disabled={!found}
       >
-        <SelectValue
-          placeholder={selected}
-        />
+        <SelectValue placeholder={selected} />
       </SelectTrigger>
       <SelectContent className="max-h-72">
         <SelectGroup>

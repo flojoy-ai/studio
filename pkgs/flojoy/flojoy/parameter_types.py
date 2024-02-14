@@ -159,8 +159,10 @@ class Directory:
     def unwrap(self):
         return self.ref
 
+
 class Secret:
     """Node parameter type of str"""
+
     ref: str
 
     def __init__(self, ref: str) -> None:
@@ -168,6 +170,7 @@ class Secret:
 
     def unwrap(self):
         return get_env_var(self.ref)
+
 
 TextArea = NewType("TextArea", str)
 

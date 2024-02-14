@@ -1,9 +1,8 @@
-from flojoy import flojoy, String, Boolean, File, get_env_var, DataContainer, Secret
+from flojoy import flojoy, String, Boolean, File, DataContainer, Secret
 from typing import Optional, Literal
 import boto3
 import logging
 import os
-
 
 
 @flojoy(

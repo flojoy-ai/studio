@@ -13,6 +13,7 @@ __all__ = [
     "delete_env_var",
 ]
 
+
 def get_keyring():
     if sys.platform.lower() == "linux":
         kr = CryptFileKeyring()
@@ -69,4 +70,3 @@ def delete_env_var(key: str):
 
     kr = get_keyring()
     kr.delete_password("flojoy", key)
-
