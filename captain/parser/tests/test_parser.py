@@ -11,7 +11,11 @@ symbol_table = {
     "t": Variable(True, 3),
     "f": Variable(False, 12),
 }
-run_test = partial(eval_expression, symbol_table=symbol_table)
+run_test = partial(
+    eval_expression,
+    symbol_table=symbol_table,
+    identifiers=set(symbol_table.keys()),
+)
 
 
 def _run(tests):
