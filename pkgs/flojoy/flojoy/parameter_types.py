@@ -1,3 +1,4 @@
+from flojoy.env_var import get_env_var
 from typing import Any, NewType, Union, Callable
 from abc import ABC
 
@@ -166,7 +167,7 @@ class Secret:
         self.ref = ref
 
     def unwrap(self):
-        return self.ref
+        return get_env_var(self.ref)
 
 TextArea = NewType("TextArea", str)
 
