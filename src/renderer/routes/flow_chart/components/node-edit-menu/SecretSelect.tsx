@@ -25,8 +25,7 @@ export const SecretSelect = ({ onValueChange, value }: SelectProps) => {
         const keys = res.data.map((d) => d.key);
         setSecrets(keys);
         setFound(keys.length > 0);
-        if (value == "" && found) 
-          value = keys[0];
+        if (value == "" && found) value = keys[0];
       } catch (error) {
         console.log(error);
       }
@@ -40,7 +39,9 @@ export const SecretSelect = ({ onValueChange, value }: SelectProps) => {
         className="border-none bg-background focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1 "
         disabled={!found}
       >
-        <SelectValue placeholder={found ? value : "No environment variable found"} />
+        <SelectValue
+          placeholder={found ? value : "No environment variable found"}
+        />
       </SelectTrigger>
       <SelectContent className="max-h-72">
         <SelectGroup>
