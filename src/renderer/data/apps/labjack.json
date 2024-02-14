@@ -1,22 +1,83 @@
 {
+  "name": "LabJack",
   "rfInstance": {
     "nodes": [
       {
+        "width": 96,
+        "height": 96,
+        "id": "LOOP-e4a27070-af07-414b-813a-04282d60bd63",
+        "type": "LOGIC_GATES",
+        "data": {
+          "id": "LOOP-e4a27070-af07-414b-813a-04282d60bd63",
+          "label": "LOOP",
+          "func": "LOOP",
+          "type": "LOGIC_GATES",
+          "ctrls": {
+            "num_loops": {
+              "type": "int",
+              "default": -1,
+              "desc": "number of times to iterate through body nodes, default is \"-1\" meaning infinity.",
+              "functionName": "LOOP",
+              "param": "num_loops",
+              "value": -1,
+              "overload": null
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "body",
+              "id": "body",
+              "type": "Any",
+              "desc": "Forwards the input DataContainer to the body."
+            },
+            {
+              "name": "end",
+              "id": "end",
+              "type": "Any",
+              "desc": "Forwards the input DataContainer to the end."
+            }
+          ],
+          "path": "CONTROL_FLOW/LOOPS/LOOP/LOOP.py",
+          "selected": false
+        },
+        "position": {
+          "x": 884.1801975712046,
+          "y": -91.11231721238373
+        },
+        "selected": true,
+        "positionAbsolute": {
+          "x": 884.1801975712046,
+          "y": -91.11231721238373
+        },
+        "dragging": true
+      },
+      {
         "width": 192,
         "height": 192,
-        "id": "LABJACKU3-f2fffab7-ab79-4fa0-ad33-1fb3825d76d2",
-        "type": "INSTRUMENTS",
+        "id": "READ_A0_PINS-ba78c125-a9e4-4cec-a9fe-3da4ee222f94",
+        "type": "HARDWARE",
         "data": {
-          "id": "LABJACKU3-f2fffab7-ab79-4fa0-ad33-1fb3825d76d2",
-          "label": "LABJACKU3",
-          "func": "LABJACKU3",
-          "type": "INSTRUMENTS",
+          "id": "READ_A0_PINS-ba78c125-a9e4-4cec-a9fe-3da4ee222f94",
+          "label": "READ A0 PINS",
+          "func": "READ_A0_PINS",
+          "type": "HARDWARE",
           "ctrls": {
             "sensor_number": {
               "type": "int",
               "default": 1,
               "desc": null,
-              "functionName": "LABJACKU3",
+              "overload": null,
+              "functionName": "READ_A0_PINS",
               "param": "sensor_number",
               "value": 1
             }
@@ -36,7 +97,7 @@
               "name": "default",
               "id": "default",
               "type": "OrderedPair",
-              "desc": null
+              "desc": "The output of the node is a list of voltages measured from the sensors."
             }
           ],
           "pip_dependencies": [
@@ -45,38 +106,65 @@
               "v": "2.1.0"
             }
           ],
-          "path": "PYTHON/nodes/INSTRUMENTS/LABJACK/LABJACKU3/LABJACKU3.py",
-          "selected": false
+          "path": "HARDWARE/DAQ_BOARDS/LABJACK/U3/READ_A0_PINS/READ_A0_PINS.py"
         },
         "position": {
-          "x": 1198.1450498207269,
-          "y": -251.53956541935366
+          "x": 1216.6222398767525,
+          "y": -206.74648892665238
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 1198.1450498207269,
-          "y": -251.53956541935366
+          "x": 1216.6222398767525,
+          "y": -206.74648892665238
         },
         "dragging": true
       },
       {
-        "width": 96,
-        "height": 96,
-        "id": "LOOP-e4a27070-af07-414b-813a-04282d60bd63",
-        "type": "LOGIC_GATES",
+        "width": 225,
+        "height": 225,
+        "id": "LINE-37ee0800-3775-4e07-b4a5-3d9e690bdd0f",
+        "type": "VISUALIZATION",
         "data": {
-          "id": "LOOP-e4a27070-af07-414b-813a-04282d60bd63",
-          "label": "LOOP",
-          "func": "LOOP",
-          "type": "LOGIC_GATES",
+          "id": "LINE-37ee0800-3775-4e07-b4a5-3d9e690bdd0f",
+          "label": "LINE",
+          "func": "LINE",
+          "type": "VISUALIZATION",
           "ctrls": {
-            "num_loops": {
-              "type": "int",
-              "default": -1,
-              "desc": "number of times to iterate through body nodes, default is \"-1\" meaning infinity.",
-              "functionName": "LOOP",
-              "param": "num_loops",
-              "value": -1
+            "xaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the x axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "xaxis_title",
+              "value": ""
+            },
+            "yaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the y axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "yaxis_title",
+              "value": ""
+            },
+            "x_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "x_log_scale",
+              "value": false
+            },
+            "y_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "y_log_scale",
+              "value": false
             }
           },
           "initCtrls": {},
@@ -84,58 +172,9 @@
             {
               "name": "default",
               "id": "default",
-              "type": "Any",
-              "multiple": false,
-              "desc": null
-            }
-          ],
-          "outputs": [
-            {
-              "name": "body",
-              "id": "body",
-              "type": "Any",
-              "desc": null
-            },
-            {
-              "name": "end",
-              "id": "end",
-              "type": "Any",
-              "desc": null
-            }
-          ],
-          "path": "PYTHON/nodes/LOGIC_GATES/LOOPS/LOOP/LOOP.py",
-          "selected": false
-        },
-        "position": {
-          "x": 870.8273299510545,
-          "y": -158.579437819458
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 870.8273299510545,
-          "y": -158.579437819458
-        },
-        "dragging": true
-      },
-      {
-        "width": 225,
-        "height": 226,
-        "id": "BAR-c7fcec94-45c8-43e9-b35f-28c98bb21c96",
-        "type": "VISUALIZERS",
-        "data": {
-          "id": "BAR-c7fcec94-45c8-43e9-b35f-28c98bb21c96",
-          "label": "BAR",
-          "func": "BAR",
-          "type": "VISUALIZERS",
-          "ctrls": {},
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
               "type": "OrderedPair|DataFrame|Matrix|Vector",
               "multiple": false,
-              "desc": "the DataContainer to be visualized in bar chart"
+              "desc": "the DataContainer to be visualized"
             }
           ],
           "outputs": [
@@ -143,38 +182,37 @@
               "name": "default",
               "id": "default",
               "type": "Plotly",
-              "desc": "the DataContainer containing Plotly Bar chart visualization"
+              "desc": "the DataContainer containing the Plotly Line visualization of the input data"
             }
           ],
-          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/BAR/BAR.py",
-          "selected": false
+          "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
         },
         "position": {
-          "x": 1645.3402278336362,
-          "y": -274.0554805783094
+          "x": 1565.5784669877457,
+          "y": -219.55904538927467
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 1645.3402278336362,
-          "y": -274.0554805783094
+          "x": 1565.5784669877457,
+          "y": -219.55904538927467
         },
         "dragging": true
       }
     ],
     "edges": [
       {
-        "source": "LOOP-e4a27070-af07-414b-813a-04282d60bd63",
-        "sourceHandle": "body",
-        "target": "LABJACKU3-f2fffab7-ab79-4fa0-ad33-1fb3825d76d2",
+        "source": "READ_A0_PINS-ba78c125-a9e4-4cec-a9fe-3da4ee222f94",
+        "sourceHandle": "default",
+        "target": "LINE-37ee0800-3775-4e07-b4a5-3d9e690bdd0f",
         "targetHandle": "default",
-        "id": "reactflow__edge-LOOP-e4a27070-af07-414b-813a-04282d60bd63body-LABJACKU3-f2fffab7-ab79-4fa0-ad33-1fb3825d76d2default"
+        "id": "reactflow__edge-READ_A0_PINS-ba78c125-a9e4-4cec-a9fe-3da4ee222f94default-LINE-37ee0800-3775-4e07-b4a5-3d9e690bdd0fdefault"
       },
       {
-        "source": "LABJACKU3-f2fffab7-ab79-4fa0-ad33-1fb3825d76d2",
-        "sourceHandle": "default",
-        "target": "BAR-c7fcec94-45c8-43e9-b35f-28c98bb21c96",
+        "source": "LOOP-e4a27070-af07-414b-813a-04282d60bd63",
+        "sourceHandle": "body",
+        "target": "READ_A0_PINS-ba78c125-a9e4-4cec-a9fe-3da4ee222f94",
         "targetHandle": "default",
-        "id": "reactflow__edge-LABJACKU3-f2fffab7-ab79-4fa0-ad33-1fb3825d76d2default-BAR-c7fcec94-45c8-43e9-b35f-28c98bb21c96default"
+        "id": "reactflow__edge-LOOP-e4a27070-af07-414b-813a-04282d60bd63body-READ_A0_PINS-ba78c125-a9e4-4cec-a9fe-3da4ee222f94default"
       }
     ],
     "viewport": {
@@ -183,25 +221,6 @@
       "zoom": 0.7476193625116623
     }
   },
-  "ctrlsManifest": [
-    {
-      "type": "input",
-      "name": "Slider",
-      "id": "INPUT_PLACEHOLDER",
-      "hidden": false,
-      "minHeight": 1,
-      "minWidth": 2,
-      "layout": {
-        "x": 0,
-        "y": 0,
-        "h": 2,
-        "w": 2,
-        "minH": 1,
-        "minW": 2,
-        "i": "INPUT_PLACEHOLDER"
-      }
-    }
-  ],
   "textNodes": [
     {
       "id": "TextNode-98eaa4bd-dd3e-4fea-8791-eb2f414b482d",
@@ -214,7 +233,7 @@
         "text": "Read the [LabJack U3](https://docs.flojoy.ai/nodes/INSTRUMENTS/LABJACK/LABJACKU3/) docs before running the app."
       },
       "width": 288,
-      "height": 50,
+      "height": 100,
       "selected": false,
       "positionAbsolute": {
         "x": 356.1024827249459,

@@ -1,5 +1,7 @@
 export { default as arduino } from "./arduino.json";
 export { default as butterworth } from "./butterworth.json";
+export { default as i2cDecode } from "./i2cDecode.json";
+export { default as bodePlot } from "./bodePlot.json";
 // export { default as cloud } from "./cloud.json";
 export { default as fft } from "./fft.json";
 export { default as fir } from "./fir.json";
