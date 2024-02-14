@@ -120,19 +120,19 @@ export const data: GalleryData = {
       relevantNodes: [],
       cloudDemoEnabled: false,
     },
-    // {
-    //   title: "LabJack",
-    //   description: "Record and log temperatures",
-    //   imagePath: "assets/appGallery/labjack.png",
-    //   appPath: "labjack",
-    //   relevantNodes: [
-    //     {
-    //       name: "LABJACKU3",
-    //       docs: "https://docs.flojoy.ai/nodes/INSTRUMENTS/LABJACK/LABJACKU3/",
-    //     },
-    //   ],
-    //   cloudDemoEnabled: false,
-    // },
+    {
+      title: "LabJack",
+      description: "Record and log temperatures",
+      imagePath: "assets/appGallery/labjack.png",
+      appPath: "labjack",
+      relevantNodes: [
+        {
+          name: "LABJACKU3",
+          docs: "https://docs.flojoy.ai/nodes/INSTRUMENTS/LABJACK/LABJACKU3/",
+        },
+      ],
+      cloudDemoEnabled: false,
+    },
     {
       title: "USB Camera",
       description: "Capture real-time images",
@@ -146,19 +146,19 @@ export const data: GalleryData = {
       ],
       cloudDemoEnabled: true,
     },
-    // {
-    //   title: "Stepper Motor",
-    //   description: "Precisely position anything",
-    //   imagePath: "assets/appGallery/stepperMotor.png",
-    //   appPath: "stepper",
-    //   relevantNodes: [
-    //     {
-    //       name: "STEPPER_DRIVER_TIC",
-    //       docs: "https://docs.flojoy.ai/nodes/INSTRUMENTS/STEPPER_MOTOR/STEPPER_DRIVER_TIC/",
-    //     },
-    //   ],
-    //   cloudDemoEnabled: false,
-    // },
+    {
+      title: "Stepper Motor",
+      description: "Precisely position anything",
+      imagePath: "assets/appGallery/stepperMotor.png",
+      appPath: "stepper",
+      relevantNodes: [
+        {
+          name: "STEPPER_DRIVER_TIC",
+          docs: "https://docs.flojoy.ai/nodes/INSTRUMENTS/STEPPER_MOTOR/STEPPER_DRIVER_TIC/",
+        },
+      ],
+      cloudDemoEnabled: false,
+    },
     {
       title: "Decode I2C",
       description: "Decode I2C messages with an oscilloscope",
