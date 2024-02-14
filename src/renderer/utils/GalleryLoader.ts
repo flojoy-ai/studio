@@ -163,7 +163,7 @@ export const data: GalleryData = {
       title: "Decode I2C",
       description: "Decode I2C messages with an oscilloscope",
       imagePath: "https://res.cloudinary.com/dhopxs1y3/image/upload/v1692118625/Instruments/Oscilloscopes/MSO5000/MSO5000.png",
-      appPath: "i2c",
+      appPath: "i2cDecode",
       relevantNodes: [
         {
           name: "DECODE_I2C_MSO2X",
@@ -176,7 +176,7 @@ export const data: GalleryData = {
       title: "Bode Plot",
       description: "Create a Bode plot with a function generator and an oscilloscope",
       imagePath: "https://res.cloudinary.com/dhopxs1y3/image/upload/v1692118735/Instruments/Function%20Generators/AFG3000/AFG3000.png",
-      appPath: "bode",
+      appPath: "bodePlot",
       relevantNodes: [
         {
           name: "INPUT_PARAM_AFG31000",
