@@ -13,8 +13,8 @@ import os
 )
 def EXPORT_S3(
     object_name: Optional[String] = None,
+    s3_access_key: Secret = Secret(""),
     s3_secret_key: Secret = Secret(""),
-    s3_access_key: str = "",
     bucket: str = "",
     region: Literal[
         "us-east-1",
@@ -68,9 +68,9 @@ def EXPORT_S3(
     object_name: Optional[String]
         Flojoy input to dynamically provide a string for the name of the object in S3. If not specified, the name of the file will be used.
     s3_access_key : str
-        The name of the key used to save the AWS access key.
+        AWS access key.
     s3_secret_key : str
-        The name of the key used to save the AWS secret key.
+        AWS secret key.
     bucket : str
         The S3 bucket to upload the file to.
     region : str
@@ -86,12 +86,9 @@ def EXPORT_S3(
         Returns a Boolean indicating the success of the file export operation (True if successful, False otherwise).
     """
 
-    access_key = get_env_var(s3_access_key)
-    secret_key = get_env_var(s3_secret_key)
-
     s3_client = boto3.Session(
-        aws_access_key_id=access_key,
-        aws_secret_access_key=secret_key,
+        aws_access_key_id=s3_access_key.unwrap(),
+        aws_secret_access_key=s3_secret_key.unwrap(),
         region_name=region,
     ).client("s3")
 

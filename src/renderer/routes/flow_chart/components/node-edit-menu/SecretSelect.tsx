@@ -28,7 +28,7 @@ export type SelectProps = {
 
 type DeviceSelectProps = {
   onValueChange: (value: string) => void;
-  value: string | null | undefined;
+  value: string | number | boolean | null | undefined;
 };
 
 export const SecretSelect = ({
@@ -39,8 +39,7 @@ export const SecretSelect = ({
   const { credentials, setCredentials } = useFlowChartState();
   const [secrets, setSecrets] = useState<string[]>([]);
   const [found, setFound] = useState<boolean>(false);
-  const [selected, setSelected] = useState<string | undefined>(undefined);
-  setSelected(value?.toString());
+  const [selected, setSelected] = useState<string>("");
 
   useEffect(() => {
     const fetchCredentials = async () => {
@@ -52,6 +51,7 @@ export const SecretSelect = ({
         const keys = res.data.map((d) => d.key);
         setSecrets(keys);
         setFound(keys.length > 0);
+        setSelected(keys[0] ?? "No Environment Variables found")
       } catch (error) {
         console.log(error);
       }
@@ -65,13 +65,10 @@ export const SecretSelect = ({
     <Select onValueChange={onValueChange}>
       <SelectTrigger
         className="border-none bg-background focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1 "
-        disabled={
-            value  && !found ? "No Environment Variable Set" : value
-          }
-}
+        disabled={!found}
       >
         <SelectValue
-          placeholder={"No Environment Variables found"}
+          placeholder={selected}
         />
       </SelectTrigger>
       <SelectContent className="max-h-72">
