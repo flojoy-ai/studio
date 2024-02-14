@@ -11,7 +11,7 @@ import { useState, useEffect } from "react";
 
 export type SelectProps = {
   onValueChange: (value: string) => void;
-  value: string | null | undefined;
+  value: string | number | boolean | null | undefined;
 };
 
 export const SecretSelect = ({ onValueChange, value }: SelectProps) => {
@@ -25,7 +25,9 @@ export const SecretSelect = ({ onValueChange, value }: SelectProps) => {
         const keys = res.data.map((d) => d.key);
         setSecrets(keys);
         setFound(keys.length > 0);
-        if (value == "" && found) value = keys[0];
+        if (found) {
+          value ??= keys[0];
+        }
       } catch (error) {
         console.log(error);
       }
