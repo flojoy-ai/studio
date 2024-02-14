@@ -7,31 +7,17 @@ import {
   SelectValue,
 } from "@/renderer/components/ui/select";
 import { baseClient } from "@/renderer/lib/base-client";
-import {
-  EnvVarCredentialType,
-  useFlowChartState,
-} from "@/renderer/hooks/useFlowChartState";
-import {
-  memo,
-  ChangeEvent,
-  ClipboardEvent,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
+import { useFlowChartState } from "@/renderer/hooks/useFlowChartState";
+import { useState, useEffect } from "react";
 
 export type SelectProps = {
   onValueChange: (value: string) => void;
   value: string | number | boolean | null | undefined;
 };
 
-type DeviceSelectProps = {
-  onValueChange: (value: string) => void;
-  value: string | number | boolean | null | undefined;
-};
-
 export const SecretSelect = ({ onValueChange, value }: SelectProps) => {
-  const { credentials, setCredentials } = useFlowChartState();
+  // TODO: use default value
+  // TODO: Do I need all those useState ?
   const [secrets, setSecrets] = useState<string[]>([]);
   const [found, setFound] = useState<boolean>(false);
   const [selected, setSelected] = useState<string>("");
@@ -40,9 +26,6 @@ export const SecretSelect = ({ onValueChange, value }: SelectProps) => {
     const fetchCredentials = async () => {
       try {
         const res = await baseClient.get("env");
-        setCredentials(res.data);
-        console.log("fetchCredentials");
-        console.log(credentials);
         const keys = res.data.map((d) => d.key);
         setSecrets(keys);
         setFound(keys.length > 0);
@@ -53,7 +36,7 @@ export const SecretSelect = ({ onValueChange, value }: SelectProps) => {
     };
 
     fetchCredentials();
-  }, [setCredentials]);
+  }, []);
 
   return (
     <Select onValueChange={onValueChange}>
