@@ -7,20 +7,16 @@ import {
   SelectValue,
 } from "@/renderer/components/ui/select";
 import { baseClient } from "@/renderer/lib/base-client";
-import { useFlowChartState } from "@/renderer/hooks/useFlowChartState";
 import { useState, useEffect } from "react";
 
 export type SelectProps = {
   onValueChange: (value: string) => void;
-  value: string | number | boolean | null | undefined;
+  value: string | null | undefined;
 };
 
 export const SecretSelect = ({ onValueChange, value }: SelectProps) => {
-  // TODO: use default value
-  // TODO: Do I need all those useState ?
   const [secrets, setSecrets] = useState<string[]>([]);
   const [found, setFound] = useState<boolean>(false);
-  const [selected, setSelected] = useState<string>("");
 
   useEffect(() => {
     const fetchCredentials = async () => {
@@ -29,12 +25,12 @@ export const SecretSelect = ({ onValueChange, value }: SelectProps) => {
         const keys = res.data.map((d) => d.key);
         setSecrets(keys);
         setFound(keys.length > 0);
-        setSelected(keys[0] ?? "No Environment Variables found");
+        if (value == "" && found) 
+          value = keys[0];
       } catch (error) {
         console.log(error);
       }
     };
-
     fetchCredentials();
   }, []);
 
@@ -44,7 +40,7 @@ export const SecretSelect = ({ onValueChange, value }: SelectProps) => {
         className="border-none bg-background focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1 "
         disabled={!found}
       >
-        <SelectValue placeholder={selected} />
+        <SelectValue placeholder={found ? value : "No environment variable found"} />
       </SelectTrigger>
       <SelectContent className="max-h-72">
         <SelectGroup>

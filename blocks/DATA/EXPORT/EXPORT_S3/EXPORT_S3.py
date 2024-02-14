@@ -92,6 +92,7 @@ def EXPORT_S3(
     ).client("s3")
 
     # Some checks
+    assert file is not None, "No file provided"
     filename = file.unwrap()
     # Check if the bucket exist. Need the `s3:ListAllMyBuckets` permission, don't block the user if it doesn't have it.
     try:
