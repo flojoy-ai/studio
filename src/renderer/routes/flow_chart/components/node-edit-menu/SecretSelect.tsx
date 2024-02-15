@@ -42,7 +42,7 @@ export const SecretSelect = ({ onValueChange, value }: SelectProps) => {
       </SelectTrigger>
       <SelectContent className="max-h-72">
         <SelectGroup>
-          {found &&
+          {!!secrets.length &&
             secrets.map((d) => (
               <SelectItem key={d} value={d}>
                 {d}
