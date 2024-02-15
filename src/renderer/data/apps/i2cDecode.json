@@ -1,0 +1,1349 @@
+{
+  "rfInstance": {
+    "nodes": [
+      {
+        "width": 192,
+        "height": 192,
+        "id": "DECODE_I2C_MSO2X-9e3b77b3-a495-4bf2-9cf6-d398605c4fa7",
+        "type": "HARDWARE",
+        "data": {
+          "id": "DECODE_I2C_MSO2X-9e3b77b3-a495-4bf2-9cf6-d398605c4fa7",
+          "label": "DECODE I2C MSO2X",
+          "func": "DECODE_I2C_MSO2X",
+          "type": "HARDWARE",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
+              "overload": null,
+              "functionName": "DECODE_I2C_MSO2X",
+              "param": "connection",
+              "value": "TCPIP::169.254.9.12::INSTR"
+            },
+            "bus_number": {
+              "type": "int",
+              "default": 1,
+              "desc": "The bus number to use.",
+              "overload": null,
+              "functionName": "DECODE_I2C_MSO2X",
+              "param": "bus_number",
+              "value": 1
+            },
+            "clock_channel": {
+              "type": "select",
+              "options": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "D0",
+                "D1",
+                "D2",
+                "D3",
+                "D4",
+                "D5",
+                "D6",
+                "D7",
+                "D8",
+                "D9",
+                "D10",
+                "D12",
+                "D13",
+                "D14",
+                "D15"
+              ],
+              "default": "1",
+              "desc": "The clock channel to use.",
+              "overload": null,
+              "functionName": "DECODE_I2C_MSO2X",
+              "param": "clock_channel",
+              "value": "D0"
+            },
+            "data_channel": {
+              "type": "select",
+              "options": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "D0",
+                "D1",
+                "D2",
+                "D3",
+                "D4",
+                "D5",
+                "D6",
+                "D7",
+                "D8",
+                "D9",
+                "D10",
+                "D12",
+                "D13",
+                "D14",
+                "D15"
+              ],
+              "default": "1",
+              "desc": "The data channel to use.",
+              "overload": null,
+              "functionName": "DECODE_I2C_MSO2X",
+              "param": "data_channel",
+              "value": "D1"
+            },
+            "clock_threshold": {
+              "type": "float",
+              "default": 1,
+              "desc": "The clock threshold voltage to use.",
+              "overload": null,
+              "functionName": "DECODE_I2C_MSO2X",
+              "param": "clock_threshold",
+              "value": 1
+            },
+            "data_threshold": {
+              "type": "float",
+              "default": 1,
+              "desc": "The data threshold voltage to use.",
+              "overload": null,
+              "functionName": "DECODE_I2C_MSO2X",
+              "param": "data_threshold",
+              "value": 1
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "input",
+              "id": "input",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "I2C messages"
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/DECODE_I2C_MSO2X/DECODE_I2C_MSO2X.py"
+        },
+        "position": {
+          "x": 365.8204822966746,
+          "y": -404.1090979247669
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 365.8204822966746,
+          "y": -404.1090979247669
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "CONNECT_MSO2X-e0127b8f-00c6-4b2a-b2e7-d4252169e2ab",
+        "type": "HARDWARE",
+        "data": {
+          "id": "CONNECT_MSO2X-e0127b8f-00c6-4b2a-b2e7-d4252169e2ab",
+          "label": "CONNECT MSO2X",
+          "func": "CONNECT_MSO2X",
+          "type": "HARDWARE",
+          "ctrls": {
+            "device": {
+              "type": "VisaDevice",
+              "default": null,
+              "desc": "The connected VISA device.",
+              "overload": null,
+              "functionName": "CONNECT_MSO2X",
+              "param": "device",
+              "value": "TCPIP::169.254.9.12::INSTR"
+            }
+          },
+          "initCtrls": {},
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "The IP or VISA address of the VISA device."
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "tm_devices",
+              "v": "1"
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/CONNECT_MSO2X/CONNECT_MSO2X.py"
+        },
+        "position": {
+          "x": -861.6582890634462,
+          "y": -418.5768782159977
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -861.6582890634462,
+          "y": -418.5768782159977
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "SINGLE_TRIGGER_MSO2X-b4ee39a9-8e98-416a-a9f2-16d098df07c2",
+        "type": "HARDWARE",
+        "data": {
+          "id": "SINGLE_TRIGGER_MSO2X-b4ee39a9-8e98-416a-a9f2-16d098df07c2",
+          "label": "SINGLE TRIGGER MSO2X",
+          "func": "SINGLE_TRIGGER_MSO2X",
+          "type": "HARDWARE",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
+              "overload": null,
+              "functionName": "SINGLE_TRIGGER_MSO2X",
+              "param": "connection",
+              "value": "TCPIP::169.254.9.12::INSTR"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "input",
+              "id": "input",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "Trigger"
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/SINGLE_TRIGGER_MSO2X/SINGLE_TRIGGER_MSO2X.py"
+        },
+        "position": {
+          "x": 616.9723269028821,
+          "y": -395.91760827383195
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 616.9723269028821,
+          "y": -395.91760827383195
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "DIGITAL_CHANNELS_MSO2X-366d8174-b1f0-4417-84b0-8c6c8c12a01a",
+        "type": "HARDWARE",
+        "data": {
+          "id": "DIGITAL_CHANNELS_MSO2X-366d8174-b1f0-4417-84b0-8c6c8c12a01a",
+          "label": "DIGITAL CHANNELS MSO2X",
+          "func": "DIGITAL_CHANNELS_MSO2X",
+          "type": "HARDWARE",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
+              "overload": null,
+              "functionName": "DIGITAL_CHANNELS_MSO2X",
+              "param": "connection",
+              "value": "TCPIP::169.254.9.12::INSTR"
+            },
+            "all_channels": {
+              "type": "bool",
+              "default": false,
+              "desc": "Turn all channels on? The display parameters aren't used if True.",
+              "overload": null,
+              "functionName": "DIGITAL_CHANNELS_MSO2X",
+              "param": "all_channels",
+              "value": false
+            },
+            "D0_display": {
+              "type": "bool",
+              "options": ["1", "0"],
+              "default": false,
+              "desc": "Turn the channel on (1) or off (0).",
+              "overload": null,
+              "functionName": "DIGITAL_CHANNELS_MSO2X",
+              "param": "D0_display",
+              "value": "0"
+            },
+            "D1_display": {
+              "type": "bool",
+              "options": ["1", "0"],
+              "default": false,
+              "desc": "Turn the channel on (1) or off (0).",
+              "overload": null,
+              "functionName": "DIGITAL_CHANNELS_MSO2X",
+              "param": "D1_display",
+              "value": "0"
+            },
+            "D2_display": {
+              "type": "bool",
+              "options": ["1", "0"],
+              "default": false,
+              "desc": "Turn the channel on (1) or off (0).",
+              "overload": null,
+              "functionName": "DIGITAL_CHANNELS_MSO2X",
+              "param": "D2_display",
+              "value": "0"
+            },
+            "D3_display": {
+              "type": "bool",
+              "options": ["1", "0"],
+              "default": false,
+              "desc": "Turn the channel on (1) or off (0).",
+              "overload": null,
+              "functionName": "DIGITAL_CHANNELS_MSO2X",
+              "param": "D3_display",
+              "value": "0"
+            },
+            "D4_display": {
+              "type": "bool",
+              "options": ["1", "0"],
+              "default": false,
+              "desc": "Turn the channel on (1) or off (0).",
+              "overload": null,
+              "functionName": "DIGITAL_CHANNELS_MSO2X",
+              "param": "D4_display",
+              "value": "0"
+            },
+            "D5_display": {
+              "type": "bool",
+              "options": ["1", "0"],
+              "default": false,
+              "desc": "Turn the channel on (1) or off (0).",
+              "overload": null,
+              "functionName": "DIGITAL_CHANNELS_MSO2X",
+              "param": "D5_display",
+              "value": "0"
+            },
+            "D6_display": {
+              "type": "bool",
+              "options": ["1", "0"],
+              "default": false,
+              "desc": "Turn the channel on (1) or off (0).",
+              "overload": null,
+              "functionName": "DIGITAL_CHANNELS_MSO2X",
+              "param": "D6_display",
+              "value": "0"
+            },
+            "D7_display": {
+              "type": "bool",
+              "options": ["1", "0"],
+              "default": false,
+              "desc": "Turn the channel on (1) or off (0).",
+              "overload": null,
+              "functionName": "DIGITAL_CHANNELS_MSO2X",
+              "param": "D7_display",
+              "value": "0"
+            },
+            "D8_display": {
+              "type": "bool",
+              "options": ["1", "0"],
+              "default": false,
+              "desc": "Turn the channel on (1) or off (0).",
+              "overload": null,
+              "functionName": "DIGITAL_CHANNELS_MSO2X",
+              "param": "D8_display",
+              "value": "0"
+            },
+            "D9_display": {
+              "type": "bool",
+              "options": ["1", "0"],
+              "default": false,
+              "desc": "Turn the channel on (1) or off (0).",
+              "overload": null,
+              "functionName": "DIGITAL_CHANNELS_MSO2X",
+              "param": "D9_display",
+              "value": "0"
+            },
+            "D10_display": {
+              "type": "bool",
+              "options": ["1", "0"],
+              "default": false,
+              "desc": "Turn the channel on (1) or off (0).",
+              "overload": null,
+              "functionName": "DIGITAL_CHANNELS_MSO2X",
+              "param": "D10_display",
+              "value": "0"
+            },
+            "D11_display": {
+              "type": "bool",
+              "options": ["1", "0"],
+              "default": false,
+              "desc": "Turn the channel on (1) or off (0).",
+              "overload": null,
+              "functionName": "DIGITAL_CHANNELS_MSO2X",
+              "param": "D11_display",
+              "value": "0"
+            },
+            "D12_display": {
+              "type": "bool",
+              "options": ["1", "0"],
+              "default": false,
+              "desc": "Turn the channel on (1) or off (0).",
+              "overload": null,
+              "functionName": "DIGITAL_CHANNELS_MSO2X",
+              "param": "D12_display",
+              "value": "0"
+            },
+            "D13_display": {
+              "type": "bool",
+              "options": ["1", "0"],
+              "default": false,
+              "desc": "Turn the channel on (1) or off (0).",
+              "overload": null,
+              "functionName": "DIGITAL_CHANNELS_MSO2X",
+              "param": "D13_display",
+              "value": "0"
+            },
+            "D14_display": {
+              "type": "bool",
+              "options": ["1", "0"],
+              "default": false,
+              "desc": "Turn the channel on (1) or off (0).",
+              "overload": null,
+              "functionName": "DIGITAL_CHANNELS_MSO2X",
+              "param": "D14_display",
+              "value": "0"
+            },
+            "D15_display": {
+              "type": "bool",
+              "options": ["1", "0"],
+              "default": false,
+              "desc": "Turn the channel on (1) or off (0).",
+              "overload": null,
+              "functionName": "DIGITAL_CHANNELS_MSO2X",
+              "param": "D15_display",
+              "value": "0"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "input",
+              "id": "input",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "Channel display"
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "tm_devices",
+              "v": "1"
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/DIGITAL_CHANNELS_MSO2X/DIGITAL_CHANNELS_MSO2X.py"
+        },
+        "position": {
+          "x": -196.11470694793113,
+          "y": -399.5856233693387
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -196.11470694793113,
+          "y": -399.5856233693387
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "I2C_TRIGGER_MSO2X-8811a717-1430-4b30-8f6f-3dcb9fd59973",
+        "type": "HARDWARE",
+        "data": {
+          "id": "I2C_TRIGGER_MSO2X-8811a717-1430-4b30-8f6f-3dcb9fd59973",
+          "label": "I2C TRIGGER MSO2X",
+          "func": "I2C_TRIGGER_MSO2X",
+          "type": "HARDWARE",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
+              "overload": null,
+              "functionName": "I2C_TRIGGER_MSO2X",
+              "param": "connection",
+              "value": "TCPIP::169.254.9.12::INSTR"
+            },
+            "bus_num": {
+              "type": "int",
+              "default": 1,
+              "desc": "Bus number to use as the trigger.",
+              "overload": null,
+              "functionName": "I2C_TRIGGER_MSO2X",
+              "param": "bus_num",
+              "value": 1
+            },
+            "condition": {
+              "type": "select",
+              "options": [
+                "start",
+                "stop",
+                "repeatstart",
+                "ackmiss",
+                "address",
+                "data",
+                "addranddata"
+              ],
+              "default": "start",
+              "desc": "What to trigger on",
+              "overload": null,
+              "functionName": "I2C_TRIGGER_MSO2X",
+              "param": "condition",
+              "value": "address"
+            },
+            "addr_bits": {
+              "type": "select",
+              "options": ["7", "10"],
+              "default": "10",
+              "desc": "The number of bits in the address to trigger on",
+              "overload": null,
+              "functionName": "I2C_TRIGGER_MSO2X",
+              "param": "addr_bits",
+              "value": "7"
+            },
+            "addr": {
+              "type": "str",
+              "default": "0101010010",
+              "desc": "The address to trigger on (binary only currently). Can use X (0 or 1).\nPutting a lower number of bits: e.g. \"1011\" sets the address XXX1011.",
+              "overload": null,
+              "functionName": "I2C_TRIGGER_MSO2X",
+              "param": "addr",
+              "value": "01010000"
+            },
+            "data_direction": {
+              "type": "select",
+              "options": ["read", "write", "nocare"],
+              "default": "read",
+              "desc": "Trigger on read, write, or either data direction.",
+              "overload": null,
+              "functionName": "I2C_TRIGGER_MSO2X",
+              "param": "data_direction",
+              "value": "read"
+            },
+            "data_size": {
+              "type": "int",
+              "default": 1,
+              "desc": "The data size, in bytes, to trigger on.",
+              "overload": null,
+              "functionName": "I2C_TRIGGER_MSO2X",
+              "param": "data_size",
+              "value": 1
+            },
+            "data_value": {
+              "type": "str",
+              "default": "1100101",
+              "desc": "The data to trigger on (binary only currently).\nCan use X for wildcard (e.g. XXXXXXXX).",
+              "overload": null,
+              "functionName": "I2C_TRIGGER_MSO2X",
+              "param": "data_value",
+              "value": "1100101"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "input",
+              "id": "input",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "Trigger settings"
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/I2C_TRIGGER_MSO2X/I2C_TRIGGER_MSO2X.py"
+        },
+        "position": {
+          "x": 80.92603970464975,
+          "y": -403.4253809984887
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 80.92603970464975,
+          "y": -403.4253809984887
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "SETUP_FILE_MSO2X-44021f57-8b4f-4975-8e0b-d739e2a34acb",
+        "type": "HARDWARE",
+        "data": {
+          "id": "SETUP_FILE_MSO2X-44021f57-8b4f-4975-8e0b-d739e2a34acb",
+          "label": "SETUP FILE MSO2X",
+          "func": "SETUP_FILE_MSO2X",
+          "type": "HARDWARE",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
+              "overload": null,
+              "functionName": "SETUP_FILE_MSO2X",
+              "param": "connection",
+              "value": "TCPIP::169.254.9.12::INSTR"
+            },
+            "save_or_recall": {
+              "type": "select",
+              "options": ["save", "recall"],
+              "default": "save",
+              "desc": "Save or recall the file.",
+              "overload": null,
+              "functionName": "SETUP_FILE_MSO2X",
+              "param": "save_or_recall",
+              "value": "recall"
+            },
+            "filename": {
+              "type": "str",
+              "default": "flojoy",
+              "desc": "The file name to save or recall (\"flojoy\" results in \"C:/flojoy.set\").",
+              "overload": null,
+              "functionName": "SETUP_FILE_MSO2X",
+              "param": "filename",
+              "value": "flojoy"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "input",
+              "id": "input",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "Filename"
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "tm_devices",
+              "v": "1"
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/SETUP_FILE_MSO2X/SETUP_FILE_MSO2X.py"
+        },
+        "position": {
+          "x": 887.8446344823809,
+          "y": -399.0231350473995
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 887.8446344823809,
+          "y": -399.0231350473995
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "CHANNEL_DISPLAY_MSO2X-671fe3ed-7b37-4c06-8e15-cf22fed5701f",
+        "type": "HARDWARE",
+        "data": {
+          "id": "CHANNEL_DISPLAY_MSO2X-671fe3ed-7b37-4c06-8e15-cf22fed5701f",
+          "label": "CHANNEL DISPLAY MSO2X",
+          "func": "CHANNEL_DISPLAY_MSO2X",
+          "type": "HARDWARE",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
+              "overload": null,
+              "functionName": "CHANNEL_DISPLAY_MSO2X",
+              "param": "connection",
+              "value": "TCPIP::169.254.9.12::INSTR"
+            },
+            "ch1_display": {
+              "type": "select",
+              "options": ["1", "0"],
+              "default": "0",
+              "desc": "Turn the channel on or off",
+              "overload": null,
+              "functionName": "CHANNEL_DISPLAY_MSO2X",
+              "param": "ch1_display",
+              "value": "0"
+            },
+            "ch2_display": {
+              "type": "select",
+              "options": ["1", "0"],
+              "default": "0",
+              "desc": "Turn the channel on or off",
+              "overload": null,
+              "functionName": "CHANNEL_DISPLAY_MSO2X",
+              "param": "ch2_display",
+              "value": "0"
+            },
+            "ch3_display": {
+              "type": "select",
+              "options": ["1", "0"],
+              "default": "0",
+              "desc": "Turn the channel on or off",
+              "overload": null,
+              "functionName": "CHANNEL_DISPLAY_MSO2X",
+              "param": "ch3_display",
+              "value": "0"
+            },
+            "ch4_display": {
+              "type": "select",
+              "options": ["1", "0"],
+              "default": "0",
+              "desc": "Turn the channel on or off",
+              "overload": null,
+              "functionName": "CHANNEL_DISPLAY_MSO2X",
+              "param": "ch4_display",
+              "value": "0"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "input",
+              "id": "input",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "Channel display"
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "tm_devices",
+              "v": "1"
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/CHANNEL_DISPLAY_MSO2X/CHANNEL_DISPLAY_MSO2X.py"
+        },
+        "position": {
+          "x": -473.2054639867916,
+          "y": -412.0206235250195
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -473.2054639867916,
+          "y": -412.0206235250195
+        },
+        "dragging": true
+      },
+      {
+        "width": 96,
+        "height": 96,
+        "id": "CONDITIONAL-47d95546-3808-41d1-9edd-2e58095e9406",
+        "type": "CONDITIONALS",
+        "data": {
+          "id": "CONDITIONAL-47d95546-3808-41d1-9edd-2e58095e9406",
+          "label": "CONDITIONAL",
+          "func": "CONDITIONAL",
+          "type": "CONDITIONALS",
+          "ctrls": {
+            "operator_type": {
+              "type": "select",
+              "options": ["<=", ">", "<", ">=", "!=", "=="],
+              "default": ">=",
+              "desc": "Specifies the type of comparison to be performed between the two inputs. The default value is \">=\".",
+              "overload": null,
+              "functionName": "CONDITIONAL",
+              "param": "operator_type",
+              "value": "=="
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "x",
+              "id": "x",
+              "type": "Scalar",
+              "multiple": false,
+              "desc": null
+            },
+            {
+              "name": "y",
+              "id": "y",
+              "type": "Scalar",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "true",
+              "id": "true",
+              "type": "Any",
+              "desc": "Forwards the first value to the true branch."
+            },
+            {
+              "name": "false",
+              "id": "false",
+              "type": "Any",
+              "desc": null
+            }
+          ],
+          "path": "CONTROL_FLOW/CONDITIONALS/CONDITIONAL/CONDITIONAL.py"
+        },
+        "position": {
+          "x": -776.4154898542365,
+          "y": -55.54019728659364
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -776.4154898542365,
+          "y": -55.54019728659364
+        },
+        "dragging": true
+      },
+      {
+        "width": 208,
+        "height": 96,
+        "id": "CONSTANT-f6782079-0d2a-465c-8df8-1e5ccf827ac4",
+        "type": "DATA",
+        "data": {
+          "id": "CONSTANT-f6782079-0d2a-465c-8df8-1e5ccf827ac4",
+          "label": "3",
+          "func": "CONSTANT",
+          "type": "DATA",
+          "ctrls": {
+            "dc_type": {
+              "type": "select",
+              "options": ["Scalar", "Vector", "OrderedPair"],
+              "default": "OrderedPair",
+              "desc": "The type of DataContainer to return.",
+              "overload": null,
+              "functionName": "CONSTANT",
+              "param": "dc_type",
+              "value": "Scalar"
+            },
+            "constant": {
+              "type": "float",
+              "default": 3,
+              "desc": "The value of the y axis output.",
+              "overload": null,
+              "functionName": "CONSTANT",
+              "param": "constant",
+              "value": 3
+            },
+            "step": {
+              "type": "float",
+              "default": 1000,
+              "desc": "The size of the y and x axes.",
+              "overload": null,
+              "functionName": "CONSTANT",
+              "param": "step",
+              "value": 1000
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Vector|OrderedPair",
+              "multiple": false,
+              "desc": "Optional input that defines the size of the output."
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|Vector|Scalar",
+              "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
+            }
+          ],
+          "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
+        },
+        "position": {
+          "x": -1021.0656052942246,
+          "y": -116.18973169842019
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -1021.0656052942246,
+          "y": -116.18973169842019
+        },
+        "dragging": true
+      },
+      {
+        "width": 208,
+        "height": 96,
+        "id": "CONSTANT-2851e71b-bed1-47e5-a56d-cc27bdbb3d1a",
+        "type": "DATA",
+        "data": {
+          "id": "CONSTANT-2851e71b-bed1-47e5-a56d-cc27bdbb3d1a",
+          "label": "3",
+          "func": "CONSTANT",
+          "type": "DATA",
+          "ctrls": {
+            "dc_type": {
+              "type": "select",
+              "options": ["Scalar", "Vector", "OrderedPair"],
+              "default": "OrderedPair",
+              "desc": "The type of DataContainer to return.",
+              "overload": null,
+              "functionName": "CONSTANT",
+              "param": "dc_type",
+              "value": "Scalar"
+            },
+            "constant": {
+              "type": "float",
+              "default": 3,
+              "desc": "The value of the y axis output.",
+              "overload": null,
+              "functionName": "CONSTANT",
+              "param": "constant",
+              "value": 3
+            },
+            "step": {
+              "type": "float",
+              "default": 1000,
+              "desc": "The size of the y and x axes.",
+              "overload": null,
+              "functionName": "CONSTANT",
+              "param": "step",
+              "value": 1000
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Vector|OrderedPair",
+              "multiple": false,
+              "desc": "Optional input that defines the size of the output."
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|Vector|Scalar",
+              "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
+            }
+          ],
+          "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
+        },
+        "position": {
+          "x": -1019.6975500699928,
+          "y": 17.52435499031907
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -1019.6975500699928,
+          "y": 17.52435499031907
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "SINGLE_TRIGGER_MSO2X-24f3cd96-eca4-4197-b4eb-587523f59dba",
+        "type": "HARDWARE",
+        "data": {
+          "id": "SINGLE_TRIGGER_MSO2X-24f3cd96-eca4-4197-b4eb-587523f59dba",
+          "label": "SINGLE TRIGGER MSO2X 1",
+          "func": "SINGLE_TRIGGER_MSO2X",
+          "type": "HARDWARE",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
+              "overload": null,
+              "functionName": "SINGLE_TRIGGER_MSO2X",
+              "param": "connection",
+              "value": ""
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "input",
+              "id": "input",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "Trigger"
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/SINGLE_TRIGGER_MSO2X/SINGLE_TRIGGER_MSO2X.py"
+        },
+        "position": {
+          "x": -443.2292459030386,
+          "y": -102.69713451427816
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -443.2292459030386,
+          "y": -102.69713451427816
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "DECODE_I2C_MSO2X-2798eab0-afd3-46b2-88ef-31d57868da2e",
+        "type": "HARDWARE",
+        "data": {
+          "id": "DECODE_I2C_MSO2X-2798eab0-afd3-46b2-88ef-31d57868da2e",
+          "label": "DECODE I2C MSO2X 1",
+          "func": "DECODE_I2C_MSO2X",
+          "type": "HARDWARE",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
+              "overload": null,
+              "functionName": "DECODE_I2C_MSO2X",
+              "param": "connection",
+              "value": ""
+            },
+            "bus_number": {
+              "type": "int",
+              "default": 1,
+              "desc": "The bus number to use.",
+              "overload": null,
+              "functionName": "DECODE_I2C_MSO2X",
+              "param": "bus_number",
+              "value": 1
+            },
+            "clock_channel": {
+              "type": "select",
+              "options": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "D0",
+                "D1",
+                "D2",
+                "D3",
+                "D4",
+                "D5",
+                "D6",
+                "D7",
+                "D8",
+                "D9",
+                "D10",
+                "D12",
+                "D13",
+                "D14",
+                "D15"
+              ],
+              "default": "1",
+              "desc": "The clock channel to use.",
+              "overload": null,
+              "functionName": "DECODE_I2C_MSO2X",
+              "param": "clock_channel",
+              "value": "1"
+            },
+            "data_channel": {
+              "type": "select",
+              "options": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "D0",
+                "D1",
+                "D2",
+                "D3",
+                "D4",
+                "D5",
+                "D6",
+                "D7",
+                "D8",
+                "D9",
+                "D10",
+                "D12",
+                "D13",
+                "D14",
+                "D15"
+              ],
+              "default": "1",
+              "desc": "The data channel to use.",
+              "overload": null,
+              "functionName": "DECODE_I2C_MSO2X",
+              "param": "data_channel",
+              "value": "1"
+            },
+            "clock_threshold": {
+              "type": "float",
+              "default": 1,
+              "desc": "The clock threshold voltage to use.",
+              "overload": null,
+              "functionName": "DECODE_I2C_MSO2X",
+              "param": "clock_threshold",
+              "value": 1
+            },
+            "data_threshold": {
+              "type": "float",
+              "default": 1,
+              "desc": "The data threshold voltage to use.",
+              "overload": null,
+              "functionName": "DECODE_I2C_MSO2X",
+              "param": "data_threshold",
+              "value": 1
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "input",
+              "id": "input",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "I2C messages"
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/DECODE_I2C_MSO2X/DECODE_I2C_MSO2X.py"
+        },
+        "position": {
+          "x": -153.17106570792146,
+          "y": -102.99466572795626
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -153.17106570792146,
+          "y": -102.99466572795626
+        },
+        "dragging": true
+      },
+      {
+        "width": 225,
+        "height": 225,
+        "id": "TEXT_VIEW-3bb02624-9ecb-4a31-8868-99103d4649b6",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "TEXT_VIEW-3bb02624-9ecb-4a31-8868-99103d4649b6",
+          "label": "TEXT VIEW",
+          "func": "TEXT_VIEW",
+          "type": "VISUALIZATION",
+          "ctrls": {
+            "prettify": {
+              "type": "bool",
+              "default": false,
+              "desc": "Whether to prettify the displayed text (defaults to True)",
+              "overload": null,
+              "functionName": "TEXT_VIEW",
+              "param": "prettify",
+              "value": false
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String|Boolean",
+              "multiple": false,
+              "desc": "The DataContainer to be visualized in text format"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "The DataContainer containing text data"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
+        },
+        "position": {
+          "x": 150.07574722862944,
+          "y": -120.29524142939431
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 150.07574722862944,
+          "y": -120.29524142939431
+        },
+        "dragging": true
+      }
+    ],
+    "edges": [
+      {
+        "source": "I2C_TRIGGER_MSO2X-8811a717-1430-4b30-8f6f-3dcb9fd59973",
+        "sourceHandle": "default",
+        "target": "DECODE_I2C_MSO2X-9e3b77b3-a495-4bf2-9cf6-d398605c4fa7",
+        "targetHandle": "input",
+        "id": "reactflow__edge-I2C_TRIGGER_MSO2X-8811a717-1430-4b30-8f6f-3dcb9fd59973default-DECODE_I2C_MSO2X-9e3b77b3-a495-4bf2-9cf6-d398605c4fa7input"
+      },
+      {
+        "source": "DECODE_I2C_MSO2X-9e3b77b3-a495-4bf2-9cf6-d398605c4fa7",
+        "sourceHandle": "default",
+        "target": "SINGLE_TRIGGER_MSO2X-b4ee39a9-8e98-416a-a9f2-16d098df07c2",
+        "targetHandle": "input",
+        "id": "reactflow__edge-DECODE_I2C_MSO2X-9e3b77b3-a495-4bf2-9cf6-d398605c4fa7default-SINGLE_TRIGGER_MSO2X-b4ee39a9-8e98-416a-a9f2-16d098df07c2input"
+      },
+      {
+        "source": "CHANNEL_DISPLAY_MSO2X-671fe3ed-7b37-4c06-8e15-cf22fed5701f",
+        "sourceHandle": "default",
+        "target": "DIGITAL_CHANNELS_MSO2X-366d8174-b1f0-4417-84b0-8c6c8c12a01a",
+        "targetHandle": "input",
+        "id": "reactflow__edge-CHANNEL_DISPLAY_MSO2X-671fe3ed-7b37-4c06-8e15-cf22fed5701fdefault-DIGITAL_CHANNELS_MSO2X-366d8174-b1f0-4417-84b0-8c6c8c12a01ainput"
+      },
+      {
+        "source": "DIGITAL_CHANNELS_MSO2X-366d8174-b1f0-4417-84b0-8c6c8c12a01a",
+        "sourceHandle": "default",
+        "target": "I2C_TRIGGER_MSO2X-8811a717-1430-4b30-8f6f-3dcb9fd59973",
+        "targetHandle": "input",
+        "id": "reactflow__edge-DIGITAL_CHANNELS_MSO2X-366d8174-b1f0-4417-84b0-8c6c8c12a01adefault-I2C_TRIGGER_MSO2X-8811a717-1430-4b30-8f6f-3dcb9fd59973input"
+      },
+      {
+        "source": "SINGLE_TRIGGER_MSO2X-b4ee39a9-8e98-416a-a9f2-16d098df07c2",
+        "sourceHandle": "default",
+        "target": "SETUP_FILE_MSO2X-44021f57-8b4f-4975-8e0b-d739e2a34acb",
+        "targetHandle": "input",
+        "id": "reactflow__edge-SINGLE_TRIGGER_MSO2X-b4ee39a9-8e98-416a-a9f2-16d098df07c2default-SETUP_FILE_MSO2X-44021f57-8b4f-4975-8e0b-d739e2a34acbinput"
+      },
+      {
+        "source": "CONSTANT-f6782079-0d2a-465c-8df8-1e5ccf827ac4",
+        "sourceHandle": "default",
+        "target": "CONDITIONAL-47d95546-3808-41d1-9edd-2e58095e9406",
+        "targetHandle": "y",
+        "id": "reactflow__edge-CONSTANT-f6782079-0d2a-465c-8df8-1e5ccf827ac4default-CONDITIONAL-47d95546-3808-41d1-9edd-2e58095e9406y"
+      },
+      {
+        "source": "CONSTANT-2851e71b-bed1-47e5-a56d-cc27bdbb3d1a",
+        "sourceHandle": "default",
+        "target": "CONDITIONAL-47d95546-3808-41d1-9edd-2e58095e9406",
+        "targetHandle": "x",
+        "id": "reactflow__edge-CONSTANT-2851e71b-bed1-47e5-a56d-cc27bdbb3d1adefault-CONDITIONAL-47d95546-3808-41d1-9edd-2e58095e9406x"
+      },
+      {
+        "source": "CONDITIONAL-47d95546-3808-41d1-9edd-2e58095e9406",
+        "sourceHandle": "true",
+        "target": "CHANNEL_DISPLAY_MSO2X-671fe3ed-7b37-4c06-8e15-cf22fed5701f",
+        "targetHandle": "input",
+        "id": "reactflow__edge-CONDITIONAL-47d95546-3808-41d1-9edd-2e58095e9406true-CHANNEL_DISPLAY_MSO2X-671fe3ed-7b37-4c06-8e15-cf22fed5701finput"
+      },
+      {
+        "source": "CONDITIONAL-47d95546-3808-41d1-9edd-2e58095e9406",
+        "sourceHandle": "false",
+        "target": "SINGLE_TRIGGER_MSO2X-24f3cd96-eca4-4197-b4eb-587523f59dba",
+        "targetHandle": "input",
+        "id": "reactflow__edge-CONDITIONAL-47d95546-3808-41d1-9edd-2e58095e9406false-SINGLE_TRIGGER_MSO2X-24f3cd96-eca4-4197-b4eb-587523f59dbainput"
+      },
+      {
+        "source": "SINGLE_TRIGGER_MSO2X-24f3cd96-eca4-4197-b4eb-587523f59dba",
+        "sourceHandle": "default",
+        "target": "DECODE_I2C_MSO2X-2798eab0-afd3-46b2-88ef-31d57868da2e",
+        "targetHandle": "input",
+        "id": "reactflow__edge-SINGLE_TRIGGER_MSO2X-24f3cd96-eca4-4197-b4eb-587523f59dbadefault-DECODE_I2C_MSO2X-2798eab0-afd3-46b2-88ef-31d57868da2einput"
+      },
+      {
+        "source": "DECODE_I2C_MSO2X-2798eab0-afd3-46b2-88ef-31d57868da2e",
+        "sourceHandle": "default",
+        "target": "TEXT_VIEW-3bb02624-9ecb-4a31-8868-99103d4649b6",
+        "targetHandle": "default",
+        "id": "reactflow__edge-DECODE_I2C_MSO2X-2798eab0-afd3-46b2-88ef-31d57868da2edefault-TEXT_VIEW-3bb02624-9ecb-4a31-8868-99103d4649b6default"
+      },
+      {
+        "source": "CONNECT_MSO2X-e0127b8f-00c6-4b2a-b2e7-d4252169e2ab",
+        "sourceHandle": "default",
+        "target": "CHANNEL_DISPLAY_MSO2X-671fe3ed-7b37-4c06-8e15-cf22fed5701f",
+        "targetHandle": "input",
+        "id": "reactflow__edge-CONNECT_MSO2X-e0127b8f-00c6-4b2a-b2e7-d4252169e2abdefault-CHANNEL_DISPLAY_MSO2X-671fe3ed-7b37-4c06-8e15-cf22fed5701finput"
+      },
+      {
+        "source": "CONNECT_MSO2X-e0127b8f-00c6-4b2a-b2e7-d4252169e2ab",
+        "sourceHandle": "default",
+        "target": "SINGLE_TRIGGER_MSO2X-24f3cd96-eca4-4197-b4eb-587523f59dba",
+        "targetHandle": "input",
+        "id": "reactflow__edge-CONNECT_MSO2X-e0127b8f-00c6-4b2a-b2e7-d4252169e2abdefault-SINGLE_TRIGGER_MSO2X-24f3cd96-eca4-4197-b4eb-587523f59dbainput"
+      }
+    ],
+    "viewport": {
+      "x": 1190.4561072220934,
+      "y": 764.5501802498277,
+      "zoom": 1.0997982890905766
+    }
+  },
+  "textNodes": [
+    {
+      "id": "TextNode-57b8eb78-29f7-4e7b-ad0e-cbfebf660c2b",
+      "position": {
+        "x": -1527.3462030065043,
+        "y": -115.13757050712042
+      },
+      "type": "TextNode",
+      "data": {
+        "text": "## If these two constants are equal, the top row will run. Use the top row first to setup the scope.\n\n\n## If the constants are not equal the bottom row will run to decode an I2C message."
+      },
+      "width": 469,
+      "height": 235,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -1527.3462030065043,
+        "y": -115.13757050712042
+      },
+      "dragging": false,
+      "style": {
+        "width": 469,
+        "height": 235
+      },
+      "resizing": false
+    }
+  ]
+}

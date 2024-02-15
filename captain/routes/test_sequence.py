@@ -8,6 +8,7 @@ from captain.utils.config import ts_manager
 from captain.utils.test_sequencer.handle_data import handle_data
 from captain.utils.logger import logger
 from pydantic import BaseModel, Field
+from threading import Thread
 
 router = APIRouter(tags=["ws"])
 
@@ -26,7 +27,7 @@ async def websocket_endpoint(websocket: WebSocket, socket_id: str):
             data = await websocket.receive_text()
             data = json.loads(data)
             data = pydantic.TypeAdapter(TestSequenceRun).validate_python(data)
-            handle_data(data)
+            Thread(target=handle_data, args=((data,))).start()
 
     except WebSocketDisconnect:
         await ts_manager.ws.disconnect(socket_id=socket_id)
@@ -42,6 +43,8 @@ class DiscoverPytestParams(BaseModel):
 async def discover_pytest(params: DiscoverPytestParams = Depends()):
     path = params.path
     one_file = params.one_file
-    return TestDiscoverContainer(
-        response=discover_pytest_file(path, one_file)
-    ).model_dump_json(by_alias=True)
+    return_val = []
+    thread = Thread(target=discover_pytest_file, args=(path, one_file, return_val))
+    thread.start()
+    thread.join()
+    return TestDiscoverContainer(response=return_val).model_dump_json(by_alias=True)

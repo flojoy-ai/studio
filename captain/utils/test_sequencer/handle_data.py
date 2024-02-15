@@ -3,6 +3,9 @@ from captain.models.test_sequencer import TestSequenceEvents, TestSequenceRun
 from captain.utils.logger import logger
 from captain.utils.test_sequencer.run_test_sequence import run_test_sequence
 from typing import Callable
+from threading import Lock
+
+lock = Lock()
 
 
 def _handle_subscribe(data: TestSequenceRun):
@@ -10,7 +13,7 @@ def _handle_subscribe(data: TestSequenceRun):
 
 
 def _handle_run(data: TestSequenceRun):
-    asyncio.create_task(run_test_sequence(data.data))
+    asyncio.run(run_test_sequence(data.data))
 
 
 event_to_handle: dict[TestSequenceEvents, Callable[[TestSequenceRun], None]] = {
@@ -26,4 +29,5 @@ def handle_data(data: TestSequenceRun):
     Parameters:
     data (string): the text received from the websocket
     """
-    event_to_handle[data.event](data)
+    with lock:
+        event_to_handle[data.event](data)
