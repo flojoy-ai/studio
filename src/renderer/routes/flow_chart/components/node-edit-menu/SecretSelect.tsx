@@ -24,7 +24,7 @@ export const SecretSelect = ({ onValueChange, value }: SelectProps) => {
         const keys = res.data.map((d) => d.key);
         setSecrets(keys);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
     fetchCredentials();
