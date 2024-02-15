@@ -153,22 +153,24 @@ async def _case_if_node(node: IfNode) -> Extract:
     return get_next_children_from_context, None
 
 
+map_to_handler = (
+    "type",
+    {
+        "root": (None, _case_root),
+        "test": (None, _case_test),
+        "conditional": (
+            "conditional_type",
+            {
+                "if": (None, _case_if_node),
+            },
+        ),
+    },
+)
+
+
 async def _extract_from_node(node: TestRootNode | TestSequenceElementNode) -> Extract:
     if not bool(node.__dict__):
         return lambda _: None, None
-    map_to_handler = (
-        "type",
-        {
-            "root": (None, _case_root),
-            "test": (None, _case_test),
-            "conditional": (
-                "conditional_type",
-                {
-                    "if": (None, _case_if_node),
-                },
-            ),
-        },
-    )
     matcher, cur = map_to_handler
     while not callable(cur):
         matcher, cur = cur[node.__dict__[matcher]]
