@@ -46,6 +46,8 @@ language = {
 
 ParseItem = Union[Token, Expression]
 
+track_identifiers = set()
+
 
 def _tokenize(s: str, symbol_table: SymbolTableType) -> list[Token]:
     """

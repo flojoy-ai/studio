@@ -11,12 +11,12 @@
       {
         "name": "s3_access_key",
         "type": "str",
-        "description": "The name of the key used to save the AWS access key."
+        "description": "AWS access key."
       },
       {
         "name": "s3_secret_key",
         "type": "str",
-        "description": "The name of the key used to save the AWS secret key."
+        "description": "AWS secret key."
       },
       {
         "name": "bucket",

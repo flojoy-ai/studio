@@ -21,4 +21,5 @@ export type ParamValueType =
   | "File"
   | "Directory"
   | "TextArea"
+  | "Secret"
   | "unknown";

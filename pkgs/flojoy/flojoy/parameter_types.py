@@ -1,3 +1,4 @@
+from flojoy.env_var import get_env_var
 from typing import Any, NewType, Union, Callable
 from abc import ABC
 
@@ -159,6 +160,18 @@ class Directory:
         return self.ref
 
 
+class Secret:
+    """Node parameter type of str"""
+
+    ref: str
+
+    def __init__(self, ref: str) -> None:
+        self.ref = ref
+
+    def unwrap(self):
+        return get_env_var(self.ref)
+
+
 TextArea = NewType("TextArea", str)
 
 
@@ -178,6 +191,8 @@ def format_param_value(value: Any, value_type: str):
             return str(value)
         case "TextArea":
             return TextArea(value)
+        case "Secret":
+            return Secret(value)
         case "CameraDevice" | "CameraConnection":
             return (
                 CameraDevice(int(value)) if value.isnumeric() else CameraDevice(value)

@@ -51,4 +51,3 @@ class EarlyIdentifier(Exception):
         self.message = (
             f"Unable to access test result for {message} as it's executed afterward"
         )
-        super().__init__(self.message)
