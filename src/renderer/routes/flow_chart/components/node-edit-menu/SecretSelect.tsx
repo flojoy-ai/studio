@@ -16,7 +16,6 @@ export type SelectProps = {
 
 export const SecretSelect = ({ onValueChange, value }: SelectProps) => {
   const [secrets, setSecrets] = useState<string[]>([]);
-  const [found, setFound] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchCredentials = async () => {
