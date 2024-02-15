@@ -37,7 +37,7 @@ export const SecretSelect = ({ onValueChange, value }: SelectProps) => {
         disabled={!secrets.length}
       >
         <SelectValue
-          placeholder={found ? value : "No environment variable found"}
+          placeholder={secrets.length ? value : "No environment variable found"}
         />
       </SelectTrigger>
       <SelectContent className="max-h-72">
