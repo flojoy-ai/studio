@@ -23,7 +23,6 @@ export const SecretSelect = ({ onValueChange, value }: SelectProps) => {
         const res = await baseClient.get("env");
         const keys = res.data.map((d) => d.key);
         setSecrets(keys);
-        setFound(keys.length > 0);
       } catch (error) {
         console.log(error);
       }
