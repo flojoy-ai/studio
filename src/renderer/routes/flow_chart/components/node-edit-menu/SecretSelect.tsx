@@ -34,7 +34,7 @@ export const SecretSelect = ({ onValueChange, value }: SelectProps) => {
     <Select onValueChange={onValueChange}>
       <SelectTrigger
         className="border-none bg-background focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1 "
-        disabled={!found}
+        disabled={!secrets.length}
       >
         <SelectValue
           placeholder={found ? value : "No environment variable found"}
