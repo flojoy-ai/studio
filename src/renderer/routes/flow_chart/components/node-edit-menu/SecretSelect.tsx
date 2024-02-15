@@ -25,9 +25,6 @@ export const SecretSelect = ({ onValueChange, value }: SelectProps) => {
         const keys = res.data.map((d) => d.key);
         setSecrets(keys);
         setFound(keys.length > 0);
-        if (found) {
-          value ??= keys[0];
-        }
       } catch (error) {
         console.log(error);
       }
