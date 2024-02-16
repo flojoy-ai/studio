@@ -33,26 +33,22 @@ export function CloudPanel() {
         <h2 className="mb-2 text-lg font-bold text-accent1 pt-3 text-center "> Cloud Panel </h2>
         
         <div className="text-muted-foreground"><h2>Hardware id</h2></div>
-        <div>
-          <Input
-            className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
-            type="text"
-            value={input1Value}
-            onChange={handleInputChange1}
-            placeholder="Scan or enter hardware id"
-          />
-        </div>
+        <Input
+          className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
+          type="text"
+          value={input1Value}
+          onChange={handleInputChange1}
+          placeholder="Scan or enter hardware id"
+        />
 
-        <div className="text-muted-foreground"><h2>Test Sequence id</h2></div>
-        <div>
-          <Input
-            className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
-            type="text"
-            value={input1Value}
-            onChange={handleInputChange1}
-            placeholder="Scan or enter hardware id"
-          />
-        </div>
+        <div className="text-muted-foreground pt-2"><h2>Test Sequence id</h2></div>
+        <Input
+          className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
+          type="text"
+          value={input1Value}
+          onChange={handleInputChange1}
+          placeholder="Scan or enter hardware id"
+        />
 
         <div>
           <LockableButton 

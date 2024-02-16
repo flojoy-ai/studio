@@ -14,12 +14,8 @@ import { TSWebSocketContext } from "../../../context/testSequencerWS.context";
 import { LockedContextProvider } from "@/renderer/context/lock.context";
 
 
-// const INPUT_FIELD_STYLE =
-//   "h-10 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap border-muted/60 text-sm focus:border-muted-foreground focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 sm:w-48";
-
 const TestSequencerView = () => {
-  // const [deviceId, setDeviceID] = useState("");
-  // const [testRunTag, setTestRunTag] = useState("");
+
   const { setElems, tree, setIsLocked } = useTestSequencerState();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
 
