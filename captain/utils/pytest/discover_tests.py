@@ -1,3 +1,4 @@
+import time
 import os
 from captain.utils.logger import logger
 from typing import List, Union
@@ -12,6 +13,7 @@ from pytest_jsonreport.plugin import JSONReport
 
 
 def discover_pytest_file(path: str, one_file: bool, return_val: list):
+    time.sleep(2)
     plugin = JSONReport()
     pytest.main(
         ["-s", "--json-report-file=none", "--collect-only", path], plugins=[plugin]
