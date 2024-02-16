@@ -41,7 +41,16 @@ export type SetElemsFn = {
  * @param elems - The array of test sequence elements
  */
 const createTestSequenceTree = (elems: TestSequenceElement[]): TestRootNode => {
-  const root = { type: "root", children: [] } as TestRootNode;
+  const identifiers = (
+    elems.filter((elem) => elem.type === "test") as Test[]
+  ).map((elem: Test) => {
+    return elem.testName;
+  });
+  const root = {
+    type: "root",
+    children: [],
+    identifiers: identifiers,
+  } as TestRootNode;
   const stack: TestSequenceElementNode[][] = [root.children];
   for (let i = 0; i < elems.length; i++) {
     const curElem = elems[i];
