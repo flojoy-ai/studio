@@ -4,6 +4,7 @@
 import { useContext, useState } from "react";
 import { DataTable } from "./DataTable";
 import { SummaryTable } from "./SummaryTable";
+import { CloudPanel } from "./CloudPanel";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { testSequenceRunRequest } from "../models/models";
 import { TestSequenceElement } from "@/renderer/types/testSequencer";
@@ -11,6 +12,7 @@ import { ImportTestModal } from "./ImportTestModal";
 import LockableButton from "./lockable/LockedButtons";
 import { TSWebSocketContext } from "../../../context/testSequencerWS.context";
 import { LockedContextProvider } from "@/renderer/context/lock.context";
+
 
 // const INPUT_FIELD_STYLE =
 //   "h-10 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap border-muted/60 text-sm focus:border-muted-foreground focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 sm:w-48";
@@ -45,45 +47,54 @@ const TestSequencerView = () => {
 
   return (
     <LockedContextProvider>
-      <div className="absolute ml-auto mr-auto h-2/3 w-full flex-col space-y-5 overflow-y-auto">
+      <div>
         <ImportTestModal
           isModalOpen={isImportModalOpen}
           handleModalOpen={setIsImportModalOpen}
           handleImport={() => {}}
         ></ImportTestModal>
-        {/* New Test Form */}
-        {/* <div className="flex flex-row space-x-5"> */}
-        {/*   <Input */}
-        {/*     className={INPUT_FIELD_STYLE} */}
-        {/*     value={deviceId} */}
-        {/*     onChange={(e) => setDeviceID(e.target.value)} */}
-        {/*     placeholder="Device ID (optional)" */}
-        {/*     disabled={IS_CLOUD_DEMO} */}
-        {/*   /> */}
-        {/*   <Input */}
-        {/*     className={INPUT_FIELD_STYLE} */}
-        {/*     value={testRunTag} */}
-        {/*     onChange={(e) => setTestRunTag(e.target.value)} */}
-        {/*     placeholder="Test Run Tag (optional)" */}
-        {/*     disabled={IS_CLOUD_DEMO} */}
-        {/*   /> */}
-        {/*   <Button>New Test</Button> */}
-        {/* </div> */}
-
-        <div className="w-5/6">
-          <DataTable />
-          <SummaryTable />
+        <div className="absolute ml-auto mr-auto h-2/3 w-full flex-col space-y-5 overflow-y-auto">
+          <div class="flex">
+            <div className="w-4/5  h-2/3 w-full flex-col space-y-5 overflow-y-auto">
+              <SummaryTable />
+              <DataTable />
+            </div>
+            
+          </div>
         </div>
 
-        {/* Test Flow Control buttons */}
-        <div className="flex flex-row space-x-5">
-          <LockableButton onClick={handleClickImportTest}>
-            + Import test
-          </LockableButton>
-          {/* <LockableButton>Save test run</LockableButton> */}
-          {/* <LockableButton>Export test</LockableButton> */}
-          <LockableButton onClick={handleClickRunTest}>Run Test</LockableButton>
+      <div class="flex justify-end">
+        <div className="flex-none w-1/6 pl-5 sticky top-0">
+          <CloudPanel />
+          <div className="rounded-xl border border-gray-300 rounded-xl border border-gray-300 py-4 dark:border-gray-800 p-4 mt-5"> 
+            <div class="flex flex-col">
+              <h2 className="mb-2 text-lg font-bold text-accent1 pt-3 text-center "> Control Panel </h2>
+              <div>
+                <LockableButton
+                  className="w-full mt-4"
+                  variant="outline"
+                  onClick={handleClickImportTest}
+                >
+                  Import Python Tests 
+                </LockableButton>
+              </div>
+              <LockableButton className="w-full mt-4" variant="outline">Import Test Run</LockableButton>
+              <LockableButton className="w-full mt-4" variant="outline">Export Test Run</LockableButton>
+
+              <LockableButton
+                data-cy="btn-play"
+                data-testid="btn-play"
+                variant="dotted"
+                id="btn-play"
+                className="w-full gap-2 mt-4"
+                onClick={handleClickRunTest}
+              >
+                Run Test Sequence
+              </LockableButton>
+            </div>
+          </div>
         </div>
+      </div>
       </div>
     </LockedContextProvider>
   );

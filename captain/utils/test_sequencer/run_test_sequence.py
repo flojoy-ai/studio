@@ -51,6 +51,22 @@ def _run_pytest(file_path):
     return is_pass, end_time - start_time
 
 
+import flojoy_cloud
+from datetime import datetime
+cloud = flojoy_cloud.FlojoyCloud(workspace_secret="eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJ1c2VyX2F4NGgyMGt5cnhncnBxNXo2aXZrMjl3eCIsIndvcmtzcGFjZUlkIjoid29ya3NwYWNlX29pZHl0MzBkMm5yM2Ryam01MW8weHo2ZCIsImlhdCI6MTcwODExMDM5Nn0.j5w6Tw2XOtFTyiD6x4tLlwfsoQq1Its0lagQjsKAqXw")
+def publish_result_to_cloud(test_name, is_pass, test_id, hardware_id, data=None):
+
+    cloud.upload(
+        name=test_name,
+        test_id=test_id,
+        hardware_id=hardware_id,
+        passed=is_pass,
+        data=is_pass,
+        created_at=datetime.now()
+    )
+
+
+
 def _recursive_namespace(d):
     """
     instead of doing data["element"] we can do data.element
@@ -132,6 +148,8 @@ async def _case_test(node: TestNode) -> Extract:
     # TODO: support run in parallel feature
     await _stream_result_to_frontend(MsgState.RUNNING, test_id=node.id)
     result, time_taken = _run_pytest(node.path)
+    publish_result_to_cloud
+    publish_result_to_cloud(node.test_name, result, "test_l4xvso9edokolvydh1uheofo", "hardware_ejqkt6ioipfw6411vcn0ig1m")
     await _stream_result_to_frontend(
         state=MsgState.TEST_DONE,
         test_id=node.id,
