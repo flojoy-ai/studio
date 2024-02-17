@@ -51,7 +51,7 @@ const TestSequencerView = () => {
         ></ImportTestModal>
         <div className="absolute ml-auto mr-auto h-2/3 w-full flex-col space-y-5 overflow-y-auto">
           <div class="flex">
-            <div className="w-4/5  h-2/3 w-full flex-col space-y-5 overflow-y-auto">
+            <div className="w-4/5  h-2/3 flex-col space-y-5 overflow-y-auto">
               <SummaryTable />
               <DataTable />
             </div>
