@@ -137,7 +137,7 @@ Don't forget to update the script with app domain name.
 
 ### Setup Credentials
 
-Credentials are required for cloud app to run with it's all features. So we need to setup our own credentials. Let's do that in real quick with a few steps:
+Credentials are required for cloud app to run. So we need to setup our own credentials. Let's do that in real quick with a few steps:
 
 1. Go to EC2 dashboard from left sidebar. Then click on just launched instance and copy public ip.
 
@@ -156,6 +156,7 @@ Credentials are required for cloud app to run with it's all features. So we need
 4. Now open `/root/cloud/.env` file with your preferable editor `nano` or `vim` and paste following template with valid credentials:
 
 ```txt
+JWT_SECRET=""                           # JWT secret for authentication
 AWS_REGION=""                           # AWS region
 SENDER_EMAIL=""                         # Email registered for AWS SES
 GOOGLE_CLIENT_ID=""                     # Google auth client id
@@ -183,11 +184,14 @@ Change `<cloud-domain>` with the domain name you want to use for this app
 5. Restart Cloud app service:
 
 ```sh
-systemctl stop cloud_app
-systemctl start cloud_app
+systemctl restart cloud_app
 ```
 
 This will build the app with new credentials and start the app.
+
+:::note
+We use Docker compose to build Cloud app and deploy. You can watch build logs by running `tail -f /root/cloud-build.log`
+:::
 
 ### Enable HTTPS
 
