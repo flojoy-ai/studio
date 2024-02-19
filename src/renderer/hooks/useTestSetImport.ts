@@ -13,7 +13,7 @@ export const useTestSetImport = () => {
         setElems(elems);
       })
       .catch((errors) => {
-        console.log("Errors when trying to load file: ", errors);
+        console.error("Errors when trying to load file: ", errors);
       });
   };
 
