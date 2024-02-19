@@ -30,18 +30,15 @@ function getIcon(distro: Distro) {
 function getLink(distro: Distro, tagName: string): string {
   const version = tagName.slice(1);
   const baseLink =
-    "https://github.com/flojoy-ai/studio/releases/download/v" +
-    version +
-    "/Flojoy-Studio-Setup-" +
-    version;
+    "https://github.com/flojoy-ai/studio/releases/download/v" + version;
 
   switch (distro) {
     case "mac":
-      return baseLink + "-universal.dmg";
+      return baseLink + "Flojoy-Studio-" + version + "-universal.dmg";
     case "linux":
-      return baseLink + ".AppImage";
+      return baseLink + "Flojoy-Studio-" + version + ".AppImage";
     case "windows":
-      return baseLink + ".exe";
+      return baseLink + "Flojoy-Studio-Setup-" + version + ".exe";
   }
 }
 const DownloadButton = ({ distro }: Props) => {
