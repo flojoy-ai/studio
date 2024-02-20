@@ -61,7 +61,12 @@ const getSuccessRate = (data: TestSequenceElement[]): number => {
 const columns: ColumnDef<Summary>[] = [
   {
     accessorKey: "id",
-    header: "",
+    // @ts-ignore
+    header: (
+      <h2 className="mb-2 pt-2 text-lg font-bold text-accent1">
+        Test Sequencer
+      </h2>
+    ),
     cell: () => <div>Summary:</div>,
   },
   {

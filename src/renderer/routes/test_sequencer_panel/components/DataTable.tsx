@@ -55,7 +55,7 @@ import {
 } from "lucide-react";
 import { WriteConditionalModal } from "./AddWriteConditionalModal";
 import LockableButton from "./lockable/LockedButtons";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const IndentLine = ({
   content: name,
@@ -84,7 +84,7 @@ const mapStatusToDisplay: { [k in StatusTypes]: React.ReactNode } = {
 
 export function DataTable() {
   const { elems, setElems, running } = useTestSequencerState();
-
+  const [addIfStatement, _setAddIfStatement] = useState(false);
   const indentLevels = getIndentLevels(elems);
 
   const columns: ColumnDef<TestSequenceElement>[] = [
@@ -300,7 +300,6 @@ export function DataTable() {
     });
   };
 
-  const [showAddConditionalModal, setShowAddConditionalModal] = useState(false);
   const addConditionalAfterIdx = useRef(-1);
 
   const [showWriteConditionalModal, setShowWriteConditionalModal] =
@@ -335,7 +334,7 @@ export function DataTable() {
 
   const handleClickAddConditional = (idx: number) => {
     addConditionalAfterIdx.current = idx;
-    setShowAddConditionalModal(true);
+    handleAddConditionalModal("if");
   };
 
   const onClickWriteCondition = (idx: number) => {
@@ -360,13 +359,14 @@ export function DataTable() {
     }
   };
 
+  useEffect(() => {
+    if (addIfStatement) {
+      handleAddConditionalModal("if");
+    }
+  }, [addIfStatement]);
+
   return (
     <div className="flex flex-col">
-      <AddConditionalModal
-        isConditionalModalOpen={showAddConditionalModal}
-        handleAddConditionalModalOpen={setShowAddConditionalModal}
-        handleAdd={handleAddConditionalModal}
-      />
       <WriteConditionalModal
         isConditionalModalOpen={showWriteConditionalModal}
         handleWriteConditionalModalOpen={setShowWriteConditionalModal}
