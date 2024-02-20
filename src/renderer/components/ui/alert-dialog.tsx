@@ -14,17 +14,20 @@ const AlertDialogOverlay = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Overlay>
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
->(({ className, children, ...props }, ref) => (
-  <AlertDialogPrimitive.Overlay
-    className={cn(
-      "fixed inset-0 z-50 bg-background/80 backdrop-blur-sm motion-reduce:backdrop-blur-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-      className,
-    )}
-    {...props}
-    ref={ref}
-  />
-));
-AlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName;
+>(({ className, children, ...props }, ref) => {
+    console.log('AlertDialogOverlay called '+ navigator.userAgent); // Add this console.log statement
+    return (
+      <AlertDialogPrimitive.Overlay
+        className={cn(
+          "fixed inset-0 z-50 bg-background/80 backdrop-blur-sm motion-reduce:backdrop-blur-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+          className,
+        )}
+        {...props}
+        ref={ref}
+      />
+    );
+  }
+);AlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName;
 
 const AlertDialogContent = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Content>,
