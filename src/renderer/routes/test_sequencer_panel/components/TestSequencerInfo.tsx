@@ -54,13 +54,16 @@ const TestSequencerView = () => {
           handleImport={() => {}}
         ></ImportTestModal>
         <div className="flex overflow-y-auto">
-          <div className="ml-auto mr-auto h-3/5 flex-grow flex-col overflow-y-auto" style={{ height: "calc(100vh - 260px)" }}>
+          <div
+            className="ml-auto mr-auto h-3/5 flex-grow flex-col overflow-y-auto"
+            style={{ height: "calc(100vh - 260px)" }}
+          >
             <SummaryTable />
             <DataTable />
           </div>
 
           <div>
-            <div className="top-0 flex-none pl-5 overflow-y-auto h-full">
+            <div className="top-0 h-full flex-none overflow-y-auto pl-5">
               <CloudPanel />
               <div className="mt-5 rounded-xl rounded-xl border border border-gray-300 border-gray-300 p-4 py-4 dark:border-gray-800">
                 <div className="flex flex-col">
