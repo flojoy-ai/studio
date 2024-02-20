@@ -222,6 +222,7 @@ async def export_test_sequence(data, hardware_id, project_id):
         raise KeyError(f"No cloud test for {test_name}")
 
     try:
+
         async def run_dfs(node: TestRootNode | TestSequenceElementNode):
             if isinstance(node, TestNode):
                 try:
@@ -255,4 +256,3 @@ async def export_test_sequence(data, hardware_id, project_id):
     except Exception as e:
         await _stream_result_to_frontend(state=MsgState.ERROR, error=str(e))
         logger.error(f"{e}: {traceback.format_exc()}")
-

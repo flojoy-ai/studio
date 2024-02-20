@@ -1,7 +1,10 @@
 import asyncio
 from captain.models.test_sequencer import TestSequenceEvents, TestSequenceRun
 from captain.utils.logger import logger
-from captain.utils.test_sequencer.run_test_sequence import export_test_sequence, run_test_sequence
+from captain.utils.test_sequencer.run_test_sequence import (
+    export_test_sequence,
+    run_test_sequence,
+)
 from typing import Callable
 from threading import Lock
 
@@ -18,14 +21,16 @@ def _handle_run(data: TestSequenceRun):
 
 def _handle_export(data: TestSequenceRun):
     if data.hardware_id is None or data.project_id is None:
-        raise ValueError("Please ensure both Hardware ID and Project ID are provided before exporting.")
+        raise ValueError(
+            "Please ensure both Hardware ID and Project ID are provided before exporting."
+        )
     asyncio.run(export_test_sequence(data.data, data.hardware_id, data.project_id))
 
 
 event_to_handle: dict[TestSequenceEvents, Callable[[TestSequenceRun], None]] = {
     "subscribe": _handle_subscribe,
     "run": _handle_run,
-    "export": _handle_export
+    "export": _handle_export,
 }
 
 

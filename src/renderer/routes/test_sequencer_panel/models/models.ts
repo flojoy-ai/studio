@@ -17,17 +17,23 @@ export const testSequenceRunRequest: (tree: TestRootNode) => TestSequenceRun = (
     event: "run",
     data: tree,
     hardware_id: null,
-    project_id: null
+    project_id: null,
   };
 };
 
-export const testSequenceExportCloud: (tree: TestRootNode, hardware_id: string, project_id: string) => TestSequenceRun = (
-  tree: TestRootNode, hardware_id: string, project_id: string
-  ) => {
+export const testSequenceExportCloud: (
+  tree: TestRootNode,
+  hardware_id: string,
+  project_id: string,
+) => TestSequenceRun = (
+  tree: TestRootNode,
+  hardware_id: string,
+  project_id: string,
+) => {
   return {
     event: "export",
     data: tree,
     hardware_id: hardware_id,
-    project_id: project_id
+    project_id: project_id,
   };
 };

@@ -82,7 +82,7 @@ const mapStatusToDisplay: { [k in StatusTypes]: React.ReactNode } = {
   pending: <p className="text-yellow-500">PENDING</p>,
 };
 
-export function DataTable({addIfStatement, setAddIfStatement}) {
+export function DataTable({ addIfStatement, setAddIfStatement }) {
   const { elems, setElems, running } = useTestSequencerState();
 
   const indentLevels = getIndentLevels(elems);
