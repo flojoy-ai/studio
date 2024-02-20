@@ -6,6 +6,8 @@ const enable = 1; // +(process?.env?.FLOJOY_ENABLE_TELEMETRY ?? "1");
 
 export const initMixPanel = async () => {
   if (await isCI()) return;
+  if (process.env.NODE_ENV !== "production") return;
+
   mixpanel.init(PROJECT_TOKEN);
 };
 export enum MixPanelEvents {
