@@ -1,6 +1,3 @@
-// import { Button } from "@/renderer/components/ui/button";
-// import { Input } from "@/renderer/components/ui/input";
-// import { IS_CLOUD_DEMO } from "@/renderer/data/constants";
 import { useContext, useState } from "react";
 import { DataTable } from "./DataTable";
 import { SummaryTable } from "./SummaryTable";
@@ -51,13 +48,14 @@ const TestSequencerView = () => {
 
   return (
     <LockedContextProvider>
+      <div className="overflow-y-auto" style={{ height: "calc(100vh - 260px)" }}>
       <ImportTestModal
         isModalOpen={isImportModalOpen}
         handleModalOpen={setIsImportModalOpen}
         handleImport={() => {}}
       ></ImportTestModal>
-      <div className="flex">
-        <div className="ml-auto mr-auto h-3/5 flex-grow flex-col overflow-y-auto">
+      <div className="flex overflow-y-auto">
+        <div className="ml-auto mr-auto h-3/5 flex-grow flex-col">
           <SummaryTable />
           <DataTable
             addIfStatement={addIfStatement}
@@ -65,11 +63,11 @@ const TestSequencerView = () => {
           />
         </div>
 
-        <div class="">
-          <div className="top-0 flex-none pl-5">
+        <div>
+          <div className="top-0 flex-none pl-5 overflow-y-auto h-full">
             <CloudPanel />
             <div className="mt-5 rounded-xl rounded-xl border border border-gray-300 border-gray-300 p-4 py-4 dark:border-gray-800">
-              <div class="flex flex-col">
+              <div className="flex flex-col">
                 <h2 className="mb-2 pt-3 text-center text-lg font-bold text-accent1 ">
                   {" "}
                   Control Panel{" "}
@@ -112,7 +110,7 @@ const TestSequencerView = () => {
               </div>
             </div>
             <div className="mt-5 rounded-xl rounded-xl border border border-gray-300 border-gray-300 p-4 py-4 dark:border-gray-800">
-              <div class="flex flex-col">
+              <div className="flex flex-col">
                 <h2 className="mb-2 pt-3 text-center text-lg font-bold text-accent1 ">
                   {" "}
                   Conditionals Panel{" "}
@@ -129,6 +127,7 @@ const TestSequencerView = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </LockedContextProvider>
   );
