@@ -11,6 +11,7 @@ import { TSWebSocketContext } from "../../../context/testSequencerWS.context";
 import { LockedContextProvider } from "@/renderer/context/lock.context";
 import { useTestSetSave } from "@/renderer/hooks/useTestSetSave";
 import { useTestSetImport } from "@/renderer/hooks/useTestSetImport";
+import _ from "lodash";
 
 const TestSequencerView = () => {
   const { setElems, tree, setIsLocked } = useTestSequencerState();
@@ -94,6 +95,7 @@ const TestSequencerView = () => {
                   <LockableButton
                     variant="dotted"
                     className="mt-4 w-full gap-2"
+                    disabled={_.isEmpty(tree)}
                     onClick={handleClickRunTest}
                   >
                     Run Test Sequence

@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 import { SendJsonMessage } from "react-use-websocket/dist/lib/types";
 import { TS_SOCKET_URL } from "@/renderer/data/constants";
 import { filter } from "lodash";
@@ -36,14 +36,14 @@ export function TestSequencerWSProvider({
   //set result when received from backend for specific test
   const setResult = (id: string, result: boolean, timeTaken: number) => {
     setElems.withException((elems) => {
-      const new_elems = [...elems];
-      const idx = new_elems.findIndex((elem) => elem.id === id);
-      new_elems[idx] = {
-        ...new_elems[idx],
+      const newElems = [...elems];
+      const idx = newElems.findIndex((elem) => elem.id === id);
+      newElems[idx] = {
+        ...newElems[idx],
         status: mapToTestResult(result),
         completionTime: timeTaken,
       } as Test;
-      return new_elems;
+      return newElems;
     });
   };
 
@@ -61,7 +61,7 @@ export function TestSequencerWSProvider({
     } else {
       setIsLoading(true);
     }
-  }, [readyState]);
+  }, [readyState, sendJsonMessage, setIsLoading]);
 
   const mapToHandler: { [K in MsgState]: (data: BackendMsg) => void } = {
     TEST_SET_START: (data) => {
@@ -107,3 +107,5 @@ export function TestSequencerWSProvider({
     </TSWebSocketContext.Provider>
   );
 }
+
+export const useTestSequencerWS = () => useContext(TSWebSocketContext);
