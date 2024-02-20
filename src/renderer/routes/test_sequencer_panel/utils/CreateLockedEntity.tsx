@@ -5,8 +5,8 @@ export const createLockedEntity = (ComponentToDisable: React.ComponentType) => {
     <LockedContext.Consumer>
       {(value) => (
         <ComponentToDisable
-          {...props}
           disabled={value.isLocked}
+          {...props}
         ></ComponentToDisable>
       )}
     </LockedContext.Consumer>

@@ -12,6 +12,8 @@ import { ImportTestModal } from "./ImportTestModal";
 import LockableButton from "./lockable/LockedButtons";
 import { TSWebSocketContext } from "../../../context/testSequencerWS.context";
 import { LockedContextProvider } from "@/renderer/context/lock.context";
+import { useTestSetSave } from "@/renderer/hooks/useTestSetSave";
+import { useTestSetImport } from "@/renderer/hooks/useTestSetImport";
 
 
 const TestSequencerView = () => {
@@ -35,10 +37,17 @@ const TestSequencerView = () => {
     resetStatus();
     tSSendJsonMessage(testSequenceRunRequest(tree));
   };
-
+  const testSetSave = useTestSetSave();
+  const testSetImport = useTestSetImport();
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const handleClickImportTest = () => {
     setIsImportModalOpen(true);
+  };
+  const handleClickSaveTestSet = () => {
+    testSetSave();
+  };
+  const handleClickImportTestTest = () => {
+    testSetImport();
   };
 
   return (
@@ -74,8 +83,8 @@ const TestSequencerView = () => {
                   Import Python Tests 
                 </LockableButton>
               </div>
-              <LockableButton className="w-full mt-4" variant="outline">Import Test Run</LockableButton>
-              <LockableButton className="w-full mt-4" variant="outline">Export Test Run</LockableButton>
+              <LockableButton className="w-full mt-4" variant="outline" onClick={handleClickImportTestTest}>Import Test Set</LockableButton>
+              <LockableButton className="w-full mt-4" variant="outline" onClick={handleClickSaveTestSet}>Save Test Set</LockableButton>
 
               <LockableButton
                 data-cy="btn-play"

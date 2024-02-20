@@ -58,23 +58,19 @@ import LockableButton from "./lockable/LockedButtons";
 import { useRef, useState } from "react";
 
 const IndentLine = ({
-  name,
+  content: name,
   level = 0,
 }: {
-  name: React.ReactNode;
+  content: React.ReactNode;
   level: number;
 }) => (
-  <div className="relative ml-5 pl-1">
+  <div className="flex h-full flex-row">
     {level == 0 ? (
-      <div style={{ marginLeft: level == 0 ? `${level * 20}px` : 0 }}>
-        {level == 0 ? name : <IndentLine name={name} level={level - 1} />}
-      </div>
+      name
     ) : (
-      <div
-        className={"border-l-2 border-blue-800 py-1 pl-4"}
-        style={{ marginLeft: level == 0 ? `${level * 20}px` : 0 }}
-      >
-        {level == 0 ? name : <IndentLine name={name} level={level - 1} />}
+      <div className="flex flex-row">
+        <div className={"mr-5 flex h-full border-l-2 border-blue-800"}></div>
+        <IndentLine content={name} level={level - 1} />
       </div>
     )}
   </div>
@@ -127,7 +123,7 @@ export function DataTable() {
             {/* Indent levels */}
             <div className="flex flex-row space-x-1">
               <IndentLine
-                name={(row.original as Test).testName}
+                content={(row.original as Test).testName}
                 level={indentLevels[row.id]}
               />
               {running.includes(row.original.id) && (
@@ -137,29 +133,22 @@ export function DataTable() {
             {/* {(row.original as Test).test_name} */}
           </div>
         ) : (
-          <div>
-            {/* Indent levels */}
-            <div className="flex flex-row space-x-1">
-              <IndentLine
-                name={
-                  <div className="flex flex-col">
-                    <b>
-                      {(
-                        row.original as Conditional
-                      ).conditionalType.toUpperCase()}
-                    </b>
-                    <i>
-                      {(row.original as Conditional).condition.substring(0, 45)}
-                      {(row.original as Conditional).condition.length >= 45 && (
-                        <>...</>
-                      )}
-                    </i>
-                  </div>
-                }
-                level={indentLevels[row.id]}
-              />
-            </div>
-          </div>
+          <IndentLine
+            content={
+              <div className="flex flex-col">
+                <b>
+                  {(row.original as Conditional).conditionalType.toUpperCase()}
+                </b>
+                <i>
+                  {(row.original as Conditional).condition.substring(0, 45)}
+                  {(row.original as Conditional).condition.length >= 45 && (
+                    <>...</>
+                  )}
+                </i>
+              </div>
+            }
+            level={indentLevels[row.id]}
+          />
         );
       },
     },
@@ -206,7 +195,6 @@ export function DataTable() {
         return elem.type === "test" ? "completionTime" : null;
       },
       header: "Completion Time",
-      enableHiding: false,
       cell: ({ row }) => {
         return row.original.type === "test" ? (
           <div>
@@ -217,20 +205,20 @@ export function DataTable() {
       },
     },
 
-    {
-      accessorKey: "isSavedToCloud",
-      header: "Saved to Flojoy Cloud",
-      enableHiding: false,
-      cell: ({ row }) => {
-        return row.getValue("isSavedToCloud") ? (
-          <Button>OPEN TEST</Button>
-        ) : null;
-      },
-    },
+    // {
+    //   accessorKey: "isSavedToCloud",
+    //   header: "Saved to Flojoy Cloud",
+    //   enableHiding: false,
+    //   cell: ({ row }) => {
+    //     return row.getValue("isSavedToCloud") ? (
+    //       <Button>OPEN TEST</Button>
+    //     ) : null;
+    //   },
+    // },
 
     {
       accessorKey: "up-down",
-      header: "Reorder",
+      header: () => <div className="text-center">Reorder</div>,
       enableHiding: false,
       cell: ({ row }) => {
         const onUpClick = () => {
@@ -256,7 +244,7 @@ export function DataTable() {
           });
         };
         return (
-          <div className="flex flex-row">
+          <div className="flex flex-row justify-center">
             <LockableButton variant="ghost">
               <ChevronUpIcon onClick={onUpClick} />
             </LockableButton>
@@ -374,27 +362,29 @@ export function DataTable() {
 
   return (
     <div className="flex flex-col">
-      <div className="flex items-center py-0">
-        <AddConditionalModal
-          isConditionalModalOpen={showAddConditionalModal}
-          handleAddConditionalModalOpen={setShowAddConditionalModal}
-          handleAdd={handleAddConditionalModal}
-        />
-        <WriteConditionalModal
-          isConditionalModalOpen={showWriteConditionalModal}
-          handleWriteConditionalModalOpen={setShowWriteConditionalModal}
-          handleWrite={handleWriteConditionalModal}
-        />
+      <AddConditionalModal
+        isConditionalModalOpen={showAddConditionalModal}
+        handleAddConditionalModalOpen={setShowAddConditionalModal}
+        handleAdd={handleAddConditionalModal}
+      />
+      <WriteConditionalModal
+        isConditionalModalOpen={showWriteConditionalModal}
+        handleWriteConditionalModalOpen={setShowWriteConditionalModal}
+        handleWrite={handleWriteConditionalModal}
+      />
+      <div className="m-1 flex items-center py-0">
         <LockableButton
-          disabled={Object.keys(rowSelection).length === 0}
+          disabled={Object.keys(rowSelection).length == 0}
           onClick={handleClickRemoveTests}
-          variant="outline"
+          variant="ghost"
+          className="gap-2 whitespace-nowrap p-2"
         >
-          <TrashIcon />
+          <TrashIcon size={20} />
+          <div className="hidden sm:block">Remove selected items</div>
         </LockableButton>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
+            <Button variant="ghost" className="ml-auto">
               Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -450,7 +440,7 @@ export function DataTable() {
                       data-state={row.getIsSelected() && "selected"}
                     >
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>
+                        <TableCell isCompact={true} key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext(),
