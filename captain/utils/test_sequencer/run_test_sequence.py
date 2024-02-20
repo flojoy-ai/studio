@@ -1,3 +1,4 @@
+from datetime import datetime
 import traceback
 import asyncio
 import time
@@ -5,6 +6,7 @@ from typing import Union, List, Callable
 import pydantic
 from captain.models.test_sequencer import (
     IfNode,
+    StatusTypes,
     TestNode,
     TestRootNode,
     TestSequenceElementNode,
@@ -16,6 +18,7 @@ from types import SimpleNamespace
 import subprocess
 from captain.utils.logger import logger
 from captain.parser.bool_parser.bool_parser import eval_expression
+from flojoy_cloud import FlojoyCloud
 
 
 class TestResult:
@@ -203,3 +206,55 @@ async def run_test_sequence(data):
     except Exception as e:
         await _stream_result_to_frontend(state=MsgState.ERROR, error=str(e))
         logger.error(f"{e}: {traceback.format_exc()}")
+
+from pkgs.flojoy.flojoy.env_var import get_env_var
+
+async def export_test_sequence(data, hardware_id, project_id):
+    data = pydantic.TypeAdapter(TestRootNode).validate_python(data)
+    cloud = FlojoyCloud(workspace_secret=get_env_var("FLOJOY_CLOUD_KEY"))
+    identifiers = set(data.identifiers)
+    context = Context({}, identifiers)
+
+    def reverse_id(test_name) -> str:
+        tests = cloud.get_all_tests_by_project_id(project_id)
+        for i in tests:
+            if i.name == test_name:
+                return str(i.id)
+        raise KeyError(f"No cloud test for {test_name}")
+
+    try:
+        async def run_dfs(node: TestRootNode | TestSequenceElementNode):
+            # Upload only if it's not pending
+            if isinstance(node, TestNode):
+                try:
+                    status = node.status
+                    if status != StatusTypes.pending:
+                        passed = True if status == StatusTypes.pass_ else False
+                        test_name = node.test_name.split("::")[-1]
+                        cloud.upload(
+                            data=passed,
+                            test_id=reverse_id(test_name),
+                            hardware_id=hardware_id,
+                            name=test_name,
+                            passed=passed,
+                        )
+                        node.is_saved_to_cloud = True
+                        logger.info(f"{test_name} Uploaded to cloud")
+                except KeyError as err:
+                    node.is_saved_to_cloud = False
+                    logger.error(err)
+
+            children_getter, test_result = await _extract_from_node(node)
+            children = children_getter(context)
+            if not children:
+                return
+            for child in children:
+                await run_dfs(child)
+
+        await _stream_result_to_frontend(state=MsgState.TEST_SET_START)
+        await run_dfs(data)  # run tests
+        await _stream_result_to_frontend(state=MsgState.TEST_SET_DONE)
+    except Exception as e:
+        await _stream_result_to_frontend(state=MsgState.ERROR, error=str(e))
+        logger.error(f"{e}: {traceback.format_exc()}")
+
