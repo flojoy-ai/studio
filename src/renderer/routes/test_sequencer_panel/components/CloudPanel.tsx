@@ -41,7 +41,6 @@ export function CloudPanel() {
 
         <div>
           <LockableButton 
-            desabled={true}
             className="w-full mt-4 cursor-not-allowed opacity-50"
             onClick={handleExport}
           >
