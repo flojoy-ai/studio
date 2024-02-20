@@ -68,43 +68,36 @@ const TestSequencerView = () => {
               <div className="mt-5 rounded-xl rounded-xl border border border-gray-300 border-gray-300 p-4 py-4 dark:border-gray-800">
                 <div className="flex flex-col">
                   <h2 className="mb-2 pt-3 text-center text-lg font-bold text-accent1 ">
-                    {" "}
-                    Control Panel{" "}
+                    Control Panel
                   </h2>
                   <LockableButton
                     className="mt-4 w-full"
                     variant="outline"
                     onClick={handleClickImportTest}
                   >
-                    {" "}
-                    Import Python Tests{" "}
+                    Import Python Tests
                   </LockableButton>
                   <LockableButton
                     className="mt-4 w-full"
                     variant="outline"
                     onClick={handleClickImportTestTest}
                   >
-                    {" "}
-                    Import Test Set{" "}
+                    Import Test Set
                   </LockableButton>
                   <LockableButton
                     className="mt-4 w-full"
                     variant="outline"
                     onClick={handleClickSaveTestSet}
                   >
-                    {" "}
-                    Save Test Set{" "}
+                    Save Test Set
                   </LockableButton>
                   <LockableButton
                     data-cy="btn-play"
-                    data-testid="btn-play"
                     variant="dotted"
-                    id="btn-play"
                     className="mt-4 w-full gap-2"
                     onClick={handleClickRunTest}
                   >
-                    {" "}
-                    Run Test Sequence{" "}
+                    Run Test Sequence
                   </LockableButton>
                 </div>
               </div>
