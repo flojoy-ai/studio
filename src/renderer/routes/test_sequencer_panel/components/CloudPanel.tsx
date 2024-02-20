@@ -26,8 +26,7 @@ export function CloudPanel() {
   };
 
   return (
-    <div className="rounded-xl border border-gray-300 min-w-[120px] rounded-xl border border-gray-300 py-4 dark:border-gray-800 p-4">
-
+    <div className="rounded-xl border border-gray-300 min-w-[240px] rounded-xl border border-gray-300 py-4 dark:border-gray-800 p-4">
 
       <div class="flex flex-col">
         <h2 className="mb-2 text-lg font-bold text-accent1 pt-3 text-center "> Cloud Panel </h2>
@@ -47,15 +46,16 @@ export function CloudPanel() {
           type="text"
           value={input1Value}
           onChange={handleInputChange1}
-          placeholder="Scan or enter hardware id"
+          placeholder="Enter sequence id"
         />
 
         <div>
           <LockableButton 
+            desabled={true}
             className="w-full mt-4"
             onClick={handleExport}
           >
-            Submit Test Results 
+            Submit Test Results (Coming Soon)
           </LockableButton >
         </div>
       </div>

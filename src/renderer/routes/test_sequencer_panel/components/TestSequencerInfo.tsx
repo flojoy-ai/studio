@@ -58,48 +58,49 @@ const TestSequencerView = () => {
           handleModalOpen={setIsImportModalOpen}
           handleImport={() => {}}
         ></ImportTestModal>
-        <div className="absolute ml-auto mr-auto h-2/3 w-full flex-col space-y-5 overflow-y-auto">
-          <div class="flex">
-            <div className="w-4/5  h-2/3 flex-col space-y-5 overflow-y-auto">
-              <SummaryTable />
-              <DataTable />
-            </div>
-            
-          </div>
-        </div>
-
-      <div class="flex justify-end">
-        <div className="flex-none w-1/6 pl-5 sticky top-0">
-          <CloudPanel />
-          <div className="rounded-xl border border-gray-300 rounded-xl border border-gray-300 py-4 dark:border-gray-800 p-4 mt-5"> 
-            <div class="flex flex-col">
-              <h2 className="mb-2 text-lg font-bold text-accent1 pt-3 text-center "> Control Panel </h2>
-              <div>
-                <LockableButton
-                  className="w-full mt-4"
-                  variant="outline"
-                  onClick={handleClickImportTest}
-                >
-                  Import Python Tests 
-                </LockableButton>
+        <div className="flex">
+          <div className="ml-auto mr-auto h-2/3 flex-col space-y-5 flex-grow">
+            <div class="flex flex-grow">
+              <div className="h-2/3 flex-col overflow-y-auto flex-grow">
+                <SummaryTable />
+                <DataTable />
               </div>
-              <LockableButton className="w-full mt-4" variant="outline" onClick={handleClickImportTestTest}>Import Test Set</LockableButton>
-              <LockableButton className="w-full mt-4" variant="outline" onClick={handleClickSaveTestSet}>Save Test Set</LockableButton>
+              
+            </div>
+          </div>
 
-              <LockableButton
-                data-cy="btn-play"
-                data-testid="btn-play"
-                variant="dotted"
-                id="btn-play"
-                className="w-full gap-2 mt-4"
-                onClick={handleClickRunTest}
-              >
-                Run Test Sequence
-              </LockableButton>
+          <div class="">
+            <div className="flex-none w-400 pl-5 top-0">
+              <CloudPanel />
+              <div className="rounded-xl border border-gray-300 rounded-xl border border-gray-300 py-4 dark:border-gray-800 p-4 mt-5"> 
+                <div class="flex flex-col">
+                  <h2 className="mb-2 text-lg font-bold text-accent1 pt-3 text-center "> Control Panel </h2>
+                  <LockableButton className="w-full mt-4" variant="outline" onClick={handleClickImportTest}> Import Python Tests </LockableButton>
+                  <LockableButton className="w-full mt-4" variant="outline" onClick={handleClickImportTestTest}>Import Test Set</LockableButton>
+                  <LockableButton className="w-full mt-4" variant="outline" onClick={handleClickSaveTestSet}>Save Test Set</LockableButton>
+
+                  <LockableButton
+                    data-cy="btn-play"
+                    data-testid="btn-play"
+                    variant="dotted"
+                    id="btn-play"
+                    className="w-full gap-2 mt-4"
+                    onClick={handleClickRunTest}
+                  >
+                    Run Test Sequence
+                  </LockableButton>
+                </div>
+              </div>
+              <div className="rounded-xl border border-gray-300 rounded-xl border border-gray-300 py-4 dark:border-gray-800 p-4 mt-5"> 
+                <div class="flex flex-col">
+                  <h2 className="mb-2 text-lg font-bold text-accent1 pt-3 text-center "> Conditional Panel </h2>
+                  <LockableButton className="w-full mt-4" variant="outline" onClick={handleClickImportTest}> Add If Else Statement </LockableButton>
+                  <LockableButton className="w-full mt-4" variant="outline" onClick={handleClickImportTestTest}> Add Break Statement</LockableButton>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       </div>
     </LockedContextProvider>
   );
