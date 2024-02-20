@@ -92,7 +92,6 @@ const TestSequencerView = () => {
                     Save Test Set
                   </LockableButton>
                   <LockableButton
-                    data-cy="btn-play"
                     variant="dotted"
                     className="mt-4 w-full gap-2"
                     onClick={handleClickRunTest}
