@@ -6,23 +6,13 @@ import LockableButton from "./lockable/LockedButtons";
 
 
 export function CloudPanel() {
-  const [input1Value, setInput1Value] = useState('');
-  const [input2Value, setInput2Value] = useState('');
+  const [hardwareId, setHardwareId] = useState('');
+  const [testId, setTestId] = useState('');
   const { setElems, tree, setIsLocked } = useTestSequencerState();
 
-  const handleInputChange1 = (e) => {
-    setInput1Value(e.target.value);
-  };
-
-  const handleInputChange2 = (e) => {
-    setInput2Value(e.target.value);
-  };
-
   const handleExport = () => {
-    // Handle form submission logic here
-    setIsLocked(true);
-    console.log("Input 1:", input1Value);
-    console.log("Input 2:", input2Value);
+    // Handle export to cloud
+    // setIsLocked(true);
   };
 
   return (
@@ -35,8 +25,8 @@ export function CloudPanel() {
         <Input
           className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
           type="text"
-          value={input1Value}
-          onChange={handleInputChange1}
+          value={hardwareId}
+          onChange={(e) => setHardwareId(e.target.value)}
           placeholder="Scan or enter hardware id"
         />
 
@@ -44,18 +34,18 @@ export function CloudPanel() {
         <Input
           className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
           type="text"
-          value={input1Value}
-          onChange={handleInputChange1}
+          value={testId}
+          onChange={(e) => setTestId(e.target.value)}
           placeholder="Enter sequence id"
         />
 
         <div>
           <LockableButton 
             desabled={true}
-            className="w-full mt-4"
+            className="w-full mt-4 cursor-not-allowed opacity-50"
             onClick={handleExport}
           >
-            Submit Test Results (Coming Soon)
+            Upload Test Results (Coming Soon!)
           </LockableButton >
         </div>
       </div>
