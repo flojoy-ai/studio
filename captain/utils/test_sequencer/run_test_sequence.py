@@ -171,13 +171,17 @@ map_to_handler_run = (
 )
 
 
-async def _extract_from_node(node: TestRootNode | TestSequenceElementNode, map_to_handler,**kwargs) -> Extract:
+async def _extract_from_node(
+    node: TestRootNode | TestSequenceElementNode, map_to_handler, **kwargs
+) -> Extract:
     if not bool(node.__dict__):
         return lambda _: None, None
     matcher, cur = map_to_handler
     while not callable(cur):
         matcher, cur = cur[node.__dict__[matcher]]
-    children_getter, test_result = await cur(node, **kwargs)  # sus name for the variable
+    children_getter, test_result = await cur(
+        node, **kwargs
+    )  # sus name for the variable
     return children_getter, test_result
 
 
@@ -189,7 +193,9 @@ async def run_test_sequence(data):
     try:
 
         async def run_dfs(node: TestRootNode | TestSequenceElementNode):
-            children_getter, test_result = await _extract_from_node(node, map_to_handler_run)
+            children_getter, test_result = await _extract_from_node(
+                node, map_to_handler_run
+            )
 
             if test_result:
                 context.result_dict[test_result.test_node.test_name] = test_result
@@ -246,7 +252,9 @@ async def _case_test_upload(node: TestNode, hardware_id, project_id) -> Extract:
             )
     else:
         logger.error("Should Never Reach Here")
-    return lambda _: None, TestResult(node, True if status == StatusTypes.pass_ else False, node.completion_time)
+    return lambda _: None, TestResult(
+        node, True if status == StatusTypes.pass_ else False, node.completion_time
+    )
 
 
 map_to_handler_upload = (
@@ -271,7 +279,12 @@ async def export_test_sequence(data, hardware_id, project_id):
     try:
         # Walking the tree with the same sequence as the last run and upload de TestNode
         async def run_dfs(node: TestRootNode | TestSequenceElementNode):
-            children_getter, test_result = await _extract_from_node(node, map_to_handler_upload, hardware_id=hardware_id, project_id=project_id)
+            children_getter, test_result = await _extract_from_node(
+                node,
+                map_to_handler_upload,
+                hardware_id=hardware_id,
+                project_id=project_id,
+            )
             if test_result:
                 context.result_dict[test_result.test_node.test_name] = test_result
             children = children_getter(context)
