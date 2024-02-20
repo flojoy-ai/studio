@@ -29,40 +29,32 @@ instructions.
   <TabItem label="Windows">
     <DownloadButton
       distro="windows"
-      version={packageJSON.version}
-      link={
-        "https://github.com/flojoy-ai/studio/releases/download/v" +
-        packageJSON.version +
-        "/Flojoy-Studio-Setup-" +
-        packageJSON.version +
-        ".exe"
-      }
+      client:load
     />
   </TabItem>
   <TabItem label="Mac">
     <DownloadButton
       distro="mac"
-      version={packageJSON.version}
-      link={
-        "https://github.com/flojoy-ai/studio/releases/download/v" +
-        packageJSON.version +
-        "/Flojoy-Studio-" +
-        packageJSON.version +
-        "-universal.dmg"
-      }
+      client:load
     />
   </TabItem>
   <TabItem label="Linux">
     <DownloadButton
       distro="linux"
-      version={packageJSON.version}
-      link={
-        "https://github.com/flojoy-ai/studio/releases/download/v" +
-        packageJSON.version +
-        "/Flojoy-Studio-" +
-        packageJSON.version +
-        ".AppImage"
-      }
+      client:load
+    />
+  </TabItem>
+  <TabItem label="Raspberry Pi">
+    <DownloadButton
+      distro="raspberry-pi"
+      label="Raspberry Pi"
+      client:load
+    />
+  </TabItem>
+  <TabItem label="Chromebook">
+    <DownloadButton
+      distro="chromebook"
+      client:load
     />
   </TabItem>
 </Tabs>
