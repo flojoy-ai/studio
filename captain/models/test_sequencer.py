@@ -114,7 +114,7 @@ class TestDiscoverContainer(BaseModel):
     response: List[TestDiscoveryResponse] = Field(..., alias="response")
 
 
-TestSequenceEvents = Literal["run", "subscribe"]
+TestSequenceEvents = Literal["run", "subscribe", "export"]
 
 
 class TestData(BaseModel):
@@ -124,3 +124,5 @@ class TestData(BaseModel):
 class TestSequenceRun(BaseModel):
     event: TestSequenceEvents
     data: Union[str, TestRootNode]
+    hardware_id: Union[str, None]
+    project_id: Union[str, None]

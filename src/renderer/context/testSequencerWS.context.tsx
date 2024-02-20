@@ -55,6 +55,8 @@ export function TestSequencerWSProvider({
       sendJsonMessage({
         event: "subscribe",
         data: "hello world",
+        hardware_id: null,
+        project_id: null,
       });
     } else {
       setIsLoading(true);
