@@ -29,6 +29,8 @@ export const isLockedAtom = atomWithImmer<boolean>(false);
 
 export const isLoadingAtom = atomWithImmer<boolean>(true);
 
+export const testSequenceUnsaved = atomWithImmer<boolean>(false);
+
 // sync this with the definition of setElems
 export type SetElemsFn = {
   (elems: TestSequenceElement[]): void;
@@ -100,6 +102,7 @@ export function useTestSequencerState() {
   const [running, setRunning] = useAtom(curRun);
   const [isLoading, setIsLoading] = useAtom(isLoadingAtom);
   const [isLocked, setIsLocked] = useAtom(isLockedAtom); // this is used to lock the UI while the test is running
+  const [isUnsaved, setUnsaved] = useAtom(testSequenceUnsaved);
   const { withPermissionCheck } = useWithPermission();
 
   // wrapper around setElements to check if elems is valid
@@ -130,6 +133,7 @@ export function useTestSequencerState() {
 
     //PASS
     setElements(candidateElems);
+    setUnsaved(true);
 
     /* _________________________ */
 
@@ -149,5 +153,7 @@ export function useTestSequencerState() {
     isLocked,
     isLoading,
     setIsLoading,
+    setUnsaved,
+    isUnsaved,
   };
 }

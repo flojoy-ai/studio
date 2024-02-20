@@ -137,17 +137,18 @@ export const openTestPicker = (): Promise<
   });
 };
 
-export const openFilePicker = (): Promise<
-  { filePath: string; fileContent: string } | undefined
-> => {
+export const openFilePicker = (
+  _,
+  allowedExtensions: string[] = ["json"],
+): Promise<{ filePath: string; fileContent: string } | undefined> => {
   return new Promise((resolve, reject) => {
     try {
       const selectedPaths = dialog.showOpenDialogSync(global.mainWindow, {
         properties: ["openFile"],
         filters: [
           {
-            extensions: ["json"],
-            name: "Json file",
+            extensions: allowedExtensions,
+            name: "allowed extensions",
           },
         ],
       });

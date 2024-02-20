@@ -2,6 +2,7 @@ import { Button } from "@/renderer/components/ui/button";
 import { Checkbox } from "@/renderer/components/ui/checkbox";
 import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { useTestImport } from "@/renderer/hooks/useTestImport";
+import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { Dispatch, SetStateAction, useState } from "react";
 
 export type ImportTestSettings = {
@@ -16,9 +17,12 @@ type Props = {
 
 export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
   const openFilePicker = useTestImport();
+  const { setIsLocked } = useTestSequencerState();
 
   const handleImportTest = (settings: ImportTestSettings) => {
+    setIsLocked(true);
     openFilePicker(settings);
+    setIsLocked(false);
   };
   const [checked, setChecked] = useState<boolean>(false);
 
