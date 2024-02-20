@@ -1,4 +1,3 @@
-from datetime import datetime
 import traceback
 import asyncio
 import time
@@ -19,6 +18,7 @@ import subprocess
 from captain.utils.logger import logger
 from captain.parser.bool_parser.bool_parser import eval_expression
 from flojoy_cloud import FlojoyCloud
+from pkgs.flojoy.flojoy.env_var import get_env_var
 
 
 class TestResult:
@@ -207,7 +207,6 @@ async def run_test_sequence(data):
         await _stream_result_to_frontend(state=MsgState.ERROR, error=str(e))
         logger.error(f"{e}: {traceback.format_exc()}")
 
-from pkgs.flojoy.flojoy.env_var import get_env_var
 
 async def export_test_sequence(data, hardware_id, project_id):
     data = pydantic.TypeAdapter(TestRootNode).validate_python(data)
@@ -224,7 +223,6 @@ async def export_test_sequence(data, hardware_id, project_id):
 
     try:
         async def run_dfs(node: TestRootNode | TestSequenceElementNode):
-            # Upload only if it's not pending
             if isinstance(node, TestNode):
                 try:
                     status = node.status
@@ -239,12 +237,12 @@ async def export_test_sequence(data, hardware_id, project_id):
                             passed=passed,
                         )
                         node.is_saved_to_cloud = True
-                        logger.info(f"{test_name} Uploaded to cloud")
+                        logger.info(f"{test_name}: Uploaded to cloud")
                 except KeyError as err:
                     node.is_saved_to_cloud = False
                     logger.error(err)
 
-            children_getter, test_result = await _extract_from_node(node)
+            children_getter, _ = await _extract_from_node(node)
             children = children_getter(context)
             if not children:
                 return
@@ -252,7 +250,7 @@ async def export_test_sequence(data, hardware_id, project_id):
                 await run_dfs(child)
 
         await _stream_result_to_frontend(state=MsgState.TEST_SET_START)
-        await run_dfs(data)  # run tests
+        await run_dfs(data)  # Export tests
         await _stream_result_to_frontend(state=MsgState.TEST_SET_DONE)
     except Exception as e:
         await _stream_result_to_frontend(state=MsgState.ERROR, error=str(e))
