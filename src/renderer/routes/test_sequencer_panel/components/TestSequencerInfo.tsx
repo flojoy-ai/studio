@@ -15,7 +15,6 @@ import { useTestSetImport } from "@/renderer/hooks/useTestSetImport";
 const TestSequencerView = () => {
   const { setElems, tree, setIsLocked } = useTestSequencerState();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
-  const [addIfStatement, setAddIfStatement] = useState(false);
 
   const resetStatus = () => {
     setElems.withException((elems: TestSequenceElement[]) => {
@@ -48,86 +47,67 @@ const TestSequencerView = () => {
 
   return (
     <LockedContextProvider>
-      <div className="overflow-y-auto" style={{ height: "calc(100vh - 260px)" }}>
-      <ImportTestModal
-        isModalOpen={isImportModalOpen}
-        handleModalOpen={setIsImportModalOpen}
-        handleImport={() => {}}
-      ></ImportTestModal>
-      <div className="flex overflow-y-auto">
-        <div className="ml-auto mr-auto h-3/5 flex-grow flex-col">
-          <SummaryTable />
-          <DataTable
-            addIfStatement={addIfStatement}
-            setAddIfStatement={setAddIfStatement}
-          />
-        </div>
+      <div style={{ height: "calc(100vh - 260px)" }}>
+        <ImportTestModal
+          isModalOpen={isImportModalOpen}
+          handleModalOpen={setIsImportModalOpen}
+          handleImport={() => {}}
+        ></ImportTestModal>
+        <div className="flex overflow-y-auto">
+          <div className="ml-auto mr-auto h-3/5 flex-grow flex-col overflow-y-auto" style={{ height: "calc(100vh - 260px)" }}>
+            <SummaryTable />
+            <DataTable />
+          </div>
 
-        <div>
-          <div className="top-0 flex-none pl-5 overflow-y-auto h-full">
-            <CloudPanel />
-            <div className="mt-5 rounded-xl rounded-xl border border border-gray-300 border-gray-300 p-4 py-4 dark:border-gray-800">
-              <div className="flex flex-col">
-                <h2 className="mb-2 pt-3 text-center text-lg font-bold text-accent1 ">
-                  {" "}
-                  Control Panel{" "}
-                </h2>
-                <LockableButton
-                  className="mt-4 w-full"
-                  variant="outline"
-                  onClick={handleClickImportTest}
-                >
-                  {" "}
-                  Import Python Tests{" "}
-                </LockableButton>
-                <LockableButton
-                  className="mt-4 w-full"
-                  variant="outline"
-                  onClick={handleClickImportTestTest}
-                >
-                  {" "}
-                  Import Test Set{" "}
-                </LockableButton>
-                <LockableButton
-                  className="mt-4 w-full"
-                  variant="outline"
-                  onClick={handleClickSaveTestSet}
-                >
-                  {" "}
-                  Save Test Set{" "}
-                </LockableButton>
-                <LockableButton
-                  data-cy="btn-play"
-                  data-testid="btn-play"
-                  variant="dotted"
-                  id="btn-play"
-                  className="mt-4 w-full gap-2"
-                  onClick={handleClickRunTest}
-                >
-                  {" "}
-                  Run Test Sequence{" "}
-                </LockableButton>
-              </div>
-            </div>
-            <div className="mt-5 rounded-xl rounded-xl border border border-gray-300 border-gray-300 p-4 py-4 dark:border-gray-800">
-              <div className="flex flex-col">
-                <h2 className="mb-2 pt-3 text-center text-lg font-bold text-accent1 ">
-                  {" "}
-                  Conditionals Panel{" "}
-                </h2>
-                <LockableButton
-                  className="mt-4 w-full"
-                  variant="outline"
-                  onClick={setAddIfStatement}
-                >
-                  {" "}
-                  Add If Else Statement{" "}
-                </LockableButton>
+          <div>
+            <div className="top-0 flex-none pl-5 overflow-y-auto h-full">
+              <CloudPanel />
+              <div className="mt-5 rounded-xl rounded-xl border border border-gray-300 border-gray-300 p-4 py-4 dark:border-gray-800">
+                <div className="flex flex-col">
+                  <h2 className="mb-2 pt-3 text-center text-lg font-bold text-accent1 ">
+                    {" "}
+                    Control Panel{" "}
+                  </h2>
+                  <LockableButton
+                    className="mt-4 w-full"
+                    variant="outline"
+                    onClick={handleClickImportTest}
+                  >
+                    {" "}
+                    Import Python Tests{" "}
+                  </LockableButton>
+                  <LockableButton
+                    className="mt-4 w-full"
+                    variant="outline"
+                    onClick={handleClickImportTestTest}
+                  >
+                    {" "}
+                    Import Test Set{" "}
+                  </LockableButton>
+                  <LockableButton
+                    className="mt-4 w-full"
+                    variant="outline"
+                    onClick={handleClickSaveTestSet}
+                  >
+                    {" "}
+                    Save Test Set{" "}
+                  </LockableButton>
+                  <LockableButton
+                    data-cy="btn-play"
+                    data-testid="btn-play"
+                    variant="dotted"
+                    id="btn-play"
+                    className="mt-4 w-full gap-2"
+                    onClick={handleClickRunTest}
+                  >
+                    {" "}
+                    Run Test Sequence{" "}
+                  </LockableButton>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
       </div>
     </LockedContextProvider>
   );
