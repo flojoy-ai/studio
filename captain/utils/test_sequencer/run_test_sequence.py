@@ -127,11 +127,11 @@ Extract = tuple[
 ]
 
 
-async def _case_root(node: TestRootNode) -> Extract:
+async def _case_root(node: TestRootNode, **kwargs) -> Extract:
     return lambda _: node.children, None
 
 
-async def _case_test(node: TestNode) -> Extract:
+async def _case_test(node: TestNode, **kwargs) -> Extract:
     # TODO: support run in parallel feature
     await _stream_result_to_frontend(MsgState.RUNNING, test_id=node.id)
     result, time_taken = _run_pytest(node.path)
@@ -144,7 +144,7 @@ async def _case_test(node: TestNode) -> Extract:
     return lambda _: None, TestResult(node, result, time_taken)
 
 
-async def _case_if_node(node: IfNode) -> Extract:
+async def _case_if_node(node: IfNode, **kwargs) -> Extract:
     def get_next_children_from_context(context: Context):
         result_dict, identifiers = context.result_dict, context.identifiers
         expression_eval = _eval_condition(result_dict, node.condition, identifiers)
@@ -156,7 +156,7 @@ async def _case_if_node(node: IfNode) -> Extract:
     return get_next_children_from_context, None
 
 
-map_to_handler = (
+map_to_handler_run = (
     "type",
     {
         "root": (None, _case_root),
@@ -171,13 +171,13 @@ map_to_handler = (
 )
 
 
-async def _extract_from_node(node: TestRootNode | TestSequenceElementNode) -> Extract:
+async def _extract_from_node(node: TestRootNode | TestSequenceElementNode, map_to_handler,**kwargs) -> Extract:
     if not bool(node.__dict__):
         return lambda _: None, None
     matcher, cur = map_to_handler
     while not callable(cur):
         matcher, cur = cur[node.__dict__[matcher]]
-    children_getter, test_result = await cur(node)  # sus name for the variable
+    children_getter, test_result = await cur(node, **kwargs)  # sus name for the variable
     return children_getter, test_result
 
 
@@ -189,7 +189,7 @@ async def run_test_sequence(data):
     try:
 
         async def run_dfs(node: TestRootNode | TestSequenceElementNode):
-            children_getter, test_result = await _extract_from_node(node)
+            children_getter, test_result = await _extract_from_node(node, map_to_handler_run)
 
             if test_result:
                 context.result_dict[test_result.test_node.test_name] = test_result
@@ -208,11 +208,8 @@ async def run_test_sequence(data):
         logger.error(f"{e}: {traceback.format_exc()}")
 
 
-async def export_test_sequence(data, hardware_id, project_id):
-    data = pydantic.TypeAdapter(TestRootNode).validate_python(data)
+async def _case_test_upload(node: TestNode, hardware_id, project_id) -> Extract:
     cloud = FlojoyCloud(workspace_secret=get_env_var("FLOJOY_CLOUD_KEY"))
-    identifiers = set(data.identifiers)
-    context = Context({}, identifiers)
 
     def reverse_id(test_name) -> str:
         tests = cloud.get_all_tests_by_project_id(project_id)
@@ -221,29 +218,62 @@ async def export_test_sequence(data, hardware_id, project_id):
                 return str(i.id)
         raise KeyError(f"No cloud test for {test_name}")
 
+    status = node.status
+    if status != StatusTypes.pending:
+        passed = True if status == StatusTypes.pass_ else False
+        try:
+            await _stream_result_to_frontend(MsgState.RUNNING, test_id=node.id)
+            node.is_saved_to_cloud = False
+            test_name = node.test_name.split("::")[-1]
+            cloud.upload(
+                data=passed,
+                test_id=reverse_id(test_name),
+                hardware_id=hardware_id,
+                name=test_name,
+                passed=passed,
+            )
+            node.is_saved_to_cloud = True
+            logger.info(f"{test_name}: Uploaded to cloud")
+        except KeyError as err:
+            # TODO: Return error to user
+            logger.error(err)
+        finally:
+            await _stream_result_to_frontend(
+                state=MsgState.TEST_DONE,
+                test_id=node.id,
+                result=passed,
+                time_taken=node.completion_time,
+            )
+    else:
+        logger.error("Should Never Reach Here")
+    return lambda _: None, TestResult(node, True if status == StatusTypes.pass_ else False, node.completion_time)
+
+
+map_to_handler_upload = (
+    "type",
+    {
+        "root": (None, _case_root),
+        "test": (None, _case_test_upload),
+        "conditional": (
+            "conditional_type",
+            {
+                "if": (None, _case_if_node),
+            },
+        ),
+    },
+)
+
+
+async def export_test_sequence(data, hardware_id, project_id):
+    data = pydantic.TypeAdapter(TestRootNode).validate_python(data)
+    identifiers = set(data.identifiers)
+    context = Context({}, identifiers)
     try:
-
+        # Walking the tree with the same sequence as the last run and upload de TestNode
         async def run_dfs(node: TestRootNode | TestSequenceElementNode):
-            if isinstance(node, TestNode):
-                try:
-                    status = node.status
-                    if status != StatusTypes.pending:
-                        passed = True if status == StatusTypes.pass_ else False
-                        test_name = node.test_name.split("::")[-1]
-                        cloud.upload(
-                            data=passed,
-                            test_id=reverse_id(test_name),
-                            hardware_id=hardware_id,
-                            name=test_name,
-                            passed=passed,
-                        )
-                        node.is_saved_to_cloud = True
-                        logger.info(f"{test_name}: Uploaded to cloud")
-                except KeyError as err:
-                    node.is_saved_to_cloud = False
-                    logger.error(err)
-
-            children_getter, _ = await _extract_from_node(node)
+            children_getter, test_result = await _extract_from_node(node, map_to_handler_upload, hardware_id=hardware_id, project_id=project_id)
+            if test_result:
+                context.result_dict[test_result.test_node.test_name] = test_result
             children = children_getter(context)
             if not children:
                 return
