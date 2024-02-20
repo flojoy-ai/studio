@@ -230,7 +230,7 @@
       },
       "type": "TextNode",
       "data": {
-        "text": "Read the [LabJack U3](https://docs.flojoy.ai/nodes/INSTRUMENTS/LABJACK/LABJACKU3/) docs before running the app."
+        "text": "Read the [LabJack U3](https://docs.flojoy.ai/blocks/hardware/daq-boards/labjack/u3/read-a0-pins/) docs before running the app."
       },
       "width": 288,
       "height": 100,
