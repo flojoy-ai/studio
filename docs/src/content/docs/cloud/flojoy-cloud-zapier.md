@@ -86,4 +86,4 @@ These steps can be generalized for form services (other than Quickbase) such as 
 
 ![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1708023222/flojoy-docs/flojoy-cloud/zap/test-quickbase.png)
 
-Having issues with deployment? Join our [Discord Community](https://discord.gg/7HEBr7yG8c) and we will help you out!
+Having issues with Zapier integration with Flojoy Cloud? Join our [Discord Community](https://discord.gg/7HEBr7yG8c) and we will help you out!
