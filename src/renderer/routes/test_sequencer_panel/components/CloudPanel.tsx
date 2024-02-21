@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/renderer/components/ui/input";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import LockableButton from "./lockable/LockedButtons";
@@ -65,10 +65,10 @@ export function CloudPanel() {
         </div>
 
         <Select onValueChange={setProjectId}>
-          <SelectTrigger data-testid="select-input">
+          <SelectTrigger>
             <SelectValue placeholder={"Select a project..."} />
           </SelectTrigger>
-          <SelectContent className="max-h-72 bg-white">
+          <SelectContent className="max-h-72">
             {projects.length === 0 && (
               <SelectItem value="not-found" disabled>
                 No projects found
