@@ -20,6 +20,7 @@ class TestSequenceMessage(dict):
     target_id: str
     result: bool
     time_taken: float
+    is_saved_to_cloud: bool
     error: Optional[str]
 
     def __init__(self, state, target_id, result, time_taken, is_saved_to_cloud, error):

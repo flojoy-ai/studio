@@ -20,7 +20,7 @@ const TestSequencerView = () => {
     setElems.withException((elems: TestSequenceElement[]) => {
       const new_elems: TestSequenceElement[] = [...elems].map((elem) => {
         return elem.type === "test"
-          ? { ...elem, status: "pending", completionTime: undefined }
+          ? { ...elem, status: "pending", completionTime: undefined, isSavedToCloud: false }
           : { ...elem };
       });
       return new_elems;
