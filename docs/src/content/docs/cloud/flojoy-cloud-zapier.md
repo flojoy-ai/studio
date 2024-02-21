@@ -50,7 +50,7 @@ These steps can be generalized for form services (other than Quickbase) such as 
 ![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1708023219/flojoy-docs/flojoy-cloud/zap/change-trigger.png)
 
 - Select your Quickbase app & table you want to create a measurement from.
-- Select your hardware measurement and the datatype
+- Additionally, filter which records to include for this measurement
 
 ![image](https://res.cloudinary.com/dhopxs1y3/image/upload/v1708023219/flojoy-docs/flojoy-cloud/zap/measurement-datatype.png)
 
