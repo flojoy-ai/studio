@@ -17,7 +17,11 @@ import {
 } from "@/renderer/utils/TestSequenceValidator";
 import useWithPermission from "./useWithPermission";
 
-export const testSequenceTree = atom<TestRootNode>({} as TestRootNode);
+export const testSequenceTree = atom<TestRootNode>({
+  type: "root",
+  children: [],
+  identifiers: [],
+});
 
 export const curRun = atom<string[]>([]);
 

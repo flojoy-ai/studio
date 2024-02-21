@@ -214,7 +214,7 @@
       },
       "type": "TextNode",
       "data": {
-        "text": "Read the [Serial Single measurement](https://docs.flojoy.ai/nodes/INSTRUMENTS/SERIAL/SERIAL_SINGLE_MEASUREMENT/) docs before running the app"
+        "text": "Read the [Serial Single measurement](https://docs.flojoy.ai/blocks/hardware/protocols/serial/serial-single-measurement/) docs before running the app"
       },
       "width": 288,
       "height": 50,
