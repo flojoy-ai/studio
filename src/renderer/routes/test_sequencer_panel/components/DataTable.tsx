@@ -42,7 +42,6 @@ import {
 } from "@/renderer/types/testSequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { parseInt, filter, map } from "lodash";
-import { AddConditionalModal } from "./AddConditionalModal";
 import {
   generateConditional,
   getIndentLevels,
@@ -80,6 +79,11 @@ const mapStatusToDisplay: { [k in StatusTypes]: React.ReactNode } = {
   pass: <p className="text-green-500">PASS</p>,
   failed: <p className="text-red-500">FAIL</p>,
   pending: <p className="text-yellow-500">PENDING</p>,
+};
+
+const mapCloudStatusToDisplay: { [k in boolean]: React.ReactNode } = {
+  true: <p className="text-green-500">Saved</p>,
+  false: <p className="text-red-500">Not Saved</p>,
 };
 
 export function DataTable() {
@@ -205,16 +209,17 @@ export function DataTable() {
       },
     },
 
-    // {
-    //   accessorKey: "isSavedToCloud",
-    //   header: "Saved to Flojoy Cloud",
-    //   enableHiding: false,
-    //   cell: ({ row }) => {
-    //     return row.getValue("isSavedToCloud") ? (
-    //       <Button>OPEN TEST</Button>
-    //     ) : null;
-    //   },
-    // },
+    {
+      accessorFn: (elem) => {
+        return elem.type === "test" ? "isSavedToCloud" : null;
+      },
+      header: "Saved To Cloud",
+      cell: ({ row }) => {
+        return row.original.type === "test" ? (
+          <div>{mapCloudStatusToDisplay[row.original.isSavedToCloud]}</div>
+        ) : null;
+      },
+    },
 
     {
       accessorKey: "up-down",
