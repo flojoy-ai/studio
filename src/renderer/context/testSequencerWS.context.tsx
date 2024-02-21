@@ -34,7 +34,12 @@ export function TestSequencerWSProvider({
   );
 
   //set result when received from backend for specific test
-  const setResult = (id: string, result: boolean, timeTaken: number, isSavedToCloud: boolean) => {
+  const setResult = (
+    id: string,
+    result: boolean,
+    timeTaken: number,
+    isSavedToCloud: boolean,
+  ) => {
     setElems.withException((elems) => {
       const new_elems = [...elems];
       const idx = new_elems.findIndex((elem) => elem.id === id);
@@ -70,7 +75,12 @@ export function TestSequencerWSProvider({
     },
     TEST_DONE: (data) => {
       setRunning((run) => filter(run, (r) => r !== data.target_id));
-      setResult(data.target_id, data.result, data.time_taken, data.is_saved_to_cloud);
+      setResult(
+        data.target_id,
+        data.result,
+        data.time_taken,
+        data.is_saved_to_cloud,
+      );
     },
     RUNNING: (data) => {
       setRunning([data.target_id]);
