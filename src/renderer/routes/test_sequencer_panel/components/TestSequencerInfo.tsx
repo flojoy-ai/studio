@@ -88,7 +88,7 @@ const TestSequencerView = () => {
                   <LockableButton
                     variant="dotted"
                     className="mt-4 w-full gap-2"
-                    disabled={_.isEmpty(tree)}
+                    isLocked={_.isEmpty(tree)}
                     onClick={handleClickRunTest}
                   >
                     Run Test Sequence

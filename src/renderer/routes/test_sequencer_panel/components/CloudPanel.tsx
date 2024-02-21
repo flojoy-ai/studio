@@ -12,8 +12,11 @@ import {
   SelectItem,
 } from "@/renderer/components/ui/select";
 import { baseClient } from "@/renderer/lib/base-client";
+import { Button } from "@/renderer/components/ui/button";
+import EnvVarModal from "../../flow_chart/views/EnvVarModal";
 
 export function CloudPanel() {
+  const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
   const [hardwareId, setHardwareId] = useState("");
   const [projectId, setProjectId] = useState("");
   const { tree, setIsLocked } = useTestSequencerState();
@@ -44,8 +47,7 @@ export function CloudPanel() {
     <div className="min-w-[240px] rounded-xl border border-gray-300 p-4 py-4 dark:border-gray-800">
       <div className="flex flex-col">
         <h2 className="mb-2 pt-3 text-center text-lg font-bold text-accent1 ">
-          {" "}
-          Cloud Panel{" "}
+          Cloud Panel
         </h2>
 
         <div className="pb-1 text-muted-foreground">
@@ -70,9 +72,21 @@ export function CloudPanel() {
           </SelectTrigger>
           <SelectContent className="max-h-72">
             {projects.length === 0 && (
-              <SelectItem value="not-found" disabled>
-                No projects found
-              </SelectItem>
+              <div className="flex flex-col items-center justify-center gap-2 p-2 text-sm">
+                <strong>No projects found</strong>
+                <p>Did you forget to set Flojoy Cloud API key?</p>
+                <div className="flex items-center justify-center gap-2">
+                  <Button
+                    onClick={() => setIsEnvVarModalOpen(true)}
+                    variant={"ghost"}
+                  >
+                    Set API Key
+                  </Button>
+                  <Button onClick={fetchProjects} variant={"ghost"}>
+                    Refresh project list
+                  </Button>
+                </div>
+              </div>
             )}
             {projects.map((option) => (
               <SelectItem key={option.value} value={option.value}>
@@ -83,7 +97,7 @@ export function CloudPanel() {
         </Select>
         <div>
           <LockableButton
-            disabled={hardwareId === "" || projectId === ""}
+            isLocked={hardwareId === "" || projectId === ""}
             className="mt-4 w-full"
             onClick={handleExport}
           >
@@ -91,6 +105,10 @@ export function CloudPanel() {
           </LockableButton>
         </div>
       </div>
+      <EnvVarModal
+        handleEnvVarModalOpen={setIsEnvVarModalOpen}
+        isEnvVarModalOpen={isEnvVarModalOpen}
+      />
     </div>
   );
 }
