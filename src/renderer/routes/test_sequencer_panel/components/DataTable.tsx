@@ -81,7 +81,7 @@ const mapStatusToDisplay: { [k in StatusTypes]: React.ReactNode } = {
   pending: <p className="text-yellow-500">PENDING</p>,
 };
 
-const mapCloudStatusToDisplay: { [k in boolean]: React.ReactNode } = {
+const mapCloudStatusToDisplay: { [k in "true" | "false"]: React.ReactNode } = {
   true: <p className="text-green-500">Saved</p>,
   false: <p className="text-red-500">Not Saved</p>,
 };
@@ -215,8 +215,12 @@ export function DataTable() {
       },
       header: "Saved To Cloud",
       cell: ({ row }) => {
-        return row.original.type === "test" ? (
-          <div>{mapCloudStatusToDisplay[row.original.isSavedToCloud]}</div>
+        const cloudStatus =
+          row.original.type === "test" ? row.original.isSavedToCloud : null;
+        const cloudStatusAsString =
+          cloudStatus !== null ? String(cloudStatus) : null;
+        return cloudStatusAsString !== null ? (
+          <div>{mapCloudStatusToDisplay[cloudStatusAsString]}</div>
         ) : null;
       },
     },
