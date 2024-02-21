@@ -61,8 +61,10 @@ export default {
   openTestPicker: (): Promise<{ filePath: string; fileContent: string }> =>
     ipcRenderer.invoke(API.openTestPicker),
 
-  openFilePicker: (): Promise<{ filePath: string; fileContent: string }> =>
-    ipcRenderer.invoke(API.openFilePicker),
+  openFilePicker: (
+    allowedExtensions: string[] = ["json"],
+  ): Promise<{ filePath: string; fileContent: string }> =>
+    ipcRenderer.invoke(API.openFilePicker, allowedExtensions),
 
   openEditorWindow: (filepath: string): Promise<void> =>
     ipcRenderer.invoke(API.openEditorWindow, filepath),
@@ -75,10 +77,12 @@ export default {
     fileContent: string,
   ): Promise<Result<void>> =>
     ipcRenderer.invoke(API.saveFileToFullPath, filepath, fileContent),
+
   getSetupExecutionTime: (): Promise<number> =>
     ipcRenderer.invoke(API.setupExecutionTime),
 
   isCI: (): Promise<boolean> => ipcRenderer.invoke(API.isCI),
+  isDev: (): Promise<boolean> => ipcRenderer.invoke(API.isDev),
   getAllLogs: (): Promise<string> => ipcRenderer.invoke(API.getAllLogs),
   openLink: (url: string): Promise<void> =>
     ipcRenderer.invoke(API.openLink, url),

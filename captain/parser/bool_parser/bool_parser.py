@@ -17,7 +17,6 @@ from captain.parser.bool_parser.expressions.models import (
 from captain.parser.bool_parser.expressions.exceptions import (
     InvalidCharacter,
     InvalidExpression,
-    InvalidIdentifier,
     MatchError,
     MissingLeftParenthesis,
     MissingRightParenthesis,
@@ -28,6 +27,10 @@ from captain.parser.bool_parser.expressions.models import (
     TOKEN_TO_CLASS,
 )
 from captain.parser.bool_parser.parser_config import rules
+from captain.parser.bool_parser.types.token_verifier import (
+    VerificationContainer,
+)
+from captain.parser.bool_parser.utils.token_verify import _verify, _verify_identifiers
 
 parantheses = set(PARANTHESES_TO_CLASS.keys())
 operation_symbols = set(TOKEN_TO_CLASS.keys())
@@ -42,6 +45,8 @@ language = {
 }
 
 ParseItem = Union[Token, Expression]
+
+track_identifiers = set()
 
 
 def _tokenize(s: str, symbol_table: SymbolTableType) -> list[Token]:
@@ -99,8 +104,6 @@ def _tokenize(s: str, symbol_table: SymbolTableType) -> list[Token]:
         elif NumericLiteral.allows(token_str):
             tokens.append(NumericLiteral(token_str))
         else:
-            if token_str not in symbol_table.keys():
-                raise InvalidIdentifier(token_str)
             tokens.append(Identifier(token_str, symbol_table))
         ptr = end_ptr
 
@@ -264,11 +267,16 @@ def _evaluate_ast(_ast: Expression) -> bool:
     return _ast.operation()
 
 
-def eval_expression(input: str, symbol_table: SymbolTableType) -> bool:
+def eval_expression(
+    input: str, symbol_table: SymbolTableType, identifiers: set[str]
+) -> bool:
     """
     Evaluates the input expression with the given symbol_table.
     Necessarily returns a boolean value.
     """
     tokens = _tokenize(input, symbol_table)
+    _verify(
+        VerificationContainer(tokens, symbol_table, identifiers), [_verify_identifiers]
+    )
     ast = _build_ast(tokens, symbol_table)
     return _evaluate_ast(ast)

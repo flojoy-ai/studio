@@ -108,21 +108,23 @@ export const cacheCustomBlocksDir = (_, dirPath: string) => {
   fs.writeFileSync(cacheFilePath, dirPath);
 };
 
-export const openTestPicker = (): Promise<
-  { filePath: string; fileContent: string } | undefined
-> => {
+export const openFilePicker = (
+  _,
+  name: string = "File",
+  allowedExtensions: string[] = ["json"],
+): Promise<{ filePath: string; fileContent: string } | undefined> => {
   return new Promise((resolve, reject) => {
     try {
       const selectedPaths = dialog.showOpenDialogSync(global.mainWindow, {
         properties: ["openFile"],
         filters: [
           {
-            extensions: ["json", "py"],
-            name: "Test",
+            extensions: allowedExtensions,
+            name,
           },
         ],
       });
-      if (selectedPaths && selectedPaths?.length > 0) {
+      if (selectedPaths && selectedPaths.length > 0) {
         const fileContent = fs.readFileSync(selectedPaths[0], {
           encoding: "utf-8",
         });
@@ -131,36 +133,7 @@ export const openTestPicker = (): Promise<
           fileContent,
         });
       }
-    } catch (error) {
-      reject(String(error));
-    }
-  });
-};
-
-export const openFilePicker = (): Promise<
-  { filePath: string; fileContent: string } | undefined
-> => {
-  return new Promise((resolve, reject) => {
-    try {
-      const selectedPaths = dialog.showOpenDialogSync(global.mainWindow, {
-        properties: ["openFile"],
-        filters: [
-          {
-            extensions: ["json"],
-            name: "Json file",
-          },
-        ],
-      });
-      if (selectedPaths && selectedPaths?.length > 0) {
-        const fileContent = fs.readFileSync(selectedPaths[0], {
-          encoding: "utf-8",
-        });
-        resolve({
-          filePath: selectedPaths[0],
-          fileContent,
-        });
-        resolve(undefined);
-      }
+      resolve(undefined);
     } catch (error) {
       reject(String(error));
     }

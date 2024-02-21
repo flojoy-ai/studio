@@ -17,7 +17,11 @@ import {
 } from "@/renderer/utils/TestSequenceValidator";
 import useWithPermission from "./useWithPermission";
 
-export const testSequenceTree = atom<TestRootNode>({} as TestRootNode);
+export const testSequenceTree = atom<TestRootNode>({
+  type: "root",
+  children: [],
+  identifiers: [],
+});
 
 export const curRun = atom<string[]>([]);
 
@@ -28,6 +32,8 @@ export const elements = atomWithImmer<(Test | Conditional)[]>([]);
 export const isLockedAtom = atomWithImmer<boolean>(false);
 
 export const isLoadingAtom = atomWithImmer<boolean>(true);
+
+export const testSequenceUnsaved = atomWithImmer<boolean>(false);
 
 // sync this with the definition of setElems
 export type SetElemsFn = {
@@ -41,7 +47,16 @@ export type SetElemsFn = {
  * @param elems - The array of test sequence elements
  */
 const createTestSequenceTree = (elems: TestSequenceElement[]): TestRootNode => {
-  const root = { type: "root", children: [] } as TestRootNode;
+  const identifiers = (
+    elems.filter((elem) => elem.type === "test") as Test[]
+  ).map((elem: Test) => {
+    return elem.testName;
+  });
+  const root = {
+    type: "root",
+    children: [],
+    identifiers: identifiers,
+  } as TestRootNode;
   const stack: TestSequenceElementNode[][] = [root.children];
   for (let i = 0; i < elems.length; i++) {
     const curElem = elems[i];
@@ -91,6 +106,7 @@ export function useTestSequencerState() {
   const [running, setRunning] = useAtom(curRun);
   const [isLoading, setIsLoading] = useAtom(isLoadingAtom);
   const [isLocked, setIsLocked] = useAtom(isLockedAtom); // this is used to lock the UI while the test is running
+  const [isUnsaved, setUnsaved] = useAtom(testSequenceUnsaved);
   const { withPermissionCheck } = useWithPermission();
 
   // wrapper around setElements to check if elems is valid
@@ -121,6 +137,7 @@ export function useTestSequencerState() {
 
     //PASS
     setElements(candidateElems);
+    setUnsaved(true);
 
     /* _________________________ */
 
@@ -140,5 +157,7 @@ export function useTestSequencerState() {
     isLocked,
     isLoading,
     setIsLoading,
+    setUnsaved,
+    isUnsaved,
   };
 }

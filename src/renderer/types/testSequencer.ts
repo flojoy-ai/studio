@@ -71,6 +71,7 @@ export type TestNode = Test;
 export type TestRootNode = {
   type: "root";
   children: TestSequenceElementNode[];
+  identifiers: string[];
 };
 
 export type TestSequenceElementNode = ConditionalNode | TestNode | TestRootNode;
