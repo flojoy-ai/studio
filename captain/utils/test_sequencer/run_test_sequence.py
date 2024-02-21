@@ -2,6 +2,7 @@ import traceback
 import asyncio
 import time
 from typing import Union, List, Callable
+from flojoy_cloud.client import FlojoyCloudException
 import pydantic
 from captain.models.test_sequencer import (
     IfNode,
@@ -100,11 +101,12 @@ async def _stream_result_to_frontend(
     test_id: str = "",
     result: bool = False,
     time_taken: float = 0,
+    is_saved_to_cloud: bool = False,
     error: str | None = None,
 ):
     asyncio.create_task(
         ts_manager.ws.broadcast(
-            TestSequenceMessage(state.value, test_id, result, time_taken, error)
+            TestSequenceMessage(state.value, test_id, result, time_taken, is_saved_to_cloud, error)
         )
     )
     await asyncio.sleep(0)  # necessary for task yield
@@ -140,6 +142,7 @@ async def _case_test(node: TestNode, **kwargs) -> Extract:
         test_id=node.id,
         result=result,
         time_taken=time_taken,  # TODO result, time_taken should be together
+        is_saved_to_cloud=False
     )
     return lambda _: None, TestResult(node, result, time_taken)
 
@@ -243,12 +246,16 @@ async def _case_test_upload(node: TestNode, hardware_id, project_id) -> Extract:
         except KeyError as err:
             # TODO: Return error to user
             logger.error(err)
+        except FlojoyCloudException as err:
+            logger.error(err)
+            raise FlojoyCloudException("Failed to upload to the cloud.") from err
         finally:
             await _stream_result_to_frontend(
                 state=MsgState.TEST_DONE,
                 test_id=node.id,
                 result=passed,
                 time_taken=node.completion_time,
+                is_saved_to_cloud=node.is_saved_to_cloud
             )
     else:
         logger.error("Should Never Reach Here")

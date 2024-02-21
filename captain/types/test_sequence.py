@@ -22,11 +22,12 @@ class TestSequenceMessage(dict):
     time_taken: float
     error: Optional[str]
 
-    def __init__(self, state, target_id, result, time_taken, error):
+    def __init__(self, state, target_id, result, time_taken, is_saved_to_cloud, error):
         self["state"] = state
         self["target_id"] = target_id
         self["result"] = result
         self["time_taken"] = time_taken
+        self["is_saved_to_cloud"] = is_saved_to_cloud
         self["error"] = error
 
     def __setitem__(self, __key: Any, __value: Any) -> None:
