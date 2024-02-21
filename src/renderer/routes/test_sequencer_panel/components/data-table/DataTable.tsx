@@ -37,44 +37,19 @@ import {
   TestSequenceElement,
   ConditionalComponent,
   Conditional,
-  Test,
   StatusTypes,
 } from "@/renderer/types/testSequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { parseInt, filter, map } from "lodash";
-import { AddConditionalModal } from "./AddConditionalModal";
 import {
   generateConditional,
   getIndentLevels,
-} from "../utils/ConditionalUtils";
-import {
-  ChevronUpIcon,
-  ChevronDownIcon,
-  Loader,
-  TrashIcon,
-} from "lucide-react";
-import { WriteConditionalModal } from "./AddWriteConditionalModal";
-import LockableButton from "./lockable/LockedButtons";
+} from "../../utils/ConditionalUtils";
+import { ChevronUpIcon, ChevronDownIcon, TrashIcon } from "lucide-react";
+import { WriteConditionalModal } from "../AddWriteConditionalModal";
+import LockableButton from "../lockable/LockedButtons";
 import { useRef, useState, useEffect } from "react";
-
-const IndentLine = ({
-  content: name,
-  level = 0,
-}: {
-  content: React.ReactNode;
-  level: number;
-}) => (
-  <div className="flex h-full flex-row">
-    {level == 0 ? (
-      name
-    ) : (
-      <div className="flex flex-row">
-        <div className={"mr-5 flex h-full border-l-2 border-blue-800"}></div>
-        <IndentLine content={name} level={level - 1} />
-      </div>
-    )}
-  </div>
-);
+import TestNameCell from "./test-name-cell";
 
 const mapStatusToDisplay: { [k in StatusTypes]: React.ReactNode } = {
   pass: <p className="text-green-500">PASS</p>,
@@ -116,38 +91,12 @@ export function DataTable() {
         return elem.type === "test" ? "testName" : "conditionalType";
       },
       header: "Test name",
-      cell: ({ row }) => {
-        const isTest = row.original.type === "test";
-        return isTest ? (
-          <div className="flex h-full space-x-2">
-            {/* Indent levels */}
-            <div className="flex flex-row space-x-1">
-              <IndentLine
-                content={(row.original as Test).testName}
-                level={indentLevels[row.id]}
-              />
-              {running.includes(row.original.id) && (
-                <Loader className="scale-50" />
-              )}
-            </div>
-            {/* {(row.original as Test).test_name} */}
-          </div>
-        ) : (
-          <IndentLine
-            content={
-              <div className="flex flex-col">
-                <b>
-                  {(row.original as Conditional).conditionalType.toUpperCase()}
-                </b>
-                <i>
-                  {(row.original as Conditional).condition.substring(0, 45)}
-                  {(row.original as Conditional).condition.length >= 45 && (
-                    <>...</>
-                  )}
-                </i>
-              </div>
-            }
-            level={indentLevels[row.id]}
+      cell: (props) => {
+        return (
+          <TestNameCell
+            cellProps={props}
+            running={running}
+            indentLevels={indentLevels}
           />
         );
       },

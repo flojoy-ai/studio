@@ -5,10 +5,14 @@ import { map } from "lodash";
 import { v4 as uuidv4 } from "uuid";
 import { ImportTestSettings } from "@/renderer/routes/test_sequencer_panel/components/ImportTestModal";
 
-function parseDiscoverContainer(data: TestDiscoverContainer) {
+function parseDiscoverContainer(
+  data: TestDiscoverContainer,
+  sourceCode: string,
+) {
   return map(data.response, (container) => {
     const new_elem: Test = {
       ...container,
+      sourceCode,
       type: "test",
       id: uuidv4(),
       groupId: uuidv4(),
@@ -25,7 +29,11 @@ function parseDiscoverContainer(data: TestDiscoverContainer) {
 export const useTestImport = () => {
   const { setElems } = useTestSequencerState();
 
-  async function getTests(path: string, settings: ImportTestSettings) {
+  async function getTests(
+    path: string,
+    sourceCode: string,
+    settings: ImportTestSettings,
+  ) {
     try {
       const response = await baseClient.get("discover-pytest", {
         params: {
@@ -34,9 +42,9 @@ export const useTestImport = () => {
         },
       });
       const data: TestDiscoverContainer = JSON.parse(response.data);
-      const new_elems = parseDiscoverContainer(data);
+      const newElems = parseDiscoverContainer(data, sourceCode);
       setElems((elems) => {
-        return [...elems, ...new_elems];
+        return [...elems, ...newElems];
       });
     } catch (error) {
       console.error(error);
@@ -48,8 +56,8 @@ export const useTestImport = () => {
       .openTestPicker()
       .then((result) => {
         if (!result) return;
-        const { filePath } = result;
-        getTests(filePath, settings);
+        const { filePath, fileContent } = result;
+        getTests(filePath, fileContent, settings);
       })
       .catch((errors) => {
         console.error("Errors when trying to load file: ", errors);

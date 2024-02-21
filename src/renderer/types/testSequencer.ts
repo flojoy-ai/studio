@@ -29,6 +29,7 @@ export type BackendMsg = {
 
 export type Test = {
   type: "test";
+  sourceCode: string;
   id: string;
   groupId: string;
   path: string;
