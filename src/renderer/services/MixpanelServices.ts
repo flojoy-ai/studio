@@ -6,8 +6,7 @@ const enable = 1; // +(process?.env?.FLOJOY_ENABLE_TELEMETRY ?? "1");
 
 export const initMixPanel = async () => {
   if (await isCI()) return;
-  if (process.env.NODE_ENV !== "production") return;
-
+  if (await isDev()) return;
   mixpanel.init(PROJECT_TOKEN);
 };
 export enum MixPanelEvents {
@@ -22,7 +21,7 @@ export enum MixPanelEvents {
 }
 
 const isCI = async () => await window.api.isCI();
-
+const isDev = async () => await window.api.isDev();
 //for frontier, go to LOADER.py
 export const sendProgramToMix = async (
   nodes: Node[],

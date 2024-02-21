@@ -21,7 +21,7 @@ export const testSequenceTree = atom<TestRootNode>({
   type: "root",
   children: [],
   identifiers: [],
-} as TestRootNode);
+});
 
 export const curRun = atom<string[]>([]);
 

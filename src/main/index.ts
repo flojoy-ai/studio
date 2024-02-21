@@ -149,6 +149,9 @@ app.whenReady().then(async () => {
   ipcMain.handle(API.isCI, () => {
     return Promise.resolve(process.env.CI === "true");
   });
+  ipcMain.handle(API.isDev, () => {
+    return Promise.resolve(!app.isPackaged);
+  });
   ipcMain.handle(API.getAllLogs, getAllLogs);
   ipcMain.handle(API.getCustomBlocksDir, getCustomBlocksDir);
   ipcMain.handle(API.restartCaptain, restartCaptain);
