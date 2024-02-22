@@ -1,15 +1,15 @@
 from typing import Optional
 
-from fastapi import APIRouter, Response, status
+from fastapi import APIRouter, Response, status, Depends
 from flojoy import delete_env_var, get_credentials, get_env_var, set_env_var
-
+from captain.middleware.auth_middleware import is_admin
 from captain.types.key import EnvVar
 from captain.utils.logger import logger
 
 router = APIRouter(tags=["env"])
 
 
-@router.post("/env/")
+@router.post("/env/", dependencies=[Depends(is_admin)])
 async def set_env_var_route(env_var: EnvVar):
     try:
         set_env_var(env_var.key, env_var.value)
@@ -25,7 +25,7 @@ async def set_env_var_route(env_var: EnvVar):
     return Response(status_code=200)
 
 
-@router.delete("/env/{key_name}")
+@router.delete("/env/{key_name}", dependencies=[Depends(is_admin)])
 async def delete_env_var_route(key_name: str):
     try:
         delete_env_var(key_name)
@@ -36,7 +36,7 @@ async def delete_env_var_route(key_name: str):
     return Response(status_code=200)
 
 
-@router.get("/env/{key_name}", response_model=EnvVar)
+@router.get("/env/{key_name}", response_model=EnvVar, dependencies=[Depends(is_admin)])
 async def get_env_var_by_name_route(key_name: str):
     value: Optional[str] = get_env_var(key_name)
     if value is None:

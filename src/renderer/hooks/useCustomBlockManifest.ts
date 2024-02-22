@@ -31,7 +31,7 @@ export const useCustomSections = () => {
       }
 
       try {
-        const res = await baseClient.get(
+        const res = await baseClient().get(
           `blocks/manifest?blocks_path=${blocksDirPath}`,
         );
         const validateResult = validateRootSchema(res.data);
@@ -46,7 +46,7 @@ export const useCustomSections = () => {
         }
         setCustomBlockManifest(res.data);
         window.api.cacheCustomBlocksDir(blocksDirPath);
-        const res2 = await baseClient.get(
+        const res2 = await baseClient().get(
           `blocks/metadata?blocks_path=${blocksDirPath}&custom_dir_changed=${!startup}`,
         );
         setCustomBlocksMetadata(res2.data);

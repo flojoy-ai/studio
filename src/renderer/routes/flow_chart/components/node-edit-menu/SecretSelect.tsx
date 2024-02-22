@@ -20,7 +20,7 @@ export const SecretSelect = ({ onValueChange, value }: SelectProps) => {
   useEffect(() => {
     const fetchCredentials = async () => {
       try {
-        const res = await baseClient.get("env");
+        const res = await baseClient().get("env");
         const keys = res.data.map((d) => d.key);
         setSecrets(keys);
       } catch (error) {
