@@ -32,6 +32,7 @@ export const API = {
   poetryInstallDepGroup: "POETRY_INSTALL_DEP_GROUP",
   poetryUninstallDepGroup: "POETRY_UNINSTALL_DEP_GROUP",
   openFilePicker: "OPEN_FILE_PICKER",
+  getFileContent: "GET_FILE_CONTENT",
   openEditorWindow: "OPEN_EDITOR_WINDOW",
   loadFileFromFullPath: "LOAD_FILE_FROM_FULL_PATH",
   saveFileToFullPath: "SAVE_FILE_TO_FULL_PATH",

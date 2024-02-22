@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { DataTable } from "./DataTable";
+import { DataTable } from "./data-table/DataTable";
 import { SummaryTable } from "./SummaryTable";
 import { CloudPanel } from "./CloudPanel";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
