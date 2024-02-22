@@ -81,11 +81,6 @@ const mapStatusToDisplay: { [k in StatusTypes]: React.ReactNode } = {
   pending: <p className="text-yellow-500">PENDING</p>,
 };
 
-const mapCloudStatusToDisplay: { [k in "true" | "false"]: React.ReactNode } = {
-  true: <p className="text-green-500">Saved</p>,
-  false: <p className="text-red-500">Not Saved</p>,
-};
-
 export function DataTable() {
   const { elems, setElems, running } = useTestSequencerState();
   const [addIfStatement, _setAddIfStatement] = useState(false);
