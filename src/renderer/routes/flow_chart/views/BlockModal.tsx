@@ -78,7 +78,7 @@ const BlockModal = ({
   const docsLink = `${DOCS_LINK}/blocks/${path
     .split("/")
     .slice(0, -1)
-    .join("/")}`.toLowerCase( );
+    .join("/")}`.toLowerCase();
 
   return (
     <Dialog open={modalIsOpen} onOpenChange={setModalOpen}>

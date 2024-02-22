@@ -1,5 +1,4 @@
 export const BACKEND_DEFAULT_PORT = 5392;
-export const BLOCKS_REPO = "https://github.com/flojoy-ai/blocks/blob/main";
 export const STUDIO_REPO = "https://github.com/flojoy-ai/studio/blob/main";
 export const DOCS_LINK = "https://docs.flojoy.ai";
 const BACKEND_HOST = "127.0.0.1";
