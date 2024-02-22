@@ -37,47 +37,6 @@ export const data: GalleryData = {
       cloudDemoEnabled: true,
     },
   ],
-  AI: [
-    {
-      title: "Image Captioning",
-      description: "Caption any image with this PyTorch ML model",
-      imagePath: "assets/appGallery/imageCaptioning.png",
-      appPath: "imageCaptioning",
-      relevantNodes: [
-        {
-          name: "NLP_CONNECT_VIT_GPT2",
-          docs: "https://docs.flojoy.ai/blocks/ai-ml/image-captioning/nlp-connect-vit-gpt2",
-        },
-      ],
-      cloudDemoEnabled: true,
-    },
-    {
-      title: "Image Classification",
-      description: "Classify any image using Hugging Face Transformers",
-      imagePath: "assets/appGallery/imageClassification.png",
-      appPath: "imageClassification",
-      relevantNodes: [
-        {
-          name: "HUGGING_FACE_PIPELINE",
-          docs: "https://docs.flojoy.ai/blocks/ai-ml/image-classification/hugging-face-pipeline/",
-        },
-      ],
-      cloudDemoEnabled: true,
-    },
-    {
-      title: "Time Series Forecasting",
-      description: "Predict future events with the Prophet node",
-      imagePath: "assets/appGallery/timeSeries.png",
-      appPath: "prophet",
-      relevantNodes: [
-        {
-          name: "PROPHET_PREDICT",
-          docs: "https://docs.flojoy.ai/blocks/ai-ml/predict-time-series/prophet-predict/",
-        },
-      ],
-      cloudDemoEnabled: true,
-    },
-  ],
   Oscilloscopes: [
     {
       title: "Decode I2C",
@@ -288,6 +247,47 @@ export const data: GalleryData = {
         {
           name: "IFFT",
           docs: "https://docs.flojoy.ai/blocks/dsp/ifft/",
+        },
+      ],
+      cloudDemoEnabled: true,
+    },
+  ],
+  AI: [
+    {
+      title: "Image Captioning",
+      description: "Caption any image with this PyTorch ML model",
+      imagePath: "assets/appGallery/imageCaptioning.png",
+      appPath: "imageCaptioning",
+      relevantNodes: [
+        {
+          name: "NLP_CONNECT_VIT_GPT2",
+          docs: "https://docs.flojoy.ai/blocks/ai-ml/image-captioning/nlp-connect-vit-gpt2",
+        },
+      ],
+      cloudDemoEnabled: true,
+    },
+    {
+      title: "Image Classification",
+      description: "Classify any image using Hugging Face Transformers",
+      imagePath: "assets/appGallery/imageClassification.png",
+      appPath: "imageClassification",
+      relevantNodes: [
+        {
+          name: "HUGGING_FACE_PIPELINE",
+          docs: "https://docs.flojoy.ai/blocks/ai-ml/image-classification/hugging-face-pipeline/",
+        },
+      ],
+      cloudDemoEnabled: true,
+    },
+    {
+      title: "Time Series Forecasting",
+      description: "Predict future events with the Prophet node",
+      imagePath: "assets/appGallery/timeSeries.png",
+      appPath: "prophet",
+      relevantNodes: [
+        {
+          name: "PROPHET_PREDICT",
+          docs: "https://docs.flojoy.ai/blocks/ai-ml/predict-time-series/prophet-predict/",
         },
       ],
       cloudDemoEnabled: true,
