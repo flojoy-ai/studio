@@ -34,21 +34,21 @@ export const Layout = () => {
   return (
     <div>
       <div className="relative bg-background px-8 pb-2">
-        { activeTab === TabEnum.FLOWCHART && (
-        <div className="absolute left-10 top-1.5 flex items-center gap-x-1 rounded-md p-1">
-          <Input
-            className={
-              "h-6 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap border-muted/60 text-sm focus:border-muted-foreground focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 sm:w-48"
-            }
-            value={project.name}
-            onChange={handleProjectRename}
-            placeholder="Untitled project"
-            disabled={IS_CLOUD_DEMO}
-          />
-          {hasUnsavedChanges && (
-            <div className=" h-2 w-2 rounded-full bg-foreground/50" />
-          )}
-        </div>
+        {activeTab === TabEnum.FLOWCHART && (
+          <div className="absolute left-10 top-1.5 flex items-center gap-x-1 rounded-md p-1">
+            <Input
+              className={
+                "h-6 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap border-muted/60 text-sm focus:border-muted-foreground focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 sm:w-48"
+              }
+              value={project.name}
+              onChange={handleProjectRename}
+              placeholder="Untitled project"
+              disabled={IS_CLOUD_DEMO}
+            />
+            {hasUnsavedChanges && (
+              <div className=" h-2 w-2 rounded-full bg-foreground/50" />
+            )}
+          </div>
         )}
         <div
           data-cy="app-status"

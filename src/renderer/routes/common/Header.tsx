@@ -6,7 +6,6 @@ import { HEADER_HEIGHT } from "./Layout";
 import { useState } from "react";
 import { TabEnum } from "@/renderer/hooks/useActiveTab";
 
-
 const tabs = [
   {
     to: "/test-sequencer",
@@ -52,7 +51,12 @@ const Header = () => {
         alt="Logo"
       />
       {tabs.map((t) => (
-        <HeaderTab to={t.to} testId={t.testId} key={t.fullText} tabName={t.fullText}>
+        <HeaderTab
+          to={t.to}
+          testId={t.testId}
+          key={t.fullText}
+          tabName={t.fullText}
+        >
           {large ? t.fullText : t.shortText}
         </HeaderTab>
       ))}

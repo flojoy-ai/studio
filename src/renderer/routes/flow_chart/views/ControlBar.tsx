@@ -36,9 +36,9 @@ import { Button } from "@/renderer/components/ui/button";
 import ProfileMenu from "./user-profile/ProfileMenu";
 import { useActiveTab, TabEnum } from "@/renderer/hooks/useActiveTab";
 
-
 const ControlBar = () => {
-  const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] = useState<boolean>(false);
+  const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
+    useState<boolean>(false);
   const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
   const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
   const [isDebugSettingsOpen, setIsDebugSettingsOpen] = useState(false);
@@ -88,7 +88,7 @@ const ControlBar = () => {
         isDepManagerModalOpen={isDepManagerModalOpen}
       />
 
-      { activeTab === TabEnum.FLOWCHART && <FlowControlButtons /> }
+      {activeTab === TabEnum.FLOWCHART && <FlowControlButtons />}
 
       <div className="flex">
         <Menubar>
