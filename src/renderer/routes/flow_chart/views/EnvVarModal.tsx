@@ -94,6 +94,10 @@ const EnvVarModal = ({
   };
 
   const handleSendEnvVar = async () => {
+    if (envVarKey === "" || envVarValue === "") {
+      toast("Please enter both key and value");
+      return;
+    }
     const result = await postEnvironmentVariable({
       key: envVarKey,
       value: envVarValue,
@@ -110,6 +114,10 @@ const EnvVarModal = ({
   };
 
   const handleSetCloudKey = async () => {
+    if (flojoyCloudKey === "") {
+      toast("Please enter your Flojoy Cloud API key");
+      return;
+    }
     const result = await postEnvironmentVariable({
       key: "FLOJOY_CLOUD_KEY",
       value: flojoyCloudKey,

@@ -29,13 +29,13 @@ const EnvVarCredentialsInfo = ({
     credential.value,
   );
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { withPermissionCheck } = useWithPermission();
+  const { withPermissionCheck, isAdmin } = useWithPermission();
 
   const toggleShowPassword = () => {
     if (credential.value === "") {
       setIsLoading(true);
       baseClient
-        .get(`env/${credential}`)
+        .get(`env/${credential.key}`)
         .then((res) => {
           setCredentialValue(res.data.value);
           setIsLoading(false);
@@ -93,33 +93,35 @@ const EnvVarCredentialsInfo = ({
             <span className="tracking-wider">{"•".repeat(15)}</span>
           )}
         </div>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              data-testid="env-var-modify-btn"
-              variant={"ghost"}
-              size={"icon"}
-            >
-              <MoreVertical className="stroke-gray-600" size={20} />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="min-w-[80px]">
-            <DropdownMenuItem
-              data-testid="env-var-edit-btn"
-              onClick={handleEditClick}
-              className="cursor-pointer"
-            >
-              Edit
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              data-testid="env-var-delete-btn"
-              onClick={handleDeleteClick}
-              className="cursor-pointer"
-            >
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {isAdmin() && (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                data-testid="env-var-modify-btn"
+                variant={"ghost"}
+                size={"icon"}
+              >
+                <MoreVertical className="stroke-gray-600" size={20} />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="min-w-[80px]">
+              <DropdownMenuItem
+                data-testid="env-var-edit-btn"
+                onClick={handleEditClick}
+                className="cursor-pointer"
+              >
+                Edit
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                data-testid="env-var-delete-btn"
+                onClick={handleDeleteClick}
+                className="cursor-pointer"
+              >
+                Delete
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
       </div>
     </div>
   );
