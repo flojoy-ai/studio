@@ -1,13 +1,8 @@
-import { useState } from "react";
 import { atom, useAtom } from "jotai";
 
-export const TabEnum = {
-  SEQUENCER: "Test Sequencer",
-  FLOWCHART: "Visual Python Script",
-  DEVICES: "Hardware Devices",
-};
+export type TabName = "Test Sequencer" | "Visual Python Script" | "Hardware Devices";
 
-export const tabAtom = atom<TabEnum>(TabEnum.SEQUENCER);
+export const tabAtom = atom<TabName>("Test Sequencer");
 
 export function useActiveTab() {
   const [activeTab, setActiveTab] = useAtom(tabAtom);

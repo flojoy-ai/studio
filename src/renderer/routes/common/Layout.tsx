@@ -7,7 +7,7 @@ import { useHasUnsavedChanges } from "@/renderer/hooks/useHasUnsavedChanges";
 import { IS_CLOUD_DEMO } from "@/renderer/data/constants";
 import { Outlet } from "react-router-dom";
 import StatusBar from "@/renderer/routes/common/StatusBar";
-import { useActiveTab, TabEnum } from "@/renderer/hooks/useActiveTab";
+import { useActiveTab, TabName } from "@/renderer/hooks/useActiveTab";
 
 export const HEADER_HEIGHT = 72;
 export const ACTIONS_HEIGHT = 52;
@@ -34,7 +34,7 @@ export const Layout = () => {
   return (
     <div>
       <div className="relative bg-background px-8 pb-2">
-        {activeTab === TabEnum.FLOWCHART && (
+        {activeTab === "Visual Python Script" && (
           <div className="absolute left-10 top-1.5 flex items-center gap-x-1 rounded-md p-1">
             <Input
               className={

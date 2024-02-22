@@ -1,11 +1,12 @@
 import { cn } from "@/renderer/lib/utils";
 import { Link, useLocation } from "react-router-dom";
-import { useActiveTab } from "@/renderer/hooks/useActiveTab";
+import { useActiveTab, TabName } from "@/renderer/hooks/useActiveTab";
 
 type TabButtonProps = {
   to: string;
   children?: React.ReactNode;
   testId?: string;
+  tabName: TabName;
 };
 
 const HeaderTab = ({ to, tabName, children, testId }: TabButtonProps) => {

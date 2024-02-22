@@ -3,25 +3,31 @@ import HeaderTab from "./HeaderTab";
 import ControlBar from "../flow_chart/views/ControlBar";
 import { useWindowSize } from "react-use";
 import { HEADER_HEIGHT } from "./Layout";
-import { useState } from "react";
-import { TabEnum } from "@/renderer/hooks/useActiveTab";
+import { TabName } from "@/renderer/hooks/useActiveTab";
 
-const tabs = [
+interface Tab {
+  to: string;
+  fullText: TabName;
+  shortText: string;
+  testId: string;
+}
+
+const tabs: Tab[] = [
   {
     to: "/test-sequencer",
-    fullText: TabEnum.SEQUENCER,
+    fullText: "Test Sequencer",
     shortText: "Sequencer",
     testId: "test-sequencer-btn",
   },
   {
     to: "/flowchart",
-    fullText: TabEnum.FLOWCHART,
+    fullText: "Visual Python Script",
     shortText: "Script",
     testId: "script-btn",
   },
   {
     to: "/devices",
-    fullText: TabEnum.DEVICES,
+    fullText: "Hardware Devices",
     shortText: "Devices",
     testId: "devices-btn",
   },

@@ -34,7 +34,7 @@ import DepManagerModal from "./DepManagerModal";
 import { DeviceSettingsModal } from "./DeviceSettingsModal";
 import { Button } from "@/renderer/components/ui/button";
 import ProfileMenu from "./user-profile/ProfileMenu";
-import { useActiveTab, TabEnum } from "@/renderer/hooks/useActiveTab";
+import { useActiveTab, TabName } from "@/renderer/hooks/useActiveTab";
 
 const ControlBar = () => {
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
@@ -88,7 +88,7 @@ const ControlBar = () => {
         isDepManagerModalOpen={isDepManagerModalOpen}
       />
 
-      {activeTab === TabEnum.FLOWCHART && <FlowControlButtons />}
+      {activeTab === "Visual Python Script" && <FlowControlButtons />}
 
       <div className="flex">
         <Menubar>
