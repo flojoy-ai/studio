@@ -38,6 +38,7 @@ class BackendMsg(BaseModel):
     target_id: str = Field(..., alias="targetId")
     result: bool = Field(..., alias="result")
     time_taken: float = Field(..., alias="timeTaken")
+    is_saved_to_cloud: bool = Field(..., alias="isSavedToCloud")
     error: Optional[str] = Field(None, alias="error")
 
 

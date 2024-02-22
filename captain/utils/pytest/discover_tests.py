@@ -9,9 +9,11 @@ from captain.models.pytest.pytest_models import (
 )
 import pytest
 from pytest_jsonreport.plugin import JSONReport
+from captain.utils.import_utils import unload_module
 
 
 def discover_pytest_file(path: str, one_file: bool, return_val: list):
+    unload_module(path)
     plugin = JSONReport()
     pytest.main(
         ["-s", "--json-report-file=none", "--collect-only", path], plugins=[plugin]
