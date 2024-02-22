@@ -1,4 +1,5 @@
 {
+  "name": "Read CAN Bus",
   "rfInstance": {
     "nodes": [
       {
@@ -533,7 +534,17 @@
           "label": "DECODE CAN MESSAGE",
           "func": "DECODE_CAN_MESSAGE",
           "type": "HARDWARE",
-          "ctrls": {},
+          "ctrls": {
+            "ignore_undefined_id_error": {
+              "type": "bool",
+              "default": false,
+              "desc": "If True, ignore undefined id error. Default is False.",
+              "overload": null,
+              "functionName": "DECODE_CAN_MESSAGE",
+              "param": "ignore_undefined_id_error",
+              "value": false
+            }
+          },
           "initCtrls": {},
           "inputs": [
             {
@@ -556,7 +567,7 @@
               "name": "default",
               "id": "default",
               "type": "DataFrame",
-              "desc": "Return dataframe containing the DECODE_CANd message."
+              "desc": "Return dataframe containing the decoded message."
             }
           ],
           "pip_dependencies": [
@@ -633,13 +644,13 @@
           "path": "DATA/EXPORT/EXPORT_CSV/EXPORT_CSV.py"
         },
         "position": {
-          "x": 997.8521355894143,
-          "y": -57.796986536838176
+          "x": 1003.8355230975267,
+          "y": -39.84682401250092
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 997.8521355894143,
-          "y": -57.796986536838176
+          "x": 1003.8355230975267,
+          "y": -39.84682401250092
         },
         "dragging": true
       },
@@ -655,22 +666,22 @@
           "type": "DATA",
           "ctrls": {
             "s3_access_key": {
-              "type": "str",
-              "default": "",
-              "desc": "The name of the key used to save the AWS access key.",
+              "type": "Secret",
+              "default": null,
+              "desc": "AWS access key.",
               "overload": null,
               "functionName": "EXPORT_S3",
               "param": "s3_access_key",
-              "value": "S3_ACCESSKEY"
+              "value": ""
             },
             "s3_secret_key": {
-              "type": "str",
-              "default": "",
-              "desc": "The name of the key used to save the AWS secret key.",
+              "type": "Secret",
+              "default": null,
+              "desc": "AWS secret key.",
               "overload": null,
               "functionName": "EXPORT_S3",
               "param": "s3_secret_key",
-              "value": "S3_SECRETKEY"
+              "value": ""
             },
             "bucket": {
               "type": "str",
@@ -782,12 +793,12 @@
         },
         "position": {
           "x": 1263.9873925555482,
-          "y": -71.64570094234563
+          "y": -41.72876340178357
         },
         "selected": false,
         "positionAbsolute": {
           "x": 1263.9873925555482,
-          "y": -71.64570094234563
+          "y": -41.72876340178357
         },
         "dragging": true
       },
@@ -833,13 +844,13 @@
           "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
         },
         "position": {
-          "x": 758.0636785154527,
-          "y": -362.1210960362238
+          "x": 783.9916910506065,
+          "y": -344.17093351188646
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 758.0636785154527,
-          "y": -362.1210960362238
+          "x": 783.9916910506065,
+          "y": -344.17093351188646
         },
         "dragging": true,
         "style": {
@@ -855,7 +866,7 @@
         "type": "DEBUGGING",
         "data": {
           "id": "PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0",
-          "label": "PRINT DATACONTAINER",
+          "label": "DISPLAY RAW MESSAGE",
           "func": "PRINT_DATACONTAINER",
           "type": "DEBUGGING",
           "ctrls": {},
@@ -880,13 +891,13 @@
           "path": "DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py"
         },
         "position": {
-          "x": 492.7663951809445,
-          "y": -318.16055682293177
+          "x": 490.7719326782403,
+          "y": -298.21593179589036
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 492.7663951809445,
-          "y": -318.16055682293177
+          "x": 490.7719326782403,
+          "y": -298.21593179589036
         },
         "dragging": true
       },
@@ -912,7 +923,7 @@
             },
             "can_id": {
               "type": "int",
-              "default": null,
+              "default": 1,
               "desc": "The ID of the message to filter.",
               "overload": null,
               "functionName": "SET_CAN_BUS_FILTER",
@@ -921,8 +932,8 @@
             },
             "can_mask": {
               "type": "int",
-              "default": null,
-              "desc": "todo",
+              "default": 4294967295,
+              "desc": "Apply a binary mask to the ID and can_id.",
               "overload": null,
               "functionName": "SET_CAN_BUS_FILTER",
               "param": "can_mask",
@@ -974,105 +985,6 @@
           "y": 202.01658230014704
         },
         "dragging": true
-      },
-      {
-        "width": 150,
-        "height": 180,
-        "id": "PRINT_DATACONTAINER-58037020-c1ce-4b7f-bb73-4a0bcc792ccd",
-        "type": "DEBUGGING",
-        "data": {
-          "id": "PRINT_DATACONTAINER-58037020-c1ce-4b7f-bb73-4a0bcc792ccd",
-          "label": "PRINT DATAFRAME",
-          "func": "PRINT_DATACONTAINER",
-          "type": "DEBUGGING",
-          "ctrls": {},
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false,
-              "desc": "The input DataContainer to print."
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "String",
-              "desc": "String: Input datacontainer information"
-            }
-          ],
-          "path": "DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py"
-        },
-        "position": {
-          "x": 765.5110803296554,
-          "y": 328.7283502100298
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 765.5110803296554,
-          "y": 328.7283502100298
-        },
-        "dragging": true
-      },
-      {
-        "width": 826,
-        "height": 444,
-        "id": "TEXT_VIEW-a9104702-01ea-405f-9ae3-ef5a59000834",
-        "type": "VISUALIZATION",
-        "data": {
-          "id": "TEXT_VIEW-a9104702-01ea-405f-9ae3-ef5a59000834",
-          "label": "TEXT VIEW 2",
-          "func": "TEXT_VIEW",
-          "type": "VISUALIZATION",
-          "ctrls": {
-            "prettify": {
-              "type": "bool",
-              "default": false,
-              "desc": "Whether to prettify the displayed text (defaults to True)",
-              "overload": null,
-              "functionName": "TEXT_VIEW",
-              "param": "prettify",
-              "value": false
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "String|Boolean",
-              "multiple": false,
-              "desc": "The DataContainer to be visualized in text format"
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "String",
-              "desc": "The DataContainer containing text data"
-            }
-          ],
-          "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
-        },
-        "position": {
-          "x": 1003.2830202313246,
-          "y": 89.59442517263096
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 1003.2830202313246,
-          "y": 89.59442517263096
-        },
-        "dragging": true,
-        "style": {
-          "width": 826,
-          "height": 444
-        },
-        "resizing": false
       },
       {
         "width": 192,
@@ -1140,7 +1052,7 @@
             "PCAN_address": {
               "type": "str",
               "default": null,
-              "desc": "The PCAN device address to connect to. This address can be found by the PCAN_DETECT_AVAILABLE_DEVICES block.\nâ†’ Example: \"PCAN_USBBUS1\"",
+              "desc": "The PCAN device address to connect to. This address can be found by the PCAN_DETECT_AVAILABLE_DEVICES block.\n→ Example: \"PCAN_USBBUS1\"",
               "overload": null,
               "functionName": "PEAK_CONNECT",
               "param": "PCAN_address",
@@ -1196,9 +1108,63 @@
           "y": -30.893926624488586
         },
         "dragging": true
+      },
+      {
+        "width": 690,
+        "height": 671,
+        "id": "TABLE-cc22b3e6-45fa-4285-91c9-e2f1d7978fbb",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "TABLE-cc22b3e6-45fa-4285-91c9-e2f1d7978fbb",
+          "label": "TABLE",
+          "func": "TABLE",
+          "type": "VISUALIZATION",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Table visualization"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
+        },
+        "position": {
+          "x": 1008.203524661262,
+          "y": 94.072829472139
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1008.203524661262,
+          "y": 94.072829472139
+        },
+        "dragging": true,
+        "style": {
+          "width": 690,
+          "height": 671
+        },
+        "resizing": false
       }
     ],
     "edges": [
+      {
+        "source": "PEAK_DETECT_AVAILABLE_DEVICES-605db2ff-d926-4c92-a497-39a893557eeb",
+        "sourceHandle": "default",
+        "target": "TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaab",
+        "targetHandle": "default",
+        "id": "reactflow__edge-PEAK_DETECT_AVAILABLE_DEVICES-605db2ff-d926-4c92-a497-39a893557eebdefault-TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaabdefault"
+      },
       {
         "source": "LOOP-744938fd-44a2-4d05-8589-3db5efb27bdf",
         "sourceHandle": "body",
@@ -1291,25 +1257,11 @@
         "id": "reactflow__edge-RECEIVE_CAN_MESSAGE-eec770d2-94b0-4799-ab90-ddfadf9fdf43default-PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0default"
       },
       {
-        "source": "DECODE_CAN_MESSAGE-51e00bc8-eda7-4816-a5cb-7651ad2ccc16",
+        "source": "PEAK_CONNECT-0af05748-ac8e-4128-8ed2-279d6c5037dc",
         "sourceHandle": "default",
-        "target": "PRINT_DATACONTAINER-58037020-c1ce-4b7f-bb73-4a0bcc792ccd",
+        "target": "SET_CAN_BUS_FILTER-62976689-33e5-4ae0-b082-724efe31d24f",
         "targetHandle": "default",
-        "id": "reactflow__edge-DECODE_CAN_MESSAGE-51e00bc8-eda7-4816-a5cb-7651ad2ccc16default-PRINT_DATACONTAINER-58037020-c1ce-4b7f-bb73-4a0bcc792ccddefault"
-      },
-      {
-        "source": "PRINT_DATACONTAINER-58037020-c1ce-4b7f-bb73-4a0bcc792ccd",
-        "sourceHandle": "default",
-        "target": "TEXT_VIEW-a9104702-01ea-405f-9ae3-ef5a59000834",
-        "targetHandle": "default",
-        "id": "reactflow__edge-PRINT_DATACONTAINER-58037020-c1ce-4b7f-bb73-4a0bcc792ccddefault-TEXT_VIEW-a9104702-01ea-405f-9ae3-ef5a59000834default"
-      },
-      {
-        "source": "PEAK_DETECT_AVAILABLE_DEVICES-605db2ff-d926-4c92-a497-39a893557eeb",
-        "sourceHandle": "default",
-        "target": "TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaab",
-        "targetHandle": "default",
-        "id": "reactflow__edge-PEAK_DETECT_AVAILABLE_DEVICES-605db2ff-d926-4c92-a497-39a893557eebdefault-TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaabdefault"
+        "id": "reactflow__edge-PEAK_CONNECT-0af05748-ac8e-4128-8ed2-279d6c5037dcdefault-SET_CAN_BUS_FILTER-62976689-33e5-4ae0-b082-724efe31d24fdefault"
       },
       {
         "source": "TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaab",
@@ -1319,11 +1271,11 @@
         "id": "reactflow__edge-TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaabdefault-PEAK_CONNECT-0af05748-ac8e-4128-8ed2-279d6c5037dcdefault"
       },
       {
-        "source": "PEAK_CONNECT-0af05748-ac8e-4128-8ed2-279d6c5037dc",
+        "source": "DECODE_CAN_MESSAGE-51e00bc8-eda7-4816-a5cb-7651ad2ccc16",
         "sourceHandle": "default",
-        "target": "SET_CAN_BUS_FILTER-62976689-33e5-4ae0-b082-724efe31d24f",
+        "target": "TABLE-cc22b3e6-45fa-4285-91c9-e2f1d7978fbb",
         "targetHandle": "default",
-        "id": "reactflow__edge-PEAK_CONNECT-0af05748-ac8e-4128-8ed2-279d6c5037dcdefault-SET_CAN_BUS_FILTER-62976689-33e5-4ae0-b082-724efe31d24fdefault"
+        "id": "reactflow__edge-DECODE_CAN_MESSAGE-51e00bc8-eda7-4816-a5cb-7651ad2ccc16default-TABLE-cc22b3e6-45fa-4285-91c9-e2f1d7978fbbdefault"
       }
     ],
     "viewport": {
@@ -1332,5 +1284,97 @@
       "zoom": 0.7727010437043228
     }
   },
-  "textNodes": []
+  "textNodes": [
+    {
+      "id": "TextNode-6dedfc42-90bf-4605-925f-792e9f25c848",
+      "position": {
+        "x": -791.5683826330172,
+        "y": -407.8653348291523
+      },
+      "type": "TextNode",
+      "data": {
+        "text": "Discover connected PEAK hardware with the PCANDriver"
+      },
+      "width": 200,
+      "height": 150,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -791.5683826330172,
+        "y": -407.8653348291523
+      },
+      "dragging": false
+    },
+    {
+      "id": "TextNode-76939ee6-4f2e-4a91-b79b-5e2e8f8cc5e6",
+      "position": {
+        "x": 994.5786747134277,
+        "y": -78.79315943202482
+      },
+      "type": "TextNode",
+      "data": {
+        "text": "Upload the MF4 File to S3"
+      },
+      "width": 533,
+      "height": 160,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 994.5786747134277,
+        "y": -78.79315943202482
+      },
+      "dragging": false,
+      "style": {
+        "width": 533,
+        "height": 160
+      },
+      "resizing": false
+    },
+    {
+      "id": "TextNode-369b8231-3636-4604-9f04-7161482c34db",
+      "position": {
+        "x": -288.49712518894705,
+        "y": -577.5311197315534
+      },
+      "type": "TextNode",
+      "data": {
+        "text": "Read the data and write it to the file.\n\n\n\n"
+      },
+      "width": 1358,
+      "height": 490,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -288.49712518894705,
+        "y": -577.5311197315534
+      },
+      "dragging": false,
+      "style": {
+        "width": 1358,
+        "height": 490
+      },
+      "resizing": false
+    },
+    {
+      "id": "TextNode-5e6ffd5f-f833-4179-b7c2-14b1c2387640",
+      "position": {
+        "x": 48.24470096797947,
+        "y": -73.27436159988667
+      },
+      "type": "TextNode",
+      "data": {
+        "text": "Decode CAN Messages."
+      },
+      "width": 887,
+      "height": 470,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 48.24470096797947,
+        "y": -73.27436159988667
+      },
+      "style": {
+        "width": 887,
+        "height": 470
+      },
+      "resizing": false
+    }
+  ]
 }
