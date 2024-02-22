@@ -106,10 +106,7 @@
           "ctrls": {
             "channel": {
               "type": "select",
-              "options": [
-                "A",
-                "B"
-              ],
+              "options": ["A", "B"],
               "default": "A",
               "desc": null,
               "overload": null,
@@ -119,11 +116,7 @@
             },
             "coupling_type": {
               "type": "select",
-              "options": [
-                "0",
-                "1",
-                "2"
-              ],
+              "options": ["0", "1", "2"],
               "default": "1",
               "desc": null,
               "overload": null,
@@ -142,11 +135,7 @@
             },
             "trig_direction": {
               "type": "select",
-              "options": [
-                "0",
-                "1",
-                "2"
-              ],
+              "options": ["0", "1", "2"],
               "default": "0",
               "desc": null,
               "overload": null,
@@ -233,16 +222,7 @@
             },
             "wave_type": {
               "type": "select",
-              "options": [
-                "0",
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "7"
-              ],
+              "options": ["0", "1", "2", "3", "4", "5", "6", "7"],
               "default": "1",
               "desc": null,
               "overload": null,
@@ -288,12 +268,7 @@
             },
             "sweep_type": {
               "type": "select",
-              "options": [
-                "0",
-                "1",
-                "2",
-                "3"
-              ],
+              "options": ["0", "1", "2", "3"],
               "default": "0",
               "desc": null,
               "overload": null,

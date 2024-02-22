@@ -50,10 +50,7 @@
             },
             "addr_bits": {
               "type": "select",
-              "options": [
-                "7",
-                "10"
-              ],
+              "options": ["7", "10"],
               "default": "10",
               "desc": "The number of bits in the address to trigger on",
               "overload": null,
@@ -72,11 +69,7 @@
             },
             "data_direction": {
               "type": "select",
-              "options": [
-                "read",
-                "write",
-                "nocare"
-              ],
+              "options": ["read", "write", "nocare"],
               "default": "read",
               "desc": "Trigger on read, write, or either data direction.",
               "overload": null,
@@ -466,10 +459,7 @@
             },
             "D0_display": {
               "type": "select",
-              "options": [
-                "1",
-                "0"
-              ],
+              "options": ["1", "0"],
               "default": "0",
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
@@ -479,10 +469,7 @@
             },
             "D1_display": {
               "type": "select",
-              "options": [
-                "1",
-                "0"
-              ],
+              "options": ["1", "0"],
               "default": "0",
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
@@ -492,10 +479,7 @@
             },
             "D2_display": {
               "type": "select",
-              "options": [
-                "1",
-                "0"
-              ],
+              "options": ["1", "0"],
               "default": "0",
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
@@ -505,10 +489,7 @@
             },
             "D3_display": {
               "type": "select",
-              "options": [
-                "1",
-                "0"
-              ],
+              "options": ["1", "0"],
               "default": "0",
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
@@ -518,10 +499,7 @@
             },
             "D4_display": {
               "type": "select",
-              "options": [
-                "1",
-                "0"
-              ],
+              "options": ["1", "0"],
               "default": "0",
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
@@ -531,10 +509,7 @@
             },
             "D5_display": {
               "type": "select",
-              "options": [
-                "1",
-                "0"
-              ],
+              "options": ["1", "0"],
               "default": "0",
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
@@ -544,10 +519,7 @@
             },
             "D6_display": {
               "type": "select",
-              "options": [
-                "1",
-                "0"
-              ],
+              "options": ["1", "0"],
               "default": "0",
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
@@ -557,10 +529,7 @@
             },
             "D7_display": {
               "type": "select",
-              "options": [
-                "1",
-                "0"
-              ],
+              "options": ["1", "0"],
               "default": "0",
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
@@ -570,10 +539,7 @@
             },
             "D8_display": {
               "type": "select",
-              "options": [
-                "1",
-                "0"
-              ],
+              "options": ["1", "0"],
               "default": "0",
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
@@ -583,10 +549,7 @@
             },
             "D9_display": {
               "type": "select",
-              "options": [
-                "1",
-                "0"
-              ],
+              "options": ["1", "0"],
               "default": "0",
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
@@ -596,10 +559,7 @@
             },
             "D10_display": {
               "type": "select",
-              "options": [
-                "1",
-                "0"
-              ],
+              "options": ["1", "0"],
               "default": "0",
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
@@ -609,10 +569,7 @@
             },
             "D11_display": {
               "type": "select",
-              "options": [
-                "1",
-                "0"
-              ],
+              "options": ["1", "0"],
               "default": "0",
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
@@ -622,10 +579,7 @@
             },
             "D12_display": {
               "type": "select",
-              "options": [
-                "1",
-                "0"
-              ],
+              "options": ["1", "0"],
               "default": "0",
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
@@ -635,10 +589,7 @@
             },
             "D13_display": {
               "type": "select",
-              "options": [
-                "1",
-                "0"
-              ],
+              "options": ["1", "0"],
               "default": "0",
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
@@ -648,10 +599,7 @@
             },
             "D14_display": {
               "type": "select",
-              "options": [
-                "1",
-                "0"
-              ],
+              "options": ["1", "0"],
               "default": "0",
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
@@ -661,10 +609,7 @@
             },
             "D15_display": {
               "type": "select",
-              "options": [
-                "1",
-                "0"
-              ],
+              "options": ["1", "0"],
               "default": "0",
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,

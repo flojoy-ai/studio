@@ -103,10 +103,7 @@
             },
             "length_type": {
               "type": "select",
-              "options": [
-                "pixels",
-                "nanoseconds"
-              ],
+              "options": ["pixels", "nanoseconds"],
               "default": "pixels",
               "desc": "The units of the length specified in x_length: nanoseconds or pixels.",
               "overload": null,
@@ -187,10 +184,7 @@
             },
             "length_type": {
               "type": "select",
-              "options": [
-                "pixels",
-                "nanoseconds"
-              ],
+              "options": ["pixels", "nanoseconds"],
               "default": "pixels",
               "desc": "The units of the length specified in x_length: nanoseconds or pixels.",
               "overload": null,
@@ -244,12 +238,7 @@
           "ctrls": {
             "first_figure": {
               "type": "select",
-              "options": [
-                "bar",
-                "line",
-                "histogram",
-                "scatter"
-              ],
+              "options": ["bar", "line", "histogram", "scatter"],
               "default": "scatter",
               "desc": "plotly type to display as the first figure, default is 'scatter'",
               "overload": null,
@@ -259,12 +248,7 @@
             },
             "second_figure": {
               "type": "select",
-              "options": [
-                "bar",
-                "line",
-                "histogram",
-                "scatter"
-              ],
+              "options": ["bar", "line", "histogram", "scatter"],
               "default": "line",
               "desc": "plotly type to display as the second figure, default is 'line'",
               "overload": null,
