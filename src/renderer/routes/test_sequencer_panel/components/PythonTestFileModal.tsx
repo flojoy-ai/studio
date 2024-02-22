@@ -20,9 +20,7 @@ type Props = {
 SyntaxHighlighter.registerLanguage("python", python);
 
 const PythonTestFileModal = ({ isModalOpen, handleModalOpen, row }: Props) => {
-  const [sourceCode, setSourceCode] = useState(
-    (row.original as Test).sourceCode,
-  );
+  const [sourceCode, setSourceCode] = useState("");
 
   useEffect(() => {
     window.api
