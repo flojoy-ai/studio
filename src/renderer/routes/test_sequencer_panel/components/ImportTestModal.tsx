@@ -12,22 +12,20 @@ export type ImportTestSettings = {
 type Props = {
   isModalOpen: boolean;
   handleModalOpen: Dispatch<SetStateAction<boolean>>;
-  handleImport: () => void;
 };
 
 export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
+  const [checked, setChecked] = useState<boolean>(false);
   const openFilePicker = useTestImport();
   const { setIsLocked } = useTestSequencerState();
 
-  const handleImportTest = (settings: ImportTestSettings) => {
+  const handleImportTest = () => {
     setIsLocked(true);
-    openFilePicker(settings);
+    openFilePicker({
+      importAsOneRef: checked,
+    });
     setIsLocked(false);
-  };
-  const [checked, setChecked] = useState<boolean>(false);
-
-  const testSettings: ImportTestSettings = {
-    importAsOneRef: checked,
+    handleModalOpen(false);
   };
 
   return (
@@ -42,9 +40,7 @@ export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
           />
           <label>Import file as one test</label>
         </div>
-        <Button onClick={() => handleImportTest(testSettings)}>
-          Chose file
-        </Button>
+        <Button onClick={handleImportTest}>Chose file</Button>
       </DialogContent>
     </Dialog>
   );

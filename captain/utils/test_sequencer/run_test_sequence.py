@@ -18,7 +18,7 @@ from types import SimpleNamespace
 import subprocess
 from captain.utils.logger import logger
 from captain.parser.bool_parser.bool_parser import eval_expression
-from flojoy_cloud import FlojoyCloud
+from flojoy_cloud.client import FlojoyCloud
 from pkgs.flojoy.flojoy.env_var import get_env_var
 
 
