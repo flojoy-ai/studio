@@ -37,6 +37,7 @@ nidmm = "^1.4.7"
 nimodinst = "^1.4.7"
 flojoy-cloud = "^0.1.1"
 bcrypt = "^4.1.2"
+tinymovr = "^1.6.5"
 
 [tool.poetry.group.blocks.dependencies]
 scikit-image = "^0.22.0"

@@ -34,6 +34,7 @@ import DepManagerModal from "./DepManagerModal";
 import { DeviceSettingsModal } from "./DeviceSettingsModal";
 import { Button } from "@/renderer/components/ui/button";
 import ProfileMenu from "./user-profile/ProfileMenu";
+import { useActiveTab, TabName } from "@/renderer/hooks/useActiveTab";
 
 const ControlBar = () => {
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
@@ -44,6 +45,7 @@ const ControlBar = () => {
   const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
   const [isDeviceSettingsOpen, setIsDeviceSettingsOpen] = useState(false);
   const [isDepManagerModalOpen, setIsDepManagerModalOpen] = useState(false);
+  const { activeTab, setActiveTab } = useActiveTab();
 
   const handleCheckForUpdates = () => {
     window.api.checkForUpdates();
@@ -86,7 +88,7 @@ const ControlBar = () => {
         isDepManagerModalOpen={isDepManagerModalOpen}
       />
 
-      <FlowControlButtons />
+      {activeTab === "Visual Python Script" && <FlowControlButtons />}
 
       <div className="flex">
         <Menubar>

@@ -24,6 +24,7 @@ export type BackendMsg = {
   target_id: string;
   result: boolean;
   time_taken: number;
+  is_saved_to_cloud: boolean;
   error: string | null;
 };
 

@@ -4,7 +4,7 @@ import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
 import { JSONTree } from "react-json-tree";
 import { Node } from "reactflow";
 import { flojoySyntaxTheme } from "@/renderer/assets/FlojoyTheme";
-import { BLOCKS_REPO, DOCS_LINK } from "@/renderer/data/constants";
+import { STUDIO_REPO, DOCS_LINK } from "@/renderer/data/constants";
 import PlotlyComponent from "@/renderer/components/plotly/PlotlyComponent";
 import { makePlotlyData } from "@/renderer/components/plotly/formatPlotlyData";
 import MarkDownText from "@/renderer/components/common/MarkDownText";
@@ -73,12 +73,12 @@ const BlockModal = ({
   const link =
     path.startsWith("/") || path.includes(":")
       ? null
-      : `${BLOCKS_REPO}/blocks/${path}`;
+      : `${STUDIO_REPO}/blocks/${path}`;
 
-  const docsLink = `${DOCS_LINK}/nodes/${path
+  const docsLink = `${DOCS_LINK}/blocks/${path
     .split("/")
     .slice(0, -1)
-    .join("/")}`;
+    .join("/")}`.toLowerCase();
 
   return (
     <Dialog open={modalIsOpen} onOpenChange={setModalOpen}>

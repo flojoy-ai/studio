@@ -66,6 +66,9 @@ export default {
   ): Promise<{ filePath: string; fileContent: string }> =>
     ipcRenderer.invoke(API.openFilePicker, allowedExtensions),
 
+  getFileContent: (filepath: string): Promise<string> =>
+    ipcRenderer.invoke(API.getFileContent, filepath),
+
   openEditorWindow: (filepath: string): Promise<void> =>
     ipcRenderer.invoke(API.openEditorWindow, filepath),
 

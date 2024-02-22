@@ -3,8 +3,16 @@ import HeaderTab from "./HeaderTab";
 import ControlBar from "../flow_chart/views/ControlBar";
 import { useWindowSize } from "react-use";
 import { HEADER_HEIGHT } from "./Layout";
+import { TabName } from "@/renderer/hooks/useActiveTab";
 
-const tabs = [
+interface Tab {
+  to: string;
+  fullText: TabName;
+  shortText: string;
+  testId: string;
+}
+
+const tabs: Tab[] = [
   {
     to: "/test-sequencer",
     fullText: "Test Sequencer",
@@ -49,7 +57,12 @@ const Header = () => {
         alt="Logo"
       />
       {tabs.map((t) => (
-        <HeaderTab to={t.to} testId={t.testId} key={t.fullText}>
+        <HeaderTab
+          to={t.to}
+          testId={t.testId}
+          key={t.fullText}
+          tabName={t.fullText}
+        >
           {large ? t.fullText : t.shortText}
         </HeaderTab>
       ))}
