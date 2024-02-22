@@ -215,7 +215,16 @@ export function DataTable() {
       },
       header: "Saved To Cloud",
       cell: ({ row }) => {
-        const cloudStatus =
+               return row.original.type === "test" ? (
+          <div
+            className={cn({
+              "text-green-500": row.original.isSavedToCloud,
+              "text-red-500": !row.original.isSavedToCloud,
+            })}
+          >
+            {row.original.isSavedToCloud ? "Saved" : "Not Saved"}
+          </div>
+        ) : null;
           row.original.type === "test" ? row.original.isSavedToCloud : null;
         const cloudStatusAsString =
           cloudStatus !== null ? String(cloudStatus) : null;
