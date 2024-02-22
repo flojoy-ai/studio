@@ -136,7 +136,6 @@ export const data: GalleryData = {
       ],
       cloudDemoEnabled: false,
     },
-
   ],
   DAQ: [
     {
@@ -178,13 +177,12 @@ export const data: GalleryData = {
       cloudDemoEnabled: false,
     },
   ],
-  Multimeters_Sourcemeters: [
-
-  ],
-  Protocols:[
+  Multimeters_Sourcemeters: [],
+  Protocols: [
     {
       title: "Read CAN Bus",
-      description: "Connect to a PEAK-USB device to capture CAN Bus messages and log them into a .mf4 file for analysis and storage",
+      description:
+        "Connect to a PEAK-USB device to capture CAN Bus messages and log them into a .mf4 file for analysis and storage",
       imagePath: "assets/appGallery/peak-usb.png",
       appPath: "canReadAndLog",
       relevantNodes: [
@@ -201,7 +199,8 @@ export const data: GalleryData = {
     },
     {
       title: "Send CAN Bus Messages",
-      description: "Connect to a CANable USB-CAN device and transmit frames onto a CAN Bus network.",
+      description:
+        "Connect to a CANable USB-CAN device and transmit frames onto a CAN Bus network.",
       imagePath: "assets/appGallery/canable-usb.png",
       appPath: "canSend",
       relevantNodes: [

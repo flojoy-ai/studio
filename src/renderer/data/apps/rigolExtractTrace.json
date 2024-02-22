@@ -1,764 +1,717 @@
 {
-    "rfInstance": {
-        "nodes": [
-            {
-                "width": 192,
-                "height": 192,
-                "id": "CONNECTION_DS1074Z-2915183b-c77b-4a8d-b762-2c39ae72ccbd",
-                "type": "IO",
-                "data": {
-                    "id": "CONNECTION_DS1074Z-2915183b-c77b-4a8d-b762-2c39ae72ccbd",
-                    "label": "CONNECTION DS1074Z",
-                    "func": "CONNECTION_DS1074Z",
-                    "type": "IO",
-                    "ctrls": {
-                        "device": {
-                            "type": "VisaDevice",
-                            "default": null,
-                            "desc": "The VISA address to connect to.",
-                            "overload": null,
-                            "functionName": "CONNECTION_DS1074Z",
-                            "param": "device",
-                            "value": "TCPIP::169.254.247.202::INSTR"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "None"
-                        }
-                    ],
-                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/CONNECTION_DS1074Z/CONNECTION_DS1074Z.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -413.3113811363634,
-                    "y": -169.66659301438358
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -413.3113811363634,
-                    "y": -169.66659301438358
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254",
-                "type": "IO",
-                "data": {
-                    "id": "EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254",
-                    "label": "EXTRACT TRACE CH1",
-                    "func": "EXTRACT_TRACE_DS1074Z",
-                    "type": "IO",
-                    "ctrls": {
-                        "connection": {
-                            "type": "VisaConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
-                            "overload": null,
-                            "functionName": "EXTRACT_TRACE_DS1074Z",
-                            "param": "connection",
-                            "value": "TCPIP::169.254.247.202::INSTR"
-                        },
-                        "channel": {
-                            "type": "select",
-                            "options": [
-                                "ch1",
-                                "ch2",
-                                "ch3",
-                                "ch4"
-                            ],
-                            "default": "ch1",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "EXTRACT_TRACE_DS1074Z",
-                            "param": "channel",
-                            "value": "ch1"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "desc": "The trace of the oscilloscope."
-                        }
-                    ],
-                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/EXTRACT_TRACE_DS1074Z/EXTRACT_TRACE_DS1074Z.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 939.3054778379178,
-                    "y": -160.51627665928027
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 939.3054778379178,
-                    "y": -160.51627665928027
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4",
-                "type": "IO",
-                "data": {
-                    "id": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4",
-                    "label": "TRIGGER SETTINGS",
-                    "func": "TRIGGER_DS1074Z",
-                    "type": "IO",
-                    "ctrls": {
-                        "connection": {
-                            "type": "VisaConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
-                            "overload": null,
-                            "functionName": "TRIGGER_DS1074Z",
-                            "param": "connection",
-                            "value": "TCPIP::169.254.247.202::INSTR"
-                        },
-                        "query_set": {
-                            "type": "select",
-                            "options": [
-                                "query",
-                                "set"
-                            ],
-                            "default": "query",
-                            "desc": "\"query\" or \"set\" the trigger settings.",
-                            "overload": null,
-                            "functionName": "TRIGGER_DS1074Z",
-                            "param": "query_set",
-                            "value": "set"
-                        },
-                        "channel": {
-                            "type": "select",
-                            "options": [
-                                "ch1",
-                                "ch2",
-                                "ch3",
-                                "ch4"
-                            ],
-                            "default": "ch1",
-                            "desc": "Which channel to use as the trigger channel.",
-                            "overload": null,
-                            "functionName": "TRIGGER_DS1074Z",
-                            "param": "channel",
-                            "value": "ch1"
-                        },
-                        "level": {
-                            "type": "float",
-                            "default": 0.5,
-                            "desc": "Set the triggering level, in Volts",
-                            "overload": null,
-                            "functionName": "TRIGGER_DS1074Z",
-                            "param": "level",
-                            "value": 0.5
-                        },
-                        "slope": {
-                            "type": "select",
-                            "options": [
-                                "positive",
-                                "negative",
-                                "either",
-                                "unchanged"
-                            ],
-                            "default": "positive",
-                            "desc": "Which slope to detect the triggering time on.",
-                            "overload": null,
-                            "functionName": "TRIGGER_DS1074Z",
-                            "param": "slope",
-                            "value": "positive"
-                        },
-                        "coupling": {
-                            "type": "select",
-                            "options": [
-                                "AC",
-                                "DC",
-                                "LFReject",
-                                "HFReject",
-                                "unchanged"
-                            ],
-                            "default": "DC",
-                            "desc": "Which coupling to use for the trigger signal.",
-                            "overload": null,
-                            "functionName": "TRIGGER_DS1074Z",
-                            "param": "coupling",
-                            "value": "DC"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "The triggering settings."
-                        }
-                    ],
-                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/TRIGGER_DS1074Z/TRIGGER_DS1074Z.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 133.07895656458095,
-                    "y": -168.4905183682502
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 133.07895656458095,
-                    "y": -168.4905183682502
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535",
-                    "label": "LINE",
-                    "func": "LINE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {
-                        "xaxis_title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": "Choose the label for the x axis.",
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "xaxis_title",
-                            "value": ""
-                        },
-                        "yaxis_title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": "Choose the label for the y axis.",
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "yaxis_title",
-                            "value": ""
-                        },
-                        "x_log_scale": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "x_log_scale",
-                            "value": false
-                        },
-                        "y_log_scale": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "y_log_scale",
-                            "value": false
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
-                        }
-                    ],
-                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 1195.9355359248773,
-                    "y": -269.24503462662517
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1195.9355359248773,
-                    "y": -269.24503462662517
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2",
-                "type": "IO",
-                "data": {
-                    "id": "TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2",
-                    "label": "TIME AXIS",
-                    "func": "TIME_AXIS_DS1074Z",
-                    "type": "IO",
-                    "ctrls": {
-                        "connection": {
-                            "type": "VisaConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
-                            "overload": null,
-                            "functionName": "TIME_AXIS_DS1074Z",
-                            "param": "connection",
-                            "value": "TCPIP::169.254.247.202::INSTR"
-                        },
-                        "query_set": {
-                            "type": "select",
-                            "options": [
-                                "query",
-                                "set"
-                            ],
-                            "default": "query",
-                            "desc": "\"query\" or \"set\" the trigger settings.",
-                            "overload": null,
-                            "functionName": "TIME_AXIS_DS1074Z",
-                            "param": "query_set",
-                            "value": "set"
-                        },
-                        "offset": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "Set the time axis offset, in seconds.",
-                            "overload": null,
-                            "functionName": "TIME_AXIS_DS1074Z",
-                            "param": "offset",
-                            "value": 0
-                        },
-                        "scale": {
-                            "type": "float",
-                            "default": 0.001,
-                            "desc": "Set the time axis scale, in seconds.",
-                            "overload": null,
-                            "functionName": "TIME_AXIS_DS1074Z",
-                            "param": "scale",
-                            "value": 0.0005
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "summary of the time axis settings."
-                        }
-                    ],
-                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/TIME_AXIS_DS1074Z/TIME_AXIS_DS1074Z.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 681.2430377624725,
-                    "y": -162.70605036769487
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 681.2430377624725,
-                    "y": -162.70605036769487
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552",
-                "type": "IO",
-                "data": {
-                    "id": "VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552",
-                    "label": "VERTICAL AXIS",
-                    "func": "VERTICAL_AXIS_DS1074Z",
-                    "type": "IO",
-                    "ctrls": {
-                        "connection": {
-                            "type": "VisaConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
-                            "overload": null,
-                            "functionName": "VERTICAL_AXIS_DS1074Z",
-                            "param": "connection",
-                            "value": "TCPIP::169.254.247.202::INSTR"
-                        },
-                        "query_set": {
-                            "type": "select",
-                            "options": [
-                                "query",
-                                "set"
-                            ],
-                            "default": "query",
-                            "desc": "\"query\" or \"set\" the trigger settings.",
-                            "overload": null,
-                            "functionName": "VERTICAL_AXIS_DS1074Z",
-                            "param": "query_set",
-                            "value": "set"
-                        },
-                        "channel": {
-                            "type": "select",
-                            "options": [
-                                "ch1",
-                                "ch2",
-                                "ch3",
-                                "ch4"
-                            ],
-                            "default": "ch1",
-                            "desc": "Which channel to set or query.",
-                            "overload": null,
-                            "functionName": "VERTICAL_AXIS_DS1074Z",
-                            "param": "channel",
-                            "value": "ch1"
-                        },
-                        "offset": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "Set the vertical axis offset.",
-                            "overload": null,
-                            "functionName": "VERTICAL_AXIS_DS1074Z",
-                            "param": "offset",
-                            "value": 0
-                        },
-                        "scale": {
-                            "type": "float",
-                            "default": 0.001,
-                            "desc": "Set the vertical axis scale.",
-                            "overload": null,
-                            "functionName": "VERTICAL_AXIS_DS1074Z",
-                            "param": "scale",
-                            "value": 1
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "Summary of the vertical axis settings."
-                        }
-                    ],
-                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/VERTICAL_AXIS_DS1074Z/VERTICAL_AXIS_DS1074Z.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 419.4983121301581,
-                    "y": -164.56738808036144
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 419.4983121301581,
-                    "y": -164.56738808036144
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055eb",
-                "type": "IO",
-                "data": {
-                    "id": "CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055eb",
-                    "label": "CHANNEL ON OFF",
-                    "func": "CHANNEL_ON_OFF_DS1074Z",
-                    "type": "IO",
-                    "ctrls": {
-                        "connection": {
-                            "type": "VisaConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
-                            "overload": null,
-                            "functionName": "CHANNEL_ON_OFF_DS1074Z",
-                            "param": "connection",
-                            "value": "TCPIP::169.254.247.202::INSTR"
-                        },
-                        "ch1": {
-                            "type": "select",
-                            "options": [
-                                "ON",
-                                "OFF"
-                            ],
-                            "default": "ON",
-                            "desc": "Turn channel 1 on or off.",
-                            "overload": null,
-                            "functionName": "CHANNEL_ON_OFF_DS1074Z",
-                            "param": "ch1",
-                            "value": "ON"
-                        },
-                        "ch2": {
-                            "type": "select",
-                            "options": [
-                                "ON",
-                                "OFF"
-                            ],
-                            "default": "ON",
-                            "desc": "Turn channel 2 on or off.",
-                            "overload": null,
-                            "functionName": "CHANNEL_ON_OFF_DS1074Z",
-                            "param": "ch2",
-                            "value": "ON"
-                        },
-                        "ch3": {
-                            "type": "select",
-                            "options": [
-                                "ON",
-                                "OFF"
-                            ],
-                            "default": "ON",
-                            "desc": "Turn channel 3 on or off.",
-                            "overload": null,
-                            "functionName": "CHANNEL_ON_OFF_DS1074Z",
-                            "param": "ch3",
-                            "value": "OFF"
-                        },
-                        "ch4": {
-                            "type": "select",
-                            "options": [
-                                "ON",
-                                "OFF"
-                            ],
-                            "default": "ON",
-                            "desc": "Turn channel 4 on or off.",
-                            "overload": null,
-                            "functionName": "CHANNEL_ON_OFF_DS1074Z",
-                            "param": "ch4",
-                            "value": "OFF"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "Summary of channel settings."
-                        }
-                    ],
-                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/CHANNEL_ON_OFF_DS1074Z/CHANNEL_ON_OFF_DS1074Z.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -144.791158909549,
-                    "y": -169.4767682819073
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -144.791158909549,
-                    "y": -169.4767682819073
-                },
-                "dragging": true
+  "rfInstance": {
+    "nodes": [
+      {
+        "width": 192,
+        "height": 192,
+        "id": "CONNECTION_DS1074Z-2915183b-c77b-4a8d-b762-2c39ae72ccbd",
+        "type": "IO",
+        "data": {
+          "id": "CONNECTION_DS1074Z-2915183b-c77b-4a8d-b762-2c39ae72ccbd",
+          "label": "CONNECTION DS1074Z",
+          "func": "CONNECTION_DS1074Z",
+          "type": "IO",
+          "ctrls": {
+            "device": {
+              "type": "VisaDevice",
+              "default": null,
+              "desc": "The VISA address to connect to.",
+              "overload": null,
+              "functionName": "CONNECTION_DS1074Z",
+              "param": "device",
+              "value": "TCPIP::169.254.247.202::INSTR"
             }
-        ],
-        "edges": [
+          },
+          "initCtrls": {},
+          "inputs": [
             {
-                "source": "TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2",
-                "sourceHandle": "default",
-                "target": "EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254",
-                "targetHandle": "default",
-                "id": "reactflow__edge-TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2default-EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254default"
-            },
-            {
-                "source": "EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254",
-                "sourceHandle": "default",
-                "target": "LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535",
-                "targetHandle": "default",
-                "id": "reactflow__edge-EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254default-LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535default"
-            },
-            {
-                "source": "VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552",
-                "sourceHandle": "default",
-                "target": "TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2",
-                "targetHandle": "default",
-                "id": "reactflow__edge-VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552default-TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2default"
-            },
-            {
-                "source": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4",
-                "sourceHandle": "default",
-                "target": "VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552",
-                "targetHandle": "default",
-                "id": "reactflow__edge-TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4default-VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552default"
-            },
-            {
-                "source": "CONNECTION_DS1074Z-2915183b-c77b-4a8d-b762-2c39ae72ccbd",
-                "sourceHandle": "default",
-                "target": "CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055eb",
-                "targetHandle": "default",
-                "id": "reactflow__edge-CONNECTION_DS1074Z-2915183b-c77b-4a8d-b762-2c39ae72ccbddefault-CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055ebdefault"
-            },
-            {
-                "source": "CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055eb",
-                "sourceHandle": "default",
-                "target": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4",
-                "targetHandle": "default",
-                "id": "reactflow__edge-CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055ebdefault-TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4default"
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
             }
-        ],
-        "viewport": {
-            "x": 1139.470292881633,
-            "y": 572.2854272048312,
-            "zoom": 1.2136444284334926
-        }
-    },
-    "textNodes": [
-        {
-            "id": "TextNode-82fb1b15-0362-4148-867e-948f8c97da47",
-            "position": {
-                "x": -421.9603907747531,
-                "y": -316.51084977781727
-            },
-            "type": "TextNode",
-            "data": {
-                "text": "## This example shows how to extract a trace from a Rigol oscilloscope."
-            },
-            "width": 496,
-            "height": 110,
-            "selected": false,
-            "dragging": false,
-            "positionAbsolute": {
-                "x": -421.9603907747531,
-                "y": -316.51084977781727
-            },
-            "style": {
-                "width": 496,
-                "height": 110
-            },
-            "resizing": false
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": "None"
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/CONNECTION_DS1074Z/CONNECTION_DS1074Z.py",
+          "selected": false
         },
-        {
-            "id": "TextNode-cd1d35c6-b367-48ea-b189-d9ae221708ca",
-            "position": {
-                "x": -100.36972632557394,
-                "y": 63.10452456427237
-            },
-            "type": "TextNode",
-            "data": {
-                "text": "## First turn the channel on and set the trigger settings"
-            },
-            "width": 361,
-            "height": 104,
-            "selected": false,
-            "positionAbsolute": {
-                "x": -100.36972632557394,
-                "y": 63.10452456427237
-            },
-            "dragging": false,
-            "style": {
-                "width": 361,
-                "height": 104
-            },
-            "resizing": false
+        "position": {
+          "x": -413.3113811363634,
+          "y": -169.66659301438358
         },
-        {
-            "id": "TextNode-d4282315-2134-4f8b-bab6-cad73fdd7bed",
-            "position": {
-                "x": 460.23147155721676,
-                "y": -282.08393083648036
-            },
-            "type": "TextNode",
-            "data": {
-                "text": "## Then set the x and y axes"
-            },
-            "width": 386,
-            "height": 100,
-            "selected": false,
-            "positionAbsolute": {
-                "x": 460.23147155721676,
-                "y": -282.08393083648036
-            },
-            "dragging": false,
-            "style": {
-                "width": 386,
-                "height": 100
-            },
-            "resizing": false
+        "selected": false,
+        "positionAbsolute": {
+          "x": -413.3113811363634,
+          "y": -169.66659301438358
         },
-        {
-            "id": "TextNode-21c93521-1a7e-45e9-b535-14eb57e1fa78",
-            "position": {
-                "x": 1009.1139153801332,
-                "y": 62.37379237151407
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254",
+        "type": "IO",
+        "data": {
+          "id": "EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254",
+          "label": "EXTRACT TRACE CH1",
+          "func": "EXTRACT_TRACE_DS1074Z",
+          "type": "IO",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
+              "overload": null,
+              "functionName": "EXTRACT_TRACE_DS1074Z",
+              "param": "connection",
+              "value": "TCPIP::169.254.247.202::INSTR"
             },
-            "type": "TextNode",
-            "data": {
-                "text": "## Finally, extract the trace and plot it"
+            "channel": {
+              "type": "select",
+              "options": ["ch1", "ch2", "ch3", "ch4"],
+              "default": "ch1",
+              "desc": null,
+              "overload": null,
+              "functionName": "EXTRACT_TRACE_DS1074Z",
+              "param": "channel",
+              "value": "ch1"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "desc": "The trace of the oscilloscope."
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/EXTRACT_TRACE_DS1074Z/EXTRACT_TRACE_DS1074Z.py",
+          "selected": false
+        },
+        "position": {
+          "x": 939.3054778379178,
+          "y": -160.51627665928027
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 939.3054778379178,
+          "y": -160.51627665928027
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4",
+        "type": "IO",
+        "data": {
+          "id": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4",
+          "label": "TRIGGER SETTINGS",
+          "func": "TRIGGER_DS1074Z",
+          "type": "IO",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
+              "overload": null,
+              "functionName": "TRIGGER_DS1074Z",
+              "param": "connection",
+              "value": "TCPIP::169.254.247.202::INSTR"
             },
-            "width": 296,
-            "height": 100,
-            "selected": false,
-            "positionAbsolute": {
-                "x": 1009.1139153801332,
-                "y": 62.37379237151407
+            "query_set": {
+              "type": "select",
+              "options": ["query", "set"],
+              "default": "query",
+              "desc": "\"query\" or \"set\" the trigger settings.",
+              "overload": null,
+              "functionName": "TRIGGER_DS1074Z",
+              "param": "query_set",
+              "value": "set"
             },
-            "dragging": false,
-            "style": {
-                "width": 296,
-                "height": 100
+            "channel": {
+              "type": "select",
+              "options": ["ch1", "ch2", "ch3", "ch4"],
+              "default": "ch1",
+              "desc": "Which channel to use as the trigger channel.",
+              "overload": null,
+              "functionName": "TRIGGER_DS1074Z",
+              "param": "channel",
+              "value": "ch1"
             },
-            "resizing": false
-        }
+            "level": {
+              "type": "float",
+              "default": 0.5,
+              "desc": "Set the triggering level, in Volts",
+              "overload": null,
+              "functionName": "TRIGGER_DS1074Z",
+              "param": "level",
+              "value": 0.5
+            },
+            "slope": {
+              "type": "select",
+              "options": ["positive", "negative", "either", "unchanged"],
+              "default": "positive",
+              "desc": "Which slope to detect the triggering time on.",
+              "overload": null,
+              "functionName": "TRIGGER_DS1074Z",
+              "param": "slope",
+              "value": "positive"
+            },
+            "coupling": {
+              "type": "select",
+              "options": ["AC", "DC", "LFReject", "HFReject", "unchanged"],
+              "default": "DC",
+              "desc": "Which coupling to use for the trigger signal.",
+              "overload": null,
+              "functionName": "TRIGGER_DS1074Z",
+              "param": "coupling",
+              "value": "DC"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "The triggering settings."
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/TRIGGER_DS1074Z/TRIGGER_DS1074Z.py",
+          "selected": false
+        },
+        "position": {
+          "x": 133.07895656458095,
+          "y": -168.4905183682502
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 133.07895656458095,
+          "y": -168.4905183682502
+        },
+        "dragging": true
+      },
+      {
+        "width": 380,
+        "height": 293,
+        "id": "LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535",
+        "type": "VISUALIZERS",
+        "data": {
+          "id": "LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535",
+          "label": "LINE",
+          "func": "LINE",
+          "type": "VISUALIZERS",
+          "ctrls": {
+            "xaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the x axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "xaxis_title",
+              "value": ""
+            },
+            "yaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the y axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "yaxis_title",
+              "value": ""
+            },
+            "x_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "x_log_scale",
+              "value": false
+            },
+            "y_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "y_log_scale",
+              "value": false
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix|Vector",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py",
+          "selected": false
+        },
+        "position": {
+          "x": 1195.9355359248773,
+          "y": -269.24503462662517
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1195.9355359248773,
+          "y": -269.24503462662517
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2",
+        "type": "IO",
+        "data": {
+          "id": "TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2",
+          "label": "TIME AXIS",
+          "func": "TIME_AXIS_DS1074Z",
+          "type": "IO",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
+              "overload": null,
+              "functionName": "TIME_AXIS_DS1074Z",
+              "param": "connection",
+              "value": "TCPIP::169.254.247.202::INSTR"
+            },
+            "query_set": {
+              "type": "select",
+              "options": ["query", "set"],
+              "default": "query",
+              "desc": "\"query\" or \"set\" the trigger settings.",
+              "overload": null,
+              "functionName": "TIME_AXIS_DS1074Z",
+              "param": "query_set",
+              "value": "set"
+            },
+            "offset": {
+              "type": "float",
+              "default": 0,
+              "desc": "Set the time axis offset, in seconds.",
+              "overload": null,
+              "functionName": "TIME_AXIS_DS1074Z",
+              "param": "offset",
+              "value": 0
+            },
+            "scale": {
+              "type": "float",
+              "default": 0.001,
+              "desc": "Set the time axis scale, in seconds.",
+              "overload": null,
+              "functionName": "TIME_AXIS_DS1074Z",
+              "param": "scale",
+              "value": 0.0005
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "summary of the time axis settings."
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/TIME_AXIS_DS1074Z/TIME_AXIS_DS1074Z.py",
+          "selected": false
+        },
+        "position": {
+          "x": 681.2430377624725,
+          "y": -162.70605036769487
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 681.2430377624725,
+          "y": -162.70605036769487
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552",
+        "type": "IO",
+        "data": {
+          "id": "VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552",
+          "label": "VERTICAL AXIS",
+          "func": "VERTICAL_AXIS_DS1074Z",
+          "type": "IO",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
+              "overload": null,
+              "functionName": "VERTICAL_AXIS_DS1074Z",
+              "param": "connection",
+              "value": "TCPIP::169.254.247.202::INSTR"
+            },
+            "query_set": {
+              "type": "select",
+              "options": ["query", "set"],
+              "default": "query",
+              "desc": "\"query\" or \"set\" the trigger settings.",
+              "overload": null,
+              "functionName": "VERTICAL_AXIS_DS1074Z",
+              "param": "query_set",
+              "value": "set"
+            },
+            "channel": {
+              "type": "select",
+              "options": ["ch1", "ch2", "ch3", "ch4"],
+              "default": "ch1",
+              "desc": "Which channel to set or query.",
+              "overload": null,
+              "functionName": "VERTICAL_AXIS_DS1074Z",
+              "param": "channel",
+              "value": "ch1"
+            },
+            "offset": {
+              "type": "float",
+              "default": 0,
+              "desc": "Set the vertical axis offset.",
+              "overload": null,
+              "functionName": "VERTICAL_AXIS_DS1074Z",
+              "param": "offset",
+              "value": 0
+            },
+            "scale": {
+              "type": "float",
+              "default": 0.001,
+              "desc": "Set the vertical axis scale.",
+              "overload": null,
+              "functionName": "VERTICAL_AXIS_DS1074Z",
+              "param": "scale",
+              "value": 1
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "Summary of the vertical axis settings."
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/VERTICAL_AXIS_DS1074Z/VERTICAL_AXIS_DS1074Z.py",
+          "selected": false
+        },
+        "position": {
+          "x": 419.4983121301581,
+          "y": -164.56738808036144
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 419.4983121301581,
+          "y": -164.56738808036144
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055eb",
+        "type": "IO",
+        "data": {
+          "id": "CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055eb",
+          "label": "CHANNEL ON OFF",
+          "func": "CHANNEL_ON_OFF_DS1074Z",
+          "type": "IO",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
+              "overload": null,
+              "functionName": "CHANNEL_ON_OFF_DS1074Z",
+              "param": "connection",
+              "value": "TCPIP::169.254.247.202::INSTR"
+            },
+            "ch1": {
+              "type": "select",
+              "options": ["ON", "OFF"],
+              "default": "ON",
+              "desc": "Turn channel 1 on or off.",
+              "overload": null,
+              "functionName": "CHANNEL_ON_OFF_DS1074Z",
+              "param": "ch1",
+              "value": "ON"
+            },
+            "ch2": {
+              "type": "select",
+              "options": ["ON", "OFF"],
+              "default": "ON",
+              "desc": "Turn channel 2 on or off.",
+              "overload": null,
+              "functionName": "CHANNEL_ON_OFF_DS1074Z",
+              "param": "ch2",
+              "value": "ON"
+            },
+            "ch3": {
+              "type": "select",
+              "options": ["ON", "OFF"],
+              "default": "ON",
+              "desc": "Turn channel 3 on or off.",
+              "overload": null,
+              "functionName": "CHANNEL_ON_OFF_DS1074Z",
+              "param": "ch3",
+              "value": "OFF"
+            },
+            "ch4": {
+              "type": "select",
+              "options": ["ON", "OFF"],
+              "default": "ON",
+              "desc": "Turn channel 4 on or off.",
+              "overload": null,
+              "functionName": "CHANNEL_ON_OFF_DS1074Z",
+              "param": "ch4",
+              "value": "OFF"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "Summary of channel settings."
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/CHANNEL_ON_OFF_DS1074Z/CHANNEL_ON_OFF_DS1074Z.py",
+          "selected": false
+        },
+        "position": {
+          "x": -144.791158909549,
+          "y": -169.4767682819073
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -144.791158909549,
+          "y": -169.4767682819073
+        },
+        "dragging": true
+      }
     ],
-    "name": "Rigol extract trace"
+    "edges": [
+      {
+        "source": "TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2",
+        "sourceHandle": "default",
+        "target": "EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254",
+        "targetHandle": "default",
+        "id": "reactflow__edge-TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2default-EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254default"
+      },
+      {
+        "source": "EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254",
+        "sourceHandle": "default",
+        "target": "LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535",
+        "targetHandle": "default",
+        "id": "reactflow__edge-EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254default-LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535default"
+      },
+      {
+        "source": "VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552",
+        "sourceHandle": "default",
+        "target": "TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2",
+        "targetHandle": "default",
+        "id": "reactflow__edge-VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552default-TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2default"
+      },
+      {
+        "source": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4",
+        "sourceHandle": "default",
+        "target": "VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552",
+        "targetHandle": "default",
+        "id": "reactflow__edge-TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4default-VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552default"
+      },
+      {
+        "source": "CONNECTION_DS1074Z-2915183b-c77b-4a8d-b762-2c39ae72ccbd",
+        "sourceHandle": "default",
+        "target": "CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055eb",
+        "targetHandle": "default",
+        "id": "reactflow__edge-CONNECTION_DS1074Z-2915183b-c77b-4a8d-b762-2c39ae72ccbddefault-CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055ebdefault"
+      },
+      {
+        "source": "CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055eb",
+        "sourceHandle": "default",
+        "target": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4",
+        "targetHandle": "default",
+        "id": "reactflow__edge-CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055ebdefault-TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4default"
+      }
+    ],
+    "viewport": {
+      "x": 1139.470292881633,
+      "y": 572.2854272048312,
+      "zoom": 1.2136444284334926
+    }
+  },
+  "textNodes": [
+    {
+      "id": "TextNode-82fb1b15-0362-4148-867e-948f8c97da47",
+      "position": {
+        "x": -421.9603907747531,
+        "y": -316.51084977781727
+      },
+      "type": "TextNode",
+      "data": {
+        "text": "## This example shows how to extract a trace from a Rigol oscilloscope."
+      },
+      "width": 496,
+      "height": 110,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": -421.9603907747531,
+        "y": -316.51084977781727
+      },
+      "style": {
+        "width": 496,
+        "height": 110
+      },
+      "resizing": false
+    },
+    {
+      "id": "TextNode-cd1d35c6-b367-48ea-b189-d9ae221708ca",
+      "position": {
+        "x": -100.36972632557394,
+        "y": 63.10452456427237
+      },
+      "type": "TextNode",
+      "data": {
+        "text": "## First turn the channel on and set the trigger settings"
+      },
+      "width": 361,
+      "height": 104,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -100.36972632557394,
+        "y": 63.10452456427237
+      },
+      "dragging": false,
+      "style": {
+        "width": 361,
+        "height": 104
+      },
+      "resizing": false
+    },
+    {
+      "id": "TextNode-d4282315-2134-4f8b-bab6-cad73fdd7bed",
+      "position": {
+        "x": 460.23147155721676,
+        "y": -282.08393083648036
+      },
+      "type": "TextNode",
+      "data": {
+        "text": "## Then set the x and y axes"
+      },
+      "width": 386,
+      "height": 100,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 460.23147155721676,
+        "y": -282.08393083648036
+      },
+      "dragging": false,
+      "style": {
+        "width": 386,
+        "height": 100
+      },
+      "resizing": false
+    },
+    {
+      "id": "TextNode-21c93521-1a7e-45e9-b535-14eb57e1fa78",
+      "position": {
+        "x": 1009.1139153801332,
+        "y": 62.37379237151407
+      },
+      "type": "TextNode",
+      "data": {
+        "text": "## Finally, extract the trace and plot it"
+      },
+      "width": 296,
+      "height": 100,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1009.1139153801332,
+        "y": 62.37379237151407
+      },
+      "dragging": false,
+      "style": {
+        "width": 296,
+        "height": 100
+      },
+      "resizing": false
+    }
+  ],
+  "name": "Rigol extract trace"
 }

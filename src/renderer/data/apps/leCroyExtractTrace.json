@@ -1,1211 +1,1160 @@
 {
-    "rfInstance": {
-        "nodes": [
-            {
-                "width": 192,
-                "height": 192,
-                "id": "CONNECT_T3DSO1XXX-3913af17-b91e-4fb8-a4da-f77ecc03c940",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "CONNECT_T3DSO1XXX-3913af17-b91e-4fb8-a4da-f77ecc03c940",
-                    "label": "CONNECT T3DSO1XXX",
-                    "func": "CONNECT_T3DSO1XXX",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "device": {
-                            "type": "VisaDevice",
-                            "default": null,
-                            "desc": "The VISA address to connect to.",
-                            "overload": null,
-                            "functionName": "CONNECT_T3DSO1XXX",
-                            "param": "device",
-                            "value": "TCPIP::10.11.13.220::INSTR"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "None."
-                        }
-                    ],
-                    "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/CONNECT_T3DSO1XXX/CONNECT_T3DSO1XXX.py"
-                },
-                "position": {
-                    "x": -546.5725154533942,
-                    "y": -502.81689874958664
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -546.5725154533942,
-                    "y": -502.81689874958664
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "AUTO_SETUP_T3DSO1XXX-2067aca4-bdd1-4e1d-ac70-0a4bbcb7434c",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "AUTO_SETUP_T3DSO1XXX-2067aca4-bdd1-4e1d-ac70-0a4bbcb7434c",
-                    "label": "AUTO SETUP T3DSO1XXX",
-                    "func": "AUTO_SETUP_T3DSO1XXX",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "VisaConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires the CONNECT_T3DSO1XXX block).",
-                            "overload": null,
-                            "functionName": "AUTO_SETUP_T3DSO1XXX",
-                            "param": "connection",
-                            "value": "TCPIP::10.11.13.220::INSTR"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "None."
-                        }
-                    ],
-                    "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/AUTO_SETUP_T3DSO1XXX/AUTO_SETUP_T3DSO1XXX.py"
-                },
-                "position": {
-                    "x": -377.4737345870703,
-                    "y": -55.10729476899121
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -377.4737345870703,
-                    "y": -55.10729476899121
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "RESET_T3DSO1XXX-f5faaa6b-fa1c-40bf-85e4-8c85f917a463",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "RESET_T3DSO1XXX-f5faaa6b-fa1c-40bf-85e4-8c85f917a463",
-                    "label": "RESET T3DSO1XXX",
-                    "func": "RESET_T3DSO1XXX",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "VisaConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires the CONNECT_T3DSO1XXX block).",
-                            "overload": null,
-                            "functionName": "RESET_T3DSO1XXX",
-                            "param": "connection",
-                            "value": "TCPIP::10.11.13.220::INSTR"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "None"
-                        }
-                    ],
-                    "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/RESET_T3DSO1XXX/RESET_T3DSO1XXX.py"
-                },
-                "position": {
-                    "x": -456.8385442854459,
-                    "y": -277.3423621130851
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -456.8385442854459,
-                    "y": -277.3423621130851
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "SET_HORIZONTAL_SCALE_T3DSO1XXX-39f8506b-9401-4fc4-a009-66d828089d9b",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "SET_HORIZONTAL_SCALE_T3DSO1XXX-39f8506b-9401-4fc4-a009-66d828089d9b",
-                    "label": "SET HORIZONTAL SCALE T3DSO1XXX",
-                    "func": "SET_HORIZONTAL_SCALE_T3DSO1XXX",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "VisaConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires the CONNECT_T3DSO1XXX block).",
-                            "overload": null,
-                            "functionName": "SET_HORIZONTAL_SCALE_T3DSO1XXX",
-                            "param": "connection",
-                            "value": "TCPIP::10.11.13.220::INSTR"
-                        },
-                        "time_value": {
-                            "type": "int",
-                            "default": 500,
-                            "desc": "The vertical sensitivity in Volts (0.0005V to 10V).",
-                            "overload": null,
-                            "functionName": "SET_HORIZONTAL_SCALE_T3DSO1XXX",
-                            "param": "time_value",
-                            "value": 10
-                        },
-                        "time_unit": {
-                            "type": "select",
-                            "options": [
-                                "ns",
-                                "us",
-                                "ms",
-                                "s"
-                            ],
-                            "default": "us",
-                            "desc": "The unit of the time value (ns: nanoseconds, us: microseconds, ms: milliseconds, s: seconds).",
-                            "overload": null,
-                            "functionName": "SET_HORIZONTAL_SCALE_T3DSO1XXX",
-                            "param": "time_unit",
-                            "value": "ms"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": "The input data container."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "None."
-                        }
-                    ],
-                    "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/SET_HORIZONTAL_SCALE_T3DSO1XXX/SET_HORIZONTAL_SCALE_T3DSO1XXX.py"
-                },
-                "position": {
-                    "x": -137.2550808030488,
-                    "y": -279.46178107696176
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -137.2550808030488,
-                    "y": -279.46178107696176
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "SET_VERTICAL_SCALE_T3DSO1XXX-41c4c9d3-241e-4d88-990b-177e228c7fb6",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "SET_VERTICAL_SCALE_T3DSO1XXX-41c4c9d3-241e-4d88-990b-177e228c7fb6",
-                    "label": "SET VERTICAL SCALE T3DSO1XXX",
-                    "func": "SET_VERTICAL_SCALE_T3DSO1XXX",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "VisaConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires the CONNECT_T3DSO1XXX block).",
-                            "overload": null,
-                            "functionName": "SET_VERTICAL_SCALE_T3DSO1XXX",
-                            "param": "connection",
-                            "value": "TCPIP::10.11.13.220::INSTR"
-                        },
-                        "channel": {
-                            "type": "select",
-                            "options": [
-                                "C1",
-                                "C2",
-                                "C3",
-                                "C4"
-                            ],
-                            "default": "C1",
-                            "desc": "The channel to set the vertical sensitivity for.",
-                            "overload": null,
-                            "functionName": "SET_VERTICAL_SCALE_T3DSO1XXX",
-                            "param": "channel",
-                            "value": "C1"
-                        },
-                        "volt_gain": {
-                            "type": "float",
-                            "default": 1,
-                            "desc": "The vertical sensitivity in Volts (0.0005V to 10V).",
-                            "overload": null,
-                            "functionName": "SET_VERTICAL_SCALE_T3DSO1XXX",
-                            "param": "volt_gain",
-                            "value": 0.5
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": "The input data container."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "None"
-                        }
-                    ],
-                    "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/SET_VERTICAL_SCALE_T3DSO1XXX/SET_VERTICAL_SCALE_T3DSO1XXX.py"
-                },
-                "position": {
-                    "x": -247.77712117307297,
-                    "y": -499.0287422467984
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -247.77712117307297,
-                    "y": -499.0287422467984
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864d",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864d",
-                    "label": "SCREENSHOT T3DSO1XXX",
-                    "func": "SCREENSHOT_T3DSO1XXX",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "VisaConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires the CONNECT_T3DSO1XXX block).",
-                            "overload": null,
-                            "functionName": "SCREENSHOT_T3DSO1XXX",
-                            "param": "connection",
-                            "value": "TCPIP::10.11.13.220::INSTR"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image",
-                            "desc": "The image of the screen of the T3DSO1000(A)-2000 oscilloscope."
-                        }
-                    ],
-                    "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/SCREENSHOT_T3DSO1XXX/SCREENSHOT_T3DSO1XXX.py"
-                },
-                "position": {
-                    "x": 414.5876719240538,
-                    "y": 99.05106765306016
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 414.5876719240538,
-                    "y": 99.05106765306016
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "DISPLAY_ON_OFF_T3DSO1XXX-d739e82a-ae40-427e-8f63-83c7c5e5ac4a",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "DISPLAY_ON_OFF_T3DSO1XXX-d739e82a-ae40-427e-8f63-83c7c5e5ac4a",
-                    "label": "DISPLAY ON OFF T3DSO1XXX",
-                    "func": "DISPLAY_ON_OFF_T3DSO1XXX",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "VisaConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires the CONNECT_T3DSO1XXX block)",
-                            "overload": null,
-                            "functionName": "DISPLAY_ON_OFF_T3DSO1XXX",
-                            "param": "connection",
-                            "value": "TCPIP::10.11.13.220::INSTR"
-                        },
-                        "ch1": {
-                            "type": "select",
-                            "options": [
-                                "ON",
-                                "OFF"
-                            ],
-                            "default": "ON",
-                            "desc": "Turn channel 1 on or off",
-                            "overload": null,
-                            "functionName": "DISPLAY_ON_OFF_T3DSO1XXX",
-                            "param": "ch1",
-                            "value": "ON"
-                        },
-                        "ch2": {
-                            "type": "select",
-                            "options": [
-                                "ON",
-                                "OFF"
-                            ],
-                            "default": "ON",
-                            "desc": "Turn channel 2 on or off",
-                            "overload": null,
-                            "functionName": "DISPLAY_ON_OFF_T3DSO1XXX",
-                            "param": "ch2",
-                            "value": "OFF"
-                        },
-                        "ch3": {
-                            "type": "select",
-                            "options": [
-                                "ON",
-                                "OFF"
-                            ],
-                            "default": "ON",
-                            "desc": "Turn channel 3 on or off",
-                            "overload": null,
-                            "functionName": "DISPLAY_ON_OFF_T3DSO1XXX",
-                            "param": "ch3",
-                            "value": "OFF"
-                        },
-                        "ch4": {
-                            "type": "select",
-                            "options": [
-                                "ON",
-                                "OFF"
-                            ],
-                            "default": "ON",
-                            "desc": "Turn channel 4 on or off",
-                            "overload": null,
-                            "functionName": "DISPLAY_ON_OFF_T3DSO1XXX",
-                            "param": "ch4",
-                            "value": "OFF"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "None"
-                        }
-                    ],
-                    "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/DISPLAY_ON_OFF_T3DSO1XXX/DISPLAY_ON_OFF_T3DSO1XXX.py"
-                },
-                "position": {
-                    "x": -45.95230834452445,
-                    "y": -55.48018511013652
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -45.95230834452445,
-                    "y": -55.48018511013652
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "MEASUREMENT_T3DSO1XXX-7c90afe0-021f-4a25-8fe8-f6c2ef2ebf8a",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "MEASUREMENT_T3DSO1XXX-7c90afe0-021f-4a25-8fe8-f6c2ef2ebf8a",
-                    "label": "MEASUREMENT T3DSO1XXX",
-                    "func": "MEASUREMENT_T3DSO1XXX",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "VisaConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires the CONNECT_T3DSO1XXX block).",
-                            "overload": null,
-                            "functionName": "MEASUREMENT_T3DSO1XXX",
-                            "param": "connection",
-                            "value": "TCPIP::10.11.13.220::INSTR"
-                        },
-                        "trace": {
-                            "type": "select",
-                            "options": [
-                                "C1",
-                                "C2",
-                                "C3",
-                                "C4"
-                            ],
-                            "default": "C1",
-                            "desc": "The trace to read the waveform from.",
-                            "overload": null,
-                            "functionName": "MEASUREMENT_T3DSO1XXX",
-                            "param": "trace",
-                            "value": "C1"
-                        },
-                        "measurement": {
-                            "type": "select",
-                            "options": [
-                                "Vertical peak-to-peak",
-                                "Maximum vertical value",
-                                "Minimum vertical value",
-                                "Vertical amplitude",
-                                "Waveform top value",
-                                "Waveform base value",
-                                "Average value in the first cycle",
-                                "Average value",
-                                "RMS value",
-                                "RMS value in the first cycle",
-                                "Overshoot of a falling edge",
-                                "Preshoot of a falling edge",
-                                "Overshoot of a rising edge",
-                                "Preshoot of a rising edge",
-                                "Period",
-                                "Frequency",
-                                "Positive pulse width",
-                                "Negative pulse width",
-                                "Rise-time",
-                                "Fall-time",
-                                "Burst width",
-                                "Positive duty cycle",
-                                "Negative duty cycle"
-                            ],
-                            "default": "Vertical peak-to-peak",
-                            "desc": "The name of the measurement to take.",
-                            "overload": null,
-                            "functionName": "MEASUREMENT_T3DSO1XXX",
-                            "param": "measurement",
-                            "value": "Frequency"
-                        },
-                        "statistic": {
-                            "type": "select",
-                            "options": [
-                                "Instant",
-                                "Mean",
-                                "Min",
-                                "Max",
-                                "Std-dev",
-                                "count"
-                            ],
-                            "default": "Instant",
-                            "desc": "The statistic to take. Requires the STATISTIC_TOGGLE_T3DSO block for all statistics except \"Instant\".",
-                            "overload": null,
-                            "functionName": "MEASUREMENT_T3DSO1XXX",
-                            "param": "statistic",
-                            "value": "Instant"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": "The input data container."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Scalar",
-                            "desc": "The measured value."
-                        }
-                    ],
-                    "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/MEASUREMENT_T3DSO1XXX/MEASUREMENT_T3DSO1XXX.py"
-                },
-                "position": {
-                    "x": 400.718461638072,
-                    "y": -581.6849377350873
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 400.718461638072,
-                    "y": -581.6849377350873
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "MEASUREMENT_T3DSO1XXX-0cf47606-eaeb-4a93-98c2-0973af7ddf2b",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "MEASUREMENT_T3DSO1XXX-0cf47606-eaeb-4a93-98c2-0973af7ddf2b",
-                    "label": "MEASUREMENT T3DSO1XXX 1",
-                    "func": "MEASUREMENT_T3DSO1XXX",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "VisaConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires the CONNECT_T3DSO1XXX block).",
-                            "overload": null,
-                            "functionName": "MEASUREMENT_T3DSO1XXX",
-                            "param": "connection",
-                            "value": "TCPIP::10.11.13.220::INSTR"
-                        },
-                        "trace": {
-                            "type": "select",
-                            "options": [
-                                "C1",
-                                "C2",
-                                "C3",
-                                "C4"
-                            ],
-                            "default": "C1",
-                            "desc": "The trace to read the waveform from.",
-                            "overload": null,
-                            "functionName": "MEASUREMENT_T3DSO1XXX",
-                            "param": "trace",
-                            "value": "C1"
-                        },
-                        "measurement": {
-                            "type": "select",
-                            "options": [
-                                "Vertical peak-to-peak",
-                                "Maximum vertical value",
-                                "Minimum vertical value",
-                                "Vertical amplitude",
-                                "Waveform top value",
-                                "Waveform base value",
-                                "Average value in the first cycle",
-                                "Average value",
-                                "RMS value",
-                                "RMS value in the first cycle",
-                                "Overshoot of a falling edge",
-                                "Preshoot of a falling edge",
-                                "Overshoot of a rising edge",
-                                "Preshoot of a rising edge",
-                                "Period",
-                                "Frequency",
-                                "Positive pulse width",
-                                "Negative pulse width",
-                                "Rise-time",
-                                "Fall-time",
-                                "Burst width",
-                                "Positive duty cycle",
-                                "Negative duty cycle"
-                            ],
-                            "default": "Vertical peak-to-peak",
-                            "desc": "The name of the measurement to take.",
-                            "overload": null,
-                            "functionName": "MEASUREMENT_T3DSO1XXX",
-                            "param": "measurement",
-                            "value": "Vertical amplitude"
-                        },
-                        "statistic": {
-                            "type": "select",
-                            "options": [
-                                "Instant",
-                                "Mean",
-                                "Min",
-                                "Max",
-                                "Std-dev",
-                                "count"
-                            ],
-                            "default": "Instant",
-                            "desc": "The statistic to take. Requires the STATISTIC_TOGGLE_T3DSO block for all statistics except \"Instant\".",
-                            "overload": null,
-                            "functionName": "MEASUREMENT_T3DSO1XXX",
-                            "param": "statistic",
-                            "value": "Mean"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": "The input data container."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Scalar",
-                            "desc": "The measured value."
-                        }
-                    ],
-                    "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/MEASUREMENT_T3DSO1XXX/MEASUREMENT_T3DSO1XXX.py"
-                },
-                "position": {
-                    "x": 410.9828994498063,
-                    "y": -369.2724753595701
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 410.9828994498063,
-                    "y": -369.2724753595701
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "EXTRACT_TRACE_T3DSO1XXX-9d512b63-688b-4dc8-b542-52a150ed4bc4",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "EXTRACT_TRACE_T3DSO1XXX-9d512b63-688b-4dc8-b542-52a150ed4bc4",
-                    "label": "EXTRACT TRACE T3DSO1XXX",
-                    "func": "EXTRACT_TRACE_T3DSO1XXX",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "VisaConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires the CONNECT_T3DSO1XXX block).",
-                            "overload": null,
-                            "functionName": "EXTRACT_TRACE_T3DSO1XXX",
-                            "param": "connection",
-                            "value": "TCPIP::10.11.13.220::INSTR"
-                        },
-                        "trace": {
-                            "type": "select",
-                            "options": [
-                                "C1",
-                                "C2",
-                                "C3",
-                                "C4"
-                            ],
-                            "default": "C1",
-                            "desc": "The trace to read the waveform from.",
-                            "overload": null,
-                            "functionName": "EXTRACT_TRACE_T3DSO1XXX",
-                            "param": "trace",
-                            "value": "C1"
-                        },
-                        "resolution": {
-                            "type": "int",
-                            "default": 5000,
-                            "desc": "The number of points to read from the trace. If None, the full trace is return.",
-                            "overload": null,
-                            "functionName": "EXTRACT_TRACE_T3DSO1XXX",
-                            "param": "resolution",
-                            "value": 5000
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": "The input data container."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "desc": "The trace of the oscilloscope."
-                        }
-                    ],
-                    "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/EXTRACT_TRACE_T3DSO1XXX/EXTRACT_TRACE_T3DSO1XXX.py"
-                },
-                "position": {
-                    "x": 412.08066698019564,
-                    "y": -137.65696579136204
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 412.08066698019564,
-                    "y": -137.65696579136204
-                },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 225,
-                "id": "BIG_NUMBER-e5497f6c-f274-437f-9d6d-d16f85b474e6",
-                "type": "VISUALIZATION",
-                "data": {
-                    "id": "BIG_NUMBER-e5497f6c-f274-437f-9d6d-d16f85b474e6",
-                    "label": "BIG NUMBER",
-                    "func": "BIG_NUMBER",
-                    "type": "VISUALIZATION",
-                    "ctrls": {
-                        "suffix": {
-                            "type": "str",
-                            "default": null,
-                            "desc": "any suffix to show with big number",
-                            "overload": null,
-                            "functionName": "BIG_NUMBER",
-                            "param": "suffix",
-                            "value": "V"
-                        },
-                        "prefix": {
-                            "type": "str",
-                            "default": null,
-                            "desc": "any prefix to show with big number",
-                            "overload": null,
-                            "functionName": "BIG_NUMBER",
-                            "param": "prefix",
-                            "value": ""
-                        },
-                        "title": {
-                            "type": "str",
-                            "default": null,
-                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
-                            "overload": null,
-                            "functionName": "BIG_NUMBER",
-                            "param": "title",
-                            "value": "Mean Amplitude"
-                        },
-                        "relative_delta": {
-                            "type": "bool",
-                            "default": true,
-                            "desc": "whether or not to show the relative delta from the last run along with big number",
-                            "overload": null,
-                            "functionName": "BIG_NUMBER",
-                            "param": "relative_delta",
-                            "value": true
-                        },
-                        "scientific_notation": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "BIG_NUMBER",
-                            "param": "scientific_notation",
-                            "value": false
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly big number visualization"
-                        }
-                    ],
-                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py"
-                },
-                "position": {
-                    "x": 951.6823169441486,
-                    "y": -639.9381438879125
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 951.6823169441486,
-                    "y": -639.9381438879125
-                },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 225,
-                "id": "BIG_NUMBER-fb680e0b-d63d-42fa-82e4-f2ec52aa11d2",
-                "type": "VISUALIZATION",
-                "data": {
-                    "id": "BIG_NUMBER-fb680e0b-d63d-42fa-82e4-f2ec52aa11d2",
-                    "label": "BIG NUMBER 1",
-                    "func": "BIG_NUMBER",
-                    "type": "VISUALIZATION",
-                    "ctrls": {
-                        "suffix": {
-                            "type": "str",
-                            "default": null,
-                            "desc": "any suffix to show with big number",
-                            "overload": null,
-                            "functionName": "BIG_NUMBER",
-                            "param": "suffix",
-                            "value": "Hz"
-                        },
-                        "prefix": {
-                            "type": "str",
-                            "default": null,
-                            "desc": "any prefix to show with big number",
-                            "overload": null,
-                            "functionName": "BIG_NUMBER",
-                            "param": "prefix",
-                            "value": ""
-                        },
-                        "title": {
-                            "type": "str",
-                            "default": null,
-                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
-                            "overload": null,
-                            "functionName": "BIG_NUMBER",
-                            "param": "title",
-                            "value": "Frequency"
-                        },
-                        "relative_delta": {
-                            "type": "bool",
-                            "default": true,
-                            "desc": "whether or not to show the relative delta from the last run along with big number",
-                            "overload": null,
-                            "functionName": "BIG_NUMBER",
-                            "param": "relative_delta",
-                            "value": true
-                        },
-                        "scientific_notation": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "BIG_NUMBER",
-                            "param": "scientific_notation",
-                            "value": false
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly big number visualization"
-                        }
-                    ],
-                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py"
-                },
-                "position": {
-                    "x": 679.4781650247294,
-                    "y": -639.1883542935476
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 679.4781650247294,
-                    "y": -639.1883542935476
-                },
-                "dragging": true
-            },
-            {
-                "width": 918,
-                "height": 430,
-                "id": "IMAGE-88f5d917-1fe1-4418-bd23-2010edba16f9",
-                "type": "VISUALIZATION",
-                "data": {
-                    "id": "IMAGE-88f5d917-1fe1-4418-bd23-2010edba16f9",
-                    "label": "IMAGE",
-                    "func": "IMAGE",
-                    "type": "VISUALIZATION",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image|Grayscale",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
-                        }
-                    ],
-                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
-                },
-                "position": {
-                    "x": 674.368745798886,
-                    "y": 56.59887278201495
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 674.368745798886,
-                    "y": 56.59887278201495
-                },
-                "dragging": true,
-                "style": {
-                    "width": 918,
-                    "height": 430
-                },
-                "resizing": false
-            },
-            {
-                "width": 890,
-                "height": 427,
-                "id": "SCATTER-48008e85-cc5d-4744-a234-7c2bdfe381a7",
-                "type": "VISUALIZATION",
-                "data": {
-                    "id": "SCATTER-48008e85-cc5d-4744-a234-7c2bdfe381a7",
-                    "label": "SCATTER",
-                    "func": "SCATTER",
-                    "type": "VISUALIZATION",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly Scatter visualization"
-                        }
-                    ],
-                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
-                },
-                "position": {
-                    "x": 678.4180406914718,
-                    "y": -394.6943155885514
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 678.4180406914718,
-                    "y": -394.6943155885514
-                },
-                "dragging": true,
-                "style": {
-                    "width": 890,
-                    "height": 427
-                },
-                "resizing": false
-            },
-            {
-                "width": 96,
-                "height": 96,
-                "id": "TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41e",
-                "type": "CONTROL_FLOW",
-                "data": {
-                    "id": "TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41e",
-                    "label": "TIMER",
-                    "func": "TIMER",
-                    "type": "CONTROL_FLOW",
-                    "ctrls": {
-                        "sleep_time": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "number of seconds to sleep",
-                            "overload": null,
-                            "functionName": "TIMER",
-                            "param": "sleep_time",
-                            "value": 5
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "Returns the input if one was passed in."
-                        }
-                    ],
-                    "path": "CONTROL_FLOW/TIMERS/TIMER/TIMER.py"
-                },
-                "position": {
-                    "x": 177.2747671790213,
-                    "y": -204.3632488721801
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 177.2747671790213,
-                    "y": -204.3632488721801
-                },
-                "dragging": true
+  "rfInstance": {
+    "nodes": [
+      {
+        "width": 192,
+        "height": 192,
+        "id": "CONNECT_T3DSO1XXX-3913af17-b91e-4fb8-a4da-f77ecc03c940",
+        "type": "HARDWARE",
+        "data": {
+          "id": "CONNECT_T3DSO1XXX-3913af17-b91e-4fb8-a4da-f77ecc03c940",
+          "label": "CONNECT T3DSO1XXX",
+          "func": "CONNECT_T3DSO1XXX",
+          "type": "HARDWARE",
+          "ctrls": {
+            "device": {
+              "type": "VisaDevice",
+              "default": null,
+              "desc": "The VISA address to connect to.",
+              "overload": null,
+              "functionName": "CONNECT_T3DSO1XXX",
+              "param": "device",
+              "value": "TCPIP::10.11.13.220::INSTR"
             }
-        ],
-        "edges": [
+          },
+          "initCtrls": {},
+          "inputs": [
             {
-                "source": "CONNECT_T3DSO1XXX-3913af17-b91e-4fb8-a4da-f77ecc03c940",
-                "sourceHandle": "default",
-                "target": "RESET_T3DSO1XXX-f5faaa6b-fa1c-40bf-85e4-8c85f917a463",
-                "targetHandle": "default",
-                "id": "reactflow__edge-CONNECT_T3DSO1XXX-3913af17-b91e-4fb8-a4da-f77ecc03c940default-RESET_T3DSO1XXX-f5faaa6b-fa1c-40bf-85e4-8c85f917a463default"
-            },
-            {
-                "source": "RESET_T3DSO1XXX-f5faaa6b-fa1c-40bf-85e4-8c85f917a463",
-                "sourceHandle": "default",
-                "target": "AUTO_SETUP_T3DSO1XXX-2067aca4-bdd1-4e1d-ac70-0a4bbcb7434c",
-                "targetHandle": "default",
-                "id": "reactflow__edge-RESET_T3DSO1XXX-f5faaa6b-fa1c-40bf-85e4-8c85f917a463default-AUTO_SETUP_T3DSO1XXX-2067aca4-bdd1-4e1d-ac70-0a4bbcb7434cdefault"
-            },
-            {
-                "source": "SET_VERTICAL_SCALE_T3DSO1XXX-41c4c9d3-241e-4d88-990b-177e228c7fb6",
-                "sourceHandle": "default",
-                "target": "SET_HORIZONTAL_SCALE_T3DSO1XXX-39f8506b-9401-4fc4-a009-66d828089d9b",
-                "targetHandle": "default",
-                "id": "reactflow__edge-SET_VERTICAL_SCALE_T3DSO1XXX-41c4c9d3-241e-4d88-990b-177e228c7fb6default-SET_HORIZONTAL_SCALE_T3DSO1XXX-39f8506b-9401-4fc4-a009-66d828089d9bdefault"
-            },
-            {
-                "source": "AUTO_SETUP_T3DSO1XXX-2067aca4-bdd1-4e1d-ac70-0a4bbcb7434c",
-                "sourceHandle": "default",
-                "target": "SET_VERTICAL_SCALE_T3DSO1XXX-41c4c9d3-241e-4d88-990b-177e228c7fb6",
-                "targetHandle": "default",
-                "id": "reactflow__edge-AUTO_SETUP_T3DSO1XXX-2067aca4-bdd1-4e1d-ac70-0a4bbcb7434cdefault-SET_VERTICAL_SCALE_T3DSO1XXX-41c4c9d3-241e-4d88-990b-177e228c7fb6default"
-            },
-            {
-                "source": "SET_HORIZONTAL_SCALE_T3DSO1XXX-39f8506b-9401-4fc4-a009-66d828089d9b",
-                "sourceHandle": "default",
-                "target": "DISPLAY_ON_OFF_T3DSO1XXX-d739e82a-ae40-427e-8f63-83c7c5e5ac4a",
-                "targetHandle": "default",
-                "id": "reactflow__edge-SET_HORIZONTAL_SCALE_T3DSO1XXX-39f8506b-9401-4fc4-a009-66d828089d9bdefault-DISPLAY_ON_OFF_T3DSO1XXX-d739e82a-ae40-427e-8f63-83c7c5e5ac4adefault"
-            },
-            {
-                "source": "SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864d",
-                "sourceHandle": "default",
-                "target": "IMAGE-88f5d917-1fe1-4418-bd23-2010edba16f9",
-                "targetHandle": "default",
-                "id": "reactflow__edge-SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864ddefault-IMAGE-88f5d917-1fe1-4418-bd23-2010edba16f9default"
-            },
-            {
-                "source": "EXTRACT_TRACE_T3DSO1XXX-9d512b63-688b-4dc8-b542-52a150ed4bc4",
-                "sourceHandle": "default",
-                "target": "SCATTER-48008e85-cc5d-4744-a234-7c2bdfe381a7",
-                "targetHandle": "default",
-                "id": "reactflow__edge-EXTRACT_TRACE_T3DSO1XXX-9d512b63-688b-4dc8-b542-52a150ed4bc4default-SCATTER-48008e85-cc5d-4744-a234-7c2bdfe381a7default"
-            },
-            {
-                "source": "MEASUREMENT_T3DSO1XXX-0cf47606-eaeb-4a93-98c2-0973af7ddf2b",
-                "sourceHandle": "default",
-                "target": "BIG_NUMBER-e5497f6c-f274-437f-9d6d-d16f85b474e6",
-                "targetHandle": "default",
-                "id": "reactflow__edge-MEASUREMENT_T3DSO1XXX-0cf47606-eaeb-4a93-98c2-0973af7ddf2bdefault-BIG_NUMBER-e5497f6c-f274-437f-9d6d-d16f85b474e6default"
-            },
-            {
-                "source": "MEASUREMENT_T3DSO1XXX-7c90afe0-021f-4a25-8fe8-f6c2ef2ebf8a",
-                "sourceHandle": "default",
-                "target": "BIG_NUMBER-fb680e0b-d63d-42fa-82e4-f2ec52aa11d2",
-                "targetHandle": "default",
-                "id": "reactflow__edge-MEASUREMENT_T3DSO1XXX-7c90afe0-021f-4a25-8fe8-f6c2ef2ebf8adefault-BIG_NUMBER-fb680e0b-d63d-42fa-82e4-f2ec52aa11d2default"
-            },
-            {
-                "source": "DISPLAY_ON_OFF_T3DSO1XXX-d739e82a-ae40-427e-8f63-83c7c5e5ac4a",
-                "sourceHandle": "default",
-                "target": "TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41e",
-                "targetHandle": "default",
-                "id": "reactflow__edge-DISPLAY_ON_OFF_T3DSO1XXX-d739e82a-ae40-427e-8f63-83c7c5e5ac4adefault-TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41edefault"
-            },
-            {
-                "source": "TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41e",
-                "sourceHandle": "default",
-                "target": "MEASUREMENT_T3DSO1XXX-7c90afe0-021f-4a25-8fe8-f6c2ef2ebf8a",
-                "targetHandle": "default",
-                "id": "reactflow__edge-TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41edefault-MEASUREMENT_T3DSO1XXX-7c90afe0-021f-4a25-8fe8-f6c2ef2ebf8adefault"
-            },
-            {
-                "source": "TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41e",
-                "sourceHandle": "default",
-                "target": "MEASUREMENT_T3DSO1XXX-0cf47606-eaeb-4a93-98c2-0973af7ddf2b",
-                "targetHandle": "default",
-                "id": "reactflow__edge-TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41edefault-MEASUREMENT_T3DSO1XXX-0cf47606-eaeb-4a93-98c2-0973af7ddf2bdefault"
-            },
-            {
-                "source": "TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41e",
-                "sourceHandle": "default",
-                "target": "EXTRACT_TRACE_T3DSO1XXX-9d512b63-688b-4dc8-b542-52a150ed4bc4",
-                "targetHandle": "default",
-                "id": "reactflow__edge-TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41edefault-EXTRACT_TRACE_T3DSO1XXX-9d512b63-688b-4dc8-b542-52a150ed4bc4default"
-            },
-            {
-                "source": "TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41e",
-                "sourceHandle": "default",
-                "target": "SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864d",
-                "targetHandle": "default",
-                "id": "reactflow__edge-TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41edefault-SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864ddefault"
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
             }
-        ],
-        "viewport": {
-            "x": 770.7046898488547,
-            "y": 391.36233285059785,
-            "zoom": 0.6637303836947388
-        }
-    },
-    "name": "app",
-    "textNodes": []
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": "None."
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/CONNECT_T3DSO1XXX/CONNECT_T3DSO1XXX.py"
+        },
+        "position": {
+          "x": -546.5725154533942,
+          "y": -502.81689874958664
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -546.5725154533942,
+          "y": -502.81689874958664
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "AUTO_SETUP_T3DSO1XXX-2067aca4-bdd1-4e1d-ac70-0a4bbcb7434c",
+        "type": "HARDWARE",
+        "data": {
+          "id": "AUTO_SETUP_T3DSO1XXX-2067aca4-bdd1-4e1d-ac70-0a4bbcb7434c",
+          "label": "AUTO SETUP T3DSO1XXX",
+          "func": "AUTO_SETUP_T3DSO1XXX",
+          "type": "HARDWARE",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECT_T3DSO1XXX block).",
+              "overload": null,
+              "functionName": "AUTO_SETUP_T3DSO1XXX",
+              "param": "connection",
+              "value": "TCPIP::10.11.13.220::INSTR"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": "None."
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/AUTO_SETUP_T3DSO1XXX/AUTO_SETUP_T3DSO1XXX.py"
+        },
+        "position": {
+          "x": -377.4737345870703,
+          "y": -55.10729476899121
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -377.4737345870703,
+          "y": -55.10729476899121
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "RESET_T3DSO1XXX-f5faaa6b-fa1c-40bf-85e4-8c85f917a463",
+        "type": "HARDWARE",
+        "data": {
+          "id": "RESET_T3DSO1XXX-f5faaa6b-fa1c-40bf-85e4-8c85f917a463",
+          "label": "RESET T3DSO1XXX",
+          "func": "RESET_T3DSO1XXX",
+          "type": "HARDWARE",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECT_T3DSO1XXX block).",
+              "overload": null,
+              "functionName": "RESET_T3DSO1XXX",
+              "param": "connection",
+              "value": "TCPIP::10.11.13.220::INSTR"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": "None"
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/RESET_T3DSO1XXX/RESET_T3DSO1XXX.py"
+        },
+        "position": {
+          "x": -456.8385442854459,
+          "y": -277.3423621130851
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -456.8385442854459,
+          "y": -277.3423621130851
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "SET_HORIZONTAL_SCALE_T3DSO1XXX-39f8506b-9401-4fc4-a009-66d828089d9b",
+        "type": "HARDWARE",
+        "data": {
+          "id": "SET_HORIZONTAL_SCALE_T3DSO1XXX-39f8506b-9401-4fc4-a009-66d828089d9b",
+          "label": "SET HORIZONTAL SCALE T3DSO1XXX",
+          "func": "SET_HORIZONTAL_SCALE_T3DSO1XXX",
+          "type": "HARDWARE",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECT_T3DSO1XXX block).",
+              "overload": null,
+              "functionName": "SET_HORIZONTAL_SCALE_T3DSO1XXX",
+              "param": "connection",
+              "value": "TCPIP::10.11.13.220::INSTR"
+            },
+            "time_value": {
+              "type": "int",
+              "default": 500,
+              "desc": "The vertical sensitivity in Volts (0.0005V to 10V).",
+              "overload": null,
+              "functionName": "SET_HORIZONTAL_SCALE_T3DSO1XXX",
+              "param": "time_value",
+              "value": 10
+            },
+            "time_unit": {
+              "type": "select",
+              "options": ["ns", "us", "ms", "s"],
+              "default": "us",
+              "desc": "The unit of the time value (ns: nanoseconds, us: microseconds, ms: milliseconds, s: seconds).",
+              "overload": null,
+              "functionName": "SET_HORIZONTAL_SCALE_T3DSO1XXX",
+              "param": "time_unit",
+              "value": "ms"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": "The input data container."
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": "None."
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/SET_HORIZONTAL_SCALE_T3DSO1XXX/SET_HORIZONTAL_SCALE_T3DSO1XXX.py"
+        },
+        "position": {
+          "x": -137.2550808030488,
+          "y": -279.46178107696176
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -137.2550808030488,
+          "y": -279.46178107696176
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "SET_VERTICAL_SCALE_T3DSO1XXX-41c4c9d3-241e-4d88-990b-177e228c7fb6",
+        "type": "HARDWARE",
+        "data": {
+          "id": "SET_VERTICAL_SCALE_T3DSO1XXX-41c4c9d3-241e-4d88-990b-177e228c7fb6",
+          "label": "SET VERTICAL SCALE T3DSO1XXX",
+          "func": "SET_VERTICAL_SCALE_T3DSO1XXX",
+          "type": "HARDWARE",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECT_T3DSO1XXX block).",
+              "overload": null,
+              "functionName": "SET_VERTICAL_SCALE_T3DSO1XXX",
+              "param": "connection",
+              "value": "TCPIP::10.11.13.220::INSTR"
+            },
+            "channel": {
+              "type": "select",
+              "options": ["C1", "C2", "C3", "C4"],
+              "default": "C1",
+              "desc": "The channel to set the vertical sensitivity for.",
+              "overload": null,
+              "functionName": "SET_VERTICAL_SCALE_T3DSO1XXX",
+              "param": "channel",
+              "value": "C1"
+            },
+            "volt_gain": {
+              "type": "float",
+              "default": 1,
+              "desc": "The vertical sensitivity in Volts (0.0005V to 10V).",
+              "overload": null,
+              "functionName": "SET_VERTICAL_SCALE_T3DSO1XXX",
+              "param": "volt_gain",
+              "value": 0.5
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": "The input data container."
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": "None"
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/SET_VERTICAL_SCALE_T3DSO1XXX/SET_VERTICAL_SCALE_T3DSO1XXX.py"
+        },
+        "position": {
+          "x": -247.77712117307297,
+          "y": -499.0287422467984
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -247.77712117307297,
+          "y": -499.0287422467984
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864d",
+        "type": "HARDWARE",
+        "data": {
+          "id": "SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864d",
+          "label": "SCREENSHOT T3DSO1XXX",
+          "func": "SCREENSHOT_T3DSO1XXX",
+          "type": "HARDWARE",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECT_T3DSO1XXX block).",
+              "overload": null,
+              "functionName": "SCREENSHOT_T3DSO1XXX",
+              "param": "connection",
+              "value": "TCPIP::10.11.13.220::INSTR"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image",
+              "desc": "The image of the screen of the T3DSO1000(A)-2000 oscilloscope."
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/SCREENSHOT_T3DSO1XXX/SCREENSHOT_T3DSO1XXX.py"
+        },
+        "position": {
+          "x": 414.5876719240538,
+          "y": 99.05106765306016
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 414.5876719240538,
+          "y": 99.05106765306016
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "DISPLAY_ON_OFF_T3DSO1XXX-d739e82a-ae40-427e-8f63-83c7c5e5ac4a",
+        "type": "HARDWARE",
+        "data": {
+          "id": "DISPLAY_ON_OFF_T3DSO1XXX-d739e82a-ae40-427e-8f63-83c7c5e5ac4a",
+          "label": "DISPLAY ON OFF T3DSO1XXX",
+          "func": "DISPLAY_ON_OFF_T3DSO1XXX",
+          "type": "HARDWARE",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECT_T3DSO1XXX block)",
+              "overload": null,
+              "functionName": "DISPLAY_ON_OFF_T3DSO1XXX",
+              "param": "connection",
+              "value": "TCPIP::10.11.13.220::INSTR"
+            },
+            "ch1": {
+              "type": "select",
+              "options": ["ON", "OFF"],
+              "default": "ON",
+              "desc": "Turn channel 1 on or off",
+              "overload": null,
+              "functionName": "DISPLAY_ON_OFF_T3DSO1XXX",
+              "param": "ch1",
+              "value": "ON"
+            },
+            "ch2": {
+              "type": "select",
+              "options": ["ON", "OFF"],
+              "default": "ON",
+              "desc": "Turn channel 2 on or off",
+              "overload": null,
+              "functionName": "DISPLAY_ON_OFF_T3DSO1XXX",
+              "param": "ch2",
+              "value": "OFF"
+            },
+            "ch3": {
+              "type": "select",
+              "options": ["ON", "OFF"],
+              "default": "ON",
+              "desc": "Turn channel 3 on or off",
+              "overload": null,
+              "functionName": "DISPLAY_ON_OFF_T3DSO1XXX",
+              "param": "ch3",
+              "value": "OFF"
+            },
+            "ch4": {
+              "type": "select",
+              "options": ["ON", "OFF"],
+              "default": "ON",
+              "desc": "Turn channel 4 on or off",
+              "overload": null,
+              "functionName": "DISPLAY_ON_OFF_T3DSO1XXX",
+              "param": "ch4",
+              "value": "OFF"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": "None"
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/DISPLAY_ON_OFF_T3DSO1XXX/DISPLAY_ON_OFF_T3DSO1XXX.py"
+        },
+        "position": {
+          "x": -45.95230834452445,
+          "y": -55.48018511013652
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -45.95230834452445,
+          "y": -55.48018511013652
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "MEASUREMENT_T3DSO1XXX-7c90afe0-021f-4a25-8fe8-f6c2ef2ebf8a",
+        "type": "HARDWARE",
+        "data": {
+          "id": "MEASUREMENT_T3DSO1XXX-7c90afe0-021f-4a25-8fe8-f6c2ef2ebf8a",
+          "label": "MEASUREMENT T3DSO1XXX",
+          "func": "MEASUREMENT_T3DSO1XXX",
+          "type": "HARDWARE",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECT_T3DSO1XXX block).",
+              "overload": null,
+              "functionName": "MEASUREMENT_T3DSO1XXX",
+              "param": "connection",
+              "value": "TCPIP::10.11.13.220::INSTR"
+            },
+            "trace": {
+              "type": "select",
+              "options": ["C1", "C2", "C3", "C4"],
+              "default": "C1",
+              "desc": "The trace to read the waveform from.",
+              "overload": null,
+              "functionName": "MEASUREMENT_T3DSO1XXX",
+              "param": "trace",
+              "value": "C1"
+            },
+            "measurement": {
+              "type": "select",
+              "options": [
+                "Vertical peak-to-peak",
+                "Maximum vertical value",
+                "Minimum vertical value",
+                "Vertical amplitude",
+                "Waveform top value",
+                "Waveform base value",
+                "Average value in the first cycle",
+                "Average value",
+                "RMS value",
+                "RMS value in the first cycle",
+                "Overshoot of a falling edge",
+                "Preshoot of a falling edge",
+                "Overshoot of a rising edge",
+                "Preshoot of a rising edge",
+                "Period",
+                "Frequency",
+                "Positive pulse width",
+                "Negative pulse width",
+                "Rise-time",
+                "Fall-time",
+                "Burst width",
+                "Positive duty cycle",
+                "Negative duty cycle"
+              ],
+              "default": "Vertical peak-to-peak",
+              "desc": "The name of the measurement to take.",
+              "overload": null,
+              "functionName": "MEASUREMENT_T3DSO1XXX",
+              "param": "measurement",
+              "value": "Frequency"
+            },
+            "statistic": {
+              "type": "select",
+              "options": ["Instant", "Mean", "Min", "Max", "Std-dev", "count"],
+              "default": "Instant",
+              "desc": "The statistic to take. Requires the STATISTIC_TOGGLE_T3DSO block for all statistics except \"Instant\".",
+              "overload": null,
+              "functionName": "MEASUREMENT_T3DSO1XXX",
+              "param": "statistic",
+              "value": "Instant"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": "The input data container."
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Scalar",
+              "desc": "The measured value."
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/MEASUREMENT_T3DSO1XXX/MEASUREMENT_T3DSO1XXX.py"
+        },
+        "position": {
+          "x": 400.718461638072,
+          "y": -581.6849377350873
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 400.718461638072,
+          "y": -581.6849377350873
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "MEASUREMENT_T3DSO1XXX-0cf47606-eaeb-4a93-98c2-0973af7ddf2b",
+        "type": "HARDWARE",
+        "data": {
+          "id": "MEASUREMENT_T3DSO1XXX-0cf47606-eaeb-4a93-98c2-0973af7ddf2b",
+          "label": "MEASUREMENT T3DSO1XXX 1",
+          "func": "MEASUREMENT_T3DSO1XXX",
+          "type": "HARDWARE",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECT_T3DSO1XXX block).",
+              "overload": null,
+              "functionName": "MEASUREMENT_T3DSO1XXX",
+              "param": "connection",
+              "value": "TCPIP::10.11.13.220::INSTR"
+            },
+            "trace": {
+              "type": "select",
+              "options": ["C1", "C2", "C3", "C4"],
+              "default": "C1",
+              "desc": "The trace to read the waveform from.",
+              "overload": null,
+              "functionName": "MEASUREMENT_T3DSO1XXX",
+              "param": "trace",
+              "value": "C1"
+            },
+            "measurement": {
+              "type": "select",
+              "options": [
+                "Vertical peak-to-peak",
+                "Maximum vertical value",
+                "Minimum vertical value",
+                "Vertical amplitude",
+                "Waveform top value",
+                "Waveform base value",
+                "Average value in the first cycle",
+                "Average value",
+                "RMS value",
+                "RMS value in the first cycle",
+                "Overshoot of a falling edge",
+                "Preshoot of a falling edge",
+                "Overshoot of a rising edge",
+                "Preshoot of a rising edge",
+                "Period",
+                "Frequency",
+                "Positive pulse width",
+                "Negative pulse width",
+                "Rise-time",
+                "Fall-time",
+                "Burst width",
+                "Positive duty cycle",
+                "Negative duty cycle"
+              ],
+              "default": "Vertical peak-to-peak",
+              "desc": "The name of the measurement to take.",
+              "overload": null,
+              "functionName": "MEASUREMENT_T3DSO1XXX",
+              "param": "measurement",
+              "value": "Vertical amplitude"
+            },
+            "statistic": {
+              "type": "select",
+              "options": ["Instant", "Mean", "Min", "Max", "Std-dev", "count"],
+              "default": "Instant",
+              "desc": "The statistic to take. Requires the STATISTIC_TOGGLE_T3DSO block for all statistics except \"Instant\".",
+              "overload": null,
+              "functionName": "MEASUREMENT_T3DSO1XXX",
+              "param": "statistic",
+              "value": "Mean"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": "The input data container."
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Scalar",
+              "desc": "The measured value."
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/MEASUREMENT_T3DSO1XXX/MEASUREMENT_T3DSO1XXX.py"
+        },
+        "position": {
+          "x": 410.9828994498063,
+          "y": -369.2724753595701
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 410.9828994498063,
+          "y": -369.2724753595701
+        },
+        "dragging": true
+      },
+      {
+        "width": 192,
+        "height": 192,
+        "id": "EXTRACT_TRACE_T3DSO1XXX-9d512b63-688b-4dc8-b542-52a150ed4bc4",
+        "type": "HARDWARE",
+        "data": {
+          "id": "EXTRACT_TRACE_T3DSO1XXX-9d512b63-688b-4dc8-b542-52a150ed4bc4",
+          "label": "EXTRACT TRACE T3DSO1XXX",
+          "func": "EXTRACT_TRACE_T3DSO1XXX",
+          "type": "HARDWARE",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECT_T3DSO1XXX block).",
+              "overload": null,
+              "functionName": "EXTRACT_TRACE_T3DSO1XXX",
+              "param": "connection",
+              "value": "TCPIP::10.11.13.220::INSTR"
+            },
+            "trace": {
+              "type": "select",
+              "options": ["C1", "C2", "C3", "C4"],
+              "default": "C1",
+              "desc": "The trace to read the waveform from.",
+              "overload": null,
+              "functionName": "EXTRACT_TRACE_T3DSO1XXX",
+              "param": "trace",
+              "value": "C1"
+            },
+            "resolution": {
+              "type": "int",
+              "default": 5000,
+              "desc": "The number of points to read from the trace. If None, the full trace is return.",
+              "overload": null,
+              "functionName": "EXTRACT_TRACE_T3DSO1XXX",
+              "param": "resolution",
+              "value": 5000
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": "The input data container."
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "desc": "The trace of the oscilloscope."
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/EXTRACT_TRACE_T3DSO1XXX/EXTRACT_TRACE_T3DSO1XXX.py"
+        },
+        "position": {
+          "x": 412.08066698019564,
+          "y": -137.65696579136204
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 412.08066698019564,
+          "y": -137.65696579136204
+        },
+        "dragging": true
+      },
+      {
+        "width": 225,
+        "height": 225,
+        "id": "BIG_NUMBER-e5497f6c-f274-437f-9d6d-d16f85b474e6",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "BIG_NUMBER-e5497f6c-f274-437f-9d6d-d16f85b474e6",
+          "label": "BIG NUMBER",
+          "func": "BIG_NUMBER",
+          "type": "VISUALIZATION",
+          "ctrls": {
+            "suffix": {
+              "type": "str",
+              "default": null,
+              "desc": "any suffix to show with big number",
+              "overload": null,
+              "functionName": "BIG_NUMBER",
+              "param": "suffix",
+              "value": "V"
+            },
+            "prefix": {
+              "type": "str",
+              "default": null,
+              "desc": "any prefix to show with big number",
+              "overload": null,
+              "functionName": "BIG_NUMBER",
+              "param": "prefix",
+              "value": ""
+            },
+            "title": {
+              "type": "str",
+              "default": null,
+              "desc": "title of the plot, default = \"BIG_NUMBER\"",
+              "overload": null,
+              "functionName": "BIG_NUMBER",
+              "param": "title",
+              "value": "Mean Amplitude"
+            },
+            "relative_delta": {
+              "type": "bool",
+              "default": true,
+              "desc": "whether or not to show the relative delta from the last run along with big number",
+              "overload": null,
+              "functionName": "BIG_NUMBER",
+              "param": "relative_delta",
+              "value": true
+            },
+            "scientific_notation": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "BIG_NUMBER",
+              "param": "scientific_notation",
+              "value": false
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|Scalar|Vector",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly big number visualization"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py"
+        },
+        "position": {
+          "x": 951.6823169441486,
+          "y": -639.9381438879125
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 951.6823169441486,
+          "y": -639.9381438879125
+        },
+        "dragging": true
+      },
+      {
+        "width": 225,
+        "height": 225,
+        "id": "BIG_NUMBER-fb680e0b-d63d-42fa-82e4-f2ec52aa11d2",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "BIG_NUMBER-fb680e0b-d63d-42fa-82e4-f2ec52aa11d2",
+          "label": "BIG NUMBER 1",
+          "func": "BIG_NUMBER",
+          "type": "VISUALIZATION",
+          "ctrls": {
+            "suffix": {
+              "type": "str",
+              "default": null,
+              "desc": "any suffix to show with big number",
+              "overload": null,
+              "functionName": "BIG_NUMBER",
+              "param": "suffix",
+              "value": "Hz"
+            },
+            "prefix": {
+              "type": "str",
+              "default": null,
+              "desc": "any prefix to show with big number",
+              "overload": null,
+              "functionName": "BIG_NUMBER",
+              "param": "prefix",
+              "value": ""
+            },
+            "title": {
+              "type": "str",
+              "default": null,
+              "desc": "title of the plot, default = \"BIG_NUMBER\"",
+              "overload": null,
+              "functionName": "BIG_NUMBER",
+              "param": "title",
+              "value": "Frequency"
+            },
+            "relative_delta": {
+              "type": "bool",
+              "default": true,
+              "desc": "whether or not to show the relative delta from the last run along with big number",
+              "overload": null,
+              "functionName": "BIG_NUMBER",
+              "param": "relative_delta",
+              "value": true
+            },
+            "scientific_notation": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "BIG_NUMBER",
+              "param": "scientific_notation",
+              "value": false
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|Scalar|Vector",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly big number visualization"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py"
+        },
+        "position": {
+          "x": 679.4781650247294,
+          "y": -639.1883542935476
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 679.4781650247294,
+          "y": -639.1883542935476
+        },
+        "dragging": true
+      },
+      {
+        "width": 918,
+        "height": 430,
+        "id": "IMAGE-88f5d917-1fe1-4418-bd23-2010edba16f9",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "IMAGE-88f5d917-1fe1-4418-bd23-2010edba16f9",
+          "label": "IMAGE",
+          "func": "IMAGE",
+          "type": "VISUALIZATION",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image|Grayscale",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Image visualization of the input image"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
+        },
+        "position": {
+          "x": 674.368745798886,
+          "y": 56.59887278201495
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 674.368745798886,
+          "y": 56.59887278201495
+        },
+        "dragging": true,
+        "style": {
+          "width": 918,
+          "height": 430
+        },
+        "resizing": false
+      },
+      {
+        "width": 890,
+        "height": 427,
+        "id": "SCATTER-48008e85-cc5d-4744-a234-7c2bdfe381a7",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "SCATTER-48008e85-cc5d-4744-a234-7c2bdfe381a7",
+          "label": "SCATTER",
+          "func": "SCATTER",
+          "type": "VISUALIZATION",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix|Vector",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Scatter visualization"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
+        },
+        "position": {
+          "x": 678.4180406914718,
+          "y": -394.6943155885514
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 678.4180406914718,
+          "y": -394.6943155885514
+        },
+        "dragging": true,
+        "style": {
+          "width": 890,
+          "height": 427
+        },
+        "resizing": false
+      },
+      {
+        "width": 96,
+        "height": 96,
+        "id": "TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41e",
+        "type": "CONTROL_FLOW",
+        "data": {
+          "id": "TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41e",
+          "label": "TIMER",
+          "func": "TIMER",
+          "type": "CONTROL_FLOW",
+          "ctrls": {
+            "sleep_time": {
+              "type": "float",
+              "default": 0,
+              "desc": "number of seconds to sleep",
+              "overload": null,
+              "functionName": "TIMER",
+              "param": "sleep_time",
+              "value": 5
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": "Returns the input if one was passed in."
+            }
+          ],
+          "path": "CONTROL_FLOW/TIMERS/TIMER/TIMER.py"
+        },
+        "position": {
+          "x": 177.2747671790213,
+          "y": -204.3632488721801
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 177.2747671790213,
+          "y": -204.3632488721801
+        },
+        "dragging": true
+      }
+    ],
+    "edges": [
+      {
+        "source": "CONNECT_T3DSO1XXX-3913af17-b91e-4fb8-a4da-f77ecc03c940",
+        "sourceHandle": "default",
+        "target": "RESET_T3DSO1XXX-f5faaa6b-fa1c-40bf-85e4-8c85f917a463",
+        "targetHandle": "default",
+        "id": "reactflow__edge-CONNECT_T3DSO1XXX-3913af17-b91e-4fb8-a4da-f77ecc03c940default-RESET_T3DSO1XXX-f5faaa6b-fa1c-40bf-85e4-8c85f917a463default"
+      },
+      {
+        "source": "RESET_T3DSO1XXX-f5faaa6b-fa1c-40bf-85e4-8c85f917a463",
+        "sourceHandle": "default",
+        "target": "AUTO_SETUP_T3DSO1XXX-2067aca4-bdd1-4e1d-ac70-0a4bbcb7434c",
+        "targetHandle": "default",
+        "id": "reactflow__edge-RESET_T3DSO1XXX-f5faaa6b-fa1c-40bf-85e4-8c85f917a463default-AUTO_SETUP_T3DSO1XXX-2067aca4-bdd1-4e1d-ac70-0a4bbcb7434cdefault"
+      },
+      {
+        "source": "SET_VERTICAL_SCALE_T3DSO1XXX-41c4c9d3-241e-4d88-990b-177e228c7fb6",
+        "sourceHandle": "default",
+        "target": "SET_HORIZONTAL_SCALE_T3DSO1XXX-39f8506b-9401-4fc4-a009-66d828089d9b",
+        "targetHandle": "default",
+        "id": "reactflow__edge-SET_VERTICAL_SCALE_T3DSO1XXX-41c4c9d3-241e-4d88-990b-177e228c7fb6default-SET_HORIZONTAL_SCALE_T3DSO1XXX-39f8506b-9401-4fc4-a009-66d828089d9bdefault"
+      },
+      {
+        "source": "AUTO_SETUP_T3DSO1XXX-2067aca4-bdd1-4e1d-ac70-0a4bbcb7434c",
+        "sourceHandle": "default",
+        "target": "SET_VERTICAL_SCALE_T3DSO1XXX-41c4c9d3-241e-4d88-990b-177e228c7fb6",
+        "targetHandle": "default",
+        "id": "reactflow__edge-AUTO_SETUP_T3DSO1XXX-2067aca4-bdd1-4e1d-ac70-0a4bbcb7434cdefault-SET_VERTICAL_SCALE_T3DSO1XXX-41c4c9d3-241e-4d88-990b-177e228c7fb6default"
+      },
+      {
+        "source": "SET_HORIZONTAL_SCALE_T3DSO1XXX-39f8506b-9401-4fc4-a009-66d828089d9b",
+        "sourceHandle": "default",
+        "target": "DISPLAY_ON_OFF_T3DSO1XXX-d739e82a-ae40-427e-8f63-83c7c5e5ac4a",
+        "targetHandle": "default",
+        "id": "reactflow__edge-SET_HORIZONTAL_SCALE_T3DSO1XXX-39f8506b-9401-4fc4-a009-66d828089d9bdefault-DISPLAY_ON_OFF_T3DSO1XXX-d739e82a-ae40-427e-8f63-83c7c5e5ac4adefault"
+      },
+      {
+        "source": "SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864d",
+        "sourceHandle": "default",
+        "target": "IMAGE-88f5d917-1fe1-4418-bd23-2010edba16f9",
+        "targetHandle": "default",
+        "id": "reactflow__edge-SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864ddefault-IMAGE-88f5d917-1fe1-4418-bd23-2010edba16f9default"
+      },
+      {
+        "source": "EXTRACT_TRACE_T3DSO1XXX-9d512b63-688b-4dc8-b542-52a150ed4bc4",
+        "sourceHandle": "default",
+        "target": "SCATTER-48008e85-cc5d-4744-a234-7c2bdfe381a7",
+        "targetHandle": "default",
+        "id": "reactflow__edge-EXTRACT_TRACE_T3DSO1XXX-9d512b63-688b-4dc8-b542-52a150ed4bc4default-SCATTER-48008e85-cc5d-4744-a234-7c2bdfe381a7default"
+      },
+      {
+        "source": "MEASUREMENT_T3DSO1XXX-0cf47606-eaeb-4a93-98c2-0973af7ddf2b",
+        "sourceHandle": "default",
+        "target": "BIG_NUMBER-e5497f6c-f274-437f-9d6d-d16f85b474e6",
+        "targetHandle": "default",
+        "id": "reactflow__edge-MEASUREMENT_T3DSO1XXX-0cf47606-eaeb-4a93-98c2-0973af7ddf2bdefault-BIG_NUMBER-e5497f6c-f274-437f-9d6d-d16f85b474e6default"
+      },
+      {
+        "source": "MEASUREMENT_T3DSO1XXX-7c90afe0-021f-4a25-8fe8-f6c2ef2ebf8a",
+        "sourceHandle": "default",
+        "target": "BIG_NUMBER-fb680e0b-d63d-42fa-82e4-f2ec52aa11d2",
+        "targetHandle": "default",
+        "id": "reactflow__edge-MEASUREMENT_T3DSO1XXX-7c90afe0-021f-4a25-8fe8-f6c2ef2ebf8adefault-BIG_NUMBER-fb680e0b-d63d-42fa-82e4-f2ec52aa11d2default"
+      },
+      {
+        "source": "DISPLAY_ON_OFF_T3DSO1XXX-d739e82a-ae40-427e-8f63-83c7c5e5ac4a",
+        "sourceHandle": "default",
+        "target": "TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41e",
+        "targetHandle": "default",
+        "id": "reactflow__edge-DISPLAY_ON_OFF_T3DSO1XXX-d739e82a-ae40-427e-8f63-83c7c5e5ac4adefault-TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41edefault"
+      },
+      {
+        "source": "TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41e",
+        "sourceHandle": "default",
+        "target": "MEASUREMENT_T3DSO1XXX-7c90afe0-021f-4a25-8fe8-f6c2ef2ebf8a",
+        "targetHandle": "default",
+        "id": "reactflow__edge-TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41edefault-MEASUREMENT_T3DSO1XXX-7c90afe0-021f-4a25-8fe8-f6c2ef2ebf8adefault"
+      },
+      {
+        "source": "TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41e",
+        "sourceHandle": "default",
+        "target": "MEASUREMENT_T3DSO1XXX-0cf47606-eaeb-4a93-98c2-0973af7ddf2b",
+        "targetHandle": "default",
+        "id": "reactflow__edge-TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41edefault-MEASUREMENT_T3DSO1XXX-0cf47606-eaeb-4a93-98c2-0973af7ddf2bdefault"
+      },
+      {
+        "source": "TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41e",
+        "sourceHandle": "default",
+        "target": "EXTRACT_TRACE_T3DSO1XXX-9d512b63-688b-4dc8-b542-52a150ed4bc4",
+        "targetHandle": "default",
+        "id": "reactflow__edge-TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41edefault-EXTRACT_TRACE_T3DSO1XXX-9d512b63-688b-4dc8-b542-52a150ed4bc4default"
+      },
+      {
+        "source": "TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41e",
+        "sourceHandle": "default",
+        "target": "SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864d",
+        "targetHandle": "default",
+        "id": "reactflow__edge-TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41edefault-SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864ddefault"
+      }
+    ],
+    "viewport": {
+      "x": 770.7046898488547,
+      "y": 391.36233285059785,
+      "zoom": 0.6637303836947388
+    }
+  },
+  "name": "app",
+  "textNodes": []
 }
