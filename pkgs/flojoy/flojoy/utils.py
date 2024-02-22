@@ -311,13 +311,13 @@ def get_credentials() -> list[dict[str, str]]:
     with open(file_path, "r") as f:
         keys = f.read().strip().split(",")
 
-    credentials_list: list[dict[str, str]] = []
-    for key in keys:
-        val = get_env_var(key)
-        if val:
-            credentials_list.append({"key": key, "value": val})
+    # credentials_list: list[dict[str, str]] = []
+    # for key in keys:
+    #     val = get_env_var(key)
+    #     if val:
+    #         credentials_list.append({"key": key, "value": val})
 
-    return credentials_list
+    return [{"key": key, "value": ""} for key in keys]
 
 
 def get_node_init_function(node_func: Callable) -> NodeInit:

@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { MoreVertical, Eye, EyeOff } from "lucide-react";
+import { MoreVertical, Eye, EyeOff, Loader } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
-import { EnvVarCredentialType } from "@/renderer/hooks/useFlowChartState";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/renderer/components/ui/dropdown-menu";
+import useWithPermission from "@/renderer/hooks/useWithPermission";
+import { baseClient } from "@/renderer/lib/base-client";
+import { EnvVarCredentialType } from "@/renderer/hooks/useFlowChartState";
 
 export type EnvVarCredentialsInfoProps = {
   credential: EnvVarCredentialType;
@@ -23,9 +25,27 @@ const EnvVarCredentialsInfo = ({
   setEditModalOpen,
 }: EnvVarCredentialsInfoProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [credentialValue, setCredentialValue] = useState<string>(
+    credential.value,
+  );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { withPermissionCheck } = useWithPermission();
 
   const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
+    if (credential.value === "") {
+      setIsLoading(true);
+      baseClient
+        .get(`env/${credential}`)
+        .then((res) => {
+          setCredentialValue(res.data.value);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.error(err);
+          setIsLoading(false);
+        });
+    }
+    setShowPassword((prev) => !prev);
   };
   const PasswordIcon = showPassword ? EyeOff : Eye;
 
@@ -50,20 +70,24 @@ const EnvVarCredentialsInfo = ({
         {credential.key}
       </div>
       <div className="ml-auto mr-6 flex items-center gap-x-2">
-        <button type="button" onClick={toggleShowPassword}>
-          <PasswordIcon
-            data-testid="password-icon-view"
-            className="stroke-gray-600"
-            size={20}
-            strokeWidth={1.5}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+        <button type="button" onClick={withPermissionCheck(toggleShowPassword)}>
+          {isLoading ? (
+            <Loader className="scale-50" />
+          ) : (
+            <PasswordIcon
+              data-testid="password-icon-view"
+              className="stroke-gray-600"
+              size={20}
+              strokeWidth={1.5}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          )}
         </button>
         <div className="flex w-24 items-center font-semibold text-gray-600">
           {showPassword ? (
             <span className="inline-block w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-sm font-medium">
-              {credential.value}
+              {credentialValue}
             </span>
           ) : (
             <span className="tracking-wider">{"•".repeat(15)}</span>
