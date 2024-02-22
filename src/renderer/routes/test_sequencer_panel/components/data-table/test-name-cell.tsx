@@ -51,13 +51,15 @@ const TestNameCell = ({ cellProps: { row }, indentLevels, running }: Props) => {
           />
           {running.includes(row.original.id) && <Loader className="scale-50" />}
         </div>
-        {/* {(row.original as Test).test_name} */}
       </div>
-      <PythonTestFileModal
-        isModalOpen={openPyTestFileModal}
-        handleModalOpen={setOpenPyTestFileModal}
-        row={row}
-      />
+      {/* Conditionally add modal component to unmount it on close */}
+      {openPyTestFileModal && (
+        <PythonTestFileModal
+          isModalOpen={openPyTestFileModal}
+          handleModalOpen={setOpenPyTestFileModal}
+          row={row}
+        />
+      )}
     </>
   ) : (
     <IndentLine

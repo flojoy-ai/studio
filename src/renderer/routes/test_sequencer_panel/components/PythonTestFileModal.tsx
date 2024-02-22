@@ -8,7 +8,7 @@ import {
 import { ScrollArea, ScrollBar } from "@/renderer/components/ui/scroll-area";
 import { Test, TestSequenceElement } from "@/renderer/types/testSequencer";
 import { Row } from "@tanstack/react-table";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import python from "react-syntax-highlighter/dist/cjs/languages/hljs/python";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 
@@ -20,6 +20,15 @@ type Props = {
 SyntaxHighlighter.registerLanguage("python", python);
 
 const PythonTestFileModal = ({ isModalOpen, handleModalOpen, row }: Props) => {
+  const [sourceCode, setSourceCode] = useState(
+    (row.original as Test).sourceCode,
+  );
+
+  useEffect(() => {
+    window.api
+      .getFileContent((row.original as Test).path.split("::")[0])
+      .then((content) => setSourceCode(content));
+  }, [row.original]);
   return (
     <Dialog open={isModalOpen} onOpenChange={handleModalOpen}>
       <DialogContent className="my-12 max-h-screen overflow-y-scroll border-muted bg-background p-12 sm:max-w-2xl md:max-w-4xl">
@@ -33,7 +42,7 @@ const PythonTestFileModal = ({ isModalOpen, handleModalOpen, row }: Props) => {
           <ScrollBar orientation="vertical" />
           <ScrollBar orientation="horizontal" />
           <SyntaxHighlighter language="python" style={flojoySyntaxTheme}>
-            {(row.original as Test).sourceCode}
+            {sourceCode}
           </SyntaxHighlighter>
         </ScrollArea>
       </DialogContent>
