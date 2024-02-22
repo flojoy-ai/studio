@@ -154,16 +154,23 @@ export function DataTable() {
       },
     },
 
-    // {
-    //   accessorKey: "isSavedToCloud",
-    //   header: "Saved to Flojoy Cloud",
-    //   enableHiding: false,
-    //   cell: ({ row }) => {
-    //     return row.getValue("isSavedToCloud") ? (
-    //       <Button>OPEN TEST</Button>
-    //     ) : null;
-    //   },
-    // },
+    {
+      accessorFn: (elem) => {
+        return elem.type === "test" ? "isSavedToCloud" : null;
+      },
+      header: "Saved To Cloud",
+      cell: ({ row }) => {
+        return row.original.type === "test" ? (
+          <div
+            className={
+              row.original.isSavedToCloud ? "text-green-500" : "text-red-500"
+            }
+          >
+            {row.original.isSavedToCloud ? "Saved" : "Not Saved"}
+          </div>
+        ) : null;
+      },
+    },
 
     {
       accessorKey: "up-down",
