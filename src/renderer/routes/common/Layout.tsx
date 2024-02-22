@@ -7,6 +7,7 @@ import { useHasUnsavedChanges } from "@/renderer/hooks/useHasUnsavedChanges";
 import { IS_CLOUD_DEMO } from "@/renderer/data/constants";
 import { Outlet } from "react-router-dom";
 import StatusBar from "@/renderer/routes/common/StatusBar";
+import { useActiveTab, TabEnum } from "@/renderer/hooks/useActiveTab";
 
 export const HEADER_HEIGHT = 72;
 export const ACTIONS_HEIGHT = 52;
@@ -23,6 +24,7 @@ export const Layout = () => {
 
   const [project, setProject] = useAtom(projectAtom);
   const { hasUnsavedChanges, setHasUnsavedChanges } = useHasUnsavedChanges();
+  const { activeTab, setActiveTab } = useActiveTab();
 
   const handleProjectRename = (e) => {
     setProject({ ...project, name: e.target.value });
@@ -32,6 +34,7 @@ export const Layout = () => {
   return (
     <div>
       <div className="relative bg-background px-8 pb-2">
+        { activeTab === TabEnum.FLOWCHART && (
         <div className="absolute left-10 top-1.5 flex items-center gap-x-1 rounded-md p-1">
           <Input
             className={
@@ -46,6 +49,7 @@ export const Layout = () => {
             <div className=" h-2 w-2 rounded-full bg-foreground/50" />
           )}
         </div>
+        )}
         <div
           data-cy="app-status"
           id="app-status"

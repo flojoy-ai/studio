@@ -3,23 +3,26 @@ import HeaderTab from "./HeaderTab";
 import ControlBar from "../flow_chart/views/ControlBar";
 import { useWindowSize } from "react-use";
 import { HEADER_HEIGHT } from "./Layout";
+import { useState } from "react";
+import { TabEnum } from "@/renderer/hooks/useActiveTab";
+
 
 const tabs = [
   {
     to: "/test-sequencer",
-    fullText: "Test Sequencer",
+    fullText: TabEnum.SEQUENCER,
     shortText: "Sequencer",
     testId: "test-sequencer-btn",
   },
   {
     to: "/flowchart",
-    fullText: "Visual Python Script",
+    fullText: TabEnum.FLOWCHART,
     shortText: "Script",
     testId: "script-btn",
   },
   {
     to: "/devices",
-    fullText: "Hardware Devices",
+    fullText: TabEnum.DEVICES,
     shortText: "Devices",
     testId: "devices-btn",
   },
@@ -49,7 +52,7 @@ const Header = () => {
         alt="Logo"
       />
       {tabs.map((t) => (
-        <HeaderTab to={t.to} testId={t.testId} key={t.fullText}>
+        <HeaderTab to={t.to} testId={t.testId} key={t.fullText} tabName={t.fullText}>
           {large ? t.fullText : t.shortText}
         </HeaderTab>
       ))}

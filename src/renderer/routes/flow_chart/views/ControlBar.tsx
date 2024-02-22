@@ -34,16 +34,18 @@ import DepManagerModal from "./DepManagerModal";
 import { DeviceSettingsModal } from "./DeviceSettingsModal";
 import { Button } from "@/renderer/components/ui/button";
 import ProfileMenu from "./user-profile/ProfileMenu";
+import { useActiveTab, TabEnum } from "@/renderer/hooks/useActiveTab";
+
 
 const ControlBar = () => {
-  const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
-    useState<boolean>(false);
+  const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] = useState<boolean>(false);
   const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
   const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
   const [isDebugSettingsOpen, setIsDebugSettingsOpen] = useState(false);
   const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
   const [isDeviceSettingsOpen, setIsDeviceSettingsOpen] = useState(false);
   const [isDepManagerModalOpen, setIsDepManagerModalOpen] = useState(false);
+  const { activeTab, setActiveTab } = useActiveTab();
 
   const handleCheckForUpdates = () => {
     window.api.checkForUpdates();
@@ -86,7 +88,7 @@ const ControlBar = () => {
         isDepManagerModalOpen={isDepManagerModalOpen}
       />
 
-      <FlowControlButtons />
+      { activeTab === TabEnum.FLOWCHART && <FlowControlButtons /> }
 
       <div className="flex">
         <Menubar>

@@ -12,6 +12,7 @@ import { LockedContextProvider } from "@/renderer/context/lock.context";
 import { useTestSetSave } from "@/renderer/hooks/useTestSetSave";
 import { useTestSetImport } from "@/renderer/hooks/useTestSetImport";
 import _ from "lodash";
+import { LAYOUT_TOP_HEIGHT, BOTTOM_STATUS_BAR_HEIGHT } from "@/renderer/routes/common/Layout";
 
 const TestSequencerView = () => {
   const { setElems, tree, setIsLocked } = useTestSequencerState();
@@ -42,7 +43,7 @@ const TestSequencerView = () => {
 
   return (
     <LockedContextProvider>
-      <div style={{ height: "calc(100vh - 260px)" }}>
+      <div style={{ height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT}px)` }}>
         <ImportTestModal
           isModalOpen={isImportModalOpen}
           handleModalOpen={setIsImportModalOpen}
