@@ -10,7 +10,7 @@ export const data: GalleryData = {
       relevantNodes: [
         {
           name: "LOOP",
-          docs: "https://docs.flojoy.ai/nodes/LOGIC_GATES/LOOPS/LOOP/",
+          docs: "https://docs.flojoy.ai/blocks/control-flow/#loops",
         },
       ],
       cloudDemoEnabled: true,
@@ -31,24 +31,11 @@ export const data: GalleryData = {
       relevantNodes: [
         {
           name: "IMAGE",
-          docs: "https://docs.flojoy.ai/nodes/VISUALIZERS/PLOTLY/IMAGE/",
+          docs: "https://docs.flojoy.ai/blocks/data/visualization/plotly/image",
         },
       ],
       cloudDemoEnabled: true,
     },
-    // {
-    //   title: "Stream to Flojoy Cloud",
-    //   description: "Stream data to your Flojoy Cloud account",
-    //   imagePath: "assets/appGallery/flojoyCloud.png",
-    //   appPath: "cloud",
-    //   relevantNodes: [
-    //     {
-    //       name: "FLOJOY_CLOUD_UPLOAD",
-    //       docs: "https://docs.flojoy.ai/nodes/LOADERS/CLOUD_DATABASE/FLOJOY_CLOUD_UPLOAD/",
-    //     },
-    //   ],
-    //   cloudDemoEnabled: false,
-    // },
   ],
   AI: [
     {
@@ -59,7 +46,7 @@ export const data: GalleryData = {
       relevantNodes: [
         {
           name: "NLP_CONNECT_VIT_GPT2",
-          docs: "https://docs.flojoy.ai/nodes/AI_ML/IMAGE_CAPTIONING/NLP_CONNECT_VIT_GPT2/",
+          docs: "https://docs.flojoy.ai/blocks/ai-ml/image-captioning/nlp-connect-vit-gpt2",
         },
       ],
       cloudDemoEnabled: true,
@@ -72,7 +59,7 @@ export const data: GalleryData = {
       relevantNodes: [
         {
           name: "HUGGING_FACE_PIPELINE",
-          docs: "https://docs.flojoy.ai/nodes/AI_ML/IMAGE_CLASSIFICATION/HUGGING_FACE_PIPELINE/",
+          docs: "https://docs.flojoy.ai/blocks/ai-ml/image-classification/hugging-face-pipeline/",
         },
       ],
       cloudDemoEnabled: true,
@@ -85,80 +72,13 @@ export const data: GalleryData = {
       relevantNodes: [
         {
           name: "PROPHET_PREDICT",
-          docs: "https://docs.flojoy.ai/nodes/AI_ML/PREDICT_TIME_SERIES/PROPHET_PREDICT/",
+          docs: "https://docs.flojoy.ai/blocks/ai-ml/predict-time-series/prophet-predict/",
         },
       ],
       cloudDemoEnabled: true,
     },
-    // {
-    //   description: "Estimate object depth with the DINOv2 node",
-    //   title: "Depth perception",
-    //   imagePath: "assets/appGallery/depthPerception.png",
-    //   youtubeLink: "",
-    //   relevantNodes: [],
-    // },
-    // {
-    //   title: "Object Identification",
-    //   description: "Estimate object depth with the YOLOv3 node",
-    //   imagePath: "assets/appGallery/objectIdentification.png",
-    //   appPath: "objectDetection",
-    //   relevantNodes: [
-    //     {
-    //       name: "OBJECT_DETECTION",
-    //       docs: "https://docs.flojoy.ai/nodes/AI_ML/OBJECT_DETECTION/OBJECT_DETECTION/",
-    //     },
-    //   ],
-    //   cloudDemoEnabled: true,
-    // },
   ],
-  IO: [
-    {
-      title: "Arduino",
-      description: "Read from any analog sensor",
-      imagePath: "assets/appGallery/arduino.png",
-      appPath: "arduino",
-      relevantNodes: [],
-      cloudDemoEnabled: false,
-    },
-    {
-      title: "LabJack",
-      description: "Record and log temperatures",
-      imagePath: "assets/appGallery/labjack.png",
-      appPath: "labjack",
-      relevantNodes: [
-        {
-          name: "LABJACKU3",
-          docs: "https://docs.flojoy.ai/nodes/INSTRUMENTS/LABJACK/LABJACKU3/",
-        },
-      ],
-      cloudDemoEnabled: false,
-    },
-    {
-      title: "USB Camera",
-      description: "Capture real-time images",
-      imagePath: "assets/appGallery/usbCamera.png",
-      appPath: "webcam",
-      relevantNodes: [
-        {
-          name: "CAMERA",
-          docs: "https://docs.flojoy.ai/nodes/INSTRUMENTS/WEB_CAM/CAMERA/",
-        },
-      ],
-      cloudDemoEnabled: true,
-    },
-    {
-      title: "Stepper Motor",
-      description: "Precisely position anything",
-      imagePath: "assets/appGallery/stepperMotor.png",
-      appPath: "stepper",
-      relevantNodes: [
-        {
-          name: "STEPPER_DRIVER_TIC",
-          docs: "https://docs.flojoy.ai/nodes/INSTRUMENTS/STEPPER_MOTOR/STEPPER_DRIVER_TIC/",
-        },
-      ],
-      cloudDemoEnabled: false,
-    },
+  Oscilloscopes: [
     {
       title: "Decode I2C",
       description: "Decode I2C messages with an oscilloscope",
@@ -174,6 +94,21 @@ export const data: GalleryData = {
       cloudDemoEnabled: false,
     },
     {
+      title: "Extract Trace",
+      description: "Extract a trace from a Rigol oscilloscope",
+      imagePath: "assets/appGallery/rigolExtractTrace.png",
+      appPath: "rigolExtractTrace",
+      relevantNodes: [
+        {
+          name: "EXTRACT_TRACE_DS1074Z",
+          docs: "https://docs.flojoy.ai/instruments-database/oscilloscopes/rigol/rigol-ds1074z/",
+        },
+      ],
+      cloudDemoEnabled: false,
+    },
+  ],
+  Function_Generators: [
+    {
       title: "Bode Plot",
       description:
         "Create a Bode plot with a function generator and an oscilloscope",
@@ -184,6 +119,114 @@ export const data: GalleryData = {
         {
           name: "INPUT_PARAM_AFG31000",
           docs: "https://docs.flojoy.ai/blocks/hardware/function-generators/tektronix/afg31000/input-param-afg31000/",
+        },
+      ],
+      cloudDemoEnabled: false,
+    },
+
+  ],
+  DAQ: [
+    {
+      title: "LabJack",
+      description: "Record and log temperatures",
+      imagePath: "assets/appGallery/labjack.png",
+      appPath: "labjack",
+      relevantNodes: [
+        {
+          name: "LABJACKU3",
+          docs: "https://docs.flojoy.ai/blocks/hardware/daq-boards/labjack/u3/read-a0-pins/",
+        },
+      ],
+      cloudDemoEnabled: false,
+    },
+    {
+      title: "Arduino",
+      description: "Read from any analog sensor",
+      imagePath: "assets/appGallery/arduino.png",
+      appPath: "arduino",
+      relevantNodes: [],
+      cloudDemoEnabled: false,
+    },
+    {
+      title: "Read Analog value from NI CompactDAQ",
+      description: "Record current value from a NI CompactDAQ",
+      imagePath: "assets/appGallery/NIcDAQ.png",
+      appPath: "cDAQReadAnalog",
+      relevantNodes: [
+        {
+          name: "Connect to NI CompactDAQ",
+          docs: "https://docs.flojoy.ai/blocks/hardware/daq-boards/national-instruments/compact-daq/create-task/",
+        },
+        {
+          name: "Analog Input",
+          docs: "https://docs.flojoy.ai/blocks/hardware/daq-boards/national-instruments/compact-daq/attach-analog-input-current/",
+        },
+      ],
+      cloudDemoEnabled: false,
+    },
+  ],
+  Multimeters_Sourcemeters: [
+
+  ],
+  Protocols:[
+    {
+      title: "Read CAN Bus",
+      description: "Connect to a PEAK-USB device to capture CAN Bus messages and log them into a .mf4 file for analysis and storage",
+      imagePath: "assets/appGallery/peak-usb.png",
+      appPath: "canReadAndLog",
+      relevantNodes: [
+        {
+          name: "Connect to pcan",
+          docs: "https://docs.flojoy.ai/blocks/hardware/protocols/can/bus/peak-connect/",
+        },
+        {
+          name: "Receive CAN Message",
+          docs: "https://docs.flojoy.ai/blocks/hardware/protocols/can/bus/receive-can-message/",
+        },
+      ],
+      cloudDemoEnabled: false,
+    },
+    {
+      title: "Send CAN Bus Messages",
+      description: "Connect to a CANable USB-CAN device and transmit frames onto a CAN Bus network.",
+      imagePath: "assets/appGallery/canable-usb.png",
+      appPath: "canSend",
+      relevantNodes: [
+        {
+          name: "Connect to slcan",
+          docs: "https://https://docs.flojoy.ai/blocks/hardware/protocols/can/bus/send-can-message/",
+        },
+        {
+          name: "Send CAN Messages",
+          docs: "https://https://docs.flojoy.ai/blocks/hardware/protocols/can/bus/send-can-message/",
+        },
+      ],
+      cloudDemoEnabled: false,
+    },
+  ],
+  IO: [
+    {
+      title: "USB Camera",
+      description: "Capture real-time images",
+      imagePath: "assets/appGallery/usbCamera.png",
+      appPath: "webcam",
+      relevantNodes: [
+        {
+          name: "CAMERA",
+          docs: "https://docs.flojoy.ai/blocks/instruments/web_cam/camera/",
+        },
+      ],
+      cloudDemoEnabled: true,
+    },
+    {
+      title: "Stepper Motor",
+      description: "Precisely position anything",
+      imagePath: "assets/appGallery/stepperMotor.png",
+      appPath: "stepper",
+      relevantNodes: [
+        {
+          name: "STEPPER_DRIVER_TIC",
+          docs: "https://docs.flojoy.ai/blocks/hardware/motors/stepper/polulu/tic/",
         },
       ],
       cloudDemoEnabled: false,
@@ -206,19 +249,11 @@ export const data: GalleryData = {
       relevantNodes: [
         {
           name: "FIR",
-          docs: "https://docs.flojoy.ai/nodes/TRANSFORMERS/SIGNAL_PROCESSING/FIR/",
+          docs: "https://docs.flojoy.ai/blocks/dsp/fir/",
         },
       ],
       cloudDemoEnabled: true,
     },
-    // {
-    //   description: "Solve the Schrödinger with different starting conditions",
-    //   title: "Schrödinger equation",
-    //   imagePath: "../../../publicassets/appGallery/SchrodingerEqn.png",
-    //   youtubeLink: "",
-    //   relevantNodes: [
-    //   ],
-    // },
     {
       title: "FFT",
       description: "Apply a real-time FFT to an input signal",
@@ -227,7 +262,7 @@ export const data: GalleryData = {
       relevantNodes: [
         {
           name: "FFT",
-          docs: "https://docs.flojoy.ai/nodes/TRANSFORMERS/SIGNAL_PROCESSING/FFT/",
+          docs: "https://docs.flojoy.ai/blocks/dsp/fft/",
         },
       ],
       cloudDemoEnabled: true,
@@ -240,7 +275,7 @@ export const data: GalleryData = {
       relevantNodes: [
         {
           name: "IFFT",
-          docs: "https://docs.flojoy.ai/nodes/TRANSFORMERS/SIGNAL_PROCESSING/IFFT/",
+          docs: "https://docs.flojoy.ai/blocks/dsp/ifft/",
         },
       ],
       cloudDemoEnabled: true,
