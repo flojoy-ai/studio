@@ -161,7 +161,34 @@ export const data: GalleryData = {
       cloudDemoEnabled: false,
     },
   ],
-  Multimeters_Sourcemeters: [],
+  Multimeters_Sourcemeters: [
+    {
+      title: "IV Sweep",
+      description: "Perform an IV sweep",
+      imagePath: "assets/appGallery/2450.png",
+      appPath: "IVSweep",
+      relevantNodes: [
+        {
+          name: "IV_SWEEP_2450",
+          docs: "https://docs.flojoy.ai/blocks/hardware/sourcemeters/keithley/2450/iv-sweep-2450/",
+        },
+      ],
+      cloudDemoEnabled: false,
+    },
+    {
+      title: "Measure Voltage",
+      description: "Read DC voltage using a digital multimeter",
+      imagePath: "assets/appGallery/dmm.png",
+      appPath: "dmmRead",
+      relevantNodes: [
+        {
+          name: "READ_MEASUREMENT_DMM7510",
+          docs: "https://docs.flojoy.ai/blocks/hardware/multimeters/keithley/dmm7510/read-measurement-dmm7510/",
+        },
+      ],
+      cloudDemoEnabled: false,
+    },
+  ],
   Protocols: [
     {
       title: "Read CAN Bus",

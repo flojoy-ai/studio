@@ -1,0 +1,392 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 192,
+                "height": 192,
+                "id": "RESET_DMM7510-759ea9c4-12e9-4f66-a90a-9444e9299767",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "RESET_DMM7510-759ea9c4-12e9-4f66-a90a-9444e9299767",
+                    "label": "RESET DMM7510",
+                    "func": "RESET_DMM7510",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_DMM7510 block).",
+                            "overload": null,
+                            "functionName": "RESET_DMM7510",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.200.12::INSTR"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Reset"
+                        }
+                    ],
+                    "path": "HARDWARE/MULTIMETERS/KEITHLEY/DMM7510/RESET_DMM7510/RESET_DMM7510.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -423.3015684721345,
+                    "y": -343.49384928844427
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -423.3015684721345,
+                    "y": -343.49384928844427
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "READ_MEASUREMENT_DMM7510-d02caf67-71e5-4cf2-8330-c0d1b2160f35",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "READ_MEASUREMENT_DMM7510-d02caf67-71e5-4cf2-8330-c0d1b2160f35",
+                    "label": "READ MEASUREMENT DMM7510",
+                    "func": "READ_MEASUREMENT_DMM7510",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_DMM7510 block).",
+                            "overload": null,
+                            "functionName": "READ_MEASUREMENT_DMM7510",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.200.12::INSTR"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "Measurement"
+                        }
+                    ],
+                    "path": "HARDWARE/MULTIMETERS/KEITHLEY/DMM7510/READ_MEASUREMENT_DMM7510/READ_MEASUREMENT_DMM7510.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 103.12329053675228,
+                    "y": -345.02419859612905
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 103.12329053675228,
+                    "y": -345.02419859612905
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "FUNCTION_DMM7510-700a6612-0549-4c56-ab34-42c0f5001aad",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "FUNCTION_DMM7510-700a6612-0549-4c56-ab34-42c0f5001aad",
+                    "label": "FUNCTION DMM7510",
+                    "func": "FUNCTION_DMM7510",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_DMM7510 block).",
+                            "overload": null,
+                            "functionName": "FUNCTION_DMM7510",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.200.12::INSTR"
+                        },
+                        "function": {
+                            "type": "select",
+                            "options": [
+                                "DC voltage",
+                                "DC current",
+                                "AC voltage",
+                                "AC current",
+                                "2W resistance",
+                                "4W resistance",
+                                "temperature",
+                                "capacitance",
+                                "continuity",
+                                "diode",
+                                "period",
+                                "frequency",
+                                "DCV ratio"
+                            ],
+                            "default": "DC voltage",
+                            "desc": "Select the measurement function",
+                            "overload": null,
+                            "functionName": "FUNCTION_DMM7510",
+                            "param": "function",
+                            "value": "DC voltage"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "multiple": false,
+                            "desc": null
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Measurement"
+                        }
+                    ],
+                    "path": "HARDWARE/MULTIMETERS/KEITHLEY/DMM7510/FUNCTION_DMM7510/FUNCTION_DMM7510.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -161.39128469631962,
+                    "y": -342.77227805442544
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -161.39128469631962,
+                    "y": -342.77227805442544
+                },
+                "dragging": true
+            },
+            {
+                "width": 192,
+                "height": 192,
+                "id": "CONNECT_DMM7510-15768171-e9ac-447c-8fff-ed87ea37b4e8",
+                "type": "HARDWARE",
+                "data": {
+                    "id": "CONNECT_DMM7510-15768171-e9ac-447c-8fff-ed87ea37b4e8",
+                    "label": "CONNECT DMM7510",
+                    "func": "CONNECT_DMM7510",
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "device": {
+                            "type": "VisaDevice",
+                            "default": null,
+                            "desc": "The connected VISA device.",
+                            "overload": null,
+                            "functionName": "CONNECT_DMM7510",
+                            "param": "device",
+                            "value": "TCPIP::169.254.200.12::INSTR"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The IP or VISA address of the VISA device."
+                        }
+                    ],
+                    "path": "HARDWARE/MULTIMETERS/KEITHLEY/DMM7510/CONNECT_DMM7510/CONNECT_DMM7510.py",
+                    "selected": true
+                },
+                "position": {
+                    "x": -690.724898675739,
+                    "y": -342.9143826898157
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -690.724898675739,
+                    "y": -342.9143826898157
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "BIG_NUMBER-666f96e9-7522-40be-a34d-47e7445876d5",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "BIG_NUMBER-666f96e9-7522-40be-a34d-47e7445876d5",
+                    "label": "BIG NUMBER",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any suffix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": " V"
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "dec_places": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "dec_places",
+                            "value": 0
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Use scientific notation? Defaults to 4 decimal places.",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "multiple": false,
+                            "desc": "the DataContainer to be visualized"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 362.8849918241506,
+                    "y": -394.94756802517213
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 362.8849918241506,
+                    "y": -394.94756802517213
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "CONNECT_DMM7510-15768171-e9ac-447c-8fff-ed87ea37b4e8",
+                "sourceHandle": "default",
+                "target": "RESET_DMM7510-759ea9c4-12e9-4f66-a90a-9444e9299767",
+                "targetHandle": "input",
+                "id": "reactflow__edge-CONNECT_DMM7510-15768171-e9ac-447c-8fff-ed87ea37b4e8default-RESET_DMM7510-759ea9c4-12e9-4f66-a90a-9444e9299767input"
+            },
+            {
+                "source": "RESET_DMM7510-759ea9c4-12e9-4f66-a90a-9444e9299767",
+                "sourceHandle": "default",
+                "target": "FUNCTION_DMM7510-700a6612-0549-4c56-ab34-42c0f5001aad",
+                "targetHandle": "input",
+                "id": "reactflow__edge-RESET_DMM7510-759ea9c4-12e9-4f66-a90a-9444e9299767default-FUNCTION_DMM7510-700a6612-0549-4c56-ab34-42c0f5001aadinput"
+            },
+            {
+                "source": "READ_MEASUREMENT_DMM7510-d02caf67-71e5-4cf2-8330-c0d1b2160f35",
+                "sourceHandle": "default",
+                "target": "BIG_NUMBER-666f96e9-7522-40be-a34d-47e7445876d5",
+                "targetHandle": "default",
+                "id": "reactflow__edge-READ_MEASUREMENT_DMM7510-d02caf67-71e5-4cf2-8330-c0d1b2160f35default-BIG_NUMBER-666f96e9-7522-40be-a34d-47e7445876d5default"
+            },
+            {
+                "source": "FUNCTION_DMM7510-700a6612-0549-4c56-ab34-42c0f5001aad",
+                "sourceHandle": "default",
+                "target": "READ_MEASUREMENT_DMM7510-d02caf67-71e5-4cf2-8330-c0d1b2160f35",
+                "targetHandle": "input",
+                "id": "reactflow__edge-FUNCTION_DMM7510-700a6612-0549-4c56-ab34-42c0f5001aaddefault-READ_MEASUREMENT_DMM7510-d02caf67-71e5-4cf2-8330-c0d1b2160f35input"
+            }
+        ],
+        "viewport": {
+            "x": 1181.2883637885323,
+            "y": 525.5787480876195,
+            "zoom": 1.0441212277180714
+        }
+    },
+    "textNodes": [
+        {
+            "id": "TextNode-e79ffa15-dcd0-4388-b40e-e990c0a7a0e5",
+            "position": {
+                "x": -473.92924458230004,
+                "y": -532.7171128195466
+            },
+            "type": "TextNode",
+            "data": {
+                "text": "## This app sets up a digital multimeter to measure DC voltage. First it connects to the DMM and resets all parameters. It then sets the function is DC voltage and finally reads and displays the voltage"
+            },
+            "width": 691,
+            "height": 161,
+            "selected": false,
+            "positionAbsolute": {
+                "x": -473.92924458230004,
+                "y": -532.7171128195466
+            },
+            "dragging": false,
+            "style": {
+                "width": 691,
+                "height": 161
+            },
+            "resizing": false
+        }
+    ]
+}
