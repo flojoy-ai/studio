@@ -25,7 +25,12 @@ const TestSequencerView = () => {
     setElems.withException((elems: TestSequenceElement[]) => {
       const newElems: TestSequenceElement[] = [...elems].map((elem) => {
         return elem.type === "test"
-          ? { ...elem, status: "pending", completionTime: undefined }
+          ? {
+              ...elem,
+              status: "pending",
+              completionTime: undefined,
+              isSavedToCloud: false,
+            }
           : { ...elem };
       });
       return newElems;
