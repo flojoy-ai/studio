@@ -94,7 +94,7 @@ export const data: GalleryData = {
       cloudDemoEnabled: false,
     },
     {
-      title: "Extract Trace",
+      title: "Rigol",
       description: "Extract a trace from a Rigol oscilloscope",
       imagePath: "assets/appGallery/rigolExtractTrace.png",
       appPath: "rigolExtractTrace",
@@ -102,6 +102,19 @@ export const data: GalleryData = {
         {
           name: "EXTRACT_TRACE_DS1074Z",
           docs: "https://docs.flojoy.ai/instruments-database/oscilloscopes/rigol/rigol-ds1074z/",
+        },
+      ],
+      cloudDemoEnabled: false,
+    },
+    {
+      title: "LeCroy",
+      description: "Extract a trace from a Teledyne LeCryo T3DSO oscilloscope",
+      imagePath: "assets/appGallery/LeCroyT3DSO.png",
+      appPath: "leCroyExtractTrace",
+      relevantNodes: [
+        {
+          name: "CONNECT_T3DSO1XXX",
+          docs: "https://docs.flojoy.ai/blocks/hardware/oscilloscopes/teledyne-lecroy/t3dso1xxx/connect-t3dso1xxx/",
         },
       ],
       cloudDemoEnabled: false,
@@ -133,7 +146,7 @@ export const data: GalleryData = {
       appPath: "labjack",
       relevantNodes: [
         {
-          name: "LABJACKU3",
+          name: "READ_ANALOG_LABJACKU3",
           docs: "https://docs.flojoy.ai/blocks/hardware/daq-boards/labjack/u3/read-a0-pins/",
         },
       ],
@@ -154,11 +167,11 @@ export const data: GalleryData = {
       appPath: "cDAQReadAnalog",
       relevantNodes: [
         {
-          name: "Connect to NI CompactDAQ",
+          name: "CONNECT_COMPACTDAQ",
           docs: "https://docs.flojoy.ai/blocks/hardware/daq-boards/national-instruments/compact-daq/create-task/",
         },
         {
-          name: "Analog Input",
+          name: "ANALOG_INPUT",
           docs: "https://docs.flojoy.ai/blocks/hardware/daq-boards/national-instruments/compact-daq/attach-analog-input-current/",
         },
       ],
@@ -176,11 +189,11 @@ export const data: GalleryData = {
       appPath: "canReadAndLog",
       relevantNodes: [
         {
-          name: "Connect to pcan",
+          name: "CONNECT_PCAN",
           docs: "https://docs.flojoy.ai/blocks/hardware/protocols/can/bus/peak-connect/",
         },
         {
-          name: "Receive CAN Message",
+          name: "RECEIVE_MESSAGE",
           docs: "https://docs.flojoy.ai/blocks/hardware/protocols/can/bus/receive-can-message/",
         },
       ],
@@ -193,11 +206,11 @@ export const data: GalleryData = {
       appPath: "canSend",
       relevantNodes: [
         {
-          name: "Connect to slcan",
+          name: "CONNECT_SLCAN",
           docs: "https://https://docs.flojoy.ai/blocks/hardware/protocols/can/bus/send-can-message/",
         },
         {
-          name: "Send CAN Messages",
+          name: "SEND_MESSAGE",
           docs: "https://https://docs.flojoy.ai/blocks/hardware/protocols/can/bus/send-can-message/",
         },
       ],
@@ -212,8 +225,8 @@ export const data: GalleryData = {
       appPath: "webcam",
       relevantNodes: [
         {
-          name: "CAMERA",
-          docs: "https://docs.flojoy.ai/blocks/instruments/web_cam/camera/",
+          name: "OPEN_WEBCAM",
+          docs: "https://docs.flojoy.ai/blocks/hardware/imaging/open-webcam/#_top",
         },
       ],
       cloudDemoEnabled: true,
@@ -225,7 +238,7 @@ export const data: GalleryData = {
       appPath: "stepper",
       relevantNodes: [
         {
-          name: "STEPPER_DRIVER_TIC",
+          name: "CONTROL_TIC_DRIVER",
           docs: "https://docs.flojoy.ai/blocks/hardware/motors/stepper/polulu/tic/",
         },
       ],
