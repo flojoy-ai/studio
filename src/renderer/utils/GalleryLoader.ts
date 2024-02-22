@@ -39,15 +39,27 @@ export const data: GalleryData = {
   ],
   Oscilloscopes: [
     {
-      title: "Decode I2C",
-      description: "Decode I2C messages with an oscilloscope",
-      imagePath:
-        "https://res.cloudinary.com/dhopxs1y3/image/upload/v1692118625/Instruments/Oscilloscopes/MSO5000/MSO5000.png",
-      appPath: "i2cDecode",
+      title: "Tektronix",
+      description: "Decode I2C messages with a MSO2X oscilloscope",
+      imagePath: "assets/appGallery/MS024DecodeI2C.png",
+      appPath: "MSO24DecodeI2C",
       relevantNodes: [
         {
           name: "DECODE_I2C_MSO2X",
           docs: "https://docs.flojoy.ai/blocks/hardware/oscilloscopes/tektronix/mso2x/decode-i2c-mso2x/",
+        },
+      ],
+      cloudDemoEnabled: false,
+    },
+    {
+      title: "Tektronix",
+      description: "Extract the trace from a MDO3XXX oscilloscope",
+      imagePath: "assets/appGallery/mdo3ExtractTrace.png",
+      appPath: "mdo3ExtractTrace",
+      relevantNodes: [
+        {
+          name: "EXTRACT_TRACE_MDO3XXX",
+          docs: "https://docs.flojoy.ai/blocks/hardware/oscilloscopes/tektronix/mdo3xxx/extract-trace-mdo3xxx/",
         },
       ],
       cloudDemoEnabled: false,
@@ -74,6 +86,19 @@ export const data: GalleryData = {
         {
           name: "CONNECT_T3DSO1XXX",
           docs: "https://docs.flojoy.ai/blocks/hardware/oscilloscopes/teledyne-lecroy/t3dso1xxx/connect-t3dso1xxx/",
+        },
+      ],
+      cloudDemoEnabled: false,
+    },
+    {
+      title: "PICO",
+      description: "Extract the trace from a P2000 PicoScope",
+      imagePath: "assets/appGallery/picoExtractTrace.png",
+      appPath: "picoExtractTrace",
+      relevantNodes: [
+        {
+          name: "EXTRACT_TRACE_2000",
+          docs: "https://docs.flojoy.ai/blocks/hardware/oscilloscopes/pico/pico2000/extract-trace-2000/",
         },
       ],
       cloudDemoEnabled: false,
@@ -175,6 +200,7 @@ export const data: GalleryData = {
       cloudDemoEnabled: false,
     },
   ],
+  Signal_Analyzers: [],
   IO: [
     {
       title: "USB Camera",
