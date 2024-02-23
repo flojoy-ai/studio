@@ -17,7 +17,6 @@ from huggingface_hub import snapshot_download
 from flojoy.connection_manager import DeviceConnectionManager
 from .dao import Dao
 from .config import FlojoyConfig, logger
-from .env_var import get_env_var
 from .node_init import NodeInit, NodeInitService
 
 import base64
