@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Response, status
+from fastapi import APIRouter, Response
 from captain.services.auth.auth_service import (
     validate_credentials,
     get_base64_credentials,
