@@ -2,6 +2,7 @@ import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { Button } from "@/renderer/components/ui/button";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Input } from "@/renderer/components/ui/input";
+import { Select } from "@/renderer/components/ui/select";
 
 export const WriteConditionalModal = ({
   isConditionalModalOpen,
@@ -22,7 +23,8 @@ export const WriteConditionalModal = ({
       onOpenChange={handleWriteConditionalModalOpen}
     >
       <DialogContent>
-        <Input type="text" value={value} onChange={handleInputChange} />
+        <h2 className="text-lg font-bold text-accent1"> Add Conditional </h2>
+        <Input type="text" placeholder="$file.py::test_name & $file.py::test_name" value={value} onChange={handleInputChange} />
         <Button onClick={() => handleWrite(value)}>Submit</Button>
       </DialogContent>
     </Dialog>
