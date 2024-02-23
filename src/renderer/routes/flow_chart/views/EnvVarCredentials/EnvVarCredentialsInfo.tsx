@@ -10,7 +10,6 @@ import {
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { baseClient } from "@/renderer/lib/base-client";
 import { EnvVarCredentialType } from "@/renderer/hooks/useFlowChartState";
-import { useAuth } from "@/renderer/context/auth.context";
 import { toast } from "sonner";
 
 export type EnvVarCredentialsInfoProps = {
@@ -26,7 +25,6 @@ const EnvVarCredentialsInfo = ({
   setDeleteModalOpen,
   setEditModalOpen,
 }: EnvVarCredentialsInfoProps) => {
-  const { user } = useAuth();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [credentialValue, setCredentialValue] = useState<string>(
     credential.value,
@@ -37,7 +35,7 @@ const EnvVarCredentialsInfo = ({
   const toggleShowPassword = () => {
     if (credential.value === "") {
       setIsLoading(true);
-      baseClient(`${user?.name}:${user?.password}`)
+      baseClient
         .get(`env/${credential.key}`)
         .then((res) => {
           setCredentialValue(res.data.value);

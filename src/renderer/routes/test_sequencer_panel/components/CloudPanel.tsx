@@ -35,7 +35,7 @@ export function CloudPanel() {
   };
 
   const fetchProjects = async () => {
-    const res = await baseClient().get("cloud/projects");
+    const res = await baseClient.get("cloud/projects");
     setProjects(res.data);
   };
 

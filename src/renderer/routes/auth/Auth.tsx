@@ -5,6 +5,7 @@ import { PlusIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CreateUserProfile } from "@/renderer/components/common/CreateProfileModal";
+import { baseClient } from "@/renderer/lib/base-client";
 
 type AuthPageProps = {
   startup: boolean;
@@ -16,6 +17,7 @@ const AuthPage = ({ startup }: AuthPageProps) => {
   const validateUser = async () => {
     if (!user) return;
     if (!user.password && startup) {
+      baseClient.post("/auth/login", { username: user.name, password: "" });
       navigate("/flowchart");
       window.api.setUserProfile(user.name);
     }

@@ -27,7 +27,7 @@ export const useTestImport = () => {
 
   async function getTests(path: string, settings: ImportTestSettings) {
     try {
-      const response = await baseClient().get("discover-pytest", {
+      const response = await baseClient.get("discover-pytest", {
         params: {
           path: path,
           oneFile: settings.importAsOneRef,

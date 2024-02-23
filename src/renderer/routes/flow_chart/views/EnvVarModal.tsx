@@ -53,7 +53,7 @@ const EnvVarModal = ({
 
   const fetchCredentials = useCallback(async () => {
     try {
-      const res = await baseClient().get("env");
+      const res = await baseClient.get("env");
       setCredentials(res.data);
     } catch (error) {
       console.log(error);

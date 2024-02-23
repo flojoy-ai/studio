@@ -22,7 +22,7 @@ export const postEnvironmentVariable = async (
   body: EnvVar,
 ): Promise<Result<null, unknown>> => {
   try {
-    await baseClient().post("env", body);
+    await baseClient.post("env", body);
     return { ok: true, value: null };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -34,7 +34,7 @@ export const deleteEnvironmentVariable = async (
   key: string,
 ): Promise<Result<null, unknown>> => {
   try {
-    await baseClient().delete(`env/${key}`);
+    await baseClient.delete(`env/${key}`);
 
     return { ok: true, value: null };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -55,7 +55,7 @@ export function saveAndRunFlowChartInServer({
   if (rfInstance) {
     const fcStr = JSON.stringify(rfInstance);
 
-    baseClient().post("wfc", {
+    baseClient.post("wfc", {
       fc: fcStr,
       jobsetId: jobId,
       cancelExistingJobs: true,
@@ -75,7 +75,7 @@ export function cancelFlowChartRun(
   if (rfInstance) {
     const fcStr = JSON.stringify(rfInstance);
 
-    baseClient()
+    baseClient
       .post("cancel_fc", {
         fc: fcStr,
         jobsetId: jobId,
@@ -88,7 +88,7 @@ export async function getDeviceInfo(
   discoverNIDAQmxDevices = false,
   discoverNIDMMDevices = false,
 ) {
-  const res = await baseClient().get("devices", {
+  const res = await baseClient.get("devices", {
     params: {
       include_nidaqmx_drivers: discoverNIDAQmxDevices,
       include_nidmm_drivers: discoverNIDMMDevices,
@@ -99,7 +99,7 @@ export async function getDeviceInfo(
 
 export const getManifest = async () => {
   try {
-    const res = await baseClient().get("blocks/manifest");
+    const res = await baseClient.get("blocks/manifest");
     // TODO: fix zod schema to accept io directory structure
     const validateResult = validateRootSchema(res.data);
     if (!validateResult.success) {
@@ -127,7 +127,7 @@ export const getManifest = async () => {
 
 export const getBlocksMetadata = async () => {
   try {
-    const res = await baseClient().get("blocks/metadata");
+    const res = await baseClient.get("blocks/metadata");
     return res.data as BlocksMetadataMap;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -144,11 +144,11 @@ type LogLevel = {
 };
 
 export const getLogLevel = async () => {
-  const res = await baseClient().get("log_level");
+  const res = await baseClient.get("log_level");
   const data = res.data as LogLevel;
   return data.level;
 };
 
 export const setLogLevel = async (level: string) => {
-  await baseClient().post("log_level", { level });
+  await baseClient.post("log_level", { level });
 };
