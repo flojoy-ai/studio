@@ -65,7 +65,7 @@ const ProfileBox = ({
       setUser(user);
       setPassRequired(false);
       baseClient.post("/auth/login", { username: user.name, password });
-      navigate("/test-sequencer");
+      navigate("/flowchart");
     }
   };
   const handleDeleteProfile = async () => {
