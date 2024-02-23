@@ -325,6 +325,7 @@ export function DataTable() {
     <div className="flex flex-col">
       <WriteConditionalModal
         isConditionalModalOpen={showWriteConditionalModal}
+        setConditionalModalOpen={setShowWriteConditionalModal}
         handleWriteConditionalModalOpen={setShowWriteConditionalModal}
         handleWrite={handleWriteConditionalModal}
       />
