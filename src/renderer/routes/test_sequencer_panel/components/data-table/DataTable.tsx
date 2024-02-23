@@ -37,44 +37,19 @@ import {
   TestSequenceElement,
   ConditionalComponent,
   Conditional,
-  Test,
   StatusTypes,
 } from "@/renderer/types/testSequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { parseInt, filter, map } from "lodash";
-import { AddConditionalModal } from "./AddConditionalModal";
 import {
   generateConditional,
   getIndentLevels,
-} from "../utils/ConditionalUtils";
-import {
-  ChevronUpIcon,
-  ChevronDownIcon,
-  Loader,
-  TrashIcon,
-} from "lucide-react";
-import { WriteConditionalModal } from "./AddWriteConditionalModal";
-import LockableButton from "./lockable/LockedButtons";
-import { useRef, useState } from "react";
-
-const IndentLine = ({
-  content: name,
-  level = 0,
-}: {
-  content: React.ReactNode;
-  level: number;
-}) => (
-  <div className="flex h-full flex-row">
-    {level == 0 ? (
-      name
-    ) : (
-      <div className="flex flex-row">
-        <div className={"mr-5 flex h-full border-l-2 border-blue-800"}></div>
-        <IndentLine content={name} level={level - 1} />
-      </div>
-    )}
-  </div>
-);
+} from "../../utils/ConditionalUtils";
+import { ChevronUpIcon, ChevronDownIcon, TrashIcon } from "lucide-react";
+import { WriteConditionalModal } from "../AddWriteConditionalModal";
+import LockableButton from "../lockable/LockedButtons";
+import { useRef, useState, useEffect } from "react";
+import TestNameCell from "./test-name-cell";
 
 const mapStatusToDisplay: { [k in StatusTypes]: React.ReactNode } = {
   pass: <p className="text-green-500">PASS</p>,
@@ -84,7 +59,7 @@ const mapStatusToDisplay: { [k in StatusTypes]: React.ReactNode } = {
 
 export function DataTable() {
   const { elems, setElems, running } = useTestSequencerState();
-
+  const [addIfStatement, _setAddIfStatement] = useState(false);
   const indentLevels = getIndentLevels(elems);
 
   const columns: ColumnDef<TestSequenceElement>[] = [
@@ -116,38 +91,12 @@ export function DataTable() {
         return elem.type === "test" ? "testName" : "conditionalType";
       },
       header: "Test name",
-      cell: ({ row }) => {
-        const isTest = row.original.type === "test";
-        return isTest ? (
-          <div className="flex h-full space-x-2">
-            {/* Indent levels */}
-            <div className="flex flex-row space-x-1">
-              <IndentLine
-                content={(row.original as Test).testName}
-                level={indentLevels[row.id]}
-              />
-              {running.includes(row.original.id) && (
-                <Loader className="scale-50" />
-              )}
-            </div>
-            {/* {(row.original as Test).test_name} */}
-          </div>
-        ) : (
-          <IndentLine
-            content={
-              <div className="flex flex-col">
-                <b>
-                  {(row.original as Conditional).conditionalType.toUpperCase()}
-                </b>
-                <i>
-                  {(row.original as Conditional).condition.substring(0, 45)}
-                  {(row.original as Conditional).condition.length >= 45 && (
-                    <>...</>
-                  )}
-                </i>
-              </div>
-            }
-            level={indentLevels[row.id]}
+      cell: (props) => {
+        return (
+          <TestNameCell
+            cellProps={props}
+            running={running}
+            indentLevels={indentLevels}
           />
         );
       },
@@ -205,16 +154,23 @@ export function DataTable() {
       },
     },
 
-    // {
-    //   accessorKey: "isSavedToCloud",
-    //   header: "Saved to Flojoy Cloud",
-    //   enableHiding: false,
-    //   cell: ({ row }) => {
-    //     return row.getValue("isSavedToCloud") ? (
-    //       <Button>OPEN TEST</Button>
-    //     ) : null;
-    //   },
-    // },
+    {
+      accessorFn: (elem) => {
+        return elem.type === "test" ? "isSavedToCloud" : null;
+      },
+      header: "Saved To Cloud",
+      cell: ({ row }) => {
+        return row.original.type === "test" ? (
+          <div
+            className={
+              row.original.isSavedToCloud ? "text-green-500" : "text-red-500"
+            }
+          >
+            {row.original.isSavedToCloud ? "Saved" : "Not Saved"}
+          </div>
+        ) : null;
+      },
+    },
 
     {
       accessorKey: "up-down",
@@ -300,7 +256,6 @@ export function DataTable() {
     });
   };
 
-  const [showAddConditionalModal, setShowAddConditionalModal] = useState(false);
   const addConditionalAfterIdx = useRef(-1);
 
   const [showWriteConditionalModal, setShowWriteConditionalModal] =
@@ -335,7 +290,7 @@ export function DataTable() {
 
   const handleClickAddConditional = (idx: number) => {
     addConditionalAfterIdx.current = idx;
-    setShowAddConditionalModal(true);
+    handleAddConditionalModal("if");
   };
 
   const onClickWriteCondition = (idx: number) => {
@@ -360,13 +315,14 @@ export function DataTable() {
     }
   };
 
+  useEffect(() => {
+    if (addIfStatement) {
+      handleAddConditionalModal("if");
+    }
+  }, [addIfStatement]);
+
   return (
     <div className="flex flex-col">
-      <AddConditionalModal
-        isConditionalModalOpen={showAddConditionalModal}
-        handleAddConditionalModalOpen={setShowAddConditionalModal}
-        handleAdd={handleAddConditionalModal}
-      />
       <WriteConditionalModal
         isConditionalModalOpen={showWriteConditionalModal}
         handleWriteConditionalModalOpen={setShowWriteConditionalModal}

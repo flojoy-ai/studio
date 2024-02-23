@@ -20,13 +20,15 @@ class TestSequenceMessage(dict):
     target_id: str
     result: bool
     time_taken: float
+    is_saved_to_cloud: bool
     error: Optional[str]
 
-    def __init__(self, state, target_id, result, time_taken, error):
+    def __init__(self, state, target_id, result, time_taken, is_saved_to_cloud, error):
         self["state"] = state
         self["target_id"] = target_id
         self["result"] = result
         self["time_taken"] = time_taken
+        self["is_saved_to_cloud"] = is_saved_to_cloud
         self["error"] = error
 
     def __setitem__(self, __key: Any, __value: Any) -> None:

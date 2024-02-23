@@ -1,36 +1,39 @@
-// import { Button } from "@/renderer/components/ui/button";
-// import { Input } from "@/renderer/components/ui/input";
-// import { IS_CLOUD_DEMO } from "@/renderer/data/constants";
 import { useContext, useState } from "react";
-import { DataTable } from "./DataTable";
+import { DataTable } from "./data-table/DataTable";
 import { SummaryTable } from "./SummaryTable";
+import { CloudPanel } from "./CloudPanel";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { testSequenceRunRequest } from "../models/models";
 import { TestSequenceElement } from "@/renderer/types/testSequencer";
 import { ImportTestModal } from "./ImportTestModal";
 import LockableButton from "./lockable/LockedButtons";
-import { TSWebSocketContext } from "../../../context/testSequencerWS.context";
+import { TSWebSocketContext } from "@/renderer/context/testSequencerWS.context";
 import { LockedContextProvider } from "@/renderer/context/lock.context";
 import { useTestSetSave } from "@/renderer/hooks/useTestSetSave";
 import { useTestSetImport } from "@/renderer/hooks/useTestSetImport";
-
-// const INPUT_FIELD_STYLE =
-//   "h-10 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap border-muted/60 text-sm focus:border-muted-foreground focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 sm:w-48";
+import _ from "lodash";
+import {
+  LAYOUT_TOP_HEIGHT,
+  BOTTOM_STATUS_BAR_HEIGHT,
+} from "@/renderer/routes/common/Layout";
 
 const TestSequencerView = () => {
-  // const [deviceId, setDeviceID] = useState("");
-  // const [testRunTag, setTestRunTag] = useState("");
   const { setElems, tree, setIsLocked } = useTestSequencerState();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
 
   const resetStatus = () => {
     setElems.withException((elems: TestSequenceElement[]) => {
-      const new_elems: TestSequenceElement[] = [...elems].map((elem) => {
+      const newElems: TestSequenceElement[] = [...elems].map((elem) => {
         return elem.type === "test"
-          ? { ...elem, status: "pending", completionTime: undefined }
+          ? {
+              ...elem,
+              status: "pending",
+              completionTime: undefined,
+              isSavedToCloud: false,
+            }
           : { ...elem };
       });
-      return new_elems;
+      return newElems;
     });
   };
 
@@ -45,58 +48,68 @@ const TestSequencerView = () => {
   const handleClickImportTest = () => {
     setIsImportModalOpen(true);
   };
-  const handleClickSaveTestSet = () => {
-    testSetSave();
-  };
-  const handleClickImportTestTest = () => {
-    testSetImport();
-  };
 
   return (
     <LockedContextProvider>
-      <div className="absolute ml-auto mr-auto h-2/3 w-full flex-col space-y-5 overflow-y-auto">
+      <div
+        style={{
+          height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT}px)`,
+        }}
+      >
         <ImportTestModal
           isModalOpen={isImportModalOpen}
           handleModalOpen={setIsImportModalOpen}
-          handleImport={() => {}}
-        ></ImportTestModal>
-        {/* New Test Form */}
-        {/* <div className="flex flex-row space-x-5"> */}
-        {/*   <Input */}
-        {/*     className={INPUT_FIELD_STYLE} */}
-        {/*     value={deviceId} */}
-        {/*     onChange={(e) => setDeviceID(e.target.value)} */}
-        {/*     placeholder="Device ID (optional)" */}
-        {/*     disabled={IS_CLOUD_DEMO} */}
-        {/*   /> */}
-        {/*   <Input */}
-        {/*     className={INPUT_FIELD_STYLE} */}
-        {/*     value={testRunTag} */}
-        {/*     onChange={(e) => setTestRunTag(e.target.value)} */}
-        {/*     placeholder="Test Run Tag (optional)" */}
-        {/*     disabled={IS_CLOUD_DEMO} */}
-        {/*   /> */}
-        {/*   <Button>New Test</Button> */}
-        {/* </div> */}
+        />
+        <div className="flex overflow-y-auto">
+          <div
+            className="ml-auto mr-auto h-3/5 flex-grow flex-col overflow-y-auto"
+            style={{ height: "calc(100vh - 260px)" }}
+          >
+            <SummaryTable />
+            <DataTable />
+          </div>
 
-        <div className="w-5/6">
-          <DataTable />
-          <SummaryTable />
-        </div>
-
-        {/* Test Flow Control buttons */}
-        <div className="flex flex-row space-x-5">
-          <LockableButton onClick={handleClickImportTest}>
-            + Import test
-          </LockableButton>
-          <LockableButton onClick={handleClickSaveTestSet}>
-            Save Test Set
-          </LockableButton>
-          <LockableButton onClick={handleClickImportTestTest}>
-            Import Test Set
-          </LockableButton>
-          {/* <LockableButton>Export test</LockableButton> */}
-          <LockableButton onClick={handleClickRunTest}>Run Test</LockableButton>
+          <div>
+            <div className="top-0 h-full flex-none overflow-y-auto pl-5">
+              <CloudPanel />
+              <div className="mt-5 rounded-xl border border-gray-300 p-4 py-4 dark:border-gray-800">
+                <div className="flex flex-col">
+                  <h2 className="mb-2 pt-3 text-center text-lg font-bold text-accent1 ">
+                    Control Panel
+                  </h2>
+                  <LockableButton
+                    className="mt-4 w-full"
+                    variant="outline"
+                    onClick={handleClickImportTest}
+                  >
+                    Import Python Tests
+                  </LockableButton>
+                  <LockableButton
+                    className="mt-4 w-full"
+                    variant="outline"
+                    onClick={testSetImport}
+                  >
+                    Import Test Set
+                  </LockableButton>
+                  <LockableButton
+                    className="mt-4 w-full"
+                    variant="outline"
+                    onClick={testSetSave}
+                  >
+                    Save Test Set
+                  </LockableButton>
+                  <LockableButton
+                    variant="dotted"
+                    className="mt-4 w-full gap-2"
+                    isLocked={_.isEmpty(tree)}
+                    onClick={handleClickRunTest}
+                  >
+                    Run Test Sequence
+                  </LockableButton>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </LockedContextProvider>

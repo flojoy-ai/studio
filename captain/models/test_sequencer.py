@@ -38,6 +38,7 @@ class BackendMsg(BaseModel):
     target_id: str = Field(..., alias="targetId")
     result: bool = Field(..., alias="result")
     time_taken: float = Field(..., alias="timeTaken")
+    is_saved_to_cloud: bool = Field(..., alias="isSavedToCloud")
     error: Optional[str] = Field(None, alias="error")
 
 
@@ -114,7 +115,7 @@ class TestDiscoverContainer(BaseModel):
     response: List[TestDiscoveryResponse] = Field(..., alias="response")
 
 
-TestSequenceEvents = Literal["run", "subscribe"]
+TestSequenceEvents = Literal["run", "subscribe", "export"]
 
 
 class TestData(BaseModel):
@@ -124,3 +125,5 @@ class TestData(BaseModel):
 class TestSequenceRun(BaseModel):
     event: TestSequenceEvents
     data: Union[str, TestRootNode]
+    hardware_id: Union[str, None]
+    project_id: Union[str, None]

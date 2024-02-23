@@ -66,6 +66,9 @@ export default {
   ): Promise<{ filePath: string; fileContent: string }> =>
     ipcRenderer.invoke(API.openFilePicker, allowedExtensions),
 
+  getFileContent: (filepath: string): Promise<string> =>
+    ipcRenderer.invoke(API.getFileContent, filepath),
+
   openEditorWindow: (filepath: string): Promise<void> =>
     ipcRenderer.invoke(API.openEditorWindow, filepath),
 
@@ -82,6 +85,7 @@ export default {
     ipcRenderer.invoke(API.setupExecutionTime),
 
   isCI: (): Promise<boolean> => ipcRenderer.invoke(API.isCI),
+  isDev: (): Promise<boolean> => ipcRenderer.invoke(API.isDev),
   getAllLogs: (): Promise<string> => ipcRenderer.invoke(API.getAllLogs),
   openLink: (url: string): Promise<void> =>
     ipcRenderer.invoke(API.openLink, url),
