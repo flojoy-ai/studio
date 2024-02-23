@@ -11,7 +11,6 @@ router = APIRouter(tags=["auth"])
 
 @router.post("/auth/login/")
 async def login(response: Response, auth: Auth):
-
     if not validate_credentials(auth.username, auth.password):
         response.set_cookie(
             key="studio-auth",

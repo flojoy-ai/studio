@@ -23,7 +23,6 @@ async def is_admin(req: Request):
         )
 
     try:
-
         credentials = base64.b64decode(studio_cookie).decode("utf-8")
         username, password = credentials.split(":", 1)
         authorized = validate_credentials(username, password)
