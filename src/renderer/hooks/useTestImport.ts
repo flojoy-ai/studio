@@ -4,6 +4,7 @@ import { useTestSequencerState } from "./useTestSequencerState";
 import { map } from "lodash";
 import { v4 as uuidv4 } from "uuid";
 import { ImportTestSettings } from "@/renderer/routes/test_sequencer_panel/components/ImportTestModal";
+import { toast } from "sonner";
 
 function parseDiscoverContainer(data: TestDiscoverContainer) {
   return map(data.response, (container) => {
@@ -34,6 +35,9 @@ export const useTestImport = () => {
         },
       });
       const data: TestDiscoverContainer = JSON.parse(response.data);
+      for (const lib of data.missingLibraries) {
+        toast.error(`Missing Python Library: ${lib}`);
+      }
       const newElems = parseDiscoverContainer(data);
       setElems((elems) => {
         return [...elems, ...newElems];

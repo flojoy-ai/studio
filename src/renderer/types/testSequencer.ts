@@ -80,6 +80,7 @@ export type TestSequenceElementNode = ConditionalNode | TestNode | TestRootNode;
 export type TestDiscoverContainer = {
   // sync with pydantic model in backend
   response: TestDiscoveryResponse[];
+  missingLibraries: string[];
 };
 
 export type TestDiscoveryResponse = {
