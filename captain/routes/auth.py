@@ -18,7 +18,6 @@ async def login(response: Response, auth: Auth):
             samesite="none",
             secure=True,
         )
-        response.status_code = status.HTTP_401_UNAUTHORIZED
         return "Login failed"
 
     encoded_credentials = get_base64_credentials(auth.username, auth.password)
@@ -30,5 +29,4 @@ async def login(response: Response, auth: Auth):
         samesite="none",
         secure=True,
     )
-    response.status_code = status.HTTP_200_OK
     return "Login successful"

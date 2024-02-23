@@ -17,7 +17,10 @@ const AuthPage = ({ startup }: AuthPageProps) => {
   const validateUser = async () => {
     if (!user) return;
     if (!user.password && startup) {
-      baseClient.post("/auth/login", { username: user.name, password: "" });
+      await baseClient.post("/auth/login", {
+        username: user.name,
+        password: "",
+      });
       navigate("/flowchart");
       window.api.setUserProfile(user.name);
     }
