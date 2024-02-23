@@ -28,6 +28,7 @@ import { Key } from "lucide-react";
 import { toast } from "sonner";
 import { Separator } from "@/renderer/components/ui/separator";
 import { baseClient } from "@/renderer/lib/base-client";
+import useWithPermission from "@/renderer/hooks/useWithPermission";
 
 interface EnvVarModalProps {
   handleEnvVarModalOpen: (open: boolean) => void;
@@ -39,6 +40,7 @@ const EnvVarModal = ({
   isEnvVarModalOpen,
 }: EnvVarModalProps) => {
   const { credentials, setCredentials } = useFlowChartState();
+  const { withPermissionCheck } = useWithPermission();
   const [envVarKey, setEnvVarKey] = useState<string>("");
   const [envVarValue, setEnvVarValue] = useState<string>("");
   const [selectedCredential, setSelectedCredential] = useState<
@@ -92,6 +94,10 @@ const EnvVarModal = ({
   };
 
   const handleSendEnvVar = async () => {
+    if (envVarKey === "" || envVarValue === "") {
+      toast("Please enter both key and value");
+      return;
+    }
     const result = await postEnvironmentVariable({
       key: envVarKey,
       value: envVarValue,
@@ -108,6 +114,10 @@ const EnvVarModal = ({
   };
 
   const handleSetCloudKey = async () => {
+    if (flojoyCloudKey === "") {
+      toast("Please enter your Flojoy Cloud API key");
+      return;
+    }
     const result = await postEnvironmentVariable({
       key: "FLOJOY_CLOUD_KEY",
       value: flojoyCloudKey,
@@ -156,7 +166,7 @@ const EnvVarModal = ({
             <Button
               data-testid="flojoy-cloud-api-submit"
               type="submit"
-              onClick={handleSetCloudKey}
+              onClick={withPermissionCheck(handleSetCloudKey)}
             >
               Set
             </Button>
@@ -207,7 +217,7 @@ const EnvVarModal = ({
               <div className="grow" />
               <Button
                 data-testid="env-var-submit-btn"
-                onClick={handleSendEnvVar}
+                onClick={withPermissionCheck(handleSendEnvVar)}
               >
                 Add
               </Button>

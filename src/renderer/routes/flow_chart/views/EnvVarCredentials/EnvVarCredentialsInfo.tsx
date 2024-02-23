@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { MoreVertical, Eye, EyeOff } from "lucide-react";
+import { MoreVertical, Eye, EyeOff, Loader } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
-import { EnvVarCredentialType } from "@/renderer/hooks/useFlowChartState";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/renderer/components/ui/dropdown-menu";
+import useWithPermission from "@/renderer/hooks/useWithPermission";
+import { baseClient } from "@/renderer/lib/base-client";
+import { EnvVarCredentialType } from "@/renderer/hooks/useFlowChartState";
+import { toast } from "sonner";
 
 export type EnvVarCredentialsInfoProps = {
   credential: EnvVarCredentialType;
@@ -23,9 +26,27 @@ const EnvVarCredentialsInfo = ({
   setEditModalOpen,
 }: EnvVarCredentialsInfoProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [credentialValue, setCredentialValue] = useState<string>(
+    credential.value,
+  );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { withPermissionCheck, isAdmin } = useWithPermission();
 
   const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
+    if (credential.value === "") {
+      setIsLoading(true);
+      baseClient
+        .get(`env/${credential.key}`)
+        .then((res) => {
+          setCredentialValue(res.data.value);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          toast.error(err.response?.data?.detail ?? err.message);
+          setIsLoading(false);
+        });
+    }
+    setShowPassword((prev) => !prev);
   };
   const PasswordIcon = showPassword ? EyeOff : Eye;
 
@@ -50,52 +71,58 @@ const EnvVarCredentialsInfo = ({
         {credential.key}
       </div>
       <div className="ml-auto mr-6 flex items-center gap-x-2">
-        <button type="button" onClick={toggleShowPassword}>
-          <PasswordIcon
-            data-testid="password-icon-view"
-            className="stroke-gray-600"
-            size={20}
-            strokeWidth={1.5}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+        <button type="button" onClick={withPermissionCheck(toggleShowPassword)}>
+          {isLoading ? (
+            <Loader className="scale-50" />
+          ) : (
+            <PasswordIcon
+              data-testid="password-icon-view"
+              className="stroke-gray-600"
+              size={20}
+              strokeWidth={1.5}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          )}
         </button>
         <div className="flex w-24 items-center font-semibold text-gray-600">
           {showPassword ? (
             <span className="inline-block w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-sm font-medium">
-              {credential.value}
+              {credentialValue}
             </span>
           ) : (
             <span className="tracking-wider">{"•".repeat(15)}</span>
           )}
         </div>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              data-testid="env-var-modify-btn"
-              variant={"ghost"}
-              size={"icon"}
-            >
-              <MoreVertical className="stroke-gray-600" size={20} />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="min-w-[80px]">
-            <DropdownMenuItem
-              data-testid="env-var-edit-btn"
-              onClick={handleEditClick}
-              className="cursor-pointer"
-            >
-              Edit
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              data-testid="env-var-delete-btn"
-              onClick={handleDeleteClick}
-              className="cursor-pointer"
-            >
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {isAdmin() && (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                data-testid="env-var-modify-btn"
+                variant={"ghost"}
+                size={"icon"}
+              >
+                <MoreVertical className="stroke-gray-600" size={20} />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="min-w-[80px]">
+              <DropdownMenuItem
+                data-testid="env-var-edit-btn"
+                onClick={handleEditClick}
+                className="cursor-pointer"
+              >
+                Edit
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                data-testid="env-var-delete-btn"
+                onClick={handleDeleteClick}
+                className="cursor-pointer"
+              >
+                Delete
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
       </div>
     </div>
   );
