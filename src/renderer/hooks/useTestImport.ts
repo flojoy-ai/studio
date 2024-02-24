@@ -7,6 +7,7 @@ import { ImportTestSettings } from "@/renderer/routes/test_sequencer_panel/compo
 import { toast } from "sonner";
 import { useCallback } from "react";
 import { Dispatch, SetStateAction, useState } from "react";
+import { TestSequenceEvents } from "../routes/test_sequencer_panel/models/models";
 
 function parseDiscoverContainer(data: TestDiscoverContainer) {
   return map(data.response, (container) => {
@@ -58,8 +59,12 @@ export const useTestImport = () => {
     if (data.missingLibraries && data.missingLibraries.length > 0) {
       throw new Error("Missing Libraries");
     }
-    setModalOpen(false);
     const newElems = parseDiscoverContainer(data);
+    if (newElems.length === 0) {
+      toast.error("No tests found in the specified file.");
+      throw new Error("No tests found in the file");
+    }
+    setModalOpen(false);
     setElems((elems) => {
       return [...elems, ...newElems];
     });

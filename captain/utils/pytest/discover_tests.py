@@ -65,10 +65,14 @@ def discover_pytest_file(path: str, one_file: bool, return_val: list, missing_li
                 )
 
     test_list: List[TestDiscoveryResponse] = []
+    dfs(test_list, json_data)
+    logger.info(f"Test list: {test_list}")
+    if len(test_list) == 1:
+        # No test, just the file itself in the list
+        return
     if one_file:
         return_val.append(
             TestDiscoveryResponse(test_name=os.path.basename(path), path=path)
         )
-    dfs(test_list, json_data)
-    logger.info(test_list)
-    return_val.extend(test_list)
+    else:
+        return_val.extend(test_list)

@@ -36,7 +36,7 @@ export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
       <DialogContent>
         <h2 className="text-lg font-bold text-accent1"> Import Python Scripts & Tests </h2>
         <Button variant={"outline"} onClick={handleImportTest}>Pytest & Unittest</Button>
-        <Button variant={"outline"} onClick={handleImportTest}>Python Script</Button>
+        <Button variant={"outline"} disabled={true}>Python Script (Coming soon!)</Button>
         <Separator/>
         <div className="flex justify-between">
           <div className="flex text-xs items-center space-x-2">
