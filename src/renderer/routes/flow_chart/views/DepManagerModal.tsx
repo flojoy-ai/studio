@@ -111,7 +111,8 @@ const DepManagerModal = ({
     >
       <DialogContent className="flex h-4/5 max-w-5xl flex-col">
         <DialogHeader>
-          <DialogTitle className="text-3xl">Dependency Manager</DialogTitle>
+          <DialogTitle className="text-3xl">
+            <div className="flex"> Dependency Manager {isFetching && <Spinner className="mt-2 ml-2" />} </div> </DialogTitle>
           <DialogDescription>
             Here you can manage all the Python dependencies for Flojoy.
           </DialogDescription>
@@ -119,102 +120,103 @@ const DepManagerModal = ({
 
           { !checkAllDependencies ? (
           <div className="h-full flex flex-col justify-between">
-                    <ScrollArea className="p-4 h-full">
-            <div>
-            <div className="py-2" />
-            <div className="flex items-center gap-2">
-              <div className="text-2xl font-bold">User Dependencies</div>
-              {isFetching && <Spinner />}
-            </div>
-            <div className="py-2" />
-            <h2 className="pb-2 pr-2 text-muted-foreground">Install dependencies</h2>
-            <div className="flex">
-              <div className="pl-1 flex-auto items-center gap-1.5">
-                <Input id="deps" placeholder="numpy pytest==7.4.4" value={installDependency} onChange={(event) => {setInstallDependency(event.target.value)}}/>
-            </div>
-            <Button
-              className="ml-4"
-              disabled={isLoading}
-              variant={"default"}
-              onClick={() => {
-                handleUserDepInstall(installDependency);
-              }}
-            >
-              {isLoading ? <Spinner /> : "Install"}
-            </Button>
-            </div>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Version</TableHead>
-                  <TableHead>Description</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-              { userDependencies.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={3} className="text-center">
-                      No user dependencies installed.
-                  </TableCell>
-                </TableRow>
-                ) :
-                userDependencies.map((dep) => (
-                <TableRow key={dep.name}>
-                  <TableCell>{dep.name}</TableCell>
-                  <TableCell>{dep.version}</TableCell>
-                  <TableCell>{dep.description}</TableCell>
-                </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-            <div className="py-2" />
+            <ScrollArea className="p-4 h-full">
+              
 
-            <div className="flex items-center gap-2">
-              <div className="text-2xl font-bold">Flojoy Extensions</div>
-              {isFetching && <Spinner />}
-            </div>
-            <div className="py-2" />
-            <div>
-              {depGroups.map((group) => {
-                return (
-                  <div className="flex p-1" key={group.name}>
-                    <div className="w-32">{group.name}</div>
-                    <div>{group.description}</div>
-                    <div className="grow" />
-                    <Button
-                      data-testid={`${group.name}-${getButtonLabel(
-                        group.status,
-                      )}`}
-                      disabled={isLoading || group.name === "blocks"}
-                      variant={
-                        group.status === "installed" ? "destructive" : "default"
-                      }
-                      onClick={() => {
-                        if (group.status === "installed") {
-                          handleGroupUninstall(group.name);
-                        } else {
-                          handleGroupInstall(group.name);
+              <div className="flex items-center gap-2">
+                <div className="text-2xl font-bold">Flojoy Extensions</div>
+              </div>
+              <div className="py-2" />
+              <div>
+                {depGroups.map((group) => {
+                  return (
+                    <div className="flex p-1" key={group.name}>
+                      <div className="w-32">{group.name}</div>
+                      <div>{group.description}</div>
+                      <div className="grow" />
+                      <Button
+                        data-testid={`${group.name}-${getButtonLabel(
+                          group.status,
+                        )}`}
+                        disabled={isLoading || group.name === "blocks"}
+                        variant={
+                          group.status === "installed" ? "destructive" : "default"
                         }
-                      }}
-                    >
-                      {isLoading ? <Spinner /> : getButtonLabel(group.status)}
-                    </Button>
-                  </div>
-                );
-              })}
-            </div>
-            <div className="py-2" />
+                        onClick={() => {
+                          if (group.status === "installed") {
+                            handleGroupUninstall(group.name);
+                          } else {
+                            handleGroupInstall(group.name);
+                          }
+                        }}
+                      >
+                        {getButtonLabel(group.status)}
+                      </Button>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="py-2" />
 
-            <div className="mx-auto w-96 text-center">
-              {isLoading && (
-                <div className="overflow-hidden text-ellipsis whitespace-nowrap">
-                  {msg}
-                </div>
-              )}
-              {!isLoading && !isFetching && <div>Dependency Manager Idle</div>}
-            </div>
-            </div>
+              <div className="mx-auto w-96 text-center">
+                {isLoading && (
+                  <div className="overflow-hidden text-ellipsis whitespace-nowrap">
+                    {msg}
+                  </div>
+                )}
+                {!isLoading && !isFetching && <div>Dependency Manager Idle</div>}
+              </div>
+
+
+              <div className="py-2" />
+              <div className="flex items-center gap-2">
+                <div className="text-2xl font-bold">User Dependencies</div>
+              </div>
+              <div className="py-2" />
+              <h2 className="pb-2 pr-2 text-muted-foreground">Install dependencies</h2>
+              <div className="flex">
+                <div className="pl-1 flex-auto items-center gap-1.5">
+                  <Input id="deps" placeholder="numpy pytest==7.4.4" value={installDependency} onChange={(event) => {setInstallDependency(event.target.value)}}/>
+              </div>
+              <Button
+                className="ml-4"
+                disabled={isLoading}
+                variant={"default"}
+                onClick={() => {
+                  handleUserDepInstall(installDependency);
+                }}
+              >
+                {isLoading ? <Spinner /> : "Install"}
+              </Button>
+              </div>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Version</TableHead>
+                    <TableHead>Description</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                { userDependencies.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={3} className="text-center">
+                        No user dependencies installed.
+                    </TableCell>
+                  </TableRow>
+                  ) :
+                  userDependencies.map((dep) => (
+                  <TableRow key={dep.name}>
+                    <TableCell>{dep.name}</TableCell>
+                    <TableCell>{dep.version}</TableCell>
+                    <TableCell>{dep.description}</TableCell>
+                  </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              <div className="py-2" />
+
+              
             </ScrollArea>
             <div className="flex justify-end">
               <div className="flex justify-end">
@@ -229,7 +231,6 @@ const DepManagerModal = ({
               <div className="py-2" />
               <div className="flex items-center gap-2">
                 <div className="text-2xl font-bold">All Dependencies</div>
-                {isFetching && <Spinner />}
               </div>
               <Table>
                 <TableHeader>
