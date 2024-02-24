@@ -5,6 +5,7 @@ import { map } from "lodash";
 import { v4 as uuidv4 } from "uuid";
 import { ImportTestSettings } from "@/renderer/routes/test_sequencer_panel/components/ImportTestModal";
 import { toast } from "sonner";
+import { useCallback } from "react";
 
 function parseDiscoverContainer(data: TestDiscoverContainer) {
   return map(data.response, (container) => {
@@ -25,9 +26,18 @@ function parseDiscoverContainer(data: TestDiscoverContainer) {
 
 export const useTestImport = () => {
   const { setElems } = useTestSequencerState();
+  const handleUserDepInstall = useCallback(async (depName: string) => {
+    const promise = () => window.api.poetryInstallDep(depName);
+    toast.promise(promise, {
+      loading: `Installing ${depName}...`,
+      success: () => {
+        return `${depName} has been added.`;
+      },
+      error: 'Could not install the library. Please consult the Dependency Manager in the settings.'
+    });
+  }, []);
 
   async function getTests(path: string, settings: ImportTestSettings) {
-    try {
       const response = await baseClient.get("discover-pytest", {
         params: {
           path: path,
@@ -36,15 +46,20 @@ export const useTestImport = () => {
       });
       const data: TestDiscoverContainer = JSON.parse(response.data);
       for (const lib of data.missingLibraries) {
-        toast.error(`Missing Python Library: ${lib}`);
+        toast.error(`Missing Python Library: ${lib}`, {
+          action: {
+            label: 'Install',
+            onClick: (_) => { handleUserDepInstall(lib); }
+          },
+        })
+      }
+      if (data.missingLibraries && data.missingLibraries.length > 0) {
+        throw new Error("Missing Libraries");
       }
       const newElems = parseDiscoverContainer(data);
       setElems((elems) => {
         return [...elems, ...newElems];
       });
-    } catch (error) {
-      console.error(error);
-    }
   }
 
   const openFilePicker = (settings: ImportTestSettings) => {
@@ -55,10 +70,12 @@ export const useTestImport = () => {
         const { filePath } = result;
         getTests(filePath, settings);
       })
-      .catch((errors) => {
-        console.error("Errors when trying to load file: ", errors);
+      .catch((error) => {
+        console.error("Errors when trying to load file: ", error);
+        return error;
       });
   };
 
   return openFilePicker;
 };
+

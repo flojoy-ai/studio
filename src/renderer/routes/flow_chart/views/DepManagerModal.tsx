@@ -124,7 +124,7 @@ const DepManagerModal = ({
           <div className="py-2" />
           <h2 className="pb-2 pr-2 text-muted-foreground">Install dependencies</h2>
           <div className="flex">
-            <div className="flex-auto items-center gap-1.5">
+            <div className="pl-1 flex-auto items-center gap-1.5">
               <Input id="deps" placeholder="numpy pytest==7.4.4" value={installDependency} onChange={(event) => {setInstallDependency(event.target.value)}}/>
           </div>
           <Button
