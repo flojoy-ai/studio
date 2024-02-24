@@ -19,6 +19,7 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import { PoetryGroupInfo, PythonDependency } from "src/types/poetry";
 import { Input } from "@/renderer/components/ui/input";
+import { categoryMap } from "../../common/Sidebar/SidebarNode";
 
 type Props = {
   handleDepManagerModalOpen: (open: boolean) => void;
@@ -40,8 +41,11 @@ const DepManagerModal = ({
   const handleUpdate = useCallback(async () => {
     setIsFetching(true);
     const deps = await window.api.poetryShowTopLevel();
+    const userDeps = await window.api.poetryShowUserGroup();
     const groups = await window.api.poetryGetGroupInfo();
     setAllDependencies(deps);
+    setUserDependencies(userDeps);
+    console.log(userDependencies);
     setDepGroups(groups);
     setIsFetching(false);
   }, []);
@@ -58,7 +62,7 @@ const DepManagerModal = ({
   const handleUserDepInstall = useCallback(async (depName: string) => {
     setMsg("Installing...");
     setIsLoading(true);
-    await window.api.poetryInstallDep(depName);
+    await window.api.poetryInstallDepUserGroup(depName);
     await handleUpdate();
     setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -130,7 +134,6 @@ const DepManagerModal = ({
             disabled={isLoading}
             variant={"default"}
             onClick={() => {
-              console.log("Install deps");
               handleUserDepInstall(installDependency);
             }}
           >

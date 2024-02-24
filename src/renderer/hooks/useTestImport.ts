@@ -30,7 +30,7 @@ export const useTestImport = () => {
   const { setElems } = useTestSequencerState();
 
   const handleUserDepInstall = useCallback(async (depName: string) => {
-    const promise = () => window.api.poetryInstallDep(depName);
+    const promise = () => window.api.poetryInstallDepUserGroup(depName);
     toast.promise(promise, {
       loading: `Installing ${depName}...`,
       success: () => {

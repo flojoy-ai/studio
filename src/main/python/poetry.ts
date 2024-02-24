@@ -28,14 +28,8 @@ export const POETRY_DEP_GROUPS: Pick<
   },
 ];
 
-export async function poetryShowTopLevel(): Promise<PythonDependency[]> {
-  const groups = POETRY_DEP_GROUPS.map((group) => group.name).join(",");
-  const poetry = process.env.POETRY_PATH ?? "poetry";
-  const result = await execCommand(
-    new Command(`${poetry} show --top-level --with ${groups} --no-ansi`),
-  );
-
-  return result.split("\n").map((line) => {
+function processShow(stdout: string): PythonDependency[] {
+  return stdout.split("\n").map((line) => {
     // Example line output
     // keyrings-cryptfile        1.3.9              Encrypted file keyring backend
     // labjackpython         (!) 2.1.0              The LabJack Python modules for the LabJack U3, U6, UE9 and U12.
@@ -59,6 +53,27 @@ export async function poetryShowTopLevel(): Promise<PythonDependency[]> {
       installed: true,
     };
   });
+}
+
+export async function poetryShowTopLevel(): Promise<PythonDependency[]> {
+  const groups = POETRY_DEP_GROUPS.map((group) => group.name).join(",");
+  const poetry = process.env.POETRY_PATH ?? "poetry";
+  const stdout = await execCommand(
+    new Command(`${poetry} show --top-level --with ${groups} --no-ansi`),
+  );
+  return processShow(stdout);
+}
+
+export async function poetryShowUserGroup(): Promise<PythonDependency[]> {
+  const poetry = process.env.POETRY_PATH ?? "poetry";
+  const stdout = await execCommand(
+    new Command(`${poetry} show --top-level --only=user --no-ansi`),
+  );
+  const deps = processShow(stdout);
+  if (deps.length === 1 && deps[0].name === "") {
+    return [];
+  }
+  return deps 
 }
 
 export async function poetryGetGroupInfo(): Promise<PoetryGroupInfo[]> {
@@ -88,7 +103,7 @@ export async function poetryGetGroupInfo(): Promise<PoetryGroupInfo[]> {
           : "dne") as PoetryGroupInfo["status"],
       };
     },
-  );
+  ).filter((group) => group.name !== "user");
   return result;
 }
 
@@ -128,9 +143,9 @@ export async function poetryInstallDepGroup(group: string): Promise<boolean> {
   return true;
 }
 
-export async function poetryInstallDep(name: string): Promise<boolean> {
+export async function poetryInstallDepUserGroup(name: string): Promise<boolean> {
   const poetry = process.env.POETRY_PATH ?? "poetry";
-  await execCommand(new Command(`${poetry} add ${name}`));
+  await execCommand(new Command(`${poetry} add ${name} --group user`));
   return true;
 }
 
