@@ -19,8 +19,6 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import { PoetryGroupInfo, PythonDependency } from "src/types/poetry";
 import { Input } from "@/renderer/components/ui/input";
-import { Label } from "@/renderer/components/ui/label";
-import { FormDescription } from "@/renderer/components/ui/form";
 
 type Props = {
   handleDepManagerModalOpen: (open: boolean) => void;
