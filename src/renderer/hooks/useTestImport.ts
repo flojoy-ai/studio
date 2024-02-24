@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { ImportTestSettings } from "@/renderer/routes/test_sequencer_panel/components/ImportTestModal";
 import { toast } from "sonner";
 import { useCallback } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 function parseDiscoverContainer(data: TestDiscoverContainer) {
   return map(data.response, (container) => {
@@ -26,6 +27,7 @@ function parseDiscoverContainer(data: TestDiscoverContainer) {
 
 export const useTestImport = () => {
   const { setElems } = useTestSequencerState();
+
   const handleUserDepInstall = useCallback(async (depName: string) => {
     const promise = () => window.api.poetryInstallDep(depName);
     toast.promise(promise, {
@@ -62,17 +64,17 @@ export const useTestImport = () => {
       });
   }
 
-  const openFilePicker = (settings: ImportTestSettings) => {
+  const openFilePicker = (settings: ImportTestSettings, setModalOpen: Dispatch<SetStateAction<boolean>>) => {
     window.api
       .openTestPicker()
       .then((result) => {
         if (!result) return;
         const { filePath } = result;
         getTests(filePath, settings);
+        setModalOpen(false);
       })
       .catch((error) => {
         console.error("Errors when trying to load file: ", error);
-        return error;
       });
   };
 

@@ -26,13 +26,10 @@ export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
 
   const handleImportTest = () => {
     setIsLocked(true);
-    let error = openFilePicker({
+    openFilePicker({
       importAsOneRef: checked,
-    });
+    }, handleModalOpen);
     setIsLocked(false);
-    if (error === null) {
-      handleModalOpen(false);
-    }
   };
 
   return (
