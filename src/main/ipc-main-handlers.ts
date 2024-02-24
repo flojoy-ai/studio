@@ -40,6 +40,7 @@ import {
 import {
   poetryGetGroupInfo,
   poetryInstallDepGroup,
+  poetryInstallDep,
   poetryShowTopLevel,
   poetryUninstallDepGroup,
 } from "./python/poetry";
@@ -128,6 +129,9 @@ export const registerIpcMainHandlers = () => {
   });
   ipcMain.handle(API.poetryUninstallDepGroup, (_, group) => {
     return poetryUninstallDepGroup(group);
+  });
+  ipcMain.handle(API.poetryInstallDep, (_, dep) => {
+    return poetryInstallDep(dep);
   });
   ipcMain.handle(API.openFilePicker, openFilePicker);
   ipcMain.handle(

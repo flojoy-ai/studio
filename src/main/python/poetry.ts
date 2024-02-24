@@ -128,6 +128,12 @@ export async function poetryInstallDepGroup(group: string): Promise<boolean> {
   return true;
 }
 
+export async function poetryInstallDep(name: string): Promise<boolean> {
+  const poetry = process.env.POETRY_PATH ?? "poetry";
+  await execCommand(new Command(`${poetry} add ${name}`));
+  return true;
+}
+
 export async function poetryUninstallDepGroup(group: string): Promise<boolean> {
   if (group !== "blocks") {
     // We want to persist the optional groups such that we can call

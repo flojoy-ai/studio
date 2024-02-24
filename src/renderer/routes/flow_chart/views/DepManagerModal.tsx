@@ -18,6 +18,9 @@ import {
 } from "@/renderer/components/ui/table";
 import { useCallback, useEffect, useState } from "react";
 import { PoetryGroupInfo, PythonDependency } from "src/types/poetry";
+import { Input } from "@/renderer/components/ui/input";
+import { Label } from "@/renderer/components/ui/label";
+import { FormDescription } from "@/renderer/components/ui/form";
 
 type Props = {
   handleDepManagerModalOpen: (open: boolean) => void;
@@ -28,14 +31,12 @@ const DepManagerModal = ({
   isDepManagerModalOpen,
   handleDepManagerModalOpen,
 }: Props) => {
-  const [allDependencies, setAllDependencies] = useState<PythonDependency[]>(
-    [],
-  );
-
+  const [allDependencies, setAllDependencies] = useState<PythonDependency[]>([]);
+  const [userDependencies, setUserDependencies] = useState<PythonDependency[]>([]);
+  const [installDependency, setInstallDependency] = useState<string>("");
   const [depGroups, setDepGroups] = useState<PoetryGroupInfo[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isFetching, setIsFetching] = useState<boolean>(true);
-
   const [msg, setMsg] = useState<string>("");
 
   const handleUpdate = useCallback(async () => {
@@ -51,6 +52,15 @@ const DepManagerModal = ({
     setMsg("Installing...");
     setIsLoading(true);
     await window.api.poetryInstallDepGroup(groupName);
+    await handleUpdate();
+    setIsLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleUserDepInstall = useCallback(async (depName: string) => {
+    setMsg("Installing...");
+    setIsLoading(true);
+    await window.api.poetryInstallDep(depName);
     await handleUpdate();
     setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -105,8 +115,59 @@ const DepManagerModal = ({
         </DialogHeader>
 
         <ScrollArea className="p-4">
+
+          <div className="py-2" />
           <div className="flex items-center gap-2">
-            <div className="text-2xl font-bold">Extensions</div>
+            <div className="text-2xl font-bold">User Dependencies</div>
+            {isFetching && <Spinner />}
+          </div>
+          <div className="py-2" />
+          <h2 className="pb-2 pr-2 text-muted-foreground">Install dependencies</h2>
+          <div className="flex">
+            <div className="flex-auto items-center gap-1.5">
+              <Input id="deps" placeholder="numpy pytest==7.4.4" value={installDependency} onChange={(event) => {setInstallDependency(event.target.value)}}/>
+          </div>
+          <Button
+            className="ml-4"
+            disabled={isLoading}
+            variant={"default"}
+            onClick={() => {
+              console.log("Install deps");
+              handleUserDepInstall(installDependency);
+            }}
+          >
+            {isLoading ? <Spinner /> : "Install"}
+          </Button>
+          </div>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>Version</TableHead>
+                <TableHead>Description</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+            { userDependencies.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={3} className="text-center">
+                    No user dependencies installed.
+                </TableCell>
+              </TableRow>
+              ) :
+              userDependencies.map((dep) => (
+              <TableRow key={dep.name}>
+                <TableCell>{dep.name}</TableCell>
+                <TableCell>{dep.version}</TableCell>
+                <TableCell>{dep.description}</TableCell>
+              </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+          <div className="py-2" />
+
+          <div className="flex items-center gap-2">
+            <div className="text-2xl font-bold">Flojoy Extensions</div>
             {isFetching && <Spinner />}
           </div>
           <div className="py-2" />
@@ -155,7 +216,6 @@ const DepManagerModal = ({
             <div className="text-2xl font-bold">All Dependencies</div>
             {isFetching && <Spinner />}
           </div>
-          <div className="py-2" />
           <Table>
             <TableHeader>
               <TableRow>

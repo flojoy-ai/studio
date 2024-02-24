@@ -30,6 +30,7 @@ export const API = {
   poetryShowTopLevel: "POETRY_SHOW_TOP_LEVEL",
   poetryGetGroupInfo: "POETRY_GET_GROUP_INFO",
   poetryInstallDepGroup: "POETRY_INSTALL_DEP_GROUP",
+  poetryInstallDep: "POETRY_INSTALL_DEP",
   poetryUninstallDepGroup: "POETRY_UNINSTALL_DEP_GROUP",
   openFilePicker: "OPEN_FILE_PICKER",
   getFileContent: "GET_FILE_CONTENT",
