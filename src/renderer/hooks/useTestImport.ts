@@ -39,29 +39,30 @@ export const useTestImport = () => {
     });
   }, []);
 
-  async function getTests(path: string, settings: ImportTestSettings) {
-      const response = await baseClient.get("discover-pytest", {
-        params: {
-          path: path,
-          oneFile: settings.importAsOneRef,
+  async function getTests(path: string, settings: ImportTestSettings, setModalOpen: Dispatch<SetStateAction<boolean>>) {
+    const response = await baseClient.get("discover-pytest", {
+      params: {
+        path: path,
+        oneFile: settings.importAsOneRef,
+      },
+    });
+    const data: TestDiscoverContainer = JSON.parse(response.data);
+    for (const lib of data.missingLibraries) {
+      toast.error(`Missing Python Library: ${lib}`, {
+        action: {
+          label: 'Install',
+          onClick: (_) => { handleUserDepInstall(lib); }
         },
-      });
-      const data: TestDiscoverContainer = JSON.parse(response.data);
-      for (const lib of data.missingLibraries) {
-        toast.error(`Missing Python Library: ${lib}`, {
-          action: {
-            label: 'Install',
-            onClick: (_) => { handleUserDepInstall(lib); }
-          },
-        })
-      }
-      if (data.missingLibraries && data.missingLibraries.length > 0) {
-        throw new Error("Missing Libraries");
-      }
-      const newElems = parseDiscoverContainer(data);
-      setElems((elems) => {
-        return [...elems, ...newElems];
-      });
+      })
+    }
+    if (data.missingLibraries && data.missingLibraries.length > 0) {
+      throw new Error("Missing Libraries");
+    }
+    setModalOpen(false);
+    const newElems = parseDiscoverContainer(data);
+    setElems((elems) => {
+      return [...elems, ...newElems];
+    });
   }
 
   const openFilePicker = (settings: ImportTestSettings, setModalOpen: Dispatch<SetStateAction<boolean>>) => {
@@ -70,8 +71,7 @@ export const useTestImport = () => {
       .then((result) => {
         if (!result) return;
         const { filePath } = result;
-        getTests(filePath, settings);
-        setModalOpen(false);
+        getTests(filePath, settings, setModalOpen)
       })
       .catch((error) => {
         console.error("Errors when trying to load file: ", error);

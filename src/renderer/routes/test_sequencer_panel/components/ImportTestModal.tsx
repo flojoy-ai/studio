@@ -19,8 +19,7 @@ type Props = {
 
 export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
   const [checked, setChecked] = useState<boolean>(false);
-  const [importType, setImportType] = useState<string>("Pytest");
-  const { isDepManagerModalOpen, setIsDepManagerModalOpen } = useSettingModal();
+  const { setIsDepManagerModalOpen } = useSettingModal();
   const openFilePicker = useTestImport();
   const { setIsLocked } = useTestSequencerState();
 
@@ -36,7 +35,6 @@ export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
     <Dialog open={isModalOpen} onOpenChange={handleModalOpen}>
       <DialogContent>
         <h2 className="text-lg font-bold text-accent1"> Import Python Scripts & Tests </h2>
-        
         <Button variant={"outline"} onClick={handleImportTest}>Pytest & Unittest</Button>
         <Button variant={"outline"} onClick={handleImportTest}>Python Script</Button>
         <Separator/>
