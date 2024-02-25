@@ -83,7 +83,7 @@ def _run_pytest(file_path):
             f"TEST {file_path} FAILED:\nSTDOUT: {result.stdout.decode()}\nSTDERR: {result.stderr.decode()}"
         )
         is_pass = False
-    return is_pass, end_time - start_time, result.stderr.decode() if not is_pass else None
+    return is_pass, end_time - start_time, result.stdout.decode() if not is_pass else None
 
 
 def _recursive_namespace(d):

@@ -60,7 +60,7 @@ import {
 function renderErrorMessage(text: string): JSX.Element {
   const lines = text.split('\n');
   return (
-    <div className="whitespace-pre mt-2 p-2 bg-secondary rounded-md">
+    <div className="whitespace-pre mt-2 p-2 bg-secondary rounded-md max-h-[400px] overflow-y-auto">
       {lines.map((line, index) => (
         <div key={index}>{line}</div>
       ))}
