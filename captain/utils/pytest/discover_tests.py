@@ -68,7 +68,6 @@ def discover_pytest_file(
 
     test_list: List[TestDiscoveryResponse] = []
     dfs(test_list, json_data)
-    logger.info(f"Test list: {test_list}")
     if len(test_list) == 1:
         # No test, just the file itself in the list
         return
