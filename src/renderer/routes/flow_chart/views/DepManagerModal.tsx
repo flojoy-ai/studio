@@ -41,6 +41,7 @@ const DepManagerModal = ({
 
   const handleUpdate = useCallback(async () => {
     setIsFetching(true);
+    setMsg("Fetching dependencies...");
     const deps = await window.api.poetryShowTopLevel();
     const userDeps = await window.api.poetryShowUserGroup();
     const groups = await window.api.poetryGetGroupInfo();
@@ -111,8 +112,7 @@ const DepManagerModal = ({
     >
       <DialogContent className="flex h-4/5 max-w-5xl flex-col">
         <DialogHeader>
-          <DialogTitle className="text-3xl">
-            <div className="flex"> Dependency Manager {isFetching && <Spinner className="mt-2 ml-2" />} </div> </DialogTitle>
+          <DialogTitle className="text-3xl">Dependency Manager</DialogTitle>
           <DialogDescription>
             Here you can manage all the Python dependencies for Flojoy.
           </DialogDescription>
@@ -128,6 +128,7 @@ const DepManagerModal = ({
               </div>
               <div className="py-2" />
               <div>
+                {depGroups.length === 0 && ( <div className="flex justify-center items-center h-screen"><Spinner className="text-center" /></div>)}
                 {depGroups.map((group) => {
                   return (
                     <div className="flex p-1" key={group.name}>
@@ -158,15 +159,6 @@ const DepManagerModal = ({
               </div>
               <div className="py-2" />
 
-              <div className="mx-auto w-96 text-center">
-                {isLoading && (
-                  <div className="overflow-hidden text-ellipsis whitespace-nowrap">
-                    {msg}
-                  </div>
-                )}
-                {!isLoading && !isFetching && <div>Dependency Manager Idle</div>}
-              </div>
-
 
               <div className="py-2" />
               <div className="flex items-center gap-2">
@@ -186,7 +178,7 @@ const DepManagerModal = ({
                   handleUserDepInstall(installDependency);
                 }}
               >
-                {isLoading ? <Spinner /> : "Install"}
+                Install
               </Button>
               </div>
               <Table>
@@ -201,7 +193,7 @@ const DepManagerModal = ({
                 { userDependencies.length === 0 ? (
                   <TableRow>
                     <TableCell colSpan={3} className="text-center">
-                        No user dependencies installed.
+                        { isLoading ? <Spinner/> : "No user dependencies installed." }
                     </TableCell>
                   </TableRow>
                   ) :
@@ -218,9 +210,18 @@ const DepManagerModal = ({
 
               
             </ScrollArea>
-            <div className="flex justify-end">
+            <div className="flex justify-between text-muted-foreground text-xs">
+              <div className="flex justify-start mt-4">
+                {!isLoading && !isFetching ? (
+                  <p> Dependency Manager Idle </p>
+                ) : (
+                  <p> {msg} </p>
+                )}
+              </div>
               <div className="flex justify-end">
-                <Button variant={"link"} onClick={() => setCheckAllDependencies(true)}>Check all dependencies</Button>
+                <Button variant={"link"} onClick={() => setCheckAllDependencies(true)}> 
+                  <p className="text-muted-foreground mt-2 text-xs"> Consult all dependencies </p> 
+                </Button>
               </div>
             </div>
           </div>
@@ -255,7 +256,9 @@ const DepManagerModal = ({
               <div className="py-2" />
 
               <div className="flex justify-start">
-                <Button variant={"link"} onClick={() => setCheckAllDependencies(false)}>Back</Button>
+                <Button variant={"link"} onClick={() => setCheckAllDependencies(false)}>
+                  <p className="text-muted-foreground mt-2 text-xs">Back</p>
+                </Button>
               </div>
             </div>
             </ScrollArea>
