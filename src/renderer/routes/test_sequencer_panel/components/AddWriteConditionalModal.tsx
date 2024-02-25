@@ -31,7 +31,9 @@ export const WriteConditionalModal = ({
 
   useEffect(() => {
     // @ts-ignore
-    const filteredTests = elems.filter(elem => elem.type === "test").map(elem => elem.testName);
+    const filteredTests = elems
+      .filter((elem) => elem.type === "test")
+      .map((elem) => elem.testName);
     // @ts-ignore
     setTests(filteredTests);
   }, [elems]);
@@ -106,7 +108,9 @@ export const WriteConditionalModal = ({
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuLabel>
-                  { tests.length === 0 ? "No tests available" : "Select a test to use" }
+                  {tests.length === 0
+                    ? "No tests available"
+                    : "Select a test to use"}
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 {tests.map((test) => {
