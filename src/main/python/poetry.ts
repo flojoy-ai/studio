@@ -74,15 +74,15 @@ export async function poetryShowUserGroup(): Promise<PythonDependency[]> {
     new Command(`${poetry} show --top-level --only=user --no-ansi`),
   );
   const deps = processShow(stdout);
-  return deps.filter(dep => dep.name !== "");
+  return deps.filter((dep) => dep.name !== "");
 }
 
 export async function poetryGetGroupInfo(): Promise<PoetryGroupInfo[]> {
   const topLevels = await poetryShowTopLevel();
 
   const parsed = toml.parse(pyproject);
-  const result = Object.entries(parsed["tool"]["poetry"]["group"]).map(
-    ([key, value]) => {
+  const result = Object.entries(parsed["tool"]["poetry"]["group"])
+    .map(([key, value]) => {
       const dependencies = Object.entries(
         (value as Map<string, unknown>)["dependencies"],
       ).map(([key, value]) => {
@@ -103,8 +103,8 @@ export async function poetryGetGroupInfo(): Promise<PoetryGroupInfo[]> {
           ? "installed"
           : "dne") as PoetryGroupInfo["status"],
       };
-    },
-  ).filter((group) => group.name !== "user");
+    })
+    .filter((group) => group.name !== "user");
   return result;
 }
 
@@ -144,7 +144,9 @@ export async function poetryInstallDepGroup(group: string): Promise<boolean> {
   return true;
 }
 
-export async function poetryInstallDepUserGroup(name: string): Promise<boolean> {
+export async function poetryInstallDepUserGroup(
+  name: string,
+): Promise<boolean> {
   const groups = store.get("poetryOptionalGroups");
   if (!groups.includes("user")) {
     store.set("poetryOptionalGroups", [...groups, "user"]);
@@ -154,11 +156,17 @@ export async function poetryInstallDepUserGroup(name: string): Promise<boolean> 
   return true;
 }
 
-export async function poetryUninstallDepUserGroup(name: string): Promise<boolean> {
+export async function poetryUninstallDepUserGroup(
+  name: string,
+): Promise<boolean> {
   const poetry = process.env.POETRY_PATH ?? "poetry";
   await execCommand(new Command(`${poetry} remove ${name} --group user`));
   const validGroups = await poetryGroupEnsureValid();
-  await execCommand(new Command(`${poetry} install --sync --with ${validGroups.join(",")} --no-root`));
+  await execCommand(
+    new Command(
+      `${poetry} install --sync --with ${validGroups.join(",")} --no-root`,
+    ),
+  );
   return true;
 }
 

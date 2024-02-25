@@ -45,7 +45,7 @@ const ControlBar = () => {
   const [isDebugSettingsOpen, setIsDebugSettingsOpen] = useState(false);
   const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
   const [isDeviceSettingsOpen, setIsDeviceSettingsOpen] = useState(false);
-  const {isDepManagerModalOpen, setIsDepManagerModalOpen} =  useSettingModal();
+  const { isDepManagerModalOpen, setIsDepManagerModalOpen } = useSettingModal();
   const { activeTab } = useActiveTab();
 
   const handleCheckForUpdates = () => {

@@ -25,21 +25,31 @@ export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
 
   const handleImportTest = () => {
     setIsLocked(true);
-    openFilePicker({
-      importAsOneRef: checked,
-    }, handleModalOpen);
+    openFilePicker(
+      {
+        importAsOneRef: checked,
+      },
+      handleModalOpen,
+    );
     setIsLocked(false);
   };
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleModalOpen}>
       <DialogContent>
-        <h2 className="text-lg font-bold text-accent1"> Import Python Scripts & Tests </h2>
-        <Button variant={"outline"} onClick={handleImportTest}>Pytest & Unittest</Button>
-        <Button variant={"outline"} disabled={true}>Python Script (Coming soon!)</Button>
-        <Separator/>
+        <h2 className="text-lg font-bold text-accent1">
+          {" "}
+          Import Python Scripts & Tests{" "}
+        </h2>
+        <Button variant={"outline"} onClick={handleImportTest}>
+          Pytest & Unittest
+        </Button>
+        <Button variant={"outline"} disabled={true}>
+          Python Script (Coming soon!)
+        </Button>
+        <Separator />
         <div className="flex justify-between">
-          <div className="flex text-xs items-center space-x-2">
+          <div className="flex items-center space-x-2 text-xs">
             <Checkbox
               checked={checked}
               onCheckedChange={(checked) => {
@@ -49,7 +59,13 @@ export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
             <label>Import all tests as one test</label>
           </div>
           <div className="justify-end">
-            <Button variant={"link"} onClick={() => setIsDepManagerModalOpen(true)}> <ExternalLinkIcon size={15} className="mr-1"/> Dependency Manager</Button>
+            <Button
+              variant={"link"}
+              onClick={() => setIsDepManagerModalOpen(true)}
+            >
+              {" "}
+              <ExternalLinkIcon size={15} className="mr-1" /> Dependency Manager
+            </Button>
           </div>
         </div>
       </DialogContent>
