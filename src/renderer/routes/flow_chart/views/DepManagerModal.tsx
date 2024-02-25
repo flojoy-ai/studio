@@ -20,7 +20,6 @@ import { useCallback, useEffect, useState } from "react";
 import { PoetryGroupInfo, PythonDependency } from "src/types/poetry";
 import { Input } from "@/renderer/components/ui/input";
 import { toast } from "sonner";
-import { promise } from "zod";
 
 type Props = {
   handleDepManagerModalOpen: (open: boolean) => void;
@@ -54,65 +53,44 @@ const DepManagerModal = ({
   }, []);
 
   const handleGroupInstall = useCallback(async (groupName: string) => {
-    setMsg("Installing...");
+    setMsg(`Installing ${groupName} ...`);
     setIsLoading(true);
-    const promise = () => window.api.poetryInstallDepGroup(groupName);
-    toast.promise(promise, {
-      loading: `Installing ${groupName}`,
-      success: () => {
-      return `${groupName} has been added`;
-      },
-      error: 'Library not found. Please check the name and try again.'
-    });
+    await window.api.poetryInstallDepGroup(groupName);
     await handleUpdate();
     setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleUserDepInstall = useCallback(async (depName: string) => {
-    setMsg("Installing...");
+    setMsg(`Installing ${depName} ...`);
     setIsLoading(true);
-    const promise = () => window.api.poetryInstallDepUserGroup(depName);
-    toast.promise(promise, {
-      loading: `Installing ${depName}`,
-      success: () => {
-        return `${depName} has been added`;
-      },
-      error: 'Library not found. Please check the name and try again.'
-    });
+    try {
+      await window.api.poetryInstallDepUserGroup(depName);
+    } catch (e) {
+      toast.error(`Error installing ${depName}.`);
+    }
     await handleUpdate();
     setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleGroupUninstall = useCallback(async (groupName: string) => {
-    setMsg("Removing...");
+    setMsg(`Removing ${groupName} ...`);
     setIsLoading(true);
-    const promise = () => window.api.poetryUninstallDepGroup(groupName);
-    toast.promise(promise, {
-      loading: `Uninstalling ${groupName}`,
-      success: () => {
-      return `${groupName} has been removed`;
-      },
-      error: 'Library not found. Please check the name and try again.'
-    });
+    await window.api.poetryUninstallDepGroup(groupName);
     await handleUpdate();
     setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleUserDepUninstall = useCallback(async (depName: string) => {
-    setMsg("Removing...");
+  const handleUserDepUninstall = useCallback(async (depName: string) => { 
+    setMsg(`Removing ${depName} ...`);
     setIsLoading(true);
-    await window.api.poetryUninstallDepUserGroup(depName);
-    const promise = () => window.api.poetryUninstallDepUserGroup(depName);
-    toast.promise(promise, {
-      loading: `Uninstalling ${depName}`,
-      success: () => {
-      return `${depName} has been removed`;
-      },
-      error: 'Library not found. Please check the name and try again.'
-    });
+    try {
+      await window.api.poetryUninstallDepUserGroup(depName);
+    } catch (e) {
+      toast.error(`Error uninstalling ${depName}.`);
+    }
     await handleUpdate();
     setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -241,7 +219,11 @@ const DepManagerModal = ({
                     <TableCell>{dep.name}</TableCell>
                     <TableCell>{dep.version}</TableCell>
                     <TableCell>{dep.description}</TableCell>
-                    <TableCell><Button disabled={isLoading} variant="ghost" className="h-8 w-16 p-0 text-xs" onClick={() => handleUserDepUninstall(dep.name)}>Uninstall</Button></TableCell>
+                    <TableCell>
+                      <Button disabled={isLoading} variant="ghost" className="h-8 w-16 p-0 text-xs" onClick={() => handleUserDepUninstall(dep.name)}>
+                        Uninstall
+                      </Button>
+                    </TableCell>
                   </TableRow>
                   ))}
                 </TableBody>

@@ -26,6 +26,10 @@ export const POETRY_DEP_GROUPS: Pick<
     name: "hardware",
     description: "Hardware dependencies",
   },
+  {
+    name: "user",
+    description: "User dependencies",
+  },
 ];
 
 function processShow(stdout: string): PythonDependency[] {
@@ -141,6 +145,10 @@ export async function poetryInstallDepGroup(group: string): Promise<boolean> {
 }
 
 export async function poetryInstallDepUserGroup(name: string): Promise<boolean> {
+  const groups = store.get("poetryOptionalGroups");
+  if (!groups.includes("user")) {
+    store.set("poetryOptionalGroups", [...groups, "user"]);
+  }
   const poetry = process.env.POETRY_PATH ?? "poetry";
   await execCommand(new Command(`${poetry} add ${name} --group user`));
   return true;
@@ -149,6 +157,8 @@ export async function poetryInstallDepUserGroup(name: string): Promise<boolean> 
 export async function poetryUninstallDepUserGroup(name: string): Promise<boolean> {
   const poetry = process.env.POETRY_PATH ?? "poetry";
   await execCommand(new Command(`${poetry} remove ${name} --group user`));
+  const validGroups = await poetryGroupEnsureValid();
+  await execCommand(new Command(`${poetry} install --sync --with ${validGroups.join(",")} --no-root`));
   return true;
 }
 

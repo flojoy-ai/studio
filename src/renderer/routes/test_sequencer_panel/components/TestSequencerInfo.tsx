@@ -82,7 +82,7 @@ const TestSequencerView = () => {
                     variant="outline"
                     onClick={handleClickImportTest}
                   >
-                    Import Python Tests
+                    Add Python Tests
                   </LockableButton>
                   <LockableButton
                     className="mt-4 w-full"
