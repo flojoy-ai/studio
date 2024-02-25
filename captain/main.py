@@ -12,6 +12,7 @@ from captain.routes import (
     log,
     test_sequence,
     cloud,
+    auth,
 )
 from captain.utils.config import origins
 from captain.utils.logger import logger
@@ -48,3 +49,4 @@ app.include_router(devices.router)
 app.include_router(pymgr.router)
 app.include_router(test_sequence.router)
 app.include_router(cloud.router)
+app.include_router(auth.router)
