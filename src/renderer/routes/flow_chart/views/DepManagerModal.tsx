@@ -19,7 +19,7 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import { PoetryGroupInfo, PythonDependency } from "src/types/poetry";
 import { Input } from "@/renderer/components/ui/input";
-import { categoryMap } from "../../common/Sidebar/SidebarNode";
+import { toast } from "sonner";
 
 type Props = {
   handleDepManagerModalOpen: (open: boolean) => void;
@@ -64,7 +64,14 @@ const DepManagerModal = ({
   const handleUserDepInstall = useCallback(async (depName: string) => {
     setMsg("Installing...");
     setIsLoading(true);
-    await window.api.poetryInstallDepUserGroup(depName);
+    const promise = () => window.api.poetryInstallDepUserGroup(depName);
+    toast.promise(promise, {
+      loading: `Installing ${depName}`,
+      success: () => {
+        return `${depName} has been added`;
+      },
+      error: 'Library not found. Please check the name and try again.'
+    });
     await handleUpdate();
     setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -128,7 +135,7 @@ const DepManagerModal = ({
               </div>
               <div className="py-2" />
               <div>
-                {depGroups.length === 0 && ( <div className="flex justify-center items-center h-screen"><Spinner className="text-center" /></div>)}
+                {depGroups.length === 0 && ( <div className="flex justify-center"><Spinner className="text-center" /></div>)}
                 {depGroups.map((group) => {
                   return (
                     <div className="flex p-1" key={group.name}>
@@ -193,7 +200,7 @@ const DepManagerModal = ({
                 { userDependencies.length === 0 ? (
                   <TableRow>
                     <TableCell colSpan={3} className="text-center">
-                        { isLoading ? <Spinner/> : "No user dependencies installed." }
+                        { isLoading || isFetching ? "Loading installed libraries..." : "No dependencies installed." }
                     </TableCell>
                   </TableRow>
                   ) :
