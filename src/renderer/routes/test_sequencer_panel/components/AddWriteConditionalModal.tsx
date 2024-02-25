@@ -1,6 +1,6 @@
 import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { Button } from "@/renderer/components/ui/button";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import { Input } from "@/renderer/components/ui/input";
 import { Badge } from "@/renderer/components/ui/badge";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
@@ -27,10 +27,15 @@ export const WriteConditionalModal = ({
 }) => {
   const [value, setValue] = useState("");
   const { elems } = useTestSequencerState();
-  // @ts-ignore
-  const [tests, setTests] = useState(
-    elems.filter((elem) => elem.type === "test").map((elem) => elem.testName),
-  );
+  const [tests, setTests] = useState([]);
+
+  useEffect(() => {
+    // @ts-ignore
+    const filteredTests = elems.filter(elem => elem.type === "test").map(elem => elem.testName);
+    // @ts-ignore
+    setTests(filteredTests);
+  }, [elems]);
+
   function addToValue(v: string) {
     const leader = value[value.length - 1] === " " ? "" : " ";
     setValue(value + leader + v);
@@ -100,7 +105,9 @@ export const WriteConditionalModal = ({
                 Get Pass/Fail result of a test
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuLabel>Return the boolean</DropdownMenuLabel>
+                <DropdownMenuLabel>
+                  { tests.length === 0 ? "No tests available" : "Select a test to use" }
+                </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 {tests.map((test) => {
                   return (
@@ -119,7 +126,7 @@ export const WriteConditionalModal = ({
         </div>
         <Input
           type="text"
-          placeholder="$file.py::test_name & $file.py::test_name"
+          placeholder="Example: $file.py::test_name & $file.py::test_name"
           value={value}
           onChange={(e) => {
             setValue(e.target.value);
