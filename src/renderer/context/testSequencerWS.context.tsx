@@ -39,6 +39,7 @@ export function TestSequencerWSProvider({
     result: boolean,
     timeTaken: number,
     isSavedToCloud: boolean,
+    error: string | null
   ) => {
     setElems.withException((elems) => {
       const newElems = [...elems];
@@ -48,6 +49,7 @@ export function TestSequencerWSProvider({
         status: mapToTestResult(result),
         completionTime: timeTaken,
         isSavedToCloud: isSavedToCloud,
+        error: error,
       } as Test;
       return newElems;
     });
@@ -74,12 +76,14 @@ export function TestSequencerWSProvider({
       console.log("starting tests", data);
     },
     TEST_DONE: (data) => {
+      console.log("test is done", data);
       setRunning((run) => filter(run, (r) => r !== data.target_id));
       setResult(
         data.target_id,
         data.result,
         data.time_taken,
         data.is_saved_to_cloud,
+        data.error
       );
     },
     RUNNING: (data) => {

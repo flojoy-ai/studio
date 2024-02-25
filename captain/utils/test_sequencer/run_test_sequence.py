@@ -24,10 +24,11 @@ from pkgs.flojoy.flojoy.env_var import get_env_var
 
 
 class TestResult:
-    def __init__(self, test_node: TestNode, result: bool, time_taken: float):
+    def __init__(self, test_node: TestNode, result: bool, time_taken: float, error: str | None = None):
         self.test_node = test_node
         self.result = result
         self.time_taken = time_taken
+        self.error = error
 
 
 class TestError:
@@ -38,7 +39,11 @@ class TestError:
 def _run_python(file_path):
     """
     runs python file.
-    returns result in boolean form and the time taken to execute the test
+    @params file_path: path to the file
+    @returns:
+        bool: result of the test
+        float: time taken to execute the test
+        str: error message if any
     """
     start_time = time.time()
     logger.info(f"[Python Runner] Running {file_path}")
@@ -54,13 +59,16 @@ def _run_python(file_path):
             f"TEST {file_path} FAILED:\nSTDOUT: {result.stdout.decode()}\nSTDERR: {result.stderr.decode()}"
         )
         is_pass = False
-    return is_pass, end_time - start_time
+    return is_pass, end_time - start_time, result.stderr.decode() if not is_pass else None
 
 
 def _run_pytest(file_path):
     """
-    runs pytest file.
-    returns result in boolean form and the time taken to execute the test
+    @params file_path: path to the file
+    @returns:
+        bool: result of the test
+        float: time taken to execute the test
+        str: error message if any
     """
     start_time = time.time()
     result = subprocess.run(
@@ -75,7 +83,7 @@ def _run_pytest(file_path):
             f"TEST {file_path} FAILED:\nSTDOUT: {result.stdout.decode()}\nSTDERR: {result.stderr.decode()}"
         )
         is_pass = False
-    return is_pass, end_time - start_time
+    return is_pass, end_time - start_time, result.stderr.decode() if not is_pass else None
 
 
 def _recursive_namespace(d):
@@ -165,15 +173,16 @@ async def _case_test(node: TestNode, **kwargs) -> Extract:
         TestTypes.Python: _run_python,
         TestTypes.Pytest: _run_pytest,
     }
-    result, time_taken = map_to_runner[node.test_type](node.path)
+    result, time_taken, stderr = map_to_runner[node.test_type](node.path)
     await _stream_result_to_frontend(
         state=MsgState.TEST_DONE,
         test_id=node.id,
         result=result,
         time_taken=time_taken,  # TODO result, time_taken should be together
+        error=stderr,
         is_saved_to_cloud=False,
     )
-    return lambda _: None, TestResult(node, result, time_taken)
+    return lambda _: None, TestResult(node, result, time_taken, stderr)
 
 
 async def _case_if_node(node: IfNode, **kwargs) -> Extract:

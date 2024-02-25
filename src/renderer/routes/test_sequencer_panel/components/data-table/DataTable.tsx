@@ -51,11 +51,38 @@ import LockableButton from "../lockable/LockedButtons";
 import { useRef, useState, useEffect } from "react";
 import TestNameCell from "./test-name-cell";
 import { DraggableRow } from "../dnd/DraggableRow";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card"
 
-const mapStatusToDisplay: { [k in StatusTypes]: React.ReactNode } = {
-  pass: <p className="text-green-500">PASS</p>,
-  failed: <p className="text-red-500">FAIL</p>,
+function renderErrorMessage(text: string): JSX.Element {
+  const lines = text.split('\n');
+  return (
+    <div className="whitespace-pre mt-2 p-2 bg-secondary rounded-md">
+      {lines.map((line, index) => (
+        <div key={index}>{line}</div>
+      ))}
+    </div>
+  );
+}
+
+const mapStatusToDisplay: { [k in StatusTypes] } = {
   pending: <p className="text-yellow-500">PENDING</p>,
+  pass: <p className="text-green-500">PASS</p>,
+  failed: (status: string | null) => (
+    status === null || status === "" ? <p className="text-red-500">FAIL</p> : 
+    <HoverCard>
+      <HoverCardTrigger>
+        <p className="text-red-500 text underline underline-offset-2">FAIL</p>
+      </HoverCardTrigger>
+      <HoverCardContent className="w-256">
+        <h2 className="text-muted-foreground">Error Message:</h2>
+        {renderErrorMessage(status)}
+      </HoverCardContent>
+    </HoverCard>
+  )
 };
 
 export function DataTable() {
@@ -135,7 +162,11 @@ export function DataTable() {
       header: "Status",
       cell: ({ row }) => {
         return row.original.type === "test" ? (
-          <div>{mapStatusToDisplay[row.original.status]}</div>
+        <div>
+          {typeof mapStatusToDisplay[row.original.status] === 'function' ? 
+            mapStatusToDisplay[row.original.status](row.original.error) : 
+            mapStatusToDisplay[row.original.status]}
+        </div>
         ) : null;
       },
     },

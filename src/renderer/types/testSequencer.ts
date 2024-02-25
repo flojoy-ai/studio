@@ -37,6 +37,7 @@ export type Test = {
   runInParallel: boolean;
   testType: TestTypes;
   status: StatusTypes;
+  error: string | null;
   completionTime: number | undefined;
   isSavedToCloud: boolean;
 };
