@@ -24,7 +24,13 @@ from pkgs.flojoy.flojoy.env_var import get_env_var
 
 
 class TestResult:
-    def __init__(self, test_node: TestNode, result: bool, time_taken: float, error: str | None = None):
+    def __init__(
+        self,
+        test_node: TestNode,
+        result: bool,
+        time_taken: float,
+        error: str | None = None,
+    ):
         self.test_node = test_node
         self.result = result
         self.time_taken = time_taken
@@ -59,7 +65,11 @@ def _run_python(file_path):
             f"TEST {file_path} FAILED:\nSTDOUT: {result.stdout.decode()}\nSTDERR: {result.stderr.decode()}"
         )
         is_pass = False
-    return is_pass, end_time - start_time, result.stderr.decode() if not is_pass else None
+    return (
+        is_pass,
+        end_time - start_time,
+        result.stderr.decode() if not is_pass else None,
+    )
 
 
 def _run_pytest(file_path):
@@ -83,7 +93,11 @@ def _run_pytest(file_path):
             f"TEST {file_path} FAILED:\nSTDOUT: {result.stdout.decode()}\nSTDERR: {result.stderr.decode()}"
         )
         is_pass = False
-    return is_pass, end_time - start_time, result.stdout.decode() if not is_pass else None
+    return (
+        is_pass,
+        end_time - start_time,
+        result.stdout.decode() if not is_pass else None,
+    )
 
 
 def _recursive_namespace(d):

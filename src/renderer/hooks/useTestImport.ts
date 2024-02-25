@@ -8,7 +8,10 @@ import { toast } from "sonner";
 import { useCallback } from "react";
 import { Dispatch, SetStateAction } from "react";
 
-function parseDiscoverContainer(data: TestDiscoverContainer, settings: ImportTestSettings) {
+function parseDiscoverContainer(
+  data: TestDiscoverContainer,
+  settings: ImportTestSettings,
+) {
   return map(data.response, (container) => {
     const new_elem: Test = {
       ...container,
@@ -47,7 +50,10 @@ export const useTestImport = () => {
   ) {
     let data: TestDiscoverContainer;
     if (settings.importType == "Python") {
-      data = { response: [{testName: path, path: path}], missingLibraries: []}
+      data = {
+        response: [{ testName: path, path: path }],
+        missingLibraries: [],
+      };
     } else {
       const response = await baseClient.get("discover-pytest", {
         params: {
@@ -55,7 +61,7 @@ export const useTestImport = () => {
           oneFile: settings.importAsOneRef,
         },
       });
-      data= JSON.parse(response.data);
+      data = JSON.parse(response.data);
     }
     for (const lib of data.missingLibraries) {
       toast.error(`Missing Python Library: ${lib}`, {

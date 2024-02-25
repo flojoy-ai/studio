@@ -55,12 +55,12 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/components/ui/hover-card"
+} from "@/components/ui/hover-card";
 
 function renderErrorMessage(text: string): JSX.Element {
-  const lines = text.split('\n');
+  const lines = text.split("\n");
   return (
-    <div className="whitespace-pre mt-2 p-2 bg-secondary rounded-md max-h-[400px] overflow-y-auto">
+    <div className="mt-2 max-h-[400px] overflow-y-auto whitespace-pre rounded-md bg-secondary p-2">
       {lines.map((line, index) => (
         <div key={index}>{line}</div>
       ))}
@@ -71,18 +71,20 @@ function renderErrorMessage(text: string): JSX.Element {
 const mapStatusToDisplay: { [k in StatusTypes] } = {
   pending: <p className="text-yellow-500">PENDING</p>,
   pass: <p className="text-green-500">PASS</p>,
-  failed: (status: string | null) => (
-    status === null || status === "" ? <p className="text-red-500">FAIL</p> : 
-    <HoverCard>
-      <HoverCardTrigger>
-        <p className="text-red-500 text underline underline-offset-2">FAIL</p>
-      </HoverCardTrigger>
-      <HoverCardContent className="w-256">
-        <h2 className="text-muted-foreground">Error Message:</h2>
-        {renderErrorMessage(status)}
-      </HoverCardContent>
-    </HoverCard>
-  )
+  failed: (status: string | null) =>
+    status === null || status === "" ? (
+      <p className="text-red-500">FAIL</p>
+    ) : (
+      <HoverCard>
+        <HoverCardTrigger>
+          <p className="text text-red-500 underline underline-offset-2">FAIL</p>
+        </HoverCardTrigger>
+        <HoverCardContent className="w-256">
+          <h2 className="text-muted-foreground">Error Message:</h2>
+          {renderErrorMessage(status)}
+        </HoverCardContent>
+      </HoverCard>
+    ),
 };
 
 export function DataTable() {
@@ -162,11 +164,11 @@ export function DataTable() {
       header: "Status",
       cell: ({ row }) => {
         return row.original.type === "test" ? (
-        <div>
-          {typeof mapStatusToDisplay[row.original.status] === 'function' ? 
-            mapStatusToDisplay[row.original.status](row.original.error) : 
-            mapStatusToDisplay[row.original.status]}
-        </div>
+          <div>
+            {typeof mapStatusToDisplay[row.original.status] === "function"
+              ? mapStatusToDisplay[row.original.status](row.original.error)
+              : mapStatusToDisplay[row.original.status]}
+          </div>
         ) : null;
       },
     },
