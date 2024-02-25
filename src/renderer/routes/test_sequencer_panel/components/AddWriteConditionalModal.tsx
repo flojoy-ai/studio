@@ -30,9 +30,9 @@ export const WriteConditionalModal = ({
   const [tests, setTests] = useState([]);
 
   useEffect(() => {
-    // @ts-ignore
     const filteredTests = elems
       .filter((elem) => elem.type === "test")
+      // @ts-ignore
       .map((elem) => elem.testName);
     // @ts-ignore
     setTests(filteredTests);
