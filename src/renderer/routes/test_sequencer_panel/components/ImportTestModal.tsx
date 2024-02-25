@@ -47,7 +47,7 @@ export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
           Pytest & Unittest
         </Button>
         <Button variant={"outline"} onClick={() => handleImportTest(false)}>
-          Python Script (Coming soon!)
+          Python Script
         </Button>
         <Separator />
         <div className="flex justify-between">
