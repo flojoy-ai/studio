@@ -70,10 +70,7 @@ export async function poetryShowUserGroup(): Promise<PythonDependency[]> {
     new Command(`${poetry} show --top-level --only=user --no-ansi`),
   );
   const deps = processShow(stdout);
-  if (deps.length === 1 && deps[0].name === "") {
-    return [];
-  }
-  return deps 
+  return deps.filter(dep => dep.name !== "");
 }
 
 export async function poetryGetGroupInfo(): Promise<PoetryGroupInfo[]> {
@@ -146,6 +143,12 @@ export async function poetryInstallDepGroup(group: string): Promise<boolean> {
 export async function poetryInstallDepUserGroup(name: string): Promise<boolean> {
   const poetry = process.env.POETRY_PATH ?? "poetry";
   await execCommand(new Command(`${poetry} add ${name} --group user`));
+  return true;
+}
+
+export async function poetryUninstallDepUserGroup(name: string): Promise<boolean> {
+  const poetry = process.env.POETRY_PATH ?? "poetry";
+  await execCommand(new Command(`${poetry} remove ${name} --group user`));
   return true;
 }
 

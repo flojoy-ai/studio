@@ -44,6 +44,7 @@ import {
   poetryShowTopLevel,
   poetryShowUserGroup,
   poetryUninstallDepGroup,
+  poetryUninstallDepUserGroup,
 } from "./python/poetry";
 import { createEditorWindow } from "./window";
 import {
@@ -131,6 +132,9 @@ export const registerIpcMainHandlers = () => {
   });
   ipcMain.handle(API.poetryUninstallDepGroup, (_, group) => {
     return poetryUninstallDepGroup(group);
+  });
+  ipcMain.handle(API.poetryUninstallDepUserGroup, (_, dep) => {
+    return poetryUninstallDepUserGroup(dep);
   });
   ipcMain.handle(API.poetryInstallDepUserGroup, (_, dep) => {
     return poetryInstallDepUserGroup(dep);

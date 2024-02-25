@@ -61,6 +61,8 @@ export default {
     ipcRenderer.invoke(API.poetryUninstallDepGroup, group),
   poetryInstallDepUserGroup: (dep: string): Promise<boolean> =>
     ipcRenderer.invoke(API.poetryInstallDepUserGroup, dep),
+  poetryUninstallDepUserGroup: (dep: string): Promise<boolean> =>
+    ipcRenderer.invoke(API.poetryUninstallDepUserGroup, dep),
 
   openTestPicker: (): Promise<{ filePath: string; fileContent: string }> =>
     ipcRenderer.invoke(API.openTestPicker),

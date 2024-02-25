@@ -20,6 +20,7 @@ import { useCallback, useEffect, useState } from "react";
 import { PoetryGroupInfo, PythonDependency } from "src/types/poetry";
 import { Input } from "@/renderer/components/ui/input";
 import { toast } from "sonner";
+import { promise } from "zod";
 
 type Props = {
   handleDepManagerModalOpen: (open: boolean) => void;
@@ -55,7 +56,14 @@ const DepManagerModal = ({
   const handleGroupInstall = useCallback(async (groupName: string) => {
     setMsg("Installing...");
     setIsLoading(true);
-    await window.api.poetryInstallDepGroup(groupName);
+    const promise = () => window.api.poetryInstallDepGroup(groupName);
+    toast.promise(promise, {
+      loading: `Installing ${groupName}`,
+      success: () => {
+      return `${groupName} has been added`;
+      },
+      error: 'Library not found. Please check the name and try again.'
+    });
     await handleUpdate();
     setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,7 +88,31 @@ const DepManagerModal = ({
   const handleGroupUninstall = useCallback(async (groupName: string) => {
     setMsg("Removing...");
     setIsLoading(true);
-    await window.api.poetryUninstallDepGroup(groupName);
+    const promise = () => window.api.poetryUninstallDepGroup(groupName);
+    toast.promise(promise, {
+      loading: `Uninstalling ${groupName}`,
+      success: () => {
+      return `${groupName} has been removed`;
+      },
+      error: 'Library not found. Please check the name and try again.'
+    });
+    await handleUpdate();
+    setIsLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleUserDepUninstall = useCallback(async (depName: string) => {
+    setMsg("Removing...");
+    setIsLoading(true);
+    await window.api.poetryUninstallDepUserGroup(depName);
+    const promise = () => window.api.poetryUninstallDepUserGroup(depName);
+    toast.promise(promise, {
+      loading: `Uninstalling ${depName}`,
+      success: () => {
+      return `${depName} has been removed`;
+      },
+      error: 'Library not found. Please check the name and try again.'
+    });
     await handleUpdate();
     setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -172,22 +204,22 @@ const DepManagerModal = ({
                 <div className="text-2xl font-bold">User Dependencies</div>
               </div>
               <div className="py-2" />
-              <h2 className="pb-2 pr-2 text-muted-foreground">Install dependencies</h2>
               <div className="flex">
                 <div className="pl-1 flex-auto items-center gap-1.5">
-                  <Input id="deps" placeholder="numpy pytest==7.4.4" value={installDependency} onChange={(event) => {setInstallDependency(event.target.value)}}/>
+                  <Input id="deps" placeholder="Enter dependencies separated by spaces (e.g., numpy pytest==7.4.4)" value={installDependency} onChange={(event) => {setInstallDependency(event.target.value)}}/>
+                </div>
+                <Button
+                  className="ml-4"
+                  disabled={isLoading}
+                  variant={"default"}
+                  onClick={() => {
+                    handleUserDepInstall(installDependency);
+                  }}
+                >
+                  Install
+                </Button>
               </div>
-              <Button
-                className="ml-4"
-                disabled={isLoading}
-                variant={"default"}
-                onClick={() => {
-                  handleUserDepInstall(installDependency);
-                }}
-              >
-                Install
-              </Button>
-              </div>
+              <div className="py-2" />
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -199,7 +231,7 @@ const DepManagerModal = ({
                 <TableBody>
                 { userDependencies.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={3} className="text-center">
+                    <TableCell colSpan={4} className="text-center">
                         { isLoading || isFetching ? "Loading installed libraries..." : "No dependencies installed." }
                     </TableCell>
                   </TableRow>
@@ -209,6 +241,7 @@ const DepManagerModal = ({
                     <TableCell>{dep.name}</TableCell>
                     <TableCell>{dep.version}</TableCell>
                     <TableCell>{dep.description}</TableCell>
+                    <TableCell><Button disabled={isLoading} variant="ghost" className="h-8 w-16 p-0 text-xs" onClick={() => handleUserDepUninstall(dep.name)}>Uninstall</Button></TableCell>
                   </TableRow>
                   ))}
                 </TableBody>
