@@ -8,7 +8,7 @@ export type LockedContextType = {
   isLocked: boolean;
 };
 
-export type TestTypes = "Python" | "Flojoy" | "Matlab";
+export type TestTypes = "Pytest" | "Python" | "Flojoy" | "Matlab";
 
 export type StatusTypes = "pending" | "pass" | "failed";
 

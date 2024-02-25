@@ -10,6 +10,7 @@ from captain.models.test_sequencer import (
     TestNode,
     TestRootNode,
     TestSequenceElementNode,
+    TestTypes,
 )
 from captain.parser.bool_parser.expressions.models import Variable
 from captain.types.test_sequence import MsgState, TestSequenceMessage
@@ -32,6 +33,28 @@ class TestResult:
 class TestError:
     def __init__(self, error: str):
         self.error = error
+
+
+def _run_python(file_path):
+    """
+    runs python file.
+    returns result in boolean form and the time taken to execute the test
+    """
+    start_time = time.time()
+    logger.info(f"[Python Runner] Running {file_path}")
+    result = subprocess.run(
+        ["python", file_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE
+    )
+    logger.info(f"[Python Runner] Running {result}")
+    end_time = time.time()
+    if result.returncode == 0:
+        is_pass = True
+    else:
+        logger.info(
+            f"TEST {file_path} FAILED:\nSTDOUT: {result.stdout.decode()}\nSTDERR: {result.stderr.decode()}"
+        )
+        is_pass = False
+    return is_pass, end_time - start_time
 
 
 def _run_pytest(file_path):
@@ -138,7 +161,11 @@ async def _case_root(node: TestRootNode, **kwargs) -> Extract:
 async def _case_test(node: TestNode, **kwargs) -> Extract:
     # TODO: support run in parallel feature
     await _stream_result_to_frontend(MsgState.RUNNING, test_id=node.id)
-    result, time_taken = _run_pytest(node.path)
+    map_to_runner = {
+        TestTypes.Python: _run_python,
+        TestTypes.Pytest: _run_pytest,
+    }
+    result, time_taken = map_to_runner[node.test_type](node.path)
     await _stream_result_to_frontend(
         state=MsgState.TEST_DONE,
         test_id=node.id,

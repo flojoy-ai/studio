@@ -6,10 +6,9 @@ import { v4 as uuidv4 } from "uuid";
 import { ImportTestSettings } from "@/renderer/routes/test_sequencer_panel/components/ImportTestModal";
 import { toast } from "sonner";
 import { useCallback } from "react";
-import { Dispatch, SetStateAction, useState } from "react";
-import { TestSequenceEvents } from "../routes/test_sequencer_panel/models/models";
+import { Dispatch, SetStateAction } from "react";
 
-function parseDiscoverContainer(data: TestDiscoverContainer) {
+function parseDiscoverContainer(data: TestDiscoverContainer, settings: ImportTestSettings) {
   return map(data.response, (container) => {
     const new_elem: Test = {
       ...container,
@@ -17,7 +16,7 @@ function parseDiscoverContainer(data: TestDiscoverContainer) {
       id: uuidv4(),
       groupId: uuidv4(),
       runInParallel: false,
-      testType: "Python",
+      testType: settings.importType,
       status: "pending",
       completionTime: undefined,
       isSavedToCloud: false,
@@ -46,13 +45,18 @@ export const useTestImport = () => {
     settings: ImportTestSettings,
     setModalOpen: Dispatch<SetStateAction<boolean>>,
   ) {
-    const response = await baseClient.get("discover-pytest", {
-      params: {
-        path: path,
-        oneFile: settings.importAsOneRef,
-      },
-    });
-    const data: TestDiscoverContainer = JSON.parse(response.data);
+    let data: TestDiscoverContainer;
+    if (settings.importType == "Python") {
+      data = { response: [{testName: path, path: path}], missingLibraries: []}
+    } else {
+      const response = await baseClient.get("discover-pytest", {
+        params: {
+          path: path,
+          oneFile: settings.importAsOneRef,
+        },
+      });
+      data= JSON.parse(response.data);
+    }
     for (const lib of data.missingLibraries) {
       toast.error(`Missing Python Library: ${lib}`, {
         action: {
@@ -66,7 +70,7 @@ export const useTestImport = () => {
     if (data.missingLibraries && data.missingLibraries.length > 0) {
       throw new Error("Missing Libraries");
     }
-    const newElems = parseDiscoverContainer(data);
+    const newElems = parseDiscoverContainer(data, settings);
     if (newElems.length === 0) {
       toast.error("No tests found in the specified file.");
       throw new Error("No tests found in the file");

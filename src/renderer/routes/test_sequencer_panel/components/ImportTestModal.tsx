@@ -10,6 +10,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 
 export type ImportTestSettings = {
   importAsOneRef: boolean;
+  importType: "Pytest" | "Python";
 };
 
 type Props = {
@@ -23,10 +24,11 @@ export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
   const openFilePicker = useTestImport();
   const { setIsLocked } = useTestSequencerState();
 
-  const handleImportTest = () => {
+  const handleImportTest = (isPytest: boolean) => {
     setIsLocked(true);
     openFilePicker(
       {
+        importType: isPytest ? "Pytest" : "Python",
         importAsOneRef: checked,
       },
       handleModalOpen,
@@ -41,10 +43,10 @@ export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
           {" "}
           Import Python Scripts & Tests{" "}
         </h2>
-        <Button variant={"outline"} onClick={handleImportTest}>
+        <Button variant={"outline"} onClick={() => handleImportTest(true)}>
           Pytest & Unittest
         </Button>
-        <Button variant={"outline"} disabled={true}>
+        <Button variant={"outline"} onClick={() => handleImportTest(false)}>
           Python Script (Coming soon!)
         </Button>
         <Separator />

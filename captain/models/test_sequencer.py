@@ -14,6 +14,7 @@ class LockedContextType(BaseModel):
 
 
 class TestTypes(str, Enum):
+    Pytest = "Pytest"
     Python = "Python"
     Flojoy = "Flojoy"
     Matlab = "Matlab"
