@@ -10,8 +10,10 @@ import { Dispatch, SetStateAction, useState } from "react";
 
 export type ImportTestSettings = {
   importAsOneRef: boolean;
-  importType: "Pytest" | "Python";
+  importType: ImportType;
 };
+
+export type ImportType = "Pytest" | "Python";
 
 type Props = {
   isModalOpen: boolean;
@@ -24,11 +26,11 @@ export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
   const openFilePicker = useTestImport();
   const { setIsLocked } = useTestSequencerState();
 
-  const handleImportTest = (isPytest: boolean) => {
+  const handleImportTest = (importType: ImportType) => {
     setIsLocked(true);
     openFilePicker(
       {
-        importType: isPytest ? "Pytest" : "Python",
+        importType: importType,
         importAsOneRef: checked,
       },
       handleModalOpen,
@@ -40,13 +42,12 @@ export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
     <Dialog open={isModalOpen} onOpenChange={handleModalOpen}>
       <DialogContent>
         <h2 className="text-lg font-bold text-accent1">
-          {" "}
-          Import Python Scripts & Tests{" "}
+          Import Python Scripts & Tests
         </h2>
-        <Button variant={"outline"} onClick={() => handleImportTest(true)}>
+        <Button variant={"outline"} onClick={() => handleImportTest("Pytest")}>
           Pytest & Unittest
         </Button>
-        <Button variant={"outline"} onClick={() => handleImportTest(false)}>
+        <Button variant={"outline"} onClick={() => handleImportTest("Python")}>
           Python Script
         </Button>
         <Separator />
@@ -65,7 +66,6 @@ export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
               variant={"link"}
               onClick={() => setIsDepManagerModalOpen(true)}
             >
-              {" "}
               <ExternalLinkIcon size={15} className="mr-1" /> Dependency Manager
             </Button>
           </div>

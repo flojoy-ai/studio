@@ -11,6 +11,7 @@ class Collector(BaseModel):
     nodeid: str
     outcome: str
     result: List[Result]
+    longrepr: Optional[str] = None
 
 
 class Summary(BaseModel):

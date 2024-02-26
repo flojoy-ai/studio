@@ -13,15 +13,13 @@ from captain.utils.import_utils import unload_module
 import re
 
 
-def check_missing_imports(report: JSONReport):
+def check_missing_imports(report: RootModel):
     missing_lib = set()
-    if not report.report:
+    if not report.collectors:
         return missing_lib
-    if "collectors" not in report.report:
-        return missing_lib
-    for element in report.report["collectors"]:
-        if "longrepr" in element:
-            error_message = element["longrepr"]
+    for element in report.collectors:
+        if element.longrepr:
+            error_message = element.longrepr
             match = re.search(r"No module named '(\w+)'", error_message)
             if match:
                 missing_library = match.group(1)
@@ -40,8 +38,9 @@ def discover_pytest_file(
     pytest.main(
         ["-s", "--json-report-file=none", "--collect-only", path], plugins=[plugin]
     )
-    missing_lib.extend(check_missing_imports(plugin))
+    logger.info(plugin.report)
     json_data: RootModel = RootModel.model_validate(plugin.report)
+    missing_lib.extend(check_missing_imports(json_data))
     logger.info(json_data.root)
 
     # run dfs on the json data and collect the tests

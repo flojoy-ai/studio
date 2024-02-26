@@ -149,7 +149,6 @@ async def _stream_result_to_frontend(
     is_saved_to_cloud: bool = False,
     error: str | None = None,
 ):
-    logger.error(f"streaming result to frontend {state} {test_id} {result} {time_taken} {is_saved_to_cloud} {error}")
     asyncio.create_task(
         ts_manager.ws.broadcast(
             TestSequenceMessage(
