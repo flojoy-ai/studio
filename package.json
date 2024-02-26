@@ -59,7 +59,6 @@
     "@tisoap/react-flow-smart-edge": "file:bauhaus/tisoap-react-flow-smart-edge-v3.0.0.tgz",
     "@uiw/codemirror-theme-vscode": "^4.21.24",
     "@uiw/react-codemirror": "^4.21.24",
-    "axios": "^1.6.7",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
