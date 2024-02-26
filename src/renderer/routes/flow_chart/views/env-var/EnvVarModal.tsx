@@ -1,8 +1,5 @@
 import { memo, ClipboardEvent, useState, useEffect, useCallback } from "react";
-import {
-  EnvVar,
-  postEnvironmentVariable,
-} from "@/renderer/services/FlowChartServices";
+import { postEnvironmentVariable } from "@/renderer/services/FlowChartServices";
 import { Button } from "@/renderer/components/ui/button";
 import {
   Dialog,
@@ -21,6 +18,7 @@ import { Separator } from "@/renderer/components/ui/separator";
 import { captain } from "@/renderer/lib/ky";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import EnvVarCredentialsInfo from "./EnvVarCredentialsInfo";
+import { EnvVar } from "@/renderer/types/envVar";
 
 type Props = {
   handleEnvVarModalOpen: (open: boolean) => void;
