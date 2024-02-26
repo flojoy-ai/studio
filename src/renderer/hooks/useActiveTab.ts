@@ -5,7 +5,7 @@ export type TabName =
   | "Visual Python Script"
   | "Hardware Devices";
 
-export const tabAtom = atom<TabName>("Test Sequencer");
+export const tabAtom = atom<TabName>("Visual Python Script");
 
 export function useActiveTab() {
   const [activeTab, setActiveTab] = useAtom(tabAtom);
