@@ -1,13 +1,17 @@
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import TestSequencerInfo from "./components/TestSequencerInfo";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const TestSequencerView = () => {
   const { isLoading } = useTestSequencerState();
   return (
-    <div className="p-12">
-      {!isLoading && <TestSequencerInfo />}
-      {isLoading && <h1 className="font-bold text-gray-500">Loading...</h1>}
-    </div>
+    <DndProvider backend={HTML5Backend}>
+      <div className="p-12">
+        {!isLoading && <TestSequencerInfo />}
+        {isLoading && <h1 className="font-bold text-gray-500">Loading...</h1>}
+      </div>
+    </DndProvider>
   );
 };
 export default TestSequencerView;

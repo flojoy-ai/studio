@@ -50,6 +50,7 @@ import { WriteConditionalModal } from "../AddWriteConditionalModal";
 import LockableButton from "../lockable/LockedButtons";
 import { useRef, useState, useEffect } from "react";
 import TestNameCell from "./test-name-cell";
+import { DraggableRow } from "../dnd/DraggableRow";
 
 const mapStatusToDisplay: { [k in StatusTypes]: React.ReactNode } = {
   pass: <p className="text-green-500">PASS</p>,
@@ -59,7 +60,7 @@ const mapStatusToDisplay: { [k in StatusTypes]: React.ReactNode } = {
 
 export function DataTable() {
   const { elems, setElems, running } = useTestSequencerState();
-  const [addIfStatement, _setAddIfStatement] = useState(false);
+  const [addIfStatement] = useState(false);
   const indentLevels = getIndentLevels(elems);
 
   const columns: ColumnDef<TestSequenceElement>[] = [
@@ -77,6 +78,7 @@ export function DataTable() {
       ),
       cell: ({ row }) => (
         <Checkbox
+          className="relative z-20"
           checked={row.getIsSelected()}
           onCheckedChange={(value) => row.toggleSelected(!!value)}
           aria-label="Select row"
@@ -200,7 +202,7 @@ export function DataTable() {
           });
         };
         return (
-          <div className="flex flex-row justify-center">
+          <div className="relative z-20 flex flex-row justify-center">
             <LockableButton variant="ghost">
               <ChevronUpIcon onClick={onUpClick} />
             </LockableButton>
@@ -248,10 +250,7 @@ export function DataTable() {
       idxs.forEach((idx) => {
         toRemove.add(elems[idx].groupId);
       });
-      console.log(elems);
-      console.log(idxs);
       const new_elems = filter(elems, (elem) => !toRemove.has(elem.groupId));
-      console.log(new_elems);
       return new_elems;
     });
   };
@@ -370,6 +369,7 @@ export function DataTable() {
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
+                <TableHeader key={"drag&drop"} />
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
@@ -391,19 +391,25 @@ export function DataTable() {
               table.getRowModel().rows.map((row) => (
                 <ContextMenu>
                   <ContextMenuTrigger asChild>
-                    <TableRow
+                    {/* <TableRow */}
+                    {/*   className="relative" */}
+                    {/*   data-state={row.getIsSelected() && "selected"} */}
+                    {/* > */}
+                    {/*   {row.getVisibleCells().map((cell) => ( */}
+                    {/*     <TableCell isCompact={true} key={cell.id}> */}
+                    {/*       {flexRender( */}
+                    {/*         cell.column.columnDef.cell, */}
+                    {/*         cell.getContext(), */}
+                    {/*       )} */}
+                    {/*     </TableCell> */}
+                    {/*   ))} */}
+                    {/* </TableRow> */}
+
+                    <DraggableRow
+                      row={row}
                       key={row.id}
                       data-state={row.getIsSelected() && "selected"}
-                    >
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell isCompact={true} key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
-                          )}
-                        </TableCell>
-                      ))}
-                    </TableRow>
+                    />
                   </ContextMenuTrigger>
                   <ContextMenuContent>
                     {getSpecificContextMenuItems(row)}

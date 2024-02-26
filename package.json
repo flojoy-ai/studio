@@ -81,6 +81,8 @@
     "mixpanel-browser": "^2.49.0",
     "plotly.js": "file:bauhaus/plotly.js-2.23.2.tgz",
     "react": "^18.2.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.6",
     "react-error-boundary": "^4.0.12",
