@@ -1,10 +1,10 @@
 import { Button } from "@/renderer/components/ui/button";
-import { useFlowChartState } from "@/renderer/hooks/useFlowChartState";
 import { ElementsData } from "@/renderer/types";
 import { Code, CopyPlus, Info, LucideIcon, Pencil, X } from "lucide-react";
 import { useCallback } from "react";
 import { useStore, Node, useReactFlow } from "reactflow";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
+import { useFlowchartStore } from "@/renderer/stores/flowchart";
 
 export type MenuInfo = {
   id: string;
@@ -69,7 +69,8 @@ export default function ContextMenu({
   const { withPermissionCheck } = useWithPermission();
   const { getNode, setNodes, setEdges } = useReactFlow();
 
-  const { setIsEditMode } = useFlowChartState();
+  const setIsEditMode = useFlowchartStore((state) => state.setIsEditMode);
+
   const { addSelectedNodes } = useStore((state) => ({
     resetSelectedElements: state.resetSelectedElements,
     addSelectedNodes: state.addSelectedNodes,

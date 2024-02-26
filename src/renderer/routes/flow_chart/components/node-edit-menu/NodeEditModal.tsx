@@ -11,6 +11,7 @@ import { Input } from "@/renderer/components/ui/input";
 import { LAYOUT_TOP_HEIGHT } from "@/renderer/routes/common/Layout";
 import { ScrollArea } from "@/renderer/components/ui/scroll-area";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
+import { useFlowchartStore } from "@/renderer/stores/flowchart";
 
 type NodeEditModalProps = {
   node: Node<ElementsData>;
@@ -30,7 +31,10 @@ const NodeEditModal = ({
   const { withPermissionCheck } = useWithPermission();
   const [newTitle, setNewTitle] = useState(node.data.label);
   const [editRenamingTitle, setEditRenamingTitle] = useState(false);
-  const { nodeParamChanged, setIsEditMode } = useFlowChartState();
+  const { nodeParamChanged } = useFlowChartState();
+
+  const setIsEditMode = useFlowchartStore((state) => state.setIsEditMode);
+
   const { handleTitleChange } = useFlowChartGraph();
   //converted from node to Ids here so that it will only do this when the edit menu is opened
   const nodeReferenceOptions =

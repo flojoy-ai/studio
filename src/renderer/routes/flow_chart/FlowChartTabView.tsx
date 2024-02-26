@@ -124,11 +124,11 @@ const FlowChartTab = () => {
   const { setHasUnsavedChanges } = useHasUnsavedChanges();
 
   const [isCommandMenuOpen, setCommandMenuOpen] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
 
   const { resolvedTheme } = useTheme();
 
-  const { isSidebarOpen, setIsSidebarOpen, isEditMode, setIsEditMode } =
-    useFlowChartState();
+  const { isSidebarOpen, setIsSidebarOpen } = useFlowChartState();
   const { states } = useSocket();
   const { programResults, setProgramResults } = states;
 
