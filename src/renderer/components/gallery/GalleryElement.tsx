@@ -1,4 +1,3 @@
-import { useControlsState } from "@/renderer/hooks/useControlsState";
 import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
 import { useNodesInitialized, useReactFlow } from "reactflow";
 import { YoutubeIcon } from "lucide-react";
@@ -29,8 +28,6 @@ export const GalleryElement = ({
   const setProject = useSetAtom(projectAtom);
   const setProjectPath = useSetAtom(projectPathAtom);
 
-  const { ctrlsManifest, setCtrlsManifest } = useControlsState();
-
   const rfInstance = useReactFlow();
   const nodesInitialized = useNodesInitialized();
   const { states } = useSocket();
@@ -43,7 +40,6 @@ export const GalleryElement = ({
       throw new Error("Gallery app is missing flow chart data");
     }
 
-    setCtrlsManifest(raw.ctrlsManifest || ctrlsManifest);
     setProject({
       name: galleryApp.title,
       rfInstance: app.rfInstance,
