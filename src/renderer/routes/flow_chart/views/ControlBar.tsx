@@ -38,14 +38,13 @@ import { useActiveTab, TabName } from "@/renderer/hooks/useActiveTab";
 import { useToggleSettingModal } from "@/renderer/hooks/useToggleSettingModal";
 
 const ControlBar = () => {
-  const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
-    useState<boolean>(false);
-  const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
-  const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
-  const [isDebugSettingsOpen, setIsDebugSettingsOpen] = useState(false);
-  const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
-  const [isDeviceSettingsOpen, setIsDeviceSettingsOpen] = useState(false);
-  const { isDepManagerModalOpen, setIsDepManagerModalOpen } = useToggleSettingModal();
+  const { isKeyboardShortcutOpen, setIsKeyboardShortcutOpen,
+    isEnvVarModalOpen, setIsEnvVarModalOpen,
+    isNodeSettingsOpen, setIsNodeSettingsOpen,
+    isDebugSettingsOpen, setIsDebugSettingsOpen,
+    isEditorSettingsOpen, setIsEditorSettingsOpen,
+    isDeviceSettingsOpen, setIsDeviceSettingsOpen,
+    isDepManagerModalOpen, setIsDepManagerModalOpen } = useToggleSettingModal();
   const { activeTab } = useActiveTab();
 
   const handleCheckForUpdates = () => {
