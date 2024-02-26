@@ -2,7 +2,7 @@ import { Button } from "@/renderer/components/ui/button";
 import { Checkbox } from "@/renderer/components/ui/checkbox";
 import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { Separator } from "@/renderer/components/ui/separator";
-import { useSettingModal } from "@/renderer/hooks/useSettingModal";
+import { useToggleSettingModal } from "@/renderer/hooks/useToggleSettingModal";
 import { useTestImport } from "@/renderer/hooks/useTestImport";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { ExternalLinkIcon } from "lucide-react";
@@ -22,7 +22,7 @@ type Props = {
 
 export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
   const [checked, setChecked] = useState<boolean>(false);
-  const { setIsDepManagerModalOpen } = useSettingModal();
+  const { setIsDepManagerModalOpen } = useToggleSettingModal ();
   const openFilePicker = useTestImport();
   const { setIsLocked } = useTestSequencerState();
 

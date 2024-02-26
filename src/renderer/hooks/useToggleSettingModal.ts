@@ -2,7 +2,7 @@ import { atom, useAtom } from "jotai";
 
 export const depManagerModal = atom<boolean>(false);
 
-export function useSettingModal() {
+export function useToggleSettingModal() {
   const [isDepManagerModalOpen, setIsDepManagerModalOpen] =
     useAtom(depManagerModal);
   return {
