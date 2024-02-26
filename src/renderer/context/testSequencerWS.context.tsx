@@ -22,7 +22,7 @@ export function TestSequencerWSProvider({
 }: {
   children?: React.ReactNode;
 }) {
-  const { websocketId, setRunning, setElems, setIsLocked, setIsLoading } =
+  const { websocketId, setRunning, setElems, setIsLocked, setIsLoading, setBackendState } =
     useTestSequencerState();
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
     `${TS_SOCKET_URL}/${websocketId}`,
@@ -73,7 +73,11 @@ export function TestSequencerWSProvider({
 
   const mapToHandler: { [K in MsgState]: (data: BackendMsg) => void } = {
     TEST_SET_START: (data) => {
-      console.log("starting tests", data);
+      setBackendState("TEST_SET_START");
+    },
+    TEST_SET_EXPORT: (data) => {
+      console.log("exporting tests", data);
+      setBackendState("TEST_SET_EXPORT");
     },
     TEST_DONE: (data) => {
       setRunning((run) => filter(run, (r) => r !== data.target_id));
@@ -84,9 +88,11 @@ export function TestSequencerWSProvider({
         data.is_saved_to_cloud,
         data.error,
       );
+      // Don't specify a backend state here, because we want to keep the "RUNNER" or "EXPORT" state
     },
     RUNNING: (data) => {
       setRunning([data.target_id]);
+      // Don't specify a backend state here, because we want to keep the "RUNNER" or "EXPORT" state
     },
     ERROR: (data) => {
       toast.error(
@@ -97,10 +103,12 @@ export function TestSequencerWSProvider({
       );
       console.error(data.error);
       setIsLocked(false);
+      setBackendState("ERROR");
     },
     TEST_SET_DONE: (data) => {
       console.log("tests are done", data);
       setIsLocked(false);
+      setBackendState("TEST_SET_DONE");
     },
   };
 

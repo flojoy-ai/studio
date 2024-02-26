@@ -149,6 +149,7 @@ async def _stream_result_to_frontend(
     is_saved_to_cloud: bool = False,
     error: str | None = None,
 ):
+    logger.error(f"streaming result to frontend {state} {test_id} {result} {time_taken} {is_saved_to_cloud} {error}")
     asyncio.create_task(
         ts_manager.ws.broadcast(
             TestSequenceMessage(
@@ -360,7 +361,7 @@ async def export_test_sequence(data, hardware_id, project_id):
             for child in children:
                 await run_dfs(child)
 
-        await _stream_result_to_frontend(state=MsgState.TEST_SET_START)
+        await _stream_result_to_frontend(state=MsgState.TEST_SET_EXPORT)
         await run_dfs(data)  # Export tests
         await _stream_result_to_frontend(state=MsgState.TEST_SET_DONE)
     except Exception as e:

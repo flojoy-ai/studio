@@ -3,7 +3,7 @@ import { DataTable } from "./data-table/DataTable";
 import { SummaryTable } from "./SummaryTable";
 import { CloudPanel } from "./CloudPanel";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
-import { testSequenceRunRequest } from "../models/models";
+import { testSequenceRunRequest, testSequenceStopRequest } from "../models/models";
 import { TestSequenceElement } from "@/renderer/types/testSequencer";
 import { ImportTestModal } from "./ImportTestModal";
 import LockableButton from "./lockable/LockedButtons";
@@ -16,9 +16,10 @@ import {
   LAYOUT_TOP_HEIGHT,
   BOTTOM_STATUS_BAR_HEIGHT,
 } from "@/renderer/routes/common/Layout";
+import { Button } from "@/renderer/components/ui/button";
 
 const TestSequencerView = () => {
-  const { setElems, tree, setIsLocked } = useTestSequencerState();
+  const { setElems, tree, setIsLocked, backendState } = useTestSequencerState();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
 
   const resetStatus = () => {
@@ -38,9 +39,15 @@ const TestSequencerView = () => {
   };
 
   const handleClickRunTest = () => {
+    console.log("Start test");
     setIsLocked(true);
     resetStatus();
     tSSendJsonMessage(testSequenceRunRequest(tree));
+  };
+  const handleClickStopTest = () => {
+    console.log("Stop test");
+    tSSendJsonMessage(testSequenceStopRequest(tree));
+    setIsLocked(false);
   };
   const testSetSave = useTestSetSave();
   const testSetImport = useTestSetImport();
@@ -98,14 +105,14 @@ const TestSequencerView = () => {
                   >
                     Save Test Set
                   </LockableButton>
-                  <LockableButton
+                  <Button
                     variant="dotted"
                     className="mt-4 w-full gap-2"
-                    isLocked={_.isEmpty(tree)}
-                    onClick={handleClickRunTest}
+                    disabled={backendState === "TEST_SET_EXPORT"}
+                    onClick={backendState === "TEST_SET_START" ? handleClickStopTest : handleClickRunTest}
                   >
-                    Run Test Sequence
-                  </LockableButton>
+                    {backendState === "TEST_SET_START" ? "Stop Test Sequence" : "Run Test Sequence"}
+                  </Button>
                 </div>
               </div>
             </div>

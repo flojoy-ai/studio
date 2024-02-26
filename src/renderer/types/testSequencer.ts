@@ -14,6 +14,7 @@ export type StatusTypes = "pending" | "pass" | "failed";
 
 export type MsgState =
   | "TEST_SET_START"
+  | "TEST_SET_EXPORT"
   | "RUNNING"
   | "TEST_DONE"
   | "ERROR"

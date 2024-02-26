@@ -4,6 +4,7 @@ from typing import Any, Optional
 
 class MsgState(Enum):
     TEST_SET_START = "TEST_SET_START"
+    TEST_SET_EXPORT = "TEST_SET_EXPORT"
     RUNNING = "RUNNING"
     TEST_DONE = "TEST_DONE"
     ERROR = "ERROR"
@@ -16,7 +17,7 @@ class TestSequenceMessage(dict):
     the expected format of the front-end.
     """
 
-    state: str
+    state: str 
     target_id: str
     result: bool
     time_taken: float

@@ -1,6 +1,6 @@
 import { TestRootNode } from "@/renderer/types/testSequencer";
 
-export type TestSequenceEvents = "run" | "subscribe" | "export";
+export type TestSequenceEvents = "run" | "stop" | "subscribe" | "export";
 type CloudId = string | null;
 
 export type TestSequenceRun = {
@@ -20,6 +20,18 @@ export const testSequenceRunRequest: (tree: TestRootNode) => TestSequenceRun = (
     project_id: null,
   };
 };
+
+export const testSequenceStopRequest: (tree: TestRootNode) => TestSequenceRun = (
+  tree: TestRootNode,
+) => {
+  return {
+    event: "stop",
+    data: tree,
+    hardware_id: null,
+    project_id: null,
+  };
+};
+
 
 export const testSequenceExportCloud: (
   tree: TestRootNode,

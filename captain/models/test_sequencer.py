@@ -28,6 +28,7 @@ class StatusTypes(str, Enum):
 
 class MsgState(str, Enum):
     TEST_SET_START = "TEST_SET_START"
+    TEST_SET_EXPORT = "TEST_SET_EXPORT"
     RUNNING = "RUNNING"
     TEST_DONE = "TEST_DONE"
     ERROR = "ERROR"
@@ -116,7 +117,7 @@ class TestDiscoverContainer(BaseModel):
     response: List[TestDiscoveryResponse] = Field(..., alias="response")
 
 
-TestSequenceEvents = Literal["run", "subscribe", "export"]
+TestSequenceEvents = Literal["run", "stop", "subscribe", "export"]
 
 
 class TestData(BaseModel):
