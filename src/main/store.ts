@@ -6,6 +6,7 @@ type TypedStore = {
   poetryOptionalGroups: string[];
   users: User[];
 };
+
 export const store = new Store<TypedStore>({
   defaults: {
     poetryOptionalGroups: [],
@@ -17,13 +18,4 @@ export const store = new Store<TypedStore>({
       },
     ],
   },
-  // schema: {
-  //   poetryOptionalGroups: {
-  //     type: "array",
-  //     default: [],
-  //     items: {
-  //       type: "string",
-  //     },
-  //   },
-  // },
 });

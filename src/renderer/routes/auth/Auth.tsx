@@ -10,6 +10,7 @@ import { baseClient } from "@/renderer/lib/base-client";
 type AuthPageProps = {
   startup: boolean;
 };
+
 const AuthPage = ({ startup }: AuthPageProps) => {
   const { user, users, setUser } = useAuth();
   const [openCreateProfile, setOpenCreateProfile] = useState(false);
