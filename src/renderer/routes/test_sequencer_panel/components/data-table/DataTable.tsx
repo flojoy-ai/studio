@@ -37,7 +37,6 @@ import {
   TestSequenceElement,
   ConditionalComponent,
   Conditional,
-  Test,
   StatusTypes,
 } from "@/renderer/types/testSequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
@@ -45,36 +44,13 @@ import { parseInt, filter, map } from "lodash";
 import {
   generateConditional,
   getIndentLevels,
-} from "../utils/ConditionalUtils";
-import {
-  ChevronUpIcon,
-  ChevronDownIcon,
-  Loader,
-  TrashIcon,
-} from "lucide-react";
-import { WriteConditionalModal } from "./AddWriteConditionalModal";
-import LockableButton from "./lockable/LockedButtons";
+} from "../../utils/ConditionalUtils";
+import { ChevronUpIcon, ChevronDownIcon, TrashIcon } from "lucide-react";
+import { WriteConditionalModal } from "../AddWriteConditionalModal";
+import LockableButton from "../lockable/LockedButtons";
 import { useRef, useState, useEffect } from "react";
-import { DraggableRow } from "./dnd/DraggableRow";
-
-const IndentLine = ({
-  content: name,
-  level = 0,
-}: {
-  content: React.ReactNode;
-  level: number;
-}) => (
-  <div className="flex h-full flex-row">
-    {level == 0 ? (
-      name
-    ) : (
-      <div className="flex flex-row">
-        <div className={"mr-5 flex h-full border-l-2 border-blue-800"}></div>
-        <IndentLine content={name} level={level - 1} />
-      </div>
-    )}
-  </div>
-);
+import TestNameCell from "./test-name-cell";
+import { DraggableRow } from "../dnd/DraggableRow";
 
 const mapStatusToDisplay: { [k in StatusTypes]: React.ReactNode } = {
   pass: <p className="text-green-500">PASS</p>,
@@ -102,7 +78,7 @@ export function DataTable() {
       ),
       cell: ({ row }) => (
         <Checkbox
-          className="z-20 relative"
+          className="relative z-20"
           checked={row.getIsSelected()}
           onCheckedChange={(value) => row.toggleSelected(!!value)}
           aria-label="Select row"
@@ -117,38 +93,12 @@ export function DataTable() {
         return elem.type === "test" ? "testName" : "conditionalType";
       },
       header: "Test name",
-      cell: ({ row }) => {
-        const isTest = row.original.type === "test";
-        return isTest ? (
-          <div className="flex h-full space-x-2">
-            {/* Indent levels */}
-            <div className="flex flex-row space-x-1">
-              <IndentLine
-                content={(row.original as Test).testName}
-                level={indentLevels[row.id]}
-              />
-              {running.includes(row.original.id) && (
-                <Loader className="scale-50" />
-              )}
-            </div>
-            {/* {(row.original as Test).test_name} */}
-          </div>
-        ) : (
-          <IndentLine
-            content={
-              <div className="flex flex-col">
-                <b>
-                  {(row.original as Conditional).conditionalType.toUpperCase()}
-                </b>
-                <i>
-                  {(row.original as Conditional).condition.substring(0, 45)}
-                  {(row.original as Conditional).condition.length >= 45 && (
-                    <>...</>
-                  )}
-                </i>
-              </div>
-            }
-            level={indentLevels[row.id]}
+      cell: (props) => {
+        return (
+          <TestNameCell
+            cellProps={props}
+            running={running}
+            indentLevels={indentLevels}
           />
         );
       },
@@ -252,7 +202,7 @@ export function DataTable() {
           });
         };
         return (
-          <div className="flex flex-row justify-center z-20 relative">
+          <div className="relative z-20 flex flex-row justify-center">
             <LockableButton variant="ghost">
               <ChevronUpIcon onClick={onUpClick} />
             </LockableButton>
@@ -419,7 +369,7 @@ export function DataTable() {
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                <TableHeader key={"drag&drop"}/>
+                <TableHeader key={"drag&drop"} />
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>

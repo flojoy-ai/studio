@@ -85,7 +85,7 @@ export const GalleryElement = ({
                 href={node.docs}
                 key={node.name}
                 target="_blank"
-                className="rounded-md bg-muted p-1 text-sm"
+                className="mr-2 rounded-md bg-muted p-1 text-sm"
               >
                 {node.name}
               </a>

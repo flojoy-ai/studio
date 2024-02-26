@@ -1,14 +1,17 @@
 import { cn } from "@/renderer/lib/utils";
 import { Link, useLocation } from "react-router-dom";
+import { useActiveTab, TabName } from "@/renderer/hooks/useActiveTab";
 
 type TabButtonProps = {
   to: string;
   children?: React.ReactNode;
   testId?: string;
+  tabName: TabName;
 };
 
-const HeaderTab = ({ to, children, testId }: TabButtonProps) => {
+const HeaderTab = ({ to, tabName, children, testId }: TabButtonProps) => {
   const location = useLocation();
+  const { activeTab, setActiveTab } = useActiveTab();
 
   return (
     <div
@@ -25,6 +28,7 @@ const HeaderTab = ({ to, children, testId }: TabButtonProps) => {
           "inline-block cursor-pointer bg-transparent py-6 !font-sans text-sm font-semibold uppercase tracking-[1px]",
         )}
         data-cy={testId}
+        onClick={() => setActiveTab(tabName)}
       >
         {children}
       </Link>

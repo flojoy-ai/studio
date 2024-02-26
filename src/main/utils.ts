@@ -174,3 +174,9 @@ export const saveFileToFullPath = async (
     return Err(error as Error);
   }
 };
+
+export const readFileSync = (_, filePath: string): Promise<string> => {
+  return Promise.resolve(
+    fs.readFileSync(filePath, { encoding: "utf-8" }).toString(),
+  );
+};

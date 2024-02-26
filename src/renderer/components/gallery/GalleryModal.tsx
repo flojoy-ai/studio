@@ -90,7 +90,7 @@ export const GalleryModal = ({
           {Object.keys(filteredData).length ? (
             Object.entries(filteredData).map(([k, v]) => (
               <div key={k}>
-                <div className="text-3xl font-bold">{k}</div>
+                <div className="text-3xl font-bold">{k.replace("_", " ")}</div>
                 <Separator className="my-1" />
                 <div className="grid grid-cols-2">
                   {v.map((app) => (

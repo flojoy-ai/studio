@@ -34,9 +34,9 @@ export const useTestImport = () => {
         },
       });
       const data: TestDiscoverContainer = JSON.parse(response.data);
-      const new_elems = parseDiscoverContainer(data);
+      const newElems = parseDiscoverContainer(data);
       setElems((elems) => {
-        return [...elems, ...new_elems];
+        return [...elems, ...newElems];
       });
     } catch (error) {
       console.error(error);
