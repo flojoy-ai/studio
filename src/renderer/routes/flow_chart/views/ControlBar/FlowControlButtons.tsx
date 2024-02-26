@@ -1,6 +1,6 @@
 import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
 import { Node, Edge } from "reactflow";
-import { ElementsData } from "@/renderer/types";
+import { BlockData } from "@/renderer/types";
 import { Ban, Play } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
 import { projectAtom } from "@/renderer/hooks/useFlowChartState";
@@ -42,7 +42,7 @@ const FlowControlButtons = () => {
       alert("There is no running job on server.");
     }
   };
-  const onRun = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
+  const onRun = async (nodes: Node<BlockData>[], edges: Edge[]) => {
     if (project.rfInstance && nodes.length > 0) {
       if (_.some(nodes, (n) => n.data.invalid)) {
         toast.error(

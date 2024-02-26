@@ -1,4 +1,4 @@
-import { ElementsData } from "@/renderer/types";
+import { BlockData } from "@/renderer/types";
 import { BlocksMetadataMap } from "@/renderer/types/blocks-metadata";
 import { Leaf, RootNode, TreeNode } from "@/renderer/utils/ManifestLoader";
 import { Edge, Node } from "reactflow";
@@ -8,18 +8,18 @@ import { isCompatibleType } from "@/renderer/utils/TypeCheck";
 import _ from "lodash";
 
 export function syncFlowchartWithManifest(
-  nodes: Node<ElementsData>[],
+  nodes: Node<BlockData>[],
   edges: Edge[],
   blockManifest: RootNode,
   blockMetadata: BlocksMetadataMap,
-): [Node<ElementsData>[], Edge[]] {
+): [Node<BlockData>[], Edge[]] {
   const blocks = flattenManifest(blockManifest);
 
   const inEdges = _.groupBy(edges, (e: Edge) => e.target);
-  const newNodes: Node<ElementsData>[] = [];
+  const newNodes: Node<BlockData>[] = [];
   const newEdges: Edge[] = [];
 
-  const validEdge = (e: Edge, inputs?: ElementsData["inputs"]) => {
+  const validEdge = (e: Edge, inputs?: BlockData["inputs"]) => {
     const outBlock = blocks.get(blockFuncFromId(e.source));
     if (!outBlock) {
       // If there is an unknown block in the flow chart,

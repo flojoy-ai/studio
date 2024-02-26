@@ -1,9 +1,9 @@
-import { ElementsData } from "@/renderer/types";
+import { BlockData } from "@/renderer/types";
 import { ReactFlowJsonObject } from "reactflow";
 import { defaultApp } from "./apps";
 
 export const NOISY_SINE =
-  defaultApp.rfInstance as ReactFlowJsonObject<ElementsData>;
+  defaultApp.rfInstance as ReactFlowJsonObject<BlockData>;
 
 export const EMPTY_CANVAS = {
   elements: [],

@@ -1,4 +1,4 @@
-import { ElementsData } from "@/renderer/types";
+import { BlockData } from "@/renderer/types";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import { useCallback, useMemo } from "react";
@@ -15,10 +15,10 @@ import useWithPermission from "./useWithPermission";
 
 const project = resolveDefaultProjectReference();
 const projectData = resolveProjectReference(project) || RECIPES.NOISY_SINE;
-const initialNodes: Node<ElementsData>[] = projectData.nodes;
+const initialNodes: Node<BlockData>[] = projectData.nodes;
 const initialEdges: Edge[] = projectData.edges;
 
-const nodesAtom = atomWithImmer<Node<ElementsData>[]>(initialNodes);
+const nodesAtom = atomWithImmer<Node<BlockData>[]>(initialNodes);
 export const textNodesAtom = atomWithImmer<Node<TextData>[]>([]);
 const edgesAtom = atomWithImmer<Edge[]>(initialEdges);
 
@@ -30,8 +30,8 @@ export const useFlowChartGraph = () => {
   const setNodes = withPermissionCheck(setNodesOriginal);
   const setEdges = withPermissionCheck(setEdgesOriginal);
   const { selectedNodes, unSelectedNodes } = useMemo(() => {
-    const selectedNodes: Node<ElementsData>[] = [];
-    const unSelectedNodes: Node<ElementsData>[] = [];
+    const selectedNodes: Node<BlockData>[] = [];
+    const unSelectedNodes: Node<BlockData>[] = [];
     for (const n of nodes) {
       if (n.selected) {
         selectedNodes.push(n);
@@ -44,7 +44,7 @@ export const useFlowChartGraph = () => {
   const nodesMetadata = useFullMetadata();
 
   const loadFlowExportObject = useCallback(
-    (flow: ReactFlowJsonObject<ElementsData>, textNodes?: Node<TextData>[]) => {
+    (flow: ReactFlowJsonObject<BlockData>, textNodes?: Node<TextData>[]) => {
       if (!flow) {
         return false;
       }
@@ -80,7 +80,7 @@ export const useFlowChartGraph = () => {
 
   const updateCtrlInputDataForNode = (
     nodeId: string,
-    inputData: ElementsData["ctrls"][string],
+    inputData: BlockData["ctrls"][string],
   ) => {
     setNodesOriginal((element) => {
       const node = element.find((e) => e.id === nodeId);
@@ -96,7 +96,7 @@ export const useFlowChartGraph = () => {
 
   const updateInitCtrlInputDataForNode = (
     nodeId: string,
-    inputData: ElementsData["ctrls"][string],
+    inputData: BlockData["ctrls"][string],
   ) => {
     setNodesOriginal((element) => {
       const node = element.find((e) => e.id === nodeId);
@@ -145,7 +145,7 @@ export const useFlowChartGraph = () => {
   };
 
   const handleNodeChanges = (
-    cb: (nodes: Node<ElementsData>[]) => Node<ElementsData>[],
+    cb: (nodes: Node<BlockData>[]) => Node<BlockData>[],
   ) => {
     setNodesOriginal(cb);
   };

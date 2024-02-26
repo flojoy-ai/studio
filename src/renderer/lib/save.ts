@@ -1,12 +1,12 @@
 import { Project } from "@/renderer/hooks/useFlowChartState";
-import { ElementsData } from "@/renderer/types";
+import { BlockData } from "@/renderer/types";
 import { TextData } from "@/renderer/types/node";
 import saveAs from "file-saver";
 import { Node, Edge } from "reactflow";
 
 export const makeAppFileContent = (
   project: Project,
-  nodes: Node<ElementsData>[],
+  nodes: Node<BlockData>[],
   edges: Edge[],
   textNodes: Node<TextData>[],
 ) => {
@@ -24,7 +24,7 @@ export const makeAppFileContent = (
 
 export const saveFileAs = async (
   project: Project,
-  nodes: Node<ElementsData>[],
+  nodes: Node<BlockData>[],
   edges: Edge[],
   textNodes: Node<TextData>[],
 ): Promise<string | undefined> => {

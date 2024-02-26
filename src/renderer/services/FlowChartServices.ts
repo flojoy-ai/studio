@@ -1,6 +1,6 @@
 import { Setting } from "../hooks/useSettings";
 import { ReactFlowJsonObject } from "reactflow";
-import { ElementsData } from "@/renderer/types";
+import { BlockData } from "@/renderer/types";
 import { Result } from "src/types/result";
 import { captain } from "@/renderer/lib/ky";
 import { HTTPError } from "ky";
@@ -39,7 +39,7 @@ export function saveAndRunFlowChartInServer({
   jobId,
   settings,
 }: {
-  rfInstance?: ReactFlowJsonObject<ElementsData>;
+  rfInstance?: ReactFlowJsonObject<BlockData>;
   jobId: string;
   settings: Setting[];
 }) {
@@ -62,7 +62,7 @@ export function saveAndRunFlowChartInServer({
 }
 
 export function cancelFlowChartRun(
-  rfInstance: ReactFlowJsonObject<ElementsData>,
+  rfInstance: ReactFlowJsonObject<BlockData>,
   jobId: string,
 ) {
   if (rfInstance) {

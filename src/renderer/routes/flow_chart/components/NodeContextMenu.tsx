@@ -1,5 +1,5 @@
 import { Button } from "@/renderer/components/ui/button";
-import { ElementsData } from "@/renderer/types";
+import { BlockData } from "@/renderer/types";
 import { Code, CopyPlus, Info, LucideIcon, Pencil, X } from "lucide-react";
 import { useCallback } from "react";
 import { useStore, Node, useReactFlow } from "reactflow";
@@ -51,7 +51,7 @@ type ContextMenuProps = {
   bottom?: number;
   fullPath: string;
   onClick?: () => void;
-  duplicateNode: (node: Node<ElementsData>) => void;
+  duplicateNode: (node: Node<BlockData>) => void;
   setNodeModalOpen: (open: boolean) => void;
 };
 

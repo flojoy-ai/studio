@@ -1,4 +1,4 @@
-import { ElementsData } from "@/renderer/types";
+import { BlockData } from "@/renderer/types";
 import { TextData } from "@/renderer/types/node";
 import { atom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
@@ -6,7 +6,7 @@ import { ReactFlowJsonObject, Node } from "reactflow";
 
 export type Project = {
   name?: string;
-  rfInstance?: ReactFlowJsonObject<ElementsData>;
+  rfInstance?: ReactFlowJsonObject<BlockData>;
   textNodes?: Node<TextData>[];
 };
 

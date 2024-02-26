@@ -2,7 +2,7 @@ import { Leaf as NodeElement } from "@/renderer/utils/ManifestLoader";
 import { Draft } from "immer";
 import { useCallback } from "react";
 import { Node } from "reactflow";
-import { ElementsData } from "@/renderer/types";
+import { BlockData } from "@/renderer/types";
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 import { centerPositionAtom } from "@/renderer/hooks/useFlowChartState";
 import { useAtomValue } from "jotai";
@@ -21,8 +21,8 @@ export type AddNewNode = (node: NodeElement) => void;
 export const useAddNewNode = (
   setNodes: (
     update:
-      | Node<ElementsData>[]
-      | ((draft: Draft<Node<ElementsData>>[]) => void),
+      | Node<BlockData>[]
+      | ((draft: Draft<Node<BlockData>>[]) => void),
   ) => void,
   getTakenNodeLabels: (func: string) => string[][],
   nodesMetadataMap: BlocksMetadataMap | undefined | null,
@@ -64,7 +64,7 @@ export const useAddNewNode = (
       const nodeCtrls = ctrlsFromParams(params, funcName, hardwareDevices);
       const initCtrls = ctrlsFromParams(initParams, funcName);
 
-      const newNode: Node<ElementsData> = {
+      const newNode: Node<BlockData> = {
         id: nodeId,
         type: uiComponentId ?? type,
         data: {

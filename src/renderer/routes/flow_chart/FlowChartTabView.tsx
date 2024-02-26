@@ -64,7 +64,7 @@ import {
   useManifest,
   useNodesMetadata,
 } from "@/renderer/hooks/useManifest";
-import { ElementsData } from "@/renderer/types";
+import { BlockData } from "@/renderer/types";
 import { createNodeId, createNodeLabel } from "@/renderer/utils/NodeUtils";
 import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
 import { filterMap } from "@/renderer/utils/ArrayUtils";
@@ -207,11 +207,11 @@ const FlowChartTab = () => {
   const addTextNode = useAddTextNode();
 
   const duplicateNode = useCallback(
-    (node: Node<ElementsData>) => {
+    (node: Node<BlockData>) => {
       const funcName = node.data.func;
       const id = createNodeId(funcName);
 
-      const newNode: Node<ElementsData> = {
+      const newNode: Node<BlockData> = {
         ...node,
         id,
         data: {
@@ -400,7 +400,7 @@ const FlowChartTab = () => {
   const ref = useRef<HTMLDivElement | null>(null);
 
   const onNodeContextMenu = useCallback(
-    (event, node: Node<ElementsData>) => {
+    (event, node: Node<BlockData>) => {
       // Prevent native context menu from showing
       event.preventDefault();
 

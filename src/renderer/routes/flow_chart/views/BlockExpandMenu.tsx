@@ -1,7 +1,7 @@
 import { NodeResult } from "@/renderer/routes/common/types/ResultsType";
 // import { useFlowChartState } from "@/renderer/hooks/useFlowChartState";
 import { Node } from "reactflow";
-import { ElementsData } from "@/renderer/types";
+import { BlockData } from "@/renderer/types";
 import BlockModal from "./BlockModal";
 import { useEffect, useState } from "react";
 // import { useFlowChartTabState } from "../FlowChartTabState";
@@ -10,7 +10,7 @@ type BlockExpandMenuProps = {
   modalIsOpen: boolean;
   setModalOpen: (open: boolean) => void;
   nodeResults: NodeResult[];
-  selectedNode: Node<ElementsData> | null;
+  selectedNode: Node<BlockData> | null;
   pythonString: string;
   blockFilePath: string;
   blockFullPath: string;

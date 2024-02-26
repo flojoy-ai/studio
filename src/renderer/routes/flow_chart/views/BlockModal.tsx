@@ -14,7 +14,7 @@ import {
   DialogTitle,
 } from "@/renderer/components/ui/dialog";
 import { NodeResult } from "@/renderer/routes/common/types/ResultsType";
-import { ElementsData } from "@/renderer/types/node";
+import { BlockData } from "@/renderer/types/node";
 import { ScrollArea, ScrollBar } from "@/renderer/components/ui/scroll-area";
 import { useTheme } from "@/renderer/providers/themeProvider";
 import { Button } from "@/renderer/components/ui/button";
@@ -53,7 +53,7 @@ export type BlockModalProps = {
   pythonString: string;
   blockFilePath: string;
   blockFullPath: string;
-  selectedNode: Node<ElementsData>;
+  selectedNode: Node<BlockData>;
 };
 
 const BlockModal = ({
@@ -179,7 +179,7 @@ const BlockModal = ({
 
 type NodeModalDataVizProps = {
   nd: NodeResult;
-  selectedNode: Node<ElementsData>;
+  selectedNode: Node<BlockData>;
   theme: "light" | "dark";
 };
 

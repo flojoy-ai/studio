@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Node, Edge } from "reactflow";
-import { ElementsData } from "@/renderer/types";
+import { BlockData } from "@/renderer/types";
 import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
 import { Label } from "@/renderer/components/ui/label";
 import { Switch } from "@/renderer/components/ui/switch";
@@ -14,7 +14,7 @@ import { toast } from "sonner";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
 
 interface WatchBtnProps {
-  playFC: (nodes: Node<ElementsData>[], edges: Edge[]) => void;
+  playFC: (nodes: Node<BlockData>[], edges: Edge[]) => void;
   cancelFC: () => void;
 }
 

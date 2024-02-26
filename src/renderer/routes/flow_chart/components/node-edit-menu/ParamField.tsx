@@ -1,4 +1,4 @@
-import { ElementsData } from "@/renderer/types";
+import { BlockData } from "@/renderer/types";
 import { ParamValueType } from "@/renderer/routes/common/types/ParamValueType";
 import { Input } from "@/renderer/components/ui/input";
 import {
@@ -22,9 +22,9 @@ import { useFlowchartStore } from "@/renderer/stores/flowchart";
 
 type ParamFieldProps = {
   nodeId: string;
-  nodeCtrl: ElementsData["ctrls"][string];
+  nodeCtrl: BlockData["ctrls"][string];
   type: ParamValueType;
-  updateFunc: (nodeId: string, data: ElementsData["ctrls"][string]) => void;
+  updateFunc: (nodeId: string, data: BlockData["ctrls"][string]) => void;
   options?: string[];
   nodeReferenceOptions?: {
     label: string;

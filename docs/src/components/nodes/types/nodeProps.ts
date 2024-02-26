@@ -47,7 +47,7 @@ type CtrlData = Record<
     : never
 >;
 
-export type ElementsData = {
+export type BlockData = {
   id: string;
   label: string;
   type: string;
@@ -68,4 +68,4 @@ export type TextData = {
   text: string;
 };
 
-export type CustomNodeProps = NodeProps<ElementsData>;
+export type CustomNodeProps = NodeProps<BlockData>;

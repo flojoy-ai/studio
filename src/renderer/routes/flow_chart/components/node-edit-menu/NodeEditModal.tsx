@@ -1,5 +1,5 @@
 import { Node } from "reactflow";
-import { ElementsData } from "@/renderer/types";
+import { BlockData } from "@/renderer/types";
 import { memo, useEffect, useState } from "react";
 import Draggable from "react-draggable";
 import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
@@ -13,8 +13,8 @@ import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
 
 type NodeEditModalProps = {
-  node: Node<ElementsData>;
-  otherNodes: Node<ElementsData>[] | null;
+  node: Node<BlockData>;
+  otherNodes: Node<BlockData>[] | null;
   setNodeModalOpen: (open: boolean) => void;
   handleDelete: (nodeId: string, nodeLabel: string) => void;
 };

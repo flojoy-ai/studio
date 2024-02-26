@@ -1,6 +1,6 @@
 import { NodeProps } from "reactflow";
 
-type NodeElement = {
+type BlockDefinition = {
   name: string;
   key: string;
   type: string;
@@ -28,7 +28,7 @@ type NodeElement = {
       overload: Record<string, string[]> | null;
     }
   >;
-  init_parameters?: NodeElement["parameters"];
+  init_parameters?: BlockDefinition["parameters"];
   pip_dependencies: Array<{ name: string; v: string }>;
   ui_component_id: string;
   children: null;
@@ -36,7 +36,7 @@ type NodeElement = {
 
 export type CtrlData = Record<
   string,
-  NodeElement["parameters"] extends infer T
+  BlockDefinition["parameters"] extends infer T
     ? T extends Record<string, infer U>
       ? U & {
           functionName: string;
@@ -47,7 +47,7 @@ export type CtrlData = Record<
     : never
 >;
 
-export type ElementsData = {
+export type BlockData = {
   id: string;
   label: string;
   type: string;
@@ -57,7 +57,7 @@ export type ElementsData = {
   failed?: boolean;
   ctrls: CtrlData;
   initCtrls?: CtrlData;
-  inputs?: NodeElement["inputs"];
+  inputs?: BlockDefinition["inputs"];
   outputs?: Array<{
     name: string;
     id: string;
@@ -75,4 +75,4 @@ export type TextData = {
   text: string;
 };
 
-export type CustomNodeProps = NodeProps<ElementsData>;
+export type CustomNodeProps = NodeProps<BlockData>;
