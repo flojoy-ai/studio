@@ -17,7 +17,7 @@ import ConfirmPrompt from "../common/ConfirmPrompt";
 import { toast } from "sonner";
 import { parseElectronError } from "@/renderer/utils/parse-error";
 import { useAuth } from "@/renderer/context/auth.context";
-import { baseClient } from "@/renderer/lib/base-client";
+import { captain } from "@/renderer/lib/ky";
 
 type ProfileBoxProps = {
   user: User;
@@ -47,7 +47,9 @@ const ProfileBox = ({
     }
     window.api.setUserProfile(user.name);
     setUser(user);
-    await baseClient.post("/auth/login", { username: user.name, password });
+    await captain.post("auth/login", {
+      json: { username: user.name, password },
+    });
     navigate("/flowchart");
   };
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -64,7 +66,9 @@ const ProfileBox = ({
       window.api.setUserProfile(user.name);
       setUser(user);
       setPassRequired(false);
-      await baseClient.post("/auth/login", { username: user.name, password });
+      await captain.post("auth/login", {
+        json: { username: user.name, password },
+      });
       navigate("/flowchart");
     }
   };

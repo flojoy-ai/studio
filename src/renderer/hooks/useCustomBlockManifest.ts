@@ -1,4 +1,4 @@
-import { baseClient } from "@/renderer/lib/base-client";
+import { captain } from "@/renderer/lib/ky";
 import { BlocksMetadataMap } from "@/renderer/types/blocks-metadata";
 import { RootNode, validateRootSchema } from "@/renderer/utils/ManifestLoader";
 import { atom, useAtom, useSetAtom } from "jotai";
@@ -31,10 +31,10 @@ export const useCustomSections = () => {
       }
 
       try {
-        const res = await baseClient.get(
-          `blocks/manifest?blocks_path=${blocksDirPath}`,
-        );
-        const validateResult = validateRootSchema(res.data);
+        const res = (await captain
+          .get(`blocks/manifest?blocks_path=${blocksDirPath}`)
+          .json()) as RootNode;
+        const validateResult = validateRootSchema(res);
         if (!validateResult.success) {
           // toast.message(`Failed to validate blocks manifest with Zod schema!`, {
           //   duration: 20000,
@@ -44,12 +44,17 @@ export const useCustomSections = () => {
           // window.api?.sendLogToStatusbar(validateResult.error.message);
           console.error(validateResult.error);
         }
-        setCustomBlockManifest(res.data);
+        setCustomBlockManifest(res);
         window.api.cacheCustomBlocksDir(blocksDirPath);
-        const res2 = await baseClient.get(
-          `blocks/metadata?blocks_path=${blocksDirPath}&custom_dir_changed=${!startup}`,
-        );
-        setCustomBlocksMetadata(res2.data);
+        const res2 = await captain
+          .get("blocks/metadata", {
+            searchParams: {
+              blocks_path: blocksDirPath,
+              custom_dir_changed: !startup,
+            },
+          })
+          .json();
+        setCustomBlocksMetadata(res2 as BlocksMetadataMap);
         setManifestChanged(true);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {

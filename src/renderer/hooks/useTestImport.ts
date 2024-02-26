@@ -1,4 +1,4 @@
-import { baseClient } from "@/renderer/lib/base-client";
+import { captain } from "@/renderer/lib/ky";
 import { Test, TestDiscoverContainer } from "@/renderer/types/testSequencer";
 import { useTestSequencerState } from "./useTestSequencerState";
 import { map } from "lodash";
@@ -27,13 +27,14 @@ export const useTestImport = () => {
 
   async function getTests(path: string, settings: ImportTestSettings) {
     try {
-      const response = await baseClient.get("discover-pytest", {
-        params: {
-          path: path,
-          oneFile: settings.importAsOneRef,
-        },
-      });
-      const data: TestDiscoverContainer = JSON.parse(response.data);
+      const data = (await captain
+        .get("discover-pytest", {
+          searchParams: {
+            path: path,
+            oneFile: settings.importAsOneRef,
+          },
+        })
+        .json()) as TestDiscoverContainer;
       const newElems = parseDiscoverContainer(data);
       setElems((elems) => {
         return [...elems, ...newElems];

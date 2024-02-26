@@ -8,9 +8,8 @@ import {
   DropdownMenuTrigger,
 } from "@/renderer/components/ui/dropdown-menu";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
-import { baseClient } from "@/renderer/lib/base-client";
-import { toast } from "sonner";
 import { EnvVar } from "@/renderer/types/envVar";
+import { captain } from "@/renderer/lib/ky";
 
 type Props = {
   credential: EnvVar;
@@ -32,19 +31,11 @@ const EnvVarCredentialsInfo = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { withPermissionCheck, isAdmin } = useWithPermission();
 
-  const toggleShowPassword = () => {
+  const toggleShowPassword = async () => {
     if (credential.value === "") {
       setIsLoading(true);
-      baseClient
-        .get(`env/${credential.key}`)
-        .then((res) => {
-          setCredentialValue(res.data.value);
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          toast.error(err.response?.data?.detail ?? err.message);
-          setIsLoading(false);
-        });
+      const res = (await captain.get(`env/${credential.key}`).json()) as EnvVar;
+      setCredentialValue(res.value);
     }
     setShowPassword((prev) => !prev);
   };

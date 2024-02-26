@@ -11,9 +11,14 @@ import {
   SelectContent,
   SelectItem,
 } from "@/renderer/components/ui/select";
-import { baseClient } from "@/renderer/lib/base-client";
+import { captain } from "@/renderer/lib/ky";
 import { Button } from "@/renderer/components/ui/button";
 import EnvVarModal from "../../flow_chart/views/env-var/EnvVarModal";
+
+type Project = {
+  label: string;
+  value: string;
+};
 
 export function CloudPanel() {
   const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
@@ -21,12 +26,7 @@ export function CloudPanel() {
   const [projectId, setProjectId] = useState("");
   const { tree, setIsLocked } = useTestSequencerState();
   const { tSSendJsonMessage } = useTestSequencerWS();
-  const [projects, setProjects] = useState<
-    {
-      label: string;
-      value: string;
-    }[]
-  >([]);
+  const [projects, setProjects] = useState<Project[]>([]);
 
   const handleExport = () => {
     setIsLocked(true);
@@ -35,8 +35,8 @@ export function CloudPanel() {
   };
 
   const fetchProjects = async () => {
-    const res = await baseClient.get("cloud/projects");
-    setProjects(res.data);
+    const res = (await captain.get("cloud/projects").json()) as Project;
+    setProjects([res]);
   };
 
   useEffect(() => {

@@ -1,6 +1,8 @@
 import { memo, ClipboardEvent, useState, useEffect, useCallback } from "react";
-import { postEnvironmentVariable } from "@/renderer/services/FlowChartServices";
-import EnvVarCredentialsInfo from "./EnvVarCredentialsInfo";
+import {
+  EnvVar,
+  postEnvironmentVariable,
+} from "@/renderer/services/FlowChartServices";
 import { Button } from "@/renderer/components/ui/button";
 import {
   Dialog,
@@ -16,8 +18,9 @@ import EnvVarEdit from "./EnvVarEdit";
 import { Key } from "lucide-react";
 import { toast } from "sonner";
 import { Separator } from "@/renderer/components/ui/separator";
+import { captain } from "@/renderer/lib/ky";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
-import { EnvVar } from "@/renderer/types/envVar";
+import EnvVarCredentialsInfo from "./EnvVarCredentialsInfo";
 
 type Props = {
   handleEnvVarModalOpen: (open: boolean) => void;
@@ -40,8 +43,8 @@ const EnvVarModal = ({ handleEnvVarModalOpen, isEnvVarModalOpen }: Props) => {
 
   const fetchCredentials = useCallback(async () => {
     try {
-      const res = await baseClient.get("env");
-      setCredentials(res.data);
+      const res = (await captain.get("env").json()) as EnvVar[];
+      setCredentials(res);
     } catch (error) {
       console.log(error);
     }

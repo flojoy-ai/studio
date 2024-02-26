@@ -6,7 +6,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/renderer/components/ui/select";
-import { baseClient } from "@/renderer/lib/base-client";
+import { captain } from "@/renderer/lib/ky";
+import { EnvVar } from "@/renderer/services/FlowChartServices";
 import { useState, useEffect } from "react";
 
 export type SelectProps = {
@@ -20,8 +21,8 @@ export const SecretSelect = ({ onValueChange, value }: SelectProps) => {
   useEffect(() => {
     const fetchCredentials = async () => {
       try {
-        const res = await baseClient.get("env");
-        const keys = res.data.map((d) => d.key);
+        const res = (await captain.get("env").json()) as EnvVar[];
+        const keys = res.map((d) => d.key);
         setSecrets(keys);
       } catch (error) {
         console.error(error);
