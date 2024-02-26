@@ -23,6 +23,7 @@ function parseDiscoverContainer(
       status: "pending",
       completionTime: undefined,
       isSavedToCloud: false,
+      error: null,
     };
     return new_elem;
   });

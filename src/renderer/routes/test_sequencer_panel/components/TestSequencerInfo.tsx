@@ -105,14 +105,15 @@ const TestSequencerView = () => {
                   >
                     Save Test Set
                   </LockableButton>
-                  <Button
+                  <LockableButton
                     variant="dotted"
                     className="mt-4 w-full gap-2"
-                    disabled={backendState === "TEST_SET_EXPORT"}
+                    isLocked={_.isEmpty(tree)}
+                    isException={backendState === "TEST_SET_START"}
                     onClick={backendState === "TEST_SET_START" ? handleClickStopTest : handleClickRunTest}
                   >
                     {backendState === "TEST_SET_START" ? "Stop Test Sequence" : "Run Test Sequence"}
-                  </Button>
+                  </LockableButton>
                 </div>
               </div>
             </div>
