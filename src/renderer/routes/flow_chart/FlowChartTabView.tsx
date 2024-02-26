@@ -1,7 +1,4 @@
-import {
-  projectAtom,
-  useFlowChartState,
-} from "@/renderer/hooks/useFlowChartState";
+import { projectAtom } from "@/renderer/hooks/useFlowChartState";
 import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
 import { useSocket } from "@/renderer/hooks/useSocket";
 import { TreeNode } from "@/renderer/utils/ManifestLoader";
@@ -88,6 +85,7 @@ import { useCustomSections } from "@/renderer/hooks/useCustomBlockManifest";
 import { BlocksMetadataMap } from "@/renderer/types/blocks-metadata";
 import { Spinner } from "@/renderer/components/ui/spinner";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
+import { useFlowchartStore } from "@/renderer/stores/flowchart";
 
 const nodeTypes: NodeTypes = {
   default: DefaultNode,
@@ -118,17 +116,21 @@ const edgeTypes = {
 };
 
 const FlowChartTab = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [nodeModalOpen, setNodeModalOpen] = useState(false);
+  const [isCommandMenuOpen, setCommandMenuOpen] = useState(false);
+
+  const { isEditMode, setIsEditMode } = useFlowchartStore((state) => ({
+    isEditMode: state.isEditMode,
+    setIsEditMode: state.setIsEditMode,
+  }));
+
   const [project, setProject] = useAtom(projectAtom);
   const { setHasUnsavedChanges } = useHasUnsavedChanges();
 
-  const [isCommandMenuOpen, setCommandMenuOpen] = useState(false);
-  const [isEditMode, setIsEditMode] = useState(false);
-
   const { resolvedTheme } = useTheme();
 
-  const { isSidebarOpen, setIsSidebarOpen } = useFlowChartState();
   const { states } = useSocket();
   const { programResults, setProgramResults } = states;
 

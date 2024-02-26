@@ -9,19 +9,23 @@ import {
   AlertDialogTitle,
 } from "@/renderer/components/ui/alert-dialog";
 import { deleteEnvironmentVariable } from "@/renderer/services/FlowChartServices";
-import { useFlowChartState } from "@/renderer/hooks/useFlowChartState";
-import { EnvVarCredentialType } from "@/renderer/hooks/useFlowChartState";
 import { toast } from "sonner";
+import { EnvVar } from "@/renderer/types/envVar";
+import { Dispatch, SetStateAction } from "react";
 
 export type EnvVarDeleteProps = {
-  credential: EnvVarCredentialType;
+  credential: EnvVar;
+  setCredentials: Dispatch<SetStateAction<EnvVar[]>>;
   open: boolean;
   setOpen: (open: boolean) => void;
 };
 
-const EnvVarDelete = ({ credential, open, setOpen }: EnvVarDeleteProps) => {
-  const { setCredentials } = useFlowChartState();
-
+const EnvVarDelete = ({
+  credential,
+  setCredentials,
+  open,
+  setOpen,
+}: EnvVarDeleteProps) => {
   const handleDelete = () => {
     setCredentials((prev) => prev.filter((c) => c.key !== credential.key));
     deleteEnvironmentVariable(credential.key);

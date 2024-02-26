@@ -13,7 +13,7 @@ import {
 } from "@/renderer/components/ui/select";
 import { baseClient } from "@/renderer/lib/base-client";
 import { Button } from "@/renderer/components/ui/button";
-import EnvVarModal from "../../flow_chart/views/EnvVarModal";
+import EnvVarModal from "../../flow_chart/views/env-var/EnvVarModal";
 
 export function CloudPanel() {
   const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);

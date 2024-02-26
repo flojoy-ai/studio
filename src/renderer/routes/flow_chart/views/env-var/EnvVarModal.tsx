@@ -1,17 +1,6 @@
-import {
-  memo,
-  ChangeEvent,
-  ClipboardEvent,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
-import {
-  EnvVarCredentialType,
-  useFlowChartState,
-} from "@/renderer/hooks/useFlowChartState";
+import { memo, ClipboardEvent, useState, useEffect, useCallback } from "react";
 import { postEnvironmentVariable } from "@/renderer/services/FlowChartServices";
-import EnvVarCredentialsInfo from "./EnvVarCredentials/EnvVarCredentialsInfo";
+import EnvVarCredentialsInfo from "./EnvVarCredentialsInfo";
 import { Button } from "@/renderer/components/ui/button";
 import {
   Dialog,
@@ -22,30 +11,28 @@ import {
 import { Input } from "@/renderer/components/ui/input";
 import { Label } from "@/renderer/components/ui/label";
 import { ScrollArea } from "@/renderer/components/ui/scroll-area";
-import EnvVarDelete from "./EnvVarCredentials/EnvVarDelete";
-import EnvVarEdit from "./EnvVarCredentials/EnvVarEdit";
+import EnvVarDelete from "./EnvVarDelete";
+import EnvVarEdit from "./EnvVarEdit";
 import { Key } from "lucide-react";
 import { toast } from "sonner";
 import { Separator } from "@/renderer/components/ui/separator";
-import { baseClient } from "@/renderer/lib/base-client";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
+import { EnvVar } from "@/renderer/types/envVar";
 
-interface EnvVarModalProps {
+type Props = {
   handleEnvVarModalOpen: (open: boolean) => void;
   isEnvVarModalOpen: boolean;
-}
+};
 
-const EnvVarModal = ({
-  handleEnvVarModalOpen,
-  isEnvVarModalOpen,
-}: EnvVarModalProps) => {
-  const { credentials, setCredentials } = useFlowChartState();
-  const { withPermissionCheck } = useWithPermission();
+const EnvVarModal = ({ handleEnvVarModalOpen, isEnvVarModalOpen }: Props) => {
+  const [credentials, setCredentials] = useState<EnvVar[]>([]);
   const [envVarKey, setEnvVarKey] = useState<string>("");
   const [envVarValue, setEnvVarValue] = useState<string>("");
   const [selectedCredential, setSelectedCredential] = useState<
-    EnvVarCredentialType | undefined
+    EnvVar | undefined
   >(undefined);
+
+  const { withPermissionCheck } = useWithPermission();
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
 
@@ -60,14 +47,6 @@ const EnvVarModal = ({
     }
   }, [setCredentials]);
 
-  const handleEnvVarKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEnvVarKey(e.target.value);
-  };
-
-  const handleEnvVarValueChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEnvVarValue(e.target.value);
-  };
-
   useEffect(() => {
     if (isEnvVarModalOpen) {
       fetchCredentials();
@@ -80,16 +59,15 @@ const EnvVarModal = ({
   ) => {
     e.preventDefault();
     const val = e.clipboardData.getData("text");
+
     if (val.includes("=")) {
       const parts = val.split("=");
       setEnvVarKey(parts[0]);
       setEnvVarValue(parts[1]);
+    } else if (target === "key") {
+      setEnvVarKey(val);
     } else {
-      if (target === "key") {
-        setEnvVarKey(val);
-      } else {
-        setEnvVarValue(val);
-      }
+      setEnvVarValue(val);
     }
   };
 
@@ -194,7 +172,7 @@ const EnvVarModal = ({
                 value={envVarKey}
                 className="mt-1 bg-modal"
                 onPaste={(e) => handlePaste(e, "key")}
-                onChange={handleEnvVarKeyChange}
+                onChange={(e) => setEnvVarKey(e.target.value)}
               />
             </div>
             <div className="flex grow flex-col gap-1">
@@ -210,7 +188,7 @@ const EnvVarModal = ({
                 value={envVarValue}
                 className="mt-1 bg-modal"
                 onPaste={(e) => handlePaste(e, "value")}
-                onChange={handleEnvVarValueChange}
+                onChange={(e) => setEnvVarValue(e.target.value)}
               />
             </div>
             <div className="flex shrink flex-col">
@@ -241,6 +219,7 @@ const EnvVarModal = ({
           <>
             <EnvVarDelete
               credential={selectedCredential}
+              setCredentials={setCredentials}
               open={deleteModalOpen}
               setOpen={setDeleteModalOpen}
             />

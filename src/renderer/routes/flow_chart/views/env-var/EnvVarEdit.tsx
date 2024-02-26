@@ -10,42 +10,39 @@ import {
 import { Input } from "@/renderer/components/ui/input";
 import { Label } from "@/renderer/components/ui/label";
 import { postEnvironmentVariable } from "@/renderer/services/FlowChartServices";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 
-export interface EnvVarCredentialsEditInfoProps {
+type Props = {
   credentialKey: string;
   fetchCredentials: () => void;
   open: boolean;
   setOpen: (open: boolean) => void;
-}
+};
 
 const EnvVarEdit = ({
   credentialKey,
   fetchCredentials,
   open,
   setOpen,
-}: EnvVarCredentialsEditInfoProps) => {
-  const [editEnv, setEditEnv] = useState<string>("");
-
-  const handleEnvVarValueChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEditEnv(e.target.value);
-  };
+}: Props) => {
+  const [value, setValue] = useState<string>("");
 
   const handleEdit = async () => {
     const result = await postEnvironmentVariable({
       key: credentialKey,
-      value: editEnv,
+      value: value,
     });
 
-    if (result.ok) {
-      toast("Environment variable edited");
-      setEditEnv("");
-      fetchCredentials();
-      setOpen(false);
-    } else {
+    if (!result.ok) {
       toast("Error editing environment variable");
+      return;
     }
+
+    toast("Environment variable edited");
+    setValue("");
+    fetchCredentials();
+    setOpen(false);
   };
 
   return (
@@ -69,8 +66,8 @@ const EnvVarEdit = ({
               data-tesid="edit-env-input"
               placeholder="New Value"
               className="col-span-3"
-              value={editEnv}
-              onChange={handleEnvVarValueChange}
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
             />
           </div>
         </div>

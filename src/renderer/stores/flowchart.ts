@@ -3,10 +3,12 @@ import { immer } from "zustand/middleware/immer";
 
 type State = {
   isEditMode: boolean;
+  runningNodeId: string | null;
 };
 
 type Actions = {
   setIsEditMode: (val: boolean) => void;
+  setRunningNodeId: (val: string) => void;
 };
 
 export const useFlowchartStore = create<State & Actions>()(
@@ -16,5 +18,10 @@ export const useFlowchartStore = create<State & Actions>()(
       set((state) => {
         state.isEditMode = val;
       }),
+
+    runningNodeId: null,
+    setRunningNodeId: (val) => set({ runningNodeId: val }),
+
+    failedNodes: {},
   })),
 );

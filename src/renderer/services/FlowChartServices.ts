@@ -6,17 +6,7 @@ import { baseClient } from "@/renderer/lib/base-client";
 import { RootNode, validateRootSchema } from "@/renderer/utils/ManifestLoader";
 import { toast } from "sonner";
 import { BlocksMetadataMap } from "@/renderer/types/blocks-metadata";
-
-// Note that you have to update the nodes/edges of the
-// flow chart instance manually before calling these functions.
-// This is to prevent unnecessary re-rendering which would happen
-// if the flow chart instance was updated every single time nodes/edges
-// changed (for example with a useEffect).
-
-export type EnvVar = {
-  key: string;
-  value: string;
-};
+import { EnvVar } from "../types/envVar";
 
 export const postEnvironmentVariable = async (
   body: EnvVar,

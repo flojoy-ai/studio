@@ -12,7 +12,7 @@ import {
 } from "@/renderer/components/ui/dialog";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { NodeSettingsModal } from "./NodeSettingsModal";
-import EnvVarModal from "./EnvVarModal";
+import EnvVarModal from "./env-var/EnvVarModal";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
 import { DarkModeToggle } from "@/renderer/routes/common/DarkModeToggle";
 import {
@@ -34,7 +34,7 @@ import DepManagerModal from "./DepManagerModal";
 import { DeviceSettingsModal } from "./DeviceSettingsModal";
 import { Button } from "@/renderer/components/ui/button";
 import ProfileMenu from "./user-profile/ProfileMenu";
-import { useActiveTab, TabName } from "@/renderer/hooks/useActiveTab";
+import { useActiveTab } from "@/renderer/hooks/useActiveTab";
 
 const ControlBar = () => {
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =

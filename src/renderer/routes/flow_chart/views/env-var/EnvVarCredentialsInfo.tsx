@@ -9,12 +9,12 @@ import {
 } from "@/renderer/components/ui/dropdown-menu";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { baseClient } from "@/renderer/lib/base-client";
-import { EnvVarCredentialType } from "@/renderer/hooks/useFlowChartState";
 import { toast } from "sonner";
+import { EnvVar } from "@/renderer/types/envVar";
 
-export type EnvVarCredentialsInfoProps = {
-  credential: EnvVarCredentialType;
-  setSelectedCredential: (credential: EnvVarCredentialType) => void;
+type Props = {
+  credential: EnvVar;
+  setSelectedCredential: (credential: EnvVar) => void;
   setDeleteModalOpen: (open: boolean) => void;
   setEditModalOpen: (open: boolean) => void;
 };
@@ -24,7 +24,7 @@ const EnvVarCredentialsInfo = ({
   setSelectedCredential,
   setDeleteModalOpen,
   setEditModalOpen,
-}: EnvVarCredentialsInfoProps) => {
+}: Props) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [credentialValue, setCredentialValue] = useState<string>(
     credential.value,
