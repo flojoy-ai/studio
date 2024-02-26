@@ -4,7 +4,6 @@ import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
 import { JSONTree } from "react-json-tree";
 import { Node } from "reactflow";
 import { flojoySyntaxTheme } from "@/renderer/assets/FlojoyTheme";
-import { STUDIO_REPO, DOCS_LINK } from "@/renderer/data/constants";
 import PlotlyComponent from "@/renderer/components/plotly/PlotlyComponent";
 import { makePlotlyData } from "@/renderer/components/plotly/formatPlotlyData";
 import MarkDownText from "@/renderer/components/common/MarkDownText";
@@ -20,6 +19,7 @@ import { ScrollArea, ScrollBar } from "@/renderer/components/ui/scroll-area";
 import { useTheme } from "@/renderer/providers/themeProvider";
 import { Button } from "@/renderer/components/ui/button";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
+import { env } from "@/env";
 
 const jsonTheme = {
   scheme: "flojoy",
@@ -73,9 +73,9 @@ const BlockModal = ({
   const link =
     path.startsWith("/") || path.includes(":")
       ? null
-      : `${STUDIO_REPO}/blocks/${path}`;
+      : `${env.VITE_STUDIO_REPO}/blocks/${path}`;
 
-  const docsLink = `${DOCS_LINK}/blocks/${path
+  const docsLink = `${env.VITE_DOCS_LINK}/blocks/${path
     .split("/")
     .slice(0, -1)
     .join("/")}`.toLowerCase();

@@ -13,7 +13,6 @@ import { GalleryElement } from "./GalleryElement";
 import { Input } from "../ui/input";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import { IS_CLOUD_DEMO } from "@/renderer/data/constants";
 
 type AppGalleryModalProps = {
   isGalleryOpen: boolean;
@@ -37,18 +36,16 @@ export const GalleryModal = ({
       Object.entries(data)
         .map(([k, v]) => [
           k,
-          v
-            .filter((data) => (IS_CLOUD_DEMO ? data.cloudDemoEnabled : true))
-            .filter(
-              (app) =>
-                app.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                app.description
-                  .toLowerCase()
-                  .includes(searchQuery.toLowerCase()) ||
-                app.relevantNodes.some((node) =>
-                  node.name.toLowerCase().includes(searchQuery.toLowerCase()),
-                ),
-            ),
+          v.filter(
+            (app) =>
+              app.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              app.description
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase()) ||
+              app.relevantNodes.some((node) =>
+                node.name.toLowerCase().includes(searchQuery.toLowerCase()),
+              ),
+          ),
         ])
         .filter(([, v]) => v.length > 0),
     );

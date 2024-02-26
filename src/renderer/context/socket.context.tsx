@@ -3,7 +3,6 @@ import { useSetAtom } from "jotai";
 import { createContext, useEffect, useMemo, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";
 import { v4 as UUID } from "uuid";
-import { SOCKET_URL } from "@/renderer/data/constants";
 import { useHardwareRefetch } from "@/renderer/hooks/useHardwareDevices";
 import {
   manifestChangedAtom,
@@ -13,6 +12,7 @@ import {
 import { toast } from "sonner";
 import { useCustomSections } from "@/renderer/hooks/useCustomBlockManifest";
 import { useSettings } from "@/renderer/hooks/useSettings";
+import { env } from "@/env";
 
 type SocketState = {
   programResults: NodeResult[];
@@ -86,7 +86,7 @@ export const SocketContextProvider = ({
       console.log("Creating new WebSocket connection to backend");
       const socketId = UUID();
       const ws = new WebSocketServer({
-        url: `${SOCKET_URL}/${socketId}`,
+        url: `ws://${env.VITE_BACKEND_HOST}:${env.VITE_BACKEND_PORT}/ws/${socketId}`,
         handleFailedNodes: handleStateChange("failedNodes"),
         handleRunningNode: handleStateChange("runningNode"),
         handleSocketId: handleStateChange("socketId"),

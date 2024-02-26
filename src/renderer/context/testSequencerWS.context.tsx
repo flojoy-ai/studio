@@ -1,6 +1,5 @@
 import { createContext, useContext } from "react";
 import { SendJsonMessage } from "react-use-websocket/dist/lib/types";
-import { TS_SOCKET_URL } from "@/renderer/data/constants";
 import { filter } from "lodash";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useEffect } from "react";
@@ -8,6 +7,7 @@ import useWebSocket, { ReadyState } from "react-use-websocket";
 import { BackendMsg, MsgState, Test } from "@/renderer/types/testSequencer";
 import { mapToTestResult } from "../routes/test_sequencer_panel/utils/TestUtils";
 import { toast } from "sonner";
+import { env } from "@/env";
 
 type ContextType = {
   tSSendJsonMessage: SendJsonMessage;
@@ -25,7 +25,7 @@ export function TestSequencerWSProvider({
   const { websocketId, setRunning, setElems, setIsLocked, setIsLoading } =
     useTestSequencerState();
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
-    `${TS_SOCKET_URL}/${websocketId}`,
+    `ws://${env.VITE_BACKEND_HOST}:${env.VITE_BACKEND_PORT}/ts-ws/${websocketId}`,
     {
       shouldReconnect: () => true,
       reconnectInterval: 2000,

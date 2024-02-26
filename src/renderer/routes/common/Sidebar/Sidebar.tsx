@@ -7,7 +7,6 @@ import SidebarNode from "./SidebarNode";
 import { LAYOUT_TOP_HEIGHT } from "@/renderer/routes/common/Layout";
 import { ArrowDownWideNarrow, ArrowUpWideNarrow, XIcon } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
-import { REQUEST_NODE_URL } from "@/renderer/data/constants";
 import { cn } from "@/renderer/lib/utils";
 import { Input } from "@/renderer/components/ui/input";
 import {
@@ -16,6 +15,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/renderer/components/ui/tabs";
+import { env } from "@/env";
 export type LeafClickHandler = (elem: Leaf) => void;
 
 type SidebarProps = {
@@ -111,7 +111,7 @@ const Sidebar = ({
         <div className="py-1" />
         <div className="flex items-end">
           <a
-            href={REQUEST_NODE_URL}
+            href={env.VITE_REQUEST_BLOCK_URL}
             target="_blank"
             className="w-fit no-underline"
           >

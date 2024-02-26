@@ -27,8 +27,6 @@ import { SaveAsButton, SaveButton } from "./ControlBar/SaveButtons";
 import { LoadButton } from "./ControlBar/LoadButton";
 import { ExportResultButton } from "./ControlBar/ExportResultButton";
 import FlowControlButtons from "./ControlBar/FlowControlButtons";
-import { IS_CLOUD_DEMO } from "@/renderer/data/constants";
-import { DemoWarningTooltip } from "@/renderer/components/ui/demo-warning-tooltip";
 import { DebugSettingsModal } from "./DebugSettingsModal";
 import DepManagerModal from "./DepManagerModal";
 import { DeviceSettingsModal } from "./DeviceSettingsModal";
@@ -93,20 +91,9 @@ const ControlBar = () => {
       <div className="flex">
         <Menubar>
           <MenubarMenu>
-            <DemoWarningTooltip
-              tooltipContent={
-                "Download the desktop app to save and load flowcharts!"
-              }
-            >
-              <MenubarTrigger
-                id="file-btn"
-                data-testid="file-button"
-                disabled={IS_CLOUD_DEMO}
-                className={IS_CLOUD_DEMO ? "cursor-not-allowed opacity-50" : ""}
-              >
-                File
-              </MenubarTrigger>
-            </DemoWarningTooltip>
+            <MenubarTrigger id="file-btn" data-testid="file-button">
+              File
+            </MenubarTrigger>
             <MenubarContent>
               <SaveButton />
               <SaveAsButton />
@@ -117,13 +104,7 @@ const ControlBar = () => {
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger
-              disabled={IS_CLOUD_DEMO}
-              data-testid="settings-btn"
-              className={IS_CLOUD_DEMO ? "cursor-not-allowed opacity-50" : ""}
-            >
-              Settings
-            </MenubarTrigger>
+            <MenubarTrigger data-testid="settings-btn">Settings</MenubarTrigger>
             <MenubarContent>
               <MenubarItem
                 data-testid="dep-manager-modal-button"

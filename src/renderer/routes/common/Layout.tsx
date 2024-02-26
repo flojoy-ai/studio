@@ -3,7 +3,6 @@ import Header from "./Header";
 import { useSocket } from "@/renderer/hooks/useSocket";
 import { projectAtom } from "@/renderer/hooks/useFlowChartState";
 import { Input } from "@/renderer/components/ui/input";
-import { IS_CLOUD_DEMO } from "@/renderer/data/constants";
 import { Outlet } from "react-router-dom";
 import StatusBar from "@/renderer/routes/common/StatusBar";
 import { useActiveTab } from "@/renderer/hooks/useActiveTab";
@@ -47,7 +46,6 @@ export const Layout = () => {
               value={project.name}
               onChange={handleProjectRename}
               placeholder="Untitled project"
-              disabled={IS_CLOUD_DEMO}
             />
             {hasUnsavedChanges && (
               <div className=" h-2 w-2 rounded-full bg-foreground/50" />
