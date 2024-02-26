@@ -21,28 +21,19 @@ export const nodeStatusAtom = atom((get) => ({
   failedNodes: get(failedNodeAtom),
 }));
 
-const nodeParamChangedAtom = atom<boolean>(false);
 export const centerPositionAtom = atom<{ x: number; y: number }>({
   x: 0,
   y: 0,
 });
 
-const currentPythonEnvAtom = atom<string | undefined>(undefined);
-
 export function useFlowChartState() {
   const [runningNode, setRunningNode] = useAtom(runningNodeAtom);
   const [failedNodes, setFailedNodes] = useAtom(failedNodeAtom);
-  const [nodeParamChanged, setNodeParamChanged] = useAtom(nodeParamChangedAtom);
-  const [currentPythonEnv, setCurrentPythonEnv] = useAtom(currentPythonEnvAtom);
 
   return {
     runningNode,
     setRunningNode,
     failedNodes,
     setFailedNodes,
-    nodeParamChanged,
-    setNodeParamChanged,
-    currentPythonEnv,
-    setCurrentPythonEnv,
   };
 }

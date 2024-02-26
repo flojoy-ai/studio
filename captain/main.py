@@ -6,7 +6,6 @@ from captain.routes import (
     devices,
     flowchart,
     key,
-    pymgr,
     update,
     ws,
     log,
@@ -46,7 +45,6 @@ app.include_router(key.router)
 app.include_router(update.router)
 app.include_router(blocks.router)
 app.include_router(devices.router)
-app.include_router(pymgr.router)
 app.include_router(test_sequence.router)
 app.include_router(cloud.router)
 app.include_router(auth.router)

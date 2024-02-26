@@ -9,7 +9,6 @@ import FlowChartTab from "./routes/flow_chart/FlowChartTabView";
 import TestSequencerTab from "./routes/test_sequencer_panel/TestSequencerView";
 import DeviceTab from "./routes/device_panel/DeviceView";
 import { useTheme } from "@/renderer/providers/themeProvider";
-import PythonManagerTabView from "./routes/python_manager_panel/PythonManagerTabView";
 import { Layout } from "./routes/common/Layout";
 import { Index } from "./routes/index";
 import packageJson from "../../package.json";
@@ -65,11 +64,6 @@ const App = () => {
           <Route
             path="/devices"
             element={<DeviceTab />}
-            errorElement={<ErrorBoundary />}
-          />
-          <Route
-            path="/pymgr"
-            element={<PythonManagerTabView />}
             errorElement={<ErrorBoundary />}
           />
         </Route>

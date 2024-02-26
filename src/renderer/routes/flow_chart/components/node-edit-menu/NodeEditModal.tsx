@@ -1,6 +1,5 @@
 import { Node } from "reactflow";
 import { ElementsData } from "@/renderer/types";
-import { useFlowChartState } from "@/renderer/hooks/useFlowChartState";
 import { memo, useEffect, useState } from "react";
 import Draggable from "react-draggable";
 import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
@@ -31,9 +30,11 @@ const NodeEditModal = ({
   const { withPermissionCheck } = useWithPermission();
   const [newTitle, setNewTitle] = useState(node.data.label);
   const [editRenamingTitle, setEditRenamingTitle] = useState(false);
-  const { nodeParamChanged } = useFlowChartState();
 
-  const setIsEditMode = useFlowchartStore((state) => state.setIsEditMode);
+  const { setIsEditMode, nodeParamChanged } = useFlowchartStore((state) => ({
+    setIsEditMode: state.setIsEditMode,
+    nodeParamChanged: state.nodeParamChanged,
+  }));
 
   const { handleTitleChange } = useFlowChartGraph();
   //converted from node to Ids here so that it will only do this when the edit menu is opened
