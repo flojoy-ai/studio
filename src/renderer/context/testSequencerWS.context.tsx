@@ -76,7 +76,6 @@ export function TestSequencerWSProvider({
       console.log("starting tests", data);
     },
     TEST_DONE: (data) => {
-      console.log("test is done", data);
       setRunning((run) => filter(run, (r) => r !== data.target_id));
       setResult(
         data.target_id,
