@@ -55,6 +55,7 @@ import {
 import { WriteConditionalModal } from "./AddWriteConditionalModal";
 import LockableButton from "./lockable/LockedButtons";
 import { useRef, useState, useEffect } from "react";
+import { DraggableRow } from "./dnd/DraggableRow";
 
 const IndentLine = ({
   content: name,
@@ -83,7 +84,7 @@ const mapStatusToDisplay: { [k in StatusTypes]: React.ReactNode } = {
 
 export function DataTable() {
   const { elems, setElems, running } = useTestSequencerState();
-  const [addIfStatement, _setAddIfStatement] = useState(false);
+  const [addIfStatement] = useState(false);
   const indentLevels = getIndentLevels(elems);
 
   const columns: ColumnDef<TestSequenceElement>[] = [
@@ -298,10 +299,7 @@ export function DataTable() {
       idxs.forEach((idx) => {
         toRemove.add(elems[idx].groupId);
       });
-      console.log(elems);
-      console.log(idxs);
       const new_elems = filter(elems, (elem) => !toRemove.has(elem.groupId));
-      console.log(new_elems);
       return new_elems;
     });
   };
@@ -441,19 +439,25 @@ export function DataTable() {
               table.getRowModel().rows.map((row) => (
                 <ContextMenu>
                   <ContextMenuTrigger asChild>
-                    <TableRow
+                    {/* <TableRow */}
+                    {/*   className="relative" */}
+                    {/*   data-state={row.getIsSelected() && "selected"} */}
+                    {/* > */}
+                    {/*   {row.getVisibleCells().map((cell) => ( */}
+                    {/*     <TableCell isCompact={true} key={cell.id}> */}
+                    {/*       {flexRender( */}
+                    {/*         cell.column.columnDef.cell, */}
+                    {/*         cell.getContext(), */}
+                    {/*       )} */}
+                    {/*     </TableCell> */}
+                    {/*   ))} */}
+                    {/* </TableRow> */}
+
+                    <DraggableRow
+                      row={row}
                       key={row.id}
                       data-state={row.getIsSelected() && "selected"}
-                    >
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell isCompact={true} key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
-                          )}
-                        </TableCell>
-                      ))}
-                    </TableRow>
+                    />
                   </ContextMenuTrigger>
                   <ContextMenuContent>
                     {getSpecificContextMenuItems(row)}
