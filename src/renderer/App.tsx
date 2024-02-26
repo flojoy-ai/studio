@@ -1,9 +1,7 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useLayoutEffect } from "react";
 
 import { useRouteError, Route, Routes } from "react-router-dom";
 import "./App.css";
-import { useFlowChartState } from "./hooks/useFlowChartState";
-import { useSocket } from "./hooks/useSocket";
 import { ErrorPage } from "@/renderer/ErrorPage";
 import FlowChartTab from "./routes/flow_chart/FlowChartTabView";
 import TestSequencerTab from "./routes/test_sequencer_panel/TestSequencerView";
@@ -25,20 +23,14 @@ function ErrorBoundary() {
 }
 
 const App = () => {
-  const {
-    states: { runningNode, failedNodes },
-  } = useSocket();
-  const { setRunningNode, setFailedNodes } = useFlowChartState();
   const { resolvedTheme } = useTheme();
-  useEffect(() => {
-    setRunningNode(runningNode);
-    setFailedNodes(failedNodes);
-  }, [runningNode, failedNodes, setRunningNode, setFailedNodes]);
+
   useLayoutEffect(() => {
     initMixPanel();
   }, []);
+
   return (
-    <div id="tw-theme-root">
+    <div>
       <Toaster theme={resolvedTheme} closeButton />
       <div className="titlebar flex h-12 items-center justify-center bg-background font-bold">
         Flojoy Studio ({packageJson.version})

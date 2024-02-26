@@ -9,10 +9,8 @@ import {
   SelectValue,
 } from "@/renderer/components/ui/select";
 import { Switch } from "@/renderer/components/ui/switch";
-import { useFlowChartState } from "@/renderer/hooks/useFlowChartState";
 import { NumberInput } from "./NumberInput";
 import { SecretSelect } from "./SecretSelect";
-import { useHasUnsavedChanges } from "@/renderer/hooks/useHasUnsavedChanges";
 import { CameraSelect } from "./CameraSelect";
 import { SerialDeviceSelect } from "./SerialDeviceSelect";
 import { VisaDeviceSelect } from "./VisaDeviceSelect";
@@ -20,6 +18,7 @@ import { NIDAQmxDeviceSelect } from "./NIDAQmxDeviceSelect";
 import { NIDMMDeviceSelect } from "./NIDMMDeviceSelect";
 import { Button } from "@/renderer/components/ui/button";
 import { AutosizingTextarea } from "./AutosizingTextarea";
+import { useFlowchartStore } from "@/renderer/stores/flowchart";
 
 type ParamFieldProps = {
   nodeId: string;
@@ -41,15 +40,20 @@ const ParamField = ({
   options,
   nodeReferenceOptions,
 }: ParamFieldProps) => {
-  const { setNodeParamChanged } = useFlowChartState();
-  const { setHasUnsavedChanges } = useHasUnsavedChanges();
+  const { markNodeParamChanged, markHasUnsavedChanges } = useFlowchartStore(
+    (state) => ({
+      markNodeParamChanged: state.markNodeParamChanged,
+      markHasUnsavedChanges: state.markHasUnsavedChanges,
+    }),
+  );
   const handleChange = (value: number | string | boolean) => {
     updateFunc(nodeId, {
       ...nodeCtrl,
       value,
     });
-    setNodeParamChanged(true);
-    setHasUnsavedChanges(true);
+
+    markNodeParamChanged();
+    markHasUnsavedChanges();
   };
 
   const value = nodeCtrl.value;

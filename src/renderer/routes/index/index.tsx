@@ -23,9 +23,7 @@ import {
 } from "@/renderer/services/MixpanelServices";
 
 export const Index = (): JSX.Element => {
-  const {
-    states: { serverStatus },
-  } = useSocket();
+  const { serverStatus } = useSocket();
   const [pyInterpreters, setPyInterpreters] = useState<InterpretersList | null>(
     null,
   );

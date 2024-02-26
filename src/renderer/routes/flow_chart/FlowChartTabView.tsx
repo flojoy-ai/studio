@@ -48,7 +48,6 @@ import { Button } from "@/renderer/components/ui/button";
 import { ResizeFitter } from "./components/ResizeFitter";
 import NodeEditModal from "./components/node-edit-menu/NodeEditModal";
 import { useAtom } from "jotai";
-import { useHasUnsavedChanges } from "@/renderer/hooks/useHasUnsavedChanges";
 import { useAddTextNode } from "./hooks/useAddTextNode";
 import { WelcomeModal } from "./views/WelcomeModal";
 import { CommandMenu } from "../command/CommandMenu";
@@ -121,18 +120,18 @@ const FlowChartTab = () => {
   const [nodeModalOpen, setNodeModalOpen] = useState(false);
   const [isCommandMenuOpen, setCommandMenuOpen] = useState(false);
 
-  const { isEditMode, setIsEditMode } = useFlowchartStore((state) => ({
-    isEditMode: state.isEditMode,
-    setIsEditMode: state.setIsEditMode,
-  }));
+  const { isEditMode, setIsEditMode, markHasUnsavedChanges } =
+    useFlowchartStore((state) => ({
+      isEditMode: state.isEditMode,
+      setIsEditMode: state.setIsEditMode,
+      markHasUnsavedChanges: state.markHasUnsavedChanges,
+    }));
 
   const [project, setProject] = useAtom(projectAtom);
-  const { setHasUnsavedChanges } = useHasUnsavedChanges();
 
   const { resolvedTheme } = useTheme();
 
-  const { states } = useSocket();
-  const { programResults, setProgramResults } = states;
+  const { programResults, resetProgramResults } = useSocket();
 
   const {
     pythonString,
@@ -266,9 +265,9 @@ const FlowChartTab = () => {
         prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId),
       );
       sendEventToMix(MixPanelEvents.nodeDeleted, { nodeTitle: nodeLabel });
-      setHasUnsavedChanges(true);
+      markHasUnsavedChanges();
     },
-    [setNodes, setEdges, setHasUnsavedChanges],
+    [setNodes, setEdges, markHasUnsavedChanges],
   );
 
   const onInit: OnInit = (rfIns) => {
@@ -282,7 +281,7 @@ const FlowChartTab = () => {
     setNodes((nodes) => {
       const nodeIndex = nodes.findIndex((el) => el.id === node.id);
       nodes[nodeIndex] = node;
-      setHasUnsavedChanges(true);
+      markHasUnsavedChanges();
       localStorage.setItem("prev_block_pos", "");
     });
   };
@@ -300,10 +299,10 @@ const FlowChartTab = () => {
       sendEventToMix(MixPanelEvents.edgesChanged);
       handleEdgeChanges((es) => applyEdgeChanges(changes, es));
       if (!changes.every((c) => c.type === "select")) {
-        setHasUnsavedChanges(true);
+        markHasUnsavedChanges();
       }
     },
-    [handleEdgeChanges, setHasUnsavedChanges],
+    [handleEdgeChanges, markHasUnsavedChanges],
   );
 
   const onConnect: OnConnect = useCallback(
@@ -342,25 +341,25 @@ const FlowChartTab = () => {
       setNodes((prev) =>
         prev.filter((node) => !selectedNodeIds.includes(node.id)),
       );
-      setHasUnsavedChanges(true);
+      markHasUnsavedChanges();
     },
-    [setNodes, setHasUnsavedChanges],
+    [setNodes, markHasUnsavedChanges],
   );
 
   const clearCanvas = useCallback(() => {
     setNodes([]);
     setTextNodes([]);
     setEdges([]);
-    setHasUnsavedChanges(true);
-    setProgramResults([]);
+    markHasUnsavedChanges();
+    resetProgramResults();
 
     sendEventToMix(MixPanelEvents.canvasCleared);
   }, [
     setNodes,
     setTextNodes,
     setEdges,
-    setHasUnsavedChanges,
-    setProgramResults,
+    markHasUnsavedChanges,
+    resetProgramResults,
   ]);
 
   useEffect(() => {

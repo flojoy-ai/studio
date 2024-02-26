@@ -12,9 +12,7 @@ import { DownloadIcon } from "lucide-react";
 
 const StatusBar = (): JSX.Element => {
   const [messages, setMessages] = useState<string[]>([]);
-  const {
-    states: { serverStatus, logs },
-  } = useSocket();
+  const { serverStatus, logs } = useSocket();
   const [minimize, setMinimize] = useState(true);
   const lastElem = useRef<HTMLDivElement>(null);
 

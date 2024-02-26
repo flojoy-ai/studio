@@ -3,8 +3,7 @@ import { useSocket } from "@/renderer/hooks/useSocket";
 import saveAs from "file-saver";
 
 export const ExportResultButton = () => {
-  const { states } = useSocket();
-  const { programResults } = states;
+  const { programResults } = useSocket();
 
   const exportResultDisabled = programResults.length == 0;
 

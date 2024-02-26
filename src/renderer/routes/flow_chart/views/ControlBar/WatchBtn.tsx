@@ -1,4 +1,3 @@
-import { useFlowChartState } from "@/renderer/hooks/useFlowChartState";
 import { useEffect, useState } from "react";
 import { Node, Edge } from "reactflow";
 import { ElementsData } from "@/renderer/types";
@@ -12,6 +11,7 @@ import {
   TooltipContent,
 } from "@/renderer/components/ui/tooltip";
 import { toast } from "sonner";
+import { useFlowchartStore } from "@/renderer/stores/flowchart";
 
 interface WatchBtnProps {
   playFC: (nodes: Node<ElementsData>[], edges: Edge[]) => void;
@@ -19,7 +19,7 @@ interface WatchBtnProps {
 }
 
 const WatchBtn = ({ playFC, cancelFC }: WatchBtnProps) => {
-  const { nodeParamChanged } = useFlowChartState();
+  const nodeParamChanged = useFlowchartStore((state) => state.nodeParamChanged);
   const { nodes, edges } = useFlowChartGraph();
   const [isWatching, setIsWatching] = useState(false);
 

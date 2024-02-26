@@ -6,17 +6,17 @@ import {
   projectPathAtom,
   showWelcomeScreenAtom,
 } from "@/renderer/hooks/useFlowChartState";
-import { useHasUnsavedChanges } from "@/renderer/hooks/useHasUnsavedChanges";
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";
+import { useFlowchartStore } from "../stores/flowchart";
 
 export const useLoadApp = () => {
   const { loadFlowExportObject } = useFlowChartGraph();
-  const {
-    states: { setProgramResults },
-  } = useSocket();
+  const { resetProgramResults } = useSocket();
   const setProject = useSetAtom(projectAtom);
   const setProjectPath = useSetAtom(projectPathAtom);
-  const { setHasUnsavedChanges } = useHasUnsavedChanges();
+  const resetHasUnsavedChanges = useFlowchartStore(
+    (state) => state.resetHasUnsavedChanges,
+  );
   const setShowWelcomeScreen = useSetAtom(showWelcomeScreenAtom);
 
   const openFilePicker = () => {
@@ -24,16 +24,19 @@ export const useLoadApp = () => {
       .openFilePicker()
       .then((result) => {
         if (!result) return;
+
         const { fileContent, filePath } = result;
         sendEventToMix("Selected Files");
         const parsedFileContent = JSON.parse(fileContent);
+
         const flow = parsedFileContent.rfInstance;
         setProject(parsedFileContent);
         setProjectPath(filePath);
-        setHasUnsavedChanges(false);
+        resetHasUnsavedChanges();
+
         const textNodes = parsedFileContent.textNodes;
         loadFlowExportObject(flow, textNodes);
-        setProgramResults([]);
+        resetProgramResults();
         setShowWelcomeScreen(false);
       })
       .catch((errors) => {

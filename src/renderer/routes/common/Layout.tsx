@@ -3,11 +3,11 @@ import Header from "./Header";
 import { useSocket } from "@/renderer/hooks/useSocket";
 import { projectAtom } from "@/renderer/hooks/useFlowChartState";
 import { Input } from "@/renderer/components/ui/input";
-import { useHasUnsavedChanges } from "@/renderer/hooks/useHasUnsavedChanges";
 import { IS_CLOUD_DEMO } from "@/renderer/data/constants";
 import { Outlet } from "react-router-dom";
 import StatusBar from "@/renderer/routes/common/StatusBar";
-import { useActiveTab, TabName } from "@/renderer/hooks/useActiveTab";
+import { useActiveTab } from "@/renderer/hooks/useActiveTab";
+import { useFlowchartStore } from "@/renderer/stores/flowchart";
 
 export const HEADER_HEIGHT = 72;
 export const ACTIONS_HEIGHT = 52;
@@ -18,17 +18,21 @@ export const LAYOUT_TOP_HEIGHT =
   HEADER_HEIGHT + ACTIONS_HEIGHT + SERVER_STATUS_HEIGHT;
 
 export const Layout = () => {
-  const {
-    states: { serverStatus },
-  } = useSocket();
+  const { serverStatus } = useSocket();
 
   const [project, setProject] = useAtom(projectAtom);
-  const { hasUnsavedChanges, setHasUnsavedChanges } = useHasUnsavedChanges();
-  const { activeTab, setActiveTab } = useActiveTab();
+  const { hasUnsavedChanges, markHasUnsavedChanges } = useFlowchartStore(
+    (state) => ({
+      hasUnsavedChanges: state.hasUnsavedChanges,
+      markHasUnsavedChanges: state.markHasUnsavedChanges,
+    }),
+  );
+
+  const { activeTab } = useActiveTab();
 
   const handleProjectRename = (e) => {
     setProject({ ...project, name: e.target.value });
-    setHasUnsavedChanges(true);
+    markHasUnsavedChanges();
   };
 
   return (

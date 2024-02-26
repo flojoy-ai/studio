@@ -11,8 +11,8 @@ import {
   projectAtom,
   projectPathAtom,
 } from "@/renderer/hooks/useFlowChartState";
-import { useHasUnsavedChanges } from "@/renderer/hooks/useHasUnsavedChanges";
 import { useSocket } from "@/renderer/hooks/useSocket";
+import { useFlowchartStore } from "@/renderer/stores/flowchart";
 
 export interface AppGalleryElementProps {
   galleryApp: GalleryApp;
@@ -24,14 +24,15 @@ export const GalleryElement = ({
   setIsGalleryOpen,
 }: AppGalleryElementProps) => {
   const { loadFlowExportObject } = useFlowChartGraph();
-  const { setHasUnsavedChanges } = useHasUnsavedChanges();
+  const resetHasUnsavedChanges = useFlowchartStore(
+    (state) => state.markHasUnsavedChanges,
+  );
   const setProject = useSetAtom(projectAtom);
   const setProjectPath = useSetAtom(projectPathAtom);
 
   const rfInstance = useReactFlow();
   const nodesInitialized = useNodesInitialized();
-  const { states } = useSocket();
-  const { setProgramResults } = states;
+  const { resetProgramResults } = useSocket();
 
   const handleAppLoad = async () => {
     const raw = await import(`../../data/apps/${galleryApp.appPath}.json`);
@@ -47,8 +48,9 @@ export const GalleryElement = ({
     loadFlowExportObject(app.rfInstance, app.textNodes ?? []);
     setProjectPath(undefined);
     setIsGalleryOpen(false);
-    setHasUnsavedChanges(false);
-    setProgramResults([]);
+
+    resetHasUnsavedChanges();
+    resetProgramResults();
   };
 
   useEffect(() => {

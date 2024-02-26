@@ -1,6 +1,6 @@
 import { NodeResult } from "@/renderer/routes/common/types/ResultsType";
-import { SetStateAction, useSetAtom } from "jotai";
-import { createContext, Dispatch, useEffect, useMemo, useState } from "react";
+import { useSetAtom } from "jotai";
+import { createContext, useEffect, useMemo, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";
 import { v4 as UUID } from "uuid";
 import { SOCKET_URL } from "@/renderer/data/constants";
@@ -14,9 +14,9 @@ import { toast } from "sonner";
 import { useCustomSections } from "@/renderer/hooks/useCustomBlockManifest";
 import { useSettings } from "@/renderer/hooks/useSettings";
 
-type States = {
+type SocketState = {
   programResults: NodeResult[];
-  setProgramResults: Dispatch<SetStateAction<NodeResult[]>>;
+  resetProgramResults: () => void;
   runningNode: string;
   serverStatus: IServerStatus;
   failedNodes: Record<string, string>;
@@ -44,7 +44,7 @@ const DEFAULT_STATES = {
   socketId: "",
 };
 
-export const SocketContext = createContext<{ states: States } | null>(null);
+export const SocketContext = createContext<SocketState | null>(null);
 
 export const SocketContextProvider = ({
   children,
@@ -55,12 +55,14 @@ export const SocketContextProvider = ({
   const [states, setStates] = useState(DEFAULT_STATES);
   const [programResults, setProgramResults] = useState<NodeResult[]>([]);
   const [logs, setLogs] = useState<string[]>([]);
+
   const hardwareRefetch = useHardwareRefetch();
   const { handleImportCustomBlocks } = useCustomSections();
   const fetchManifest = useFetchManifest();
   const fetchMetadata = useFetchNodesMetadata();
   const setManifestChanged = useSetAtom(manifestChangedAtom);
   const { settings } = useSettings("device");
+
   const setting = settings.find(
     (setting) => setting.key === "niDAQmxDeviceDiscovery",
   );
@@ -71,7 +73,7 @@ export const SocketContextProvider = ({
   const fetchDMMDevices = settingdmm ? settingdmm.value : false;
 
   const handleStateChange =
-    (state: keyof States) =>
+    (state: keyof SocketState) =>
     (value: string | number | Record<string, string> | IServerStatus) => {
       setStates((prev) => ({
         ...prev,
@@ -118,16 +120,16 @@ export const SocketContextProvider = ({
     socket,
     setManifestChanged,
     handleImportCustomBlocks,
+    fetchDriverDevices,
+    fetchDMMDevices,
   ]);
 
   const values = useMemo(
     () => ({
-      states: {
-        ...states,
-        programResults,
-        setProgramResults,
-        logs,
-      },
+      ...states,
+      programResults,
+      resetProgramResults: () => setProgramResults([]),
+      logs,
     }),
     [programResults, states, logs],
   );

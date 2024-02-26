@@ -2,15 +2,19 @@ import { useAtomValue, useAtom } from "jotai";
 import { toast } from "sonner";
 import { useFlowChartGraph } from "./useFlowChartGraph";
 import { projectAtom, projectPathAtom } from "./useFlowChartState";
-import { useHasUnsavedChanges } from "./useHasUnsavedChanges";
 import { makeAppFileContent, saveFileAs } from "@/renderer/lib/save";
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 import useWithPermission from "./useWithPermission";
+import { useFlowchartStore } from "../stores/flowchart";
 
 export const useSave = () => {
   const { withPermissionCheck } = useWithPermission();
   const { nodes, edges, textNodes } = useFlowChartGraph();
-  const { setHasUnsavedChanges } = useHasUnsavedChanges();
+
+  const resetHasUnsavedChanges = useFlowchartStore(
+    (state) => state.resetHasUnsavedChanges,
+  );
+
   const project = useAtomValue(projectAtom);
   const [projectPath, setProjectPath] = useAtom(projectPathAtom);
 
@@ -21,7 +25,7 @@ export const useSave = () => {
       window.api.saveFile(projectPath, fileContent);
 
       toast.success("App saved!");
-      setHasUnsavedChanges(false);
+      resetHasUnsavedChanges();
       return;
     }
     try {
@@ -32,7 +36,7 @@ export const useSave = () => {
         ? `Saved app to ${path}!`
         : "Saved app successfully!";
       toast.success(message);
-      setHasUnsavedChanges(false);
+      resetHasUnsavedChanges();
     } catch {
       // exception just means user cancelled save
     }

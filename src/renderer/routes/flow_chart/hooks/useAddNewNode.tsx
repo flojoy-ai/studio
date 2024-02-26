@@ -5,8 +5,7 @@ import { Node } from "reactflow";
 import { ElementsData } from "@/renderer/types";
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 import { centerPositionAtom } from "@/renderer/hooks/useFlowChartState";
-import { useAtomValue, useSetAtom } from "jotai";
-import { unsavedChangesAtom } from "@/renderer/hooks/useHasUnsavedChanges";
+import { useAtomValue } from "jotai";
 import { addRandomPositionOffset } from "@/renderer/utils/RandomPositionOffset";
 import { BlocksMetadataMap } from "@/renderer/types/blocks-metadata";
 import { createNodeId, createNodeLabel } from "@/renderer/utils/NodeUtils";
@@ -15,6 +14,7 @@ import {
   DeviceInfo,
   useHardwareDevices,
 } from "@/renderer/hooks/useHardwareDevices";
+import { useFlowchartStore } from "@/renderer/stores/flowchart";
 
 export type AddNewNode = (node: NodeElement) => void;
 
@@ -28,7 +28,9 @@ export const useAddNewNode = (
   nodesMetadataMap: BlocksMetadataMap | undefined | null,
 ) => {
   const center = useAtomValue(centerPositionAtom);
-  const setHasUnsavedChanges = useSetAtom(unsavedChangesAtom);
+  const markHasUnsavedChanges = useFlowchartStore(
+    (state) => state.markHasUnsavedChanges,
+  );
   const hardwareDevices: DeviceInfo | undefined = useHardwareDevices();
 
   return useCallback(
@@ -80,7 +82,7 @@ export const useAddNewNode = (
         position: nodePosition,
       };
       setNodes((els) => els.concat(newNode));
-      setHasUnsavedChanges(true);
+      markHasUnsavedChanges();
       localStorage.setItem("prev_block_pos", JSON.stringify(nodePosition));
       sendEventToMix("Node Added", { nodeTitle: newNode.data?.label ?? "" });
     },
@@ -88,7 +90,7 @@ export const useAddNewNode = (
       setNodes,
       getTakenNodeLabels,
       center,
-      setHasUnsavedChanges,
+      markHasUnsavedChanges,
       nodesMetadataMap,
     ],
   );

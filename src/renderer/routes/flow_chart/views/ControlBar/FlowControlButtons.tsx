@@ -3,10 +3,7 @@ import { Node, Edge } from "reactflow";
 import { ElementsData } from "@/renderer/types";
 import { Ban, Play } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
-import {
-  projectAtom,
-  useFlowChartState,
-} from "@/renderer/hooks/useFlowChartState";
+import { projectAtom } from "@/renderer/hooks/useFlowChartState";
 import { useSettings } from "@/renderer/hooks/useSettings";
 import { useSocket } from "@/renderer/hooks/useSocket";
 import {
@@ -21,14 +18,16 @@ import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
 import { useManifest } from "@/renderer/hooks/useManifest";
 import _ from "lodash";
 import { toast } from "sonner";
+import { useFlowchartStore } from "@/renderer/stores/flowchart";
 
 const FlowControlButtons = () => {
-  const { states } = useSocket();
-  const { socketId, serverStatus } = states;
+  const { socketId, serverStatus } = useSocket();
 
   const { settings } = useSettings("backend");
 
-  const { setNodeParamChanged } = useFlowChartState();
+  const resetNodeParamChanged = useFlowchartStore(
+    (state) => state.markNodeParamChanged,
+  );
 
   const [project, setProject] = useAtom(projectAtom);
   const manifest = useManifest();
@@ -71,7 +70,7 @@ const FlowControlButtons = () => {
         jobId: socketId,
         settings: settings.filter((setting) => setting.group === "backend"),
       });
-      setNodeParamChanged(false);
+      resetNodeParamChanged();
     } else {
       alert(
         "There is no program to send to server. \n Please add at least one node first.",
