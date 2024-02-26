@@ -52,7 +52,6 @@ const DepManagerModal = ({
     const groups = await window.api.poetryGetGroupInfo();
     setAllDependencies(deps);
     setUserDependencies(userDeps);
-    console.log(userDependencies);
     setDepGroups(groups);
     setIsFetching(false);
   }, []);
