@@ -77,7 +77,7 @@ const mapStatusToDisplay: { [k in StatusTypes] } = {
     ) : (
       <HoverCard>
         <HoverCardTrigger>
-          <p className="text text-red-500 underline underline-offset-2">FAIL</p>
+          <p className="z-20 relative text text-red-500 underline underline-offset-2">FAIL</p>
         </HoverCardTrigger>
         <HoverCardContent className="w-256">
           <h2 className="text-muted-foreground">Error Message:</h2>
