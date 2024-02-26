@@ -12,6 +12,7 @@ from captain.utils.config import ts_manager
 
 lock = Lock()
 
+
 def _handle_subscribe(_data: TestSequenceRun, _ts_manager: TSManager):
     logger.info("TEST SEQUENCER WS CONNECTION TEST PASSED")
 
@@ -35,7 +36,9 @@ def _handle_export(data: TestSequenceRun, ts_manager: TSManager):
     ts_manager.runner = None
 
 
-event_to_handle: dict[TestSequenceEvents, Callable[[TestSequenceRun, TSManager], None]] = {
+event_to_handle: dict[
+    TestSequenceEvents, Callable[[TestSequenceRun, TSManager], None]
+] = {
     "subscribe": _handle_subscribe,
     "run": _handle_run,
     "stop": ts_manager.kill_runner,

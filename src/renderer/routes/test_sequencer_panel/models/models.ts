@@ -21,9 +21,9 @@ export const testSequenceRunRequest: (tree: TestRootNode) => TestSequenceRun = (
   };
 };
 
-export const testSequenceStopRequest: (tree: TestRootNode) => TestSequenceRun = (
+export const testSequenceStopRequest: (
   tree: TestRootNode,
-) => {
+) => TestSequenceRun = (tree: TestRootNode) => {
   return {
     event: "stop",
     data: tree,
@@ -31,7 +31,6 @@ export const testSequenceStopRequest: (tree: TestRootNode) => TestSequenceRun = 
     project_id: null,
   };
 };
-
 
 export const testSequenceExportCloud: (
   tree: TestRootNode,

@@ -17,7 +17,7 @@ class TestSequenceMessage(dict):
     the expected format of the front-end.
     """
 
-    state: str 
+    state: str
     target_id: str
     result: bool
     time_taken: float

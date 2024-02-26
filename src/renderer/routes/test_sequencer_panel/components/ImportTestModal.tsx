@@ -22,7 +22,7 @@ type Props = {
 
 export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
   const [checked, setChecked] = useState<boolean>(false);
-  const { setIsDepManagerModalOpen } = useToggleSettingModal ();
+  const { setIsDepManagerModalOpen } = useToggleSettingModal();
   const openFilePicker = useTestImport();
   const { setIsLocked } = useTestSequencerState();
 

@@ -21,7 +21,6 @@ class WSManager:
 
 # Manager for Test Sequencer activities
 class TSManager(WSManager):
-
     def __init__(self):
         self.runner: asyncio.Runner | None = None  # holds the running sequencer
         super().__init__()
@@ -35,11 +34,18 @@ class TSManager(WSManager):
                 # Current Task can't be kill, but a PoisonPill in queue will stop the next task
                 logger.error(f"Error while killing TS Runner: {e}")
             self.runner = None
-            asyncio.run(self.ws.broadcast(
-                TestSequenceMessage(
-                    MsgState.ERROR.value, "", False, -1, False, "Test sequence was interrupted"
+            asyncio.run(
+                self.ws.broadcast(
+                    TestSequenceMessage(
+                        MsgState.ERROR.value,
+                        "",
+                        False,
+                        -1,
+                        False,
+                        "Test sequence was interrupted",
+                    )
                 )
-            ))
+            )
 
 
 # Manager for flowchart activities (main manager)

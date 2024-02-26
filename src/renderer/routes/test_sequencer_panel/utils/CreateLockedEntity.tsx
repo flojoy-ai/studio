@@ -14,9 +14,7 @@ export const createLockedEntity: CreateLockedEntity = (ComponentToDisable) => {
             ? props.isLocked || value.isLocked
             : value.isLocked;
         const isException =
-          typeof props.isException !== "undefined"
-            ? props.isException
-            : false;
+          typeof props.isException !== "undefined" ? props.isException : false;
         const disabled = isLocked && !isException;
         return (
           <ComponentToDisable disabled={disabled} {...props}>

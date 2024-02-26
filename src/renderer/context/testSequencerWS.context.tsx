@@ -22,8 +22,14 @@ export function TestSequencerWSProvider({
 }: {
   children?: React.ReactNode;
 }) {
-  const { websocketId, setRunning, setElems, setIsLocked, setIsLoading, setBackendState } =
-    useTestSequencerState();
+  const {
+    websocketId,
+    setRunning,
+    setElems,
+    setIsLocked,
+    setIsLoading,
+    setBackendState,
+  } = useTestSequencerState();
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
     `${TS_SOCKET_URL}/${websocketId}`,
     {

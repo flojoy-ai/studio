@@ -3,7 +3,10 @@ import { DataTable } from "./data-table/DataTable";
 import { SummaryTable } from "./SummaryTable";
 import { CloudPanel } from "./CloudPanel";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
-import { testSequenceRunRequest, testSequenceStopRequest } from "../models/models";
+import {
+  testSequenceRunRequest,
+  testSequenceStopRequest,
+} from "../models/models";
 import { TestSequenceElement } from "@/renderer/types/testSequencer";
 import { ImportTestModal } from "./ImportTestModal";
 import LockableButton from "./lockable/LockedButtons";
@@ -110,9 +113,15 @@ const TestSequencerView = () => {
                     className="mt-4 w-full gap-2"
                     isLocked={_.isEmpty(tree)}
                     isException={backendState === "TEST_SET_START"}
-                    onClick={backendState === "TEST_SET_START" ? handleClickStopTest : handleClickRunTest}
+                    onClick={
+                      backendState === "TEST_SET_START"
+                        ? handleClickStopTest
+                        : handleClickRunTest
+                    }
                   >
-                    {backendState === "TEST_SET_START" ? "Stop Test Sequence" : "Run Test Sequence"}
+                    {backendState === "TEST_SET_START"
+                      ? "Stop Test Sequence"
+                      : "Run Test Sequence"}
                   </LockableButton>
                 </div>
               </div>
