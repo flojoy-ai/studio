@@ -102,6 +102,7 @@ export function DataTable() {
       ),
       cell: ({ row }) => (
         <Checkbox
+          className="z-20 relative"
           checked={row.getIsSelected()}
           onCheckedChange={(value) => row.toggleSelected(!!value)}
           aria-label="Select row"
@@ -251,7 +252,7 @@ export function DataTable() {
           });
         };
         return (
-          <div className="flex flex-row justify-center">
+          <div className="flex flex-row justify-center z-20 relative">
             <LockableButton variant="ghost">
               <ChevronUpIcon onClick={onUpClick} />
             </LockableButton>
@@ -418,6 +419,7 @@ export function DataTable() {
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
+                <TableHeader key={"drag&drop"}/>
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
