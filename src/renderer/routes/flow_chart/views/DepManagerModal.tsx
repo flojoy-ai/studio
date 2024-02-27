@@ -265,7 +265,10 @@ const DepManagerModal = ({
                   variant={"link"}
                   onClick={() => setCheckAllDependencies(true)}
                 >
-                  <p className="mt-2 text-xs text-muted-foreground" data-testid="check-all-deps">
+                  <p
+                    className="mt-2 text-xs text-muted-foreground"
+                    data-testid="check-all-deps"
+                  >
                     Consult all dependencies
                   </p>
                 </Button>
@@ -306,7 +309,12 @@ const DepManagerModal = ({
                   variant={"link"}
                   onClick={() => setCheckAllDependencies(false)}
                 >
-                  <p className="mt-2 text-xs text-muted-foreground" data-testid="back-manager">Back</p>
+                  <p
+                    className="mt-2 text-xs text-muted-foreground"
+                    data-testid="back-manager"
+                  >
+                    Back
+                  </p>
                 </Button>
               </div>
             </div>
