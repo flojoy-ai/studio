@@ -110,6 +110,7 @@
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@playwright/test": "^1.41.2",
     "@tailwindcss/typography": "^0.5.10",
+    "@total-typescript/ts-reset": "^0.5.1",
     "@types/adm-zip": "^0.5.5",
     "@types/bcryptjs": "^2.4.6",
     "@types/file-saver": "^2.0.7",
