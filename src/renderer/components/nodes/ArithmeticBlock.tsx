@@ -1,6 +1,6 @@
-import { CustomNodeProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/node";
 import { memo } from "react";
-import DefaultNode from "./DefaultNode";
+import DefaultBlock from "./DefaultBlock";
 
 const operatorMap = {
   MULTIPLY: "×",
@@ -14,14 +14,14 @@ const operatorMap = {
   REMAINDER: "%",
 };
 
-const ArithmeticNode = (props: CustomNodeProps) => {
+const ArithmeticBlock = (props: BlockProps) => {
   return (
-    <DefaultNode width={72} height={72} {...props}>
+    <DefaultBlock width={72} height={72} {...props}>
       <h2 className="m-0 text-center font-sans text-4xl font-semibold tracking-wider text-accent1">
         {operatorMap[props.data.func]}
       </h2>
-    </DefaultNode>
+    </DefaultBlock>
   );
 };
 
-export default memo(ArithmeticNode);
+export default memo(ArithmeticBlock);

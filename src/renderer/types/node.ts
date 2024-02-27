@@ -78,4 +78,4 @@ export type TextData = {
   text: string;
 };
 
-export type CustomNodeProps = NodeProps<BlockData>;
+export type BlockProps = NodeProps<BlockData>;

@@ -1,16 +1,16 @@
 import { memo, useState } from "react";
 import clsx from "clsx";
-import { CustomNodeProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/node";
 import NodeWrapper from "@/renderer/components/common/NodeWrapper";
 import { LogicHandleComponent } from "@/renderer/components/common/LogicHandleComponent";
-import NodeInput from "@/renderer/components/common/NodeInput";
+import BlockLabelInput from "@/renderer/components/common/NodeInput";
 import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
 
-const LogicNode = ({
+const LogicBlock = ({
   selected,
   data,
   children,
-}: CustomNodeProps & { children?: React.ReactNode }) => {
+}: BlockProps & { children?: React.ReactNode }) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   const { nodeRunning, nodeError } = useNodeStatus(data.id);
 
@@ -27,7 +27,7 @@ const LogicNode = ({
         {children ??
           (isRenamingTitle ? (
             <div className="-rotate-45">
-              <NodeInput
+              <BlockLabelInput
                 title={data.label}
                 id={data.id}
                 setIsRenamingTitle={setIsRenamingTitle}
@@ -44,4 +44,4 @@ const LogicNode = ({
   );
 };
 
-export default memo(LogicNode);
+export default memo(LogicBlock);

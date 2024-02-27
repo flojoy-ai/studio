@@ -1,4 +1,4 @@
-import { CustomNodeProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/node";
 import NodeWrapper from "@/renderer/components/common/NodeWrapper";
 import clsx from "clsx";
 import HandleComponent from "@/renderer/components/common/HandleComponent";
@@ -53,7 +53,7 @@ const chartElemMap = {
   HEATMAP: Heatmap,
 };
 
-const VisorNode = ({ selected, id, data }: CustomNodeProps) => {
+const VisorBlock = ({ selected, id, data }: BlockProps) => {
   const { resolvedTheme } = useTheme();
   const { nodeRunning, nodeError, nodeResult } = useNodeStatus(data.id);
 
@@ -139,4 +139,4 @@ const VisorNode = ({ selected, id, data }: CustomNodeProps) => {
   );
 };
 
-export default memo(VisorNode);
+export default memo(VisorBlock);

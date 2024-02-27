@@ -37,7 +37,7 @@ type Actions = {
     paramName: string,
     value: BlockParameterValue,
   ) => Result<void>;
-  updateBlockName: (blockId: string, name: string) => Result<void>;
+  updateBlockLabel: (blockId: string, name: string) => Result<void>;
 
   handleNodeChanges: (
     cb: (nodes: Node<BlockData>[]) => Node<BlockData>[],
@@ -157,7 +157,7 @@ export const useProjectStore = create<State & Actions>()(
       return Ok(undefined);
     },
 
-    updateBlockName: (blockId: string, name: string) => {
+    updateBlockLabel: (blockId: string, name: string) => {
       try {
         set((state) => {
           const node = state.nodes.find((n) => n.data.id === blockId);

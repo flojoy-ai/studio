@@ -3,7 +3,7 @@ export type {
   DataContainer,
   DataContainerType,
 } from "./dataContainer";
-export type { CustomNodeProps, BlockData } from "./node";
+export type { BlockProps as CustomNodeProps, BlockData } from "./node";
 export type {
   DataContainer2PlotlyProps,
   OverridePlotData,

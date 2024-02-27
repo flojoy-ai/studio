@@ -1,19 +1,19 @@
 import { memo, useState } from "react";
 import clsx from "clsx";
-import { CustomNodeProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/node";
 import NodeWrapper from "@/renderer/components/common/NodeWrapper";
 import HandleComponent from "@/renderer/components/common/HandleComponent";
 import { textWrap } from "@/renderer/utils/TextWrap";
-import NodeInput from "@/renderer/components/common/NodeInput";
+import BlockLabelInput from "@/renderer/components/common/NodeInput";
 import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
 
-const DefaultNode = ({
+const DefaultBlock = ({
   selected,
   data,
   width,
   height,
   children,
-}: CustomNodeProps & {
+}: BlockProps & {
   width?: number;
   height?: number;
   children?: React.ReactNode;
@@ -37,7 +37,7 @@ const DefaultNode = ({
       >
         {children ??
           (isRenamingTitle ? (
-            <NodeInput
+            <BlockLabelInput
               title={data.label}
               id={data.id}
               setIsRenamingTitle={setIsRenamingTitle}
@@ -53,4 +53,4 @@ const DefaultNode = ({
   );
 };
 
-export default memo(DefaultNode);
+export default memo(DefaultBlock);

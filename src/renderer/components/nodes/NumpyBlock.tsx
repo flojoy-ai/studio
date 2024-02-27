@@ -1,13 +1,13 @@
 import { memo, useState } from "react";
 import clsx from "clsx";
+import { BlockProps } from "@/renderer/types/node";
 import NodeWrapper from "@/renderer/components/common/NodeWrapper";
-import { CustomNodeProps } from "@/renderer/types/node";
-import { ScipySvg } from "@/renderer/assets/ArithmeticSVG";
+import { NumpySvg } from "@/renderer/assets/ArithmeticSVG";
 import HandleComponent from "@/renderer/components/common/HandleComponent";
-import NodeInput from "@/renderer/components/common/NodeInput";
+import BlockLabelInput from "@/renderer/components/common/NodeInput";
 import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
 
-const NumpyNode = ({ selected, data }: CustomNodeProps) => {
+const NumpyBlock = ({ selected, data }: BlockProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   const { nodeRunning, nodeError } = useNodeStatus(data.id);
 
@@ -22,16 +22,16 @@ const NumpyNode = ({ selected, data }: CustomNodeProps) => {
         onDoubleClick={() => setIsRenamingTitle(true)}
       >
         <div className="flex flex-col items-center">
-          <ScipySvg className="h-16 w-16" />
+          <NumpySvg className="h-16 w-16" />
           {isRenamingTitle ? (
-            <NodeInput
+            <BlockLabelInput
               title={data.label}
               id={data.id}
               setIsRenamingTitle={setIsRenamingTitle}
             />
           ) : (
             <h2 className="m-0 text-center font-sans text-2xl tracking-wider text-blue-500">
-              <span>sp.</span>
+              <span>np.</span>
               <span className="font-extrabold">{data.label}</span>
             </h2>
           )}
@@ -42,4 +42,4 @@ const NumpyNode = ({ selected, data }: CustomNodeProps) => {
   );
 };
 
-export default memo(NumpyNode);
+export default memo(NumpyBlock);

@@ -1,18 +1,18 @@
 import { memo } from "react";
-import { CustomNodeProps } from "@/renderer/types/node";
-import LogicNode from "./LogicNode";
+import { BlockProps } from "@/renderer/types/node";
+import LogicBlock from "./LogicBlock";
 
-export const ConditionalNode = (props: CustomNodeProps) => {
+export const ConditionalBlock = (props: BlockProps) => {
   const { data } = props;
   const operator = data.ctrls["operator_type"].value as string;
 
   return (
-    <LogicNode {...props}>
+    <LogicBlock {...props}>
       <h2 className="m-0 -rotate-45 text-center font-sans text-2xl font-extrabold tracking-wider text-accent3">
         {operator}
       </h2>
-    </LogicNode>
+    </LogicBlock>
   );
 };
 
-export default memo(ConditionalNode);
+export default memo(ConditionalBlock);

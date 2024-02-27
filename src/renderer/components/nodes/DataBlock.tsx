@@ -1,13 +1,13 @@
 import { memo, useState } from "react";
 import clsx from "clsx";
-import { CustomNodeProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/node";
 import NodeWrapper from "@/renderer/components/common/NodeWrapper";
 import HandleComponent from "@/renderer/components/common/HandleComponent";
 import { textWrap } from "@/renderer/utils/TextWrap";
-import NodeInput from "@/renderer/components/common/NodeInput";
+import BlockLabelInput from "@/renderer/components/common/NodeInput";
 import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
 
-const DataNode = ({ selected, data }: CustomNodeProps) => {
+const DataBlock = ({ selected, data }: BlockProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   const { nodeRunning, nodeError } = useNodeStatus(data.id);
 
@@ -25,7 +25,7 @@ const DataNode = ({ selected, data }: CustomNodeProps) => {
         onDoubleClick={() => setIsRenamingTitle(true)}
       >
         {isRenamingTitle ? (
-          <NodeInput
+          <BlockLabelInput
             title={data.label}
             id={data.id}
             setIsRenamingTitle={setIsRenamingTitle}
@@ -41,4 +41,4 @@ const DataNode = ({ selected, data }: CustomNodeProps) => {
   );
 };
 
-export default memo(DataNode);
+export default memo(DataBlock);

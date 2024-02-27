@@ -1,13 +1,13 @@
 import { memo, useState } from "react";
 import clsx from "clsx";
-import { CustomNodeProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/node";
 import NodeWrapper from "@/renderer/components/common/NodeWrapper";
 import { DodecahedronSVG } from "@/renderer/assets/DodecahedronSVG";
 import HandleComponent from "@/renderer/components/common/HandleComponent";
-import NodeInput from "@/renderer/components/common/NodeInput";
+import BlockLabelInput from "@/renderer/components/common/NodeInput";
 import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
 
-const IONode = ({ selected, data }: CustomNodeProps) => {
+const IOBlock = ({ selected, data }: BlockProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   const { nodeRunning, nodeError } = useNodeStatus(data.id);
 
@@ -23,7 +23,7 @@ const IONode = ({ selected, data }: CustomNodeProps) => {
         <DodecahedronSVG />
 
         {isRenamingTitle ? (
-          <NodeInput
+          <BlockLabelInput
             title={data.label}
             id={data.id}
             setIsRenamingTitle={setIsRenamingTitle}
@@ -42,4 +42,4 @@ const IONode = ({ selected, data }: CustomNodeProps) => {
   );
 };
 
-export default memo(IONode);
+export default memo(IOBlock);
