@@ -11,7 +11,9 @@ on:
       - "docs/**"
     types:
       - opened
+      - reopened
       - synchronize
+      - ready_for_review
 # When pushing new commits, cancel any running builds on that branch
 concurrency:
   group: ${{ github.ref }}
@@ -25,7 +27,7 @@ env:
 
 jobs:
   electron_app:
-    if: ${{ (github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'main') || (github.event_name == 'push' && github.ref == 'refs/heads/main') }}
+    if: ${{ (!github.event.pull_request.draft && github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'main') || (github.event_name == 'push' && github.ref == 'refs/heads/main') }}
     strategy:
       matrix:
         os: [macos-latest-xlarge, windows-latest, "ubuntu-latest"]
