@@ -28,23 +28,23 @@ export async function checkPythonInstallation(
   }
   if (existsSync(interpreterCachePath)) {
     const interpreter = readFileSync(interpreterCachePath).toString("utf-8");
-    if (existsSync(interpreter)) {
-      const foundInList = global.pythonInterpreters.find(
+    const matchedVersion = await PythonManager.checkVersion(interpreter, {
+      major: 3,
+      minor: 11,
+    });
+    if (matchedVersion) {
+      const foundInterpreterInList = global.pythonInterpreters.find(
         (i) => i.path === interpreter,
       );
-      if (foundInList) {
-        global.pythonInterpreters = global.pythonInterpreters.map((i) =>
-          i.path === interpreter
-            ? {
-                ...i,
-                default: true,
-              }
-            : i,
-        );
+      if (foundInterpreterInList) {
+        global.pythonInterpreters = global.pythonInterpreters.map((i) => ({
+          ...i,
+          default: i.path === interpreter ? true : false,
+        }));
       } else {
         global.pythonInterpreters.push({
           path: interpreter,
-          version: (await PythonManager.getVersion(interpreter)) ?? {
+          version: {
             major: 3,
             minor: 11,
           },

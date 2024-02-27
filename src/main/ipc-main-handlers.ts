@@ -40,8 +40,11 @@ import {
 import {
   poetryGetGroupInfo,
   poetryInstallDepGroup,
+  poetryInstallDepUserGroup,
   poetryShowTopLevel,
+  poetryShowUserGroup,
   poetryUninstallDepGroup,
+  poetryUninstallDepUserGroup,
 } from "./python/poetry";
 import { createEditorWindow } from "./window";
 import {
@@ -122,12 +125,19 @@ export const registerIpcMainHandlers = () => {
   });
 
   ipcMain.handle(API.poetryShowTopLevel, poetryShowTopLevel);
+  ipcMain.handle(API.poetryShowUserGroup, poetryShowUserGroup);
   ipcMain.handle(API.poetryGetGroupInfo, poetryGetGroupInfo);
   ipcMain.handle(API.poetryInstallDepGroup, (_, group) => {
     return poetryInstallDepGroup(group);
   });
   ipcMain.handle(API.poetryUninstallDepGroup, (_, group) => {
     return poetryUninstallDepGroup(group);
+  });
+  ipcMain.handle(API.poetryUninstallDepUserGroup, (_, dep) => {
+    return poetryUninstallDepUserGroup(dep);
+  });
+  ipcMain.handle(API.poetryInstallDepUserGroup, (_, dep) => {
+    return poetryInstallDepUserGroup(dep);
   });
   ipcMain.handle(API.openFilePicker, openFilePicker);
   ipcMain.handle(

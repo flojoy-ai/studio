@@ -60,10 +60,16 @@ test.describe("Dependency Manager modal", () => {
       window.locator("div", { hasText: "Dependency Manager Idle" }).first(),
     ).toBeVisible({ timeout: 30000 });
 
+    // Consult the package list
+    await window.getByTestId("check-all-deps").click();
+
     // Expect dev group dependency is listed
     await expect(
       window.locator("tr", { hasText: "ruff" }).first(),
     ).toBeVisible();
+
+    // Go back to the main view
+    await window.getByTestId("back-manager").click();
   });
 
   test("Should uninstall dev group dependency", async () => {
@@ -76,9 +82,15 @@ test.describe("Dependency Manager modal", () => {
       window.locator("div", { hasText: "Dependency Manager Idle" }).first(),
     ).toBeVisible({ timeout: 30000 });
 
+    // Consult the package list
+    await window.getByTestId("check-all-deps").click();
+
     // Expect dev group dependency is removed from package list
     await expect(
       window.locator("tr", { hasText: "ruff" }).first(),
     ).toBeHidden();
+
+    // Go back to the main view
+    await window.getByTestId("back-manager").click();
   });
 });

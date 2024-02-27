@@ -2,7 +2,9 @@ from queue import Queue
 from typing import Any
 
 from captain.internal.wsmanager import ConnectionManager
+from captain.models.test_sequencer import MsgState
 from captain.models.topology import Topology
+from captain.types.test_sequence import TestSequenceMessage
 from captain.types.worker import PoisonPill
 import threading
 from captain.services.consumer.blocks_watcher import BlocksWatcher
@@ -19,7 +21,31 @@ class WSManager:
 
 # Manager for Test Sequencer activities
 class TSManager(WSManager):
-    pass  # could potentially add more things in the future for this, that's why we keep it as such
+    def __init__(self):
+        self.runner: asyncio.Runner | None = None  # holds the running sequencer
+        super().__init__()
+
+    def kill_runner(self, *args, **kwargs):
+        if self.runner is not None:
+            logger.info("Killing TS Runner")
+            try:
+                self.runner.close()
+            except Exception as e:
+                # Current Task can't be kill, but a PoisonPill in queue will stop the next task
+                logger.error(f"Error while killing TS Runner: {e}")
+            self.runner = None
+            asyncio.run(
+                self.ws.broadcast(
+                    TestSequenceMessage(
+                        MsgState.ERROR.value,
+                        "",
+                        False,
+                        -1,
+                        False,
+                        "Test sequence was interrupted",
+                    )
+                )
+            )
 
 
 # Manager for flowchart activities (main manager)

@@ -51,12 +51,18 @@ export default {
 
   poetryShowTopLevel: (): Promise<PythonDependency[]> =>
     ipcRenderer.invoke(API.poetryShowTopLevel),
+  poetryShowUserGroup: (): Promise<PythonDependency[]> =>
+    ipcRenderer.invoke(API.poetryShowUserGroup),
   poetryGetGroupInfo: (): Promise<PoetryGroupInfo[]> =>
     ipcRenderer.invoke(API.poetryGetGroupInfo),
   poetryInstallDepGroup: (group: string): Promise<boolean> =>
     ipcRenderer.invoke(API.poetryInstallDepGroup, group),
   poetryUninstallDepGroup: (group: string): Promise<boolean> =>
     ipcRenderer.invoke(API.poetryUninstallDepGroup, group),
+  poetryInstallDepUserGroup: (dep: string): Promise<boolean> =>
+    ipcRenderer.invoke(API.poetryInstallDepUserGroup, dep),
+  poetryUninstallDepUserGroup: (dep: string): Promise<boolean> =>
+    ipcRenderer.invoke(API.poetryUninstallDepUserGroup, dep),
 
   openTestPicker: (): Promise<{ filePath: string; fileContent: string }> =>
     ipcRenderer.invoke(API.openTestPicker),
