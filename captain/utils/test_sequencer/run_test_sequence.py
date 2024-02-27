@@ -237,9 +237,6 @@ async def _extract_from_node(
         return lambda _: None, None
     matcher, cur = map_to_handler
     while not callable(cur):
-        print("************ matcher", matcher, flush=True)
-        print("************ node", node.__dict__, flush=True)
-        print("************ cur", cur, flush=True)
         matcher, cur = cur[node.__dict__[matcher]]
     children_getter, test_result = await cur(
         node, **kwargs
