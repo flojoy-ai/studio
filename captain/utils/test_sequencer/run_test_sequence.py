@@ -1,7 +1,7 @@
 import traceback
 import asyncio
 import time
-from typing import Union, List, Callable
+from typing import Union, List, Callable, Coroutine, Any
 from flojoy_cloud.client import FlojoyCloudException
 import pydantic
 from captain.models.test_sequencer import (
@@ -42,7 +42,45 @@ class TestError:
         self.error = error
 
 
-def _run_python(file_path):
+class Context:
+    def __init__(
+        self,
+        result_dict: dict[str, TestResult],
+        identifiers: set[str],
+    ):
+        self.result_dict = result_dict
+        self.identifiers = identifiers
+
+
+Extract = tuple[
+    Callable[[Context], Union[List[TestRootNode], List[TestSequenceElementNode], None]],
+    Union[TestResult, None],
+]
+
+
+def _with_stream_test_result(func: Callable[[TestNode], Extract]):
+    # TODO: support run in parallel feature
+    async def wrapper(node: TestNode) -> Extract:
+        await _stream_result_to_frontend(MsgState.RUNNING, test_id=node.id)
+        children_getter, test_result = func(node)
+        if test_result is None:
+            raise Exception(f"{node.id}: Test returned None")
+        else:
+            await _stream_result_to_frontend(
+                state=MsgState.TEST_DONE,
+                test_id=node.id,
+                result=test_result.result,
+                time_taken=test_result.time_taken,  # TODO result, time_taken should be together
+                error=test_result.error,
+                is_saved_to_cloud=False,
+            )
+        return children_getter, test_result
+
+    return wrapper
+
+
+@_with_stream_test_result
+def _run_python(node: TestNode) -> Extract:
     """
     runs python file.
     @params file_path: path to the file
@@ -52,9 +90,9 @@ def _run_python(file_path):
         str: error message if any
     """
     start_time = time.time()
-    logger.info(f"[Python Runner] Running {file_path}")
+    logger.info(f"[Python Runner] Running {node.path}")
     result = subprocess.run(
-        ["python", file_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        ["python", node.path], stdout=subprocess.PIPE, stderr=subprocess.PIPE
     )
     logger.info(f"[Python Runner] Running {result}")
     end_time = time.time()
@@ -62,17 +100,22 @@ def _run_python(file_path):
         is_pass = True
     else:
         logger.info(
-            f"TEST {file_path} FAILED:\nSTDOUT: {result.stdout.decode()}\nSTDERR: {result.stderr.decode()}"
+            f"TEST {node.path} FAILED:\nSTDOUT: {result.stdout.decode()}\nSTDERR: {result.stderr.decode()}"
         )
         is_pass = False
     return (
-        is_pass,
-        end_time - start_time,
-        result.stderr.decode() if not is_pass else None,
+        lambda _: None,
+        TestResult(
+            node,
+            is_pass,
+            end_time - start_time,
+            result.stderr.decode() if not is_pass else None,
+        ),
     )
 
 
-def _run_pytest(file_path):
+@_with_stream_test_result
+def _run_pytest(node: TestNode) -> Extract:
     """
     @params file_path: path to the file
     @returns:
@@ -82,7 +125,7 @@ def _run_pytest(file_path):
     """
     start_time = time.time()
     result = subprocess.run(
-        ["pytest", file_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        ["pytest", node.path], stdout=subprocess.PIPE, stderr=subprocess.PIPE
     )
     end_time = time.time()
 
@@ -90,29 +133,18 @@ def _run_pytest(file_path):
         is_pass = True
     else:
         logger.info(
-            f"TEST {file_path} FAILED:\nSTDOUT: {result.stdout.decode()}\nSTDERR: {result.stderr.decode()}"
+            f"TEST {node.path} FAILED:\nSTDOUT: {result.stdout.decode()}\nSTDERR: {result.stderr.decode()}"
         )
         is_pass = False
     return (
-        is_pass,
-        end_time - start_time,
-        result.stdout.decode() if not is_pass else None,
+        lambda _: None,
+        TestResult(
+            node,
+            is_pass,
+            end_time - start_time,
+            result.stderr.decode() if not is_pass else None,
+        ),
     )
-
-
-def _recursive_namespace(d):
-    """
-    instead of doing data["element"] we can do data.element
-    """
-    if isinstance(d, list):
-        return list(map(lambda x: _recursive_namespace(x), d))
-
-    if isinstance(d, dict):
-        for k, v in d.items():
-            d[k] = _recursive_namespace(v)
-        return SimpleNamespace(**d)
-
-    return d
 
 
 def _eval_condition(
@@ -160,43 +192,8 @@ async def _stream_result_to_frontend(
     await asyncio.sleep(0)  # still necessary for task yield
 
 
-class Context:
-    def __init__(
-        self,
-        result_dict: dict[str, TestResult],
-        identifiers: set[str],
-    ):
-        self.result_dict = result_dict
-        self.identifiers = identifiers
-
-
-Extract = tuple[
-    Callable[[Context], Union[List[TestRootNode], List[TestSequenceElementNode], None]],
-    Union[TestResult, None],
-]
-
-
 async def _case_root(node: TestRootNode, **kwargs) -> Extract:
     return lambda _: node.children, None
-
-
-async def _case_test(node: TestNode, **kwargs) -> Extract:
-    # TODO: support run in parallel feature
-    await _stream_result_to_frontend(MsgState.RUNNING, test_id=node.id)
-    map_to_runner = {
-        TestTypes.Python: _run_python,
-        TestTypes.Pytest: _run_pytest,
-    }
-    result, time_taken, stderr = map_to_runner[node.test_type](node.path)
-    await _stream_result_to_frontend(
-        state=MsgState.TEST_DONE,
-        test_id=node.id,
-        result=result,
-        time_taken=time_taken,  # TODO result, time_taken should be together
-        error=stderr,
-        is_saved_to_cloud=False,
-    )
-    return lambda _: None, TestResult(node, result, time_taken, stderr)
 
 
 async def _case_if_node(node: IfNode, **kwargs) -> Extract:
@@ -215,7 +212,14 @@ map_to_handler_run = (
     "type",
     {
         "root": (None, _case_root),
-        "test": (None, _case_test),
+        # "test": (None, _case_test),
+        "test": (
+            "test_type",
+            {
+                TestTypes.Python: (None, _run_python),
+                TestTypes.Pytest: (None, _run_pytest),
+            },
+        ),
         "conditional": (
             "conditional_type",
             {
@@ -233,6 +237,9 @@ async def _extract_from_node(
         return lambda _: None, None
     matcher, cur = map_to_handler
     while not callable(cur):
+        print("************ matcher", matcher, flush=True)
+        print("************ node", node.__dict__, flush=True)
+        print("************ cur", cur, flush=True)
         matcher, cur = cur[node.__dict__[matcher]]
     children_getter, test_result = await cur(
         node, **kwargs
@@ -310,6 +317,8 @@ async def _case_test_upload(node: TestNode, hardware_id, project_id) -> Extract:
             logger.error(err)
             raise FlojoyCloudException("Failed to upload to the cloud.") from err
         finally:
+            if node.completion_time is None:
+                raise Exception(f"{node.id}: Unexpected None for completion_time")
             await _stream_result_to_frontend(
                 state=MsgState.TEST_DONE,
                 test_id=node.id,
