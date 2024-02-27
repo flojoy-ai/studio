@@ -1,4 +1,7 @@
 import { NodeProps } from "reactflow";
+import { Nullish } from "./util";
+
+export type BlockParameterValue = Nullish<string | number | boolean>;
 
 type BlockDefinition = {
   name: string;
@@ -22,7 +25,7 @@ type BlockDefinition = {
     string,
     {
       type: string;
-      default?: string | number | boolean | null | undefined;
+      default?: BlockParameterValue;
       options?: Array<string>;
       desc: string | null;
       overload: Record<string, string[]> | null;
@@ -41,7 +44,7 @@ export type CtrlData = Record<
       ? U & {
           functionName: string;
           param: string;
-          value: string | boolean | number | undefined | null;
+          value: BlockParameterValue;
         }
       : never
     : never

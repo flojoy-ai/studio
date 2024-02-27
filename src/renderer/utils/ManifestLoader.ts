@@ -61,6 +61,7 @@ const rootSchema = z.object({
 });
 
 export type RootNode = z.infer<typeof rootSchema>;
+export type BlockManifest = RootNode;
 export type RootChild = z.infer<typeof rootSchema>["children"][0];
 
 export const validateRootSchema = (schema: RootNode) => {

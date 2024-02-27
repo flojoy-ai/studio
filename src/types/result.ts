@@ -8,3 +8,11 @@ export function Ok<T, E>(value: T): Result<T, E> {
 export function Err<T, E>(error: E): Result<T, E> {
   return { ok: false, error };
 }
+
+export function tryCatch<T>(fn: () => T): Result<T> {
+  try {
+    return Ok(fn());
+  } catch (e) {
+    return Err(e as Error);
+  }
+}

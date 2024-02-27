@@ -6,7 +6,7 @@ import { captain } from "@/renderer/lib/ky";
 import { HTTPError } from "ky";
 import { RootNode, validateRootSchema } from "@/renderer/utils/ManifestLoader";
 import { toast } from "sonner";
-import { BlocksMetadataMap } from "@/renderer/types/blocks-metadata";
+import { BlockMetadataMap } from "@/renderer/types/blocks-metadata";
 import { EnvVar } from "../types/envVar";
 
 export const postEnvironmentVariable = async (
@@ -122,7 +122,7 @@ export const getManifest = async () => {
 export const getBlocksMetadata = async () => {
   try {
     const res = await captain.get("blocks/metadata").json();
-    return res as BlocksMetadataMap;
+    return res as BlockMetadataMap;
   } catch (err: unknown) {
     if (err instanceof HTTPError) {
       toast.message("Failed to generate blocks metadata", {

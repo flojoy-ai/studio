@@ -1,4 +1,4 @@
-export type BlocksMetadataMap = {
+export type BlockMetadataMap = {
   [node: string]: {
     metadata: string;
     path: string;

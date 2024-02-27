@@ -2,7 +2,7 @@ import {
   getManifest,
   getBlocksMetadata,
 } from "@/renderer/services/FlowChartServices";
-import { BlocksMetadataMap } from "@/renderer/types/blocks-metadata";
+import { BlockMetadataMap } from "@/renderer/types/blocks-metadata";
 import { RootNode } from "@/renderer/utils/ManifestLoader";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { useCallback, useMemo } from "react";
@@ -24,7 +24,7 @@ export const useFetchManifest = () => {
 
 export const useManifest = () => useAtomValue(manifestAtom);
 
-const nodesMetadataMapAtom = atom<BlocksMetadataMap | undefined | null>(null);
+const nodesMetadataMapAtom = atom<BlockMetadataMap | undefined | null>(null);
 
 export const useFetchNodesMetadata = () => {
   const setNodesMetadata = useSetAtom(nodesMetadataMapAtom);

@@ -133,17 +133,6 @@ export const useFlowChartGraph = () => {
     setNodes(updatedNodes);
   };
 
-  const removeCtrlInputDataForNode = (nodeId: string, paramId: string) => {
-    setNodes((nodes) => {
-      const node = nodes.find((e) => e.id === nodeId);
-      if (node) {
-        node.data.ctrls = node.data.ctrls || {};
-        delete node.data.ctrls[paramId];
-      }
-    });
-    sendEventToMix("Control Input Data Removed", { nodeId, paramId });
-  };
-
   const handleNodeChanges = (
     cb: (nodes: Node<BlockData>[]) => Node<BlockData>[],
   ) => {
@@ -165,7 +154,6 @@ export const useFlowChartGraph = () => {
     selectedNode,
     unSelectedNodes,
     updateCtrlInputDataForNode,
-    removeCtrlInputDataForNode,
     updateInitCtrlInputDataForNode,
     loadFlowExportObject,
     handleTitleChange,

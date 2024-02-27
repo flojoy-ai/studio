@@ -1,5 +1,5 @@
 import { captain } from "@/renderer/lib/ky";
-import { BlocksMetadataMap } from "@/renderer/types/blocks-metadata";
+import { BlockMetadataMap } from "@/renderer/types/blocks-metadata";
 import { RootNode, validateRootSchema } from "@/renderer/utils/ManifestLoader";
 import { atom, useAtom, useSetAtom } from "jotai";
 import { useCallback } from "react";
@@ -8,7 +8,7 @@ import { manifestChangedAtom } from "./useManifest";
 
 // undefined = loading state
 const customBlockManifestAtom = atom<RootNode | undefined | null>(null);
-const customBlocksMetadataMapAtom = atom<BlocksMetadataMap | undefined | null>(
+const customBlocksMetadataMapAtom = atom<BlockMetadataMap | undefined | null>(
   null,
 );
 
@@ -54,7 +54,7 @@ export const useCustomSections = () => {
             },
           })
           .json();
-        setCustomBlocksMetadata(res2 as BlocksMetadataMap);
+        setCustomBlocksMetadata(res2 as BlockMetadataMap);
         setManifestChanged(true);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
