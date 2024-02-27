@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "flojoy-studio"
-version = "0.2.2"
+version = "0.2.3"
 description = ""
 authors = [
   "Jack Palmer <jp@flojoy.io>",
