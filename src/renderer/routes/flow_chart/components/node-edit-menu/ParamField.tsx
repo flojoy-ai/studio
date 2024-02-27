@@ -19,12 +19,19 @@ import { NIDMMDeviceSelect } from "./NIDMMDeviceSelect";
 import { Button } from "@/renderer/components/ui/button";
 import { AutosizingTextarea } from "./AutosizingTextarea";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
+import { Result } from "@/types/result";
+import { toast } from "sonner";
+import { BlockParameterValue } from "@/renderer/types/node";
 
 type ParamFieldProps = {
   nodeId: string;
   nodeCtrl: BlockData["ctrls"][string];
   type: ParamValueType;
-  updateFunc: (nodeId: string, data: BlockData["ctrls"][string]) => void;
+  updateFunc: (
+    nodeId: string,
+    paramName: string,
+    value: BlockParameterValue,
+  ) => Result<void>;
   options?: string[];
   nodeReferenceOptions?: {
     label: string;
@@ -47,10 +54,12 @@ const ParamField = ({
     }),
   );
   const handleChange = (value: number | string | boolean) => {
-    updateFunc(nodeId, {
-      ...nodeCtrl,
-      value,
-    });
+    const res = updateFunc(nodeId, nodeCtrl.param, value);
+    if (!res.ok) {
+      toast.error(
+        `Error when trying to update parameter: ${res.error.message}`,
+      );
+    }
 
     markNodeParamChanged();
     markHasUnsavedChanges();

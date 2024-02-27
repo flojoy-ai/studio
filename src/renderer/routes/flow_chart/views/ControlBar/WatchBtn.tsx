@@ -1,7 +1,4 @@
 import { useEffect, useState } from "react";
-import { Node, Edge } from "reactflow";
-import { BlockData } from "@/renderer/types";
-import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
 import { Label } from "@/renderer/components/ui/label";
 import { Switch } from "@/renderer/components/ui/switch";
 import {
@@ -14,21 +11,20 @@ import { toast } from "sonner";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
 
 interface WatchBtnProps {
-  playFC: (nodes: Node<BlockData>[], edges: Edge[]) => void;
+  playFC: () => void;
   cancelFC: () => void;
 }
 
 const WatchBtn = ({ playFC, cancelFC }: WatchBtnProps) => {
   const nodeParamChanged = useFlowchartStore((state) => state.nodeParamChanged);
-  const { nodes, edges } = useFlowChartGraph();
   const [isWatching, setIsWatching] = useState(false);
 
   useEffect(() => {
     if (isWatching && nodeParamChanged) {
       cancelFC();
-      playFC(nodes, edges);
+      playFC();
     }
-  }, [nodeParamChanged, isWatching]);
+  }, [nodeParamChanged, isWatching, playFC, cancelFC]);
 
   const handleClick = () => {
     if (!isWatching) {

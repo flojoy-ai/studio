@@ -1,4 +1,4 @@
-import { Node, Edge } from "reactflow";
+import { Node, Edge, XYPosition } from "reactflow";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { BlockData } from "../types/";
@@ -9,13 +9,17 @@ import { ExampleProjects } from "../data/docs-example-apps";
 import * as RECIPES from "../data/RECIPES";
 import { BlockManifest } from "../utils/ManifestLoader";
 import { BlockMetadataMap } from "../types/blocks-metadata";
-import { Project } from "../types/project";
 import { syncFlowchartWithManifest } from "../lib/sync";
 import { sendEventToMix } from "../services/MixpanelServices";
 import { Err, Ok, Result } from "@/types/result";
+import { v4 as uuidv4 } from "uuid";
+import { addRandomPositionOffset } from "../utils/RandomPositionOffset";
+import { Project } from "../types/project";
 
 type State = {
   name: string | undefined;
+  path: string | undefined;
+
   nodes: Node<BlockData>[]; // TODO: Turn this into a record for fast lookup
   edges: Edge[];
   textNodes: Node<TextData>[];
@@ -26,7 +30,9 @@ type Actions = {
     project: Project,
     manifest: BlockManifest,
     metadata: BlockMetadataMap,
+    path?: string,
   ) => void;
+
   updateBlockParameter: (
     blockId: string,
     paramName: string,
@@ -42,8 +48,9 @@ type Actions = {
   handleNodeChanges: (
     cb: (nodes: Node<BlockData>[]) => Node<BlockData>[],
   ) => void;
-
   handleEdgeChanges: (cb: (nodes: Edge[]) => Edge[]) => void;
+
+  addTextNode: (position: XYPosition) => void;
 };
 
 const defaultProjectData =
@@ -55,6 +62,8 @@ const initialEdges: Edge[] = defaultProjectData.edges;
 export const useProjectStore = create<State & Actions>()(
   immer((set) => ({
     name: undefined,
+    path: undefined,
+
     nodes: initialNodes,
     edges: initialEdges,
     textNodes: [],
@@ -76,8 +85,10 @@ export const useProjectStore = create<State & Actions>()(
       project: Project,
       manifest: BlockManifest,
       metadata: BlockMetadataMap,
+      path?: string,
     ) => {
       const {
+        name,
         rfInstance: { nodes, edges },
         textNodes,
       } = project;
@@ -87,15 +98,18 @@ export const useProjectStore = create<State & Actions>()(
         manifest,
         metadata,
       );
+
       set({
         nodes: syncedNodes,
         edges: syncedEdges,
         textNodes: textNodes ?? [],
+        name,
+        path,
       });
 
       // toast("Synced blocks with manifest.");
 
-      sendEventToMix("Flow Export Object Loaded");
+      sendEventToMix("Project Loaded");
     },
     updateBlockParameter: (
       blockId: string,
@@ -185,6 +199,19 @@ export const useProjectStore = create<State & Actions>()(
 
       sendEventToMix("Block Name Changed", { blockId, name });
       return Ok(undefined);
+    },
+
+    addTextNode: (pos: XYPosition) => {
+      set((state) => {
+        state.textNodes.push({
+          id: `TextNode-${uuidv4()}`,
+          position: addRandomPositionOffset(pos, 30),
+          type: "TextNode",
+          data: {
+            text: "Enter text here",
+          },
+        });
+      });
     },
   })),
 );

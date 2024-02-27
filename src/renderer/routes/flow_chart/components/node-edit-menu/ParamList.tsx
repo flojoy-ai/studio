@@ -1,12 +1,17 @@
 import { ParamValueType } from "@/renderer/routes/common/types/ParamValueType";
 import { ParamTooltip } from "@/renderer/components/common/ParamTooltip";
-import { BlockData } from "@/renderer/types/node";
+import { BlockData, BlockParameterValue } from "@/renderer/types/node";
 import ParamField from "./ParamField";
+import { Result } from "@/types/result";
 
 type ParamListProps = {
   nodeId: string;
   ctrls: BlockData["ctrls"];
-  updateFunc: (nodeId: string, data: BlockData["ctrls"][string]) => void;
+  updateFunc: (
+    nodeId: string,
+    paramName: string,
+    value: BlockParameterValue,
+  ) => Result<void>;
   nodeReferenceOptions?: {
     label: string;
     value: string;

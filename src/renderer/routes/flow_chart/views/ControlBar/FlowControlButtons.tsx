@@ -1,24 +1,20 @@
-import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
-import { Node, Edge } from "reactflow";
-import { BlockData } from "@/renderer/types";
 import { Ban, Play } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
-import { projectAtom } from "@/renderer/hooks/useFlowChartState";
 import { useSettings } from "@/renderer/hooks/useSettings";
 import { useSocket } from "@/renderer/hooks/useSocket";
 import {
-  saveAndRunFlowChartInServer,
+  runFlowchart,
   cancelFlowChartRun,
 } from "@/renderer/services/FlowChartServices";
 import { sendProgramToMix } from "@/renderer/services/MixpanelServices";
 import { IServerStatus } from "@/renderer/context/socket.context";
 import WatchBtn from "./WatchBtn";
-import { useAtom } from "jotai";
 import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
 import { useManifest } from "@/renderer/hooks/useManifest";
 import _ from "lodash";
 import { toast } from "sonner";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
+import { useProjectStore } from "@/renderer/stores/project";
 
 const FlowControlButtons = () => {
   const { socketId, serverStatus } = useSocket();
@@ -28,64 +24,48 @@ const FlowControlButtons = () => {
   const resetNodeParamChanged = useFlowchartStore(
     (state) => state.markNodeParamChanged,
   );
+  const { nodes, edges } = useProjectStore((state) => ({
+    nodes: state.nodes,
+    edges: state.edges,
+  }));
 
-  const [project, setProject] = useAtom(projectAtom);
   const manifest = useManifest();
 
   const playBtnDisabled =
     serverStatus === IServerStatus.CONNECTING ||
     serverStatus === IServerStatus.OFFLINE;
+
   const cancelFC = () => {
-    if (project.rfInstance && project.rfInstance.nodes.length > 0) {
-      cancelFlowChartRun(project.rfInstance, socketId);
-    } else {
-      alert("There is no running job on server.");
-    }
+    cancelFlowChartRun(socketId);
   };
-  const onRun = async (nodes: Node<BlockData>[], edges: Edge[]) => {
-    if (project.rfInstance && nodes.length > 0) {
-      if (_.some(nodes, (n) => n.data.invalid)) {
-        toast.error(
-          "Unknown blocks found, these must be removed before attempting to run the flow chart.",
-        );
-        return;
-      }
 
-      // Only update the react flow instance when required.
-      const updatedRfInstance = {
-        ...project.rfInstance,
-        nodes,
-        edges,
-      };
-
-      setProject({
-        ...project,
-        rfInstance: updatedRfInstance,
-      });
-
-      sendProgramToMix(project.rfInstance.nodes, true, false);
-      // setProgramResults([]);
-      saveAndRunFlowChartInServer({
-        rfInstance: updatedRfInstance,
-        jobId: socketId,
-        settings: settings.filter((setting) => setting.group === "backend"),
-      });
-      resetNodeParamChanged();
-    } else {
+  const onRun = async () => {
+    if (nodes.length === 0) {
       alert(
         "There is no program to send to server. \n Please add at least one node first.",
       );
+      return;
     }
-  };
-  const { nodes, edges } = useFlowChartGraph();
+    if (_.some(nodes, (n) => n.data.invalid)) {
+      toast.error(
+        "Unknown blocks found, these must be removed before attempting to run the flow chart.",
+      );
+      return;
+    }
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    onRun(nodes, edges);
+    sendProgramToMix(nodes, true, false);
+    // setProgramResults([]);
+    runFlowchart({
+      nodes,
+      edges,
+      jobId: socketId,
+      settings: settings.filter((setting) => setting.group === "backend"),
+    });
+    resetNodeParamChanged();
   };
 
-  useKeyboardShortcut("ctrl", "p", () => onRun(nodes, edges));
-  useKeyboardShortcut("meta", "p", () => onRun(nodes, edges));
+  useKeyboardShortcut("ctrl", "p", onRun);
+  useKeyboardShortcut("meta", "p", onRun);
 
   return (
     <>
@@ -95,7 +75,10 @@ const FlowControlButtons = () => {
           data-testid="btn-play"
           variant="dotted"
           id="btn-play"
-          onClick={handleClick}
+          onClick={(e) => {
+            e.preventDefault();
+            onRun();
+          }}
           disabled={nodes.length === 0 || !manifest}
           className="w-28 gap-2"
         >

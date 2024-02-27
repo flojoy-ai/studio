@@ -2,7 +2,6 @@ import { Node } from "reactflow";
 import { BlockData } from "@/renderer/types";
 import { memo, useEffect, useState } from "react";
 import Draggable from "react-draggable";
-import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
 import { ParamList } from "./ParamList";
 import { Check, Info, Pencil, TrashIcon, X } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
@@ -11,6 +10,8 @@ import { LAYOUT_TOP_HEIGHT } from "@/renderer/routes/common/Layout";
 import { ScrollArea } from "@/renderer/components/ui/scroll-area";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
+import { useProjectStore } from "@/renderer/stores/project";
+import { toast } from "sonner";
 
 type NodeEditModalProps = {
   node: Node<BlockData>;
@@ -25,8 +26,13 @@ const NodeEditModal = ({
   setNodeModalOpen,
   handleDelete,
 }: NodeEditModalProps) => {
-  const { updateInitCtrlInputDataForNode, updateCtrlInputDataForNode } =
-    useFlowChartGraph();
+  const { updateBlockParameter, updateBlockInitParameter, updateBlockLabel } =
+    useProjectStore((state) => ({
+      updateBlockParameter: state.updateBlockParameter,
+      updateBlockInitParameter: state.updateBlockInitParameter,
+      updateBlockLabel: state.updateBlockLabel,
+    }));
+
   const { withPermissionCheck } = useWithPermission();
   const [newTitle, setNewTitle] = useState(node.data.label);
   const [editRenamingTitle, setEditRenamingTitle] = useState(false);
@@ -36,7 +42,6 @@ const NodeEditModal = ({
     nodeParamChanged: state.nodeParamChanged,
   }));
 
-  const { handleTitleChange } = useFlowChartGraph();
   //converted from node to Ids here so that it will only do this when the edit menu is opened
   const nodeReferenceOptions =
     otherNodes?.map((node) => ({ label: node.data.label, value: node.id })) ??
@@ -72,7 +77,10 @@ const NodeEditModal = ({
                   data-testid="block-label-submit"
                   onClick={() => {
                     setEditRenamingTitle(false);
-                    handleTitleChange(newTitle, node.data.id);
+                    const res = updateBlockLabel(newTitle, node.data.id);
+                    if (!res.ok) {
+                      toast.error(res.error.message);
+                    }
                   }}
                 >
                   <Check size={20} className="stroke-muted-foreground" />
@@ -135,14 +143,14 @@ const NodeEditModal = ({
                   <ParamList
                     nodeId={node.id}
                     ctrls={node.data.initCtrls}
-                    updateFunc={updateInitCtrlInputDataForNode}
+                    updateFunc={updateBlockInitParameter}
                   />
                 )}
               {Object.keys(node.data.ctrls).length > 0 ? (
                 <ParamList
                   nodeId={node.id}
                   ctrls={node.data.ctrls}
-                  updateFunc={updateCtrlInputDataForNode}
+                  updateFunc={updateBlockParameter}
                   nodeReferenceOptions={nodeReferenceOptions}
                 />
               ) : (

@@ -1,5 +1,5 @@
 import { Setting } from "../hooks/useSettings";
-import { ReactFlowJsonObject } from "reactflow";
+import { Node, Edge } from "reactflow";
 import { BlockData } from "@/renderer/types";
 import { Result } from "src/types/result";
 import { captain } from "@/renderer/lib/ky";
@@ -34,47 +34,37 @@ export const deleteEnvironmentVariable = async (
   }
 };
 
-export function saveAndRunFlowChartInServer({
-  rfInstance,
+export function runFlowchart({
+  nodes,
+  edges,
   jobId,
   settings,
 }: {
-  rfInstance?: ReactFlowJsonObject<BlockData>;
+  nodes: Node<BlockData>[];
+  edges: Edge[];
   jobId: string;
   settings: Setting[];
 }) {
-  if (rfInstance) {
-    const fcStr = JSON.stringify(rfInstance);
-
-    captain.post("wfc", {
-      json: {
-        fc: fcStr,
-        jobsetId: jobId,
-        cancelExistingJobs: true,
-        ...settings.reduce((obj, setting) => {
-          //IMPORTANT: if you want to add more backend settings, modify PostWFC pydantic model in backend, otherwise you will get 422 error
-          obj[setting.key] = setting.value;
-          return obj;
-        }, {}),
-      },
-    });
-  }
+  captain.post("wfc", {
+    json: {
+      fc: JSON.stringify({ nodes, edges }),
+      jobsetId: jobId,
+      cancelExistingJobs: true,
+      ...settings.reduce((obj, setting) => {
+        //IMPORTANT: if you want to add more backend settings, modify PostWFC pydantic model in backend, otherwise you will get 422 error
+        obj[setting.key] = setting.value;
+        return obj;
+      }, {}),
+    },
+  });
 }
 
-export function cancelFlowChartRun(
-  rfInstance: ReactFlowJsonObject<BlockData>,
-  jobId: string,
-) {
-  if (rfInstance) {
-    const fcStr = JSON.stringify(rfInstance);
-
-    captain.post("cancel_fc", {
-      json: {
-        fc: fcStr,
-        jobsetId: jobId,
-      },
-    });
-  }
+export function cancelFlowChartRun(jobId: string) {
+  captain.post("cancel_fc", {
+    json: {
+      jobsetId: jobId,
+    },
+  });
 }
 
 export async function getDeviceInfo(
