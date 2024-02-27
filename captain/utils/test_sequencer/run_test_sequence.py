@@ -141,7 +141,7 @@ def _run_pytest(node: TestNode) -> Extract:
             node,
             is_pass,
             end_time - start_time,
-            result.stderr.decode() if not is_pass else None,
+            result.stdout.decode() if not is_pass else None,
         ),
     )
 
