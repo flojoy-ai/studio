@@ -1,7 +1,7 @@
 import traceback
 import asyncio
 import time
-from typing import Union, List, Callable, Coroutine, Any
+from typing import Union, List, Callable
 from flojoy_cloud.client import FlojoyCloudException
 import pydantic
 from captain.models.test_sequencer import (
@@ -15,7 +15,6 @@ from captain.models.test_sequencer import (
 from captain.parser.bool_parser.expressions.models import Variable
 from captain.types.test_sequence import MsgState, TestSequenceMessage
 from captain.utils.config import ts_manager
-from types import SimpleNamespace
 import subprocess
 from captain.utils.logger import logger
 from captain.parser.bool_parser.bool_parser import eval_expression
