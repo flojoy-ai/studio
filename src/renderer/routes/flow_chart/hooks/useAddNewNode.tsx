@@ -7,7 +7,6 @@ import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 import { centerPositionAtom } from "@/renderer/hooks/useFlowChartState";
 import { useAtomValue } from "jotai";
 import { addRandomPositionOffset } from "@/renderer/utils/RandomPositionOffset";
-import { BlocksMetadataMap } from "@/renderer/types/blocks-metadata";
 import { createNodeId, createNodeLabel } from "@/renderer/utils/NodeUtils";
 import { ctrlsFromParams } from "@/renderer/utils/NodeUtils";
 import {
@@ -15,17 +14,16 @@ import {
   useHardwareDevices,
 } from "@/renderer/hooks/useHardwareDevices";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
+import { BlockMetadataMap } from "@/renderer/types/blocks-metadata";
 
 export type AddNewNode = (node: NodeElement) => void;
 
 export const useAddNewNode = (
   setNodes: (
-    update:
-      | Node<BlockData>[]
-      | ((draft: Draft<Node<BlockData>>[]) => void),
+    update: Node<BlockData>[] | ((draft: Draft<Node<BlockData>>[]) => void),
   ) => void,
   getTakenNodeLabels: (func: string) => string[][],
-  nodesMetadataMap: BlocksMetadataMap | undefined | null,
+  nodesMetadataMap: BlockMetadataMap | undefined | null,
 ) => {
   const center = useAtomValue(centerPositionAtom);
   const markHasUnsavedChanges = useFlowchartStore(
