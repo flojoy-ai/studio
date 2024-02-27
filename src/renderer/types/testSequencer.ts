@@ -8,12 +8,13 @@ export type LockedContextType = {
   isLocked: boolean;
 };
 
-export type TestTypes = "Python" | "Flojoy" | "Matlab";
+export type TestTypes = "Pytest" | "Python" | "Flojoy" | "Matlab";
 
 export type StatusTypes = "pending" | "pass" | "failed";
 
 export type MsgState =
   | "TEST_SET_START"
+  | "TEST_SET_EXPORT"
   | "RUNNING"
   | "TEST_DONE"
   | "ERROR"
@@ -37,6 +38,7 @@ export type Test = {
   runInParallel: boolean;
   testType: TestTypes;
   status: StatusTypes;
+  error: string | null;
   completionTime: number | undefined;
   isSavedToCloud: boolean;
 };
@@ -80,6 +82,7 @@ export type TestSequenceElementNode = ConditionalNode | TestNode | TestRootNode;
 export type TestDiscoverContainer = {
   // sync with pydantic model in backend
   response: TestDiscoveryResponse[];
+  missingLibraries: string[];
 };
 
 export type TestDiscoveryResponse = {

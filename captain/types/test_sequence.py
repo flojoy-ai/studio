@@ -4,6 +4,7 @@ from typing import Any, Optional
 
 class MsgState(Enum):
     TEST_SET_START = "TEST_SET_START"
+    TEST_SET_EXPORT = "TEST_SET_EXPORT"
     RUNNING = "RUNNING"
     TEST_DONE = "TEST_DONE"
     ERROR = "ERROR"

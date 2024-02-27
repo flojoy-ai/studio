@@ -11,6 +11,7 @@ class Collector(BaseModel):
     nodeid: str
     outcome: str
     result: List[Result]
+    longrepr: Optional[str] = None
 
 
 class Summary(BaseModel):
@@ -39,3 +40,4 @@ class TestDiscoveryResponse(BaseModel):
 
 class TestDiscoverContainer(BaseModel):
     response: List[TestDiscoveryResponse]
+    missing_libraries: List[str] = Field(..., alias="missingLibraries")

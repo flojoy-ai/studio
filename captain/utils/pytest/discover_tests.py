@@ -10,15 +10,37 @@ from captain.models.pytest.pytest_models import (
 import pytest
 from pytest_jsonreport.plugin import JSONReport
 from captain.utils.import_utils import unload_module
+import re
 
 
-def discover_pytest_file(path: str, one_file: bool, return_val: list):
+def check_missing_imports(report: RootModel):
+    missing_lib = set()
+    if not report.collectors:
+        return missing_lib
+    for element in report.collectors:
+        if element.longrepr:
+            error_message = element.longrepr
+            match = re.search(r"No module named '(\w+)'", error_message)
+            if match:
+                missing_library = match.group(1)
+                logger.info(f"Missing library: {missing_library}")
+                missing_lib.add(missing_library)
+            else:
+                logger.error(f"Error occured while discovering test: {error_message}")
+    return missing_lib
+
+
+def discover_pytest_file(
+    path: str, one_file: bool, return_val: list, missing_lib: list
+):
     unload_module(path)
     plugin = JSONReport()
     pytest.main(
         ["-s", "--json-report-file=none", "--collect-only", path], plugins=[plugin]
     )
+    logger.info(plugin.report)
     json_data: RootModel = RootModel.model_validate(plugin.report)
+    missing_lib.extend(check_missing_imports(json_data))
     logger.info(json_data.root)
 
     # run dfs on the json data and collect the tests
@@ -44,10 +66,13 @@ def discover_pytest_file(path: str, one_file: bool, return_val: list):
                 )
 
     test_list: List[TestDiscoveryResponse] = []
+    dfs(test_list, json_data)
+    if len(test_list) == 1:
+        # No test, just the file itself in the list
+        return
     if one_file:
         return_val.append(
             TestDiscoveryResponse(test_name=os.path.basename(path), path=path)
         )
-    dfs(test_list, json_data)
-    logger.info(test_list)
-    return_val.extend(test_list)
+    else:
+        return_val.extend(test_list)

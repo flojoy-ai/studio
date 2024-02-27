@@ -22,8 +22,14 @@ export function TestSequencerWSProvider({
 }: {
   children?: React.ReactNode;
 }) {
-  const { websocketId, setRunning, setElems, setIsLocked, setIsLoading } =
-    useTestSequencerState();
+  const {
+    websocketId,
+    setRunning,
+    setElems,
+    setIsLocked,
+    setIsLoading,
+    setBackendState,
+  } = useTestSequencerState();
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
     `${TS_SOCKET_URL}/${websocketId}`,
     {
@@ -39,6 +45,7 @@ export function TestSequencerWSProvider({
     result: boolean,
     timeTaken: number,
     isSavedToCloud: boolean,
+    error: string | null,
   ) => {
     setElems.withException((elems) => {
       const newElems = [...elems];
@@ -48,6 +55,7 @@ export function TestSequencerWSProvider({
         status: mapToTestResult(result),
         completionTime: timeTaken,
         isSavedToCloud: isSavedToCloud,
+        error: error,
       } as Test;
       return newElems;
     });
@@ -71,7 +79,11 @@ export function TestSequencerWSProvider({
 
   const mapToHandler: { [K in MsgState]: (data: BackendMsg) => void } = {
     TEST_SET_START: (data) => {
-      console.log("starting tests", data);
+      setBackendState("TEST_SET_START");
+    },
+    TEST_SET_EXPORT: (data) => {
+      console.log("exporting tests", data);
+      setBackendState("TEST_SET_EXPORT");
     },
     TEST_DONE: (data) => {
       setRunning((run) => filter(run, (r) => r !== data.target_id));
@@ -80,10 +92,13 @@ export function TestSequencerWSProvider({
         data.result,
         data.time_taken,
         data.is_saved_to_cloud,
+        data.error,
       );
+      // Don't specify a backend state here, because we want to keep the "RUNNER" or "EXPORT" state
     },
     RUNNING: (data) => {
       setRunning([data.target_id]);
+      // Don't specify a backend state here, because we want to keep the "RUNNER" or "EXPORT" state
     },
     ERROR: (data) => {
       toast.error(
@@ -94,10 +109,12 @@ export function TestSequencerWSProvider({
       );
       console.error(data.error);
       setIsLocked(false);
+      setBackendState("ERROR");
     },
     TEST_SET_DONE: (data) => {
       console.log("tests are done", data);
       setIsLocked(false);
+      setBackendState("TEST_SET_DONE");
     },
   };
 
