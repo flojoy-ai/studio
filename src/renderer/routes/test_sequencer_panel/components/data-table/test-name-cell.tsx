@@ -5,7 +5,6 @@ import {
 } from "@/renderer/types/testSequencer";
 import { CellContext } from "@tanstack/react-table";
 import { Loader } from "lucide-react";
-import React, { useState } from "react";
 type Props = {
   cellProps: CellContext<TestSequenceElement, unknown>;
   indentLevels: number[];

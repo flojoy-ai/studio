@@ -16,6 +16,7 @@ from .node_preflight import *  # noqa: F403
 from .config import *  # noqa: F403
 from .flojoy_cloud import *  # noqa: F403
 from .models import *  # noqa: F403
+from .test_sequencer import *  # noqa: F403
 
 def flojoy(
     original_function: Callable[..., DataContainer | dict[str, Any] | TypedDict | None]  # noqa: F405

@@ -482,6 +482,11 @@ export function DataTable() {
                         Consult Code
                       </ContextMenuItem>
                     )}
+                    <ContextMenuItem
+                      onClick={() => onRemoveTest([parseInt(row.id)])}
+                    >
+                      Remove Test
+                    </ContextMenuItem>
                   </ContextMenuContent>
                 </ContextMenu>
               ))

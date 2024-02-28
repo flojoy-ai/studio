@@ -3,6 +3,7 @@ import asyncio
 import time
 from typing import Union, List, Callable
 from flojoy_cloud.client import FlojoyCloudException
+from flojoy_cloud.measurement import MeasurementData
 import pydantic
 from captain.models.test_sequencer import (
     IfNode,
@@ -20,6 +21,7 @@ from captain.utils.logger import logger
 from captain.parser.bool_parser.bool_parser import eval_expression
 from flojoy_cloud.client import FlojoyCloud
 from pkgs.flojoy.flojoy.env_var import get_env_var
+import pkgs.flojoy.flojoy.test_sequencer as test_sequencer
 
 
 class TestResult:
@@ -61,6 +63,7 @@ def _with_stream_test_result(func: Callable[[TestNode], Extract]):
     # TODO: support run in parallel feature
     async def wrapper(node: TestNode) -> Extract:
         await _stream_result_to_frontend(MsgState.RUNNING, test_id=node.id)
+        test_sequencer.set_output_loc(node.id)
         children_getter, test_result = func(node)
         if test_result is None:
             raise Exception(f"{node.id}: Test returned None")
@@ -285,12 +288,16 @@ async def _case_test_upload(node: TestNode, hardware_id, project_id) -> Extract:
     status = node.status
     if status != StatusTypes.pending:
         passed = True if status == StatusTypes.pass_ else False
+        data = test_sequencer.get_most_recent_data(node.id)
+        if not isinstance(data, MeasurementData):
+            logger.info(f"{node.id}: Unexpected data type for test data: {type(data)}")
+            data = passed
         test_name = node.test_name.split("::")[-1]
         try:
             await _stream_result_to_frontend(MsgState.RUNNING, test_id=node.id)
             node.is_saved_to_cloud = False
             cloud.upload(
-                data=passed,
+                data=data,
                 test_id=reverse_id(test_name),
                 hardware_id=hardware_id,
                 name=test_name,
