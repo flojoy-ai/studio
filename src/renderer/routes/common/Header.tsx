@@ -1,7 +1,6 @@
 import { memo } from "react";
 import HeaderTab from "./HeaderTab";
 import ControlBar from "../flow_chart/views/ControlBar";
-import { useWindowSize } from "react-use";
 import { HEADER_HEIGHT } from "./Layout";
 import { TabName } from "@/renderer/stores/app";
 
@@ -39,13 +38,7 @@ const tabs: Tab[] = [
   // },
 ];
 
-const lg = 1024;
-
 const Header = () => {
-  // Actual media query causes flickering... need to use this manual one
-  const { width } = useWindowSize();
-  const large = width > lg;
-
   return (
     <div
       style={{ height: HEADER_HEIGHT }}
@@ -63,7 +56,8 @@ const Header = () => {
           key={t.fullText}
           tabName={t.fullText}
         >
-          {large ? t.fullText : t.shortText}
+          <div className="hidden sm:block">{t.fullText}</div>
+          <div className="sm:hidden">{t.shortText}</div>
         </HeaderTab>
       ))}
       <div className="grow" />
