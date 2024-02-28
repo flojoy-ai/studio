@@ -3,9 +3,9 @@ import { useSocket } from "@/renderer/hooks/useSocket";
 import { Input } from "@/renderer/components/ui/input";
 import { Outlet } from "react-router-dom";
 import StatusBar from "@/renderer/routes/common/StatusBar";
-import { useActiveTab } from "@/renderer/hooks/useActiveTab";
 import { useProjectStore } from "@/renderer/stores/project";
 import { useShallow } from "zustand/react/shallow";
+import { useAppStore } from "@/renderer/stores/app";
 
 export const HEADER_HEIGHT = 72;
 export const ACTIONS_HEIGHT = 52;
@@ -26,7 +26,11 @@ export const Layout = () => {
     })),
   );
 
-  const { activeTab } = useActiveTab();
+  const { activeTab } = useAppStore(
+    useShallow((state) => ({
+      activeTab: state.activeTab,
+    })),
+  );
 
   return (
     <div>

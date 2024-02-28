@@ -19,13 +19,10 @@ import { captain } from "@/renderer/lib/ky";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import EnvVarCredentialsInfo from "./EnvVarCredentialsInfo";
 import { EnvVar } from "@/renderer/types/envVar";
+import { useAppStore } from "@/renderer/stores/app";
+import { useShallow } from "zustand/react/shallow";
 
-type Props = {
-  handleEnvVarModalOpen: (open: boolean) => void;
-  isEnvVarModalOpen: boolean;
-};
-
-const EnvVarModal = ({ handleEnvVarModalOpen, isEnvVarModalOpen }: Props) => {
+const EnvVarModal = () => {
   const [credentials, setCredentials] = useState<EnvVar[]>([]);
   const [envVarKey, setEnvVarKey] = useState<string>("");
   const [envVarValue, setEnvVarValue] = useState<string>("");
@@ -47,6 +44,13 @@ const EnvVarModal = ({ handleEnvVarModalOpen, isEnvVarModalOpen }: Props) => {
       console.log(error);
     }
   }, [setCredentials]);
+
+  const { isEnvVarModalOpen, setIsEnvVarModalOpen } = useAppStore(
+    useShallow((state) => ({
+      isEnvVarModalOpen: state.isEnvVarModalOpen,
+      setIsEnvVarModalOpen: state.setIsEnvVarModalOpen,
+    })),
+  );
 
   useEffect(() => {
     if (isEnvVarModalOpen) {
@@ -114,7 +118,7 @@ const EnvVarModal = ({ handleEnvVarModalOpen, isEnvVarModalOpen }: Props) => {
   };
 
   return (
-    <Dialog open={isEnvVarModalOpen} onOpenChange={handleEnvVarModalOpen}>
+    <Dialog open={isEnvVarModalOpen} onOpenChange={setIsEnvVarModalOpen}>
       <DialogContent className="sm:max-w-[650px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2" id="modal-title">

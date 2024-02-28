@@ -9,13 +9,20 @@ const store = localforage.createInstance({
   name: "flojoy-settings",
 });
 
-type SettingsGroup = "frontend" | "backend" | "device";
+type SettingGroup = "frontend" | "backend" | "device";
+type SettingKey =
+  | "nodeDelay"
+  | "maximumRuntime"
+  | "maximumConcurrentWorkers"
+  | "fitViewOnResize"
+  | "niDAQmxDeviceDiscovery"
+  | "nidmmDeviceDiscovery";
 
 export type Setting = {
   title: string;
-  key: string;
-  group: SettingsGroup;
   desc: string;
+  key: SettingKey;
+  group: SettingGroup;
   value: number | boolean;
 };
 
@@ -64,7 +71,7 @@ const settingsAtom = atomWithImmer<Setting[]>([
   },
 ]);
 
-export const useSettings = (group: "frontend" | "backend" | "device") => {
+export const useSettings = (group: SettingGroup) => {
   const [settings, setSettings] = useAtom(settingsAtom);
 
   const updateSettings = (key: string, value: number | boolean) => {

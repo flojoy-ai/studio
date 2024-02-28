@@ -11,7 +11,7 @@ import {
   DialogTrigger,
 } from "@/renderer/components/ui/dialog";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
-import { NodeSettingsModal } from "./NodeSettingsModal";
+import { BlockSettingsModal } from "./BlockSettingsModal";
 import EnvVarModal from "./env-var/EnvVarModal";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
 import { DarkModeToggle } from "@/renderer/routes/common/DarkModeToggle";
@@ -32,27 +32,35 @@ import DepManagerModal from "./DepManagerModal";
 import { DeviceSettingsModal } from "./DeviceSettingsModal";
 import { Button } from "@/renderer/components/ui/button";
 import ProfileMenu from "./user-profile/ProfileMenu";
-import { useActiveTab } from "@/renderer/hooks/useActiveTab";
-import { useToggleSettingModal } from "@/renderer/hooks/useToggleSettingModal";
+import { useAppStore } from "@/renderer/stores/app";
+import { useShallow } from "zustand/react/shallow";
 
 const ControlBar = () => {
+  const { activeTab } = useAppStore(
+    useShallow((state) => ({
+      activeTab: state.activeTab,
+    })),
+  );
+
   const {
-    isKeyboardShortcutOpen,
-    setIsKeyboardShortcutOpen,
-    isEnvVarModalOpen,
     setIsEnvVarModalOpen,
-    isNodeSettingsOpen,
-    setIsNodeSettingsOpen,
-    isDebugSettingsOpen,
-    setIsDebugSettingsOpen,
-    isEditorSettingsOpen,
+    setIsKeyboardShortcutOpen,
+    setIsBlockSettingsOpen,
     setIsEditorSettingsOpen,
-    isDeviceSettingsOpen,
     setIsDeviceSettingsOpen,
-    isDepManagerModalOpen,
+    setIsDebugSettingsOpen,
     setIsDepManagerModalOpen,
-  } = useToggleSettingModal();
-  const { activeTab } = useActiveTab();
+  } = useAppStore(
+    useShallow((state) => ({
+      setIsEnvVarModalOpen: state.setIsEnvVarModalOpen,
+      setIsKeyboardShortcutOpen: state.setIsKeyboardShortcutOpen,
+      setIsBlockSettingsOpen: state.setIsBlockSettingsOpen,
+      setIsEditorSettingsOpen: state.setIsEditorSettingsOpen,
+      setIsDeviceSettingsOpen: state.setIsDeviceSettingsOpen,
+      setIsDebugSettingsOpen: state.setIsDebugSettingsOpen,
+      setIsDepManagerModalOpen: state.setIsDepManagerModalOpen,
+    })),
+  );
 
   const handleCheckForUpdates = () => {
     window.api.checkForUpdates();
@@ -60,40 +68,13 @@ const ControlBar = () => {
 
   return (
     <div className="flex items-center gap-2 p-2.5">
-      <EnvVarModal
-        handleEnvVarModalOpen={setIsEnvVarModalOpen}
-        isEnvVarModalOpen={isEnvVarModalOpen}
-      />
-
-      <KeyboardShortcutModal
-        handleKeyboardShortcutModalOpen={setIsKeyboardShortcutOpen}
-        isKeyboardShortcutModalOpen={isKeyboardShortcutOpen}
-      />
-
-      <NodeSettingsModal
-        handleSettingsModalOpen={setIsNodeSettingsOpen}
-        isSettingsModalOpen={isNodeSettingsOpen}
-      />
-
-      <EditorSettingsModal
-        handleSettingsModalOpen={setIsEditorSettingsOpen}
-        isSettingsModalOpen={isEditorSettingsOpen}
-      />
-
-      <DeviceSettingsModal
-        handleSettingsModalOpen={setIsDeviceSettingsOpen}
-        isSettingsModalOpen={isDeviceSettingsOpen}
-      />
-
-      <DebugSettingsModal
-        handleSettingsModalOpen={setIsDebugSettingsOpen}
-        isSettingsModalOpen={isDebugSettingsOpen}
-      />
-
-      <DepManagerModal
-        handleDepManagerModalOpen={setIsDepManagerModalOpen}
-        isDepManagerModalOpen={isDepManagerModalOpen}
-      />
+      <EnvVarModal />
+      <KeyboardShortcutModal />
+      <BlockSettingsModal />
+      <EditorSettingsModal />
+      <DeviceSettingsModal />
+      <DebugSettingsModal />
+      <DepManagerModal />
 
       {activeTab === "Visual Python Script" && <FlowControlButtons />}
 
@@ -141,7 +122,7 @@ const ControlBar = () => {
               </MenubarItem>
               <MenubarItem
                 data-testid="btn-node-settings"
-                onClick={() => setIsNodeSettingsOpen(true)}
+                onClick={() => setIsBlockSettingsOpen(true)}
               >
                 Node Settings
               </MenubarItem>

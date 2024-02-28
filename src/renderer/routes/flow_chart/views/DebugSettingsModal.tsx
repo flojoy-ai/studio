@@ -17,19 +17,20 @@ import {
   getLogLevel,
   setLogLevel,
 } from "@/renderer/services/FlowChartServices";
+import { useAppStore } from "@/renderer/stores/app";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { useShallow } from "zustand/react/shallow";
 
-export type SettingsModalProps = {
-  handleSettingsModalOpen: (open: boolean) => void;
-  isSettingsModalOpen: boolean;
-};
-
-export const DebugSettingsModal = ({
-  handleSettingsModalOpen,
-  isSettingsModalOpen,
-}: SettingsModalProps) => {
+export const DebugSettingsModal = () => {
   const [level, setLevel] = useState<string | undefined>(undefined);
+
+  const { isSettingsModalOpen, handleSettingsModalOpen } = useAppStore(
+    useShallow((state) => ({
+      isSettingsModalOpen: state.isDebugSettingsOpen,
+      handleSettingsModalOpen: state.setIsDebugSettingsOpen,
+    })),
+  );
 
   useEffect(() => {
     if (isSettingsModalOpen) {

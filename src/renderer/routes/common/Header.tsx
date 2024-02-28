@@ -3,7 +3,7 @@ import HeaderTab from "./HeaderTab";
 import ControlBar from "../flow_chart/views/ControlBar";
 import { useWindowSize } from "react-use";
 import { HEADER_HEIGHT } from "./Layout";
-import { TabName } from "@/renderer/hooks/useActiveTab";
+import { TabName } from "@/renderer/stores/app";
 
 interface Tab {
   to: string;

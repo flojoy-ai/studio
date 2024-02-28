@@ -3,8 +3,8 @@ import { SettingsModal } from "./SettingsModal";
 import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
 
-export const DeviceSettingsModal = () => {
-  const { settings, updateSettings } = useSettings("device");
+export const BlockSettingsModal = () => {
+  const { settings, updateSettings } = useSettings("backend");
 
   const { isSettingsModalOpen, handleSettingsModalOpen } = useAppStore(
     useShallow((state) => ({
@@ -19,8 +19,8 @@ export const DeviceSettingsModal = () => {
       handleSettingsModalOpen={handleSettingsModalOpen}
       settings={settings}
       updateSettings={updateSettings}
-      title="Device Settings"
-      description="Applies when discovering devices."
+      title="Runtime Settings"
+      description="Applies when the flowchart is running."
     />
   );
 };

@@ -6,16 +6,18 @@ import {
   DialogTitle,
 } from "@/renderer/components/ui/dialog";
 import { ScrollArea } from "@/renderer/components/ui/scroll-area";
+import { useAppStore } from "@/renderer/stores/app";
+import { useShallow } from "zustand/react/shallow";
 
-interface KeyboardShortcutProps {
-  handleKeyboardShortcutModalOpen: (open: boolean) => void;
-  isKeyboardShortcutModalOpen: boolean;
-}
+const KeyboardShortcutModal = () => {
+  const { isKeyboardShortcutModalOpen, handleKeyboardShortcutModalOpen } =
+    useAppStore(
+      useShallow((state) => ({
+        isKeyboardShortcutModalOpen: state.isKeyboardShortcutOpen,
+        handleKeyboardShortcutModalOpen: state.setIsKeyboardShortcutOpen,
+      })),
+    );
 
-const KeyboardShortcutModal = ({
-  handleKeyboardShortcutModalOpen,
-  isKeyboardShortcutModalOpen,
-}: KeyboardShortcutProps) => {
   return (
     <Dialog
       open={isKeyboardShortcutModalOpen}
