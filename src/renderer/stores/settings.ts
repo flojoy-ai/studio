@@ -19,7 +19,7 @@ type NumberSetting = SettingBase & {
 
 export type Setting = BooleanSetting | NumberSetting;
 
-const initialBackendSettings = {
+const backendSettings = {
   nodeDelay: {
     type: "number",
     title: "Node Delay",
@@ -40,7 +40,7 @@ const initialBackendSettings = {
   },
 } satisfies Record<string, Setting>;
 
-const initialFrontendSettings = {
+const frontendSettings = {
   fitViewOnResize: {
     type: "boolean",
     title: "Fit view on resize",
@@ -49,7 +49,7 @@ const initialFrontendSettings = {
   },
 } satisfies Record<string, Setting>;
 
-const initialDeviceSettings = {
+const deviceSettings = {
   niDAQmxDeviceDiscovery: {
     type: "boolean",
     title: "Discover NI-DAQmx devices",
@@ -64,9 +64,9 @@ const initialDeviceSettings = {
   },
 } satisfies Record<string, Setting>;
 
-type BackendSettings = typeof initialBackendSettings;
-type FrontendSettings = typeof initialFrontendSettings;
-type DeviceSettings = typeof initialDeviceSettings;
+type BackendSettings = typeof backendSettings;
+type FrontendSettings = typeof frontendSettings;
+type DeviceSettings = typeof deviceSettings;
 
 export type SettingsState = {
   frontend: FrontendSettings;
@@ -93,9 +93,9 @@ export const useSettingsStore = create<SettingsState & SettingsActions>()(
   immer(
     persist(
       (set) => ({
-        frontend: initialFrontendSettings,
-        backend: initialBackendSettings,
-        device: initialDeviceSettings,
+        frontend: frontendSettings,
+        backend: backendSettings,
+        device: deviceSettings,
 
         updateFrontendSettings: <K extends keyof FrontendSettings>(
           key: K,
