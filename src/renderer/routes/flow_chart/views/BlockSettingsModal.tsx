@@ -1,22 +1,21 @@
 import { useSettings } from "@/renderer/hooks/useSettings";
 import { SettingsModal } from "./SettingsModal";
-import { useAppStore } from "@/renderer/stores/app";
-import { useShallow } from "zustand/react/shallow";
 
-export const BlockSettingsModal = () => {
+type Props = {
+  isBlockSettingsOpen: boolean;
+  setIsBlockSettingsOpen: (val: boolean) => void;
+};
+
+export const BlockSettingsModal = ({
+  isBlockSettingsOpen,
+  setIsBlockSettingsOpen,
+}: Props) => {
   const { settings, updateSettings } = useSettings("backend");
-
-  const { isSettingsModalOpen, handleSettingsModalOpen } = useAppStore(
-    useShallow((state) => ({
-      isSettingsModalOpen: state.isDeviceSettingsOpen,
-      handleSettingsModalOpen: state.setIsDeviceSettingsOpen,
-    })),
-  );
 
   return (
     <SettingsModal
-      isSettingsModalOpen={isSettingsModalOpen}
-      handleSettingsModalOpen={handleSettingsModalOpen}
+      isSettingsModalOpen={isBlockSettingsOpen}
+      handleSettingsModalOpen={setIsBlockSettingsOpen}
       settings={settings}
       updateSettings={updateSettings}
       title="Runtime Settings"

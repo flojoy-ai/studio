@@ -17,29 +17,28 @@ import {
   getLogLevel,
   setLogLevel,
 } from "@/renderer/services/FlowChartServices";
-import { useAppStore } from "@/renderer/stores/app";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { useShallow } from "zustand/react/shallow";
 
-export const DebugSettingsModal = () => {
+type Props = {
+  isDebugSettingsOpen: boolean;
+  setIsDebugSettingsOpen: (val: boolean) => void;
+};
+
+export const DebugSettingsModal = ({
+  isDebugSettingsOpen,
+  setIsDebugSettingsOpen,
+}: Props) => {
   const [level, setLevel] = useState<string | undefined>(undefined);
 
-  const { isSettingsModalOpen, handleSettingsModalOpen } = useAppStore(
-    useShallow((state) => ({
-      isSettingsModalOpen: state.isDebugSettingsOpen,
-      handleSettingsModalOpen: state.setIsDebugSettingsOpen,
-    })),
-  );
-
   useEffect(() => {
-    if (isSettingsModalOpen) {
+    if (isDebugSettingsOpen) {
       getLogLevel().then((data) => {
         console.log(data);
         setLevel(data);
       });
     }
-  }, [isSettingsModalOpen]);
+  }, [isDebugSettingsOpen]);
 
   const onLogLevelChange = async (val: string) => {
     try {
@@ -51,7 +50,7 @@ export const DebugSettingsModal = () => {
   };
 
   return (
-    <Dialog open={isSettingsModalOpen} onOpenChange={handleSettingsModalOpen}>
+    <Dialog open={isDebugSettingsOpen} onOpenChange={setIsDebugSettingsOpen}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader className="text-left">
           <DialogTitle>Debug Settings</DialogTitle>

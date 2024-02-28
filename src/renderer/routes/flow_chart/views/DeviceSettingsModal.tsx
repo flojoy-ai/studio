@@ -1,22 +1,21 @@
 import { useSettings } from "@/renderer/hooks/useSettings";
 import { SettingsModal } from "./SettingsModal";
-import { useAppStore } from "@/renderer/stores/app";
-import { useShallow } from "zustand/react/shallow";
 
-export const DeviceSettingsModal = () => {
+type Props = {
+  isDeviceSettingsOpen: boolean;
+  setIsDeviceSettingsOpen: (val: boolean) => void;
+};
+
+export const DeviceSettingsModal = ({
+  isDeviceSettingsOpen,
+  setIsDeviceSettingsOpen,
+}: Props) => {
   const { settings, updateSettings } = useSettings("device");
-
-  const { isSettingsModalOpen, handleSettingsModalOpen } = useAppStore(
-    useShallow((state) => ({
-      isSettingsModalOpen: state.isDeviceSettingsOpen,
-      handleSettingsModalOpen: state.setIsDeviceSettingsOpen,
-    })),
-  );
 
   return (
     <SettingsModal
-      isSettingsModalOpen={isSettingsModalOpen}
-      handleSettingsModalOpen={handleSettingsModalOpen}
+      isSettingsModalOpen={isDeviceSettingsOpen}
+      handleSettingsModalOpen={setIsDeviceSettingsOpen}
       settings={settings}
       updateSettings={updateSettings}
       title="Device Settings"

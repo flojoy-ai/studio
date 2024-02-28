@@ -1,21 +1,21 @@
 import { useSettings } from "@/renderer/hooks/useSettings";
 import { SettingsModal } from "./SettingsModal";
-import { useAppStore } from "@/renderer/stores/app";
-import { useShallow } from "zustand/react/shallow";
 
-export const EditorSettingsModal = () => {
+type Props = {
+  isEditorSettingsOpen: boolean;
+  setIsEditorSettingsOpen: (val: boolean) => void;
+};
+
+export const EditorSettingsModal = ({
+  isEditorSettingsOpen,
+  setIsEditorSettingsOpen,
+}: Props) => {
   const { settings, updateSettings } = useSettings("frontend");
-  const { isSettingsModalOpen, handleSettingsModalOpen } = useAppStore(
-    useShallow((state) => ({
-      isSettingsModalOpen: state.isEditorSettingsOpen,
-      handleSettingsModalOpen: state.setIsEditorSettingsOpen,
-    })),
-  );
 
   return (
     <SettingsModal
-      isSettingsModalOpen={isSettingsModalOpen}
-      handleSettingsModalOpen={handleSettingsModalOpen}
+      isSettingsModalOpen={isEditorSettingsOpen}
+      handleSettingsModalOpen={setIsEditorSettingsOpen}
       settings={settings}
       updateSettings={updateSettings}
       title="Editor Settings"

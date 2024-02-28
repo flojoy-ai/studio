@@ -11,12 +11,7 @@ export type TabName =
 type State = {
   showWelcomeScreen: boolean;
   centerPosition: Position;
-  isKeyboardShortcutOpen: boolean;
   isEnvVarModalOpen: boolean;
-  isBlockSettingsOpen: boolean;
-  isDebugSettingsOpen: boolean;
-  isEditorSettingsOpen: boolean;
-  isDeviceSettingsOpen: boolean;
   isDepManagerModalOpen: boolean;
   activeTab: TabName;
 };
@@ -24,12 +19,7 @@ type State = {
 type Actions = {
   setShowWelcomeScreen: (val: boolean) => void;
   setCenterPosition: (position: Position) => void;
-  setIsKeyboardShortcutOpen: (val: boolean) => void;
   setIsEnvVarModalOpen: (val: boolean) => void;
-  setIsBlockSettingsOpen: (val: boolean) => void;
-  setIsDebugSettingsOpen: (val: boolean) => void;
-  setIsEditorSettingsOpen: (val: boolean) => void;
-  setIsDeviceSettingsOpen: (val: boolean) => void;
   setIsDepManagerModalOpen: (val: boolean) => void;
   setActiveTab: (tab: TabName) => void;
 };
@@ -47,36 +37,11 @@ export const useAppStore = create<State & Actions>()(
         state.centerPosition = position;
       }),
 
-    isKeyboardShortcutOpen: false,
     isEnvVarModalOpen: false,
-    isBlockSettingsOpen: false,
-    isDebugSettingsOpen: false,
-    isEditorSettingsOpen: false,
-    isDeviceSettingsOpen: false,
     isDepManagerModalOpen: false,
-    setIsKeyboardShortcutOpen: (val) =>
-      set((state) => {
-        state.isKeyboardShortcutOpen = val;
-      }),
     setIsEnvVarModalOpen: (val) =>
       set((state) => {
         state.isEnvVarModalOpen = val;
-      }),
-    setIsBlockSettingsOpen: (val) =>
-      set((state) => {
-        state.isBlockSettingsOpen = val;
-      }),
-    setIsDebugSettingsOpen: (val) =>
-      set((state) => {
-        state.isDebugSettingsOpen = val;
-      }),
-    setIsEditorSettingsOpen: (val) =>
-      set((state) => {
-        state.isEditorSettingsOpen = val;
-      }),
-    setIsDeviceSettingsOpen: (val) =>
-      set((state) => {
-        state.isDeviceSettingsOpen = val;
       }),
     setIsDepManagerModalOpen: (val) =>
       set((state) => {

@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 
 import {
   Dialog,
@@ -42,22 +42,15 @@ const ControlBar = () => {
     })),
   );
 
-  const {
-    setIsEnvVarModalOpen,
-    setIsKeyboardShortcutOpen,
-    setIsBlockSettingsOpen,
-    setIsEditorSettingsOpen,
-    setIsDeviceSettingsOpen,
-    setIsDebugSettingsOpen,
-    setIsDepManagerModalOpen,
-  } = useAppStore(
+  const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] = useState(false);
+  const [isBlockSettingsOpen, setIsBlockSettingsOpen] = useState(false);
+  const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
+  const [isDeviceSettingsOpen, setIsDeviceSettingsOpen] = useState(false);
+  const [isDebugSettingsOpen, setIsDebugSettingsOpen] = useState(false);
+
+  const { setIsEnvVarModalOpen, setIsDepManagerModalOpen } = useAppStore(
     useShallow((state) => ({
       setIsEnvVarModalOpen: state.setIsEnvVarModalOpen,
-      setIsKeyboardShortcutOpen: state.setIsKeyboardShortcutOpen,
-      setIsBlockSettingsOpen: state.setIsBlockSettingsOpen,
-      setIsEditorSettingsOpen: state.setIsEditorSettingsOpen,
-      setIsDeviceSettingsOpen: state.setIsDeviceSettingsOpen,
-      setIsDebugSettingsOpen: state.setIsDebugSettingsOpen,
       setIsDepManagerModalOpen: state.setIsDepManagerModalOpen,
     })),
   );
@@ -69,11 +62,26 @@ const ControlBar = () => {
   return (
     <div className="flex items-center gap-2 p-2.5">
       <EnvVarModal />
-      <KeyboardShortcutModal />
-      <BlockSettingsModal />
-      <EditorSettingsModal />
-      <DeviceSettingsModal />
-      <DebugSettingsModal />
+      <KeyboardShortcutModal
+        isKeyboardShortcutOpen={isKeyboardShortcutOpen}
+        setIsKeyboardShortcutOpen={setIsKeyboardShortcutOpen}
+      />
+      <BlockSettingsModal
+        isBlockSettingsOpen={isBlockSettingsOpen}
+        setIsBlockSettingsOpen={setIsBlockSettingsOpen}
+      />
+      <EditorSettingsModal
+        isEditorSettingsOpen={isEditorSettingsOpen}
+        setIsEditorSettingsOpen={setIsEditorSettingsOpen}
+      />
+      <DeviceSettingsModal
+        isDeviceSettingsOpen={isDeviceSettingsOpen}
+        setIsDeviceSettingsOpen={setIsDeviceSettingsOpen}
+      />
+      <DebugSettingsModal
+        isDebugSettingsOpen={isDebugSettingsOpen}
+        setIsDebugSettingsOpen={setIsDebugSettingsOpen}
+      />
       <DepManagerModal />
 
       {activeTab === "Visual Python Script" && <FlowControlButtons />}
