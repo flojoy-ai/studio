@@ -77,6 +77,14 @@ export type TestRootNode = {
   identifiers: string[];
 };
 
+export type TestSequencerProject = {
+  name: string;
+  description: string;
+  root: TestRootNode;
+  interpreter_path: string | null;
+  requirements: string[];
+}
+
 export type TestSequenceElementNode = ConditionalNode | TestNode | TestRootNode;
 
 export type TestDiscoverContainer = {

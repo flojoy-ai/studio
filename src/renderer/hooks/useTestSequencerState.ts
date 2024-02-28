@@ -8,6 +8,7 @@ import {
   IfNode,
   TestNode,
   MsgState,
+  TestSequencerProject,
 } from "@/renderer/types/testSequencer";
 import { atomWithImmer } from "jotai-immer";
 import { v4 as uuidv4 } from "uuid";
@@ -37,6 +38,8 @@ export const isLoadingAtom = atomWithImmer<boolean>(true);
 export const backendStateAtom = atomWithImmer<MsgState>("TEST_SET_DONE");
 
 export const testSequenceUnsaved = atomWithImmer<boolean>(false);
+
+export const testSequencerProjectAtom = atomWithImmer<TestSequencerProject | null>(null);
 
 // sync this with the definition of setElems
 export type SetElemsFn = {
@@ -111,6 +114,7 @@ export function useTestSequencerState() {
   const [isLocked, setIsLocked] = useAtom(isLockedAtom); // this is used to lock the UI while the test is running
   const [backendState, setBackendState] = useAtom(backendStateAtom);
   const [isUnsaved, setUnsaved] = useAtom(testSequenceUnsaved);
+  const [project, setProject] = useAtom(testSequencerProjectAtom);
   const { withPermissionCheck } = useWithPermission();
 
   // wrapper around setElements to check if elems is valid
@@ -165,5 +169,7 @@ export function useTestSequencerState() {
     setIsLoading,
     setUnsaved,
     isUnsaved,
+    project,
+    setProject
   };
 }

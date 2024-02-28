@@ -19,11 +19,12 @@ import {
   LAYOUT_TOP_HEIGHT,
   BOTTOM_STATUS_BAR_HEIGHT,
 } from "@/renderer/routes/common/Layout";
-import { Button } from "@/renderer/components/ui/button";
+import { TestSequencerProjectModal } from "./TestSequencerProjectModal";
 
 const TestSequencerView = () => {
   const { setElems, tree, setIsLocked, backendState } = useTestSequencerState();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
+  const [ isProjectModalOpen, setIsProjectModalOpen ] = useState(false);
 
   const resetStatus = () => {
     setElems.withException((elems: TestSequenceElement[]) => {
@@ -61,6 +62,10 @@ const TestSequencerView = () => {
 
   return (
     <LockedContextProvider>
+      <TestSequencerProjectModal
+        isProjectModalOpen={isProjectModalOpen}
+        handleProjectModalOpen={setIsProjectModalOpen}
+      />
       <div
         style={{
           height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT}px)`,
@@ -99,14 +104,14 @@ const TestSequencerView = () => {
                     variant="outline"
                     onClick={testSetImport}
                   >
-                    Import Test Set
+                    Import Project
                   </LockableButton>
                   <LockableButton
                     className="mt-4 w-full"
                     variant="outline"
-                    onClick={testSetSave}
+                    onClick={() => setIsProjectModalOpen(true)}
                   >
-                    Save Test Set
+                    New Project 
                   </LockableButton>
                   <LockableButton
                     variant="dotted"
