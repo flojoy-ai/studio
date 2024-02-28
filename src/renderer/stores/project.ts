@@ -379,7 +379,6 @@ export const useAddBlock = () => {
         init_parameters: initParams,
         inputs,
         outputs,
-        ui_component_id: uiComponentId,
         pip_dependencies,
       } = node;
 
@@ -399,7 +398,7 @@ export const useAddBlock = () => {
 
       const newNode: Node<BlockData> = {
         id: nodeId,
-        type: uiComponentId ?? type,
+        type,
         data: {
           id: nodeId,
           label: nodeLabel ?? "New Block",

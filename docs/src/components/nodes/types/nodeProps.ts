@@ -30,7 +30,6 @@ type NodeElement = {
   >;
   init_parameters?: NodeElement["parameters"];
   pip_dependencies: Array<{ name: string; v: string }>;
-  ui_component_id: string;
   children: null;
 };
 

@@ -33,7 +33,6 @@ export type BlockDefinition = {
   >;
   init_parameters?: BlockDefinition["parameters"];
   pip_dependencies: Array<{ name: string; v: string }>;
-  ui_component_id: string;
   children: null;
 };
 
