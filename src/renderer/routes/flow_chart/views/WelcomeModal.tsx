@@ -7,8 +7,6 @@ import {
 } from "@/renderer/components/ui/alert-dialog";
 import { useLoadApp } from "@/renderer/hooks/useLoadApp";
 import { Button } from "@/renderer/components/ui/button";
-import { showWelcomeScreenAtom } from "@/renderer/hooks/useFlowChartState";
-import { useAtom } from "jotai";
 
 import packageJson from "../../../../../package.json";
 import { useFullManifest } from "@/renderer/hooks/useManifest";
@@ -17,13 +15,19 @@ import {
   MixPanelEvents,
   sendEventToMix,
 } from "@/renderer/services/MixpanelServices";
+import { useAppStore } from "@/renderer/stores/app";
+import { useShallow } from "zustand/react/shallow";
 
 export function WelcomeModal() {
   const openFileSelector = useLoadApp();
   const manifest = useFullManifest();
-  const [showWelcomeScreen, setShowWelcomeScreen] = useAtom(
-    showWelcomeScreenAtom,
+  const { setShowWelcomeScreen, showWelcomeScreen } = useAppStore(
+    useShallow((state) => ({
+      setShowWelcomeScreen: state.setShowWelcomeScreen,
+      showWelcomeScreen: state.showWelcomeScreen,
+    })),
   );
+
   useEffect(() => {
     window.api.getSetupExecutionTime().then((t) => {
       sendEventToMix(MixPanelEvents.flojoyLoaded, {

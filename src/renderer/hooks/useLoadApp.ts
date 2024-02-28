@@ -1,16 +1,21 @@
 import { useSocket } from "@/renderer/hooks/useSocket";
-import { useSetAtom } from "jotai";
-import { showWelcomeScreenAtom } from "@/renderer/hooks/useFlowChartState";
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 import { useProjectStore } from "../stores/project";
 import { useFullManifest, useFullMetadata } from "./useManifest";
 import { toast } from "sonner";
+import { Project } from "@/renderer/types/project";
+import { useAppStore } from "../stores/app";
+
+import { useShallow } from "zustand/react/shallow";
 
 export const useLoadApp = () => {
   const loadProject = useProjectStore((state) => state.loadProject);
 
   const { resetProgramResults } = useSocket();
-  const setShowWelcomeScreen = useSetAtom(showWelcomeScreenAtom);
+
+  const setShowWelcomeScreen = useAppStore(
+    useShallow((state) => state.setShowWelcomeScreen),
+  );
 
   const manifest = useFullManifest();
   const metadata = useFullMetadata();
@@ -24,11 +29,12 @@ export const useLoadApp = () => {
           toast.error(
             "Manifest and metadata are still loading, can't load app yet.",
           );
+          return;
         }
 
         const { fileContent, filePath } = result;
         sendEventToMix("Selected Files");
-        const project = JSON.parse(fileContent);
+        const project = JSON.parse(fileContent) as Project;
 
         loadProject(project, manifest, metadata, filePath);
 
