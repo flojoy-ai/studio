@@ -1,42 +1,19 @@
-import { atom, useAtom } from "jotai";
 import {
-  Conditional,
   Test,
   TestSequenceElement,
   TestRootNode,
   TestSequenceElementNode,
   IfNode,
   TestNode,
-  MsgState,
 } from "@/renderer/types/testSequencer";
-import { atomWithImmer } from "jotai-immer";
-import { v4 as uuidv4 } from "uuid";
 import {
   checkUniqueNames,
   validateStructure,
   validator,
 } from "@/renderer/utils/TestSequenceValidator";
 import useWithPermission from "./useWithPermission";
-
-export const testSequenceTree = atom<TestRootNode>({
-  type: "root",
-  children: [],
-  identifiers: [],
-});
-
-export const curRun = atom<string[]>([]);
-
-export const websocketIdAtom = atom<string>(uuidv4());
-
-export const elements = atomWithImmer<(Test | Conditional)[]>([]);
-
-export const isLockedAtom = atomWithImmer<boolean>(false);
-
-export const isLoadingAtom = atomWithImmer<boolean>(true);
-
-export const backendStateAtom = atomWithImmer<MsgState>("TEST_SET_DONE");
-
-export const testSequenceUnsaved = atomWithImmer<boolean>(false);
+import { useSequencerStore } from "../stores/sequencer";
+import { useShallow } from "zustand/react/shallow";
 
 // sync this with the definition of setElems
 export type SetElemsFn = {
@@ -103,14 +80,44 @@ const validateElements = (
 };
 
 export function useTestSequencerState() {
-  const [elems, setElements] = useAtom(elements);
-  const [websocketId] = useAtom(websocketIdAtom);
-  const [tree, setTree] = useAtom(testSequenceTree);
-  const [running, setRunning] = useAtom(curRun);
-  const [isLoading, setIsLoading] = useAtom(isLoadingAtom);
-  const [isLocked, setIsLocked] = useAtom(isLockedAtom); // this is used to lock the UI while the test is running
-  const [backendState, setBackendState] = useAtom(backendStateAtom);
-  const [isUnsaved, setUnsaved] = useAtom(testSequenceUnsaved);
+  const {
+    elems,
+    setElements,
+    websocketId,
+    running,
+    setRunning,
+    isLoading,
+    setIsLoading,
+    isLocked,
+    setIsLocked,
+    backendState,
+    setBackendState,
+    isUnsaved,
+    setUnsaved,
+    tree,
+    setTree,
+  } = useSequencerStore(
+    useShallow((state) => {
+      return {
+        elems: state.elements,
+        setElements: state.setElements,
+        websocketId: state.websocketId,
+        running: state.curRun,
+        setRunning: state.setCurRun,
+        isLoading: state.isLoading,
+        setIsLoading: state.setIsLoading,
+        isLocked: state.isLocked,
+        setIsLocked: state.setIsLocked,
+        backendState: state.backendState,
+        setBackendState: state.setBackendState,
+        isUnsaved: state.testSequenceUnsaved,
+        setUnsaved: state.setTestSequenceUnsaved,
+        tree: state.testSequenceTree,
+        setTree: state.setTestSequenceTree,
+      };
+    }),
+  );
+
   const { withPermissionCheck } = useWithPermission();
 
   // wrapper around setElements to check if elems is valid
@@ -118,7 +125,7 @@ export function useTestSequencerState() {
   function setElems(
     fn: (elems: TestSequenceElement[]) => TestSequenceElement[],
   );
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   function setElems(p: any) {
     let candidateElems: TestSequenceElement[];
 
