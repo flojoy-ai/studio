@@ -78,6 +78,7 @@ import {
 } from "@/renderer/stores/project";
 import { toast } from "sonner";
 import _ from "lodash";
+import { useShallow } from "zustand/react/shallow";
 
 const nodeTypes: NodeTypes = {
   default: DefaultBlock,
@@ -113,10 +114,12 @@ const FlowChartTab = () => {
   const [nodeModalOpen, setNodeModalOpen] = useState(false);
   const [isCommandMenuOpen, setCommandMenuOpen] = useState(false);
 
-  const { isEditMode, setIsEditMode } = useFlowchartStore((state) => ({
-    isEditMode: state.isEditMode,
-    setIsEditMode: state.setIsEditMode,
-  }));
+  const { isEditMode, setIsEditMode } = useFlowchartStore(
+    useShallow((state) => ({
+      isEditMode: state.isEditMode,
+      setIsEditMode: state.setIsEditMode,
+    })),
+  );
 
   const { resolvedTheme } = useTheme();
 
@@ -138,14 +141,16 @@ const FlowChartTab = () => {
     handleTextNodeChanges,
     handleNodeChanges,
     handleEdgeChanges,
-  } = useProjectStore((state) => ({
-    nodes: state.nodes,
-    edges: state.edges,
-    textNodes: state.textNodes,
-    handleTextNodeChanges: state.handleTextNodeChanges,
-    handleNodeChanges: state.handleNodeChanges,
-    handleEdgeChanges: state.handleEdgeChanges,
-  }));
+  } = useProjectStore(
+    useShallow((state) => ({
+      nodes: state.nodes,
+      edges: state.edges,
+      textNodes: state.textNodes,
+      handleTextNodeChanges: state.handleTextNodeChanges,
+      handleNodeChanges: state.handleNodeChanges,
+      handleEdgeChanges: state.handleEdgeChanges,
+    })),
+  );
 
   const [selectedNodes, otherNodes] = _.partition(nodes, (n) => n.selected);
   const selectedNode = selectedNodes.length === 1 ? selectedNodes[0] : null;

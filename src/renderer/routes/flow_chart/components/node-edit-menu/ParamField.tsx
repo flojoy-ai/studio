@@ -22,6 +22,7 @@ import { useFlowchartStore } from "@/renderer/stores/flowchart";
 import { Result } from "@/types/result";
 import { toast } from "sonner";
 import { BlockParameterValue } from "@/renderer/types/node";
+import { useShallow } from "zustand/react/shallow";
 
 type ParamFieldProps = {
   nodeId: string;
@@ -47,9 +48,12 @@ const ParamField = ({
   options,
   nodeReferenceOptions,
 }: ParamFieldProps) => {
-  const { markNodeParamChanged } = useFlowchartStore((state) => ({
-    markNodeParamChanged: state.markNodeParamChanged,
-  }));
+  const { markNodeParamChanged } = useFlowchartStore(
+    useShallow((state) => ({
+      markNodeParamChanged: state.markNodeParamChanged,
+    })),
+  );
+
   const handleChange = (value: number | string | boolean) => {
     const res = updateFunc(nodeId, nodeCtrl.param, value);
     if (!res.ok) {

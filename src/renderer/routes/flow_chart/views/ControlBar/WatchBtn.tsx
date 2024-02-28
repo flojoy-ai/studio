@@ -9,6 +9,7 @@ import {
 } from "@/renderer/components/ui/tooltip";
 import { toast } from "sonner";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
+import { useShallow } from "zustand/react/shallow";
 
 interface WatchBtnProps {
   playFC: () => void;
@@ -16,7 +17,9 @@ interface WatchBtnProps {
 }
 
 const WatchBtn = ({ playFC, cancelFC }: WatchBtnProps) => {
-  const nodeParamChanged = useFlowchartStore((state) => state.nodeParamChanged);
+  const nodeParamChanged = useFlowchartStore(
+    useShallow((state) => state.nodeParamChanged),
+  );
   const [isWatching, setIsWatching] = useState(false);
 
   useEffect(() => {

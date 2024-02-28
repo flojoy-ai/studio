@@ -5,6 +5,7 @@ import { useCallback } from "react";
 import { useStore, Node, useReactFlow } from "reactflow";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
+import { useShallow } from "zustand/react/shallow";
 
 export type MenuInfo = {
   id: string;
@@ -69,7 +70,9 @@ export default function ContextMenu({
   const { withPermissionCheck } = useWithPermission();
   const { getNode, setNodes, setEdges } = useReactFlow();
 
-  const setIsEditMode = useFlowchartStore((state) => state.setIsEditMode);
+  const setIsEditMode = useFlowchartStore(
+    useShallow((state) => state.setIsEditMode),
+  );
 
   const { addSelectedNodes } = useStore((state) => ({
     resetSelectedElements: state.resetSelectedElements,

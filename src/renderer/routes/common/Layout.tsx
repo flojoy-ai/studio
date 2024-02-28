@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom";
 import StatusBar from "@/renderer/routes/common/StatusBar";
 import { useActiveTab } from "@/renderer/hooks/useActiveTab";
 import { useProjectStore } from "@/renderer/stores/project";
+import { useShallow } from "zustand/react/shallow";
 
 export const HEADER_HEIGHT = 72;
 export const ACTIONS_HEIGHT = 52;
@@ -18,11 +19,11 @@ export const Layout = () => {
   const { serverStatus } = useSocket();
 
   const { setProjectName, projectName, hasUnsavedChanges } = useProjectStore(
-    (state) => ({
+    useShallow((state) => ({
       setProjectName: state.setProjectName,
       projectName: state.name,
       hasUnsavedChanges: state.hasUnsavedChanges,
-    }),
+    })),
   );
 
   const { activeTab } = useActiveTab();

@@ -4,8 +4,6 @@ import { useCallback } from "react";
 import { Node, XYPosition } from "reactflow";
 import { BlockData } from "@/renderer/types";
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";
-import { centerPositionAtom } from "@/renderer/hooks/useFlowChartState";
-import { useAtomValue } from "jotai";
 import { addRandomPositionOffset } from "@/renderer/utils/RandomPositionOffset";
 import { createNodeId, createNodeLabel } from "@/renderer/utils/NodeUtils";
 import { ctrlsFromParams } from "@/renderer/utils/NodeUtils";
@@ -14,6 +12,8 @@ import {
   useHardwareDevices,
 } from "@/renderer/hooks/useHardwareDevices";
 import { BlockMetadataMap } from "@/renderer/types/blocks-metadata";
+import { useShallow } from "zustand/react/shallow";
+import { useAppStore } from "@/renderer/stores/app";
 
 export type AddNewNode = (node: NodeElement) => void;
 
@@ -24,7 +24,7 @@ export const useAddNewNode = (
   getTakenNodeLabels: (func: string) => string[][],
   nodesMetadataMap: BlockMetadataMap | undefined | null,
 ) => {
-  const center = useAtomValue(centerPositionAtom);
+  const center = useAppStore(useShallow((state) => state.centerPosition));
   const hardwareDevices: DeviceInfo | undefined = useHardwareDevices();
 
   return useCallback(

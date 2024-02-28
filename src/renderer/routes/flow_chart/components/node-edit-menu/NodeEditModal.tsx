@@ -12,6 +12,7 @@ import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
 import { useProjectStore } from "@/renderer/stores/project";
 import { toast } from "sonner";
+import { useShallow } from "zustand/react/shallow";
 
 type NodeEditModalProps = {
   node: Node<BlockData>;
@@ -27,20 +28,24 @@ const NodeEditModal = ({
   handleDelete,
 }: NodeEditModalProps) => {
   const { updateBlockParameter, updateBlockInitParameter, updateBlockLabel } =
-    useProjectStore((state) => ({
-      updateBlockParameter: state.updateBlockParameter,
-      updateBlockInitParameter: state.updateBlockInitParameter,
-      updateBlockLabel: state.updateBlockLabel,
-    }));
+    useProjectStore(
+      useShallow((state) => ({
+        updateBlockParameter: state.updateBlockParameter,
+        updateBlockInitParameter: state.updateBlockInitParameter,
+        updateBlockLabel: state.updateBlockLabel,
+      })),
+    );
 
   const { withPermissionCheck } = useWithPermission();
   const [newTitle, setNewTitle] = useState(node.data.label);
   const [editRenamingTitle, setEditRenamingTitle] = useState(false);
 
-  const { setIsEditMode, nodeParamChanged } = useFlowchartStore((state) => ({
-    setIsEditMode: state.setIsEditMode,
-    nodeParamChanged: state.nodeParamChanged,
-  }));
+  const { setIsEditMode, nodeParamChanged } = useFlowchartStore(
+    useShallow((state) => ({
+      setIsEditMode: state.setIsEditMode,
+      nodeParamChanged: state.nodeParamChanged,
+    })),
+  );
 
   //converted from node to Ids here so that it will only do this when the edit menu is opened
   const nodeReferenceOptions =

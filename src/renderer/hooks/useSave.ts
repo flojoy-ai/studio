@@ -1,11 +1,12 @@
 import { toast } from "sonner";
 import useWithPermission from "./useWithPermission";
 import { useProjectStore } from "../stores/project";
+import { useShallow } from "zustand/react/shallow";
 
 export const useSave = () => {
   const { withPermissionCheck } = useWithPermission();
 
-  const saveProject = useProjectStore((state) => state.saveProject);
+  const saveProject = useProjectStore(useShallow((state) => state.saveProject));
 
   const handleSave = async () => {
     const pathRes = await saveProject();

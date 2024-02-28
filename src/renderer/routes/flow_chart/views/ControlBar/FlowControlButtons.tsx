@@ -15,6 +15,7 @@ import _ from "lodash";
 import { toast } from "sonner";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
 import { useProjectStore } from "@/renderer/stores/project";
+import { useShallow } from "zustand/react/shallow";
 
 const FlowControlButtons = () => {
   const { socketId, serverStatus } = useSocket();
@@ -22,12 +23,14 @@ const FlowControlButtons = () => {
   const { settings } = useSettings("backend");
 
   const resetNodeParamChanged = useFlowchartStore(
-    (state) => state.resetNodeParamChanged,
+    useShallow((state) => state.resetNodeParamChanged),
   );
-  const { nodes, edges } = useProjectStore((state) => ({
-    nodes: state.nodes,
-    edges: state.edges,
-  }));
+  const { nodes, edges } = useProjectStore(
+    useShallow((state) => ({
+      nodes: state.nodes,
+      edges: state.edges,
+    })),
+  );
 
   const manifest = useManifest();
 

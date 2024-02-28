@@ -3,6 +3,7 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { BlockData } from "../types/";
 import { BlockParameterValue, TextData, BlockDefinition } from "../types/node";
+import { useShallow } from "zustand/react/shallow";
 
 import * as galleryItems from "../data/apps";
 import { ExampleProjects } from "../data/docs-example-apps";
@@ -18,8 +19,7 @@ import { Project } from "../types/project";
 import useWithPermission from "../hooks/useWithPermission";
 import { Draft } from "immer";
 import { DeviceInfo, useHardwareDevices } from "../hooks/useHardwareDevices";
-import { centerPositionAtom } from "../hooks/useFlowChartState";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom } from "jotai";
 import { useCallback, useEffect } from "react";
 import {
   manifestChangedAtom,
@@ -34,6 +34,7 @@ import {
 import { filterMap } from "../utils/ArrayUtils";
 import { getEdgeTypes, isCompatibleType } from "../utils/TypeCheck";
 import { toast } from "sonner";
+import { useAppStore } from "./app";
 
 type State = {
   name: string | undefined;
@@ -349,7 +350,7 @@ export const useProjectStore = create<State & Actions>()(
 export const useAddBlock = () => {
   const { setNodes } = useProtectedGraphUpdate();
 
-  const center = useAtomValue(centerPositionAtom);
+  const center = useAppStore(useShallow((state) => state.centerPosition));
   const hardwareDevices: DeviceInfo | undefined = useHardwareDevices();
   const metadata = useFullMetadata();
 
@@ -503,10 +504,12 @@ export const useGraphResync = () => {
   const [manifestChanged, setManifestChanged] = useAtom(manifestChangedAtom);
   const { setEdges, setNodes } = useProtectedGraphUpdate();
 
-  const { nodes, edges } = useProjectStore((state) => ({
-    nodes: state.nodes,
-    edges: state.edges,
-  }));
+  const { nodes, edges } = useProjectStore(
+    useShallow((state) => ({
+      nodes: state.nodes,
+      edges: state.edges,
+    })),
+  );
 
   const manifest = useFullManifest();
   const metadata = useFullMetadata();

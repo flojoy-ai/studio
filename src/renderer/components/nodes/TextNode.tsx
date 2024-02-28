@@ -7,6 +7,7 @@ import { Edit, Trash } from "lucide-react";
 import { cn } from "@/renderer/lib/utils";
 import { TextData } from "@/renderer/types/node";
 import { useProjectStore } from "@/renderer/stores/project";
+import { useShallow } from "zustand/react/shallow";
 
 const LinkRenderer = (props) => {
   const handleClick = () => {
@@ -26,10 +27,12 @@ const LinkRenderer = (props) => {
 };
 
 const TextNode = ({ selected, data, id }: NodeProps<TextData>) => {
-  const { deleteTextNode, updateTextNodeText } = useProjectStore((state) => ({
-    deleteTextNode: state.deleteTextNode,
-    updateTextNodeText: state.updateTextNodeText,
-  }));
+  const { deleteTextNode, updateTextNodeText } = useProjectStore(
+    useShallow((state) => ({
+      deleteTextNode: state.deleteTextNode,
+      updateTextNodeText: state.updateTextNodeText,
+    })),
+  );
 
   const size = useStore((s) => {
     const node = s.nodeInternals.get(id);

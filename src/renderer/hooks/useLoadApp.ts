@@ -9,7 +9,7 @@ import { useAppStore } from "../stores/app";
 import { useShallow } from "zustand/react/shallow";
 
 export const useLoadApp = () => {
-  const loadProject = useProjectStore((state) => state.loadProject);
+  const loadProject = useProjectStore(useShallow((state) => state.loadProject));
 
   const { resetProgramResults } = useSocket();
 

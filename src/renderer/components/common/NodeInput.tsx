@@ -9,6 +9,8 @@ import {
 } from "react";
 import { toast } from "sonner";
 
+import { useShallow } from "zustand/react/shallow";
+
 type Props = {
   title: string;
   id: string;
@@ -16,7 +18,9 @@ type Props = {
 };
 
 const BlockLabelInput = ({ title, id, setIsRenamingTitle }: Props) => {
-  const updateBlockLabel = useProjectStore((state) => state.updateBlockLabel);
+  const updateBlockLabel = useProjectStore(
+    useShallow((state) => state.updateBlockLabel),
+  );
   const [newTitle, setNewTitle] = useState<string>(title);
 
   const ref = useRef<HTMLInputElement>(null);

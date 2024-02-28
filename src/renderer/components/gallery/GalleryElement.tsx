@@ -9,6 +9,7 @@ import { useProjectStore } from "@/renderer/stores/project";
 import { useFullManifest, useFullMetadata } from "@/renderer/hooks/useManifest";
 import { Project } from "@/renderer/types/project";
 import { toast } from "sonner";
+import { useShallow } from "zustand/react/shallow";
 
 export interface AppGalleryElementProps {
   galleryApp: GalleryApp;
@@ -19,7 +20,7 @@ export const GalleryElement = ({
   galleryApp,
   setIsGalleryOpen,
 }: AppGalleryElementProps) => {
-  const loadProject = useProjectStore((state) => state.loadProject);
+  const loadProject = useProjectStore(useShallow((state) => state.loadProject));
 
   const rfInstance = useReactFlow();
   const nodesInitialized = useNodesInitialized();
