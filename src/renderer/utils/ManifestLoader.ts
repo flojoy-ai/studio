@@ -21,14 +21,14 @@ const nodeParameterSchema = z.object({
     z.null(),
     z.undefined(),
   ]),
-  options: z.optional(z.array(z.string())),
+  options: z.optional(z.array(z.union([z.string(), z.number()]))),
   desc: z.nullable(z.string()),
   overload: z.nullable(z.record(z.string(), z.array(z.string()))),
 });
 
 const pipDependencySchema = z.object({
   name: z.string(),
-  v: z.optional(z.string()),
+  v: z.string().nullable(),
 });
 
 const leafSchema = z.object({
@@ -48,7 +48,7 @@ export type Leaf = z.infer<typeof leafSchema>;
 const parentSchema = z.object({
   name: z.string(),
   key: z.optional(z.string()),
-  children: z.array(z.union([leafSchema, z.lazy(() => parentSchema)])),
+  children: z.array(z.union([z.lazy(() => parentSchema), leafSchema])),
 });
 export type ParentNode = z.infer<typeof parentSchema>;
 

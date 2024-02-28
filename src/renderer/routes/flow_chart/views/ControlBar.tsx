@@ -1,15 +1,5 @@
 import { memo, useState } from "react";
 
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/renderer/components/ui/dialog";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { BlockSettingsModal } from "./BlockSettingsModal";
 import EnvVarModal from "./env-var/EnvVarModal";
@@ -30,10 +20,10 @@ import FlowControlButtons from "./ControlBar/FlowControlButtons";
 import { DebugSettingsModal } from "./DebugSettingsModal";
 import DepManagerModal from "./DepManagerModal";
 import { DeviceSettingsModal } from "./DeviceSettingsModal";
-import { Button } from "@/renderer/components/ui/button";
 import ProfileMenu from "./user-profile/ProfileMenu";
 import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
+import FeedbackModal from "./FeedbackModal";
 
 const ControlBar = () => {
   const { activeTab } = useAppStore(
@@ -47,6 +37,8 @@ const ControlBar = () => {
   const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
   const [isDeviceSettingsOpen, setIsDeviceSettingsOpen] = useState(false);
   const [isDebugSettingsOpen, setIsDebugSettingsOpen] = useState(false);
+
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
 
   const { setIsEnvVarModalOpen, setIsDepManagerModalOpen } = useAppStore(
     useShallow((state) => ({
@@ -83,6 +75,11 @@ const ControlBar = () => {
         setIsDebugSettingsOpen={setIsDebugSettingsOpen}
       />
       <DepManagerModal />
+
+      <FeedbackModal
+        open={isFeedbackModalOpen}
+        setOpen={setIsFeedbackModalOpen}
+      />
 
       {activeTab === "Visual Python Script" && <FlowControlButtons />}
 
@@ -157,35 +154,11 @@ const ControlBar = () => {
             </MenubarContent>
           </MenubarMenu>
 
-          <Dialog>
-            <DialogTrigger>
-              <MenubarMenu>
-                <MenubarTrigger>Feedback</MenubarTrigger>
-              </MenubarMenu>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>We would love to hear what you think!</DialogTitle>
-                <DialogDescription>
-                  Join our Discord community to leave us a feedback :)
-                </DialogDescription>
-              </DialogHeader>
-              <DialogFooter>
-                <DialogClose>
-                  <Button type="submit" variant="secondary">
-                    Close
-                  </Button>
-                </DialogClose>
-                <DialogClose>
-                  <Button type="submit" asChild>
-                    <a href="https://discord.gg/7HEBr7yG8c" target="_blank">
-                      Join
-                    </a>
-                  </Button>
-                </DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+          <MenubarMenu>
+            <MenubarTrigger onClick={() => setIsFeedbackModalOpen(true)}>
+              Feedback
+            </MenubarTrigger>
+          </MenubarMenu>
         </Menubar>
       </div>
       <ProfileMenu />

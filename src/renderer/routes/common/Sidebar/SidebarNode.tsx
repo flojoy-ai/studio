@@ -7,7 +7,7 @@ import {
   isRoot,
   isLeafParentNode,
 } from "@/renderer/utils/ManifestLoader";
-import SidebarSection from "./SidebarSection";
+import SidebarSection from "@/renderer/routes/common/Sidebar/SidebarSection";
 import { LeafClickHandler } from "@/renderer/routes/common/Sidebar/Sidebar";
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 import { NumpySvg, ScipySvg } from "@/renderer/assets/ArithmeticSVG";
