@@ -1,6 +1,0 @@
-{
-  "name": "plotly.js",
-  "version": "2.23.2",
-  "main": "plotly-custom.min.js",
-  "license": "MIT"
-}
