@@ -51,7 +51,7 @@ type ContextMenuProps = {
   bottom?: number;
   fullPath: string;
   onClick?: () => void;
-  duplicateNode: (node: Node<BlockData>) => void;
+  duplicateBlock: (node: Node<BlockData>) => void;
   setNodeModalOpen: (open: boolean) => void;
 };
 
@@ -63,7 +63,7 @@ export default function ContextMenu({
   bottom,
   fullPath,
   onClick,
-  duplicateNode,
+  duplicateBlock,
   setNodeModalOpen,
 }: ContextMenuProps) {
   const { withPermissionCheck } = useWithPermission();
@@ -96,7 +96,7 @@ export default function ContextMenu({
     if (!node) {
       return;
     }
-    duplicateNode(node);
+    duplicateBlock(node);
   };
 
   const openInVSC = async () => {

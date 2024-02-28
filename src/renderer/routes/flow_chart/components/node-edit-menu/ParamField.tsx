@@ -47,12 +47,9 @@ const ParamField = ({
   options,
   nodeReferenceOptions,
 }: ParamFieldProps) => {
-  const { markNodeParamChanged, markHasUnsavedChanges } = useFlowchartStore(
-    (state) => ({
-      markNodeParamChanged: state.markNodeParamChanged,
-      markHasUnsavedChanges: state.markHasUnsavedChanges,
-    }),
-  );
+  const { markNodeParamChanged } = useFlowchartStore((state) => ({
+    markNodeParamChanged: state.markNodeParamChanged,
+  }));
   const handleChange = (value: number | string | boolean) => {
     const res = updateFunc(nodeId, nodeCtrl.param, value);
     if (!res.ok) {
@@ -62,7 +59,6 @@ const ParamField = ({
     }
 
     markNodeParamChanged();
-    markHasUnsavedChanges();
   };
 
   const value = nodeCtrl.value;

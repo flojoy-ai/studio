@@ -3,7 +3,7 @@ import { Nullish } from "./util";
 
 export type BlockParameterValue = Nullish<string | number | boolean>;
 
-type BlockDefinition = {
+export type BlockDefinition = {
   name: string;
   key: string;
   type: string;

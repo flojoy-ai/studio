@@ -1,20 +1,14 @@
-import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
 import { useNodesInitialized, useReactFlow } from "reactflow";
 import { YoutubeIcon } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
 import { Avatar, AvatarImage } from "@/renderer/components/ui/avatar";
 import { GalleryApp } from "@/renderer/types/gallery";
 import { useEffect } from "react";
-import { useSetAtom } from "jotai";
-import {
-  Project,
-  projectAtom,
-  projectPathAtom,
-} from "@/renderer/hooks/useFlowChartState";
 import { useSocket } from "@/renderer/hooks/useSocket";
-import { useFlowchartStore } from "@/renderer/stores/flowchart";
 import { useProjectStore } from "@/renderer/stores/project";
-import { useManifest } from "@/renderer/hooks/useManifest";
+import { useFullManifest, useFullMetadata } from "@/renderer/hooks/useManifest";
+import { Project } from "@/renderer/types/project";
+import { toast } from "sonner";
 
 export interface AppGalleryElementProps {
   galleryApp: GalleryApp;
@@ -26,33 +20,26 @@ export const GalleryElement = ({
   setIsGalleryOpen,
 }: AppGalleryElementProps) => {
   const loadProject = useProjectStore((state) => state.loadProject);
-  const resetHasUnsavedChanges = useFlowchartStore(
-    (state) => state.markHasUnsavedChanges,
-  );
-  const setProject = useSetAtom(projectAtom);
-  const setProjectPath = useSetAtom(projectPathAtom);
 
   const rfInstance = useReactFlow();
   const nodesInitialized = useNodesInitialized();
   const { resetProgramResults } = useSocket();
-  const manifest = useManifest();
+  const manifest = useFullManifest();
+  const metadata = useFullMetadata();
 
   const handleAppLoad = async () => {
     const raw = await import(`../../data/apps/${galleryApp.appPath}.json`);
     const app = raw as Project;
-    if (!app.rfInstance) {
-      throw new Error("Gallery app is missing flow chart data");
+    if (!manifest || !metadata) {
+      toast.error(
+        "Manifest and metadata are still loading, can't load project yet.",
+      );
+      return;
     }
 
-    setProject({
-      name: galleryApp.title,
-      rfInstance: app.rfInstance,
-    });
-    loadProject(app);
-    setProjectPath(undefined);
+    loadProject(app, manifest, metadata);
     setIsGalleryOpen(false);
 
-    resetHasUnsavedChanges();
     resetProgramResults();
   };
 

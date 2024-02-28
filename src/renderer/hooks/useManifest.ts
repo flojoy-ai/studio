@@ -8,6 +8,8 @@ import { atom, useAtomValue, useSetAtom } from "jotai";
 import { useCallback, useMemo } from "react";
 import { useCustomSections } from "./useCustomBlockManifest";
 
+// TODO: Rewrite this
+
 // undefined = loading state
 const manifestAtom = atom<RootNode | undefined | null>(null);
 export const manifestChangedAtom = atom<boolean>(true);

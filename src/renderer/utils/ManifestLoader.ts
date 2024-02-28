@@ -28,7 +28,7 @@ const nodeParameterSchema = z.object({
 
 const pipDependencySchema = z.object({
   name: z.string(),
-  v: z.optional(z.string()),
+  v: z.string(),
 });
 
 const leafSchema = z.object({
@@ -36,11 +36,11 @@ const leafSchema = z.object({
   key: z.string(),
   type: z.string(),
   inputs: z.optional(z.array(nodeInputSchema)),
-  outputs: z.optional(z.array(nodeOutputSchema)),
-  parameters: z.optional(z.record(z.string(), nodeParameterSchema)),
+  outputs: z.array(nodeOutputSchema),
+  parameters: z.record(z.string(), nodeParameterSchema),
   init_parameters: z.optional(z.record(z.string(), nodeParameterSchema)),
-  pip_dependencies: z.optional(z.array(pipDependencySchema)),
-  ui_component_id: z.optional(z.string()),
+  pip_dependencies: z.array(pipDependencySchema),
+  ui_component_id: z.string(),
   children: z.null(),
 });
 

@@ -1,5 +1,3 @@
-import { projectAtom } from "@/renderer/hooks/useFlowChartState";
-import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
 import { useSocket } from "@/renderer/hooks/useSocket";
 import { TreeNode } from "@/renderer/utils/ManifestLoader";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
@@ -7,8 +5,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ConnectionLineType,
   MiniMap,
-  NodeDragHandler,
-  OnConnect,
   OnEdgesChange,
   OnInit,
   OnNodesChange,
@@ -18,14 +14,13 @@ import {
   Controls,
   Node,
   NodeTypes,
-  addEdge,
   applyEdgeChanges,
   applyNodeChanges,
+  OnConnect,
 } from "reactflow";
 import Sidebar from "../common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 import { useFlowChartTabState } from "./FlowChartTabState";
-import { useAddNewNode } from "./hooks/useAddNewNode";
 import { BlockExpandMenu } from "./views/BlockExpandMenu";
 import {
   MixPanelEvents,
@@ -36,18 +31,15 @@ import {
   BOTTOM_STATUS_BAR_HEIGHT,
   LAYOUT_TOP_HEIGHT,
 } from "../common/Layout";
-import { getEdgeTypes, isCompatibleType } from "@/renderer/utils/TypeCheck";
 import { CenterObserver } from "./components/CenterObserver";
 import { Separator } from "@/renderer/components/ui/separator";
 import { Pencil, Text, Workflow, X } from "lucide-react";
 import { GalleryModal } from "@/renderer/components/gallery/GalleryModal";
-import { toast } from "sonner";
 import { useTheme } from "@/renderer/providers/themeProvider";
 import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
 import { Button } from "@/renderer/components/ui/button";
 import { ResizeFitter } from "./components/ResizeFitter";
 import NodeEditModal from "./components/node-edit-menu/NodeEditModal";
-import { useAtom } from "jotai";
 import { useAddTextNode } from "./hooks/useAddTextNode";
 import { WelcomeModal } from "./views/WelcomeModal";
 import { CommandMenu } from "../command/CommandMenu";
@@ -57,17 +49,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/renderer/components/ui/tooltip";
-import {
-  manifestChangedAtom,
-  useFullManifest,
-  useFullMetadata,
-  useManifest,
-  useNodesMetadata,
-} from "@/renderer/hooks/useManifest";
+import { useManifest, useNodesMetadata } from "@/renderer/hooks/useManifest";
 import { BlockData } from "@/renderer/types";
-import { createNodeId, createNodeLabel } from "@/renderer/utils/NodeUtils";
 import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
-import { filterMap } from "@/renderer/utils/ArrayUtils";
 import ArithmeticBlock from "@/renderer/components/nodes/ArithmeticBlock";
 import ConditionalBlock from "@/renderer/components/nodes/ConditionalBlock";
 import DataBlock from "@/renderer/components/nodes/DataBlock";
@@ -77,13 +61,23 @@ import LogicBlock from "@/renderer/components/nodes/LogicBlock";
 import NumpyBlock from "@/renderer/components/nodes/NumpyBlock";
 import ScipyBlock from "@/renderer/components/nodes/ScipyBlock";
 import VisorBlock from "@/renderer/components/nodes/VisorBlock";
-import { syncFlowchartWithManifest } from "@/renderer/lib/sync";
 import TextNode from "@/renderer/components/nodes/TextNode";
 import ContextMenu, { MenuInfo } from "./components/NodeContextMenu";
 import { useCustomSections } from "@/renderer/hooks/useCustomBlockManifest";
 import { Spinner } from "@/renderer/components/ui/spinner";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
+import {
+  useAddBlock,
+  useClearCanvas,
+  useCreateEdge,
+  useDeleteBlock,
+  useDuplicateBlock,
+  useGraphResync,
+  useProjectStore,
+} from "@/renderer/stores/project";
+import { toast } from "sonner";
+import _ from "lodash";
 
 const nodeTypes: NodeTypes = {
   default: DefaultBlock,
@@ -119,14 +113,10 @@ const FlowChartTab = () => {
   const [nodeModalOpen, setNodeModalOpen] = useState(false);
   const [isCommandMenuOpen, setCommandMenuOpen] = useState(false);
 
-  const { isEditMode, setIsEditMode, markHasUnsavedChanges } =
-    useFlowchartStore((state) => ({
-      isEditMode: state.isEditMode,
-      setIsEditMode: state.setIsEditMode,
-      markHasUnsavedChanges: state.markHasUnsavedChanges,
-    }));
-
-  const [project, setProject] = useAtom(projectAtom);
+  const { isEditMode, setIsEditMode } = useFlowchartStore((state) => ({
+    isEditMode: state.isEditMode,
+    setIsEditMode: state.setIsEditMode,
+  }));
 
   const { resolvedTheme } = useTheme();
 
@@ -143,16 +133,23 @@ const FlowChartTab = () => {
 
   const {
     nodes,
-    setNodes,
-    textNodes,
-    setTextNodes,
     edges,
-    setEdges,
-    selectedNode,
-    unSelectedNodes,
+    textNodes,
+    handleTextNodeChanges,
     handleNodeChanges,
     handleEdgeChanges,
-  } = useFlowChartGraph();
+  } = useProjectStore((state) => ({
+    nodes: state.nodes,
+    edges: state.edges,
+    textNodes: state.textNodes,
+    handleTextNodeChanges: state.handleTextNodeChanges,
+    handleNodeChanges: state.handleNodeChanges,
+    handleEdgeChanges: state.handleEdgeChanges,
+  }));
+
+  const [selectedNodes, otherNodes] = _.partition(nodes, (n) => n.selected);
+  const selectedNode = selectedNodes.length === 1 ? selectedNodes[0] : null;
+
   const nodesMetadataMap = useNodesMetadata();
   const manifest = useManifest();
   const { isAdmin } = useWithPermission();
@@ -162,92 +159,24 @@ const FlowChartTab = () => {
     customBlockManifest,
     customBlocksMetadata,
   } = useCustomSections();
-  const [manifestChanged, setManifestChanged] = useAtom(manifestChangedAtom);
 
-  const fullManifest = useFullManifest();
-  const fullBlocksMetadata = useFullMetadata();
+  useGraphResync();
 
-  useEffect(() => {
-    if (fullManifest && fullBlocksMetadata && manifestChanged) {
-      const [syncedNodes, syncedEdges] = syncFlowchartWithManifest(
-        nodes,
-        edges,
-        fullManifest,
-        fullBlocksMetadata,
-      );
-
-      setNodes(syncedNodes);
-      setEdges(syncedEdges);
-      toast("Synced blocks with manifest.");
-      setManifestChanged(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fullManifest, fullBlocksMetadata, manifestChanged]);
-
-  const getTakenNodeLabels = useCallback(
-    (func: string) => {
-      const re = new RegExp(`^${func.replaceAll("_", " ")}( \\d+)?$`);
-      const matches = filterMap(nodes, (n) => n.data.label.match(re));
-      return matches;
-    },
-    // including nodes variable in dependency list would cause excessive re-renders
-    // as nodes variable is updated so frequently
-    // using nodes.length is more efficient for this case
-    // adding eslint-disable-next-line react-hooks/exhaustive-deps to suppress eslint warning
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [nodes.length],
-  );
-
-  const addNewNode = useAddNewNode(
-    setNodes,
-    getTakenNodeLabels,
-    fullBlocksMetadata,
-  );
+  const addBlock = useAddBlock();
+  const createEdge = useCreateEdge();
   const addTextNode = useAddTextNode();
-
-  const duplicateNode = useCallback(
-    (node: Node<BlockData>) => {
-      const funcName = node.data.func;
-      const id = createNodeId(funcName);
-
-      const newNode: Node<BlockData> = {
-        ...node,
-        id,
-        data: {
-          ...node.data,
-          id,
-          label:
-            node.data.func === "CONSTANT"
-              ? node.data.ctrls["constant"].value!.toString()
-              : createNodeLabel(funcName, getTakenNodeLabels(funcName)),
-        },
-        position: {
-          x: node.position.x + 30,
-          y: node.position.y + 30,
-        },
-        selected: true,
-      };
-
-      setNodes((prev) => {
-        const original = prev.find((n) => node.id === n.id);
-        if (!original) {
-          throw new Error(
-            "Failed to find original node when duplicating, this should not happen",
-          );
-        }
-
-        original.selected = false;
-        prev.push(newNode);
-      });
-    },
-    [getTakenNodeLabels, setNodes],
-  );
+  const duplicateBlock = useDuplicateBlock();
+  const deleteBlock = useDeleteBlock();
+  const clearProjectCanvas = useClearCanvas();
 
   const duplicateSelectedNode = useCallback(() => {
     if (selectedNode) {
-      duplicateNode(selectedNode);
+      const res = duplicateBlock(selectedNode);
+      if (!res.ok) {
+        toast.error(res.error.message);
+      }
     }
-  }, [selectedNode, duplicateNode]);
+  }, [selectedNode, duplicateBlock]);
 
   useKeyboardShortcut("ctrl", "d", duplicateSelectedNode);
   useKeyboardShortcut("meta", "d", duplicateSelectedNode);
@@ -257,109 +186,66 @@ const FlowChartTab = () => {
     [setIsSidebarOpen],
   );
 
-  const handleNodeRemove = useCallback(
-    (nodeId: string, nodeLabel: string) => {
-      setNodes((prev) => prev.filter((node) => node.id !== nodeId));
-      setEdges((prev) =>
-        prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId),
-      );
-      sendEventToMix(MixPanelEvents.nodeDeleted, { nodeTitle: nodeLabel });
-      markHasUnsavedChanges();
-    },
-    [setNodes, setEdges, markHasUnsavedChanges],
-  );
-
   const onInit: OnInit = (rfIns) => {
     rfIns.fitView({
       padding: 0.8,
     });
-    setProject({ ...project, rfInstance: rfIns.toObject() });
   };
 
-  const handleNodeDrag: NodeDragHandler = (_, node) => {
-    setNodes((nodes) => {
-      const nodeIndex = nodes.findIndex((el) => el.id === node.id);
-      nodes[nodeIndex] = node;
-      markHasUnsavedChanges();
-      localStorage.setItem("prev_block_pos", "");
-    });
-  };
+  // const handleNodeDrag: NodeDragHandler = (_, node) => {
+  //   setNodes((nodes) => {
+  //     const nodeIndex = nodes.findIndex((el) => el.id === node.id);
+  //     nodes[nodeIndex] = node;
+  //     localStorage.setItem("prev_block_pos", "");
+  //   });
+  // };
+
+  const onConnect: OnConnect = useCallback(
+    (conn) => {
+      console.log(conn);
+      const res = createEdge(conn);
+      if (!res.ok) {
+        if (res.error instanceof TypeError) {
+          toast.message("Type Error", { description: res.error.message });
+        } else {
+          toast.error(res.error.message);
+        }
+      }
+    },
+    [createEdge],
+  );
 
   const onNodesChange: OnNodesChange = useCallback(
     (changes) => {
       handleNodeChanges((ns) => applyNodeChanges(changes, ns));
-      setTextNodes((ns) => applyNodeChanges(changes, ns));
+      handleTextNodeChanges((ns) => applyNodeChanges(changes, ns));
     },
-    [handleNodeChanges, setTextNodes],
+    [handleNodeChanges, handleTextNodeChanges],
   );
 
   const onEdgesChange: OnEdgesChange = useCallback(
     (changes) => {
       sendEventToMix(MixPanelEvents.edgesChanged);
       handleEdgeChanges((es) => applyEdgeChanges(changes, es));
-      if (!changes.every((c) => c.type === "select")) {
-        markHasUnsavedChanges();
-      }
     },
-    [handleEdgeChanges, markHasUnsavedChanges],
-  );
-
-  const onConnect: OnConnect = useCallback(
-    (connection) => {
-      setEdges((eds) => {
-        if (!fullManifest) {
-          toast.error("Manifest not found, can't connect edge.");
-          return;
-        }
-
-        const edges = getEdgeTypes(fullManifest, connection);
-
-        if (edges.length > 0) {
-          const [sourceType, targetType] = edges;
-          if (isCompatibleType(sourceType, targetType)) {
-            return addEdge(connection, eds);
-          }
-
-          toast.message("Type error", {
-            description: `Source type ${sourceType} and target type ${targetType} are not compatible`,
-          });
-        }
-      });
-    },
-    [setEdges, fullManifest],
+    [handleEdgeChanges],
   );
 
   const handleNodesDelete: OnNodesDelete = useCallback(
     (nodes) => {
       nodes.forEach((node) => {
-        sendEventToMix(MixPanelEvents.nodeDeleted, {
-          nodeTitle: node.data.label,
-        });
+        deleteBlock(node.id, node.data.label);
       });
-      const selectedNodeIds = nodes.map((node) => node.id);
-      setNodes((prev) =>
-        prev.filter((node) => !selectedNodeIds.includes(node.id)),
-      );
-      markHasUnsavedChanges();
     },
-    [setNodes, markHasUnsavedChanges],
+    [deleteBlock],
   );
 
   const clearCanvas = useCallback(() => {
-    setNodes([]);
-    setTextNodes([]);
-    setEdges([]);
-    markHasUnsavedChanges();
+    clearProjectCanvas();
     resetProgramResults();
 
     sendEventToMix(MixPanelEvents.canvasCleared);
-  }, [
-    setNodes,
-    setTextNodes,
-    setEdges,
-    markHasUnsavedChanges,
-    resetProgramResults,
-  ]);
+  }, [clearProjectCanvas, resetProgramResults]);
 
   useEffect(() => {
     if (selectedNode === null || !nodesMetadataMap) {
@@ -387,11 +273,8 @@ const FlowChartTab = () => {
 
   const proOptions = { hideAttribution: true };
 
-  const nodeToEdit =
-    nodes.filter((n) => n.selected).length > 1 ? null : selectedNode;
-
   const onCommandMenuItemSelect = (node: TreeNode) => {
-    addNewNode(node);
+    addBlock(node);
     setCommandMenuOpen(false);
   };
 
@@ -543,7 +426,7 @@ const FlowChartTab = () => {
         {manifest !== undefined && customBlockManifest !== undefined && (
           <Sidebar
             sections={manifest}
-            leafNodeClickHandler={addNewNode}
+            leafNodeClickHandler={addBlock}
             isSideBarOpen={isSidebarOpen}
             setSideBarStatus={setIsSidebarOpen}
             customSections={customBlockManifest}
@@ -563,12 +446,12 @@ const FlowChartTab = () => {
           data-testid="react-flow"
           id="flow-chart-area"
         >
-          {nodeToEdit && isEditMode && (
+          {selectedNode && isEditMode && (
             <NodeEditModal
-              node={nodeToEdit}
-              otherNodes={unSelectedNodes}
+              node={selectedNode}
+              otherNodes={otherNodes}
               setNodeModalOpen={setNodeModalOpen}
-              handleDelete={handleNodeRemove}
+              handleDelete={deleteBlock}
             />
           )}
 
@@ -592,7 +475,7 @@ const FlowChartTab = () => {
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
             nodesDraggable={isAdmin()}
-            onNodeDragStop={handleNodeDrag}
+            // onNodeDragStop={handleNodeDrag}
             onNodesDelete={handleNodesDelete}
             fitViewOptions={{
               padding: 0.8,
@@ -622,7 +505,7 @@ const FlowChartTab = () => {
             {menu && (
               <ContextMenu
                 onClick={onPaneClick}
-                duplicateNode={duplicateNode}
+                duplicateBlock={duplicateBlock}
                 setNodeModalOpen={setNodeModalOpen}
                 {...menu}
               />

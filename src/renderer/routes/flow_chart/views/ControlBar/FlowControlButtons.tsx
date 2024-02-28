@@ -22,7 +22,7 @@ const FlowControlButtons = () => {
   const { settings } = useSettings("backend");
 
   const resetNodeParamChanged = useFlowchartStore(
-    (state) => state.markNodeParamChanged,
+    (state) => state.resetNodeParamChanged,
   );
   const { nodes, edges } = useProjectStore((state) => ({
     nodes: state.nodes,

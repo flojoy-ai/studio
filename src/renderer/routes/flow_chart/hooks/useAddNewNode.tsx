@@ -1,7 +1,7 @@
 import { Leaf as NodeElement } from "@/renderer/utils/ManifestLoader";
 import { Draft } from "immer";
 import { useCallback } from "react";
-import { Node } from "reactflow";
+import { Node, XYPosition } from "reactflow";
 import { BlockData } from "@/renderer/types";
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 import { centerPositionAtom } from "@/renderer/hooks/useFlowChartState";
@@ -13,7 +13,6 @@ import {
   DeviceInfo,
   useHardwareDevices,
 } from "@/renderer/hooks/useHardwareDevices";
-import { useFlowchartStore } from "@/renderer/stores/flowchart";
 import { BlockMetadataMap } from "@/renderer/types/blocks-metadata";
 
 export type AddNewNode = (node: NodeElement) => void;
@@ -26,15 +25,14 @@ export const useAddNewNode = (
   nodesMetadataMap: BlockMetadataMap | undefined | null,
 ) => {
   const center = useAtomValue(centerPositionAtom);
-  const markHasUnsavedChanges = useFlowchartStore(
-    (state) => state.markHasUnsavedChanges,
-  );
   const hardwareDevices: DeviceInfo | undefined = useHardwareDevices();
 
   return useCallback(
     (node: NodeElement) => {
       const previousBlockPos = localStorage.getItem("prev_node_pos");
-      const parsedPos = previousBlockPos ? JSON.parse(previousBlockPos) : null;
+      const parsedPos = previousBlockPos
+        ? (JSON.parse(previousBlockPos) as XYPosition)
+        : null;
       const pos = parsedPos ?? center;
       const nodePosition = addRandomPositionOffset(pos, 300);
       const {
@@ -79,17 +77,11 @@ export const useAddNewNode = (
         },
         position: nodePosition,
       };
+
       setNodes((els) => els.concat(newNode));
-      markHasUnsavedChanges();
       localStorage.setItem("prev_block_pos", JSON.stringify(nodePosition));
       sendEventToMix("Node Added", { nodeTitle: newNode.data?.label ?? "" });
     },
-    [
-      setNodes,
-      getTakenNodeLabels,
-      center,
-      markHasUnsavedChanges,
-      nodesMetadataMap,
-    ],
+    [center, nodesMetadataMap, getTakenNodeLabels, hardwareDevices, setNodes],
   );
 };

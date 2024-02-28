@@ -1,41 +1,37 @@
-import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
 import { useSocket } from "@/renderer/hooks/useSocket";
 import { useSetAtom } from "jotai";
-import {
-  projectAtom,
-  projectPathAtom,
-  showWelcomeScreenAtom,
-} from "@/renderer/hooks/useFlowChartState";
+import { showWelcomeScreenAtom } from "@/renderer/hooks/useFlowChartState";
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";
-import { useFlowchartStore } from "../stores/flowchart";
+import { useProjectStore } from "../stores/project";
+import { useFullManifest, useFullMetadata } from "./useManifest";
+import { toast } from "sonner";
 
 export const useLoadApp = () => {
-  const { loadFlowExportObject } = useFlowChartGraph();
+  const loadProject = useProjectStore((state) => state.loadProject);
+
   const { resetProgramResults } = useSocket();
-  const setProject = useSetAtom(projectAtom);
-  const setProjectPath = useSetAtom(projectPathAtom);
-  const resetHasUnsavedChanges = useFlowchartStore(
-    (state) => state.resetHasUnsavedChanges,
-  );
   const setShowWelcomeScreen = useSetAtom(showWelcomeScreenAtom);
+
+  const manifest = useFullManifest();
+  const metadata = useFullMetadata();
 
   const openFilePicker = () => {
     window.api
       .openFilePicker()
       .then((result) => {
         if (!result) return;
+        if (!manifest || !metadata) {
+          toast.error(
+            "Manifest and metadata are still loading, can't load app yet.",
+          );
+        }
 
         const { fileContent, filePath } = result;
         sendEventToMix("Selected Files");
-        const parsedFileContent = JSON.parse(fileContent);
+        const project = JSON.parse(fileContent);
 
-        const flow = parsedFileContent.rfInstance;
-        setProject(parsedFileContent);
-        setProjectPath(filePath);
-        resetHasUnsavedChanges();
+        loadProject(project, manifest, metadata, filePath);
 
-        const textNodes = parsedFileContent.textNodes;
-        loadFlowExportObject(flow, textNodes);
         resetProgramResults();
         setShowWelcomeScreen(false);
       })

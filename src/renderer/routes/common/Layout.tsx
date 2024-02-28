@@ -1,12 +1,10 @@
-import { useAtom } from "jotai";
 import Header from "./Header";
 import { useSocket } from "@/renderer/hooks/useSocket";
-import { projectAtom } from "@/renderer/hooks/useFlowChartState";
 import { Input } from "@/renderer/components/ui/input";
 import { Outlet } from "react-router-dom";
 import StatusBar from "@/renderer/routes/common/StatusBar";
 import { useActiveTab } from "@/renderer/hooks/useActiveTab";
-import { useFlowchartStore } from "@/renderer/stores/flowchart";
+import { useProjectStore } from "@/renderer/stores/project";
 
 export const HEADER_HEIGHT = 72;
 export const ACTIONS_HEIGHT = 52;
@@ -19,20 +17,15 @@ export const LAYOUT_TOP_HEIGHT =
 export const Layout = () => {
   const { serverStatus } = useSocket();
 
-  const [project, setProject] = useAtom(projectAtom);
-  const { hasUnsavedChanges, markHasUnsavedChanges } = useFlowchartStore(
+  const { setProjectName, projectName, hasUnsavedChanges } = useProjectStore(
     (state) => ({
+      setProjectName: state.setProjectName,
+      projectName: state.name,
       hasUnsavedChanges: state.hasUnsavedChanges,
-      markHasUnsavedChanges: state.markHasUnsavedChanges,
     }),
   );
 
   const { activeTab } = useActiveTab();
-
-  const handleProjectRename = (e) => {
-    setProject({ ...project, name: e.target.value });
-    markHasUnsavedChanges();
-  };
 
   return (
     <div>
@@ -43,8 +36,8 @@ export const Layout = () => {
               className={
                 "h-6 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap border-muted/60 text-sm focus:border-muted-foreground focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 sm:w-48"
               }
-              value={project.name}
-              onChange={handleProjectRename}
+              value={projectName}
+              onChange={(e) => setProjectName(e.target.value)}
               placeholder="Untitled project"
             />
             {hasUnsavedChanges && (
