@@ -6,7 +6,6 @@ import {
 import { CellContext } from "@tanstack/react-table";
 import { Loader } from "lucide-react";
 import React, { useState } from "react";
-import PythonTestFileModal from "../PythonTestFileModal";
 type Props = {
   cellProps: CellContext<TestSequenceElement, unknown>;
   indentLevels: number[];
@@ -33,7 +32,6 @@ const IndentLine = ({
 );
 
 const TestNameCell = ({ cellProps: { row }, indentLevels, running }: Props) => {
-  const [openPyTestFileModal, setOpenPyTestFileModal] = useState(false);
 
   const isTest = row.original.type === "test";
 
@@ -43,7 +41,6 @@ const TestNameCell = ({ cellProps: { row }, indentLevels, running }: Props) => {
         {/* Indent levels */}
         <div
           className="flex flex-row space-x-1"
-          onClick={() => setOpenPyTestFileModal(true)}
         >
           <IndentLine
             content={(row.original as Test).testName}
@@ -52,14 +49,6 @@ const TestNameCell = ({ cellProps: { row }, indentLevels, running }: Props) => {
           {running.includes(row.original.id) && <Loader className="scale-50" />}
         </div>
       </div>
-      {/* Conditionally add modal component to unmount it on close */}
-      {openPyTestFileModal && (
-        <PythonTestFileModal
-          isModalOpen={openPyTestFileModal}
-          handleModalOpen={setOpenPyTestFileModal}
-          row={row}
-        />
-      )}
     </>
   ) : (
     <IndentLine

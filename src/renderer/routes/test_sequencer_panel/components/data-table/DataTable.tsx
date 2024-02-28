@@ -38,6 +38,7 @@ import {
   ConditionalComponent,
   Conditional,
   StatusTypes,
+  Test
 } from "@/renderer/types/testSequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { parseInt, filter, map } from "lodash";
@@ -56,6 +57,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import PythonTestFileModal from "../PythonTestFileModal";
 
 function renderErrorMessage(text: string): JSX.Element {
   const lines = text.split("\n");
@@ -93,6 +95,8 @@ export function DataTable() {
   const { elems, setElems, running } = useTestSequencerState();
   const [addIfStatement] = useState(false);
   const indentLevels = getIndentLevels(elems);
+  const [openPyTestFileModal, setOpenPyTestFileModal] = useState(false);
+  const [testToDisplay, setTestToDisplay] = useState<Test | null>(null);
 
   const columns: ColumnDef<TestSequenceElement>[] = [
     {
@@ -363,6 +367,13 @@ export function DataTable() {
         handleWriteConditionalModalOpen={setShowWriteConditionalModal}
         handleWrite={handleWriteConditionalModal}
       />
+      {openPyTestFileModal && (
+        <PythonTestFileModal
+          isModalOpen={openPyTestFileModal}
+          handleModalOpen={setOpenPyTestFileModal}
+          test={testToDisplay as Test}
+        />
+      )}
       <div className="m-1 flex items-center py-0">
         <LockableButton
           disabled={Object.keys(rowSelection).length == 0}
@@ -461,6 +472,13 @@ export function DataTable() {
                     >
                       Remove Test
                     </ContextMenuItem>
+                    { row.original.type === "test"  && 
+                      <ContextMenuItem
+                        onClick={() => {setOpenPyTestFileModal(true); setTestToDisplay(row.original as Test);}}
+                      >
+                        Consult Code
+                      </ContextMenuItem>
+                    }
                   </ContextMenuContent>
                 </ContextMenu>
               ))

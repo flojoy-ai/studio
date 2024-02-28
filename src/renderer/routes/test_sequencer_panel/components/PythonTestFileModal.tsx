@@ -15,23 +15,23 @@ import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 type Props = {
   isModalOpen: boolean;
   handleModalOpen: Dispatch<SetStateAction<boolean>>;
-  row: Row<TestSequenceElement>;
+  test: Test;
 };
 SyntaxHighlighter.registerLanguage("python", python);
 
-const PythonTestFileModal = ({ isModalOpen, handleModalOpen, row }: Props) => {
+const PythonTestFileModal = ({ isModalOpen, handleModalOpen, test }: Props) => {
   const [sourceCode, setSourceCode] = useState("");
 
   useEffect(() => {
     window.api
-      .getFileContent((row.original as Test).path.split("::")[0])
+      .getFileContent(test.path.split("::")[0])
       .then((content) => setSourceCode(content));
-  }, [row.original]);
+  }, [test]);
   return (
     <Dialog open={isModalOpen} onOpenChange={handleModalOpen}>
       <DialogContent className="my-12 max-h-screen overflow-y-scroll border-muted bg-background p-12 sm:max-w-2xl md:max-w-4xl">
         <DialogHeader>
-          <DialogTitle>{(row.original as Test).testName}</DialogTitle>
+          <DialogTitle>{test.testName}</DialogTitle>
         </DialogHeader>
         <h2 className="text-lg font-semibold text-muted-foreground">
           Python code
