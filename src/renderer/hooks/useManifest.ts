@@ -1,12 +1,11 @@
-import {
-  getManifest,
-  getBlocksMetadata,
-} from "@/renderer/services/FlowChartServices";
-import { BlockMetadataMap } from "@/renderer/types/blocks-metadata";
-import { RootNode } from "@/renderer/utils/ManifestLoader";
+import { BlockMetadata, RootNode } from "@/renderer/types/manifest";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { useCallback, useMemo } from "react";
 import { useCustomSections } from "./useCustomBlockManifest";
+import { getManifest, getMetadata } from "@/renderer/lib/api";
+import { toast } from "sonner";
+import { HTTPError } from "ky";
+import { ZodError } from "zod";
 
 // TODO: Rewrite this
 
@@ -19,22 +18,48 @@ export const useFetchManifest = () => {
 
   return useCallback(async () => {
     setManifest(undefined);
-    const manifest = await getManifest();
-    setManifest(manifest);
+    const res = await getManifest();
+
+    if (!res.ok) {
+      if (res.error instanceof HTTPError) {
+        toast.error("Failed to fetch block manifest", {
+          description: res.error.message,
+        });
+      } else if (res.error instanceof ZodError) {
+        toast.error("Failed to validate block manifest.");
+        console.error(res.error.message);
+      }
+      return;
+    }
+
+    setManifest(res.value);
   }, [setManifest]);
 };
 
 export const useManifest = () => useAtomValue(manifestAtom);
 
-const nodesMetadataMapAtom = atom<BlockMetadataMap | undefined | null>(null);
+const nodesMetadataMapAtom = atom<BlockMetadata | undefined | null>(null);
 
 export const useFetchNodesMetadata = () => {
   const setNodesMetadata = useSetAtom(nodesMetadataMapAtom);
 
   return useCallback(async () => {
     setNodesMetadata(undefined);
-    const manifest = await getBlocksMetadata();
-    setNodesMetadata(manifest);
+    const res = await getMetadata();
+
+    if (!res.ok) {
+      if (res.error instanceof HTTPError) {
+        toast.error("Failed to fetch block metadata", {
+          description: res.error.message,
+        });
+      } else if (res.error instanceof ZodError) {
+        toast.error("Failed to validate block metadata.");
+        console.error(res.error.message);
+      }
+      return;
+    }
+
+    setNodesMetadata(res.value);
   }, [setNodesMetadata]);
 };
 

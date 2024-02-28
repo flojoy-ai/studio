@@ -12,8 +12,7 @@ import { useShallow } from "zustand/react/shallow";
 import * as galleryItems from "@/renderer/data/apps";
 import { ExampleProjects } from "@/renderer/data/docs-example-apps";
 import * as RECIPES from "@/renderer/data/RECIPES";
-import { BlockManifest } from "@/renderer/utils/ManifestLoader";
-import { BlockMetadataMap } from "@/renderer/types/blocks-metadata";
+import { BlockManifest, BlockMetadata } from "@/renderer/types/manifest";
 import { syncFlowchartWithManifest } from "@/renderer/lib/sync";
 import {
   MixPanelEvents,
@@ -60,7 +59,7 @@ type Actions = {
   loadProject: (
     project: Project,
     manifest: BlockManifest,
-    metadata: BlockMetadataMap,
+    metadata: BlockMetadata,
     path?: string,
   ) => void;
 
@@ -136,7 +135,7 @@ export const useProjectStore = create<State & Actions>()(
     loadProject: (
       project: Project,
       manifest: BlockManifest,
-      metadata: BlockMetadataMap,
+      metadata: BlockMetadata,
       path?: string,
     ) => {
       const {

@@ -2,10 +2,6 @@ import { Node, Edge } from "reactflow";
 import { BlockData } from "@/renderer/types";
 import { Result } from "src/types/result";
 import { captain } from "@/renderer/lib/ky";
-import { HTTPError } from "ky";
-import { RootNode, validateRootSchema } from "@/renderer/utils/ManifestLoader";
-import { toast } from "sonner";
-import { BlockMetadataMap } from "@/renderer/types/blocks-metadata";
 import { EnvVar } from "@/renderer/types/envVar";
 import _ from "lodash";
 import { Setting } from "@/renderer/stores/settings";
@@ -77,49 +73,6 @@ export async function getDeviceInfo(
   });
   return res.json();
 }
-
-export const getManifest = async () => {
-  try {
-    const res = (await captain.get("blocks/manifest").json()) as RootNode;
-    // TODO: fix zod schema to accept io directory structure
-    const validateResult = validateRootSchema(res);
-    if (!validateResult.success) {
-      // toast.message(`Failed to validate blocks manifest with Zod schema!`, {
-      //   duration: 20000,
-      //   description: "Expand log to see more info...",
-      // });
-      // window.api?.sendLogToStatusbar("Zod validation error: ");
-      // window.api?.sendLogToStatusbar(validateResult.error.message);
-      console.error(validateResult.error);
-    }
-    return res;
-  } catch (err: unknown) {
-    if (err instanceof HTTPError) {
-      const errTitle = "Failed to generate blocks manifest!";
-      const errDescription = `${err.response.statusText ?? err.message}`;
-
-      toast.message(errTitle, {
-        description: errDescription.toString(),
-        duration: 60000,
-      });
-      return null;
-    }
-  }
-};
-
-export const getBlocksMetadata = async () => {
-  try {
-    const res = await captain.get("blocks/metadata").json();
-    return res as BlockMetadataMap;
-  } catch (err: unknown) {
-    if (err instanceof HTTPError) {
-      toast.message("Failed to generate blocks metadata", {
-        description: err.response.statusText ?? err.message,
-      });
-      return null;
-    }
-  }
-};
 
 type LogLevel = {
   level: string;

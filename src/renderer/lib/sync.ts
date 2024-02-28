@@ -1,6 +1,11 @@
 import { BlockData } from "@/renderer/types";
-import { BlockMetadataMap } from "@/renderer/types/blocks-metadata";
-import { Leaf, RootNode, TreeNode } from "@/renderer/utils/ManifestLoader";
+import {
+  BlockMetadata,
+  BlockManifest,
+  Leaf,
+  RootNode,
+  TreeNode,
+} from "@/renderer/types/manifest";
 import { Edge, Node } from "reactflow";
 import { CtrlData } from "@/renderer/types/node";
 import { ctrlsFromParams } from "@/renderer/utils/NodeUtils";
@@ -10,8 +15,8 @@ import _ from "lodash";
 export function syncFlowchartWithManifest(
   nodes: Node<BlockData>[],
   edges: Edge[],
-  blockManifest: RootNode,
-  blockMetadata: BlockMetadataMap,
+  blockManifest: BlockManifest,
+  blockMetadata: BlockMetadata,
 ): [Node<BlockData>[], Edge[]] {
   const blocks = flattenManifest(blockManifest);
 
