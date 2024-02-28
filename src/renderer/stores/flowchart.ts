@@ -23,7 +23,5 @@ export const useFlowchartStore = create<State & Actions>()(
     nodeParamChanged: false,
     markNodeParamChanged: () => set({ nodeParamChanged: true }),
     resetNodeParamChanged: () => set({ nodeParamChanged: false }),
-
-    hasUnsavedChanges: false,
   })),
 );

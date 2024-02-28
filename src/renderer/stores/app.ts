@@ -36,7 +36,7 @@ type Actions = {
 
 export const useAppStore = create<State & Actions>()(
   immer((set) => ({
-    showWelcomeScreen: true as boolean,
+    showWelcomeScreen: true,
     centerPosition: { x: 0, y: 0 },
     setShowWelcomeScreen: (val) =>
       set((state) => {
@@ -47,13 +47,13 @@ export const useAppStore = create<State & Actions>()(
         state.centerPosition = position;
       }),
 
-    isKeyboardShortcutOpen: false as boolean,
-    isEnvVarModalOpen: false as boolean,
-    isBlockSettingsOpen: false as boolean,
-    isDebugSettingsOpen: false as boolean,
-    isEditorSettingsOpen: false as boolean,
-    isDeviceSettingsOpen: false as boolean,
-    isDepManagerModalOpen: false as boolean,
+    isKeyboardShortcutOpen: false,
+    isEnvVarModalOpen: false,
+    isBlockSettingsOpen: false,
+    isDebugSettingsOpen: false,
+    isEditorSettingsOpen: false,
+    isDeviceSettingsOpen: false,
+    isDepManagerModalOpen: false,
     setIsKeyboardShortcutOpen: (val) =>
       set((state) => {
         state.isKeyboardShortcutOpen = val;
