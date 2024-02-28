@@ -76,6 +76,8 @@ type Actions = {
   handleEdgeChanges: (cb: (nodes: Edge[]) => Edge[]) => void;
 
   addTextNode: (position: XYPosition) => void;
+  updateTextNodeText: (id: string, text: string) => Result<void>;
+  deleteTextNode: (id: string) => void;
 
   saveProject: () => Promise<Result<string>>;
 };
@@ -260,6 +262,30 @@ export const useProjectStore = create<State & Actions>()(
         });
       });
 
+      setHasUnsavedChanges(true);
+    },
+
+    updateTextNodeText: (id: string, text: string) => {
+      try {
+        set((state) => {
+          const node = state.textNodes.find((n) => n.id === id);
+          if (node === undefined) {
+            throw new Error("Text node not found");
+          }
+          node.data.text = text;
+        });
+      } catch (e) {
+        return Err(e as Error);
+      }
+      sendEventToMix("Text Node Updated", { id, text });
+      setHasUnsavedChanges(true);
+      return Ok(undefined);
+    },
+
+    deleteTextNode: (id: string) => {
+      set((state) => {
+        state.textNodes = state.textNodes.filter((n) => n.id !== id);
+      });
       setHasUnsavedChanges(true);
     },
 

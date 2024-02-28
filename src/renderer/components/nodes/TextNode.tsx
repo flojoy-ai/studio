@@ -1,6 +1,4 @@
 import { memo, useEffect, useRef, useState } from "react";
-import { textNodesAtom } from "@/renderer/hooks/useFlowChartGraph";
-import { useSetAtom } from "jotai";
 import { useNodeId, NodeResizer, NodeProps, useStore } from "reactflow";
 import { Textarea } from "../ui/textarea";
 import ReactMarkdown from "react-markdown";
@@ -8,6 +6,7 @@ import { toast } from "sonner";
 import { Edit, Trash } from "lucide-react";
 import { cn } from "@/renderer/lib/utils";
 import { TextData } from "@/renderer/types/node";
+import { useProjectStore } from "@/renderer/stores/project";
 
 const LinkRenderer = (props) => {
   const handleClick = () => {
@@ -27,7 +26,11 @@ const LinkRenderer = (props) => {
 };
 
 const TextNode = ({ selected, data, id }: NodeProps<TextData>) => {
-  const [editing, setEditing] = useState(false);
+  const { deleteTextNode, updateTextNodeText } = useProjectStore((state) => ({
+    deleteTextNode: state.deleteTextNode,
+    updateTextNodeText: state.updateTextNodeText,
+  }));
+
   const size = useStore((s) => {
     const node = s.nodeInternals.get(id);
     if (!node) {
@@ -38,35 +41,36 @@ const TextNode = ({ selected, data, id }: NodeProps<TextData>) => {
       height: node.height,
     };
   });
+
+  const [editing, setEditing] = useState(false);
   const [dimensions, setDimensions] = useState({
     width: size.width ?? 200,
     height: size.height ?? 150,
   });
-  const setTextNodes = useSetAtom(textNodesAtom);
   const nodeId = useNodeId();
+
   const ref = useRef<HTMLTextAreaElement>(null);
 
   const handleChange = (e) => {
     e.preventDefault();
     e.target.style.height = "inherit";
     e.target.style.height = `${e.target.scrollHeight}px`;
-    setTextNodes((prev) =>
-      prev.map((n) =>
-        n.id === nodeId
-          ? {
-              ...n,
-              data: {
-                ...n.data,
-                text: e.target.value,
-              },
-            }
-          : n,
-      ),
-    );
+    if (!nodeId) {
+      toast.error("Could not find text node id");
+      return;
+    }
+
+    const res = updateTextNodeText(nodeId, e.target.value);
+    if (!res.ok) {
+      toast.error(res.error.message);
+    }
   };
 
   const handleDelete = () => {
-    setTextNodes((prev) => prev.filter((n) => n.id !== nodeId));
+    if (!nodeId) {
+      return;
+    }
+    deleteTextNode(nodeId);
   };
 
   useEffect(() => {

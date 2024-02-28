@@ -3,7 +3,7 @@ import NodeWrapper from "@/renderer/components/common/NodeWrapper";
 import clsx from "clsx";
 import HandleComponent from "@/renderer/components/common/HandleComponent";
 import Scatter from "@/renderer/assets/nodes/Scatter";
-import { memo, useEffect, useMemo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 import { makePlotlyData } from "@/renderer/components/plotly/formatPlotlyData";
 import PlotlyComponent from "@/renderer/components/plotly/PlotlyComponent";
 import CompositePlot from "@/renderer/assets/nodes/CompositePlot";
@@ -28,8 +28,6 @@ import TextView from "@/renderer/assets/nodes/TextView";
 import Heatmap from "@/renderer/assets/nodes/Heatmap";
 import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
 import { NodeResizer, useUpdateNodeInternals } from "reactflow";
-import { useAtomValue } from "jotai";
-import { projectAtom } from "@/renderer/hooks/useFlowChartState";
 
 const chartElemMap = {
   SCATTER: Scatter,
@@ -66,19 +64,20 @@ const VisorBlock = ({ selected, id, data }: BlockProps) => {
     [plotlyFig, resolvedTheme],
   );
 
-  const project = useAtomValue(projectAtom);
+  // const project = useAtomValue(projectAtom);
   const [dimensions, setDimensions] = useState({ width: 225, height: 225 });
 
   const updateNodeInternals = useUpdateNodeInternals();
 
-  useEffect(() => {
-    // Weird hack to make it properly set the dimensions when loading an app...
-    // I tried like 10 different things but this is the only thing that works without being crazy slow
-    const node = project.rfInstance?.nodes.find((n) => n.id === id);
-    if (node?.width && node?.height) {
-      setDimensions({ width: node.width, height: node.height });
-    }
-  }, [id, project]);
+  // TODO: Fix this
+  // useEffect(() => {
+  //   // Weird hack to make it properly set the dimensions when loading an app...
+  //   // I tried like 10 different things but this is the only thing that works without being crazy slow
+  //   const node = project.rfInstance?.nodes.find((n) => n.id === id);
+  //   if (node?.width && node?.height) {
+  //     setDimensions({ width: node.width, height: node.height });
+  //   }
+  // }, [id, project]);
 
   const ChartIcon = chartElemMap[data.func];
   const iconSideLength = Math.min(dimensions.width, dimensions.height);
