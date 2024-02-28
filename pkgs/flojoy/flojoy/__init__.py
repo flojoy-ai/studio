@@ -18,4 +18,3 @@ from .instruments import *  # noqa: F403
 from .models import *  # noqa: F403
 from .connection_manager import *  # noqa: F403
 from .env_var import *  # noqa: F403
-from .test_sequencer import *  # noqa: F403
