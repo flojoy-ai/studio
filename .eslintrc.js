@@ -18,7 +18,7 @@ module.exports = {
       {
         patterns: [
           {
-            group: ["./", "../"],
+            group: ["../"],
             message: "Relative imports are not allowed.",
           },
         ],
