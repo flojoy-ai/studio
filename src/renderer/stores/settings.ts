@@ -40,8 +40,6 @@ const initialBackendSettings = {
   },
 } satisfies Record<string, Setting>;
 
-type BackendSettings = typeof initialBackendSettings;
-
 const initialFrontendSettings = {
   fitViewOnResize: {
     type: "boolean",
@@ -50,8 +48,6 @@ const initialFrontendSettings = {
     value: true,
   },
 } satisfies Record<string, Setting>;
-
-type FrontendSettings = typeof initialFrontendSettings;
 
 const initialDeviceSettings = {
   niDAQmxDeviceDiscovery: {
@@ -68,6 +64,8 @@ const initialDeviceSettings = {
   },
 } satisfies Record<string, Setting>;
 
+type BackendSettings = typeof initialBackendSettings;
+type FrontendSettings = typeof initialFrontendSettings;
 type DeviceSettings = typeof initialDeviceSettings;
 
 export type SettingsState = {
