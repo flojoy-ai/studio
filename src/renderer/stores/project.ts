@@ -34,7 +34,7 @@ import {
 import { filterMap } from "../utils/ArrayUtils";
 import { getEdgeTypes, isCompatibleType } from "../utils/TypeCheck";
 import { toast } from "sonner";
-import { useAppStore } from "./app";
+import { useFlowchartStore } from "./flowchart";
 
 type State = {
   name: string | undefined;
@@ -350,7 +350,7 @@ export const useProjectStore = create<State & Actions>()(
 export const useAddBlock = () => {
   const { setNodes } = useProtectedGraphUpdate();
 
-  const center = useAppStore(useShallow((state) => state.centerPosition));
+  const center = useFlowchartStore(useShallow((state) => state.centerPosition));
   const hardwareDevices: DeviceInfo | undefined = useHardwareDevices();
   const metadata = useFullMetadata();
 
@@ -530,6 +530,17 @@ export const useGraphResync = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [manifest, metadata, manifestChanged]);
+};
+
+export const useAddTextNode = () => {
+  const addTextNode = useProjectStore(useShallow((state) => state.addTextNode));
+  const center = useFlowchartStore(useShallow((state) => state.centerPosition));
+
+  return useCallback(() => {
+    const pos = center ?? { x: 0, y: 0 };
+    addTextNode(pos);
+    sendEventToMix("Text Node Added");
+  }, [addTextNode, center]);
 };
 
 export const useClearCanvas = () => {

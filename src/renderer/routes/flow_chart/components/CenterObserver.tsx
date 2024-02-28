@@ -1,9 +1,11 @@
 import { useOnViewportChange, useStoreApi } from "reactflow";
 import { useShallow } from "zustand/react/shallow";
-import { useAppStore } from "@/renderer/stores/app";
+import { useFlowchartStore } from "@/renderer/stores/flowchart";
 
 export const CenterObserver = () => {
-  const setCenter = useAppStore(useShallow((state) => state.setCenterPosition));
+  const setCenter = useFlowchartStore(
+    useShallow((state) => state.setCenterPosition),
+  );
   const store = useStoreApi();
 
   useOnViewportChange({
