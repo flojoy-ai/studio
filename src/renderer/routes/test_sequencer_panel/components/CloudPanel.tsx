@@ -13,7 +13,8 @@ import {
 } from "@/renderer/components/ui/select";
 import { captain } from "@/renderer/lib/ky";
 import { Button } from "@/renderer/components/ui/button";
-import EnvVarModal from "../../flow_chart/views/env-var/EnvVarModal";
+import { useAppStore } from "@/renderer/stores/app";
+import { useShallow } from "zustand/react/shallow";
 
 type Project = {
   label: string;
@@ -21,12 +22,17 @@ type Project = {
 };
 
 export function CloudPanel() {
-  const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
   const [hardwareId, setHardwareId] = useState("");
   const [projectId, setProjectId] = useState("");
   const { tree, setIsLocked } = useTestSequencerState();
   const { tSSendJsonMessage } = useTestSequencerWS();
   const [projects, setProjects] = useState<Project[]>([]);
+
+  const { setIsEnvVarModalOpen } = useAppStore(
+    useShallow((state) => ({
+      setIsEnvVarModalOpen: state.setIsEnvVarModalOpen,
+    })),
+  );
 
   const handleExport = () => {
     setIsLocked(true);
@@ -105,10 +111,6 @@ export function CloudPanel() {
           </LockableButton>
         </div>
       </div>
-      <EnvVarModal
-        handleEnvVarModalOpen={setIsEnvVarModalOpen}
-        isEnvVarModalOpen={isEnvVarModalOpen}
-      />
     </div>
   );
 }
