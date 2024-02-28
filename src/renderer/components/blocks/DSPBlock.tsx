@@ -3,11 +3,12 @@ import clsx from "clsx";
 import { CustomNodeProps } from "@/renderer/types/node";
 import NodeWrapper from "@/renderer/components/common/NodeWrapper";
 import HandleComponent from "@/renderer/components/common/HandleComponent";
-import { textWrap } from "@/renderer/utils/TextWrap";
 import NodeInput from "@/renderer/components/common/NodeInput";
 import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
+import { BlockLabel } from "../common/NodeLabel";
+import DspBlockSvg from "@/renderer/assets/blocks/dsp-block-svg";
 
-const DataNode = ({ selected, data }: CustomNodeProps) => {
+const DSPBlock = ({ selected, data }: CustomNodeProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   const { nodeRunning, nodeError } = useNodeStatus(data.id);
 
@@ -15,13 +16,10 @@ const DataNode = ({ selected, data }: CustomNodeProps) => {
     <NodeWrapper nodeError={nodeError} data={data} selected={selected}>
       <div
         className={clsx(
-          "flex min-h-[96px] items-center justify-center rounded-full border-2 border-solid border-accent2 p-2",
+          "relative flex min-h-[96px] items-center justify-center rounded-lg border-2 border-accent2  p-2",
           { "shadow-around shadow-accent2": nodeRunning || selected },
           { "shadow-around shadow-red-700": nodeError },
         )}
-        style={{
-          width: textWrap(208, 24, data.label),
-        }}
         onDoubleClick={() => setIsRenamingTitle(true)}
       >
         {isRenamingTitle ? (
@@ -31,14 +29,13 @@ const DataNode = ({ selected, data }: CustomNodeProps) => {
             setIsRenamingTitle={setIsRenamingTitle}
           />
         ) : (
-          <h2 className="m-0 text-center font-sans text-2xl font-extrabold tracking-wider text-accent2">
-            {data.label}
-          </h2>
+          <DspBlockSvg blockName={data.func} />
         )}
         <HandleComponent data={data} variant="accent2" />
       </div>
+      <BlockLabel label={data.label} className="text-accent2" />
     </NodeWrapper>
   );
 };
 
-export default memo(DataNode);
+export default memo(DSPBlock);

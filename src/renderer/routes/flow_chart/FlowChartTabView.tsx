@@ -20,7 +20,6 @@ import {
   ReactFlowProvider,
   Controls,
   Node,
-  NodeTypes,
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
@@ -72,46 +71,13 @@ import { ElementsData } from "@/renderer/types";
 import { createNodeId, createNodeLabel } from "@/renderer/utils/NodeUtils";
 import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
 import { filterMap } from "@/renderer/utils/ArrayUtils";
-import ArithmeticNode from "@/renderer/components/nodes/ArithmeticNode";
-import ConditionalNode from "@/renderer/components/nodes/ConditionalNode";
-import DataNode from "@/renderer/components/nodes/DataNode";
-import DefaultNode from "@/renderer/components/nodes/DefaultNode";
-import IONode from "@/renderer/components/nodes/IONode";
-import LogicNode from "@/renderer/components/nodes/LogicNode";
-import NumpyNode from "@/renderer/components/nodes/NumpyNode";
-import ScipyNode from "@/renderer/components/nodes/ScipyNode";
-import VisorNode from "@/renderer/components/nodes/VisorNode";
 import { syncFlowchartWithManifest } from "@/renderer/lib/sync";
-import TextNode from "@/renderer/components/nodes/TextNode";
 import ContextMenu, { MenuInfo } from "./components/NodeContextMenu";
 import { useCustomSections } from "@/renderer/hooks/useCustomBlockManifest";
 import { BlocksMetadataMap } from "@/renderer/types/blocks-metadata";
 import { Spinner } from "@/renderer/components/ui/spinner";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
-
-const nodeTypes: NodeTypes = {
-  default: DefaultNode,
-  AI_ML: DataNode,
-  GENERATORS: DataNode,
-  VISUALIZERS: VisorNode,
-  EXTRACTORS: DefaultNode,
-  TRANSFORMERS: DefaultNode,
-  LOADERS: DefaultNode,
-  ARITHMETIC: ArithmeticNode,
-  IO: IONode,
-  LOGIC_GATES: LogicNode,
-  CONDITIONALS: ConditionalNode,
-  SCIPY: ScipyNode,
-  NUMPY: NumpyNode,
-  DATA: DataNode,
-  VISUALIZATION: VisorNode,
-  ETL: DefaultNode,
-  DSP: DefaultNode,
-  CONTROL_FLOW: LogicNode,
-  MATH: DefaultNode,
-  HARDWARE: IONode,
-  TextNode: TextNode,
-};
+import nodeTypesMap from "@/renderer/components/blocks/blockTypesMap";
 
 const edgeTypes = {
   default: SmartBezierEdge,
@@ -583,7 +549,7 @@ const FlowChartTab = () => {
             deleteKeyCode={isAdmin() ? deleteKeyCodes : null}
             proOptions={proOptions}
             nodes={[...nodes, ...textNodes]}
-            nodeTypes={nodeTypes}
+            nodeTypes={nodeTypesMap}
             edges={edges}
             edgeTypes={edgeTypes}
             connectionLineType={ConnectionLineType.Step}

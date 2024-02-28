@@ -1,11 +1,21 @@
-type NodeLabelProps = {
+import { cn } from "@/renderer/lib/utils";
+import { textWrap } from "@/renderer/utils/TextWrap";
+
+type BlockLabelProps = {
   label: string;
+  className?: string;
 };
 
-export const NodeLabel = ({ label }: NodeLabelProps) => {
+export const BlockLabel = ({ label, className }: BlockLabelProps) => {
   return (
-    <p className="text-center font-sans text-xl font-semibold tracking-wider">
+    <h2
+      style={{ width: textWrap(208, 24, label) }}
+      className={cn(
+        "m-0 pt-3 text-center font-sans text-3xl font-semibold tracking-wider",
+        className,
+      )}
+    >
       {label}
-    </p>
+    </h2>
   );
 };
