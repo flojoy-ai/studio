@@ -7,27 +7,20 @@ import { DeviceSection } from "./DeviceSection";
 import { Button } from "@/renderer/components/ui/button";
 import { DebugMenu } from "./DebugMenu";
 import { ConnectionHelp } from "./ConnectionHelp";
-import { useSettings } from "@/renderer/hooks/useSettings";
+import { useSettingsStore } from "@/renderer/stores/settings";
 
 export const HardwareInfo = () => {
   const devices = useHardwareDevices();
   const refetch = useHardwareRefetch();
-  const { settings } = useSettings("device");
-  const setting = settings.find(
-    (setting) => setting.key === "niDAQmxDeviceDiscovery",
-  );
-  const discoverNIDAQmxDevices = setting ? setting.value : false;
-  const settingdmm = settings.find(
-    (settingdmm) => settingdmm.key === "nidmmDeviceDiscovery",
-  );
-  const discoverNIDMMDevices = settingdmm ? settingdmm.value : false;
+  const deviceSettings = useSettingsStore((state) => state.device);
+  const { nidmmDeviceDiscovery, niDAQmxDeviceDiscovery } = deviceSettings;
 
   if (!devices) {
     return (
       <>
         <Button
           onClick={() => {
-            refetch(discoverNIDAQmxDevices, discoverNIDMMDevices);
+            refetch(niDAQmxDeviceDiscovery.value, nidmmDeviceDiscovery.value);
           }}
         >
           Refresh
@@ -98,7 +91,7 @@ export const HardwareInfo = () => {
       <div className="flex gap-2">
         <Button
           onClick={() => {
-            refetch(discoverNIDAQmxDevices, discoverNIDMMDevices);
+            refetch(niDAQmxDeviceDiscovery.value, nidmmDeviceDiscovery.value);
           }}
         >
           Refresh

@@ -1,16 +1,13 @@
 import { useHardwareDevices } from "@/renderer/hooks/useHardwareDevices";
 import { DeviceSelect, SelectProps } from "./DeviceSelect";
-import { useSettings } from "@/renderer/hooks/useSettings";
+import { useSettingsStore } from "@/renderer/stores/settings";
 
 export const NIDMMDeviceSelect = (props: SelectProps) => {
   const hardware = useHardwareDevices();
   const dmm = hardware?.nidmmDevices.filter((d) => d.address !== "");
 
-  const { settings } = useSettings("device");
-  const setting = settings.find(
-    (setting) => setting.key === "nidmmDeviceDiscovery",
-  );
-  const discoveryOn = setting ? setting.value : false;
+  const { nidmmDeviceDiscovery } = useSettingsStore((state) => state.device);
+  const discoveryOn = nidmmDeviceDiscovery.value;
 
   return (
     <DeviceSelect

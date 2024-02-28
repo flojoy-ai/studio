@@ -1,6 +1,5 @@
 import { Ban, Play } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
-import { useSettings } from "@/renderer/hooks/useSettings";
 import { useSocket } from "@/renderer/hooks/useSocket";
 import {
   runFlowchart,
@@ -16,11 +15,12 @@ import { toast } from "sonner";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
 import { useProjectStore } from "@/renderer/stores/project";
 import { useShallow } from "zustand/react/shallow";
+import { useSettingsStore } from "@/renderer/stores/settings";
 
 const FlowControlButtons = () => {
   const { socketId, serverStatus } = useSocket();
 
-  const { settings } = useSettings("backend");
+  const backendSettings = useSettingsStore((state) => state.backend);
 
   const resetNodeParamChanged = useFlowchartStore(
     useShallow((state) => state.resetNodeParamChanged),
@@ -62,7 +62,7 @@ const FlowControlButtons = () => {
       nodes,
       edges,
       jobId: socketId,
-      settings: settings.filter((setting) => setting.group === "backend"),
+      settings: backendSettings,
     });
     resetNodeParamChanged();
   };

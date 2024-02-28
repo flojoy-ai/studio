@@ -40,7 +40,6 @@ import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
 import { Button } from "@/renderer/components/ui/button";
 import { ResizeFitter } from "./components/ResizeFitter";
 import NodeEditModal from "./components/node-edit-menu/NodeEditModal";
-import { useAddTextNode } from "./hooks/useAddTextNode";
 import { WelcomeModal } from "./views/WelcomeModal";
 import { CommandMenu } from "../command/CommandMenu";
 import {
@@ -73,6 +72,7 @@ import {
   useCreateEdge,
   useDeleteBlock,
   useDuplicateBlock,
+  useAddTextNode,
   useGraphResync,
   useProjectStore,
 } from "@/renderer/stores/project";

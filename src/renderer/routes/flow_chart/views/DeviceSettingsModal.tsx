@@ -1,5 +1,5 @@
-import { useSettings } from "@/renderer/hooks/useSettings";
 import { SettingsModal } from "./SettingsModal";
+import { useSettingsStore } from "@/renderer/stores/settings";
 
 type Props = {
   isDeviceSettingsOpen: boolean;
@@ -10,7 +10,10 @@ export const DeviceSettingsModal = ({
   isDeviceSettingsOpen,
   setIsDeviceSettingsOpen,
 }: Props) => {
-  const { settings, updateSettings } = useSettings("device");
+  const { settings, updateSettings } = useSettingsStore((state) => ({
+    settings: state.device,
+    updateSettings: state.updateDeviceSettings,
+  }));
 
   return (
     <SettingsModal

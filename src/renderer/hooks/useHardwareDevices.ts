@@ -70,7 +70,7 @@ export const useHardwareRefetch = () => {
   const setDevices = useSetAtom(deviceAtom);
 
   return useCallback(
-    async (discoverNIDAQmxDevices, discoverNIDMMDevices) => {
+    async (discoverNIDAQmxDevices: boolean, discoverNIDMMDevices: boolean) => {
       setDevices(undefined);
       const data = await refetchDeviceInfo(
         discoverNIDAQmxDevices,

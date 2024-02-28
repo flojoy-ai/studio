@@ -11,8 +11,8 @@ import {
 } from "@/renderer/hooks/useManifest";
 import { toast } from "sonner";
 import { useCustomSections } from "@/renderer/hooks/useCustomBlockManifest";
-import { useSettings } from "@/renderer/hooks/useSettings";
 import { env } from "@/env";
+import { useSettingsStore } from "../stores/settings";
 
 type SocketState = {
   programResults: NodeResult[];
@@ -61,16 +61,10 @@ export const SocketContextProvider = ({
   const fetchManifest = useFetchManifest();
   const fetchMetadata = useFetchNodesMetadata();
   const setManifestChanged = useSetAtom(manifestChangedAtom);
-  const { settings } = useSettings("device");
+  const deviceSettings = useSettingsStore((state) => state.device);
 
-  const setting = settings.find(
-    (setting) => setting.key === "niDAQmxDeviceDiscovery",
-  );
-  const settingdmm = settings.find(
-    (settingdmm) => settingdmm.key === "nidmmDeviceDiscovery",
-  );
-  const fetchDriverDevices = setting ? setting.value : false;
-  const fetchDMMDevices = settingdmm ? settingdmm.value : false;
+  const fetchDriverDevices = deviceSettings.niDAQmxDeviceDiscovery.value;
+  const fetchDMMDevices = deviceSettings.nidmmDeviceDiscovery.value;
 
   const handleStateChange =
     (state: keyof SocketState) =>

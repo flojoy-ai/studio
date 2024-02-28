@@ -39,7 +39,7 @@ export const useAppStore = create<State & Actions>()(
         state.isDepManagerModalOpen = val;
       }),
 
-    activeTab: "Test Sequencer" as TabName,
+    activeTab: "Visual Python Script" as TabName,
     setActiveTab: (tab) =>
       set((state) => {
         state.activeTab = tab;

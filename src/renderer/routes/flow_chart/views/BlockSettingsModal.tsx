@@ -1,5 +1,5 @@
-import { useSettings } from "@/renderer/hooks/useSettings";
 import { SettingsModal } from "./SettingsModal";
+import { useSettingsStore } from "@/renderer/stores/settings";
 
 type Props = {
   isBlockSettingsOpen: boolean;
@@ -10,14 +10,19 @@ export const BlockSettingsModal = ({
   isBlockSettingsOpen,
   setIsBlockSettingsOpen,
 }: Props) => {
-  const { settings, updateSettings } = useSettings("backend");
+  const { backendSettings, updateBackendSettings } = useSettingsStore(
+    (state) => ({
+      backendSettings: state.backend,
+      updateBackendSettings: state.updateBackendSettings,
+    }),
+  );
 
   return (
     <SettingsModal
       isSettingsModalOpen={isBlockSettingsOpen}
       handleSettingsModalOpen={setIsBlockSettingsOpen}
-      settings={settings}
-      updateSettings={updateSettings}
+      settings={backendSettings}
+      updateSettings={updateBackendSettings}
       title="Runtime Settings"
       description="Applies when the flowchart is running."
     />

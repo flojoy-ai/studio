@@ -1,4 +1,3 @@
-import { Setting } from "../hooks/useSettings";
 import { Node, Edge } from "reactflow";
 import { BlockData } from "@/renderer/types";
 import { Result } from "src/types/result";
@@ -8,6 +7,8 @@ import { RootNode, validateRootSchema } from "@/renderer/utils/ManifestLoader";
 import { toast } from "sonner";
 import { BlockMetadataMap } from "@/renderer/types/blocks-metadata";
 import { EnvVar } from "../types/envVar";
+import _ from "lodash";
+import { Setting } from "../stores/settings";
 
 export const postEnvironmentVariable = async (
   body: EnvVar,
@@ -43,18 +44,15 @@ export function runFlowchart({
   nodes: Node<BlockData>[];
   edges: Edge[];
   jobId: string;
-  settings: Setting[];
+  settings: Record<string, Setting>;
 }) {
   captain.post("wfc", {
     json: {
       fc: JSON.stringify({ nodes, edges }),
       jobsetId: jobId,
       cancelExistingJobs: true,
-      ...settings.reduce((obj, setting) => {
-        //IMPORTANT: if you want to add more backend settings, modify PostWFC pydantic model in backend, otherwise you will get 422 error
-        obj[setting.key] = setting.value;
-        return obj;
-      }, {}),
+      //IMPORTANT: if you want to add more backend settings, modify PostWFC pydantic model in backend, otherwise you will get 422 error
+      ..._.mapValues(settings, (s) => s.value),
     },
   });
 }
