@@ -21,7 +21,9 @@ type State = {
 };
 
 type Actions = {
-  setCurRun: (val: string[]) => void;
+  markTestAsDone: (val: string) => void;
+  addTestToRunning: (val: string) => void;
+
   setWebsocketId: (val: string) => void;
   setElements: (val: (Test | Conditional)[]) => void;
   setIsLocked: (val: boolean) => void;
@@ -56,10 +58,15 @@ export const useSequencerStore = create<State & Actions>()(
       identifiers: [],
     },
 
-    setCurRun: (val) =>
+    markTestAsDone: (val) =>
       set((state) => {
-        state.curRun = val;
+        state.curRun = state.curRun.filter((v) => v !== val);
       }),
+    addTestToRunning: (val) =>
+      set((state) => {
+        state.curRun.push(val);
+      }),
+
     setWebsocketId: (val) =>
       set((state) => {
         state.websocketId = val;
@@ -68,6 +75,7 @@ export const useSequencerStore = create<State & Actions>()(
       set((state) => {
         state.elements = val;
       }),
+
     setBackendState: (val) =>
       set((state) => {
         state.backendState = val;

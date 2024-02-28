@@ -1,4 +1,4 @@
-import { useTestSequencerState } from "./useTestSequencerState";
+import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 
 export const useTestSetImport = () => {
   const { setElems } = useTestSequencerState();

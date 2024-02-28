@@ -1,11 +1,10 @@
 import { createContext, useContext } from "react";
 import { SendJsonMessage } from "react-use-websocket/dist/lib/types";
-import { filter } from "lodash";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { BackendMsg, Test } from "@/renderer/types/testSequencer";
-import { mapToTestResult } from "../routes/test_sequencer_panel/utils/TestUtils";
+import { mapToTestResult } from "@/renderer/routes/test_sequencer_panel/utils/TestUtils";
 import { toast } from "sonner";
 import { env } from "@/env";
 
@@ -24,7 +23,8 @@ export function TestSequencerWSProvider({
 }) {
   const {
     websocketId,
-    setRunning,
+    markTestAsDone,
+    addTestToRunning,
     setElems,
     setIsLocked,
     setIsLoading,
@@ -80,8 +80,13 @@ export function TestSequencerWSProvider({
 
   // Run when a new WebSocket message is received (lastJsonMessage)
   useEffect(() => {
+    if (!lastJsonMessage) return;
+
     const msg = BackendMsg.safeParse(lastJsonMessage);
-    if (!msg.success) return;
+    if (!msg.success) {
+      console.error(msg.error);
+      return;
+    }
 
     switch (msg.data.state) {
       case "test_set_start":
@@ -91,7 +96,7 @@ export function TestSequencerWSProvider({
         setBackendState("test_set_export");
         break;
       case "test_done":
-        setRunning((run) => filter(run, (r) => r !== data.target_id));
+        markTestAsDone(msg.data.target_id);
         setResult(
           msg.data.target_id,
           msg.data.result,
@@ -102,7 +107,7 @@ export function TestSequencerWSProvider({
         // Don't specify a backend state here, because we want to keep the "RUNNER" or "EXPORT" state
         break;
       case "running":
-        setRunning([msg.data.target_id]);
+        addTestToRunning(msg.data.target_id);
         // Don't specify a backend state here, because we want to keep the "RUNNER" or "EXPORT" state
         break;
       case "error":

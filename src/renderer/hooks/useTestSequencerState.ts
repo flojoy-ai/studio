@@ -11,8 +11,8 @@ import {
   validateStructure,
   validator,
 } from "@/renderer/utils/TestSequenceValidator";
-import useWithPermission from "./useWithPermission";
-import { useSequencerStore } from "../stores/sequencer";
+import useWithPermission from "@/renderer/hooks/useWithPermission";
+import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useShallow } from "zustand/react/shallow";
 
 // sync this with the definition of setElems
@@ -32,12 +32,15 @@ const createTestSequenceTree = (elems: TestSequenceElement[]): TestRootNode => {
   ).map((elem: Test) => {
     return elem.testName;
   });
+
   const root = {
     type: "root",
     children: [],
     identifiers: identifiers,
   } as TestRootNode;
+
   const stack: TestSequenceElementNode[][] = [root.children];
+
   for (let i = 0; i < elems.length; i++) {
     const curElem = elems[i];
 
@@ -85,7 +88,8 @@ export function useTestSequencerState() {
     setElements,
     websocketId,
     running,
-    setRunning,
+    markTestAsDone,
+    addTestToRunning,
     isLoading,
     setIsLoading,
     isLocked,
@@ -103,7 +107,8 @@ export function useTestSequencerState() {
         setElements: state.setElements,
         websocketId: state.websocketId,
         running: state.curRun,
-        setRunning: state.setCurRun,
+        markTestAsDone: state.markTestAsDone,
+        addTestToRunning: state.addTestToRunning,
         isLoading: state.isLoading,
         setIsLoading: state.setIsLoading,
         isLocked: state.isLocked,
@@ -121,22 +126,21 @@ export function useTestSequencerState() {
   const { withPermissionCheck } = useWithPermission();
 
   // wrapper around setElements to check if elems is valid
-  function setElems(elems: TestSequenceElement[]);
   function setElems(
-    fn: (elems: TestSequenceElement[]) => TestSequenceElement[],
-  );
-
-  function setElems(p: any) {
+    p:
+      | TestSequenceElement[]
+      | ((elems: TestSequenceElement[]) => TestSequenceElement[]),
+  ) {
     let candidateElems: TestSequenceElement[];
 
-    //handle overloads
+    // handle overloads
     if (Array.isArray(p)) {
       candidateElems = p;
     } else {
       candidateElems = p(elems);
     }
 
-    //validate new elements
+    // validate new elements
     const res = validateElements(
       [validateStructure, checkUniqueNames],
       candidateElems,
@@ -146,15 +150,14 @@ export function useTestSequencerState() {
       return;
     }
 
-    //PASS
+    // PASS
     setElements(candidateElems);
     setUnsaved(true);
 
-    /* _________________________ */
-
-    //creates tree to send to backend
+    // creates tree to send to backend
     setTree(createTestSequenceTree(candidateElems));
   }
+
   const setElemsWithPermissions = withPermissionCheck(setElems);
 
   return {
@@ -163,7 +166,8 @@ export function useTestSequencerState() {
     setElems: setElemsWithPermissions,
     tree,
     running,
-    setRunning,
+    markTestAsDone,
+    addTestToRunning,
     setIsLocked,
     setBackendState,
     isLocked,

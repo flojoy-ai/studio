@@ -50,7 +50,7 @@ export const useTestImport = () => {
     setModalOpen: Dispatch<SetStateAction<boolean>>,
   ) {
     let data: TestDiscoverContainer;
-    if (settings.importType == "Python") {
+    if (settings.importType == "python") {
       data = {
         response: [{ testName: path, path: path }],
         missingLibraries: [],

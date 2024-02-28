@@ -14,7 +14,7 @@ export type ImportTestSettings = {
   importType: ImportType;
 };
 
-export type ImportType = "Pytest" | "Python";
+export type ImportType = "pytest" | "python";
 
 type Props = {
   isModalOpen: boolean;
@@ -51,10 +51,10 @@ export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
         <h2 className="text-lg font-bold text-accent1">
           Import Python Scripts & Tests
         </h2>
-        <Button variant={"outline"} onClick={() => handleImportTest("Pytest")}>
+        <Button variant={"outline"} onClick={() => handleImportTest("pytest")}>
           Pytest & Unittest
         </Button>
-        <Button variant={"outline"} onClick={() => handleImportTest("Python")}>
+        <Button variant={"outline"} onClick={() => handleImportTest("python")}>
           Python Script
         </Button>
         <Separator />
