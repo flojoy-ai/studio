@@ -12,7 +12,19 @@ module.exports = {
   ],
   parser: "@typescript-eslint/parser",
   plugins: ["react-refresh"],
-  rules: {},
+  rules: {
+    "no-restricted-imports": [
+      "error",
+      {
+        patterns: [
+          {
+            group: ["./", "../"],
+            message: "Relative imports are not allowed.",
+          },
+        ],
+      },
+    ],
+  },
   settings: {
     react: {
       version: "detect",

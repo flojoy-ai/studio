@@ -1,4 +1,4 @@
-import { OverridePlotData } from "./plotly";
+import { OverridePlotData } from "@/renderer/types/plotly";
 
 export const ALL_DC_TYPE = [
   "grayscale",

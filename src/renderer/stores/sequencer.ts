@@ -7,7 +7,7 @@ import {
   MsgState,
   Test,
   TestRootNode,
-} from "../types/testSequencer";
+} from "@/renderer/types/testSequencer";
 
 type State = {
   curRun: string[];

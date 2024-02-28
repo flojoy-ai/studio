@@ -1,5 +1,5 @@
 import { NodeProps } from "reactflow";
-import { Nullish } from "./util";
+import { Nullish } from "@/renderer/types/util";
 
 export type BlockParameterValue = Nullish<string | number | boolean>;
 

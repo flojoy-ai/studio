@@ -6,9 +6,9 @@ import { HTTPError } from "ky";
 import { RootNode, validateRootSchema } from "@/renderer/utils/ManifestLoader";
 import { toast } from "sonner";
 import { BlockMetadataMap } from "@/renderer/types/blocks-metadata";
-import { EnvVar } from "../types/envVar";
+import { EnvVar } from "@/renderer/types/envVar";
 import _ from "lodash";
-import { Setting } from "../stores/settings";
+import { Setting } from "@/renderer/stores/settings";
 
 export const postEnvironmentVariable = async (
   body: EnvVar,

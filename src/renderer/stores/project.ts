@@ -1,40 +1,50 @@
 import { Node, Edge, XYPosition, Connection, addEdge } from "reactflow";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { BlockData } from "../types/";
-import { BlockParameterValue, TextData, BlockDefinition } from "../types/node";
+import {
+  BlockParameterValue,
+  TextData,
+  BlockDefinition,
+  BlockData,
+} from "@/renderer/types/node";
 import { useShallow } from "zustand/react/shallow";
 
-import * as galleryItems from "../data/apps";
-import { ExampleProjects } from "../data/docs-example-apps";
-import * as RECIPES from "../data/RECIPES";
-import { BlockManifest } from "../utils/ManifestLoader";
-import { BlockMetadataMap } from "../types/blocks-metadata";
-import { syncFlowchartWithManifest } from "../lib/sync";
-import { MixPanelEvents, sendEventToMix } from "../services/MixpanelServices";
+import * as galleryItems from "@/renderer/data/apps";
+import { ExampleProjects } from "@/renderer/data/docs-example-apps";
+import * as RECIPES from "@/renderer/data/RECIPES";
+import { BlockManifest } from "@/renderer/utils/ManifestLoader";
+import { BlockMetadataMap } from "@/renderer/types/blocks-metadata";
+import { syncFlowchartWithManifest } from "@/renderer/lib/sync";
+import {
+  MixPanelEvents,
+  sendEventToMix,
+} from "@/renderer/services/MixpanelServices";
 import { Err, Ok, Result, tryCatch } from "@/types/result";
 import { v4 as uuidv4 } from "uuid";
-import { addRandomPositionOffset } from "../utils/RandomPositionOffset";
-import { Project } from "../types/project";
-import useWithPermission from "../hooks/useWithPermission";
+import { addRandomPositionOffset } from "@/renderer/utils/RandomPositionOffset";
+import { Project } from "@/renderer/types/project";
+import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { Draft } from "immer";
-import { DeviceInfo, useHardwareDevices } from "../hooks/useHardwareDevices";
+import {
+  DeviceInfo,
+  useHardwareDevices,
+} from "@/renderer/hooks/useHardwareDevices";
 import { useAtom } from "jotai";
 import { useCallback, useEffect } from "react";
 import {
   manifestChangedAtom,
   useFullManifest,
   useFullMetadata,
-} from "../hooks/useManifest";
+} from "@/renderer/hooks/useManifest";
 import {
   createNodeId,
   createNodeLabel,
   ctrlsFromParams,
-} from "../utils/NodeUtils";
-import { filterMap } from "../utils/ArrayUtils";
-import { getEdgeTypes, isCompatibleType } from "../utils/TypeCheck";
+} from "@/renderer/utils/NodeUtils";
+import { filterMap } from "@/renderer/utils/ArrayUtils";
+import { getEdgeTypes, isCompatibleType } from "@/renderer/utils/TypeCheck";
 import { toast } from "sonner";
-import { useFlowchartStore } from "./flowchart";
+import { useFlowchartStore } from "@/renderer/stores/flowchart";
 
 type State = {
   name: string | undefined;

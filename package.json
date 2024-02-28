@@ -23,6 +23,7 @@
     "format": "npx prettier --write .",
     "check": "npx prettier --check .",
     "e2e": "npx playwright test",
+    "lint": "eslint --ext .ts,.tsx .", 
     "electron-dev": "electron .",
     "electron-package": "pnpm run build && electron-builder build -m --universal -lw",
     "electron-package:windows": "pnpm run build && electron-builder build --win",
