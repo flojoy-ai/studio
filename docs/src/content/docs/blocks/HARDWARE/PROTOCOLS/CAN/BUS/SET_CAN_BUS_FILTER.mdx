@@ -14,7 +14,9 @@ head:
 
 import block_data from "@blocks/HARDWARE/PROTOCOLS/CAN/BUS/SET_CAN_BUS_FILTER/block_data.json";
 import PythonDocsDisplay from "@/components/PythonDocsDisplay.astro";
+import DownloadStudioBanner from "@/components/DownloadStudioBanner.astro";
 
+<DownloadStudioBanner />
 <PythonDocsDisplay docstring={block_data["docstring"]} />
 <details>
 <summary>Python Code</summary>
