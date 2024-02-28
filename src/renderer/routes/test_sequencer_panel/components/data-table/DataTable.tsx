@@ -38,7 +38,7 @@ import {
   ConditionalComponent,
   Conditional,
   StatusTypes,
-  Test
+  Test,
 } from "@/renderer/types/testSequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { parseInt, filter, map } from "lodash";
@@ -472,13 +472,16 @@ export function DataTable() {
                     >
                       Remove Test
                     </ContextMenuItem>
-                    { row.original.type === "test"  && 
+                    {row.original.type === "test" && (
                       <ContextMenuItem
-                        onClick={() => {setOpenPyTestFileModal(true); setTestToDisplay(row.original as Test);}}
+                        onClick={() => {
+                          setOpenPyTestFileModal(true);
+                          setTestToDisplay(row.original as Test);
+                        }}
                       >
                         Consult Code
                       </ContextMenuItem>
-                    }
+                    )}
                   </ContextMenuContent>
                 </ContextMenu>
               ))

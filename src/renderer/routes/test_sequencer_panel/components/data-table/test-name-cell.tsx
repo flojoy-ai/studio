@@ -32,16 +32,13 @@ const IndentLine = ({
 );
 
 const TestNameCell = ({ cellProps: { row }, indentLevels, running }: Props) => {
-
   const isTest = row.original.type === "test";
 
   return isTest ? (
     <>
       <div className="flex h-full cursor-pointer space-x-2">
         {/* Indent levels */}
-        <div
-          className="flex flex-row space-x-1"
-        >
+        <div className="flex flex-row space-x-1">
           <IndentLine
             content={(row.original as Test).testName}
             level={indentLevels[row.id]}
