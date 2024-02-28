@@ -1,7 +1,12 @@
 import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { Button } from "@/renderer/components/ui/button";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Input } from "@/renderer/components/ui/input";
+import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import { useCreateProject } from "@/renderer/hooks/useTestSequencerProject";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/renderer/components/ui/select";
+import { InterpreterType } from "@/renderer/types/testSequencer";
+import { PathInput } from "@/renderer/components/ui/path-input";
 
 export const TestSequencerProjectModal = ({
   isProjectModalOpen,
@@ -11,7 +16,13 @@ export const TestSequencerProjectModal = ({
   handleProjectModalOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
 
-
+  const { setElems, tree, setIsLocked, backendState } = useTestSequencerState(); 
+  const handleCreate = useCreateProject();
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [path, setPath] = useState("");
+  const [type, setType] = useState<InterpreterType>("flojoy");
+  const availableInterpreter: InterpreterType[] = ["flojoy", "poetry", "pipenv", "conda"]
 
   return (
     <Dialog
@@ -24,8 +35,41 @@ export const TestSequencerProjectModal = ({
         </h2>
         <Input placeholder="Project Name" />
         <Input placeholder="Project Description" />
-        <Button variant={"default"}> New Project </Button>
+        <PathInput 
+          placeholder="Project Path" 
+          allowedExtention={["tjoy"]}
+          onChange={(event) => {setPath(event.target.value); console.log(event.target.value);}} 
+        />
+        <div className="flex gap-2">
+        <div className="flex-none w-[200px]">
+        <Select onValueChange={setType}>
+          <SelectTrigger className="w-[200px]">
+            <SelectValue placeholder="Dependencies Manager" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Interpreter</SelectLabel>
+              { availableInterpreter.map((interpreter) => (
+              <SelectItem value={interpreter} key={interpreter}>
+                  { interpreter.charAt(0).toUpperCase() + interpreter.slice(1) }
+              </SelectItem> ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+        </div>
+        <PathInput 
+          placeholder="Interpreter Path" 
+          onChange={(event) => {setPath(event.target.value); console.log(event.target.value);}} 
+          disabled={type === "flojoy"}
+        />
+
+        </div>
+        <Button 
+          variant={"default"}
+          onClick={() => handleCreate(name, description, path)}
+        > New Project </Button>
       </DialogContent>
     </Dialog>
   );
 };
+

@@ -77,12 +77,19 @@ export type TestRootNode = {
   identifiers: string[];
 };
 
+export type InterpreterType = "flojoy" | "poetry" | "pipenv" | "conda";
+export type Interpreter = {
+  type: InterpreterType ;
+  path: string | null;
+};
+
 export type TestSequencerProject = {
   name: string;
   description: string;
   root: TestRootNode;
-  interpreter_path: string | null;
-  requirements: string[];
+  tjoy_file_path: string;
+  interpreter: Interpreter ;
+  requirement_file_path: string | null;
 }
 
 export type TestSequenceElementNode = ConditionalNode | TestNode | TestRootNode;
