@@ -81,8 +81,8 @@ dependencies:
     specifier: ^5.24.1
     version: 5.24.1(react@18.2.0)
   '@tanstack/react-table':
-    specifier: ^8.13.0
-    version: 8.13.0(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^8.13.2
+    version: 8.13.2(react-dom@18.2.0)(react@18.2.0)
   '@tisoap/react-flow-smart-edge':
     specifier: file:bauhaus/tisoap-react-flow-smart-edge-v3.0.0.tgz
     version: file:bauhaus/tisoap-react-flow-smart-edge-v3.0.0.tgz(react-dom@18.2.0)(react@18.2.0)(reactflow@11.10.4)(typescript@5.3.3)
@@ -166,7 +166,7 @@ dependencies:
     version: 18.2.0
   react-dnd:
     specifier: ^16.0.1
-    version: 16.0.1(@types/node@20.11.21)(@types/react@18.2.60)(react@18.2.0)
+    version: 16.0.1(@types/node@20.11.22)(@types/react@18.2.60)(react@18.2.0)
   react-dnd-html5-backend:
     specifier: ^16.0.1
     version: 16.0.1
@@ -192,14 +192,14 @@ dependencies:
     specifier: ^2.6.0
     version: 2.6.0(plotly.js@2.23.2)(react@18.2.0)
   react-router-dom:
-    specifier: ^6.22.1
-    version: 6.22.1(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^6.22.2
+    version: 6.22.2(react-dom@18.2.0)(react@18.2.0)
   react-syntax-highlighter:
     specifier: ^15.5.0
     version: 15.5.0(react@18.2.0)
   react-use-websocket:
-    specifier: ^4.7.0
-    version: 4.7.0(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^4.8.1
+    version: 4.8.1(react-dom@18.2.0)(react@18.2.0)
   reactflow:
     specifier: ^11.10.4
     version: 11.10.4(@types/react@18.2.60)(immer@10.0.3)(react-dom@18.2.0)(react@18.2.0)
@@ -260,8 +260,8 @@ devDependencies:
     specifier: ^2.49.0
     version: 2.49.0
   '@types/node':
-    specifier: ^20.11.21
-    version: 20.11.21
+    specifier: ^20.11.22
+    version: 20.11.22
   '@types/react':
     specifier: ^18.2.60
     version: 18.2.60
@@ -339,7 +339,7 @@ devDependencies:
     version: 5.3.3
   vite:
     specifier: ^5.1.4
-    version: 5.1.4(@types/node@20.11.21)
+    version: 5.1.4(@types/node@20.11.22)
   vite-plugin-environment:
     specifier: ^1.1.3
     version: 1.1.3(vite@5.1.4)
@@ -2459,8 +2459,8 @@ packages:
       - immer
     dev: false
 
-  /@remix-run/router@1.15.1:
-    resolution: {integrity: sha512-zcU0gM3z+3iqj8UX45AmWY810l3oUmXM7uH4dt5xtzvMhRtYVhKGOmgOd1877dOPPepfCjUv57w+syamWIYe7w==}
+  /@remix-run/router@1.15.2:
+    resolution: {integrity: sha512-+Rnav+CaoTE5QJc4Jcwh5toUpnVLKYbpU6Ys0zqbakqbaLQHeglLVHPfxOiQqdNmUy5C2lXz5dwC6tQNX2JW2Q==}
     engines: {node: '>=14.0.0'}
     dev: false
 
@@ -2734,20 +2734,20 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@tanstack/react-table@8.13.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-wUB6SGQS70SzSczInfiIuCRjGBDcqqMtgIp75fscHWkH8hSKLkuWLCDC5V5or57UrLew1WD1YyY+XheistAZNQ==}
+  /@tanstack/react-table@8.13.2(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-b6mR3mYkjRtJ443QZh9sc7CvGTce81J35F/XMr0OoWbx0KIM7TTTdyNP2XKObvkLpYnLpCrYDwI3CZnLezWvpg==}
     engines: {node: '>=12'}
     peerDependencies:
       react: '>=16'
       react-dom: '>=16'
     dependencies:
-      '@tanstack/table-core': 8.13.0
+      '@tanstack/table-core': 8.13.2
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/table-core@8.13.0:
-    resolution: {integrity: sha512-/OU4oWkrhSDeOTtt8CNq8XZQ3eS86rCJvCZD3ev7XIdXtKo0LOGp9hLqoYeaPgDNW7D/WXP2IHAA1hRVFICF5A==}
+  /@tanstack/table-core@8.13.2:
+    resolution: {integrity: sha512-/2saD1lWBUV6/uNAwrsg2tw58uvMJ07bO2F1IWMxjFRkJiXKQRuc3Oq2aufeobD3873+4oIM/DRySIw7+QsPPw==}
     engines: {node: '>=12'}
     dev: false
 
@@ -2763,7 +2763,7 @@ packages:
   /@types/adm-zip@0.5.5:
     resolution: {integrity: sha512-YCGstVMjc4LTY5uK9/obvxBya93axZOVOyf2GSUulADzmLhYE45u2nAssCs/fWBs1Ifq5Vat75JTPwd5XZoPJw==}
     dependencies:
-      '@types/node': 20.11.21
+      '@types/node': 20.11.22
     dev: true
 
   /@types/base16@1.0.5:
@@ -2779,7 +2779,7 @@ packages:
     dependencies:
       '@types/http-cache-semantics': 4.0.4
       '@types/keyv': 3.1.4
-      '@types/node': 20.11.21
+      '@types/node': 20.11.22
       '@types/responselike': 1.0.3
 
   /@types/d3-array@3.2.1:
@@ -2989,7 +2989,7 @@ packages:
   /@types/fs-extra@9.0.13:
     resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==}
     dependencies:
-      '@types/node': 20.11.21
+      '@types/node': 20.11.22
     dev: true
 
   /@types/geojson@7946.0.14:
@@ -3014,7 +3014,7 @@ packages:
   /@types/http-proxy@1.17.14:
     resolution: {integrity: sha512-SSrD0c1OQzlFX7pGu1eXxSEjemej64aaNPRhhVYUGqXh0BtldAAx37MG8btcumvpgKyZp1F5Gn3JkktdxiFv6w==}
     dependencies:
-      '@types/node': 20.11.21
+      '@types/node': 20.11.22
     dev: false
 
   /@types/json-schema@7.0.15:
@@ -3024,7 +3024,7 @@ packages:
   /@types/keyv@3.1.4:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
-      '@types/node': 20.11.21
+      '@types/node': 20.11.22
 
   /@types/lodash@4.14.202:
     resolution: {integrity: sha512-OvlIYQK9tNneDlS0VN54LLd5uiPCBOp7gS5Z0f1mjoJYBrtStzgmJBxONW3U6OZqdtNzZPmn9BS/7WI7BFFcFQ==}
@@ -3042,8 +3042,8 @@ packages:
   /@types/ms@0.7.34:
     resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
 
-  /@types/node@20.11.21:
-    resolution: {integrity: sha512-/ySDLGscFPNasfqStUuWWPfL78jompfIoVzLJPVVAHBh6rpG68+pI2Gk+fNLeI8/f1yPYL4s46EleVIc20F1Ow==}
+  /@types/node@20.11.22:
+    resolution: {integrity: sha512-/G+IxWxma6V3E+pqK1tSl2Fo1kl41pK1yeCyDsgkF9WlVAme4j5ISYM2zR11bgLFJGLN5sVK40T4RJNuiZbEjA==}
     dependencies:
       undici-types: 5.26.5
 
@@ -3051,7 +3051,7 @@ packages:
     resolution: {integrity: sha512-E6OCaRmAe4WDmWNsL/9RMqdkkzDCY1etutkflWk4c+AcjDU07Pcz1fQwTX0TQz+Pxqn9i4L1TU3UFpjnrcDgxA==}
     requiresBuild: true
     dependencies:
-      '@types/node': 20.11.21
+      '@types/node': 20.11.22
       xmlbuilder: 15.1.1
     dev: true
     optional: true
@@ -3091,7 +3091,7 @@ packages:
   /@types/responselike@1.0.3:
     resolution: {integrity: sha512-H/+L+UkTV33uf49PH5pCAUBVPNj2nDBXTN+qS1dOwyyg24l3CcicicCA7ca+HMvJBZcFgl5r8e+RR6elsb4Lyw==}
     dependencies:
-      '@types/node': 20.11.21
+      '@types/node': 20.11.22
 
   /@types/scheduler@0.16.8:
     resolution: {integrity: sha512-WZLiwShhwLRmeV6zH+GkbOFT6Z6VklCItrDioxUnv+u4Ll+8vKeFySoFyK/0ctcRpOmwAicELfmys1sDc/Rw+A==}
@@ -3122,7 +3122,7 @@ packages:
     resolution: {integrity: sha512-oJoftv0LSuaDZE3Le4DbKX+KS9G36NzOeSap90UIK0yMA/NhKJhqlSGtNDORNRaIbQfzjXDrQa0ytJ6mNRGz/Q==}
     requiresBuild: true
     dependencies:
-      '@types/node': 20.11.21
+      '@types/node': 20.11.22
     optional: true
 
   /@typescript-eslint/eslint-plugin@7.1.0(@typescript-eslint/parser@7.1.0)(eslint@8.57.0)(typescript@5.3.3):
@@ -3335,7 +3335,7 @@ packages:
       vite: ^4 || ^5
     dependencies:
       '@swc/core': 1.4.2
-      vite: 5.1.4(@types/node@20.11.21)
+      vite: 5.1.4(@types/node@20.11.22)
     transitivePeerDependencies:
       - '@swc/helpers'
     dev: true
@@ -3724,7 +3724,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001591
-      electron-to-chromium: 1.4.685
+      electron-to-chromium: 1.4.686
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.23.0)
 
@@ -4495,8 +4495,8 @@ packages:
       type-fest: 2.19.0
     dev: false
 
-  /electron-to-chromium@1.4.685:
-    resolution: {integrity: sha512-yDYeobbTEe4TNooEzOQO6xFqg9XnAkVy2Lod1C1B2it8u47JNLYvl9nLDWBamqUakWB8Jc1hhS1uHUNYTNQdfw==}
+  /electron-to-chromium@1.4.686:
+    resolution: {integrity: sha512-3avY1B+vUzNxEgkBDpKOP8WarvUAEwpRaiCL0He5OKWEFxzaOFiq4WoZEZe7qh0ReS7DiWoHMnYoQCKxNZNzSg==}
 
   /electron-updater@6.1.8:
     resolution: {integrity: sha512-hhOTfaFAd6wRHAfUaBhnAOYc+ymSGCWJLtFkw4xJqOvtpHmIdNHnXDV9m1MHC+A6q08Abx4Ykgyz/R5DGKNAMQ==}
@@ -4530,7 +4530,7 @@ packages:
       esbuild: 0.19.12
       magic-string: 0.30.7
       picocolors: 1.0.0
-      vite: 5.1.4(@types/node@20.11.21)
+      vite: 5.1.4(@types/node@20.11.22)
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -4542,7 +4542,7 @@ packages:
     requiresBuild: true
     dependencies:
       '@electron/get': 2.0.3
-      '@types/node': 20.11.21
+      '@types/node': 20.11.22
       extract-zip: 2.0.1
     transitivePeerDependencies:
       - supports-color
@@ -7197,7 +7197,7 @@ packages:
       dnd-core: 16.0.1
     dev: false
 
-  /react-dnd@16.0.1(@types/node@20.11.21)(@types/react@18.2.60)(react@18.2.0):
+  /react-dnd@16.0.1(@types/node@20.11.22)(@types/react@18.2.60)(react@18.2.0):
     resolution: {integrity: sha512-QeoM/i73HHu2XF9aKksIUuamHPDvRglEwdHL4jsp784BgUuWcg6mzfxT0QDdQz8Wj0qyRKx2eMg8iZtWvU4E2Q==}
     peerDependencies:
       '@types/hoist-non-react-statics': '>= 3.3.1'
@@ -7214,7 +7214,7 @@ packages:
     dependencies:
       '@react-dnd/invariant': 4.0.2
       '@react-dnd/shallowequal': 4.0.2
-      '@types/node': 20.11.21
+      '@types/node': 20.11.22
       '@types/react': 18.2.60
       dnd-core: 16.0.1
       fast-deep-equal: 3.1.3
@@ -7365,26 +7365,26 @@ packages:
       use-sidecar: 1.1.2(@types/react@18.2.60)(react@18.2.0)
     dev: false
 
-  /react-router-dom@6.22.1(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-iwMyyyrbL7zkKY7MRjOVRy+TMnS/OPusaFVxM2P11x9dzSzGmLsebkCvYirGq0DWB9K9hOspHYYtDz33gE5Duw==}
+  /react-router-dom@6.22.2(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-WgqxD2qySEIBPZ3w0sHH+PUAiamDeszls9tzqMPBDA1YYVucTBXLU7+gtRfcSnhe92A3glPnvSxK2dhNoAVOIQ==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: '>=16.8'
       react-dom: '>=16.8'
     dependencies:
-      '@remix-run/router': 1.15.1
+      '@remix-run/router': 1.15.2
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      react-router: 6.22.1(react@18.2.0)
+      react-router: 6.22.2(react@18.2.0)
     dev: false
 
-  /react-router@6.22.1(react@18.2.0):
-    resolution: {integrity: sha512-0pdoRGwLtemnJqn1K0XHUbnKiX0S4X8CgvVVmHGOWmofESj31msHo/1YiqcJWK7Wxfq2a4uvvtS01KAQyWK/CQ==}
+  /react-router@6.22.2(react@18.2.0):
+    resolution: {integrity: sha512-YD3Dzprzpcq+tBMHBS822tCjnWD3iIZbTeSXMY9LPSG541EfoBGyZ3bS25KEnaZjLcmQpw2AVLkFyfgXY8uvcw==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: '>=16.8'
     dependencies:
-      '@remix-run/router': 1.15.1
+      '@remix-run/router': 1.15.2
       react: 18.2.0
     dev: false
 
@@ -7418,8 +7418,8 @@ packages:
       refractor: 3.6.0
     dev: false
 
-  /react-use-websocket@4.7.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-YjR62jB7vB94IZy5UPBGZSR3c0hxu796q9IuJ0vbNg7InJ7Z84NHOd/LHzVI5nAKtaGy1oqvf8EmjKxX+cNz4A==}
+  /react-use-websocket@4.8.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-FTXuG5O+LFozmu1BRfrzl7UIQngECvGJmL7BHsK4TYXuVt+mCizVA8lT0hGSIF0Z0TedF7bOo1nRzOUdginhDw==}
     peerDependencies:
       react: '>= 18.0.0'
       react-dom: '>= 18.0.0'
@@ -8484,7 +8484,7 @@ packages:
     peerDependencies:
       vite: '>= 2.7'
     dependencies:
-      vite: 5.1.4(@types/node@20.11.21)
+      vite: 5.1.4(@types/node@20.11.22)
     dev: true
 
   /vite-plugin-eslint@1.8.1(eslint@8.57.0)(vite@5.1.4):
@@ -8497,7 +8497,7 @@ packages:
       '@types/eslint': 8.56.4
       eslint: 8.57.0
       rollup: 2.79.1
-      vite: 5.1.4(@types/node@20.11.21)
+      vite: 5.1.4(@types/node@20.11.22)
     dev: true
 
   /vite-plugin-istanbul@5.0.0(vite@5.1.4):
@@ -8510,12 +8510,12 @@ packages:
       istanbul-lib-instrument: 5.2.1
       picocolors: 1.0.0
       test-exclude: 6.0.0
-      vite: 5.1.4(@types/node@20.11.21)
+      vite: 5.1.4(@types/node@20.11.22)
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /vite@5.1.4(@types/node@20.11.21):
+  /vite@5.1.4(@types/node@20.11.22):
     resolution: {integrity: sha512-n+MPqzq+d9nMVTKyewqw6kSt+R3CkvF9QAKY8obiQn8g1fwTscKxyfaYnC632HtBXAQGc1Yjomphwn1dtwGAHg==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -8543,7 +8543,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.11.21
+      '@types/node': 20.11.22
       esbuild: 0.19.12
       postcss: 8.4.35
       rollup: 4.12.0
