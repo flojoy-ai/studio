@@ -1,12 +1,11 @@
 import { DataTable } from "./data-table/DataTable";
 import { SummaryTable } from "./SummaryTable";
-import { CloudPanel } from "./CloudPanel";
 import { LockedContextProvider } from "@/renderer/context/lock.context";
 import {
   LAYOUT_TOP_HEIGHT,
   BOTTOM_STATUS_BAR_HEIGHT,
 } from "@/renderer/routes/common/Layout";
-import { ControlPanel } from "./ControlPanel";
+import { TabsDemo } from "./Panels";
 
 const TestSequencerView = () => {
   return (
@@ -27,8 +26,7 @@ const TestSequencerView = () => {
 
           <div>
             <div className="top-0 h-full flex-none overflow-y-auto pl-5">
-              <CloudPanel />
-              <ControlPanel />
+              <TabsDemo />
             </div>
           </div>
         </div>

@@ -3,10 +3,10 @@ import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import {
   testSequenceRunRequest,
   testSequenceStopRequest,
-} from "../models/models";
+} from "../../models/models";
 import { TestSequenceElement } from "@/renderer/types/testSequencer";
-import { ImportTestModal } from "./ImportTestModal";
-import LockableButton from "./lockable/LockedButtons";
+import { ImportTestModal } from "../ImportTestModal";
+import LockableButton from "../lockable/LockedButtons";
 import { TSWebSocketContext } from "@/renderer/context/testSequencerWS.context";
 import { useTestSetSave } from "@/renderer/hooks/useTestSetSave";
 import { useTestSetImport } from "@/renderer/hooks/useTestSetImport";
@@ -57,9 +57,6 @@ export const ControlPanel = () => {
 
       <div className="mt-5 rounded-xl border border-gray-300 p-4 py-4 dark:border-gray-800">
         <div className="flex flex-col">
-          <h2 className="mb-2 pt-3 text-center text-lg font-bold text-accent1 ">
-            Control Panel
-          </h2>
           <LockableButton
             className="mt-4 w-full"
             variant="outline"

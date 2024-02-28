@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Input } from "@/renderer/components/ui/input";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
-import LockableButton from "./lockable/LockedButtons";
-import { testSequenceExportCloud } from "../models/models";
+import LockableButton from "../lockable/LockedButtons";
+import { testSequenceExportCloud } from "../../models/models";
 import { useTestSequencerWS } from "@/renderer/context/testSequencerWS.context";
 import {
   Select,
@@ -13,7 +13,7 @@ import {
 } from "@/renderer/components/ui/select";
 import { baseClient } from "@/renderer/lib/base-client";
 import { Button } from "@/renderer/components/ui/button";
-import EnvVarModal from "../../flow_chart/views/EnvVarModal";
+import EnvVarModal from "../../../flow_chart/views/EnvVarModal";
 
 export function CloudPanel() {
   const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
@@ -46,10 +46,6 @@ export function CloudPanel() {
   return (
     <div className="min-w-[240px] rounded-xl border border-gray-300 p-4 py-4 dark:border-gray-800">
       <div className="flex flex-col">
-        <h2 className="mb-2 pt-3 text-center text-lg font-bold text-accent1 ">
-          Cloud Panel
-        </h2>
-
         <div className="pb-1 text-muted-foreground">
           <h2>Hardware id</h2>
         </div>
