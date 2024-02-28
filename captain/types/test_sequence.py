@@ -3,12 +3,12 @@ from typing import Any, Optional
 
 
 class MsgState(Enum):
-    TEST_SET_START = "TEST_SET_START"
-    TEST_SET_EXPORT = "TEST_SET_EXPORT"
+    test_set_start = "test_set_start"
+    test_set_export = "test_set_export"
     RUNNING = "RUNNING"
-    TEST_DONE = "TEST_DONE"
+    test_done = "test_done"
     ERROR = "ERROR"
-    TEST_SET_DONE = "TEST_SET_DONE"
+    test_set_done = "test_set_done"
 
 
 class TestSequenceMessage(dict):

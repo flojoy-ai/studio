@@ -19,7 +19,6 @@ import {
   LAYOUT_TOP_HEIGHT,
   BOTTOM_STATUS_BAR_HEIGHT,
 } from "@/renderer/routes/common/Layout";
-import { Button } from "@/renderer/components/ui/button";
 
 const TestSequencerView = () => {
   const { setElems, tree, setIsLocked, backendState } = useTestSequencerState();
@@ -112,14 +111,14 @@ const TestSequencerView = () => {
                     variant="dotted"
                     className="mt-4 w-full gap-2"
                     isLocked={_.isEmpty(tree)}
-                    isException={backendState === "TEST_SET_START"}
+                    isException={backendState === "test_set_start"}
                     onClick={
-                      backendState === "TEST_SET_START"
+                      backendState === "test_set_start"
                         ? handleClickStopTest
                         : handleClickRunTest
                     }
                   >
-                    {backendState === "TEST_SET_START"
+                    {backendState === "test_set_start"
                       ? "Stop Test Sequence"
                       : "Run Test Sequence"}
                   </LockableButton>

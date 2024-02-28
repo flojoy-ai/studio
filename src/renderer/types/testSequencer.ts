@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export type Summary = {
   id: string;
   successRate: number;
@@ -8,26 +10,31 @@ export type LockedContextType = {
   isLocked: boolean;
 };
 
-export type TestTypes = "Pytest" | "Python" | "Flojoy" | "Matlab";
+export const TestType = z.enum(["pytest", "python", "flojoy", "matlab"]);
+export type TestType = z.infer<typeof TestType>;
 
-export type StatusTypes = "pending" | "pass" | "failed";
+export const StatusType = z.enum(["pending", "pass", "failed"]);
+export type StatusType = z.infer<typeof StatusType>;
 
-export type MsgState =
-  | "TEST_SET_START"
-  | "TEST_SET_EXPORT"
-  | "RUNNING"
-  | "TEST_DONE"
-  | "ERROR"
-  | "TEST_SET_DONE";
+export const MsgState = z.enum([
+  "test_set_start",
+  "test_set_export",
+  "test_set_done",
+  "running",
+  "test_done",
+  "error",
+]);
+export type MsgState = z.infer<typeof MsgState>;
 
-export type BackendMsg = {
-  state: MsgState;
-  target_id: string;
-  result: boolean;
-  time_taken: number;
-  is_saved_to_cloud: boolean;
-  error: string | null;
-};
+export const BackendMsg = z.object({
+  state: MsgState,
+  target_id: z.string(),
+  result: z.boolean(),
+  time_taken: z.number(),
+  is_saved_to_cloud: z.boolean(),
+  error: z.string().nullable(),
+});
+export type BackendMsg = z.infer<typeof BackendMsg>;
 
 export type Test = {
   type: "test";
@@ -36,8 +43,8 @@ export type Test = {
   path: string;
   testName: string;
   runInParallel: boolean;
-  testType: TestTypes;
-  status: StatusTypes;
+  testType: TestType;
+  status: StatusType;
   error: string | null;
   completionTime: number | undefined;
   isSavedToCloud: boolean;
@@ -52,7 +59,9 @@ export type Conditional = {
   condition: string;
 };
 
-export type Role = "start" | "between" | "end"; //for example, "if" is a "start", "else" is a "between" and "end" is an "end"
+// for example, "if" is a "start", "else" is a "between" and "end" is an "end"
+export type Role = "start" | "between" | "end";
+
 export type ConditionalComponent = "if" | "else" | "elif" | "end";
 export type ConditionalLeader = "if";
 export const CONDITIONALS: ConditionalLeader[] = ["if"];

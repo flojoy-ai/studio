@@ -33,12 +33,22 @@ type Actions = {
 
 export const useSequencerStore = create<State & Actions>()(
   immer((set) => ({
+    isLocked: false,
+    setIsLocked: (val) =>
+      set((state) => {
+        state.isLocked = val;
+      }),
+
+    isLoading: true,
+    setIsLoading: (val) =>
+      set((state) => {
+        state.isLoading = val;
+      }),
+
     curRun: [],
     websocketId: uuidv4(),
     elements: [],
-    isLocked: false,
-    isLoading: true,
-    backendState: "TEST_SET_DONE",
+    backendState: "test_set_done",
     testSequenceUnsaved: false,
     testSequenceTree: {
       type: "root",
@@ -58,14 +68,6 @@ export const useSequencerStore = create<State & Actions>()(
       set((state) => {
         state.elements = val;
       }),
-    setIsLocked: (val) =>
-      set((state) => {
-        state.isLocked = val;
-      }),
-    setIsLoading: (val) =>
-      set((state) => {
-        state.isLoading = val;
-      }),
     setBackendState: (val) =>
       set((state) => {
         state.backendState = val;
@@ -74,7 +76,6 @@ export const useSequencerStore = create<State & Actions>()(
       set((state) => {
         state.testSequenceUnsaved = val;
       }),
-
     setTestSequenceTree: (val) =>
       set((state) => {
         state.testSequenceTree = val;

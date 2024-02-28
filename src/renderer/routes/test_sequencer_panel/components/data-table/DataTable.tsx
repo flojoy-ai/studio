@@ -37,7 +37,7 @@ import {
   TestSequenceElement,
   ConditionalComponent,
   Conditional,
-  StatusTypes,
+  StatusType,
   Test,
 } from "@/renderer/types/testSequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
@@ -70,7 +70,7 @@ function renderErrorMessage(text: string): JSX.Element {
   );
 }
 
-const mapStatusToDisplay: { [k in StatusTypes] } = {
+const mapStatusToDisplay: { [k in StatusType] } = {
   pending: <p className="text-yellow-500">PENDING</p>,
   pass: <p className="text-green-500">PASS</p>,
   failed: (status: string | null) =>
