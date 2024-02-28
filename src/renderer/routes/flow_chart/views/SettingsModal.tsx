@@ -14,10 +14,8 @@ import { getEntries } from "@/renderer/types/util";
 
 export type SettingsModalProps<
   K extends keyof SettingsState,
-  A extends <K2 extends keyof SettingsState[K]>(
-    key: keyof SettingsState[K],
-    value: SettingsState[K][K2],
-  ) => void,
+  S extends keyof SettingsState[K],
+  A extends (key: keyof SettingsState[K], value: SettingsState[K][S]) => void,
 > = {
   handleSettingsModalOpen: (open: boolean) => void;
   isSettingsModalOpen: boolean;
@@ -29,10 +27,8 @@ export type SettingsModalProps<
 
 export const SettingsModal = <
   K extends keyof SettingsState,
-  A extends <K2 extends keyof SettingsState[K]>(
-    key: keyof SettingsState[K],
-    value: SettingsState[K][K2],
-  ) => void,
+  S extends keyof SettingsState[K],
+  A extends (key: keyof SettingsState[K], value: SettingsState[K][S]) => void,
 >({
   handleSettingsModalOpen,
   isSettingsModalOpen,
@@ -40,7 +36,7 @@ export const SettingsModal = <
   updateSettings,
   title,
   description,
-}: SettingsModalProps<K, A>) => {
+}: SettingsModalProps<K, S, A>) => {
   return (
     <Dialog open={isSettingsModalOpen} onOpenChange={handleSettingsModalOpen}>
       <DialogContent className="sm:max-w-[425px]">
@@ -71,10 +67,7 @@ export const SettingsModal = <
                   onChange={(e) =>
                     updateSettings(
                       key,
-                      parseInt(
-                        e.target.value,
-                        10,
-                      ) as SettingsState[K][typeof key],
+                      parseInt(e.target.value, 10) as SettingsState[K][S],
                     )
                   }
                 />
@@ -86,7 +79,7 @@ export const SettingsModal = <
                   data-testid="settings-switch"
                   checked={setting.value}
                   onCheckedChange={(checked) =>
-                    updateSettings(key, checked as SettingsState[K][typeof key])
+                    updateSettings(key, checked as SettingsState[K][S])
                   }
                 />
               )}
