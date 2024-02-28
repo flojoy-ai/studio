@@ -12,6 +12,7 @@ type TabButtonProps = {
 const HeaderTab = ({ to, tabName, children, testId }: TabButtonProps) => {
   const location = useLocation();
   const { activeTab, setActiveTab } = useActiveTab();
+  console.log(tabName);
 
   return (
     <div
