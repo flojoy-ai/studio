@@ -1,10 +1,11 @@
 import { readdir, stat } from "fs";
 import { join } from "path";
 import os from "os";
-import { execCommand } from "../executor";
-import { Command } from "../command";
+import { execCommand } from "@/main/executor";
+import { Command } from "@/main/command";
 import { app, dialog } from "electron";
-import { writeFileSync } from "../utils";
+import { writeFileSync } from "@/main/utils";
+import { z } from "zod";
 
 export type InterpretersList = {
   path: string;
@@ -14,6 +15,10 @@ export type InterpretersList = {
     minor: number;
   };
 }[];
+
+const CondaInfo = z.object({
+  envs: z.array(z.string()),
+});
 
 export const interpreterCachePath = join(
   app.getPath("appData"),
@@ -114,16 +119,19 @@ export class PythonManager {
 
     try {
       const condaInfo = await execCommand(new Command(cmd), { quiet: true });
-      const parseInfo = JSON.parse(condaInfo);
 
-      const envPaths = parseInfo.envs.map((env) => {
+      const parsedInfo = CondaInfo.parse(condaInfo);
+
+      const envPaths = parsedInfo.envs.map((env) => {
         if (process.platform === "win32") {
           return join(env, "python.exe");
         }
         return join(env, "bin", "python");
       });
-      return envPaths as string[];
+
+      return envPaths;
     } catch (error) {
+      console.error(error);
       return null;
     }
   }
