@@ -81,7 +81,7 @@
     "ky": "^1.2.1",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.341.0",
+    "lucide-react": "^0.343.0",
     "mixpanel-browser": "^2.49.0",
     "plotly.js": "file:bauhaus/plotly.js-2.23.2.tgz",
     "react": "^18.2.0",
@@ -104,7 +104,7 @@
     "toml": "^3.0.0",
     "uuid": "^9.0.1",
     "zod": "^3.22.4",
-    "zod-validation-error": "^3.0.2",
+    "zod-validation-error": "^3.0.3",
     "zustand": "^4.5.1"
   },
   "devDependencies": {
