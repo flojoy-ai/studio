@@ -34,15 +34,15 @@ def export(data: Image.Image | pd.DataFrame | bool | int):
         raise ValueError("Unsupported data type")
 
 
-def get_most_recent_data(prefix: str | None, rm_file: bool = False):
+def get_most_recent_data(test_id: str | None, rm_file: bool = False):
     """
     Get the most recent data produce in a test run in the test sequencer.
     @params:
-        - prefix: str | None: The prefix used to find the data files. If None, the default prefix is used.
+        - test_id: str | None: The prefix used to find the data files. If None, the default prefix is used.
         - rm_file: bool: If True, the file is removed after being read.
     """
-    if prefix is not None:
-        set_output_loc(prefix)
+    if test_id is not None:
+        set_output_loc(test_id)
 
     output_dir, prefix_file = _get_location()
     output_file = _get_most_recent_file(output_dir, prefix_file)
@@ -74,7 +74,7 @@ class NoDataFoundError(Exception):
 # ------ Private ------
 
 
-DEFAULT_PATH = tempfile.gettempdir()
+DEFAULT_PATH = os.path.join(tempfile.gettempdir(), 'flojoy/')
 OPTIONAL_PATH_ENV = 'FLOJOY_DATA_PATH'
 DEFAULT_NAME = 'output'
 OPTIONAL_NAME_ENV = 'FLOJOY_DATA_NAME'
