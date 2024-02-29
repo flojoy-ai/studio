@@ -1,7 +1,8 @@
-import serial
-import numpy as np
-from flojoy import SerialConnection, flojoy, OrderedPair, Vector
 from typing import cast
+
+import numpy as np
+import serial
+from flojoy import OrderedPair, SerialConnection, Vector, flojoy
 
 
 @flojoy(deps={"pyserial": "3.5"}, inject_connection=True)
@@ -10,15 +11,12 @@ def IV_SWEEP(
 ) -> OrderedPair:
     """Take an I-V curve measurement with a Keithley 2400 source meter (send voltages, measure currents).
 
-    Inputs
-    ------
-    default: OrderedPair | Vector
-        The voltages to send to the Keithley 2400 source meter.
-
     Parameters
     ----------
+    default: OrderedPair | Vector
+        The voltages to send to the Keithley 2400 source meter.
     connection: Serial
-        The open connection with the Keithley2400 source meter.
+        The open connection with the Keithley 2400 source meter.
 
     Returns
     -------
