@@ -21,18 +21,18 @@ export const useFetchManifest = () => {
     const res = await getManifest();
 
     if (!res.ok) {
-      if (res.error instanceof HTTPError) {
+      if (res.val instanceof HTTPError) {
         toast.error("Failed to fetch block manifest", {
-          description: res.error.message,
+          description: res.val.message,
         });
-      } else if (res.error instanceof ZodError) {
+      } else if (res.val instanceof ZodError) {
         toast.error("Failed to validate block manifest.");
-        console.error(res.error.message);
+        console.error(res.val.message);
       }
       return;
     }
 
-    setManifest(res.value);
+    setManifest(res.val);
   }, [setManifest]);
 };
 
@@ -48,18 +48,18 @@ export const useFetchNodesMetadata = () => {
     const res = await getMetadata();
 
     if (!res.ok) {
-      if (res.error instanceof HTTPError) {
+      if (res.val instanceof HTTPError) {
         toast.error("Failed to fetch block metadata", {
-          description: res.error.message,
+          description: res.val.message,
         });
-      } else if (res.error instanceof ZodError) {
+      } else if (res.val instanceof ZodError) {
         toast.error("Failed to validate block metadata.");
-        console.error(res.error.message);
+        console.error(res.val.message);
       }
       return;
     }
 
-    setNodesMetadata(res.value);
+    setNodesMetadata(res.val);
   }, [setNodesMetadata]);
 };
 

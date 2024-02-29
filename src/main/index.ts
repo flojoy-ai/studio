@@ -2,7 +2,7 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import contextMenu from "electron-context-menu";
 import { release } from "node:os";
 import log from "electron-log/main";
-import { API } from "../types/api";
+import { API } from "@/api";
 import { logListener } from "./logging";
 import { createWindow } from "./window";
 import { registerIpcMainHandlers } from "./ipc-main-handlers";
