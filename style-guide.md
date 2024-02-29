@@ -8,10 +8,14 @@ Use `camelCase` for functions, variables.
 Use `PascalCase` for types, interfaces, and classes.
 Use `kebab-case` for file names.
 
+---
+
 ### Whitespace
 
 Use newlines to separate logical blocks of code.
 Always have a newline before a comment.
+
+---
 
 ### Don't use relative imports from outside the directory
 
@@ -19,6 +23,8 @@ Relative imports (using `../`) are very annoying to fix when files are moved.
 An ESLint rule has been added to mark these are errors.
 
 Relative imports within the same directory (`./`) are ok.
+
+---
 
 ### Never use `any`
 
@@ -39,6 +45,8 @@ function <S extends (...params: any[]) => void>(
 ```
 
 Outside of these, `any` should **never** be used.
+
+---
 
 ### Avoid casting with `as`
 
@@ -63,6 +71,8 @@ b.baz; // LSP says it's defined, but it actually isn't when you try to use it
 It creates situations where you are fooling yourself into thinking an object is a
 valid instance of type `T` but it's actually It's almost as bad as just using `any`.
 
+---
+
 ### No `JSON.parse` without a Zod schema
 
 Always validate unknown data with Zod. Unknown data is a source of unexpected
@@ -84,6 +94,8 @@ type TestSequencerSupportedType = "Python" | "Pytest" | "Matlab";
 
 Record<TestSequencerSupportedType, T>;
 ```
+
+---
 
 ### Avoid `Exception` as much as possible
 
