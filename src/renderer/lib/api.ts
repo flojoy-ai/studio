@@ -7,7 +7,7 @@ import {
   blockMetadataSchema,
 } from "@/renderer/types/manifest";
 import { tryCatchPromise, tryParse } from "@/renderer/types/result";
-import { Result } from "ts-results";
+import { Result } from "@/renderer/types/result";
 import { ZodError } from "zod";
 
 export const getManifest = async (): Promise<
