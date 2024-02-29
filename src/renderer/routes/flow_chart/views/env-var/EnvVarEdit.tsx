@@ -9,7 +9,7 @@ import {
 } from "@/renderer/components/ui/dialog";
 import { Input } from "@/renderer/components/ui/input";
 import { Label } from "@/renderer/components/ui/label";
-import { postEnvironmentVariable } from "@/renderer/services/FlowChartServices";
+import { postEnvironmentVariable } from "@/renderer/lib/api";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -34,7 +34,7 @@ const EnvVarEdit = ({
       value: value,
     });
 
-    if (!result.ok) {
+    if (result.isErr()) {
       toast("Error editing environment variable");
       return;
     }

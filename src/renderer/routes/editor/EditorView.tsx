@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/renderer/components/ui/button";
 import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
 import invariant from "tiny-invariant";
+import { toast } from "sonner";
 
 const EditorView = () => {
   const { id } = useParams<{ id: string }>();
@@ -26,8 +27,12 @@ const EditorView = () => {
 
   const saveFile = async () => {
     const res = await window.api.saveFileToFullPath(fullPath, value);
-    if (res.ok) {
+    if (res.isOk()) {
       setHasChanged(false);
+    } else {
+      toast.error("Error when trying to save file", {
+        description: res.error.message,
+      });
     }
   };
 

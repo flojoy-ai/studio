@@ -1,4 +1,4 @@
-import { Result as TSResult, Ok, Err } from "ts-results";
+import { Result as TSResult, Ok, Err } from "ts-results-es";
 import { z } from "zod";
 
 export type Result<T, E = Error> = TSResult<T, E>;

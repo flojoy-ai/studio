@@ -64,9 +64,9 @@ const deviceSettings = {
   },
 } satisfies Record<string, Setting>;
 
-type BackendSettings = typeof backendSettings;
-type FrontendSettings = typeof frontendSettings;
-type DeviceSettings = typeof deviceSettings;
+export type BackendSettings = typeof backendSettings;
+export type FrontendSettings = typeof frontendSettings;
+export type DeviceSettings = typeof deviceSettings;
 
 export type SettingsState = {
   frontend: FrontendSettings;

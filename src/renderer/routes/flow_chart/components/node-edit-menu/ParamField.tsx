@@ -56,7 +56,7 @@ const ParamField = ({
 
   const handleChange = (value: number | string | boolean) => {
     const res = updateFunc(nodeId, nodeCtrl.param, value);
-    if (!res.ok) {
+    if (res.isErr()) {
       toast.error(
         `Error when trying to update parameter: ${res.error.message}`,
       );

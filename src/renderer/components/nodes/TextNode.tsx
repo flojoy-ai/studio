@@ -1,6 +1,6 @@
 import { memo, useEffect, useRef, useState } from "react";
 import { useNodeId, NodeResizer, NodeProps, useStore } from "reactflow";
-import { Textarea } from "../ui/textarea";
+import { Textarea } from "@/renderer/components/ui/textarea";
 import ReactMarkdown from "react-markdown";
 import { toast } from "sonner";
 import { Edit, Trash } from "lucide-react";
@@ -64,7 +64,7 @@ const TextNode = ({ selected, data, id }: NodeProps<TextData>) => {
     }
 
     const res = updateTextNodeText(nodeId, e.target.value);
-    if (!res.ok) {
+    if (res.isErr()) {
       toast.error(res.error.message);
     }
   };

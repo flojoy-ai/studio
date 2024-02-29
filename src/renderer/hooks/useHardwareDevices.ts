@@ -1,4 +1,4 @@
-import { getDeviceInfo } from "@/renderer/services/FlowChartServices";
+import { getDeviceInfo } from "@/renderer/lib/api";
 import { useCallback } from "react";
 import { z } from "zod";
 import { useHardwareStore } from "@/renderer/stores/hardware";

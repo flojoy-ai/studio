@@ -177,7 +177,7 @@ const FlowChartTab = () => {
   const duplicateSelectedNode = useCallback(() => {
     if (selectedNode) {
       const res = duplicateBlock(selectedNode);
-      if (!res.ok) {
+      if (res.isErr()) {
         toast.error(res.error.message);
       }
     }
@@ -209,7 +209,7 @@ const FlowChartTab = () => {
     (conn) => {
       console.log(conn);
       const res = createEdge(conn);
-      if (!res.ok) {
+      if (res.isErr()) {
         if (res.error instanceof TypeError) {
           toast.message("Type Error", { description: res.error.message });
         } else {

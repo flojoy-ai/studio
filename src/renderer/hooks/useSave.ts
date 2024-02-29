@@ -1,6 +1,6 @@
 import { toast } from "sonner";
 import useWithPermission from "./useWithPermission";
-import { useProjectStore } from "../stores/project";
+import { useProjectStore } from "@/renderer/stores/project";
 import { useShallow } from "zustand/react/shallow";
 
 export const useSave = () => {
@@ -10,7 +10,7 @@ export const useSave = () => {
 
   const handleSave = async () => {
     const pathRes = await saveProject();
-    if (!pathRes.ok) {
+    if (pathRes.isErr()) {
       toast.error(
         `An error occurred while trying to save: ${pathRes.error.message}`,
       );

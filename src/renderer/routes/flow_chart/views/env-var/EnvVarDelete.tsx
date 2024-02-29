@@ -8,7 +8,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/renderer/components/ui/alert-dialog";
-import { deleteEnvironmentVariable } from "@/renderer/services/FlowChartServices";
+import { deleteEnvironmentVariable } from "@/renderer/lib/api";
 import { toast } from "sonner";
 import { EnvVar } from "@/renderer/types/envVar";
 import { Dispatch, SetStateAction } from "react";

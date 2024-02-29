@@ -29,7 +29,7 @@ const BlockLabelInput = ({ title, id, setIsRenamingTitle }: Props) => {
     (newTitle: string) => {
       setIsRenamingTitle(false);
       const res = updateBlockLabel(id, newTitle);
-      if (!res.ok) {
+      if (res.isErr()) {
         toast.error(res.error.message);
       }
     },

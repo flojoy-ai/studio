@@ -1,5 +1,5 @@
 import { memo, ClipboardEvent, useState, useEffect, useCallback } from "react";
-import { postEnvironmentVariable } from "@/renderer/services/FlowChartServices";
+import { postEnvironmentVariable } from "@/renderer/lib/api";
 import { Button } from "@/renderer/components/ui/button";
 import {
   Dialog,
@@ -86,7 +86,7 @@ const EnvVarModal = () => {
       value: envVarValue,
     });
 
-    if (result.ok) {
+    if (result.isOk()) {
       toast("Environment variable added");
       setEnvVarKey("");
       setEnvVarValue("");
@@ -106,7 +106,7 @@ const EnvVarModal = () => {
       value: flojoyCloudKey,
     });
 
-    if (result.ok) {
+    if (result.isOk()) {
       toast(
         "Successfully set your Flojoy Cloud API key, let's stream some data to the cloud!",
       );

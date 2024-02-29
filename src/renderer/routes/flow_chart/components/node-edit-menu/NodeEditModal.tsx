@@ -83,7 +83,7 @@ const NodeEditModal = ({
                   onClick={() => {
                     setEditRenamingTitle(false);
                     const res = updateBlockLabel(newTitle, node.data.id);
-                    if (!res.ok) {
+                    if (res.isErr()) {
                       toast.error(res.error.message);
                     }
                   }}

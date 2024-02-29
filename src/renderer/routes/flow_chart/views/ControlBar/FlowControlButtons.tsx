@@ -1,10 +1,6 @@
 import { Ban, Play } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
 import { useSocket } from "@/renderer/hooks/useSocket";
-import {
-  runFlowchart,
-  cancelFlowChartRun,
-} from "@/renderer/services/FlowChartServices";
 import { sendProgramToMix } from "@/renderer/services/MixpanelServices";
 import { IServerStatus } from "@/renderer/context/socket.context";
 import WatchBtn from "./WatchBtn";
@@ -16,9 +12,10 @@ import { useFlowchartStore } from "@/renderer/stores/flowchart";
 import { useProjectStore } from "@/renderer/stores/project";
 import { useShallow } from "zustand/react/shallow";
 import { useSettingsStore } from "@/renderer/stores/settings";
+import { runFlowchart, cancelFlowchartRun } from "@/renderer/lib/api";
 
 const FlowControlButtons = () => {
-  const { socketId, serverStatus } = useSocket();
+  const { socketId, serverStatus, resetProgramResults } = useSocket();
 
   const backendSettings = useSettingsStore((state) => state.backend);
 
@@ -38,13 +35,9 @@ const FlowControlButtons = () => {
     serverStatus === IServerStatus.CONNECTING ||
     serverStatus === IServerStatus.OFFLINE;
 
-  const cancelFC = () => {
-    cancelFlowChartRun(socketId);
-  };
-
   const onRun = async () => {
     if (nodes.length === 0) {
-      alert(
+      toast.info(
         "There is no program to send to server. \n Please add at least one node first.",
       );
       return;
@@ -57,13 +50,20 @@ const FlowControlButtons = () => {
     }
 
     sendProgramToMix(nodes, true, false);
-    // setProgramResults([]);
-    runFlowchart({
+    resetProgramResults();
+
+    const res = await runFlowchart({
       nodes,
       edges,
       jobId: socketId,
       settings: backendSettings,
     });
+    if (res.isErr()) {
+      toast.error("Failed to run flowchart", {
+        description: res.error.message,
+      });
+    }
+
     resetNodeParamChanged();
   };
 
@@ -93,7 +93,7 @@ const FlowControlButtons = () => {
           data-testid="btn-cancel"
           data-cy="btn-cancel"
           id="btn-cancel"
-          onClick={cancelFC}
+          onClick={() => cancelFlowchartRun(socketId)}
           className="w-28 gap-2"
           variant="dotted"
         >
@@ -103,7 +103,7 @@ const FlowControlButtons = () => {
       )}
 
       <div className="px-0.5" />
-      <WatchBtn playFC={onRun} cancelFC={cancelFC} />
+      <WatchBtn playFC={onRun} cancelFC={() => cancelFlowchartRun(socketId)} />
       <div className="px-0.5" />
     </>
   );
