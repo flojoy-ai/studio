@@ -13,13 +13,15 @@ import {
 } from "@/renderer/components/ui/tabs";
 import { CloudPanel } from "./panels/CloudPanel";
 import { ControlPanel } from "./panels/ControlPanel";
+import { TestGeneratorPanel } from "./panels/TestGeneratorPanel/TestGeneratorPanel";
 
 export function TabsDemo() {
   return (
-    <Tabs defaultValue="control" className="w-[400px]">
-      <TabsList className="grid w-full grid-cols-2">
+    <Tabs defaultValue="control" className="w-full">
+      <TabsList className="grid w-full grid-cols-3">
         <TabsTrigger value="control">Control Panel</TabsTrigger>
         <TabsTrigger value="cloud">Cloud Panel</TabsTrigger>
+        <TabsTrigger value="generate">Generate Panel</TabsTrigger>
       </TabsList>
       <TabsContent value="cloud">
         <Card>
@@ -39,11 +41,23 @@ export function TabsDemo() {
           <CardHeader>
             <CardTitle>Control</CardTitle>
             <CardDescription>
-              Hanlde test sequence file management
+              Handle test sequence file management
             </CardDescription>
           </CardHeader>
           <CardContent>
+            cloud
             <ControlPanel />
+          </CardContent>
+        </Card>
+      </TabsContent>
+      <TabsContent value="generate">
+        <Card>
+          <CardHeader>
+            <CardTitle>Generate</CardTitle>
+            <CardDescription>Generate tests using AI</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <TestGeneratorPanel />
           </CardContent>
         </Card>
       </TabsContent>

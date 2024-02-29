@@ -143,6 +143,7 @@ export function useTestSequencerState() {
     setElements(candidateElems);
     setUnsaved(true);
 
+    console.log("elements set successfully");
     /* _________________________ */
 
     //creates tree to send to backend

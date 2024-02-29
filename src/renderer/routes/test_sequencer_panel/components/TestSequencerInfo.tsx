@@ -1,4 +1,4 @@
-import { DataTable } from "./data-table/DataTable";
+import { DataTable } from "./data_table/DataTable";
 import { SummaryTable } from "./SummaryTable";
 import { LockedContextProvider } from "@/renderer/context/lock.context";
 import {
