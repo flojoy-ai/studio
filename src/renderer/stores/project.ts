@@ -18,7 +18,6 @@ import {
   MixPanelEvents,
   sendEventToMix,
 } from "@/renderer/services/MixpanelServices";
-import { Err, Ok, Result, tryCatch } from "@/types/result";
 import { v4 as uuidv4 } from "uuid";
 import { addRandomPositionOffset } from "@/renderer/utils/RandomPositionOffset";
 import { Project } from "@/renderer/types/project";
@@ -44,6 +43,13 @@ import { filterMap } from "@/renderer/utils/ArrayUtils";
 import { getEdgeTypes, isCompatibleType } from "@/renderer/utils/TypeCheck";
 import { toast } from "sonner";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
+import {
+  Result,
+  Ok,
+  Err,
+  tryCatch,
+  tryCatchPromise,
+} from "@/renderer/types/result";
 
 type State = {
   name: string | undefined;
@@ -173,7 +179,7 @@ export const useProjectStore = create<State & Actions>()(
         set((state) => {
           const block = state.nodes.find((e) => e.id === blockId);
           if (!block) {
-            return Err(new Error("Block not found"));
+            throw new Error("Block not found");
           }
 
           block.data.ctrls[paramName].value = value;
@@ -316,15 +322,12 @@ export const useProjectStore = create<State & Actions>()(
       const projectPath = get().path;
       if (projectPath) {
         sendEventToMix("Saving Project");
-        const res = tryCatch(() =>
+        return tryCatch(() =>
           window.api.saveFile(projectPath, fileContent),
-        );
-        if (!res.ok) {
-          return res;
-        }
-
-        setHasUnsavedChanges(false);
-        return Ok(projectPath);
+        ).andThen(() => {
+          setHasUnsavedChanges(false);
+          return Ok(projectPath);
+        });
       }
 
       const basename =
@@ -335,23 +338,20 @@ export const useProjectStore = create<State & Actions>()(
           .join("-") ?? "app";
       const defaultFilename = `${basename}.json`;
 
-      const res = tryCatch(() =>
+      const res = await tryCatchPromise(() =>
         window.api.saveFileAs(defaultFilename, fileContent),
       );
 
-      if (!res.ok) {
-        return res;
-      }
+      return res.andThen(({ filePath, canceled }) => {
+        if (canceled || filePath === undefined) {
+          return Err(new Error("Save was cancelled"));
+        }
 
-      const { filePath, canceled } = await res.value;
-      if (canceled || filePath === undefined) {
-        return Err(new Error("Save was cancelled"));
-      }
+        set({ path: filePath });
 
-      set({ path: filePath });
-
-      setHasUnsavedChanges(false);
-      return Ok(filePath);
+        setHasUnsavedChanges(false);
+        return Ok(filePath);
+      });
     },
   })),
 );

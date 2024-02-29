@@ -1,29 +1,29 @@
 import { captain } from "./ky";
 import { HTTPError } from "ky";
 import {
+  BlockManifest,
+  BlockMetadata,
   blockManifestSchema,
   blockMetadataSchema,
 } from "@/renderer/types/manifest";
-import * as E from "fp-ts/TaskEither";
-import { pipe } from "fp-ts/function";
-import { tryParse } from "./utils";
+import { tryCatchPromise, tryParse } from "@/renderer/types/result";
+import { Result } from "ts-results";
+import { ZodError } from "zod";
 
-export const getManifest = async () => {
-  return await pipe(
-    E.tryCatch(
-      () => captain.get("blocks/manifest").json(),
-      (e) => e as HTTPError,
-    ),
-    E.flatMapEither(tryParse(blockManifestSchema)),
-  )();
+export const getManifest = async (): Promise<
+  Result<BlockManifest, Error | ZodError>
+> => {
+  const res = await tryCatchPromise<unknown, HTTPError>(() =>
+    captain.get("blocks/manifest").json(),
+  );
+  return res.andThen(tryParse(blockManifestSchema));
 };
 
-export const getMetadata = async () => {
-  return await pipe(
-    E.tryCatch(
-      () => captain.get("blocks/metadata").json(),
-      (e) => e as HTTPError,
-    ),
-    E.flatMapEither(tryParse(blockMetadataSchema)),
-  )();
+export const getMetadata = async (): Promise<
+  Result<BlockMetadata, Error | ZodError>
+> => {
+  const res = await tryCatchPromise<unknown, HTTPError>(() =>
+    captain.get("blocks/metadata").json(),
+  );
+  return res.andThen(tryParse(blockMetadataSchema));
 };
