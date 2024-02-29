@@ -1,7 +1,8 @@
 import { getDeviceInfo } from "@/renderer/services/FlowChartServices";
-import { atom, useAtomValue, useSetAtom } from "jotai";
 import { useCallback } from "react";
 import { z } from "zod";
+import { useHardwareStore } from "@/renderer/stores/hardware";
+import { useShallow } from "zustand/react/shallow";
 
 const CameraDevice = z.object({
   name: z.string(),
@@ -53,8 +54,6 @@ const DeviceInfo = z.object({
 
 export type DeviceInfo = z.infer<typeof DeviceInfo>;
 
-const deviceAtom = atom<DeviceInfo | undefined>(undefined);
-
 const refetchDeviceInfo = async (
   discoverNIDAQmxDevices = false,
   discoverNIDMMDevices = false,
@@ -67,19 +66,30 @@ const refetchDeviceInfo = async (
 };
 
 export const useHardwareRefetch = () => {
-  const setDevices = useSetAtom(deviceAtom);
+  const { setDeviceInfo } = useHardwareStore(
+    useShallow((state) => ({
+      setDeviceInfo: state.setDeviceInfo,
+    })),
+  );
 
   return useCallback(
     async (discoverNIDAQmxDevices: boolean, discoverNIDMMDevices: boolean) => {
-      setDevices(undefined);
       const data = await refetchDeviceInfo(
         discoverNIDAQmxDevices,
         discoverNIDMMDevices,
       );
-      setDevices(data);
+      setDeviceInfo(data);
     },
-    [setDevices],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
   );
 };
 
-export const useHardwareDevices = () => useAtomValue(deviceAtom);
+export const useHardwareDevices = () => {
+  const { deviceInfo } = useHardwareStore(
+    useShallow((state) => ({
+      deviceInfo: state.deviceInfo,
+    })),
+  );
+  return deviceInfo;
+};
