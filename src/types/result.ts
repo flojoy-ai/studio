@@ -29,4 +29,12 @@ export async function tryCatchPromise<T, E = Error>(fn: () => Promise<T>) {
   }
 }
 
+export async function fromPromise<T, E = Error>(p: Promise<T>) {
+  try {
+    return Ok(await p);
+  } catch (e) {
+    return Err(e as E);
+  }
+}
+
 export { Ok, Err };

@@ -1,34 +1,22 @@
 import { Node, Edge } from "reactflow";
 import { BlockData } from "@/renderer/types";
-import { Result } from "src/types/result";
+import { Result, fromPromise } from "@/types/result";
 import { captain } from "@/renderer/lib/ky";
 import { EnvVar } from "@/renderer/types/envVar";
 import _ from "lodash";
 import { Setting } from "@/renderer/stores/settings";
+import { KyResponse } from "ky";
 
 export const postEnvironmentVariable = async (
   body: EnvVar,
-): Promise<Result<null, unknown>> => {
-  try {
-    await captain.post("env", { json: body });
-    return { ok: true, value: null };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    return { ok: false, error: error.response?.data ?? error.message };
-  }
+): Promise<Result<KyResponse>> => {
+  return await fromPromise(captain.post("env", { json: body }));
 };
 
 export const deleteEnvironmentVariable = async (
   key: string,
-): Promise<Result<null, unknown>> => {
-  try {
-    await captain.delete(`env/${key}`);
-
-    return { ok: true, value: null };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    return { ok: false, error: error.response?.data ?? error.message };
-  }
+): Promise<Result<KyResponse>> => {
+  return await fromPromise(captain.delete(`env/${key}`));
 };
 
 export function runFlowchart({

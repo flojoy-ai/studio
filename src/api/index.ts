@@ -1,10 +1,10 @@
 import { app, ipcRenderer } from "electron";
 import * as fileSave from "./fileSave";
-import { API } from "../types/api";
-import { InterpretersList } from "../main/python/interpreter";
+import { API } from "@/types/api";
+import { InterpretersList } from "@/main/python/interpreter";
 import { PoetryGroupInfo, PythonDependency } from "src/types/poetry";
-import { Result } from "src/types/result";
-import type { User } from "../types/auth";
+import { Result } from "@/types/result";
+import type { User } from "@/types/auth";
 
 export default {
   ...fileSave,

@@ -8,7 +8,7 @@ import { join } from "path";
 import { killCaptain } from "./python";
 import log from "electron-log";
 import { ChildProcess } from "node:child_process";
-import { Err, Result, Ok } from "../types/result";
+import { Err, Result, Ok } from "@/renderer/types/result";
 
 export const isPortFree = (port: number) =>
   new Promise((resolve) => {

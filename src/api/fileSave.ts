@@ -1,5 +1,5 @@
 import { ipcRenderer } from "electron";
-import { API } from "@/types/api";
+import { API } from "../types/api";
 
 export function saveFile(
   path: string,

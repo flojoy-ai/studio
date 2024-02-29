@@ -86,6 +86,9 @@ dependencies:
   '@tisoap/react-flow-smart-edge':
     specifier: file:bauhaus/tisoap-react-flow-smart-edge-v3.0.0.tgz
     version: file:bauhaus/tisoap-react-flow-smart-edge-v3.0.0.tgz(react-dom@18.2.0)(react@18.2.0)(reactflow@11.10.4)(typescript@5.3.3)
+  '@types/plotly.js':
+    specifier: ^2.29.1
+    version: 2.29.1
   '@uiw/codemirror-theme-vscode':
     specifier: ^4.21.24
     version: 4.21.24(@codemirror/language@6.10.1)(@codemirror/state@6.4.1)(@codemirror/view@6.24.1)
@@ -161,9 +164,9 @@ dependencies:
   mixpanel-browser:
     specifier: ^2.49.0
     version: 2.49.0
-  plotly.js:
+  plotly.js-dist-min:
     specifier: ^2.29.1
-    version: 2.29.1(mapbox-gl@1.13.3)
+    version: 2.29.1
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -3220,7 +3223,6 @@ packages:
 
   /@types/plotly.js@2.29.1:
     resolution: {integrity: sha512-rQwpL3XFqSjCjG3qTlZCDvIOgc17m/0pgOpkv0O/0awdsHD+CAxaczgJTBlAsd8OhsjIcJC3UESrbBEJ92kUVg==}
-    dev: true
 
   /@types/prop-types@15.7.11:
     resolution: {integrity: sha512-ga8y9v9uyeiLdpKddhxYQkxNDrfvuPrlFb0N1qnZZByvcElJaXthF1UhvCh9TLWJBEHeNtdnbysW7Y6Uq8CVng==}
@@ -7947,6 +7949,10 @@ packages:
       base64-js: 1.5.1
       xmlbuilder: 15.1.1
     dev: true
+
+  /plotly.js-dist-min@2.29.1:
+    resolution: {integrity: sha512-YvqX5TISWsJVTDIaUh2Qgt9uhLl0bWcQhO2rLPF0/hIY9BlinFa1JwSO2jFKcEmG0AJXSo4DnVdgKpsk9/8Apg==}
+    dev: false
 
   /plotly.js@2.29.1(mapbox-gl@1.13.3):
     resolution: {integrity: sha512-+XirhgCh42JF/iVu/RtBRbhcs328ipinajy7hd3mnZdnQv2Th6F441DSXer5S+P0nNluNs10vAFTELo4k/icjg==}

@@ -43,13 +43,7 @@ import { filterMap } from "@/renderer/utils/ArrayUtils";
 import { getEdgeTypes, isCompatibleType } from "@/renderer/utils/TypeCheck";
 import { toast } from "sonner";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
-import {
-  Result,
-  Ok,
-  Err,
-  tryCatch,
-  tryCatchPromise,
-} from "@/renderer/types/result";
+import { Result, Ok, Err, tryCatch, tryCatchPromise } from "@/types/result";
 
 type State = {
   name: string | undefined;
@@ -412,9 +406,11 @@ export const useAddBlock = () => {
         },
         position: nodePosition,
       };
+
       setNodes((nodes) => {
         nodes.push(newNode);
       });
+
       localStorage.setItem("prev_block_pos", JSON.stringify(nodePosition));
       sendEventToMix("Node Added", { nodeTitle: newNode.data?.label ?? "" });
     },
