@@ -39,7 +39,9 @@ head:
         self.template += """\
 import block_data from "@blocks/{block_folder_path}/block_data.json";
 import PythonDocsDisplay from "@/components/PythonDocsDisplay.astro";
+import DownloadStudioBanner from "@/components/DownloadStudioBanner.astro";
 
+<DownloadStudioBanner />
 <PythonDocsDisplay docstring={{block_data["docstring"]}} />
 """.format(
             block_folder_path=self.block_folder_path,
@@ -61,7 +63,9 @@ import { YouTube } from '@astro-community/astro-embed-youtube';
 <YouTube id="{src}" />
 </div>
 
-""".format(src=video.link, title=video.title)
+""".format(
+                src=video.link, title=video.title
+            )
         return self
 
     def add_python_code(self):
@@ -88,7 +92,7 @@ import {{ Code }} from 'astro:components';
 
     def add_example_app(self):
         self.template += """\
-## Example
+## Example App
 
 import GetHelpWidget from "@/components/GetHelpWidget.astro";
 
