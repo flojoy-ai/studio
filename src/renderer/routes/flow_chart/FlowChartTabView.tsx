@@ -77,7 +77,7 @@ import { useCustomSections } from "@/renderer/hooks/useCustomBlockManifest";
 import { BlocksMetadataMap } from "@/renderer/types/blocks-metadata";
 import { Spinner } from "@/renderer/components/ui/spinner";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
-import nodeTypesMap from "@/renderer/components/blocks/blockTypesMap";
+import nodeTypesMap from "@/renderer/components/blocks/block-types";
 
 const edgeTypes = {
   default: SmartBezierEdge,

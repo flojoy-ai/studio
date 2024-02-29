@@ -56,7 +56,7 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/components/ui/hover-card";
+} from "@/renderer/components/ui/hover-card";
 import PythonTestFileModal from "../PythonTestFileModal";
 
 function renderErrorMessage(text: string): JSX.Element {
