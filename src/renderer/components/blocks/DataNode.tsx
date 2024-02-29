@@ -5,8 +5,8 @@ import NodeWrapper from "@/renderer/components/common/NodeWrapper";
 import HandleComponent from "@/renderer/components/common/HandleComponent";
 import NodeInput from "@/renderer/components/common/NodeInput";
 import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
-import DataBlockSvg from "@/renderer/assets/blocks/data-block-svg";
-import { BlockLabel } from "../common/NodeLabel";
+import DataBlockSvg from "@/renderer/assets/blocks/data-svg";
+import { BlockLabel } from "../common/BlockLabel";
 
 const DataNode = ({ selected, data }: CustomNodeProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);

@@ -5,8 +5,8 @@ import NodeWrapper from "@/renderer/components/common/NodeWrapper";
 import HandleComponent from "@/renderer/components/common/HandleComponent";
 import NodeInput from "@/renderer/components/common/NodeInput";
 import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
-import { BlockLabel } from "../common/NodeLabel";
-import DspBlockSvg from "@/renderer/assets/blocks/dsp-block-svg";
+import { BlockLabel } from "../common/BlockLabel";
+import DspBlockSvg from "@/renderer/assets/blocks/dsp-svg";
 
 const DSPBlock = ({ selected, data }: CustomNodeProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);

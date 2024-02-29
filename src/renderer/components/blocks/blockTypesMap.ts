@@ -5,11 +5,13 @@ import DSPBlock from "./DSPBlock";
 import DataNode from "./DataNode";
 import DebuggingBlock from "./DebuggingBlock";
 import DefaultNode from "./DefaultNode";
+import ExtractBlock from "./ExtractBlock";
 import IONode from "./IONode";
 import LogicNode from "./LogicNode";
 import NumpyNode from "./NumpyNode";
 import ScipyNode from "./ScipyNode";
 import TextNode from "./TextNode";
+import TypeCastingBlock from "./TypeCastingBlock";
 import VisorNode from "./VisorNode";
 
 export default {
@@ -35,4 +37,6 @@ export default {
   HARDWARE: IONode,
   TextNode: TextNode,
   DEBUGGING: DebuggingBlock,
+  EXTRACT: ExtractBlock,
+  TYPE_CASTING: TypeCastingBlock,
 };

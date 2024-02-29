@@ -25,6 +25,7 @@ NAME_MAP = {
     "GAMES": "Games",
     "COMPUTER_VISION": "Computer Vision",
     "default": "Default Blocks",
+    "TYPE_CASTING": "Type Casting",
 }
 
 # Types that are allowed in the manifest, this is for styling in the frontend.
@@ -46,6 +47,10 @@ ALLOWED_TYPES = [
     "GAMES",
     "DEBUGGING",
     "COMPUTER_VISION",
+    "EXTRACT",
+    "LOAD",
+    "TRANSFORM",
+    "TYPE_CASTING",
 ]
 
 # Sort order in sidebar
@@ -59,7 +64,6 @@ ORDERING = [
     "CONTROL_FLOW",
     "COMPUTER_VISION",
     "HARDWARE",
-    "DSP",
     "NUMPY",
     "SCIPY",
     "DEBUGGING",
@@ -96,9 +100,11 @@ def browse_directories(dir_path: str, cur_type: Optional[str] = None, depth: int
             cur_type = (
                 basename
                 if basename in ALLOWED_TYPES  # give current type precedence
-                else cur_type
-                if cur_type in ALLOWED_TYPES  # otherwise inherit if allowed
-                else "default"  # else use default
+                else (
+                    cur_type
+                    if cur_type in ALLOWED_TYPES  # otherwise inherit if allowed
+                    else "default"
+                )  # else use default
             )
 
             subdir = browse_directories(entry.path, cur_type, depth=depth + 1)

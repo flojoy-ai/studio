@@ -5,8 +5,8 @@ import NodeWrapper from "@/renderer/components/common/NodeWrapper";
 import HandleComponent from "@/renderer/components/common/HandleComponent";
 import NodeInput from "@/renderer/components/common/NodeInput";
 import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
-import AIBlockSvg from "@/renderer/assets/blocks/AI-block-svg";
-import { BlockLabel } from "../common/NodeLabel";
+import AIBlockSvg from "@/renderer/assets/blocks/AI-svg";
+import { BlockLabel } from "../common/BlockLabel";
 
 const AIBlock = ({ selected, data }: CustomNodeProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
