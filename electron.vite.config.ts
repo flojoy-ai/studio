@@ -33,6 +33,6 @@ export default defineConfig({
         "@": resolve(__dirname, "src"),
       },
     },
-    plugins: [nodePolyfills(), react()],
+    plugins: [nodePolyfills(), react()], // do not switch the order it breaks
   },
 });
