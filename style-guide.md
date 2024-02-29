@@ -4,9 +4,9 @@
 
 ### Naming
 
-Use `camelCase` for functions, variables.
-Use `PascalCase` for types, interfaces, and classes.
-Use `kebab-case` for file names.
+- Use `camelCase` for functions, variables.
+- Use `PascalCase` for types, interfaces, and classes.
+- Use `kebab-case` for file names.
 
 ---
 
