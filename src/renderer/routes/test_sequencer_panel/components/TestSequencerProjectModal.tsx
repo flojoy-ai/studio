@@ -20,7 +20,8 @@ export const TestSequencerProjectModal = ({
   const handleCreate = useCreateProject();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [path, setPath] = useState("");
+  const [projectDirPath, setProjectDirPath] = useState("");
+  const [interpreterPath, setInterpreterPath] = useState("");
   const [type, setType] = useState<InterpreterType>("flojoy");
   const availableInterpreter: InterpreterType[] = ["flojoy", "poetry", "pipenv", "conda"]
 
@@ -36,10 +37,9 @@ export const TestSequencerProjectModal = ({
         <Input placeholder="Project Name" />
         <Input placeholder="Project Description" />
         <PathInput 
-          placeholder="Project Path" 
+          placeholder="Project Folder" 
           allowedExtention={["tjoy"]}
-          onChange={(event) => {setPath(event.target.value); console.log(event.target.value);}} 
-          pickerType="directory"
+          onChange={(event) => {setProjectDirPath(event.target.value); console.log(event.target.value);}} 
         />
         <div className="flex gap-2">
         <div className="flex-none w-[200px]">
@@ -59,15 +59,23 @@ export const TestSequencerProjectModal = ({
         </Select>
         </div>
         <PathInput 
-          placeholder="Interpreter Path" 
-          onChange={(event) => {setPath(event.target.value); console.log(event.target.value);}} 
-          disabled={type === "flojoy"}
+          placeholder="Interpreter" 
+          onChange={(event) => {setProjectDirPath(event.target.value); console.log(event.target.value);}} 
         />
 
         </div>
         <Button 
           variant={"default"}
-          onClick={() => handleCreate(name, description, path)}
+          onClick={() => handleCreate(
+            {
+              name: name,
+              description: description,
+              root: tree,
+              tjoy_file_path: projectDirPath,
+              interpreter_path: interpreterPath,
+              requirement_file_path: null,
+            }
+          )}
         > New Project </Button>
       </DialogContent>
     </Dialog>

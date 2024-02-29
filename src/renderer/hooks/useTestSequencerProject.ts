@@ -2,6 +2,7 @@ import useWithPermission from "./useWithPermission";
 import { useTestSequencerState } from "./useTestSequencerState";
 import { stringifyTestSet } from "../routes/test_sequencer_panel/utils/TestSetUtils";
 import { TestSequencerProject } from "../types/testSequencer";
+import { saveFile } from "@/api/fileSave";
 
 
 
@@ -23,19 +24,23 @@ export const useProjectSave = () => {
 
 export const useCreateProject = () => {
   const { withPermissionCheck } = useWithPermission();
-  const { tree, setUnsaved, setProject } = useTestSequencerState();
-  const handleCreate = async (name: string, description: string, tjoy_file_path: string) => {
+  const { elems, setUnsaved, setProject } = useTestSequencerState();
+  const handleCreate = async (projectToCreate: TestSequencerProject) => {
     try {
-      const project: TestSequencerProject = {
-        name: name,
-        description: description,
-        root: tree,
-        tjoy_file_path: tjoy_file_path,
-        interpreter_path: null,
-        requirement_file_path: null,
-      };
-      // Create the actial project on disk
+      const project = projectToCreate;
+      // Copy the current tree and change the to use the root
 
+
+      // Create the actial project on disk
+      try {
+        saveFile(
+          project.tjoy_file_path + project.name + ".tjoy",
+          stringifyTestSet(elems),
+          ["tjoy"]
+        )
+      } catch {
+        // exception just means user cancelled save
+      }
       // Save state
       setProject(project);
       setUnsaved(false);
