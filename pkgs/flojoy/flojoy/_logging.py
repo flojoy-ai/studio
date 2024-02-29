@@ -1,15 +1,15 @@
-from contextlib import contextmanager
-from functools import partial
 import io
-from typing import Callable, Protocol
-from abc import ABC, abstractmethod
-from dataclasses import dataclass
-from enum import Enum, auto
 import logging
 import multiprocessing
 import multiprocessing.connection
-import threading
 import os
+import threading
+from abc import ABC, abstractmethod
+from contextlib import contextmanager
+from dataclasses import dataclass
+from enum import Enum, auto
+from functools import partial
+from typing import Callable, Protocol
 
 
 class LogPipeMode(Enum):
@@ -41,17 +41,13 @@ class StreamEnum(Enum):
 class PipeWriter(Protocol):
     """Protocol for a pipe writer"""
 
-    def write(self, data: bytes):
-        ...
+    def write(self, data: bytes): ...
 
-    def fileno(self) -> int:
-        ...
+    def fileno(self) -> int: ...
 
-    def close(self):
-        ...
+    def close(self): ...
 
-    def flush(self):
-        ...
+    def flush(self): ...
 
 
 # Abstract Pipe class

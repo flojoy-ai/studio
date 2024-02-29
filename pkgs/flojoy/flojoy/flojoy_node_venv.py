@@ -19,6 +19,7 @@ def TORCH_NODE(default: Matrix) -> Matrix:
     return Matrix(...)
 
 """
+
 import hashlib
 import importlib.metadata
 import inspect
@@ -41,8 +42,8 @@ from typing import Any, Callable
 import cloudpickle
 import portalocker
 
-from .CONSTANTS import FLOJOY_CACHE_DIR
 from ._logging import LogPipe, LogPipeMode, StreamEnum
+from .CONSTANTS import FLOJOY_CACHE_DIR
 
 __all__ = ["run_in_venv"]
 
