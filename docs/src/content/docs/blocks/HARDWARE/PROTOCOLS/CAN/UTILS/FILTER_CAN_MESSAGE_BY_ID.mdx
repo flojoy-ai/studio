@@ -14,7 +14,9 @@ head:
 
 import block_data from "@blocks/HARDWARE/PROTOCOLS/CAN/UTILS/FILTER_CAN_MESSAGE_BY_ID/block_data.json";
 import PythonDocsDisplay from "@/components/PythonDocsDisplay.astro";
+import DownloadStudioBanner from "@/components/DownloadStudioBanner.astro";
 
+<DownloadStudioBanner />
 <PythonDocsDisplay docstring={block_data["docstring"]} />
 <details>
 <summary>Python Code</summary>
@@ -29,7 +31,7 @@ import { Code } from 'astro:components';
 
 </details>
 
-## Example
+## Example App
 
 import GetHelpWidget from "@/components/GetHelpWidget.astro";
 
