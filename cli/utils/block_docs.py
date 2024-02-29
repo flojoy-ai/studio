@@ -92,7 +92,7 @@ import {{ Code }} from 'astro:components';
 
     def add_example_app(self):
         self.template += """\
-## Example
+## Example App
 
 import GetHelpWidget from "@/components/GetHelpWidget.astro";
 
