@@ -3,8 +3,9 @@ Nodes should try to accomodate any reasonable combination of inputs that a first
 
 For example, the ADD node should make a best effort to do something reasonable when a matrix is added to a DataFrame, or a 2 matrices of a different size are added.
 
-For this reason, we've created the `Reconciler` class to handle the process of turning different data types into compatible, easily added objects. 
+For this reason, we've created the `Reconciler` class to handle the process of turning different data types into compatible, easily added objects.
 """
+
 from typing import Tuple
 import numpy
 

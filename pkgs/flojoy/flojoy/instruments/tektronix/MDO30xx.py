@@ -2,6 +2,7 @@
 Driver for the MDO4000B, MDO4000, MSO4000B, DPO4000B and
 MDO3000 series Oscilloscopes.
 """
+
 import textwrap
 import time
 from functools import partial
