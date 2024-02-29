@@ -4,6 +4,11 @@ Use `camelCase` for functions, variables.
 Use `PascalCase` for types, interfaces, and classes.
 Use `kebab-case` for file names.
 
+### Whitespace
+
+Use newlines to separate logical blocks of code.
+Always have a newline before a comment.
+
 ### Don't use relative imports from outside the directory
 
 Relative imports (using `../`) are extremely annoying to fix when files are moved.
@@ -62,6 +67,33 @@ Always validate unknown data with Zod. Unknown data is a source of unexpected is
 
 Exceptions are bad because a caller doesn't know when they can be thrown. Also, callers are not forced to handle possible errors.
 Instead, use `Result<T, E>`, which is either a success value holding the data you want or an error value. This way, any function that can fail has it encoded in the type.
+For interoperability with library code that can throw, use the `tryCatch` and `tryCatchPromise` functions.
+
+Here's an example of a function that could throw:
+
+```ts
+export const getManifest = async (): BlockManifest => {
+  const res = await captain.get("blocks/manifest").json(); // could error
+  return blockManifestSchema.parse(res); // could error
+};
+```
+
+Rewritten using result:
+
+```ts
+export const getManifest = async (): Promise<
+  Result<BlockManifest, Error | ZodError>
+> => {
+  const res = await tryCatchPromise<unknown, HTTPError>(() =>
+    captain.get("blocks/manifest").json(),
+  );
+  return res.andThen(tryParse(blockManifestSchema));
+};
+```
+
+`andThen` is a function on a `Result` that takes a function that returns a `Result`. If the first `Result` is an error, it returns the error.
+If it's a success, it calls the function with the success value and returns the result of that function.
+This lets you chain together functions that could fail in an elegant manner, without having to check for errors and do an early return at every step.
 
 ```
 
