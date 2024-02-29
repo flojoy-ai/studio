@@ -3,10 +3,8 @@ import {
   RootNode,
   RootChild as SectionChild,
   ParentNode,
-  isLeaf,
-  isRoot,
-  isLeafParentNode,
-} from "@/renderer/utils/ManifestLoader";
+} from "@/renderer/types/manifest";
+import { isLeaf, isRoot, isLeafParentNode } from "@/renderer/utils/manifest";
 import SidebarSection from "@/renderer/routes/common/Sidebar/SidebarSection";
 import { LeafClickHandler } from "@/renderer/routes/common/Sidebar/Sidebar";
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";

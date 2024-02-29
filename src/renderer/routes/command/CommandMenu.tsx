@@ -8,7 +8,8 @@ import {
   CommandSeparator,
 } from "@/renderer/components/ui/command";
 import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
-import { TreeNode, isLeaf, isRoot } from "@/renderer/utils/ManifestLoader";
+import { TreeNode } from "@/renderer/types/manifest";
+import { isLeaf, isRoot } from "@/renderer/utils/manifest";
 import React, { Fragment } from "react";
 
 const commandGroups = (

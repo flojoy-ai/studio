@@ -1,5 +1,5 @@
 import { Connection } from "reactflow";
-import { Leaf, RootNode, ParentNode } from "@/renderer/utils/ManifestLoader";
+import { Leaf, RootNode, ParentNode } from "@/renderer/types/manifest";
 
 const allNodes: Map<string, Leaf> = new Map();
 

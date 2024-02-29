@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { Leaf as NodeElement } from "@/renderer/utils/ManifestLoader";
+import { Leaf as NodeElement } from "@/renderer/types/manifest";
 import { CtrlData } from "@/renderer/types/node";
 import { DeviceInfo } from "@/renderer/hooks/useHardwareDevices";
 

@@ -1,5 +1,5 @@
 import { useSocket } from "@/renderer/hooks/useSocket";
-import { TreeNode } from "@/renderer/utils/ManifestLoader";
+import { TreeNode } from "@/renderer/types/manifest";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -18,7 +18,7 @@ import {
   applyNodeChanges,
   OnConnect,
 } from "reactflow";
-import Sidebar from "../common/Sidebar/Sidebar";
+import Sidebar from "@/renderer/routes/common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import { BlockExpandMenu } from "./views/BlockExpandMenu";
@@ -30,7 +30,7 @@ import {
   ACTIONS_HEIGHT,
   BOTTOM_STATUS_BAR_HEIGHT,
   LAYOUT_TOP_HEIGHT,
-} from "../common/Layout";
+} from "@/renderer/routes/common/Layout";
 import { CenterObserver } from "./components/CenterObserver";
 import { Separator } from "@/renderer/components/ui/separator";
 import { Pencil, Text, Workflow, X } from "lucide-react";
@@ -41,7 +41,7 @@ import { Button } from "@/renderer/components/ui/button";
 import { ResizeFitter } from "./components/ResizeFitter";
 import NodeEditModal from "./components/node-edit-menu/NodeEditModal";
 import { WelcomeModal } from "./views/WelcomeModal";
-import { CommandMenu } from "../command/CommandMenu";
+import { CommandMenu } from "@/renderer/routes/command/CommandMenu";
 import {
   Tooltip,
   TooltipContent,
