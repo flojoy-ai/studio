@@ -30,5 +30,3 @@ If interested in using Flojoy in a context where the AGPL license is prohibitive
 
 <img width="1440" alt="Flowchart" src="https://github.com/flojoy-ai/studio/assets/56351875/d89e35b5-f57b-4d77-b960-eb75818db12c">
 <img width="1440" alt="Test Sequencer" src="https://github.com/flojoy-ai/studio/assets/56351875/26d8c59d-edf4-491c-a24b-874ed6e5b95d">
-
-
