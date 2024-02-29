@@ -5,6 +5,7 @@ import { Button } from "./button";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   allowedExtention?: string[];
+  pickerType?: "file" | "directory";
 }
 
 
@@ -23,19 +24,34 @@ const filePicker = (allowedExtensions: string[] = []): Promise<string | null> =>
   });
 };
 
+const directoryPicker = (): Promise<string | null> => {
+  return new Promise((resolve, reject) => {
+    window.api
+      .pickDirectory()
+      .then((result) => {
+        if (!result) resolve(null);
+        else resolve(result);
+      })
+      .catch((error) => {
+        console.error("Errors when trying to load file: ", error);
+        reject(error);
+      });
+  });
+}
+
 
 const PathInput = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, onChange: onChangeProp, disabled, allowedExtention, ...props }, ref) => {
+  ({ className, onChange: onChangeProp, disabled, allowedExtention, pickerType, ...props }, ref) => {
     const [selectedFilePath, setSelectedFilePath] = React.useState<string | null>("");
     const [manualPath, setManualPath] = React.useState<string>("");
 
-    const handleFilePickerClick = async () => {
-      const filePath = await filePicker(allowedExtention);
-      if (filePath) {
-        setSelectedFilePath(filePath);
-        setManualPath(filePath);
+    const handlePickerClick = async () => {
+      const path = pickerType === "directory" ? await directoryPicker() : await filePicker(allowedExtention);
+      if (path) {
+        setSelectedFilePath(path);
+        setManualPath(path);
         if (onChangeProp) {
-          onChangeProp({ target: { value: filePath } } as React.ChangeEvent<HTMLInputElement>);
+          onChangeProp({ target: { value: path } } as React.ChangeEvent<HTMLInputElement>);
         }
       }
     };
@@ -65,7 +81,7 @@ const PathInput = React.forwardRef<HTMLInputElement, InputProps>(
         onChange={handleManualPathChange}
         disabled={disabled}
         {...props} 
-      /><Button variant={"none"} disabled={disabled} className="h-9 hover:accent-transparent" onClick={handleFilePickerClick}> {"Select"} </Button>
+      /><Button variant={"none"} disabled={disabled} className="h-9 hover:accent-transparent" onClick={handlePickerClick}> {"Select"} </Button>
       </div>
     );
   },

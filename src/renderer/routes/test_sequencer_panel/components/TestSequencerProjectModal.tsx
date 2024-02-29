@@ -39,6 +39,7 @@ export const TestSequencerProjectModal = ({
           placeholder="Project Path" 
           allowedExtention={["tjoy"]}
           onChange={(event) => {setPath(event.target.value); console.log(event.target.value);}} 
+          pickerType="directory"
         />
         <div className="flex gap-2">
         <div className="flex-none w-[200px]">
