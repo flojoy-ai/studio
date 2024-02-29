@@ -63,9 +63,7 @@ import { YouTube } from '@astro-community/astro-embed-youtube';
 <YouTube id="{src}" />
 </div>
 
-""".format(
-                src=video.link, title=video.title
-            )
+""".format(src=video.link, title=video.title)
         return self
 
     def add_python_code(self):
