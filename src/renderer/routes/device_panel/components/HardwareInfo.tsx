@@ -1,30 +1,41 @@
-import {
-  useHardwareRefetch,
-  useHardwareDevices,
-} from "@/renderer/hooks/useHardwareDevices";
+import { useHardwareStore } from "@/renderer/stores/hardware";
 import { DeviceCardProps } from "./DeviceCard";
 import { DeviceSection } from "./DeviceSection";
 import { Button } from "@/renderer/components/ui/button";
 import { DebugMenu } from "./DebugMenu";
 import { ConnectionHelp } from "./ConnectionHelp";
 import { useSettingsStore } from "@/renderer/stores/settings";
+import { toast } from "sonner";
+import { ZodError } from "zod";
 
 export const HardwareInfo = () => {
-  const devices = useHardwareDevices();
-  const refetch = useHardwareRefetch();
+  const { devices, refresh } = useHardwareStore();
   const deviceSettings = useSettingsStore((state) => state.device);
   const { nidmmDeviceDiscovery, niDAQmxDeviceDiscovery } = deviceSettings;
+
+  const handleRefresh = async () => {
+    const res = await refresh(
+      niDAQmxDeviceDiscovery.value,
+      nidmmDeviceDiscovery.value,
+    );
+    if (res.isOk()) return;
+
+    if (res.error instanceof ZodError) {
+      toast.error("Error validating hardware info", {
+        description: "Check the console for more info.",
+      });
+      console.log(res.error.message);
+    } else if (res.error instanceof Error) {
+      toast.error("Error fetching hardware info", {
+        description: res.error.message,
+      });
+    }
+  };
 
   if (!devices) {
     return (
       <>
-        <Button
-          onClick={() => {
-            refetch(niDAQmxDeviceDiscovery.value, nidmmDeviceDiscovery.value);
-          }}
-        >
-          Refresh
-        </Button>
+        <Button onClick={handleRefresh}>Refresh</Button>
         <div className="py-3" />
         <div>loading...</div>
       </>
@@ -89,13 +100,7 @@ export const HardwareInfo = () => {
   return (
     <div className="max-h-screen overflow-y-auto">
       <div className="flex gap-2">
-        <Button
-          onClick={() => {
-            refetch(niDAQmxDeviceDiscovery.value, nidmmDeviceDiscovery.value);
-          }}
-        >
-          Refresh
-        </Button>
+        <Button onClick={handleRefresh}>Refresh</Button>
         <DebugMenu />
         <ConnectionHelp />
       </div>

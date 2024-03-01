@@ -23,10 +23,6 @@ import { addRandomPositionOffset } from "@/renderer/utils/RandomPositionOffset";
 import { Project } from "@/renderer/types/project";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { Draft } from "immer";
-import {
-  DeviceInfo,
-  useHardwareDevices,
-} from "@/renderer/hooks/useHardwareDevices";
 import { useCallback, useEffect } from "react";
 import {
   useManifestStore,
@@ -51,6 +47,8 @@ import {
   tryParse,
 } from "@/types/result";
 import { useSocketStore } from "./socket";
+import { useHardwareStore } from "./hardware";
+import { DeviceInfo } from "@/renderer/types/hardware";
 
 type State = {
   name: string | undefined;
@@ -371,7 +369,9 @@ export const useAddBlock = () => {
   const { setNodes } = useProtectedGraphUpdate();
 
   const center = useFlowchartStore(useShallow((state) => state.centerPosition));
-  const hardwareDevices: DeviceInfo | undefined = useHardwareDevices();
+  const hardwareDevices: DeviceInfo | undefined = useHardwareStore(
+    useShallow((state) => state.devices),
+  );
   const metadata = useMetadata();
 
   return useCallback(

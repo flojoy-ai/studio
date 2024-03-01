@@ -7,7 +7,6 @@ import {
   useState,
 } from "react";
 import { v4 as UUID } from "uuid";
-import { useHardwareRefetch } from "@/renderer/hooks/useHardwareDevices";
 import { toast } from "sonner";
 import { env } from "@/env";
 import { useSettingsStore } from "@/renderer/stores/settings";
@@ -18,6 +17,7 @@ import { ZodError } from "zod";
 import { ServerStatus, WorkerJobResponse } from "@/renderer/types/socket";
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 import { useSocketStore } from "@/renderer/stores/socket";
+import { useHardwareStore } from "@/renderer/stores/hardware";
 
 type SocketState = {
   runningNode: string;
@@ -66,7 +66,7 @@ export const SocketContextProvider = ({
     })),
   );
 
-  const hardwareRefetch = useHardwareRefetch();
+  const hardwareRefetch = useHardwareStore((state) => state.refresh);
   const { fetchManifest, importCustomBlocks, setManifestChanged } =
     useManifestStore(
       useShallow((state) => ({
@@ -84,6 +84,27 @@ export const SocketContextProvider = ({
       });
     }
   }, [fetchManifest]);
+
+  const deviceSettings = useSettingsStore((state) => state.device);
+
+  const fetchDriverDevices = deviceSettings.niDAQmxDeviceDiscovery.value;
+  const fetchDMMDevices = deviceSettings.nidmmDeviceDiscovery.value;
+
+  const doHardwareFetch = useCallback(async () => {
+    const res = await hardwareRefetch(fetchDriverDevices, fetchDMMDevices);
+    if (res.isOk()) return;
+
+    if (res.error instanceof ZodError) {
+      toast.error("Error validating hardware info", {
+        description: "Check the console for more info.",
+      });
+      console.log(res.error.message);
+    } else if (res.error instanceof Error) {
+      toast.error("Error fetching hardware info", {
+        description: res.error.message,
+      });
+    }
+  }, [fetchDMMDevices, fetchDriverDevices, hardwareRefetch]);
 
   const doImport = useCallback(async () => {
     const res = await importCustomBlocks(true);
@@ -106,11 +127,6 @@ export const SocketContextProvider = ({
       });
     }
   }, [importCustomBlocks]);
-
-  const deviceSettings = useSettingsStore((state) => state.device);
-
-  const fetchDriverDevices = deviceSettings.niDAQmxDeviceDiscovery.value;
-  const fetchDMMDevices = deviceSettings.nidmmDeviceDiscovery.value;
 
   useEffect(() => {
     if (socket !== undefined) return;
@@ -140,7 +156,7 @@ export const SocketContextProvider = ({
           if (data.SYSTEM_STATUS) {
             setServerStatus(data.SYSTEM_STATUS);
           }
-          hardwareRefetch(fetchDriverDevices, fetchDMMDevices);
+          doHardwareFetch();
           doFetch();
           doImport();
           sendEventToMix("Initial Status", {

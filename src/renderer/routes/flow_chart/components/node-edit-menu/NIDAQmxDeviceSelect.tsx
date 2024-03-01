@@ -1,9 +1,9 @@
-import { useHardwareDevices } from "@/renderer/hooks/useHardwareDevices";
+import { useHardwareStore } from "@/renderer/stores/hardware";
 import { DeviceSelect, SelectProps } from "./DeviceSelect";
 import { useSettingsStore } from "@/renderer/stores/settings";
 
 export const NIDAQmxDeviceSelect = (props: SelectProps) => {
-  const hardware = useHardwareDevices();
+  const hardware = useHardwareStore((state) => state.devices);
   const daq = hardware?.nidaqmxDevices.filter((d) => d.address !== "");
 
   const { niDAQmxDeviceDiscovery } = useSettingsStore((state) => state.device);

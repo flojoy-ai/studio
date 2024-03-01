@@ -1,28 +1,35 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { DeviceInfo } from "@/renderer/hooks/useHardwareDevices";
+import { DeviceInfo } from "@/renderer/types/hardware";
+import { getDeviceInfo } from "@/renderer/lib/api";
+import { Result, tryParse } from "@/types/result";
+import { ZodError } from "zod";
 
 type State = {
-  deviceInfo: DeviceInfo;
+  devices: DeviceInfo | undefined;
 };
 
 type Actions = {
-  setDeviceInfo: (deviceInfo: DeviceInfo) => void;
+  refresh: (
+    discoverNIDAQmxDevices?: boolean,
+    discoverNIDMMDevices?: boolean,
+  ) => Promise<Result<void, Error | ZodError>>;
 };
 
 export const useHardwareStore = create<State & Actions>()(
   immer((set) => ({
-    deviceInfo: {
-      cameras: [],
-      serialDevices: [],
-      visaDevices: [],
-      nidaqmxDevices: [],
-      nidmmDevices: [],
-    },
-    setDeviceInfo: (deviceInfo) => {
-      set((state) => {
-        state.deviceInfo = deviceInfo;
-      });
+    devices: undefined,
+    refresh: async (
+      discoverNIDAQmxDevices = false,
+      discoverNIDMMDevices = false,
+    ) => {
+      const res = await getDeviceInfo(
+        discoverNIDAQmxDevices,
+        discoverNIDMMDevices,
+      );
+      return res
+        .andThen(tryParse(DeviceInfo))
+        .map((info) => set({ devices: info }));
     },
   })),
 );

@@ -102,12 +102,15 @@ export async function cancelFlowchartRun(jobId: string) {
 export async function getDeviceInfo(
   discoverNIDAQmxDevices = false,
   discoverNIDMMDevices = false,
-) {
-  const res = await captain.get("devices", {
-    searchParams: {
-      include_nidaqmx_drivers: discoverNIDAQmxDevices,
-      include_nidmm_drivers: discoverNIDMMDevices,
-    },
-  });
-  return res.json();
+): Promise<Result<KyResponse>> {
+  return await fromPromise(
+    captain
+      .get("devices", {
+        searchParams: {
+          include_nidaqmx_drivers: discoverNIDAQmxDevices,
+          include_nidmm_drivers: discoverNIDMMDevices,
+        },
+      })
+      .json(),
+  );
 }

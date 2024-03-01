@@ -1,8 +1,8 @@
-import { useHardwareDevices } from "@/renderer/hooks/useHardwareDevices";
+import { useHardwareStore } from "@/renderer/stores/hardware";
 import { DeviceSelect, SelectProps } from "./DeviceSelect";
 
 export const CameraSelect = (props: SelectProps) => {
-  const hardware = useHardwareDevices();
+  const hardware = useHardwareStore((state) => state.devices);
   const cameras = hardware?.cameras;
 
   return (
