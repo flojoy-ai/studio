@@ -6,20 +6,25 @@ import { toast } from "sonner";
 
 async function saveProject(project: TestSequencerProject) {
   try {
-    console.log("Saving project to disk");
     const sep = project.projectPath.endsWith("/") || project.projectPath.endsWith("\\") ? "" : "/";
     const path = project.projectPath + sep + project.name + ".tjoy";
-    // Reset the status of all tests (TODO merge with other instance of this code)
-    project.elems = [...project.elems].map((elem) => {
-        return elem.type === "test"
-          ? {
-              ...elem,
-              status: "pending",
-              completionTime: undefined,
-              isSavedToCloud: false,
-            }
-          : { ...elem };
-      });
+    const elements = [...project.elems].map((elem) => {
+      return elem.type === "test"
+        ? {
+            ...elem,
+            status: "pending",
+            completionTime: undefined,
+            isSavedToCloud: false,
+          }
+        : { ...elem };
+    });
+    project = {
+      ...project,
+      // @ts-ignore LSP think this is wrong because of the use of .type == "test"
+      elems : elements,
+      projectPath: project.projectPath + sep,
+    }
+    console.log("Saving project to disk");
     if ("api" in window) {
       await window.api.saveToFile(
         path,
@@ -28,6 +33,7 @@ async function saveProject(project: TestSequencerProject) {
     }
   } catch (e) {
     toast.error(`Error saving project to disk ${e}`);
+    console.log(`Error saving project to disk ${e}`);
   }
 }
 
@@ -51,17 +57,16 @@ export const useCreateProject = () => {
   const { setProject, setUnsaved } = useTestSequencerState();
   const { withPermissionCheck } = useWithPermission();
   const handleCreate = async (projectToCreate: TestSequencerProject) => {
-    const project = projectToCreate;
-    project.elems.forEach((elem) => {
-      if (elem.type === "test") {
-        // TODO: Verif that each element is already in the project folder (if not, copy it)
-        const elements: any = JSON.parse(JSON.stringify(project.elems));
-        elements.forEach((elem) => { 
-          if (elem.type === "test") elem.path = elem.path.replace(project.projectPath, ""); 
-        });
-        project.elems = elements as TestSequenceElement[];
-      }
+    // TODO Handle stuff that are in other directories
+    const elements = [...projectToCreate.elems].map((elem) => {
+      return elem.type === "test"
+        ? {
+            ...elem,
+            path: elem.path.replace(project.projectPath, "")
+          }
+        : { ...elem };
     });
+    const project = { ...projectToCreate, elems: elements };
     // Create the actial project on disk
     await saveProject(project);
     setProject(project);

@@ -18,10 +18,10 @@ import {
   BOTTOM_STATUS_BAR_HEIGHT,
 } from "@/renderer/routes/common/Layout";
 import { TestSequencerProjectModal } from "./TestSequencerProjectModal";
-import { useImportProject } from "@/renderer/hooks/useTestSequencerProject";
+import { useImportProject, useSaveProject } from "@/renderer/hooks/useTestSequencerProject";
 
 const TestSequencerView = () => {
-  const { setElems, tree, setIsLocked, backendState } = useTestSequencerState();
+  const { setElems, tree, setIsLocked, backendState, project } = useTestSequencerState();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
   const [ isProjectModalOpen, setIsProjectModalOpen ] = useState(false);
 
@@ -53,6 +53,7 @@ const TestSequencerView = () => {
     setIsLocked(false);
   };
   const projectImport = useImportProject();
+  const saveProject = useSaveProject();
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const handleClickImportTest = () => {
     setIsImportModalOpen(true);
@@ -107,9 +108,15 @@ const TestSequencerView = () => {
                   <LockableButton
                     className="mt-4 w-full"
                     variant="outline"
-                    onClick={() => setIsProjectModalOpen(true)}
+                    onClick={() => {
+                      if (project === null) {
+                        setIsProjectModalOpen(true);
+                      } else {
+                        saveProject();
+                      }
+                    }}
                   >
-                    New Project 
+                    {project === null ? "New Project" : "Save Project"}
                   </LockableButton>
                   <LockableButton
                     variant="dotted"
