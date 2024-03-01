@@ -12,7 +12,8 @@ import {
 import { toast } from "sonner";
 import { useCustomSections } from "@/renderer/hooks/useCustomBlockManifest";
 import { env } from "@/env";
-import { useSettingsStore } from "../stores/settings";
+import { useSettingsStore } from "@/renderer/stores/settings";
+import { useShallow } from "zustand/react/shallow";
 
 type SocketState = {
   programResults: NodeResult[];
@@ -61,7 +62,7 @@ export const SocketContextProvider = ({
   const fetchManifest = useFetchManifest();
   const fetchMetadata = useFetchNodesMetadata();
   const setManifestChanged = useSetAtom(manifestChangedAtom);
-  const deviceSettings = useSettingsStore((state) => state.device);
+  const deviceSettings = useSettingsStore(useShallow((state) => state.device));
 
   const fetchDriverDevices = deviceSettings.niDAQmxDeviceDiscovery.value;
   const fetchDMMDevices = deviceSettings.nidmmDeviceDiscovery.value;
