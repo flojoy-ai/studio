@@ -119,18 +119,4 @@ export class WebSocketServer {
       this.handlePingResponse(ServerStatus.OFFLINE);
     };
   }
-  disconnect() {
-    console.log("Disconnecting WebSocket server");
-    this.server.close();
-  }
-  emit(data: string) {
-    this.server.send(
-      JSON.stringify({
-        type: data,
-      }),
-    );
-  }
-  isConnected() {
-    return this.server.readyState;
-  }
 }

@@ -6,7 +6,6 @@ import {
   useMemo,
   useState,
 } from "react";
-import { WebSocketServer } from "../web-socket/socket";
 import { v4 as UUID } from "uuid";
 import { useHardwareRefetch } from "@/renderer/hooks/useHardwareDevices";
 import { toast } from "sonner";
@@ -16,7 +15,8 @@ import { useManifestStore } from "@/renderer/stores/manifest";
 import { useShallow } from "zustand/react/shallow";
 import { HTTPError } from "ky";
 import { ZodError } from "zod";
-import { ServerStatus } from "../types/socket";
+import { ServerStatus } from "@/renderer/types/socket";
+import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 
 type SocketState = {
   programResults: NodeResult[];
@@ -28,12 +28,14 @@ type SocketState = {
   logs: string[];
 };
 
-const DEFAULT_STATES = {
-  runningNode: "",
-  serverStatus: ServerStatus.CONNECTING,
-  failedNodes: {},
-  socketId: "",
-};
+enum ResponseEnum {
+  systemStatus = "SYSTEM_STATUS",
+  nodeResults = "NODE_RESULTS",
+  runningNode = "RUNNING_NODE",
+  failedNodes = "FAILED_NODES",
+  preJobOperation = "PRE_JOB_OP",
+  log = "BACKEND_LOG",
+}
 
 export const SocketContext = createContext<SocketState | null>(null);
 
@@ -42,8 +44,14 @@ export const SocketContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [socket, setSocket] = useState<WebSocketServer>();
-  const [states, setStates] = useState(DEFAULT_STATES);
+  const [socket, setSocket] = useState<WebSocket>();
+  const [socketId, setSocketId] = useState<string>("");
+  const [serverStatus, setServerStatus] = useState<ServerStatus>(
+    ServerStatus.CONNECTING,
+  );
+  const [runningNode, setRunningNode] = useState("");
+  const [failedNodes, setFailedNodes] = useState<Record<string, string>>({});
+
   const [programResults, setProgramResults] = useState<NodeResult[]>([]);
   const [logs, setLogs] = useState<string[]>([]);
 
@@ -93,43 +101,79 @@ export const SocketContextProvider = ({
   const fetchDriverDevices = deviceSettings.niDAQmxDeviceDiscovery.value;
   const fetchDMMDevices = deviceSettings.nidmmDeviceDiscovery.value;
 
-  const handleStateChange =
-    (state: keyof SocketState) =>
-    (value: string | number | Record<string, string> | ServerStatus) => {
-      setStates((prev) => ({
-        ...prev,
-        [state]: value,
-      }));
-    };
-
   useEffect(() => {
     if (!socket) {
       console.log("Creating new WebSocket connection to backend");
       const socketId = UUID();
-      const ws = new WebSocketServer({
-        url: `ws://${env.VITE_BACKEND_HOST}:${env.VITE_BACKEND_PORT}/ws/${socketId}`,
-        handleFailedNodes: handleStateChange("failedNodes"),
-        handleRunningNode: handleStateChange("runningNode"),
-        handleSocketId: handleStateChange("socketId"),
-        onNodeResultsReceived: setProgramResults,
-        onPingResponse: handleStateChange("serverStatus"),
-        handleLogs: setLogs,
-        onClose: (ev) => {
-          console.log("socket closed with event:", ev);
-          setSocket(undefined);
-        },
-        onConnectionEstablished: () => {
-          hardwareRefetch(fetchDriverDevices, fetchDMMDevices);
-          doFetch();
-          doImport();
-        },
-        onManifestUpdate: () => {
-          doFetch();
-          doImport();
-          setManifestChanged(true);
-          toast("Changes detected, syncing blocks with changes...");
-        },
-      });
+      const ws = new WebSocket(
+        `ws://${env.VITE_BACKEND_HOST}:${env.VITE_BACKEND_PORT}/ws/${socketId}`,
+      );
+      ws.onmessage = (ev) => {
+        const data = JSON.parse(ev.data);
+        switch (data.type) {
+          case "worker_response":
+            if (ResponseEnum.systemStatus in data) {
+              setServerStatus(data[ResponseEnum.systemStatus]);
+              if (
+                data[ResponseEnum.systemStatus] === ServerStatus.RUN_COMPLETE
+              ) {
+                setServerStatus(ServerStatus.STANDBY);
+              }
+            }
+            if (ResponseEnum.nodeResults in data) {
+              setProgramResults((prev) => {
+                const resultIo = data[ResponseEnum.nodeResults];
+                const isExist = prev.find((node) => node.id === resultIo.id);
+                if (isExist) {
+                  const filterResult = prev.filter(
+                    (node) => node.id !== resultIo.id,
+                  );
+                  return [...filterResult, resultIo];
+                }
+                return [...prev, resultIo];
+              });
+            }
+            if (ResponseEnum.runningNode in data) {
+              setRunningNode(data[ResponseEnum.runningNode]);
+            }
+            if (ResponseEnum.failedNodes in data) {
+              setFailedNodes(data[ResponseEnum.failedNodes]);
+            }
+            if (ResponseEnum.log in data) {
+              setLogs((prev) => [...prev, data[ResponseEnum.log]]);
+            }
+            break;
+          case "connection_established":
+            setSocketId(data.socketId);
+            if (ResponseEnum.systemStatus in data) {
+              setServerStatus(data[ResponseEnum.systemStatus]);
+            }
+            hardwareRefetch(fetchDriverDevices, fetchDMMDevices);
+            doFetch();
+            doImport();
+            sendEventToMix("Initial Status", {
+              "Server Status": "Connection Established",
+            });
+            break;
+          case "manifest_update":
+            doFetch();
+            doImport();
+            setManifestChanged(true);
+            toast("Changes detected, syncing blocks with changes...");
+            break;
+          default:
+            console.log(" default data type: ", data);
+            break;
+        }
+      };
+      ws.onclose = (ev) => {
+        console.log("socket closed with event:", ev);
+        setSocket(undefined);
+      };
+      ws.onerror = (event) => {
+        console.log("Error Event: ", event);
+        setServerStatus(ServerStatus.OFFLINE);
+      };
       setSocket(ws);
     }
   }, [
@@ -145,12 +189,15 @@ export const SocketContextProvider = ({
 
   const values = useMemo(
     () => ({
-      ...states,
+      socketId,
+      runningNode,
+      serverStatus,
+      failedNodes,
       programResults,
       resetProgramResults: () => setProgramResults([]),
       logs,
     }),
-    [programResults, states, logs],
+    [socketId, runningNode, serverStatus, failedNodes, programResults, logs],
   );
   return (
     <SocketContext.Provider value={values}>{children}</SocketContext.Provider>
