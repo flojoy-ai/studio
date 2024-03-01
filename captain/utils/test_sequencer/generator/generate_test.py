@@ -1,18 +1,22 @@
 import uuid
 from captain.models.test_sequencer import StatusTypes, Test, TestTypes
+from captain.parser.bool_parser.utils.name_validator import validate_name
 from captain.utils.logger import logger
 import os
 from openai import OpenAI
 from captain.utils.test_sequencer.data_stream import _with_error_report
 
-key = "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"  # TODO have this from .env, Joey said to hard code for now until his PR
+key = "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"  # TODO have this from .env, Joey said to hard code for now until his PR
 client = OpenAI(api_key=key)
 
 
 @_with_error_report
-async def generate_test(test_type: TestTypes, prompt: str, test_container: dict):
+async def generate_test(
+    test_name: str, test_type: TestTypes, prompt: str, test_container: dict
+):
     if test_type.value != "Python":  # for now only handle python tests
-        return ""
+        raise Exception("Only Python tests allowed")
+    validate_name(test_name)  # this raises an error if invalid
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
@@ -32,7 +36,7 @@ async def generate_test(test_type: TestTypes, prompt: str, test_container: dict)
     if code_resp == "NULL":
         raise Exception("Unable to generate test")
     code = "\n".join(code_resp.splitlines()[1:-1])
-    filename = "test_example.py"
+    filename = test_name
     with open(filename, "w") as file:
         file.write(code)
     path_to_file = os.path.join(os.getcwd(), filename)

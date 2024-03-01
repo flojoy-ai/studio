@@ -115,8 +115,10 @@ export const TestGeneratorPanel = () => {
     getCoreRowModel: getCoreRowModel(),
   });
   const [prompt, setPrompt] = useState("");
+  const [name, setName] = useState("");
   async function handleClickGenerate() {
     const body: GenerateTestRequest = {
+      testName: name,
       testType: "Python",
       prompt: prompt,
     };
@@ -129,6 +131,15 @@ export const TestGeneratorPanel = () => {
   }
   return (
     <div className="flex w-full flex-col space-y-4">
+      <Label htmlFor="testName">Enter test name:</Label>
+      <Input
+        className="w-1/2"
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        id="testName"
+        placeholder="Test name"
+      />
       <Label htmlFor="prompt">Enter prompt:</Label>
       <Input
         type="text"

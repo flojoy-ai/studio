@@ -132,6 +132,7 @@ class TestSequenceRun(BaseModel):
 
 
 class GenerateTestRequest(BaseModel):
+    test_name: str = Field(..., alias="testName")
     test_type: TestTypes = Field(..., alias="testType")
     prompt: str = Field(..., alias="prompt")
 

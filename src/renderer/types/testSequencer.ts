@@ -92,6 +92,7 @@ export type TestDiscoveryResponse = {
 };
 
 export type GenerateTestRequest = {
+  testName: string;
   testType: TestTypes;
   prompt: string;
 };

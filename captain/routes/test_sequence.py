@@ -64,9 +64,10 @@ async def discover_pytest(params: DiscoverPytestParams = Depends()):
 @router.post("/generate-test/")
 async def generate_test_endpoint(requested_test: GenerateTestRequest):
     test_container = {}
+    test_name = requested_test.test_name
     test_type = requested_test.test_type
     prompt = requested_test.prompt
-    await generate_test(test_type, prompt, test_container)
+    await generate_test(test_name, test_type, prompt, test_container)
     return TestGenerationContainer(test=test_container["test"]).model_dump_json(
         by_alias=True
     )

@@ -45,7 +45,6 @@ export function TabsDemo() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            cloud
             <ControlPanel />
           </CardContent>
         </Card>
