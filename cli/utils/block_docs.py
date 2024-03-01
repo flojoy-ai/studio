@@ -5,7 +5,6 @@ from cli.utils.markdown_helper import get_markdown_slug
 class BlockDocsBuilder:
     def __init__(self, block_name, block_folder_path, description, thumbnail):
         self.github_base = "https://github.com/flojoy-ai/blocks/blob/main/blocks/{block_folder_path}/{block_name}.py"
-
         self.block_name = block_name
         self.block_folder_path = block_folder_path
         self.description = description
