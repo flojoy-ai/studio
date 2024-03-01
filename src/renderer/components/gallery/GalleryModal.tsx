@@ -70,7 +70,7 @@ export const GalleryModal = ({
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="flex h-4/5 max-w-5xl flex-col">
+      <DialogContent className="flex h-4/5 max-w-screen-2xl flex-col">  
         <DialogHeader>
           <DialogTitle>
             <div className="text-3xl">App Gallery</div>
@@ -92,7 +92,7 @@ export const GalleryModal = ({
               <div key={k}>
                 <div className="text-3xl font-bold">{k.replace("_", " ")}</div>
                 <Separator className="my-1" />
-                <div className="grid grid-cols-2">
+                <div className="grid grid-cols-3">
                   {v.map((app) => (
                     <GalleryElement
                       key={app.title}

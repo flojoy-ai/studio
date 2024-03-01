@@ -20,7 +20,12 @@ export const data: GalleryData = {
       description: "Apply a butterworth filter to an input signal",
       imagePath: "assets/appGallery/introToSignals.png",
       appPath: "butterworth",
-      relevantNodes: [],
+      relevantNodes: [
+        {
+          name: "BUTTER",
+          docs: "https://docs.flojoy.ai/blocks/dsp/butter/",
+        },
+      ],
       cloudDemoEnabled: true,
     },
     {
@@ -140,7 +145,12 @@ export const data: GalleryData = {
       description: "Read from any analog sensor",
       imagePath: "assets/appGallery/arduino.png",
       appPath: "arduino",
-      relevantNodes: [],
+      relevantNodes: [
+        {
+          name: "SERIAL_SINGLE_MEASUREMENT",
+          docs: "https://docs.flojoy.ai/blocks/hardware/protocols/serial/serial-single-measurement/",
+        },
+      ],
       cloudDemoEnabled: false,
     },
     {
