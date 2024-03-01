@@ -3,7 +3,9 @@ import { CustomNodeProps } from "@/renderer/types/node";
 import DebuggingBlockSvg from "@/renderer/assets/blocks/debugging-svg";
 import DefaultBlock from "./default-block";
 
-const DSPBlock = (props: CustomNodeProps) => {
+export type DebuggingCategory = "DEBUGGING";
+
+const DebuggingBlock = (props: CustomNodeProps) => {
   return (
     <DefaultBlock {...props} variant="accent5">
       <DebuggingBlockSvg blockName={props.data.func} />
@@ -11,4 +13,4 @@ const DSPBlock = (props: CustomNodeProps) => {
   );
 };
 
-export default memo(DSPBlock);
+export default memo(DebuggingBlock);

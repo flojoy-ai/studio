@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { resolveBlockSVG } from "../svg-helper";
 
 const DefaultHardwareSVG = (
@@ -18,4 +19,4 @@ const DefaultHardwareSVG = (
 const blockNameToSVGMap = {
   default: DefaultHardwareSVG,
 };
-export default resolveBlockSVG(blockNameToSVGMap);
+export default memo(resolveBlockSVG(blockNameToSVGMap));

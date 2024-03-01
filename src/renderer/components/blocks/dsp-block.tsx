@@ -3,6 +3,8 @@ import { CustomNodeProps } from "@/renderer/types/node";
 import DspBlockSvg from "@/renderer/assets/blocks/dsp-svg";
 import DefaultBlock from "./default-block";
 
+export type DSPCategory = "DSP";
+
 const DSPBlock = (props: CustomNodeProps) => {
   return (
     <DefaultBlock {...props}>

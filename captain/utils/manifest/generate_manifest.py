@@ -35,7 +35,6 @@ ALLOWED_TYPES = [
     "DATA",
     "VISUALIZATION",
     "MATH",
-    "ARITHMETIC",
     "ETL",
     "DSP",
     "IMAGE",
@@ -53,6 +52,12 @@ ALLOWED_TYPES = [
     "TYPE_CASTING",
     "FUNCTION_GENERATORS",
     "ROBOTICS",
+    "MOTORS",
+    "PROTOCOLS",
+    "NATIONAL_INSTRUMENTS",
+    "DAQ_BOARDS",
+    "IMAGING",
+    "MULTIMETERS",
 ]
 
 # Sort order in sidebar

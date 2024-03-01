@@ -10,11 +10,12 @@ import {
 import SidebarSection from "./SidebarSection";
 import { LeafClickHandler } from "@/renderer/routes/common/Sidebar/Sidebar";
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";
-import { NumpySvg, ScipySvg } from "@/renderer/assets/ArithmeticSVG";
 import { twMerge } from "tailwind-merge";
 import { cva } from "class-variance-authority";
 import { ReactNode } from "react";
 import { matchesQuery } from "@/renderer/utils/NodeSearch";
+import NumpySvg from "@/renderer/assets/blocks/numpy-svg";
+import ScipySvg from "@/renderer/assets/blocks/scipy-svg";
 
 export const sidebarVariants = cva(undefined, {
   variants: {

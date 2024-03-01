@@ -3,6 +3,8 @@ import { CustomNodeProps } from "@/renderer/types/node";
 import AIBlockSvg from "@/renderer/assets/blocks/ai-svg";
 import DefaultBlock from "./default-block";
 
+export type AICategory = "AI_ML";
+
 const AIBlock = (props: CustomNodeProps) => {
   return (
     <DefaultBlock {...props} variant="accent6">

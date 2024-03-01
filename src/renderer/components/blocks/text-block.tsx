@@ -26,7 +26,7 @@ const LinkRenderer = (props) => {
   );
 };
 
-const TextNode = ({ selected, data, id }: NodeProps<TextData>) => {
+const TextBlock = ({ selected, data, id }: NodeProps<TextData>) => {
   const [editing, setEditing] = useState(false);
   const size = useStore((s) => {
     const node = s.nodeInternals.get(id);
@@ -141,4 +141,4 @@ const TextNode = ({ selected, data, id }: NodeProps<TextData>) => {
   );
 };
 
-export default memo(TextNode);
+export default memo(TextBlock);

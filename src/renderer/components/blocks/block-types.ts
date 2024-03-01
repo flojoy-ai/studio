@@ -1,49 +1,95 @@
-import { NodeTypes } from "reactflow";
-import AIBlock from "./ai-block";
-import ArithmeticBlock from "./arithmetic-block";
-import ConditionalNode from "./conditional-block";
-import DSPBlock from "./dsp-block";
-import DataNode from "./data-block";
-import DebuggingBlock from "./debugging-block";
+import AIBlock, { AICategory } from "./ai-block";
+import MathBlock, { MathCategory } from "./math-block";
+import DSPBlock, { DSPCategory } from "./dsp-block";
+import DataNode, { DataCategory } from "./data-block";
+import DebuggingBlock, { DebuggingCategory } from "./debugging-block";
 import DefaultBlock from "./default-block";
-import ExtractBlock from "./etl/extract-block";
-import HardwareBlock from "./hardware/hardware-block";
-import LogicBlock from "./logic-block";
-import NumpyNode from "./NumpyNode";
-import ScipyNode from "./ScipyNode";
-import TextNode from "./TextNode";
-import TypeCastingBlock from "./etl/type-casting-block";
+import HardwareBlock, { HardwareCategory } from "./hardware-block";
+import CtrlFlowBlock, { CtrlFlowCategory } from "./ctrl-flow-block";
+import NumpyBlock, { NumpyCategory } from "./numpy-block";
+import ScipyNode, { ScipyCategory } from "./scipy-block";
+import TextBlock from "./text-block";
 import VisorBlock from "./visor-block";
-import LoadBlock from "./etl/load-block";
-import FnGeneratorBlock from "./hardware/fn-generator-block";
-import RoboticBlock from "./hardware/robotic-block";
+import { ComponentType } from "react";
+import ETLBlock, { ETLCategory } from "./etl-block";
+import { NodeProps } from "reactflow";
 
-const blockTypesMap: NodeTypes = {
+type BlockCategory =
+  | AICategory
+  | DataCategory
+  | ETLCategory
+  | MathCategory
+  | DSPCategory
+  | CtrlFlowCategory
+  | HardwareCategory
+  | DebuggingCategory
+  | NumpyCategory
+  | ScipyCategory
+  | "TextNode"
+  | "default";
+
+type BlockTypesMap = {
+  [key in BlockCategory]: ComponentType<NodeProps>;
+};
+
+const blockTypesMap: BlockTypesMap = {
   default: DefaultBlock,
+  /**
+   * AI section
+   */
   AI_ML: AIBlock,
-  GENERATORS: DataNode,
-  VISUALIZERS: VisorBlock,
-  EXTRACTORS: DefaultBlock,
-  TRANSFORM: DefaultBlock,
-  LOAD: LoadBlock,
-  ARITHMETIC: ArithmeticBlock,
-  IO: HardwareBlock,
-  LOGIC_GATES: LogicBlock,
-  CONDITIONALS: ConditionalNode,
-  SCIPY: ScipyNode,
-  NUMPY: NumpyNode,
+  /**
+   * Data section
+   */
   DATA: DataNode,
   VISUALIZATION: VisorBlock,
-  ETL: DefaultBlock,
+  /**
+   * Math section
+   */
+  MATH: MathBlock,
+  /**
+   * ETL section
+   */
+  TRANSFORM: ETLBlock,
+  LOAD: ETLBlock,
+  EXTRACT: ETLBlock,
+  TYPE_CASTING: ETLBlock,
+  /**
+   * DSP section
+   */
   DSP: DSPBlock,
-  CONTROL_FLOW: LogicBlock,
-  MATH: DefaultBlock,
+  /**
+   * Control Flow section
+   */
+  CONTROL_FLOW: CtrlFlowBlock,
+  CONDITIONALS: CtrlFlowBlock,
+  /**
+   * Hardware section
+   */
   HARDWARE: HardwareBlock,
-  TextNode: TextNode,
+  FUNCTION_GENERATORS: HardwareBlock,
+  ROBOTICS: HardwareBlock,
+  IMAGING: HardwareBlock,
+  NATIONAL_INSTRUMENTS: HardwareBlock,
+  MOTORS: HardwareBlock,
+  PROTOCOLS: HardwareBlock,
+  MULTIMETERS: HardwareBlock,
+  DAQ_BOARDS: HardwareBlock,
+  /**
+   * Numpy section
+   */
+  NUMPY: NumpyBlock,
+  /**
+   * Scipy section
+   */
+  SCIPY: ScipyNode,
+  /**
+   * Text section
+   */
+  TextNode: TextBlock,
+  /**
+   * Debugging section
+   */
   DEBUGGING: DebuggingBlock,
-  EXTRACT: ExtractBlock,
-  TYPE_CASTING: TypeCastingBlock,
-  FUNCTION_GENERATORS: FnGeneratorBlock,
-  ROBOTICS: RoboticBlock,
 };
 export default blockTypesMap;
