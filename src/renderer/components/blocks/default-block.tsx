@@ -6,12 +6,13 @@ import HandleComponent from "@/renderer/components/common/HandleComponent";
 import NodeInput from "@/renderer/components/common/NodeInput";
 import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
 import { BlockLabel } from "../common/block-label";
+import { getVariantClass } from "@/renderer/lib/utils";
 
 type DefaultBlockProps = CustomNodeProps & {
   width?: CSSProperties["width"];
   height?: number;
   children?: React.ReactNode;
-  variant?: "accent1" | "accent2" | "accent3" | "accent6" | "accent5";
+  variant?: "accent1" | "accent2" | "accent3" | "accent5" | "accent6";
   showLabel?: boolean;
   className?: string;
   labelPosition?: "left" | "right" | "center";
@@ -40,12 +41,15 @@ const DefaultBlock = ({
       <div
         className={clsx(
           `border-${variant} relative flex min-h-[96px] items-center justify-center rounded-lg border-2 border-solid p-2`,
-          { [`shadow-around shadow-${variant}`]: nodeRunning || selected },
+          {
+            [`shadow-around ${getVariantClass(variant).shadow}`]:
+              nodeRunning || selected,
+          },
           { "shadow-around shadow-red-700": nodeError },
           className,
         )}
         style={{
-          width: width,
+          width,
           minHeight: height || maxInputOutput * 38 + 32,
         }}
         onDoubleClick={() => setIsRenamingTitle(true)}

@@ -14,6 +14,7 @@ import ScipyNode from "./ScipyNode";
 import TextNode from "./TextNode";
 import TypeCastingBlock from "./type-casting-block";
 import VisorBlock from "./visor-block";
+import LoadBlock from "./load-block";
 
 const blockTypesMap: NodeTypes = {
   default: DefaultBlock,
@@ -22,7 +23,7 @@ const blockTypesMap: NodeTypes = {
   VISUALIZERS: VisorBlock,
   EXTRACTORS: DefaultBlock,
   TRANSFORM: DefaultBlock,
-  LOADERS: DefaultBlock,
+  LOAD: LoadBlock,
   ARITHMETIC: ArithmeticBlock,
   IO: IONode,
   LOGIC_GATES: LogicBlock,
