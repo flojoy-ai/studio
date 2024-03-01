@@ -6,7 +6,7 @@ import {
   AlertDialogTitle,
 } from "@/renderer/components/ui/alert-dialog";
 import { Button } from "@/renderer/components/ui/button";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { showWelcomeScreenAtom } from "@/renderer/hooks/useFlowChartState";
 import { useAtom } from "jotai";
 import { GalleryModal } from "@/renderer/components/gallery/GalleryModal";
@@ -20,7 +20,7 @@ import {
 
 export function WelcomeModal() {
   const [showGallery, setShowGallery] = useState(false);
-  const sequencerLink = "/test-sequencer"
+  const sequencerLink = "/test-sequencer";
   const navigate = useNavigate();
   const lg = 1024;
   const { width } = useWindowSize();
@@ -77,10 +77,12 @@ export function WelcomeModal() {
           </AlertDialogContent>
         </AlertDialog>
       )}
-      {showGallery && <GalleryModal
-              isGalleryOpen={showGallery}
-              setIsGalleryOpen={setShowGallery}
-      />}
+      {showGallery && (
+        <GalleryModal
+          isGalleryOpen={showGallery}
+          setIsGalleryOpen={setShowGallery}
+        />
+      )}
     </>
   );
-};
+}
