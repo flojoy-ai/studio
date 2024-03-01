@@ -61,17 +61,27 @@ export function WelcomeModal() {
             <div className="flex gap-2">
               <Button
                 onClick={handleOpenGallery}
-                id="close-welcome-modal"
-                data-testid="close-welcome-modal"
+                id="welcome-app-gallery"
+                data-testid="welcome-app-gallery"
               >
-                Open App Gallery
+                App Gallery
               </Button>
               <Button
                 onClick={handleOpenSequencer}
                 id="welcome-open-sequencer"
                 data-testid="welcome-open-sequencer"
               >
-                Open Test Sequencer
+                Test Sequencer
+              </Button>
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  setShowWelcomeScreen(false);
+                }}
+                id="close-welcome-modal"
+                data-testid="close-welcome-modal"
+              >
+                Visual Python Script
               </Button>
             </div>
           </AlertDialogContent>
