@@ -156,9 +156,8 @@ export async function createEditorWindow(filepath: string) {
       process.env["ELECTRON_RENDERER_URL"] + "#/editor/" + btoa(filepath),
     );
   } else {
-    editorWindow.loadFile(join(__dirname, "../renderer/index.html"), {
-      hash: "editor",
-      search: btoa(filepath),
+    editorWindow.loadFile(indexHtml, {
+      hash: "editor/" + btoa(filepath),
     });
   }
 
