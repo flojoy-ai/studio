@@ -1,6 +1,6 @@
 import { CustomNodeProps } from "@/renderer/types";
 import DefaultBlock from "../default-block";
-import FnGeneratorsSvg from "@/renderer/assets/blocks/io/fn-generators-svg";
+import FnGeneratorsSvg from "@/renderer/assets/blocks/hardware/fn-generators-svg";
 
 const FnGeneratorBlock = (props: CustomNodeProps) => {
   return (

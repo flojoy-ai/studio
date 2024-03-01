@@ -7,7 +7,7 @@ import DataNode from "./data-block";
 import DebuggingBlock from "./debugging-block";
 import DefaultBlock from "./default-block";
 import ExtractBlock from "./etl/extract-block";
-import IOBlock from "./io/io-block";
+import HardwareBlock from "./hardware/hardware-block";
 import LogicBlock from "./logic-block";
 import NumpyNode from "./NumpyNode";
 import ScipyNode from "./ScipyNode";
@@ -15,7 +15,8 @@ import TextNode from "./TextNode";
 import TypeCastingBlock from "./etl/type-casting-block";
 import VisorBlock from "./visor-block";
 import LoadBlock from "./etl/load-block";
-import FnGeneratorBlock from "./io/fn-generator-block";
+import FnGeneratorBlock from "./hardware/fn-generator-block";
+import RoboticBlock from "./hardware/robotic-block";
 
 const blockTypesMap: NodeTypes = {
   default: DefaultBlock,
@@ -26,7 +27,7 @@ const blockTypesMap: NodeTypes = {
   TRANSFORM: DefaultBlock,
   LOAD: LoadBlock,
   ARITHMETIC: ArithmeticBlock,
-  IO: IOBlock,
+  IO: HardwareBlock,
   LOGIC_GATES: LogicBlock,
   CONDITIONALS: ConditionalNode,
   SCIPY: ScipyNode,
@@ -37,11 +38,12 @@ const blockTypesMap: NodeTypes = {
   DSP: DSPBlock,
   CONTROL_FLOW: LogicBlock,
   MATH: DefaultBlock,
-  HARDWARE: IOBlock,
+  HARDWARE: HardwareBlock,
   TextNode: TextNode,
   DEBUGGING: DebuggingBlock,
   EXTRACT: ExtractBlock,
   TYPE_CASTING: TypeCastingBlock,
   FUNCTION_GENERATORS: FnGeneratorBlock,
+  ROBOTICS: RoboticBlock,
 };
 export default blockTypesMap;
