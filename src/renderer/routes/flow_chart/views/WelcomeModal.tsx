@@ -8,6 +8,7 @@ import {
 import { Button } from "@/renderer/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { showWelcomeScreenAtom } from "@/renderer/hooks/useFlowChartState";
+import { useFullManifest } from "@/renderer/hooks/useManifest";
 import { useAtom } from "jotai";
 import { GalleryModal } from "@/renderer/components/gallery/GalleryModal";
 import packageJson from "../../../../../package.json";
@@ -25,6 +26,7 @@ export function WelcomeModal() {
   const lg = 1024;
   const { width } = useWindowSize();
   const large = width > lg;
+  const manifest = useFullManifest();
   const [showWelcomeScreen, setShowWelcomeScreen] = useAtom(
     showWelcomeScreenAtom,
   );
@@ -61,6 +63,7 @@ export function WelcomeModal() {
             <div className="flex gap-2">
               <Button
                 onClick={handleOpenGallery}
+                disabled={!manifest}
                 id="welcome-app-gallery"
                 data-testid="welcome-app-gallery"
               >

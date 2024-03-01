@@ -8,6 +8,7 @@ import {
 import { LayoutGrid } from "lucide-react";
 import { ScrollArea } from "@/renderer/components/ui/scroll-area";
 import { getGalleryData } from "@/renderer/utils/GalleryLoader";
+import { useLoadApp } from "@/renderer/hooks/useLoadApp";
 import { Separator } from "../ui/separator";
 import { GalleryElement } from "./GalleryElement";
 import { Input } from "../ui/input";
@@ -30,7 +31,12 @@ export const GalleryModal = ({
 
   const [searchQuery, setSearchQuery] = useState("");
   const data = getGalleryData();
+  const openFileSelector = useLoadApp();
   const [filteredData, setFilteredData] = useState(data);
+  const handleOpenFile = () => {
+    setIsGalleryOpen(false);
+    openFileSelector();
+  };
 
   useEffect(() => {
     const entries = Object.fromEntries(
@@ -73,7 +79,15 @@ export const GalleryModal = ({
       <DialogContent className="flex h-4/5 max-w-screen-2xl flex-col">
         <DialogHeader>
           <DialogTitle>
-            <div className="text-3xl">App Gallery</div>
+            <div className="text-3xl" style={{paddingBottom : '10px'}}>App Gallery </div>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                handleOpenFile();
+              }}
+          >
+            Load Custom App
+          </Button>
           </DialogTitle>
           <div className="py-1" />
           <Input
