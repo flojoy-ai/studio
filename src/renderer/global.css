@@ -46,6 +46,7 @@
     --color-accent3: 255 169 39;
     --color-accent4: 240 95 168;
     --color-accent-boolean : #1DB100;
+    --color-accent5: #8c9599;
   }
 
   .dark {
@@ -89,6 +90,7 @@
     --color-accent3: 255 201 63;
     --color-accent4: 240 95 168;
     --color-accent-boolean : #88FA4E;
+    --color-accent5: #8c9599;
   }
 }
 

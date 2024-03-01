@@ -1,4 +1,6 @@
-export const resolveBlockSVG = (svgMap: Record<string, React.JSX.Element>) => {
+export const resolveBlockSVG = (
+  svgMap: { default: React.JSX.Element } & Record<string, React.JSX.Element>,
+) => {
   const SVGComponent = ({ blockName }: { blockName: string }) => {
     return blockName in svgMap ? svgMap[blockName] : svgMap["default"];
   };

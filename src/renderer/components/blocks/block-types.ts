@@ -13,13 +13,13 @@ import NumpyNode from "./NumpyNode";
 import ScipyNode from "./ScipyNode";
 import TextNode from "./TextNode";
 import TypeCastingBlock from "./type-casting-block";
-import VisorNode from "./VisorNode";
+import VisorBlock from "./visor-block";
 
 const blockTypesMap: NodeTypes = {
   default: DefaultBlock,
   AI_ML: AIBlock,
   GENERATORS: DataNode,
-  VISUALIZERS: VisorNode,
+  VISUALIZERS: VisorBlock,
   EXTRACTORS: DefaultBlock,
   TRANSFORM: DefaultBlock,
   LOADERS: DefaultBlock,
@@ -30,7 +30,7 @@ const blockTypesMap: NodeTypes = {
   SCIPY: ScipyNode,
   NUMPY: NumpyNode,
   DATA: DataNode,
-  VISUALIZATION: VisorNode,
+  VISUALIZATION: VisorBlock,
   ETL: DefaultBlock,
   DSP: DSPBlock,
   CONTROL_FLOW: LogicBlock,

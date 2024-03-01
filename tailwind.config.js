@@ -63,6 +63,7 @@ export default {
         accent3: "rgb(var(--color-accent3) / <alpha-value>)",
         accent4: "rgb(var(--color-accent4) / <alpha-value>)",
         "accent-boolean": "var(--color-accent-boolean)",
+        accent5: "var(--color-accent5)",
       },
       borderRadius: {
         lg: "var(--radius)",

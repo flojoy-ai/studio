@@ -11,7 +11,7 @@ type DefaultBlockProps = CustomNodeProps & {
   width?: CSSProperties["width"];
   height?: number;
   children?: React.ReactNode;
-  variant?: "accent1" | "accent2" | "accent3" | "accent-boolean";
+  variant?: "accent1" | "accent2" | "accent3" | "accent-boolean" | "accent5";
   SVGComponent?: React.JSX.Element;
   showLabel?: boolean;
   className?: string;

@@ -14,6 +14,7 @@ const handle = cva(undefined, {
       accent3: "!border-accent3 !bg-accent3",
       accent4: "!border-accent4",
       "accent-boolean": "!border-accent-boolean !bg-accent-boolean",
+      accent5: "!border-accent5 !bg-accent5",
     },
   },
 });

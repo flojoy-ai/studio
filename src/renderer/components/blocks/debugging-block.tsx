@@ -7,7 +7,7 @@ const DSPBlock = (props: CustomNodeProps) => {
   return (
     <DefaultBlock
       {...props}
-      variant="accent2"
+      variant="accent5"
       SVGComponent={<DebuggingBlockSvg blockName={props.data.func} />}
     />
   );
