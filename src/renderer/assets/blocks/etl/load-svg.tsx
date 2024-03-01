@@ -1,11 +1,11 @@
 import { memo } from "react";
-import { resolveBlockSVG } from "./svg-helper";
+import { resolveBlockSVG } from "../svg-helper";
 
 const DefaultLoadSVG = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="120"
-    height="120"
+    width="100"
+    height="100"
     viewBox="-230 620 120 120"
   >
     <rect width="100%" height="100%" fill="transparent"></rect>

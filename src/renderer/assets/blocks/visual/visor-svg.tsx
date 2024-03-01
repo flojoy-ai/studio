@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { resolveBlockSVG } from "./svg-helper";
+import { resolveBlockSVG } from "../svg-helper";
 // import scatterSvg from "./scatter-svg";
 // import histogramSvg from "./histogram-svg";
 // import lineChartSvg from "./line-chart-svg";

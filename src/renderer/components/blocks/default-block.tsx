@@ -7,12 +7,13 @@ import NodeInput from "@/renderer/components/common/NodeInput";
 import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
 import { BlockLabel } from "../common/block-label";
 import { getVariantClass } from "@/renderer/lib/utils";
+import { TVariant } from "@/renderer/types/tailwind";
 
 type DefaultBlockProps = CustomNodeProps & {
   width?: CSSProperties["width"];
   height?: number;
   children?: React.ReactNode;
-  variant?: "accent1" | "accent2" | "accent3" | "accent5" | "accent6";
+  variant?: TVariant;
   showLabel?: boolean;
   className?: string;
   labelPosition?: "left" | "right" | "center";

@@ -6,15 +6,16 @@ import DSPBlock from "./dsp-block";
 import DataNode from "./data-block";
 import DebuggingBlock from "./debugging-block";
 import DefaultBlock from "./default-block";
-import ExtractBlock from "./extract-block";
-import IONode from "./IONode";
+import ExtractBlock from "./etl/extract-block";
+import IOBlock from "./io/io-block";
 import LogicBlock from "./logic-block";
 import NumpyNode from "./NumpyNode";
 import ScipyNode from "./ScipyNode";
 import TextNode from "./TextNode";
-import TypeCastingBlock from "./type-casting-block";
+import TypeCastingBlock from "./etl/type-casting-block";
 import VisorBlock from "./visor-block";
-import LoadBlock from "./load-block";
+import LoadBlock from "./etl/load-block";
+import FnGeneratorBlock from "./io/fn-generator-block";
 
 const blockTypesMap: NodeTypes = {
   default: DefaultBlock,
@@ -25,7 +26,7 @@ const blockTypesMap: NodeTypes = {
   TRANSFORM: DefaultBlock,
   LOAD: LoadBlock,
   ARITHMETIC: ArithmeticBlock,
-  IO: IONode,
+  IO: IOBlock,
   LOGIC_GATES: LogicBlock,
   CONDITIONALS: ConditionalNode,
   SCIPY: ScipyNode,
@@ -36,10 +37,11 @@ const blockTypesMap: NodeTypes = {
   DSP: DSPBlock,
   CONTROL_FLOW: LogicBlock,
   MATH: DefaultBlock,
-  HARDWARE: IONode,
+  HARDWARE: IOBlock,
   TextNode: TextNode,
   DEBUGGING: DebuggingBlock,
   EXTRACT: ExtractBlock,
   TYPE_CASTING: TypeCastingBlock,
+  FUNCTION_GENERATORS: FnGeneratorBlock,
 };
 export default blockTypesMap;

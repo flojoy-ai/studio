@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { resolveBlockSVG } from "./svg-helper";
+import { resolveBlockSVG } from "../svg-helper";
 
 const DefaultExtractBlock = (
   <svg

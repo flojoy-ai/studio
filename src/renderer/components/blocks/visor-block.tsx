@@ -6,7 +6,7 @@ import MarkDownText from "@/renderer/components/common/MarkDownText";
 import { useTheme } from "@/renderer/providers/themeProvider";
 import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
 import { NodeResizer, useUpdateNodeInternals } from "reactflow";
-import VisorSvg from "@/renderer/assets/blocks/visor-svg";
+import VisorSvg from "@/renderer/assets/blocks/visual/visor-svg";
 import DefaultBlock from "./default-block";
 
 const VisorBlock = (props: CustomNodeProps) => {

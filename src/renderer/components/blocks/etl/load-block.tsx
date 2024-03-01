@@ -1,6 +1,6 @@
 import { CustomNodeProps } from "@/renderer/types";
-import DefaultBlock from "./default-block";
-import LoadSvg from "@/renderer/assets/blocks/load-svg";
+import DefaultBlock from "../default-block";
+import LoadSvg from "@/renderer/assets/blocks/etl/load-svg";
 
 const LoadBlock = (props: CustomNodeProps) => {
   return (

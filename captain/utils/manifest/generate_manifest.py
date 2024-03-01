@@ -51,6 +51,7 @@ ALLOWED_TYPES = [
     "LOAD",
     "TRANSFORM",
     "TYPE_CASTING",
+    "FUNCTION_GENERATORS",
 ]
 
 # Sort order in sidebar

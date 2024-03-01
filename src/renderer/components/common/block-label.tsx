@@ -1,9 +1,10 @@
 import { cn, getVariantClass } from "@/renderer/lib/utils";
+import { TVariant } from "@/renderer/types/tailwind";
 import { textWrap } from "@/renderer/utils/TextWrap";
 
 type BlockLabelProps = {
   label: string;
-  variant?: "accent1" | "accent2" | "accent3" | "accent6" | "accent5";
+  variant?: TVariant;
   labelPosition?: "left" | "right" | "center";
 };
 
