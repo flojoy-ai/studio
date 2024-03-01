@@ -105,6 +105,7 @@ const TestSequencerView = () => {
                   >
                     Import Project
                   </LockableButton>
+                  { project !== null && (
                   <LockableButton
                     className="mt-4 w-full"
                     variant="outline"
@@ -117,6 +118,14 @@ const TestSequencerView = () => {
                     }}
                   >
                     {project === null ? "New Project" : "Save Project"}
+                  </LockableButton>
+                  )}
+                  <LockableButton
+                    className="mt-4 w-full"
+                    variant="outline"
+                    onClick={() => {setIsProjectModalOpen(true)}}
+                  >
+                    New Project
                   </LockableButton>
                   <LockableButton
                     variant="dotted"

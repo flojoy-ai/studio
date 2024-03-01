@@ -1,6 +1,6 @@
 import useWithPermission from "./useWithPermission";
 import { useTestSequencerState } from "./useTestSequencerState";
-import { readJsonProject, stringifyProject, stringifyTestSet } from "../routes/test_sequencer_panel/utils/TestSetUtils";
+import { readJsonProject, stringifyProject } from "../routes/test_sequencer_panel/utils/TestSetUtils";
 import { TestSequenceElement, TestSequencerProject } from "../types/testSequencer";
 import { toast } from "sonner";
 import { Dispatch, SetStateAction } from "react";
@@ -8,8 +8,9 @@ import { Dispatch, SetStateAction } from "react";
 
 async function saveProject(project: TestSequencerProject) {
   try {
-    const sep = project.projectPath.endsWith("/") || project.projectPath.endsWith("\\") ? "" : "/";
-    const path = project.projectPath + sep + project.name + ".tjoy";
+    const sep = project.projectPath.endsWith("/") ? "" : "/";
+    const path = project.projectPath + sep;
+    console.log("Current project path: ", path);
     const elements = [...project.elems].map((elem) => {
       return elem.type === "test"
         ? {
@@ -17,6 +18,7 @@ async function saveProject(project: TestSequencerProject) {
           status: "pending",
           completionTime: undefined,
           isSavedToCloud: false,
+          path: elem.path.replace(path, "")
         }
         : { ...elem };
     });
@@ -24,15 +26,15 @@ async function saveProject(project: TestSequencerProject) {
       ...project,
       // @ts-ignore LSP think this is wrong because of the use of .type == "test"
       elems: elements,
-      projectPath: project.projectPath + sep,
+      projectPath: project.projectPath,
     }
-    console.log("Saving project to disk");
     if ("api" in window) {
       await window.api.saveToFile(
         path,
         stringifyProject(project)
       );
     }
+    console.log(`Project saved to disk at ${path}`, project)
   } catch (e) {
     toast.error(`Error saving project to disk ${e}`);
     console.log(`Error saving project to disk ${e}`);
@@ -58,18 +60,25 @@ export const useSaveProject = () => {
 export const useCreateProject = () => {
   const { setProject, setUnsaved, setElems } = useTestSequencerState();
   const { withPermissionCheck } = useWithPermission();
-  const handleCreate = async (projectToCreate: TestSequencerProject, setModalOpen: Dispatch<SetStateAction<boolean>>)=> {
-    console.log("Creating project");
+  const handleCreate = async (projectToCreate: TestSequencerProject, importCurrentElements: boolean, setModalOpen: Dispatch<SetStateAction<boolean>>)=> {
+    console.log("Creating project: ", projectToCreate);
     // TODO Handle stuff that are in other directories
-    const elements = [...projectToCreate.elems].map((elem) => {
-      return elem.type === "test"
-        ? {
-          ...elem,
-          testName: elem.testName.replace(projectToCreate.projectPath, ""),
-          path: elem.path.replace(projectToCreate.projectPath, "")
-        }
-        : { ...elem };
-    });
+    let elements: TestSequenceElement[] = [];
+    if (importCurrentElements) {
+      const sep = projectToCreate.projectPath.endsWith("/") || projectToCreate.projectPath.endsWith("\\") ? "" : "/";
+      const path = projectToCreate.projectPath + sep;
+      elements = [...projectToCreate.elems].map((elem) => {
+        return elem.type === "test"
+          ? {
+            ...elem,
+            testName: elem.testName.replace(path, ""),
+          }
+          : { 
+            ...elem,
+            condition: elem.condition.replace(path, ""),
+          };
+      });
+    }
     const project = { ...projectToCreate, elems: elements };
     // Create the actial project on disk
     await saveProject(project);
@@ -95,26 +104,25 @@ export const useImportProject = () => {
       .then((result) => {
         if (!result) return;
         const { filePath, fileContent } = result;
-        console.log("File path: ", filePath);
         let project = readJsonProject(fileContent);
         if (!project) {
           toast.error("Error reading project file");
           return;
         }
-        setProject(project);
+        console.log("Importing Project: ", project);
         // Set the right path for the tests
-        const root = filePath.replace(project.name + ".tjoy", "");
-        console.log("Loading project from disk");
-        console.log("Project: ", project);
+        const projectPath = filePath.replace(project.name + ".tjoy", "");
         const elements = [...project.elems].map((elem) => {
           return elem.type === "test"
             ? {
               ...elem,
-              path: root + elem.path
+              path: projectPath + elem.path
             }
             : { ...elem };
         });
-        project = { ...project, elems: elements, projectPath: root };
+        project = { ...project, elems: elements, projectPath: projectPath };
+        setProject(project);
+        console.log("Project imported: ", project);
         // @ts-ignore
         setElems(project.elems); // TODO Shoud be handle in setProject
         setUnsaved(false);  // TODO should be handle in setProject

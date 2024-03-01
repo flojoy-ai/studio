@@ -7,6 +7,7 @@ import { useCreateProject } from "@/renderer/hooks/useTestSequencerProject";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/renderer/components/ui/select";
 import { InterpreterType } from "@/renderer/types/testSequencer";
 import { PathInput } from "@/renderer/components/ui/path-input";
+import { Checkbox } from "@/renderer/components/ui/checkbox";
 
 export const TestSequencerProjectModal = ({
   isProjectModalOpen,
@@ -16,13 +17,14 @@ export const TestSequencerProjectModal = ({
   handleProjectModalOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
 
-  const { setElems, elems, setIsLocked, backendState } = useTestSequencerState(); 
+  const { elems } = useTestSequencerState(); 
   const handleCreate = useCreateProject();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [projectDirPath, setProjectDirPath] = useState("");
   const [interpreterPath, setInterpreterPath] = useState("");
   const [type, setType] = useState<InterpreterType>("flojoy");
+  const [checked, setChecked] = useState(true);
   const availableInterpreter: InterpreterType[] = ["flojoy", "poetry", "pipenv", "conda"]
 
   function handleSubmit() {
@@ -38,6 +40,7 @@ export const TestSequencerProjectModal = ({
         },
         requirementFilePath: null,
       },
+      checked,
       handleProjectModalOpen
     )
   }
@@ -81,7 +84,15 @@ export const TestSequencerProjectModal = ({
           placeholder="Interpreter" 
           onChange={(event) => {setProjectDirPath(event.target.value)}} 
         />
-
+        </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            checked={checked}
+            onCheckedChange={(checked) => {
+              setChecked(checked as boolean);
+            }}
+          />
+          <label>Import all current test in the project </label>
         </div>
         <Button 
           variant={"default"}
