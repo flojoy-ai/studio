@@ -79,15 +79,17 @@ export const GalleryModal = ({
       <DialogContent className="flex h-4/5 max-w-screen-2xl flex-col">
         <DialogHeader>
           <DialogTitle>
-            <div className="text-3xl" style={{paddingBottom : '10px'}}>App Gallery </div>
+            <div className="text-3xl" style={{ paddingBottom: "10px" }}>
+              App Gallery{" "}
+            </div>
             <Button
               variant="secondary"
               onClick={() => {
                 handleOpenFile();
               }}
-          >
-            Load Custom App
-          </Button>
+            >
+              Load Custom App
+            </Button>
           </DialogTitle>
           <div className="py-1" />
           <Input
