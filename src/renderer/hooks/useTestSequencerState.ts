@@ -29,7 +29,7 @@ export const curRun = atom<string[]>([]);
 
 export const websocketIdAtom = atom<string>(uuidv4());
 
-export const elements = atomWithImmer<(Test | Conditional)[]>([]);
+export const elements = atomWithImmer<TestSequenceElement[]>([]);
 
 export const isLockedAtom = atomWithImmer<boolean>(false);
 

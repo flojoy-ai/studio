@@ -86,10 +86,10 @@ export type Interpreter = {
 export type TestSequencerProject = {
   name: string;
   description: string;
-  root: TestRootNode;
-  tjoy_file_path: string;
+  elems: TestSequenceElement[];
+  projectPath: string;
   interpreter: Interpreter ;
-  requirement_file_path: string | null;
+  requirementFilePath: string | null;
 }
 
 export type TestSequenceElementNode = ConditionalNode | TestNode | TestRootNode;

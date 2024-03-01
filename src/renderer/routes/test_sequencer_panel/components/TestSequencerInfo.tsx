@@ -12,14 +12,13 @@ import { ImportTestModal } from "./ImportTestModal";
 import LockableButton from "./lockable/LockedButtons";
 import { TSWebSocketContext } from "@/renderer/context/testSequencerWS.context";
 import { LockedContextProvider } from "@/renderer/context/lock.context";
-import { useTestSetSave } from "@/renderer/hooks/useTestSetSave";
-import { useTestSetImport } from "@/renderer/hooks/useTestSetImport";
 import _ from "lodash";
 import {
   LAYOUT_TOP_HEIGHT,
   BOTTOM_STATUS_BAR_HEIGHT,
 } from "@/renderer/routes/common/Layout";
 import { TestSequencerProjectModal } from "./TestSequencerProjectModal";
+import { useImportProject } from "@/renderer/hooks/useTestSequencerProject";
 
 const TestSequencerView = () => {
   const { setElems, tree, setIsLocked, backendState } = useTestSequencerState();
@@ -53,8 +52,7 @@ const TestSequencerView = () => {
     tSSendJsonMessage(testSequenceStopRequest(tree));
     setIsLocked(false);
   };
-  const testSetSave = useTestSetSave();
-  const testSetImport = useTestSetImport();
+  const projectImport = useImportProject();
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const handleClickImportTest = () => {
     setIsImportModalOpen(true);
@@ -102,7 +100,7 @@ const TestSequencerView = () => {
                   <LockableButton
                     className="mt-4 w-full"
                     variant="outline"
-                    onClick={testSetImport}
+                    onClick={projectImport}
                   >
                     Import Project
                   </LockableButton>

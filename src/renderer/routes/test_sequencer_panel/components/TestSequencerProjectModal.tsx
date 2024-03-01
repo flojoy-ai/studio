@@ -16,7 +16,7 @@ export const TestSequencerProjectModal = ({
   handleProjectModalOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
 
-  const { setElems, tree, setIsLocked, backendState } = useTestSequencerState(); 
+  const { setElems, elems, setIsLocked, backendState } = useTestSequencerState(); 
   const handleCreate = useCreateProject();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -62,7 +62,7 @@ export const TestSequencerProjectModal = ({
         </div>
         <PathInput 
           placeholder="Interpreter" 
-          onChange={(event) => {setProjectDirPath(event.target.value); console.log(event.target.value);}} 
+          onChange={(event) => {setProjectDirPath(event.target.value)}} 
         />
 
         </div>
@@ -72,10 +72,13 @@ export const TestSequencerProjectModal = ({
             {
               name: name,
               description: description,
-              root: tree,
-              tjoy_file_path: projectDirPath,
-              interpreter_path: interpreterPath,
-              requirement_file_path: null,
+              elems: elems,
+              projectPath: projectDirPath,
+              interpreter: {
+                type: type,
+                path: interpreterPath,
+              },
+              requirementFilePath: null,
             }
           )}
         > New Project </Button>
