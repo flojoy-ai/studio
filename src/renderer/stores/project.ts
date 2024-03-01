@@ -6,6 +6,7 @@ import {
   TextData,
   BlockDefinition,
   BlockData,
+  positionSchema,
 } from "@/renderer/types/node";
 import { useShallow } from "zustand/react/shallow";
 
@@ -27,13 +28,12 @@ import {
   DeviceInfo,
   useHardwareDevices,
 } from "@/renderer/hooks/useHardwareDevices";
-import { useAtom } from "jotai";
 import { useCallback, useEffect } from "react";
 import {
-  manifestChangedAtom,
-  useFullManifest,
-  useFullMetadata,
-} from "@/renderer/hooks/useManifest";
+  useManifestStore,
+  useManifest,
+  useMetadata,
+} from "@/renderer/stores/manifest";
 import {
   createNodeId,
   createNodeLabel,
@@ -43,7 +43,14 @@ import { filterMap } from "@/renderer/utils/ArrayUtils";
 import { getEdgeTypes, isCompatibleType } from "@/renderer/utils/TypeCheck";
 import { toast } from "sonner";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
-import { Result, Ok, Err, tryCatch, tryCatchPromise } from "@/types/result";
+import {
+  Result,
+  Ok,
+  Err,
+  tryCatch,
+  tryCatchPromise,
+  tryParse,
+} from "@/types/result";
 
 type State = {
   name: string | undefined;
@@ -355,15 +362,15 @@ export const useAddBlock = () => {
 
   const center = useFlowchartStore(useShallow((state) => state.centerPosition));
   const hardwareDevices: DeviceInfo | undefined = useHardwareDevices();
-  const metadata = useFullMetadata();
+  const metadata = useMetadata();
 
   return useCallback(
     (node: BlockDefinition) => {
       const previousBlockPos = localStorage.getItem("prev_node_pos");
-      const parsedPos = previousBlockPos
-        ? (JSON.parse(previousBlockPos) as XYPosition)
-        : null;
-      const pos = parsedPos ?? center;
+
+      const res = tryParse(positionSchema)(previousBlockPos);
+      const pos = res.isOk() ? res.value : center;
+
       const nodePosition = addRandomPositionOffset(pos, 300);
       const {
         key: funcName,
@@ -481,7 +488,7 @@ export const useDuplicateBlock = () => {
 
 export const useCreateEdge = () => {
   const { setEdges } = useProtectedGraphUpdate();
-  const manifest = useFullManifest();
+  const manifest = useManifest();
 
   return (connection: Connection): Result<void, Error | TypeError> => {
     if (!manifest) {
@@ -505,7 +512,6 @@ export const useCreateEdge = () => {
 };
 
 export const useGraphResync = () => {
-  const [manifestChanged, setManifestChanged] = useAtom(manifestChangedAtom);
   const { setEdges, setNodes } = useProtectedGraphUpdate();
 
   const { nodes, edges } = useProjectStore(
@@ -515,8 +521,14 @@ export const useGraphResync = () => {
     })),
   );
 
-  const manifest = useFullManifest();
-  const metadata = useFullMetadata();
+  const manifest = useManifest();
+  const metadata = useMetadata();
+  const { manifestChanged, setManifestChanged } = useManifestStore(
+    useShallow((state) => ({
+      manifestChanged: state.manifestChanged,
+      setManifestChanged: state.setManifestChanged,
+    })),
+  );
 
   useEffect(() => {
     if (manifest && metadata && manifestChanged) {

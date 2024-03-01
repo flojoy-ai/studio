@@ -1,5 +1,6 @@
 import { NodeProps } from "reactflow";
 import { Nullish } from "@/renderer/types/util";
+import { z } from "zod";
 
 export type BlockParameterValue = Nullish<string | number | boolean>;
 
@@ -78,3 +79,8 @@ export type TextData = {
 };
 
 export type BlockProps = NodeProps<BlockData>;
+
+export const positionSchema = z.object({
+  x: z.number(),
+  y: z.number(),
+});

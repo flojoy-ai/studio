@@ -15,20 +15,38 @@ import { Edge, Node } from "reactflow";
 import { BackendSettings } from "@/renderer/stores/settings";
 import _ from "lodash";
 
-export const getManifest = async (): Promise<
-  Result<BlockManifest, Error | ZodError>
-> => {
+export const getManifest = async (
+  blocksPath?: string,
+): Promise<Result<BlockManifest, HTTPError | ZodError>> => {
+  const searchParams = blocksPath
+    ? {
+        blocks_path: blocksPath,
+      }
+    : undefined;
+
   const res = await tryCatchPromise<unknown, HTTPError>(() =>
-    captain.get("blocks/manifest").json(),
+    captain
+      .get("blocks/manifest", {
+        searchParams,
+      })
+      .json(),
   );
   return res.andThen(tryParse(blockManifestSchema));
 };
 
-export const getMetadata = async (): Promise<
-  Result<BlockMetadata, Error | ZodError>
-> => {
+export const getMetadata = async (
+  blocksPath?: string,
+  customDirChanged: boolean = false,
+): Promise<Result<BlockMetadata, HTTPError | ZodError>> => {
+  const searchParams = blocksPath
+    ? {
+        blocks_path: blocksPath,
+        custom_dir_changed: customDirChanged,
+      }
+    : undefined;
+
   const res = await tryCatchPromise<unknown, HTTPError>(() =>
-    captain.get("blocks/metadata").json(),
+    captain.get("blocks/metadata", { searchParams }).json(),
   );
   return res.andThen(tryParse(blockMetadataSchema));
 };

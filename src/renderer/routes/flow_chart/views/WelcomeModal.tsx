@@ -9,7 +9,7 @@ import { useLoadApp } from "@/renderer/hooks/useLoadApp";
 import { Button } from "@/renderer/components/ui/button";
 
 import packageJson from "../../../../../package.json";
-import { useFullManifest } from "@/renderer/hooks/useManifest";
+import { useManifest } from "@/renderer/stores/manifest";
 import { useEffect } from "react";
 import {
   MixPanelEvents,
@@ -20,7 +20,7 @@ import { useShallow } from "zustand/react/shallow";
 
 export function WelcomeModal() {
   const openFileSelector = useLoadApp();
-  const manifest = useFullManifest();
+  const manifest = useManifest();
   const { setShowWelcomeScreen, showWelcomeScreen } = useAppStore(
     useShallow((state) => ({
       setShowWelcomeScreen: state.setShowWelcomeScreen,

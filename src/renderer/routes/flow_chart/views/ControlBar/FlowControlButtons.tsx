@@ -5,7 +5,7 @@ import { sendProgramToMix } from "@/renderer/services/MixpanelServices";
 import { IServerStatus } from "@/renderer/context/socket.context";
 import WatchBtn from "./WatchBtn";
 import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
-import { useManifest } from "@/renderer/hooks/useManifest";
+import { useManifest } from "@/renderer/stores/manifest";
 import _ from "lodash";
 import { toast } from "sonner";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";

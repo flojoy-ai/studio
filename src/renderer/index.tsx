@@ -1,5 +1,4 @@
 import App from "./App";
-import { SocketContextProvider } from "./context/socket.context";
 import "./global.css";
 import "./index.css";
 // default styling
@@ -15,6 +14,7 @@ import { HashRouter } from "react-router-dom";
 import { AuthContextProvider } from "./context/auth.context";
 import { ThemeProvider } from "./providers/themeProvider";
 import { TestSequencerWSProvider } from "./context/testSequencerWS.context";
+import { SocketContextProvider } from "./context/socket.context";
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
 

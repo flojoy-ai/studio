@@ -1,10 +1,10 @@
 import { useSocket } from "@/renderer/hooks/useSocket";
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";
-import { useProjectStore } from "../stores/project";
-import { useFullManifest, useFullMetadata } from "./useManifest";
+import { useProjectStore } from "@/renderer/stores/project";
+import { useMetadata, useManifest } from "@/renderer/stores/manifest";
+import { useAppStore } from "@/renderer/stores/app";
 import { toast } from "sonner";
 import { Project } from "@/renderer/types/project";
-import { useAppStore } from "../stores/app";
 
 import { useShallow } from "zustand/react/shallow";
 
@@ -17,8 +17,8 @@ export const useLoadApp = () => {
     useShallow((state) => state.setShowWelcomeScreen),
   );
 
-  const manifest = useFullManifest();
-  const metadata = useFullMetadata();
+  const manifest = useManifest();
+  const metadata = useMetadata();
 
   const openFilePicker = () => {
     window.api

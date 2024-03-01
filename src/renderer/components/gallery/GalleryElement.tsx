@@ -6,7 +6,7 @@ import { GalleryApp } from "@/renderer/types/gallery";
 import { useEffect } from "react";
 import { useSocket } from "@/renderer/hooks/useSocket";
 import { useProjectStore } from "@/renderer/stores/project";
-import { useFullManifest, useFullMetadata } from "@/renderer/hooks/useManifest";
+import { useMetadata, useManifest } from "@/renderer/stores/manifest";
 import { Project } from "@/renderer/types/project";
 import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
@@ -25,8 +25,8 @@ export const GalleryElement = ({
   const rfInstance = useReactFlow();
   const nodesInitialized = useNodesInitialized();
   const { resetProgramResults } = useSocket();
-  const manifest = useFullManifest();
-  const metadata = useFullMetadata();
+  const manifest = useManifest();
+  const metadata = useMetadata();
 
   const handleAppLoad = async () => {
     const raw = await import(`../../data/apps/${galleryApp.appPath}.json`);

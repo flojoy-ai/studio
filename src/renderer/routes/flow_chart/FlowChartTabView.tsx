@@ -48,7 +48,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/renderer/components/ui/tooltip";
-import { useManifest, useNodesMetadata } from "@/renderer/hooks/useManifest";
 import { BlockData } from "@/renderer/types";
 import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
 import ArithmeticBlock from "@/renderer/components/nodes/ArithmeticBlock";
@@ -62,7 +61,6 @@ import ScipyBlock from "@/renderer/components/nodes/ScipyBlock";
 import VisorBlock from "@/renderer/components/nodes/VisorBlock";
 import TextNode from "@/renderer/components/nodes/TextNode";
 import ContextMenu, { MenuInfo } from "./components/NodeContextMenu";
-import { useCustomSections } from "@/renderer/hooks/useCustomBlockManifest";
 import { Spinner } from "@/renderer/components/ui/spinner";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
@@ -79,6 +77,11 @@ import {
 import { toast } from "sonner";
 import _ from "lodash";
 import { useShallow } from "zustand/react/shallow";
+import {
+  useManifest,
+  useManifestStore,
+  useMetadata,
+} from "@/renderer/stores/manifest";
 
 const nodeTypes: NodeTypes = {
   default: DefaultBlock,
@@ -155,15 +158,19 @@ const FlowChartTab = () => {
   const [selectedNodes, otherNodes] = _.partition(nodes, (n) => n.selected);
   const selectedNode = selectedNodes.length === 1 ? selectedNodes[0] : null;
 
-  const nodesMetadataMap = useNodesMetadata();
   const manifest = useManifest();
-  const { isAdmin } = useWithPermission();
+  const metadata = useMetadata();
 
-  const {
-    handleImportCustomBlocks,
-    customBlockManifest,
-    customBlocksMetadata,
-  } = useCustomSections();
+  const { standardManifest, customManifest, importCustomBlocks } =
+    useManifestStore(
+      useShallow((state) => ({
+        standardManifest: state.standardBlocksManifest,
+        customManifest: state.customBlocksManifest,
+        importCustomBlocks: state.importCustomBlocks,
+      })),
+    );
+
+  const { isAdmin } = useWithPermission();
 
   useGraphResync();
 
@@ -253,25 +260,20 @@ const FlowChartTab = () => {
   }, [clearProjectCanvas, resetProgramResults]);
 
   useEffect(() => {
-    if (selectedNode === null || !nodesMetadataMap) {
+    if (selectedNode === null || !metadata) {
       return;
     }
-    let metaData = nodesMetadataMap;
-    if (customBlocksMetadata) {
-      metaData = { ...nodesMetadataMap, ...customBlocksMetadata };
-    }
     const nodeFileName = `${selectedNode?.data.func}.py`;
-    const nodeFileData = metaData[nodeFileName] ?? {};
+    const nodeFileData = metadata[nodeFileName] ?? {};
     setNodeFilePath(nodeFileData.path ?? "");
     setPythonString(nodeFileData.metadata ?? "");
     setBlockFullPath(nodeFileData.full_path ?? "");
   }, [
+    metadata,
     selectedNode,
     setNodeFilePath,
     setPythonString,
     setBlockFullPath,
-    nodesMetadataMap,
-    customBlocksMetadata,
   ]);
 
   const deleteKeyCodes = ["Delete", "Backspace"];
@@ -291,17 +293,12 @@ const FlowChartTab = () => {
       // Prevent native context menu from showing
       event.preventDefault();
 
-      if (ref.current === null || !nodesMetadataMap) {
+      if (ref.current === null || !metadata) {
         return;
       }
 
-      let metaData = nodesMetadataMap;
-      if (customBlocksMetadata) {
-        metaData = { ...nodesMetadataMap, ...customBlocksMetadata };
-      }
-
       const nodeFileName = `${node.data.func}.py`;
-      const nodeFileData = metaData[nodeFileName] ?? {};
+      const nodeFileData = metadata[nodeFileName] ?? {};
 
       // Calculate position of the context menu. We want to make sure it
       // doesn't get positioned off-screen.
@@ -340,13 +337,12 @@ const FlowChartTab = () => {
         fullPath: nodeFileData.full_path ?? "",
       });
     },
-    [setMenu, nodesMetadataMap, customBlocksMetadata],
+    [setMenu, metadata],
   );
 
   // Close the context menu if it's open whenever the window is clicked.
   const onPaneClick = useCallback(() => setMenu(null), [setMenu]);
-  const addBlockReady =
-    manifest !== undefined && customBlockManifest !== undefined;
+  const addBlockReady = manifest !== undefined;
 
   return (
     <>
@@ -428,14 +424,14 @@ const FlowChartTab = () => {
           <Separator />
         </div>
 
-        {manifest !== undefined && customBlockManifest !== undefined && (
+        {standardManifest !== undefined && customManifest !== undefined && (
           <Sidebar
-            sections={manifest}
+            sections={standardManifest}
             leafNodeClickHandler={addBlock}
             isSideBarOpen={isSidebarOpen}
             setSideBarStatus={setIsSidebarOpen}
-            customSections={customBlockManifest}
-            handleImportCustomBlocks={handleImportCustomBlocks}
+            customSections={customManifest}
+            handleImportCustomBlocks={importCustomBlocks}
           />
         )}
 

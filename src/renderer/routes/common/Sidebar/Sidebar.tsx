@@ -16,6 +16,11 @@ import {
   TabsTrigger,
 } from "@/renderer/components/ui/tabs";
 import { env } from "@/env";
+import { useManifestStore } from "@/renderer/stores/manifest";
+import { useShallow } from "zustand/react/shallow";
+import { toast } from "sonner";
+import { HTTPError } from "ky";
+import { ZodError } from "zod";
 export type LeafClickHandler = (elem: Leaf) => void;
 
 type SidebarProps = {
@@ -25,7 +30,6 @@ type SidebarProps = {
   leafNodeClickHandler: LeafClickHandler;
   customContent?: JSX.Element;
   customSections: RootNode | null;
-  handleImportCustomBlocks: (startup: boolean) => void;
 };
 
 const Sidebar = ({
@@ -34,8 +38,11 @@ const Sidebar = ({
   sections,
   leafNodeClickHandler,
   customSections,
-  handleImportCustomBlocks,
 }: SidebarProps) => {
+  const importCustomBlocks = useManifestStore(
+    useShallow((state) => state.importCustomBlocks),
+  );
+
   const [query, setQuery] = useState("");
   const [searchFocused, setSearchFocused] = useState(false);
 
@@ -65,6 +72,28 @@ const Sidebar = ({
       setFocus();
     }
   }, [isSideBarOpen]);
+
+  const handleImport = async () => {
+    const res = await importCustomBlocks(false);
+    if (res.isOk()) {
+      return;
+    }
+
+    if (res.error instanceof HTTPError) {
+      toast.error("Error fetching custom blocks info.", {
+        description: res.error.message,
+      });
+    } else if (res.error instanceof ZodError) {
+      toast.error("Error fetching validating custom blocks info.", {
+        description: "Check the console for more details.",
+      });
+      console.error(res.error.message);
+    } else {
+      toast.error("Error when trying to import custom blocks.", {
+        description: res.error.message,
+      });
+    }
+  };
 
   return (
     <div
@@ -188,10 +217,7 @@ const Sidebar = ({
                 />
               </div>
               <div className="flex w-full items-center justify-center pt-2">
-                <Button
-                  variant={"outline"}
-                  onClick={() => handleImportCustomBlocks(false)}
-                >
+                <Button variant={"outline"} onClick={handleImport}>
                   <ImportIcon size={26} className="pr-2" />
                   Change Custom Blocks Directory
                 </Button>
@@ -203,7 +229,7 @@ const Sidebar = ({
               <Button
                 variant={"outline"}
                 data-testid="import-custom-block"
-                onClick={() => handleImportCustomBlocks(false)}
+                onClick={handleImport}
               >
                 <ImportIcon size={26} className="pr-2" />
                 Import Custom Blocks
