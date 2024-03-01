@@ -1,13 +1,13 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { BlockResult } from "@/renderer/routes/common/types/ResultsType";
-import { ServerStatus } from "@/renderer/types/socket";
+import { ServerStatus, WorkerJobResponse } from "@/renderer/types/socket";
 
 type State = {
   runningNode: string;
-  blockResults: BlockResult[];
+  blockResults: Record<string, BlockResult>;
 
-  serverStatus: ServerStatus;
+  serverStatus: string;
   failedNodes: Record<string, string>;
   socketId: string;
   logs: string[];
@@ -15,15 +15,8 @@ type State = {
 
 type Actions = {
   setServerStatus: (val: ServerStatus) => void;
-
-  addBlockResult: (val: BlockResult) => void;
+  processWorkerResponse: (res: WorkerJobResponse) => void;
   wipeBlockResults: () => void;
-
-  setRunningNode: (val: string) => void;
-  setFailedNodes: (val: Record<string, string>) => void;
-
-  appendLog: (val: string) => void;
-
   setSocketId: (val: string) => void;
 };
 
@@ -36,44 +29,37 @@ export const useSocketStore = create<State & Actions>()(
       });
     },
 
-    blockResults: [],
-    addBlockResult: (val) => {
-      set((state) => {
-        const blockExistInResult = state.blockResults.find(
-          (block) => block.id === val.id,
-        );
-
-        if (blockExistInResult) {
-          state.blockResults = state.blockResults.map((block) => {
-            if (block.id === val.id) {
-              return val;
-            }
-            return block;
-          });
-        }
-        return state.blockResults.push(val);
-      });
+    processWorkerResponse: (res) => {
+      if (res.SYSTEM_STATUS) {
+        set({
+          serverStatus:
+            res.SYSTEM_STATUS === ServerStatus.RUN_COMPLETE
+              ? ServerStatus.STANDBY
+              : res.SYSTEM_STATUS,
+        });
+      }
+      if (res.NODE_RESULTS) {
+        set((state) => {
+          const nodeResult = res.NODE_RESULTS!;
+          state.blockResults[nodeResult.id] = nodeResult;
+        });
+      }
+      if (res.RUNNING_NODE) {
+        set({ runningNode: res.RUNNING_NODE });
+      }
+      if (res.FAILED_NODES) {
+        set({ failedNodes: res.FAILED_NODES });
+      }
     },
+
+    blockResults: {},
     wipeBlockResults: () => {
-      set({ blockResults: [] });
+      set({ blockResults: {} });
     },
 
     runningNode: "",
-    setRunningNode: (val) => {
-      set({ runningNode: val });
-    },
-
     failedNodes: {},
-    setFailedNodes: (val) => {
-      set({ failedNodes: val });
-    },
-
     logs: [],
-    appendLog: (val) => {
-      set((state) => {
-        state.logs.push(val);
-      });
-    },
 
     socketId: "",
     setSocketId: (val) => {

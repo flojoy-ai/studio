@@ -1,4 +1,4 @@
-import { NodeResult } from "@/renderer/routes/common/types/ResultsType";
+import { BlockResult } from "@/renderer/routes/common/types/ResultsType";
 import {
   createContext,
   useCallback,
@@ -15,15 +15,16 @@ import { useManifestStore } from "@/renderer/stores/manifest";
 import { useShallow } from "zustand/react/shallow";
 import { HTTPError } from "ky";
 import { ZodError } from "zod";
-import { ServerStatus } from "@/renderer/types/socket";
+import { ServerStatus, WorkerJobResponse } from "@/renderer/types/socket";
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";
+import { useSocketStore } from "@/renderer/stores/socket";
 
 type SocketState = {
-  programResults: NodeResult[];
-  resetProgramResults: () => void;
   runningNode: string;
   serverStatus: ServerStatus;
+  blockResults: Record<string, BlockResult>;
   failedNodes: Record<string, string>;
+  wipeBlockResults: () => void;
   socketId: string;
   logs: string[];
 };
@@ -45,15 +46,34 @@ export const SocketContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [socket, setSocket] = useState<WebSocket>();
-  const [socketId, setSocketId] = useState<string>("");
-  const [serverStatus, setServerStatus] = useState<ServerStatus>(
-    ServerStatus.CONNECTING,
-  );
-  const [runningNode, setRunningNode] = useState("");
-  const [failedNodes, setFailedNodes] = useState<Record<string, string>>({});
+  const {
+    runningNode,
 
-  const [programResults, setProgramResults] = useState<NodeResult[]>([]);
-  const [logs, setLogs] = useState<string[]>([]);
+    blockResults,
+    serverStatus,
+    failedNodes,
+    socketId,
+    logs,
+
+    processWorkerResponse,
+    setServerStatus,
+    wipeBlockResults,
+    setSocketId,
+  } = useSocketStore(
+    useShallow((state) => ({
+      runningNode: state.runningNode,
+      blockResults: state.blockResults,
+      serverStatus: state.serverStatus,
+      failedNodes: state.failedNodes,
+      socketId: state.socketId,
+      logs: state.logs,
+
+      processWorkerResponse: state.processWorkerResponse,
+      setServerStatus: state.setServerStatus,
+      wipeBlockResults: state.wipeBlockResults,
+      setSocketId: state.setSocketId,
+    })),
+  );
 
   const hardwareRefetch = useHardwareRefetch();
   const { fetchManifest, importCustomBlocks, setManifestChanged } =
@@ -102,102 +122,90 @@ export const SocketContextProvider = ({
   const fetchDMMDevices = deviceSettings.nidmmDeviceDiscovery.value;
 
   useEffect(() => {
-    if (!socket) {
-      console.log("Creating new WebSocket connection to backend");
-      const socketId = UUID();
-      const ws = new WebSocket(
-        `ws://${env.VITE_BACKEND_HOST}:${env.VITE_BACKEND_PORT}/ws/${socketId}`,
-      );
-      ws.onmessage = (ev) => {
-        const data = JSON.parse(ev.data);
-        switch (data.type) {
-          case "worker_response":
-            if (ResponseEnum.systemStatus in data) {
-              setServerStatus(data[ResponseEnum.systemStatus]);
-              if (
-                data[ResponseEnum.systemStatus] === ServerStatus.RUN_COMPLETE
-              ) {
-                setServerStatus(ServerStatus.STANDBY);
-              }
-            }
-            if (ResponseEnum.nodeResults in data) {
-              setProgramResults((prev) => {
-                const resultIo = data[ResponseEnum.nodeResults];
-                const isExist = prev.find((node) => node.id === resultIo.id);
-                if (isExist) {
-                  const filterResult = prev.filter(
-                    (node) => node.id !== resultIo.id,
-                  );
-                  return [...filterResult, resultIo];
-                }
-                return [...prev, resultIo];
-              });
-            }
-            if (ResponseEnum.runningNode in data) {
-              setRunningNode(data[ResponseEnum.runningNode]);
-            }
-            if (ResponseEnum.failedNodes in data) {
-              setFailedNodes(data[ResponseEnum.failedNodes]);
-            }
-            if (ResponseEnum.log in data) {
-              setLogs((prev) => [...prev, data[ResponseEnum.log]]);
-            }
-            break;
-          case "connection_established":
-            setSocketId(data.socketId);
-            if (ResponseEnum.systemStatus in data) {
-              setServerStatus(data[ResponseEnum.systemStatus]);
-            }
-            hardwareRefetch(fetchDriverDevices, fetchDMMDevices);
-            doFetch();
-            doImport();
-            sendEventToMix("Initial Status", {
-              "Server Status": "Connection Established",
-            });
-            break;
-          case "manifest_update":
-            doFetch();
-            doImport();
-            setManifestChanged(true);
-            toast("Changes detected, syncing blocks with changes...");
-            break;
-          default:
-            console.log(" default data type: ", data);
-            break;
+    if (socket !== undefined) return;
+    const ws = new WebSocket(
+      `ws://${env.VITE_BACKEND_HOST}:${env.VITE_BACKEND_PORT}/ws/${UUID()}`,
+    );
+    ws.onmessage = (ev) => {
+      const data = JSON.parse(ev.data);
+      switch (data.type) {
+        case "worker_response": {
+          // const res = WorkerJobResponse.safeParse(data);
+          // if (!res.success) {
+          //   console.log(
+          //     "failed to validate worker response: ",
+          //     res.error.message,
+          //   );
+          //   return;
+          // }
+          processWorkerResponse(data);
+          break;
         }
-      };
-      ws.onclose = (ev) => {
-        console.log("socket closed with event:", ev);
-        setSocket(undefined);
-      };
-      ws.onerror = (event) => {
-        console.log("Error Event: ", event);
-        setServerStatus(ServerStatus.OFFLINE);
-      };
-      setSocket(ws);
-    }
+        case "connection_established":
+          setSocketId(data.socketId);
+          if (ResponseEnum.systemStatus in data) {
+            setServerStatus(data[ResponseEnum.systemStatus]);
+          }
+          hardwareRefetch(fetchDriverDevices, fetchDMMDevices);
+          doFetch();
+          doImport();
+          sendEventToMix("Initial Status", {
+            "Server Status": "Connection Established",
+          });
+          break;
+        case "manifest_update":
+          doFetch();
+          doImport();
+          setManifestChanged(true);
+          toast("Changes detected, syncing blocks with changes...");
+          break;
+        default:
+          console.log(" default data type: ", data);
+          break;
+      }
+    };
+    ws.onclose = (ev) => {
+      console.log("socket closed with event:", ev);
+      setSocket(undefined);
+    };
+    ws.onerror = (event) => {
+      console.log("Error Event: ", event);
+      setServerStatus(ServerStatus.OFFLINE);
+    };
+    setSocket(ws);
   }, [
     hardwareRefetch,
-    socket,
     setManifestChanged,
     importCustomBlocks,
     fetchDriverDevices,
     fetchDMMDevices,
     doFetch,
     doImport,
+    socket,
+    setSocketId,
+    processWorkerResponse,
+    setServerStatus,
   ]);
 
-  const values = useMemo(
+  const values: SocketState = useMemo(
     () => ({
       socketId,
       runningNode,
       serverStatus,
       failedNodes,
-      programResults,
-      resetProgramResults: () => setProgramResults([]),
+      blockResults,
+      wipeBlockResults,
       logs,
     }),
-    [socketId, runningNode, serverStatus, failedNodes, programResults, logs],
+    [
+      socketId,
+      runningNode,
+      serverStatus,
+      failedNodes,
+      blockResults,
+      wipeBlockResults,
+      logs,
+    ],
   );
   return (
     <SocketContext.Provider value={values}>{children}</SocketContext.Provider>

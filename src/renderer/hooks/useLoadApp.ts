@@ -1,17 +1,14 @@
-import { useSocket } from "@/renderer/hooks/useSocket";
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";
-import { useProjectStore } from "@/renderer/stores/project";
 import { useMetadata, useManifest } from "@/renderer/stores/manifest";
 import { useAppStore } from "@/renderer/stores/app";
 import { toast } from "sonner";
 import { Project } from "@/renderer/types/project";
 
 import { useShallow } from "zustand/react/shallow";
+import { useLoadProject } from "@/renderer/stores/project";
 
 export const useLoadApp = () => {
-  const loadProject = useProjectStore(useShallow((state) => state.loadProject));
-
-  const { resetProgramResults } = useSocket();
+  const loadProject = useLoadProject();
 
   const setShowWelcomeScreen = useAppStore(
     useShallow((state) => state.setShowWelcomeScreen),
@@ -36,9 +33,7 @@ export const useLoadApp = () => {
         sendEventToMix("Selected Files");
         const project = JSON.parse(fileContent) as Project;
 
-        loadProject(project, manifest, metadata, filePath);
-
-        resetProgramResults();
+        loadProject(project, filePath);
         setShowWelcomeScreen(false);
       })
       .catch((errors) => {

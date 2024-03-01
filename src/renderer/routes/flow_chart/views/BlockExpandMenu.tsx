@@ -1,15 +1,12 @@
-import { NodeResult } from "@/renderer/routes/common/types/ResultsType";
-// import { useFlowChartState } from "@/renderer/hooks/useFlowChartState";
+import { BlockResult } from "@/renderer/routes/common/types/ResultsType";
 import { Node } from "reactflow";
 import { BlockData } from "@/renderer/types";
 import BlockModal from "./BlockModal";
-import { useEffect, useState } from "react";
-// import { useFlowChartTabState } from "../FlowChartTabState";
 
 type BlockExpandMenuProps = {
   modalIsOpen: boolean;
   setModalOpen: (open: boolean) => void;
-  nodeResults: NodeResult[];
+  blockResults: Record<string, BlockResult>;
   selectedNode: Node<BlockData> | null;
   pythonString: string;
   blockFilePath: string;
@@ -17,11 +14,10 @@ type BlockExpandMenuProps = {
 };
 
 export const BlockExpandMenu = ({
-  nodeResults,
+  blockResults,
   ...props
 }: BlockExpandMenuProps) => {
   const { selectedNode } = props;
-  const [nodeResult, setNodeResult] = useState<NodeResult | null>(null);
   // const onSelectionChange = () => {
   //   if (!selectedNode) {
   //     setIsExpandMode(false);
@@ -30,18 +26,12 @@ export const BlockExpandMenu = ({
 
   // useOnSelectionChange({ onChange: onSelectionChange });
 
-  useEffect(() => {
-    setNodeResult(
-      nodeResults.find((node) => node.id === selectedNode?.id) ?? null,
-    );
-  }, [selectedNode, nodeResults]);
-
   return (
     <div className="relative" data-testid="node-modal">
       {selectedNode && (
         <BlockModal
           {...props}
-          nd={nodeResult}
+          nd={blockResults[selectedNode.id] ?? null}
           selectedNode={selectedNode}
           data-testid="expand-menu"
         />

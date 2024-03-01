@@ -13,7 +13,6 @@ import { useShallow } from "zustand/react/shallow";
 import * as galleryItems from "@/renderer/data/apps";
 import { ExampleProjects } from "@/renderer/data/docs-example-apps";
 import * as RECIPES from "@/renderer/data/RECIPES";
-import { BlockManifest, BlockMetadata } from "@/renderer/types/manifest";
 import { syncFlowchartWithManifest } from "@/renderer/lib/sync";
 import {
   MixPanelEvents,
@@ -51,6 +50,7 @@ import {
   tryCatchPromise,
   tryParse,
 } from "@/types/result";
+import { useSocketStore } from "./socket";
 
 type State = {
   name: string | undefined;
@@ -63,13 +63,6 @@ type State = {
 };
 
 type Actions = {
-  loadProject: (
-    project: Project,
-    manifest: BlockManifest,
-    metadata: BlockMetadata,
-    path?: string,
-  ) => void;
-
   setProjectName: (name: string) => void;
 
   updateBlockParameter: (
@@ -139,38 +132,6 @@ export const useProjectStore = create<State & Actions>()(
       });
     },
 
-    loadProject: (
-      project: Project,
-      manifest: BlockManifest,
-      metadata: BlockMetadata,
-      path?: string,
-    ) => {
-      const {
-        name,
-        rfInstance: { nodes, edges },
-        textNodes,
-      } = project;
-      const [syncedNodes, syncedEdges] = syncFlowchartWithManifest(
-        nodes,
-        edges,
-        manifest,
-        metadata,
-      );
-
-      set({
-        nodes: syncedNodes,
-        edges: syncedEdges,
-        textNodes: textNodes ?? [],
-        name,
-        path,
-      });
-
-      setHasUnsavedChanges(false);
-
-      // toast("Synced blocks with manifest.");
-
-      sendEventToMix("Project Loaded");
-    },
     updateBlockParameter: (
       blockId: string,
       paramName: string,
@@ -356,6 +317,55 @@ export const useProjectStore = create<State & Actions>()(
     },
   })),
 );
+
+export const useLoadProject = () => {
+  const wipeBlockResults = useSocketStore(
+    useShallow((state) => state.wipeBlockResults),
+  );
+
+  const manifest = useManifest();
+  const metadata = useMetadata();
+
+  return useCallback(
+    (project: Project, path?: string) => {
+      if (!manifest || !metadata) {
+        return Err(
+          new Error(
+            "Manifest and metadata are still loading, can't load project yet.",
+          ),
+        );
+      }
+
+      const {
+        name,
+        rfInstance: { nodes, edges },
+        textNodes,
+      } = project;
+      const [syncedNodes, syncedEdges] = syncFlowchartWithManifest(
+        nodes,
+        edges,
+        manifest,
+        metadata,
+      );
+
+      useProjectStore.setState({
+        nodes: syncedNodes,
+        edges: syncedEdges,
+        textNodes: textNodes ?? [],
+        name,
+        path,
+      });
+
+      setHasUnsavedChanges(false);
+      wipeBlockResults();
+
+      sendEventToMix("Project Loaded");
+
+      return Ok(undefined);
+    },
+    [manifest, metadata, wipeBlockResults],
+  );
+};
 
 export const useAddBlock = () => {
   const { setNodes } = useProtectedGraphUpdate();

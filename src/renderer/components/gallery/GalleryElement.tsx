@@ -4,12 +4,8 @@ import { Button } from "@/renderer/components/ui/button";
 import { Avatar, AvatarImage } from "@/renderer/components/ui/avatar";
 import { GalleryApp } from "@/renderer/types/gallery";
 import { useEffect } from "react";
-import { useSocket } from "@/renderer/hooks/useSocket";
-import { useProjectStore } from "@/renderer/stores/project";
-import { useMetadata, useManifest } from "@/renderer/stores/manifest";
+import { useLoadProject } from "@/renderer/stores/project";
 import { Project } from "@/renderer/types/project";
-import { toast } from "sonner";
-import { useShallow } from "zustand/react/shallow";
 
 export interface AppGalleryElementProps {
   galleryApp: GalleryApp;
@@ -20,28 +16,17 @@ export const GalleryElement = ({
   galleryApp,
   setIsGalleryOpen,
 }: AppGalleryElementProps) => {
-  const loadProject = useProjectStore(useShallow((state) => state.loadProject));
+  const loadProject = useLoadProject();
 
   const rfInstance = useReactFlow();
   const nodesInitialized = useNodesInitialized();
-  const { resetProgramResults } = useSocket();
-  const manifest = useManifest();
-  const metadata = useMetadata();
 
   const handleAppLoad = async () => {
     const raw = await import(`../../data/apps/${galleryApp.appPath}.json`);
     const app = raw as Project;
-    if (!manifest || !metadata) {
-      toast.error(
-        "Manifest and metadata are still loading, can't load project yet.",
-      );
-      return;
-    }
 
-    loadProject(app, manifest, metadata);
+    loadProject(app);
     setIsGalleryOpen(false);
-
-    resetProgramResults();
   };
 
   useEffect(() => {

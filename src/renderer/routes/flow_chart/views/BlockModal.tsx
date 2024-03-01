@@ -13,7 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/renderer/components/ui/dialog";
-import { NodeResult } from "@/renderer/routes/common/types/ResultsType";
+import { BlockResult } from "@/renderer/routes/common/types/ResultsType";
 import { BlockData } from "@/renderer/types/node";
 import { ScrollArea, ScrollBar } from "@/renderer/components/ui/scroll-area";
 import { useTheme } from "@/renderer/providers/themeProvider";
@@ -49,7 +49,7 @@ SyntaxHighlighter.registerLanguage("json", json);
 export type BlockModalProps = {
   modalIsOpen: boolean;
   setModalOpen: (open: boolean) => void;
-  nd: NodeResult | null;
+  nd: BlockResult | null;
   pythonString: string;
   blockFilePath: string;
   blockFullPath: string;
@@ -178,7 +178,7 @@ const BlockModal = ({
 };
 
 type NodeModalDataVizProps = {
-  nd: NodeResult;
+  nd: BlockResult;
   selectedNode: Node<BlockData>;
   theme: "light" | "dark";
 };

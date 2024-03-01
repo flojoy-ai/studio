@@ -6,7 +6,7 @@ export type ResultIO = {
   id: string;
   result: Result;
 };
-export type NodeResult = {
+export type BlockResult = {
   cmd: string;
   id: string;
   result: Result;

@@ -58,6 +58,8 @@ const VisorBlock = ({ selected, id, data }: BlockProps) => {
   const plotlyFig = nodeResult?.result?.plotly_fig;
   const textBlob = nodeResult?.result?.text_blob;
 
+  console.log(plotlyFig);
+
   const plotlyData = useMemo(
     () =>
       plotlyFig ? makePlotlyData(plotlyFig.data, resolvedTheme, true) : null,

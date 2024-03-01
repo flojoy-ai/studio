@@ -126,7 +126,7 @@ const FlowChartTab = () => {
 
   const { resolvedTheme } = useTheme();
 
-  const { programResults, resetProgramResults } = useSocket();
+  const { blockResults, wipeBlockResults } = useSocket();
 
   const {
     pythonString,
@@ -254,10 +254,10 @@ const FlowChartTab = () => {
 
   const clearCanvas = useCallback(() => {
     clearProjectCanvas();
-    resetProgramResults();
+    wipeBlockResults();
 
     sendEventToMix(MixPanelEvents.canvasCleared);
-  }, [clearProjectCanvas, resetProgramResults]);
+  }, [clearProjectCanvas, wipeBlockResults]);
 
   useEffect(() => {
     if (selectedNode === null || !metadata) {
@@ -517,7 +517,7 @@ const FlowChartTab = () => {
             selectedNode={selectedNode}
             modalIsOpen={nodeModalOpen}
             setModalOpen={setNodeModalOpen}
-            nodeResults={programResults}
+            blockResults={blockResults}
             pythonString={pythonString}
             blockFilePath={nodeFilePath}
             blockFullPath={blockFullPath}

@@ -15,3 +15,25 @@ export enum ServerStatus {
 
 export const ServerStatusEnum = z.nativeEnum(ServerStatus);
 export type ServerStatusEnum = z.infer<typeof ServerStatusEnum>;
+
+export const WorkerJobResponse = z.object({
+  jobsetId: z.string(),
+  socketId: z.string().optional(),
+  SYSTEM_STATUS: z.string().optional(),
+  type: z.enum([
+    "worker_response",
+    "connection_established",
+    "manifest_update",
+  ]),
+  FAILED_NODES: z.record(z.string()).optional(),
+  RUNNING_NODE: z.string().optional(),
+  NODE_RESULTS: z
+    .object({
+      cmd: z.string(),
+      id: z.string(),
+      result: z.unknown(),
+    })
+    .optional(),
+});
+
+export type WorkerJobResponse = z.infer<typeof WorkerJobResponse>;
