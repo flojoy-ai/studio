@@ -5,10 +5,9 @@ import DefaultBlock from "./default-block";
 
 const DSPBlock = (props: CustomNodeProps) => {
   return (
-    <DefaultBlock
-      {...props}
-      SVGComponent={<DspBlockSvg blockName={props.data.func} />}
-    />
+    <DefaultBlock {...props}>
+      <DspBlockSvg blockName={props.data.func} />
+    </DefaultBlock>
   );
 };
 

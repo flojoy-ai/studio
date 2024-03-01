@@ -40,31 +40,26 @@ const VisorBlock = (props: CustomNodeProps) => {
           updateNodeInternals(id);
         }}
       />
-      <DefaultBlock
-        {...props}
-        variant="accent5"
-        width={dimensions.width}
-        SVGComponent={
-          <>
-            {plotlyData && (
-              <PlotlyComponent
-                data={plotlyData}
-                id={data.id}
-                layout={plotlyFig?.layout ?? {}}
-                useResizeHandler
-                isThumbnail
-                style={dimensions}
-              />
-            )}
-            {textBlob && <MarkDownText text={textBlob} isThumbnail />}
-            {!plotlyData && !textBlob && (
-              <div className="p-3">
-                <VisorSvg blockName={data.func} />
-              </div>
-            )}
-          </>
-        }
-      />
+      <DefaultBlock {...props} variant="accent5" width={dimensions.width}>
+        <>
+          {plotlyData && (
+            <PlotlyComponent
+              data={plotlyData}
+              id={data.id}
+              layout={plotlyFig?.layout ?? {}}
+              useResizeHandler
+              isThumbnail
+              style={dimensions}
+            />
+          )}
+          {textBlob && <MarkDownText text={textBlob} isThumbnail />}
+          {!plotlyData && !textBlob && (
+            <div className="p-3">
+              <VisorSvg blockName={data.func} />
+            </div>
+          )}
+        </>
+      </DefaultBlock>
     </>
   );
 };

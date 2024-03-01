@@ -3,7 +3,7 @@ import { textWrap } from "@/renderer/utils/TextWrap";
 
 type BlockLabelProps = {
   label: string;
-  variant?: "accent1" | "accent2" | "accent3" | "accent-boolean" | "accent5";
+  variant?: "accent1" | "accent2" | "accent3" | "accent6" | "accent5";
   labelPosition?: "left" | "right" | "center";
 };
 

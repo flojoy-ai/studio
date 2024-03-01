@@ -5,11 +5,9 @@ import DefaultBlock from "./default-block";
 
 const TypeCastingBlock = (props: CustomNodeProps) => {
   return (
-    <DefaultBlock
-      {...props}
-      SVGComponent={<TypeCasting blockName={props.data.func} />}
-      showLabel={false}
-    />
+    <DefaultBlock {...props} showLabel={false}>
+      <TypeCasting blockName={props.data.func} />
+    </DefaultBlock>
   );
 };
 

@@ -11,8 +11,7 @@ type DefaultBlockProps = CustomNodeProps & {
   width?: CSSProperties["width"];
   height?: number;
   children?: React.ReactNode;
-  variant?: "accent1" | "accent2" | "accent3" | "accent-boolean" | "accent5";
-  SVGComponent?: React.JSX.Element;
+  variant?: "accent1" | "accent2" | "accent3" | "accent6" | "accent5";
   showLabel?: boolean;
   className?: string;
   labelPosition?: "left" | "right" | "center";
@@ -25,7 +24,6 @@ const DefaultBlock = ({
   height,
   children,
   variant = "accent2",
-  SVGComponent,
   showLabel = true,
   className,
   labelPosition,
@@ -52,19 +50,18 @@ const DefaultBlock = ({
         }}
         onDoubleClick={() => setIsRenamingTitle(true)}
       >
-        {children ??
-          (isRenamingTitle ? (
-            <NodeInput
-              title={data.label}
-              id={data.id}
-              setIsRenamingTitle={setIsRenamingTitle}
-            />
-          ) : (
-            SVGComponent ?? <BlockLabel label={data.label} variant={variant} />
-          ))}
+        {isRenamingTitle ? (
+          <NodeInput
+            title={data.label}
+            id={data.id}
+            setIsRenamingTitle={setIsRenamingTitle}
+          />
+        ) : (
+          children ?? <BlockLabel label={data.label} variant={variant} />
+        )}
         <HandleComponent data={data} variant={variant} />
       </div>
-      {showLabel && SVGComponent && (
+      {showLabel && children && (
         <BlockLabel
           label={data.label}
           variant={variant}

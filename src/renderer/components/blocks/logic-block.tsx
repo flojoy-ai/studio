@@ -5,11 +5,9 @@ import appendSvg from "@/renderer/assets/blocks/append-svg";
 
 const LogicBlock = (props: CustomNodeProps) => {
   return (
-    <DefaultBlock
-      {...props}
-      variant="accent3"
-      SVGComponent={props.data.func === "APPEND" ? appendSvg : undefined}
-    />
+    <DefaultBlock {...props} variant="accent3">
+      <>{props.data.func === "APPEND" ? appendSvg : undefined}</>
+    </DefaultBlock>
   );
 };
 

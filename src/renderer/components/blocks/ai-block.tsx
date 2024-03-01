@@ -5,11 +5,9 @@ import DefaultBlock from "./default-block";
 
 const AIBlock = (props: CustomNodeProps) => {
   return (
-    <DefaultBlock
-      {...props}
-      variant="accent-boolean"
-      SVGComponent={<AIBlockSvg blockName={props.data.func} />}
-    />
+    <DefaultBlock {...props} variant="accent6">
+      <AIBlockSvg blockName={props.data.func} />
+    </DefaultBlock>
   );
 };
 

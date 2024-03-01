@@ -13,7 +13,7 @@ const handle = cva(undefined, {
       accent2: "!border-accent2 !bg-accent2",
       accent3: "!border-accent3 !bg-accent3",
       accent4: "!border-accent4",
-      "accent-boolean": "!border-accent-boolean !bg-accent-boolean",
+      accent6: "!border-accent6 !bg-accent6",
       accent5: "!border-accent5 !bg-accent5",
     },
   },

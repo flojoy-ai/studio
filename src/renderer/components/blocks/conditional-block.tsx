@@ -14,10 +14,9 @@ export const ConditionalNode = (props: CustomNodeProps) => {
       labelPosition="left"
       width={"fit-content"}
       className="!border-none !p-0"
-      SVGComponent={
-        <TransformSvg operatorString={operator} variant="accent3" />
-      }
-    />
+    >
+      <TransformSvg operatorString={operator} variant="accent3" />
+    </DefaultBlock>
   );
 };
 

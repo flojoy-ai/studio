@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-type Variant = "accent2" | "accent3" | "accent4" | "accent-boolean";
+type Variant = "accent2" | "accent3" | "accent4" | "accent6";
 export const handleVariant = (variant: Variant) => {
   switch (variant) {
     case "accent2":

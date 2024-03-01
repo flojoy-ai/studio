@@ -5,10 +5,9 @@ import DefaultBlock from "./default-block";
 
 const DataNode = (props: CustomNodeProps) => {
   return (
-    <DefaultBlock
-      {...props}
-      SVGComponent={<DataBlockSvg blockName={props.data.func} />}
-    />
+    <DefaultBlock {...props}>
+      <DataBlockSvg blockName={props.data.func} />
+    </DefaultBlock>
   );
 };
 

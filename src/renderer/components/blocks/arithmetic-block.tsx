@@ -21,14 +21,13 @@ const ArithmeticBlock = (props: CustomNodeProps) => {
       {...props}
       labelPosition="left"
       width={"fit-content"}
-      SVGComponent={
-        <TransformSvg
-          operatorString={operatorMap[props.data.func]}
-          variant="accent2"
-        />
-      }
       className={"!border-none !p-0"}
-    />
+    >
+      <TransformSvg
+        operatorString={operatorMap[props.data.func]}
+        variant="accent2"
+      />
+    </DefaultBlock>
   );
 };
 

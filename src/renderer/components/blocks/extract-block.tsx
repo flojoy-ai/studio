@@ -5,10 +5,9 @@ import DefaultBlock from "./default-block";
 
 const ExtractBlock = (props: CustomNodeProps) => {
   return (
-    <DefaultBlock
-      {...props}
-      SVGComponent={<ExtractSvg blockName={props.data.func} />}
-    />
+    <DefaultBlock {...props}>
+      <ExtractSvg blockName={props.data.func} />
+    </DefaultBlock>
   );
 };
 
