@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { immer } from "zustand/middleware/immer";
 import { BlockResult } from "@/renderer/routes/common/types/ResultsType";
 import { ServerStatus, WorkerJobResponse } from "@/renderer/types/socket";
 
@@ -14,56 +13,59 @@ type State = {
 };
 
 type Actions = {
-  setServerStatus: (val: ServerStatus) => void;
+  setServerStatus: (val: string) => void;
   processWorkerResponse: (res: WorkerJobResponse) => void;
   wipeBlockResults: () => void;
   setSocketId: (val: string) => void;
 };
 
-export const useSocketStore = create<State & Actions>()(
-  immer((set) => ({
-    serverStatus: ServerStatus.CONNECTING,
-    setServerStatus: (val) => {
-      set((state) => {
-        state.serverStatus = val;
+// Immer breaks the blockResults setting for some reason??????????
+export const useSocketStore = create<State & Actions>()((set) => ({
+  serverStatus: ServerStatus.CONNECTING,
+  setServerStatus: (val) => {
+    set({ serverStatus: val });
+  },
+
+  processWorkerResponse: (res) => {
+    if (res.SYSTEM_STATUS) {
+      set({
+        serverStatus:
+          res.SYSTEM_STATUS === ServerStatus.RUN_COMPLETE
+            ? ServerStatus.STANDBY
+            : res.SYSTEM_STATUS,
       });
-    },
+    }
+    if (res.NODE_RESULTS) {
+      set((state) => {
+        const result = res.NODE_RESULTS!;
+        return {
+          ...state,
+          blockResults: {
+            ...state.blockResults,
+            [result.id]: result,
+          },
+        };
+      });
+    }
+    if (res.RUNNING_NODE) {
+      set({ runningNode: res.RUNNING_NODE });
+    }
+    if (res.FAILED_NODES) {
+      set({ failedNodes: res.FAILED_NODES });
+    }
+  },
 
-    processWorkerResponse: (res) => {
-      if (res.SYSTEM_STATUS) {
-        set({
-          serverStatus:
-            res.SYSTEM_STATUS === ServerStatus.RUN_COMPLETE
-              ? ServerStatus.STANDBY
-              : res.SYSTEM_STATUS,
-        });
-      }
-      if (res.NODE_RESULTS) {
-        set((state) => {
-          const nodeResult = res.NODE_RESULTS!;
-          state.blockResults[nodeResult.id] = nodeResult;
-        });
-      }
-      if (res.RUNNING_NODE) {
-        set({ runningNode: res.RUNNING_NODE });
-      }
-      if (res.FAILED_NODES) {
-        set({ failedNodes: res.FAILED_NODES });
-      }
-    },
+  blockResults: {},
+  wipeBlockResults: () => {
+    set({ blockResults: {} });
+  },
 
-    blockResults: {},
-    wipeBlockResults: () => {
-      set({ blockResults: {} });
-    },
+  runningNode: "",
+  failedNodes: {},
+  logs: [],
 
-    runningNode: "",
-    failedNodes: {},
-    logs: [],
-
-    socketId: "",
-    setSocketId: (val) => {
-      set({ socketId: val });
-    },
-  })),
-);
+  socketId: "",
+  setSocketId: (val) => {
+    set({ socketId: val });
+  },
+}));

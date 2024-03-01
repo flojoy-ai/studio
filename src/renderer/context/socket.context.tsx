@@ -21,22 +21,13 @@ import { useSocketStore } from "@/renderer/stores/socket";
 
 type SocketState = {
   runningNode: string;
-  serverStatus: ServerStatus;
+  serverStatus: string;
   blockResults: Record<string, BlockResult>;
   failedNodes: Record<string, string>;
   wipeBlockResults: () => void;
   socketId: string;
   logs: string[];
 };
-
-enum ResponseEnum {
-  systemStatus = "SYSTEM_STATUS",
-  nodeResults = "NODE_RESULTS",
-  runningNode = "RUNNING_NODE",
-  failedNodes = "FAILED_NODES",
-  preJobOperation = "PRE_JOB_OP",
-  log = "BACKEND_LOG",
-}
 
 export const SocketContext = createContext<SocketState | null>(null);
 
@@ -127,24 +118,25 @@ export const SocketContextProvider = ({
       `ws://${env.VITE_BACKEND_HOST}:${env.VITE_BACKEND_PORT}/ws/${UUID()}`,
     );
     ws.onmessage = (ev) => {
-      const data = JSON.parse(ev.data);
-      switch (data.type) {
+      const msg = JSON.parse(ev.data);
+      switch (msg.type) {
         case "worker_response": {
-          // const res = WorkerJobResponse.safeParse(data);
-          // if (!res.success) {
-          //   console.log(
-          //     "failed to validate worker response: ",
-          //     res.error.message,
-          //   );
-          //   return;
-          // }
+          const res = WorkerJobResponse.safeParse(msg);
+          if (!res.success) {
+            console.error(
+              "failed to validate worker response: ",
+              res.error.message,
+            );
+            return;
+          }
+          const data = res.data;
           processWorkerResponse(data);
           break;
         }
         case "connection_established":
-          setSocketId(data.socketId);
-          if (ResponseEnum.systemStatus in data) {
-            setServerStatus(data[ResponseEnum.systemStatus]);
+          setSocketId(msg.socketId);
+          if (msg.SYSTEM_STATUS) {
+            setServerStatus(msg.SYSTEM_STATUS);
           }
           hardwareRefetch(fetchDriverDevices, fetchDMMDevices);
           doFetch();
