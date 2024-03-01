@@ -1,4 +1,4 @@
-import { BlockResult } from "@/renderer/routes/common/types/ResultsType";
+import { BlockResult } from "@/renderer/types/block-result";
 import {
   createContext,
   useCallback,
@@ -119,24 +119,26 @@ export const SocketContextProvider = ({
     );
     ws.onmessage = (ev) => {
       const msg = JSON.parse(ev.data);
-      switch (msg.type) {
+      const res = WorkerJobResponse.safeParse(msg);
+      if (!res.success) {
+        console.error(
+          "failed to validate worker response: ",
+          res.error.message,
+        );
+        return;
+      }
+      const data = res.data;
+      switch (data.type) {
         case "worker_response": {
-          const res = WorkerJobResponse.safeParse(msg);
-          if (!res.success) {
-            console.error(
-              "failed to validate worker response: ",
-              res.error.message,
-            );
-            return;
-          }
-          const data = res.data;
           processWorkerResponse(data);
           break;
         }
         case "connection_established":
-          setSocketId(msg.socketId);
-          if (msg.SYSTEM_STATUS) {
-            setServerStatus(msg.SYSTEM_STATUS);
+          if (data.socketId !== undefined) {
+            setSocketId(data.socketId);
+          }
+          if (data.SYSTEM_STATUS) {
+            setServerStatus(data.SYSTEM_STATUS);
           }
           hardwareRefetch(fetchDriverDevices, fetchDMMDevices);
           doFetch();

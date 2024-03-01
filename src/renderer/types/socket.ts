@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { BlockResult } from "./block-result";
 
 export enum ServerStatus {
   OFFLINE = "🛑 server offline",
@@ -17,7 +18,7 @@ export const ServerStatusEnum = z.nativeEnum(ServerStatus);
 export type ServerStatusEnum = z.infer<typeof ServerStatusEnum>;
 
 export const WorkerJobResponse = z.object({
-  jobsetId: z.string(),
+  jobsetId: z.string().optional(),
   socketId: z.string().optional(),
   SYSTEM_STATUS: z.string().optional(),
   type: z.enum([
@@ -31,7 +32,7 @@ export const WorkerJobResponse = z.object({
     .object({
       cmd: z.string(),
       id: z.string(),
-      result: z.unknown(),
+      result: z.custom<BlockResult>(),
     })
     .optional(),
 });

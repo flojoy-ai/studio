@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { BlockResult } from "@/renderer/routes/common/types/ResultsType";
+import { BlockResult } from "@/renderer/types/block-result";
 import { ServerStatus, WorkerJobResponse } from "@/renderer/types/socket";
 
 type State = {
@@ -19,7 +19,8 @@ type Actions = {
   setSocketId: (val: string) => void;
 };
 
-// Immer breaks the blockResults setting for some reason??????????
+// Don't change this to use Immer,
+// it breaks the blockResults setting for some reason??????????
 export const useSocketStore = create<State & Actions>()((set) => ({
   serverStatus: ServerStatus.CONNECTING,
   setServerStatus: (val) => {
@@ -42,7 +43,7 @@ export const useSocketStore = create<State & Actions>()((set) => ({
           ...state,
           blockResults: {
             ...state.blockResults,
-            [result.id]: result,
+            [result.id]: result.result,
           },
         };
       });

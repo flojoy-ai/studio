@@ -13,7 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/renderer/components/ui/dialog";
-import { BlockResult } from "@/renderer/routes/common/types/ResultsType";
+import { BlockResult } from "@/renderer/types/block-result";
 import { BlockData } from "@/renderer/types/node";
 import { ScrollArea, ScrollBar } from "@/renderer/components/ui/scroll-area";
 import { useTheme } from "@/renderer/providers/themeProvider";
@@ -49,7 +49,7 @@ SyntaxHighlighter.registerLanguage("json", json);
 export type BlockModalProps = {
   modalIsOpen: boolean;
   setModalOpen: (open: boolean) => void;
-  nd: BlockResult | null;
+  result: BlockResult | null;
   pythonString: string;
   blockFilePath: string;
   blockFullPath: string;
@@ -59,7 +59,7 @@ export type BlockModalProps = {
 const BlockModal = ({
   modalIsOpen,
   setModalOpen,
-  nd,
+  result,
   blockFilePath,
   blockFullPath,
   pythonString,
@@ -111,9 +111,9 @@ const BlockModal = ({
           Function Type:{" "}
           <code className="text-accent1">{selectedNode.data.type}</code>
         </h3>
-        {nd?.result && (
+        {result && (
           <NodeModalDataViz
-            nd={nd}
+            result={result}
             theme={resolvedTheme}
             selectedNode={selectedNode}
           />
@@ -178,31 +178,30 @@ const BlockModal = ({
 };
 
 type NodeModalDataVizProps = {
-  nd: BlockResult;
+  result: BlockResult;
   selectedNode: Node<BlockData>;
   theme: "light" | "dark";
 };
 
 const NodeModalDataViz = ({
-  nd,
+  result,
   selectedNode,
   theme,
 }: NodeModalDataVizProps) => {
   return (
     <div>
-      {nd.result.text_blob && (
+      {result.text_blob && (
         <div className="h-[600px] overflow-auto rounded-md bg-modal sm:max-w-xl md:max-w-4xl">
-          <MarkDownText text={nd.result.text_blob} />
+          <MarkDownText text={result.text_blob} />
         </div>
       )}
-      {nd.result.plotly_fig && (
+      {result.plotly_fig && (
         <div className="flex justify-center">
           <PlotlyComponent
-            data={makePlotlyData(nd.result.plotly_fig.data, theme)}
+            data={makePlotlyData(result.plotly_fig.data, theme)}
             layout={{
-              ...nd.result.plotly_fig.layout,
-              title:
-                nd.result.plotly_fig.layout?.title ?? selectedNode.data.func,
+              ...result.plotly_fig.layout,
+              title: result.plotly_fig.layout?.title ?? selectedNode.data.func,
             }}
             useResizeHandler
             theme={theme}

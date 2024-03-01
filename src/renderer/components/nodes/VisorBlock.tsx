@@ -55,10 +55,8 @@ const VisorBlock = ({ selected, id, data }: BlockProps) => {
   const { resolvedTheme } = useTheme();
   const { nodeRunning, nodeError, nodeResult } = useNodeStatus(data.id);
 
-  const plotlyFig = nodeResult?.result?.plotly_fig;
-  const textBlob = nodeResult?.result?.text_blob;
-
-  console.log(plotlyFig);
+  const plotlyFig = nodeResult?.plotly_fig;
+  const textBlob = nodeResult?.text_blob;
 
   const plotlyData = useMemo(
     () =>

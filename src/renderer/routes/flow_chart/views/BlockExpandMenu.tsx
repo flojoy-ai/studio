@@ -1,4 +1,4 @@
-import { BlockResult } from "@/renderer/routes/common/types/ResultsType";
+import { BlockResult } from "@/renderer/types/block-result";
 import { Node } from "reactflow";
 import { BlockData } from "@/renderer/types";
 import BlockModal from "./BlockModal";
