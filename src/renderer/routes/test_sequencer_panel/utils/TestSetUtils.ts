@@ -28,10 +28,10 @@ export const stringifyProject = (project: TestSequencerProject): string => {
 
 export const readJsonProject = (
   projectString: string
-): TestSequenceElement[] | null => {
+): TestSequencerProject | null => {
   try {
     // TODO: ZOD this
-    const project: TestSequenceElement[] = JSON.parse(projectString);
+    const project: TestSequencerProject = JSON.parse(projectString);
     return project;
   } catch (exception) {
     if (exception instanceof Error) {

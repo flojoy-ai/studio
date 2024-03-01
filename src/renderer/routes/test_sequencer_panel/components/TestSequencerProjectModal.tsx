@@ -25,6 +25,23 @@ export const TestSequencerProjectModal = ({
   const [type, setType] = useState<InterpreterType>("flojoy");
   const availableInterpreter: InterpreterType[] = ["flojoy", "poetry", "pipenv", "conda"]
 
+  function handleSubmit() {
+    handleCreate(
+      {
+        name: name,
+        description: description,
+        elems: elems,
+        projectPath: projectDirPath,
+        interpreter: {
+          type: type,
+          path: interpreterPath,
+        },
+        requirementFilePath: null,
+      },
+      handleProjectModalOpen
+    )
+  }
+
   return (
     <Dialog
       open={isProjectModalOpen}
@@ -68,19 +85,7 @@ export const TestSequencerProjectModal = ({
         </div>
         <Button 
           variant={"default"}
-          onClick={() => handleCreate(
-            {
-              name: name,
-              description: description,
-              elems: elems,
-              projectPath: projectDirPath,
-              interpreter: {
-                type: type,
-                path: interpreterPath,
-              },
-              requirementFilePath: null,
-            }
-          )}
+          onClick={() => handleSubmit()}
         > New Project </Button>
       </DialogContent>
     </Dialog>
