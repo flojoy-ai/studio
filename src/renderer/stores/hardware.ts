@@ -23,6 +23,7 @@ export const useHardwareStore = create<State & Actions>()(
       discoverNIDAQmxDevices = false,
       discoverNIDMMDevices = false,
     ) => {
+      set({ devices: undefined });
       const res = await getDeviceInfo(
         discoverNIDAQmxDevices,
         discoverNIDMMDevices,
