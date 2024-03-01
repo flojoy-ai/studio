@@ -70,7 +70,7 @@ export const GalleryModal = ({
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="flex h-4/5 max-w-screen-2xl flex-col">  
+      <DialogContent className="flex h-4/5 max-w-screen-2xl flex-col">
         <DialogHeader>
           <DialogTitle>
             <div className="text-3xl">App Gallery</div>
