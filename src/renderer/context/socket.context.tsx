@@ -16,33 +16,21 @@ import { useManifestStore } from "@/renderer/stores/manifest";
 import { useShallow } from "zustand/react/shallow";
 import { HTTPError } from "ky";
 import { ZodError } from "zod";
+import { ServerStatus } from "../types/socket";
 
 type SocketState = {
   programResults: NodeResult[];
   resetProgramResults: () => void;
   runningNode: string;
-  serverStatus: IServerStatus;
+  serverStatus: ServerStatus;
   failedNodes: Record<string, string>;
   socketId: string;
   logs: string[];
 };
 
-export enum IServerStatus {
-  OFFLINE = "🛑 server offline",
-  CONNECTING = "Connecting to server...",
-  RUN_IN_PROCESS = "🏃‍♀️ running script...",
-  RUN_COMPLETE = "🤙 python script run successful",
-  MISSING_RESULTS = "👽 no result found",
-  JOB_IN_QUEUE = "🎠 queuing python job= ",
-  RESULTS_RETURNED = "🔔 new results - check LOGS",
-  STANDBY = "🐢 awaiting a new job",
-  SERVER_ONLINE = "🏁 node server online",
-  NO_RUNS_YET = "⛷️ No runs yet",
-}
-
 const DEFAULT_STATES = {
   runningNode: "",
-  serverStatus: IServerStatus.CONNECTING,
+  serverStatus: ServerStatus.CONNECTING,
   failedNodes: {},
   socketId: "",
 };
@@ -107,7 +95,7 @@ export const SocketContextProvider = ({
 
   const handleStateChange =
     (state: keyof SocketState) =>
-    (value: string | number | Record<string, string> | IServerStatus) => {
+    (value: string | number | Record<string, string> | ServerStatus) => {
       setStates((prev) => ({
         ...prev,
         [state]: value,

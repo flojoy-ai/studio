@@ -2,7 +2,7 @@ import { Ban, Play } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
 import { useSocket } from "@/renderer/hooks/useSocket";
 import { sendProgramToMix } from "@/renderer/services/MixpanelServices";
-import { IServerStatus } from "@/renderer/context/socket.context";
+import { ServerStatus } from "@/renderer/types/socket";
 import WatchBtn from "./WatchBtn";
 import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
 import { useManifest } from "@/renderer/stores/manifest";
@@ -32,8 +32,8 @@ const FlowControlButtons = () => {
   const manifest = useManifest();
 
   const playBtnDisabled =
-    serverStatus === IServerStatus.CONNECTING ||
-    serverStatus === IServerStatus.OFFLINE;
+    serverStatus === ServerStatus.CONNECTING ||
+    serverStatus === ServerStatus.OFFLINE;
 
   const onRun = async () => {
     if (nodes.length === 0) {
@@ -72,7 +72,7 @@ const FlowControlButtons = () => {
 
   return (
     <>
-      {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
+      {playBtnDisabled || serverStatus === ServerStatus.STANDBY ? (
         <Button
           data-cy="btn-play"
           data-testid="btn-play"

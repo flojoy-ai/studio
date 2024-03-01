@@ -1,6 +1,6 @@
 import { Badge } from "@/renderer/components/ui/badge";
 import { useSocket } from "@/renderer/hooks/useSocket";
-import { IServerStatus } from "@/renderer/context/socket.context";
+import { ServerStatus } from "@/renderer/types/socket";
 import { useEffect, useRef, useState } from "react";
 import {
   BOTTOM_STATUS_BAR_HEIGHT,
@@ -55,7 +55,7 @@ const StatusBar = (): JSX.Element => {
       >
         {minimize && (
           <div className="flex min-w-fit items-center gap-2 ps-2">
-            {![IServerStatus.OFFLINE, IServerStatus.CONNECTING].includes(
+            {![ServerStatus.OFFLINE, ServerStatus.CONNECTING].includes(
               serverStatus,
             ) ? (
               <Badge>Operational</Badge>

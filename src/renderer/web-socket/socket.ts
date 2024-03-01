@@ -1,10 +1,10 @@
-import { IServerStatus } from "@/renderer/context/socket.context";
+import { ServerStatus } from "@/renderer/types/socket";
 import { NodeResult } from "@/renderer/routes/common/types/ResultsType";
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 
 interface WebSocketServerProps {
   url: string;
-  onPingResponse: (value: string | number | IServerStatus) => void;
+  onPingResponse: (value: string | number | ServerStatus) => void;
   onNodeResultsReceived: React.Dispatch<React.SetStateAction<NodeResult[]>>;
   handleRunningNode: (value: string) => void;
   handleFailedNodes: (value: Record<string, string>) => void;
@@ -66,10 +66,8 @@ export class WebSocketServer {
         case "worker_response":
           if (ResponseEnum.systemStatus in data) {
             this.handlePingResponse(data[ResponseEnum.systemStatus]);
-            if (
-              data[ResponseEnum.systemStatus] === IServerStatus.RUN_COMPLETE
-            ) {
-              this.handlePingResponse(IServerStatus.STANDBY);
+            if (data[ResponseEnum.systemStatus] === ServerStatus.RUN_COMPLETE) {
+              this.handlePingResponse(ServerStatus.STANDBY);
             }
           }
           if (ResponseEnum.nodeResults in data) {
@@ -118,7 +116,7 @@ export class WebSocketServer {
     this.server.onclose = this.onClose || null;
     this.server.onerror = (event) => {
       console.log("Error Event: ", event);
-      this.handlePingResponse(IServerStatus.OFFLINE);
+      this.handlePingResponse(ServerStatus.OFFLINE);
     };
   }
   disconnect() {
