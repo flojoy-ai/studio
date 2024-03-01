@@ -1,5 +1,4 @@
 import traceback
-import asyncio
 import time
 from typing import Union, List, Callable
 from flojoy_cloud.client import FlojoyCloudException
@@ -13,13 +12,16 @@ from captain.models.test_sequencer import (
     TestTypes,
 )
 from captain.parser.bool_parser.expressions.models import Variable
-from captain.types.test_sequence import MsgState, TestSequenceMessage
-from captain.utils.config import ts_manager
+from captain.types.test_sequence import MsgState
 import subprocess
 from captain.utils.logger import logger
 from captain.parser.bool_parser.bool_parser import eval_expression
 from flojoy_cloud.client import FlojoyCloud
 from pkgs.flojoy.flojoy.env_var import get_env_var
+from captain.utils.test_sequencer.data_stream import (
+    _stream_result_to_frontend,
+    _with_error_report,
+)
 
 
 class TestResult:
@@ -172,23 +174,6 @@ def _eval_condition(
 
 
 # TODO use TSSignaler class to abstract this funcitonality
-async def _stream_result_to_frontend(
-    state: MsgState,
-    test_id: str = "",
-    result: bool = False,
-    time_taken: float = 0,
-    is_saved_to_cloud: bool = False,
-    error: str | None = None,
-):
-    asyncio.create_task(
-        ts_manager.ws.broadcast(
-            TestSequenceMessage(
-                state.value, test_id, result, time_taken, is_saved_to_cloud, error
-            )
-        )
-    )
-    await asyncio.sleep(0)  # necessary for task yield
-    await asyncio.sleep(0)  # still necessary for task yield
 
 
 async def _case_root(node: TestRootNode, **kwargs) -> Extract:
@@ -215,8 +200,8 @@ map_to_handler_run = (
         "test": (
             "test_type",
             {
-                TestTypes.Python: (None, _run_python),
-                TestTypes.Pytest: (None, _run_pytest),
+                TestTypes.python: (None, _run_python),
+                TestTypes.pytest: (None, _run_pytest),
             },
         ),
         "conditional": (
@@ -243,33 +228,29 @@ async def _extract_from_node(
     return children_getter, test_result
 
 
-# TODO have pydantic model for data, convert camelCase to snake_case
+@_with_error_report
 async def run_test_sequence(data):
     data = pydantic.TypeAdapter(TestRootNode).validate_python(data)
     identifiers = set(data.identifiers)
     context = Context({}, identifiers)
-    try:
 
-        async def run_dfs(node: TestRootNode | TestSequenceElementNode):
-            children_getter, test_result = await _extract_from_node(
-                node, map_to_handler_run
-            )
+    async def run_dfs(node: TestRootNode | TestSequenceElementNode):
+        children_getter, test_result = await _extract_from_node(
+            node, map_to_handler_run
+        )
 
-            if test_result:
-                context.result_dict[test_result.test_node.test_name] = test_result
+        if test_result:
+            context.result_dict[test_result.test_node.test_name] = test_result
 
-            children = children_getter(context)
-            if not children:
-                return
-            for child in children:
-                await run_dfs(child)
+        children = children_getter(context)
+        if not children:
+            return
+        for child in children:
+            await run_dfs(child)
 
-        await _stream_result_to_frontend(state=MsgState.TEST_SET_START)
-        await run_dfs(data)  # run tests
-        await _stream_result_to_frontend(state=MsgState.TEST_SET_DONE)
-    except Exception as e:
-        await _stream_result_to_frontend(state=MsgState.ERROR, error=str(e))
-        logger.error(f"{e}: {traceback.format_exc()}")
+    await _stream_result_to_frontend(state=MsgState.TEST_SET_START)
+    await run_dfs(data)  # run tests
+    await _stream_result_to_frontend(state=MsgState.TEST_SET_DONE)
 
 
 async def _case_test_upload(node: TestNode, hardware_id, project_id) -> Extract:
@@ -344,30 +325,28 @@ map_to_handler_upload = (
 )
 
 
+@_with_error_report
 async def export_test_sequence(data, hardware_id, project_id):
     data = pydantic.TypeAdapter(TestRootNode).validate_python(data)
     identifiers = set(data.identifiers)
     context = Context({}, identifiers)
-    try:
-        # Walking the tree with the same sequence as the last run and upload de TestNode
-        async def run_dfs(node: TestRootNode | TestSequenceElementNode):
-            children_getter, test_result = await _extract_from_node(
-                node,
-                map_to_handler_upload,
-                hardware_id=hardware_id,
-                project_id=project_id,
-            )
-            if test_result:
-                context.result_dict[test_result.test_node.test_name] = test_result
-            children = children_getter(context)
-            if not children:
-                return
-            for child in children:
-                await run_dfs(child)
 
-        await _stream_result_to_frontend(state=MsgState.TEST_SET_EXPORT)
-        await run_dfs(data)  # Export tests
-        await _stream_result_to_frontend(state=MsgState.TEST_SET_DONE)
-    except Exception as e:
-        await _stream_result_to_frontend(state=MsgState.ERROR, error=str(e))
-        logger.error(f"{e}: {traceback.format_exc()}")
+    # Walking the tree with the same sequence as the last run and upload de TestNode
+    async def run_dfs(node: TestRootNode | TestSequenceElementNode):
+        children_getter, test_result = await _extract_from_node(
+            node,
+            map_to_handler_upload,
+            hardware_id=hardware_id,
+            project_id=project_id,
+        )
+        if test_result:
+            context.result_dict[test_result.test_node.test_name] = test_result
+        children = children_getter(context)
+        if not children:
+            return
+        for child in children:
+            await run_dfs(child)
+
+    await _stream_result_to_frontend(state=MsgState.TEST_SET_EXPORT)
+    await run_dfs(data)  # Export tests
+    await _stream_result_to_frontend(state=MsgState.TEST_SET_DONE)

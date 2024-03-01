@@ -14,10 +14,10 @@ class LockedContextType(BaseModel):
 
 
 class TestTypes(str, Enum):
-    Pytest = "Pytest"
-    Python = "Python"
-    Flojoy = "Flojoy"
-    Matlab = "Matlab"
+    pytest = "Pytest"
+    python = "Python"
+    flojoy = "Flojoy"
+    matlab = "Matlab"
 
 
 class StatusTypes(str, Enum):
@@ -129,3 +129,12 @@ class TestSequenceRun(BaseModel):
     data: Union[str, TestRootNode]
     hardware_id: Union[str, None]
     project_id: Union[str, None]
+
+
+class GenerateTestRequest(BaseModel):
+    test_type: TestTypes = Field(..., alias="testType")
+    prompt: str = Field(..., alias="prompt")
+
+
+class TestGenerationContainer(BaseModel):
+    test: Test

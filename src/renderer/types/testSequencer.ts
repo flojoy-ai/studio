@@ -90,3 +90,8 @@ export type TestDiscoveryResponse = {
   testName: string;
   path: string;
 };
+
+export type GenerateTestRequest = {
+  testType: TestTypes;
+  prompt: string;
+};
