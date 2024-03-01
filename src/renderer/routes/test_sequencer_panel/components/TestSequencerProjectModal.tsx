@@ -34,16 +34,17 @@ export const TestSequencerProjectModal = ({
         <h2 className="mb-2 pt-3 text-center text-lg font-bold text-accent1 ">
           Project Manager 
         </h2>
-        <Input placeholder="Project Name" />
-        <Input placeholder="Project Description" />
+        <Input placeholder="Project Name" onChange={(e) => {setName(e.target.value)}} />
+        <Input placeholder="Project Description" onChange={(e) => {setDescription(e.target.value)}}/>
         <PathInput 
           placeholder="Project Folder" 
           allowedExtention={["tjoy"]}
-          onChange={(event) => {setProjectDirPath(event.target.value); console.log(event.target.value);}} 
+          onChange={(event) => {setProjectDirPath(event.target.value)}} 
+          pickerType="directory"
         />
         <div className="flex gap-2">
         <div className="flex-none w-[200px]">
-        <Select onValueChange={setType}>
+        <Select onValueChange={(e: InterpreterType) => {setType(e)}}>
           <SelectTrigger className="w-[200px]">
             <SelectValue placeholder="Dependencies Manager" />
           </SelectTrigger>
@@ -51,9 +52,10 @@ export const TestSequencerProjectModal = ({
             <SelectGroup>
               <SelectLabel>Interpreter</SelectLabel>
               { availableInterpreter.map((interpreter) => (
-              <SelectItem value={interpreter} key={interpreter}>
-                  { interpreter.charAt(0).toUpperCase() + interpreter.slice(1) }
-              </SelectItem> ))}
+                <SelectItem value={interpreter} key={interpreter}>
+                    { interpreter.charAt(0).toUpperCase() + interpreter.slice(1) }
+                </SelectItem> 
+              ))}
             </SelectGroup>
           </SelectContent>
         </Select>

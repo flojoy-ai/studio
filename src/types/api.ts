@@ -13,6 +13,7 @@ export const API = {
   statusBarLogging: "STATUSBAR_LOGGING",
   setPythonInterpreter: "SET_PY_INTERPRETER",
   writeFileSync: "WRITE_FILE_SYNC",
+  writeFile: "WRITE_FILE",
   showSaveDialog: "SHOW_SAVE_DIALOG",
   browsePythonInterpreter: "BROWSE_PY_INTERPRETER",
   sendLogToStatusbar: "SEND_LOG_TO_STATUSBAR",

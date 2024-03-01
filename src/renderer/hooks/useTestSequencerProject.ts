@@ -2,8 +2,6 @@ import useWithPermission from "./useWithPermission";
 import { useTestSequencerState } from "./useTestSequencerState";
 import { stringifyTestSet } from "../routes/test_sequencer_panel/utils/TestSetUtils";
 import { TestSequencerProject } from "../types/testSequencer";
-import { saveFile } from "@/api/fileSave";
-
 
 
 export const useProjectSave = () => {
@@ -27,25 +25,30 @@ export const useCreateProject = () => {
   const { elems, setUnsaved, setProject } = useTestSequencerState();
   const handleCreate = async (projectToCreate: TestSequencerProject) => {
     try {
+      console.log("Creating project", projectToCreate);
       const project = projectToCreate;
       // Copy the current tree and change the to use the root
 
-
       // Create the actial project on disk
       try {
-        saveFile(
-          project.tjoy_file_path + project.name + ".tjoy",
-          stringifyTestSet(elems),
-          ["tjoy"]
-        )
-      } catch {
-        // exception just means user cancelled save
+
+        console.log("Saving project to disk");
+        const sep = project.tjoy_file_path.endsWith("/") || project.tjoy_file_path.endsWith("\\") ? "" : "/";
+        const path = project.tjoy_file_path + sep + project.name + ".tjoy";
+
+        if ("api" in window) {
+          const result = await window.api.saveToFile(
+            path,
+            stringifyTestSet(elems)
+          );
+        }
+      } catch (e) {
+        console.log("Error saving project to disk", e);
       }
-      // Save state
       setProject(project);
       setUnsaved(false);
-    } catch {
-      
+    } catch (e) {
+      console.log("Error creating project", e);
     }
   };
   return withPermissionCheck(handleCreate);

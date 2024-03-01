@@ -100,6 +100,7 @@ export const registerIpcMainHandlers = () => {
     return Promise.resolve(!app.isPackaged);
   });
   ipcMain.handle(API.getAllLogs, getAllLogs);
+  ipcMain.handle(API.writeFile, writeFileSync);
   ipcMain.handle(API.getCustomBlocksDir, getCustomBlocksDir);
   ipcMain.handle(API.restartCaptain, restartCaptain);
   ipcMain.handle(API.setPythonInterpreter, handlePythonInterpreter);
