@@ -2,19 +2,14 @@
 Driver for the MDO4000B, MDO4000, MSO4000B, DPO4000B and
 MDO3000 series Oscilloscopes.
 """
+
 import textwrap
 import time
 from functools import partial
 from typing import Any, Callable, Union, cast
 
 import numpy as np
-
-from qcodes.instrument import (
-    ChannelList,
-    Instrument,
-    InstrumentChannel,
-    VisaInstrument,
-)
+from qcodes.instrument import ChannelList, Instrument, InstrumentChannel, VisaInstrument
 from qcodes.parameters import (
     Parameter,
     ParameterWithSetpoints,
