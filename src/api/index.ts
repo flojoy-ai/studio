@@ -5,6 +5,7 @@ import { InterpretersList } from "../main/python/interpreter";
 import { PoetryGroupInfo, PythonDependency } from "src/types/poetry";
 import { Result } from "src/types/result";
 import type { User } from "../types/auth";
+import * as path from "path";
 
 export default {
   ...fileSave,
@@ -77,6 +78,8 @@ export default {
 
   getFileContent: (filepath: string): Promise<string> =>
     ipcRenderer.invoke(API.getFileContent, filepath),
+
+  getPathSeparator: () => path.sep,
 
   openEditorWindow: (filepath: string): Promise<void> =>
     ipcRenderer.invoke(API.openEditorWindow, filepath),

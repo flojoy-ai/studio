@@ -7,6 +7,7 @@
 import { Err, Ok, Result } from "@/types/result";
 import { readJsonProject, stringifyProject } from "@/renderer/routes/test_sequencer_panel/utils/TestSetUtils";
 import { TestSequenceElement, TestSequencerProject } from "@/renderer/types/testSequencer";
+import * as path from 'path';
 
 // Exposed API
 export type StateManager = {
@@ -21,26 +22,32 @@ export type StateManager = {
 export async function createProject(project: TestSequencerProject, stateManager: StateManager): Promise<Result<null, Error>> {
   // Create a new project from the element currently in the test sequencer
   // - Will valide that each element is in the base folder
-  console.log("Creating project", project);
-  stateManager.setProject(project);
-  return await saveProject(stateManager);
+  try {
+    const elems = stateManager.elem;
+    project = validatePath(project);
+    project = updateProjectElements(project, await createProjectElementsFromTestSequencerElements(elems, project.projectPath, true));
+    syncProject(project, stateManager);
+    return Ok(null);
+  } catch (e: unknown) {
+    if (e instanceof Error) {
+      return Err(e);
+    } else {
+      console.error("[SaveProject] Unknown error", e);
+      return Err(new Error("Unknown error while creating the project"));
+    }
+  }
 }
 
 export async function saveProject(stateManager: StateManager): Promise<Result<null, Error>> {
   // Save the current project to disk
   try {
-    console.log("Saving project");
     let project = stateManager.project;
     if (!project) {
       return Err(new Error("No project to save"));
     }
-    console.log("project is defined");
     const elems = stateManager.elem;
-    console.log("elem is defined");
     project = validatePath(project);
-    console.log("validatedProject");
     project = updateProjectElements(project, await createProjectElementsFromTestSequencerElements(elems, project.projectPath, true));
-    console.log("updatedProject");
     syncProject(project, stateManager);
     return Ok(null);
   } catch (e: unknown) {
@@ -62,9 +69,8 @@ export async function importProject(filePath: string, fileContent: string, state
     if (!project) {
       return Err(new Error("Error reading project file"));
     }
-    const projectPath = filePath.replace(project.name + ".tjoy", "");
+    const projectPath = filePath.replaceAll(project.name + ".tjoy", "");
     project = updatePath(project, projectPath);
-    project = updateProjectElements(project, await createTestSequencerElementsFromProjectElements(project, project.projectPath, true));
     syncProject(project, stateManager);
     return Ok(null);
   } catch (e: unknown) {
@@ -108,9 +114,11 @@ export async function verifyElementCompatible(project: TestSequencerProject, ele
 
 // Private -------------------------------------------------------------------------------------------------
 function validatePath(project: TestSequencerProject): TestSequencerProject {
-    const sep = project.projectPath.endsWith("/") ? "" : "/";
-    const path = project.projectPath + sep;
-    return updatePath(project, path);
+  const { getPathSeparator } = window.api
+  if (!project.projectPath.endsWith(getPathSeparator())) {
+    return updatePath(project, project.projectPath + getPathSeparator());
+  }
+  return project;
 }
 
 function updatePath(project: TestSequencerProject, newPath: string): TestSequencerProject {
@@ -149,12 +157,12 @@ async function createProjectElementsFromTestSequencerElements(
         completionTime: undefined,
         error: null,
         isSavedToCloud: false,
-        testName: elem.path.replace(baseFolder, ""),
-        path: elem.path.replace(baseFolder, "")
+        testName: elem.path.replaceAll(baseFolder, ""),
+        path: elem.path.replaceAll(baseFolder, "")
       }
       : {
         ...elem,
-        condition: elem.condition.replace(baseFolder, "")
+        condition: elem.condition.replaceAll(baseFolder, "")
       };
   });
   // @ts-ignore because LSP can't understand the element.type
