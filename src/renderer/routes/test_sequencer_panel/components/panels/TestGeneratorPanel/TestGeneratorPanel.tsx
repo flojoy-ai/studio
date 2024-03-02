@@ -34,6 +34,14 @@ import { GeneratedTest } from "./GeneratedTest";
 // } from "@/renderer/components/ui/command";
 // import { cn } from "@/renderer/lib/utils";
 import { baseClient } from "@/renderer/lib/base-client";
+import { atomWithImmer } from "jotai-immer";
+import { useAtom } from "jotai";
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "@/renderer/components/ui/context-menu";
 
 export const columns: ColumnDef<Test>[] = [
   {
@@ -106,9 +114,10 @@ export const columns: ColumnDef<Test>[] = [
 //     </Popover>
 //   );
 // };
+const generatedTestsAtom = atomWithImmer<Test[]>([]);
 
 export const TestGeneratorPanel = () => {
-  const [data, setData] = useState<Test[]>([] as Test[]);
+  const [data, setData] = useAtom(generatedTestsAtom);
   const table = useReactTable({
     data,
     columns,
@@ -129,6 +138,10 @@ export const TestGeneratorPanel = () => {
       return [...prevData, { ...data_obj.test }];
     });
   }
+  const handleRemoveTest = (testId: string) => {
+    setData((data) => data.filter((elem) => elem.id !== testId));
+  };
+  // const handleConsultCode =
   return (
     <div className="flex w-full flex-col space-y-4">
       <Label htmlFor="testName">Enter test name:</Label>
@@ -177,7 +190,29 @@ export const TestGeneratorPanel = () => {
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => <GeneratedTest row={row} />)
+              table.getRowModel().rows.map((row) => (
+                <ContextMenu>
+                  <ContextMenuTrigger asChild>
+                    <GeneratedTest
+                      row={row}
+                      key={row.id}
+                      data-state={row.getIsSelected() && "selected"}
+                    />
+                  </ContextMenuTrigger>
+                  <ContextMenuContent>
+                    <ContextMenuItem
+                      onClick={() => handleRemoveTest(row.original.id)}
+                    >
+                      Remove test
+                    </ContextMenuItem>
+                    <ContextMenuItem
+                    // onClick={() => handleConsultCode(row.original.id)}
+                    >
+                      Consult Code
+                    </ContextMenuItem>
+                  </ContextMenuContent>
+                </ContextMenu>
+              ))
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="text-center">

@@ -68,6 +68,8 @@ async def generate_test_endpoint(requested_test: GenerateTestRequest):
     test_type = requested_test.test_type
     prompt = requested_test.prompt
     await generate_test(test_name, test_type, prompt, test_container)
+    if "test" not in test_container:
+        return
     return TestGenerationContainer(test=test_container["test"]).model_dump_json(
         by_alias=True
     )

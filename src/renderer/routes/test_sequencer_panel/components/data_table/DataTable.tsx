@@ -339,7 +339,16 @@ export function DataTable() {
   const getSpecificContextMenuItems = (row: Row<TestSequenceElement>) => {
     switch (row.original.type) {
       case "test":
-        return <></>;
+        return (
+          <ContextMenuItem
+            onClick={() => {
+              setOpenPyTestFileModal(true);
+              setTestToDisplay(row.original as Test);
+            }}
+          >
+            Consult Code
+          </ContextMenuItem>
+        );
       case "conditional":
         return (
           <>
@@ -472,16 +481,6 @@ export function DataTable() {
                     >
                       Remove Test
                     </ContextMenuItem>
-                    {row.original.type === "test" && (
-                      <ContextMenuItem
-                        onClick={() => {
-                          setOpenPyTestFileModal(true);
-                          setTestToDisplay(row.original as Test);
-                        }}
-                      >
-                        Consult Code
-                      </ContextMenuItem>
-                    )}
                   </ContextMenuContent>
                 </ContextMenu>
               ))

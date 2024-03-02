@@ -22,7 +22,7 @@ async def generate_test(
         messages=[
             {
                 "role": "system",
-                "content": "You generate only raw python code for tests using assertions. If the user's request does not imply a test, simply output NULL",
+                "content": "You generate only raw python code for tests using assertions. If the user's request does not imply a test, simply output 'NULL'",
             },
             {
                 "role": "user",
@@ -34,18 +34,20 @@ async def generate_test(
     if code_resp is None:
         raise Exception("Unable to generate code")
     if code_resp == "NULL":
-        raise Exception("Unable to generate test")
+        raise Exception("Invalid prompt/request, please specify something to test")
     code = "\n".join(code_resp.splitlines()[1:-1])
-    filename = test_name
-    with open(filename, "w") as file:
+    path_to_gen_folder = os.path.join(os.getcwd(), "gen_tests")
+    path_to_file = os.path.join(path_to_gen_folder, test_name)
+    if not os.path.exists(path_to_gen_folder):
+        os.makedirs(path_to_gen_folder)
+    with open(path_to_file, "w") as file:
         file.write(code)
-    path_to_file = os.path.join(os.getcwd(), filename)
     test_container["test"] = Test.construct(
         type="test",
         id=uuid.uuid4(),
         group_id=uuid.uuid4(),
         path=path_to_file,
-        test_name=filename,
+        test_name=test_name,
         run_in_parallel=False,
         test_type=TestTypes.python,
         status=StatusTypes.pending,
