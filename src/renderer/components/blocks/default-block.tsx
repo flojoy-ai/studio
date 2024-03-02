@@ -25,7 +25,7 @@ const DefaultBlock = ({
   width,
   height,
   children,
-  variant = "accent2",
+  variant = "accent1",
   showLabel = true,
   className,
   labelPosition,

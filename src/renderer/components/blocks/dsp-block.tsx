@@ -7,7 +7,7 @@ export type DSPCategory = "DSP";
 
 const DSPBlock = (props: CustomNodeProps) => {
   return (
-    <DefaultBlock {...props}>
+    <DefaultBlock {...props} variant="accent2">
       <DspBlockSvg blockName={props.data.func} />
     </DefaultBlock>
   );

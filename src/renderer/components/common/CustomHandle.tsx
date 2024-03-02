@@ -9,7 +9,7 @@ const handle = cva(undefined, {
     variant: {
       blue: "!border-blue-500",
       red: "!border-red-400",
-      accent1: "!border-accent1",
+      accent1: "!border-accent1 !bg-accent1",
       accent2: "!border-accent2 !bg-accent2",
       accent3: "!border-accent3 !bg-accent3",
       accent4: "!border-accent4 !bg-accent4",

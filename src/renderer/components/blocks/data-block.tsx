@@ -7,7 +7,7 @@ export type DataCategory = "DATA" | "VISUALIZATION";
 
 const DataNode = (props: CustomNodeProps) => {
   return (
-    <DefaultBlock {...props}>
+    <DefaultBlock {...props} variant="accent2">
       <DataBlockSvg blockName={props.data.func} />
     </DefaultBlock>
   );

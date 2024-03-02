@@ -28,10 +28,11 @@ const MathBlock = (props: CustomNodeProps) => {
       labelPosition="left"
       width={"fit-content"}
       className={"!border-none !p-0"}
+      variant="accent1"
     >
       <TransformSvg
         operatorString={operatorMap[props.data.func]}
-        variant="accent2"
+        variant="accent1"
       />
     </DefaultBlock>
   );

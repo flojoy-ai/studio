@@ -1,8 +1,9 @@
 import { cn } from "@/renderer/lib/utils";
+import { TVariant } from "@/renderer/types/tailwind";
 
 type TransformSvgProps = {
   operatorString: string;
-  variant: "accent2" | "accent3";
+  variant: TVariant;
 };
 
 const TransformSvg = ({ operatorString, variant }: TransformSvgProps) => {

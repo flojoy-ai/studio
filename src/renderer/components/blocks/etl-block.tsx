@@ -33,6 +33,7 @@ const ETLBlock = (props: CustomNodeProps) => {
       className={cn({
         "p-5": props.type === "LOAD",
       })}
+      variant="accent1"
     >
       <SelectedETLSvg blockName={props.data.func} />
     </DefaultBlock>

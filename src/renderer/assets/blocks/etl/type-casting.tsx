@@ -20,7 +20,7 @@ const TypeCastingSvg = ({ blockName }: { blockName: string }) => {
   const toName =
     to in nameMapping ? nameMapping[to.toUpperCase()] : to.replaceAll("_", " ");
   return (
-    <h2 className="px-3 text-center font-sans text-3xl font-semibold italic tracking-wider text-accent2">{`${fromName} → ${toName}`}</h2>
+    <h2 className="px-3 text-center font-sans text-3xl font-semibold italic tracking-wider text-accent1">{`${fromName} → ${toName}`}</h2>
   );
 };
 
