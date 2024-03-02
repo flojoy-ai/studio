@@ -6,7 +6,7 @@ import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import {
   testSequenceRunRequest,
   testSequenceStopRequest,
-} from "../models/models";
+} from "@/renderer/routes/test_sequencer_panel/models/models";
 import { TestSequenceElement } from "@/renderer/types/testSequencer";
 import { ImportTestModal } from "./ImportTestModal";
 import LockableButton from "./lockable/LockedButtons";

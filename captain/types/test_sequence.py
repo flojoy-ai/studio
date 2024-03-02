@@ -5,9 +5,9 @@ from typing import Any, Optional
 class MsgState(Enum):
     test_set_start = "test_set_start"
     test_set_export = "test_set_export"
-    RUNNING = "RUNNING"
+    running = "running"
     test_done = "test_done"
-    ERROR = "ERROR"
+    error = "error"
     test_set_done = "test_set_done"
 
 
