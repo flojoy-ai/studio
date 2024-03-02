@@ -18,7 +18,7 @@ import {
   BOTTOM_STATUS_BAR_HEIGHT,
 } from "@/renderer/routes/common/Layout";
 import { TestSequencerProjectModal } from "./TestSequencerProjectModal";
-import { useImportProject, useSaveProject } from "@/renderer/hooks/useTestSequencerProject";
+import { useImportProject, useSaveProject, useCreateProject } from "@/renderer/hooks/useTestSequencerProject";
 
 const TestSequencerView = () => {
   const { setElems, tree, setIsLocked, backendState, project } = useTestSequencerState();

@@ -7,7 +7,6 @@ import { useCreateProject } from "@/renderer/hooks/useTestSequencerProject";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/renderer/components/ui/select";
 import { InterpreterType } from "@/renderer/types/testSequencer";
 import { PathInput } from "@/renderer/components/ui/path-input";
-import { Checkbox } from "@/renderer/components/ui/checkbox";
 
 export const TestSequencerProjectModal = ({
   isProjectModalOpen,
@@ -24,7 +23,6 @@ export const TestSequencerProjectModal = ({
   const [projectDirPath, setProjectDirPath] = useState("");
   const [interpreterPath, setInterpreterPath] = useState("");
   const [type, setType] = useState<InterpreterType>("flojoy");
-  const [checked, setChecked] = useState(true);
   const availableInterpreter: InterpreterType[] = ["flojoy", "poetry", "pipenv", "conda"]
 
   function handleSubmit() {
@@ -40,7 +38,6 @@ export const TestSequencerProjectModal = ({
         },
         requirementFilePath: null,
       },
-      checked,
       handleProjectModalOpen
     )
   }
@@ -63,36 +60,27 @@ export const TestSequencerProjectModal = ({
           pickerType="directory"
         />
         <div className="flex gap-2">
-        <div className="flex-none w-[200px]">
-        <Select onValueChange={(e: InterpreterType) => {setType(e)}}>
-          <SelectTrigger className="w-[200px]">
-            <SelectValue placeholder="Dependencies Manager" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Interpreter</SelectLabel>
-              { availableInterpreter.map((interpreter) => (
-                <SelectItem value={interpreter} key={interpreter}>
-                    { interpreter.charAt(0).toUpperCase() + interpreter.slice(1) }
-                </SelectItem> 
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-        </div>
-        <PathInput 
-          placeholder="Interpreter" 
-          onChange={(event) => {setProjectDirPath(event.target.value)}} 
-        />
-        </div>
-        <div className="flex items-center space-x-2">
-          <Checkbox
-            checked={checked}
-            onCheckedChange={(checked) => {
-              setChecked(checked as boolean);
-            }}
+          <div className="flex-none w-[200px]">
+          <Select onValueChange={(e: InterpreterType) => {setType(e)}}>
+            <SelectTrigger className="w-[200px]">
+              <SelectValue placeholder="Dependencies Manager" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Interpreter</SelectLabel>
+                { availableInterpreter.map((interpreter) => (
+                  <SelectItem value={interpreter} key={interpreter}>
+                      { interpreter.charAt(0).toUpperCase() + interpreter.slice(1) }
+                  </SelectItem> 
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+          </div>
+          <PathInput 
+            placeholder="Interpreter" 
+            onChange={(event) => {setInterpreterPath(event.target.value)}} 
           />
-          <label>Import all current test in the project </label>
         </div>
         <Button 
           variant={"default"}

@@ -1,99 +1,55 @@
 import useWithPermission from "./useWithPermission";
 import { useTestSequencerState } from "./useTestSequencerState";
-import { readJsonProject, stringifyProject } from "../routes/test_sequencer_panel/utils/TestSetUtils";
-import { TestSequenceElement, TestSequencerProject } from "../types/testSequencer";
+import { TestSequencerProject } from "../types/testSequencer";
 import { toast } from "sonner";
 import { Dispatch, SetStateAction } from "react";
+import { createProject, saveProject, importProject } from "@/renderer/utils/TestSequenceProjectHandler";
 
 
-async function saveProject(project: TestSequencerProject) {
-  try {
-    const sep = project.projectPath.endsWith("/") ? "" : "/";
-    const path = project.projectPath + sep;
-    console.log("Current project path: ", path);
-    const elements = [...project.elems].map((elem) => {
-      return elem.type === "test"
-        ? {
-          ...elem,
-          status: "pending",
-          completionTime: undefined,
-          isSavedToCloud: false,
-          path: elem.path.replace(path, "")
-        }
-        : { ...elem };
+export function useSaveProject() {
+  const { withPermissionCheck } = useWithPermission();
+  const handle = async () => {
+    toast.promise(saveProject(), {
+    loading: "Saving project...",
+    success: (result) => {
+      if (result.ok) {
+        return "Project saved";
+      } else {
+        return `Error saving project: ${result.error}`;
+      }
+    },
+    error: (e) => `Error saving project: ${e}`,
     });
-    project = {
-      ...project,
-      // @ts-ignore LSP think this is wrong because of the use of .type == "test"
-      elems: elements,
-      projectPath: project.projectPath,
-    }
-    if ("api" in window) {
-      await window.api.saveToFile(
-        path,
-        stringifyProject(project)
-      );
-    }
-    console.log(`Project saved to disk at ${path}`, project)
-  } catch (e) {
-    toast.error(`Error saving project to disk ${e}`);
-    console.log(`Error saving project to disk ${e}`);
-  }
-}
-
-export const useSaveProject = () => {
-  const { withPermissionCheck } = useWithPermission();
-  const { project, setUnsaved } = useTestSequencerState();
-  const handleSave = async () => {
-    if (!project) {
-      toast.error("Not project to save. Please create a project first.");
-      return;
-    }
-    await saveProject(project);
-    setUnsaved(false);
   };
 
-  return withPermissionCheck(handleSave);
-};
-
-
-export const useCreateProject = () => {
-  const { setProject, setUnsaved, setElems } = useTestSequencerState();
-  const { withPermissionCheck } = useWithPermission();
-  const handleCreate = async (projectToCreate: TestSequencerProject, importCurrentElements: boolean, setModalOpen: Dispatch<SetStateAction<boolean>>)=> {
-    console.log("Creating project: ", projectToCreate);
-    // TODO Handle stuff that are in other directories
-    let elements: TestSequenceElement[] = [];
-    if (importCurrentElements) {
-      const sep = projectToCreate.projectPath.endsWith("/") || projectToCreate.projectPath.endsWith("\\") ? "" : "/";
-      const path = projectToCreate.projectPath + sep;
-      elements = [...projectToCreate.elems].map((elem) => {
-        return elem.type === "test"
-          ? {
-            ...elem,
-            testName: elem.testName.replace(path, ""),
-          }
-          : { 
-            ...elem,
-            condition: elem.condition.replace(path, ""),
-          };
-      });
-    }
-    const project = { ...projectToCreate, elems: elements };
-    // Create the actial project on disk
-    await saveProject(project);
-    setProject(project);
-    // @ts-ignore
-    setElems(project.elems);
-    setUnsaved(false);
-    setModalOpen(false);
-  };
-  return withPermissionCheck(handleCreate);
+  return withPermissionCheck(handle);
 }
+
+export function useCreateProject() {
+  const { withPermissionCheck } = useWithPermission();
+  const handle = async (project: TestSequencerProject, setModalOpen: Dispatch<SetStateAction<boolean>> | null) => {
+    toast.promise(createProject(project), {
+    loading: "Creating project...",
+    success: (result) => {
+      if (result.ok) {
+        if (setModalOpen) {
+          setModalOpen(false);
+        }
+        return "Project created";
+      } else {
+        return `Error creating project: ${result.error}`;
+      }
+    },
+    error: (e) => `Error creating project: ${e}`,
+    });
+  };
+
+  return withPermissionCheck(handle);
+}
+
 
 export const useImportProject = () => {
-  const { withPermissionCheck } = useWithPermission();
-  const { isUnsaved, setUnsaved, setProject, setElems } = useTestSequencerState();
+  const { isUnsaved } = useTestSequencerState();
   const handleImport = async () => {
     if (isUnsaved) {
       const shouldContinue = window.confirm("You have unsaved changes. Do you want to continue?");
@@ -104,33 +60,18 @@ export const useImportProject = () => {
       .then((result) => {
         if (!result) return;
         const { filePath, fileContent } = result;
-        let project = readJsonProject(fileContent);
-        if (!project) {
-          toast.error("Error reading project file");
-          return;
-        }
-        console.log("Importing Project: ", project);
-        // Set the right path for the tests
-        const projectPath = filePath.replace(project.name + ".tjoy", "");
-        const elements = [...project.elems].map((elem) => {
-          return elem.type === "test"
-            ? {
-              ...elem,
-              path: projectPath + elem.path
+        toast.promise(importProject(filePath, fileContent), {
+          loading: "Importing project...",
+          success: (result) => {
+            if (result.ok) {
+              return "Project imported";
+            } else {
+              return `Error importing project: ${result.error}`;
             }
-            : { ...elem };
+          },
+          error: (e) => `Error importing project: ${e}`,
         });
-        project = { ...project, elems: elements, projectPath: projectPath };
-        setProject(project);
-        console.log("Project imported: ", project);
-        // @ts-ignore
-        setElems(project.elems); // TODO Shoud be handle in setProject
-        setUnsaved(false);  // TODO should be handle in setProject
-        // TODO: handle deps
       })
-      .catch((error) => {
-        console.error("Errors when trying to load file: ", error);
-      });
   };
-  return withPermissionCheck(handleImport);
+  return handleImport;
 }

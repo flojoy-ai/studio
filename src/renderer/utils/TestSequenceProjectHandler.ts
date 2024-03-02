@@ -5,9 +5,9 @@
 //   3. Update the test sequencer
 
 import { Err, Ok, Result } from "@/types/result";
-import { useTestSequencerState } from "../hooks/useTestSequencerState";
-import { readJsonProject, stringifyProject } from "../routes/test_sequencer_panel/utils/TestSetUtils";
-import { TestSequenceElement, TestSequencerProject } from "../types/testSequencer";
+import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import { readJsonProject, stringifyProject } from "@/renderer/routes/test_sequencer_panel/utils/TestSetUtils";
+import { TestSequenceElement, TestSequencerProject } from "@/renderer/types/testSequencer";
 
 // Exposed API
 export async function createProject(project: TestSequencerProject): Promise<Result<null, Error>> {
@@ -16,9 +16,16 @@ export async function createProject(project: TestSequencerProject): Promise<Resu
   return await saveProject(project);
 }
 
-export async function saveProject(project: TestSequencerProject): Promise<Result<null, Error>> {
+export async function saveProject(project: TestSequencerProject | null = null): Promise<Result<null, Error>> {
   // Save the current project to disk
   try {
+    if (!project) {
+      const { project: p } = useTestSequencerState();
+      if (!p) {
+        return Err(new Error("No project to save"));
+      }
+      project = p;
+    }
     const { elems } = useTestSequencerState();
     project = validatePath(project);
     project = updateProjectElements(project, await createProjectElementsFromTestSequencerElements(elems, project.projectPath, true));
