@@ -36,35 +36,47 @@ export const BackendMsg = z.object({
 });
 export type BackendMsg = z.infer<typeof BackendMsg>;
 
-export type Test = {
-  type: "test";
-  id: string;
-  groupId: string;
-  path: string;
-  testName: string;
-  runInParallel: boolean;
-  testType: TestType;
-  status: StatusType;
-  error: string | null;
-  completionTime: number | undefined;
-  isSavedToCloud: boolean;
-};
+export const Test = z.object({
+  type: z.literal("test"),
+  id: z.string(),
+  groupId: z.string(),
+  path: z.string(),
+  testName: z.string(),
+  runInParallel: z.boolean(),
+  testType: TestType,
+  status: StatusType,
+  error: z.string().nullable(),
+  completionTime: z.number().optional(),
+  isSavedToCloud: z.boolean(),
+});
 
-export type Conditional = {
-  type: "conditional";
-  conditionalType: ConditionalComponent;
-  role: Role;
-  id: string;
-  groupId: string;
-  condition: string;
-};
+export type Test = z.infer<typeof Test>;
 
 // for example, "if" is a "start", "else" is a "between" and "end" is an "end"
-export type Role = "start" | "between" | "end";
+export const Role = z.enum(["start", "between", "end"]);
+export type Role = z.infer<typeof Role>;
 
-export type ConditionalComponent = "if" | "else" | "elif" | "end";
+export const ConditionalComponent = z.enum(["if", "else", "elif", "end"]);
+export type ConditionalComponent = z.infer<typeof ConditionalComponent>;
+
+export const Conditional = z.object({
+  type: z.literal("conditional"),
+  conditionalType: ConditionalComponent,
+  role: Role,
+  id: z.string(),
+  groupId: z.string(),
+  condition: z.string(),
+});
+
+export type Conditional = z.infer<typeof Conditional>;
+
 export type ConditionalLeader = "if";
 export const CONDITIONALS: ConditionalLeader[] = ["if"];
+
+export const TestSequenceElement = z.discriminatedUnion("type", [
+  Test,
+  Conditional,
+]);
 
 export type TestSequenceElement = Test | Conditional;
 

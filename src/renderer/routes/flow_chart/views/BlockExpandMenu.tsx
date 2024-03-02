@@ -31,7 +31,7 @@ export const BlockExpandMenu = ({
       {selectedNode && (
         <BlockModal
           {...props}
-          nd={blockResults[selectedNode.id] ?? null}
+          result={blockResults[selectedNode.id] ?? null}
           selectedNode={selectedNode}
           data-testid="expand-menu"
         />

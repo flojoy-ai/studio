@@ -3,16 +3,15 @@ import { v4 as uuidv4 } from "uuid";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import {
-  Conditional,
   MsgState,
-  Test,
   TestRootNode,
+  TestSequenceElement,
 } from "@/renderer/types/testSequencer";
 
 type State = {
   curRun: string[];
   websocketId: string;
-  elements: (Test | Conditional)[];
+  elements: TestSequenceElement[];
   isLocked: boolean;
   isLoading: boolean;
   backendState: MsgState;
@@ -25,7 +24,7 @@ type Actions = {
   addTestToRunning: (val: string) => void;
 
   setWebsocketId: (val: string) => void;
-  setElements: (val: (Test | Conditional)[]) => void;
+  setElements: (val: TestSequenceElement[]) => void;
   setIsLocked: (val: boolean) => void;
   setIsLoading: (val: boolean) => void;
   setBackendState: (val: MsgState) => void;
