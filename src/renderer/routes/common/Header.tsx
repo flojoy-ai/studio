@@ -1,6 +1,6 @@
 import { memo } from "react";
 import HeaderTab from "./HeaderTab";
-import ControlBar from "../flow_chart/views/ControlBar";
+import ControlBar from "@/renderer/routes/flow_chart/views/ControlBar";
 import { HEADER_HEIGHT } from "./Layout";
 import { TabName } from "@/renderer/stores/app";
 

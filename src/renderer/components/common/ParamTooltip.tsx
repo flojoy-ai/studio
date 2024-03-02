@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { createPortal } from "react-dom";
 import clsx from "clsx";
-import { ScrollArea } from "../ui/scroll-area";
+import { ScrollArea } from "@/renderer/components/ui/scroll-area";
 
 type ElementProps = React.HTMLProps<HTMLElement>;
 
