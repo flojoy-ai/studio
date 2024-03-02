@@ -15,7 +15,7 @@ export function useSaveProject() {
   const { withPermissionCheck } = useWithPermission();
   const manager = getPrepareStateManager();
   const handle = async () => {
-    toast.promise(saveProject(manager), {
+    toast.promise(saveProject(manager, true), {
     loading: "Saving project...",
     success: (result) => {
       if (result.ok) {
@@ -35,7 +35,7 @@ export function useCreateProject() {
   const { withPermissionCheck } = useWithPermission();
   const manager = getPrepareStateManager();
   const handle = async (project: TestSequencerProject, setModalOpen: Dispatch<SetStateAction<boolean>> | null) => {
-    toast.promise(createProject(project, manager), {
+    toast.promise(createProject(project, manager, true), {
     loading: "Creating project...",
     success: (result) => {
       if (result.ok) {
@@ -68,7 +68,7 @@ export const useImportProject = () => {
       .then((result) => {
         if (!result) return;
         const { filePath, fileContent } = result;
-        toast.promise(importProject(filePath, fileContent, manager), {
+        toast.promise(importProject(filePath, fileContent, manager, true), {
           loading: "Importing project...",
           success: (result) => {
             if (result.ok) {

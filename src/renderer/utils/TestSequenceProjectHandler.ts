@@ -3,11 +3,12 @@
 //   1. Always valide the state of the proejct
 //   2. Do the operation
 //   3. Update the test sequencer
+//   4. Return a Result<T, Error>
 
 import { Err, Ok, Result } from "@/types/result";
 import { readJsonProject, stringifyProject } from "@/renderer/routes/test_sequencer_panel/utils/TestSetUtils";
 import { TestSequenceElement, TestSequencerProject } from "@/renderer/types/testSequencer";
-import * as path from 'path';
+
 
 // Exposed API
 export type StateManager = {
@@ -18,8 +19,7 @@ export type StateManager = {
   setUnsaved: (unsaved: boolean) => void;
 }
 
-
-export async function createProject(project: TestSequencerProject, stateManager: StateManager): Promise<Result<null, Error>> {
+export async function createProject(project: TestSequencerProject, stateManager: StateManager, throwInsteadOfResult: boolean=false): Promise<Result<null, Error>> {
   // Create a new project from the element currently in the test sequencer
   // - Will valide that each element is in the base folder
   try {
@@ -29,16 +29,12 @@ export async function createProject(project: TestSequencerProject, stateManager:
     syncProject(project, stateManager);
     return Ok(null);
   } catch (e: unknown) {
-    if (e instanceof Error) {
-      return Err(e);
-    } else {
-      console.error("[SaveProject] Unknown error", e);
-      return Err(new Error("Unknown error while creating the project"));
-    }
+    if (throwInsteadOfResult) throw e;
+    return buildErrorFromCatch(e); 
   }
 }
 
-export async function saveProject(stateManager: StateManager): Promise<Result<null, Error>> {
+export async function saveProject(stateManager: StateManager, throwInsteadOfResult: boolean=false): Promise<Result<null, Error>> {
   // Save the current project to disk
   try {
     let project = stateManager.project;
@@ -51,17 +47,13 @@ export async function saveProject(stateManager: StateManager): Promise<Result<nu
     syncProject(project, stateManager);
     return Ok(null);
   } catch (e: unknown) {
-    if (e instanceof Error) {
-      return Err(e);
-    } else {
-      console.error("[SaveProject] Unknown error", e);
-      return Err(new Error("Unknown error while creating the project"));
-    }
+    if (throwInsteadOfResult) throw e;
+    return buildErrorFromCatch(e); 
   }
 
 }
 
-export async function importProject(filePath: string, fileContent: string, stateManager: StateManager): Promise<Result<null, Error>> {
+export async function importProject(filePath: string, fileContent: string, stateManager: StateManager, throwInsteadOfResult: boolean=false): Promise<Result<null, Error>> {
   // From a file, import a project and update the test sequencer
   // * Importing a project overwrites the current project, even the test sequencer is unsaved
   try {
@@ -74,22 +66,18 @@ export async function importProject(filePath: string, fileContent: string, state
     syncProject(project, stateManager);
     return Ok(null);
   } catch (e: unknown) {
-    if (e instanceof Error) {
-      return Err(e);
-    } else {
-      console.error("[ImportProject] Unknown error", e);
-      return Err(new Error("Unknown error while importing the project"));
-    }
+    if (throwInsteadOfResult) throw e;
+    return buildErrorFromCatch(e); 
   }
 }
 
-export async function exportProject(stateManager: StateManager): Promise<Result<null, Error>> {
+export async function exportProject(stateManager: StateManager, throwInsteadOfResult: boolean=false): Promise<Result<null, Error>> {
   // Export the current project as a zip file without any dependencies
   await saveProject(stateManager);
   return Err(new Error("Export Not Implemented"));
 }
 
-export async function closeProject(save: boolean, stateManager: StateManager): Promise<Result<null, Error>> {
+export async function closeProject(save: boolean, stateManager: StateManager, throwInsteadOfResult: boolean=false): Promise<Result<null, Error>> {
   // Delete the current proejct from the app. The project is NOT deleted from disk
   if (save) {
     await saveProject(stateManager);
@@ -98,21 +86,26 @@ export async function closeProject(save: boolean, stateManager: StateManager): P
   return Ok(null);
 }
 
-export async function verifyElementCompatible(project: TestSequencerProject, elements: TestSequenceElement[]) {
+export async function verifyElementCompatible(project: TestSequencerProject, elements: TestSequenceElement[], throwInsteadOfResult: boolean=false) {
   // Add elements to the current project. Currently throw an error if the elements are not in the base folder
   try {
     throwIfNotInAllBaseFolder(elements, project.projectPath);
   } catch (e: unknown) {
-    if (e instanceof Error) {
-      return Err(e);
-    } else {
-      console.error("[VerifyElementCompatible] Unknown error", e);
-      return Err(new Error("Unknown error while adding ekement to the project"));
-    }
+    if (throwInsteadOfResult) throw e;
+    return buildErrorFromCatch(e); 
   }
 }
 
 // Private -------------------------------------------------------------------------------------------------
+function buildErrorFromCatch(e: unknown): Result<null, Error> {
+  if (e instanceof Error) {
+    return Err(e);
+  } else {
+    console.error("[SaveProject] Unknown error", e);
+    return Err(new Error("Unknown error while creating the project"));
+  }
+}
+
 function validatePath(project: TestSequencerProject): TestSequencerProject {
   const { getPathSeparator } = window.api
   if (!project.projectPath.endsWith(getPathSeparator())) {
@@ -195,7 +188,6 @@ async function createTestSequencerElementsFromProjectElements(
 }
 
 async function throwIfNotInAllBaseFolder(elems: TestSequenceElement[], baseFolder: string) {
-  console.log("Throwing if not in base folder", elems, baseFolder);
   for (let elem of elems) {
     let weGoodBro = false 
     if (elem.type === "conditional") {
@@ -206,10 +198,8 @@ async function throwIfNotInAllBaseFolder(elems: TestSequenceElement[], baseFolde
       continue;
     } 
     if ('api' in window) {
-      console.log("Checking if file is on disk");
       await window.api.isFileOnDisk(baseFolder + elem.path)
         .then((result) => {
-          console.log("Result", result);
           if (result) {
             weGoodBro = true;
           }
@@ -221,7 +211,6 @@ async function throwIfNotInAllBaseFolder(elems: TestSequenceElement[], baseFolde
     }
     // New test type ? Handle it here
     if (!weGoodBro) {
-      console.log("Throwing error");
       throw new Error(`The element ${elem.path} is not in the base folder ${baseFolder}`);
     }
   }
