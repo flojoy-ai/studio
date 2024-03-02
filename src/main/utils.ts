@@ -180,3 +180,7 @@ export const readFileSync = (_, filePath: string): Promise<string> => {
     fs.readFileSync(filePath, { encoding: "utf-8" }).toString(),
   );
 };
+
+export const isFileOnDisk = (_, filePath: string): Promise<boolean> => {
+  return Promise.resolve(fs.existsSync(filePath));
+}

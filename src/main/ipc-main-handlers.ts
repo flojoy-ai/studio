@@ -11,6 +11,7 @@ import {
   readFileSync,
   saveFileToFullPath,
   writeFileSync,
+  isFileOnDisk,
 } from "./utils";
 import {
   getAllLogs,
@@ -169,4 +170,5 @@ export const registerIpcMainHandlers = () => {
   ipcMain.handle(API.createUserProfile, createUserProfile);
   ipcMain.handle(API.deleteUserProfile, deleteUserProfile);
   ipcMain.handle(API.getFileContent, readFileSync);
+  ipcMain.handle(API.isFileOnDisk, isFileOnDisk)
 };

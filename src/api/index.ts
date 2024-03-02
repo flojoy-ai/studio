@@ -67,6 +67,9 @@ export default {
   openTestPicker: (): Promise<{ filePath: string; fileContent: string }> =>
     ipcRenderer.invoke(API.openTestPicker),
 
+  isFileOnDisk: (filepath: string): Promise<boolean> =>
+    ipcRenderer.invoke(API.isFileOnDisk, filepath),
+
   openFilePicker: (
     allowedExtensions: string[] = ["json"],
   ): Promise<{ filePath: string; fileContent: string }> =>
