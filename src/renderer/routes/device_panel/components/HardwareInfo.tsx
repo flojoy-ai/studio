@@ -118,7 +118,7 @@ export const HardwareInfo = () => {
         devices={driverDependentDevices}
       />
       {driverDependentDevices === undefined && (
-        <h5 className="text-accent5 mb-2 pt-2 text-xs">
+        <h5 className="mb-2 pt-2 text-xs text-accent5">
           To enable driver-dependent discovery, see: Settings → Device Settings
         </h5>
       )}

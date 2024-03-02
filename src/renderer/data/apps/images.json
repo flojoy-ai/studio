@@ -1,266 +1,256 @@
 {
-    "name": "Intro to Images",
-    "rfInstance": {
-        "nodes": [
-            {
-                "id": "LOCAL_FILE-50f4fdde-5b6a-4024-b395-ceddba286d08",
-                "type": "LOAD",
-                "data": {
-                    "id": "LOCAL_FILE-50f4fdde-5b6a-4024-b395-ceddba286d08",
-                    "label": "LOCAL FILE",
-                    "func": "LOCAL_FILE",
-                    "type": "LOAD",
-                    "ctrls": {
-                        "file_path": {
-                            "type": "str",
-                            "default": null,
-                            "desc": "The path to the file to be loaded. This can be either an absolute path or\na path relative to the \"nodes\" directory.",
-                            "overload": null,
-                            "functionName": "LOCAL_FILE",
-                            "param": "file_path",
-                            "value": ""
-                        },
-                        "file_type": {
-                            "type": "select",
-                            "options": [
-                                "Image",
-                                "Grayscale",
-                                "JSON",
-                                "CSV"
-                            ],
-                            "default": "Image",
-                            "desc": "Type of file to load, default = image.\nIf both 'file_path' and 'default' are not specified when 'file_type=\"Image\"',\na default image will be loaded.\nIf the file path is not specified and the default input is not connected,\na ValueError is raised.",
-                            "overload": null,
-                            "functionName": "LOCAL_FILE",
-                            "param": "file_type",
-                            "value": "Image"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "If this input node is connected, the file name will be taken from\nthe output of the connected node.\nTo be used in conjunction with batch processing."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image|DataFrame|Grayscale",
-                            "desc": "Image for file_type 'image'.\nGrayscale from file_type 'Grayscale'.\nDataFrame for file_type 'json', 'csv'."
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "scikit-image",
-                            "v": "0.21.0"
-                        }
-                    ],
-                    "path": "ETL/LOAD/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py"
-                },
-                "position": {
-                    "x": 202.580869200591,
-                    "y": 244.2476023364249
-                },
-                "width": 216,
-                "height": 188,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 202.580869200591,
-                    "y": 244.2476023364249
-                },
-                "dragging": true
+  "name": "Intro to Images",
+  "rfInstance": {
+    "nodes": [
+      {
+        "id": "LOCAL_FILE-50f4fdde-5b6a-4024-b395-ceddba286d08",
+        "type": "LOAD",
+        "data": {
+          "id": "LOCAL_FILE-50f4fdde-5b6a-4024-b395-ceddba286d08",
+          "label": "LOCAL FILE",
+          "func": "LOCAL_FILE",
+          "type": "LOAD",
+          "ctrls": {
+            "file_path": {
+              "type": "str",
+              "default": null,
+              "desc": "The path to the file to be loaded. This can be either an absolute path or\na path relative to the \"nodes\" directory.",
+              "overload": null,
+              "functionName": "LOCAL_FILE",
+              "param": "file_path",
+              "value": ""
             },
-            {
-                "id": "IMAGE_SMOOTHING-6bf42c87-c6df-409c-8b3b-8bf051d28b48",
-                "type": "COMPUTER_VISION",
-                "data": {
-                    "id": "IMAGE_SMOOTHING-6bf42c87-c6df-409c-8b3b-8bf051d28b48",
-                    "label": "IMAGE SMOOTHING",
-                    "func": "IMAGE_SMOOTHING",
-                    "type": "COMPUTER_VISION",
-                    "ctrls": {
-                        "kernel": {
-                            "type": "int",
-                            "default": 5,
-                            "desc": "The strength of the smoothing (larger = stronger smoothing).",
-                            "overload": null,
-                            "functionName": "IMAGE_SMOOTHING",
-                            "param": "kernel",
-                            "value": 10
-                        },
-                        "smoothing_type": {
-                            "type": "select",
-                            "options": [
-                                "average",
-                                "gaussian",
-                                "median",
-                                "bilateral"
-                            ],
-                            "default": "average",
-                            "desc": "The type of smoothing function to use.",
-                            "overload": null,
-                            "functionName": "IMAGE_SMOOTHING",
-                            "param": "smoothing_type",
-                            "value": "average"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image",
-                            "multiple": false,
-                            "desc": "The input image to apply smoothing to."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image",
-                            "desc": "The smoothed image."
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "opencv-python-headless",
-                            "v": "4.8.1.78"
-                        }
-                    ],
-                    "path": "COMPUTER_VISION/IMAGE_SMOOTHING/IMAGE_SMOOTHING.py"
-                },
-                "position": {
-                    "x": 658.3935685860318,
-                    "y": 75.62108082076935
-                },
-                "width": 150,
-                "height": 120,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 658.3935685860318,
-                    "y": 75.62108082076935
-                },
-                "dragging": true
-            },
-            {
-                "id": "IMAGE-468b41e8-bb24-4ba0-bbe1-b1bba5f1acff",
-                "type": "VISUALIZATION",
-                "data": {
-                    "id": "IMAGE-468b41e8-bb24-4ba0-bbe1-b1bba5f1acff",
-                    "label": "IMAGE",
-                    "func": "IMAGE",
-                    "type": "VISUALIZATION",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image|Grayscale",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
-                        }
-                    ],
-                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
-                },
-                "position": {
-                    "x": 1069.176211915688,
-                    "y": 11.441605295775673
-                },
-                "width": 225,
-                "height": 269,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1069.176211915688,
-                    "y": 11.441605295775673
-                },
-                "dragging": true
-            },
-            {
-                "id": "IMAGE-29bef08f-0e5f-4a65-a40d-ac310e24b774",
-                "type": "VISUALIZATION",
-                "data": {
-                    "id": "IMAGE-29bef08f-0e5f-4a65-a40d-ac310e24b774",
-                    "label": "IMAGE 1",
-                    "func": "IMAGE",
-                    "type": "VISUALIZATION",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image|Grayscale",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
-                        }
-                    ],
-                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
-                },
-                "position": {
-                    "x": 680.7760243971132,
-                    "y": 413.0667376627162
-                },
-                "width": 225,
-                "height": 269,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 680.7760243971132,
-                    "y": 413.0667376627162
-                },
-                "dragging": true
+            "file_type": {
+              "type": "select",
+              "options": ["Image", "Grayscale", "JSON", "CSV"],
+              "default": "Image",
+              "desc": "Type of file to load, default = image.\nIf both 'file_path' and 'default' are not specified when 'file_type=\"Image\"',\na default image will be loaded.\nIf the file path is not specified and the default input is not connected,\na ValueError is raised.",
+              "overload": null,
+              "functionName": "LOCAL_FILE",
+              "param": "file_type",
+              "value": "Image"
             }
-        ],
-        "edges": [
+          },
+          "initCtrls": {},
+          "inputs": [
             {
-                "source": "LOCAL_FILE-50f4fdde-5b6a-4024-b395-ceddba286d08",
-                "sourceHandle": "default",
-                "target": "IMAGE_SMOOTHING-6bf42c87-c6df-409c-8b3b-8bf051d28b48",
-                "targetHandle": "default",
-                "id": "reactflow__edge-LOCAL_FILE-50f4fdde-5b6a-4024-b395-ceddba286d08default-IMAGE_SMOOTHING-6bf42c87-c6df-409c-8b3b-8bf051d28b48default"
-            },
-            {
-                "source": "IMAGE_SMOOTHING-6bf42c87-c6df-409c-8b3b-8bf051d28b48",
-                "sourceHandle": "default",
-                "target": "IMAGE-468b41e8-bb24-4ba0-bbe1-b1bba5f1acff",
-                "targetHandle": "default",
-                "id": "reactflow__edge-IMAGE_SMOOTHING-6bf42c87-c6df-409c-8b3b-8bf051d28b48default-IMAGE-468b41e8-bb24-4ba0-bbe1-b1bba5f1acffdefault"
-            },
-            {
-                "source": "LOCAL_FILE-50f4fdde-5b6a-4024-b395-ceddba286d08",
-                "sourceHandle": "default",
-                "target": "IMAGE-29bef08f-0e5f-4a65-a40d-ac310e24b774",
-                "targetHandle": "default",
-                "id": "reactflow__edge-LOCAL_FILE-50f4fdde-5b6a-4024-b395-ceddba286d08default-IMAGE-29bef08f-0e5f-4a65-a40d-ac310e24b774default"
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "multiple": false,
+              "desc": "If this input node is connected, the file name will be taken from\nthe output of the connected node.\nTo be used in conjunction with batch processing."
             }
-        ],
-        "viewport": {
-            "x": 0,
-            "y": 0,
-            "zoom": 1
-        }
-    },
-    "textNodes": []
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image|DataFrame|Grayscale",
+              "desc": "Image for file_type 'image'.\nGrayscale from file_type 'Grayscale'.\nDataFrame for file_type 'json', 'csv'."
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "scikit-image",
+              "v": "0.21.0"
+            }
+          ],
+          "path": "ETL/LOAD/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py"
+        },
+        "position": {
+          "x": 202.580869200591,
+          "y": 244.2476023364249
+        },
+        "width": 216,
+        "height": 188,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 202.580869200591,
+          "y": 244.2476023364249
+        },
+        "dragging": true
+      },
+      {
+        "id": "IMAGE_SMOOTHING-6bf42c87-c6df-409c-8b3b-8bf051d28b48",
+        "type": "COMPUTER_VISION",
+        "data": {
+          "id": "IMAGE_SMOOTHING-6bf42c87-c6df-409c-8b3b-8bf051d28b48",
+          "label": "IMAGE SMOOTHING",
+          "func": "IMAGE_SMOOTHING",
+          "type": "COMPUTER_VISION",
+          "ctrls": {
+            "kernel": {
+              "type": "int",
+              "default": 5,
+              "desc": "The strength of the smoothing (larger = stronger smoothing).",
+              "overload": null,
+              "functionName": "IMAGE_SMOOTHING",
+              "param": "kernel",
+              "value": 10
+            },
+            "smoothing_type": {
+              "type": "select",
+              "options": ["average", "gaussian", "median", "bilateral"],
+              "default": "average",
+              "desc": "The type of smoothing function to use.",
+              "overload": null,
+              "functionName": "IMAGE_SMOOTHING",
+              "param": "smoothing_type",
+              "value": "average"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image",
+              "multiple": false,
+              "desc": "The input image to apply smoothing to."
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image",
+              "desc": "The smoothed image."
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "opencv-python-headless",
+              "v": "4.8.1.78"
+            }
+          ],
+          "path": "COMPUTER_VISION/IMAGE_SMOOTHING/IMAGE_SMOOTHING.py"
+        },
+        "position": {
+          "x": 658.3935685860318,
+          "y": 75.62108082076935
+        },
+        "width": 150,
+        "height": 120,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 658.3935685860318,
+          "y": 75.62108082076935
+        },
+        "dragging": true
+      },
+      {
+        "id": "IMAGE-468b41e8-bb24-4ba0-bbe1-b1bba5f1acff",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "IMAGE-468b41e8-bb24-4ba0-bbe1-b1bba5f1acff",
+          "label": "IMAGE",
+          "func": "IMAGE",
+          "type": "VISUALIZATION",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image|Grayscale",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Image visualization of the input image"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
+        },
+        "position": {
+          "x": 1069.176211915688,
+          "y": 11.441605295775673
+        },
+        "width": 225,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1069.176211915688,
+          "y": 11.441605295775673
+        },
+        "dragging": true
+      },
+      {
+        "id": "IMAGE-29bef08f-0e5f-4a65-a40d-ac310e24b774",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "IMAGE-29bef08f-0e5f-4a65-a40d-ac310e24b774",
+          "label": "IMAGE 1",
+          "func": "IMAGE",
+          "type": "VISUALIZATION",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image|Grayscale",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Image visualization of the input image"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
+        },
+        "position": {
+          "x": 680.7760243971132,
+          "y": 413.0667376627162
+        },
+        "width": 225,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 680.7760243971132,
+          "y": 413.0667376627162
+        },
+        "dragging": true
+      }
+    ],
+    "edges": [
+      {
+        "source": "LOCAL_FILE-50f4fdde-5b6a-4024-b395-ceddba286d08",
+        "sourceHandle": "default",
+        "target": "IMAGE_SMOOTHING-6bf42c87-c6df-409c-8b3b-8bf051d28b48",
+        "targetHandle": "default",
+        "id": "reactflow__edge-LOCAL_FILE-50f4fdde-5b6a-4024-b395-ceddba286d08default-IMAGE_SMOOTHING-6bf42c87-c6df-409c-8b3b-8bf051d28b48default"
+      },
+      {
+        "source": "IMAGE_SMOOTHING-6bf42c87-c6df-409c-8b3b-8bf051d28b48",
+        "sourceHandle": "default",
+        "target": "IMAGE-468b41e8-bb24-4ba0-bbe1-b1bba5f1acff",
+        "targetHandle": "default",
+        "id": "reactflow__edge-IMAGE_SMOOTHING-6bf42c87-c6df-409c-8b3b-8bf051d28b48default-IMAGE-468b41e8-bb24-4ba0-bbe1-b1bba5f1acffdefault"
+      },
+      {
+        "source": "LOCAL_FILE-50f4fdde-5b6a-4024-b395-ceddba286d08",
+        "sourceHandle": "default",
+        "target": "IMAGE-29bef08f-0e5f-4a65-a40d-ac310e24b774",
+        "targetHandle": "default",
+        "id": "reactflow__edge-LOCAL_FILE-50f4fdde-5b6a-4024-b395-ceddba286d08default-IMAGE-29bef08f-0e5f-4a65-a40d-ac310e24b774default"
+      }
+    ],
+    "viewport": {
+      "x": 0,
+      "y": 0,
+      "zoom": 1
+    }
+  },
+  "textNodes": []
 }

@@ -1,244 +1,244 @@
 {
-    "name": "LabJack",
-    "rfInstance": {
-        "nodes": [
-            {
-                "width": 225,
-                "height": 269,
-                "id": "LINE-37ee0800-3775-4e07-b4a5-3d9e690bdd0f",
-                "type": "VISUALIZATION",
-                "data": {
-                    "id": "LINE-37ee0800-3775-4e07-b4a5-3d9e690bdd0f",
-                    "label": "LINE",
-                    "func": "LINE",
-                    "type": "VISUALIZATION",
-                    "ctrls": {
-                        "xaxis_title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": "Choose the label for the x axis.",
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "xaxis_title",
-                            "value": ""
-                        },
-                        "yaxis_title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": "Choose the label for the y axis.",
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "yaxis_title",
-                            "value": ""
-                        },
-                        "x_log_scale": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "x_log_scale",
-                            "value": false
-                        },
-                        "y_log_scale": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "y_log_scale",
-                            "value": false
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
-                        }
-                    ],
-                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
-                },
-                "position": {
-                    "x": 1594.6141326197753,
-                    "y": -307.6672721347436
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1594.6141326197753,
-                    "y": -307.6672721347436
-                },
-                "dragging": true
+  "name": "LabJack",
+  "rfInstance": {
+    "nodes": [
+      {
+        "width": 225,
+        "height": 269,
+        "id": "LINE-37ee0800-3775-4e07-b4a5-3d9e690bdd0f",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "LINE-37ee0800-3775-4e07-b4a5-3d9e690bdd0f",
+          "label": "LINE",
+          "func": "LINE",
+          "type": "VISUALIZATION",
+          "ctrls": {
+            "xaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the x axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "xaxis_title",
+              "value": ""
             },
-            {
-                "id": "LOOP-b95920ca-144e-4627-8f29-14a40864e228",
-                "type": "CONTROL_FLOW",
-                "data": {
-                    "id": "LOOP-b95920ca-144e-4627-8f29-14a40864e228",
-                    "label": "LOOP",
-                    "func": "LOOP",
-                    "type": "CONTROL_FLOW",
-                    "ctrls": {
-                        "num_loops": {
-                            "type": "int",
-                            "default": -1,
-                            "desc": "number of times to iterate through body nodes, default is \"-1\" meaning infinity.",
-                            "overload": null,
-                            "functionName": "LOOP",
-                            "param": "num_loops",
-                            "value": -1
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "body",
-                            "id": "body",
-                            "type": "Any",
-                            "desc": "Forwards the input DataContainer to the body."
-                        },
-                        {
-                            "name": "end",
-                            "id": "end",
-                            "type": "Any",
-                            "desc": "Forwards the input DataContainer to the end."
-                        }
-                    ],
-                    "path": "CONTROL_FLOW/LOOPS/LOOP/LOOP.py"
-                },
-                "position": {
-                    "x": 832.1166040409547,
-                    "y": -247.89040463249424
-                },
-                "width": 236,
-                "height": 152,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 832.1166040409547,
-                    "y": -247.89040463249424
-                },
-                "dragging": true
+            "yaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the y axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "yaxis_title",
+              "value": ""
             },
-            {
-                "id": "READ_A0_PINS-40d843d5-c5e8-4bcc-9fd9-b3c1a4abd795",
-                "type": "DAQ_BOARDS",
-                "data": {
-                    "id": "READ_A0_PINS-40d843d5-c5e8-4bcc-9fd9-b3c1a4abd795",
-                    "label": "READ A0 PINS",
-                    "func": "READ_A0_PINS",
-                    "type": "DAQ_BOARDS",
-                    "ctrls": {
-                        "sensor_number": {
-                            "type": "int",
-                            "default": 1,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "READ_A0_PINS",
-                            "param": "sensor_number",
-                            "value": 1
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "desc": "The output of the node is a list of voltages measured from the sensors."
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "labjackpython",
-                            "v": "2.1.0"
-                        }
-                    ],
-                    "path": "HARDWARE/DAQ_BOARDS/LABJACK/U3/READ_A0_PINS/READ_A0_PINS.py"
-                },
-                "position": {
-                    "x": 1208.844344342304,
-                    "y": -272.32230441376015
-                },
-                "width": 216,
-                "height": 233,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1208.844344342304,
-                    "y": -272.32230441376015
-                },
-                "dragging": true
+            "x_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "x_log_scale",
+              "value": false
+            },
+            "y_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "y_log_scale",
+              "value": false
             }
-        ],
-        "edges": [
+          },
+          "initCtrls": {},
+          "inputs": [
             {
-                "source": "LOOP-b95920ca-144e-4627-8f29-14a40864e228",
-                "sourceHandle": "body",
-                "target": "READ_A0_PINS-40d843d5-c5e8-4bcc-9fd9-b3c1a4abd795",
-                "targetHandle": "default",
-                "id": "reactflow__edge-LOOP-b95920ca-144e-4627-8f29-14a40864e228body-READ_A0_PINS-40d843d5-c5e8-4bcc-9fd9-b3c1a4abd795default"
-            },
-            {
-                "source": "READ_A0_PINS-40d843d5-c5e8-4bcc-9fd9-b3c1a4abd795",
-                "sourceHandle": "default",
-                "target": "LINE-37ee0800-3775-4e07-b4a5-3d9e690bdd0f",
-                "targetHandle": "default",
-                "id": "reactflow__edge-READ_A0_PINS-40d843d5-c5e8-4bcc-9fd9-b3c1a4abd795default-LINE-37ee0800-3775-4e07-b4a5-3d9e690bdd0fdefault"
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix|Vector",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
             }
-        ],
-        "viewport": {
-            "x": 815.7959874736157,
-            "y": 352.53461082817995,
-            "zoom": 0.7476193625116623
-        }
-    },
-    "textNodes": [
-        {
-            "id": "TextNode-98eaa4bd-dd3e-4fea-8791-eb2f414b482d",
-            "position": {
-                "x": 830.5461855786587,
-                "y": -374.96925376549177
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+        },
+        "position": {
+          "x": 1594.6141326197753,
+          "y": -307.6672721347436
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1594.6141326197753,
+          "y": -307.6672721347436
+        },
+        "dragging": true
+      },
+      {
+        "id": "LOOP-b95920ca-144e-4627-8f29-14a40864e228",
+        "type": "CONTROL_FLOW",
+        "data": {
+          "id": "LOOP-b95920ca-144e-4627-8f29-14a40864e228",
+          "label": "LOOP",
+          "func": "LOOP",
+          "type": "CONTROL_FLOW",
+          "ctrls": {
+            "num_loops": {
+              "type": "int",
+              "default": -1,
+              "desc": "number of times to iterate through body nodes, default is \"-1\" meaning infinity.",
+              "overload": null,
+              "functionName": "LOOP",
+              "param": "num_loops",
+              "value": -1
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "body",
+              "id": "body",
+              "type": "Any",
+              "desc": "Forwards the input DataContainer to the body."
             },
-            "type": "TextNode",
-            "data": {
-                "text": "Read the [LabJack U3](https://docs.flojoy.ai/blocks/hardware/daq-boards/labjack/u3/read-a0-pins/) docs before running the app."
-            },
-            "width": 288,
-            "height": 100,
-            "selected": false,
-            "positionAbsolute": {
-                "x": 830.5461855786587,
-                "y": -374.96925376549177
-            },
-            "dragging": false
-        }
-    ]
+            {
+              "name": "end",
+              "id": "end",
+              "type": "Any",
+              "desc": "Forwards the input DataContainer to the end."
+            }
+          ],
+          "path": "CONTROL_FLOW/LOOPS/LOOP/LOOP.py"
+        },
+        "position": {
+          "x": 832.1166040409547,
+          "y": -247.89040463249424
+        },
+        "width": 236,
+        "height": 152,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 832.1166040409547,
+          "y": -247.89040463249424
+        },
+        "dragging": true
+      },
+      {
+        "id": "READ_A0_PINS-40d843d5-c5e8-4bcc-9fd9-b3c1a4abd795",
+        "type": "DAQ_BOARDS",
+        "data": {
+          "id": "READ_A0_PINS-40d843d5-c5e8-4bcc-9fd9-b3c1a4abd795",
+          "label": "READ A0 PINS",
+          "func": "READ_A0_PINS",
+          "type": "DAQ_BOARDS",
+          "ctrls": {
+            "sensor_number": {
+              "type": "int",
+              "default": 1,
+              "desc": null,
+              "overload": null,
+              "functionName": "READ_A0_PINS",
+              "param": "sensor_number",
+              "value": 1
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "desc": "The output of the node is a list of voltages measured from the sensors."
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "labjackpython",
+              "v": "2.1.0"
+            }
+          ],
+          "path": "HARDWARE/DAQ_BOARDS/LABJACK/U3/READ_A0_PINS/READ_A0_PINS.py"
+        },
+        "position": {
+          "x": 1208.844344342304,
+          "y": -272.32230441376015
+        },
+        "width": 216,
+        "height": 233,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1208.844344342304,
+          "y": -272.32230441376015
+        },
+        "dragging": true
+      }
+    ],
+    "edges": [
+      {
+        "source": "LOOP-b95920ca-144e-4627-8f29-14a40864e228",
+        "sourceHandle": "body",
+        "target": "READ_A0_PINS-40d843d5-c5e8-4bcc-9fd9-b3c1a4abd795",
+        "targetHandle": "default",
+        "id": "reactflow__edge-LOOP-b95920ca-144e-4627-8f29-14a40864e228body-READ_A0_PINS-40d843d5-c5e8-4bcc-9fd9-b3c1a4abd795default"
+      },
+      {
+        "source": "READ_A0_PINS-40d843d5-c5e8-4bcc-9fd9-b3c1a4abd795",
+        "sourceHandle": "default",
+        "target": "LINE-37ee0800-3775-4e07-b4a5-3d9e690bdd0f",
+        "targetHandle": "default",
+        "id": "reactflow__edge-READ_A0_PINS-40d843d5-c5e8-4bcc-9fd9-b3c1a4abd795default-LINE-37ee0800-3775-4e07-b4a5-3d9e690bdd0fdefault"
+      }
+    ],
+    "viewport": {
+      "x": 815.7959874736157,
+      "y": 352.53461082817995,
+      "zoom": 0.7476193625116623
+    }
+  },
+  "textNodes": [
+    {
+      "id": "TextNode-98eaa4bd-dd3e-4fea-8791-eb2f414b482d",
+      "position": {
+        "x": 830.5461855786587,
+        "y": -374.96925376549177
+      },
+      "type": "TextNode",
+      "data": {
+        "text": "Read the [LabJack U3](https://docs.flojoy.ai/blocks/hardware/daq-boards/labjack/u3/read-a0-pins/) docs before running the app."
+      },
+      "width": 288,
+      "height": 100,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 830.5461855786587,
+        "y": -374.96925376549177
+      },
+      "dragging": false
+    }
+  ]
 }
