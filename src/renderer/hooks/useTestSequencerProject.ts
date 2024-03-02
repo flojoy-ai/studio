@@ -3,13 +3,19 @@ import { useTestSequencerState } from "./useTestSequencerState";
 import { TestSequencerProject } from "../types/testSequencer";
 import { toast } from "sonner";
 import { Dispatch, SetStateAction } from "react";
-import { createProject, saveProject, importProject } from "@/renderer/utils/TestSequenceProjectHandler";
+import { createProject, saveProject, importProject, StateManager } from "@/renderer/utils/TestSequenceProjectHandler";
 
+function getPrepareStateManager(): StateManager {
+  const { elems, setElems, project, setProject, setUnsaved } = useTestSequencerState();
+  // @ts-ignore
+  return { setElems, setProject, setUnsaved, elem: elems, project };
+}
 
 export function useSaveProject() {
   const { withPermissionCheck } = useWithPermission();
+  const manager = getPrepareStateManager();
   const handle = async () => {
-    toast.promise(saveProject(), {
+    toast.promise(saveProject(manager), {
     loading: "Saving project...",
     success: (result) => {
       if (result.ok) {
@@ -27,8 +33,9 @@ export function useSaveProject() {
 
 export function useCreateProject() {
   const { withPermissionCheck } = useWithPermission();
+  const manager = getPrepareStateManager();
   const handle = async (project: TestSequencerProject, setModalOpen: Dispatch<SetStateAction<boolean>> | null) => {
-    toast.promise(createProject(project), {
+    toast.promise(createProject(project, manager), {
     loading: "Creating project...",
     success: (result) => {
       if (result.ok) {
@@ -50,6 +57,7 @@ export function useCreateProject() {
 
 export const useImportProject = () => {
   const { isUnsaved } = useTestSequencerState();
+  const manager = getPrepareStateManager();
   const handleImport = async () => {
     if (isUnsaved) {
       const shouldContinue = window.confirm("You have unsaved changes. Do you want to continue?");
@@ -60,7 +68,7 @@ export const useImportProject = () => {
       .then((result) => {
         if (!result) return;
         const { filePath, fileContent } = result;
-        toast.promise(importProject(filePath, fileContent), {
+        toast.promise(importProject(filePath, fileContent, manager), {
           loading: "Importing project...",
           success: (result) => {
             if (result.ok) {

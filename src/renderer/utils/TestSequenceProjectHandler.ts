@@ -5,31 +5,43 @@
 //   3. Update the test sequencer
 
 import { Err, Ok, Result } from "@/types/result";
-import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { readJsonProject, stringifyProject } from "@/renderer/routes/test_sequencer_panel/utils/TestSetUtils";
 import { TestSequenceElement, TestSequencerProject } from "@/renderer/types/testSequencer";
 
 // Exposed API
-export async function createProject(project: TestSequencerProject): Promise<Result<null, Error>> {
-  // Create a new project from the element currently in the test sequencer
-  // - Will valide that each element is in the base folder
-  return await saveProject(project);
+export type StateManager = {
+  elem: TestSequenceElement[];
+  setElems: (elems: TestSequenceElement[]) => void;
+  project: TestSequencerProject | null;
+  setProject: (project: TestSequencerProject | null) => void;
+  setUnsaved: (unsaved: boolean) => void;
 }
 
-export async function saveProject(project: TestSequencerProject | null = null): Promise<Result<null, Error>> {
+
+export async function createProject(project: TestSequencerProject, stateManager: StateManager): Promise<Result<null, Error>> {
+  // Create a new project from the element currently in the test sequencer
+  // - Will valide that each element is in the base folder
+  console.log("Creating project", project);
+  stateManager.setProject(project);
+  return await saveProject(stateManager);
+}
+
+export async function saveProject(stateManager: StateManager): Promise<Result<null, Error>> {
   // Save the current project to disk
   try {
+    console.log("Saving project");
+    let project = stateManager.project;
     if (!project) {
-      const { project: p } = useTestSequencerState();
-      if (!p) {
-        return Err(new Error("No project to save"));
-      }
-      project = p;
+      return Err(new Error("No project to save"));
     }
-    const { elems } = useTestSequencerState();
+    console.log("project is defined");
+    const elems = stateManager.elem;
+    console.log("elem is defined");
     project = validatePath(project);
+    console.log("validatedProject");
     project = updateProjectElements(project, await createProjectElementsFromTestSequencerElements(elems, project.projectPath, true));
-    syncProject(project)
+    console.log("updatedProject");
+    syncProject(project, stateManager);
     return Ok(null);
   } catch (e: unknown) {
     if (e instanceof Error) {
@@ -42,7 +54,7 @@ export async function saveProject(project: TestSequencerProject | null = null): 
 
 }
 
-export async function importProject(filePath: string, fileContent: string): Promise<Result<null, Error>> {
+export async function importProject(filePath: string, fileContent: string, stateManager: StateManager): Promise<Result<null, Error>> {
   // From a file, import a project and update the test sequencer
   // * Importing a project overwrites the current project, even the test sequencer is unsaved
   try {
@@ -53,7 +65,7 @@ export async function importProject(filePath: string, fileContent: string): Prom
     const projectPath = filePath.replace(project.name + ".tjoy", "");
     project = updatePath(project, projectPath);
     project = updateProjectElements(project, await createTestSequencerElementsFromProjectElements(project, project.projectPath, true));
-    syncProject(project);
+    syncProject(project, stateManager);
     return Ok(null);
   } catch (e: unknown) {
     if (e instanceof Error) {
@@ -65,19 +77,18 @@ export async function importProject(filePath: string, fileContent: string): Prom
   }
 }
 
-export async function exportProject(project: TestSequencerProject) {
+export async function exportProject(stateManager: StateManager): Promise<Result<null, Error>> {
   // Export the current project as a zip file without any dependencies
-  await saveProject(project);
+  await saveProject(stateManager);
   return Err(new Error("Export Not Implemented"));
 }
 
-export async function closeProject(project: TestSequencerProject, save: boolean): Promise<Result<null, Error>> {
+export async function closeProject(save: boolean, stateManager: StateManager): Promise<Result<null, Error>> {
   // Delete the current proejct from the app. The project is NOT deleted from disk
   if (save) {
-    await saveProject(project);
+    await saveProject(stateManager);
   }
-  const { setProject } = useTestSequencerState();
-  setProject(null);
+  stateManager.setProject(null);
   return Ok(null);
 }
 
@@ -109,23 +120,17 @@ function updatePath(project: TestSequencerProject, newPath: string): TestSequenc
   }
 }
 
-async function syncProject(project: TestSequencerProject) {
+async function syncProject(project: TestSequencerProject, stateManager: StateManager): Promise<void> {
   if ("api" in window) {
     await window.api.saveToFile(
       project.projectPath + project.name + ".tjoy",
       stringifyProject(project)
     );
   }
-  const { setProject, setUnsaved } = useTestSequencerState();
   const elements = await createTestSequencerElementsFromProjectElements(project, project.projectPath, false);
-  setProject(project);
-  syncElements(elements);
-  setUnsaved(false);
-}
-
-async function syncElements(element: TestSequenceElement[]) {
-  const { setElems } = useTestSequencerState();
-  setElems(() => element);
+  stateManager.setElems(elements);
+  stateManager.setProject(project);
+  stateManager.setUnsaved(false);
 }
 
 async function createProjectElementsFromTestSequencerElements(
@@ -182,6 +187,7 @@ async function createTestSequencerElementsFromProjectElements(
 }
 
 async function throwIfNotInAllBaseFolder(elems: TestSequenceElement[], baseFolder: string) {
+  console.log("Throwing if not in base folder", elems, baseFolder);
   for (let elem of elems) {
     let weGoodBro = false 
     if (elem.type === "conditional") {
@@ -192,15 +198,22 @@ async function throwIfNotInAllBaseFolder(elems: TestSequenceElement[], baseFolde
       continue;
     } 
     if ('api' in window) {
+      console.log("Checking if file is on disk");
       await window.api.isFileOnDisk(baseFolder + elem.path)
         .then((result) => {
+          console.log("Result", result);
           if (result) {
             weGoodBro = true;
           }
-        });
+        }).catch((e) => {
+          console.error("Error while checking if file is on disk", e);
+          throw new Error(`Error while checking if the file is on disk`);
+        }
+      );
     }
     // New test type ? Handle it here
     if (!weGoodBro) {
+      console.log("Throwing error");
       throw new Error(`The element ${elem.path} is not in the base folder ${baseFolder}`);
     }
   }

@@ -14,6 +14,7 @@ export const API = {
   setPythonInterpreter: "SET_PY_INTERPRETER",
   writeFileSync: "WRITE_FILE_SYNC",
   writeFile: "WRITE_FILE",
+  isFileOnDisk: "IS_FILE_ON_DISK",
   showSaveDialog: "SHOW_SAVE_DIALOG",
   browsePythonInterpreter: "BROWSE_PY_INTERPRETER",
   sendLogToStatusbar: "SEND_LOG_TO_STATUSBAR",
