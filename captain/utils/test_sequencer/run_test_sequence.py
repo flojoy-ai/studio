@@ -61,7 +61,7 @@ Extract = tuple[
 def _with_stream_test_result(func: Callable[[TestNode], Extract]):
     # TODO: support run in parallel feature
     async def wrapper(node: TestNode) -> Extract:
-        await _stream_result_to_frontend(MsgState.RUNNING, test_id=node.id)
+        await _stream_result_to_frontend(MsgState.running, test_id=node.id)
         children_getter, test_result = func(node)
         if test_result is None:
             raise Exception(f"{node.id}: Test returned None")
@@ -269,7 +269,7 @@ async def run_test_sequence(data):
         await run_dfs(data)  # run tests
         await _stream_result_to_frontend(state=MsgState.test_set_done)
     except Exception as e:
-        await _stream_result_to_frontend(state=MsgState.ERROR, error=str(e))
+        await _stream_result_to_frontend(state=MsgState.error, error=str(e))
         logger.error(f"{e}: {traceback.format_exc()}")
 
 
@@ -288,7 +288,7 @@ async def _case_test_upload(node: TestNode, hardware_id, project_id) -> Extract:
         passed = True if status == StatusTypes.pass_ else False
         test_name = node.test_name.split("::")[-1]
         try:
-            await _stream_result_to_frontend(MsgState.RUNNING, test_id=node.id)
+            await _stream_result_to_frontend(MsgState.running, test_id=node.id)
             node.is_saved_to_cloud = False
             cloud.upload(
                 data=passed,
@@ -370,5 +370,5 @@ async def export_test_sequence(data, hardware_id, project_id):
         await run_dfs(data)  # Export tests
         await _stream_result_to_frontend(state=MsgState.test_set_done)
     except Exception as e:
-        await _stream_result_to_frontend(state=MsgState.ERROR, error=str(e))
+        await _stream_result_to_frontend(state=MsgState.error, error=str(e))
         logger.error(f"{e}: {traceback.format_exc()}")
