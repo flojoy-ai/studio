@@ -1,9 +1,9 @@
 import React from "react";
 import { User } from "@/types/auth";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
+import { Label } from "@/renderer/components/ui/label";
+import { Input } from "@/renderer/components/ui/input";
 import { cn } from "@/renderer/lib/utils";
-import { Avatar, AvatarFallback } from "../ui/avatar";
+import { Avatar, AvatarFallback } from "@/renderer/components/ui/avatar";
 import { getAlphabetAvatar } from "@/renderer/utils/TextWrap";
 import { useNavigate } from "react-router-dom";
 import {
@@ -11,9 +11,9 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "@/renderer/components/ui/dropdown-menu";
 import { MoreVerticalIcon } from "lucide-react";
-import ConfirmPrompt from "../common/ConfirmPrompt";
+import ConfirmPrompt from "@/renderer/components/common/ConfirmPrompt";
 import { toast } from "sonner";
 import { parseElectronError } from "@/renderer/utils/parse-error";
 import { useAuth } from "@/renderer/context/auth.context";

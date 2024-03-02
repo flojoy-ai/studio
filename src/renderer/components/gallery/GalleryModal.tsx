@@ -8,11 +8,11 @@ import {
 import { LayoutGrid } from "lucide-react";
 import { ScrollArea } from "@/renderer/components/ui/scroll-area";
 import { getGalleryData } from "@/renderer/utils/GalleryLoader";
-import { Separator } from "../ui/separator";
+import { Separator } from "@/renderer/components/ui/separator";
 import { GalleryElement } from "./GalleryElement";
-import { Input } from "../ui/input";
+import { Input } from "@/renderer/components/ui/input";
 import { useEffect, useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from "@/renderer/components/ui/button";
 
 type AppGalleryModalProps = {
   isGalleryOpen: boolean;

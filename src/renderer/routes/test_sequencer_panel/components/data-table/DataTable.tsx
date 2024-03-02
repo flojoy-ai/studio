@@ -45,19 +45,19 @@ import { parseInt, filter, map } from "lodash";
 import {
   generateConditional,
   getIndentLevels,
-} from "../../utils/ConditionalUtils";
+} from "@/renderer/routes/test_sequencer_panel/utils/ConditionalUtils";
 import { ChevronUpIcon, ChevronDownIcon, TrashIcon } from "lucide-react";
-import { WriteConditionalModal } from "../AddWriteConditionalModal";
-import LockableButton from "../lockable/LockedButtons";
+import { WriteConditionalModal } from "@/renderer/routes/test_sequencer_panel/components/AddWriteConditionalModal";
+import LockableButton from "@/renderer/routes/test_sequencer_panel/components/lockable/LockedButtons";
 import { useRef, useState, useEffect } from "react";
 import TestNameCell from "./test-name-cell";
-import { DraggableRow } from "../dnd/DraggableRow";
+import { DraggableRow } from "@/renderer/routes/test_sequencer_panel/components/dnd/DraggableRow";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/renderer/components/ui/hover-card";
-import PythonTestFileModal from "../PythonTestFileModal";
+import PythonTestFileModal from "@/renderer/routes/test_sequencer_panel/components/PythonTestFileModal";
 
 function renderErrorMessage(text: string): JSX.Element {
   const lines = text.split("\n");

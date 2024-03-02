@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Input } from "@/renderer/components/ui/input";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import LockableButton from "./lockable/LockedButtons";
-import { testSequenceExportCloud } from "../models/models";
 import { useTestSequencerWS } from "@/renderer/context/testSequencerWS.context";
 import {
   Select,
@@ -15,6 +14,7 @@ import { captain } from "@/renderer/lib/ky";
 import { Button } from "@/renderer/components/ui/button";
 import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
+import { testSequenceExportCloud } from "@/renderer/routes/test_sequencer_panel/models/models";
 
 type Project = {
   label: string;

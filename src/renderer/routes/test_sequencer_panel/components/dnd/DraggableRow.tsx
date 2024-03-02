@@ -3,7 +3,7 @@ import {
   Droppable,
   ItemTypes,
   TestSequenceDropResult,
-} from "../../models/drag_and_drop";
+} from "@/renderer/routes/test_sequencer_panel/models/drag_and_drop";
 import { TableCell, TableRow } from "@/renderer/components/ui/table";
 import { TestSequenceElement } from "@/renderer/types/testSequencer";
 import { Row, flexRender } from "@tanstack/react-table";

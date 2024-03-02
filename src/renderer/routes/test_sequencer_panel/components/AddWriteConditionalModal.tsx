@@ -11,8 +11,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/renderer/components//ui/dropdown-menu";
-import { Test } from "@/renderer/types/testSequencer";
+} from "@/renderer/components/ui/dropdown-menu";
 
 export const WriteConditionalModal = ({
   isConditionalModalOpen,
@@ -27,14 +26,15 @@ export const WriteConditionalModal = ({
 }) => {
   const [value, setValue] = useState("");
   const { elems } = useTestSequencerState();
-  const [tests, setTests] = useState([]);
+  const [tests, setTests] = useState<string[]>([]);
 
   useEffect(() => {
-    const filteredTests = elems
-      .filter((elem) => elem.type === "test")
-      // @ts-ignore
-      .map((elem) => elem.testName);
-    // @ts-ignore
+    const filteredTests = elems.reduce((acc, elem) => {
+      if (elem.type === "test") {
+        acc.push(elem.testName);
+      }
+      return acc;
+    }, [] as string[]);
     setTests(filteredTests);
   }, [elems]);
 

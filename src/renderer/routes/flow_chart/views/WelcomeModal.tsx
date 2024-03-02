@@ -8,7 +8,6 @@ import {
 import { useLoadApp } from "@/renderer/hooks/useLoadApp";
 import { Button } from "@/renderer/components/ui/button";
 
-import packageJson from "../../../../../package.json";
 import { useManifest } from "@/renderer/stores/manifest";
 import { useEffect } from "react";
 import {
@@ -40,9 +39,7 @@ export function WelcomeModal() {
     <AlertDialog open={showWelcomeScreen}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>
-            Welcome to Flojoy Studio V{packageJson.version}
-          </AlertDialogTitle>
+          <AlertDialogTitle>Welcome to Flojoy Studio</AlertDialogTitle>
           <AlertDialogDescription>
             Introducing our Alpha Release: Expect exciting improvements and
             possible breaking changes as we refine and enhance the app.
