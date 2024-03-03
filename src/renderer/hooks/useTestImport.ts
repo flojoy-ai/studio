@@ -7,6 +7,7 @@ import { ImportTestSettings } from "@/renderer/routes/test_sequencer_panel/compo
 import { toast } from "sonner";
 import { useCallback } from "react";
 import { Dispatch, SetStateAction } from "react";
+import { verifyElementCompatibleWithProject } from "@/renderer/utils/TestSequenceProjectHandler";
 
 function parseDiscoverContainer(
   data: TestDiscoverContainer,
@@ -30,7 +31,7 @@ function parseDiscoverContainer(
 }
 
 export const useTestImport = () => {
-  const { setElems } = useTestSequencerState();
+  const { setElems, project } = useTestSequencerState();
 
   const handleUserDepInstall = useCallback(async (depName: string) => {
     const promise = () => window.api.poetryInstallDepUserGroup(depName);
@@ -81,6 +82,13 @@ export const useTestImport = () => {
     if (newElems.length === 0) {
       toast.error("No tests found in the specified file.");
       throw new Error("No tests found in the file");
+    }
+    if (project !== null) {
+      const result = await verifyElementCompatibleWithProject(project, newElems, false);
+      if (!result.ok) {
+        toast.error(`${result.error}`);
+        return
+      }
     }
     setModalOpen(false);
     setElems((elems) => {

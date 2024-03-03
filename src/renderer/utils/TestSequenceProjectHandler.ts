@@ -30,7 +30,7 @@ export async function createProject(project: TestSequencerProject, stateManager:
     return Ok(null);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
-    return buildErrorFromCatch(e); 
+    return buildResultFromCatch(e); 
   }
 }
 
@@ -48,7 +48,7 @@ export async function saveProject(stateManager: StateManager, throwInsteadOfResu
     return Ok(null);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
-    return buildErrorFromCatch(e); 
+    return buildResultFromCatch(e); 
   }
 
 }
@@ -67,7 +67,7 @@ export async function importProject(filePath: string, fileContent: string, state
     return Ok(null);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
-    return buildErrorFromCatch(e); 
+    return buildResultFromCatch(e); 
   }
 }
 
@@ -86,18 +86,19 @@ export async function closeProject(save: boolean, stateManager: StateManager, th
   return Ok(null);
 }
 
-export async function verifyElementCompatible(project: TestSequencerProject, elements: TestSequenceElement[], throwInsteadOfResult: boolean=false) {
-  // Add elements to the current project. Currently throw an error if the elements are not in the base folder
+export async function verifyElementCompatibleWithProject(project: TestSequencerProject, elements: TestSequenceElement[], throwInsteadOfResult: boolean=false): Promise<Result<null, Error>> {
+  // Verify that the elements are within the current project directory.
   try {
-    throwIfNotInAllBaseFolder(elements, project.projectPath);
+    await throwIfNotInAllBaseFolder(elements, project.projectPath);
+    return Ok(null);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
-    return buildErrorFromCatch(e); 
+    return buildResultFromCatch(e); 
   }
 }
 
 // Private -------------------------------------------------------------------------------------------------
-function buildErrorFromCatch(e: unknown): Result<null, Error> {
+function buildResultFromCatch(e: unknown): Result<null, Error> {
   if (e instanceof Error) {
     return Err(e);
   } else {
