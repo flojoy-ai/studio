@@ -109,8 +109,9 @@ function buildResultFromCatch(e: unknown): Result<null, Error> {
 
 function validatePath(project: TestSequencerProject): TestSequencerProject {
   const { getPathSeparator } = window.api
-  if (!project.projectPath.endsWith(getPathSeparator())) {
-    return updatePath(project, project.projectPath + getPathSeparator());
+  const sep = getPathSeparator();
+  if (!project.projectPath.endsWith(sep)) {
+    return updatePath(project, project.projectPath + sep);
   }
   return project;
 }
@@ -189,17 +190,24 @@ async function createTestSequencerElementsFromProjectElements(
 }
 
 async function throwIfNotInAllBaseFolder(elems: TestSequenceElement[], baseFolder: string) {
+  const { getPathSeparator } = window.api
+  const sep = getPathSeparator();
   for (let elem of elems) {
     let weGoodBro = false 
     if (elem.type === "conditional") {
       continue;
     }
-    if (elem.path.startsWith(baseFolder)) {
-      // Python
+    let path = elem.path;
+    if (sep === "\\") {
+      path = path.replace(/(?<!\\)\//g, '\\')  // Replace / with \ if not preceded by \ (escaped)
+    }
+    if (path.startsWith(baseFolder)) {
+      // Absolute path
       continue;
     } 
     if ('api' in window) {
-      await window.api.isFileOnDisk(baseFolder + elem.path)
+      // Relative path
+      await window.api.isFileOnDisk(baseFolder + path)
         .then((result) => {
           if (result) {
             weGoodBro = true;
@@ -212,7 +220,7 @@ async function throwIfNotInAllBaseFolder(elems: TestSequenceElement[], baseFolde
     }
     // New test type ? Handle it here
     if (!weGoodBro) {
-      throw new Error(`The element ${elem.path} is not in the base folder ${baseFolder}`);
+      throw new Error(`The element ${path} is not in the base folder ${baseFolder}`);
     }
   }
 }
