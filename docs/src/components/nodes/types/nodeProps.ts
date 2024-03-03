@@ -4,32 +4,31 @@ type NodeElement = {
   name: string;
   key: string;
   type: string;
-  inputs?: Array<{
+  inputs?: {
     name: string;
     id: string;
     type: string;
     multiple?: boolean;
     desc: string | null;
-  }>;
-
-  outputs: Array<{
+  }[];
+  outputs: {
     name: string;
     id: string;
     type: string;
     desc: string | null;
-  }>;
+  }[];
   parameters: Record<
     string,
     {
       type: string;
       default: string | number | boolean | null | undefined;
-      options?: Array<string>;
+      options?: string[];
       desc: string | null;
-      overload: Record<string, Array<string>> | null;
+      overload: Record<string, string[]> | null;
     }
   >;
   init_parameters?: NodeElement["parameters"];
-  pip_dependencies: Array<{ name: string; v: string }>;
+  pip_dependencies: { name: string; v: string }[];
   children: null;
 };
 

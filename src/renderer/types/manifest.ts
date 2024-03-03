@@ -37,7 +37,7 @@ const blockDefinitionSchema = z.object({
   type: z.string(),
   inputs: z.array(nodeInputSchema).optional(),
   outputs: z.array(nodeOutputSchema).optional(),
-  parameters: z.record(z.string(), nodeParameterSchema).optional(),
+  parameters: z.record(z.string(), nodeParameterSchema),
   init_parameters: z.record(z.string(), nodeParameterSchema).optional(),
   pip_dependencies: z.array(pipDependencySchema).optional(),
   children: z.null(),

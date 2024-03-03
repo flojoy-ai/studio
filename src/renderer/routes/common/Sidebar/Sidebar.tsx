@@ -21,6 +21,7 @@ import { useShallow } from "zustand/react/shallow";
 import { toast } from "sonner";
 import { HTTPError } from "ky";
 import { ZodError } from "zod";
+
 export type LeafClickHandler = (elem: Leaf) => void;
 
 type SidebarProps = {

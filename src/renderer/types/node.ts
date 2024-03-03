@@ -22,19 +22,18 @@ export type BlockDefinition = {
     type: string;
     desc: string | null;
   }>;
-  parameters: Record<
-    string,
-    {
-      type: string;
-      default?: BlockParameterValue;
-      options?: Array<string>;
-      desc: string | null;
-      overload: Record<string, string[]> | null;
-    }
-  >;
+  parameters: Record<string, ParamDefinition>;
   init_parameters?: BlockDefinition["parameters"];
   pip_dependencies: Array<{ name: string; v: string }>;
   children: null;
+};
+
+export type ParamDefinition = {
+  type: string;
+  default?: BlockParameterValue;
+  options?: (string | number)[];
+  desc: string | null;
+  overload: Record<string, string[]> | null;
 };
 
 export type CtrlData = Record<

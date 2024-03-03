@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { Leaf as NodeElement } from "@/renderer/types/manifest";
-import { CtrlData } from "@/renderer/types/node";
+import { CtrlData, ParamDefinition } from "@/renderer/types/node";
 import { DeviceInfo } from "@/renderer/types/hardware";
 
 export const createNodeId = (nodeFunc: string) => `${nodeFunc}-${uuidv4()}`;
@@ -37,6 +37,7 @@ export const createNodeLabel = (nodeFunc: string, takenLabels: string[][]) => {
 
   return nodeLabel.replaceAll("_", " ");
 };
+
 export const ctrlsFromParams = (
   params: NodeElement["parameters"] | undefined,
   funcName: string,
@@ -48,8 +49,8 @@ export const ctrlsFromParams = (
 
   const getDefault =
     devices === undefined
-      ? (param) => param.default ?? ""
-      : (param) => {
+      ? (param: ParamDefinition) => param.default ?? ""
+      : (param: ParamDefinition) => {
           switch (param.type) {
             case "CameraDevice":
             case "CameraConnection":

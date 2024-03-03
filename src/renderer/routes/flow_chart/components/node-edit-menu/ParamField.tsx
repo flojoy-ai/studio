@@ -33,7 +33,7 @@ type ParamFieldProps = {
     paramName: string,
     value: BlockParameterValue,
   ) => Result<void>;
-  options?: string[];
+  options?: (string | number)[];
   nodeReferenceOptions?: {
     label: string;
     value: string;
@@ -113,7 +113,7 @@ const ParamField = ({
           </SelectTrigger>
           <SelectContent className="max-h-72">
             {(options ?? []).map((option) => (
-              <SelectItem key={option} value={option}>
+              <SelectItem key={option} value={String(option)}>
                 {option}
               </SelectItem>
             ))}
