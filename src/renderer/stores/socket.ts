@@ -1,19 +1,23 @@
 import { create } from "zustand";
 import { BlockResult } from "@/renderer/types/block-result";
-import { ServerStatus, WorkerJobResponse } from "@/renderer/types/socket";
+import {
+  ServerStatus,
+  ServerStatusEnum,
+  WorkerJobResponse,
+} from "@/renderer/types/socket";
 
 type State = {
   runningNode: string;
   blockResults: Record<string, BlockResult>;
 
-  serverStatus: string;
+  serverStatus: ServerStatusEnum;
   failedNodes: Record<string, string>;
   socketId: string;
   logs: string[];
 };
 
 type Actions = {
-  setServerStatus: (val: string) => void;
+  setServerStatus: (val: ServerStatusEnum) => void;
   processWorkerResponse: (res: WorkerJobResponse) => void;
   wipeBlockResults: () => void;
   setSocketId: (val: string) => void;
@@ -30,10 +34,7 @@ export const useSocketStore = create<State & Actions>()((set) => ({
   processWorkerResponse: (res) => {
     if (res.SYSTEM_STATUS) {
       set({
-        serverStatus:
-          res.SYSTEM_STATUS === ServerStatus.RUN_COMPLETE
-            ? ServerStatus.STANDBY
-            : res.SYSTEM_STATUS,
+        serverStatus: res.SYSTEM_STATUS,
       });
     }
     if (res.NODE_RESULTS) {

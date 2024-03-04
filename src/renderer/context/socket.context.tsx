@@ -14,7 +14,11 @@ import { useManifestStore } from "@/renderer/stores/manifest";
 import { useShallow } from "zustand/react/shallow";
 import { HTTPError } from "ky";
 import { ZodError } from "zod";
-import { ServerStatus, WorkerJobResponse } from "@/renderer/types/socket";
+import {
+  ServerStatus,
+  ServerStatusEnum,
+  WorkerJobResponse,
+} from "@/renderer/types/socket";
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 import { useSocketStore } from "@/renderer/stores/socket";
 import { useHardwareStore } from "@/renderer/stores/hardware";
@@ -22,7 +26,7 @@ import { fromZodError } from "zod-validation-error";
 
 type SocketState = {
   runningNode: string;
-  serverStatus: string;
+  serverStatus: ServerStatusEnum;
   blockResults: Record<string, BlockResult>;
   failedNodes: Record<string, string>;
   wipeBlockResults: () => void;

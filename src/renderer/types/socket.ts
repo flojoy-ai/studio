@@ -2,16 +2,23 @@ import { z } from "zod";
 import { BlockResult } from "./block-result";
 
 export enum ServerStatus {
+  // all the possible server status that can be received from the server
+  STANDBY = "🐢 awaiting a new job",
+  RUNNING_PYTHON_JOB = "🏃‍♀️ running python job: ",
+  FAILED_NODE = "❌ Failed to run: ",
+  RUN_PRE_JOB_OP = "⏳ running pre-job operation...",
+  BUILDING_TOPOLOGY = " 🔨 building flow chart...",
+  MAXIMUM_RUNTIME_EXCEEDED = "⏰ maximum runtime exceeded",
+  COLLECTING_PIP_DEPENDENCIES = " 📦 collecting pip dependencies...",
+  INSTALLING_PACKAGES = "✨ installing missing packages...",
+  IMPORTING_NODE_FUNCTIONS = " 📦 importing node functions...",
+  PRE_JOB_OP_FAILED = "❌ pre-job operation failed - Re-run script...",
+  RUN_IN_PROCESS = "🏃‍♀️ running script...",
+  IMPORTING_NODE_FUNCTIONS_FAILED = "❌ importing node functions failed",
+
+  // some status we defined only on the client
   OFFLINE = "🛑 server offline",
   CONNECTING = "Connecting to server...",
-  RUN_IN_PROCESS = "🏃‍♀️ running script...",
-  RUN_COMPLETE = "🤙 python script run successful",
-  MISSING_RESULTS = "👽 no result found",
-  JOB_IN_QUEUE = "🎠 queuing python job= ",
-  RESULTS_RETURNED = "🔔 new results - check LOGS",
-  STANDBY = "🐢 awaiting a new job",
-  SERVER_ONLINE = "🏁 node server online",
-  NO_RUNS_YET = "⛷️ No runs yet",
 }
 
 export const ServerStatusEnum = z.nativeEnum(ServerStatus);
@@ -20,7 +27,7 @@ export type ServerStatusEnum = z.infer<typeof ServerStatusEnum>;
 export const WorkerJobResponse = z.object({
   jobsetId: z.string().optional(),
   socketId: z.string().optional(),
-  SYSTEM_STATUS: z.string().optional(),
+  SYSTEM_STATUS: ServerStatusEnum.optional(),
   type: z.enum([
     "worker_response",
     "connection_established",
