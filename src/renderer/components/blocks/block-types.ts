@@ -75,6 +75,7 @@ const blockTypesMap: BlockTypesMap = {
   PROTOCOLS: HardwareBlock,
   MULTIMETERS: HardwareBlock,
   DAQ_BOARDS: HardwareBlock,
+  OSCILLOSCOPES: HardwareBlock,
   /**
    * Numpy section
    */

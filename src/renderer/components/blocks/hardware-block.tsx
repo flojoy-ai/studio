@@ -10,6 +10,7 @@ import MotorsSvg from "@/renderer/assets/blocks/hardware/motors-svg";
 import ProtocolsSvg from "@/renderer/assets/blocks/hardware/protocols-svg";
 import MultimetersSvg from "@/renderer/assets/blocks/hardware/multimeters-svg";
 import DaqBoardsSvg from "@/renderer/assets/blocks/hardware/daq-boards-svg";
+import OscilloscopeSvg from "@/renderer/assets/blocks/hardware/oscilloscope-svg";
 
 export type HardwareCategory =
   | "HARDWARE"
@@ -20,7 +21,8 @@ export type HardwareCategory =
   | "MOTORS"
   | "PROTOCOLS"
   | "MULTIMETERS"
-  | "DAQ_BOARDS";
+  | "DAQ_BOARDS"
+  | "OSCILLOSCOPES";
 
 const hardwareCategorySVGMap: Record<
   HardwareCategory,
@@ -35,6 +37,7 @@ const hardwareCategorySVGMap: Record<
   PROTOCOLS: ProtocolsSvg,
   MULTIMETERS: MultimetersSvg,
   DAQ_BOARDS: DaqBoardsSvg,
+  OSCILLOSCOPES: OscilloscopeSvg,
 };
 
 const HardwareBlock = (props: CustomNodeProps) => {

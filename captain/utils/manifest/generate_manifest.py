@@ -58,6 +58,7 @@ ALLOWED_TYPES = [
     "DAQ_BOARDS",
     "IMAGING",
     "MULTIMETERS",
+    "OSCILLOSCOPES",
 ]
 
 # Sort order in sidebar

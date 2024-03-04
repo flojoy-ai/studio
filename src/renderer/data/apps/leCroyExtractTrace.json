@@ -1,16 +1,17 @@
 {
+  "name": "LeCroy",
   "rfInstance": {
     "nodes": [
       {
-        "width": 192,
-        "height": 192,
+        "width": 216,
+        "height": 233,
         "id": "CONNECT_T3DSO1XXX-3913af17-b91e-4fb8-a4da-f77ecc03c940",
-        "type": "HARDWARE",
+        "type": "OSCILLOSCOPES",
         "data": {
           "id": "CONNECT_T3DSO1XXX-3913af17-b91e-4fb8-a4da-f77ecc03c940",
           "label": "CONNECT T3DSO1XXX",
           "func": "CONNECT_T3DSO1XXX",
-          "type": "HARDWARE",
+          "type": "OSCILLOSCOPES",
           "ctrls": {
             "device": {
               "type": "VisaDevice",
@@ -43,26 +44,26 @@
           "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/CONNECT_T3DSO1XXX/CONNECT_T3DSO1XXX.py"
         },
         "position": {
-          "x": -546.5725154533942,
-          "y": -502.81689874958664
+          "x": -1322.5725154533943,
+          "y": -672.8168987495866
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -546.5725154533942,
-          "y": -502.81689874958664
+          "x": -1322.5725154533943,
+          "y": -672.8168987495866
         },
         "dragging": true
       },
       {
-        "width": 192,
-        "height": 192,
+        "width": 216,
+        "height": 233,
         "id": "AUTO_SETUP_T3DSO1XXX-2067aca4-bdd1-4e1d-ac70-0a4bbcb7434c",
-        "type": "HARDWARE",
+        "type": "OSCILLOSCOPES",
         "data": {
           "id": "AUTO_SETUP_T3DSO1XXX-2067aca4-bdd1-4e1d-ac70-0a4bbcb7434c",
           "label": "AUTO SETUP T3DSO1XXX",
           "func": "AUTO_SETUP_T3DSO1XXX",
-          "type": "HARDWARE",
+          "type": "OSCILLOSCOPES",
           "ctrls": {
             "connection": {
               "type": "VisaConnection",
@@ -95,26 +96,26 @@
           "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/AUTO_SETUP_T3DSO1XXX/AUTO_SETUP_T3DSO1XXX.py"
         },
         "position": {
-          "x": -377.4737345870703,
-          "y": -55.10729476899121
+          "x": -559.4737345870703,
+          "y": -657.1072947689912
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -377.4737345870703,
-          "y": -55.10729476899121
+          "x": -559.4737345870703,
+          "y": -657.1072947689912
         },
         "dragging": true
       },
       {
-        "width": 192,
-        "height": 192,
+        "width": 216,
+        "height": 233,
         "id": "RESET_T3DSO1XXX-f5faaa6b-fa1c-40bf-85e4-8c85f917a463",
-        "type": "HARDWARE",
+        "type": "OSCILLOSCOPES",
         "data": {
           "id": "RESET_T3DSO1XXX-f5faaa6b-fa1c-40bf-85e4-8c85f917a463",
           "label": "RESET T3DSO1XXX",
           "func": "RESET_T3DSO1XXX",
-          "type": "HARDWARE",
+          "type": "OSCILLOSCOPES",
           "ctrls": {
             "connection": {
               "type": "VisaConnection",
@@ -147,26 +148,26 @@
           "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/RESET_T3DSO1XXX/RESET_T3DSO1XXX.py"
         },
         "position": {
-          "x": -456.8385442854459,
-          "y": -277.3423621130851
+          "x": -956.838544285446,
+          "y": -665.3423621130851
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -456.8385442854459,
-          "y": -277.3423621130851
+          "x": -956.838544285446,
+          "y": -665.3423621130851
         },
         "dragging": true
       },
       {
-        "width": 192,
-        "height": 192,
+        "width": 218,
+        "height": 305,
         "id": "SET_HORIZONTAL_SCALE_T3DSO1XXX-39f8506b-9401-4fc4-a009-66d828089d9b",
-        "type": "HARDWARE",
+        "type": "OSCILLOSCOPES",
         "data": {
           "id": "SET_HORIZONTAL_SCALE_T3DSO1XXX-39f8506b-9401-4fc4-a009-66d828089d9b",
           "label": "SET HORIZONTAL SCALE T3DSO1XXX",
           "func": "SET_HORIZONTAL_SCALE_T3DSO1XXX",
-          "type": "HARDWARE",
+          "type": "OSCILLOSCOPES",
           "ctrls": {
             "connection": {
               "type": "VisaConnection",
@@ -218,26 +219,26 @@
           "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/SET_HORIZONTAL_SCALE_T3DSO1XXX/SET_HORIZONTAL_SCALE_T3DSO1XXX.py"
         },
         "position": {
-          "x": -137.2550808030488,
-          "y": -279.46178107696176
+          "x": -947.2550808030487,
+          "y": -313.46178107696176
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -137.2550808030488,
-          "y": -279.46178107696176
+          "x": -947.2550808030487,
+          "y": -313.46178107696176
         },
         "dragging": true
       },
       {
-        "width": 192,
-        "height": 192,
+        "width": 216,
+        "height": 305,
         "id": "SET_VERTICAL_SCALE_T3DSO1XXX-41c4c9d3-241e-4d88-990b-177e228c7fb6",
-        "type": "HARDWARE",
+        "type": "OSCILLOSCOPES",
         "data": {
           "id": "SET_VERTICAL_SCALE_T3DSO1XXX-41c4c9d3-241e-4d88-990b-177e228c7fb6",
           "label": "SET VERTICAL SCALE T3DSO1XXX",
           "func": "SET_VERTICAL_SCALE_T3DSO1XXX",
-          "type": "HARDWARE",
+          "type": "OSCILLOSCOPES",
           "ctrls": {
             "connection": {
               "type": "VisaConnection",
@@ -289,26 +290,26 @@
           "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/SET_VERTICAL_SCALE_T3DSO1XXX/SET_VERTICAL_SCALE_T3DSO1XXX.py"
         },
         "position": {
-          "x": -247.77712117307297,
-          "y": -499.0287422467984
+          "x": -1327.7771211730728,
+          "y": -331.0287422467984
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -247.77712117307297,
-          "y": -499.0287422467984
+          "x": -1327.7771211730728,
+          "y": -331.0287422467984
         },
         "dragging": true
       },
       {
-        "width": 192,
-        "height": 192,
+        "width": 218,
+        "height": 233,
         "id": "SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864d",
-        "type": "HARDWARE",
+        "type": "OSCILLOSCOPES",
         "data": {
           "id": "SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864d",
           "label": "SCREENSHOT T3DSO1XXX",
           "func": "SCREENSHOT_T3DSO1XXX",
-          "type": "HARDWARE",
+          "type": "OSCILLOSCOPES",
           "ctrls": {
             "connection": {
               "type": "VisaConnection",
@@ -341,26 +342,26 @@
           "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/SCREENSHOT_T3DSO1XXX/SCREENSHOT_T3DSO1XXX.py"
         },
         "position": {
-          "x": 414.5876719240538,
-          "y": 99.05106765306016
+          "x": 278.5876719240538,
+          "y": -38.94893234693984
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 414.5876719240538,
-          "y": 99.05106765306016
+          "x": 278.5876719240538,
+          "y": -38.94893234693984
         },
         "dragging": true
       },
       {
-        "width": 192,
-        "height": 192,
+        "width": 216,
+        "height": 269,
         "id": "DISPLAY_ON_OFF_T3DSO1XXX-d739e82a-ae40-427e-8f63-83c7c5e5ac4a",
-        "type": "HARDWARE",
+        "type": "OSCILLOSCOPES",
         "data": {
           "id": "DISPLAY_ON_OFF_T3DSO1XXX-d739e82a-ae40-427e-8f63-83c7c5e5ac4a",
           "label": "DISPLAY ON OFF T3DSO1XXX",
           "func": "DISPLAY_ON_OFF_T3DSO1XXX",
-          "type": "HARDWARE",
+          "type": "OSCILLOSCOPES",
           "ctrls": {
             "connection": {
               "type": "VisaConnection",
@@ -371,45 +372,41 @@
               "param": "connection",
               "value": "TCPIP::10.11.13.220::INSTR"
             },
-            "ch1": {
-              "type": "select",
-              "options": ["ON", "OFF"],
-              "default": "ON",
+            "display_ch1": {
+              "type": "bool",
+              "default": true,
               "desc": "Turn channel 1 on or off",
               "overload": null,
               "functionName": "DISPLAY_ON_OFF_T3DSO1XXX",
-              "param": "ch1",
-              "value": "ON"
+              "param": "display_ch1",
+              "value": true
             },
-            "ch2": {
-              "type": "select",
-              "options": ["ON", "OFF"],
-              "default": "ON",
+            "display_ch2": {
+              "type": "bool",
+              "default": true,
               "desc": "Turn channel 2 on or off",
               "overload": null,
               "functionName": "DISPLAY_ON_OFF_T3DSO1XXX",
-              "param": "ch2",
-              "value": "OFF"
+              "param": "display_ch2",
+              "value": true
             },
-            "ch3": {
-              "type": "select",
-              "options": ["ON", "OFF"],
-              "default": "ON",
+            "display_ch3": {
+              "type": "bool",
+              "default": true,
               "desc": "Turn channel 3 on or off",
               "overload": null,
               "functionName": "DISPLAY_ON_OFF_T3DSO1XXX",
-              "param": "ch3",
-              "value": "OFF"
+              "param": "display_ch3",
+              "value": true
             },
-            "ch4": {
-              "type": "select",
-              "options": ["ON", "OFF"],
-              "default": "ON",
+            "display_ch4": {
+              "type": "bool",
+              "default": true,
               "desc": "Turn channel 4 on or off",
               "overload": null,
               "functionName": "DISPLAY_ON_OFF_T3DSO1XXX",
-              "param": "ch4",
-              "value": "OFF"
+              "param": "display_ch4",
+              "value": true
             }
           },
           "initCtrls": {},
@@ -433,26 +430,26 @@
           "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/DISPLAY_ON_OFF_T3DSO1XXX/DISPLAY_ON_OFF_T3DSO1XXX.py"
         },
         "position": {
-          "x": -45.95230834452445,
-          "y": -55.48018511013652
+          "x": -627.9523083445245,
+          "y": -321.4801851101365
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -45.95230834452445,
-          "y": -55.48018511013652
+          "x": -627.9523083445245,
+          "y": -321.4801851101365
         },
         "dragging": true
       },
       {
-        "width": 192,
-        "height": 192,
+        "width": 239,
+        "height": 233,
         "id": "MEASUREMENT_T3DSO1XXX-7c90afe0-021f-4a25-8fe8-f6c2ef2ebf8a",
-        "type": "HARDWARE",
+        "type": "OSCILLOSCOPES",
         "data": {
           "id": "MEASUREMENT_T3DSO1XXX-7c90afe0-021f-4a25-8fe8-f6c2ef2ebf8a",
           "label": "MEASUREMENT T3DSO1XXX",
           "func": "MEASUREMENT_T3DSO1XXX",
-          "type": "HARDWARE",
+          "type": "OSCILLOSCOPES",
           "ctrls": {
             "connection": {
               "type": "VisaConnection",
@@ -511,7 +508,7 @@
               "type": "select",
               "options": ["Instant", "Mean", "Min", "Max", "Std-dev", "count"],
               "default": "Instant",
-              "desc": "The statistic to take. Requires the STATISTIC_TOGGLE_T3DSO block for all statistics except \"Instant\".",
+              "desc": "The statistic to take.",
               "overload": null,
               "functionName": "MEASUREMENT_T3DSO1XXX",
               "param": "statistic",
@@ -539,26 +536,26 @@
           "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/MEASUREMENT_T3DSO1XXX/MEASUREMENT_T3DSO1XXX.py"
         },
         "position": {
-          "x": 400.718461638072,
-          "y": -581.6849377350873
+          "x": 228.71846163807197,
+          "y": -1013.6849377350873
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 400.718461638072,
-          "y": -581.6849377350873
+          "x": 228.71846163807197,
+          "y": -1013.6849377350873
         },
         "dragging": true
       },
       {
-        "width": 192,
-        "height": 192,
+        "width": 239,
+        "height": 233,
         "id": "MEASUREMENT_T3DSO1XXX-0cf47606-eaeb-4a93-98c2-0973af7ddf2b",
-        "type": "HARDWARE",
+        "type": "OSCILLOSCOPES",
         "data": {
           "id": "MEASUREMENT_T3DSO1XXX-0cf47606-eaeb-4a93-98c2-0973af7ddf2b",
           "label": "MEASUREMENT T3DSO1XXX 1",
           "func": "MEASUREMENT_T3DSO1XXX",
-          "type": "HARDWARE",
+          "type": "OSCILLOSCOPES",
           "ctrls": {
             "connection": {
               "type": "VisaConnection",
@@ -617,7 +614,7 @@
               "type": "select",
               "options": ["Instant", "Mean", "Min", "Max", "Std-dev", "count"],
               "default": "Instant",
-              "desc": "The statistic to take. Requires the STATISTIC_TOGGLE_T3DSO block for all statistics except \"Instant\".",
+              "desc": "The statistic to take.",
               "overload": null,
               "functionName": "MEASUREMENT_T3DSO1XXX",
               "param": "statistic",
@@ -645,26 +642,26 @@
           "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/MEASUREMENT_T3DSO1XXX/MEASUREMENT_T3DSO1XXX.py"
         },
         "position": {
-          "x": 410.9828994498063,
-          "y": -369.2724753595701
+          "x": 248.98289944980633,
+          "y": -683.2724753595701
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 410.9828994498063,
-          "y": -369.2724753595701
+          "x": 248.98289944980633,
+          "y": -683.2724753595701
         },
         "dragging": true
       },
       {
-        "width": 192,
-        "height": 192,
+        "width": 216,
+        "height": 269,
         "id": "EXTRACT_TRACE_T3DSO1XXX-9d512b63-688b-4dc8-b542-52a150ed4bc4",
-        "type": "HARDWARE",
+        "type": "OSCILLOSCOPES",
         "data": {
           "id": "EXTRACT_TRACE_T3DSO1XXX-9d512b63-688b-4dc8-b542-52a150ed4bc4",
           "label": "EXTRACT TRACE T3DSO1XXX",
           "func": "EXTRACT_TRACE_T3DSO1XXX",
-          "type": "HARDWARE",
+          "type": "OSCILLOSCOPES",
           "ctrls": {
             "connection": {
               "type": "VisaConnection",
@@ -716,19 +713,19 @@
           "path": "HARDWARE/OSCILLOSCOPES/TELEDYNE_LECROY/T3DSO1XXX/EXTRACT_TRACE_T3DSO1XXX/EXTRACT_TRACE_T3DSO1XXX.py"
         },
         "position": {
-          "x": 412.08066698019564,
-          "y": -137.65696579136204
+          "x": 280.08066698019564,
+          "y": -367.65696579136204
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 412.08066698019564,
-          "y": -137.65696579136204
+          "x": 280.08066698019564,
+          "y": -367.65696579136204
         },
         "dragging": true
       },
       {
         "width": 225,
-        "height": 225,
+        "height": 269,
         "id": "BIG_NUMBER-e5497f6c-f274-437f-9d6d-d16f85b474e6",
         "type": "VISUALIZATION",
         "data": {
@@ -764,6 +761,15 @@
               "param": "title",
               "value": "Mean Amplitude"
             },
+            "dec_places": {
+              "type": "int",
+              "default": 0,
+              "desc": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\"",
+              "overload": null,
+              "functionName": "BIG_NUMBER",
+              "param": "dec_places",
+              "value": 0
+            },
             "relative_delta": {
               "type": "bool",
               "default": true,
@@ -776,7 +782,7 @@
             "scientific_notation": {
               "type": "bool",
               "default": false,
-              "desc": null,
+              "desc": "Use scientific notation? Defaults to 4 decimal places.",
               "overload": null,
               "functionName": "BIG_NUMBER",
               "param": "scientific_notation",
@@ -804,19 +810,19 @@
           "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py"
         },
         "position": {
-          "x": 951.6823169441486,
-          "y": -639.9381438879125
+          "x": 659.6823169441486,
+          "y": -725.9381438879125
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 951.6823169441486,
-          "y": -639.9381438879125
+          "x": 659.6823169441486,
+          "y": -725.9381438879125
         },
         "dragging": true
       },
       {
         "width": 225,
-        "height": 225,
+        "height": 305,
         "id": "BIG_NUMBER-fb680e0b-d63d-42fa-82e4-f2ec52aa11d2",
         "type": "VISUALIZATION",
         "data": {
@@ -852,6 +858,15 @@
               "param": "title",
               "value": "Frequency"
             },
+            "dec_places": {
+              "type": "int",
+              "default": 0,
+              "desc": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\"",
+              "overload": null,
+              "functionName": "BIG_NUMBER",
+              "param": "dec_places",
+              "value": 0
+            },
             "relative_delta": {
               "type": "bool",
               "default": true,
@@ -864,7 +879,7 @@
             "scientific_notation": {
               "type": "bool",
               "default": false,
-              "desc": null,
+              "desc": "Use scientific notation? Defaults to 4 decimal places.",
               "overload": null,
               "functionName": "BIG_NUMBER",
               "param": "scientific_notation",
@@ -892,113 +907,19 @@
           "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py"
         },
         "position": {
-          "x": 679.4781650247294,
-          "y": -639.1883542935476
+          "x": 729.4781650247294,
+          "y": -1073.1883542935475
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 679.4781650247294,
-          "y": -639.1883542935476
+          "x": 729.4781650247294,
+          "y": -1073.1883542935475
         },
         "dragging": true
       },
       {
-        "width": 918,
-        "height": 430,
-        "id": "IMAGE-88f5d917-1fe1-4418-bd23-2010edba16f9",
-        "type": "VISUALIZATION",
-        "data": {
-          "id": "IMAGE-88f5d917-1fe1-4418-bd23-2010edba16f9",
-          "label": "IMAGE",
-          "func": "IMAGE",
-          "type": "VISUALIZATION",
-          "ctrls": {},
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Image|Grayscale",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Plotly",
-              "desc": "the DataContainer containing the Plotly Image visualization of the input image"
-            }
-          ],
-          "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
-        },
-        "position": {
-          "x": 674.368745798886,
-          "y": 56.59887278201495
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 674.368745798886,
-          "y": 56.59887278201495
-        },
-        "dragging": true,
-        "style": {
-          "width": 918,
-          "height": 430
-        },
-        "resizing": false
-      },
-      {
-        "width": 890,
-        "height": 427,
-        "id": "SCATTER-48008e85-cc5d-4744-a234-7c2bdfe381a7",
-        "type": "VISUALIZATION",
-        "data": {
-          "id": "SCATTER-48008e85-cc5d-4744-a234-7c2bdfe381a7",
-          "label": "SCATTER",
-          "func": "SCATTER",
-          "type": "VISUALIZATION",
-          "ctrls": {},
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair|DataFrame|Matrix|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Plotly",
-              "desc": "the DataContainer containing the Plotly Scatter visualization"
-            }
-          ],
-          "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
-        },
-        "position": {
-          "x": 678.4180406914718,
-          "y": -394.6943155885514
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 678.4180406914718,
-          "y": -394.6943155885514
-        },
-        "dragging": true,
-        "style": {
-          "width": 890,
-          "height": 427
-        },
-        "resizing": false
-      },
-      {
-        "width": 96,
-        "height": 96,
+        "width": 236,
+        "height": 114,
         "id": "TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41e",
         "type": "CONTROL_FLOW",
         "data": {
@@ -1038,31 +959,115 @@
           "path": "CONTROL_FLOW/TIMERS/TIMER/TIMER.py"
         },
         "position": {
-          "x": 177.2747671790213,
-          "y": -204.3632488721801
+          "x": -238.7252328209787,
+          "y": -454.36324887218007
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 177.2747671790213,
-          "y": -204.3632488721801
+          "x": -238.7252328209787,
+          "y": -454.36324887218007
+        },
+        "dragging": true
+      },
+      {
+        "id": "SCATTER-ef11c972-a9b4-43ed-966e-ed1777b1e697",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "SCATTER-ef11c972-a9b4-43ed-966e-ed1777b1e697",
+          "label": "SCATTER",
+          "func": "SCATTER",
+          "type": "VISUALIZATION",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix|Vector",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Scatter visualization"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
+        },
+        "position": {
+          "x": 894.8682212777151,
+          "y": -421.6907974325891
+        },
+        "width": 225,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 894.8682212777151,
+          "y": -421.6907974325891
+        },
+        "dragging": true
+      },
+      {
+        "id": "IMAGE-79936d0c-feab-4b30-973a-4a274cc2efdb",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "IMAGE-79936d0c-feab-4b30-973a-4a274cc2efdb",
+          "label": "IMAGE",
+          "func": "IMAGE",
+          "type": "VISUALIZATION",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image|Grayscale",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Image visualization of the input image"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
+        },
+        "position": {
+          "x": 615.5005809243257,
+          "y": -91.99533717769702
+        },
+        "width": 225,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 615.5005809243257,
+          "y": -91.99533717769702
         },
         "dragging": true
       }
     ],
     "edges": [
       {
-        "source": "CONNECT_T3DSO1XXX-3913af17-b91e-4fb8-a4da-f77ecc03c940",
-        "sourceHandle": "default",
-        "target": "RESET_T3DSO1XXX-f5faaa6b-fa1c-40bf-85e4-8c85f917a463",
-        "targetHandle": "default",
-        "id": "reactflow__edge-CONNECT_T3DSO1XXX-3913af17-b91e-4fb8-a4da-f77ecc03c940default-RESET_T3DSO1XXX-f5faaa6b-fa1c-40bf-85e4-8c85f917a463default"
-      },
-      {
         "source": "RESET_T3DSO1XXX-f5faaa6b-fa1c-40bf-85e4-8c85f917a463",
         "sourceHandle": "default",
         "target": "AUTO_SETUP_T3DSO1XXX-2067aca4-bdd1-4e1d-ac70-0a4bbcb7434c",
         "targetHandle": "default",
         "id": "reactflow__edge-RESET_T3DSO1XXX-f5faaa6b-fa1c-40bf-85e4-8c85f917a463default-AUTO_SETUP_T3DSO1XXX-2067aca4-bdd1-4e1d-ac70-0a4bbcb7434cdefault"
+      },
+      {
+        "source": "CONNECT_T3DSO1XXX-3913af17-b91e-4fb8-a4da-f77ecc03c940",
+        "sourceHandle": "default",
+        "target": "RESET_T3DSO1XXX-f5faaa6b-fa1c-40bf-85e4-8c85f917a463",
+        "targetHandle": "default",
+        "id": "reactflow__edge-CONNECT_T3DSO1XXX-3913af17-b91e-4fb8-a4da-f77ecc03c940default-RESET_T3DSO1XXX-f5faaa6b-fa1c-40bf-85e4-8c85f917a463default"
       },
       {
         "source": "SET_VERTICAL_SCALE_T3DSO1XXX-41c4c9d3-241e-4d88-990b-177e228c7fb6",
@@ -1079,46 +1084,18 @@
         "id": "reactflow__edge-AUTO_SETUP_T3DSO1XXX-2067aca4-bdd1-4e1d-ac70-0a4bbcb7434cdefault-SET_VERTICAL_SCALE_T3DSO1XXX-41c4c9d3-241e-4d88-990b-177e228c7fb6default"
       },
       {
+        "source": "TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41e",
+        "sourceHandle": "default",
+        "target": "SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864d",
+        "targetHandle": "default",
+        "id": "reactflow__edge-TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41edefault-SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864ddefault"
+      },
+      {
         "source": "SET_HORIZONTAL_SCALE_T3DSO1XXX-39f8506b-9401-4fc4-a009-66d828089d9b",
         "sourceHandle": "default",
         "target": "DISPLAY_ON_OFF_T3DSO1XXX-d739e82a-ae40-427e-8f63-83c7c5e5ac4a",
         "targetHandle": "default",
         "id": "reactflow__edge-SET_HORIZONTAL_SCALE_T3DSO1XXX-39f8506b-9401-4fc4-a009-66d828089d9bdefault-DISPLAY_ON_OFF_T3DSO1XXX-d739e82a-ae40-427e-8f63-83c7c5e5ac4adefault"
-      },
-      {
-        "source": "SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864d",
-        "sourceHandle": "default",
-        "target": "IMAGE-88f5d917-1fe1-4418-bd23-2010edba16f9",
-        "targetHandle": "default",
-        "id": "reactflow__edge-SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864ddefault-IMAGE-88f5d917-1fe1-4418-bd23-2010edba16f9default"
-      },
-      {
-        "source": "EXTRACT_TRACE_T3DSO1XXX-9d512b63-688b-4dc8-b542-52a150ed4bc4",
-        "sourceHandle": "default",
-        "target": "SCATTER-48008e85-cc5d-4744-a234-7c2bdfe381a7",
-        "targetHandle": "default",
-        "id": "reactflow__edge-EXTRACT_TRACE_T3DSO1XXX-9d512b63-688b-4dc8-b542-52a150ed4bc4default-SCATTER-48008e85-cc5d-4744-a234-7c2bdfe381a7default"
-      },
-      {
-        "source": "MEASUREMENT_T3DSO1XXX-0cf47606-eaeb-4a93-98c2-0973af7ddf2b",
-        "sourceHandle": "default",
-        "target": "BIG_NUMBER-e5497f6c-f274-437f-9d6d-d16f85b474e6",
-        "targetHandle": "default",
-        "id": "reactflow__edge-MEASUREMENT_T3DSO1XXX-0cf47606-eaeb-4a93-98c2-0973af7ddf2bdefault-BIG_NUMBER-e5497f6c-f274-437f-9d6d-d16f85b474e6default"
-      },
-      {
-        "source": "MEASUREMENT_T3DSO1XXX-7c90afe0-021f-4a25-8fe8-f6c2ef2ebf8a",
-        "sourceHandle": "default",
-        "target": "BIG_NUMBER-fb680e0b-d63d-42fa-82e4-f2ec52aa11d2",
-        "targetHandle": "default",
-        "id": "reactflow__edge-MEASUREMENT_T3DSO1XXX-7c90afe0-021f-4a25-8fe8-f6c2ef2ebf8adefault-BIG_NUMBER-fb680e0b-d63d-42fa-82e4-f2ec52aa11d2default"
-      },
-      {
-        "source": "DISPLAY_ON_OFF_T3DSO1XXX-d739e82a-ae40-427e-8f63-83c7c5e5ac4a",
-        "sourceHandle": "default",
-        "target": "TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41e",
-        "targetHandle": "default",
-        "id": "reactflow__edge-DISPLAY_ON_OFF_T3DSO1XXX-d739e82a-ae40-427e-8f63-83c7c5e5ac4adefault-TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41edefault"
       },
       {
         "source": "TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41e",
@@ -1142,11 +1119,39 @@
         "id": "reactflow__edge-TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41edefault-EXTRACT_TRACE_T3DSO1XXX-9d512b63-688b-4dc8-b542-52a150ed4bc4default"
       },
       {
-        "source": "TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41e",
+        "source": "MEASUREMENT_T3DSO1XXX-0cf47606-eaeb-4a93-98c2-0973af7ddf2b",
         "sourceHandle": "default",
-        "target": "SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864d",
+        "target": "BIG_NUMBER-e5497f6c-f274-437f-9d6d-d16f85b474e6",
         "targetHandle": "default",
-        "id": "reactflow__edge-TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41edefault-SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864ddefault"
+        "id": "reactflow__edge-MEASUREMENT_T3DSO1XXX-0cf47606-eaeb-4a93-98c2-0973af7ddf2bdefault-BIG_NUMBER-e5497f6c-f274-437f-9d6d-d16f85b474e6default"
+      },
+      {
+        "source": "MEASUREMENT_T3DSO1XXX-7c90afe0-021f-4a25-8fe8-f6c2ef2ebf8a",
+        "sourceHandle": "default",
+        "target": "BIG_NUMBER-fb680e0b-d63d-42fa-82e4-f2ec52aa11d2",
+        "targetHandle": "default",
+        "id": "reactflow__edge-MEASUREMENT_T3DSO1XXX-7c90afe0-021f-4a25-8fe8-f6c2ef2ebf8adefault-BIG_NUMBER-fb680e0b-d63d-42fa-82e4-f2ec52aa11d2default"
+      },
+      {
+        "source": "DISPLAY_ON_OFF_T3DSO1XXX-d739e82a-ae40-427e-8f63-83c7c5e5ac4a",
+        "sourceHandle": "default",
+        "target": "TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41e",
+        "targetHandle": "default",
+        "id": "reactflow__edge-DISPLAY_ON_OFF_T3DSO1XXX-d739e82a-ae40-427e-8f63-83c7c5e5ac4adefault-TIMER-47ddbf83-1d7f-4f03-a6fc-9cb3fe20d41edefault"
+      },
+      {
+        "source": "EXTRACT_TRACE_T3DSO1XXX-9d512b63-688b-4dc8-b542-52a150ed4bc4",
+        "sourceHandle": "default",
+        "target": "SCATTER-ef11c972-a9b4-43ed-966e-ed1777b1e697",
+        "targetHandle": "default",
+        "id": "reactflow__edge-EXTRACT_TRACE_T3DSO1XXX-9d512b63-688b-4dc8-b542-52a150ed4bc4default-SCATTER-ef11c972-a9b4-43ed-966e-ed1777b1e697default"
+      },
+      {
+        "source": "SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864d",
+        "sourceHandle": "default",
+        "target": "IMAGE-79936d0c-feab-4b30-973a-4a274cc2efdb",
+        "targetHandle": "default",
+        "id": "reactflow__edge-SCREENSHOT_T3DSO1XXX-ee0723be-ec84-4698-b45e-e51745af864ddefault-IMAGE-79936d0c-feab-4b30-973a-4a274cc2efdbdefault"
       }
     ],
     "viewport": {
@@ -1155,6 +1160,5 @@
       "zoom": 0.6637303836947388
     }
   },
-  "name": "app",
   "textNodes": []
 }
