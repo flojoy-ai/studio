@@ -13,7 +13,6 @@ type State = {
   serverStatus: ServerStatusEnum;
   failedNodes: Record<string, string>;
   socketId: string;
-  logs: string[];
 };
 
 type Actions = {
@@ -64,7 +63,6 @@ export const useSocketStore = create<State & Actions>()((set) => ({
 
   runningNode: "",
   failedNodes: {},
-  logs: [],
 
   socketId: "",
   setSocketId: (val) => {

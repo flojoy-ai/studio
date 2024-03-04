@@ -31,7 +31,6 @@ type SocketState = {
   failedNodes: Record<string, string>;
   wipeBlockResults: () => void;
   socketId: string;
-  logs: string[];
 };
 
 export const SocketContext = createContext<SocketState | null>(null);
@@ -49,7 +48,6 @@ export const SocketContextProvider = ({
     serverStatus,
     failedNodes,
     socketId,
-    logs,
 
     processWorkerResponse,
     setServerStatus,
@@ -62,7 +60,6 @@ export const SocketContextProvider = ({
       serverStatus: state.serverStatus,
       failedNodes: state.failedNodes,
       socketId: state.socketId,
-      logs: state.logs,
 
       processWorkerResponse: state.processWorkerResponse,
       setServerStatus: state.setServerStatus,
@@ -203,6 +200,7 @@ export const SocketContextProvider = ({
     setSocketId,
     processWorkerResponse,
     setServerStatus,
+    doHardwareFetch,
   ]);
 
   const values: SocketState = useMemo(
@@ -213,7 +211,6 @@ export const SocketContextProvider = ({
       failedNodes,
       blockResults,
       wipeBlockResults,
-      logs,
     }),
     [
       socketId,
@@ -222,7 +219,6 @@ export const SocketContextProvider = ({
       failedNodes,
       blockResults,
       wipeBlockResults,
-      logs,
     ],
   );
   return (
