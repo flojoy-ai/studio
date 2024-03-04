@@ -1,9 +1,10 @@
 // Exposed function in this file should alway follow the following pattern:
-// My Idea: Take the project as an Input.
+// Take the project as an Input.
 //   1. Always valide the state of the proejct
 //   2. Do the operation
 //   3. Update the test sequencer
 //   4. Return a Result<T, Error>
+// Note: All path in a project should be using '/' for cross-platform compatibility
 
 import { Err, Ok, Result } from "@/types/result";
 import { readJsonProject, stringifyProject } from "@/renderer/routes/test_sequencer_panel/utils/TestSetUtils";
@@ -26,7 +27,7 @@ export async function createProject(project: TestSequencerProject, stateManager:
     const elems = stateManager.elem;
     project = validatePath(project);
     project = updateProjectElements(project, await createProjectElementsFromTestSequencerElements(elems, project.projectPath, true));
-    syncProject(project, stateManager);
+    saveAndSyncProject(project, stateManager);
     return Ok(null);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
@@ -44,7 +45,7 @@ export async function saveProject(stateManager: StateManager, throwInsteadOfResu
     const elems = stateManager.elem;
     project = validatePath(project);
     project = updateProjectElements(project, await createProjectElementsFromTestSequencerElements(elems, project.projectPath, true));
-    syncProject(project, stateManager);
+    saveAndSyncProject(project, stateManager);
     return Ok(null);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
@@ -63,7 +64,7 @@ export async function importProject(filePath: string, fileContent: string, state
     }
     const projectPath = filePath.replaceAll(project.name + ".tjoy", "");
     project = updatePath(project, projectPath);
-    syncProject(project, stateManager);
+    saveAndSyncProject(project, stateManager);
     return Ok(null);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
@@ -97,7 +98,27 @@ export async function verifyElementCompatibleWithProject(project: TestSequencerP
   }
 }
 
+// Utils ---------------------------------------------------------------------------------------------------
+const { getPathSeparator } = window.api
+const SEP = getPathSeparator();
+
+export function toWinPathIfOnWin(str: string) {
+  if (SEP === "\\") {
+    return str.replaceAll(/(?<!\\)\//g, '\\');  // Replace / with \ if not preceded by \ (escaped)
+  }
+  return str;
+}
+
+export function toUnixPath(str: string) {
+  if (SEP === "\\") {
+    return str.replaceAll('\\', '/');
+  }
+  return str;
+}
+
+
 // Private -------------------------------------------------------------------------------------------------
+
 function buildResultFromCatch(e: unknown): Result<null, Error> {
   if (e instanceof Error) {
     return Err(e);
@@ -108,12 +129,11 @@ function buildResultFromCatch(e: unknown): Result<null, Error> {
 }
 
 function validatePath(project: TestSequencerProject): TestSequencerProject {
-  const { getPathSeparator } = window.api
-  const sep = getPathSeparator();
-  if (!project.projectPath.endsWith(sep)) {
-    return updatePath(project, project.projectPath + sep);
+  let path = toUnixPath(project.projectPath);
+  if (!path.endsWith('/')) {
+    path = path  + '/';
   }
-  return project;
+  return updatePath(project, path);
 }
 
 function updatePath(project: TestSequencerProject, newPath: string): TestSequencerProject {
@@ -123,7 +143,7 @@ function updatePath(project: TestSequencerProject, newPath: string): TestSequenc
   }
 }
 
-async function syncProject(project: TestSequencerProject, stateManager: StateManager): Promise<void> {
+async function saveAndSyncProject(project: TestSequencerProject, stateManager: StateManager): Promise<void> {
   if ("api" in window) {
     await window.api.saveToFile(
       project.projectPath + project.name + ".tjoy",
@@ -141,6 +161,7 @@ async function createProjectElementsFromTestSequencerElements(
   baseFolder: string, 
   verifStateOrThrow: boolean
 ): Promise<TestSequenceElement[]> {
+  baseFolder = toUnixPath(baseFolder);
   if (verifStateOrThrow) {
   await throwIfNotInAllBaseFolder(elems, baseFolder);
   }
@@ -152,8 +173,8 @@ async function createProjectElementsFromTestSequencerElements(
         completionTime: undefined,
         error: null,
         isSavedToCloud: false,
-        testName: elem.path.replaceAll(baseFolder, ""),
-        path: elem.path.replaceAll(baseFolder, "")
+        testName: toUnixPath(elem.path).replaceAll(baseFolder, ""),
+        path: toUnixPath(elem.path).replaceAll(baseFolder, "")
       }
       : {
         ...elem,
@@ -177,7 +198,7 @@ async function createTestSequencerElementsFromProjectElements(
         completionTime: undefined,
         error: null,
         isSavedToCloud: false,
-        path: baseFolder + elem.path
+        path: toWinPathIfOnWin(baseFolder) + toWinPathIfOnWin(elem.path)
       }
       : {
         ...elem,
@@ -190,17 +211,13 @@ async function createTestSequencerElementsFromProjectElements(
 }
 
 async function throwIfNotInAllBaseFolder(elems: TestSequenceElement[], baseFolder: string) {
-  const { getPathSeparator } = window.api
-  const sep = getPathSeparator();
+  baseFolder = toWinPathIfOnWin(baseFolder);
   for (let elem of elems) {
     let weGoodBro = false 
     if (elem.type === "conditional") {
       continue;
     }
-    let path = elem.path;
-    if (sep === "\\") {
-      path = path.replace(/(?<!\\)\//g, '\\')  // Replace / with \ if not preceded by \ (escaped)
-    }
+    let path = toWinPathIfOnWin(elem.path);
     if (path.startsWith(baseFolder)) {
       // Absolute path
       continue;
