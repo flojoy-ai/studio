@@ -204,14 +204,6 @@ const FlowChartTab = () => {
     });
   };
 
-  // const handleNodeDrag: NodeDragHandler = (_, node) => {
-  //   setNodes((nodes) => {
-  //     const nodeIndex = nodes.findIndex((el) => el.id === node.id);
-  //     nodes[nodeIndex] = node;
-  //     localStorage.setItem("prev_block_pos", "");
-  //   });
-  // };
-
   const onConnect: OnConnect = useCallback(
     (conn) => {
       console.log(conn);
@@ -476,7 +468,6 @@ const FlowChartTab = () => {
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
             nodesDraggable={isAdmin()}
-            // onNodeDragStop={handleNodeDrag}
             onNodesDelete={handleNodesDelete}
             fitViewOptions={{
               padding: 0.8,
