@@ -105,7 +105,7 @@ export const SocketContextProvider = ({
       toast.error("Error validating hardware info", {
         description: "Check the console for more info.",
       });
-      console.log(res.error.message);
+      console.error(res.error.message);
     } else if (res.error instanceof Error) {
       toast.error("Error fetching hardware info", {
         description: res.error.message,
