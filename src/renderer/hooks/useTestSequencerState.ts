@@ -5,12 +5,12 @@ import {
   TestSequenceElementNode,
   IfNode,
   TestNode,
-} from "@/renderer/types/testSequencer";
+} from "@/renderer/types/test-sequencer";
 import {
   checkUniqueNames,
   validateStructure,
   validator,
-} from "@/renderer/utils/TestSequenceValidator";
+} from "@/renderer/lib/validate-test-sequence";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useShallow } from "zustand/react/shallow";

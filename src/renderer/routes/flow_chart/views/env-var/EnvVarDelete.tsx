@@ -10,7 +10,7 @@ import {
 } from "@/renderer/components/ui/alert-dialog";
 import { deleteEnvironmentVariable } from "@/renderer/lib/api";
 import { toast } from "sonner";
-import { EnvVar } from "@/renderer/types/envVar";
+import { EnvVar } from "@/renderer/types/env-var";
 import { Dispatch, SetStateAction } from "react";
 
 export type EnvVarDeleteProps = {

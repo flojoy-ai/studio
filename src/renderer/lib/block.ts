@@ -4,7 +4,7 @@ import { ParamDefinition } from "@/renderer/types/manifest";
 import { DeviceInfo } from "@/renderer/types/hardware";
 import { CtrlData } from "@/renderer/types/block";
 
-export const createNodeId = (nodeFunc: string) => `${nodeFunc}-${uuidv4()}`;
+export const createBlockId = (blockFunc: string) => `${blockFunc}-${uuidv4()}`;
 
 const firstMissingPositive = (nums: number[]): number => {
   let i = 0;
@@ -28,15 +28,19 @@ const firstMissingPositive = (nums: number[]): number => {
   return n;
 };
 
-export const createNodeLabel = (nodeFunc: string, takenLabels: string[][]) => {
+export const createBlockLabel = (
+  blockFunc: string,
+  takenLabels: string[][],
+) => {
   const nums = takenLabels.map((l) =>
     l[1] !== undefined ? parseInt(l[1]) : 0,
   );
   const availableNum = firstMissingPositive(nums);
 
-  const nodeLabel = availableNum > 0 ? `${nodeFunc} ${availableNum}` : nodeFunc;
+  const blockLabel =
+    availableNum > 0 ? `${blockFunc} ${availableNum}` : blockFunc;
 
-  return nodeLabel.replaceAll("_", " ");
+  return blockLabel.replaceAll("_", " ");
 };
 
 export const ctrlsFromParams = (
@@ -93,4 +97,14 @@ export const ctrlsFromParams = (
       ];
     }),
   );
+};
+
+export const addRandomPositionOffset = (
+  pos: { x: number; y: number },
+  range: number,
+) => {
+  return {
+    x: pos.x + (Math.random() - 0.5) * range,
+    y: pos.y + (Math.random() - 0.5) * range,
+  };
 };

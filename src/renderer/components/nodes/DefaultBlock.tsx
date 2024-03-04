@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { BlockProps } from "@/renderer/types/block";
 import NodeWrapper from "@/renderer/components/common/NodeWrapper";
 import HandleComponent from "@/renderer/components/common/HandleComponent";
-import { textWrap } from "@/renderer/utils/TextWrap";
+import { textWrap } from "@/renderer/utils/text-wrap";
 import BlockLabelInput from "@/renderer/components/common/NodeInput";
 import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
 

@@ -1,5 +1,5 @@
 import { createContext, useMemo } from "react";
-import { LockedContextType } from "@/renderer/types/testSequencer";
+import { LockedContextType } from "@/renderer/types/test-sequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 
 export const LockedContext = createContext<LockedContextType>(

@@ -6,7 +6,7 @@ import {
 } from "@/renderer/types/manifest";
 import { tryParse } from "@/types/result";
 import { z } from "zod";
-import { EnvVar } from "@/renderer/types/envVar";
+import { EnvVar } from "@/renderer/types/env-var";
 import { BlockData } from "@/renderer/types/block";
 import { Edge, Node } from "reactflow";
 import { BackendSettings } from "@/renderer/stores/settings";

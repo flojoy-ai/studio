@@ -39,7 +39,7 @@ import {
   Conditional,
   StatusType,
   Test,
-} from "@/renderer/types/testSequencer";
+} from "@/renderer/types/test-sequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { parseInt, filter, map } from "lodash";
 import {

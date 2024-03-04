@@ -13,7 +13,6 @@ import {
   sendEventToMix,
 } from "@/renderer/services/MixpanelServices";
 import { v4 as uuidv4 } from "uuid";
-import { addRandomPositionOffset } from "@/renderer/utils/RandomPositionOffset";
 import { Project } from "@/renderer/types/project";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { Draft } from "immer";
@@ -24,12 +23,13 @@ import {
   useMetadata,
 } from "@/renderer/stores/manifest";
 import {
-  createNodeId,
-  createNodeLabel,
+  createBlockId,
+  createBlockLabel,
+  addRandomPositionOffset,
   ctrlsFromParams,
-} from "@/renderer/utils/NodeUtils";
-import { filterMap } from "@/renderer/utils/ArrayUtils";
-import { getEdgeTypes, isCompatibleType } from "@/renderer/utils/TypeCheck";
+} from "@/renderer/lib/block";
+import { filterMap } from "@/renderer/utils/array";
+import { getEdgeTypes, isCompatibleType } from "@/renderer/lib/type-check";
 import { toast } from "sonner";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
 import { Result, ok, err, fromThrowable, fromPromise } from "neverthrow";
@@ -389,11 +389,11 @@ export const useAddBlock = () => {
           ? metadata[`${funcName}.py`].path
           : "";
 
-      const nodeId = createNodeId(node.key);
+      const nodeId = createBlockId(node.key);
       const nodeLabel =
         funcName === "CONSTANT"
           ? params!["constant"].default?.toString()
-          : createNodeLabel(node.key, getTakenNodeLabels(funcName));
+          : createBlockLabel(node.key, getTakenNodeLabels(funcName));
 
       const nodeCtrls = ctrlsFromParams(params, funcName, hardwareDevices);
       const initCtrls = ctrlsFromParams(initParams, funcName);
@@ -448,7 +448,7 @@ export const useDuplicateBlock = () => {
   return useCallback(
     (node: Node<BlockData>): Result<void, Error> => {
       const funcName = node.data.func;
-      const id = createNodeId(funcName);
+      const id = createBlockId(funcName);
 
       const newNode: Node<BlockData> = {
         ...node,
@@ -459,7 +459,7 @@ export const useDuplicateBlock = () => {
           label:
             node.data.func === "CONSTANT"
               ? node.data.ctrls["constant"].value!.toString()
-              : createNodeLabel(funcName, getTakenNodeLabels(funcName)),
+              : createBlockLabel(funcName, getTakenNodeLabels(funcName)),
         },
         position: {
           x: node.position.x + 30,

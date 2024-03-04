@@ -1,5 +1,5 @@
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
-import { TestSequenceElement } from "@/renderer/types/testSequencer";
+import { TestSequenceElement } from "@/renderer/types/test-sequencer";
 import { z } from "zod";
 
 export const useTestSetImport = () => {

@@ -1,5 +1,5 @@
 import { captain } from "@/renderer/lib/ky";
-import { Test, TestDiscoverContainer } from "@/renderer/types/testSequencer";
+import { Test, TestDiscoverContainer } from "@/renderer/types/test-sequencer";
 import { useTestSequencerState } from "./useTestSequencerState";
 import { map } from "lodash";
 import { v4 as uuidv4 } from "uuid";

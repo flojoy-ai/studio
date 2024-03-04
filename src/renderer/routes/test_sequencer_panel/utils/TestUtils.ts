@@ -1,4 +1,4 @@
-import { StatusType } from "@/renderer/types/testSequencer";
+import { StatusType } from "@/renderer/types/test-sequencer";
 
 const mapToStatus: {
   [key: string]: StatusType;

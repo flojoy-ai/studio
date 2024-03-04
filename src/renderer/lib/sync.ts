@@ -7,8 +7,8 @@ import {
 } from "@/renderer/types/manifest";
 import { Edge, Node } from "reactflow";
 import { CtrlData, BlockData } from "@/renderer/types/block";
-import { ctrlsFromParams } from "@/renderer/utils/NodeUtils";
-import { isCompatibleType } from "@/renderer/utils/TypeCheck";
+import { ctrlsFromParams } from "@/renderer/lib/block";
+import { isCompatibleType } from "@/renderer/lib/type-check";
 import _ from "lodash";
 
 export function syncFlowchartWithManifest(

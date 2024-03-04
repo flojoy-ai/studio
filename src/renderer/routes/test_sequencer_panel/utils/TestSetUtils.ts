@@ -1,4 +1,4 @@
-import { TestSequenceElement } from "@/renderer/types/testSequencer";
+import { TestSequenceElement } from "@/renderer/types/test-sequencer";
 import { toast } from "sonner";
 import { z } from "zod";
 

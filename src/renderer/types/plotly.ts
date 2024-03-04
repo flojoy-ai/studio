@@ -1,4 +1,4 @@
-import { DataContainer } from "@/renderer/types/dataContainer";
+import { DataContainer } from "@/renderer/types/data-container";
 import { PlotData, Layout } from "plotly.js";
 import type { PlotParams } from "react-plotly.js";
 

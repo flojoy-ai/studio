@@ -25,7 +25,7 @@ import {
   Summary,
   Test,
   TestSequenceElement,
-} from "@/renderer/types/testSequencer";
+} from "@/renderer/types/test-sequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useEffect, useState } from "react";
 

@@ -6,7 +6,7 @@ import {
   DialogTitle,
 } from "@/renderer/components/ui/dialog";
 import { ScrollArea, ScrollBar } from "@/renderer/components/ui/scroll-area";
-import { Test } from "@/renderer/types/testSequencer";
+import { Test } from "@/renderer/types/test-sequencer";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import python from "react-syntax-highlighter/dist/cjs/languages/hljs/python";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";

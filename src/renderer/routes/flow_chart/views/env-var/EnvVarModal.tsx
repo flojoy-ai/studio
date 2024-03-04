@@ -18,7 +18,7 @@ import { Separator } from "@/renderer/components/ui/separator";
 import { captain } from "@/renderer/lib/ky";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import EnvVarCredentialsInfo from "./EnvVarCredentialsInfo";
-import { EnvVar } from "@/renderer/types/envVar";
+import { EnvVar } from "@/renderer/types/env-var";
 import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
 

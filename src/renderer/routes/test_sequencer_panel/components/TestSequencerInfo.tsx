@@ -7,7 +7,7 @@ import {
   testSequenceRunRequest,
   testSequenceStopRequest,
 } from "@/renderer/routes/test_sequencer_panel/models/models";
-import { TestSequenceElement } from "@/renderer/types/testSequencer";
+import { TestSequenceElement } from "@/renderer/types/test-sequencer";
 import { ImportTestModal } from "./ImportTestModal";
 import LockableButton from "./lockable/LockedButtons";
 import { TSWebSocketContext } from "@/renderer/context/testSequencerWS.context";

@@ -7,7 +7,7 @@ import {
 } from "@/renderer/components/ui/dialog";
 import { LayoutGrid } from "lucide-react";
 import { ScrollArea } from "@/renderer/components/ui/scroll-area";
-import { getGalleryData } from "@/renderer/utils/GalleryLoader";
+import { getGalleryData } from "@/renderer/utils/gallery";
 import { Separator } from "@/renderer/components/ui/separator";
 import { GalleryElement } from "./GalleryElement";
 import { Input } from "@/renderer/components/ui/input";

@@ -2,7 +2,7 @@ import {
   Conditional,
   Test,
   TestSequenceElement,
-} from "@/renderer/types/testSequencer";
+} from "@/renderer/types/test-sequencer";
 import { CellContext } from "@tanstack/react-table";
 import { Loader } from "lucide-react";
 import { ReactNode } from "react";

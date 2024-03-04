@@ -12,7 +12,7 @@ import { NumpySvg, ScipySvg } from "@/renderer/assets/ArithmeticSVG";
 import { twMerge } from "tailwind-merge";
 import { cva } from "class-variance-authority";
 import { ReactNode } from "react";
-import { matchesQuery } from "@/renderer/utils/NodeSearch";
+import { matchesQuery } from "@/renderer/utils/search";
 
 export const sidebarVariants = cva(undefined, {
   variants: {

@@ -10,7 +10,7 @@ import {
 import { KeyIcon, UserPlus2 } from "lucide-react";
 import { Fragment, useState } from "react";
 import { PasswordModal } from "./PasswordModal";
-import { getAlphabetAvatar } from "@/renderer/utils/TextWrap";
+import { getAlphabetAvatar } from "@/renderer/utils/text-wrap";
 import { CreateUserProfile } from "@/renderer/components/common/CreateProfileModal";
 import { useAuth } from "@/renderer/context/auth.context";
 import { useNavigate } from "react-router-dom";

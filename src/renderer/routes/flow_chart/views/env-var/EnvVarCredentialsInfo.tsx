@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/renderer/components/ui/dropdown-menu";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
-import { EnvVar } from "@/renderer/types/envVar";
+import { EnvVar } from "@/renderer/types/env-var";
 import { captain } from "@/renderer/lib/ky";
 
 type Props = {

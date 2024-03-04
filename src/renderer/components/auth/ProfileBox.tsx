@@ -4,7 +4,7 @@ import { Label } from "@/renderer/components/ui/label";
 import { Input } from "@/renderer/components/ui/input";
 import { cn } from "@/renderer/lib/utils";
 import { Avatar, AvatarFallback } from "@/renderer/components/ui/avatar";
-import { getAlphabetAvatar } from "@/renderer/utils/TextWrap";
+import { getAlphabetAvatar } from "@/renderer/utils/text-wrap";
 import { useNavigate } from "react-router-dom";
 import {
   DropdownMenu,

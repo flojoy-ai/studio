@@ -21,7 +21,7 @@ import Bar from "@/renderer/assets/nodes/Bar";
 import Table from "@/renderer/assets/nodes/Table";
 import Image from "@/renderer/assets/nodes/Image";
 import MarkDownText from "@/renderer/components/common/MarkDownText";
-import { useTheme } from "@/renderer/providers/themeProvider";
+import { useTheme } from "@/renderer/providers/ThemeProvider";
 import PeakFinder from "@/renderer/assets/nodes/PeakFinder";
 import RegionInspector from "@/renderer/assets/nodes/RegionInspector";
 import TextView from "@/renderer/assets/nodes/TextView";

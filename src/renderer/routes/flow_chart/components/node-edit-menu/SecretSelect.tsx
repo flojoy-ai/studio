@@ -7,7 +7,7 @@ import {
   SelectValue,
 } from "@/renderer/components/ui/select";
 import { captain } from "@/renderer/lib/ky";
-import { EnvVar } from "@/renderer/types/envVar";
+import { EnvVar } from "@/renderer/types/env-var";
 import { useState, useEffect } from "react";
 
 export type SelectProps = {
