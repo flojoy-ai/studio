@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { BlockManifest, BlockMetadata } from "@/renderer/types/manifest";
-import { Ok, Result } from "@/types/result";
+import { ok, Result, safeTry } from "neverthrow";
 import { getManifest, getMetadata } from "@/renderer/lib/api";
 import { HTTPError } from "ky";
 import { ZodError } from "zod";
@@ -17,10 +17,10 @@ type State = {
 };
 
 type Actions = {
-  fetchManifest: () => Promise<Result<void>>;
+  fetchManifest: () => Promise<Result<void, HTTPError | ZodError>>;
   importCustomBlocks: (
     startup: boolean,
-  ) => Promise<Result<void, HTTPError | ZodError | Error>>;
+  ) => Promise<Result<void, HTTPError | ZodError>>;
   setManifestChanged: (val: boolean) => void;
 };
 
@@ -32,17 +32,14 @@ export const useManifestStore = create<State & Actions>()(
     customBlocksMetadata: undefined,
     manifestChanged: true,
 
-    fetchManifest: async () => {
-      const r1 = await getManifest();
-      if (r1.isErr()) return r1;
-      const r2 = await getMetadata();
-      if (r2.isErr()) return r2;
-
-      set({
-        standardBlocksManifest: r1.value,
-        standardBlocksMetadata: r2.value,
+    fetchManifest: () => {
+      return safeTry(async function* () {
+        set({
+          standardBlocksManifest: yield* (await getManifest()).safeUnwrap(),
+          standardBlocksMetadata: yield* (await getMetadata()).safeUnwrap(),
+        });
+        return ok(undefined);
       });
-      return Ok(undefined);
     },
 
     importCustomBlocks: async (startup: boolean) => {
@@ -51,28 +48,28 @@ export const useManifestStore = create<State & Actions>()(
         : await window.api.getCustomBlocksDir();
 
       if (!blocksDirPath) {
-        if (get().customBlocksManifest !== undefined) return Ok(undefined);
+        if (get().customBlocksManifest !== undefined) return ok(undefined);
         set({
           manifestChanged: true,
           customBlocksManifest: null,
           customBlocksMetadata: null,
         });
-        return Ok(undefined);
+        return ok(undefined);
       }
 
-      const r1 = await getManifest(blocksDirPath);
-      if (r1.isErr()) return r1;
-      const r2 = await getMetadata(blocksDirPath, !startup);
-      if (r2.isErr()) return r2;
-
-      window.api.cacheCustomBlocksDir(blocksDirPath);
-      set({
-        manifestChanged: true,
-        customBlocksManifest: r1.value,
-        customBlocksMetadata: r2.value,
+      return safeTry(async function* () {
+        const manifest = yield* (await getManifest(blocksDirPath)).safeUnwrap();
+        const metadata = yield* (
+          await getMetadata(blocksDirPath, !startup)
+        ).safeUnwrap();
+        set({
+          manifestChanged: true,
+          customBlocksManifest: manifest,
+          customBlocksMetadata: metadata,
+        });
+        window.api.cacheCustomBlocksDir(blocksDirPath);
+        return ok(undefined);
       });
-
-      return Ok(undefined);
     },
 
     setManifestChanged: (val: boolean) => {

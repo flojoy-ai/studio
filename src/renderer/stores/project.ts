@@ -38,17 +38,11 @@ import { filterMap } from "@/renderer/utils/ArrayUtils";
 import { getEdgeTypes, isCompatibleType } from "@/renderer/utils/TypeCheck";
 import { toast } from "sonner";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
-import {
-  Result,
-  Ok,
-  Err,
-  tryCatch,
-  tryCatchPromise,
-  tryParse,
-} from "@/types/result";
+import { Result, ok, err, fromThrowable, fromPromise } from "neverthrow";
 import { useSocketStore } from "./socket";
 import { useHardwareStore } from "./hardware";
 import { DeviceInfo } from "@/renderer/types/hardware";
+import { tryParse } from "@/types/result";
 
 type State = {
   name: string | undefined;
@@ -67,13 +61,13 @@ type Actions = {
     blockId: string,
     paramName: string,
     value: BlockParameterValue,
-  ) => Result<void>;
+  ) => Result<void, Error>;
   updateBlockInitParameter: (
     blockId: string,
     paramName: string,
     value: BlockParameterValue,
-  ) => Result<void>;
-  updateBlockLabel: (blockId: string, name: string) => Result<void>;
+  ) => Result<void, Error>;
+  updateBlockLabel: (blockId: string, name: string) => Result<void, Error>;
 
   handleNodeChanges: (
     cb: (nodes: Node<BlockData>[]) => Node<BlockData>[],
@@ -84,10 +78,10 @@ type Actions = {
   handleEdgeChanges: (cb: (nodes: Edge[]) => Edge[]) => void;
 
   addTextNode: (position: XYPosition) => void;
-  updateTextNodeText: (id: string, text: string) => Result<void>;
+  updateTextNodeText: (id: string, text: string) => Result<void, Error>;
   deleteTextNode: (id: string) => void;
 
-  saveProject: () => Promise<Result<string>>;
+  saveProject: () => Promise<Result<string, Error>>;
 };
 
 const defaultProjectData =
@@ -148,7 +142,7 @@ export const useProjectStore = create<State & Actions>()(
           }
         });
       } catch (e) {
-        return Err(e as Error);
+        return err(e as Error);
       }
 
       sendEventToMix("Control Input Data Updated", {
@@ -158,7 +152,7 @@ export const useProjectStore = create<State & Actions>()(
       });
       setHasUnsavedChanges(true);
 
-      return Ok(undefined);
+      return ok(undefined);
     },
 
     updateBlockInitParameter: (
@@ -180,7 +174,7 @@ export const useProjectStore = create<State & Actions>()(
           block.data.initCtrls[paramName].value = value;
         });
       } catch (e) {
-        return Err(e as Error);
+        return err(e as Error);
       }
 
       sendEventToMix("Control Input Data Updated", {
@@ -191,7 +185,7 @@ export const useProjectStore = create<State & Actions>()(
 
       setHasUnsavedChanges(true);
 
-      return Ok(undefined);
+      return ok(undefined);
     },
 
     updateBlockLabel: (blockId: string, name: string) => {
@@ -217,13 +211,13 @@ export const useProjectStore = create<State & Actions>()(
           node.data.label = name;
         });
       } catch (e) {
-        return Err(e as Error);
+        return err(e as Error);
       }
 
       sendEventToMix("Block Name Changed", { blockId, name });
       setHasUnsavedChanges(true);
 
-      return Ok(undefined);
+      return ok(undefined);
     },
 
     addTextNode: (pos: XYPosition) => {
@@ -251,11 +245,11 @@ export const useProjectStore = create<State & Actions>()(
           node.data.text = text;
         });
       } catch (e) {
-        return Err(e as Error);
+        return err(e as Error);
       }
       sendEventToMix("Text Node Updated", { id, text });
       setHasUnsavedChanges(true);
-      return Ok(undefined);
+      return ok(undefined);
     },
 
     deleteTextNode: (id: string) => {
@@ -282,11 +276,13 @@ export const useProjectStore = create<State & Actions>()(
       const projectPath = get().path;
       if (projectPath) {
         sendEventToMix("Saving Project");
-        return tryCatch(() =>
-          window.api.saveFile(projectPath, fileContent),
-        ).andThen(() => {
+        const save = fromThrowable(
+          () => window.api.saveFile(projectPath, fileContent),
+          (e) => e as Error,
+        );
+        return save().andThen(() => {
           setHasUnsavedChanges(false);
-          return Ok(projectPath);
+          return ok(projectPath);
         });
       }
 
@@ -298,19 +294,18 @@ export const useProjectStore = create<State & Actions>()(
           .join("-") ?? "app";
       const defaultFilename = `${basename}.json`;
 
-      const res = await tryCatchPromise(() =>
+      return fromPromise(
         window.api.saveFileAs(defaultFilename, fileContent),
-      );
-
-      return res.andThen(({ filePath, canceled }) => {
+        (e) => e as Error,
+      ).andThen(({ filePath, canceled }) => {
         if (canceled || filePath === undefined) {
-          return Err(new Error("Save was cancelled"));
+          return err(new Error("Save was cancelled"));
         }
 
         set({ path: filePath });
 
         setHasUnsavedChanges(false);
-        return Ok(filePath);
+        return ok(filePath);
       });
     },
   })),
@@ -327,7 +322,7 @@ export const useLoadProject = () => {
   return useCallback(
     (project: Project, path?: string) => {
       if (!manifest || !metadata) {
-        return Err(
+        return err(
           new Error(
             "Manifest and metadata are still loading, can't load project yet.",
           ),
@@ -359,7 +354,7 @@ export const useLoadProject = () => {
 
       sendEventToMix("Project Loaded");
 
-      return Ok(undefined);
+      return ok(undefined);
     },
     [manifest, metadata, wipeBlockResults],
   );
@@ -378,8 +373,10 @@ export const useAddBlock = () => {
     (node: BlockDefinition) => {
       const previousBlockPos = localStorage.getItem("prev_node_pos");
 
-      const res = tryParse(positionSchema)(previousBlockPos);
-      const pos = res.isOk() ? res.value : center;
+      const pos = tryParse(positionSchema)(previousBlockPos).match(
+        (p) => p,
+        () => center,
+      );
 
       const nodePosition = addRandomPositionOffset(pos, 300);
       const {
@@ -454,7 +451,7 @@ export const useDuplicateBlock = () => {
   const { setNodes } = useProtectedGraphUpdate();
 
   return useCallback(
-    (node: Node<BlockData>): Result<void> => {
+    (node: Node<BlockData>): Result<void, Error> => {
       const funcName = node.data.func;
       const id = createNodeId(funcName);
 
@@ -487,10 +484,10 @@ export const useDuplicateBlock = () => {
           prev.push(newNode);
         });
       } catch (e) {
-        return Err(e as Error);
+        return err(e as Error);
       }
 
-      return Ok(undefined);
+      return ok(undefined);
     },
     [setNodes],
   );
@@ -502,13 +499,12 @@ export const useCreateEdge = () => {
 
   return (connection: Connection): Result<void, Error | TypeError> => {
     if (!manifest) {
-      return Err(new Error("Manifest not found, can't connect to edge"));
+      return err(new Error("Manifest not found, can't connect to edge"));
     }
 
     const [sourceType, targetType] = getEdgeTypes(manifest, connection);
-    console.log(sourceType, targetType);
     if (!isCompatibleType(sourceType, targetType)) {
-      return Err(
+      return err(
         new TypeError(
           `Source type ${sourceType} and target type ${targetType} are not compatible`,
         ),
@@ -517,7 +513,7 @@ export const useCreateEdge = () => {
 
     console.log("creating edge", connection);
     setEdges((edges) => addEdge(connection, edges));
-    return Ok(undefined);
+    return ok(undefined);
   };
 };
 

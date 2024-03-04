@@ -13,10 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/renderer/components/ui/select";
-import {
-  getLogLevel,
-  setLogLevel,
-} from "@/renderer/services/FlowChartServices";
+import { getLogLevel, setLogLevel } from "@/renderer/lib/api";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 

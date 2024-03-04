@@ -2,7 +2,7 @@ import { ParamValueType } from "@/renderer/routes/common/types/ParamValueType";
 import { ParamTooltip } from "@/renderer/components/common/ParamTooltip";
 import { BlockData, BlockParameterValue } from "@/renderer/types/node";
 import ParamField from "./ParamField";
-import { Result } from "@/types/result";
+import { Result } from "neverthrow";
 
 type ParamListProps = {
   nodeId: string;
@@ -11,7 +11,7 @@ type ParamListProps = {
     nodeId: string,
     paramName: string,
     value: BlockParameterValue,
-  ) => Result<void>;
+  ) => Result<void, Error>;
   nodeReferenceOptions?: {
     label: string;
     value: string;

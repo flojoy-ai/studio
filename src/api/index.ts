@@ -2,7 +2,7 @@ import { app, ipcRenderer } from "electron";
 import * as fileSave from "./fileSave";
 import { InterpretersList } from "@/main/python/interpreter";
 import { PoetryGroupInfo, PythonDependency } from "src/types/poetry";
-import { Result } from "@/types/result";
+import { ResultAsync, fromPromise } from "neverthrow";
 import type { User } from "@/types/auth";
 
 export const API = {
@@ -139,8 +139,11 @@ export default {
   saveFileToFullPath: (
     filepath: string,
     fileContent: string,
-  ): Promise<Result<void>> =>
-    ipcRenderer.invoke(API.saveFileToFullPath, filepath, fileContent),
+  ): ResultAsync<void, Error> =>
+    fromPromise(
+      ipcRenderer.invoke(API.saveFileToFullPath, filepath, fileContent),
+      (e) => e as Error,
+    ),
 
   getSetupExecutionTime: (): Promise<number> =>
     ipcRenderer.invoke(API.setupExecutionTime),

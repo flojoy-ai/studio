@@ -168,10 +168,5 @@
       "src/vite-env.d.ts"
     ],
     "all": true
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "eslint-plugin-neverthrow@1.1.4": "patches/eslint-plugin-neverthrow@1.1.4.patch"
-    }
   }
 }

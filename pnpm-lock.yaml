@@ -4,11 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-patchedDependencies:
-  eslint-plugin-neverthrow@1.1.4:
-    hash: 7bua6xt6e5b5lktp733sl4adpm
-    path: patches/eslint-plugin-neverthrow@1.1.4.patch
-
 dependencies:
   '@codemirror/lang-python':
     specifier: ^6.1.4
@@ -314,7 +309,7 @@ devDependencies:
     version: 8.57.0
   eslint-plugin-neverthrow:
     specifier: ^1.1.4
-    version: 1.1.4(patch_hash=7bua6xt6e5b5lktp733sl4adpm)(@typescript-eslint/parser@7.1.0)(eslint@8.57.0)(typescript@5.3.3)
+    version: 1.1.4(@typescript-eslint/parser@7.1.0)(eslint@8.57.0)(typescript@5.3.3)
   eslint-plugin-react:
     specifier: ^7.33.2
     version: 7.33.2(eslint@8.57.0)
@@ -5599,7 +5594,7 @@ packages:
       source-map: 0.6.1
     dev: false
 
-  /eslint-plugin-neverthrow@1.1.4(patch_hash=7bua6xt6e5b5lktp733sl4adpm)(@typescript-eslint/parser@7.1.0)(eslint@8.57.0)(typescript@5.3.3):
+  /eslint-plugin-neverthrow@1.1.4(@typescript-eslint/parser@7.1.0)(eslint@8.57.0)(typescript@5.3.3):
     resolution: {integrity: sha512-+8zsE5rDqsDfKYAOq0Fr2jbuxHXTmntIWWJqJA3ms1GAKcVCjl0ycetzOu/hTxot9ctr+WYQpCBgB3F2HATR7A==}
     engines: {node: '>=14.17'}
     peerDependencies:
@@ -5614,7 +5609,6 @@ packages:
     transitivePeerDependencies:
       - typescript
     dev: true
-    patched: true
 
   /eslint-plugin-react-hooks@4.6.0(eslint@8.57.0):
     resolution: {integrity: sha512-oFc7Itz9Qxh2x4gNHStv3BqJq54ExXmfC+a1NjAta66IAN87Wu0R/QArgIS9qKzX3dXKPI9H5crl9QchNMY9+g==}

@@ -19,7 +19,7 @@ import { NIDMMDeviceSelect } from "./NIDMMDeviceSelect";
 import { Button } from "@/renderer/components/ui/button";
 import { AutosizingTextarea } from "./AutosizingTextarea";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
-import { Result } from "@/types/result";
+import { Result } from "neverthrow";
 import { toast } from "sonner";
 import { BlockParameterValue } from "@/renderer/types/node";
 import { useShallow } from "zustand/react/shallow";
@@ -32,7 +32,7 @@ type ParamFieldProps = {
     nodeId: string,
     paramName: string,
     value: BlockParameterValue,
-  ) => Result<void>;
+  ) => Result<void, Error>;
   options?: (string | number)[];
   nodeReferenceOptions?: {
     label: string;
@@ -55,14 +55,10 @@ const ParamField = ({
   );
 
   const handleChange = (value: number | string | boolean) => {
-    const res = updateFunc(nodeId, nodeCtrl.param, value);
-    if (res.isErr()) {
-      toast.error(
-        `Error when trying to update parameter: ${res.error.message}`,
-      );
-    }
-
-    markNodeParamChanged();
+    updateFunc(nodeId, nodeCtrl.param, value).match(
+      () => markNodeParamChanged(),
+      (e) => toast.error(`Error when trying to update parameter: ${e.message}`),
+    );
   };
 
   const value = nodeCtrl.value;

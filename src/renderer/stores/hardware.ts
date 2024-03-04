@@ -2,8 +2,9 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { DeviceInfo } from "@/renderer/types/hardware";
 import { getDeviceInfo } from "@/renderer/lib/api";
-import { Result, tryParse } from "@/types/result";
+import { tryParse } from "@/types/result";
 import { ZodError } from "zod";
+import { Result } from "neverthrow";
 
 type State = {
   devices: DeviceInfo | undefined;

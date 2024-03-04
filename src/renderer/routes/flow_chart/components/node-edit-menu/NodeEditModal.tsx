@@ -47,6 +47,8 @@ const NodeEditModal = ({
     })),
   );
 
+  updateBlockInitParameter(node.id, "asldkj", 1);
+
   //converted from node to Ids here so that it will only do this when the edit menu is opened
   const nodeReferenceOptions =
     otherNodes?.map((node) => ({ label: node.data.label, value: node.id })) ??
