@@ -6,6 +6,7 @@ import { useLoadProject } from "@/renderer/stores/project";
 import { tryParse } from "@/types/result";
 import { fromPromise, ok } from "neverthrow";
 import { toast } from "sonner";
+import { ZodError } from "zod";
 
 export const useLoadApp = () => {
   const loadProject = useLoadProject();
@@ -27,14 +28,23 @@ export const useLoadApp = () => {
       return ok(undefined);
     }
     const { fileContent, filePath } = res.value;
-    tryParse(Project)(JSON.parse(fileContent)).match(
-      (proj) => {
-        loadProject(proj, filePath);
-        setShowWelcomeScreen(false);
-      },
-      (e) =>
-        toast.error("Project validation error", { description: e.message }),
-    );
+    const loadRes = tryParse(Project)(JSON.parse(fileContent))
+      .andThen((proj) => loadProject(proj, filePath))
+      .map(() => setShowWelcomeScreen(false));
+
+    if (loadRes.isOk()) {
+      return;
+    }
+
+    if (loadRes.error instanceof ZodError) {
+      toast.error("Project validation error", {
+        description: loadRes.error.message,
+      });
+    } else {
+      toast.error("Error loading project", {
+        description: loadRes.error.message,
+      });
+    }
   };
 
   return openFilePicker;
