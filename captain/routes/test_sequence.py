@@ -2,7 +2,12 @@ from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Depends
 import json
 import pydantic
 from captain.models.pytest.pytest_models import TestDiscoverContainer
-from captain.models.test_sequencer import TestSequenceRun
+from captain.models.test_sequencer import (
+    GenerateTestRequest,
+    TestGenerationContainer,
+    TestSequenceRun,
+)
+from captain.utils.test_sequencer.generator.generate_test import generate_test
 from captain.utils.pytest.discover_tests import discover_pytest_file
 from captain.utils.config import ts_manager
 from captain.utils.test_sequencer.handle_data import handle_data
@@ -53,3 +58,17 @@ async def discover_pytest(params: DiscoverPytestParams = Depends()):
     return TestDiscoverContainer(
         response=return_val, missingLibraries=missing_lib
     ).model_dump_json(by_alias=True)
+
+
+@router.post("/generate-test/")
+async def generate_test_endpoint(requested_test: GenerateTestRequest):
+    test_container = {}
+    test_name = requested_test.test_name
+    test_type = requested_test.test_type
+    prompt = requested_test.prompt
+    await generate_test(test_name, test_type, prompt, test_container)
+    if "test" not in test_container:
+        return
+    return TestGenerationContainer(test=test_container["test"]).model_dump_json(
+        by_alias=True
+    )

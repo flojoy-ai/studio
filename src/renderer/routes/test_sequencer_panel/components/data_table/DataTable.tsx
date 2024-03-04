@@ -28,7 +28,6 @@ import {
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -50,7 +49,7 @@ import { ChevronUpIcon, ChevronDownIcon, TrashIcon } from "lucide-react";
 import { WriteConditionalModal } from "../AddWriteConditionalModal";
 import LockableButton from "../lockable/LockedButtons";
 import { useRef, useState, useEffect } from "react";
-import TestNameCell from "./test-name-cell";
+import TestNameCell from "./TestNameCell";
 import { DraggableRow } from "../dnd/DraggableRow";
 import {
   HoverCard,
@@ -58,6 +57,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import PythonTestFileModal from "../PythonTestFileModal";
+import { DroppableEmptyRow } from "../dnd/DroppableEmptyRow";
 
 function renderErrorMessage(text: string): JSX.Element {
   const lines = text.split("\n");
@@ -339,7 +339,16 @@ export function DataTable() {
   const getSpecificContextMenuItems = (row: Row<TestSequenceElement>) => {
     switch (row.original.type) {
       case "test":
-        return <></>;
+        return (
+          <ContextMenuItem
+            onClick={() => {
+              setOpenPyTestFileModal(true);
+              setTestToDisplay(row.original as Test);
+            }}
+          >
+            Consult Code
+          </ContextMenuItem>
+        );
       case "conditional":
         return (
           <>
@@ -472,28 +481,11 @@ export function DataTable() {
                     >
                       Remove Test
                     </ContextMenuItem>
-                    {row.original.type === "test" && (
-                      <ContextMenuItem
-                        onClick={() => {
-                          setOpenPyTestFileModal(true);
-                          setTestToDisplay(row.original as Test);
-                        }}
-                      >
-                        Consult Code
-                      </ContextMenuItem>
-                    )}
                   </ContextMenuContent>
                 </ContextMenu>
               ))
             ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
+              <DroppableEmptyRow colSpan={columns.length + 1} />
             )}
           </TableBody>
         </Table>

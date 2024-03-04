@@ -1,14 +1,11 @@
-import { useDrag, useDrop } from "react-dnd";
-import {
-  Droppable,
-  ItemTypes,
-  TestSequenceDropResult,
-} from "../../models/drag_and_drop";
+import { useDrag } from "react-dnd";
+import { ItemTypes, TestSequenceDropResult } from "../../models/drag_and_drop";
 import { TableCell, TableRow } from "@/renderer/components/ui/table";
 import { TestSequenceElement } from "@/renderer/types/testSequencer";
 import { Row, flexRender } from "@tanstack/react-table";
 import { parseInt } from "lodash";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import { useConfigureDropRef } from "./utils";
 
 export const DraggableRow = ({
   row,
@@ -35,7 +32,7 @@ export const DraggableRow = ({
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: ItemTypes.TestElementRow,
-      item: { rowIdx: parseInt(row.id) },
+      item: { rowIdx: parseInt((row as Row<TestSequenceElement>).id) },
       end: (item, monitor) => {
         const dropResult = monitor.getDropResult<TestSequenceDropResult>();
         if (item && dropResult) {
@@ -49,28 +46,14 @@ export const DraggableRow = ({
     [elems],
   );
 
-  //define behaviour for drop
-  const useConfigureDropRef = (idx: number) => {
-    return useDrop(() => ({
-      accept: [ItemTypes.TestElementRow],
-      drop: (): TestSequenceDropResult => {
-        return { type: Droppable.TestSequenceTable, targetIdx: idx };
-      },
-      collect: (monitor) => ({
-        isOver: monitor.isOver(),
-        canDrop: monitor.canDrop(),
-      }),
-    }));
-  };
-
   //create drop below context
   const [{ isOver: isOverBelow, canDrop: canDropBelow }, dropBelow] =
-    useConfigureDropRef(parseInt(row.id) + 1);
+    useConfigureDropRef(parseInt((row as Row<TestSequenceElement>).id) + 1);
   const isActiveBelow = isOverBelow && canDropBelow;
 
   //create drop above context
   const [{ isOver: isOverAbove, canDrop: canDropAbove }, dropAbove] =
-    useConfigureDropRef(parseInt(row.id));
+    useConfigureDropRef(parseInt((row as Row<TestSequenceElement>).id));
   const isActiveAbove = isOverAbove && canDropAbove;
 
   return (

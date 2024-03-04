@@ -3,6 +3,7 @@
 # python
 /venv
 /venv2
+/gen_tests
 
 # dependencies
 /node_modules
