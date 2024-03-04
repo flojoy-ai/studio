@@ -1,7 +1,6 @@
 import uuid
 from captain.models.test_sequencer import StatusTypes, Test, TestTypes
 from captain.parser.bool_parser.utils.name_validator import validate_name
-from captain.utils.logger import logger
 import os
 from openai import OpenAI
 from captain.utils.test_sequencer.data_stream import _with_error_report

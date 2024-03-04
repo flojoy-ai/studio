@@ -1,4 +1,3 @@
-import traceback
 import time
 from typing import Union, List, Callable
 from flojoy_cloud.client import FlojoyCloudException
