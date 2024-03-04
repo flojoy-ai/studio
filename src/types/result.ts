@@ -12,3 +12,5 @@ export function tryParse<Z extends z.ZodTypeAny>(
     return err(res.error);
   };
 }
+
+export function pass() {}

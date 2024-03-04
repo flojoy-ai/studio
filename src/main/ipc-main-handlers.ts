@@ -167,5 +167,5 @@ export const registerIpcMainHandlers = () => {
   ipcMain.handle(API.validatePassword, validatePassword);
   ipcMain.handle(API.createUserProfile, createUserProfile);
   ipcMain.handle(API.deleteUserProfile, deleteUserProfile);
-  ipcMain.handle(API.getFileContent, (_, path) => readFileSync(path));
+  ipcMain.handle(API.getFileContent, readFileSync);
 };

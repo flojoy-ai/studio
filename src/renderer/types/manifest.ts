@@ -26,6 +26,8 @@ const nodeParameterSchema = z.object({
   overload: z.record(z.string(), z.array(z.string())).nullable(),
 });
 
+export type ParamDefinition = z.infer<typeof nodeParameterSchema>;
+
 const pipDependencySchema = z.object({
   name: z.string(),
   v: z.string().nullable(),
@@ -37,7 +39,7 @@ const blockDefinitionSchema = z.object({
   type: z.string(),
   inputs: z.array(nodeInputSchema).optional(),
   outputs: z.array(nodeOutputSchema).optional(),
-  parameters: z.record(z.string(), nodeParameterSchema),
+  parameters: z.record(z.string(), nodeParameterSchema).optional(),
   init_parameters: z.record(z.string(), nodeParameterSchema).optional(),
   pip_dependencies: z.array(pipDependencySchema).optional(),
   children: z.null(),

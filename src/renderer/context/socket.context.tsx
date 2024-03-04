@@ -78,10 +78,17 @@ export const SocketContextProvider = ({
 
   const doFetch = useCallback(async () => {
     const res = await fetchManifest();
-    if (res.isErr()) {
-      toast.error("Failed to fetch manifest from server", {
+    if (res.isOk()) return;
+
+    if (res.error instanceof HTTPError) {
+      toast.error("Error fetching custom blocks info.", {
         description: res.error.message,
       });
+    } else if (res.error instanceof ZodError) {
+      toast.error("Error fetching validating custom blocks info.", {
+        description: "Check the console for more details.",
+      });
+      console.error(res.error.message);
     }
   }, [fetchManifest]);
 
@@ -121,10 +128,6 @@ export const SocketContextProvider = ({
         description: "Check the console for more details.",
       });
       console.error(res.error.message);
-    } else {
-      toast.error("Error when trying to import custom blocks.", {
-        description: res.error.message,
-      });
     }
   }, [importCustomBlocks]);
 

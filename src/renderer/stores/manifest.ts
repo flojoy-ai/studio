@@ -24,6 +24,8 @@ type Actions = {
   setManifestChanged: (val: boolean) => void;
 };
 
+// TODO: Fix eslint-plugin-neverthrow to allow this
+// so that we can use the plugin for the whole codebase
 export const useManifestStore = create<State & Actions>()(
   immer((set, get) => ({
     standardBlocksManifest: undefined,

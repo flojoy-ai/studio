@@ -1,5 +1,5 @@
 import { useSocket } from "@/renderer/hooks/useSocket";
-import { TreeNode } from "@/renderer/types/manifest";
+import { BlockDefinition, TreeNode } from "@/renderer/types/manifest";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -161,14 +161,13 @@ const FlowChartTab = () => {
   const manifest = useManifest();
   const metadata = useMetadata();
 
-  const { standardManifest, customManifest, importCustomBlocks } =
-    useManifestStore(
-      useShallow((state) => ({
-        standardManifest: state.standardBlocksManifest,
-        customManifest: state.customBlocksManifest,
-        importCustomBlocks: state.importCustomBlocks,
-      })),
-    );
+  const { standardManifest, customManifest } = useManifestStore(
+    useShallow((state) => ({
+      standardManifest: state.standardBlocksManifest,
+      customManifest: state.customBlocksManifest,
+      importCustomBlocks: state.importCustomBlocks,
+    })),
+  );
 
   const { isAdmin } = useWithPermission();
 
@@ -272,7 +271,7 @@ const FlowChartTab = () => {
 
   const proOptions = { hideAttribution: true };
 
-  const onCommandMenuItemSelect = (node: TreeNode) => {
+  const onCommandMenuItemSelect = (node: BlockDefinition) => {
     addBlock(node);
     setCommandMenuOpen(false);
   };
@@ -423,7 +422,6 @@ const FlowChartTab = () => {
             isSideBarOpen={isSidebarOpen}
             setSideBarStatus={setIsSidebarOpen}
             customSections={customManifest}
-            handleImportCustomBlocks={importCustomBlocks}
           />
         )}
 

@@ -4,10 +4,9 @@ import { immer } from "zustand/middleware/immer";
 import {
   BlockParameterValue,
   TextData,
-  BlockDefinition,
   BlockData,
   positionSchema,
-} from "@/renderer/types/node";
+} from "@/renderer/types/block";
 import { useShallow } from "zustand/react/shallow";
 
 import * as galleryItems from "@/renderer/data/apps";
@@ -43,6 +42,7 @@ import { useSocketStore } from "./socket";
 import { useHardwareStore } from "./hardware";
 import { DeviceInfo } from "@/renderer/types/hardware";
 import { tryParse } from "@/types/result";
+import { BlockDefinition } from "@/renderer/types/manifest";
 
 type State = {
   name: string | undefined;
@@ -373,10 +373,7 @@ export const useAddBlock = () => {
     (node: BlockDefinition) => {
       const previousBlockPos = localStorage.getItem("prev_node_pos");
 
-      const pos = tryParse(positionSchema)(previousBlockPos).match(
-        (p) => p,
-        () => center,
-      );
+      const pos = tryParse(positionSchema)(previousBlockPos).unwrapOr(center);
 
       const nodePosition = addRandomPositionOffset(pos, 300);
       const {

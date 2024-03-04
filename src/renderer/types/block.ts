@@ -1,40 +1,9 @@
 import { NodeProps } from "reactflow";
 import { Nullish } from "@/renderer/types/util";
 import { z } from "zod";
+import { BlockDefinition } from "./manifest";
 
 export type BlockParameterValue = Nullish<string | number | boolean>;
-
-export type BlockDefinition = {
-  name: string;
-  key: string;
-  type: string;
-  inputs?: Array<{
-    name: string;
-    id: string;
-    type: string;
-    multiple?: boolean;
-    desc: string | null;
-  }>;
-
-  outputs: Array<{
-    name: string;
-    id: string;
-    type: string;
-    desc: string | null;
-  }>;
-  parameters: Record<string, ParamDefinition>;
-  init_parameters?: BlockDefinition["parameters"];
-  pip_dependencies: Array<{ name: string; v: string }>;
-  children: null;
-};
-
-export type ParamDefinition = {
-  type: string;
-  default?: BlockParameterValue;
-  options?: (string | number)[];
-  desc: string | null;
-  overload: Record<string, string[]> | null;
-};
 
 export type CtrlData = Record<
   string,
@@ -60,15 +29,10 @@ export type BlockData = {
   ctrls: CtrlData;
   initCtrls?: CtrlData;
   inputs?: BlockDefinition["inputs"];
-  outputs?: Array<{
-    name: string;
-    id: string;
-    type: string;
-    desc: string | null;
-  }>;
+  outputs?: BlockDefinition["outputs"];
   pip_dependencies?: {
     name: string;
-    v?: string;
+    v: Nullish<string>;
   }[];
   invalid?: boolean;
 };

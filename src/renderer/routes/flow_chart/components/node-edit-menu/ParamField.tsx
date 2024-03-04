@@ -21,7 +21,7 @@ import { AutosizingTextarea } from "./AutosizingTextarea";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
 import { Result } from "neverthrow";
 import { toast } from "sonner";
-import { BlockParameterValue } from "@/renderer/types/node";
+import { BlockParameterValue } from "@/renderer/types/block";
 import { useShallow } from "zustand/react/shallow";
 
 type ParamFieldProps = {

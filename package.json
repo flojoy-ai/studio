@@ -135,7 +135,6 @@
     "electron": "^29.1.0",
     "electron-builder": "^24.13.3",
     "eslint": "^8.57.0",
-    "eslint-plugin-neverthrow": "^1.1.4",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",

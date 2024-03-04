@@ -11,13 +11,7 @@ module.exports = {
     "plugin:react-hooks/recommended",
   ],
   parser: "@typescript-eslint/parser",
-  parserOptions: {
-    ecmaVersion: 2021,
-    sourceType: "module",
-    project: ["./tsconfig.json"],
-    tsconfigRootDir: __dirname,
-  },
-  plugins: ["react-refresh", "neverthrow"],
+  plugins: ["react-refresh"],
   rules: {
     "no-restricted-imports": [
       "error",
@@ -30,7 +24,6 @@ module.exports = {
         ],
       },
     ],
-    "neverthrow/must-use-result": "error",
   },
   settings: {
     react: {

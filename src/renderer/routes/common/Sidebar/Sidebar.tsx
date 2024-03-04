@@ -89,10 +89,6 @@ const Sidebar = ({
         description: "Check the console for more details.",
       });
       console.error(res.error.message);
-    } else {
-      toast.error("Error when trying to import custom blocks.", {
-        description: res.error.message,
-      });
     }
   };
 
