@@ -18,7 +18,7 @@ import {
   BOTTOM_STATUS_BAR_HEIGHT,
 } from "@/renderer/routes/common/Layout";
 import { TestSequencerProjectModal } from "./TestSequencerProjectModal";
-import { useImportProject, useSaveProject, useCreateProject } from "@/renderer/hooks/useTestSequencerProject";
+import { useImportProject, useSaveProject, useCloseProject } from "@/renderer/hooks/useTestSequencerProject";
 
 const TestSequencerView = () => {
   const { setElems, tree, setIsLocked, backendState, project } = useTestSequencerState();
@@ -54,6 +54,7 @@ const TestSequencerView = () => {
   };
   const projectImport = useImportProject();
   const saveProject = useSaveProject();
+  const closeProject = useCloseProject()
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const handleClickImportTest = () => {
     setIsImportModalOpen(true);
@@ -110,14 +111,21 @@ const TestSequencerView = () => {
                     className="mt-4 w-full"
                     variant="outline"
                     onClick={() => {
-                      if (project === null) {
-                        setIsProjectModalOpen(true);
-                      } else {
                         saveProject();
-                      }
                     }}
                   >
-                    {project === null ? "New Project" : "Save Project"}
+                    Save Project
+                  </LockableButton>
+                  )}
+                  { project !== null && (
+                    <LockableButton
+                    className="mt-4 w-full"
+                    variant="outline"
+                    onClick={() => {
+                      closeProject();
+                    }}
+                  >
+                    Close Project
                   </LockableButton>
                   )}
                   <LockableButton

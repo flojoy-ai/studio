@@ -78,9 +78,9 @@ export async function exportProject(stateManager: StateManager, throwInsteadOfRe
 }
 
 export async function closeProject(save: boolean, stateManager: StateManager, throwInsteadOfResult: boolean=false): Promise<Result<null, Error>> {
-  // Delete the current proejct from the app. The project is NOT deleted from disk
+  // Close the current proejct from the app. The project is NOT deleted from disk
   if (save) {
-    await saveProject(stateManager);
+    await saveProject(stateManager, throwInsteadOfResult);
   }
   stateManager.setProject(null);
   return Ok(null);

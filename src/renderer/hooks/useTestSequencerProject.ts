@@ -3,7 +3,7 @@ import { useTestSequencerState } from "./useTestSequencerState";
 import { TestSequencerProject } from "../types/testSequencer";
 import { toast } from "sonner";
 import { Dispatch, SetStateAction } from "react";
-import { createProject, saveProject, importProject, StateManager } from "@/renderer/utils/TestSequenceProjectHandler";
+import { createProject, saveProject, importProject, StateManager, closeProject } from "@/renderer/utils/TestSequenceProjectHandler";
 
 function getPrepareStateManager(): StateManager {
   const { elems, setElems, project, setProject, setUnsaved } = useTestSequencerState();
@@ -82,4 +82,18 @@ export const useImportProject = () => {
       })
   };
   return handleImport;
+}
+
+export const useCloseProject = () => {
+  const { isUnsaved } = useTestSequencerState();
+  const manager = getPrepareStateManager();
+  const handle = async () => {
+    if (isUnsaved) {
+      const shouldContinue = window.confirm("You have unsaved changes. Do you want to continue?");
+      if (!shouldContinue) return;
+    }
+    await closeProject(false, manager, false);
+  }
+
+  return handle;
 }
