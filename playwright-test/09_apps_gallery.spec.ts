@@ -8,7 +8,7 @@ import {
   writeLogFile,
 } from "./utils";
 import { Selectors } from "./selectors";
-import { data as appsGallery } from "../src/renderer/utils/GalleryLoader";
+import { data as appsGallery } from "../src/renderer/utils/gallery";
 import { join } from "path";
 import { readFileSync } from "fs";
 
