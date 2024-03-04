@@ -107,7 +107,7 @@ export const SocketContextProvider = ({
         description: fromZodError(res.error).toString(),
       });
       console.error(res.error.message);
-    } else if (res.error instanceof Error) {
+    } else {
       toast.error("Error fetching hardware info", {
         description: res.error.message,
       });
