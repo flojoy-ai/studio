@@ -72,7 +72,7 @@ const PathInput = React.forwardRef<HTMLInputElement, InputProps>(
       >
       <input
         className={cn(
-          "h-9 pl-3 w-full rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+          "h-9 pl-3 w-full rounded-md bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
           className,
         )}
         ref={ref}
