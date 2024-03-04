@@ -304,9 +304,9 @@ devDependencies:
   electron-builder:
     specifier: ^24.13.3
     version: 24.13.3(electron-builder-squirrel-windows@24.13.3)
-  electron-devtools-installer:
-    specifier: ^3.2.0
-    version: 3.2.0
+  electron-devtools-assembler:
+    specifier: ^1.2.0
+    version: 1.2.0
   eslint:
     specifier: ^8.57.0
     version: 8.57.0
@@ -5254,8 +5254,8 @@ packages:
       electron-is-dev: 2.0.0
     dev: false
 
-  /electron-devtools-installer@3.2.0:
-    resolution: {integrity: sha512-t3UczsYugm4OAbqvdImMCImIMVdFzJAHgbwHpkl5jmfu1izVgUcP/mnrPqJIpEeCK1uZGpt+yHgWEN+9EwoYhQ==}
+  /electron-devtools-assembler@1.2.0:
+    resolution: {integrity: sha512-5G45lxG1xrpNtLAaVnV9fj9R05lXir3IMaXu3mRteiM2vTWBk3hFaZ48fRX89DI+W7EgBQYT2bIecnPj8lRseg==}
     dependencies:
       rimraf: 3.0.2
       semver: 7.6.0

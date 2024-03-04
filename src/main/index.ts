@@ -9,7 +9,7 @@ import { registerIpcMainHandlers } from "./ipc-main-handlers";
 import { cleanup } from "./utils";
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
-} from "electron-devtools-installer";
+} from "electron-devtools-assembler";
 
 log.initialize({ preload: true });
 log.info("Welcome to Flojoy Studio!");
