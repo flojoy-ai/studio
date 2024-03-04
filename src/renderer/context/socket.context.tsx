@@ -142,16 +142,16 @@ export const SocketContextProvider = ({
       `ws://${env.VITE_BACKEND_HOST}:${env.VITE_BACKEND_PORT}/ws/${UUID()}`,
     );
     ws.onmessage = (ev) => {
-      const msg = JSON.parse(ev.data);
-      const res = WorkerJobResponse.safeParse(msg);
-      if (!res.success) {
-        console.error(
-          "failed to validate worker response: ",
-          res.error.message,
-        );
-        return;
-      }
-      const data = res.data;
+      const data = JSON.parse(ev.data) as WorkerJobResponse;
+      // const res = WorkerJobResponse.safeParse(msg);
+      // if (!res.success) {
+      //   console.error(
+      //     "failed to validate worker response: ",
+      //     res.error.message,
+      //   );
+      //   return;
+      // }
+      // const data = res.data;
       switch (data.type) {
         case "worker_response": {
           processWorkerResponse(data);
