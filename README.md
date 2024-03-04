@@ -28,6 +28,5 @@ If interested in using Flojoy in a context where the AGPL license is prohibitive
 
 # Product screenshots
 
-![product_screenshot](https://github.com/flojoy-ai/studio/assets/1865834/e58877fb-b9e4-4831-ac35-de40021dacd3)
-
-![Visualization of the Codebase](./diagram.svg)
+<img width="1440" alt="Flowchart" src="https://github.com/flojoy-ai/studio/assets/56351875/d89e35b5-f57b-4d77-b960-eb75818db12c">
+<img width="1440" alt="Test Sequencer" src="https://github.com/flojoy-ai/studio/assets/56351875/26d8c59d-edf4-491c-a24b-874ed6e5b95d">

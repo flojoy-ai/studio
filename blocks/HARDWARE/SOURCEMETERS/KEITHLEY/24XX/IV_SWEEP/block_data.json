@@ -1,12 +1,17 @@
 {
   "docstring": {
-    "long_description": "Inputs\n------\ndefault: OrderedPair | Vector\n    The voltages to send to the Keithley 2400 source meter.",
+    "long_description": "",
     "short_description": "Take an I-V curve measurement with a Keithley 2400 source meter (send voltages, measure currents).",
     "parameters": [
       {
+        "name": "default",
+        "type": "OrderedPair | Vector",
+        "description": "The voltages to send to the Keithley 2400 source meter."
+      },
+      {
         "name": "connection",
         "type": "Serial",
-        "description": "The open connection with the Keithley2400 source meter."
+        "description": "The open connection with the Keithley 2400 source meter."
       }
     ],
     "returns": [

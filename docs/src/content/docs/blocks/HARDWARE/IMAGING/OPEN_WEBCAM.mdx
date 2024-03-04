@@ -14,7 +14,9 @@ head:
 
 import block_data from "@blocks/HARDWARE/IMAGING/OPEN_WEBCAM/block_data.json";
 import PythonDocsDisplay from "@/components/PythonDocsDisplay.astro";
+import DownloadStudioBanner from "@/components/DownloadStudioBanner.astro";
 
+<DownloadStudioBanner />
 <PythonDocsDisplay docstring={block_data["docstring"]} />
 <details>
 <summary>Python Code</summary>
@@ -39,7 +41,7 @@ import { YouTube } from '@astro-community/astro-embed-youtube';
 <YouTube id="https://www.youtube.com/watch?v=Om0C7s_9Qo8" />
 </div>
 
-## Example
+## Example App
 
 import GetHelpWidget from "@/components/GetHelpWidget.astro";
 

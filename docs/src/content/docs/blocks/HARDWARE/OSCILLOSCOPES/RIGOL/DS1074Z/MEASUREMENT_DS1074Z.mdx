@@ -14,7 +14,9 @@ head:
 
 import block_data from "@blocks/HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/MEASUREMENT_DS1074Z/block_data.json";
 import PythonDocsDisplay from "@/components/PythonDocsDisplay.astro";
+import DownloadStudioBanner from "@/components/DownloadStudioBanner.astro";
 
+<DownloadStudioBanner />
 <PythonDocsDisplay docstring={block_data["docstring"]} />
 <details>
 <summary>Python Code</summary>
@@ -39,7 +41,7 @@ import { YouTube } from '@astro-community/astro-embed-youtube';
 <YouTube id="https://www.youtube.com/watch?v=Bl0DrvaOtgI" />
 </div>
 
-## Example
+## Example App
 
 import GetHelpWidget from "@/components/GetHelpWidget.astro";
 
