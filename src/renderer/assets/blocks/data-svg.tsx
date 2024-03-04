@@ -1,13 +1,12 @@
-import { memo } from "react";
+import { SVGProps, memo } from "react";
 import { resolveBlockSVG } from "./svg-helper";
 
-const DefaultDataBlock = (
+export const DefaultDataBlock = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    width="100pt"
-    height="100pt"
     version="1.1"
     viewBox="0 0 100 100"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <g
       className="stroke-accent2"
@@ -136,7 +135,7 @@ const RandBlock = (
 );
 
 const blockNameToSVGMap = {
-  default: DefaultDataBlock,
+  default: <DefaultDataBlock width="100pt" height="100pt" />,
   MATRIX: MatrixBlock,
   LINSPACE: LinspaceBlock,
   FEEDBACK: FeedbackBlock,

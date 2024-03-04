@@ -1,13 +1,12 @@
-import { memo } from "react";
+import { SVGProps, memo } from "react";
 import { resolveBlockSVG } from "./svg-helper";
 
-const DefaultAIBlock = (
+export const DefaultAIBlock = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    width="100pt"
-    height="100pt"
     version="1.1"
     viewBox="0 0 100 100"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <g className="fill-accent6">
       <path d="m50.625 13.75c-3.1055 0-5.625 2.5195-5.625 5.625s2.5195 5.625 5.625 5.625 5.625-2.5195 5.625-5.625-2.5195-5.625-5.625-5.625zm0 3.75c1.0352 0 1.875 0.83984 1.875 1.875s-0.83984 1.875-1.875 1.875-1.875-0.83984-1.875-1.875 0.83984-1.875 1.875-1.875z" />
@@ -26,7 +25,7 @@ const DefaultAIBlock = (
 );
 
 const blockNameToSVGMap = {
-  default: DefaultAIBlock,
+  default: <DefaultAIBlock width="100pt" height="100pt" />,
 };
 const AIBlockSvg = resolveBlockSVG(blockNameToSVGMap);
 

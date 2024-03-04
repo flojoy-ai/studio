@@ -1,13 +1,8 @@
-import { memo } from "react";
+import { memo, SVGProps } from "react";
 import { resolveBlockSVG } from "../svg-helper";
 
-const DefaultHardwareSVG = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="100pt"
-    height="100pt"
-    viewBox="0 0 100 100"
-  >
+export const DefaultHardwareSVG = (props: SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" {...props}>
     <g className="fill-accent4">
       <path d="M56.25 42.188h-12.5c-.863 0-1.563.7-1.563 1.563v12.5a1.564 1.564 0 001.563 1.562h12.5a1.564 1.564 0 001.563-1.563v-12.5a1.564 1.564 0 00-1.563-1.562zm-1.563 12.5h-9.374v-9.375h9.374z"></path>
       <path d="M84.375 17.188a1.564 1.564 0 00-1.563-1.563h-3.125v-12.5h-3.125v12.5h-3.125v-12.5h-3.125v12.5h-3.125v-12.5h-3.125v12.5h-3.125v-12.5h-3.125v12.5h-3.125v-12.5h-3.125v12.5h-3.125v-12.5h-3.125v12.5h-3.125v-12.5h-3.125v12.5h-3.125v-12.5h-3.125v12.5h-3.125v-12.5h-3.125v12.5h-3.125v-12.5h-3.125v12.5h-3.125c-.863 0-1.562.7-1.562 1.563v3.125h-12.5v3.125h12.5v3.125h-12.5v3.125h12.5v3.125h-12.5v3.125h12.5v3.125h-12.5v3.125h12.5v3.125h-12.5v3.125h12.5v3.125h-12.5v3.125h12.5v3.125h-12.5v3.125h12.5v3.125h-12.5v3.125h12.5v3.125h-12.5v3.125h12.5v3.125h-12.5v3.125h12.5v3.125a1.564 1.564 0 001.562 1.563h3.125v12.5h3.125v-12.5h3.125v12.5h3.125v-12.5h3.125v12.5h3.125v-12.5h3.125v12.5h3.125v-12.5h3.125v12.5h3.125v-12.5h3.125v12.5h3.125v-12.5h3.125v12.5h3.125v-12.5h3.125v12.5h3.125v-12.5h3.125v12.5h3.125v-12.5h3.125v12.5h3.125v-12.5h3.125a1.564 1.564 0 001.563-1.563v-3.125h12.5v-3.125h-12.5v-3.125h12.5v-3.125h-12.5v-3.125h12.5v-3.125h-12.5v-3.125h12.5v-3.125h-12.5v-3.125h12.5v-3.125h-12.5v-3.125h12.5v-3.125h-12.5v-3.125h12.5v-3.125h-12.5v-3.125h12.5v-3.125h-12.5v-3.125h12.5v-3.125h-12.5v-3.125h12.5v-3.125h-12.5zm-3.125 9.375v54.688h-62.5v-62.5h62.5z"></path>
@@ -17,6 +12,6 @@ const DefaultHardwareSVG = (
 );
 
 const blockNameToSVGMap = {
-  default: DefaultHardwareSVG,
+  default: <DefaultHardwareSVG width="100pt" height="100pt" />,
 };
 export default memo(resolveBlockSVG(blockNameToSVGMap));
