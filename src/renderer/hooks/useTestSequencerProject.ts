@@ -92,7 +92,7 @@ export const useCloseProject = () => {
       const shouldContinue = window.confirm("You have unsaved changes. Do you want to continue?");
       if (!shouldContinue) return;
     }
-    await closeProject(false, manager, false);
+    await closeProject(manager, false);
   }
 
   return handle;

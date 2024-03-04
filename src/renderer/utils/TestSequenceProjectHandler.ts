@@ -27,7 +27,8 @@ export async function createProject(project: TestSequencerProject, stateManager:
     const elems = stateManager.elem;
     project = validatePath(project);
     project = updateProjectElements(project, await createProjectElementsFromTestSequencerElements(elems, project.projectPath, true));
-    saveAndSyncProject(project, stateManager);
+    await saveToDisk(project);
+    await syncProject(project, stateManager);
     return Ok(null);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
@@ -45,7 +46,8 @@ export async function saveProject(stateManager: StateManager, throwInsteadOfResu
     const elems = stateManager.elem;
     project = validatePath(project);
     project = updateProjectElements(project, await createProjectElementsFromTestSequencerElements(elems, project.projectPath, true));
-    saveAndSyncProject(project, stateManager);
+    await saveToDisk(project);
+    await syncProject(project, stateManager);
     return Ok(null);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
@@ -64,7 +66,11 @@ export async function importProject(filePath: string, fileContent: string, state
     }
     const projectPath = filePath.replaceAll(project.name + ".tjoy", "");
     project = updatePath(project, projectPath);
-    saveAndSyncProject(project, stateManager);
+    const succes = await installDeps(project);
+    if (!succes) {
+      throw Error("Error installing dependencies");
+    }
+    await syncProject(project, stateManager);
     return Ok(null);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
@@ -75,14 +81,13 @@ export async function importProject(filePath: string, fileContent: string, state
 export async function exportProject(stateManager: StateManager, throwInsteadOfResult: boolean=false): Promise<Result<null, Error>> {
   // Export the current project as a zip file without any dependencies
   await saveProject(stateManager);
-  return Err(new Error("Export Not Implemented"));
+  const error = new Error("Export Not Implemented");
+  if (throwInsteadOfResult) throw error;
+  return Err(error);
 }
 
-export async function closeProject(save: boolean, stateManager: StateManager, throwInsteadOfResult: boolean=false): Promise<Result<null, Error>> {
+export async function closeProject(stateManager: StateManager, throwInsteadOfResult: boolean=false): Promise<Result<null, Error>> {
   // Close the current proejct from the app. The project is NOT deleted from disk
-  if (save) {
-    await saveProject(stateManager, throwInsteadOfResult);
-  }
   stateManager.setProject(null);
   return Ok(null);
 }
@@ -143,13 +148,35 @@ function updatePath(project: TestSequencerProject, newPath: string): TestSequenc
   }
 }
 
-async function saveAndSyncProject(project: TestSequencerProject, stateManager: StateManager): Promise<void> {
+async function saveToDisk(project: TestSequencerProject): Promise<void> {
   if ("api" in window) {
+    // Deps
+    const deps = await window.api.poetryShowUserGroup();
+    const content = deps.map((dep) => dep.name + "==" + dep.version).join("\n");
+    const requirementsPath = "requirements.txt";
+    await window.api.saveToFile(project.projectPath + requirementsPath, content);
+    project.interpreter.requirementsPath = requirementsPath;
+    // Project
     await window.api.saveToFile(
       project.projectPath + project.name + ".tjoy",
       stringifyProject(project)
     );
+  } else {
+    throw new Error("Not able to save to disk");
   }
+}
+
+async function installDeps(project: TestSequencerProject): Promise<boolean> {
+  if ("api" in window) {
+    const succes = await window.api.poetryInstallRequirementsUserGroup(toWinPathIfOnWin(project.projectPath) + project.interpreter.requirementsPath);
+    return succes;
+  } else {
+    throw new Error("Not able to install requirements.");  // TODO: Better error
+  }
+
+}
+
+async function syncProject(project: TestSequencerProject, stateManager: StateManager): Promise<void> {
   const elements = await createTestSequencerElementsFromProjectElements(project, project.projectPath, false);
   stateManager.setElems(elements);
   stateManager.setProject(project);

@@ -79,8 +79,9 @@ export type TestRootNode = {
 
 export type InterpreterType = "flojoy" | "poetry" | "pipenv" | "conda";
 export type Interpreter = {
-  type: InterpreterType ;
+  type: InterpreterType;
   path: string | null;
+  requirementsPath: string | null;
 };
 
 export type TestSequencerProject = {
@@ -88,8 +89,7 @@ export type TestSequencerProject = {
   description: string;
   elems: TestSequenceElement[];
   projectPath: string;
-  interpreter: Interpreter ;
-  requirementFilePath: string | null;
+  interpreter: Interpreter;
 }
 
 export type TestSequenceElementNode = ConditionalNode | TestNode | TestRootNode;

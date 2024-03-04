@@ -34,6 +34,7 @@ export const API = {
   poetryGetGroupInfo: "POETRY_GET_GROUP_INFO",
   poetryInstallDepGroup: "POETRY_INSTALL_DEP_GROUP",
   poetryInstallDepUserGroup: "POETRY_INSTALL_DEP_USER_GROUP",
+  poetryInstallRequirementsUserGroup: "POETRY_INSTALL_REQUIREMENTS_USER_GROUP",
   poetryUninstallDepUserGroup: "POETRY_UNINSTALL_DEP_USER_GROUP",
   poetryUninstallDepGroup: "POETRY_UNINSTALL_DEP_GROUP",
   openFilePicker: "OPEN_FILE_PICKER",

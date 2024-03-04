@@ -4,6 +4,7 @@ import { execCommand } from "../executor";
 import pyproject from "../../../pyproject.toml?raw";
 import toml from "toml";
 import { store } from "../store";
+import * as fs from "fs";
 
 // FIXME: do not hardcode the groups here
 export const POETRY_DEP_GROUPS: Pick<
@@ -154,6 +155,20 @@ export async function poetryInstallDepUserGroup(
   const poetry = process.env.POETRY_PATH ?? "poetry";
   await execCommand(new Command(`${poetry} add ${name} --group user`));
   return true;
+}
+
+export async function poetryInstallRequirementsUserGroup(filePath: string): Promise<boolean> {
+  try {
+    const content = fs.readFileSync(filePath, { encoding: "utf-8" }).toString()
+    const packages: string[] = content.split("\n").filter((line) => line !== "" && !line.startsWith("#"))
+    if (packages.length > 0) {
+      await poetryInstallDepUserGroup(packages.join(" "));
+    }
+    return true;
+  } catch (e) {
+    console.error(e);
+    return false
+  }
 }
 
 export async function poetryUninstallDepUserGroup(

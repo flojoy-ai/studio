@@ -62,6 +62,8 @@ export default {
     ipcRenderer.invoke(API.poetryUninstallDepGroup, group),
   poetryInstallDepUserGroup: (dep: string): Promise<boolean> =>
     ipcRenderer.invoke(API.poetryInstallDepUserGroup, dep),
+  poetryInstallRequirementsUserGroup: (filePath: string): Promise<boolean> =>
+    ipcRenderer.invoke(API.poetryInstallRequirementsUserGroup, filePath),
   poetryUninstallDepUserGroup: (dep: string): Promise<boolean> =>
     ipcRenderer.invoke(API.poetryUninstallDepUserGroup, dep),
 

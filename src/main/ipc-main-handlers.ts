@@ -42,6 +42,7 @@ import {
   poetryGetGroupInfo,
   poetryInstallDepGroup,
   poetryInstallDepUserGroup,
+  poetryInstallRequirementsUserGroup,
   poetryShowTopLevel,
   poetryShowUserGroup,
   poetryUninstallDepGroup,
@@ -140,6 +141,9 @@ export const registerIpcMainHandlers = () => {
   });
   ipcMain.handle(API.poetryInstallDepUserGroup, (_, dep) => {
     return poetryInstallDepUserGroup(dep);
+  });
+  ipcMain.handle(API.poetryInstallRequirementsUserGroup, (_, filePath) => {
+    return poetryInstallRequirementsUserGroup(filePath);
   });
   ipcMain.handle(API.openFilePicker, openFilePicker);
   ipcMain.handle(
