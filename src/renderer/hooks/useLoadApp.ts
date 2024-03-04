@@ -1,11 +1,11 @@
-import { sendEventToMix } from "@/renderer/services/MixpanelServices";
-import { useMetadata, useManifest } from "@/renderer/stores/manifest";
 import { useAppStore } from "@/renderer/stores/app";
-import { toast } from "sonner";
 import { Project } from "@/renderer/types/project";
 
 import { useShallow } from "zustand/react/shallow";
 import { useLoadProject } from "@/renderer/stores/project";
+import { tryParse } from "@/types/result";
+import { fromPromise, ok } from "neverthrow";
+import { toast } from "sonner";
 
 export const useLoadApp = () => {
   const loadProject = useLoadProject();
@@ -14,31 +14,27 @@ export const useLoadApp = () => {
     useShallow((state) => state.setShowWelcomeScreen),
   );
 
-  const manifest = useManifest();
-  const metadata = useMetadata();
-
-  const openFilePicker = () => {
-    window.api
-      .openFilePicker()
-      .then((result) => {
-        if (!result) return;
-        if (!manifest || !metadata) {
-          toast.error(
-            "Manifest and metadata are still loading, can't load app yet.",
-          );
-          return;
-        }
-
-        const { fileContent, filePath } = result;
-        sendEventToMix("Selected Files");
-        const project = JSON.parse(fileContent) as Project;
-
-        loadProject(project, filePath);
+  const openFilePicker = async () => {
+    const res = await fromPromise(
+      window.api.openFilePicker(),
+      (e) => e as Error,
+    );
+    if (res.isErr()) {
+      toast.error("Failed to open file", { description: res.error.message });
+      return;
+    }
+    if (res.value === undefined) {
+      return ok(undefined);
+    }
+    const { fileContent, filePath } = res.value;
+    tryParse(Project)(JSON.parse(fileContent)).match(
+      (proj) => {
+        loadProject(proj, filePath);
         setShowWelcomeScreen(false);
-      })
-      .catch((errors) => {
-        console.error("Errors when trying to load file: ", errors);
-      });
+      },
+      (e) =>
+        toast.error("Project validation error", { description: e.message }),
+    );
   };
 
   return openFilePicker;

@@ -9,6 +9,7 @@ import DeviceTab from "./routes/device_panel/DeviceView";
 import { useTheme } from "@/renderer/providers/ThemeProvider";
 import { Layout } from "./routes/common/Layout";
 import { Index } from "./routes/index";
+// eslint-disable-next-line no-restricted-imports
 import packageJson from "../../package.json";
 import EditorView from "./routes/editor/EditorView";
 import { initMixPanel } from "./services/MixpanelServices";

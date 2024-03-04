@@ -120,7 +120,7 @@ export class PythonManager {
     try {
       const condaInfo = await execCommand(new Command(cmd), { quiet: true });
 
-      const parsedInfo = CondaInfo.parse(condaInfo);
+      const parsedInfo = CondaInfo.parse(JSON.parse(condaInfo));
 
       const envPaths = parsedInfo.envs.map((env) => {
         if (process.platform === "win32") {

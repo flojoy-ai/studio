@@ -1,4 +1,11 @@
-import { memo, useEffect, useRef, useState } from "react";
+import {
+  AnchorHTMLAttributes,
+  ChangeEvent,
+  memo,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useNodeId, NodeResizer, NodeProps, useStore } from "reactflow";
 import { Textarea } from "@/renderer/components/ui/textarea";
 import ReactMarkdown from "react-markdown";
@@ -9,7 +16,7 @@ import { TextData } from "@/renderer/types/block";
 import { useProjectStore } from "@/renderer/stores/project";
 import { useShallow } from "zustand/react/shallow";
 
-const LinkRenderer = (props) => {
+const LinkRenderer = (props: AnchorHTMLAttributes<HTMLAnchorElement>) => {
   const handleClick = () => {
     toast("Opening link in your browser...");
   };
@@ -54,7 +61,7 @@ const TextNode = ({ selected, data, id }: NodeProps<TextData>) => {
 
   const ref = useRef<HTMLTextAreaElement>(null);
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
     e.target.style.height = "inherit";
     e.target.style.height = `${e.target.scrollHeight}px`;

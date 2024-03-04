@@ -318,7 +318,7 @@ export const useLoadProject = () => {
   const metadata = useMetadata();
 
   return useCallback(
-    (project: Project, path?: string) => {
+    (project: Project, path?: string): Result<void, Error> => {
       if (!manifest || !metadata) {
         return err(
           new Error(
