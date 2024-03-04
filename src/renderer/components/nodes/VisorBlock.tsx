@@ -1,4 +1,4 @@
-import { BlockProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/block";
 import NodeWrapper from "@/renderer/components/common/NodeWrapper";
 import clsx from "clsx";
 import HandleComponent from "@/renderer/components/common/HandleComponent";

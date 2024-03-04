@@ -1,6 +1,6 @@
 import { memo, useState } from "react";
 import clsx from "clsx";
-import { BlockProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/block";
 import NodeWrapper from "@/renderer/components/common/NodeWrapper";
 import { LogicHandleComponent } from "@/renderer/components/common/LogicHandleComponent";
 import BlockLabelInput from "@/renderer/components/common/NodeInput";

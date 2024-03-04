@@ -1,4 +1,4 @@
-import { BlockData } from "@/renderer/types";
+import { BlockData } from "@/renderer/types/block";
 import { ParamValueType } from "@/renderer/routes/common/types/ParamValueType";
 import { Input } from "@/renderer/components/ui/input";
 import {
@@ -21,8 +21,8 @@ import { AutosizingTextarea } from "./AutosizingTextarea";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
 import { Result } from "neverthrow";
 import { toast } from "sonner";
-import { BlockParameterValue } from "@/renderer/types/block";
 import { useShallow } from "zustand/react/shallow";
+import { BlockParameterValue } from "@/renderer/types/manifest";
 
 type ParamFieldProps = {
   nodeId: string;

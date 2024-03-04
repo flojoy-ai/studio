@@ -1,7 +1,7 @@
 import { memo, useState } from "react";
 import clsx from "clsx";
 import NodeWrapper from "@/renderer/components/common/NodeWrapper";
-import { BlockProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/block";
 import { ScipySvg } from "@/renderer/assets/ArithmeticSVG";
 import HandleComponent from "@/renderer/components/common/HandleComponent";
 import BlockLabelInput from "@/renderer/components/common/NodeInput";

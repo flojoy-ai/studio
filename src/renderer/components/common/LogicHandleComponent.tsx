@@ -1,5 +1,5 @@
 import { Position } from "reactflow";
-import { BlockProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/block";
 import { CustomHandle, HandleVariantProps } from "./CustomHandle";
 
 type LogicHandleComponentProps = {

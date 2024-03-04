@@ -1,6 +1,6 @@
 import { BlockResult } from "@/renderer/types/block-result";
 import { Node } from "reactflow";
-import { BlockData } from "@/renderer/types";
+import { BlockData } from "@/renderer/types/block";
 import BlockModal from "./BlockModal";
 
 type BlockExpandMenuProps = {

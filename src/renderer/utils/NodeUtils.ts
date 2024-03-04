@@ -1,7 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
 import { Leaf as NodeElement } from "@/renderer/types/manifest";
-import { CtrlData, ParamDefinition } from "@/renderer/types/node";
+import { ParamDefinition } from "@/renderer/types/manifest";
 import { DeviceInfo } from "@/renderer/types/hardware";
+import { CtrlData } from "@/renderer/types/block";
 
 export const createNodeId = (nodeFunc: string) => `${nodeFunc}-${uuidv4()}`;
 

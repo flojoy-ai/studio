@@ -1,5 +1,5 @@
 import { ReactFlowJsonObject, Node } from "reactflow";
-import { TextData, BlockData } from "@/renderer/types/node";
+import { TextData, BlockData } from "@/renderer/types/block";
 
 export type Project = {
   name?: string;

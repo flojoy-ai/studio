@@ -1,4 +1,4 @@
-import { BlockData } from "@/renderer/types";
+import { BlockData } from "@/renderer/types/block";
 import { ReactFlowJsonObject } from "reactflow";
 import { defaultApp } from "./apps";
 

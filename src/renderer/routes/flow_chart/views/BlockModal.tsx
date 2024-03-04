@@ -14,7 +14,7 @@ import {
   DialogTitle,
 } from "@/renderer/components/ui/dialog";
 import { BlockResult } from "@/renderer/types/block-result";
-import { BlockData } from "@/renderer/types/node";
+import { BlockData } from "@/renderer/types/block";
 import { ScrollArea, ScrollBar } from "@/renderer/components/ui/scroll-area";
 import { useTheme } from "@/renderer/providers/themeProvider";
 import { Button } from "@/renderer/components/ui/button";

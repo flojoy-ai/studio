@@ -1,4 +1,3 @@
-import { BlockData } from "@/renderer/types";
 import {
   BlockMetadata,
   BlockManifest,
@@ -7,7 +6,7 @@ import {
   TreeNode,
 } from "@/renderer/types/manifest";
 import { Edge, Node } from "reactflow";
-import { CtrlData } from "@/renderer/types/node";
+import { CtrlData, BlockData } from "@/renderer/types/block";
 import { ctrlsFromParams } from "@/renderer/utils/NodeUtils";
 import { isCompatibleType } from "@/renderer/utils/TypeCheck";
 import _ from "lodash";

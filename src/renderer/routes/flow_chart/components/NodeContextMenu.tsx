@@ -1,5 +1,5 @@
 import { Button } from "@/renderer/components/ui/button";
-import { BlockData } from "@/renderer/types";
+import { BlockData } from "@/renderer/types/block";
 import { Code, CopyPlus, Info, LucideIcon, Pencil, X } from "lucide-react";
 import { useCallback } from "react";
 import { useStore, Node, useReactFlow } from "reactflow";

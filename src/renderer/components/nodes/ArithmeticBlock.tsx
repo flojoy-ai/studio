@@ -1,4 +1,4 @@
-import { BlockProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/block";
 import { memo } from "react";
 import DefaultBlock from "./DefaultBlock";
 

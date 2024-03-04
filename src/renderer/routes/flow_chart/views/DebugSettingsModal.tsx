@@ -31,8 +31,11 @@ export const DebugSettingsModal = ({
   useEffect(() => {
     if (isDebugSettingsOpen) {
       getLogLevel().then((data) => {
-        console.log(data);
-        setLevel(data);
+        data.match(
+          (v) => setLevel(v),
+          (e) =>
+            toast.error("Error setting log level", { description: e.message }),
+        );
       });
     }
   }, [isDebugSettingsOpen]);

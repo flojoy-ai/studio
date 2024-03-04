@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { BlockProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/block";
 import LogicBlock from "./LogicBlock";
 
 export const ConditionalBlock = (props: BlockProps) => {

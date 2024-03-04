@@ -1,9 +1,7 @@
 import { NodeProps } from "reactflow";
 import { Nullish } from "@/renderer/types/util";
 import { z } from "zod";
-import { BlockDefinition } from "./manifest";
-
-export type BlockParameterValue = Nullish<string | number | boolean>;
+import { BlockDefinition, BlockParameterValue } from "./manifest";
 
 export type CtrlData = Record<
   string,

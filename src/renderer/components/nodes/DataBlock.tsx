@@ -1,6 +1,6 @@
 import { memo, useState } from "react";
 import clsx from "clsx";
-import { BlockProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/block";
 import NodeWrapper from "@/renderer/components/common/NodeWrapper";
 import HandleComponent from "@/renderer/components/common/HandleComponent";
 import { textWrap } from "@/renderer/utils/TextWrap";

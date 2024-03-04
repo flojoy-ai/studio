@@ -5,7 +5,7 @@ import ReactMarkdown from "react-markdown";
 import { toast } from "sonner";
 import { Edit, Trash } from "lucide-react";
 import { cn } from "@/renderer/lib/utils";
-import { TextData } from "@/renderer/types/node";
+import { TextData } from "@/renderer/types/block";
 import { useProjectStore } from "@/renderer/stores/project";
 import { useShallow } from "zustand/react/shallow";
 

@@ -1,8 +1,9 @@
 import { ParamValueType } from "@/renderer/routes/common/types/ParamValueType";
 import { ParamTooltip } from "@/renderer/components/common/ParamTooltip";
-import { BlockData, BlockParameterValue } from "@/renderer/types/node";
+import { BlockData } from "@/renderer/types/block";
 import ParamField from "./ParamField";
 import { Result } from "neverthrow";
+import { BlockParameterValue } from "@/renderer/types/manifest";
 
 type ParamListProps = {
   nodeId: string;

@@ -1,32 +1,35 @@
 import { z } from "zod";
 
-const nodeIoSchema = z.object({
+const blockIoSchema = z.object({
   name: z.string(),
   id: z.string(),
   type: z.string(),
   desc: z.string().nullable(),
 });
 
-const nodeInputSchema = nodeIoSchema.extend({
+const blockInputSchema = blockIoSchema.extend({
   multiple: z.boolean(),
 });
-const nodeOutputSchema = nodeIoSchema;
+const blockOutputSchema = blockIoSchema;
 
-const nodeParameterSchema = z.object({
+const blockParameterValue = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  z.null(),
+  z.undefined(),
+]);
+
+const blockParameterSchema = z.object({
   type: z.string(),
-  default: z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    z.null(),
-    z.undefined(),
-  ]),
+  default: blockParameterValue,
   options: z.union([z.string(), z.number()]).array().optional(),
   desc: z.string().nullable(),
   overload: z.record(z.string(), z.array(z.string())).nullable(),
 });
 
-export type ParamDefinition = z.infer<typeof nodeParameterSchema>;
+export type BlockParameterValue = z.infer<typeof blockParameterValue>;
+export type ParamDefinition = z.infer<typeof blockParameterSchema>;
 
 const pipDependencySchema = z.object({
   name: z.string(),
@@ -37,10 +40,10 @@ const blockDefinitionSchema = z.object({
   name: z.string(),
   key: z.string(),
   type: z.string(),
-  inputs: z.array(nodeInputSchema).optional(),
-  outputs: z.array(nodeOutputSchema).optional(),
-  parameters: z.record(z.string(), nodeParameterSchema).optional(),
-  init_parameters: z.record(z.string(), nodeParameterSchema).optional(),
+  inputs: z.array(blockInputSchema).optional(),
+  outputs: z.array(blockOutputSchema).optional(),
+  parameters: z.record(z.string(), blockParameterSchema).optional(),
+  init_parameters: z.record(z.string(), blockParameterSchema).optional(),
   pip_dependencies: z.array(pipDependencySchema).optional(),
   children: z.null(),
 });

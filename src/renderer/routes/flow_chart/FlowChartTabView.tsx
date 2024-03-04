@@ -48,7 +48,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/renderer/components/ui/tooltip";
-import { BlockData } from "@/renderer/types";
+import { BlockData } from "@/renderer/types/block";
 import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
 import ArithmeticBlock from "@/renderer/components/nodes/ArithmeticBlock";
 import ConditionalBlock from "@/renderer/components/nodes/ConditionalBlock";

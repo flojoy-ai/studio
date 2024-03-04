@@ -1,12 +1,7 @@
 import { Node, Edge, XYPosition, Connection, addEdge } from "reactflow";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import {
-  BlockParameterValue,
-  TextData,
-  BlockData,
-  positionSchema,
-} from "@/renderer/types/block";
+import { TextData, BlockData, positionSchema } from "@/renderer/types/block";
 import { useShallow } from "zustand/react/shallow";
 
 import * as galleryItems from "@/renderer/data/apps";
@@ -42,7 +37,10 @@ import { useSocketStore } from "./socket";
 import { useHardwareStore } from "./hardware";
 import { DeviceInfo } from "@/renderer/types/hardware";
 import { tryParse } from "@/types/result";
-import { BlockDefinition } from "@/renderer/types/manifest";
+import {
+  BlockDefinition,
+  BlockParameterValue,
+} from "@/renderer/types/manifest";
 
 type State = {
   name: string | undefined;

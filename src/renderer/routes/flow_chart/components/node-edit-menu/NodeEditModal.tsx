@@ -1,5 +1,5 @@
 import { Node } from "reactflow";
-import { BlockData } from "@/renderer/types";
+import { BlockData } from "@/renderer/types/block";
 import { memo, useEffect, useState } from "react";
 import Draggable from "react-draggable";
 import { ParamList } from "./ParamList";
