@@ -16,6 +16,7 @@ import {
 } from "@/renderer/services/MixpanelServices";
 import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
+import packageJson from "../../../../../package.json";
 
 export function WelcomeModal() {
   const openFileSelector = useLoadApp();
@@ -39,7 +40,9 @@ export function WelcomeModal() {
     <AlertDialog open={showWelcomeScreen}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Welcome to Flojoy Studio</AlertDialogTitle>
+          <AlertDialogTitle>
+            Welcome to Flojoy Studio V{packageJson.version}
+          </AlertDialogTitle>
           <AlertDialogDescription>
             Introducing our Alpha Release: Expect exciting improvements and
             possible breaking changes as we refine and enhance the app.
