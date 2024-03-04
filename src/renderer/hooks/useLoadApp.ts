@@ -7,6 +7,7 @@ import { tryParse } from "@/types/result";
 import { fromPromise, ok } from "neverthrow";
 import { toast } from "sonner";
 import { ZodError } from "zod";
+import { fromZodError } from "zod-validation-error";
 
 export const useLoadApp = () => {
   const loadProject = useLoadProject();
@@ -38,7 +39,7 @@ export const useLoadApp = () => {
 
     if (loadRes.error instanceof ZodError) {
       toast.error("Project validation error", {
-        description: loadRes.error.message,
+        description: fromZodError(loadRes.error).toString(),
       });
     } else {
       toast.error("Error loading project", {

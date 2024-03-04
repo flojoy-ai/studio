@@ -21,6 +21,7 @@ import { useShallow } from "zustand/react/shallow";
 import { toast } from "sonner";
 import { HTTPError } from "ky";
 import { ZodError } from "zod";
+import { fromZodError } from "zod-validation-error";
 
 export type LeafClickHandler = (elem: Leaf) => void;
 
@@ -86,7 +87,7 @@ const Sidebar = ({
       });
     } else if (res.error instanceof ZodError) {
       toast.error("Error fetching validating custom blocks info.", {
-        description: "Check the console for more details.",
+        description: fromZodError(res.error).toString(),
       });
       console.error(res.error.message);
     }

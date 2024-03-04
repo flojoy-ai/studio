@@ -6,6 +6,10 @@ import { GalleryApp } from "@/renderer/types/gallery";
 import { useEffect } from "react";
 import { useLoadProject } from "@/renderer/stores/project";
 import { Project } from "@/renderer/types/project";
+import { tryParse } from "@/types/result";
+import { toast } from "sonner";
+import { ZodError } from "zod";
+import { fromZodError } from "zod-validation-error";
 
 export interface AppGalleryElementProps {
   galleryApp: GalleryApp;
@@ -23,10 +27,21 @@ export const GalleryElement = ({
 
   const handleAppLoad = async () => {
     const raw = await import(`../../data/apps/${galleryApp.appPath}.json`);
-    const app = raw as Project;
+    const res = tryParse(Project)(raw)
+      .andThen((proj) => loadProject(proj))
+      .map(() => setIsGalleryOpen(false));
 
-    loadProject(app);
-    setIsGalleryOpen(false);
+    if (res.isOk()) return;
+
+    if (res.error instanceof ZodError) {
+      toast.error("Project validation error", {
+        description: fromZodError(res.error).toString(),
+      });
+    } else {
+      toast.error("Error loading project", {
+        description: res.error.message,
+      });
+    }
   };
 
   useEffect(() => {

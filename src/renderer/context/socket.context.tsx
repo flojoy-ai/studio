@@ -18,6 +18,7 @@ import { ServerStatus, WorkerJobResponse } from "@/renderer/types/socket";
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 import { useSocketStore } from "@/renderer/stores/socket";
 import { useHardwareStore } from "@/renderer/stores/hardware";
+import { fromZodError } from "zod-validation-error";
 
 type SocketState = {
   runningNode: string;
@@ -86,7 +87,7 @@ export const SocketContextProvider = ({
       });
     } else if (res.error instanceof ZodError) {
       toast.error("Error fetching validating custom blocks info.", {
-        description: "Check the console for more details.",
+        description: fromZodError(res.error).toString(),
       });
       console.error(res.error.message);
     }
@@ -103,7 +104,7 @@ export const SocketContextProvider = ({
 
     if (res.error instanceof ZodError) {
       toast.error("Error validating hardware info", {
-        description: "Check the console for more info.",
+        description: fromZodError(res.error).toString(),
       });
       console.error(res.error.message);
     } else if (res.error instanceof Error) {
@@ -125,7 +126,7 @@ export const SocketContextProvider = ({
       });
     } else if (res.error instanceof ZodError) {
       toast.error("Error fetching validating custom blocks info.", {
-        description: "Check the console for more details.",
+        description: fromZodError(res.error).toString(),
       });
       console.error(res.error.message);
     }

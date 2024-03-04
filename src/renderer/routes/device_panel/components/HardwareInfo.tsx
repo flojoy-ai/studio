@@ -7,6 +7,7 @@ import { ConnectionHelp } from "./ConnectionHelp";
 import { useSettingsStore } from "@/renderer/stores/settings";
 import { toast } from "sonner";
 import { ZodError } from "zod";
+import { fromZodError } from "zod-validation-error";
 
 export const HardwareInfo = () => {
   const { devices, refresh } = useHardwareStore();
@@ -22,7 +23,7 @@ export const HardwareInfo = () => {
 
     if (res.error instanceof ZodError) {
       toast.error("Error validating hardware info", {
-        description: "Check the console for more info.",
+        description: fromZodError(res.error).toString(),
       });
       console.log(res.error.message);
     } else if (res.error instanceof Error) {
