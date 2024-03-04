@@ -205,11 +205,6 @@ export const TestGeneratorPanel = () => {
                     >
                       Remove test
                     </ContextMenuItem>
-                    <ContextMenuItem
-                    // onClick={() => handleConsultCode(row.original.id)}
-                    >
-                      Consult Code
-                    </ContextMenuItem>
                   </ContextMenuContent>
                 </ContextMenu>
               ))

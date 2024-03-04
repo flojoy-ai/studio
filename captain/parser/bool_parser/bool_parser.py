@@ -49,12 +49,12 @@ ParseItem = Union[Token, Expression]
 track_identifiers = set()
 
 
-def _match_literal_or_var(s: str, ptr: int, allowed_symbols: set[str]):
+def _match_literal_or_variable(token: str, ptr: int, allowed_symbols: set[str]):
     start = ptr
-    while ptr < len(s) and s[ptr] in allowed_symbols:
+    while ptr < len(token) and token[ptr] in allowed_symbols:
         ptr += 1
-    if ptr < len(s) and s[ptr] not in language:
-        raise InvalidCharacter(s[ptr])
+    if ptr < len(token) and token[ptr] not in language:
+        raise InvalidCharacter(token[ptr])
     return start, ptr
 
 
@@ -98,7 +98,7 @@ def _tokenize(s: str, symbol_table: SymbolTableType) -> list[Token]:
             *boolean_literal_symbols,
             *variable_symbols,
         }
-        start_ptr, end_ptr = _match_literal_or_var(s, ptr, allowed_symbols)
+        start_ptr, end_ptr = _match_literal_or_variable(s, ptr, allowed_symbols)
         token_str = s[start_ptr:end_ptr]
         if BooleanLiteral.allows(token_str):
             tokens.append(BooleanLiteral(token_str))
