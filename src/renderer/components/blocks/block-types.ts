@@ -7,7 +7,7 @@ import DefaultBlock from "./default-block";
 import HardwareBlock, { HardwareCategory } from "./hardware-block";
 import CtrlFlowBlock, { CtrlFlowCategory } from "./ctrl-flow-block";
 import NumpyBlock, { NumpyCategory } from "./numpy-block";
-import ScipyNode, { ScipyCategory } from "./scipy-block";
+import ScipyBlock, { ScipyCategory } from "./scipy-block";
 import TextBlock from "./text-block";
 import VisorBlock from "./visor-block";
 import { ComponentType } from "react";
@@ -83,7 +83,7 @@ const blockTypesMap: BlockTypesMap = {
   /**
    * Scipy section
    */
-  SCIPY: ScipyNode,
+  SCIPY: ScipyBlock,
   /**
    * Text section
    */
