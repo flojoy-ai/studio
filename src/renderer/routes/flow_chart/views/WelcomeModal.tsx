@@ -16,6 +16,7 @@ import {
 } from "@/renderer/services/MixpanelServices";
 import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
+// eslint-disable-next-line no-restricted-imports
 import packageJson from "../../../../../package.json";
 
 export function WelcomeModal() {
