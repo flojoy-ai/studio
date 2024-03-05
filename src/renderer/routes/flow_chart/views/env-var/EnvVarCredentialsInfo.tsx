@@ -52,6 +52,7 @@ const EnvVarCredentialsInfo = ({
           }
         },
       );
+      setIsLoading(false);
     }
     setShowPassword((prev) => !prev);
   };
