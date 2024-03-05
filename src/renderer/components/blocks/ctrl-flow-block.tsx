@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { CustomNodeProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/block";
 import DefaultBlock from "./default-block";
 import appendSvg from "@/renderer/assets/blocks/append-svg";
 import { BlockLabel } from "../common/block-label";
@@ -7,7 +7,7 @@ import TransformSvg from "@/renderer/assets/blocks/triangle-svg";
 
 export type CtrlFlowCategory = "CONTROL_FLOW" | "CONDITIONALS";
 
-const CtrlFlowBlock = (props: CustomNodeProps) => {
+const CtrlFlowBlock = (props: BlockProps) => {
   if (props.type === "CONDITIONALS") {
     return <ConditionalBlock {...props} />;
   }
@@ -22,7 +22,7 @@ const CtrlFlowBlock = (props: CustomNodeProps) => {
   );
 };
 
-const ConditionalBlock = (props: CustomNodeProps) => {
+const ConditionalBlock = (props: BlockProps) => {
   const { data } = props;
   const operator = data.ctrls["operator_type"].value as string;
 

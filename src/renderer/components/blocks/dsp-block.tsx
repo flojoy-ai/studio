@@ -1,11 +1,11 @@
 import { memo } from "react";
-import { CustomNodeProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/block";
 import DspBlockSvg from "@/renderer/assets/blocks/dsp-svg";
 import DefaultBlock from "./default-block";
 
 export type DSPCategory = "DSP";
 
-const DSPBlock = (props: CustomNodeProps) => {
+const DSPBlock = (props: BlockProps) => {
   return (
     <DefaultBlock {...props} variant="accent2">
       <DspBlockSvg blockName={props.data.func} />

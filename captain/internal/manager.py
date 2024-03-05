@@ -1,15 +1,15 @@
+import asyncio
+import threading
 from queue import Queue
 from typing import Any
 
 from captain.internal.wsmanager import ConnectionManager
 from captain.models.test_sequencer import MsgState
 from captain.models.topology import Topology
+from captain.services.consumer.blocks_watcher import BlocksWatcher
 from captain.types.test_sequence import TestSequenceMessage
 from captain.types.worker import PoisonPill
-import threading
-from captain.services.consumer.blocks_watcher import BlocksWatcher
 from captain.utils.logger import logger
-import asyncio
 
 """ Acts as a bridge between backend components """
 
@@ -37,7 +37,7 @@ class TSManager(WSManager):
             asyncio.run(
                 self.ws.broadcast(
                     TestSequenceMessage(
-                        MsgState.ERROR.value,
+                        MsgState.error.value,
                         "",
                         False,
                         -1,

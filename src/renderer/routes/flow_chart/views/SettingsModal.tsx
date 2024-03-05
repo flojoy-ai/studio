@@ -9,25 +9,34 @@ import { Input } from "@/renderer/components/ui/input";
 import { Label } from "@/renderer/components/ui/label";
 import { Separator } from "@/renderer/components/ui/separator";
 import { Switch } from "@/renderer/components/ui/switch";
-import { useSettings } from "@/renderer/hooks/useSettings";
+import { Setting, SettingsState } from "@/renderer/stores/settings";
+import { getEntries } from "@/renderer/types/util";
 
-export type SettingsModalProps = {
+export type SettingsModalProps<
+  K extends keyof SettingsState,
+  S extends keyof SettingsState[K],
+  A extends (key: keyof SettingsState[K], value: SettingsState[K][S]) => void,
+> = {
   handleSettingsModalOpen: (open: boolean) => void;
   isSettingsModalOpen: boolean;
+  settings: SettingsState[K];
+  updateSettings: A;
+  description: string;
+  title: string;
 };
 
-export const SettingsModal = ({
+export const SettingsModal = <
+  K extends keyof SettingsState,
+  S extends keyof SettingsState[K],
+  A extends (key: keyof SettingsState[K], value: SettingsState[K][S]) => void,
+>({
   handleSettingsModalOpen,
   isSettingsModalOpen,
   settings,
   updateSettings,
   title,
   description,
-}: SettingsModalProps &
-  ReturnType<typeof useSettings> & {
-    description: string;
-    title: string;
-  }) => {
+}: SettingsModalProps<K, S, A>) => {
   return (
     <Dialog open={isSettingsModalOpen} onOpenChange={handleSettingsModalOpen}>
       <DialogContent className="sm:max-w-[425px]">
@@ -36,36 +45,41 @@ export const SettingsModal = ({
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
 
-        {settings.map((setting) => {
+        {getEntries(settings).map(([key, s]) => {
+          const setting = s as Setting;
+          const settingName = String(key);
           return (
-            <div key={`settings-modal-${setting.key}`}>
+            <div key={`settings-modal-${settingName}`}>
               <Separator />
               <div className="py-1" />
               <Label className="font-semibold">{setting.title}</Label>
               <div className="text-sm text-muted-foreground">
                 {setting.desc}
               </div>
-              {typeof setting.value === "number" && (
+              {setting.type === "number" && (
                 <Input
-                  name={setting.key}
+                  name={settingName}
                   className="mt-2 w-40 rounded-sm"
                   data-testid="settings-input"
                   placeholder="Search"
                   type="number"
                   value={setting.value}
                   onChange={(e) =>
-                    updateSettings(setting.key, parseInt(e.target.value, 10))
+                    updateSettings(
+                      key,
+                      parseInt(e.target.value, 10) as SettingsState[K][S],
+                    )
                   }
                 />
               )}
-              {typeof setting.value === "boolean" && (
+              {setting.type === "boolean" && (
                 <Switch
-                  name={setting.key}
+                  name={settingName}
                   className="mt-2"
                   data-testid="settings-switch"
                   checked={setting.value}
                   onCheckedChange={(checked) =>
-                    updateSettings(setting.key, checked)
+                    updateSettings(key, checked as SettingsState[K][S])
                   }
                 />
               )}

@@ -1,11 +1,11 @@
 import { memo } from "react";
-import { CustomNodeProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/block";
 import DefaultBlock from "./default-block";
 import NumpySvg from "@/renderer/assets/blocks/numpy-svg";
 
 export type NumpyCategory = "NUMPY";
 
-const NumpyBlock = (props: CustomNodeProps) => {
+const NumpyBlock = (props: BlockProps) => {
   return (
     <DefaultBlock {...props} showLabel={false} variant="accent2">
       <div className="flex flex-col items-center justify-center gap-2 p-3">

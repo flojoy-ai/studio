@@ -1,26 +1,26 @@
-import type { CustomNodeProps } from "./types/nodeProps";
-import NodeWrapper from "./components/NodeWrapper";
-import HandleComponent from "./components/HandleComponent";
+import type { CustomNodeProps } from "@/components/nodes/types/nodeProps";
+import NodeWrapper from "@/components/nodes/components/NodeWrapper";
+import HandleComponent from "@/components/nodes/components/HandleComponent";
 import { memo } from "react";
-import Scatter from "./assets/nodes/Scatter";
-import CompositePlot from "./assets/nodes/CompositePlot";
-import ProphetComponents from "./assets/nodes/ProphetComponents";
-import ProphetPlot from "./assets/nodes/ProphetPlot";
-import ArrayView from "./assets/nodes/ArrayView";
-import MatrixView from "./assets/nodes/MatrixView";
-import BigNumber from "./assets/nodes/BigNumber";
-import BoxPlot from "./assets/nodes/BoxPlot";
-import Histogram from "./assets/nodes/Histogram";
-import LineChart from "./assets/nodes/LineChart";
-import Scatter3D from "./assets/nodes/3DScatter";
-import Surface3D from "./assets/nodes/3DSurface";
-import Bar from "./assets/nodes/Bar";
-import Table from "./assets/nodes/Table";
-import Image from "./assets/nodes/Image";
-import PeakFinder from "./assets/nodes/PeakFinder";
-import RegionInspector from "./assets/nodes/RegionInspector";
-import TextView from "./assets/nodes/TextView";
-import Heatmap from "./assets/nodes/Heatmap";
+import Scatter from "@/components/nodes/assets/nodes/Scatter";
+import CompositePlot from "@/components/nodes/assets/nodes/CompositePlot";
+import ProphetComponents from "@/components/nodes/assets/nodes/ProphetComponents";
+import ProphetPlot from "@/components/nodes/assets/nodes/ProphetPlot";
+import ArrayView from "@/components/nodes/assets/nodes/ArrayView";
+import MatrixView from "@/components/nodes/assets/nodes/MatrixView";
+import BigNumber from "@/components/nodes/assets/nodes/BigNumber";
+import BoxPlot from "@/components/nodes/assets/nodes/BoxPlot";
+import Histogram from "@/components/nodes/assets/nodes/Histogram";
+import LineChart from "@/components/nodes/assets/nodes/LineChart";
+import Scatter3D from "@/components/nodes/assets/nodes/3DScatter";
+import Surface3D from "@/components/nodes/assets/nodes/3DSurface";
+import Bar from "@/components/nodes/assets/nodes/Bar";
+import Table from "@/components/nodes/assets/nodes/Table";
+import Image from "@/components/nodes/assets/nodes/Image";
+import PeakFinder from "@/components/nodes/assets/nodes/PeakFinder";
+import RegionInspector from "@/components/nodes/assets/nodes/RegionInspector";
+import TextView from "@/components/nodes/assets/nodes/TextView";
+import Heatmap from "@/components/nodes/assets/nodes/Heatmap";
 
 const chartElemMap: { [func: string]: React.JSX.Element } = {
   SCATTER: <Scatter />,

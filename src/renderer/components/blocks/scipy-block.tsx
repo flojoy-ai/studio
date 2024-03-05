@@ -1,11 +1,11 @@
 import { memo } from "react";
-import { CustomNodeProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/block";
 import DefaultBlock from "./default-block";
 import ScipySvg from "@/renderer/assets/blocks/scipy-svg";
 
 export type ScipyCategory = "SCIPY";
 
-const ScipyBlock = (props: CustomNodeProps) => {
+const ScipyBlock = (props: BlockProps) => {
   return (
     <DefaultBlock {...props} showLabel={false}>
       <div className="flex flex-col items-center justify-center gap-2 p-3">

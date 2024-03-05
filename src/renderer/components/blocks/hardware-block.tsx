@@ -1,5 +1,5 @@
 import React, { memo, useMemo } from "react";
-import { CustomNodeProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/block";
 import DefaultBlock from "./default-block";
 import HardwareSvg from "@/renderer/assets/blocks/hardware/hardware-svg";
 import FnGeneratorsSvg from "@/renderer/assets/blocks/hardware/fn-generators-svg";
@@ -40,7 +40,7 @@ const hardwareCategorySVGMap: Record<
   OSCILLOSCOPES: OscilloscopeSvg,
 };
 
-const HardwareBlock = (props: CustomNodeProps) => {
+const HardwareBlock = (props: BlockProps) => {
   const SelectedHardwareSvg = useMemo(
     () =>
       props.type in hardwareCategorySVGMap

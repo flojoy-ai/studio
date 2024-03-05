@@ -1,23 +1,23 @@
 import React from "react";
 import { User } from "@/types/auth";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
+import { Label } from "@/renderer/components/ui/label";
+import { Input } from "@/renderer/components/ui/input";
 import { cn } from "@/renderer/lib/utils";
-import { Avatar, AvatarFallback } from "../ui/avatar";
-import { getAlphabetAvatar } from "@/renderer/utils/TextWrap";
+import { Avatar, AvatarFallback } from "@/renderer/components/ui/avatar";
+import { getAlphabetAvatar } from "@/renderer/utils/text-wrap";
 import { useNavigate } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "@/renderer/components/ui/dropdown-menu";
 import { MoreVerticalIcon } from "lucide-react";
-import ConfirmPrompt from "../common/ConfirmPrompt";
+import ConfirmPrompt from "@/renderer/components/common/ConfirmPrompt";
 import { toast } from "sonner";
 import { parseElectronError } from "@/renderer/utils/parse-error";
 import { useAuth } from "@/renderer/context/auth.context";
-import { baseClient } from "@/renderer/lib/base-client";
+import { captain } from "@/renderer/lib/ky";
 
 type ProfileBoxProps = {
   user: User;
@@ -47,7 +47,9 @@ const ProfileBox = ({
     }
     window.api.setUserProfile(user.name);
     setUser(user);
-    await baseClient.post("/auth/login", { username: user.name, password });
+    await captain.post("auth/login", {
+      json: { username: user.name, password },
+    });
     navigate("/flowchart");
   };
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -64,7 +66,9 @@ const ProfileBox = ({
       window.api.setUserProfile(user.name);
       setUser(user);
       setPassRequired(false);
-      await baseClient.post("/auth/login", { username: user.name, password });
+      await captain.post("auth/login", {
+        json: { username: user.name, password },
+      });
       navigate("/flowchart");
     }
   };

@@ -1,5 +1,5 @@
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
-import TestSequencerInfo from "./components/TestSequencerInfo";
+import TestSequencerInfo from "@/renderer/routes/test_sequencer_panel/components/TestSequencerInfo";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 

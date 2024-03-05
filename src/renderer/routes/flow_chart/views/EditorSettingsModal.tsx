@@ -1,13 +1,24 @@
-import { useSettings } from "@/renderer/hooks/useSettings";
-import { SettingsModalProps } from "./SettingsModal";
 import { SettingsModal } from "./SettingsModal";
+import { useSettingsStore } from "@/renderer/stores/settings";
 
-export const EditorSettingsModal = (props: SettingsModalProps) => {
-  const { settings, updateSettings } = useSettings("frontend");
+type Props = {
+  isEditorSettingsOpen: boolean;
+  setIsEditorSettingsOpen: (val: boolean) => void;
+};
+
+export const EditorSettingsModal = ({
+  isEditorSettingsOpen,
+  setIsEditorSettingsOpen,
+}: Props) => {
+  const { settings, updateSettings } = useSettingsStore((state) => ({
+    settings: state.frontend,
+    updateSettings: state.updateFrontendSettings,
+  }));
 
   return (
     <SettingsModal
-      {...props}
+      isSettingsModalOpen={isEditorSettingsOpen}
+      handleSettingsModalOpen={setIsEditorSettingsOpen}
       settings={settings}
       updateSettings={updateSettings}
       title="Editor Settings"

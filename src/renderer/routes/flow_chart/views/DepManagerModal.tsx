@@ -20,16 +20,10 @@ import { useCallback, useEffect, useState } from "react";
 import { PoetryGroupInfo, PythonDependency } from "src/types/poetry";
 import { Input } from "@/renderer/components/ui/input";
 import { toast } from "sonner";
+import { useShallow } from "zustand/react/shallow";
+import { useAppStore } from "@/renderer/stores/app";
 
-type Props = {
-  handleDepManagerModalOpen: (open: boolean) => void;
-  isDepManagerModalOpen: boolean;
-};
-
-const DepManagerModal = ({
-  isDepManagerModalOpen,
-  handleDepManagerModalOpen,
-}: Props) => {
+const DepManagerModal = () => {
   const [allDependencies, setAllDependencies] = useState<PythonDependency[]>(
     [],
   );
@@ -43,6 +37,13 @@ const DepManagerModal = ({
   const [msg, setMsg] = useState<string>("");
   const [checkAllDependencies, setCheckAllDependencies] =
     useState<boolean>(false);
+
+  const { isDepManagerModalOpen, handleDepManagerModalOpen } = useAppStore(
+    useShallow((state) => ({
+      isDepManagerModalOpen: state.isDepManagerModalOpen,
+      handleDepManagerModalOpen: state.setIsDepManagerModalOpen,
+    })),
+  );
 
   const handleUpdate = useCallback(async () => {
     setIsFetching(true);

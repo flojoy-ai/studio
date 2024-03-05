@@ -3,17 +3,14 @@ import {
   RootNode,
   RootChild as SectionChild,
   ParentNode,
-  isLeaf,
-  isRoot,
-  isLeafParentNode,
-} from "@/renderer/utils/ManifestLoader";
-import SidebarSection from "./SidebarSection";
+} from "@/renderer/types/manifest";
+import { isLeaf, isRoot, isLeafParentNode } from "@/renderer/utils/manifest";
+import SidebarSection from "@/renderer/routes/common/Sidebar/SidebarSection";
 import { LeafClickHandler } from "@/renderer/routes/common/Sidebar/Sidebar";
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 import { twMerge } from "tailwind-merge";
 import { cva } from "class-variance-authority";
 import { ReactNode } from "react";
-import { matchesQuery } from "@/renderer/utils/NodeSearch";
 import NumpySvg from "@/renderer/assets/blocks/numpy-svg";
 import ScipySvg from "@/renderer/assets/blocks/scipy-svg";
 import { DefaultAIBlock } from "@/renderer/assets/blocks/ai-svg";
@@ -23,6 +20,7 @@ import { DefaultDebugBlock } from "@/renderer/assets/blocks/debugging-svg";
 import { DefaultExtractBlock } from "@/renderer/assets/blocks/etl/extract-svg";
 import { DefaultHardwareSVG } from "@/renderer/assets/blocks/hardware/hardware-svg";
 import { DefaultVisorSVG } from "@/renderer/assets/blocks/visual/visor-svg";
+import { matchesQuery } from "@/renderer/utils/search";
 
 export const sidebarVariants = cva(undefined, {
   variants: {

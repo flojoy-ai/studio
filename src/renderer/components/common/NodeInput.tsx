@@ -1,23 +1,45 @@
-import { Dispatch, SetStateAction, useState, useRef, useEffect } from "react";
-import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
+import { useProjectStore } from "@/renderer/stores/project";
+import {
+  Dispatch,
+  SetStateAction,
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+} from "react";
+import { toast } from "sonner";
 
-type NodeInputProps = {
+import { useShallow } from "zustand/react/shallow";
+
+type Props = {
   title: string;
   id: string;
   setIsRenamingTitle: Dispatch<SetStateAction<boolean>>;
 };
 
-const NodeInput = ({ title, id, setIsRenamingTitle }: NodeInputProps) => {
-  const { handleTitleChange } = useFlowChartGraph();
+const BlockLabelInput = ({ title, id, setIsRenamingTitle }: Props) => {
+  const updateBlockLabel = useProjectStore(
+    useShallow((state) => state.updateBlockLabel),
+  );
   const [newTitle, setNewTitle] = useState<string>(title);
 
   const ref = useRef<HTMLInputElement>(null);
 
+  const tryUpdate = useCallback(
+    (newTitle: string) => {
+      setIsRenamingTitle(false);
+      const res = updateBlockLabel(id, newTitle);
+      if (res.isErr()) {
+        toast.error(res.error.message);
+      }
+    },
+    [id, setIsRenamingTitle, updateBlockLabel],
+  );
+
   useEffect(() => {
     const handleClick = (event) => {
       if (ref.current && !ref.current.contains(event.target)) {
-        setIsRenamingTitle(false);
-        handleTitleChange(newTitle, id);
+        tryUpdate(newTitle);
       }
     };
 
@@ -25,7 +47,7 @@ const NodeInput = ({ title, id, setIsRenamingTitle }: NodeInputProps) => {
     return () => {
       document.removeEventListener("click", handleClick);
     };
-  }, [ref, newTitle]);
+  }, [ref, newTitle, tryUpdate]);
 
   return (
     <div>
@@ -37,10 +59,8 @@ const NodeInput = ({ title, id, setIsRenamingTitle }: NodeInputProps) => {
         onClick={(event) => event.stopPropagation()}
         onKeyDown={(event) => {
           if (event.key === "Enter") {
-            setIsRenamingTitle(false);
-            handleTitleChange(newTitle, id);
-          }
-          if (event.key === "Escape") {
+            tryUpdate(newTitle);
+          } else if (event.key === "Escape") {
             setIsRenamingTitle(false);
           }
         }}
@@ -55,4 +75,4 @@ const NodeInput = ({ title, id, setIsRenamingTitle }: NodeInputProps) => {
   );
 };
 
-export default NodeInput;
+export default BlockLabelInput;

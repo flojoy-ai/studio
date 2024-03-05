@@ -1,5 +1,4 @@
-import { baseClient } from "@/renderer/lib/base-client";
-import { Test, TestDiscoverContainer } from "@/renderer/types/testSequencer";
+import { Test, TestDiscoverContainer } from "@/renderer/types/test-sequencer";
 import { useTestSequencerState } from "./useTestSequencerState";
 import { map } from "lodash";
 import { v4 as uuidv4 } from "uuid";
@@ -7,6 +6,8 @@ import { ImportTestSettings } from "@/renderer/routes/test_sequencer_panel/compo
 import { toast } from "sonner";
 import { useCallback } from "react";
 import { Dispatch, SetStateAction } from "react";
+import { discoverPytest } from "@/renderer/lib/api";
+import { toastQueryError } from "@/renderer/utils/report-error";
 
 function parseDiscoverContainer(
   data: TestDiscoverContainer,
@@ -50,25 +51,24 @@ export const useTestImport = () => {
     setModalOpen: Dispatch<SetStateAction<boolean>>,
   ) {
     let data: TestDiscoverContainer;
-    if (settings.importType == "Python") {
+    if (settings.importType == "python") {
       data = {
         response: [{ testName: path, path: path }],
         missingLibraries: [],
       };
     } else {
-      const response = await baseClient.get("discover-pytest", {
-        params: {
-          path: path,
-          oneFile: settings.importAsOneRef,
-        },
-      });
-      data = JSON.parse(response.data);
+      const res = await discoverPytest(path, settings.importAsOneRef);
+      if (res.isErr()) {
+        toastQueryError(res.error, "Error while trying to discover tests");
+        return;
+      }
+      data = res.value;
     }
     for (const lib of data.missingLibraries) {
       toast.error(`Missing Python Library: ${lib}`, {
         action: {
           label: "Install",
-          onClick: (_) => {
+          onClick: () => {
             handleUserDepInstall(lib);
           },
         },

@@ -37,27 +37,27 @@ import {
   TestSequenceElement,
   ConditionalComponent,
   Conditional,
-  StatusTypes,
+  StatusType,
   Test,
-} from "@/renderer/types/testSequencer";
+} from "@/renderer/types/test-sequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { parseInt, filter, map } from "lodash";
 import {
   generateConditional,
   getIndentLevels,
-} from "../../utils/ConditionalUtils";
+} from "@/renderer/routes/test_sequencer_panel/utils/ConditionalUtils";
 import { ChevronUpIcon, ChevronDownIcon, TrashIcon } from "lucide-react";
-import { WriteConditionalModal } from "../AddWriteConditionalModal";
-import LockableButton from "../lockable/LockedButtons";
+import { WriteConditionalModal } from "@/renderer/routes/test_sequencer_panel/components/AddWriteConditionalModal";
+import LockableButton from "@/renderer/routes/test_sequencer_panel/components/lockable/LockedButtons";
 import { useRef, useState, useEffect } from "react";
 import TestNameCell from "./test-name-cell";
-import { DraggableRow } from "../dnd/DraggableRow";
+import { DraggableRow } from "@/renderer/routes/test_sequencer_panel/components/dnd/DraggableRow";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/renderer/components/ui/hover-card";
-import PythonTestFileModal from "../PythonTestFileModal";
+import PythonTestFileModal from "@/renderer/routes/test_sequencer_panel/components/PythonTestFileModal";
 
 function renderErrorMessage(text: string): JSX.Element {
   const lines = text.split("\n");
@@ -70,7 +70,7 @@ function renderErrorMessage(text: string): JSX.Element {
   );
 }
 
-const mapStatusToDisplay: { [k in StatusTypes] } = {
+const mapStatusToDisplay: { [k in StatusType] } = {
   pending: <p className="text-yellow-500">PENDING</p>,
   pass: <p className="text-green-500">PASS</p>,
   failed: (status: string | null) =>

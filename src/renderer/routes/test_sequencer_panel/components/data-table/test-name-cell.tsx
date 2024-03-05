@@ -2,10 +2,11 @@ import {
   Conditional,
   Test,
   TestSequenceElement,
-} from "@/renderer/types/testSequencer";
+} from "@/renderer/types/test-sequencer";
 import { CellContext } from "@tanstack/react-table";
 import { Loader } from "lucide-react";
-import React, { useState } from "react";
+import { ReactNode } from "react";
+
 type Props = {
   cellProps: CellContext<TestSequenceElement, unknown>;
   indentLevels: number[];
@@ -16,7 +17,7 @@ const IndentLine = ({
   content: name,
   level = 0,
 }: {
-  content: React.ReactNode;
+  content: ReactNode;
   level: number;
 }) => (
   <div className="flex h-full flex-row">

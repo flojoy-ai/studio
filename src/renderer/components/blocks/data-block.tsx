@@ -1,11 +1,11 @@
 import { memo } from "react";
-import { CustomNodeProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/block";
 import DataBlockSvg from "@/renderer/assets/blocks/data-svg";
 import DefaultBlock from "./default-block";
 
 export type DataCategory = "DATA" | "VISUALIZATION";
 
-const DataNode = (props: CustomNodeProps) => {
+const DataNode = (props: BlockProps) => {
   return (
     <DefaultBlock {...props} variant="accent2">
       <DataBlockSvg blockName={props.data.func} />

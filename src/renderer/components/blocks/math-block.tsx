@@ -1,4 +1,4 @@
-import { CustomNodeProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/block";
 import { memo } from "react";
 import DefaultBlock from "./default-block";
 import TransformSvg from "@/renderer/assets/blocks/triangle-svg";
@@ -21,7 +21,7 @@ const operatorMap = {
   DOUBLE_INDEFINITE_INTEGRAL: "∬",
 };
 
-const MathBlock = (props: CustomNodeProps) => {
+const MathBlock = (props: BlockProps) => {
   return (
     <DefaultBlock
       {...props}

@@ -1,5 +1,5 @@
 import { memo, useMemo } from "react";
-import { CustomNodeProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/block";
 import TypeCasting from "@/renderer/assets/blocks/etl/type-casting";
 import DefaultBlock from "./default-block";
 import ExtractSvg from "@/renderer/assets/blocks/etl/extract-svg";
@@ -18,7 +18,7 @@ const etlCategorySVGMap: Record<
   TYPE_CASTING: TypeCasting,
 };
 
-const ETLBlock = (props: CustomNodeProps) => {
+const ETLBlock = (props: BlockProps) => {
   const SelectedETLSvg = useMemo(
     () =>
       props.type in etlCategorySVGMap

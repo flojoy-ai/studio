@@ -1,6 +1,6 @@
 import React, { CSSProperties, memo, useState, useMemo } from "react";
 import clsx from "clsx";
-import { CustomNodeProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/block";
 import NodeWrapper from "@/renderer/components/common/NodeWrapper";
 import HandleComponent from "@/renderer/components/common/HandleComponent";
 import NodeInput from "@/renderer/components/common/NodeInput";

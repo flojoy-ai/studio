@@ -297,14 +297,14 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
             return
         logger.info("Pre job operation successful!")
 
-    socket_msg["SYSTEM_STATUS"] = STATUS_CODES["IMPORTING_NODE_FUNCTIONS"]
+    socket_msg["SYSTEM_STATUS"] = STATUS_CODES["IMPORTING_BLOCK_FUNCTIONS"]
     await manager.ws.broadcast(socket_msg)
 
     # get the amount of workers needed
     funcs, errs = pre_import_functions(topology=manager.running_topology)
 
     if errs:
-        socket_msg["SYSTEM_STATUS"] = STATUS_CODES["IMPORTING_NODE_FUNCTIONS_FAILED"]
+        socket_msg["SYSTEM_STATUS"] = STATUS_CODES["IMPORTING_BLOCK_FUNCTIONS_FAILED"]
         logger.error(f"Preflight check failed! \n {', '.join(errs)}")
         socket_msg.FAILED_NODES = errs
         await manager.ws.broadcast(socket_msg)

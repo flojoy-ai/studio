@@ -1,6 +1,6 @@
 import { cn, getVariantClass } from "@/renderer/lib/utils";
 import { TVariant } from "@/renderer/types/tailwind";
-import { textWrap } from "@/renderer/utils/TextWrap";
+import { textWrap } from "@/renderer/utils/text-wrap";
 
 type BlockLabelProps = {
   label: string;

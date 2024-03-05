@@ -1,4 +1,4 @@
-import { CustomNodeProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/block";
 import { memo, useMemo, useState } from "react";
 import { makePlotlyData } from "@/renderer/components/plotly/formatPlotlyData";
 import PlotlyComponent from "@/renderer/components/plotly/PlotlyComponent";
@@ -9,13 +9,13 @@ import { NodeResizer, useUpdateNodeInternals } from "reactflow";
 import VisorSvg from "@/renderer/assets/blocks/visual/visor-svg";
 import DefaultBlock from "./default-block";
 
-const VisorBlock = (props: CustomNodeProps) => {
+const VisorBlock = (props: BlockProps) => {
   const { selected, id, data } = props;
   const { resolvedTheme } = useTheme();
   const { nodeResult } = useNodeStatus(data.id);
 
-  const plotlyFig = nodeResult?.result?.plotly_fig;
-  const textBlob = nodeResult?.result?.text_blob;
+  const plotlyFig = nodeResult?.plotly_fig;
+  const textBlob = nodeResult?.text_blob;
 
   const plotlyData = useMemo(
     () =>

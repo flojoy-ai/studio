@@ -8,12 +8,13 @@ import {
   CommandSeparator,
 } from "@/renderer/components/ui/command";
 import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
-import { TreeNode, isLeaf, isRoot } from "@/renderer/utils/ManifestLoader";
+import { BlockDefinition, TreeNode } from "@/renderer/types/manifest";
+import { isLeaf, isRoot } from "@/renderer/utils/manifest";
 import React, { Fragment } from "react";
 
 const commandGroups = (
   node: TreeNode,
-  onSelect: (node: TreeNode) => void,
+  onSelect: (node: BlockDefinition) => void,
 ): React.ReactNode => {
   if (!node) return null;
 
@@ -62,10 +63,14 @@ export const CommandMenu = ({
   open: boolean;
   placeholder?: string;
   setOpen: (open: boolean) => void;
-  onItemSelect: (node: TreeNode) => void;
+  onItemSelect: (node: BlockDefinition) => void;
 }) => {
   useKeyboardShortcut("ctrl", "k", () => setOpen(!open));
   useKeyboardShortcut("meta", "k", () => setOpen(!open));
+
+  if (!manifestRoot) {
+    return;
+  }
 
   const groups = commandGroups(manifestRoot, onItemSelect);
 
