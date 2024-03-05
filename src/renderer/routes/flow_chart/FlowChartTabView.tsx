@@ -271,10 +271,13 @@ const FlowChartTab = () => {
 
   const proOptions = { hideAttribution: true };
 
-  const onCommandMenuItemSelect = (node: BlockDefinition) => {
-    addBlock(node);
-    setCommandMenuOpen(false);
-  };
+  const onCommandMenuItemSelect = useCallback(
+    (node: BlockDefinition) => {
+      addBlock(node);
+      setCommandMenuOpen(false);
+    },
+    [addBlock, setCommandMenuOpen],
+  );
 
   const [menu, setMenu] = useState<MenuInfo | null>(null);
   const ref = useRef<HTMLDivElement | null>(null);

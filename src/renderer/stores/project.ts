@@ -577,7 +577,6 @@ function useProtectedSetter<K extends keyof State>(field: K) {
   const { withPermissionCheck } = useWithPermission();
   type T = State[K];
   return useMemo(() => {
-    console.log("changed");
     return withPermissionCheck((update: T | ((draft: Draft<T>) => void)) => {
       if (typeof update === "function") {
         useProjectStore.setState((state) => {

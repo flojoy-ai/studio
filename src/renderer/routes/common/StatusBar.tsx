@@ -12,7 +12,7 @@ import { DownloadIcon } from "lucide-react";
 
 const StatusBar = (): JSX.Element => {
   const [messages, setMessages] = useState<string[]>([]);
-  const { serverStatus, logs } = useSocket();
+  const { serverStatus } = useSocket();
   const [minimize, setMinimize] = useState(true);
   const lastElem = useRef<HTMLDivElement>(null);
 
@@ -22,7 +22,7 @@ const StatusBar = (): JSX.Element => {
         lastElem.current.scrollIntoView({ behavior: "smooth" });
       }
     }
-  }, [minimize, logs?.length]);
+  }, [minimize]);
   const handleDownloadLogs = () => {
     if ("api" in window) {
       window.api.downloadLogs();
