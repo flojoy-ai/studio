@@ -59,29 +59,31 @@ export const TestSequencerProjectModal = ({
           onChange={(event) => {setProjectDirPath(event.target.value)}} 
           pickerType="directory"
         />
-        <div className="flex gap-2">
-          <div className="flex-none w-[200px]">
-          <Select onValueChange={(e: InterpreterType) => {setType(e)}}>
-            <SelectTrigger className="w-[200px]">
-              <SelectValue placeholder="Dependencies Manager" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Interpreter</SelectLabel>
-                { availableInterpreter.map((interpreter) => (
-                  <SelectItem value={interpreter} key={interpreter}>
-                      { interpreter.charAt(0).toUpperCase() + interpreter.slice(1) }
-                  </SelectItem> 
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-          </div>
-          <PathInput 
-            placeholder="Interpreter" 
-            onChange={(event) => {setInterpreterPath(event.target.value)}} 
-          />
-        </div>
+        {
+        // <div className="flex gap-2">
+        //   <div className="flex-none w-[200px]">
+        //   <Select onValueChange={(e: InterpreterType) => {setType(e)}}>
+        //     <SelectTrigger className="w-[200px]">
+        //       <SelectValue placeholder="Dependencies Manager" />
+        //     </SelectTrigger>
+        //     <SelectContent>
+        //       <SelectGroup>
+        //         <SelectLabel>Interpreter</SelectLabel>
+        //         { availableInterpreter.map((interpreter) => (
+        //           <SelectItem value={interpreter} key={interpreter}>
+        //               { interpreter.charAt(0).toUpperCase() + interpreter.slice(1) }
+        //           </SelectItem> 
+        //         ))}
+        //       </SelectGroup>
+        //     </SelectContent>
+        //   </Select>
+        //   </div>
+        //   <PathInput 
+        //     placeholder="Interpreter" 
+        //     onChange={(event) => {setInterpreterPath(event.target.value)}} 
+        //   />
+        // </div>
+        }
         <Button 
           variant={"default"}
           onClick={() => handleSubmit()}
