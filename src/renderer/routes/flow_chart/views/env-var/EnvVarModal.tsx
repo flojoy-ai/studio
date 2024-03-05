@@ -1,5 +1,8 @@
 import { memo, ClipboardEvent, useState, useEffect, useCallback } from "react";
-import { postEnvironmentVariable } from "@/renderer/lib/api";
+import {
+  getEnvironmentVariables,
+  postEnvironmentVariable,
+} from "@/renderer/lib/api";
 import { Button } from "@/renderer/components/ui/button";
 import {
   Dialog,
@@ -15,12 +18,13 @@ import EnvVarEdit from "./EnvVarEdit";
 import { Key } from "lucide-react";
 import { toast } from "sonner";
 import { Separator } from "@/renderer/components/ui/separator";
-import { captain } from "@/renderer/lib/ky";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import EnvVarCredentialsInfo from "./EnvVarCredentialsInfo";
 import { EnvVar } from "@/renderer/types/env-var";
 import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
+import { ZodError } from "zod";
+import { fromZodError } from "zod-validation-error";
 
 const EnvVarModal = () => {
   const [credentials, setCredentials] = useState<EnvVar[]>([]);
@@ -37,12 +41,21 @@ const EnvVarModal = () => {
   const [flojoyCloudKey, setFlojoyCloudKey] = useState<string>("");
 
   const fetchCredentials = useCallback(async () => {
-    try {
-      const res = (await captain.get("env").json()) as EnvVar[];
-      setCredentials(res);
-    } catch (error) {
-      console.log(error);
-    }
+    const res = await getEnvironmentVariables();
+    res.match(
+      (vars) => setCredentials(vars),
+      (e) => {
+        if (e instanceof ZodError) {
+          toast.error("Validation error", {
+            description: fromZodError(e).message,
+          });
+        } else {
+          toast.error("Error fetching environment variables", {
+            description: e.message,
+          });
+        }
+      },
+    );
   }, [setCredentials]);
 
   const { isEnvVarModalOpen, setIsEnvVarModalOpen } = useAppStore(
@@ -101,20 +114,24 @@ const EnvVarModal = () => {
       toast("Please enter your Flojoy Cloud API key");
       return;
     }
-    const result = await postEnvironmentVariable({
+    const res = await postEnvironmentVariable({
       key: "FLOJOY_CLOUD_KEY",
       value: flojoyCloudKey,
     });
-
-    if (result.isOk()) {
-      toast(
-        "Successfully set your Flojoy Cloud API key, let's stream some data to the cloud!",
-      );
-      setFlojoyCloudKey("");
-      fetchCredentials();
-    } else {
-      toast(`Error adding your Flojoy Cloud API key, reason: ${result.error}`);
-    }
+    res.match(
+      () => {
+        toast(
+          "Successfully set your Flojoy Cloud API key, let's stream some data to the cloud!",
+        );
+        setFlojoyCloudKey("");
+        fetchCredentials();
+      },
+      (e) => {
+        toast("Error adding your Flojoy Cloud API key", {
+          description: e.message,
+        });
+      },
+    );
   };
 
   return (
