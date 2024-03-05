@@ -1,14 +1,16 @@
 import { memo } from "react";
 import { BlockProps } from "@/renderer/types/block";
-import DataBlockSvg from "@/renderer/assets/blocks/data-svg";
 import DefaultBlock from "./default-block";
+import { useBlockIcon } from "@/renderer/hooks/useBlockIcon";
 
 export type DataCategory = "DATA" | "VISUALIZATION";
 
 const DataNode = (props: BlockProps) => {
+  const { SvgIcon } = useBlockIcon("data", props.data.func);
+
   return (
     <DefaultBlock {...props} variant="accent2">
-      <DataBlockSvg blockName={props.data.func} />
+      {SvgIcon && <SvgIcon />}
     </DefaultBlock>
   );
 };
