@@ -44,7 +44,7 @@ class Signaler:
     ):
         msg = WorkerJobResponse(
             jobset_id=jobset_id,
-            sys_status=STATUS_CODES["FAILED_NODE"] + func_name,
+            sys_status=STATUS_CODES["FAILED_BLOCK"] + func_name,
             failed_nodes={node_id: error},
         )
         await self.ws.broadcast(msg)

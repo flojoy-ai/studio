@@ -1,4 +1,4 @@
-import { CustomNodeProps } from "@/renderer/types";
+import { BlockData } from "@/renderer/types/block";
 import clsx from "clsx";
 import React from "react";
 import HandleComponent from "./HandleComponent";
@@ -16,7 +16,7 @@ const NodeWrapper = ({
   selected: boolean;
   nodeError: string;
   children: React.ReactNode;
-  data: CustomNodeProps["data"];
+  data: BlockData;
   style?: CSSProperties;
   className?: string;
 }) => {

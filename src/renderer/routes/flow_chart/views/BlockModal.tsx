@@ -4,7 +4,6 @@ import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
 import { JSONTree } from "react-json-tree";
 import { Node } from "reactflow";
 import { flojoySyntaxTheme } from "@/renderer/assets/FlojoyTheme";
-import { STUDIO_REPO, DOCS_LINK } from "@/renderer/data/constants";
 import PlotlyComponent from "@/renderer/components/plotly/PlotlyComponent";
 import { makePlotlyData } from "@/renderer/components/plotly/formatPlotlyData";
 import MarkDownText from "@/renderer/components/common/MarkDownText";
@@ -14,12 +13,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/renderer/components/ui/dialog";
-import { NodeResult } from "@/renderer/routes/common/types/ResultsType";
-import { ElementsData } from "@/renderer/types/node";
+import { BlockResult } from "@/renderer/types/block-result";
+import { BlockData } from "@/renderer/types/block";
 import { ScrollArea, ScrollBar } from "@/renderer/components/ui/scroll-area";
-import { useTheme } from "@/renderer/providers/themeProvider";
+import { useTheme } from "@/renderer/providers/ThemeProvider";
 import { Button } from "@/renderer/components/ui/button";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
+import { env } from "@/env";
 
 const jsonTheme = {
   scheme: "flojoy",
@@ -49,17 +49,17 @@ SyntaxHighlighter.registerLanguage("json", json);
 export type BlockModalProps = {
   modalIsOpen: boolean;
   setModalOpen: (open: boolean) => void;
-  nd: NodeResult | null;
+  result: BlockResult | null;
   pythonString: string;
   blockFilePath: string;
   blockFullPath: string;
-  selectedNode: Node<ElementsData>;
+  selectedNode: Node<BlockData>;
 };
 
 const BlockModal = ({
   modalIsOpen,
   setModalOpen,
-  nd,
+  result,
   blockFilePath,
   blockFullPath,
   pythonString,
@@ -73,9 +73,9 @@ const BlockModal = ({
   const link =
     path.startsWith("/") || path.includes(":")
       ? null
-      : `${STUDIO_REPO}/blocks/${path}`;
+      : `${env.VITE_STUDIO_REPO}/blocks/${path}`;
 
-  const docsLink = `${DOCS_LINK}/blocks/${path
+  const docsLink = `${env.VITE_DOCS_LINK}/blocks/${path
     .split("/")
     .slice(0, -1)
     .join("/")}`.toLowerCase();
@@ -111,9 +111,9 @@ const BlockModal = ({
           Function Type:{" "}
           <code className="text-accent1">{selectedNode.data.type}</code>
         </h3>
-        {nd?.result && (
+        {result && (
           <NodeModalDataViz
-            nd={nd}
+            result={result}
             theme={resolvedTheme}
             selectedNode={selectedNode}
           />
@@ -178,31 +178,30 @@ const BlockModal = ({
 };
 
 type NodeModalDataVizProps = {
-  nd: NodeResult;
-  selectedNode: Node<ElementsData>;
+  result: BlockResult;
+  selectedNode: Node<BlockData>;
   theme: "light" | "dark";
 };
 
 const NodeModalDataViz = ({
-  nd,
+  result,
   selectedNode,
   theme,
 }: NodeModalDataVizProps) => {
   return (
     <div>
-      {nd.result.text_blob && (
+      {result.text_blob && (
         <div className="h-[600px] overflow-auto rounded-md bg-modal sm:max-w-xl md:max-w-4xl">
-          <MarkDownText text={nd.result.text_blob} />
+          <MarkDownText text={result.text_blob} />
         </div>
       )}
-      {nd.result.plotly_fig && (
+      {result.plotly_fig && (
         <div className="flex justify-center">
           <PlotlyComponent
-            data={makePlotlyData(nd.result.plotly_fig.data, theme)}
+            data={makePlotlyData(result.plotly_fig.data, theme)}
             layout={{
-              ...nd.result.plotly_fig.layout,
-              title:
-                nd.result.plotly_fig.layout?.title ?? selectedNode.data.func,
+              ...result.plotly_fig.layout,
+              title: result.plotly_fig.layout?.title ?? selectedNode.data.func,
             }}
             useResizeHandler
             theme={theme}

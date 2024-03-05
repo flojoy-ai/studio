@@ -1,5 +1,4 @@
 import App from "./App";
-import { SocketContextProvider } from "./context/socket.context";
 import "./global.css";
 import "./index.css";
 // default styling
@@ -13,8 +12,9 @@ import { ErrorBoundary } from "react-error-boundary";
 import { ErrorPage } from "@/renderer/ErrorPage";
 import { HashRouter } from "react-router-dom";
 import { AuthContextProvider } from "./context/auth.context";
-import { ThemeProvider } from "./providers/themeProvider";
+import { ThemeProvider } from "./providers/ThemeProvider";
 import { TestSequencerWSProvider } from "./context/testSequencerWS.context";
+import { SocketContextProvider } from "./context/socket.context";
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
 

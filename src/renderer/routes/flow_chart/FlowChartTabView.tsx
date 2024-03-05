@@ -1,17 +1,10 @@
-import {
-  projectAtom,
-  useFlowChartState,
-} from "@/renderer/hooks/useFlowChartState";
-import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
 import { useSocket } from "@/renderer/hooks/useSocket";
-import { TreeNode } from "@/renderer/utils/ManifestLoader";
+import { BlockDefinition, TreeNode } from "@/renderer/types/manifest";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ConnectionLineType,
   MiniMap,
-  NodeDragHandler,
-  OnConnect,
   OnEdgesChange,
   OnInit,
   OnNodesChange,
@@ -21,14 +14,13 @@ import {
   Controls,
   Node,
   NodeTypes,
-  addEdge,
   applyEdgeChanges,
   applyNodeChanges,
+  OnConnect,
 } from "reactflow";
-import Sidebar from "../common/Sidebar/Sidebar";
+import Sidebar from "@/renderer/routes/common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 import { useFlowChartTabState } from "./FlowChartTabState";
-import { useAddNewNode } from "./hooks/useAddNewNode";
 import { BlockExpandMenu } from "./views/BlockExpandMenu";
 import {
   MixPanelEvents,
@@ -38,78 +30,80 @@ import {
   ACTIONS_HEIGHT,
   BOTTOM_STATUS_BAR_HEIGHT,
   LAYOUT_TOP_HEIGHT,
-} from "../common/Layout";
-import { getEdgeTypes, isCompatibleType } from "@/renderer/utils/TypeCheck";
+} from "@/renderer/routes/common/Layout";
 import { CenterObserver } from "./components/CenterObserver";
 import { Separator } from "@/renderer/components/ui/separator";
 import { Pencil, Text, Workflow, X } from "lucide-react";
 import { GalleryModal } from "@/renderer/components/gallery/GalleryModal";
-import { toast } from "sonner";
-import { useTheme } from "@/renderer/providers/themeProvider";
+import { useTheme } from "@/renderer/providers/ThemeProvider";
 import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
 import { Button } from "@/renderer/components/ui/button";
 import { ResizeFitter } from "./components/ResizeFitter";
-import NodeEditModal from "./components/node-edit-menu/NodeEditModal";
-import { useAtom } from "jotai";
-import { useHasUnsavedChanges } from "@/renderer/hooks/useHasUnsavedChanges";
-import { useAddTextNode } from "./hooks/useAddTextNode";
+import BlockEditModal from "./components/edit-menu/BlockEditModal";
 import { WelcomeModal } from "./views/WelcomeModal";
-import { CommandMenu } from "../command/CommandMenu";
+import { CommandMenu } from "@/renderer/routes/command/CommandMenu";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/renderer/components/ui/tooltip";
-import {
-  manifestChangedAtom,
-  useFullManifest,
-  useFullMetadata,
-  useManifest,
-  useNodesMetadata,
-} from "@/renderer/hooks/useManifest";
-import { ElementsData } from "@/renderer/types";
-import { createNodeId, createNodeLabel } from "@/renderer/utils/NodeUtils";
+import { BlockData } from "@/renderer/types/block";
 import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
-import { filterMap } from "@/renderer/utils/ArrayUtils";
-import ArithmeticNode from "@/renderer/components/nodes/ArithmeticNode";
-import ConditionalNode from "@/renderer/components/nodes/ConditionalNode";
-import DataNode from "@/renderer/components/nodes/DataNode";
-import DefaultNode from "@/renderer/components/nodes/DefaultNode";
-import IONode from "@/renderer/components/nodes/IONode";
-import LogicNode from "@/renderer/components/nodes/LogicNode";
-import NumpyNode from "@/renderer/components/nodes/NumpyNode";
-import ScipyNode from "@/renderer/components/nodes/ScipyNode";
-import VisorNode from "@/renderer/components/nodes/VisorNode";
-import { syncFlowchartWithManifest } from "@/renderer/lib/sync";
+import ArithmeticBlock from "@/renderer/components/nodes/ArithmeticBlock";
+import ConditionalBlock from "@/renderer/components/nodes/ConditionalBlock";
+import DataBlock from "@/renderer/components/nodes/DataBlock";
+import DefaultBlock from "@/renderer/components/nodes/DefaultBlock";
+import IOBlock from "@/renderer/components/nodes/IOBlock";
+import LogicBlock from "@/renderer/components/nodes/LogicBlock";
+import NumpyBlock from "@/renderer/components/nodes/NumpyBlock";
+import ScipyBlock from "@/renderer/components/nodes/ScipyBlock";
+import VisorBlock from "@/renderer/components/nodes/VisorBlock";
 import TextNode from "@/renderer/components/nodes/TextNode";
 import ContextMenu, { MenuInfo } from "./components/NodeContextMenu";
-import { useCustomSections } from "@/renderer/hooks/useCustomBlockManifest";
-import { BlocksMetadataMap } from "@/renderer/types/blocks-metadata";
 import { Spinner } from "@/renderer/components/ui/spinner";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
+import { useFlowchartStore } from "@/renderer/stores/flowchart";
+import {
+  useAddBlock,
+  useClearCanvas,
+  useCreateEdge,
+  useDeleteBlock,
+  useDuplicateBlock,
+  useAddTextNode,
+  useGraphResync,
+  useProjectStore,
+} from "@/renderer/stores/project";
+import { toast } from "sonner";
+import _ from "lodash";
+import { useShallow } from "zustand/react/shallow";
+import {
+  useManifest,
+  useManifestStore,
+  useMetadata,
+} from "@/renderer/stores/manifest";
 
 const nodeTypes: NodeTypes = {
-  default: DefaultNode,
-  AI_ML: DataNode,
-  GENERATORS: DataNode,
-  VISUALIZERS: VisorNode,
-  EXTRACTORS: DefaultNode,
-  TRANSFORMERS: DefaultNode,
-  LOADERS: DefaultNode,
-  ARITHMETIC: ArithmeticNode,
-  IO: IONode,
-  LOGIC_GATES: LogicNode,
-  CONDITIONALS: ConditionalNode,
-  SCIPY: ScipyNode,
-  NUMPY: NumpyNode,
-  DATA: DataNode,
-  VISUALIZATION: VisorNode,
-  ETL: DefaultNode,
-  DSP: DefaultNode,
-  CONTROL_FLOW: LogicNode,
-  MATH: DefaultNode,
-  HARDWARE: IONode,
+  default: DefaultBlock,
+  AI_ML: DataBlock,
+  GENERATORS: DataBlock,
+  VISUALIZERS: VisorBlock,
+  EXTRACTORS: DefaultBlock,
+  TRANSFORMERS: DefaultBlock,
+  LOADERS: DefaultBlock,
+  ARITHMETIC: ArithmeticBlock,
+  IO: IOBlock,
+  LOGIC_GATES: LogicBlock,
+  CONDITIONALS: ConditionalBlock,
+  SCIPY: ScipyBlock,
+  NUMPY: NumpyBlock,
+  DATA: DataBlock,
+  VISUALIZATION: VisorBlock,
+  ETL: DefaultBlock,
+  DSP: DefaultBlock,
+  CONTROL_FLOW: LogicBlock,
+  MATH: DefaultBlock,
+  HARDWARE: IOBlock,
   TextNode: TextNode,
 };
 
@@ -118,19 +112,21 @@ const edgeTypes = {
 };
 
 const FlowChartTab = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [nodeModalOpen, setNodeModalOpen] = useState(false);
-  const [project, setProject] = useAtom(projectAtom);
-  const { setHasUnsavedChanges } = useHasUnsavedChanges();
-
   const [isCommandMenuOpen, setCommandMenuOpen] = useState(false);
+
+  const { isEditMode, setIsEditMode } = useFlowchartStore(
+    useShallow((state) => ({
+      isEditMode: state.isEditMode,
+      setIsEditMode: state.setIsEditMode,
+    })),
+  );
 
   const { resolvedTheme } = useTheme();
 
-  const { isSidebarOpen, setIsSidebarOpen, isEditMode, setIsEditMode } =
-    useFlowChartState();
-  const { states } = useSocket();
-  const { programResults, setProgramResults } = states;
+  const { blockResults, wipeBlockResults } = useSocket();
 
   const {
     pythonString,
@@ -143,111 +139,55 @@ const FlowChartTab = () => {
 
   const {
     nodes,
-    setNodes,
-    textNodes,
-    setTextNodes,
     edges,
-    setEdges,
-    selectedNode,
-    unSelectedNodes,
+    textNodes,
+    handleTextNodeChanges,
     handleNodeChanges,
     handleEdgeChanges,
-  } = useFlowChartGraph();
-  const nodesMetadataMap = useNodesMetadata();
+  } = useProjectStore(
+    useShallow((state) => ({
+      nodes: state.nodes,
+      edges: state.edges,
+      textNodes: state.textNodes,
+      handleTextNodeChanges: state.handleTextNodeChanges,
+      handleNodeChanges: state.handleNodeChanges,
+      handleEdgeChanges: state.handleEdgeChanges,
+    })),
+  );
+
+  const [selectedNodes, otherNodes] = _.partition(nodes, (n) => n.selected);
+  const selectedNode = selectedNodes.length === 1 ? selectedNodes[0] : null;
+
   const manifest = useManifest();
+  const metadata = useMetadata();
+
+  const { standardManifest, customManifest } = useManifestStore(
+    useShallow((state) => ({
+      standardManifest: state.standardBlocksManifest,
+      customManifest: state.customBlocksManifest,
+      importCustomBlocks: state.importCustomBlocks,
+    })),
+  );
+
   const { isAdmin } = useWithPermission();
 
-  const {
-    handleImportCustomBlocks,
-    customBlockManifest,
-    customBlocksMetadata,
-  } = useCustomSections();
-  const [manifestChanged, setManifestChanged] = useAtom(manifestChangedAtom);
+  useGraphResync();
 
-  const fullManifest = useFullManifest();
-  const fullBlocksMetadata = useFullMetadata();
-
-  useEffect(() => {
-    if (fullManifest && fullBlocksMetadata && manifestChanged) {
-      const [syncedNodes, syncedEdges] = syncFlowchartWithManifest(
-        nodes,
-        edges,
-        fullManifest,
-        fullBlocksMetadata,
-      );
-
-      setNodes(syncedNodes);
-      setEdges(syncedEdges);
-      toast("Synced blocks with manifest.");
-      setManifestChanged(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fullManifest, fullBlocksMetadata, manifestChanged]);
-
-  const getTakenNodeLabels = useCallback(
-    (func: string) => {
-      const re = new RegExp(`^${func.replaceAll("_", " ")}( \\d+)?$`);
-      const matches = filterMap(nodes, (n) => n.data.label.match(re));
-      return matches;
-    },
-    // including nodes variable in dependency list would cause excessive re-renders
-    // as nodes variable is updated so frequently
-    // using nodes.length is more efficient for this case
-    // adding eslint-disable-next-line react-hooks/exhaustive-deps to suppress eslint warning
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [nodes.length],
-  );
-
-  const addNewNode = useAddNewNode(
-    setNodes,
-    getTakenNodeLabels,
-    fullBlocksMetadata,
-  );
+  const addBlock = useAddBlock();
+  const createEdge = useCreateEdge();
   const addTextNode = useAddTextNode();
-
-  const duplicateNode = useCallback(
-    (node: Node<ElementsData>) => {
-      const funcName = node.data.func;
-      const id = createNodeId(funcName);
-
-      const newNode: Node<ElementsData> = {
-        ...node,
-        id,
-        data: {
-          ...node.data,
-          id,
-          label:
-            node.data.func === "CONSTANT"
-              ? node.data.ctrls["constant"].value!.toString()
-              : createNodeLabel(funcName, getTakenNodeLabels(funcName)),
-        },
-        position: {
-          x: node.position.x + 30,
-          y: node.position.y + 30,
-        },
-        selected: true,
-      };
-
-      setNodes((prev) => {
-        const original = prev.find((n) => node.id === n.id);
-        if (!original) {
-          throw new Error(
-            "Failed to find original node when duplicating, this should not happen",
-          );
-        }
-
-        original.selected = false;
-        prev.push(newNode);
-      });
-    },
-    [getTakenNodeLabels, setNodes],
-  );
+  const duplicateBlock = useDuplicateBlock();
+  const deleteBlock = useDeleteBlock();
+  const clearProjectCanvas = useClearCanvas();
 
   const duplicateSelectedNode = useCallback(() => {
     if (selectedNode) {
-      duplicateNode(selectedNode);
+      const res = duplicateBlock(selectedNode);
+      if (res.isErr()) {
+        toast.error(res.error.message);
+      }
     }
-  }, [selectedNode, duplicateNode]);
+  }, [selectedNode, duplicateBlock]);
 
   useKeyboardShortcut("ctrl", "d", duplicateSelectedNode);
   useKeyboardShortcut("meta", "d", duplicateSelectedNode);
@@ -257,163 +197,102 @@ const FlowChartTab = () => {
     [setIsSidebarOpen],
   );
 
-  const handleNodeRemove = useCallback(
-    (nodeId: string, nodeLabel: string) => {
-      setNodes((prev) => prev.filter((node) => node.id !== nodeId));
-      setEdges((prev) =>
-        prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId),
-      );
-      sendEventToMix(MixPanelEvents.nodeDeleted, { nodeTitle: nodeLabel });
-      setHasUnsavedChanges(true);
-    },
-    [setNodes, setEdges, setHasUnsavedChanges],
-  );
-
   const onInit: OnInit = (rfIns) => {
     rfIns.fitView({
       padding: 0.8,
     });
-    setProject({ ...project, rfInstance: rfIns.toObject() });
   };
 
-  const handleNodeDrag: NodeDragHandler = (_, node) => {
-    setNodes((nodes) => {
-      const nodeIndex = nodes.findIndex((el) => el.id === node.id);
-      nodes[nodeIndex] = node;
-      setHasUnsavedChanges(true);
-      localStorage.setItem("prev_block_pos", "");
-    });
-  };
+  const onConnect: OnConnect = useCallback(
+    (conn) => {
+      console.log(conn);
+      const res = createEdge(conn);
+      if (res.isErr()) {
+        if (res.error instanceof TypeError) {
+          toast.message("Type Error", { description: res.error.message });
+        } else {
+          toast.error(res.error.message);
+        }
+      }
+    },
+    [createEdge],
+  );
 
   const onNodesChange: OnNodesChange = useCallback(
     (changes) => {
       handleNodeChanges((ns) => applyNodeChanges(changes, ns));
-      setTextNodes((ns) => applyNodeChanges(changes, ns));
+      handleTextNodeChanges((ns) => applyNodeChanges(changes, ns));
     },
-    [handleNodeChanges, setTextNodes],
+    [handleNodeChanges, handleTextNodeChanges],
   );
 
   const onEdgesChange: OnEdgesChange = useCallback(
     (changes) => {
       sendEventToMix(MixPanelEvents.edgesChanged);
       handleEdgeChanges((es) => applyEdgeChanges(changes, es));
-      if (!changes.every((c) => c.type === "select")) {
-        setHasUnsavedChanges(true);
-      }
     },
-    [handleEdgeChanges, setHasUnsavedChanges],
-  );
-
-  const onConnect: OnConnect = useCallback(
-    (connection) => {
-      setEdges((eds) => {
-        if (!fullManifest) {
-          toast.error("Manifest not found, can't connect edge.");
-          return;
-        }
-
-        const edges = getEdgeTypes(fullManifest, connection);
-
-        if (edges.length > 0) {
-          const [sourceType, targetType] = edges;
-          if (isCompatibleType(sourceType, targetType)) {
-            return addEdge(connection, eds);
-          }
-
-          toast.message("Type error", {
-            description: `Source type ${sourceType} and target type ${targetType} are not compatible`,
-          });
-        }
-      });
-    },
-    [setEdges, fullManifest],
+    [handleEdgeChanges],
   );
 
   const handleNodesDelete: OnNodesDelete = useCallback(
     (nodes) => {
       nodes.forEach((node) => {
-        sendEventToMix(MixPanelEvents.nodeDeleted, {
-          nodeTitle: node.data.label,
-        });
+        deleteBlock(node.id, node.data.label);
       });
-      const selectedNodeIds = nodes.map((node) => node.id);
-      setNodes((prev) =>
-        prev.filter((node) => !selectedNodeIds.includes(node.id)),
-      );
-      setHasUnsavedChanges(true);
     },
-    [setNodes, setHasUnsavedChanges],
+    [deleteBlock],
   );
 
   const clearCanvas = useCallback(() => {
-    setNodes([]);
-    setTextNodes([]);
-    setEdges([]);
-    setHasUnsavedChanges(true);
-    setProgramResults([]);
+    clearProjectCanvas();
+    wipeBlockResults();
 
     sendEventToMix(MixPanelEvents.canvasCleared);
-  }, [
-    setNodes,
-    setTextNodes,
-    setEdges,
-    setHasUnsavedChanges,
-    setProgramResults,
-  ]);
+  }, [clearProjectCanvas, wipeBlockResults]);
 
   useEffect(() => {
-    if (selectedNode === null || !nodesMetadataMap) {
+    if (selectedNode === null || !metadata) {
       return;
     }
-    let metaData: BlocksMetadataMap = nodesMetadataMap;
-    if (customBlocksMetadata) {
-      metaData = { ...nodesMetadataMap, ...customBlocksMetadata };
-    }
     const nodeFileName = `${selectedNode?.data.func}.py`;
-    const nodeFileData = metaData[nodeFileName] ?? {};
+    const nodeFileData = metadata[nodeFileName] ?? {};
     setNodeFilePath(nodeFileData.path ?? "");
     setPythonString(nodeFileData.metadata ?? "");
     setBlockFullPath(nodeFileData.full_path ?? "");
   }, [
+    metadata,
     selectedNode,
     setNodeFilePath,
     setPythonString,
     setBlockFullPath,
-    nodesMetadataMap,
-    customBlocksMetadata,
   ]);
 
   const deleteKeyCodes = ["Delete", "Backspace"];
 
   const proOptions = { hideAttribution: true };
 
-  const nodeToEdit =
-    nodes.filter((n) => n.selected).length > 1 ? null : selectedNode;
-
-  const onCommandMenuItemSelect = (node: TreeNode) => {
-    addNewNode(node);
-    setCommandMenuOpen(false);
-  };
+  const onCommandMenuItemSelect = useCallback(
+    (node: BlockDefinition) => {
+      addBlock(node);
+      setCommandMenuOpen(false);
+    },
+    [addBlock, setCommandMenuOpen],
+  );
 
   const [menu, setMenu] = useState<MenuInfo | null>(null);
   const ref = useRef<HTMLDivElement | null>(null);
 
   const onNodeContextMenu = useCallback(
-    (event, node: Node<ElementsData>) => {
+    (event, node: Node<BlockData>) => {
       // Prevent native context menu from showing
       event.preventDefault();
 
-      if (ref.current === null || !nodesMetadataMap) {
+      if (ref.current === null || !metadata) {
         return;
       }
 
-      let metaData: BlocksMetadataMap = nodesMetadataMap;
-      if (customBlocksMetadata) {
-        metaData = { ...nodesMetadataMap, ...customBlocksMetadata };
-      }
-
       const nodeFileName = `${node.data.func}.py`;
-      const nodeFileData = metaData[nodeFileName] ?? {};
+      const nodeFileData = metadata[nodeFileName] ?? {};
 
       // Calculate position of the context menu. We want to make sure it
       // doesn't get positioned off-screen.
@@ -452,13 +331,12 @@ const FlowChartTab = () => {
         fullPath: nodeFileData.full_path ?? "",
       });
     },
-    [setMenu, nodesMetadataMap, customBlocksMetadata],
+    [setMenu, metadata],
   );
 
   // Close the context menu if it's open whenever the window is clicked.
   const onPaneClick = useCallback(() => setMenu(null), [setMenu]);
-  const addBlockReady =
-    manifest !== undefined && customBlockManifest !== undefined;
+  const addBlockReady = manifest !== undefined;
 
   return (
     <>
@@ -540,14 +418,13 @@ const FlowChartTab = () => {
           <Separator />
         </div>
 
-        {manifest !== undefined && customBlockManifest !== undefined && (
+        {standardManifest !== undefined && customManifest !== undefined && (
           <Sidebar
-            sections={manifest}
-            leafNodeClickHandler={addNewNode}
+            sections={standardManifest}
+            leafNodeClickHandler={addBlock}
             isSideBarOpen={isSidebarOpen}
             setSideBarStatus={setIsSidebarOpen}
-            customSections={customBlockManifest}
-            handleImportCustomBlocks={handleImportCustomBlocks}
+            customSections={customManifest}
           />
         )}
 
@@ -563,12 +440,12 @@ const FlowChartTab = () => {
           data-testid="react-flow"
           id="flow-chart-area"
         >
-          {nodeToEdit && isEditMode && (
-            <NodeEditModal
-              node={nodeToEdit}
-              otherNodes={unSelectedNodes}
+          {selectedNode && isEditMode && (
+            <BlockEditModal
+              node={selectedNode}
+              otherNodes={otherNodes}
               setNodeModalOpen={setNodeModalOpen}
-              handleDelete={handleNodeRemove}
+              handleDelete={deleteBlock}
             />
           )}
 
@@ -592,7 +469,6 @@ const FlowChartTab = () => {
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
             nodesDraggable={isAdmin()}
-            onNodeDragStop={handleNodeDrag}
             onNodesDelete={handleNodesDelete}
             fitViewOptions={{
               padding: 0.8,
@@ -622,7 +498,7 @@ const FlowChartTab = () => {
             {menu && (
               <ContextMenu
                 onClick={onPaneClick}
-                duplicateNode={duplicateNode}
+                duplicateBlock={duplicateBlock}
                 setNodeModalOpen={setNodeModalOpen}
                 {...menu}
               />
@@ -633,7 +509,7 @@ const FlowChartTab = () => {
             selectedNode={selectedNode}
             modalIsOpen={nodeModalOpen}
             setModalOpen={setNodeModalOpen}
-            nodeResults={programResults}
+            blockResults={blockResults}
             pythonString={pythonString}
             blockFilePath={nodeFilePath}
             blockFullPath={blockFullPath}

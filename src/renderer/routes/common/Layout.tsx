@@ -1,13 +1,11 @@
-import { useAtom } from "jotai";
 import Header from "./Header";
 import { useSocket } from "@/renderer/hooks/useSocket";
-import { projectAtom } from "@/renderer/hooks/useFlowChartState";
 import { Input } from "@/renderer/components/ui/input";
-import { useHasUnsavedChanges } from "@/renderer/hooks/useHasUnsavedChanges";
-import { IS_CLOUD_DEMO } from "@/renderer/data/constants";
 import { Outlet } from "react-router-dom";
 import StatusBar from "@/renderer/routes/common/StatusBar";
-import { useActiveTab, TabName } from "@/renderer/hooks/useActiveTab";
+import { useProjectStore } from "@/renderer/stores/project";
+import { useShallow } from "zustand/react/shallow";
+import { useAppStore } from "@/renderer/stores/app";
 
 export const HEADER_HEIGHT = 72;
 export const ACTIONS_HEIGHT = 52;
@@ -18,18 +16,21 @@ export const LAYOUT_TOP_HEIGHT =
   HEADER_HEIGHT + ACTIONS_HEIGHT + SERVER_STATUS_HEIGHT;
 
 export const Layout = () => {
-  const {
-    states: { serverStatus },
-  } = useSocket();
+  const { serverStatus } = useSocket();
 
-  const [project, setProject] = useAtom(projectAtom);
-  const { hasUnsavedChanges, setHasUnsavedChanges } = useHasUnsavedChanges();
-  const { activeTab, setActiveTab } = useActiveTab();
+  const { setProjectName, projectName, hasUnsavedChanges } = useProjectStore(
+    useShallow((state) => ({
+      setProjectName: state.setProjectName,
+      projectName: state.name,
+      hasUnsavedChanges: state.hasUnsavedChanges,
+    })),
+  );
 
-  const handleProjectRename = (e) => {
-    setProject({ ...project, name: e.target.value });
-    setHasUnsavedChanges(true);
-  };
+  const { activeTab } = useAppStore(
+    useShallow((state) => ({
+      activeTab: state.activeTab,
+    })),
+  );
 
   return (
     <div>
@@ -40,10 +41,9 @@ export const Layout = () => {
               className={
                 "h-6 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap border-muted/60 text-sm focus:border-muted-foreground focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 sm:w-48"
               }
-              value={project.name}
-              onChange={handleProjectRename}
+              value={projectName}
+              onChange={(e) => setProjectName(e.target.value)}
               placeholder="Untitled project"
-              disabled={IS_CLOUD_DEMO}
             />
             {hasUnsavedChanges && (
               <div className=" h-2 w-2 rounded-full bg-foreground/50" />

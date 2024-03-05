@@ -1,5 +1,4 @@
 import { memo } from "react";
-import clsx from "clsx";
 import { type CustomNodeProps } from "./types/nodeProps";
 import NodeWrapper from "./components/NodeWrapper";
 import HandleComponent from "./components/HandleComponent";

@@ -1,4 +1,6 @@
-import { useTestSequencerState } from "./useTestSequencerState";
+import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import { TestSequenceElement } from "@/renderer/types/test-sequencer";
+import { z } from "zod";
 
 export const useTestSetImport = () => {
   const { setElems } = useTestSequencerState();
@@ -9,7 +11,10 @@ export const useTestSetImport = () => {
       .then((result) => {
         if (!result) return;
         const { fileContent } = result;
-        const elems = JSON.parse(fileContent);
+        const elems = z
+          .array(TestSequenceElement)
+          .parse(JSON.parse(fileContent));
+
         setElems(elems);
       })
       .catch((errors) => {

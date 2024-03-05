@@ -2,18 +2,19 @@ import { Button } from "@/renderer/components/ui/button";
 import { Checkbox } from "@/renderer/components/ui/checkbox";
 import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { Separator } from "@/renderer/components/ui/separator";
-import { useToggleSettingModal } from "@/renderer/hooks/useToggleSettingModal";
 import { useTestImport } from "@/renderer/hooks/useTestImport";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import { useAppStore } from "@/renderer/stores/app";
 import { ExternalLinkIcon } from "lucide-react";
 import { Dispatch, SetStateAction, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 export type ImportTestSettings = {
   importAsOneRef: boolean;
   importType: ImportType;
 };
 
-export type ImportType = "Pytest" | "Python";
+export type ImportType = "pytest" | "python";
 
 type Props = {
   isModalOpen: boolean;
@@ -22,7 +23,13 @@ type Props = {
 
 export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
   const [checked, setChecked] = useState<boolean>(false);
-  const { setIsDepManagerModalOpen } = useToggleSettingModal();
+
+  const { setIsDepManagerModalOpen } = useAppStore(
+    useShallow((state) => ({
+      setIsDepManagerModalOpen: state.setIsDepManagerModalOpen,
+    })),
+  );
+
   const openFilePicker = useTestImport();
   const { setIsLocked } = useTestSequencerState();
 
@@ -44,10 +51,10 @@ export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
         <h2 className="text-lg font-bold text-accent1">
           Import Python Scripts & Tests
         </h2>
-        <Button variant={"outline"} onClick={() => handleImportTest("Pytest")}>
+        <Button variant={"outline"} onClick={() => handleImportTest("pytest")}>
           Pytest & Unittest
         </Button>
-        <Button variant={"outline"} onClick={() => handleImportTest("Python")}>
+        <Button variant={"outline"} onClick={() => handleImportTest("python")}>
           Python Script
         </Button>
         <Separator />

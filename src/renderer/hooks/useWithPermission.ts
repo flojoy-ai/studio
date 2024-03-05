@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useAuth } from "../context/auth.context";
+import { useAuth } from "@/renderer/context/auth.context";
 import { toast } from "sonner";
 
 const useWithPermission = () => {

@@ -3,18 +3,16 @@ import {
   RootNode,
   RootChild as SectionChild,
   ParentNode,
-  isLeaf,
-  isRoot,
-  isLeafParentNode,
-} from "@/renderer/utils/ManifestLoader";
-import SidebarSection from "./SidebarSection";
+} from "@/renderer/types/manifest";
+import { isLeaf, isRoot, isLeafParentNode } from "@/renderer/utils/manifest";
+import SidebarSection from "@/renderer/routes/common/Sidebar/SidebarSection";
 import { LeafClickHandler } from "@/renderer/routes/common/Sidebar/Sidebar";
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 import { NumpySvg, ScipySvg } from "@/renderer/assets/ArithmeticSVG";
 import { twMerge } from "tailwind-merge";
 import { cva } from "class-variance-authority";
 import { ReactNode } from "react";
-import { matchesQuery } from "@/renderer/utils/NodeSearch";
+import { matchesQuery } from "@/renderer/utils/search";
 
 export const sidebarVariants = cva(undefined, {
   variants: {

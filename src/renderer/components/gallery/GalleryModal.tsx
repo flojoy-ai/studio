@@ -7,13 +7,12 @@ import {
 } from "@/renderer/components/ui/dialog";
 import { LayoutGrid } from "lucide-react";
 import { ScrollArea } from "@/renderer/components/ui/scroll-area";
-import { getGalleryData } from "@/renderer/utils/GalleryLoader";
-import { Separator } from "../ui/separator";
+import { getGalleryData } from "@/renderer/utils/gallery";
+import { Separator } from "@/renderer/components/ui/separator";
 import { GalleryElement } from "./GalleryElement";
-import { Input } from "../ui/input";
+import { Input } from "@/renderer/components/ui/input";
 import { useEffect, useState } from "react";
-import { Button } from "../ui/button";
-import { IS_CLOUD_DEMO } from "@/renderer/data/constants";
+import { Button } from "@/renderer/components/ui/button";
 
 type AppGalleryModalProps = {
   isGalleryOpen: boolean;
@@ -37,18 +36,16 @@ export const GalleryModal = ({
       Object.entries(data)
         .map(([k, v]) => [
           k,
-          v
-            .filter((data) => (IS_CLOUD_DEMO ? data.cloudDemoEnabled : true))
-            .filter(
-              (app) =>
-                app.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                app.description
-                  .toLowerCase()
-                  .includes(searchQuery.toLowerCase()) ||
-                app.relevantNodes.some((node) =>
-                  node.name.toLowerCase().includes(searchQuery.toLowerCase()),
-                ),
-            ),
+          v.filter(
+            (app) =>
+              app.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              app.description
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase()) ||
+              app.relevantNodes.some((node) =>
+                node.name.toLowerCase().includes(searchQuery.toLowerCase()),
+              ),
+          ),
         ])
         .filter(([, v]) => v.length > 0),
     );
@@ -95,7 +92,7 @@ export const GalleryModal = ({
                 <div className="grid grid-cols-2">
                   {v.map((app) => (
                     <GalleryElement
-                      key={app.title}
+                      key={app.title + app.description}
                       galleryApp={app}
                       setIsGalleryOpen={setIsGalleryOpen}
                     />

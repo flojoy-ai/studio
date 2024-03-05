@@ -1,6 +1,6 @@
 import useWithPermission from "./useWithPermission";
 import { useTestSequencerState } from "./useTestSequencerState";
-import { stringifyTestSet } from "../routes/test_sequencer_panel/utils/TestSetUtils";
+import { stringifyTestSet } from "@/renderer/routes/test_sequencer_panel/utils/TestSetUtils";
 
 export const useTestSetSave = () => {
   const { withPermissionCheck } = useWithPermission();

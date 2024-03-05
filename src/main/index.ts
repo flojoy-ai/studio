@@ -2,11 +2,14 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import contextMenu from "electron-context-menu";
 import { release } from "node:os";
 import log from "electron-log/main";
-import { API } from "../types/api";
+import { API } from "@/api";
 import { logListener } from "./logging";
 import { createWindow } from "./window";
 import { registerIpcMainHandlers } from "./ipc-main-handlers";
 import { cleanup } from "./utils";
+import installExtension, {
+  REACT_DEVELOPER_TOOLS,
+} from "electron-devtools-assembler";
 
 log.initialize({ preload: true });
 log.info("Welcome to Flojoy Studio!");
@@ -64,6 +67,11 @@ app.setName("Flojoy Studio");
 app.whenReady().then(async () => {
   createWindow().catch((err) => console.log(err));
   registerIpcMainHandlers();
+  if (!app.isPackaged) {
+    installExtension(REACT_DEVELOPER_TOOLS)
+      .then((name) => console.log(`Added Extension:  ${name}`))
+      .catch((err) => console.log("An error occurred: ", err));
+  }
 });
 
 app.on("window-all-closed", async () => {

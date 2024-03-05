@@ -1,5 +1,6 @@
-import { TestSequenceElement } from "@/renderer/types/testSequencer";
+import { TestSequenceElement } from "@/renderer/types/test-sequencer";
 import { toast } from "sonner";
+import { z } from "zod";
 
 export const stringifyTestSet = (elems: TestSequenceElement[]): string => {
   const elemsString = JSON.stringify(elems);
@@ -11,7 +12,7 @@ export const readJsonTestSet = (
   elemsStr: string,
 ): TestSequenceElement[] | null => {
   try {
-    const elems: TestSequenceElement[] = JSON.parse(elemsStr);
+    const elems = z.array(TestSequenceElement).parse(JSON.parse(elemsStr));
     return elems;
   } catch (exception) {
     if (exception instanceof Error) {
