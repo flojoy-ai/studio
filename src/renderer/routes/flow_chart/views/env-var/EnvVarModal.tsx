@@ -43,7 +43,7 @@ const EnvVarModal = () => {
     const res = await getEnvironmentVariables();
     res.match(
       (vars) => setCredentials(vars),
-      (e) => toastQueryError(e),
+      (e) => toastQueryError(e, "Failed to fetch environment variables"),
     );
   }, [setCredentials]);
 

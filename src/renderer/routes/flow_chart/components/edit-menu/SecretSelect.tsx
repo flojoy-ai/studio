@@ -6,8 +6,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/renderer/components/ui/select";
-import { captain } from "@/renderer/lib/ky";
-import { EnvVar } from "@/renderer/types/env-var";
+import { getEnvironmentVariables } from "@/renderer/lib/api";
+import { toastQueryError } from "@/renderer/utils/report-error";
 import { useState, useEffect } from "react";
 
 export type SelectProps = {
@@ -20,13 +20,11 @@ export const SecretSelect = ({ onValueChange, value }: SelectProps) => {
 
   useEffect(() => {
     const fetchCredentials = async () => {
-      try {
-        const res = (await captain.get("env").json()) as EnvVar[];
-        const keys = res.map((d) => d.key);
-        setSecrets(keys);
-      } catch (error) {
-        console.error(error);
-      }
+      const res = await getEnvironmentVariables();
+      res.match(
+        (vars) => setSecrets(vars.map((v) => v.key)),
+        (e) => toastQueryError(e, "Failed to fetch secrets"),
+      );
     };
     fetchCredentials();
   }, []);
