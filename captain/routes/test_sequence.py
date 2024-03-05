@@ -50,6 +50,4 @@ async def discover_pytest(params: DiscoverPytestParams = Depends()):
     )
     thread.start()
     thread.join()
-    return TestDiscoverContainer(
-        response=return_val, missing_libraries=missing_lib
-    )
+    return TestDiscoverContainer(response=return_val, missing_libraries=missing_lib)
