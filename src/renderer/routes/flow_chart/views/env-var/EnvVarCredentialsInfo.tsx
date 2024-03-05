@@ -9,7 +9,10 @@ import {
 } from "@/renderer/components/ui/dropdown-menu";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { EnvVar } from "@/renderer/types/env-var";
-import { captain } from "@/renderer/lib/ky";
+import { getEnvironmentVariable } from "@/renderer/lib/api";
+import { ZodError } from "zod";
+import { toast } from "sonner";
+import { fromZodError } from "zod-validation-error";
 
 type Props = {
   credential: EnvVar;
@@ -34,8 +37,21 @@ const EnvVarCredentialsInfo = ({
   const toggleShowPassword = async () => {
     if (credential.value === "") {
       setIsLoading(true);
-      const res = (await captain.get(`env/${credential.key}`).json()) as EnvVar;
-      setCredentialValue(res.value);
+      const res = await getEnvironmentVariable(credential.key);
+      res.match(
+        (v) => setCredentialValue(v.value),
+        (e) => {
+          if (e instanceof ZodError) {
+            toast.error("Validation error", {
+              description: fromZodError(e).message,
+            });
+          } else {
+            toast.error("Error fetching environment variable", {
+              description: e.message,
+            });
+          }
+        },
+      );
     }
     setShowPassword((prev) => !prev);
   };

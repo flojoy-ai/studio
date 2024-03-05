@@ -47,6 +47,13 @@ export const getMetadata = (
   ).andThen(tryParse(blockMetadataSchema));
 };
 
+export const getEnvironmentVariable = async (key: string) => {
+  return fromPromise(
+    captain.get(`env/${key}`).json(),
+    (e) => e as HTTPError,
+  ).andThen(tryParse(EnvVar));
+};
+
 export const postEnvironmentVariable = async (body: EnvVar) => {
   return fromPromise(
     captain.post("env", { json: body }),
