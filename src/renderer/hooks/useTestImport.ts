@@ -15,7 +15,6 @@ function parseDiscoverContainer(
 ) {
   const { getPathSeparator } = window.api
   const sep = getPathSeparator();
-  console.log("sep is", sep);
   function escape(str: string) {
     if (sep === "\\") {
       return str.replaceAll('\\', '/');
