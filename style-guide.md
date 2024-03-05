@@ -101,12 +101,11 @@ Record<TestSequencerSupportedType, T>;
 
 Exceptions are bad because a caller doesn't know when they can be thrown.
 Also, callers are not forced to handle possible errors.
-Instead, use `Result<T, E>`, which is either a success value holding
-the data you want or an error value. This way, any function that can fail
+Instead, use `Result<T, E>` and `ResultAsync<T, E>` from `neverthrow`, which is either a success value holding the data you want or an error value. This way, any function that can fail
 has it encoded in the type.
 
 For interoperability with library code that can throw,
-use the `tryCatch` and `tryCatchPromise` functions.
+use the `fromThrowable` and `fromPromise` functions.
 
 Here's an example of a function that could throw:
 
@@ -123,13 +122,14 @@ Rewritten using result:
 export const getManifest = async (): Promise<
   Result<BlockManifest, Error | ZodError>
 > => {
-  const res = await tryCatchPromise<unknown, HTTPError>(() =>
+  return fromPromise(
     captain.get("blocks/manifest").json(),
-  );
-  return res.andThen(tryParse(blockManifestSchema));
+    (e) => e as HTTPError,
+  ).andThen(tryParse(blockManifestSchema));
 };
 ```
 
+`fromPromise` takes in a promise that can reject as well as a callback to convert the error to the error type you want.
 `andThen` is a function on a `Result` that takes a function that returns a `Result`.
 If the first `Result` is an error, it returns the error.
 If it's a success, it calls the function with the success value and returns
