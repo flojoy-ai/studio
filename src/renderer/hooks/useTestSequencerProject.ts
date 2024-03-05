@@ -5,10 +5,13 @@ import { toast } from "sonner";
 import { Dispatch, SetStateAction } from "react";
 import { createProject, saveProject, importProject, StateManager, closeProject } from "@/renderer/utils/TestSequenceProjectHandler";
 
-function getPrepareStateManager(): StateManager {
-  const { elems, setElems, project, setProject, setUnsaved } = useTestSequencerState();
+function getPrepareStateManager(withoutPermission: boolean=false): StateManager {
+  const { elems, setElems, setElemsWithoutPermissions, project, setProject, setUnsaved } = useTestSequencerState();
+  if (withoutPermission) {
+    return { setElems: setElemsWithoutPermissions, setProject, setUnsaved, elem: elems, project };
+  }
   // @ts-ignore
-  return { setElems, setProject, setUnsaved, elem: elems, project };
+  return { setElems,  setProject, setUnsaved, elem: elems, project };
 }
 
 export function useSaveProject() {
@@ -57,7 +60,7 @@ export function useCreateProject() {
 
 export const useImportProject = () => {
   const { isUnsaved } = useTestSequencerState();
-  const manager = getPrepareStateManager();
+  const manager = getPrepareStateManager(true);
   const handleImport = async () => {
     if (isUnsaved) {
       const shouldContinue = window.confirm("You have unsaved changes. Do you want to continue?");

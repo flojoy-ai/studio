@@ -62,7 +62,7 @@ export async function importProject(filePath: string, fileContent: string, state
   try {
     let project = readJsonProject(fileContent);
     if (!project) {
-      return Err(new Error("Error reading project file"));
+      throw new Error("Error reading project file");
     }
     const projectPath = filePath.replaceAll(project.name + ".tjoy", "");
     project = updatePath(project, projectPath);
