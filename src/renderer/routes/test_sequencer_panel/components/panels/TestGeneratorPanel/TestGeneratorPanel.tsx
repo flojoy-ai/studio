@@ -42,6 +42,7 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from "@/renderer/components/ui/context-menu";
+import { toast } from "sonner";
 
 export const columns: ColumnDef<Test>[] = [
   {
@@ -125,7 +126,7 @@ export const TestGeneratorPanel = () => {
   });
   const [prompt, setPrompt] = useState("");
   const [name, setName] = useState("");
-  async function handleClickGenerate() {
+  const handleClickGenerate = async () => {
     const body: GenerateTestRequest = {
       testName: name,
       testType: "Python",
@@ -133,11 +134,10 @@ export const TestGeneratorPanel = () => {
     };
     const { data } = await baseClient.post("generate-test", body);
     const data_obj = JSON.parse(data);
-    console.log(data_obj.test);
     setData((prevData) => {
       return [...prevData, { ...data_obj.test }];
     });
-  }
+  };
   const handleRemoveTest = (testId: string) => {
     setData((data) => data.filter((elem) => elem.id !== testId));
   };
@@ -163,7 +163,15 @@ export const TestGeneratorPanel = () => {
       />
       {/* No need for this for now */}
       {/* <TestTypeCombobox /> */}
-      <Button type="submit" onClick={handleClickGenerate}>
+      <Button
+        type="submit"
+        onClick={() => {
+          toast.promise(handleClickGenerate, {
+            loading: "Generating test...",
+            success: "Test generated successfully!",
+          });
+        }}
+      >
         Generate
       </Button>
       <Separator />
@@ -204,11 +212,6 @@ export const TestGeneratorPanel = () => {
                       onClick={() => handleRemoveTest(row.original.id)}
                     >
                       Remove test
-                    </ContextMenuItem>
-                    <ContextMenuItem
-                    // onClick={() => handleConsultCode(row.original.id)}
-                    >
-                      Consult Code
                     </ContextMenuItem>
                   </ContextMenuContent>
                 </ContextMenu>
