@@ -151,11 +151,11 @@ function updatePath(project: TestSequencerProject, newPath: string): TestSequenc
 async function saveToDisk(project: TestSequencerProject): Promise<void> {
   if ("api" in window) {
     // Deps
-    const deps = await window.api.poetryShowUserGroup();
-    const content = deps.map((dep) => dep.name + "==" + dep.version).join("\n");
-    const requirementsPath = "requirements.txt";
-    await window.api.saveToFile(project.projectPath + requirementsPath, content);
-    project.interpreter.requirementsPath = requirementsPath;
+    if (project.interpreter.requirementsPath) {
+      const deps = await window.api.poetryShowUserGroup();
+      const content = deps.map((dep) => dep.name + "==" + dep.version).join("\n");
+      await window.api.saveToFile(project.projectPath + project.interpreter.requirementsPath, content);
+    }
     // Project
     await window.api.saveToFile(
       project.projectPath + project.name + ".tjoy",

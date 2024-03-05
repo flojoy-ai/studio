@@ -35,7 +35,7 @@ export const TestSequencerProjectModal = ({
         interpreter: {
           type: type,
           path: interpreterPath === "" ? null : interpreterPath,
-          requirementsPath: null
+          requirementsPath: "requirements.txt",
         },
       },
       handleProjectModalOpen
