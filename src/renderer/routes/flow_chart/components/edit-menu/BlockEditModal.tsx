@@ -14,19 +14,19 @@ import { useProjectStore } from "@/renderer/stores/project";
 import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
 
-type NodeEditModalProps = {
+type Props = {
   node: Node<BlockData>;
   otherNodes: Node<BlockData>[] | null;
   setNodeModalOpen: (open: boolean) => void;
   handleDelete: (nodeId: string, nodeLabel: string) => void;
 };
 
-const NodeEditModal = ({
+const BlockEditModal = ({
   node,
   otherNodes,
   setNodeModalOpen,
   handleDelete,
-}: NodeEditModalProps) => {
+}: Props) => {
   const { updateBlockParameter, updateBlockInitParameter, updateBlockLabel } =
     useProjectStore(
       useShallow((state) => ({
@@ -51,6 +51,14 @@ const NodeEditModal = ({
   const nodeReferenceOptions =
     otherNodes?.map((node) => ({ label: node.data.label, value: node.id })) ??
     [];
+
+  const confirmLabelChange = () => {
+    setEditRenamingTitle(false);
+    const res = updateBlockLabel(node.data.id, newTitle);
+    if (res.isErr()) {
+      toast.error(res.error.message);
+    }
+  };
 
   useEffect(() => {
     setNewTitle(node.data.label);
@@ -80,13 +88,7 @@ const NodeEditModal = ({
                   size="icon"
                   variant="ghost"
                   data-testid="block-label-submit"
-                  onClick={() => {
-                    setEditRenamingTitle(false);
-                    const res = updateBlockLabel(newTitle, node.data.id);
-                    if (res.isErr()) {
-                      toast.error(res.error.message);
-                    }
-                  }}
+                  onClick={confirmLabelChange}
                 >
                   <Check size={20} className="stroke-muted-foreground" />
                 </Button>
@@ -188,4 +190,4 @@ const NodeEditModal = ({
   );
 };
 
-export default memo(NodeEditModal);
+export default memo(BlockEditModal);

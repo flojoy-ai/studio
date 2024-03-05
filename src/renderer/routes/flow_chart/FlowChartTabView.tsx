@@ -39,7 +39,7 @@ import { useTheme } from "@/renderer/providers/ThemeProvider";
 import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
 import { Button } from "@/renderer/components/ui/button";
 import { ResizeFitter } from "./components/ResizeFitter";
-import NodeEditModal from "./components/node-edit-menu/NodeEditModal";
+import BlockEditModal from "./components/edit-menu/BlockEditModal";
 import { WelcomeModal } from "./views/WelcomeModal";
 import { CommandMenu } from "@/renderer/routes/command/CommandMenu";
 import {
@@ -441,7 +441,7 @@ const FlowChartTab = () => {
           id="flow-chart-area"
         >
           {selectedNode && isEditMode && (
-            <NodeEditModal
+            <BlockEditModal
               node={selectedNode}
               otherNodes={otherNodes}
               setNodeModalOpen={setNodeModalOpen}
