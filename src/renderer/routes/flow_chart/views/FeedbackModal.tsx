@@ -18,30 +18,28 @@ type Props = {
 const FeedbackModal = ({ open, setOpen }: Props) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Dialog>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>We would love to hear what you think!</DialogTitle>
-            <DialogDescription>
-              Join our Discord community to leave us feedback :)
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <DialogClose>
-              <Button type="submit" variant="secondary">
-                Close
-              </Button>
-            </DialogClose>
-            <DialogClose>
-              <Button type="submit" asChild>
-                <a href="https://discord.gg/7HEBr7yG8c" target="_blank">
-                  Join
-                </a>
-              </Button>
-            </DialogClose>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>We would love to hear what you think!</DialogTitle>
+          <DialogDescription>
+            Join our Discord community to leave us feedback :)
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <DialogClose>
+            <Button type="submit" variant="secondary">
+              Close
+            </Button>
+          </DialogClose>
+          <DialogClose>
+            <Button type="submit" asChild>
+              <a href="https://discord.gg/7HEBr7yG8c" target="_blank">
+                Join
+              </a>
+            </Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
     </Dialog>
   );
 };

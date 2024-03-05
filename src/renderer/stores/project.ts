@@ -16,7 +16,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Project } from "@/renderer/types/project";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { Draft } from "immer";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import {
   useManifestStore,
   useManifest,
@@ -359,7 +359,7 @@ export const useLoadProject = () => {
 };
 
 export const useAddBlock = () => {
-  const { setNodes } = useProtectedGraphUpdate();
+  const setNodes = useProtectedSetter("nodes");
 
   const center = useFlowchartStore(useShallow((state) => state.centerPosition));
   const hardwareDevices: DeviceInfo | undefined = useHardwareStore(
@@ -428,7 +428,8 @@ export const useAddBlock = () => {
 };
 
 export const useDeleteBlock = () => {
-  const { setNodes, setEdges } = useProtectedGraphUpdate();
+  const setNodes = useProtectedSetter("nodes");
+  const setEdges = useProtectedSetter("edges");
 
   return useCallback(
     (nodeId: string, nodeLabel: string) => {
@@ -443,7 +444,7 @@ export const useDeleteBlock = () => {
 };
 
 export const useDuplicateBlock = () => {
-  const { setNodes } = useProtectedGraphUpdate();
+  const setNodes = useProtectedSetter("nodes");
 
   return useCallback(
     (node: Node<BlockData>): Result<void, Error> => {
@@ -489,7 +490,7 @@ export const useDuplicateBlock = () => {
 };
 
 export const useCreateEdge = () => {
-  const { setEdges } = useProtectedGraphUpdate();
+  const setEdges = useProtectedSetter("edges");
   const manifest = useManifest();
 
   return (connection: Connection): Result<void, Error | TypeError> => {
@@ -506,14 +507,14 @@ export const useCreateEdge = () => {
       );
     }
 
-    console.log("creating edge", connection);
     setEdges((edges) => addEdge(connection, edges));
     return ok(undefined);
   };
 };
 
 export const useGraphResync = () => {
-  const { setEdges, setNodes } = useProtectedGraphUpdate();
+  const setNodes = useProtectedSetter("nodes");
+  const setEdges = useProtectedSetter("edges");
 
   const { nodes, edges } = useProjectStore(
     useShallow((state) => ({
@@ -561,7 +562,9 @@ export const useAddTextNode = () => {
 };
 
 export const useClearCanvas = () => {
-  const { setNodes, setEdges, setTextNodes } = useProtectedGraphUpdate();
+  const setNodes = useProtectedSetter("nodes");
+  const setEdges = useProtectedSetter("edges");
+  const setTextNodes = useProtectedSetter("textNodes");
 
   return () => {
     setNodes([]);
@@ -570,35 +573,26 @@ export const useClearCanvas = () => {
   };
 };
 
-function setter<K extends keyof State>(field: K) {
-  type T = State[K];
-  return (update: T | ((draft: Draft<T>) => void)) => {
-    if (typeof update === "function") {
-      useProjectStore.setState((state) => {
-        const res = update(state[field]);
-        if (res !== undefined) {
-          state[field] = res;
-        }
-      });
-    } else {
-      useProjectStore.setState({ [field]: update });
-    }
-    setHasUnsavedChanges(true);
-  };
-}
-
-const useProtectedGraphUpdate = () => {
+function useProtectedSetter<K extends keyof State>(field: K) {
   const { withPermissionCheck } = useWithPermission();
-  const setNodes = setter("nodes");
-  const setEdges = setter("edges");
-  const setTextNodes = setter("textNodes");
-
-  return {
-    setNodes: withPermissionCheck(setNodes),
-    setEdges: withPermissionCheck(setEdges),
-    setTextNodes: withPermissionCheck(setTextNodes),
-  };
-};
+  type T = State[K];
+  return useMemo(() => {
+    console.log("changed");
+    return withPermissionCheck((update: T | ((draft: Draft<T>) => void)) => {
+      if (typeof update === "function") {
+        useProjectStore.setState((state) => {
+          const res = update(state[field]);
+          if (res !== undefined) {
+            state[field] = res;
+          }
+        });
+      } else {
+        useProjectStore.setState({ [field]: update });
+      }
+      setHasUnsavedChanges(true);
+    });
+  }, [field, withPermissionCheck]);
+}
 
 const setHasUnsavedChanges = (val: boolean) => {
   useProjectStore.setState({ hasUnsavedChanges: val });
