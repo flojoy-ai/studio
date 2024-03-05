@@ -13,7 +13,7 @@ import { BackendSettings } from "@/renderer/stores/settings";
 import _ from "lodash";
 import { ResultAsync, fromPromise } from "neverthrow";
 import { Options } from "ky";
-import { DeviceInfo } from "../types/hardware";
+import { DeviceInfo } from "@/renderer/types/hardware";
 
 const get = <Z extends z.ZodTypeAny>(
   url: string,
@@ -50,9 +50,9 @@ export const getMetadata = (
   return get("blocks/metadata", blockMetadataSchema, { searchParams });
 };
 
-export const getEnvironmentVariables = () => get("env", EnvVar.array());
+export const getEnvironmentVariables = async () => get("env", EnvVar.array());
 
-export const getEnvironmentVariable = (key: string) =>
+export const getEnvironmentVariable = async (key: string) =>
   get(`env/${key}`, EnvVar);
 
 export const postEnvironmentVariable = async (body: EnvVar) => {
@@ -125,9 +125,7 @@ const LogLevel = z.object({
 });
 
 export const getLogLevel = async () => {
-  return fromPromise(captain.get("log_level").json(), (e) => e as HTTPError)
-    .andThen(tryParse(LogLevel))
-    .map((v) => v.level);
+  return get("log_level", LogLevel).map((v) => v.level);
 };
 
 export const setLogLevel = async (level: string) => {
