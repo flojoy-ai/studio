@@ -92,7 +92,7 @@ export const GalleryModal = ({
                 <div className="grid grid-cols-2">
                   {v.map((app) => (
                     <GalleryElement
-                      key={app.title}
+                      key={app.title + app.description}
                       galleryApp={app}
                       setIsGalleryOpen={setIsGalleryOpen}
                     />
