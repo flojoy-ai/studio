@@ -140,3 +140,12 @@ export const discoverPytest = async (path: string, oneFile: boolean) => {
     },
   });
 };
+
+const Project = z.object({
+  label: z.string(),
+  value: z.string(),
+});
+
+export type Project = z.infer<typeof Project>;
+
+export const getCloudProjects = () => get("cloud/projects", Project.array());

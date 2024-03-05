@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Input } from "@/renderer/components/ui/input";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import LockableButton from "./lockable/LockedButtons";
@@ -10,16 +10,12 @@ import {
   SelectContent,
   SelectItem,
 } from "@/renderer/components/ui/select";
-import { captain } from "@/renderer/lib/ky";
 import { Button } from "@/renderer/components/ui/button";
 import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
 import { testSequenceExportCloud } from "@/renderer/routes/test_sequencer_panel/models/models";
-
-type Project = {
-  label: string;
-  value: string;
-};
+import { Project, getCloudProjects } from "@/renderer/lib/api";
+import { toastQueryError } from "@/renderer/utils/report-error";
 
 export function CloudPanel() {
   const [hardwareId, setHardwareId] = useState("");
@@ -40,14 +36,16 @@ export function CloudPanel() {
     setIsLocked(true);
   };
 
-  const fetchProjects = async () => {
-    const res = (await captain.get("cloud/projects").json()) as Project;
-    setProjects([res]);
-  };
+  const fetchProjects = useCallback(async () => {
+    (await getCloudProjects()).match(
+      (p) => setProjects(p),
+      (e) => toastQueryError(e, "Failed to fetch projects from Flojoy Cloud"),
+    );
+  }, []);
 
   useEffect(() => {
     fetchProjects();
-  }, []);
+  }, [fetchProjects]);
 
   return (
     <div className="min-w-[240px] rounded-xl border border-gray-300 p-4 py-4 dark:border-gray-800">
