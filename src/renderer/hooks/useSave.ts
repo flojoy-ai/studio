@@ -9,15 +9,16 @@ export const useSave = () => {
   const saveProject = useProjectStore(useShallow((state) => state.saveProject));
 
   const handleSave = async () => {
-    const pathRes = await saveProject();
-    if (pathRes.isErr()) {
-      toast.error(
-        `An error occurred while trying to save: ${pathRes.error.message}`,
-      );
-      return;
-    }
-
-    toast.success(`App saved to ${pathRes.value}.`);
+    (await saveProject()).match(
+      (path) => {
+        if (path === undefined) {
+          return;
+        }
+        toast.success(`App saved to ${path}.`);
+      },
+      (e) =>
+        toast.error(`An error occurred while trying to save: ${e.message}`),
+    );
   };
 
   return withPermissionCheck(handleSave);

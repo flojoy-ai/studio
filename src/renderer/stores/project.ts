@@ -79,7 +79,7 @@ type Actions = {
   updateTextNodeText: (id: string, text: string) => Result<void, Error>;
   deleteTextNode: (id: string) => void;
 
-  saveProject: () => Promise<Result<string, Error>>;
+  saveProject: () => Promise<Result<string | undefined, Error>>;
 };
 
 const defaultProjectData =
@@ -295,15 +295,15 @@ export const useProjectStore = create<State & Actions>()(
       return fromPromise(
         window.api.saveFileAs(defaultFilename, fileContent),
         (e) => e as Error,
-      ).andThen(({ filePath, canceled }) => {
+      ).map(({ filePath, canceled }) => {
         if (canceled || filePath === undefined) {
-          return err(new Error("Save was cancelled"));
+          return undefined;
         }
 
         set({ path: filePath });
 
         setHasUnsavedChanges(false);
-        return ok(filePath);
+        return filePath;
       });
     },
   })),
