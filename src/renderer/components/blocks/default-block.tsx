@@ -5,11 +5,11 @@ import NodeWrapper from "@/renderer/components/common/NodeWrapper";
 import HandleComponent from "@/renderer/components/common/HandleComponent";
 import NodeInput from "@/renderer/components/common/NodeInput";
 import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
-import { BlockLabel } from "../common/block-label";
+import { BlockLabel } from "@/renderer/components/common/block-label";
 import { getVariantClass } from "@/renderer/lib/utils";
 import { TVariant } from "@/renderer/types/tailwind";
 
-type DefaultBlockProps = CustomNodeProps & {
+type DefaultBlockProps = BlockProps & {
   width?: CSSProperties["width"];
   height?: number;
   children?: React.ReactNode;
