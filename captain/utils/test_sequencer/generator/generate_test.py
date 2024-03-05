@@ -6,7 +6,7 @@ import os
 from openai import OpenAI
 from captain.utils.test_sequencer.data_stream import _with_error_report
 
-key = "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"  # TODO have this from .env, Joey said to hard code for now until his PR
+key = ""  # TODO have this from .env, Joey said to hard code for now until his PR
 client = OpenAI(api_key=key)
 
 
