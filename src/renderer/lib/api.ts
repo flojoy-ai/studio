@@ -5,13 +5,26 @@ import {
   blockMetadataSchema,
 } from "@/renderer/types/manifest";
 import { tryParse } from "@/types/result";
-import { z } from "zod";
+import { ZodError, z } from "zod";
 import { EnvVar } from "@/renderer/types/env-var";
 import { BlockData } from "@/renderer/types/block";
 import { Edge, Node } from "reactflow";
 import { BackendSettings } from "@/renderer/stores/settings";
 import _ from "lodash";
-import { fromPromise } from "neverthrow";
+import { ResultAsync, fromPromise } from "neverthrow";
+import { Options } from "ky";
+import { DeviceInfo } from "../types/hardware";
+
+const get = <Z extends z.ZodTypeAny>(
+  url: string,
+  schema: Z,
+  options?: Options,
+): ResultAsync<z.infer<Z>, HTTPError | ZodError> => {
+  return fromPromise(
+    captain.get(url, options).json(),
+    (e) => e as HTTPError,
+  ).andThen(tryParse(schema));
+};
 
 export const getManifest = (blocksPath?: string) => {
   const searchParams = blocksPath
@@ -20,14 +33,7 @@ export const getManifest = (blocksPath?: string) => {
       }
     : undefined;
 
-  return fromPromise(
-    captain
-      .get("blocks/manifest", {
-        searchParams,
-      })
-      .json(),
-    (e) => e as HTTPError,
-  ).andThen(tryParse(blockManifestSchema));
+  return get("blocks/manifest", blockManifestSchema, { searchParams });
 };
 
 export const getMetadata = (
@@ -41,18 +47,13 @@ export const getMetadata = (
       }
     : undefined;
 
-  return fromPromise(
-    captain.get("blocks/metadata", { searchParams }).json(),
-    (e) => e as HTTPError,
-  ).andThen(tryParse(blockMetadataSchema));
+  return get("blocks/metadata", blockMetadataSchema, { searchParams });
 };
 
-export const getEnvironmentVariable = async (key: string) => {
-  return fromPromise(
-    captain.get(`env/${key}`).json(),
-    (e) => e as HTTPError,
-  ).andThen(tryParse(EnvVar));
-};
+export const getEnvironmentVariables = () => get("env", EnvVar.array());
+
+export const getEnvironmentVariable = (key: string) =>
+  get(`env/${key}`, EnvVar);
 
 export const postEnvironmentVariable = async (body: EnvVar) => {
   return fromPromise(
@@ -107,17 +108,12 @@ export async function getDeviceInfo(
   discoverNIDAQmxDevices = false,
   discoverNIDMMDevices = false,
 ) {
-  return fromPromise(
-    captain
-      .get("devices", {
-        searchParams: {
-          include_nidaqmx_drivers: discoverNIDAQmxDevices,
-          include_nidmm_drivers: discoverNIDMMDevices,
-        },
-      })
-      .json(),
-    (e) => e as HTTPError,
-  );
+  return get("devices", DeviceInfo, {
+    searchParams: {
+      include_nidaqmx_drivers: discoverNIDAQmxDevices,
+      include_nidmm_drivers: discoverNIDMMDevices,
+    },
+  });
 }
 
 type LogLevel = {

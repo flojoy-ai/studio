@@ -2,7 +2,6 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { DeviceInfo } from "@/renderer/types/hardware";
 import { getDeviceInfo } from "@/renderer/lib/api";
-import { tryParse } from "@/types/result";
 import { ZodError } from "zod";
 import { Result } from "neverthrow";
 
@@ -29,9 +28,7 @@ export const useHardwareStore = create<State & Actions>()(
         discoverNIDAQmxDevices,
         discoverNIDMMDevices,
       );
-      return res
-        .andThen(tryParse(DeviceInfo))
-        .map((info) => set({ devices: info }));
+      return res.map((info) => set({ devices: info }));
     },
   })),
 );
