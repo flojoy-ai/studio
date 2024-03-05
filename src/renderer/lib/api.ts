@@ -14,7 +14,7 @@ import _ from "lodash";
 import { ResultAsync, fromPromise } from "neverthrow";
 import { Options } from "ky";
 import { DeviceInfo } from "@/renderer/types/hardware";
-import { TestDiscoverContainer } from "../types/test-sequencer";
+import { TestDiscoverContainer } from "@/renderer/types/test-sequencer";
 
 const get = <Z extends z.ZodTypeAny>(
   url: string,

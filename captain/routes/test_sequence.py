@@ -51,5 +51,5 @@ async def discover_pytest(params: DiscoverPytestParams = Depends()):
     thread.start()
     thread.join()
     return TestDiscoverContainer(
-        response=return_val, missingLibraries=missing_lib
-    ).model_dump_json(by_alias=True)
+        response=return_val, missing_libraries=missing_lib
+    )

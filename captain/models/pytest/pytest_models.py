@@ -40,4 +40,4 @@ class TestDiscoveryResponse(BaseModel):
 
 class TestDiscoverContainer(BaseModel):
     response: List[TestDiscoveryResponse]
-    missing_libraries: List[str] = Field(..., alias="missingLibraries")
+    missing_libraries: List[str] = Field(..., serialization_alias="missingLibraries")
