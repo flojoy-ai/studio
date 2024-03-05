@@ -23,8 +23,7 @@ import EnvVarCredentialsInfo from "./EnvVarCredentialsInfo";
 import { EnvVar } from "@/renderer/types/env-var";
 import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
-import { ZodError } from "zod";
-import { fromZodError } from "zod-validation-error";
+import { toastQueryError } from "@/renderer/utils/report-error";
 
 const EnvVarModal = () => {
   const [credentials, setCredentials] = useState<EnvVar[]>([]);
@@ -44,17 +43,7 @@ const EnvVarModal = () => {
     const res = await getEnvironmentVariables();
     res.match(
       (vars) => setCredentials(vars),
-      (e) => {
-        if (e instanceof ZodError) {
-          toast.error("Validation error", {
-            description: fromZodError(e).message,
-          });
-        } else {
-          toast.error("Error fetching environment variables", {
-            description: e.message,
-          });
-        }
-      },
+      (e) => toastQueryError(e),
     );
   }, [setCredentials]);
 

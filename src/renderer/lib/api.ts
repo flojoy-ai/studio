@@ -14,6 +14,7 @@ import _ from "lodash";
 import { ResultAsync, fromPromise } from "neverthrow";
 import { Options } from "ky";
 import { DeviceInfo } from "@/renderer/types/hardware";
+import { TestDiscoverContainer } from "../types/test-sequencer";
 
 const get = <Z extends z.ZodTypeAny>(
   url: string,
@@ -116,10 +117,6 @@ export async function getDeviceInfo(
   });
 }
 
-type LogLevel = {
-  level: string;
-};
-
 const LogLevel = z.object({
   level: z.string(),
 });
@@ -133,4 +130,13 @@ export const setLogLevel = async (level: string) => {
     captain.post("log_level", { json: { level } }),
     (e) => e as HTTPError,
   );
+};
+
+export const discoverPytest = async (path: string, oneFile: boolean) => {
+  return get("discover-pytest", TestDiscoverContainer, {
+    searchParams: {
+      path,
+      oneFile,
+    },
+  });
 };

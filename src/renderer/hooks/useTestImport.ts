@@ -1,4 +1,3 @@
-import { captain } from "@/renderer/lib/ky";
 import { Test, TestDiscoverContainer } from "@/renderer/types/test-sequencer";
 import { useTestSequencerState } from "./useTestSequencerState";
 import { map } from "lodash";
@@ -7,6 +6,8 @@ import { ImportTestSettings } from "@/renderer/routes/test_sequencer_panel/compo
 import { toast } from "sonner";
 import { useCallback } from "react";
 import { Dispatch, SetStateAction } from "react";
+import { discoverPytest } from "@/renderer/lib/api";
+import { toastQueryError } from "@/renderer/utils/report-error";
 
 function parseDiscoverContainer(
   data: TestDiscoverContainer,
@@ -56,14 +57,12 @@ export const useTestImport = () => {
         missingLibraries: [],
       };
     } else {
-      data = await captain
-        .get("discover-pytest", {
-          searchParams: {
-            path: path,
-            oneFile: settings.importAsOneRef,
-          },
-        })
-        .json();
+      const res = await discoverPytest(path, settings.importAsOneRef);
+      if (res.isErr()) {
+        toastQueryError(res.error, "Error while trying to discover tests");
+        return;
+      }
+      data = res.value;
     }
     for (const lib of data.missingLibraries) {
       toast.error(`Missing Python Library: ${lib}`, {

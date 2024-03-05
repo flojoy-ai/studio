@@ -12,8 +12,6 @@ import { env } from "@/env";
 import { useSettingsStore } from "@/renderer/stores/settings";
 import { useManifestStore } from "@/renderer/stores/manifest";
 import { useShallow } from "zustand/react/shallow";
-import { HTTPError } from "ky";
-import { ZodError } from "zod";
 import {
   ServerStatus,
   ServerStatusEnum,
@@ -22,7 +20,7 @@ import {
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 import { useSocketStore } from "@/renderer/stores/socket";
 import { useHardwareStore } from "@/renderer/stores/hardware";
-import { fromZodError } from "zod-validation-error";
+import { toastQueryError } from "@/renderer/utils/report-error";
 
 type SocketState = {
   runningNode: string;
@@ -80,17 +78,8 @@ export const SocketContextProvider = ({
 
   const doFetch = useCallback(async () => {
     const res = await fetchManifest();
-    if (res.isOk()) return;
-
-    if (res.error instanceof HTTPError) {
-      toast.error("Error fetching custom blocks info.", {
-        description: res.error.message,
-      });
-    } else if (res.error instanceof ZodError) {
-      toast.error("Error fetching validating custom blocks info.", {
-        description: fromZodError(res.error).toString(),
-      });
-      console.error(res.error.message);
+    if (res.isErr()) {
+      toastQueryError(res.error, "Error fetching blocks info.");
     }
   }, [fetchManifest]);
 
@@ -101,35 +90,15 @@ export const SocketContextProvider = ({
 
   const doHardwareFetch = useCallback(async () => {
     const res = await hardwareRefetch(fetchDriverDevices, fetchDMMDevices);
-    if (res.isOk()) return;
-
-    if (res.error instanceof ZodError) {
-      toast.error("Error validating hardware info", {
-        description: fromZodError(res.error).toString(),
-      });
-      console.error(res.error.message);
-    } else {
-      toast.error("Error fetching hardware info", {
-        description: res.error.message,
-      });
+    if (res.isErr()) {
+      toastQueryError(res.error, "Error fetching hardware info.");
     }
   }, [fetchDMMDevices, fetchDriverDevices, hardwareRefetch]);
 
   const doImport = useCallback(async () => {
     const res = await importCustomBlocks(true);
-    if (res.isOk()) {
-      return;
-    }
-
-    if (res.error instanceof HTTPError) {
-      toast.error("Error fetching custom blocks info.", {
-        description: res.error.message,
-      });
-    } else if (res.error instanceof ZodError) {
-      toast.error("Error fetching validating custom blocks info.", {
-        description: fromZodError(res.error).toString(),
-      });
-      console.error(res.error.message);
+    if (res.isErr()) {
+      toastQueryError(res.error, "Error fetching custom blocks info.");
     }
   }, [importCustomBlocks]);
 

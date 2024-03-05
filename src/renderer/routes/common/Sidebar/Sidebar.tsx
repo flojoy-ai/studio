@@ -18,10 +18,7 @@ import {
 import { env } from "@/env";
 import { useManifestStore } from "@/renderer/stores/manifest";
 import { useShallow } from "zustand/react/shallow";
-import { toast } from "sonner";
-import { HTTPError } from "ky";
-import { ZodError } from "zod";
-import { fromZodError } from "zod-validation-error";
+import { toastQueryError } from "@/renderer/utils/report-error";
 
 export type LeafClickHandler = (elem: Leaf) => void;
 
@@ -77,19 +74,8 @@ const Sidebar = ({
 
   const handleImport = async () => {
     const res = await importCustomBlocks(false);
-    if (res.isOk()) {
-      return;
-    }
-
-    if (res.error instanceof HTTPError) {
-      toast.error("Error fetching custom blocks info.", {
-        description: res.error.message,
-      });
-    } else if (res.error instanceof ZodError) {
-      toast.error("Error fetching validating custom blocks info.", {
-        description: fromZodError(res.error).toString(),
-      });
-      console.error(res.error.message);
+    if (res.isErr()) {
+      toastQueryError(res.error, "Error fetching custom blocks info.");
     }
   };
 

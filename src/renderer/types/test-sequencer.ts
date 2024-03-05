@@ -100,14 +100,16 @@ export type TestRootNode = {
 
 export type TestSequenceElementNode = ConditionalNode | TestNode | TestRootNode;
 
-export type TestDiscoverContainer = {
-  // sync with pydantic model in backend
-  response: TestDiscoveryResponse[];
-  missingLibraries: string[];
-};
+export const TestDiscoveryResponse = z.object({
+  testName: z.string(),
+  path: z.string(),
+});
 
-export type TestDiscoveryResponse = {
-  // sync with pydantic model in backend
-  testName: string;
-  path: string;
-};
+export type TestDiscoveryResponse = z.infer<typeof TestDiscoveryResponse>;
+
+export const TestDiscoverContainer = z.object({
+  response: TestDiscoveryResponse.array(),
+  missingLibraries: z.string().array(),
+});
+
+export type TestDiscoverContainer = z.infer<typeof TestDiscoverContainer>;

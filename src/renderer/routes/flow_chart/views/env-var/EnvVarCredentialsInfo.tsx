@@ -13,6 +13,7 @@ import { getEnvironmentVariable } from "@/renderer/lib/api";
 import { ZodError } from "zod";
 import { toast } from "sonner";
 import { fromZodError } from "zod-validation-error";
+import { toastQueryError } from "@/renderer/utils/report-error";
 
 type Props = {
   credential: EnvVar;
@@ -40,17 +41,7 @@ const EnvVarCredentialsInfo = ({
       const res = await getEnvironmentVariable(credential.key);
       res.match(
         (v) => setCredentialValue(v.value),
-        (e) => {
-          if (e instanceof ZodError) {
-            toast.error("Validation error", {
-              description: fromZodError(e).message,
-            });
-          } else {
-            toast.error("Error fetching environment variable", {
-              description: e.message,
-            });
-          }
-        },
+        (e) => toastQueryError(e, "Error fetching environment variable"),
       );
       setIsLoading(false);
     }
