@@ -52,19 +52,20 @@ const FlowControlButtons = () => {
     sendProgramToMix(nodes, true, false);
     wipeBlockResults();
 
-    const res = await runFlowchart({
-      nodes,
-      edges,
-      jobId: socketId,
-      settings: backendSettings,
-    });
-    if (res.isErr()) {
-      toast.error("Failed to run flowchart", {
-        description: res.error.message,
-      });
-    }
-
-    resetNodeParamChanged();
+    (
+      await runFlowchart({
+        nodes,
+        edges,
+        jobId: socketId,
+        settings: backendSettings,
+      })
+    ).match(
+      () => resetNodeParamChanged(),
+      (e) =>
+        toast.error("Failed to run flowchart", {
+          description: e.message,
+        }),
+    );
   };
 
   useKeyboardShortcut("ctrl", "p", onRun);
@@ -78,10 +79,7 @@ const FlowControlButtons = () => {
           data-testid="btn-play"
           variant="dotted"
           id="btn-play"
-          onClick={(e) => {
-            e.preventDefault();
-            onRun();
-          }}
+          onClick={onRun}
           disabled={nodes.length === 0 || !manifest}
           className="w-28 gap-2"
         >
