@@ -128,6 +128,7 @@ const TestSequencerView = () => {
                     Close Project
                   </LockableButton>
                   )}
+                  { project === null && (
                   <LockableButton
                     className="mt-4 w-full"
                     variant="outline"
@@ -135,6 +136,7 @@ const TestSequencerView = () => {
                   >
                     New Project
                   </LockableButton>
+                  )}
                   <LockableButton
                     variant="dotted"
                     className="mt-4 w-full gap-2"

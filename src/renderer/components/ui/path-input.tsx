@@ -5,6 +5,7 @@ import { Button } from "./button";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   allowedExtention?: string[];
+  allowDirectoryCreation? : boolean;
   pickerType?: "file" | "directory";
 }
 
@@ -24,10 +25,10 @@ const filePicker = (allowedExtensions: string[] = []): Promise<string | null> =>
   });
 };
 
-const directoryPicker = (): Promise<string | null> => {
+const directoryPicker = (allowDirectoryCreation: boolean = false): Promise<string | null> => {
   return new Promise((resolve, reject) => {
     window.api
-      .pickDirectory()
+      .pickDirectory(allowDirectoryCreation)
       .then((result) => {
         if (!result) resolve(null);
         else resolve(result);
@@ -41,12 +42,12 @@ const directoryPicker = (): Promise<string | null> => {
 
 
 const PathInput = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, onChange: onChangeProp, disabled, allowedExtention, pickerType, ...props }, ref) => {
+  ({ className, onChange: onChangeProp, disabled, allowedExtention, allowDirectoryCreation, pickerType, ...props }, ref) => {
     const [selectedFilePath, setSelectedFilePath] = React.useState<string | null>("");
     const [manualPath, setManualPath] = React.useState<string>("");
 
     const handlePickerClick = async () => {
-      const path = pickerType === "directory" ? await directoryPicker() : await filePicker(allowedExtention);
+      const path = pickerType === "directory" ? await directoryPicker(allowDirectoryCreation) : await filePicker(allowedExtention);
       if (path) {
         setSelectedFilePath(path);
         setManualPath(path);

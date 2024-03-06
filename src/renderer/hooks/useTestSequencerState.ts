@@ -153,13 +153,11 @@ export function useTestSequencerState() {
     setTree(createTestSequenceTree(candidateElems));
   }
   const setElemsWithPermissions = withPermissionCheck(setElems);
-  const setElemsWithoutPermissions = setElems;
 
   return {
     elems,
     websocketId,
     setElems: setElemsWithPermissions,
-    setElemsWithoutPermissions,
     tree,
     running,
     setRunning,

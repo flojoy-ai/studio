@@ -74,9 +74,14 @@ export const writeFileSync = (_, filePath: string, text: string): void => {
   fs.writeFileSync(filePath, text);
 };
 
-export const pickDirectory = async (): Promise<string> => {
+export const pickDirectory = async (_, allowDirectoryCreation: boolean = false): Promise<string> => {
+  const properties = ["openDirectory"];
+  if (allowDirectoryCreation) {
+    properties.push("createDirectory");
+  }
   const handler = await dialog.showOpenDialog({
-    properties: ["openDirectory"],
+    // @ts-ignore
+    properties: properties,
   });
   return handler.canceled ? "" : handler.filePaths[0];
 };

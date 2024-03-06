@@ -66,8 +66,8 @@ export async function importProject(filePath: string, fileContent: string, state
     }
     const projectPath = filePath.replaceAll(project.name + ".tjoy", "");
     project = updatePath(project, projectPath);
-    const succes = await installDeps(project);
-    if (!succes) {
+    const success = await installDeps(project);
+    if (!success) {
       throw Error("Error installing dependencies");
     }
     await syncProject(project, stateManager);

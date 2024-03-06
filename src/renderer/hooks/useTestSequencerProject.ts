@@ -6,9 +6,10 @@ import { Dispatch, SetStateAction } from "react";
 import { createProject, saveProject, importProject, StateManager, closeProject } from "@/renderer/utils/TestSequenceProjectHandler";
 
 function getPrepareStateManager(withoutPermission: boolean=false): StateManager {
-  const { elems, setElems, setElemsWithoutPermissions, project, setProject, setUnsaved } = useTestSequencerState();
+  const { elems, setElems, project, setProject, setUnsaved } = useTestSequencerState();
   if (withoutPermission) {
-    return { setElems: setElemsWithoutPermissions, setProject, setUnsaved, elem: elems, project };
+    // @ts-ignore
+    return { setElems: setElems.withException, setProject, setUnsaved, elem: elems, project };
   }
   // @ts-ignore
   return { setElems,  setProject, setUnsaved, elem: elems, project };

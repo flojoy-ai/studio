@@ -35,7 +35,7 @@ export const TestSequencerProjectModal = ({
         interpreter: {
           type: type,
           path: interpreterPath === "" ? null : interpreterPath,
-          requirementsPath: "requirements.txt",
+          requirementsPath: "flojoy_requirements.txt",
         },
       },
       handleProjectModalOpen
@@ -58,6 +58,7 @@ export const TestSequencerProjectModal = ({
           allowedExtention={["tjoy"]}
           onChange={(event) => {setProjectDirPath(event.target.value)}} 
           pickerType="directory"
+          allowDirectoryCreation={true}
         />
         {
         // <div className="flex gap-2">
