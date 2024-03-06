@@ -11,18 +11,19 @@ import ReactFlow, {
   ReactFlowProvider,
   applyNodeChanges,
 } from "reactflow";
-import { SliderNode } from "@/renderer/components/controls/slider-node";
+import { SliderNode } from "@/renderer/components/controls/SliderNode";
+import ControlTextNode from "@/renderer/components/controls/ControlTextNode";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useProjectStore } from "@/renderer/stores/project";
 import { Button } from "@/renderer/components/ui/button";
 import { ClearCanvasBtn } from "@/renderer/routes/flow_chart/components/ClearCanvasBtn";
 import { Text } from "lucide-react";
-import TextNode from "@/renderer/components/nodes/TextNode";
 import { useCallback } from "react";
+import { NewWidgetModal } from "./components/new-widget-modal";
 
 const nodeTypes = {
   slider: SliderNode,
-  TextNode: TextNode,
+  TextNode: ControlTextNode,
 };
 
 const ControlPanelView = () => {
@@ -79,6 +80,7 @@ const ControlPanelView = () => {
       <div className="mx-8 border-b" style={{ height: ACTIONS_HEIGHT }}>
         <div className="py-1" />
         <div className="flex">
+          <NewWidgetModal />
           <Button
             data-testid="add-text-button"
             className="gap-2"

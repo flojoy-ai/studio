@@ -58,7 +58,7 @@ import LogicBlock from "@/renderer/components/nodes/LogicBlock";
 import NumpyBlock from "@/renderer/components/nodes/NumpyBlock";
 import ScipyBlock from "@/renderer/components/nodes/ScipyBlock";
 import VisorBlock from "@/renderer/components/nodes/VisorBlock";
-import TextNode from "@/renderer/components/nodes/TextNode";
+import FlowchartTextNode from "@/renderer/components/nodes/FlowchartTextNode";
 import ContextMenu, { MenuInfo } from "./components/NodeContextMenu";
 import { Spinner } from "@/renderer/components/ui/spinner";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
@@ -103,7 +103,7 @@ const nodeTypes: NodeTypes = {
   CONTROL_FLOW: LogicBlock,
   MATH: DefaultBlock,
   HARDWARE: IOBlock,
-  TextNode: TextNode,
+  TextNode: FlowchartTextNode,
 };
 
 const edgeTypes = {

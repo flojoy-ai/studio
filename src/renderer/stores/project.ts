@@ -355,7 +355,9 @@ export const useProjectStore = create<State & Actions>()(
     },
 
     deleteControlTextNode: (id: string) => {
-      set({ textNodes: get().controlTextNodes.filter((n) => n.id !== id) });
+      set({
+        controlTextNodes: get().controlTextNodes.filter((n) => n.id !== id),
+      });
       setHasUnsavedChanges(true);
     },
 
