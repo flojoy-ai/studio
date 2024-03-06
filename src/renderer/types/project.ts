@@ -1,7 +1,7 @@
 import { Node, Edge } from "reactflow";
 import { TextData, BlockData } from "@/renderer/types/block";
 import { z } from "zod";
-import { ControlData } from "./control";
+import { VisualizationData, WidgetData } from "./control";
 
 // TODO: Create an actual schema for this?
 export const Project = z.object({
@@ -12,7 +12,11 @@ export const Project = z.object({
   }),
   textNodes: z.custom<Node<TextData>>().array().optional(),
 
-  controlNodes: z.custom<Node<ControlData>>().array().optional(),
+  controlNodes: z.custom<Node<WidgetData>>().array().optional(),
+  controlVisualizationNodes: z
+    .custom<Node<VisualizationData>>()
+    .array()
+    .optional(),
   controlTextNodes: z.custom<Node<TextData>>().array().optional(),
 });
 

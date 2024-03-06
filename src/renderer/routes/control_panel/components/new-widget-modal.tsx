@@ -21,6 +21,22 @@ import {
 } from "@/renderer/components/ui/form";
 import { z } from "zod";
 import { Combobox } from "@/renderer/components/ui/combobox";
+import { WidgetType } from "@/renderer/types/control";
+import { toast } from "sonner";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/renderer/components/ui/select";
+import { capitalize } from "lodash";
+
+// TODO: Implement the rest
+const allowedWidgetTypes: Record<string, WidgetType[]> = {
+  int: ["slider"],
+  float: ["slider"],
+};
 
 const formSchema = z.object({
   blockId: z.string(),
@@ -37,7 +53,7 @@ type Props = {
 
 export const NewWidgetModal = ({ open, setOpen }: Props) => {
   const { addNode, blocks } = useProjectStore((state) => ({
-    addNode: state.addControl,
+    addNode: state.addControlWidget,
     blocks: state.nodes,
   }));
 
@@ -46,8 +62,6 @@ export const NewWidgetModal = ({ open, setOpen }: Props) => {
     defaultValues: {
       blockId: "",
       blockParameter: "",
-      // TODO: Logic for picking valid widget types based on parameter type
-      widgetType: "slider",
     },
   });
 
@@ -59,6 +73,16 @@ export const NewWidgetModal = ({ open, setOpen }: Props) => {
   const selectedBlock = blocks.find((b) => b.id === form.watch("blockId"));
   const parameters = selectedBlock
     ? Object.keys(selectedBlock.data.ctrls)
+    : undefined;
+
+  const selectedParameter = form.watch("blockParameter");
+  const selectedParameterType =
+    selectedBlock && selectedParameter
+      ? selectedBlock.data.ctrls[selectedParameter].type
+      : undefined;
+
+  const widgetTypes = selectedParameterType
+    ? allowedWidgetTypes[selectedParameterType]
     : undefined;
 
   return (
@@ -77,7 +101,10 @@ export const NewWidgetModal = ({ open, setOpen }: Props) => {
 
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(handleSubmit)}
+            onSubmit={form.handleSubmit(handleSubmit, (e) => {
+              console.log(e);
+              toast.error(e.root?.message);
+            })}
             className="space-y-2"
           >
             <FormField
@@ -122,6 +149,37 @@ export const NewWidgetModal = ({ open, setOpen }: Props) => {
                 )}
               />
             )}
+            {selectedParameter &&
+              (widgetTypes ? (
+                <FormField
+                  control={form.control}
+                  name="widgetType"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Widget Type</FormLabel>
+                      <FormControl>
+                        <Select onValueChange={field.onChange}>
+                          <SelectTrigger className="w-[144px]">
+                            <SelectValue placeholder="Select widget type" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {widgetTypes.map((t) => (
+                              <SelectItem key={t} value={t}>
+                                {capitalize(t)}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              ) : (
+                <div>
+                  This parameter type is not supported yet for widgets, sorry!
+                </div>
+              ))}
             <DialogFooter>
               <Button type="submit">Create widget</Button>
             </DialogFooter>

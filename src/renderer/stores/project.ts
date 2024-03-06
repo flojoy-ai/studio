@@ -41,7 +41,11 @@ import {
   BlockDefinition,
   BlockParameterValue,
 } from "@/renderer/types/manifest";
-import { ControlData, WidgetKind } from "@/renderer/types/control";
+import {
+  VisualizationData,
+  WidgetData,
+  WidgetType,
+} from "@/renderer/types/control";
 
 type State = {
   name: string | undefined;
@@ -52,7 +56,8 @@ type State = {
   edges: Edge[];
   textNodes: Node<TextData>[];
 
-  controlNodes: Node<ControlData>[];
+  controlWidgetNodes: Node<WidgetData>[];
+  controlVisualizationNodes: Node<VisualizationData>[];
   controlTextNodes: Node<TextData>[];
 };
 
@@ -72,30 +77,29 @@ type Actions = {
   updateBlockLabel: (blockId: string, name: string) => Result<void, Error>;
 
   handleNodeChanges: (
-    cb: (nodes: Node<BlockData>[]) => Node<BlockData>[],
-  ) => void;
-  handleTextNodeChanges: (
-    cb: (nodes: Node<TextData>[]) => Node<TextData>[],
+    blocksUpdate: (nodes: Node<BlockData>[]) => Node<BlockData>[],
+    textNodesUpdate: (nodes: Node<TextData>[]) => Node<TextData>[],
   ) => void;
   handleEdgeChanges: (cb: (nodes: Edge[]) => Edge[]) => void;
 
-  handleControlTextNodeChanges: (
-    cb: (nodes: Node<TextData>[]) => Node<TextData>[],
-  ) => void;
   handleControlChanges: (
-    cb: (nodes: Node<ControlData>[]) => Node<ControlData>[],
+    widgetsUpdate: (nodes: Node<WidgetData>[]) => Node<WidgetData>[],
+    visualizationUpdate: (
+      nodes: Node<VisualizationData>[],
+    ) => Node<VisualizationData>[],
+    textNodesUpdate: (nodes: Node<TextData>[]) => Node<TextData>[],
   ) => void;
-
-  addControl: (
-    blockId: string,
-    blockParameter: string,
-    widget: WidgetKind,
-  ) => void;
-  deleteControl: (controlNodeId: string) => void;
 
   addTextNode: (position: XYPosition) => void;
   updateTextNodeText: (id: string, text: string) => Result<void, Error>;
   deleteTextNode: (id: string) => void;
+
+  addControlWidget: (
+    blockId: string,
+    blockParameter: string,
+    widget: WidgetType,
+  ) => void;
+  deleteControlWidget: (controlNodeId: string) => void;
 
   addControlTextNode: (position: XYPosition) => void;
   updateControlTextNodeText: (id: string, text: string) => Result<void, Error>;
@@ -124,21 +128,17 @@ export const useProjectStore = create<State & Actions>()(
     edges: initialEdges,
     textNodes: [],
 
-    controlNodes: [],
+    controlWidgetNodes: [],
+    controlVisualizationNodes: [],
     controlTextNodes: [],
 
     handleNodeChanges: (
-      cb: (nodes: Node<BlockData>[]) => Node<BlockData>[],
+      blocksUpdate: (nodes: Node<BlockData>[]) => Node<BlockData>[],
+      textNodesUpdate: (nodes: Node<TextData>[]) => Node<TextData>[],
     ) => {
       set((state) => {
-        state.nodes = cb(state.nodes);
-      });
-    },
-    handleTextNodeChanges: (
-      cb: (nodes: Node<TextData>[]) => Node<TextData>[],
-    ) => {
-      set((state) => {
-        state.textNodes = cb(state.textNodes);
+        state.nodes = blocksUpdate(state.nodes);
+        state.textNodes = textNodesUpdate(state.textNodes);
       });
     },
     handleEdgeChanges: (cb: (edges: Edge[]) => Edge[]) => {
@@ -147,26 +147,19 @@ export const useProjectStore = create<State & Actions>()(
       });
     },
 
-    handleControlTextNodeChanges: (
-      cb: (nodes: Node<TextData>[]) => Node<TextData>[],
-    ) => {
-      set((state) => {
-        state.controlTextNodes = cb(state.controlTextNodes);
-      });
-    },
     handleControlChanges: (
-      cb: (nodes: Node<ControlData>[]) => Node<ControlData>[],
+      widgetsUpdate: (nodes: Node<WidgetData>[]) => Node<WidgetData>[],
+      visualizationUpdate: (
+        nodes: Node<VisualizationData>[],
+      ) => Node<VisualizationData>[],
+      textNodesUpdate: (nodes: Node<TextData>[]) => Node<TextData>[],
     ) => {
       set((state) => {
-        state.controlNodes = cb(state.controlNodes);
-      });
-    },
-
-    deleteControl: (controlNodeId: string) => {
-      set((state) => {
-        state.controlNodes = state.controlNodes.filter(
-          (n) => n.id !== controlNodeId,
+        state.controlWidgetNodes = widgetsUpdate(state.controlWidgetNodes);
+        state.controlVisualizationNodes = visualizationUpdate(
+          state.controlVisualizationNodes,
         );
+        state.controlTextNodes = textNodesUpdate(state.textNodes);
       });
     },
 
@@ -266,25 +259,6 @@ export const useProjectStore = create<State & Actions>()(
       return ok(undefined);
     },
 
-    addControl: (
-      blockId: string,
-      blockParameter: string,
-      widget: WidgetKind,
-    ) => {
-      const node: Node<ControlData> = {
-        id: uuidv4(),
-        type: widget,
-        data: {
-          blockId,
-          blockParameter,
-        },
-        position: { x: 0, y: 0 },
-      };
-      set((state) => {
-        state.controlNodes.push(node);
-      });
-    },
-
     addTextNode: (pos: XYPosition) => {
       set((state) => {
         state.textNodes.push({
@@ -337,6 +311,33 @@ export const useProjectStore = create<State & Actions>()(
       setHasUnsavedChanges(true);
     },
 
+    addControlWidget: (
+      blockId: string,
+      blockParameter: string,
+      widget: WidgetType,
+    ) => {
+      const node: Node<WidgetData> = {
+        id: uuidv4(),
+        type: widget,
+        data: {
+          blockId,
+          blockParameter,
+        },
+        position: { x: 0, y: 0 },
+      };
+      set((state) => {
+        state.controlWidgetNodes.push(node);
+      });
+    },
+
+    deleteControlWidget: (controlNodeId: string) => {
+      set((state) => {
+        state.controlWidgetNodes = state.controlWidgetNodes.filter(
+          (n) => n.id !== controlNodeId,
+        );
+      });
+    },
+
     updateControlTextNodeText: (id: string, text: string) => {
       try {
         set((state) => {
@@ -362,21 +363,20 @@ export const useProjectStore = create<State & Actions>()(
     },
 
     saveProject: async () => {
-      const fileContent = JSON.stringify(
-        {
-          name: get().name,
-          rfInstance: {
-            nodes: get().nodes,
-            edges: get().edges,
-          },
-          textNodes: get().textNodes,
-
-          controlNodes: get().controlNodes,
-          controlTextNodes: get().controlTextNodes,
+      const project: Project = {
+        name: get().name,
+        rfInstance: {
+          nodes: get().nodes,
+          edges: get().edges,
         },
-        undefined,
-        4,
-      );
+        textNodes: get().textNodes,
+
+        controlNodes: get().controlWidgetNodes,
+        controlVisualizationNodes: get().controlVisualizationNodes,
+        controlTextNodes: get().controlTextNodes,
+      };
+
+      const fileContent = JSON.stringify(project, undefined, 4);
 
       const projectPath = get().path;
       if (projectPath) {
@@ -439,6 +439,7 @@ export const useLoadProject = () => {
         rfInstance: { nodes, edges },
         textNodes,
         controlNodes,
+        controlVisualizationNodes,
         controlTextNodes,
       } = project;
       const [syncedNodes, syncedEdges] = syncFlowchartWithManifest(
@@ -452,7 +453,8 @@ export const useLoadProject = () => {
         nodes: syncedNodes,
         edges: syncedEdges,
         textNodes: textNodes ?? [],
-        controlNodes: controlNodes ?? [],
+        controlWidgetNodes: controlNodes ?? [],
+        controlVisualizationNodes: controlVisualizationNodes ?? [],
         controlTextNodes: controlTextNodes ?? [],
         name,
         path,

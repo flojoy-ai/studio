@@ -131,23 +131,16 @@ const FlowChartTab = () => {
   const [nodeFilePath, setNodeFilePath] = useState("...");
   const [blockFullPath, setBlockFullPath] = useState("");
 
-  const {
-    nodes,
-    edges,
-    textNodes,
-    handleTextNodeChanges,
-    handleNodeChanges,
-    handleEdgeChanges,
-  } = useProjectStore(
-    useShallow((state) => ({
-      nodes: state.nodes,
-      edges: state.edges,
-      textNodes: state.textNodes,
-      handleTextNodeChanges: state.handleTextNodeChanges,
-      handleNodeChanges: state.handleNodeChanges,
-      handleEdgeChanges: state.handleEdgeChanges,
-    })),
-  );
+  const { nodes, edges, textNodes, handleNodeChanges, handleEdgeChanges } =
+    useProjectStore(
+      useShallow((state) => ({
+        nodes: state.nodes,
+        edges: state.edges,
+        textNodes: state.textNodes,
+        handleNodeChanges: state.handleNodeChanges,
+        handleEdgeChanges: state.handleEdgeChanges,
+      })),
+    );
 
   const [selectedNodes, otherNodes] = _.partition(nodes, (n) => n.selected);
   const selectedNode = selectedNodes.length === 1 ? selectedNodes[0] : null;
@@ -214,10 +207,12 @@ const FlowChartTab = () => {
 
   const onNodesChange: OnNodesChange = useCallback(
     (changes) => {
-      handleNodeChanges((ns) => applyNodeChanges(changes, ns));
-      handleTextNodeChanges((ns) => applyNodeChanges(changes, ns));
+      handleNodeChanges(
+        (ns) => applyNodeChanges(changes, ns),
+        (ns) => applyNodeChanges(changes, ns),
+      );
     },
-    [handleNodeChanges, handleTextNodeChanges],
+    [handleNodeChanges],
   );
 
   const onEdgesChange: OnEdgesChange = useCallback(

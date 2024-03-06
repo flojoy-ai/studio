@@ -5,7 +5,6 @@ import {
 } from "@/renderer/routes/common/Layout";
 import ReactFlow, {
   Controls,
-  OnInit,
   OnNodesChange,
   OnNodesDelete,
   ReactFlowProvider,
@@ -31,29 +30,21 @@ const ControlPanelView = () => {
 
   const { isAdmin } = useWithPermission();
   const {
-    nodes,
+    widgetNodes,
     textNodes,
     addTextNode,
     deleteNode,
     handleControlChanges,
-    handleTextNodeChanges,
   } = useProjectStore((state) => ({
-    nodes: state.controlNodes,
+    widgetNodes: state.controlWidgetNodes,
     textNodes: state.controlTextNodes,
     addTextNode: state.addControlTextNode,
-    addNode: state.addControl,
-    deleteNode: state.deleteControl,
+    addNode: state.addControlWidget,
+    deleteNode: state.deleteControlWidget,
     handleControlChanges: state.handleControlChanges,
-    handleTextNodeChanges: state.handleControlTextNodeChanges,
   }));
 
   const deleteKeyCodes = ["Delete", "Backspace"];
-
-  const onInit: OnInit = (rfIns) => {
-    rfIns.fitView({
-      padding: 0.8,
-    });
-  };
 
   const clearCanvas = () => {
     throw new Error("Not implemented");
@@ -61,10 +52,13 @@ const ControlPanelView = () => {
 
   const onNodesChange: OnNodesChange = useCallback(
     (changes) => {
-      handleControlChanges((ns) => applyNodeChanges(changes, ns));
-      handleTextNodeChanges((ns) => applyNodeChanges(changes, ns));
+      handleControlChanges(
+        (ns) => applyNodeChanges(changes, ns),
+        (ns) => applyNodeChanges(changes, ns),
+        (ns) => applyNodeChanges(changes, ns),
+      );
     },
-    [handleControlChanges, handleTextNodeChanges],
+    [handleControlChanges],
   );
 
   const handleNodesDelete: OnNodesDelete = useCallback(
@@ -115,9 +109,8 @@ const ControlPanelView = () => {
           className="!absolute"
           deleteKeyCode={isAdmin() ? deleteKeyCodes : null}
           proOptions={{ hideAttribution: true }}
-          nodes={[...nodes, ...textNodes]}
+          nodes={[...widgetNodes, ...textNodes]}
           nodeTypes={nodeTypes}
-          onInit={onInit}
           onNodesChange={onNodesChange}
           nodesDraggable={isAdmin()}
           onNodesDelete={handleNodesDelete}

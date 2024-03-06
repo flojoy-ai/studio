@@ -1,10 +1,10 @@
 import { Input } from "@/renderer/components/ui/input";
 import { useProjectStore } from "@/renderer/stores/project";
-import { ControlProps } from "@/renderer/types/control";
+import { WidgetProps } from "@/renderer/types/control";
 import { ChangeEvent } from "react";
 import { toast } from "sonner";
 
-export const SliderNode = ({ data }: ControlProps) => {
+export const SliderNode = ({ data }: WidgetProps) => {
   const { blocks, updateBlockParameter } = useProjectStore((state) => ({
     blocks: state.nodes,
     updateBlockParameter: state.updateBlockParameter,
