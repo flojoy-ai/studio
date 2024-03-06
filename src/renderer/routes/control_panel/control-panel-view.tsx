@@ -19,24 +19,31 @@ import { ClearCanvasBtn } from "@/renderer/routes/flow_chart/components/ClearCan
 import { Text } from "lucide-react";
 import { useCallback, useState } from "react";
 import { NewWidgetModal } from "./components/new-widget-modal";
+import VisualizationNode from "@/renderer/components/controls/VisualizationNode";
+import { NewVisualizationModal } from "./components/new-visualization";
 
 const nodeTypes = {
   slider: SliderNode,
+  visualization: VisualizationNode,
   TextNode: ControlTextNode,
 };
 
 const ControlPanelView = () => {
   const [newWidgetModalOpen, setNewWidgetModalOpen] = useState(false);
+  const [newVisualizationModalOpen, setNewVisualizationModalOpen] =
+    useState(false);
 
   const { isAdmin } = useWithPermission();
   const {
     widgetNodes,
+    visualizationNodes,
     textNodes,
     addTextNode,
     deleteNode,
     handleControlChanges,
   } = useProjectStore((state) => ({
     widgetNodes: state.controlWidgetNodes,
+    visualizationNodes: state.controlVisualizationNodes,
     textNodes: state.controlTextNodes,
     addTextNode: state.addControlTextNode,
     addNode: state.addControlWidget,
@@ -79,6 +86,10 @@ const ControlPanelView = () => {
             open={newWidgetModalOpen}
             setOpen={setNewWidgetModalOpen}
           />
+          <NewVisualizationModal
+            open={newVisualizationModalOpen}
+            setOpen={setNewVisualizationModalOpen}
+          />
           <Button
             data-testid="add-text-button"
             className="gap-2"
@@ -109,7 +120,7 @@ const ControlPanelView = () => {
           className="!absolute"
           deleteKeyCode={isAdmin() ? deleteKeyCodes : null}
           proOptions={{ hideAttribution: true }}
-          nodes={[...widgetNodes, ...textNodes]}
+          nodes={[...widgetNodes, ...visualizationNodes, ...textNodes]}
           nodeTypes={nodeTypes}
           onNodesChange={onNodesChange}
           nodesDraggable={isAdmin()}

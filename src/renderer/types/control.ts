@@ -44,6 +44,7 @@ export type VisualizationType =
 
 export type VisualizationData = {
   blockId: string;
+  visualizationType: string;
 };
 
 export type WidgetProps = NodeProps<WidgetData>;

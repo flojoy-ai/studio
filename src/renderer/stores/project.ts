@@ -101,6 +101,8 @@ type Actions = {
   ) => void;
   deleteControlWidget: (controlNodeId: string) => void;
 
+  addControlVisualization: (blockId: string) => Result<void, Error>;
+
   addControlTextNode: (position: XYPosition) => void;
   updateControlTextNodeText: (id: string, text: string) => Result<void, Error>;
   deleteControlTextNode: (id: string) => void;
@@ -336,6 +338,31 @@ export const useProjectStore = create<State & Actions>()(
           (n) => n.id !== controlNodeId,
         );
       });
+    },
+
+    addControlVisualization: (blockId: string) => {
+      const sourceBlock = get().nodes.find((n) => n.id === blockId);
+      if (sourceBlock === undefined) {
+        return err(new Error("Source block not found"));
+      }
+      if (sourceBlock.type !== "VISUALIZATION") {
+        return err(new Error("Source block must be a visualization block"));
+      }
+
+      const node: Node<VisualizationData> = {
+        id: uuidv4(),
+        type: "visualization",
+        data: {
+          blockId,
+          visualizationType: sourceBlock.data.func,
+        },
+        position: { x: 0, y: 0 },
+      };
+      set((state) => {
+        state.controlVisualizationNodes.push(node);
+      });
+
+      return ok(undefined);
     },
 
     updateControlTextNodeText: (id: string, text: string) => {

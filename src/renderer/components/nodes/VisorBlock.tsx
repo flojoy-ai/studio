@@ -29,7 +29,7 @@ import Heatmap from "@/renderer/assets/nodes/Heatmap";
 import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
 import { NodeResizer, useUpdateNodeInternals } from "reactflow";
 
-const chartElemMap = {
+export const chartElemMap = {
   SCATTER: Scatter,
   HISTOGRAM: Histogram,
   LINE: LineChart,
