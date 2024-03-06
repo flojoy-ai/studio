@@ -1,0 +1,18 @@
+<svg class="h-full w-full" viewBox="0 0 125 126" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g clipPath="url(#clip0_5_114)">
+    <path opacity="0.8"
+      d="M50.0463 60.4356L52.7161 58.4509L90.2222 65.3223L72.8807 79.4693L40.6173 70.9811L50.0463 60.4356Z"
+      className="fill-accent5" fillOpacity="0.9" />
+    <path opacity="0.6"
+      d="M45.4931 85.5686C45.4931 85.5686 50.6996 85.9405 55.9424 93.6202C61.1852 101.3 67.2346 113.426 74.8971 107.363C82.5597 101.3 88.351 86.1547 92.7146 83.2202L45.4971 85.5727L45.4931 85.5686Z"
+      className="fill-accent5" fillOpacity="0.8" />
+    <path
+      d="M14 78.661C14 78.661 17.6982 82.3877 31.9788 55.6661C46.2593 28.9446 51.9095 88.3617 70.4609 70.1728L81.3498 52.3881C81.3498 52.3881 87.8025 40.2621 96.6749 52.3881C105.547 64.514 105.951 69.7686 112 70.1728L78.5267 92.8079L14 78.661Z"
+      className="fill-accent5" />
+  </g>
+  <defs>
+    <clipPath id="clip0_5_114">
+      <rect width="98" height="62" fill="white" transform="translate(14 47)" />
+    </clipPath>
+  </defs>
+</svg>
