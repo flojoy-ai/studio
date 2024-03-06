@@ -263,8 +263,6 @@ const FlowChartTab = () => {
 
   const deleteKeyCodes = ["Delete", "Backspace"];
 
-  const proOptions = { hideAttribution: true };
-
   const onCommandMenuItemSelect = useCallback(
     (node: BlockDefinition) => {
       addBlock(node);
@@ -452,7 +450,7 @@ const FlowChartTab = () => {
             ref={ref}
             className="!absolute"
             deleteKeyCode={isAdmin() ? deleteKeyCodes : null}
-            proOptions={proOptions}
+            proOptions={{ hideAttribution: true }}
             nodes={[...nodes, ...textNodes]}
             nodeTypes={nodeTypes}
             edges={edges}

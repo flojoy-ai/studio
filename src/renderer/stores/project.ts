@@ -41,6 +41,7 @@ import {
   BlockDefinition,
   BlockParameterValue,
 } from "@/renderer/types/manifest";
+import { ControlData, WidgetKind } from "@/renderer/types/control";
 
 type State = {
   name: string | undefined;
@@ -50,6 +51,9 @@ type State = {
   nodes: Node<BlockData>[]; // TODO: Turn this into a record for fast lookup
   edges: Edge[];
   textNodes: Node<TextData>[];
+
+  controlNodes: Node<ControlData>[];
+  controlTextNodes: Node<TextData>[];
 };
 
 type Actions = {
@@ -75,9 +79,27 @@ type Actions = {
   ) => void;
   handleEdgeChanges: (cb: (nodes: Edge[]) => Edge[]) => void;
 
+  handleControlTextNodeChanges: (
+    cb: (nodes: Node<TextData>[]) => Node<TextData>[],
+  ) => void;
+  handleControlChanges: (
+    cb: (nodes: Node<ControlData>[]) => Node<ControlData>[],
+  ) => void;
+
+  addControl: (
+    blockId: string,
+    blockParameter: string,
+    widget: WidgetKind,
+  ) => void;
+  deleteControl: (controlNodeId: string) => void;
+
   addTextNode: (position: XYPosition) => void;
   updateTextNodeText: (id: string, text: string) => Result<void, Error>;
   deleteTextNode: (id: string) => void;
+
+  addControlTextNode: (position: XYPosition) => void;
+  updateControlTextNodeText: (id: string, text: string) => Result<void, Error>;
+  deleteControlTextNode: (id: string) => void;
 
   saveProject: () => Promise<Result<string | undefined, Error>>;
 };
@@ -102,6 +124,9 @@ export const useProjectStore = create<State & Actions>()(
     edges: initialEdges,
     textNodes: [],
 
+    controlNodes: [],
+    controlTextNodes: [],
+
     handleNodeChanges: (
       cb: (nodes: Node<BlockData>[]) => Node<BlockData>[],
     ) => {
@@ -119,6 +144,29 @@ export const useProjectStore = create<State & Actions>()(
     handleEdgeChanges: (cb: (edges: Edge[]) => Edge[]) => {
       set((state) => {
         state.edges = cb(state.edges);
+      });
+    },
+
+    handleControlTextNodeChanges: (
+      cb: (nodes: Node<TextData>[]) => Node<TextData>[],
+    ) => {
+      set((state) => {
+        state.controlTextNodes = cb(state.controlTextNodes);
+      });
+    },
+    handleControlChanges: (
+      cb: (nodes: Node<ControlData>[]) => Node<ControlData>[],
+    ) => {
+      set((state) => {
+        state.controlNodes = cb(state.controlNodes);
+      });
+    },
+
+    deleteControl: (controlNodeId: string) => {
+      set((state) => {
+        state.controlNodes = state.controlNodes.filter(
+          (n) => n.id !== controlNodeId,
+        );
       });
     },
 
@@ -218,6 +266,25 @@ export const useProjectStore = create<State & Actions>()(
       return ok(undefined);
     },
 
+    addControl: (
+      blockId: string,
+      blockParameter: string,
+      widget: WidgetKind,
+    ) => {
+      const node: Node<ControlData> = {
+        id: uuidv4(),
+        type: widget,
+        data: {
+          blockId,
+          blockParameter,
+        },
+        position: { x: 0, y: 0 },
+      };
+      set((state) => {
+        state.controlNodes.push(node);
+      });
+    },
+
     addTextNode: (pos: XYPosition) => {
       set((state) => {
         state.textNodes.push({
@@ -251,9 +318,44 @@ export const useProjectStore = create<State & Actions>()(
     },
 
     deleteTextNode: (id: string) => {
+      set({ textNodes: get().textNodes.filter((n) => n.id !== id) });
+      setHasUnsavedChanges(true);
+    },
+
+    addControlTextNode: (pos: XYPosition) => {
       set((state) => {
-        state.textNodes = state.textNodes.filter((n) => n.id !== id);
+        state.controlTextNodes.push({
+          id: `TextNode-${uuidv4()}`,
+          position: addRandomPositionOffset(pos, 30),
+          type: "TextNode",
+          data: {
+            text: "Enter text here",
+          },
+        });
       });
+
+      setHasUnsavedChanges(true);
+    },
+
+    updateControlTextNodeText: (id: string, text: string) => {
+      try {
+        set((state) => {
+          const node = state.controlTextNodes.find((n) => n.id === id);
+          if (node === undefined) {
+            throw new Error("Text node not found");
+          }
+          node.data.text = text;
+        });
+      } catch (e) {
+        return err(e as Error);
+      }
+      sendEventToMix("Text Node Updated", { id, text });
+      setHasUnsavedChanges(true);
+      return ok(undefined);
+    },
+
+    deleteControlTextNode: (id: string) => {
+      set({ textNodes: get().controlTextNodes.filter((n) => n.id !== id) });
       setHasUnsavedChanges(true);
     },
 
