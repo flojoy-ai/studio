@@ -39,7 +39,8 @@ export const backendStateAtom = atomWithImmer<MsgState>("TEST_SET_DONE");
 
 export const testSequenceUnsaved = atomWithImmer<boolean>(false);
 
-export const testSequencerProjectAtom = atomWithImmer<TestSequencerProject | null>(null);
+export const testSequencerProjectAtom =
+  atomWithImmer<TestSequencerProject | null>(null);
 
 // sync this with the definition of setElems
 export type SetElemsFn = {
@@ -170,6 +171,6 @@ export function useTestSequencerState() {
     setUnsaved,
     isUnsaved,
     project,
-    setProject
+    setProject,
   };
 }

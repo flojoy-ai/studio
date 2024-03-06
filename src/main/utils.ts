@@ -74,7 +74,10 @@ export const writeFileSync = (_, filePath: string, text: string): void => {
   fs.writeFileSync(filePath, text);
 };
 
-export const pickDirectory = async (_, allowDirectoryCreation: boolean = false): Promise<string> => {
+export const pickDirectory = async (
+  _,
+  allowDirectoryCreation: boolean = false,
+): Promise<string> => {
   const properties = ["openDirectory"];
   if (allowDirectoryCreation) {
     properties.push("createDirectory");
@@ -188,4 +191,4 @@ export const readFileSync = (_, filePath: string): Promise<string> => {
 
 export const isFileOnDisk = (_, filePath: string): Promise<boolean> => {
   return Promise.resolve(fs.existsSync(filePath));
-}
+};

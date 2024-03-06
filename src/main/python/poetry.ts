@@ -157,17 +157,21 @@ export async function poetryInstallDepUserGroup(
   return true;
 }
 
-export async function poetryInstallRequirementsUserGroup(filePath: string): Promise<boolean> {
+export async function poetryInstallRequirementsUserGroup(
+  filePath: string,
+): Promise<boolean> {
   try {
-    const content = fs.readFileSync(filePath, { encoding: "utf-8" }).toString()
-    const packages: string[] = content.split("\n").filter((line) => line !== "" && !line.startsWith("#"))
+    const content = fs.readFileSync(filePath, { encoding: "utf-8" }).toString();
+    const packages: string[] = content
+      .split("\n")
+      .filter((line) => line !== "" && !line.startsWith("#"));
     if (packages.length > 0) {
       await poetryInstallDepUserGroup(packages.join(" "));
     }
     return true;
   } catch (e) {
     console.error(e);
-    return false
+    return false;
   }
 }
 

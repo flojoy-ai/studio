@@ -174,5 +174,5 @@ export const registerIpcMainHandlers = () => {
   ipcMain.handle(API.createUserProfile, createUserProfile);
   ipcMain.handle(API.deleteUserProfile, deleteUserProfile);
   ipcMain.handle(API.getFileContent, readFileSync);
-  ipcMain.handle(API.isFileOnDisk, isFileOnDisk)
+  ipcMain.handle(API.isFileOnDisk, isFileOnDisk);
 };

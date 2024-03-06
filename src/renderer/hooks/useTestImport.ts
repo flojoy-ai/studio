@@ -13,11 +13,11 @@ function parseDiscoverContainer(
   data: TestDiscoverContainer,
   settings: ImportTestSettings,
 ) {
-  const { getPathSeparator } = window.api
+  const { getPathSeparator } = window.api;
   const sep = getPathSeparator();
   function escape(str: string) {
     if (sep === "\\") {
-      return str.replaceAll('\\', '/');
+      return str.replaceAll("\\", "/");
     }
     return str;
   }
@@ -94,10 +94,14 @@ export const useTestImport = () => {
       throw new Error("No tests found in the file");
     }
     if (project !== null) {
-      const result = await verifyElementCompatibleWithProject(project, newElems, false);
+      const result = await verifyElementCompatibleWithProject(
+        project,
+        newElems,
+        false,
+      );
       if (!result.ok) {
         toast.error(`${result.error}`);
-        return
+        return;
       }
     }
     setModalOpen(false);

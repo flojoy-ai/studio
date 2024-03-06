@@ -18,12 +18,17 @@ import {
   BOTTOM_STATUS_BAR_HEIGHT,
 } from "@/renderer/routes/common/Layout";
 import { TestSequencerProjectModal } from "./TestSequencerProjectModal";
-import { useImportProject, useSaveProject, useCloseProject } from "@/renderer/hooks/useTestSequencerProject";
+import {
+  useImportProject,
+  useSaveProject,
+  useCloseProject,
+} from "@/renderer/hooks/useTestSequencerProject";
 
 const TestSequencerView = () => {
-  const { setElems, tree, setIsLocked, backendState, project } = useTestSequencerState();
+  const { setElems, tree, setIsLocked, backendState, project } =
+    useTestSequencerState();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
-  const [ isProjectModalOpen, setIsProjectModalOpen ] = useState(false);
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
 
   const resetStatus = () => {
     setElems.withException((elems: TestSequenceElement[]) => {
@@ -54,7 +59,7 @@ const TestSequencerView = () => {
   };
   const projectImport = useImportProject();
   const saveProject = useSaveProject();
-  const closeProject = useCloseProject()
+  const closeProject = useCloseProject();
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const handleClickImportTest = () => {
     setIsImportModalOpen(true);
@@ -106,36 +111,38 @@ const TestSequencerView = () => {
                   >
                     Import Project
                   </LockableButton>
-                  { project !== null && (
-                  <LockableButton
-                    className="mt-4 w-full"
-                    variant="outline"
-                    onClick={() => {
-                        saveProject();
-                    }}
-                  >
-                    Save Project
-                  </LockableButton>
-                  )}
-                  { project !== null && (
+                  {project !== null && (
                     <LockableButton
-                    className="mt-4 w-full"
-                    variant="outline"
-                    onClick={() => {
-                      closeProject();
-                    }}
-                  >
-                    Close Project
-                  </LockableButton>
+                      className="mt-4 w-full"
+                      variant="outline"
+                      onClick={() => {
+                        saveProject();
+                      }}
+                    >
+                      Save Project
+                    </LockableButton>
                   )}
-                  { project === null && (
-                  <LockableButton
-                    className="mt-4 w-full"
-                    variant="outline"
-                    onClick={() => {setIsProjectModalOpen(true)}}
-                  >
-                    New Project
-                  </LockableButton>
+                  {project !== null && (
+                    <LockableButton
+                      className="mt-4 w-full"
+                      variant="outline"
+                      onClick={() => {
+                        closeProject();
+                      }}
+                    >
+                      Close Project
+                    </LockableButton>
+                  )}
+                  {project === null && (
+                    <LockableButton
+                      className="mt-4 w-full"
+                      variant="outline"
+                      onClick={() => {
+                        setIsProjectModalOpen(true);
+                      }}
+                    >
+                      New Project
+                    </LockableButton>
                   )}
                   <LockableButton
                     variant="dotted"

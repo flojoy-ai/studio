@@ -90,7 +90,7 @@ export type TestSequencerProject = {
   elems: TestSequenceElement[];
   projectPath: string;
   interpreter: Interpreter;
-}
+};
 
 export type TestSequenceElementNode = ConditionalNode | TestNode | TestRootNode;
 

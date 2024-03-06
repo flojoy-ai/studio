@@ -41,7 +41,8 @@ export default {
   ping: (addr: string): Promise<string> => ipcRenderer.invoke(API.ping, addr),
   netstat: (): Promise<string> => ipcRenderer.invoke(API.netstat),
   ifconfig: (): Promise<string> => ipcRenderer.invoke(API.ifconfig),
-  pickDirectory: (allowDirectoryCreation: boolean): Promise<string> => ipcRenderer.invoke(API.pickDirectory, allowDirectoryCreation),
+  pickDirectory: (allowDirectoryCreation: boolean): Promise<string> =>
+    ipcRenderer.invoke(API.pickDirectory, allowDirectoryCreation),
   downloadLogs: (): void => ipcRenderer.send(API.downloadLogs),
   checkForUpdates: (): void => ipcRenderer.send(API.checkForUpdates),
   restartCaptain: (): Promise<void> => ipcRenderer.invoke(API.restartCaptain),

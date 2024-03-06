@@ -1,4 +1,7 @@
-import { TestSequenceElement, TestSequencerProject } from "@/renderer/types/testSequencer";
+import {
+  TestSequenceElement,
+  TestSequencerProject,
+} from "@/renderer/types/testSequencer";
 import { toast } from "sonner";
 
 export const stringifyTestSet = (elems: TestSequenceElement[]): string => {
@@ -23,11 +26,11 @@ export const readJsonTestSet = (
 
 export const stringifyProject = (project: TestSequencerProject): string => {
   const projectString = JSON.stringify(project);
-  return projectString ;
-}
+  return projectString;
+};
 
 export const readJsonProject = (
-  projectString: string
+  projectString: string,
 ): TestSequencerProject | null => {
   try {
     // TODO: ZOD this
@@ -39,5 +42,4 @@ export const readJsonProject = (
     }
   }
   return null;
-}
-
+};
