@@ -370,6 +370,9 @@ export const useProjectStore = create<State & Actions>()(
             edges: get().edges,
           },
           textNodes: get().textNodes,
+
+          controlNodes: get().controlNodes,
+          controlTextNodes: get().controlTextNodes,
         },
         undefined,
         4,
@@ -435,6 +438,8 @@ export const useLoadProject = () => {
         name,
         rfInstance: { nodes, edges },
         textNodes,
+        controlNodes,
+        controlTextNodes,
       } = project;
       const [syncedNodes, syncedEdges] = syncFlowchartWithManifest(
         nodes,
@@ -447,6 +452,8 @@ export const useLoadProject = () => {
         nodes: syncedNodes,
         edges: syncedEdges,
         textNodes: textNodes ?? [],
+        controlNodes: controlNodes ?? [],
+        controlTextNodes: controlTextNodes ?? [],
         name,
         path,
       });

@@ -30,7 +30,12 @@ const formSchema = z.object({
 
 type FormSchema = z.infer<typeof formSchema>;
 
-export const NewWidgetModal = () => {
+type Props = {
+  open: boolean;
+  setOpen: (val: boolean) => void;
+};
+
+export const NewWidgetModal = ({ open, setOpen }: Props) => {
   const { addNode, blocks } = useProjectStore((state) => ({
     addNode: state.addControl,
     blocks: state.nodes,
@@ -48,6 +53,7 @@ export const NewWidgetModal = () => {
 
   const handleSubmit = (data: FormSchema) => {
     addNode(data.blockId, data.blockParameter, data.widgetType);
+    setOpen(false);
   };
 
   const selectedBlock = blocks.find((b) => b.id === form.watch("blockId"));
@@ -56,7 +62,7 @@ export const NewWidgetModal = () => {
     : undefined;
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button data-testid="app-gallery-btn" className="gap-2" variant="ghost">
           <SlidersHorizontal size={20} className="stroke-muted-foreground" />

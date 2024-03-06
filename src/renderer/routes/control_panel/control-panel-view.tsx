@@ -18,7 +18,7 @@ import { useProjectStore } from "@/renderer/stores/project";
 import { Button } from "@/renderer/components/ui/button";
 import { ClearCanvasBtn } from "@/renderer/routes/flow_chart/components/ClearCanvasBtn";
 import { Text } from "lucide-react";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { NewWidgetModal } from "./components/new-widget-modal";
 
 const nodeTypes = {
@@ -27,12 +27,13 @@ const nodeTypes = {
 };
 
 const ControlPanelView = () => {
+  const [newWidgetModalOpen, setNewWidgetModalOpen] = useState(false);
+
   const { isAdmin } = useWithPermission();
   const {
     nodes,
     textNodes,
     addTextNode,
-    addNode,
     deleteNode,
     handleControlChanges,
     handleTextNodeChanges,
@@ -80,7 +81,10 @@ const ControlPanelView = () => {
       <div className="mx-8 border-b" style={{ height: ACTIONS_HEIGHT }}>
         <div className="py-1" />
         <div className="flex">
-          <NewWidgetModal />
+          <NewWidgetModal
+            open={newWidgetModalOpen}
+            setOpen={setNewWidgetModalOpen}
+          />
           <Button
             data-testid="add-text-button"
             className="gap-2"
