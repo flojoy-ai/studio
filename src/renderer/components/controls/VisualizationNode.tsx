@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { memo, useMemo, useState } from "react";
+import { memo, useMemo } from "react";
 import { makePlotlyData } from "@/renderer/components/plotly/formatPlotlyData";
 import MarkDownText from "@/renderer/components/common/MarkDownText";
 import { useTheme } from "@/renderer/providers/ThemeProvider";
@@ -9,6 +9,7 @@ import { chartElemMap } from "@/renderer/components/nodes/VisorBlock";
 import { NodeProps } from "reactflow";
 import { VisualizationData } from "@/renderer/types/control";
 import PlotlyComponent from "@/renderer/components/plotly/PlotlyComponent";
+import { useProjectStore } from "@/renderer/stores/project";
 
 const VisualizationNode = ({
   selected,
@@ -17,6 +18,7 @@ const VisualizationNode = ({
 }: NodeProps<VisualizationData>) => {
   const { resolvedTheme } = useTheme();
   const { nodeResult } = useNodeStatus(data.blockId);
+  const nodes = useProjectStore((state) => state.controlVisualizationNodes);
 
   const plotlyFig = nodeResult?.plotly_fig;
   const textBlob = nodeResult?.text_blob;
@@ -27,11 +29,15 @@ const VisualizationNode = ({
     [plotlyFig, resolvedTheme],
   );
 
-  const [dimensions, setDimensions] = useState({ width: 225, height: 225 });
-
   const updateNodeInternals = useUpdateNodeInternals();
 
   const ChartIcon = chartElemMap[data.visualizationType];
+
+  const thisNode = nodes.find((b) => b.id === id);
+  const dimensions = {
+    width: thisNode?.width ?? 225,
+    height: thisNode?.height ?? 225,
+  };
   const iconSideLength = Math.min(dimensions.width, dimensions.height);
 
   return (
@@ -42,8 +48,7 @@ const VisualizationNode = ({
         isVisible={selected}
         lineClassName="p-1"
         handleClassName="p-1"
-        onResizeEnd={(e, params) => {
-          setDimensions({ width: params.width, height: params.height });
+        onResizeEnd={() => {
           updateNodeInternals(id);
         }}
       />
