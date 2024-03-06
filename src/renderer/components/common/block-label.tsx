@@ -1,4 +1,4 @@
-import { cn } from "@/renderer/lib/utils";
+import { cn, variantClassMap } from "@/renderer/lib/utils";
 import { TVariant } from "@/renderer/types/tailwind";
 import { textWrap } from "@/renderer/utils/text-wrap";
 
@@ -18,7 +18,7 @@ export const BlockLabel = ({
       <h2
         style={{ width: textWrap(208, 24, label) }}
         className={cn(
-          `text-${variant} m-0 text-center font-sans text-3xl font-semibold tracking-wider`,
+          `${variantClassMap[variant].text} m-0 text-center font-sans text-3xl font-semibold tracking-wider`,
           {
             [`text-${labelPosition}`]: labelPosition,
           },

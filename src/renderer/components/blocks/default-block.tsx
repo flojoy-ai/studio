@@ -7,6 +7,7 @@ import NodeInput from "@/renderer/components/common/NodeInput";
 import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
 import { BlockLabel } from "@/renderer/components/common/block-label";
 import { TVariant } from "@/renderer/types/tailwind";
+import { variantClassMap } from "@/renderer/lib/utils";
 
 type DefaultBlockProps = BlockProps & {
   width?: CSSProperties["width"];
@@ -40,9 +41,10 @@ const DefaultBlock = ({
     <NodeWrapper nodeError={nodeError} data={data} selected={selected}>
       <div
         className={clsx(
-          `border-${variant} relative flex min-h-[96px] items-center justify-center rounded-lg border-2 border-solid p-2`,
+          `border-${variantClassMap[variant].border} relative flex min-h-[96px] items-center justify-center rounded-lg border-2 border-solid p-2`,
           {
-            [`shadow-around shadow-${variant}`]: nodeRunning || selected,
+            [`shadow-around ${variantClassMap[variant].shadow}`]:
+              nodeRunning || selected,
           },
           { "shadow-around shadow-red-700": nodeError },
           className,
