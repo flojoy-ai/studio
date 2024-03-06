@@ -12,6 +12,9 @@ type Variant =
   | "accent4"
   | "accent5"
   | "accent6";
+
+// FIXME: Deleting this function causes `fill-accent` class not to work
+// To reproduce it, remove this function completely and restart the server.
 export const getVariantClass = (variant: Variant) => {
   switch (variant) {
     case "accent1":

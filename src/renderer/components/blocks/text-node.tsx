@@ -33,7 +33,7 @@ const LinkRenderer = (props: AnchorHTMLAttributes<HTMLAnchorElement>) => {
   );
 };
 
-const TextBlock = ({ selected, data, id }: NodeProps<TextData>) => {
+const TextNode = ({ selected, data, id }: NodeProps<TextData>) => {
   const { deleteTextNode, updateTextNodeText } = useProjectStore(
     useShallow((state) => ({
       deleteTextNode: state.deleteTextNode,
@@ -155,4 +155,4 @@ const TextBlock = ({ selected, data, id }: NodeProps<TextData>) => {
   );
 };
 
-export default memo(TextBlock);
+export default memo(TextNode);

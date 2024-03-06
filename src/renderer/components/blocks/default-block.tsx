@@ -6,7 +6,6 @@ import HandleComponent from "@/renderer/components/common/HandleComponent";
 import NodeInput from "@/renderer/components/common/NodeInput";
 import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
 import { BlockLabel } from "@/renderer/components/common/block-label";
-import { getVariantClass } from "@/renderer/lib/utils";
 import { TVariant } from "@/renderer/types/tailwind";
 
 type DefaultBlockProps = BlockProps & {
@@ -43,8 +42,7 @@ const DefaultBlock = ({
         className={clsx(
           `border-${variant} relative flex min-h-[96px] items-center justify-center rounded-lg border-2 border-solid p-2`,
           {
-            [`shadow-around ${getVariantClass(variant).shadow}`]:
-              nodeRunning || selected,
+            [`shadow-around shadow-${variant}`]: nodeRunning || selected,
           },
           { "shadow-around shadow-red-700": nodeError },
           className,

@@ -8,7 +8,7 @@ import HardwareBlock, { HardwareCategory } from "./hardware-block";
 import CtrlFlowBlock, { CtrlFlowCategory } from "./ctrl-flow-block";
 import NumpyBlock, { NumpyCategory } from "./numpy-block";
 import ScipyBlock, { ScipyCategory } from "./scipy-block";
-import TextBlock from "./text-block";
+import TextNode from "./text-node";
 import VisorBlock from "./visor-block";
 import { ComponentType } from "react";
 import ETLBlock, { ETLCategory } from "./etl-block";
@@ -87,7 +87,7 @@ const blockTypesMap: BlockTypesMap = {
   /**
    * Text section
    */
-  TextNode: TextBlock,
+  TextNode: TextNode,
   /**
    * Debugging section
    */

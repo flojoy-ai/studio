@@ -1,4 +1,4 @@
-import { cn, getVariantClass } from "@/renderer/lib/utils";
+import { cn } from "@/renderer/lib/utils";
 import { TVariant } from "@/renderer/types/tailwind";
 import { textWrap } from "@/renderer/utils/text-wrap";
 
@@ -17,11 +17,8 @@ export const BlockLabel = ({
     <div className="flex w-full items-center justify-center p-1">
       <h2
         style={{ width: textWrap(208, 24, label) }}
-        // FIXME: `text-${variant}` doesn't work for accent6
-        // To test replace `${getVariantClass(variant).text}` with `text-${variant}`
-        // And add an AI block to flowchart
         className={cn(
-          `${getVariantClass(variant).text} m-0 text-center font-sans text-3xl font-semibold tracking-wider`,
+          `text-${variant} m-0 text-center font-sans text-3xl font-semibold tracking-wider`,
           {
             [`text-${labelPosition}`]: labelPosition,
           },
