@@ -10,6 +10,7 @@ const AIBlock = (props: BlockProps) => {
     props.type.toLowerCase().replaceAll("_", "-"),
     props.data.func,
   );
+
   return (
     <DefaultBlock {...props} variant="accent6">
       {SvgIcon && <SvgIcon />}
