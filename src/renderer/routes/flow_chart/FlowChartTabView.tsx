@@ -20,7 +20,6 @@ import {
 } from "reactflow";
 import Sidebar from "@/renderer/routes/common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
-import { useFlowChartTabState } from "./FlowChartTabState";
 import { BlockExpandMenu } from "./views/BlockExpandMenu";
 import {
   MixPanelEvents,
@@ -128,14 +127,9 @@ const FlowChartTab = () => {
 
   const { blockResults, wipeBlockResults } = useSocket();
 
-  const {
-    pythonString,
-    setPythonString,
-    nodeFilePath,
-    setNodeFilePath,
-    blockFullPath,
-    setBlockFullPath,
-  } = useFlowChartTabState();
+  const [pythonString, setPythonString] = useState("...");
+  const [nodeFilePath, setNodeFilePath] = useState("...");
+  const [blockFullPath, setBlockFullPath] = useState("");
 
   const {
     nodes,
