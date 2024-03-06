@@ -6,7 +6,7 @@ import { useBlockIcon } from "@/renderer/hooks/useBlockIcon";
 export type DataCategory = "DATA" | "VISUALIZATION";
 
 const DataNode = (props: BlockProps) => {
-  const { SvgIcon } = useBlockIcon("data", props.data.func);
+  const { SvgIcon } = useBlockIcon(props.type.toLowerCase(), props.data.func);
 
   return (
     <DefaultBlock {...props} variant="accent2">

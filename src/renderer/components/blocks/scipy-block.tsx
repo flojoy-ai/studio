@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { BlockProps } from "@/renderer/types/block";
 import DefaultBlock from "./default-block";
-import ScipySvg from "@/renderer/assets/blocks/scipy-svg";
+import ScipySvg from "@/renderer/assets/blocks/scipy/default.svg?react";
 
 export type ScipyCategory = "SCIPY";
 

@@ -1,8 +1,8 @@
 import { memo } from "react";
 import { BlockProps } from "@/renderer/types/block";
 import DefaultBlock from "./default-block";
-import appendSvg from "@/renderer/assets/blocks/append-svg";
-import { BlockLabel } from "../common/block-label";
+import AppendSvg from "@/renderer/assets/blocks/APPEND.svg?react";
+import { BlockLabel } from "@/renderer/components/common/block-label";
 import TransformSvg from "@/renderer/assets/blocks/triangle-svg";
 
 export type CtrlFlowCategory = "CONTROL_FLOW" | "CONDITIONALS";
@@ -14,7 +14,7 @@ const CtrlFlowBlock = (props: BlockProps) => {
   return (
     <DefaultBlock {...props} variant="accent3">
       {props.data.func === "APPEND" ? (
-        appendSvg
+        <AppendSvg />
       ) : (
         <BlockLabel label={props.data.func} variant="accent3" />
       )}

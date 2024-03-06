@@ -6,11 +6,12 @@ import MarkDownText from "@/renderer/components/common/MarkDownText";
 import { useTheme } from "@/renderer/providers/themeProvider";
 import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
 import { NodeResizer, useUpdateNodeInternals } from "reactflow";
-import VisorSvg from "@/renderer/assets/blocks/visual/visor-svg";
 import DefaultBlock from "./default-block";
+import { useBlockIcon } from "@/renderer/hooks/useBlockIcon";
 
 const VisorBlock = (props: BlockProps) => {
   const { selected, id, data } = props;
+  const { SvgIcon } = useBlockIcon(props.type.toLowerCase(), props.data.func);
   const { resolvedTheme } = useTheme();
   const { nodeResult } = useNodeStatus(data.id);
 
@@ -53,9 +54,9 @@ const VisorBlock = (props: BlockProps) => {
             />
           )}
           {textBlob && <MarkDownText text={textBlob} isThumbnail />}
-          {!plotlyData && !textBlob && (
+          {!plotlyData && !textBlob && SvgIcon && (
             <div className="p-3">
-              <VisorSvg blockName={data.func} />
+              <SvgIcon />
             </div>
           )}
         </>

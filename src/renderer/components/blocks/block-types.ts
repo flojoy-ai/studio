@@ -1,7 +1,7 @@
 import AIBlock, { AICategory } from "./ai-block";
 import MathBlock, { MathCategory } from "./math-block";
 import DSPBlock, { DSPCategory } from "./dsp-block";
-import DataNode, { DataCategory } from "./data-block";
+import DataBlock, { DataCategory } from "./data-block";
 import DebuggingBlock, { DebuggingCategory } from "./debugging-block";
 import DefaultBlock from "./default-block";
 import HardwareBlock, { HardwareCategory } from "./hardware-block";
@@ -41,7 +41,7 @@ const blockTypesMap: BlockTypesMap = {
   /**
    * Data section
    */
-  DATA: DataNode,
+  DATA: DataBlock,
   VISUALIZATION: VisorBlock,
   /**
    * Math section

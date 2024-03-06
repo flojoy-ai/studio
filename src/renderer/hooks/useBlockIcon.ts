@@ -14,8 +14,15 @@ export const useBlockIcon = (category: string, name: string) => {
         );
         importedIconRef.current = res.default;
       } catch (err) {
+        try {
+          const res = await import(
+            `../assets/blocks/${category}/default.svg?react`
+          );
+          importedIconRef.current = res.default;
+        } catch {
+          //
+        }
         setError(err);
-        console.error(err);
       } finally {
         setLoading(false);
       }

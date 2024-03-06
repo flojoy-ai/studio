@@ -1,14 +1,18 @@
 import { memo } from "react";
 import { BlockProps } from "@/renderer/types/block";
-import AIBlockSvg from "@/renderer/assets/blocks/ai-svg";
 import DefaultBlock from "./default-block";
+import { useBlockIcon } from "@/renderer/hooks/useBlockIcon";
 
 export type AICategory = "AI_ML";
 
 const AIBlock = (props: BlockProps) => {
+  const { SvgIcon } = useBlockIcon(
+    props.type.toLowerCase().replaceAll("_", "-"),
+    props.data.func,
+  );
   return (
     <DefaultBlock {...props} variant="accent6">
-      <AIBlockSvg blockName={props.data.func} />
+      {SvgIcon && <SvgIcon />}
     </DefaultBlock>
   );
 };

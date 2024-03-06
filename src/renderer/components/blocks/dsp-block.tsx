@@ -1,14 +1,15 @@
 import { memo } from "react";
 import { BlockProps } from "@/renderer/types/block";
-import DspBlockSvg from "@/renderer/assets/blocks/dsp-svg";
 import DefaultBlock from "./default-block";
+import { useBlockIcon } from "@/renderer/hooks/useBlockIcon";
 
 export type DSPCategory = "DSP";
 
 const DSPBlock = (props: BlockProps) => {
+  const { SvgIcon } = useBlockIcon(props.type.toLowerCase(), props.data.func);
   return (
     <DefaultBlock {...props} variant="accent2">
-      <DspBlockSvg blockName={props.data.func} />
+      {SvgIcon && <SvgIcon />}
     </DefaultBlock>
   );
 };

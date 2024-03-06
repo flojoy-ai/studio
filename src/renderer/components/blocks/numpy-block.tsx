@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { BlockProps } from "@/renderer/types/block";
 import DefaultBlock from "./default-block";
-import NumpySvg from "@/renderer/assets/blocks/numpy-svg";
+import NumpySvg from "@/renderer/assets/blocks/numpy/default.svg?react";
 
 export type NumpyCategory = "NUMPY";
 

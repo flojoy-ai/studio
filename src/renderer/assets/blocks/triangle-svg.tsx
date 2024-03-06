@@ -41,8 +41,8 @@ const TransformSvg = ({ operatorString, variant }: TransformSvgProps) => {
           `fill-${variant}`,
         )}
         transform="translate(43.85 90.5)"
-        text-anchor="middle"
-        dominant-baseline="middle"
+        textAnchor="middle"
+        dominantBaseline="middle"
       >
         <tspan x="0" y="0" dx="-20%">
           {operatorString}
