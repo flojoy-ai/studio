@@ -4,7 +4,7 @@ import { BlockProps } from "@/renderer/types/block";
 import NodeWrapper from "@/renderer/components/common/NodeWrapper";
 import HandleComponent from "@/renderer/components/common/HandleComponent";
 import NodeInput from "@/renderer/components/common/NodeInput";
-import { useBlockStatus } from "@/renderer/hooks/useNodeStatus";
+import { useBlockStatus } from "@/renderer/hooks/useBlockStatus";
 import { BlockLabel } from "@/renderer/components/common/block-label";
 import { TVariant } from "@/renderer/types/tailwind";
 import { variantClassMap } from "@/renderer/lib/utils";

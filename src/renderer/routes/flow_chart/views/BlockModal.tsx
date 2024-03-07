@@ -20,7 +20,7 @@ import { useTheme } from "@/renderer/providers/them-provider";
 import { Button } from "@/renderer/components/ui/button";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { env } from "@/env";
-import { useBlockStatus } from "@/renderer/hooks/useNodeStatus";
+import { useBlockStatus } from "@/renderer/hooks/useBlockStatus";
 
 const jsonTheme = {
   scheme: "flojoy",

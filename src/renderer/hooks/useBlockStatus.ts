@@ -4,19 +4,13 @@ import { useEffect, useRef } from "react";
 
 export const useBlockStatus = (nodeId: string) => {
   const runningBlock = useRef(useSocketStore.getState().runningBlock);
-  useEffect(
-    () =>
-      useSocketStore.subscribe(
-        (state) => (runningBlock.current = state.runningBlock),
-      ),
-    [],
-  );
   const failedBlocks = useRef(useSocketStore.getState().failedBlocks);
   useEffect(
     () =>
-      useSocketStore.subscribe(
-        (state) => (failedBlocks.current = state.failedBlocks),
-      ),
+      useSocketStore.subscribe((state) => {
+        runningBlock.current = state.runningBlock;
+        failedBlocks.current = state.failedBlocks;
+      }),
     [],
   );
 
