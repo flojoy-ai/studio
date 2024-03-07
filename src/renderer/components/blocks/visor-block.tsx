@@ -15,13 +15,6 @@ const VisorBlock = (props: BlockProps) => {
   const { SvgIcon } = useBlockIcon(props.type.toLowerCase(), props.data.func);
   const { resolvedTheme } = useTheme();
   const { blockResult } = useBlockStatus(data.id);
-  // const blockResults = useRef(useSocketStore.getState().blockResults);
-  // useEffect(() => {
-  //   useSocketStore.subscribe((state) => {
-  //     blockResults.current = state.blockResults;
-  //   });
-  // }, []);
-  // const blockResult = blockResults.current[data.id];
 
   const plotlyFig = blockResult?.plotly_fig;
   const textBlob = blockResult?.text_blob;
