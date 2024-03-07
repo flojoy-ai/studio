@@ -23,6 +23,7 @@ import VisualizationNode from "@/renderer/components/controls/VisualizationNode"
 import { NewVisualizationModal } from "./components/new-visualization";
 import { WidgetConfig, WidgetData } from "@/renderer/types/control";
 import { ConfigDialog } from "./components/config-dialog";
+import { useShallow } from "zustand/react/shallow";
 
 const nodeTypes = {
   slider: SliderNode,
@@ -58,16 +59,19 @@ const ControlPanelView = () => {
     addControl,
     deleteNode,
     handleControlChanges,
-  } = useProjectStore((state) => ({
-    widgetNodes: state.controlWidgetNodes,
-    visualizationNodes: state.controlVisualizationNodes,
-    textNodes: state.controlTextNodes,
-    addTextNode: state.addControlTextNode,
-    addControl: state.addControlWidget,
-    addNode: state.addControlWidget,
-    deleteNode: state.deleteControlWidget,
-    handleControlChanges: state.handleControlChanges,
-  }));
+  } = useProjectStore(
+    useShallow((state) => ({
+      widgetNodes: state.controlWidgetNodes,
+      visualizationNodes: state.controlVisualizationNodes,
+      textNodes: state.controlTextNodes,
+      addTextNode: state.addControlTextNode,
+      addControl: state.addControlWidget,
+      addNode: state.addControlWidget,
+      deleteNode: state.deleteControlWidget,
+      handleControlChanges: state.handleControlChanges,
+    })),
+  );
+  console.log(textNodes);
 
   const deleteKeyCodes = ["Delete", "Backspace"];
 
@@ -154,14 +158,12 @@ const ControlPanelView = () => {
         }}
         className="relative overflow-hidden bg-background"
         data-testid="react-flow"
-        id="flow-chart-area"
       >
         <ReactFlow
-          id="flow-chart"
           className="!absolute"
           deleteKeyCode={isAdmin() ? deleteKeyCodes : null}
           proOptions={{ hideAttribution: true }}
-          nodes={[...widgetNodes, ...visualizationNodes, ...textNodes]}
+          nodes={[...textNodes, ...widgetNodes, ...visualizationNodes]}
           nodeTypes={nodeTypes}
           onNodesChange={onNodesChange}
           nodesDraggable={isAdmin()}

@@ -308,6 +308,30 @@ export const useProjectStore = create<State & Actions>()(
       setHasUnsavedChanges(true);
     },
 
+    updateControlTextNodeText: (id: string, text: string) => {
+      try {
+        set((state) => {
+          const node = state.controlTextNodes.find((n) => n.id === id);
+          if (node === undefined) {
+            throw new Error("Text node not found");
+          }
+          node.data.text = text;
+        });
+      } catch (e) {
+        return err(e as Error);
+      }
+      sendEventToMix("Text Node Updated", { id, text });
+      setHasUnsavedChanges(true);
+      return ok(undefined);
+    },
+
+    deleteControlTextNode: (id: string) => {
+      set({
+        controlTextNodes: get().controlTextNodes.filter((n) => n.id !== id),
+      });
+      setHasUnsavedChanges(true);
+    },
+
     addControlWidget: (
       blockId: string,
       blockParameter: string,
@@ -359,30 +383,6 @@ export const useProjectStore = create<State & Actions>()(
       });
 
       return ok(undefined);
-    },
-
-    updateControlTextNodeText: (id: string, text: string) => {
-      try {
-        set((state) => {
-          const node = state.controlTextNodes.find((n) => n.id === id);
-          if (node === undefined) {
-            throw new Error("Text node not found");
-          }
-          node.data.text = text;
-        });
-      } catch (e) {
-        return err(e as Error);
-      }
-      sendEventToMix("Text Node Updated", { id, text });
-      setHasUnsavedChanges(true);
-      return ok(undefined);
-    },
-
-    deleteControlTextNode: (id: string) => {
-      set({
-        controlTextNodes: get().controlTextNodes.filter((n) => n.id !== id),
-      });
-      setHasUnsavedChanges(true);
     },
 
     saveProject: async () => {
