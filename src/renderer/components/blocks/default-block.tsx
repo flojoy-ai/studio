@@ -41,7 +41,7 @@ const DefaultBlock = ({
     <NodeWrapper nodeError={nodeError} data={data} selected={selected}>
       <div
         className={clsx(
-          `border-${variantClassMap[variant].border} relative flex min-h-[96px] items-center justify-center rounded-lg border-2 border-solid p-2`,
+          `${variantClassMap[variant].border} relative flex min-h-[96px] items-center justify-center rounded-lg border-2 border-solid p-2`,
           {
             [`shadow-around ${variantClassMap[variant].shadow}`]:
               nodeRunning || selected,
