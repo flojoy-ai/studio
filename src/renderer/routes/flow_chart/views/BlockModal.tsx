@@ -16,7 +16,7 @@ import {
 import { BlockResult } from "@/renderer/types/block-result";
 import { BlockData } from "@/renderer/types/block";
 import { ScrollArea, ScrollBar } from "@/renderer/components/ui/scroll-area";
-import { useTheme } from "@/renderer/providers/ThemeProvider";
+import { useTheme } from "@/renderer/providers/theme-provider";
 import { Button } from "@/renderer/components/ui/button";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { env } from "@/env";

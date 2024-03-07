@@ -2,8 +2,8 @@
   "rfInstance": {
     "nodes": [
       {
-        "width": 208,
-        "height": 96,
+        "width": 216,
+        "height": 197,
         "id": "CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1d",
         "type": "DATA",
         "data": {
@@ -73,8 +73,8 @@
         "dragging": true
       },
       {
-        "width": 208,
-        "height": 96,
+        "width": 216,
+        "height": 197,
         "id": "RAND-17189505-635e-428c-8a2a-9620ce0ac25e",
         "type": "DATA",
         "data": {
@@ -184,8 +184,8 @@
         "dragging": true
       },
       {
-        "width": 208,
-        "height": 96,
+        "width": 216,
+        "height": 197,
         "id": "SINE-e3058354-d58c-49ac-9590-97f739e56270",
         "type": "DATA",
         "data": {
@@ -273,8 +273,8 @@
         "dragging": true
       },
       {
-        "width": 208,
-        "height": 96,
+        "width": 216,
+        "height": 197,
         "id": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c",
         "type": "DATA",
         "data": {
@@ -343,57 +343,8 @@
         "dragging": true
       },
       {
-        "width": 72,
-        "height": 72,
-        "id": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
-        "type": "ARITHMETIC",
-        "data": {
-          "id": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
-          "label": "ADD",
-          "func": "ADD",
-          "type": "ARITHMETIC",
-          "ctrls": {},
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "a",
-              "id": "a",
-              "type": "OrderedPair|Scalar|Vector",
-              "multiple": false,
-              "desc": "The input a use to compute the sum of a and b."
-            },
-            {
-              "name": "b",
-              "id": "b",
-              "type": "OrderedPair|Scalar|Vector",
-              "multiple": true,
-              "desc": "The input b use to compute the sum of a and b."
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair|Scalar|Vector",
-              "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the sum of input a and input b.\n\nScalar if a is a Scalar.\nc: the sum of input a and input b.\n\nVector if a is a Vector.\nv: the sum of input a and input b."
-            }
-          ],
-          "path": "MATH/ARITHMETIC/ADD/ADD.py"
-        },
-        "position": {
-          "x": 455.81410014711645,
-          "y": -65.80836687150429
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 455.81410014711645,
-          "y": -65.80836687150429
-        },
-        "dragging": true
-      },
-      {
-        "width": 380,
-        "height": 293,
+        "width": 225,
+        "height": 269,
         "id": "HISTOGRAM-149d70e3-3b62-411e-b5af-cd6793361245",
         "type": "VISUALIZATION",
         "data": {
@@ -434,8 +385,8 @@
         "dragging": true
       },
       {
-        "width": 380,
-        "height": 293,
+        "width": 225,
+        "height": 269,
         "id": "SCATTER-1d9a92a3-7920-4c42-999d-d13af5481b20",
         "type": "VISUALIZATION",
         "data": {
@@ -465,32 +416,67 @@
           "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
         },
         "position": {
-          "x": 682.0263689660662,
+          "x": 697.5768694957547,
           "y": 48.99663152269517
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 682.0263689660662,
+          "x": 697.5768694957547,
           "y": 48.99663152269517
+        },
+        "dragging": true
+      },
+      {
+        "id": "ADD-42927031-8277-48c1-8bb1-c7dc86bad650",
+        "type": "MATH",
+        "data": {
+          "id": "ADD-42927031-8277-48c1-8bb1-c7dc86bad650",
+          "label": "ADD",
+          "func": "ADD",
+          "type": "MATH",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "a",
+              "id": "a",
+              "type": "OrderedPair|Scalar|Vector",
+              "multiple": false,
+              "desc": "The input a use to compute the sum of a and b."
+            },
+            {
+              "name": "b",
+              "id": "b",
+              "type": "OrderedPair|Scalar|Vector",
+              "multiple": true,
+              "desc": "The input b use to compute the sum of a and b."
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|Scalar|Vector",
+              "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the sum of input a and input b.\n\nScalar if a is a Scalar.\nc: the sum of input a and input b.\n\nVector if a is a Vector.\nv: the sum of input a and input b."
+            }
+          ],
+          "path": "MATH/ARITHMETIC/ADD/ADD.py"
+        },
+        "position": {
+          "x": 421.96078943050344,
+          "y": -62.857591598077704
+        },
+        "width": 216,
+        "height": 164,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 421.96078943050344,
+          "y": -62.857591598077704
         },
         "dragging": true
       }
     ],
     "edges": [
-      {
-        "source": "RAND-17189505-635e-428c-8a2a-9620ce0ac25e",
-        "sourceHandle": "default",
-        "target": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
-        "targetHandle": "b",
-        "id": "reactflow__edge-RAND-17189505-635e-428c-8a2a-9620ce0ac25edefault-ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676b"
-      },
-      {
-        "source": "CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1d",
-        "sourceHandle": "default",
-        "target": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
-        "targetHandle": "b",
-        "id": "reactflow__edge-CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1ddefault-ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676b"
-      },
       {
         "source": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c",
         "sourceHandle": "default",
@@ -515,29 +501,43 @@
       {
         "source": "SINE-e3058354-d58c-49ac-9590-97f739e56270",
         "sourceHandle": "default",
-        "target": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
+        "target": "ADD-42927031-8277-48c1-8bb1-c7dc86bad650",
         "targetHandle": "a",
-        "id": "reactflow__edge-SINE-e3058354-d58c-49ac-9590-97f739e56270default-ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676a"
+        "id": "reactflow__edge-SINE-e3058354-d58c-49ac-9590-97f739e56270default-ADD-42927031-8277-48c1-8bb1-c7dc86bad650a"
       },
       {
-        "source": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
+        "source": "CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1d",
+        "sourceHandle": "default",
+        "target": "ADD-42927031-8277-48c1-8bb1-c7dc86bad650",
+        "targetHandle": "b",
+        "id": "reactflow__edge-CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1ddefault-ADD-42927031-8277-48c1-8bb1-c7dc86bad650b"
+      },
+      {
+        "source": "RAND-17189505-635e-428c-8a2a-9620ce0ac25e",
+        "sourceHandle": "default",
+        "target": "ADD-42927031-8277-48c1-8bb1-c7dc86bad650",
+        "targetHandle": "b",
+        "id": "reactflow__edge-RAND-17189505-635e-428c-8a2a-9620ce0ac25edefault-ADD-42927031-8277-48c1-8bb1-c7dc86bad650b"
+      },
+      {
+        "source": "ADD-42927031-8277-48c1-8bb1-c7dc86bad650",
         "sourceHandle": "default",
         "target": "HISTOGRAM-149d70e3-3b62-411e-b5af-cd6793361245",
         "targetHandle": "default",
-        "id": "reactflow__edge-ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676default-HISTOGRAM-149d70e3-3b62-411e-b5af-cd6793361245default"
+        "id": "reactflow__edge-ADD-42927031-8277-48c1-8bb1-c7dc86bad650default-HISTOGRAM-149d70e3-3b62-411e-b5af-cd6793361245default"
       },
       {
-        "source": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
+        "source": "ADD-42927031-8277-48c1-8bb1-c7dc86bad650",
         "sourceHandle": "default",
         "target": "SCATTER-1d9a92a3-7920-4c42-999d-d13af5481b20",
         "targetHandle": "default",
-        "id": "reactflow__edge-ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676default-SCATTER-1d9a92a3-7920-4c42-999d-d13af5481b20default"
+        "id": "reactflow__edge-ADD-42927031-8277-48c1-8bb1-c7dc86bad650default-SCATTER-1d9a92a3-7920-4c42-999d-d13af5481b20default"
       }
     ],
     "viewport": {
-      "x": 879.7412306197049,
-      "y": 377.2887220314456,
-      "zoom": 0.749526431738412
+      "x": 680.5981200493009,
+      "y": 400.0546012781953,
+      "zoom": 0.6430661174480109
     }
   },
   "textNodes": []

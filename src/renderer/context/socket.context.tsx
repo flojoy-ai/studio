@@ -157,20 +157,7 @@ export const SocketContextProvider = ({
       setServerStatus(ServerStatus.OFFLINE);
     };
     setSocket(ws);
-  }, [
-    hardwareRefetch,
-    setManifestChanged,
-    importCustomBlocks,
-    fetchDriverDevices,
-    fetchDMMDevices,
-    doFetch,
-    doImport,
-    socket,
-    setSocketId,
-    processWorkerResponse,
-    setServerStatus,
-    doHardwareFetch,
-  ]);
+  }, [socket]);
 
   const values: SocketState = useMemo(
     () => ({

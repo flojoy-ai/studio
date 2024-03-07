@@ -10,8 +10,8 @@ import ReactFlow, {
   ReactFlowProvider,
   applyNodeChanges,
 } from "reactflow";
-import { SliderNode } from "@/renderer/components/controls/SliderNode";
-import ControlTextNode from "@/renderer/components/controls/ControlTextNode";
+import { SliderNode } from "@/renderer/components/controls/slider-node";
+import ControlTextNode from "@/renderer/components/controls/control-text-node";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useProjectStore } from "@/renderer/stores/project";
 import { Button } from "@/renderer/components/ui/button";
@@ -19,7 +19,7 @@ import { ClearCanvasBtn } from "@/renderer/routes/flow_chart/components/ClearCan
 import { Text } from "lucide-react";
 import { useCallback, useRef, useState } from "react";
 import { NewWidgetModal } from "./components/new-widget-modal";
-import VisualizationNode from "@/renderer/components/controls/VisualizationNode";
+import VisualizationNode from "@/renderer/components/controls/visualization-node";
 import { NewVisualizationModal } from "./components/new-visualization";
 import { WidgetConfig, WidgetData } from "@/renderer/types/control";
 import { ConfigDialog } from "./components/config-dialog";

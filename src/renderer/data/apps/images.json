@@ -3,118 +3,32 @@
   "rfInstance": {
     "nodes": [
       {
-        "width": 380,
-        "height": 293,
-        "id": "IMAGE-7aacbaca-2652-4c99-babe-5779ba0ce181",
-        "type": "VISUALIZERS",
+        "id": "LOCAL_FILE-50f4fdde-5b6a-4024-b395-ceddba286d08",
+        "type": "LOAD",
         "data": {
-          "id": "IMAGE-7aacbaca-2652-4c99-babe-5779ba0ce181",
-          "label": "IMAGE",
-          "func": "IMAGE",
-          "type": "VISUALIZERS",
-          "ctrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Image|Grayscale",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Plotly",
-              "desc": "the DataContainer containing the Plotly Image visualization of the input image"
-            }
-          ],
-          "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py",
-          "selected": false
-        },
-        "position": {
-          "x": 1045.9840067988252,
-          "y": 152.56873926010599
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 1045.9840067988252,
-          "y": 152.56873926010599
-        },
-        "dragging": true
-      },
-      {
-        "width": 380,
-        "height": 293,
-        "id": "IMAGE-0b7bb803-8dba-43eb-a9bf-4073b3fda94c",
-        "type": "VISUALIZERS",
-        "data": {
-          "id": "IMAGE-0b7bb803-8dba-43eb-a9bf-4073b3fda94c",
-          "label": "IMAGE 1",
-          "func": "IMAGE",
-          "type": "VISUALIZERS",
-          "ctrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Image|Grayscale",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Plotly",
-              "desc": "the DataContainer containing the Plotly Image visualization of the input image"
-            }
-          ],
-          "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py",
-          "selected": false
-        },
-        "position": {
-          "x": 662.8988425018024,
-          "y": 513.5775685841171
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 662.8988425018024,
-          "y": 513.5775685841171
-        },
-        "dragging": true
-      },
-      {
-        "width": 160,
-        "height": 160,
-        "id": "LOCAL_FILE-7e9953b7-3ab4-425f-80aa-2178c3508aac",
-        "type": "LOADERS",
-        "data": {
-          "id": "LOCAL_FILE-7e9953b7-3ab4-425f-80aa-2178c3508aac",
+          "id": "LOCAL_FILE-50f4fdde-5b6a-4024-b395-ceddba286d08",
           "label": "LOCAL FILE",
           "func": "LOCAL_FILE",
-          "type": "LOADERS",
+          "type": "LOAD",
           "ctrls": {
             "file_path": {
               "type": "str",
               "default": null,
               "desc": "The path to the file to be loaded. This can be either an absolute path or\na path relative to the \"nodes\" directory.",
+              "overload": null,
               "functionName": "LOCAL_FILE",
               "param": "file_path",
-              "value": "",
-              "overload": null
+              "value": ""
             },
             "file_type": {
               "type": "select",
-              "default": "Image",
               "options": ["Image", "Grayscale", "JSON", "CSV"],
+              "default": "Image",
               "desc": "Type of file to load, default = image.\nIf both 'file_path' and 'default' are not specified when 'file_type=\"Image\"',\na default image will be loaded.\nIf the file path is not specified and the default input is not connected,\na ValueError is raised.",
+              "overload": null,
               "functionName": "LOCAL_FILE",
               "param": "file_type",
-              "value": "Image",
-              "overload": null
+              "value": "Image"
             }
           },
           "initCtrls": {},
@@ -137,43 +51,30 @@
           ],
           "pip_dependencies": [
             {
-              "name": "xlrd",
-              "v": "2.0.1"
-            },
-            {
-              "name": "lxml",
-              "v": "4.9.2"
-            },
-            {
-              "name": "openpyxl",
-              "v": "3.0.10"
-            },
-            {
               "name": "scikit-image",
               "v": "0.21.0"
             }
           ],
-          "path": "ETL/LOAD/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py",
-          "selected": false
+          "path": "ETL/LOAD/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py"
         },
         "position": {
-          "x": 343.70355652854136,
-          "y": 302.735725612874
+          "x": 202.580869200591,
+          "y": 244.2476023364249
         },
+        "width": 216,
+        "height": 188,
         "selected": false,
         "positionAbsolute": {
-          "x": 343.70355652854136,
-          "y": 302.735725612874
+          "x": 202.580869200591,
+          "y": 244.2476023364249
         },
         "dragging": true
       },
       {
-        "width": 150,
-        "height": 180,
-        "id": "IMAGE_SMOOTHING-6d4d6f9d-941e-4cbd-9c45-0e8a8c5f7559",
+        "id": "IMAGE_SMOOTHING-6bf42c87-c6df-409c-8b3b-8bf051d28b48",
         "type": "COMPUTER_VISION",
         "data": {
-          "id": "IMAGE_SMOOTHING-6d4d6f9d-941e-4cbd-9c45-0e8a8c5f7559",
+          "id": "IMAGE_SMOOTHING-6bf42c87-c6df-409c-8b3b-8bf051d28b48",
           "label": "IMAGE SMOOTHING",
           "func": "IMAGE_SMOOTHING",
           "type": "COMPUTER_VISION",
@@ -225,38 +126,124 @@
           "path": "COMPUTER_VISION/IMAGE_SMOOTHING/IMAGE_SMOOTHING.py"
         },
         "position": {
-          "x": 716.1329930780284,
-          "y": 184.36374527852246
+          "x": 658.3935685860318,
+          "y": 75.62108082076935
         },
+        "width": 150,
+        "height": 120,
         "selected": false,
         "positionAbsolute": {
-          "x": 716.1329930780284,
-          "y": 184.36374527852246
+          "x": 658.3935685860318,
+          "y": 75.62108082076935
+        },
+        "dragging": true
+      },
+      {
+        "id": "IMAGE-468b41e8-bb24-4ba0-bbe1-b1bba5f1acff",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "IMAGE-468b41e8-bb24-4ba0-bbe1-b1bba5f1acff",
+          "label": "IMAGE",
+          "func": "IMAGE",
+          "type": "VISUALIZATION",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image|Grayscale",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Image visualization of the input image"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
+        },
+        "position": {
+          "x": 1069.176211915688,
+          "y": 11.441605295775673
+        },
+        "width": 225,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1069.176211915688,
+          "y": 11.441605295775673
+        },
+        "dragging": true
+      },
+      {
+        "id": "IMAGE-29bef08f-0e5f-4a65-a40d-ac310e24b774",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "IMAGE-29bef08f-0e5f-4a65-a40d-ac310e24b774",
+          "label": "IMAGE 1",
+          "func": "IMAGE",
+          "type": "VISUALIZATION",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image|Grayscale",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Image visualization of the input image"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
+        },
+        "position": {
+          "x": 680.7760243971132,
+          "y": 413.0667376627162
+        },
+        "width": 225,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 680.7760243971132,
+          "y": 413.0667376627162
         },
         "dragging": true
       }
     ],
     "edges": [
       {
-        "source": "LOCAL_FILE-7e9953b7-3ab4-425f-80aa-2178c3508aac",
+        "source": "LOCAL_FILE-50f4fdde-5b6a-4024-b395-ceddba286d08",
         "sourceHandle": "default",
-        "target": "IMAGE-0b7bb803-8dba-43eb-a9bf-4073b3fda94c",
+        "target": "IMAGE_SMOOTHING-6bf42c87-c6df-409c-8b3b-8bf051d28b48",
         "targetHandle": "default",
-        "id": "reactflow__edge-LOCAL_FILE-7e9953b7-3ab4-425f-80aa-2178c3508aacdefault-IMAGE-0b7bb803-8dba-43eb-a9bf-4073b3fda94cdefault"
+        "id": "reactflow__edge-LOCAL_FILE-50f4fdde-5b6a-4024-b395-ceddba286d08default-IMAGE_SMOOTHING-6bf42c87-c6df-409c-8b3b-8bf051d28b48default"
       },
       {
-        "source": "IMAGE_SMOOTHING-6d4d6f9d-941e-4cbd-9c45-0e8a8c5f7559",
+        "source": "IMAGE_SMOOTHING-6bf42c87-c6df-409c-8b3b-8bf051d28b48",
         "sourceHandle": "default",
-        "target": "IMAGE-7aacbaca-2652-4c99-babe-5779ba0ce181",
+        "target": "IMAGE-468b41e8-bb24-4ba0-bbe1-b1bba5f1acff",
         "targetHandle": "default",
-        "id": "reactflow__edge-IMAGE_SMOOTHING-6d4d6f9d-941e-4cbd-9c45-0e8a8c5f7559default-IMAGE-7aacbaca-2652-4c99-babe-5779ba0ce181default"
+        "id": "reactflow__edge-IMAGE_SMOOTHING-6bf42c87-c6df-409c-8b3b-8bf051d28b48default-IMAGE-468b41e8-bb24-4ba0-bbe1-b1bba5f1acffdefault"
       },
       {
-        "source": "LOCAL_FILE-7e9953b7-3ab4-425f-80aa-2178c3508aac",
+        "source": "LOCAL_FILE-50f4fdde-5b6a-4024-b395-ceddba286d08",
         "sourceHandle": "default",
-        "target": "IMAGE_SMOOTHING-6d4d6f9d-941e-4cbd-9c45-0e8a8c5f7559",
+        "target": "IMAGE-29bef08f-0e5f-4a65-a40d-ac310e24b774",
         "targetHandle": "default",
-        "id": "reactflow__edge-LOCAL_FILE-7e9953b7-3ab4-425f-80aa-2178c3508aacdefault-IMAGE_SMOOTHING-6d4d6f9d-941e-4cbd-9c45-0e8a8c5f7559default"
+        "id": "reactflow__edge-LOCAL_FILE-50f4fdde-5b6a-4024-b395-ceddba286d08default-IMAGE-29bef08f-0e5f-4a65-a40d-ac310e24b774default"
       }
     ],
     "viewport": {

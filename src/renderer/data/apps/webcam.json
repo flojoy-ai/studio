@@ -1,25 +1,24 @@
 {
+  "name": "USB Camera",
   "rfInstance": {
     "nodes": [
       {
-        "width": 192,
-        "height": 192,
-        "id": "OPEN_WEBCAM-89c7016f-6198-4bee-bb37-0ffa21729da5",
-        "type": "IO",
+        "id": "OPEN_WEBCAM-4c27e373-54d8-4446-ac49-ba00a091a878",
+        "type": "IMAGING",
         "data": {
-          "id": "OPEN_WEBCAM-89c7016f-6198-4bee-bb37-0ffa21729da5",
+          "id": "OPEN_WEBCAM-4c27e373-54d8-4446-ac49-ba00a091a878",
           "label": "OPEN WEBCAM",
           "func": "OPEN_WEBCAM",
-          "type": "IO",
+          "type": "IMAGING",
           "ctrls": {
             "camera": {
               "type": "CameraDevice",
               "default": null,
-              "desc": null,
+              "desc": "The camera to use.",
               "overload": null,
               "functionName": "OPEN_WEBCAM",
               "param": "camera",
-              "value": ""
+              "value": 0
             }
           },
           "initCtrls": {},
@@ -43,42 +42,41 @@
           "pip_dependencies": [
             {
               "name": "opencv-python-headless",
-              "v": "4.7.0.72"
+              "v": "4.8.1.78"
             }
           ],
-          "path": "IO/IMAGING/OPEN_WEBCAM/OPEN_WEBCAM.py",
-          "selected": false
+          "path": "HARDWARE/IMAGING/OPEN_WEBCAM/OPEN_WEBCAM.py"
         },
         "position": {
-          "x": -179.01679378861343,
-          "y": 3.074962043597168
+          "x": -224.53692526091493,
+          "y": -67.56215142497356
         },
+        "width": 216,
+        "height": 233,
         "selected": false,
         "positionAbsolute": {
-          "x": -179.01679378861343,
-          "y": 3.074962043597168
+          "x": -224.53692526091493,
+          "y": -67.56215142497356
         },
         "dragging": true
       },
       {
-        "width": 192,
-        "height": 192,
-        "id": "WEBCAM-89b91b3a-0682-44db-95d9-b1e26d1dd12c",
-        "type": "IO",
+        "id": "WEBCAM-74aa4141-41ad-45d9-ab17-190b699e28b8",
+        "type": "IMAGING",
         "data": {
-          "id": "WEBCAM-89b91b3a-0682-44db-95d9-b1e26d1dd12c",
+          "id": "WEBCAM-74aa4141-41ad-45d9-ab17-190b699e28b8",
           "label": "WEBCAM",
           "func": "WEBCAM",
-          "type": "IO",
+          "type": "IMAGING",
           "ctrls": {
             "connection": {
               "type": "CameraConnection",
               "default": null,
-              "desc": null,
+              "desc": "The opened camera connection to use.",
               "overload": null,
               "functionName": "WEBCAM",
               "param": "connection",
-              "value": ""
+              "value": 0
             },
             "resolution": {
               "type": "select",
@@ -118,33 +116,32 @@
           "pip_dependencies": [
             {
               "name": "opencv-python-headless",
-              "v": "4.7.0.72"
+              "v": "4.8.1.78"
             }
           ],
-          "path": "IO/IMAGING/WEBCAM/WEBCAM.py",
-          "selected": false
+          "path": "HARDWARE/IMAGING/WEBCAM/WEBCAM.py"
         },
         "position": {
-          "x": 179.0676354144525,
-          "y": 0.6447218141543658
+          "x": 161.12596929251097,
+          "y": -70.29704793881595
         },
+        "width": 216,
+        "height": 197,
         "selected": false,
         "positionAbsolute": {
-          "x": 179.0676354144525,
-          "y": 0.6447218141543658
+          "x": 161.12596929251097,
+          "y": -70.29704793881595
         },
         "dragging": true
       },
       {
-        "width": 225,
-        "height": 226,
-        "id": "IMAGE-d27c4496-301f-4882-8670-6bb84ebe7e06",
-        "type": "VISUALIZERS",
+        "id": "IMAGE-2567ac33-037d-4786-962d-7ef644d631de",
+        "type": "VISUALIZATION",
         "data": {
-          "id": "IMAGE-d27c4496-301f-4882-8670-6bb84ebe7e06",
+          "id": "IMAGE-2567ac33-037d-4786-962d-7ef644d631de",
           "label": "IMAGE",
           "func": "IMAGE",
-          "type": "VISUALIZERS",
+          "type": "VISUALIZATION",
           "ctrls": {},
           "initCtrls": {},
           "inputs": [
@@ -164,35 +161,36 @@
               "desc": "the DataContainer containing the Plotly Image visualization of the input image"
             }
           ],
-          "path": "VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
-          "selected": false
+          "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
         },
         "position": {
-          "x": 515.9438185125092,
-          "y": -20.240488117947223
+          "x": 525.8151162379432,
+          "y": -99.13096295024889
         },
+        "width": 225,
+        "height": 269,
         "selected": false,
         "positionAbsolute": {
-          "x": 515.9438185125092,
-          "y": -20.240488117947223
+          "x": 525.8151162379432,
+          "y": -99.13096295024889
         },
         "dragging": true
       }
     ],
     "edges": [
       {
-        "source": "WEBCAM-89b91b3a-0682-44db-95d9-b1e26d1dd12c",
+        "source": "OPEN_WEBCAM-4c27e373-54d8-4446-ac49-ba00a091a878",
         "sourceHandle": "default",
-        "target": "IMAGE-d27c4496-301f-4882-8670-6bb84ebe7e06",
+        "target": "WEBCAM-74aa4141-41ad-45d9-ab17-190b699e28b8",
         "targetHandle": "default",
-        "id": "reactflow__edge-WEBCAM-89b91b3a-0682-44db-95d9-b1e26d1dd12cdefault-IMAGE-d27c4496-301f-4882-8670-6bb84ebe7e06default"
+        "id": "reactflow__edge-OPEN_WEBCAM-4c27e373-54d8-4446-ac49-ba00a091a878default-WEBCAM-74aa4141-41ad-45d9-ab17-190b699e28b8default"
       },
       {
-        "source": "OPEN_WEBCAM-89c7016f-6198-4bee-bb37-0ffa21729da5",
+        "source": "WEBCAM-74aa4141-41ad-45d9-ab17-190b699e28b8",
         "sourceHandle": "default",
-        "target": "WEBCAM-89b91b3a-0682-44db-95d9-b1e26d1dd12c",
+        "target": "IMAGE-2567ac33-037d-4786-962d-7ef644d631de",
         "targetHandle": "default",
-        "id": "reactflow__edge-OPEN_WEBCAM-89c7016f-6198-4bee-bb37-0ffa21729da5default-WEBCAM-89b91b3a-0682-44db-95d9-b1e26d1dd12cdefault"
+        "id": "reactflow__edge-WEBCAM-74aa4141-41ad-45d9-ab17-190b699e28b8default-IMAGE-2567ac33-037d-4786-962d-7ef644d631dedefault"
       }
     ],
     "viewport": {
@@ -200,5 +198,6 @@
       "y": 317.88940714410813,
       "zoom": 0.5
     }
-  }
+  },
+  "textNodes": []
 }

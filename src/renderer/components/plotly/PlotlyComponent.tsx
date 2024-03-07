@@ -4,7 +4,7 @@ import Plotly from "plotly.js";
 import { plotLayout } from "./layout";
 import { useMemo } from "react";
 import { PlotProps } from "@/renderer/types/plotly";
-import { useTheme } from "@/renderer/providers/ThemeProvider";
+import { useTheme } from "@/renderer/providers/theme-provider";
 import _ from "lodash";
 
 const MATRIX_SIZE = {

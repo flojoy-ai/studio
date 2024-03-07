@@ -3,15 +3,13 @@
   "rfInstance": {
     "nodes": [
       {
-        "width": 192,
-        "height": 192,
-        "id": "TIC_KNOB-4580cb1f-b91b-41ce-b9ac-321cd6379840",
-        "type": "HARDWARE",
+        "id": "TIC_KNOB-e0ad6949-751d-4eab-ba16-c17a8daf51e7",
+        "type": "MOTORS",
         "data": {
-          "id": "TIC_KNOB-4580cb1f-b91b-41ce-b9ac-321cd6379840",
+          "id": "TIC_KNOB-e0ad6949-751d-4eab-ba16-c17a8daf51e7",
           "label": "TIC KNOB",
           "func": "TIC_KNOB",
-          "type": "HARDWARE",
+          "type": "MOTORS",
           "ctrls": {
             "knob_value": {
               "type": "int",
@@ -77,13 +75,15 @@
           "path": "HARDWARE/MOTORS/STEPPER/POLULU/TIC_KNOB/TIC_KNOB.py"
         },
         "position": {
-          "x": 998.2120940213049,
-          "y": -51.491419677124895
+          "x": 749.006561556381,
+          "y": -55.23468036624092
         },
-        "selected": true,
+        "width": 216,
+        "height": 197,
+        "selected": false,
         "positionAbsolute": {
-          "x": 998.2120940213049,
-          "y": -51.491419677124895
+          "x": 749.006561556381,
+          "y": -55.23468036624092
         },
         "dragging": true
       }
