@@ -13,7 +13,10 @@ import ReactFlow, {
 import { SliderNode } from "@/renderer/components/controls/slider-node";
 import ControlTextNode from "@/renderer/components/controls/control-text-node";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
-import { useProjectStore } from "@/renderer/stores/project";
+import {
+  useClearControlPanel,
+  useProjectStore,
+} from "@/renderer/stores/project";
 import { Button } from "@/renderer/components/ui/button";
 import { ClearCanvasBtn } from "@/renderer/routes/flow_chart/components/ClearCanvasBtn";
 import { Text } from "lucide-react";
@@ -21,7 +24,7 @@ import { useCallback, useRef, useState } from "react";
 import { NewWidgetModal } from "./components/new-widget-modal";
 import VisualizationNode from "@/renderer/components/controls/visualization-node";
 import { NewVisualizationModal } from "./components/new-visualization";
-import { WidgetConfig, WidgetData } from "@/renderer/types/control";
+import { WidgetConfig, WidgetBlockInfo } from "@/renderer/types/control";
 import { ConfigDialog } from "./components/config-dialog";
 import { useShallow } from "zustand/react/shallow";
 
@@ -30,11 +33,6 @@ const nodeTypes = {
   visualization: VisualizationNode,
   TextNode: ControlTextNode,
 };
-
-type WidgetBlockInfo = Pick<
-  WidgetData<WidgetConfig>,
-  "blockId" | "blockParameter"
->;
 
 const ControlPanelView = () => {
   const [newWidgetModalOpen, setNewWidgetModalOpen] = useState(false);
@@ -71,13 +69,10 @@ const ControlPanelView = () => {
       handleControlChanges: state.handleControlChanges,
     })),
   );
-  console.log(textNodes);
 
   const deleteKeyCodes = ["Delete", "Backspace"];
 
-  const clearCanvas = () => {
-    throw new Error("Not implemented");
-  };
+  const clearCanvas = useClearControlPanel();
 
   const onNodesChange: OnNodesChange = useCallback(
     (changes) => {

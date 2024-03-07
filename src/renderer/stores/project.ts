@@ -709,6 +709,18 @@ export const useClearCanvas = () => {
   };
 };
 
+export const useClearControlPanel = () => {
+  const setNodes = useProtectedSetter("controlWidgetNodes");
+  const setVizNodes = useProtectedSetter("controlVisualizationNodes");
+  const setTextNodes = useProtectedSetter("controlTextNodes");
+
+  return () => {
+    setNodes([]);
+    setVizNodes([]);
+    setTextNodes([]);
+  };
+};
+
 function useProtectedSetter<K extends keyof State>(field: K) {
   const { withPermissionCheck } = useWithPermission();
   type T = State[K];
