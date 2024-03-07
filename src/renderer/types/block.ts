@@ -45,3 +45,7 @@ export const positionSchema = z.object({
   x: z.number(),
   y: z.number(),
 });
+
+export type EdgeData = {
+  outputType: string;
+};

@@ -1,7 +1,12 @@
 import { Node, Edge, XYPosition, Connection, addEdge } from "reactflow";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { TextData, BlockData, positionSchema } from "@/renderer/types/block";
+import {
+  TextData,
+  BlockData,
+  positionSchema,
+  EdgeData,
+} from "@/renderer/types/block";
 import { useShallow } from "zustand/react/shallow";
 
 import * as galleryItems from "@/renderer/data/apps";
@@ -48,7 +53,7 @@ type State = {
   hasUnsavedChanges: boolean;
 
   nodes: Node<BlockData>[]; // TODO: Turn this into a record for fast lookup
-  edges: Edge[];
+  edges: Edge<EdgeData>[];
   textNodes: Node<TextData>[];
 };
 
@@ -507,7 +512,27 @@ export const useCreateEdge = () => {
       );
     }
 
-    setEdges((edges) => addEdge(connection, edges));
+    setEdges((edges) => {
+      const edgeExists = edges.find(
+        (edge) =>
+          edge.source === connection.source &&
+          edge.target === connection.target &&
+          edge.sourceHandle === connection.sourceHandle &&
+          edge.targetHandle === connection.targetHandle,
+      );
+      if (edgeExists || !connection.source || !connection.target) {
+        return edges;
+      }
+      const newEdge: Edge<EdgeData> = {
+        id: `${connection.source}->${connection.target}`,
+        source: connection.source,
+        target: connection.target,
+        sourceHandle: connection.sourceHandle,
+        targetHandle: connection.targetHandle,
+        data: { outputType: sourceType.split("|")[0] },
+      };
+      return edges.concat(newEdge);
+    });
     return ok(undefined);
   };
 };

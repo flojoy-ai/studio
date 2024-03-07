@@ -47,8 +47,8 @@
               "name": "default",
               "id": "default",
               "type": "Vector|OrderedPair",
-              "multiple": false,
-              "desc": "Optional input that defines the size of the output."
+              "desc": "Optional input that defines the size of the output.",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -62,15 +62,15 @@
           "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
         },
         "position": {
-          "x": 76.87383453673007,
-          "y": 158.1576377132222
+          "x": 57.91459603084927,
+          "y": 152.98693630252734
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 76.87383453673007,
-          "y": 158.1576377132222
+          "x": 57.91459603084927,
+          "y": 152.98693630252734
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "width": 216,
@@ -158,8 +158,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": "unused in this node"
+              "desc": "unused in this node",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -173,15 +173,15 @@
           "path": "DATA/GENERATION/SIMULATIONS/RAND/RAND.py"
         },
         "position": {
-          "x": 71.49537299909832,
-          "y": -72.33823990380307
+          "x": 69.77180586220007,
+          "y": -94.7446126834804
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 71.49537299909832,
-          "y": -72.33823990380307
+          "x": 69.77180586220007,
+          "y": -94.7446126834804
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "width": 216,
@@ -247,8 +247,8 @@
               "name": "default",
               "id": "default",
               "type": "OrderedPair|Vector",
-              "multiple": false,
-              "desc": "Input that defines the x-axis values of the function and output."
+              "desc": "Input that defines the x-axis values of the function and output.",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -262,15 +262,15 @@
           "path": "DATA/GENERATION/SIMULATIONS/SINE/SINE.py"
         },
         "position": {
-          "x": 62.42319909860282,
-          "y": -301.00266922604686
+          "x": 69.31746764619584,
+          "y": -330.30331055331715
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 62.42319909860282,
-          "y": -301.00266922604686
+          "x": 69.31746764619584,
+          "y": -330.30331055331715
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "width": 216,
@@ -317,8 +317,8 @@
               "name": "default",
               "id": "default",
               "type": "Vector|OrderedPair",
-              "multiple": false,
-              "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+              "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -332,15 +332,15 @@
           "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
         },
         "position": {
-          "x": -336.67341264118056,
-          "y": -71.7546304438876
+          "x": -391.8275610219248,
+          "y": -97.6081374973615
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -336.67341264118056,
-          "y": -71.7546304438876
+          "x": -391.8275610219248,
+          "y": -97.6081374973615
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "width": 225,
@@ -359,8 +359,8 @@
               "name": "default",
               "id": "default",
               "type": "OrderedPair|DataFrame|Matrix|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -374,15 +374,15 @@
           "path": "DATA/VISUALIZATION/PLOTLY/HISTOGRAM/HISTOGRAM.py"
         },
         "position": {
-          "x": 682.0716189050224,
-          "y": -342.8870527305711
+          "x": 895.7939438804061,
+          "y": -349.7813212781642
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 682.0716189050224,
-          "y": -342.8870527305711
+          "x": 895.7939438804061,
+          "y": -349.7813212781642
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "width": 225,
@@ -401,8 +401,8 @@
               "name": "default",
               "id": "default",
               "type": "OrderedPair|DataFrame|Matrix|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -416,15 +416,15 @@
           "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
         },
         "position": {
-          "x": 697.5768694957547,
-          "y": 48.99663152269517
+          "x": 895.7870902390542,
+          "y": 31.760960153712574
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 697.5768694957547,
-          "y": 48.99663152269517
+          "x": 895.7870902390542,
+          "y": 31.760960153712574
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "ADD-42927031-8277-48c1-8bb1-c7dc86bad650",
@@ -441,15 +441,15 @@
               "name": "a",
               "id": "a",
               "type": "OrderedPair|Scalar|Vector",
-              "multiple": false,
-              "desc": "The input a use to compute the sum of a and b."
+              "desc": "The input a use to compute the sum of a and b.",
+              "multiple": false
             },
             {
               "name": "b",
               "id": "b",
               "type": "OrderedPair|Scalar|Vector",
-              "multiple": true,
-              "desc": "The input b use to compute the sum of a and b."
+              "desc": "The input b use to compute the sum of a and b.",
+              "multiple": true
             }
           ],
           "outputs": [
@@ -463,82 +463,101 @@
           "path": "MATH/ARITHMETIC/ADD/ADD.py"
         },
         "position": {
-          "x": 421.96078943050344,
-          "y": -62.857591598077704
+          "x": 559.8461603823639,
+          "y": -121.45887425261839
         },
         "width": 216,
-        "height": 164,
+        "height": 198,
         "selected": false,
         "positionAbsolute": {
-          "x": 421.96078943050344,
-          "y": -62.857591598077704
+          "x": 559.8461603823639,
+          "y": -121.45887425261839
         },
-        "dragging": true
+        "dragging": false
       }
     ],
     "edges": [
       {
+        "id": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c->SINE-e3058354-d58c-49ac-9590-97f739e56270",
         "source": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c",
-        "sourceHandle": "default",
-        "target": "CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1d",
-        "targetHandle": "default",
-        "id": "reactflow__edge-LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356cdefault-CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1ddefault"
-      },
-      {
-        "source": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c",
-        "sourceHandle": "default",
-        "target": "RAND-17189505-635e-428c-8a2a-9620ce0ac25e",
-        "targetHandle": "default",
-        "id": "reactflow__edge-LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356cdefault-RAND-17189505-635e-428c-8a2a-9620ce0ac25edefault"
-      },
-      {
-        "source": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c",
-        "sourceHandle": "default",
         "target": "SINE-e3058354-d58c-49ac-9590-97f739e56270",
+        "sourceHandle": "default",
         "targetHandle": "default",
-        "id": "reactflow__edge-LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356cdefault-SINE-e3058354-d58c-49ac-9590-97f739e56270default"
+        "data": {
+          "outputType": "Vector"
+        }
       },
       {
-        "source": "SINE-e3058354-d58c-49ac-9590-97f739e56270",
+        "id": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c->RAND-17189505-635e-428c-8a2a-9620ce0ac25e",
+        "source": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c",
+        "target": "RAND-17189505-635e-428c-8a2a-9620ce0ac25e",
         "sourceHandle": "default",
-        "target": "ADD-42927031-8277-48c1-8bb1-c7dc86bad650",
-        "targetHandle": "a",
-        "id": "reactflow__edge-SINE-e3058354-d58c-49ac-9590-97f739e56270default-ADD-42927031-8277-48c1-8bb1-c7dc86bad650a"
+        "targetHandle": "default",
+        "data": {
+          "outputType": "Vector"
+        }
       },
       {
-        "source": "CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1d",
+        "id": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c->CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1d",
+        "source": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c",
+        "target": "CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1d",
         "sourceHandle": "default",
-        "target": "ADD-42927031-8277-48c1-8bb1-c7dc86bad650",
-        "targetHandle": "b",
-        "id": "reactflow__edge-CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1ddefault-ADD-42927031-8277-48c1-8bb1-c7dc86bad650b"
+        "targetHandle": "default",
+        "data": {
+          "outputType": "Vector"
+        }
       },
       {
+        "id": "RAND-17189505-635e-428c-8a2a-9620ce0ac25e->ADD-42927031-8277-48c1-8bb1-c7dc86bad650",
         "source": "RAND-17189505-635e-428c-8a2a-9620ce0ac25e",
-        "sourceHandle": "default",
         "target": "ADD-42927031-8277-48c1-8bb1-c7dc86bad650",
+        "sourceHandle": "default",
         "targetHandle": "b",
-        "id": "reactflow__edge-RAND-17189505-635e-428c-8a2a-9620ce0ac25edefault-ADD-42927031-8277-48c1-8bb1-c7dc86bad650b"
+        "data": {
+          "outputType": "Vector"
+        }
       },
       {
-        "source": "ADD-42927031-8277-48c1-8bb1-c7dc86bad650",
+        "id": "SINE-e3058354-d58c-49ac-9590-97f739e56270->ADD-42927031-8277-48c1-8bb1-c7dc86bad650",
+        "source": "SINE-e3058354-d58c-49ac-9590-97f739e56270",
+        "target": "ADD-42927031-8277-48c1-8bb1-c7dc86bad650",
         "sourceHandle": "default",
+        "targetHandle": "a",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1d->ADD-42927031-8277-48c1-8bb1-c7dc86bad650",
+        "source": "CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1d",
+        "target": "ADD-42927031-8277-48c1-8bb1-c7dc86bad650",
+        "sourceHandle": "default",
+        "targetHandle": "b",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "ADD-42927031-8277-48c1-8bb1-c7dc86bad650->HISTOGRAM-149d70e3-3b62-411e-b5af-cd6793361245",
+        "source": "ADD-42927031-8277-48c1-8bb1-c7dc86bad650",
         "target": "HISTOGRAM-149d70e3-3b62-411e-b5af-cd6793361245",
+        "sourceHandle": "default",
         "targetHandle": "default",
-        "id": "reactflow__edge-ADD-42927031-8277-48c1-8bb1-c7dc86bad650default-HISTOGRAM-149d70e3-3b62-411e-b5af-cd6793361245default"
+        "data": {
+          "outputType": "OrderedPair"
+        }
       },
       {
+        "id": "ADD-42927031-8277-48c1-8bb1-c7dc86bad650->SCATTER-1d9a92a3-7920-4c42-999d-d13af5481b20",
         "source": "ADD-42927031-8277-48c1-8bb1-c7dc86bad650",
-        "sourceHandle": "default",
         "target": "SCATTER-1d9a92a3-7920-4c42-999d-d13af5481b20",
+        "sourceHandle": "default",
         "targetHandle": "default",
-        "id": "reactflow__edge-ADD-42927031-8277-48c1-8bb1-c7dc86bad650default-SCATTER-1d9a92a3-7920-4c42-999d-d13af5481b20default"
+        "data": {
+          "outputType": "OrderedPair"
+        }
       }
-    ],
-    "viewport": {
-      "x": 680.5981200493009,
-      "y": 400.0546012781953,
-      "zoom": 0.6430661174480109
-    }
+    ]
   },
   "textNodes": []
 }

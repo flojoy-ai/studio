@@ -72,9 +72,10 @@ import {
   useManifestStore,
   useMetadata,
 } from "@/renderer/stores/manifest";
+import CustomEdge from "./components/custom-edge";
 
 const edgeTypes = {
-  default: SmartBezierEdge,
+  default: CustomEdge,
 };
 
 const FlowChartTab = () => {

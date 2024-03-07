@@ -51,7 +51,7 @@ const DefaultBlock = ({
         )}
         style={{
           width,
-          minHeight: height || maxInputOutput * 38 + 32,
+          minHeight: height || maxInputOutput * 58 + 38,
         }}
         onDoubleClick={() => setIsRenamingTitle(true)}
       >
