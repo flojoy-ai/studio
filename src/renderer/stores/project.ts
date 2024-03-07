@@ -161,7 +161,7 @@ export const useProjectStore = create<State & Actions>()(
         state.controlVisualizationNodes = visualizationUpdate(
           state.controlVisualizationNodes,
         );
-        state.controlTextNodes = textNodesUpdate(state.textNodes);
+        state.controlTextNodes = textNodesUpdate(state.controlTextNodes);
       });
     },
 

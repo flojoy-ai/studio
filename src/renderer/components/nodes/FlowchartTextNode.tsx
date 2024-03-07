@@ -7,8 +7,8 @@ import { useShallow } from "zustand/react/shallow";
 const FlowchartTextNode = (props: NodeProps<TextData>) => {
   const { deleteTextNode, updateTextNodeText } = useProjectStore(
     useShallow((state) => ({
-      deleteTextNode: state.deleteControlTextNode,
-      updateTextNodeText: state.updateControlTextNodeText,
+      deleteTextNode: state.deleteTextNode,
+      updateTextNodeText: state.updateTextNodeText,
     })),
   );
 
