@@ -20,6 +20,7 @@ import { useTheme } from "@/renderer/providers/them-provider";
 import { Button } from "@/renderer/components/ui/button";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { env } from "@/env";
+import { useBlockStatus } from "@/renderer/hooks/useNodeStatus";
 
 const jsonTheme = {
   scheme: "flojoy",
@@ -49,7 +50,6 @@ SyntaxHighlighter.registerLanguage("json", json);
 export type BlockModalProps = {
   modalIsOpen: boolean;
   setModalOpen: (open: boolean) => void;
-  result: BlockResult | null;
   pythonString: string;
   blockFilePath: string;
   blockFullPath: string;
@@ -59,7 +59,6 @@ export type BlockModalProps = {
 const BlockModal = ({
   modalIsOpen,
   setModalOpen,
-  result,
   blockFilePath,
   blockFullPath,
   pythonString,
@@ -67,6 +66,7 @@ const BlockModal = ({
 }: BlockModalProps) => {
   const { resolvedTheme } = useTheme();
   const { withPermissionCheck } = useWithPermission();
+  const { blockResult } = useBlockStatus(selectedNode.id);
 
   const path = blockFilePath.replace(/"\\"/g, "/");
 
@@ -111,9 +111,9 @@ const BlockModal = ({
           Function Type:{" "}
           <code className="text-accent1">{selectedNode.data.type}</code>
         </h3>
-        {result && (
+        {blockResult && (
           <NodeModalDataViz
-            result={result}
+            result={blockResult}
             theme={resolvedTheme}
             selectedNode={selectedNode}
           />

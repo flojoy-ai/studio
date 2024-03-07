@@ -1,11 +1,30 @@
-import { useSocket } from "./useSocket";
+import { useSocketStore } from "@/renderer/stores/socket";
+import { useBlockResults } from "./useBlockResults";
+import { useEffect, useRef } from "react";
 
-export const useNodeStatus = (nodeId: string) => {
-  const { failedNodes, runningNode, blockResults } = useSocket();
+export const useBlockStatus = (nodeId: string) => {
+  const runningBlock = useRef(useSocketStore.getState().runningBlock);
+  useEffect(
+    () =>
+      useSocketStore.subscribe(
+        (state) => (runningBlock.current = state.runningBlock),
+      ),
+    [],
+  );
+  const failedBlocks = useRef(useSocketStore.getState().failedBlocks);
+  useEffect(
+    () =>
+      useSocketStore.subscribe(
+        (state) => (failedBlocks.current = state.failedBlocks),
+      ),
+    [],
+  );
+
+  const blockResults = useBlockResults();
 
   return {
-    nodeError: failedNodes[nodeId],
-    nodeRunning: runningNode === nodeId,
-    nodeResult: blockResults[nodeId],
+    blockError: failedBlocks.current[nodeId],
+    blockRunning: runningBlock.current === nodeId,
+    blockResult: blockResults[nodeId],
   };
 };
