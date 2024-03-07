@@ -1,32 +1,32 @@
-// import { NodeProps } from "reactflow";
-
 import { NodeProps } from "reactflow";
+import { z } from "zod";
 
-// type WidgetConfig = {
-//   type: WidgetType;
-// };
+export const SliderConfig = z.object({
+  type: z.literal("slider"),
+  min: z.number(),
+  max: z.number(),
+  step: z.number(),
+});
 
-// export type SliderConfig = {
-//   type: "slider";
-//   min: number;
-//   max: number;
-//   step?: number;
-// };
-//
-// export type ControlData<T extends WidgetConfig> = {
-//   blockId: string;
-//   blockParameter: string;
-//   config: T;
-// };
+export type SliderConfig = z.infer<typeof SliderConfig>;
 
-// export type ControlProps<T extends WidgetConfig> = NodeProps<ControlData<T>>;
+export type WidgetConfig = SliderConfig;
 
-export type WidgetData = {
+export const WidgetType = z.enum(["slider"]);
+export type WidgetType = z.infer<typeof WidgetType>;
+
+export const WidgetBlockInfo = z.object({
+  blockId: z.string(),
+  blockParameter: z.string(),
+  widgetType: WidgetType,
+});
+export type WidgetBlockInfo = z.infer<typeof WidgetBlockInfo>;
+
+export type WidgetData<T extends WidgetConfig = WidgetConfig> = {
   blockId: string;
   blockParameter: string;
+  config: T;
 };
-
-export type WidgetType = "slider";
 
 export type VisualizationType =
   | "scatter"
@@ -47,4 +47,4 @@ export type VisualizationData = {
   visualizationType: string;
 };
 
-export type WidgetProps = NodeProps<WidgetData>;
+export type WidgetProps<T extends WidgetConfig> = NodeProps<WidgetData<T>>;

@@ -43,8 +43,8 @@ import {
 } from "@/renderer/types/manifest";
 import {
   VisualizationData,
+  WidgetConfig,
   WidgetData,
-  WidgetType,
 } from "@/renderer/types/control";
 
 type State = {
@@ -97,7 +97,7 @@ type Actions = {
   addControlWidget: (
     blockId: string,
     blockParameter: string,
-    widget: WidgetType,
+    widget: WidgetConfig,
   ) => void;
   deleteControlWidget: (controlNodeId: string) => void;
 
@@ -186,11 +186,6 @@ export const useProjectStore = create<State & Actions>()(
         return err(e as Error);
       }
 
-      sendEventToMix("Control Input Data Updated", {
-        blockId,
-        paramName,
-        value,
-      });
       setHasUnsavedChanges(true);
 
       return ok(undefined);
@@ -316,14 +311,15 @@ export const useProjectStore = create<State & Actions>()(
     addControlWidget: (
       blockId: string,
       blockParameter: string,
-      widget: WidgetType,
+      config: WidgetConfig,
     ) => {
       const node: Node<WidgetData> = {
         id: uuidv4(),
-        type: widget,
+        type: config.type,
         data: {
           blockId,
           blockParameter,
+          config,
         },
         position: { x: 0, y: 0 },
       };

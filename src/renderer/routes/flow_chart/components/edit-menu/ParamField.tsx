@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/renderer/components/ui/select";
 import { Switch } from "@/renderer/components/ui/switch";
-import { NumberInput } from "./NumberInput";
+import { NumberInput } from "@/renderer/components/common/NumberInput";
 import { SecretSelect } from "./SecretSelect";
 import { CameraSelect } from "./CameraSelect";
 import { SerialDeviceSelect } from "./SerialDeviceSelect";

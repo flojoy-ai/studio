@@ -1,10 +1,10 @@
 import { Input } from "@/renderer/components/ui/input";
 import { useProjectStore } from "@/renderer/stores/project";
-import { WidgetProps } from "@/renderer/types/control";
+import { SliderConfig, WidgetProps } from "@/renderer/types/control";
 import { ChangeEvent } from "react";
 import { toast } from "sonner";
 
-export const SliderNode = ({ data }: WidgetProps) => {
+export const SliderNode = ({ data }: WidgetProps<SliderConfig>) => {
   const { blocks, updateBlockParameter } = useProjectStore((state) => ({
     blocks: state.nodes,
     updateBlockParameter: state.updateBlockParameter,
@@ -39,8 +39,9 @@ export const SliderNode = ({ data }: WidgetProps) => {
       <Input
         type="range"
         className="nodrag"
-        min="1"
-        max="100"
+        min={data.config.min}
+        max={data.config.max}
+        step={data.config.step}
         value={paramVal as number}
         onChange={handleChange}
       />

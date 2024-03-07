@@ -19,9 +19,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/renderer/components/ui/form";
-import { z } from "zod";
 import { Combobox } from "@/renderer/components/ui/combobox";
-import { WidgetType } from "@/renderer/types/control";
+import { WidgetBlockInfo, WidgetType } from "@/renderer/types/control";
 import { toast } from "sonner";
 import {
   Select,
@@ -38,37 +37,22 @@ const allowedWidgetTypes: Record<string, WidgetType[]> = {
   float: ["slider"],
 };
 
-const formSchema = z.object({
-  blockId: z.string(),
-  blockParameter: z.string(),
-  widgetType: z.enum(["slider"]),
-});
-
-type FormSchema = z.infer<typeof formSchema>;
-
 type Props = {
   open: boolean;
   setOpen: (val: boolean) => void;
+  onSubmit: (data: WidgetBlockInfo) => void;
 };
 
-export const NewWidgetModal = ({ open, setOpen }: Props) => {
-  const { addNode, blocks } = useProjectStore((state) => ({
-    addNode: state.addControlWidget,
-    blocks: state.nodes,
-  }));
+export const NewWidgetModal = ({ open, setOpen, onSubmit }: Props) => {
+  const blocks = useProjectStore((state) => state.nodes);
 
-  const form = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<WidgetBlockInfo>({
+    resolver: zodResolver(WidgetBlockInfo),
     defaultValues: {
       blockId: "",
       blockParameter: "",
     },
   });
-
-  const handleSubmit = (data: FormSchema) => {
-    addNode(data.blockId, data.blockParameter, data.widgetType);
-    setOpen(false);
-  };
 
   const selectedBlock = blocks.find((b) => b.id === form.watch("blockId"));
   const parameters = selectedBlock
@@ -101,7 +85,7 @@ export const NewWidgetModal = ({ open, setOpen }: Props) => {
 
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(handleSubmit, (e) => {
+            onSubmit={form.handleSubmit(onSubmit, (e) => {
               console.log(e);
               toast.error(e.root?.message);
             })}

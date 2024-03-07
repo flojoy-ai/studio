@@ -26,7 +26,7 @@ export const NumberInput = ({
       ? value
       : parseFunc(value as string);
 
-  if (precision && typeof val === "number") {
+  if (floating && precision && typeof val === "number") {
     val = parseFloat(val.toFixed(precision));
   }
 

@@ -17,10 +17,12 @@ import { useProjectStore } from "@/renderer/stores/project";
 import { Button } from "@/renderer/components/ui/button";
 import { ClearCanvasBtn } from "@/renderer/routes/flow_chart/components/ClearCanvasBtn";
 import { Text } from "lucide-react";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { NewWidgetModal } from "./components/new-widget-modal";
 import VisualizationNode from "@/renderer/components/controls/VisualizationNode";
 import { NewVisualizationModal } from "./components/new-visualization";
+import { WidgetConfig, WidgetData } from "@/renderer/types/control";
+import { ConfigDialog } from "./components/config-dialog";
 
 const nodeTypes = {
   slider: SliderNode,
@@ -28,10 +30,24 @@ const nodeTypes = {
   TextNode: ControlTextNode,
 };
 
+type WidgetBlockInfo = Pick<
+  WidgetData<WidgetConfig>,
+  "blockId" | "blockParameter"
+>;
+
 const ControlPanelView = () => {
   const [newWidgetModalOpen, setNewWidgetModalOpen] = useState(false);
   const [newVisualizationModalOpen, setNewVisualizationModalOpen] =
     useState(false);
+
+  const [widgetConfigOpen, setWidgetConfigOpen] = useState(false);
+  const widgetBlockInfo = useRef<WidgetBlockInfo | null>(null);
+  const widgetConfig = useRef<WidgetConfig>({
+    type: "slider",
+    min: 0,
+    max: 100,
+    step: 1,
+  });
 
   const { isAdmin } = useWithPermission();
   const {
@@ -39,6 +55,7 @@ const ControlPanelView = () => {
     visualizationNodes,
     textNodes,
     addTextNode,
+    addControl,
     deleteNode,
     handleControlChanges,
   } = useProjectStore((state) => ({
@@ -46,6 +63,7 @@ const ControlPanelView = () => {
     visualizationNodes: state.controlVisualizationNodes,
     textNodes: state.controlTextNodes,
     addTextNode: state.addControlTextNode,
+    addControl: state.addControlWidget,
     addNode: state.addControlWidget,
     deleteNode: state.deleteControlWidget,
     handleControlChanges: state.handleControlChanges,
@@ -77,14 +95,37 @@ const ControlPanelView = () => {
     [deleteNode],
   );
 
+  const onWidgetBlockInfoSubmit = (data: WidgetBlockInfo) => {
+    setNewWidgetModalOpen(false);
+    setWidgetConfigOpen(true);
+    widgetBlockInfo.current = data;
+  };
+
+  const onWidgetConfigSubmit = (data: WidgetConfig) => {
+    if (!widgetBlockInfo.current) {
+      return; // TODO: Error handling
+    }
+    const { blockId, blockParameter } = widgetBlockInfo.current;
+    addControl(blockId, blockParameter, data);
+    setWidgetConfigOpen(false);
+  };
+
   return (
     <ReactFlowProvider>
+      <ConfigDialog
+        widgetType={widgetConfig.current.type}
+        initialValues={widgetConfig.current}
+        open={widgetConfigOpen}
+        setOpen={setWidgetConfigOpen}
+        onSubmit={onWidgetConfigSubmit}
+      />
       <div className="mx-8 border-b" style={{ height: ACTIONS_HEIGHT }}>
         <div className="py-1" />
         <div className="flex">
           <NewWidgetModal
             open={newWidgetModalOpen}
             setOpen={setNewWidgetModalOpen}
+            onSubmit={onWidgetBlockInfoSubmit}
           />
           <NewVisualizationModal
             open={newVisualizationModalOpen}
