@@ -1,236 +1,10 @@
 {
+  "name": "Measure Voltage",
   "rfInstance": {
     "nodes": [
       {
-        "width": 192,
-        "height": 192,
-        "id": "RESET_DMM7510-759ea9c4-12e9-4f66-a90a-9444e9299767",
-        "type": "HARDWARE",
-        "data": {
-          "id": "RESET_DMM7510-759ea9c4-12e9-4f66-a90a-9444e9299767",
-          "label": "RESET DMM7510",
-          "func": "RESET_DMM7510",
-          "type": "HARDWARE",
-          "ctrls": {
-            "connection": {
-              "type": "VisaConnection",
-              "default": null,
-              "desc": "The VISA address (requires the CONNECTION_DMM7510 block).",
-              "overload": null,
-              "functionName": "RESET_DMM7510",
-              "param": "connection",
-              "value": "TCPIP::169.254.200.12::INSTR"
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "input",
-              "id": "input",
-              "type": "Any",
-              "multiple": false,
-              "desc": null
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "String",
-              "desc": "Reset"
-            }
-          ],
-          "path": "HARDWARE/MULTIMETERS/KEITHLEY/DMM7510/RESET_DMM7510/RESET_DMM7510.py",
-          "selected": false
-        },
-        "position": {
-          "x": -423.3015684721345,
-          "y": -343.49384928844427
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": -423.3015684721345,
-          "y": -343.49384928844427
-        },
-        "dragging": true
-      },
-      {
-        "width": 192,
-        "height": 192,
-        "id": "READ_MEASUREMENT_DMM7510-d02caf67-71e5-4cf2-8330-c0d1b2160f35",
-        "type": "HARDWARE",
-        "data": {
-          "id": "READ_MEASUREMENT_DMM7510-d02caf67-71e5-4cf2-8330-c0d1b2160f35",
-          "label": "READ MEASUREMENT DMM7510",
-          "func": "READ_MEASUREMENT_DMM7510",
-          "type": "HARDWARE",
-          "ctrls": {
-            "connection": {
-              "type": "VisaConnection",
-              "default": null,
-              "desc": "The VISA address (requires the CONNECTION_DMM7510 block).",
-              "overload": null,
-              "functionName": "READ_MEASUREMENT_DMM7510",
-              "param": "connection",
-              "value": "TCPIP::169.254.200.12::INSTR"
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "input",
-              "id": "input",
-              "type": "Any",
-              "multiple": false,
-              "desc": null
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Scalar",
-              "desc": "Measurement"
-            }
-          ],
-          "path": "HARDWARE/MULTIMETERS/KEITHLEY/DMM7510/READ_MEASUREMENT_DMM7510/READ_MEASUREMENT_DMM7510.py",
-          "selected": false
-        },
-        "position": {
-          "x": 103.12329053675228,
-          "y": -345.02419859612905
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 103.12329053675228,
-          "y": -345.02419859612905
-        },
-        "dragging": true
-      },
-      {
-        "width": 192,
-        "height": 192,
-        "id": "FUNCTION_DMM7510-700a6612-0549-4c56-ab34-42c0f5001aad",
-        "type": "HARDWARE",
-        "data": {
-          "id": "FUNCTION_DMM7510-700a6612-0549-4c56-ab34-42c0f5001aad",
-          "label": "FUNCTION DMM7510",
-          "func": "FUNCTION_DMM7510",
-          "type": "HARDWARE",
-          "ctrls": {
-            "connection": {
-              "type": "VisaConnection",
-              "default": null,
-              "desc": "The VISA address (requires the CONNECTION_DMM7510 block).",
-              "overload": null,
-              "functionName": "FUNCTION_DMM7510",
-              "param": "connection",
-              "value": "TCPIP::169.254.200.12::INSTR"
-            },
-            "function": {
-              "type": "select",
-              "options": [
-                "DC voltage",
-                "DC current",
-                "AC voltage",
-                "AC current",
-                "2W resistance",
-                "4W resistance",
-                "temperature",
-                "capacitance",
-                "continuity",
-                "diode",
-                "period",
-                "frequency",
-                "DCV ratio"
-              ],
-              "default": "DC voltage",
-              "desc": "Select the measurement function",
-              "overload": null,
-              "functionName": "FUNCTION_DMM7510",
-              "param": "function",
-              "value": "DC voltage"
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "input",
-              "id": "input",
-              "type": "Any",
-              "multiple": false,
-              "desc": null
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "String",
-              "desc": "Measurement"
-            }
-          ],
-          "path": "HARDWARE/MULTIMETERS/KEITHLEY/DMM7510/FUNCTION_DMM7510/FUNCTION_DMM7510.py",
-          "selected": false
-        },
-        "position": {
-          "x": -161.39128469631962,
-          "y": -342.77227805442544
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": -161.39128469631962,
-          "y": -342.77227805442544
-        },
-        "dragging": true
-      },
-      {
-        "width": 192,
-        "height": 192,
-        "id": "CONNECT_DMM7510-15768171-e9ac-447c-8fff-ed87ea37b4e8",
-        "type": "HARDWARE",
-        "data": {
-          "id": "CONNECT_DMM7510-15768171-e9ac-447c-8fff-ed87ea37b4e8",
-          "label": "CONNECT DMM7510",
-          "func": "CONNECT_DMM7510",
-          "type": "HARDWARE",
-          "ctrls": {
-            "device": {
-              "type": "VisaDevice",
-              "default": null,
-              "desc": "The connected VISA device.",
-              "overload": null,
-              "functionName": "CONNECT_DMM7510",
-              "param": "device",
-              "value": "TCPIP::169.254.200.12::INSTR"
-            }
-          },
-          "initCtrls": {},
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "String",
-              "desc": "The IP or VISA address of the VISA device."
-            }
-          ],
-          "path": "HARDWARE/MULTIMETERS/KEITHLEY/DMM7510/CONNECT_DMM7510/CONNECT_DMM7510.py",
-          "selected": true
-        },
-        "position": {
-          "x": -690.724898675739,
-          "y": -342.9143826898157
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": -690.724898675739,
-          "y": -342.9143826898157
-        },
-        "dragging": true
-      },
-      {
-        "width": 380,
-        "height": 293,
+        "width": 225,
+        "height": 269,
         "id": "BIG_NUMBER-666f96e9-7522-40be-a34d-47e7445876d5",
         "type": "VISUALIZATION",
         "data": {
@@ -316,45 +90,268 @@
           "selected": false
         },
         "position": {
-          "x": 362.8849918241506,
-          "y": -394.94756802517213
+          "x": 492.30445326189835,
+          "y": -385.59673369861866
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 362.8849918241506,
-          "y": -394.94756802517213
+          "x": 492.30445326189835,
+          "y": -385.59673369861866
+        },
+        "dragging": true
+      },
+      {
+        "id": "CONNECT_DMM7510-85e72fca-29b4-4d39-a9b6-71ca95e90073",
+        "type": "MULTIMETERS",
+        "data": {
+          "id": "CONNECT_DMM7510-85e72fca-29b4-4d39-a9b6-71ca95e90073",
+          "label": "CONNECT DMM7510",
+          "func": "CONNECT_DMM7510",
+          "type": "MULTIMETERS",
+          "ctrls": {
+            "device": {
+              "type": "VisaDevice",
+              "default": null,
+              "desc": "The connected VISA device.",
+              "overload": null,
+              "functionName": "CONNECT_DMM7510",
+              "param": "device",
+              "value": ""
+            }
+          },
+          "initCtrls": {},
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "The IP or VISA address of the VISA device."
+            }
+          ],
+          "path": "HARDWARE/MULTIMETERS/KEITHLEY/DMM7510/CONNECT_DMM7510/CONNECT_DMM7510.py"
+        },
+        "position": {
+          "x": -780.3875113744184,
+          "y": -342.32451914458716
+        },
+        "width": 216,
+        "height": 233,
+        "selected": false,
+        "positionAbsolute": {
+          "x": -780.3875113744184,
+          "y": -342.32451914458716
+        },
+        "dragging": true
+      },
+      {
+        "id": "RESET_DMM7510-ae16e42a-470a-441a-a458-f2df00b0c5ae",
+        "type": "MULTIMETERS",
+        "data": {
+          "id": "RESET_DMM7510-ae16e42a-470a-441a-a458-f2df00b0c5ae",
+          "label": "RESET DMM7510",
+          "func": "RESET_DMM7510",
+          "type": "MULTIMETERS",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECTION_DMM7510 block).",
+              "overload": null,
+              "functionName": "RESET_DMM7510",
+              "param": "connection",
+              "value": ""
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "input",
+              "id": "input",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "Reset"
+            }
+          ],
+          "path": "HARDWARE/MULTIMETERS/KEITHLEY/DMM7510/RESET_DMM7510/RESET_DMM7510.py"
+        },
+        "position": {
+          "x": -456.2623582668371,
+          "y": -342.67456979191036
+        },
+        "width": 216,
+        "height": 233,
+        "selected": false,
+        "positionAbsolute": {
+          "x": -456.2623582668371,
+          "y": -342.67456979191036
+        },
+        "dragging": true
+      },
+      {
+        "id": "FUNCTION_DMM7510-93108dea-7da2-4cab-abbd-80c382e676e8",
+        "type": "MULTIMETERS",
+        "data": {
+          "id": "FUNCTION_DMM7510-93108dea-7da2-4cab-abbd-80c382e676e8",
+          "label": "FUNCTION DMM7510",
+          "func": "FUNCTION_DMM7510",
+          "type": "MULTIMETERS",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECTION_DMM7510 block).",
+              "overload": null,
+              "functionName": "FUNCTION_DMM7510",
+              "param": "connection",
+              "value": ""
+            },
+            "function": {
+              "type": "select",
+              "options": [
+                "DC voltage",
+                "DC current",
+                "AC voltage",
+                "AC current",
+                "2W resistance",
+                "4W resistance",
+                "temperature",
+                "capacitance",
+                "continuity",
+                "diode",
+                "period",
+                "frequency",
+                "DCV ratio"
+              ],
+              "default": "DC voltage",
+              "desc": "Select the measurement function",
+              "overload": null,
+              "functionName": "FUNCTION_DMM7510",
+              "param": "function",
+              "value": "DC voltage"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "input",
+              "id": "input",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "Measurement"
+            }
+          ],
+          "path": "HARDWARE/MULTIMETERS/KEITHLEY/DMM7510/FUNCTION_DMM7510/FUNCTION_DMM7510.py"
+        },
+        "position": {
+          "x": -152.45296487566455,
+          "y": -349.08066735853316
+        },
+        "width": 216,
+        "height": 233,
+        "selected": false,
+        "positionAbsolute": {
+          "x": -152.45296487566455,
+          "y": -349.08066735853316
+        },
+        "dragging": true
+      },
+      {
+        "id": "READ_MEASUREMENT_DMM7510-1be3d370-973c-4289-9365-42f942a1ca0d",
+        "type": "MULTIMETERS",
+        "data": {
+          "id": "READ_MEASUREMENT_DMM7510-1be3d370-973c-4289-9365-42f942a1ca0d",
+          "label": "READ MEASUREMENT DMM7510",
+          "func": "READ_MEASUREMENT_DMM7510",
+          "type": "MULTIMETERS",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECTION_DMM7510 block).",
+              "overload": null,
+              "functionName": "READ_MEASUREMENT_DMM7510",
+              "param": "connection",
+              "value": ""
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "input",
+              "id": "input",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Scalar",
+              "desc": "Measurement"
+            }
+          ],
+          "path": "HARDWARE/MULTIMETERS/KEITHLEY/DMM7510/READ_MEASUREMENT_DMM7510/READ_MEASUREMENT_DMM7510.py"
+        },
+        "position": {
+          "x": 154.65971440383413,
+          "y": -352.23236628943624
+        },
+        "width": 239,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 154.65971440383413,
+          "y": -352.23236628943624
         },
         "dragging": true
       }
     ],
     "edges": [
       {
-        "source": "CONNECT_DMM7510-15768171-e9ac-447c-8fff-ed87ea37b4e8",
+        "source": "CONNECT_DMM7510-85e72fca-29b4-4d39-a9b6-71ca95e90073",
         "sourceHandle": "default",
-        "target": "RESET_DMM7510-759ea9c4-12e9-4f66-a90a-9444e9299767",
+        "target": "RESET_DMM7510-ae16e42a-470a-441a-a458-f2df00b0c5ae",
         "targetHandle": "input",
-        "id": "reactflow__edge-CONNECT_DMM7510-15768171-e9ac-447c-8fff-ed87ea37b4e8default-RESET_DMM7510-759ea9c4-12e9-4f66-a90a-9444e9299767input"
+        "id": "reactflow__edge-CONNECT_DMM7510-85e72fca-29b4-4d39-a9b6-71ca95e90073default-RESET_DMM7510-ae16e42a-470a-441a-a458-f2df00b0c5aeinput"
       },
       {
-        "source": "RESET_DMM7510-759ea9c4-12e9-4f66-a90a-9444e9299767",
+        "source": "RESET_DMM7510-ae16e42a-470a-441a-a458-f2df00b0c5ae",
         "sourceHandle": "default",
-        "target": "FUNCTION_DMM7510-700a6612-0549-4c56-ab34-42c0f5001aad",
+        "target": "FUNCTION_DMM7510-93108dea-7da2-4cab-abbd-80c382e676e8",
         "targetHandle": "input",
-        "id": "reactflow__edge-RESET_DMM7510-759ea9c4-12e9-4f66-a90a-9444e9299767default-FUNCTION_DMM7510-700a6612-0549-4c56-ab34-42c0f5001aadinput"
+        "id": "reactflow__edge-RESET_DMM7510-ae16e42a-470a-441a-a458-f2df00b0c5aedefault-FUNCTION_DMM7510-93108dea-7da2-4cab-abbd-80c382e676e8input"
       },
       {
-        "source": "READ_MEASUREMENT_DMM7510-d02caf67-71e5-4cf2-8330-c0d1b2160f35",
+        "source": "FUNCTION_DMM7510-93108dea-7da2-4cab-abbd-80c382e676e8",
+        "sourceHandle": "default",
+        "target": "READ_MEASUREMENT_DMM7510-1be3d370-973c-4289-9365-42f942a1ca0d",
+        "targetHandle": "input",
+        "id": "reactflow__edge-FUNCTION_DMM7510-93108dea-7da2-4cab-abbd-80c382e676e8default-READ_MEASUREMENT_DMM7510-1be3d370-973c-4289-9365-42f942a1ca0dinput"
+      },
+      {
+        "source": "READ_MEASUREMENT_DMM7510-1be3d370-973c-4289-9365-42f942a1ca0d",
         "sourceHandle": "default",
         "target": "BIG_NUMBER-666f96e9-7522-40be-a34d-47e7445876d5",
         "targetHandle": "default",
-        "id": "reactflow__edge-READ_MEASUREMENT_DMM7510-d02caf67-71e5-4cf2-8330-c0d1b2160f35default-BIG_NUMBER-666f96e9-7522-40be-a34d-47e7445876d5default"
-      },
-      {
-        "source": "FUNCTION_DMM7510-700a6612-0549-4c56-ab34-42c0f5001aad",
-        "sourceHandle": "default",
-        "target": "READ_MEASUREMENT_DMM7510-d02caf67-71e5-4cf2-8330-c0d1b2160f35",
-        "targetHandle": "input",
-        "id": "reactflow__edge-FUNCTION_DMM7510-700a6612-0549-4c56-ab34-42c0f5001aaddefault-READ_MEASUREMENT_DMM7510-d02caf67-71e5-4cf2-8330-c0d1b2160f35input"
+        "id": "reactflow__edge-READ_MEASUREMENT_DMM7510-1be3d370-973c-4289-9365-42f942a1ca0ddefault-BIG_NUMBER-666f96e9-7522-40be-a34d-47e7445876d5default"
       }
     ],
     "viewport": {
@@ -367,8 +364,8 @@
     {
       "id": "TextNode-e79ffa15-dcd0-4388-b40e-e990c0a7a0e5",
       "position": {
-        "x": -473.92924458230004,
-        "y": -532.7171128195466
+        "x": -416.2657662352202,
+        "y": -568.5619777380017
       },
       "type": "TextNode",
       "data": {
@@ -378,8 +375,8 @@
       "height": 161,
       "selected": false,
       "positionAbsolute": {
-        "x": -473.92924458230004,
-        "y": -532.7171128195466
+        "x": -416.2657662352202,
+        "y": -568.5619777380017
       },
       "dragging": false,
       "style": {

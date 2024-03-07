@@ -3,19 +3,19 @@
   "rfInstance": {
     "nodes": [
       {
-        "width": 150,
-        "height": 180,
-        "id": "LINSPACE-1fae0391-9694-4e08-9762-99e1d533df94",
-        "type": "default",
+        "id": "LINSPACE-e745a601-c0e8-446c-b80b-4166c7c5fd80",
+        "type": "DATA",
         "data": {
-          "id": "LINSPACE-1fae0391-9694-4e08-9762-99e1d533df94",
+          "id": "LINSPACE-e745a601-c0e8-446c-b80b-4166c7c5fd80",
           "label": "LINSPACE",
           "func": "LINSPACE",
-          "type": "default",
+          "type": "DATA",
           "ctrls": {
             "start": {
               "type": "float",
               "default": 10,
+              "desc": "The start point of the data.",
+              "overload": null,
               "functionName": "LINSPACE",
               "param": "start",
               "value": 0
@@ -23,6 +23,8 @@
             "end": {
               "type": "float",
               "default": 0,
+              "desc": "The end point of the data.",
+              "overload": null,
               "functionName": "LINSPACE",
               "param": "end",
               "value": 0.75
@@ -30,46 +32,60 @@
             "step": {
               "type": "int",
               "default": 1000,
+              "desc": "The number of points in the vector.",
+              "overload": null,
               "functionName": "LINSPACE",
               "param": "step",
               "value": 600
             }
           },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Vector|OrderedPair",
+              "multiple": false,
+              "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+            }
+          ],
           "outputs": [
             {
               "name": "default",
               "id": "default",
-              "type": "OrderedPair"
+              "type": "Vector",
+              "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
             }
           ],
-          "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-          "selected": false
+          "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
         },
         "position": {
-          "x": 131.05060402280617,
-          "y": 332.2195561169542
+          "x": -220.71670354740888,
+          "y": 235.50902319708416
         },
+        "width": 216,
+        "height": 197,
         "selected": false,
         "positionAbsolute": {
-          "x": 131.05060402280617,
-          "y": 332.2195561169542
+          "x": -220.71670354740888,
+          "y": 235.50902319708416
         },
         "dragging": true
       },
       {
-        "width": 208,
-        "height": 96,
-        "id": "SINE-684e15cc-d2f7-4d09-83a2-fdddd6cefd2f",
-        "type": "GENERATORS",
+        "id": "SINE-80ce6085-5909-45f8-95a7-4387d4646b78",
+        "type": "DATA",
         "data": {
-          "id": "SINE-684e15cc-d2f7-4d09-83a2-fdddd6cefd2f",
+          "id": "SINE-80ce6085-5909-45f8-95a7-4387d4646b78",
           "label": "SINE",
           "func": "SINE",
-          "type": "GENERATORS",
+          "type": "DATA",
           "ctrls": {
             "amplitude": {
               "type": "float",
               "default": 1,
+              "desc": "The amplitude of the wave.",
+              "overload": null,
               "functionName": "SINE",
               "param": "amplitude",
               "value": 1
@@ -77,6 +93,8 @@
             "frequency": {
               "type": "float",
               "default": 1,
+              "desc": "The wave frequency in radians/2pi.",
+              "overload": null,
               "functionName": "SINE",
               "param": "frequency",
               "value": 30
@@ -84,6 +102,8 @@
             "offset": {
               "type": "float",
               "default": 0,
+              "desc": "The y axis offset of the function.",
+              "overload": null,
               "functionName": "SINE",
               "param": "offset",
               "value": 0
@@ -91,69 +111,79 @@
             "phase": {
               "type": "float",
               "default": 0,
+              "desc": "The x axis offset of the function.",
+              "overload": null,
               "functionName": "SINE",
               "param": "phase",
               "value": 0
             },
             "waveform": {
               "type": "select",
-              "default": "sine",
               "options": ["sine", "square", "triangle", "sawtooth"],
+              "default": "sine",
+              "desc": "The waveform type of the wave.",
+              "overload": null,
               "functionName": "SINE",
               "param": "waveform",
               "value": "sine"
             }
           },
+          "initCtrls": {},
           "inputs": [
             {
               "name": "default",
               "id": "default",
-              "type": "OrderedPair",
-              "multiple": false
+              "type": "OrderedPair|Vector",
+              "multiple": false,
+              "desc": "Input that defines the x-axis values of the function and output."
             }
           ],
           "outputs": [
             {
               "name": "default",
               "id": "default",
-              "type": "OrderedPair"
+              "type": "OrderedPair",
+              "desc": "x: the input v or x values\ny: the resulting sine function"
             }
           ],
-          "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/SINE/SINE.py",
-          "selected": false
+          "path": "DATA/GENERATION/SIMULATIONS/SINE/SINE.py"
         },
         "position": {
-          "x": 465.8729517979642,
-          "y": 232.73063756313297
+          "x": 281.8802303331598,
+          "y": 27.92732443800469
         },
+        "width": 216,
+        "height": 197,
         "selected": false,
         "positionAbsolute": {
-          "x": 465.8729517979642,
-          "y": 232.73063756313297
+          "x": 281.8802303331598,
+          "y": 27.92732443800469
         },
         "dragging": true
       },
       {
-        "width": 208,
-        "height": 96,
-        "id": "SINE-15e699fe-e9e0-452d-9206-8313c657c051",
-        "type": "GENERATORS",
+        "id": "SINE-639a1292-9f34-40b1-b091-0d0bade8f1b6",
+        "type": "DATA",
         "data": {
-          "id": "SINE-15e699fe-e9e0-452d-9206-8313c657c051",
-          "label": "SINE 1",
+          "id": "SINE-639a1292-9f34-40b1-b091-0d0bade8f1b6",
+          "label": "SINE 2",
           "func": "SINE",
-          "type": "GENERATORS",
+          "type": "DATA",
           "ctrls": {
             "amplitude": {
               "type": "float",
               "default": 1,
+              "desc": "The amplitude of the wave.",
+              "overload": null,
               "functionName": "SINE",
               "param": "amplitude",
-              "value": "0.5"
+              "value": 0.5
             },
             "frequency": {
               "type": "float",
               "default": 1,
+              "desc": "The wave frequency in radians/2pi.",
+              "overload": null,
               "functionName": "SINE",
               "param": "frequency",
               "value": 100
@@ -161,6 +191,8 @@
             "offset": {
               "type": "float",
               "default": 0,
+              "desc": "The y axis offset of the function.",
+              "overload": null,
               "functionName": "SINE",
               "param": "offset",
               "value": 0
@@ -168,109 +200,118 @@
             "phase": {
               "type": "float",
               "default": 0,
+              "desc": "The x axis offset of the function.",
+              "overload": null,
               "functionName": "SINE",
               "param": "phase",
               "value": 0
             },
             "waveform": {
               "type": "select",
-              "default": "sine",
               "options": ["sine", "square", "triangle", "sawtooth"],
+              "default": "sine",
+              "desc": "The waveform type of the wave.",
+              "overload": null,
               "functionName": "SINE",
               "param": "waveform",
               "value": "sine"
             }
           },
+          "initCtrls": {},
           "inputs": [
             {
               "name": "default",
               "id": "default",
-              "type": "OrderedPair",
-              "multiple": false
+              "type": "OrderedPair|Vector",
+              "multiple": false,
+              "desc": "Input that defines the x-axis values of the function and output."
             }
           ],
           "outputs": [
             {
               "name": "default",
               "id": "default",
-              "type": "OrderedPair"
+              "type": "OrderedPair",
+              "desc": "x: the input v or x values\ny: the resulting sine function"
             }
           ],
-          "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/SINE/SINE.py",
-          "selected": false
+          "path": "DATA/GENERATION/SIMULATIONS/SINE/SINE.py"
         },
         "position": {
-          "x": 454.5791450829271,
-          "y": 488.5731369693229
+          "x": 288.54263321070573,
+          "y": 394.4472565522939
         },
+        "width": 216,
+        "height": 197,
         "selected": false,
         "positionAbsolute": {
-          "x": 454.5791450829271,
-          "y": 488.5731369693229
+          "x": 288.54263321070573,
+          "y": 394.4472565522939
         },
         "dragging": true
       },
       {
-        "width": 72,
-        "height": 72,
-        "id": "ADD-26b8771f-d073-4ee8-8bec-a69e4a23079d",
-        "type": "ARITHMETIC",
+        "id": "ADD-ff104cf7-609d-489e-a05e-56e7f3477515",
+        "type": "MATH",
         "data": {
-          "id": "ADD-26b8771f-d073-4ee8-8bec-a69e4a23079d",
+          "id": "ADD-ff104cf7-609d-489e-a05e-56e7f3477515",
           "label": "ADD",
           "func": "ADD",
-          "type": "ARITHMETIC",
+          "type": "MATH",
           "ctrls": {},
+          "initCtrls": {},
           "inputs": [
             {
               "name": "a",
               "id": "a",
-              "type": "OrderedPair",
-              "multiple": false
+              "type": "OrderedPair|Scalar|Vector",
+              "multiple": false,
+              "desc": "The input a use to compute the sum of a and b."
             },
             {
               "name": "b",
               "id": "b",
-              "type": "OrderedPair",
-              "multiple": true
+              "type": "OrderedPair|Scalar|Vector",
+              "multiple": true,
+              "desc": "The input b use to compute the sum of a and b."
             }
           ],
           "outputs": [
             {
               "name": "default",
               "id": "default",
-              "type": "OrderedPair"
+              "type": "OrderedPair|Scalar|Vector",
+              "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the sum of input a and input b.\n\nScalar if a is a Scalar.\nc: the sum of input a and input b.\n\nVector if a is a Vector.\nv: the sum of input a and input b."
             }
           ],
-          "path": "PYTHON/nodes/TRANSFORMERS/ARITHMETIC/ADD/ADD.py",
-          "selected": false
+          "path": "MATH/ARITHMETIC/ADD/ADD.py"
         },
         "position": {
-          "x": 761.2995555587786,
-          "y": 342.6431492716158
+          "x": 675.4072663886503,
+          "y": 246.6825986682553
         },
+        "width": 216,
+        "height": 164,
         "selected": false,
         "positionAbsolute": {
-          "x": 761.2995555587786,
-          "y": 342.6431492716158
+          "x": 675.4072663886503,
+          "y": 246.6825986682553
         },
         "dragging": true
       },
       {
-        "width": 160,
-        "height": 160,
-        "id": "FFT-ae307ae3-517d-4103-a787-02fe288d2e97",
-        "type": "TRANSFORMERS",
+        "id": "FFT-b54a7d66-c05e-47a6-b668-8726b0e1736f",
+        "type": "DSP",
         "data": {
-          "id": "FFT-ae307ae3-517d-4103-a787-02fe288d2e97",
+          "id": "FFT-b54a7d66-c05e-47a6-b668-8726b0e1736f",
           "label": "FFT",
           "func": "FFT",
-          "type": "TRANSFORMERS",
+          "type": "DSP",
           "ctrls": {
             "window": {
               "type": "select",
-              "default": "hann",
               "options": [
+                "none",
                 "boxcar",
                 "triang",
                 "blackman",
@@ -289,6 +330,9 @@
                 "taylor",
                 "lanczos"
               ],
+              "default": "hann",
+              "desc": "the node will apply a window to the signal to avoid spectral leakage",
+              "overload": null,
               "functionName": "FFT",
               "param": "window",
               "value": "blackman"
@@ -296,6 +340,8 @@
             "real_signal": {
               "type": "bool",
               "default": true,
+              "desc": "whether the input signal is real or complex",
+              "overload": null,
               "functionName": "FFT",
               "param": "real_signal",
               "value": true
@@ -303,58 +349,180 @@
             "sample_rate": {
               "type": "int",
               "default": 1,
+              "desc": "the sample rate of the signal, defaults to 1",
+              "overload": null,
               "functionName": "FFT",
               "param": "sample_rate",
-              "value": "800"
+              "value": 800
             },
             "display": {
               "type": "bool",
               "default": true,
+              "desc": "whether the output would be graphed, set to false for pure data and true for data that is more suitable to be graphed",
+              "overload": null,
               "functionName": "FFT",
               "param": "display",
               "value": true
             }
           },
+          "initCtrls": {},
           "inputs": [
             {
               "name": "default",
               "id": "default",
               "type": "OrderedPair",
-              "multiple": false
+              "multiple": false,
+              "desc": "The data to apply FFT to."
             }
           ],
           "outputs": [
             {
               "name": "default",
               "id": "default",
-              "type": "OrderedPair|DataFrame"
+              "type": "OrderedPair|DataFrame",
+              "desc": "x: frequency\ny: spectrum of the signal"
             }
           ],
-          "path": "PYTHON/nodes/TRANSFORMERS/SIGNAL_PROCESSING/FFT/FFT.py",
-          "selected": false
+          "path": "DSP/FFT/FFT.py"
         },
         "position": {
-          "x": 1068.0232140768915,
-          "y": 313.89197013555247
+          "x": 923.3206941955626,
+          "y": 75.00947098145332
         },
+        "width": 216,
+        "height": 197,
         "selected": false,
         "positionAbsolute": {
-          "x": 1068.0232140768915,
-          "y": 313.89197013555247
+          "x": 923.3206941955626,
+          "y": 75.00947098145332
         },
         "dragging": true
       },
       {
-        "width": 225,
-        "height": 226,
-        "id": "LINE-5477fda2-60e7-4d32-bd26-d96341435427",
-        "type": "VISUALIZERS",
+        "id": "LINE-1e9c3ca4-1692-48da-ba58-580138154a2c",
+        "type": "VISUALIZATION",
         "data": {
-          "id": "LINE-5477fda2-60e7-4d32-bd26-d96341435427",
+          "id": "LINE-1e9c3ca4-1692-48da-ba58-580138154a2c",
+          "label": "LINE 1",
+          "func": "LINE",
+          "type": "VISUALIZATION",
+          "ctrls": {
+            "xaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the x axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "xaxis_title",
+              "value": ""
+            },
+            "yaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the y axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "yaxis_title",
+              "value": ""
+            },
+            "x_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "x_log_scale",
+              "value": false
+            },
+            "y_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "y_log_scale",
+              "value": false
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix|Vector",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+        },
+        "position": {
+          "x": 1294.519963903396,
+          "y": 396.2121194473848
+        },
+        "width": 225,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1294.519963903396,
+          "y": 396.2121194473848
+        },
+        "dragging": true
+      },
+      {
+        "id": "LINE-40a403a1-63a0-4096-9147-1f8c9b61841b",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "LINE-40a403a1-63a0-4096-9147-1f8c9b61841b",
           "label": "LINE",
           "func": "LINE",
-          "type": "VISUALIZERS",
-          "ctrls": {},
+          "type": "VISUALIZATION",
+          "ctrls": {
+            "xaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the x axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "xaxis_title",
+              "value": ""
+            },
+            "yaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the y axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "yaxis_title",
+              "value": ""
+            },
+            "x_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "x_log_scale",
+              "value": false
+            },
+            "y_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "y_log_scale",
+              "value": false
+            }
+          },
           "initCtrls": {},
           "inputs": [
             {
@@ -370,116 +538,74 @@
               "name": "default",
               "id": "default",
               "type": "Plotly",
-              "desc": "the DataContainer containing Plotly Line visualization of the input data"
+              "desc": "the DataContainer containing the Plotly Line visualization of the input data"
             }
           ],
-          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
-          "selected": false
+          "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
         },
         "position": {
-          "x": 1010.1832098880897,
-          "y": 613.1218016072371
+          "x": 1348.5128713555914,
+          "y": -99.42877734311799
         },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 1010.1832098880897,
-          "y": 613.1218016072371
-        },
-        "dragging": true
-      },
-      {
         "width": 225,
-        "height": 226,
-        "id": "LINE-8014db01-e88c-4650-b6e0-1be8d8afd2b8",
-        "type": "VISUALIZERS",
-        "data": {
-          "id": "LINE-8014db01-e88c-4650-b6e0-1be8d8afd2b8",
-          "label": "LINE 3",
-          "func": "LINE",
-          "type": "VISUALIZERS",
-          "ctrls": {},
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair|DataFrame|Matrix|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Plotly",
-              "desc": "the DataContainer containing Plotly Line visualization of the input data"
-            }
-          ],
-          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
-          "selected": false
-        },
-        "position": {
-          "x": 1482.1402605942894,
-          "y": 278.7788180524462
-        },
+        "height": 269,
         "selected": false,
         "positionAbsolute": {
-          "x": 1482.1402605942894,
-          "y": 278.7788180524462
+          "x": 1348.5128713555914,
+          "y": -99.42877734311799
         },
         "dragging": true
       }
     ],
     "edges": [
       {
-        "source": "LINSPACE-1fae0391-9694-4e08-9762-99e1d533df94",
+        "source": "LINSPACE-e745a601-c0e8-446c-b80b-4166c7c5fd80",
         "sourceHandle": "default",
-        "target": "SINE-684e15cc-d2f7-4d09-83a2-fdddd6cefd2f",
+        "target": "SINE-80ce6085-5909-45f8-95a7-4387d4646b78",
         "targetHandle": "default",
-        "id": "reactflow__edge-LINSPACE-1fae0391-9694-4e08-9762-99e1d533df94default-SINE-684e15cc-d2f7-4d09-83a2-fdddd6cefd2fdefault"
+        "id": "reactflow__edge-LINSPACE-e745a601-c0e8-446c-b80b-4166c7c5fd80default-SINE-80ce6085-5909-45f8-95a7-4387d4646b78default"
       },
       {
-        "source": "LINSPACE-1fae0391-9694-4e08-9762-99e1d533df94",
+        "source": "LINSPACE-e745a601-c0e8-446c-b80b-4166c7c5fd80",
         "sourceHandle": "default",
-        "target": "SINE-15e699fe-e9e0-452d-9206-8313c657c051",
+        "target": "SINE-639a1292-9f34-40b1-b091-0d0bade8f1b6",
         "targetHandle": "default",
-        "id": "reactflow__edge-LINSPACE-1fae0391-9694-4e08-9762-99e1d533df94default-SINE-15e699fe-e9e0-452d-9206-8313c657c051default"
+        "id": "reactflow__edge-LINSPACE-e745a601-c0e8-446c-b80b-4166c7c5fd80default-SINE-639a1292-9f34-40b1-b091-0d0bade8f1b6default"
       },
       {
-        "source": "SINE-684e15cc-d2f7-4d09-83a2-fdddd6cefd2f",
+        "source": "SINE-80ce6085-5909-45f8-95a7-4387d4646b78",
         "sourceHandle": "default",
-        "target": "ADD-26b8771f-d073-4ee8-8bec-a69e4a23079d",
+        "target": "ADD-ff104cf7-609d-489e-a05e-56e7f3477515",
         "targetHandle": "a",
-        "id": "reactflow__edge-SINE-684e15cc-d2f7-4d09-83a2-fdddd6cefd2fdefault-ADD-26b8771f-d073-4ee8-8bec-a69e4a23079da"
+        "id": "reactflow__edge-SINE-80ce6085-5909-45f8-95a7-4387d4646b78default-ADD-ff104cf7-609d-489e-a05e-56e7f3477515a"
       },
       {
-        "source": "SINE-15e699fe-e9e0-452d-9206-8313c657c051",
+        "source": "SINE-639a1292-9f34-40b1-b091-0d0bade8f1b6",
         "sourceHandle": "default",
-        "target": "ADD-26b8771f-d073-4ee8-8bec-a69e4a23079d",
+        "target": "ADD-ff104cf7-609d-489e-a05e-56e7f3477515",
         "targetHandle": "b",
-        "id": "reactflow__edge-SINE-15e699fe-e9e0-452d-9206-8313c657c051default-ADD-26b8771f-d073-4ee8-8bec-a69e4a23079db"
+        "id": "reactflow__edge-SINE-639a1292-9f34-40b1-b091-0d0bade8f1b6default-ADD-ff104cf7-609d-489e-a05e-56e7f3477515b"
       },
       {
-        "source": "ADD-26b8771f-d073-4ee8-8bec-a69e4a23079d",
+        "source": "ADD-ff104cf7-609d-489e-a05e-56e7f3477515",
         "sourceHandle": "default",
-        "target": "FFT-ae307ae3-517d-4103-a787-02fe288d2e97",
+        "target": "LINE-1e9c3ca4-1692-48da-ba58-580138154a2c",
         "targetHandle": "default",
-        "id": "reactflow__edge-ADD-26b8771f-d073-4ee8-8bec-a69e4a23079ddefault-FFT-ae307ae3-517d-4103-a787-02fe288d2e97default"
+        "id": "reactflow__edge-ADD-ff104cf7-609d-489e-a05e-56e7f3477515default-LINE-1e9c3ca4-1692-48da-ba58-580138154a2cdefault"
       },
       {
-        "source": "ADD-26b8771f-d073-4ee8-8bec-a69e4a23079d",
+        "source": "ADD-ff104cf7-609d-489e-a05e-56e7f3477515",
         "sourceHandle": "default",
-        "target": "LINE-5477fda2-60e7-4d32-bd26-d96341435427",
+        "target": "FFT-b54a7d66-c05e-47a6-b668-8726b0e1736f",
         "targetHandle": "default",
-        "id": "reactflow__edge-ADD-26b8771f-d073-4ee8-8bec-a69e4a23079ddefault-LINE-5477fda2-60e7-4d32-bd26-d96341435427default"
+        "id": "reactflow__edge-ADD-ff104cf7-609d-489e-a05e-56e7f3477515default-FFT-b54a7d66-c05e-47a6-b668-8726b0e1736fdefault"
       },
       {
-        "source": "FFT-ae307ae3-517d-4103-a787-02fe288d2e97",
+        "source": "FFT-b54a7d66-c05e-47a6-b668-8726b0e1736f",
         "sourceHandle": "default",
-        "target": "LINE-8014db01-e88c-4650-b6e0-1be8d8afd2b8",
+        "target": "LINE-40a403a1-63a0-4096-9147-1f8c9b61841b",
         "targetHandle": "default",
-        "id": "reactflow__edge-FFT-ae307ae3-517d-4103-a787-02fe288d2e97default-LINE-8014db01-e88c-4650-b6e0-1be8d8afd2b8default"
+        "id": "reactflow__edge-FFT-b54a7d66-c05e-47a6-b668-8726b0e1736fdefault-LINE-40a403a1-63a0-4096-9147-1f8c9b61841bdefault"
       }
     ],
     "viewport": {
@@ -487,5 +613,6 @@
       "y": 237.5684501369203,
       "zoom": 0.5038108820776545
     }
-  }
+  },
+  "textNodes": []
 }

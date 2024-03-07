@@ -10,7 +10,7 @@ const operatorMap: Record<string, string> = {
   ABS: "|x|",
 };
 
-const ArithmeticNode = (props: CustomNodeProps) => {
+const ArithmeticNode = (props: BlockProps) => {
   return (
     <DefaultNode width={72} height={72} {...props}>
       <h2 className="m-0 text-center font-sans text-4xl font-semibold tracking-wider text-accent1">

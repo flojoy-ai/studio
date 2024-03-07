@@ -1,6 +1,6 @@
 import { Button } from "@/renderer/components/ui/button";
 import { Moon, Sun } from "lucide-react";
-import { useTheme } from "@/renderer/providers/ThemeProvider";
+import { useTheme } from "@/renderer/providers/them-provider";
 
 export const DarkModeToggle = () => {
   const { theme, setTheme } = useTheme();

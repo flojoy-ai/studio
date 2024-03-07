@@ -12,7 +12,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { ErrorPage } from "@/renderer/ErrorPage";
 import { HashRouter } from "react-router-dom";
 import { AuthContextProvider } from "./context/auth.context";
-import { ThemeProvider } from "./providers/ThemeProvider";
+import { ThemeProvider } from "./providers/them-provider";
 import { TestSequencerWSProvider } from "./context/testSequencerWS.context";
 import { SocketContextProvider } from "./context/socket.context";
 

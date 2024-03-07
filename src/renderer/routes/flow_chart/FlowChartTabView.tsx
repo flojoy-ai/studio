@@ -13,7 +13,6 @@ import {
   ReactFlowProvider,
   Controls,
   Node,
-  NodeTypes,
   applyEdgeChanges,
   applyNodeChanges,
   OnConnect,
@@ -35,7 +34,7 @@ import { CenterObserver } from "./components/CenterObserver";
 import { Separator } from "@/renderer/components/ui/separator";
 import { Pencil, Text, Workflow, X } from "lucide-react";
 import { GalleryModal } from "@/renderer/components/gallery/GalleryModal";
-import { useTheme } from "@/renderer/providers/ThemeProvider";
+import { useTheme } from "@/renderer/providers/them-provider";
 import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
 import { Button } from "@/renderer/components/ui/button";
 import { ResizeFitter } from "./components/ResizeFitter";
@@ -50,19 +49,10 @@ import {
 } from "@/renderer/components/ui/tooltip";
 import { BlockData } from "@/renderer/types/block";
 import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
-import ArithmeticBlock from "@/renderer/components/nodes/ArithmeticBlock";
-import ConditionalBlock from "@/renderer/components/nodes/ConditionalBlock";
-import DataBlock from "@/renderer/components/nodes/DataBlock";
-import DefaultBlock from "@/renderer/components/nodes/DefaultBlock";
-import IOBlock from "@/renderer/components/nodes/IOBlock";
-import LogicBlock from "@/renderer/components/nodes/LogicBlock";
-import NumpyBlock from "@/renderer/components/nodes/NumpyBlock";
-import ScipyBlock from "@/renderer/components/nodes/ScipyBlock";
-import VisorBlock from "@/renderer/components/nodes/VisorBlock";
-import TextNode from "@/renderer/components/nodes/TextNode";
 import ContextMenu, { MenuInfo } from "./components/NodeContextMenu";
 import { Spinner } from "@/renderer/components/ui/spinner";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
+import nodeTypesMap from "@/renderer/components/blocks/block-types";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
 import {
   useAddBlock,
@@ -82,30 +72,6 @@ import {
   useManifestStore,
   useMetadata,
 } from "@/renderer/stores/manifest";
-
-const nodeTypes: NodeTypes = {
-  default: DefaultBlock,
-  AI_ML: DataBlock,
-  GENERATORS: DataBlock,
-  VISUALIZERS: VisorBlock,
-  EXTRACTORS: DefaultBlock,
-  TRANSFORMERS: DefaultBlock,
-  LOADERS: DefaultBlock,
-  ARITHMETIC: ArithmeticBlock,
-  IO: IOBlock,
-  LOGIC_GATES: LogicBlock,
-  CONDITIONALS: ConditionalBlock,
-  SCIPY: ScipyBlock,
-  NUMPY: NumpyBlock,
-  DATA: DataBlock,
-  VISUALIZATION: VisorBlock,
-  ETL: DefaultBlock,
-  DSP: DefaultBlock,
-  CONTROL_FLOW: LogicBlock,
-  MATH: DefaultBlock,
-  HARDWARE: IOBlock,
-  TextNode: TextNode,
-};
 
 const edgeTypes = {
   default: SmartBezierEdge,
@@ -460,7 +426,7 @@ const FlowChartTab = () => {
             deleteKeyCode={isAdmin() ? deleteKeyCodes : null}
             proOptions={proOptions}
             nodes={[...nodes, ...textNodes]}
-            nodeTypes={nodeTypes}
+            nodeTypes={nodeTypesMap}
             edges={edges}
             edgeTypes={edgeTypes}
             connectionLineType={ConnectionLineType.Step}
