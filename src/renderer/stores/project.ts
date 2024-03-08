@@ -45,6 +45,7 @@ import {
   Config,
   Configurable,
   VisualizationData,
+  WidgetConfig,
   WidgetData,
   WidgetType,
 } from "@/renderer/types/control";
@@ -102,6 +103,10 @@ type Actions = {
     widgetType: K,
     config?: K extends Configurable ? Config[K] : never,
   ) => void;
+  editControlWidgetConfig: (
+    widgetId: string,
+    config: WidgetConfig,
+  ) => Result<void, Error>;
   deleteControlWidget: (controlNodeId: string) => void;
 
   addControlVisualization: (blockId: string) => Result<void, Error>;
@@ -354,6 +359,31 @@ export const useProjectStore = create<State & Actions>()(
       set((state) => {
         state.controlWidgetNodes.push(node);
       });
+    },
+
+    editControlWidgetConfig: (blockId: string, config: WidgetConfig) => {
+      try {
+        set((state) => {
+          const node = state.controlWidgetNodes.find(
+            (n) => n.data.blockId === blockId,
+          );
+          if (!node) {
+            throw new Error("Control widget not found");
+          }
+
+          if (node.type !== config.type) {
+            return err(
+              new Error("Control widget type does not match config type"),
+            );
+          }
+
+          node.data.config = config;
+        });
+      } catch (e) {
+        return err(e as Error);
+      }
+
+      return ok(undefined);
     },
 
     deleteControlWidget: (controlNodeId: string) => {

@@ -5,9 +5,11 @@ import {
 } from "@/renderer/routes/common/Layout";
 import ReactFlow, {
   Controls,
+  NodeMouseHandler,
   OnNodesChange,
   OnNodesDelete,
   ReactFlowProvider,
+  Node,
   applyNodeChanges,
 } from "reactflow";
 import { SliderNode } from "@/renderer/components/controls/slider-node";
@@ -30,10 +32,20 @@ import {
   CONFIGURABLE,
   Configurable,
   WidgetType,
+  WidgetData,
+  VisualizationData,
+  isWidgetType,
 } from "@/renderer/types/control";
 import { ConfigDialog } from "./components/config-dialog";
 import { useShallow } from "zustand/react/shallow";
 import { CheckboxNode } from "@/renderer/components/controls/checkbox-node";
+import WidgetContextMenu, {
+  WidgetContextMenuInfo,
+} from "./components/widget-context-menu";
+import { TextData } from "@/renderer/types/block";
+import { calculateContextMenuOffset } from "@/renderer/utils/context-menu";
+import { toast } from "sonner";
+import { useContextMenu } from "@/renderer/hooks/useContextMenu";
 
 const nodeTypes = {
   slider: SliderNode,
@@ -62,6 +74,7 @@ const ControlPanelView = () => {
 
   const [widgetConfigOpen, setWidgetConfigOpen] = useState(false);
   const widgetBlockInfo = useRef<WidgetBlockInfo | null>(null);
+  const editingWidgetConfig = useRef<boolean>(false);
   const widgetConfig = useRef<WidgetConfig>(CONFIG_DEFAULT_VALUES["slider"]);
 
   const { isAdmin } = useWithPermission();
@@ -71,6 +84,7 @@ const ControlPanelView = () => {
     textNodes,
     addTextNode,
     addControl,
+    editConfig,
     deleteNode,
     handleControlChanges,
   } = useProjectStore(
@@ -80,6 +94,7 @@ const ControlPanelView = () => {
       textNodes: state.controlTextNodes,
       addTextNode: state.addControlTextNode,
       addControl: state.addControlWidget,
+      editConfig: state.editControlWidgetConfig,
       addNode: state.addControlWidget,
       deleteNode: state.deleteControlWidget,
       handleControlChanges: state.handleControlChanges,
@@ -110,6 +125,31 @@ const ControlPanelView = () => {
     [deleteNode],
   );
 
+  const { menu, setMenu, flowRef, onPaneClick } =
+    useContextMenu<WidgetContextMenuInfo>();
+
+  const onNodeContextMenu: NodeMouseHandler = useCallback(
+    (event, node: Node<WidgetData | VisualizationData | TextData>) => {
+      // Prevent native context menu from showing
+      event.preventDefault();
+      if (flowRef.current === null || !node.type || !isWidgetType(node.type))
+        return;
+      const widgetNode = node as Node<WidgetData>;
+
+      const offset = calculateContextMenuOffset(
+        event.clientX,
+        event.clientY,
+        flowRef.current,
+      );
+
+      setMenu({
+        node: widgetNode,
+        ...offset,
+      });
+    },
+    [flowRef, setMenu],
+  );
+
   const onWidgetBlockInfoSubmit = (data: WidgetBlockInfo) => {
     setNewWidgetModalOpen(false);
     if (!isConfigurable(data.widgetType)) {
@@ -119,6 +159,7 @@ const ControlPanelView = () => {
 
     widgetConfig.current = CONFIG_DEFAULT_VALUES[data.widgetType];
     widgetBlockInfo.current = data;
+    editingWidgetConfig.current = false;
     setWidgetConfigOpen(true);
   };
 
@@ -131,6 +172,36 @@ const ControlPanelView = () => {
     setWidgetConfigOpen(false);
   };
 
+  const onWidgetConfigEditSubmit = (data: WidgetConfig) => {
+    if (!widgetBlockInfo.current) {
+      return; // TODO: Error handling
+    }
+    editConfig(widgetBlockInfo.current.blockId, data);
+    setWidgetConfigOpen(false);
+  };
+
+  const menuNodeType = menu?.node.type;
+  const selectingConfigurableNode =
+    menuNodeType && isWidgetType(menuNodeType) && isConfigurable(menuNodeType);
+  const openWidgetEdit = selectingConfigurableNode
+    ? () => {
+        const currentConfig = menu.node.data.config;
+        if (currentConfig === undefined) {
+          toast.error("No config data found for this widget");
+          return;
+        }
+
+        editingWidgetConfig.current = true;
+        widgetBlockInfo.current = {
+          blockId: menu.node.data.blockId,
+          blockParameter: menu.node.data.blockParameter,
+          widgetType: menuNodeType,
+        };
+        widgetConfig.current = currentConfig;
+        setWidgetConfigOpen(true);
+      }
+    : undefined;
+
   return (
     <ReactFlowProvider>
       <ConfigDialog
@@ -138,7 +209,11 @@ const ControlPanelView = () => {
         initialValues={widgetConfig.current}
         open={widgetConfigOpen}
         setOpen={setWidgetConfigOpen}
-        onSubmit={onWidgetConfigSubmit}
+        onSubmit={
+          editingWidgetConfig.current
+            ? onWidgetConfigEditSubmit
+            : onWidgetConfigSubmit
+        }
       />
       <div className="mx-8 border-b" style={{ height: ACTIONS_HEIGHT }}>
         <div className="py-1" />
@@ -178,6 +253,7 @@ const ControlPanelView = () => {
       >
         <ReactFlow
           className="!absolute"
+          ref={flowRef}
           deleteKeyCode={isAdmin() ? deleteKeyCodes : null}
           proOptions={{ hideAttribution: true }}
           nodes={[...textNodes, ...widgetNodes, ...visualizationNodes]}
@@ -188,11 +264,20 @@ const ControlPanelView = () => {
           fitViewOptions={{
             padding: 0.8,
           }}
+          onPaneClick={onPaneClick}
+          onNodeContextMenu={onNodeContextMenu}
         >
           <Controls
             fitViewOptions={{ padding: 0.8 }}
             className="!bottom-1 !shadow-control"
           />
+          {menu && (
+            <WidgetContextMenu
+              onClick={onPaneClick}
+              openWidgetEdit={openWidgetEdit}
+              {...menu}
+            />
+          )}
         </ReactFlow>
       </div>
     </ReactFlowProvider>

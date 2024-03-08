@@ -20,7 +20,11 @@ export type Config = {
 
 export type WidgetConfig = Config[keyof Config];
 
-export const WidgetType = z.enum(["slider", "checkbox"]);
+export const WIDGET_TYPES = ["slider", "checkbox"] as const;
+export const isWidgetType = (value: string): value is WidgetType =>
+  WIDGET_TYPES.includes(value);
+
+export const WidgetType = z.enum(WIDGET_TYPES);
 export type WidgetType = z.infer<typeof WidgetType>;
 
 export const WidgetBlockInfo = z.object({

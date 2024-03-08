@@ -1,63 +1,26 @@
-import { Button } from "@/renderer/components/ui/button";
 import { BlockData } from "@/renderer/types/block";
-import { Code, CopyPlus, Info, LucideIcon, Pencil, X } from "lucide-react";
+import { Code, CopyPlus, Info, Pencil, X } from "lucide-react";
 import { useCallback } from "react";
 import { useStore, Node, useReactFlow } from "reactflow";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
 import { useShallow } from "zustand/react/shallow";
+import { MenuInfo } from "@/renderer/types/context-menu";
+import { ContextMenuAction } from "@/renderer/components/common/context-menu-action";
 
-export type MenuInfo = {
-  id: string;
-  top?: number;
-  left?: number;
-  right?: number;
-  bottom?: number;
+export type BlockContextMenuInfo = MenuInfo<BlockData> & {
   fullPath: string;
 };
 
-type ContextMenuActionProps = {
-  onClick: () => void;
-  children: React.ReactNode;
-  icon: LucideIcon;
-  testId: string;
-};
-
-const ContextMenuAction = ({
-  onClick,
-  children,
-  icon,
-  testId,
-}: ContextMenuActionProps) => {
-  const Icon = icon;
-  return (
-    <Button
-      onClick={onClick}
-      variant="ghost"
-      data-testid={testId}
-      size="sm"
-      className="flex w-full justify-start gap-2"
-    >
-      <Icon size={14} />
-      {children}
-    </Button>
-  );
-};
-
-type ContextMenuProps = {
-  id: string;
-  top?: number;
-  left?: number;
-  right?: number;
-  bottom?: number;
+type Props = BlockContextMenuInfo & {
   fullPath: string;
   onClick?: () => void;
   duplicateBlock: (node: Node<BlockData>) => void;
   setNodeModalOpen: (open: boolean) => void;
 };
 
-export default function ContextMenu({
-  id,
+export default function BlockContextMenu({
+  node,
   top,
   left,
   right,
@@ -66,9 +29,9 @@ export default function ContextMenu({
   onClick,
   duplicateBlock,
   setNodeModalOpen,
-}: ContextMenuProps) {
+}: Props) {
   const { withPermissionCheck } = useWithPermission();
-  const { getNode, setNodes, setEdges } = useReactFlow();
+  const { setNodes, setEdges } = useReactFlow();
 
   const setIsEditMode = useFlowchartStore(
     useShallow((state) => state.setIsEditMode),
@@ -80,12 +43,12 @@ export default function ContextMenu({
   }));
 
   const editNode = () => {
-    addSelectedNodes([id]);
+    addSelectedNodes([node.id]);
     setIsEditMode(true);
   };
 
   const openInfo = () => {
-    addSelectedNodes([id]);
+    addSelectedNodes([node.id]);
     setIsEditMode(false);
     setNodeModalOpen(true);
   };
@@ -95,10 +58,6 @@ export default function ContextMenu({
   };
 
   const duplicate = () => {
-    const node = getNode(id);
-    if (!node) {
-      return;
-    }
     duplicateBlock(node);
   };
 
@@ -107,9 +66,9 @@ export default function ContextMenu({
   };
 
   const deleteNode = useCallback(() => {
-    setNodes((nodes) => nodes.filter((node) => node.id !== id));
-    setEdges((edges) => edges.filter((edge) => edge.source !== id));
-  }, [setNodes, setEdges, id]);
+    setNodes((nodes) => nodes.filter((n) => n.id !== node.id));
+    setEdges((edges) => edges.filter((edge) => edge.source !== node.id));
+  }, [setNodes, setEdges, node.id]);
 
   return (
     <div
