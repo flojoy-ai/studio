@@ -7,25 +7,28 @@ import {
   DialogTitle,
 } from "@/renderer/components/ui/dialog";
 import { SliderConfigForm } from "./slider-form";
+import { match } from "ts-pattern";
 
-type Props<C extends WidgetConfig> = {
-  initialValues: C;
+type Props = {
+  initialValues: WidgetConfig;
   open: boolean;
   setOpen: (val: boolean) => void;
   onSubmit: (data: WidgetConfig) => void;
   float?: boolean;
 };
 
-export const ConfigDialog = <C extends WidgetConfig>({
+export const ConfigDialog = ({
   initialValues,
   open,
   setOpen,
   onSubmit,
-}: Props<C>) => {
-  const form =
-    initialValues.type === "slider" ? (
-      <SliderConfigForm initialValues={initialValues} onSubmit={onSubmit} />
-    ) : undefined;
+}: Props) => {
+  const form = match(initialValues)
+    .with({ type: "slider" }, (vals) => (
+      <SliderConfigForm initialValues={vals} onSubmit={onSubmit} />
+    ))
+    .otherwise(() => undefined);
+
   if (!form) {
     throw new Error("Not implemented");
   }
