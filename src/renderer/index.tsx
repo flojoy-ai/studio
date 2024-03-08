@@ -14,7 +14,6 @@ import { HashRouter } from "react-router-dom";
 import { AuthContextProvider } from "./context/auth.context";
 import { ThemeProvider } from "./providers/them-provider";
 import { TestSequencerWSProvider } from "./context/testSequencerWS.context";
-import { SocketContextProvider } from "./context/socket.context";
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
 
@@ -28,11 +27,9 @@ root.render(
     <ErrorBoundary fallbackRender={fallbackRender}>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <AuthContextProvider>
-          <SocketContextProvider>
-            <TestSequencerWSProvider>
-              <App />
-            </TestSequencerWSProvider>
-          </SocketContextProvider>
+          <TestSequencerWSProvider>
+            <App />
+          </TestSequencerWSProvider>
         </AuthContextProvider>
       </ThemeProvider>
     </ErrorBoundary>

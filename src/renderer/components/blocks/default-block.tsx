@@ -4,7 +4,7 @@ import { BlockProps } from "@/renderer/types/block";
 import NodeWrapper from "@/renderer/components/common/NodeWrapper";
 import HandleComponent from "@/renderer/components/common/HandleComponent";
 import NodeInput from "@/renderer/components/common/NodeInput";
-import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
+import { useBlockStatus } from "@/renderer/hooks/useBlockStatus";
 import { BlockLabel } from "@/renderer/components/common/block-label";
 import { TVariant } from "@/renderer/types/tailwind";
 import { variantClassMap } from "@/renderer/lib/utils";
@@ -31,22 +31,22 @@ const DefaultBlock = ({
   labelPosition,
 }: DefaultBlockProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
-  const { nodeRunning, nodeError } = useNodeStatus(data.id);
+  const { blockRunning, blockError } = useBlockStatus(data.id);
   const maxInputOutput = useMemo(
     () => Math.max(data.inputs?.length ?? 0, data.outputs?.length ?? 0),
     [data.inputs?.length, data.outputs?.length],
   );
 
   return (
-    <NodeWrapper nodeError={nodeError} data={data} selected={selected}>
+    <NodeWrapper nodeError={blockError} data={data} selected={selected}>
       <div
         className={clsx(
           `${variantClassMap[variant].border} relative flex min-h-[96px] items-center justify-center rounded-lg border-2 border-solid p-2`,
           {
             [`shadow-around ${variantClassMap[variant].shadow}`]:
-              nodeRunning || selected,
+              blockRunning || selected,
           },
-          { "shadow-around shadow-red-700": nodeError },
+          { "shadow-around shadow-red-700": blockError },
           className,
         )}
         style={{
