@@ -570,6 +570,7 @@ export const useAddBlock = () => {
 export const useDeleteBlock = () => {
   const setNodes = useProtectedSetter("nodes");
   const setEdges = useProtectedSetter("edges");
+  const setControlWidgetNodes = useProtectedSetter("controlWidgetNodes");
 
   return useCallback(
     (nodeId: string, nodeLabel: string) => {
@@ -577,9 +578,12 @@ export const useDeleteBlock = () => {
       setEdges((prev) =>
         prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId),
       );
+      setControlWidgetNodes((prev) =>
+        prev.filter((widget) => widget.data.blockId !== nodeId),
+      );
       sendEventToMix(MixPanelEvents.nodeDeleted, { nodeTitle: nodeLabel });
     },
-    [setNodes, setEdges],
+    [setNodes, setEdges, setControlWidgetNodes],
   );
 };
 
