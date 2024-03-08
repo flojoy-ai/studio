@@ -61,6 +61,11 @@ const CONFIG_DEFAULT_VALUES = {
     max: 100,
     step: 1,
   },
+  numberInput: {
+    type: "numberInput",
+    min: 0,
+    max: 100,
+  },
 } satisfies Record<Configurable, WidgetConfig>;
 
 const isConfigurable = (widgetType: WidgetType): widgetType is Configurable => {
@@ -176,7 +181,11 @@ const ControlPanelView = () => {
     if (!widgetBlockInfo.current) {
       return; // TODO: Error handling
     }
-    editConfig(widgetBlockInfo.current.blockId, data);
+    const res = editConfig(widgetBlockInfo.current.blockId, data);
+    if (res.isErr()) {
+      toast.error(res.error.message);
+      return;
+    }
     setWidgetConfigOpen(false);
   };
 
@@ -205,7 +214,6 @@ const ControlPanelView = () => {
   return (
     <ReactFlowProvider>
       <ConfigDialog
-        widgetType={widgetConfig.current.type}
         initialValues={widgetConfig.current}
         open={widgetConfigOpen}
         setOpen={setWidgetConfigOpen}

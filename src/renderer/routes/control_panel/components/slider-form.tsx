@@ -15,7 +15,7 @@ import { DialogFooter } from "@/renderer/components/ui/dialog";
 import { Button } from "@/renderer/components/ui/button";
 
 type Props = {
-  initialValues: Partial<SliderConfig>;
+  initialValues: SliderConfig;
   onSubmit: (data: SliderConfig) => void;
 };
 

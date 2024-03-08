@@ -1,4 +1,4 @@
-import { Config } from "@/renderer/types/control";
+import { WidgetConfig } from "@/renderer/types/control";
 
 import {
   Dialog,
@@ -8,24 +8,25 @@ import {
 } from "@/renderer/components/ui/dialog";
 import { SliderConfigForm } from "./slider-form";
 
-type Props<K extends keyof Config> = {
-  widgetType: K;
-  initialValues: Partial<Config[K]>;
+type Props<C extends WidgetConfig> = {
+  initialValues: C;
   open: boolean;
   setOpen: (val: boolean) => void;
-  onSubmit: (data: Config[K]) => void;
+  onSubmit: (data: WidgetConfig) => void;
   float?: boolean;
 };
 
-export const ConfigDialog = <K extends keyof Config>({
-  widgetType,
+export const ConfigDialog = <C extends WidgetConfig>({
   initialValues,
   open,
   setOpen,
   onSubmit,
-}: Props<K>) => {
-  const ConfigForm = widgetType === "slider" ? SliderConfigForm : undefined;
-  if (!ConfigForm) {
+}: Props<C>) => {
+  const form =
+    initialValues.type === "slider" ? (
+      <SliderConfigForm initialValues={initialValues} onSubmit={onSubmit} />
+    ) : undefined;
+  if (!form) {
     throw new Error("Not implemented");
   }
 
@@ -36,7 +37,7 @@ export const ConfigDialog = <K extends keyof Config>({
           <DialogTitle>Config</DialogTitle>
         </DialogHeader>
 
-        <ConfigForm initialValues={initialValues} onSubmit={onSubmit} />
+        {form}
       </DialogContent>
     </Dialog>
   );

@@ -11,16 +11,24 @@ export const SliderConfig = z.object({
 });
 export type SliderConfig = z.infer<typeof SliderConfig>;
 
-export const CONFIGURABLE = ["slider"] as const;
+export const NumberInputConfig = z.object({
+  type: z.literal("numberInput"),
+  min: z.number(),
+  max: z.number(),
+});
+export type NumberInputConfig = z.infer<typeof NumberInputConfig>;
+
+export const CONFIGURABLE = ["slider", "numberInput"] as const;
 export type Configurable = (typeof CONFIGURABLE)[number];
 
 export type Config = {
   slider: SliderConfig;
+  numberInput: NumberInputConfig;
 };
 
 export type WidgetConfig = Config[keyof Config];
 
-export const WIDGET_TYPES = ["slider", "checkbox"] as const;
+export const WIDGET_TYPES = ["slider", "numberInput", "checkbox"] as const;
 export const isWidgetType = (value: string): value is WidgetType =>
   WIDGET_TYPES.includes(value);
 
