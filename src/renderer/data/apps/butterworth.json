@@ -1,584 +1,598 @@
 {
-  "name": "Butterworth Filter",
-  "rfInstance": {
-    "nodes": [
-      {
-        "id": "BASIC_OSCILLATOR-ae2a5db9-625b-4174-830d-9340c9e3fe68",
-        "type": "DATA",
-        "data": {
-          "id": "BASIC_OSCILLATOR-ae2a5db9-625b-4174-830d-9340c9e3fe68",
-          "label": "BASIC OSCILLATOR",
-          "func": "BASIC_OSCILLATOR",
-          "type": "DATA",
-          "ctrls": {
-            "sample_rate": {
-              "type": "int",
-              "default": 100,
-              "desc": "The number of samples that are taken in a second.",
-              "overload": null,
-              "functionName": "BASIC_OSCILLATOR",
-              "param": "sample_rate",
-              "value": 50
-            },
-            "time": {
-              "type": "int",
-              "default": 10,
-              "desc": "The total amount of time of the signal.",
-              "overload": null,
-              "functionName": "BASIC_OSCILLATOR",
-              "param": "time",
-              "value": 10
-            },
-            "waveform": {
-              "type": "select",
-              "options": ["sine", "square", "triangle", "sawtooth"],
-              "default": "sine",
-              "desc": "The waveform type of the wave.",
-              "overload": null,
-              "functionName": "BASIC_OSCILLATOR",
-              "param": "waveform",
-              "value": "sawtooth"
-            },
-            "amplitude": {
-              "type": "float",
-              "default": 1,
-              "desc": "The amplitude of the wave.",
-              "overload": null,
-              "functionName": "BASIC_OSCILLATOR",
-              "param": "amplitude",
-              "value": 1
-            },
-            "frequency": {
-              "type": "float",
-              "default": 1,
-              "desc": "The wave frequency in radians/2pi.",
-              "overload": null,
-              "functionName": "BASIC_OSCILLATOR",
-              "param": "frequency",
-              "value": 1
-            },
-            "offset": {
-              "type": "float",
-              "default": 0,
-              "desc": "The y axis offset of the function.",
-              "overload": null,
-              "functionName": "BASIC_OSCILLATOR",
-              "param": "offset",
-              "value": 0
-            },
-            "phase": {
-              "type": "float",
-              "default": 0,
-              "desc": "The x axis offset of the function.",
-              "overload": null,
-              "functionName": "BASIC_OSCILLATOR",
-              "param": "phase",
-              "value": 0
-            }
-          },
-          "initCtrls": {},
-          "outputs": [
+    "name": "Butterworth Filter",
+    "rfInstance": {
+        "nodes": [
             {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair",
-              "desc": "x: time domain\ny: generated signal"
-            }
-          ],
-          "path": "DATA/GENERATION/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py"
-        },
-        "position": {
-          "x": 222.45785375782242,
-          "y": 158.09709873320975
-        },
-        "width": 218,
-        "height": 233,
-        "selected": false,
-        "positionAbsolute": {
-          "x": 222.45785375782242,
-          "y": 158.09709873320975
-        },
-        "dragging": true
-      },
-      {
-        "id": "FFT-e3f4c90d-d183-44d5-95b3-2430455054bd",
-        "type": "DSP",
-        "data": {
-          "id": "FFT-e3f4c90d-d183-44d5-95b3-2430455054bd",
-          "label": "FFT",
-          "func": "FFT",
-          "type": "DSP",
-          "ctrls": {
-            "window": {
-              "type": "select",
-              "options": [
-                "none",
-                "boxcar",
-                "triang",
-                "blackman",
-                "hamming",
-                "hann",
-                "bartlett",
-                "flattop",
-                "parzen",
-                "bohman",
-                "blackmanharris",
-                "nuttall",
-                "barthann",
-                "cosine",
-                "exponential",
-                "tukey",
-                "taylor",
-                "lanczos"
-              ],
-              "default": "hann",
-              "desc": "the node will apply a window to the signal to avoid spectral leakage",
-              "overload": null,
-              "functionName": "FFT",
-              "param": "window",
-              "value": "hann"
+                "id": "BASIC_OSCILLATOR-ae2a5db9-625b-4174-830d-9340c9e3fe68",
+                "type": "DATA",
+                "data": {
+                    "id": "BASIC_OSCILLATOR-ae2a5db9-625b-4174-830d-9340c9e3fe68",
+                    "label": "BASIC OSCILLATOR",
+                    "func": "BASIC_OSCILLATOR",
+                    "type": "DATA",
+                    "ctrls": {
+                        "sample_rate": {
+                            "type": "int",
+                            "default": 100,
+                            "desc": "The number of samples that are taken in a second.",
+                            "overload": null,
+                            "functionName": "BASIC_OSCILLATOR",
+                            "param": "sample_rate",
+                            "value": 50
+                        },
+                        "time": {
+                            "type": "int",
+                            "default": 10,
+                            "desc": "The total amount of time of the signal.",
+                            "overload": null,
+                            "functionName": "BASIC_OSCILLATOR",
+                            "param": "time",
+                            "value": 10
+                        },
+                        "waveform": {
+                            "type": "select",
+                            "options": [
+                                "sine",
+                                "square",
+                                "triangle",
+                                "sawtooth"
+                            ],
+                            "default": "sine",
+                            "desc": "The waveform type of the wave.",
+                            "overload": null,
+                            "functionName": "BASIC_OSCILLATOR",
+                            "param": "waveform",
+                            "value": "sawtooth"
+                        },
+                        "amplitude": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The amplitude of the wave.",
+                            "overload": null,
+                            "functionName": "BASIC_OSCILLATOR",
+                            "param": "amplitude",
+                            "value": 1
+                        },
+                        "frequency": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The wave frequency in radians/2pi.",
+                            "overload": null,
+                            "functionName": "BASIC_OSCILLATOR",
+                            "param": "frequency",
+                            "value": 1
+                        },
+                        "offset": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The y axis offset of the function.",
+                            "overload": null,
+                            "functionName": "BASIC_OSCILLATOR",
+                            "param": "offset",
+                            "value": 0
+                        },
+                        "phase": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The x axis offset of the function.",
+                            "overload": null,
+                            "functionName": "BASIC_OSCILLATOR",
+                            "param": "phase",
+                            "value": 0
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "x: time domain\ny: generated signal"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py"
+                },
+                "position": {
+                    "x": 242.2414114403308,
+                    "y": 194.36695448447512
+                },
+                "width": 218,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 242.2414114403308,
+                    "y": 194.36695448447512
+                },
+                "dragging": false
             },
-            "real_signal": {
-              "type": "bool",
-              "default": true,
-              "desc": "whether the input signal is real or complex",
-              "overload": null,
-              "functionName": "FFT",
-              "param": "real_signal",
-              "value": true
-            },
-            "sample_rate": {
-              "type": "int",
-              "default": 1,
-              "desc": "the sample rate of the signal, defaults to 1",
-              "overload": null,
-              "functionName": "FFT",
-              "param": "sample_rate",
-              "value": 50
-            },
-            "display": {
-              "type": "bool",
-              "default": true,
-              "desc": "whether the output would be graphed, set to false for pure data and true for data that is more suitable to be graphed",
-              "overload": null,
-              "functionName": "FFT",
-              "param": "display",
-              "value": true
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
             {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair",
-              "multiple": false,
-              "desc": "The data to apply FFT to."
-            }
-          ],
-          "outputs": [
+                "id": "FFT-e3f4c90d-d183-44d5-95b3-2430455054bd",
+                "type": "DSP",
+                "data": {
+                    "id": "FFT-e3f4c90d-d183-44d5-95b3-2430455054bd",
+                    "label": "FFT",
+                    "func": "FFT",
+                    "type": "DSP",
+                    "ctrls": {
+                        "window": {
+                            "type": "select",
+                            "options": [
+                                "none",
+                                "boxcar",
+                                "triang",
+                                "blackman",
+                                "hamming",
+                                "hann",
+                                "bartlett",
+                                "flattop",
+                                "parzen",
+                                "bohman",
+                                "blackmanharris",
+                                "nuttall",
+                                "barthann",
+                                "cosine",
+                                "exponential",
+                                "tukey",
+                                "taylor",
+                                "lanczos"
+                            ],
+                            "default": "hann",
+                            "desc": "the node will apply a window to the signal to avoid spectral leakage",
+                            "overload": null,
+                            "functionName": "FFT",
+                            "param": "window",
+                            "value": "hann"
+                        },
+                        "real_signal": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether the input signal is real or complex",
+                            "overload": null,
+                            "functionName": "FFT",
+                            "param": "real_signal",
+                            "value": true
+                        },
+                        "sample_rate": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "the sample rate of the signal, defaults to 1",
+                            "overload": null,
+                            "functionName": "FFT",
+                            "param": "sample_rate",
+                            "value": 50
+                        },
+                        "display": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether the output would be graphed, set to false for pure data and true for data that is more suitable to be graphed",
+                            "overload": null,
+                            "functionName": "FFT",
+                            "param": "display",
+                            "value": true
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "The data to apply FFT to.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame",
+                            "desc": "x: frequency\ny: spectrum of the signal"
+                        }
+                    ],
+                    "path": "DSP/FFT/FFT.py"
+                },
+                "position": {
+                    "x": 701.2170128593934,
+                    "y": -25.99481283562642
+                },
+                "width": 216,
+                "height": 197,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 701.2170128593934,
+                    "y": -25.99481283562642
+                },
+                "dragging": true
+            },
             {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair|DataFrame",
-              "desc": "x: frequency\ny: spectrum of the signal"
-            }
-          ],
-          "path": "DSP/FFT/FFT.py"
-        },
-        "position": {
-          "x": 701.2170128593934,
-          "y": -25.99481283562642
-        },
-        "width": 216,
-        "height": 197,
-        "selected": false,
-        "positionAbsolute": {
-          "x": 701.2170128593934,
-          "y": -25.99481283562642
-        },
-        "dragging": true
-      },
-      {
-        "id": "LINE-6fe3b004-d21d-4b75-9c24-14c422f65c11",
-        "type": "VISUALIZATION",
-        "data": {
-          "id": "LINE-6fe3b004-d21d-4b75-9c24-14c422f65c11",
-          "label": "LINE",
-          "func": "LINE",
-          "type": "VISUALIZATION",
-          "ctrls": {
-            "xaxis_title": {
-              "type": "str",
-              "default": "",
-              "desc": "Choose the label for the x axis.",
-              "overload": null,
-              "functionName": "LINE",
-              "param": "xaxis_title",
-              "value": ""
+                "id": "LINE-6fe3b004-d21d-4b75-9c24-14c422f65c11",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-6fe3b004-d21d-4b75-9c24-14c422f65c11",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": 1251.6032816728184,
+                    "y": -59.658147408685636
+                },
+                "width": 225,
+                "height": 269,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1251.6032816728184,
+                    "y": -59.658147408685636
+                },
+                "dragging": false
             },
-            "yaxis_title": {
-              "type": "str",
-              "default": "",
-              "desc": "Choose the label for the y axis.",
-              "overload": null,
-              "functionName": "LINE",
-              "param": "yaxis_title",
-              "value": ""
-            },
-            "x_log_scale": {
-              "type": "bool",
-              "default": false,
-              "desc": null,
-              "overload": null,
-              "functionName": "LINE",
-              "param": "x_log_scale",
-              "value": false
-            },
-            "y_log_scale": {
-              "type": "bool",
-              "default": false,
-              "desc": null,
-              "overload": null,
-              "functionName": "LINE",
-              "param": "y_log_scale",
-              "value": false
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
             {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair|DataFrame|Matrix|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
-            }
-          ],
-          "outputs": [
+                "id": "BUTTER-6936acaa-065a-4aee-a1a7-e157e6da996a",
+                "type": "DSP",
+                "data": {
+                    "id": "BUTTER-6936acaa-065a-4aee-a1a7-e157e6da996a",
+                    "label": "BUTTER",
+                    "func": "BUTTER",
+                    "type": "DSP",
+                    "ctrls": {
+                        "filter_order": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "The intensity of the filter.",
+                            "overload": null,
+                            "functionName": "BUTTER",
+                            "param": "filter_order",
+                            "value": 4
+                        },
+                        "critical_frequency": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "The frequency where the filter takes effect. For lowpass and highpass, it takes a scalar.\nFor bandpass and bandstop, it takes an array with the length of 2.",
+                            "overload": null,
+                            "functionName": "BUTTER",
+                            "param": "critical_frequency",
+                            "value": 5
+                        },
+                        "btype": {
+                            "type": "select",
+                            "options": [
+                                "lowpass",
+                                "highpass",
+                                "bandpass",
+                                "bandstop"
+                            ],
+                            "default": "lowpass",
+                            "desc": "The type of the filter.",
+                            "overload": null,
+                            "functionName": "BUTTER",
+                            "param": "btype",
+                            "value": "lowpass"
+                        },
+                        "sample_rate": {
+                            "type": "int",
+                            "default": 10,
+                            "desc": "The sample rate of the input signal.",
+                            "overload": null,
+                            "functionName": "BUTTER",
+                            "param": "sample_rate",
+                            "value": 50
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "The data to apply the butter filter to.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "x: time domain\ny: filtered signal"
+                        }
+                    ],
+                    "path": "DSP/BUTTER/BUTTER.py"
+                },
+                "position": {
+                    "x": 701.2921307298327,
+                    "y": 390.89994928432645
+                },
+                "width": 216,
+                "height": 197,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 701.2921307298327,
+                    "y": 390.89994928432645
+                },
+                "dragging": false
+            },
             {
-              "name": "default",
-              "id": "default",
-              "type": "Plotly",
-              "desc": "the DataContainer containing the Plotly Line visualization of the input data"
-            }
-          ],
-          "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
-        },
-        "position": {
-          "x": 1299.0428654642517,
-          "y": -66.29830767900677
-        },
-        "width": 225,
-        "height": 269,
-        "selected": false,
-        "positionAbsolute": {
-          "x": 1299.0428654642517,
-          "y": -66.29830767900677
-        },
-        "dragging": true
-      },
-      {
-        "id": "BUTTER-6936acaa-065a-4aee-a1a7-e157e6da996a",
-        "type": "DSP",
-        "data": {
-          "id": "BUTTER-6936acaa-065a-4aee-a1a7-e157e6da996a",
-          "label": "BUTTER",
-          "func": "BUTTER",
-          "type": "DSP",
-          "ctrls": {
-            "filter_order": {
-              "type": "int",
-              "default": 1,
-              "desc": "The intensity of the filter.",
-              "overload": null,
-              "functionName": "BUTTER",
-              "param": "filter_order",
-              "value": 4
+                "id": "FFT-f3e5ccb4-d671-441e-8ab6-7900d9fa238c",
+                "type": "DSP",
+                "data": {
+                    "id": "FFT-f3e5ccb4-d671-441e-8ab6-7900d9fa238c",
+                    "label": "FFT 1",
+                    "func": "FFT",
+                    "type": "DSP",
+                    "ctrls": {
+                        "window": {
+                            "type": "select",
+                            "options": [
+                                "none",
+                                "boxcar",
+                                "triang",
+                                "blackman",
+                                "hamming",
+                                "hann",
+                                "bartlett",
+                                "flattop",
+                                "parzen",
+                                "bohman",
+                                "blackmanharris",
+                                "nuttall",
+                                "barthann",
+                                "cosine",
+                                "exponential",
+                                "tukey",
+                                "taylor",
+                                "lanczos"
+                            ],
+                            "default": "hann",
+                            "desc": "the node will apply a window to the signal to avoid spectral leakage",
+                            "overload": null,
+                            "functionName": "FFT",
+                            "param": "window",
+                            "value": "hann"
+                        },
+                        "real_signal": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether the input signal is real or complex",
+                            "overload": null,
+                            "functionName": "FFT",
+                            "param": "real_signal",
+                            "value": true
+                        },
+                        "sample_rate": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "the sample rate of the signal, defaults to 1",
+                            "overload": null,
+                            "functionName": "FFT",
+                            "param": "sample_rate",
+                            "value": 50
+                        },
+                        "display": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether the output would be graphed, set to false for pure data and true for data that is more suitable to be graphed",
+                            "overload": null,
+                            "functionName": "FFT",
+                            "param": "display",
+                            "value": true
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "The data to apply FFT to.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame",
+                            "desc": "x: frequency\ny: spectrum of the signal"
+                        }
+                    ],
+                    "path": "DSP/FFT/FFT.py"
+                },
+                "position": {
+                    "x": 1145.0201655229002,
+                    "y": 391.0245445609928
+                },
+                "width": 216,
+                "height": 197,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1145.0201655229002,
+                    "y": 391.0245445609928
+                },
+                "dragging": false
             },
-            "critical_frequency": {
-              "type": "int",
-              "default": 1,
-              "desc": "The frequency where the filter takes effect. For lowpass and highpass, it takes a scalar.\nFor bandpass and bandstop, it takes an array with the length of 2.",
-              "overload": null,
-              "functionName": "BUTTER",
-              "param": "critical_frequency",
-              "value": 5
-            },
-            "btype": {
-              "type": "select",
-              "options": ["lowpass", "highpass", "bandpass", "bandstop"],
-              "default": "lowpass",
-              "desc": "The type of the filter.",
-              "overload": null,
-              "functionName": "BUTTER",
-              "param": "btype",
-              "value": "lowpass"
-            },
-            "sample_rate": {
-              "type": "int",
-              "default": 10,
-              "desc": "The sample rate of the input signal.",
-              "overload": null,
-              "functionName": "BUTTER",
-              "param": "sample_rate",
-              "value": 50
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
             {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair",
-              "multiple": false,
-              "desc": "The data to apply the butter filter to."
+                "id": "LINE-05a2a297-f1c1-4b22-b04b-a626739736ff",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-05a2a297-f1c1-4b22-b04b-a626739736ff",
+                    "label": "LINE 1",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": 1556.8063580980615,
+                    "y": 353.94475270138275
+                },
+                "width": 225,
+                "height": 269,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1556.8063580980615,
+                    "y": 353.94475270138275
+                },
+                "dragging": false
             }
-          ],
-          "outputs": [
+        ],
+        "edges": [
             {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair",
-              "desc": "x: time domain\ny: filtered signal"
-            }
-          ],
-          "path": "DSP/BUTTER/BUTTER.py"
-        },
-        "position": {
-          "x": 684.8058326610757,
-          "y": 394.19720889807775
-        },
-        "width": 216,
-        "height": 197,
-        "selected": false,
-        "positionAbsolute": {
-          "x": 684.8058326610757,
-          "y": 394.19720889807775
-        },
-        "dragging": true
-      },
-      {
-        "id": "FFT-f3e5ccb4-d671-441e-8ab6-7900d9fa238c",
-        "type": "DSP",
-        "data": {
-          "id": "FFT-f3e5ccb4-d671-441e-8ab6-7900d9fa238c",
-          "label": "FFT 1",
-          "func": "FFT",
-          "type": "DSP",
-          "ctrls": {
-            "window": {
-              "type": "select",
-              "options": [
-                "none",
-                "boxcar",
-                "triang",
-                "blackman",
-                "hamming",
-                "hann",
-                "bartlett",
-                "flattop",
-                "parzen",
-                "bohman",
-                "blackmanharris",
-                "nuttall",
-                "barthann",
-                "cosine",
-                "exponential",
-                "tukey",
-                "taylor",
-                "lanczos"
-              ],
-              "default": "hann",
-              "desc": "the node will apply a window to the signal to avoid spectral leakage",
-              "overload": null,
-              "functionName": "FFT",
-              "param": "window",
-              "value": "hann"
+                "source": "BASIC_OSCILLATOR-ae2a5db9-625b-4174-830d-9340c9e3fe68",
+                "sourceHandle": "default",
+                "target": "FFT-e3f4c90d-d183-44d5-95b3-2430455054bd",
+                "targetHandle": "default",
+                "id": "reactflow__edge-BASIC_OSCILLATOR-ae2a5db9-625b-4174-830d-9340c9e3fe68default-FFT-e3f4c90d-d183-44d5-95b3-2430455054bddefault"
             },
-            "real_signal": {
-              "type": "bool",
-              "default": true,
-              "desc": "whether the input signal is real or complex",
-              "overload": null,
-              "functionName": "FFT",
-              "param": "real_signal",
-              "value": true
-            },
-            "sample_rate": {
-              "type": "int",
-              "default": 1,
-              "desc": "the sample rate of the signal, defaults to 1",
-              "overload": null,
-              "functionName": "FFT",
-              "param": "sample_rate",
-              "value": 50
-            },
-            "display": {
-              "type": "bool",
-              "default": true,
-              "desc": "whether the output would be graphed, set to false for pure data and true for data that is more suitable to be graphed",
-              "overload": null,
-              "functionName": "FFT",
-              "param": "display",
-              "value": true
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
             {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair",
-              "multiple": false,
-              "desc": "The data to apply FFT to."
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair|DataFrame",
-              "desc": "x: frequency\ny: spectrum of the signal"
-            }
-          ],
-          "path": "DSP/FFT/FFT.py"
-        },
-        "position": {
-          "x": 1143.3715357160245,
-          "y": 402.5649532091227
-        },
-        "width": 216,
-        "height": 197,
-        "selected": false,
-        "positionAbsolute": {
-          "x": 1143.3715357160245,
-          "y": 402.5649532091227
-        },
-        "dragging": true
-      },
-      {
-        "id": "LINE-05a2a297-f1c1-4b22-b04b-a626739736ff",
-        "type": "VISUALIZATION",
-        "data": {
-          "id": "LINE-05a2a297-f1c1-4b22-b04b-a626739736ff",
-          "label": "LINE 1",
-          "func": "LINE",
-          "type": "VISUALIZATION",
-          "ctrls": {
-            "xaxis_title": {
-              "type": "str",
-              "default": "",
-              "desc": "Choose the label for the x axis.",
-              "overload": null,
-              "functionName": "LINE",
-              "param": "xaxis_title",
-              "value": ""
+                "source": "BASIC_OSCILLATOR-ae2a5db9-625b-4174-830d-9340c9e3fe68",
+                "sourceHandle": "default",
+                "target": "BUTTER-6936acaa-065a-4aee-a1a7-e157e6da996a",
+                "targetHandle": "default",
+                "id": "reactflow__edge-BASIC_OSCILLATOR-ae2a5db9-625b-4174-830d-9340c9e3fe68default-BUTTER-6936acaa-065a-4aee-a1a7-e157e6da996adefault"
             },
-            "yaxis_title": {
-              "type": "str",
-              "default": "",
-              "desc": "Choose the label for the y axis.",
-              "overload": null,
-              "functionName": "LINE",
-              "param": "yaxis_title",
-              "value": ""
-            },
-            "x_log_scale": {
-              "type": "bool",
-              "default": false,
-              "desc": null,
-              "overload": null,
-              "functionName": "LINE",
-              "param": "x_log_scale",
-              "value": false
-            },
-            "y_log_scale": {
-              "type": "bool",
-              "default": false,
-              "desc": null,
-              "overload": null,
-              "functionName": "LINE",
-              "param": "y_log_scale",
-              "value": false
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
             {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair|DataFrame|Matrix|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
-            }
-          ],
-          "outputs": [
+                "id": "FFT-e3f4c90d-d183-44d5-95b3-2430455054bd->LINE-6fe3b004-d21d-4b75-9c24-14c422f65c11",
+                "source": "FFT-e3f4c90d-d183-44d5-95b3-2430455054bd",
+                "target": "LINE-6fe3b004-d21d-4b75-9c24-14c422f65c11",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
             {
-              "name": "default",
-              "id": "default",
-              "type": "Plotly",
-              "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                "id": "BUTTER-6936acaa-065a-4aee-a1a7-e157e6da996a->FFT-f3e5ccb4-d671-441e-8ab6-7900d9fa238c",
+                "source": "BUTTER-6936acaa-065a-4aee-a1a7-e157e6da996a",
+                "target": "FFT-f3e5ccb4-d671-441e-8ab6-7900d9fa238c",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "FFT-f3e5ccb4-d671-441e-8ab6-7900d9fa238c->LINE-05a2a297-f1c1-4b22-b04b-a626739736ff",
+                "source": "FFT-f3e5ccb4-d671-441e-8ab6-7900d9fa238c",
+                "target": "LINE-05a2a297-f1c1-4b22-b04b-a626739736ff",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             }
-          ],
-          "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
-        },
-        "position": {
-          "x": 1556.8063580980615,
-          "y": 301.18859888136035
-        },
-        "width": 225,
-        "height": 269,
-        "selected": false,
-        "positionAbsolute": {
-          "x": 1556.8063580980615,
-          "y": 301.18859888136035
-        },
-        "dragging": true
-      }
-    ],
-    "edges": [
-      {
-        "source": "BASIC_OSCILLATOR-ae2a5db9-625b-4174-830d-9340c9e3fe68",
-        "sourceHandle": "default",
-        "target": "FFT-e3f4c90d-d183-44d5-95b3-2430455054bd",
-        "targetHandle": "default",
-        "id": "reactflow__edge-BASIC_OSCILLATOR-ae2a5db9-625b-4174-830d-9340c9e3fe68default-FFT-e3f4c90d-d183-44d5-95b3-2430455054bddefault"
-      },
-      {
-        "source": "FFT-e3f4c90d-d183-44d5-95b3-2430455054bd",
-        "sourceHandle": "default",
-        "target": "LINE-6fe3b004-d21d-4b75-9c24-14c422f65c11",
-        "targetHandle": "default",
-        "id": "reactflow__edge-FFT-e3f4c90d-d183-44d5-95b3-2430455054bddefault-LINE-6fe3b004-d21d-4b75-9c24-14c422f65c11default"
-      },
-      {
-        "source": "BASIC_OSCILLATOR-ae2a5db9-625b-4174-830d-9340c9e3fe68",
-        "sourceHandle": "default",
-        "target": "BUTTER-6936acaa-065a-4aee-a1a7-e157e6da996a",
-        "targetHandle": "default",
-        "id": "reactflow__edge-BASIC_OSCILLATOR-ae2a5db9-625b-4174-830d-9340c9e3fe68default-BUTTER-6936acaa-065a-4aee-a1a7-e157e6da996adefault"
-      },
-      {
-        "source": "FFT-f3e5ccb4-d671-441e-8ab6-7900d9fa238c",
-        "sourceHandle": "default",
-        "target": "LINE-05a2a297-f1c1-4b22-b04b-a626739736ff",
-        "targetHandle": "default",
-        "id": "reactflow__edge-FFT-f3e5ccb4-d671-441e-8ab6-7900d9fa238cdefault-LINE-05a2a297-f1c1-4b22-b04b-a626739736ffdefault"
-      },
-      {
-        "source": "BUTTER-6936acaa-065a-4aee-a1a7-e157e6da996a",
-        "sourceHandle": "default",
-        "target": "FFT-f3e5ccb4-d671-441e-8ab6-7900d9fa238c",
-        "targetHandle": "default",
-        "id": "reactflow__edge-BUTTER-6936acaa-065a-4aee-a1a7-e157e6da996adefault-FFT-f3e5ccb4-d671-441e-8ab6-7900d9fa238cdefault"
-      }
-    ],
-    "viewport": {
-      "x": -373.4542219202399,
-      "y": 120.20973884288571,
-      "zoom": 1.101977389476256
-    }
-  },
-  "textNodes": []
+        ]
+    },
+    "textNodes": []
 }

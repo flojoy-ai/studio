@@ -1,21 +1,11 @@
 import { variantClassMap } from "@/renderer/lib/utils";
 import { EdgeData } from "@/renderer/types/block";
+import { EdgeVariant } from "@/renderer/types/edge";
 import { TVariant } from "@/renderer/types/tailwind";
 import React, { SVGProps, memo } from "react";
 import { EdgeLabelRenderer, EdgeProps, getSmoothStepPath } from "reactflow";
-type EdgeVariant =
-  | "dataframe"
-  | "boolean"
-  | "scalar"
-  | "text"
-  | "vector"
-  | "matrix"
-  | "orderedpair"
-  | "orderedtriple"
-  | "string"
-  | "any";
 
-const outputToLabelMap: Record<
+const edgeVariantConfigMap: Record<
   EdgeVariant,
   {
     label: string;
@@ -35,10 +25,16 @@ const outputToLabelMap: Record<
   boolean: { label: "Bool", variant: "accent6", dashArray: true },
   any: { label: "DC", variant: "accent1", dashArray: true },
 };
-export const CustomEdge = (props: EdgeProps<EdgeData>) => {
-  const { sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition } =
-    props;
-
+export const CustomEdge = ({
+  id,
+  data,
+  sourceX,
+  sourceY,
+  sourcePosition,
+  targetX,
+  targetY,
+  targetPosition,
+}: EdgeProps<EdgeData>) => {
   const [, labelX, labelY] = getSmoothStepPath({
     sourceX,
     sourceY,
@@ -49,25 +45,28 @@ export const CustomEdge = (props: EdgeProps<EdgeData>) => {
   });
 
   const outputType =
-    props.data?.outputType &&
-    props.data?.outputType.toLowerCase() in outputToLabelMap
-      ? (props.data?.outputType?.toLowerCase() as EdgeVariant)
+    data?.outputType && data?.outputType.toLowerCase() in edgeVariantConfigMap
+      ? (data?.outputType?.toLowerCase() as EdgeVariant)
       : "any";
 
-  const edgeElement = outputToLabelMap[outputType as EdgeVariant];
+  const edgeConfig = edgeVariantConfigMap[outputType];
 
-  const arr = Array.from<typeof edgeElement>({
-    length: edgeElement.pathCount ?? 1,
-  }).fill(edgeElement);
+  const pathList = Array.from<typeof edgeConfig>({
+    length: edgeConfig.pathCount ?? 1,
+  }).fill(edgeConfig);
 
   return (
     <>
-      {arr.map((el, index) => {
+      {pathList.map((p, index) => {
         const calculatedSourceY =
-          arr.length > 1 ? generateCoordinates(arr.length, sourceY) : [sourceY];
+          pathList.length > 1
+            ? generateCoordinates(pathList.length, sourceY)
+            : [sourceY];
 
         const calculatedTargetY =
-          arr.length > 1 ? generateCoordinates(arr.length, targetY) : [targetY];
+          pathList.length > 1
+            ? generateCoordinates(pathList.length, targetY)
+            : [targetY];
         const [path] = getSmoothStepPath({
           sourceX,
           sourceY: calculatedSourceY[index],
@@ -78,12 +77,12 @@ export const CustomEdge = (props: EdgeProps<EdgeData>) => {
         });
         return (
           <CustomPath
-            key={props.id}
-            id={props.id}
+            key={id}
+            id={id}
             d={path}
-            strokeWidth={arr.length > 1 ? 1 : 6}
-            variant={el.variant}
-            dashArray={el.dashArray}
+            strokeWidth={pathList.length > 1 ? 1 : 6}
+            variant={p.variant}
+            dashArray={p.dashArray}
           />
         );
       })}
@@ -94,7 +93,7 @@ export const CustomEdge = (props: EdgeProps<EdgeData>) => {
           }}
           className={`nodrag nopan absolute rounded-sm bg-background p-1 text-2xl font-bold italic tracking-widest text-accent5`}
         >
-          {edgeElement.label}
+          {edgeConfig.label}
         </div>
       </EdgeLabelRenderer>
     </>
@@ -107,7 +106,7 @@ function generateCoordinates(count: number, middlePoint: number) {
   }
 
   const coordinates: number[] = [];
-  const interval = 9; // Adjust this value as needed
+  const interval = 9;
 
   let offset = Math.floor(count / 2) * interval;
   if (count % 2 === 0) {
@@ -119,11 +118,10 @@ function generateCoordinates(count: number, middlePoint: number) {
     offset -= interval;
   }
 
-  return coordinates.reverse();
+  return coordinates;
 }
 
 const CustomPath = ({
-  d,
   variant,
   dashArray,
   ...props
@@ -133,9 +131,7 @@ const CustomPath = ({
 }) => {
   return (
     <path
-      d={d}
       fill="none"
-      strokeWidth={6}
       className={`${variantClassMap[variant].stroke} nopan cursor-pointer`}
       strokeDasharray={dashArray ? "8,8" : "0"}
       style={{
