@@ -61,8 +61,8 @@ const CONFIG_DEFAULT_VALUES = {
     max: 100,
     step: 1,
   },
-  numberInput: {
-    type: "numberInput",
+  "number input": {
+    type: "number input",
     min: 0,
     max: 100,
   },

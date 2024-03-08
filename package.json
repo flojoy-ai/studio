@@ -83,7 +83,7 @@
     "ky": "^1.2.2",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.344.0",
+    "lucide-react": "^0.352.0",
     "mixpanel-browser": "^2.49.0",
     "neverthrow": "^6.1.0",
     "plotly.js-dist-min": "^2.29.1",

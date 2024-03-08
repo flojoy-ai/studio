@@ -35,7 +35,7 @@ export const ConfigDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[360px]">
         <DialogHeader>
           <DialogTitle>Config</DialogTitle>
         </DialogHeader>
