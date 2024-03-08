@@ -1,18 +1,26 @@
 import { NodeProps } from "reactflow";
 import { z } from "zod";
 
+export type PythonType = "int" | "float" | "bool";
+
 export const SliderConfig = z.object({
   type: z.literal("slider"),
   min: z.number(),
   max: z.number(),
   step: z.number(),
 });
-
 export type SliderConfig = z.infer<typeof SliderConfig>;
 
-export type WidgetConfig = SliderConfig;
+export const CONFIGURABLE = ["slider"] as const;
+export type Configurable = (typeof CONFIGURABLE)[number];
 
-export const WidgetType = z.enum(["slider"]);
+export type Config = {
+  slider: SliderConfig;
+};
+
+export type WidgetConfig = Config[keyof Config];
+
+export const WidgetType = z.enum(["slider", "checkbox"]);
 export type WidgetType = z.infer<typeof WidgetType>;
 
 export const WidgetBlockInfo = z.object({
@@ -22,7 +30,9 @@ export const WidgetBlockInfo = z.object({
 });
 export type WidgetBlockInfo = z.infer<typeof WidgetBlockInfo>;
 
-export type WidgetData<T extends WidgetConfig = WidgetConfig> = {
+export type WidgetData<
+  T extends WidgetConfig | undefined = WidgetConfig | undefined,
+> = {
   blockId: string;
   blockParameter: string;
   config: T;
@@ -47,4 +57,5 @@ export type VisualizationData = {
   visualizationType: string;
 };
 
-export type WidgetProps<T extends WidgetConfig> = NodeProps<WidgetData<T>>;
+export type WidgetProps<T extends WidgetConfig | undefined = undefined> =
+  NodeProps<WidgetData<T>>;

@@ -1,10 +1,10 @@
-import { Input } from "@/renderer/components/ui/input";
 import { useControlBlock } from "@/renderer/hooks/useControlBlock";
-import { SliderConfig, WidgetProps } from "@/renderer/types/control";
-import { ChangeEvent } from "react";
+import { WidgetProps } from "@/renderer/types/control";
 import { toast } from "sonner";
+import { Checkbox } from "@/renderer/components/ui/checkbox";
+import { CheckedState } from "@radix-ui/react-checkbox";
 
-export const SliderNode = ({ data }: WidgetProps<SliderConfig>) => {
+export const CheckboxNode = ({ data }: WidgetProps) => {
   const { block, updateBlockParameter } = useControlBlock(data.blockId);
   if (!block) {
     return <div className="text-2xl text-red-500">NOT FOUND</div>;
@@ -13,11 +13,11 @@ export const SliderNode = ({ data }: WidgetProps<SliderConfig>) => {
   const name = block.data.label;
   const paramVal = block.data.ctrls[data.blockParameter].value;
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (state: CheckedState) => {
     const res = updateBlockParameter(
       block.id,
       data.blockParameter,
-      parseInt(e.target.value, 10),
+      Boolean(state.valueOf()),
     );
     if (res.isErr()) {
       toast.error("Error updating block parameter", {
@@ -28,19 +28,14 @@ export const SliderNode = ({ data }: WidgetProps<SliderConfig>) => {
 
   return (
     <div className="flex flex-col items-center rounded-md border p-2">
-      <div className="text-muted-foreground">
+      <div className="mb-2 text-muted-foreground">
         {name} ({data.blockParameter})
       </div>
-      <Input
-        type="range"
+      <Checkbox
         className="nodrag"
-        min={data.config.min}
-        max={data.config.max}
-        step={data.config.step}
-        value={paramVal as number}
-        onChange={handleChange}
+        checked={paramVal as boolean}
+        onCheckedChange={handleChange}
       />
-      <div className="text-xl font-bold">{paramVal}</div>
     </div>
   );
 };

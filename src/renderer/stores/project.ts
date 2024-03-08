@@ -42,9 +42,11 @@ import {
   BlockParameterValue,
 } from "@/renderer/types/manifest";
 import {
+  Config,
+  Configurable,
   VisualizationData,
-  WidgetConfig,
   WidgetData,
+  WidgetType,
 } from "@/renderer/types/control";
 
 type State = {
@@ -94,10 +96,11 @@ type Actions = {
   updateTextNodeText: (id: string, text: string) => Result<void, Error>;
   deleteTextNode: (id: string) => void;
 
-  addControlWidget: (
+  addControlWidget: <K extends WidgetType>(
     blockId: string,
     blockParameter: string,
-    widget: WidgetConfig,
+    widgetType: K,
+    config?: K extends Configurable ? Config[K] : never,
   ) => void;
   deleteControlWidget: (controlNodeId: string) => void;
 
@@ -332,18 +335,19 @@ export const useProjectStore = create<State & Actions>()(
       setHasUnsavedChanges(true);
     },
 
-    addControlWidget: (
+    addControlWidget: <K extends WidgetType>(
       blockId: string,
       blockParameter: string,
-      config: WidgetConfig,
+      widgetType: K,
+      config?: K extends Configurable ? Config[K] : never,
     ) => {
-      const node: Node<WidgetData> = {
+      const node = {
         id: uuidv4(),
-        type: config.type,
+        type: widgetType,
         data: {
           blockId,
           blockParameter,
-          config,
+          config: config,
         },
         position: { x: 0, y: 0 },
       };

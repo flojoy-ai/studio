@@ -20,7 +20,11 @@ import {
   FormMessage,
 } from "@/renderer/components/ui/form";
 import { Combobox } from "@/renderer/components/ui/combobox";
-import { WidgetBlockInfo, WidgetType } from "@/renderer/types/control";
+import {
+  PythonType,
+  WidgetBlockInfo,
+  WidgetType,
+} from "@/renderer/types/control";
 import { toast } from "sonner";
 import {
   Select,
@@ -32,9 +36,10 @@ import {
 import { capitalize } from "lodash";
 
 // TODO: Implement the rest
-const allowedWidgetTypes: Record<string, WidgetType[]> = {
+const allowedWidgetTypes: Record<PythonType, WidgetType[]> = {
   int: ["slider"],
   float: ["slider"],
+  bool: ["checkbox"],
 };
 
 type Props = {

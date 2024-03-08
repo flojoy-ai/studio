@@ -24,14 +24,35 @@ import { useCallback, useRef, useState } from "react";
 import { NewWidgetModal } from "./components/new-widget-modal";
 import VisualizationNode from "@/renderer/components/controls/visualization-node";
 import { NewVisualizationModal } from "./components/new-visualization";
-import { WidgetConfig, WidgetBlockInfo } from "@/renderer/types/control";
+import {
+  WidgetConfig,
+  WidgetBlockInfo,
+  CONFIGURABLE,
+  Configurable,
+  WidgetType,
+} from "@/renderer/types/control";
 import { ConfigDialog } from "./components/config-dialog";
 import { useShallow } from "zustand/react/shallow";
+import { CheckboxNode } from "@/renderer/components/controls/checkbox-node";
 
 const nodeTypes = {
   slider: SliderNode,
+  checkbox: CheckboxNode,
   visualization: VisualizationNode,
   TextNode: ControlTextNode,
+};
+
+const CONFIG_DEFAULT_VALUES = {
+  slider: {
+    type: "slider",
+    min: 0,
+    max: 100,
+    step: 1,
+  },
+} satisfies Record<Configurable, WidgetConfig>;
+
+const isConfigurable = (widgetType: WidgetType): widgetType is Configurable => {
+  return CONFIGURABLE.includes(widgetType);
 };
 
 const ControlPanelView = () => {
@@ -41,12 +62,7 @@ const ControlPanelView = () => {
 
   const [widgetConfigOpen, setWidgetConfigOpen] = useState(false);
   const widgetBlockInfo = useRef<WidgetBlockInfo | null>(null);
-  const widgetConfig = useRef<WidgetConfig>({
-    type: "slider",
-    min: 0,
-    max: 100,
-    step: 1,
-  });
+  const widgetConfig = useRef<WidgetConfig>(CONFIG_DEFAULT_VALUES["slider"]);
 
   const { isAdmin } = useWithPermission();
   const {
@@ -96,8 +112,14 @@ const ControlPanelView = () => {
 
   const onWidgetBlockInfoSubmit = (data: WidgetBlockInfo) => {
     setNewWidgetModalOpen(false);
-    setWidgetConfigOpen(true);
+    if (!isConfigurable(data.widgetType)) {
+      addControl(data.blockId, data.blockParameter, data.widgetType);
+      return;
+    }
+
+    widgetConfig.current = CONFIG_DEFAULT_VALUES[data.widgetType];
     widgetBlockInfo.current = data;
+    setWidgetConfigOpen(true);
   };
 
   const onWidgetConfigSubmit = (data: WidgetConfig) => {
@@ -105,7 +127,7 @@ const ControlPanelView = () => {
       return; // TODO: Error handling
     }
     const { blockId, blockParameter } = widgetBlockInfo.current;
-    addControl(blockId, blockParameter, data);
+    addControl(blockId, blockParameter, data.type, data);
     setWidgetConfigOpen(false);
   };
 

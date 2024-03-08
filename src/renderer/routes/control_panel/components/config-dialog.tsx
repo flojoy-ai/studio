@@ -1,4 +1,4 @@
-import { SliderConfig } from "@/renderer/types/control";
+import { Config } from "@/renderer/types/control";
 
 import {
   Dialog,
@@ -7,10 +7,6 @@ import {
   DialogTitle,
 } from "@/renderer/components/ui/dialog";
 import { SliderConfigForm } from "./slider-form";
-
-type Config = {
-  slider: SliderConfig;
-};
 
 type Props<K extends keyof Config> = {
   widgetType: K;
