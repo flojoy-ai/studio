@@ -3,7 +3,7 @@ import { memo, useMemo } from "react";
 import { makePlotlyData } from "@/renderer/components/plotly/formatPlotlyData";
 import MarkDownText from "@/renderer/components/common/MarkDownText";
 import { useTheme } from "@/renderer/providers/theme-provider";
-import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
+import { useBlockStatus } from "@/renderer/hooks/useBlockStatus";
 import { NodeResizer, useUpdateNodeInternals } from "reactflow";
 import { NodeProps } from "reactflow";
 import { VisualizationData } from "@/renderer/types/control";
@@ -17,11 +17,11 @@ const VisualizationNode = ({
   data,
 }: NodeProps<VisualizationData>) => {
   const { resolvedTheme } = useTheme();
-  const { nodeResult } = useNodeStatus(data.blockId);
+  const { blockResult } = useBlockStatus(data.blockId);
   const nodes = useProjectStore((state) => state.controlVisualizationNodes);
 
-  const plotlyFig = nodeResult?.plotly_fig;
-  const textBlob = nodeResult?.text_blob;
+  const plotlyFig = blockResult?.plotly_fig;
+  const textBlob = blockResult?.text_blob;
 
   const plotlyData = useMemo(
     () =>
