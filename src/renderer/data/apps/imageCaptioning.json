@@ -1,245 +1,248 @@
 {
-  "name": "Image Captioning",
-  "rfInstance": {
-    "nodes": [
-      {
-        "width": 216,
-        "height": 269,
-        "id": "NLP_CONNECT_VIT_GPT2-d11a4ea9-8f99-44cb-a6ba-338ddbc8582a",
-        "type": "AI_ML",
-        "data": {
-          "id": "NLP_CONNECT_VIT_GPT2-d11a4ea9-8f99-44cb-a6ba-338ddbc8582a",
-          "label": "NLP CONNECT VIT GPT2",
-          "func": "NLP_CONNECT_VIT_GPT2",
-          "type": "AI_ML",
-          "ctrls": {},
-          "initCtrls": {},
-          "inputs": [
+    "name": "Image Captioning",
+    "rfInstance": {
+        "nodes": [
             {
-              "name": "default",
-              "id": "default",
-              "type": "Image",
-              "multiple": false,
-              "desc": "The image to caption."
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "DataFrame",
-              "desc": "DataFrame containing the caption column and a single row."
-            }
-          ],
-          "pip_dependencies": [
-            {
-              "name": "torch",
-              "v": "2.0.1"
+                "width": 216,
+                "height": 269,
+                "id": "NLP_CONNECT_VIT_GPT2-d11a4ea9-8f99-44cb-a6ba-338ddbc8582a",
+                "type": "AI_ML",
+                "data": {
+                    "id": "NLP_CONNECT_VIT_GPT2-d11a4ea9-8f99-44cb-a6ba-338ddbc8582a",
+                    "label": "NLP CONNECT VIT GPT2",
+                    "func": "NLP_CONNECT_VIT_GPT2",
+                    "type": "AI_ML",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "desc": "The image to caption.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame",
+                            "desc": "DataFrame containing the caption column and a single row."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "torch",
+                            "v": "2.0.1"
+                        },
+                        {
+                            "name": "torchvision",
+                            "v": "0.15.2"
+                        },
+                        {
+                            "name": "transformers",
+                            "v": "4.30.2"
+                        }
+                    ],
+                    "path": "AI_ML/IMAGE_CAPTIONING/NLP_CONNECT_VIT_GPT2/NLP_CONNECT_VIT_GPT2.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -117.88526450959236,
+                    "y": -248.74114947401353
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -117.88526450959236,
+                    "y": -248.74114947401353
+                },
+                "dragging": true
             },
             {
-              "name": "torchvision",
-              "v": "0.15.2"
+                "id": "TABLE-03f4426e-9546-4b9a-82f4-402ade6b4358",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TABLE-03f4426e-9546-4b9a-82f4-402ade6b4358",
+                    "label": "TABLE",
+                    "func": "TABLE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Table visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
+                },
+                "position": {
+                    "x": 337.4395823704375,
+                    "y": -92.06540189973532
+                },
+                "width": 225,
+                "height": 269,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 337.4395823704375,
+                    "y": -92.06540189973532
+                },
+                "dragging": true
             },
             {
-              "name": "transformers",
-              "v": "4.30.2"
-            }
-          ],
-          "path": "AI_ML/IMAGE_CAPTIONING/NLP_CONNECT_VIT_GPT2/NLP_CONNECT_VIT_GPT2.py",
-          "selected": false
-        },
-        "position": {
-          "x": -117.88526450959236,
-          "y": -248.74114947401353
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": -117.88526450959236,
-          "y": -248.74114947401353
-        },
-        "dragging": true
-      },
-      {
-        "id": "TABLE-03f4426e-9546-4b9a-82f4-402ade6b4358",
-        "type": "VISUALIZATION",
-        "data": {
-          "id": "TABLE-03f4426e-9546-4b9a-82f4-402ade6b4358",
-          "label": "TABLE",
-          "func": "TABLE",
-          "type": "VISUALIZATION",
-          "ctrls": {},
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Plotly",
-              "desc": "the DataContainer containing the Plotly Table visualization"
-            }
-          ],
-          "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
-        },
-        "position": {
-          "x": 337.4395823704375,
-          "y": -92.06540189973532
-        },
-        "width": 225,
-        "height": 269,
-        "selected": false,
-        "positionAbsolute": {
-          "x": 337.4395823704375,
-          "y": -92.06540189973532
-        },
-        "dragging": true
-      },
-      {
-        "id": "IMAGE-09bb95a6-f298-43ad-9c06-86ebc1896dea",
-        "type": "VISUALIZATION",
-        "data": {
-          "id": "IMAGE-09bb95a6-f298-43ad-9c06-86ebc1896dea",
-          "label": "IMAGE",
-          "func": "IMAGE",
-          "type": "VISUALIZATION",
-          "ctrls": {},
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Image|Grayscale",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Plotly",
-              "desc": "the DataContainer containing the Plotly Image visualization of the input image"
-            }
-          ],
-          "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
-        },
-        "position": {
-          "x": -101.23995442975453,
-          "y": 164.81736536430662
-        },
-        "width": 225,
-        "height": 269,
-        "selected": false,
-        "positionAbsolute": {
-          "x": -101.23995442975453,
-          "y": 164.81736536430662
-        },
-        "dragging": true
-      },
-      {
-        "id": "LOCAL_FILE-4ac28979-fe48-4258-ad02-9363203b400d",
-        "type": "LOAD",
-        "data": {
-          "id": "LOCAL_FILE-4ac28979-fe48-4258-ad02-9363203b400d",
-          "label": "LOCAL FILE",
-          "func": "LOCAL_FILE",
-          "type": "LOAD",
-          "ctrls": {
-            "file_path": {
-              "type": "str",
-              "default": null,
-              "desc": "The path to the file to be loaded. This can be either an absolute path or\na path relative to the \"nodes\" directory.",
-              "overload": null,
-              "functionName": "LOCAL_FILE",
-              "param": "file_path",
-              "value": ""
+                "id": "IMAGE-09bb95a6-f298-43ad-9c06-86ebc1896dea",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "IMAGE-09bb95a6-f298-43ad-9c06-86ebc1896dea",
+                    "label": "IMAGE",
+                    "func": "IMAGE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|Grayscale",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
+                },
+                "position": {
+                    "x": -101.23995442975453,
+                    "y": 164.81736536430662
+                },
+                "width": 225,
+                "height": 269,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -101.23995442975453,
+                    "y": 164.81736536430662
+                },
+                "dragging": true
             },
-            "file_type": {
-              "type": "select",
-              "options": ["Image", "Grayscale", "JSON", "CSV"],
-              "default": "Image",
-              "desc": "Type of file to load, default = image.\nIf both 'file_path' and 'default' are not specified when 'file_type=\"Image\"',\na default image will be loaded.\nIf the file path is not specified and the default input is not connected,\na ValueError is raised.",
-              "overload": null,
-              "functionName": "LOCAL_FILE",
-              "param": "file_type",
-              "value": "Image"
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
             {
-              "name": "default",
-              "id": "default",
-              "type": "String",
-              "multiple": false,
-              "desc": "If this input node is connected, the file name will be taken from\nthe output of the connected node.\nTo be used in conjunction with batch processing."
+                "id": "LOCAL_FILE-4ac28979-fe48-4258-ad02-9363203b400d",
+                "type": "LOAD",
+                "data": {
+                    "id": "LOCAL_FILE-4ac28979-fe48-4258-ad02-9363203b400d",
+                    "label": "LOCAL FILE",
+                    "func": "LOCAL_FILE",
+                    "type": "LOAD",
+                    "ctrls": {
+                        "file_path": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "The path to the file to be loaded. This can be either an absolute path or\na path relative to the \"nodes\" directory.",
+                            "overload": null,
+                            "functionName": "LOCAL_FILE",
+                            "param": "file_path",
+                            "value": ""
+                        },
+                        "file_type": {
+                            "type": "select",
+                            "options": [
+                                "Image",
+                                "Grayscale",
+                                "JSON",
+                                "CSV"
+                            ],
+                            "default": "Image",
+                            "desc": "Type of file to load, default = image.\nIf both 'file_path' and 'default' are not specified when 'file_type=\"Image\"',\na default image will be loaded.\nIf the file path is not specified and the default input is not connected,\na ValueError is raised.",
+                            "overload": null,
+                            "functionName": "LOCAL_FILE",
+                            "param": "file_type",
+                            "value": "Image"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "If this input node is connected, the file name will be taken from\nthe output of the connected node.\nTo be used in conjunction with batch processing.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|DataFrame|Grayscale",
+                            "desc": "Image for file_type 'image'.\nGrayscale from file_type 'Grayscale'.\nDataFrame for file_type 'json', 'csv'."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "scikit-image",
+                            "v": "0.21.0"
+                        }
+                    ],
+                    "path": "ETL/LOAD/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py"
+                },
+                "position": {
+                    "x": -544.761461444077,
+                    "y": 3.212687391815791
+                },
+                "width": 216,
+                "height": 188,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -544.761461444077,
+                    "y": 3.212687391815791
+                },
+                "dragging": true
             }
-          ],
-          "outputs": [
+        ],
+        "edges": [
             {
-              "name": "default",
-              "id": "default",
-              "type": "Image|DataFrame|Grayscale",
-              "desc": "Image for file_type 'image'.\nGrayscale from file_type 'Grayscale'.\nDataFrame for file_type 'json', 'csv'."
-            }
-          ],
-          "pip_dependencies": [
+                "source": "LOCAL_FILE-4ac28979-fe48-4258-ad02-9363203b400d",
+                "sourceHandle": "default",
+                "target": "NLP_CONNECT_VIT_GPT2-d11a4ea9-8f99-44cb-a6ba-338ddbc8582a",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LOCAL_FILE-4ac28979-fe48-4258-ad02-9363203b400ddefault-NLP_CONNECT_VIT_GPT2-d11a4ea9-8f99-44cb-a6ba-338ddbc8582adefault"
+            },
             {
-              "name": "scikit-image",
-              "v": "0.21.0"
+                "source": "LOCAL_FILE-4ac28979-fe48-4258-ad02-9363203b400d",
+                "sourceHandle": "default",
+                "target": "IMAGE-09bb95a6-f298-43ad-9c06-86ebc1896dea",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LOCAL_FILE-4ac28979-fe48-4258-ad02-9363203b400ddefault-IMAGE-09bb95a6-f298-43ad-9c06-86ebc1896deadefault"
+            },
+            {
+                "id": "NLP_CONNECT_VIT_GPT2-d11a4ea9-8f99-44cb-a6ba-338ddbc8582a->TABLE-03f4426e-9546-4b9a-82f4-402ade6b4358",
+                "source": "NLP_CONNECT_VIT_GPT2-d11a4ea9-8f99-44cb-a6ba-338ddbc8582a",
+                "target": "TABLE-03f4426e-9546-4b9a-82f4-402ade6b4358",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "DataFrame"
+                }
             }
-          ],
-          "path": "ETL/LOAD/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py"
-        },
-        "position": {
-          "x": -544.761461444077,
-          "y": 3.212687391815791
-        },
-        "width": 216,
-        "height": 188,
-        "selected": false,
-        "positionAbsolute": {
-          "x": -544.761461444077,
-          "y": 3.212687391815791
-        },
-        "dragging": true
-      }
-    ],
-    "edges": [
-      {
-        "source": "LOCAL_FILE-4ac28979-fe48-4258-ad02-9363203b400d",
-        "sourceHandle": "default",
-        "target": "NLP_CONNECT_VIT_GPT2-d11a4ea9-8f99-44cb-a6ba-338ddbc8582a",
-        "targetHandle": "default",
-        "id": "reactflow__edge-LOCAL_FILE-4ac28979-fe48-4258-ad02-9363203b400ddefault-NLP_CONNECT_VIT_GPT2-d11a4ea9-8f99-44cb-a6ba-338ddbc8582adefault"
-      },
-      {
-        "source": "LOCAL_FILE-4ac28979-fe48-4258-ad02-9363203b400d",
-        "sourceHandle": "default",
-        "target": "IMAGE-09bb95a6-f298-43ad-9c06-86ebc1896dea",
-        "targetHandle": "default",
-        "id": "reactflow__edge-LOCAL_FILE-4ac28979-fe48-4258-ad02-9363203b400ddefault-IMAGE-09bb95a6-f298-43ad-9c06-86ebc1896deadefault"
-      },
-      {
-        "source": "NLP_CONNECT_VIT_GPT2-d11a4ea9-8f99-44cb-a6ba-338ddbc8582a",
-        "sourceHandle": "default",
-        "target": "TABLE-03f4426e-9546-4b9a-82f4-402ade6b4358",
-        "targetHandle": "default",
-        "id": "reactflow__edge-NLP_CONNECT_VIT_GPT2-d11a4ea9-8f99-44cb-a6ba-338ddbc8582adefault-TABLE-03f4426e-9546-4b9a-82f4-402ade6b4358default"
-      }
-    ],
-    "viewport": {
-      "x": 804.6656120755285,
-      "y": 345.6859295932446,
-      "zoom": 0.6867439342345503
-    }
-  },
-  "textNodes": []
+        ]
+    },
+    "textNodes": []
 }
