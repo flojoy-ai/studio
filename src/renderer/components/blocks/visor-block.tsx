@@ -4,7 +4,7 @@ import { makePlotlyData } from "@/renderer/components/plotly/formatPlotlyData";
 import PlotlyComponent from "@/renderer/components/plotly/PlotlyComponent";
 import MarkDownText from "@/renderer/components/common/MarkDownText";
 import { useTheme } from "@/renderer/providers/theme-provider";
-import { useNodeStatus } from "@/renderer/hooks/useNodeStatus";
+import { useBlockStatus } from "@/renderer/hooks/useBlockStatus";
 import { NodeResizer, useUpdateNodeInternals } from "reactflow";
 import DefaultBlock from "./default-block";
 import { useBlockIcon } from "@/renderer/hooks/useBlockIcon";
@@ -13,10 +13,10 @@ const VisorBlock = (props: BlockProps) => {
   const { selected, id, data } = props;
   const { SvgIcon } = useBlockIcon(props.type.toLowerCase(), props.data.func);
   const { resolvedTheme } = useTheme();
-  const { nodeResult } = useNodeStatus(data.id);
+  const { blockResult } = useBlockStatus(data.id);
 
-  const plotlyFig = nodeResult?.plotly_fig;
-  const textBlob = nodeResult?.text_blob;
+  const plotlyFig = blockResult?.plotly_fig;
+  const textBlob = blockResult?.text_blob;
 
   const plotlyData = useMemo(
     () =>

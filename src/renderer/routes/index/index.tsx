@@ -14,16 +14,16 @@ import {
 import { Button } from "@/renderer/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { ServerStatus } from "@/renderer/types/socket";
-import { useSocket } from "@/renderer/hooks/useSocket";
 import StatusBar from "@/renderer/routes/common/StatusBar";
 import { InterpretersList } from "src/main/python/interpreter";
 import {
   MixPanelEvents,
   sendEventToMix,
 } from "@/renderer/services/MixpanelServices";
+import { useSocketStore } from "@/renderer/stores/socket";
 
 export const Index = (): JSX.Element => {
-  const { serverStatus } = useSocket();
+  const serverStatus = useSocketStore((state) => state.serverStatus);
   const [pyInterpreters, setPyInterpreters] = useState<InterpretersList | null>(
     null,
   );

@@ -1,6 +1,5 @@
 import { Ban, Play } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
-import { useSocket } from "@/renderer/hooks/useSocket";
 import { sendProgramToMix } from "@/renderer/services/MixpanelServices";
 import { ServerStatus } from "@/renderer/types/socket";
 import WatchBtn from "./WatchBtn";
@@ -13,9 +12,13 @@ import { useProjectStore } from "@/renderer/stores/project";
 import { useShallow } from "zustand/react/shallow";
 import { useSettingsStore } from "@/renderer/stores/settings";
 import { runFlowchart, cancelFlowchartRun } from "@/renderer/lib/api";
+import { useSocketStore } from "@/renderer/stores/socket";
 
 const FlowControlButtons = () => {
-  const { socketId, serverStatus } = useSocket();
+  const { socketId, serverStatus } = useSocketStore((state) => ({
+    socketId: state.socketId,
+    serverStatus: state.serverStatus,
+  }));
 
   const backendSettings = useSettingsStore((state) => state.backend);
 

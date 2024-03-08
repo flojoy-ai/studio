@@ -1,4 +1,3 @@
-import { useSocket } from "@/renderer/hooks/useSocket";
 import { BlockDefinition, TreeNode } from "@/renderer/types/manifest";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -71,6 +70,7 @@ import {
   useManifestStore,
   useMetadata,
 } from "@/renderer/stores/manifest";
+import { useSocketStore } from "@/renderer/stores/socket";
 
 const edgeTypes = {
   default: SmartBezierEdge,
@@ -91,7 +91,7 @@ const FlowChartTab = () => {
 
   const { resolvedTheme } = useTheme();
 
-  const { blockResults, wipeBlockResults } = useSocket();
+  const wipeBlockResults = useSocketStore((state) => state.wipeBlockResults);
 
   const [pythonString, setPythonString] = useState("...");
   const [nodeFilePath, setNodeFilePath] = useState("...");
@@ -462,7 +462,6 @@ const FlowChartTab = () => {
             selectedNode={selectedNode}
             modalIsOpen={nodeModalOpen}
             setModalOpen={setNodeModalOpen}
-            blockResults={blockResults}
             pythonString={pythonString}
             blockFilePath={nodeFilePath}
             blockFullPath={blockFullPath}
