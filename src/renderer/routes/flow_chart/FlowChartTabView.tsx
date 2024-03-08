@@ -1,5 +1,4 @@
 import { BlockDefinition, TreeNode } from "@/renderer/types/manifest";
-import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ConnectionLineType,
