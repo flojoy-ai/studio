@@ -1,5 +1,4 @@
 import { Badge } from "@/renderer/components/ui/badge";
-import { useSocket } from "@/renderer/hooks/useSocket";
 import { ServerStatus } from "@/renderer/types/socket";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -9,10 +8,11 @@ import {
 import { cn } from "@/renderer/lib/utils";
 import { Button } from "@/renderer/components/ui/button";
 import { DownloadIcon } from "lucide-react";
+import { useSocketStore } from "@/renderer/stores/socket";
 
 const StatusBar = (): JSX.Element => {
   const [messages, setMessages] = useState<string[]>([]);
-  const { serverStatus } = useSocket();
+  const serverStatus = useSocketStore((state) => state.serverStatus);
   const [minimize, setMinimize] = useState(true);
   const lastElem = useRef<HTMLDivElement>(null);
 

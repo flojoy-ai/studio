@@ -1,9 +1,9 @@
 import { MenubarItem } from "@/renderer/components/ui/menubar";
-import { useSocket } from "@/renderer/hooks/useSocket";
+import { useBlockResults } from "@/renderer/hooks/useBlockResults";
 import saveAs from "file-saver";
 
 export const ExportResultButton = () => {
-  const { blockResults } = useSocket();
+  const blockResults = useBlockResults();
 
   const exportResultDisabled = Object.keys(blockResults).length == 0;
 

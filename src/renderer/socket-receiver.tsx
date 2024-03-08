@@ -1,70 +1,26 @@
-import { BlockResult } from "@/renderer/types/block-result";
-import {
-  createContext,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useCallback, useEffect, useState } from "react";
 import { v4 as UUID } from "uuid";
 import { toast } from "sonner";
 import { env } from "@/env";
 import { useSettingsStore } from "@/renderer/stores/settings";
 import { useManifestStore } from "@/renderer/stores/manifest";
 import { useShallow } from "zustand/react/shallow";
-import {
-  ServerStatus,
-  ServerStatusEnum,
-  WorkerJobResponse,
-} from "@/renderer/types/socket";
+import { ServerStatus, WorkerJobResponse } from "@/renderer/types/socket";
 import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 import { useSocketStore } from "@/renderer/stores/socket";
 import { useHardwareStore } from "@/renderer/stores/hardware";
 import { toastQueryError } from "@/renderer/utils/report-error";
 
-type SocketState = {
-  runningNode: string;
-  serverStatus: ServerStatusEnum;
-  blockResults: Record<string, BlockResult>;
-  failedNodes: Record<string, string>;
-  wipeBlockResults: () => void;
-  socketId: string;
-};
-
-export const SocketContext = createContext<SocketState | null>(null);
-
-export const SocketContextProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+export const SocketReceiver = () => {
   const [socket, setSocket] = useState<WebSocket>();
-  const {
-    runningNode,
-
-    blockResults,
-    serverStatus,
-    failedNodes,
-    socketId,
-
-    processWorkerResponse,
-    setServerStatus,
-    wipeBlockResults,
-    setSocketId,
-  } = useSocketStore(
-    useShallow((state) => ({
-      runningNode: state.runningNode,
-      blockResults: state.blockResults,
-      serverStatus: state.serverStatus,
-      failedNodes: state.failedNodes,
-      socketId: state.socketId,
-
-      processWorkerResponse: state.processWorkerResponse,
-      setServerStatus: state.setServerStatus,
-      wipeBlockResults: state.wipeBlockResults,
-      setSocketId: state.setSocketId,
-    })),
-  );
+  const { processWorkerResponse, setServerStatus, setSocketId } =
+    useSocketStore(
+      useShallow((state) => ({
+        processWorkerResponse: state.processWorkerResponse,
+        setServerStatus: state.setServerStatus,
+        setSocketId: state.setSocketId,
+      })),
+    );
 
   const hardwareRefetch = useHardwareStore((state) => state.refresh);
   const { fetchManifest, importCustomBlocks, setManifestChanged } =
@@ -109,15 +65,6 @@ export const SocketContextProvider = ({
     );
     ws.onmessage = (ev) => {
       const data = JSON.parse(ev.data) as WorkerJobResponse;
-      // const res = WorkerJobResponse.safeParse(msg);
-      // if (!res.success) {
-      //   console.error(
-      //     "failed to validate worker response: ",
-      //     res.error.message,
-      //   );
-      //   return;
-      // }
-      // const data = res.data;
       switch (data.type) {
         case "worker_response": {
           processWorkerResponse(data);
@@ -157,27 +104,16 @@ export const SocketContextProvider = ({
       setServerStatus(ServerStatus.OFFLINE);
     };
     setSocket(ws);
-  }, [socket]);
+  }, [
+    doFetch,
+    doHardwareFetch,
+    doImport,
+    processWorkerResponse,
+    setManifestChanged,
+    setServerStatus,
+    setSocketId,
+    socket,
+  ]);
 
-  const values: SocketState = useMemo(
-    () => ({
-      socketId,
-      runningNode,
-      serverStatus,
-      failedNodes,
-      blockResults,
-      wipeBlockResults,
-    }),
-    [
-      socketId,
-      runningNode,
-      serverStatus,
-      failedNodes,
-      blockResults,
-      wipeBlockResults,
-    ],
-  );
-  return (
-    <SocketContext.Provider value={values}>{children}</SocketContext.Provider>
-  );
+  return <div />;
 };

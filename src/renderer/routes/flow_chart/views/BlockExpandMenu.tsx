@@ -1,4 +1,3 @@
-import { BlockResult } from "@/renderer/types/block-result";
 import { Node } from "reactflow";
 import { BlockData } from "@/renderer/types/block";
 import BlockModal from "./BlockModal";
@@ -6,17 +5,13 @@ import BlockModal from "./BlockModal";
 type BlockExpandMenuProps = {
   modalIsOpen: boolean;
   setModalOpen: (open: boolean) => void;
-  blockResults: Record<string, BlockResult>;
   selectedNode: Node<BlockData> | null;
   pythonString: string;
   blockFilePath: string;
   blockFullPath: string;
 };
 
-export const BlockExpandMenu = ({
-  blockResults,
-  ...props
-}: BlockExpandMenuProps) => {
+export const BlockExpandMenu = ({ ...props }: BlockExpandMenuProps) => {
   const { selectedNode } = props;
   // const onSelectionChange = () => {
   //   if (!selectedNode) {
@@ -31,7 +26,6 @@ export const BlockExpandMenu = ({
       {selectedNode && (
         <BlockModal
           {...props}
-          result={blockResults[selectedNode.id] ?? null}
           selectedNode={selectedNode}
           data-testid="expand-menu"
         />

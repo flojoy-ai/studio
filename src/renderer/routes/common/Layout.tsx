@@ -1,11 +1,11 @@
 import Header from "./Header";
-import { useSocket } from "@/renderer/hooks/useSocket";
 import { Input } from "@/renderer/components/ui/input";
 import { Outlet } from "react-router-dom";
 import StatusBar from "@/renderer/routes/common/StatusBar";
 import { useProjectStore } from "@/renderer/stores/project";
 import { useShallow } from "zustand/react/shallow";
 import { useAppStore } from "@/renderer/stores/app";
+import { useSocketStore } from "@/renderer/stores/socket";
 
 export const HEADER_HEIGHT = 72;
 export const ACTIONS_HEIGHT = 52;
@@ -16,7 +16,7 @@ export const LAYOUT_TOP_HEIGHT =
   HEADER_HEIGHT + ACTIONS_HEIGHT + SERVER_STATUS_HEIGHT;
 
 export const Layout = () => {
-  const { serverStatus } = useSocket();
+  const serverStatus = useSocketStore((state) => state.serverStatus);
 
   const { setProjectName, projectName, hasUnsavedChanges } = useProjectStore(
     useShallow((state) => ({

@@ -7,11 +7,11 @@ import {
 } from "@/renderer/types/socket";
 
 type State = {
-  runningNode: string;
+  runningBlock: string;
   blockResults: Record<string, BlockResult>;
 
   serverStatus: ServerStatusEnum;
-  failedNodes: Record<string, string>;
+  failedBlocks: Record<string, string>;
   socketId: string;
 };
 
@@ -49,10 +49,10 @@ export const useSocketStore = create<State & Actions>()((set) => ({
       });
     }
     if (res.RUNNING_NODE) {
-      set({ runningNode: res.RUNNING_NODE });
+      set({ runningBlock: res.RUNNING_NODE });
     }
     if (res.FAILED_NODES) {
-      set({ failedNodes: res.FAILED_NODES });
+      set({ failedBlocks: res.FAILED_NODES });
     }
   },
 
@@ -61,8 +61,8 @@ export const useSocketStore = create<State & Actions>()((set) => ({
     set({ blockResults: {} });
   },
 
-  runningNode: "",
-  failedNodes: {},
+  runningBlock: "",
+  failedBlocks: {},
 
   socketId: "",
   setSocketId: (val) => {

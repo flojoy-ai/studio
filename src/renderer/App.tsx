@@ -15,6 +15,7 @@ import EditorView from "./routes/editor/EditorView";
 import { initMixPanel } from "./services/MixpanelServices";
 import AuthPage from "./routes/auth/Auth";
 import { Toaster } from "sonner";
+import { SocketReceiver } from "./socket-receiver";
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;
@@ -33,6 +34,7 @@ const App = () => {
   return (
     <div>
       <Toaster theme={resolvedTheme} closeButton />
+      <SocketReceiver />
       <div className="titlebar flex h-12 items-center justify-center bg-background font-bold">
         Flojoy Studio ({packageJson.version})
       </div>
