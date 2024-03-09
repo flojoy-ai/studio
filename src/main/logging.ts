@@ -1,6 +1,6 @@
 import { app, dialog, ipcMain, shell } from "electron";
 import log from "electron-log/main";
-import { API } from "../types/api";
+import { API } from "@/api";
 import { join } from "path";
 import { writeFileSync } from "./utils";
 import { readFileSync } from "fs";

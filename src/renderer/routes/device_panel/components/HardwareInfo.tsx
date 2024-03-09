@@ -1,37 +1,42 @@
-import {
-  useHardwareRefetch,
-  useHardwareDevices,
-} from "@/renderer/hooks/useHardwareDevices";
+import { useHardwareStore } from "@/renderer/stores/hardware";
 import { DeviceCardProps } from "./DeviceCard";
 import { DeviceSection } from "./DeviceSection";
 import { Button } from "@/renderer/components/ui/button";
 import { DebugMenu } from "./DebugMenu";
 import { ConnectionHelp } from "./ConnectionHelp";
-import { useSettings } from "@/renderer/hooks/useSettings";
+import { useSettingsStore } from "@/renderer/stores/settings";
+import { toast } from "sonner";
+import { ZodError } from "zod";
+import { fromZodError } from "zod-validation-error";
 
 export const HardwareInfo = () => {
-  const devices = useHardwareDevices();
-  const refetch = useHardwareRefetch();
-  const { settings } = useSettings("device");
-  const setting = settings.find(
-    (setting) => setting.key === "niDAQmxDeviceDiscovery",
-  );
-  const discoverNIDAQmxDevices = setting ? setting.value : false;
-  const settingdmm = settings.find(
-    (settingdmm) => settingdmm.key === "nidmmDeviceDiscovery",
-  );
-  const discoverNIDMMDevices = settingdmm ? settingdmm.value : false;
+  const { devices, refresh } = useHardwareStore();
+  const deviceSettings = useSettingsStore((state) => state.device);
+  const { nidmmDeviceDiscovery, niDAQmxDeviceDiscovery } = deviceSettings;
+
+  const handleRefresh = async () => {
+    const res = await refresh(
+      niDAQmxDeviceDiscovery.value,
+      nidmmDeviceDiscovery.value,
+    );
+    if (res.isOk()) return;
+
+    if (res.error instanceof ZodError) {
+      toast.error("Error validating hardware info", {
+        description: fromZodError(res.error).toString(),
+      });
+      console.log(res.error.message);
+    } else if (res.error instanceof Error) {
+      toast.error("Error fetching hardware info", {
+        description: res.error.message,
+      });
+    }
+  };
 
   if (!devices) {
     return (
       <>
-        <Button
-          onClick={() => {
-            refetch(discoverNIDAQmxDevices, discoverNIDMMDevices);
-          }}
-        >
-          Refresh
-        </Button>
+        <Button onClick={handleRefresh}>Refresh</Button>
         <div className="py-3" />
         <div>loading...</div>
       </>
@@ -96,13 +101,7 @@ export const HardwareInfo = () => {
   return (
     <div className="max-h-screen overflow-y-auto">
       <div className="flex gap-2">
-        <Button
-          onClick={() => {
-            refetch(discoverNIDAQmxDevices, discoverNIDMMDevices);
-          }}
-        >
-          Refresh
-        </Button>
+        <Button onClick={handleRefresh}>Refresh</Button>
         <DebugMenu />
         <ConnectionHelp />
       </div>
@@ -118,7 +117,7 @@ export const HardwareInfo = () => {
         devices={driverDependentDevices}
       />
       {driverDependentDevices === undefined && (
-        <h5 className="text-accent5 mb-2 pt-2 text-xs">
+        <h5 className="mb-2 pt-2 text-xs text-accent5">
           To enable driver-dependent discovery, see: Settings → Device Settings
         </h5>
       )}

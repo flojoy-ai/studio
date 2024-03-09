@@ -2,7 +2,7 @@ import type { CustomNodeProps } from "./types/nodeProps";
 import { memo } from "react";
 import LogicNode from "./LogicNode";
 
-export const ConditionalNode = (props: CustomNodeProps) => {
+export const ConditionalNode = (props: BlockProps) => {
   const { data } = props;
   const operator = data.ctrls["operator_type"].value as string;
 

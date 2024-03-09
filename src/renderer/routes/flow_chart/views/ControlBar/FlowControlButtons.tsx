@@ -1,102 +1,91 @@
-import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
-import { Node, Edge } from "reactflow";
-import { ElementsData } from "@/renderer/types";
 import { Ban, Play } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
-import {
-  projectAtom,
-  useFlowChartState,
-} from "@/renderer/hooks/useFlowChartState";
-import { useSettings } from "@/renderer/hooks/useSettings";
-import { useSocket } from "@/renderer/hooks/useSocket";
-import {
-  saveAndRunFlowChartInServer,
-  cancelFlowChartRun,
-} from "@/renderer/services/FlowChartServices";
 import { sendProgramToMix } from "@/renderer/services/MixpanelServices";
-import { IServerStatus } from "@/renderer/context/socket.context";
+import { ServerStatus } from "@/renderer/types/socket";
 import WatchBtn from "./WatchBtn";
-import { useAtom } from "jotai";
 import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
-import { useManifest } from "@/renderer/hooks/useManifest";
+import { useManifest } from "@/renderer/stores/manifest";
 import _ from "lodash";
 import { toast } from "sonner";
+import { useFlowchartStore } from "@/renderer/stores/flowchart";
+import { useProjectStore } from "@/renderer/stores/project";
+import { useShallow } from "zustand/react/shallow";
+import { useSettingsStore } from "@/renderer/stores/settings";
+import { runFlowchart, cancelFlowchartRun } from "@/renderer/lib/api";
+import { useSocketStore } from "@/renderer/stores/socket";
 
 const FlowControlButtons = () => {
-  const { states } = useSocket();
-  const { socketId, serverStatus } = states;
+  const { socketId, serverStatus, wipeBlockResults } = useSocketStore(
+    (state) => ({
+      socketId: state.socketId,
+      serverStatus: state.serverStatus,
+      wipeBlockResults: state.wipeBlockResults,
+    }),
+  );
 
-  const { settings } = useSettings("backend");
+  const backendSettings = useSettingsStore((state) => state.backend);
 
-  const { setNodeParamChanged } = useFlowChartState();
+  const resetNodeParamChanged = useFlowchartStore(
+    useShallow((state) => state.resetNodeParamChanged),
+  );
+  const { nodes, edges } = useProjectStore(
+    useShallow((state) => ({
+      nodes: state.nodes,
+      edges: state.edges,
+    })),
+  );
 
-  const [project, setProject] = useAtom(projectAtom);
   const manifest = useManifest();
 
   const playBtnDisabled =
-    serverStatus === IServerStatus.CONNECTING ||
-    serverStatus === IServerStatus.OFFLINE;
-  const cancelFC = () => {
-    if (project.rfInstance && project.rfInstance.nodes.length > 0) {
-      cancelFlowChartRun(project.rfInstance, socketId);
-    } else {
-      alert("There is no running job on server.");
-    }
-  };
-  const onRun = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
-    if (project.rfInstance && nodes.length > 0) {
-      if (_.some(nodes, (n) => n.data.invalid)) {
-        toast.error(
-          "Unknown blocks found, these must be removed before attempting to run the flow chart.",
-        );
-        return;
-      }
+    serverStatus === ServerStatus.CONNECTING ||
+    serverStatus === ServerStatus.OFFLINE;
 
-      // Only update the react flow instance when required.
-      const updatedRfInstance = {
-        ...project.rfInstance,
-        nodes,
-        edges,
-      };
-
-      setProject({
-        ...project,
-        rfInstance: updatedRfInstance,
-      });
-
-      sendProgramToMix(project.rfInstance.nodes, true, false);
-      // setProgramResults([]);
-      saveAndRunFlowChartInServer({
-        rfInstance: updatedRfInstance,
-        jobId: socketId,
-        settings: settings.filter((setting) => setting.group === "backend"),
-      });
-      setNodeParamChanged(false);
-    } else {
-      alert(
+  const onRun = async () => {
+    if (nodes.length === 0) {
+      toast.info(
         "There is no program to send to server. \n Please add at least one node first.",
       );
+      return;
     }
-  };
-  const { nodes, edges } = useFlowChartGraph();
+    if (_.some(nodes, (n) => n.data.invalid)) {
+      toast.error(
+        "Unknown blocks found, these must be removed before attempting to run the flow chart.",
+      );
+      return;
+    }
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    onRun(nodes, edges);
+    sendProgramToMix(nodes, true, false);
+    wipeBlockResults();
+
+    (
+      await runFlowchart({
+        nodes,
+        edges,
+        jobId: socketId,
+        settings: backendSettings,
+      })
+    ).match(
+      () => resetNodeParamChanged(),
+      (e) =>
+        toast.error("Failed to run flowchart", {
+          description: e.message,
+        }),
+    );
   };
 
-  useKeyboardShortcut("ctrl", "p", () => onRun(nodes, edges));
-  useKeyboardShortcut("meta", "p", () => onRun(nodes, edges));
+  useKeyboardShortcut("ctrl", "p", onRun);
+  useKeyboardShortcut("meta", "p", onRun);
 
   return (
     <>
-      {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
+      {playBtnDisabled || serverStatus === ServerStatus.STANDBY ? (
         <Button
           data-cy="btn-play"
           data-testid="btn-play"
           variant="dotted"
           id="btn-play"
-          onClick={handleClick}
+          onClick={onRun}
           disabled={nodes.length === 0 || !manifest}
           className="w-28 gap-2"
         >
@@ -108,7 +97,7 @@ const FlowControlButtons = () => {
           data-testid="btn-cancel"
           data-cy="btn-cancel"
           id="btn-cancel"
-          onClick={cancelFC}
+          onClick={() => cancelFlowchartRun(socketId)}
           className="w-28 gap-2"
           variant="dotted"
         >
@@ -118,7 +107,7 @@ const FlowControlButtons = () => {
       )}
 
       <div className="px-0.5" />
-      <WatchBtn playFC={onRun} cancelFC={cancelFC} />
+      <WatchBtn playFC={onRun} cancelFC={() => cancelFlowchartRun(socketId)} />
       <div className="px-0.5" />
     </>
   );

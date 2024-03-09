@@ -1,9 +1,12 @@
-import traceback
 import asyncio
+import subprocess
 import time
-from typing import Union, List, Callable
-from flojoy_cloud.client import FlojoyCloudException
+import traceback
+from typing import Callable, List, Union
+
 import pydantic
+from flojoy_cloud.client import FlojoyCloud, FlojoyCloudException
+
 from captain.models.test_sequencer import (
     IfNode,
     StatusTypes,
@@ -12,13 +15,11 @@ from captain.models.test_sequencer import (
     TestSequenceElementNode,
     TestTypes,
 )
+from captain.parser.bool_parser.bool_parser import eval_expression
 from captain.parser.bool_parser.expressions.models import Variable
 from captain.types.test_sequence import MsgState, TestSequenceMessage
 from captain.utils.config import ts_manager
-import subprocess
 from captain.utils.logger import logger
-from captain.parser.bool_parser.bool_parser import eval_expression
-from flojoy_cloud.client import FlojoyCloud
 from pkgs.flojoy.flojoy.env_var import get_env_var
 
 
@@ -60,13 +61,13 @@ Extract = tuple[
 def _with_stream_test_result(func: Callable[[TestNode], Extract]):
     # TODO: support run in parallel feature
     async def wrapper(node: TestNode) -> Extract:
-        await _stream_result_to_frontend(MsgState.RUNNING, test_id=node.id)
+        await _stream_result_to_frontend(MsgState.running, test_id=node.id)
         children_getter, test_result = func(node)
         if test_result is None:
             raise Exception(f"{node.id}: Test returned None")
         else:
             await _stream_result_to_frontend(
-                state=MsgState.TEST_DONE,
+                state=MsgState.test_done,
                 test_id=node.id,
                 result=test_result.result,
                 time_taken=test_result.time_taken,  # TODO result, time_taken should be together
@@ -215,8 +216,8 @@ map_to_handler_run = (
         "test": (
             "test_type",
             {
-                TestTypes.Python: (None, _run_python),
-                TestTypes.Pytest: (None, _run_pytest),
+                TestTypes.python: (None, _run_python),
+                TestTypes.pytest: (None, _run_pytest),
             },
         ),
         "conditional": (
@@ -264,11 +265,11 @@ async def run_test_sequence(data):
             for child in children:
                 await run_dfs(child)
 
-        await _stream_result_to_frontend(state=MsgState.TEST_SET_START)
+        await _stream_result_to_frontend(state=MsgState.test_set_start)
         await run_dfs(data)  # run tests
-        await _stream_result_to_frontend(state=MsgState.TEST_SET_DONE)
+        await _stream_result_to_frontend(state=MsgState.test_set_done)
     except Exception as e:
-        await _stream_result_to_frontend(state=MsgState.ERROR, error=str(e))
+        await _stream_result_to_frontend(state=MsgState.error, error=str(e))
         logger.error(f"{e}: {traceback.format_exc()}")
 
 
@@ -287,7 +288,7 @@ async def _case_test_upload(node: TestNode, hardware_id, project_id) -> Extract:
         passed = True if status == StatusTypes.pass_ else False
         test_name = node.test_name.split("::")[-1]
         try:
-            await _stream_result_to_frontend(MsgState.RUNNING, test_id=node.id)
+            await _stream_result_to_frontend(MsgState.running, test_id=node.id)
             node.is_saved_to_cloud = False
             cloud.upload(
                 data=passed,
@@ -316,7 +317,7 @@ async def _case_test_upload(node: TestNode, hardware_id, project_id) -> Extract:
             if node.completion_time is None:
                 raise Exception(f"{node.id}: Unexpected None for completion_time")
             await _stream_result_to_frontend(
-                state=MsgState.TEST_DONE,
+                state=MsgState.test_done,
                 test_id=node.id,
                 result=passed,
                 time_taken=node.completion_time,
@@ -365,9 +366,9 @@ async def export_test_sequence(data, hardware_id, project_id):
             for child in children:
                 await run_dfs(child)
 
-        await _stream_result_to_frontend(state=MsgState.TEST_SET_EXPORT)
+        await _stream_result_to_frontend(state=MsgState.test_set_export)
         await run_dfs(data)  # Export tests
-        await _stream_result_to_frontend(state=MsgState.TEST_SET_DONE)
+        await _stream_result_to_frontend(state=MsgState.test_set_done)
     except Exception as e:
-        await _stream_result_to_frontend(state=MsgState.ERROR, error=str(e))
+        await _stream_result_to_frontend(state=MsgState.error, error=str(e))
         logger.error(f"{e}: {traceback.format_exc()}")

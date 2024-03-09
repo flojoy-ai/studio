@@ -1,4 +1,4 @@
-import { TestRootNode } from "@/renderer/types/testSequencer";
+import { TestRootNode } from "@/renderer/types/test-sequencer";
 
 export type TestSequenceEvents = "run" | "stop" | "subscribe" | "export";
 type CloudId = string | null;

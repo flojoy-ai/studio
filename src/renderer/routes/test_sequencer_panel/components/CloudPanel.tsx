@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Input } from "@/renderer/components/ui/input";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import LockableButton from "./lockable/LockedButtons";
-import { testSequenceExportCloud } from "../models/models";
 import { useTestSequencerWS } from "@/renderer/context/testSequencerWS.context";
 import {
   Select,
@@ -11,22 +10,25 @@ import {
   SelectContent,
   SelectItem,
 } from "@/renderer/components/ui/select";
-import { baseClient } from "@/renderer/lib/base-client";
 import { Button } from "@/renderer/components/ui/button";
-import EnvVarModal from "../../flow_chart/views/EnvVarModal";
+import { useAppStore } from "@/renderer/stores/app";
+import { useShallow } from "zustand/react/shallow";
+import { testSequenceExportCloud } from "@/renderer/routes/test_sequencer_panel/models/models";
+import { Project, getCloudProjects } from "@/renderer/lib/api";
+import { toastQueryError } from "@/renderer/utils/report-error";
 
 export function CloudPanel() {
-  const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
   const [hardwareId, setHardwareId] = useState("");
   const [projectId, setProjectId] = useState("");
   const { tree, setIsLocked } = useTestSequencerState();
   const { tSSendJsonMessage } = useTestSequencerWS();
-  const [projects, setProjects] = useState<
-    {
-      label: string;
-      value: string;
-    }[]
-  >([]);
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  const { setIsEnvVarModalOpen } = useAppStore(
+    useShallow((state) => ({
+      setIsEnvVarModalOpen: state.setIsEnvVarModalOpen,
+    })),
+  );
 
   const handleExport = () => {
     setIsLocked(true);
@@ -34,14 +36,16 @@ export function CloudPanel() {
     setIsLocked(true);
   };
 
-  const fetchProjects = async () => {
-    const res = await baseClient.get("cloud/projects");
-    setProjects(res.data);
-  };
+  const fetchProjects = useCallback(async () => {
+    (await getCloudProjects()).match(
+      (p) => setProjects(p),
+      (e) => toastQueryError(e, "Failed to fetch projects from Flojoy Cloud"),
+    );
+  }, []);
 
   useEffect(() => {
     fetchProjects();
-  }, []);
+  }, [fetchProjects]);
 
   return (
     <div className="min-w-[240px] rounded-xl border border-gray-300 p-4 py-4 dark:border-gray-800">
@@ -105,10 +109,6 @@ export function CloudPanel() {
           </LockableButton>
         </div>
       </div>
-      <EnvVarModal
-        handleEnvVarModalOpen={setIsEnvVarModalOpen}
-        isEnvVarModalOpen={isEnvVarModalOpen}
-      />
     </div>
   );
 }

@@ -6,8 +6,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "../ui/dialog";
-import { Button } from "../ui/button";
+} from "@/renderer/components/ui/dialog";
+import { Button } from "@/renderer/components/ui/button";
 
 type ConfirmPromptProps = {
   open: boolean;

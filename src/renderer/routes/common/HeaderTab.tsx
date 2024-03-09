@@ -1,6 +1,7 @@
 import { cn } from "@/renderer/lib/utils";
 import { Link, useLocation } from "react-router-dom";
-import { useActiveTab, TabName } from "@/renderer/hooks/useActiveTab";
+import { TabName, useAppStore } from "@/renderer/stores/app";
+import { useShallow } from "zustand/react/shallow";
 
 type TabButtonProps = {
   to: string;
@@ -11,7 +12,12 @@ type TabButtonProps = {
 
 const HeaderTab = ({ to, tabName, children, testId }: TabButtonProps) => {
   const location = useLocation();
-  const { activeTab, setActiveTab } = useActiveTab();
+
+  const { setActiveTab } = useAppStore(
+    useShallow((state) => ({
+      setActiveTab: state.setActiveTab,
+    })),
+  );
 
   return (
     <div

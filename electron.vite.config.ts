@@ -1,6 +1,8 @@
 import { resolve } from "path";
 import { defineConfig, externalizeDepsPlugin } from "electron-vite";
 import react from "@vitejs/plugin-react-swc";
+import svgr from "vite-plugin-svgr";
+import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 export default defineConfig({
   main: {
@@ -32,6 +34,6 @@ export default defineConfig({
         "@": resolve(__dirname, "src"),
       },
     },
-    plugins: [react()],
+    plugins: [nodePolyfills(), react(), svgr()], // do not switch the order it breaks
   },
 });

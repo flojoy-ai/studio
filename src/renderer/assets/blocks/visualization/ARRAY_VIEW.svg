@@ -1,0 +1,42 @@
+<svg class="h-full w-full" viewBox="18 30 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="36.6667" y="38" width="9.5" height="9.5" rx="1" className="fill-accent5" />
+  <rect x="50.3889" y="38" width="9.5" height="9.5" rx="1" className="fill-accent5" />
+  <rect x="64.1111" y="38" width="9.5" height="9.5" rx="1" className="fill-accent5" />
+  <rect x="77.8333" y="38" width="9.5" height="9.5" rx="1" className="fill-accent5" />
+  <rect x="36.6667" y="104.5" width="9.5" height="9.5" rx="1" className="fill-accent5" />
+  <rect x="50.3889" y="104.5" width="9.5" height="9.5" rx="1" className="fill-accent5" />
+  <rect x="64.1111" y="104.5" width="9.5" height="9.5" rx="1" className="fill-accent5" />
+  <rect x="77.8333" y="104.5" width="9.5" height="9.5" rx="1" className="fill-accent5" />
+  <rect x="36.6667" y="50.6667" width="9.5" height="9.5" rx="1" className="fill-accent5" fillOpacity="0.8" />
+  <rect x="50.3889" y="50.6667" width="9.5" height="9.5" rx="1" className="fill-accent5" fillOpacity="0.8" />
+  <rect x="64.1111" y="50.6667" width="9.5" height="9.5" rx="1" className="fill-accent5" fillOpacity="0.8" />
+  <rect x="77.8333" y="50.6667" width="9.5" height="9.5" rx="1" className="fill-accent5" fillOpacity="0.8" />
+  <rect x="36.6667" y="91.8333" width="9.5" height="9.5" rx="1" className="fill-accent5" fillOpacity="0.8" />
+  <rect x="50.3889" y="91.8333" width="9.5" height="9.5" rx="1" className="fill-accent5" fillOpacity="0.8" />
+  <rect x="64.1111" y="91.8333" width="9.5" height="9.5" rx="1" className="fill-accent5" fillOpacity="0.8" />
+  <rect x="77.8333" y="91.8333" width="9.5" height="9.5" rx="1" className="fill-accent5" fillOpacity="0.8" />
+  <rect x="36.6667" y="64.3889" width="9.5" height="9.5" rx="1" className="fill-accent5" fillOpacity="0.5" />
+  <rect x="50.3889" y="64.3889" width="9.5" height="9.5" rx="1" className="fill-accent5" fillOpacity="0.5" />
+  <rect x="64.1111" y="64.3889" width="9.5" height="9.5" rx="1" className="fill-accent5" fillOpacity="0.5" />
+  <rect x="77.8333" y="64.3889" width="9.5" height="9.5" rx="1" className="fill-accent5" fillOpacity="0.5" />
+  <rect x="36.6667" y="78.1111" width="9.5" height="9.5" rx="1" className="fill-accent5" fillOpacity="0.3" />
+  <rect x="50.3889" y="78.1111" width="9.5" height="9.5" rx="1" className="fill-accent5" fillOpacity="0.3" />
+  <rect x="64.1111" y="78.1111" width="9.5" height="9.5" rx="1" className="fill-accent5" fillOpacity="0.3" />
+  <rect x="77.8333" y="78.1111" width="9.5" height="9.5" rx="1" className="fill-accent5" fillOpacity="0.3" />
+  <rect x="24" y="101.333" width="9.5" height="9.5" rx="1" transform="rotate(-90 24 101.333)" className="fill-accent5"
+    fillOpacity="0.8" />
+  <rect x="24" y="87.6111" width="9.5" height="9.5" rx="1" transform="rotate(-90 24 87.6111)" className="fill-accent5"
+    fillOpacity="0.8" />
+  <rect x="24" y="73.8889" width="9.5" height="9.5" rx="1" transform="rotate(-90 24 73.8889)" className="fill-accent5"
+    fillOpacity="0.8" />
+  <rect x="24" y="60.1667" width="9.5" height="9.5" rx="1" transform="rotate(-90 24 60.1667)" className="fill-accent5"
+    fillOpacity="0.8" />
+  <rect x="90.5" y="101.333" width="9.5" height="9.5" rx="1" transform="rotate(-90 90.5 101.333)"
+    className="fill-accent5" fillOpacity="0.8" />
+  <rect x="90.5" y="87.6111" width="9.5" height="9.5" rx="1" transform="rotate(-90 90.5 87.6111)"
+    className="fill-accent5" fillOpacity="0.8" />
+  <rect x="90.5" y="73.8889" width="9.5" height="9.5" rx="1" transform="rotate(-90 90.5 73.8889)"
+    className="fill-accent5" fillOpacity="0.8" />
+  <rect x="90.5" y="60.1667" width="9.5" height="9.5" rx="1" transform="rotate(-90 90.5 60.1667)"
+    className="fill-accent5" fillOpacity="0.8" />
+</svg>

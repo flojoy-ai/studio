@@ -6,8 +6,8 @@ import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import {
   testSequenceRunRequest,
   testSequenceStopRequest,
-} from "../models/models";
-import { TestSequenceElement } from "@/renderer/types/testSequencer";
+} from "@/renderer/routes/test_sequencer_panel/models/models";
+import { TestSequenceElement } from "@/renderer/types/test-sequencer";
 import { ImportTestModal } from "./ImportTestModal";
 import LockableButton from "./lockable/LockedButtons";
 import { TSWebSocketContext } from "@/renderer/context/testSequencerWS.context";
@@ -148,14 +148,14 @@ const TestSequencerView = () => {
                     variant="dotted"
                     className="mt-4 w-full gap-2"
                     isLocked={_.isEmpty(tree)}
-                    isException={backendState === "TEST_SET_START"}
+                    isException={backendState === "test_set_start"}
                     onClick={
-                      backendState === "TEST_SET_START"
+                      backendState === "test_set_start"
                         ? handleClickStopTest
                         : handleClickRunTest
                     }
                   >
-                    {backendState === "TEST_SET_START"
+                    {backendState === "test_set_start"
                       ? "Stop Test Sequence"
                       : "Run Test Sequence"}
                   </LockableButton>

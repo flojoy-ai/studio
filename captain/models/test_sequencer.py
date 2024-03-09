@@ -1,6 +1,7 @@
-from typing import Optional, List, Union, Literal
-from pydantic import BaseModel, Field
 from enum import Enum
+from typing import List, Literal, Optional, Union
+
+from pydantic import BaseModel, Field
 
 
 class Summary(BaseModel):
@@ -14,10 +15,10 @@ class LockedContextType(BaseModel):
 
 
 class TestTypes(str, Enum):
-    Pytest = "Pytest"
-    Python = "Python"
-    Flojoy = "Flojoy"
-    Matlab = "Matlab"
+    pytest = "pytest"
+    python = "python"
+    flojoy = "flojoy"
+    matlab = "matlab"
 
 
 class StatusTypes(str, Enum):
@@ -27,12 +28,12 @@ class StatusTypes(str, Enum):
 
 
 class MsgState(str, Enum):
-    TEST_SET_START = "TEST_SET_START"
-    TEST_SET_EXPORT = "TEST_SET_EXPORT"
-    RUNNING = "RUNNING"
-    TEST_DONE = "TEST_DONE"
-    ERROR = "ERROR"
-    TEST_SET_DONE = "TEST_SET_DONE"
+    test_set_start = "test_set_start"
+    test_set_export = "test_set_export"
+    running = "running"
+    test_done = "test_done"
+    error = "error"
+    test_set_done = "test_set_done"
 
 
 class BackendMsg(BaseModel):

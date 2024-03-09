@@ -7,19 +7,19 @@ import {
 } from "@/renderer/components/ui/dialog";
 import { ScrollArea } from "@/renderer/components/ui/scroll-area";
 
-interface KeyboardShortcutProps {
-  handleKeyboardShortcutModalOpen: (open: boolean) => void;
-  isKeyboardShortcutModalOpen: boolean;
-}
+type Props = {
+  isKeyboardShortcutOpen: boolean;
+  setIsKeyboardShortcutOpen: (val: boolean) => void;
+};
 
 const KeyboardShortcutModal = ({
-  handleKeyboardShortcutModalOpen,
-  isKeyboardShortcutModalOpen,
-}: KeyboardShortcutProps) => {
+  isKeyboardShortcutOpen,
+  setIsKeyboardShortcutOpen,
+}: Props) => {
   return (
     <Dialog
-      open={isKeyboardShortcutModalOpen}
-      onOpenChange={handleKeyboardShortcutModalOpen}
+      open={isKeyboardShortcutOpen}
+      onOpenChange={setIsKeyboardShortcutOpen}
     >
       <DialogContent className="max-w-sm">
         <DialogHeader>

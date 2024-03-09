@@ -1,8 +1,4 @@
-import { useFlowChartState } from "@/renderer/hooks/useFlowChartState";
 import { useEffect, useState } from "react";
-import { Node, Edge } from "reactflow";
-import { ElementsData } from "@/renderer/types";
-import { useFlowChartGraph } from "@/renderer/hooks/useFlowChartGraph";
 import { Label } from "@/renderer/components/ui/label";
 import { Switch } from "@/renderer/components/ui/switch";
 import {
@@ -12,23 +8,26 @@ import {
   TooltipContent,
 } from "@/renderer/components/ui/tooltip";
 import { toast } from "sonner";
+import { useFlowchartStore } from "@/renderer/stores/flowchart";
+import { useShallow } from "zustand/react/shallow";
 
 interface WatchBtnProps {
-  playFC: (nodes: Node<ElementsData>[], edges: Edge[]) => void;
+  playFC: () => void;
   cancelFC: () => void;
 }
 
 const WatchBtn = ({ playFC, cancelFC }: WatchBtnProps) => {
-  const { nodeParamChanged } = useFlowChartState();
-  const { nodes, edges } = useFlowChartGraph();
+  const nodeParamChanged = useFlowchartStore(
+    useShallow((state) => state.nodeParamChanged),
+  );
   const [isWatching, setIsWatching] = useState(false);
 
   useEffect(() => {
     if (isWatching && nodeParamChanged) {
       cancelFC();
-      playFC(nodes, edges);
+      playFC();
     }
-  }, [nodeParamChanged, isWatching]);
+  }, [nodeParamChanged, isWatching, playFC, cancelFC]);
 
   const handleClick = () => {
     if (!isWatching) {

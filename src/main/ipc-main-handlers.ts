@@ -1,4 +1,4 @@
-import { API } from "@/types/api";
+import { API } from "@/api";
 import {
   cacheCustomBlocksDir,
   getCustomBlocksDir,

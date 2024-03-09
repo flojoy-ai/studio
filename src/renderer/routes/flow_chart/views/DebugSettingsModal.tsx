@@ -13,32 +13,32 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/renderer/components/ui/select";
-import {
-  getLogLevel,
-  setLogLevel,
-} from "@/renderer/services/FlowChartServices";
+import { getLogLevel, setLogLevel } from "@/renderer/lib/api";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-export type SettingsModalProps = {
-  handleSettingsModalOpen: (open: boolean) => void;
-  isSettingsModalOpen: boolean;
+type Props = {
+  isDebugSettingsOpen: boolean;
+  setIsDebugSettingsOpen: (val: boolean) => void;
 };
 
 export const DebugSettingsModal = ({
-  handleSettingsModalOpen,
-  isSettingsModalOpen,
-}: SettingsModalProps) => {
+  isDebugSettingsOpen,
+  setIsDebugSettingsOpen,
+}: Props) => {
   const [level, setLevel] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    if (isSettingsModalOpen) {
+    if (isDebugSettingsOpen) {
       getLogLevel().then((data) => {
-        console.log(data);
-        setLevel(data);
+        data.match(
+          (v) => setLevel(v),
+          (e) =>
+            toast.error("Error setting log level", { description: e.message }),
+        );
       });
     }
-  }, [isSettingsModalOpen]);
+  }, [isDebugSettingsOpen]);
 
   const onLogLevelChange = async (val: string) => {
     try {
@@ -50,7 +50,7 @@ export const DebugSettingsModal = ({
   };
 
   return (
-    <Dialog open={isSettingsModalOpen} onOpenChange={handleSettingsModalOpen}>
+    <Dialog open={isDebugSettingsOpen} onOpenChange={setIsDebugSettingsOpen}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader className="text-left">
           <DialogTitle>Debug Settings</DialogTitle>

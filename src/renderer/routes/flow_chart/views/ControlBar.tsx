@@ -1,18 +1,8 @@
 import { memo, useState } from "react";
 
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/renderer/components/ui/dialog";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
-import { NodeSettingsModal } from "./NodeSettingsModal";
-import EnvVarModal from "./EnvVarModal";
+import { BlockSettingsModal } from "./BlockSettingsModal";
+import EnvVarModal from "./env-var/EnvVarModal";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
 import { DarkModeToggle } from "@/renderer/routes/common/DarkModeToggle";
 import {
@@ -27,34 +17,35 @@ import { SaveAsButton, SaveButton } from "./ControlBar/SaveButtons";
 import { LoadButton } from "./ControlBar/LoadButton";
 import { ExportResultButton } from "./ControlBar/ExportResultButton";
 import FlowControlButtons from "./ControlBar/FlowControlButtons";
-import { IS_CLOUD_DEMO } from "@/renderer/data/constants";
-import { DemoWarningTooltip } from "@/renderer/components/ui/demo-warning-tooltip";
 import { DebugSettingsModal } from "./DebugSettingsModal";
 import DepManagerModal from "./DepManagerModal";
 import { DeviceSettingsModal } from "./DeviceSettingsModal";
-import { Button } from "@/renderer/components/ui/button";
 import ProfileMenu from "./user-profile/ProfileMenu";
-import { useActiveTab, TabName } from "@/renderer/hooks/useActiveTab";
-import { useToggleSettingModal } from "@/renderer/hooks/useToggleSettingModal";
+import { useAppStore } from "@/renderer/stores/app";
+import { useShallow } from "zustand/react/shallow";
+import FeedbackModal from "./FeedbackModal";
 
 const ControlBar = () => {
-  const {
-    isKeyboardShortcutOpen,
-    setIsKeyboardShortcutOpen,
-    isEnvVarModalOpen,
-    setIsEnvVarModalOpen,
-    isNodeSettingsOpen,
-    setIsNodeSettingsOpen,
-    isDebugSettingsOpen,
-    setIsDebugSettingsOpen,
-    isEditorSettingsOpen,
-    setIsEditorSettingsOpen,
-    isDeviceSettingsOpen,
-    setIsDeviceSettingsOpen,
-    isDepManagerModalOpen,
-    setIsDepManagerModalOpen,
-  } = useToggleSettingModal();
-  const { activeTab } = useActiveTab();
+  const { activeTab } = useAppStore(
+    useShallow((state) => ({
+      activeTab: state.activeTab,
+    })),
+  );
+
+  const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] = useState(false);
+  const [isBlockSettingsOpen, setIsBlockSettingsOpen] = useState(false);
+  const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
+  const [isDeviceSettingsOpen, setIsDeviceSettingsOpen] = useState(false);
+  const [isDebugSettingsOpen, setIsDebugSettingsOpen] = useState(false);
+
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
+
+  const { setIsEnvVarModalOpen, setIsDepManagerModalOpen } = useAppStore(
+    useShallow((state) => ({
+      setIsEnvVarModalOpen: state.setIsEnvVarModalOpen,
+      setIsDepManagerModalOpen: state.setIsDepManagerModalOpen,
+    })),
+  );
 
   const handleCheckForUpdates = () => {
     window.api.checkForUpdates();
@@ -62,39 +53,32 @@ const ControlBar = () => {
 
   return (
     <div className="flex items-center gap-2 p-2.5">
-      <EnvVarModal
-        handleEnvVarModalOpen={setIsEnvVarModalOpen}
-        isEnvVarModalOpen={isEnvVarModalOpen}
-      />
-
+      <EnvVarModal />
       <KeyboardShortcutModal
-        handleKeyboardShortcutModalOpen={setIsKeyboardShortcutOpen}
-        isKeyboardShortcutModalOpen={isKeyboardShortcutOpen}
+        isKeyboardShortcutOpen={isKeyboardShortcutOpen}
+        setIsKeyboardShortcutOpen={setIsKeyboardShortcutOpen}
       />
-
-      <NodeSettingsModal
-        handleSettingsModalOpen={setIsNodeSettingsOpen}
-        isSettingsModalOpen={isNodeSettingsOpen}
+      <BlockSettingsModal
+        isBlockSettingsOpen={isBlockSettingsOpen}
+        setIsBlockSettingsOpen={setIsBlockSettingsOpen}
       />
-
       <EditorSettingsModal
-        handleSettingsModalOpen={setIsEditorSettingsOpen}
-        isSettingsModalOpen={isEditorSettingsOpen}
+        isEditorSettingsOpen={isEditorSettingsOpen}
+        setIsEditorSettingsOpen={setIsEditorSettingsOpen}
       />
-
       <DeviceSettingsModal
-        handleSettingsModalOpen={setIsDeviceSettingsOpen}
-        isSettingsModalOpen={isDeviceSettingsOpen}
+        isDeviceSettingsOpen={isDeviceSettingsOpen}
+        setIsDeviceSettingsOpen={setIsDeviceSettingsOpen}
       />
-
       <DebugSettingsModal
-        handleSettingsModalOpen={setIsDebugSettingsOpen}
-        isSettingsModalOpen={isDebugSettingsOpen}
+        isDebugSettingsOpen={isDebugSettingsOpen}
+        setIsDebugSettingsOpen={setIsDebugSettingsOpen}
       />
+      <DepManagerModal />
 
-      <DepManagerModal
-        handleDepManagerModalOpen={setIsDepManagerModalOpen}
-        isDepManagerModalOpen={isDepManagerModalOpen}
+      <FeedbackModal
+        open={isFeedbackModalOpen}
+        setOpen={setIsFeedbackModalOpen}
       />
 
       {activeTab === "Visual Python Script" && <FlowControlButtons />}
@@ -102,20 +86,9 @@ const ControlBar = () => {
       <div className="flex">
         <Menubar>
           <MenubarMenu>
-            <DemoWarningTooltip
-              tooltipContent={
-                "Download the desktop app to save and load flowcharts!"
-              }
-            >
-              <MenubarTrigger
-                id="file-btn"
-                data-testid="file-button"
-                disabled={IS_CLOUD_DEMO}
-                className={IS_CLOUD_DEMO ? "cursor-not-allowed opacity-50" : ""}
-              >
-                File
-              </MenubarTrigger>
-            </DemoWarningTooltip>
+            <MenubarTrigger id="file-btn" data-testid="file-button">
+              File
+            </MenubarTrigger>
             <MenubarContent>
               <SaveButton />
               <SaveAsButton />
@@ -126,13 +99,7 @@ const ControlBar = () => {
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger
-              disabled={IS_CLOUD_DEMO}
-              data-testid="settings-btn"
-              className={IS_CLOUD_DEMO ? "cursor-not-allowed opacity-50" : ""}
-            >
-              Settings
-            </MenubarTrigger>
+            <MenubarTrigger data-testid="settings-btn">Settings</MenubarTrigger>
             <MenubarContent>
               <MenubarItem
                 data-testid="dep-manager-modal-button"
@@ -160,7 +127,7 @@ const ControlBar = () => {
               </MenubarItem>
               <MenubarItem
                 data-testid="btn-node-settings"
-                onClick={() => setIsNodeSettingsOpen(true)}
+                onClick={() => setIsBlockSettingsOpen(true)}
               >
                 Node Settings
               </MenubarItem>
@@ -187,35 +154,11 @@ const ControlBar = () => {
             </MenubarContent>
           </MenubarMenu>
 
-          <Dialog>
-            <DialogTrigger>
-              <MenubarMenu>
-                <MenubarTrigger>Feedback</MenubarTrigger>
-              </MenubarMenu>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>We would love to hear what you think!</DialogTitle>
-                <DialogDescription>
-                  Join our Discord community to leave us a feedback :)
-                </DialogDescription>
-              </DialogHeader>
-              <DialogFooter>
-                <DialogClose>
-                  <Button type="submit" variant="secondary">
-                    Close
-                  </Button>
-                </DialogClose>
-                <DialogClose>
-                  <Button type="submit" asChild>
-                    <a href="https://discord.gg/7HEBr7yG8c" target="_blank">
-                      Join
-                    </a>
-                  </Button>
-                </DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+          <MenubarMenu>
+            <MenubarTrigger onClick={() => setIsFeedbackModalOpen(true)}>
+              Feedback
+            </MenubarTrigger>
+          </MenubarMenu>
         </Menubar>
       </div>
       <ProfileMenu />

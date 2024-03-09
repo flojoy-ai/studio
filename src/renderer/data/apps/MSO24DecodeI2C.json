@@ -1,16 +1,17 @@
 {
+  "name": "Tektronix",
   "rfInstance": {
     "nodes": [
       {
-        "width": 192,
-        "height": 192,
+        "width": 216,
+        "height": 233,
         "id": "I2C_TRIGGER_MSO2X-172af13d-d1e2-4137-9e99-f928d90e56d6",
-        "type": "HARDWARE",
+        "type": "OSCILLOSCOPES",
         "data": {
           "id": "I2C_TRIGGER_MSO2X-172af13d-d1e2-4137-9e99-f928d90e56d6",
           "label": "I2C TRIGGER MSO2X",
           "func": "I2C_TRIGGER_MSO2X",
-          "type": "HARDWARE",
+          "type": "OSCILLOSCOPES",
           "ctrls": {
             "connection": {
               "type": "VisaConnection",
@@ -117,26 +118,26 @@
           "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/I2C_TRIGGER_MSO2X/I2C_TRIGGER_MSO2X.py"
         },
         "position": {
-          "x": -490.2167443501464,
-          "y": -180.21151973804896
+          "x": -520.6655291507428,
+          "y": -163.46468809772102
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -490.2167443501464,
-          "y": -180.21151973804896
+          "x": -520.6655291507428,
+          "y": -163.46468809772102
         },
         "dragging": true
       },
       {
-        "width": 192,
-        "height": 192,
+        "width": 216,
+        "height": 233,
         "id": "DECODE_I2C_MSO2X-90d58f0c-a24d-4043-9108-00d944f082b7",
-        "type": "HARDWARE",
+        "type": "OSCILLOSCOPES",
         "data": {
           "id": "DECODE_I2C_MSO2X-90d58f0c-a24d-4043-9108-00d944f082b7",
           "label": "DECODE I2C MSO2X",
           "func": "DECODE_I2C_MSO2X",
-          "type": "HARDWARE",
+          "type": "OSCILLOSCOPES",
           "ctrls": {
             "connection": {
               "type": "VisaConnection",
@@ -256,26 +257,26 @@
           "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/DECODE_I2C_MSO2X/DECODE_I2C_MSO2X.py"
         },
         "position": {
-          "x": 9.602851517934198,
-          "y": -184.86636950571352
+          "x": 49.186271758709495,
+          "y": -168.1195378653855
         },
-        "selected": true,
+        "selected": false,
         "positionAbsolute": {
-          "x": 9.602851517934198,
-          "y": -184.86636950571352
+          "x": 49.186271758709495,
+          "y": -168.1195378653855
         },
         "dragging": true
       },
       {
-        "width": 192,
-        "height": 192,
+        "width": 216,
+        "height": 269,
         "id": "SINGLE_TRIGGER_DS1047Z-906d16c2-c6b7-4f78-8451-fc9cf996c744",
-        "type": "HARDWARE",
+        "type": "OSCILLOSCOPES",
         "data": {
           "id": "SINGLE_TRIGGER_DS1047Z-906d16c2-c6b7-4f78-8451-fc9cf996c744",
           "label": "SINGLE TRIGGER DS1047Z",
           "func": "SINGLE_TRIGGER_DS1047Z",
-          "type": "HARDWARE",
+          "type": "OSCILLOSCOPES",
           "ctrls": {
             "connection": {
               "type": "VisaConnection",
@@ -317,26 +318,26 @@
           "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/SINGLE_TRIGGER_DS1047Z/SINGLE_TRIGGER_DS1047Z.py"
         },
         "position": {
-          "x": -245.9067888265495,
-          "y": -183.89874206201213
+          "x": -242.86191034648988,
+          "y": -165.6294711816543
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -245.9067888265495,
-          "y": -183.89874206201213
+          "x": -242.86191034648988,
+          "y": -165.6294711816543
         },
         "dragging": true
       },
       {
-        "width": 192,
-        "height": 192,
+        "width": 216,
+        "height": 233,
         "id": "CONNECT_MSO2X-f430790c-b0b4-4501-ab19-a9012d39e228",
-        "type": "HARDWARE",
+        "type": "OSCILLOSCOPES",
         "data": {
           "id": "CONNECT_MSO2X-f430790c-b0b4-4501-ab19-a9012d39e228",
           "label": "CONNECT MSO2X",
           "func": "CONNECT_MSO2X",
-          "type": "HARDWARE",
+          "type": "OSCILLOSCOPES",
           "ctrls": {
             "device": {
               "type": "VisaDevice",
@@ -366,13 +367,13 @@
           "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/CONNECT_MSO2X/CONNECT_MSO2X.py"
         },
         "position": {
-          "x": -950.5874062357527,
-          "y": -175.63142068154437
+          "x": -1122.6230403591221,
+          "y": -163.4519067613058
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -950.5874062357527,
-          "y": -175.63142068154437
+          "x": -1122.6230403591221,
+          "y": -163.4519067613058
         },
         "dragging": true
       },
@@ -418,26 +419,26 @@
           "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
         },
         "position": {
-          "x": 285.95426419287355,
-          "y": -193.83045708334814
+          "x": 357.5089084742751,
+          "y": -206.00997100358666
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 285.95426419287355,
-          "y": -193.83045708334814
+          "x": 357.5089084742751,
+          "y": -206.00997100358666
         },
         "dragging": true
       },
       {
-        "width": 192,
-        "height": 192,
+        "width": 216,
+        "height": 269,
         "id": "DIGITAL_CHANNELS_MSO2X-89a0dc23-4020-4fd8-a2e6-41a47823bde3",
-        "type": "HARDWARE",
+        "type": "OSCILLOSCOPES",
         "data": {
           "id": "DIGITAL_CHANNELS_MSO2X-89a0dc23-4020-4fd8-a2e6-41a47823bde3",
           "label": "DIGITAL CHANNELS MSO2X",
           "func": "DIGITAL_CHANNELS_MSO2X",
-          "type": "HARDWARE",
+          "type": "OSCILLOSCOPES",
           "ctrls": {
             "connection": {
               "type": "VisaConnection",
@@ -458,9 +459,9 @@
               "value": false
             },
             "D0_display": {
-              "type": "select",
+              "type": "bool",
               "options": ["1", "0"],
-              "default": "0",
+              "default": false,
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
               "functionName": "DIGITAL_CHANNELS_MSO2X",
@@ -468,19 +469,19 @@
               "value": "0"
             },
             "D1_display": {
-              "type": "select",
+              "type": "bool",
               "options": ["1", "0"],
-              "default": "0",
+              "default": false,
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
               "functionName": "DIGITAL_CHANNELS_MSO2X",
               "param": "D1_display",
-              "value": "1"
+              "value": "0"
             },
             "D2_display": {
-              "type": "select",
+              "type": "bool",
               "options": ["1", "0"],
-              "default": "0",
+              "default": false,
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
               "functionName": "DIGITAL_CHANNELS_MSO2X",
@@ -488,9 +489,9 @@
               "value": "0"
             },
             "D3_display": {
-              "type": "select",
+              "type": "bool",
               "options": ["1", "0"],
-              "default": "0",
+              "default": false,
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
               "functionName": "DIGITAL_CHANNELS_MSO2X",
@@ -498,9 +499,9 @@
               "value": "0"
             },
             "D4_display": {
-              "type": "select",
+              "type": "bool",
               "options": ["1", "0"],
-              "default": "0",
+              "default": false,
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
               "functionName": "DIGITAL_CHANNELS_MSO2X",
@@ -508,9 +509,9 @@
               "value": "0"
             },
             "D5_display": {
-              "type": "select",
+              "type": "bool",
               "options": ["1", "0"],
-              "default": "0",
+              "default": false,
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
               "functionName": "DIGITAL_CHANNELS_MSO2X",
@@ -518,9 +519,9 @@
               "value": "0"
             },
             "D6_display": {
-              "type": "select",
+              "type": "bool",
               "options": ["1", "0"],
-              "default": "0",
+              "default": false,
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
               "functionName": "DIGITAL_CHANNELS_MSO2X",
@@ -528,9 +529,9 @@
               "value": "0"
             },
             "D7_display": {
-              "type": "select",
+              "type": "bool",
               "options": ["1", "0"],
-              "default": "0",
+              "default": false,
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
               "functionName": "DIGITAL_CHANNELS_MSO2X",
@@ -538,9 +539,9 @@
               "value": "0"
             },
             "D8_display": {
-              "type": "select",
+              "type": "bool",
               "options": ["1", "0"],
-              "default": "0",
+              "default": false,
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
               "functionName": "DIGITAL_CHANNELS_MSO2X",
@@ -548,9 +549,9 @@
               "value": "0"
             },
             "D9_display": {
-              "type": "select",
+              "type": "bool",
               "options": ["1", "0"],
-              "default": "0",
+              "default": false,
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
               "functionName": "DIGITAL_CHANNELS_MSO2X",
@@ -558,9 +559,9 @@
               "value": "0"
             },
             "D10_display": {
-              "type": "select",
+              "type": "bool",
               "options": ["1", "0"],
-              "default": "0",
+              "default": false,
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
               "functionName": "DIGITAL_CHANNELS_MSO2X",
@@ -568,9 +569,9 @@
               "value": "0"
             },
             "D11_display": {
-              "type": "select",
+              "type": "bool",
               "options": ["1", "0"],
-              "default": "0",
+              "default": false,
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
               "functionName": "DIGITAL_CHANNELS_MSO2X",
@@ -578,9 +579,9 @@
               "value": "0"
             },
             "D12_display": {
-              "type": "select",
+              "type": "bool",
               "options": ["1", "0"],
-              "default": "0",
+              "default": false,
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
               "functionName": "DIGITAL_CHANNELS_MSO2X",
@@ -588,9 +589,9 @@
               "value": "0"
             },
             "D13_display": {
-              "type": "select",
+              "type": "bool",
               "options": ["1", "0"],
-              "default": "0",
+              "default": false,
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
               "functionName": "DIGITAL_CHANNELS_MSO2X",
@@ -598,9 +599,9 @@
               "value": "0"
             },
             "D14_display": {
-              "type": "select",
+              "type": "bool",
               "options": ["1", "0"],
-              "default": "0",
+              "default": false,
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
               "functionName": "DIGITAL_CHANNELS_MSO2X",
@@ -608,9 +609,9 @@
               "value": "0"
             },
             "D15_display": {
-              "type": "select",
+              "type": "bool",
               "options": ["1", "0"],
-              "default": "0",
+              "default": false,
               "desc": "Turn the channel on (1) or off (0).",
               "overload": null,
               "functionName": "DIGITAL_CHANNELS_MSO2X",
@@ -645,18 +646,25 @@
           "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/DIGITAL_CHANNELS_MSO2X/DIGITAL_CHANNELS_MSO2X.py"
         },
         "position": {
-          "x": -721.8969192702025,
-          "y": -174.6125358393321
+          "x": -825.4227875922302,
+          "y": -162.43302191909356
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -721.8969192702025,
-          "y": -174.6125358393321
+          "x": -825.4227875922302,
+          "y": -162.43302191909356
         },
         "dragging": true
       }
     ],
     "edges": [
+      {
+        "source": "DIGITAL_CHANNELS_MSO2X-89a0dc23-4020-4fd8-a2e6-41a47823bde3",
+        "sourceHandle": "default",
+        "target": "I2C_TRIGGER_MSO2X-172af13d-d1e2-4137-9e99-f928d90e56d6",
+        "targetHandle": "input",
+        "id": "reactflow__edge-DIGITAL_CHANNELS_MSO2X-89a0dc23-4020-4fd8-a2e6-41a47823bde3default-I2C_TRIGGER_MSO2X-172af13d-d1e2-4137-9e99-f928d90e56d6input"
+      },
       {
         "source": "SINGLE_TRIGGER_DS1047Z-906d16c2-c6b7-4f78-8451-fc9cf996c744",
         "sourceHandle": "default",
@@ -684,13 +692,6 @@
         "target": "DIGITAL_CHANNELS_MSO2X-89a0dc23-4020-4fd8-a2e6-41a47823bde3",
         "targetHandle": "input",
         "id": "reactflow__edge-CONNECT_MSO2X-f430790c-b0b4-4501-ab19-a9012d39e228default-DIGITAL_CHANNELS_MSO2X-89a0dc23-4020-4fd8-a2e6-41a47823bde3input"
-      },
-      {
-        "source": "DIGITAL_CHANNELS_MSO2X-89a0dc23-4020-4fd8-a2e6-41a47823bde3",
-        "sourceHandle": "default",
-        "target": "I2C_TRIGGER_MSO2X-172af13d-d1e2-4137-9e99-f928d90e56d6",
-        "targetHandle": "input",
-        "id": "reactflow__edge-DIGITAL_CHANNELS_MSO2X-89a0dc23-4020-4fd8-a2e6-41a47823bde3default-I2C_TRIGGER_MSO2X-172af13d-d1e2-4137-9e99-f928d90e56d6input"
       }
     ],
     "viewport": {

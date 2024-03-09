@@ -1,19 +1,19 @@
 import { Position } from "reactflow";
 import { CustomHandle, HandleVariantProps } from "./CustomHandle";
-import { CustomNodeProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/block";
 
 const HandleComponent = ({
   data,
   variant,
 }: {
-  data: CustomNodeProps["data"];
+  data: BlockProps["data"];
 } & HandleVariantProps) => {
   const outputs = data.outputs ?? [];
   const inputs = data.inputs ?? [];
 
   return (
     <>
-      <div className="absolute -left-1 top-0 flex h-full flex-col justify-evenly">
+      <div className="absolute -left-2 top-0 flex h-full flex-col justify-evenly">
         {inputs.map((param) => (
           <div
             className="relative flex items-center"
@@ -31,7 +31,7 @@ const HandleComponent = ({
         ))}
       </div>
 
-      <div className="absolute -right-1 top-0 flex h-full flex-col justify-evenly">
+      <div className="absolute -right-2 top-0 flex h-full flex-col justify-evenly">
         {outputs.map((param) => (
           <div
             className="relative flex items-center"

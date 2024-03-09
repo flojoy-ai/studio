@@ -1,9 +1,11 @@
-import { centerPositionAtom } from "@/renderer/hooks/useFlowChartState";
-import { useAtom } from "jotai";
 import { useOnViewportChange, useStoreApi } from "reactflow";
+import { useShallow } from "zustand/react/shallow";
+import { useFlowchartStore } from "@/renderer/stores/flowchart";
 
 export const CenterObserver = () => {
-  const [, setCenter] = useAtom(centerPositionAtom);
+  const setCenter = useFlowchartStore(
+    useShallow((state) => state.setCenterPosition),
+  );
   const store = useStoreApi();
 
   useOnViewportChange({

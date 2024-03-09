@@ -25,7 +25,7 @@ import {
   Summary,
   Test,
   TestSequenceElement,
-} from "@/renderer/types/testSequencer";
+} from "@/renderer/types/test-sequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useEffect, useState } from "react";
 
@@ -61,8 +61,7 @@ const getSuccessRate = (data: TestSequenceElement[]): number => {
 const columns: ColumnDef<Summary>[] = [
   {
     accessorKey: "id",
-    // @ts-ignore
-    header: (
+    header: () => (
       <h2 className="mb-2 pt-2 text-lg font-bold text-accent1">
         Test Sequencer
       </h2>

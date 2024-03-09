@@ -1,13 +1,12 @@
 import { createContext, useContext } from "react";
 import { SendJsonMessage } from "react-use-websocket/dist/lib/types";
-import { TS_SOCKET_URL } from "@/renderer/data/constants";
-import { filter } from "lodash";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
-import { BackendMsg, MsgState, Test } from "@/renderer/types/testSequencer";
-import { mapToTestResult } from "../routes/test_sequencer_panel/utils/TestUtils";
+import { BackendMsg, Test } from "@/renderer/types/test-sequencer";
+import { mapToTestResult } from "@/renderer/routes/test_sequencer_panel/utils/TestUtils";
 import { toast } from "sonner";
+import { env } from "@/env";
 
 type ContextType = {
   tSSendJsonMessage: SendJsonMessage;
@@ -24,14 +23,16 @@ export function TestSequencerWSProvider({
 }) {
   const {
     websocketId,
-    setRunning,
+    markTestAsDone,
+    addTestToRunning,
     setElems,
     setIsLocked,
     setIsLoading,
     setBackendState,
   } = useTestSequencerState();
+
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
-    `${TS_SOCKET_URL}/${websocketId}`,
+    `ws://${env.VITE_BACKEND_HOST}:${env.VITE_BACKEND_PORT}/ts-ws/${websocketId}`,
     {
       shouldReconnect: () => true,
       reconnectInterval: 2000,
@@ -39,7 +40,7 @@ export function TestSequencerWSProvider({
     },
   );
 
-  //set result when received from backend for specific test
+  // Set result when received from backend for specific test
   const setResult = (
     id: string,
     result: boolean,
@@ -77,52 +78,59 @@ export function TestSequencerWSProvider({
     }
   }, [readyState, sendJsonMessage, setIsLoading]);
 
-  const mapToHandler: { [K in MsgState]: (data: BackendMsg) => void } = {
-    TEST_SET_START: (data) => {
-      setBackendState("TEST_SET_START");
-    },
-    TEST_SET_EXPORT: (data) => {
-      console.log("exporting tests", data);
-      setBackendState("TEST_SET_EXPORT");
-    },
-    TEST_DONE: (data) => {
-      setRunning((run) => filter(run, (r) => r !== data.target_id));
-      setResult(
-        data.target_id,
-        data.result,
-        data.time_taken,
-        data.is_saved_to_cloud,
-        data.error,
-      );
-      // Don't specify a backend state here, because we want to keep the "RUNNER" or "EXPORT" state
-    },
-    RUNNING: (data) => {
-      setRunning([data.target_id]);
-      // Don't specify a backend state here, because we want to keep the "RUNNER" or "EXPORT" state
-    },
-    ERROR: (data) => {
-      toast.error(
-        <div>
-          <p className="text-red-500">ERROR</p>
-          {data.error}
-        </div>,
-      );
-      console.error(data.error);
-      setIsLocked(false);
-      setBackendState("ERROR");
-    },
-    TEST_SET_DONE: (data) => {
-      console.log("tests are done", data);
-      setIsLocked(false);
-      setBackendState("TEST_SET_DONE");
-    },
-  };
-
   // Run when a new WebSocket message is received (lastJsonMessage)
   useEffect(() => {
-    const data = lastJsonMessage as BackendMsg;
-    if (data === null) return;
-    mapToHandler[data.state](data);
+    if (!lastJsonMessage) return;
+
+    const msg = BackendMsg.safeParse(lastJsonMessage);
+    if (!msg.success) {
+      console.error(msg.error);
+      return;
+    }
+
+    switch (msg.data.state) {
+      case "test_set_start":
+        setBackendState("test_set_start");
+        break;
+      case "test_set_export":
+        setBackendState("test_set_export");
+        break;
+      case "test_done":
+        markTestAsDone(msg.data.target_id);
+        setResult(
+          msg.data.target_id,
+          msg.data.result,
+          msg.data.time_taken,
+          msg.data.is_saved_to_cloud,
+          msg.data.error,
+        );
+        // Don't specify a backend state here, because we want to keep the "RUNNER" or "EXPORT" state
+        break;
+      case "running":
+        addTestToRunning(msg.data.target_id);
+        // Don't specify a backend state here, because we want to keep the "RUNNER" or "EXPORT" state
+        break;
+      case "error":
+        toast.error(
+          <div>
+            <p className="text-red-500">ERROR</p>
+            {msg.data.error}
+          </div>,
+        );
+        console.error(msg.data.error);
+        setIsLocked(false);
+        setBackendState("error");
+        break;
+      case "test_set_done":
+        console.log("tests are done", msg.data);
+        setIsLocked(false);
+        setBackendState("test_set_done");
+        break;
+      default:
+        break;
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastJsonMessage]);
 
   return (
