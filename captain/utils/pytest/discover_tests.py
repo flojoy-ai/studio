@@ -62,7 +62,9 @@ def discover_pytest_file(
                 test_list.append(
                     TestDiscoveryResponse(
                         test_name=node.nodeid.replace(" ", "_"),
-                        path=pathlib.Path(os.path.join(json_data.root, node.nodeid)).as_posix()
+                        path=pathlib.Path(
+                            os.path.join(json_data.root, node.nodeid)
+                        ).as_posix(),
                     )
                 )
 
@@ -73,7 +75,9 @@ def discover_pytest_file(
         return
     if one_file:
         return_val.append(
-            TestDiscoveryResponse(test_name=os.path.basename(path), path=pathlib.Path(path).as_posix())
+            TestDiscoveryResponse(
+                test_name=os.path.basename(path), path=pathlib.Path(path).as_posix()
+            )
         )
     else:
         return_val.extend(test_list)
