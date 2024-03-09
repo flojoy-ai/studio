@@ -1,5 +1,4 @@
 import App from "./App";
-import { SocketContextProvider } from "./context/socket.context";
 import "./global.css";
 import "./index.css";
 // default styling
@@ -13,7 +12,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { ErrorPage } from "@/renderer/ErrorPage";
 import { HashRouter } from "react-router-dom";
 import { AuthContextProvider } from "./context/auth.context";
-import { ThemeProvider } from "./providers/themeProvider";
+import { ThemeProvider } from "./providers/them-provider";
 import { TestSequencerWSProvider } from "./context/testSequencerWS.context";
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
@@ -28,11 +27,9 @@ root.render(
     <ErrorBoundary fallbackRender={fallbackRender}>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <AuthContextProvider>
-          <SocketContextProvider>
-            <TestSequencerWSProvider>
-              <App />
-            </TestSequencerWSProvider>
-          </SocketContextProvider>
+          <TestSequencerWSProvider>
+            <App />
+          </TestSequencerWSProvider>
         </AuthContextProvider>
       </ThemeProvider>
     </ErrorBoundary>

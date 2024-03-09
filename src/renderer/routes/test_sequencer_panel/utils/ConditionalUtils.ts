@@ -2,7 +2,7 @@ import {
   ConditionalComponent,
   Conditional,
   TestSequenceElement,
-} from "@/renderer/types/testSequencer";
+} from "@/renderer/types/test-sequencer";
 import { v4 as uuidv4 } from "uuid";
 import { filter } from "lodash";
 import { SetElemsFn } from "@/renderer/hooks/useTestSequencerState";

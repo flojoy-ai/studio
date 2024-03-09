@@ -1,9 +1,9 @@
 import { Position } from "reactflow";
-import { CustomNodeProps } from "@/renderer/types/node";
+import { BlockProps } from "@/renderer/types/block";
 import { CustomHandle, HandleVariantProps } from "./CustomHandle";
 
 type LogicHandleComponentProps = {
-  data: CustomNodeProps["data"];
+  data: BlockProps["data"];
 } & HandleVariantProps;
 
 export const LogicHandleComponent = ({

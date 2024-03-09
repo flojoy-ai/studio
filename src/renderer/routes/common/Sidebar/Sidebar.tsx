@@ -2,12 +2,11 @@ import { ImportIcon, Search } from "lucide-react";
 
 import { memo, useEffect, useRef, useState } from "react";
 
-import { Leaf, RootNode } from "@/renderer/utils/ManifestLoader";
+import { Leaf, RootNode } from "@/renderer/types/manifest";
 import SidebarNode from "./SidebarNode";
 import { LAYOUT_TOP_HEIGHT } from "@/renderer/routes/common/Layout";
 import { ArrowDownWideNarrow, ArrowUpWideNarrow, XIcon } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
-import { REQUEST_NODE_URL } from "@/renderer/data/constants";
 import { cn } from "@/renderer/lib/utils";
 import { Input } from "@/renderer/components/ui/input";
 import {
@@ -16,6 +15,11 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/renderer/components/ui/tabs";
+import { env } from "@/env";
+import { useManifestStore } from "@/renderer/stores/manifest";
+import { useShallow } from "zustand/react/shallow";
+import { toastQueryError } from "@/renderer/utils/report-error";
+
 export type LeafClickHandler = (elem: Leaf) => void;
 
 type SidebarProps = {
@@ -25,7 +29,6 @@ type SidebarProps = {
   leafNodeClickHandler: LeafClickHandler;
   customContent?: JSX.Element;
   customSections: RootNode | null;
-  handleImportCustomBlocks: (startup: boolean) => void;
 };
 
 const Sidebar = ({
@@ -34,8 +37,11 @@ const Sidebar = ({
   sections,
   leafNodeClickHandler,
   customSections,
-  handleImportCustomBlocks,
 }: SidebarProps) => {
+  const importCustomBlocks = useManifestStore(
+    useShallow((state) => state.importCustomBlocks),
+  );
+
   const [query, setQuery] = useState("");
   const [searchFocused, setSearchFocused] = useState(false);
 
@@ -65,6 +71,13 @@ const Sidebar = ({
       setFocus();
     }
   }, [isSideBarOpen]);
+
+  const handleImport = async () => {
+    const res = await importCustomBlocks(false);
+    if (res.isErr()) {
+      toastQueryError(res.error, "Error fetching custom blocks info.");
+    }
+  };
 
   return (
     <div
@@ -111,7 +124,7 @@ const Sidebar = ({
         <div className="py-1" />
         <div className="flex items-end">
           <a
-            href={REQUEST_NODE_URL}
+            href={env.VITE_REQUEST_BLOCK_URL}
             target="_blank"
             className="w-fit no-underline"
           >
@@ -188,10 +201,7 @@ const Sidebar = ({
                 />
               </div>
               <div className="flex w-full items-center justify-center pt-2">
-                <Button
-                  variant={"outline"}
-                  onClick={() => handleImportCustomBlocks(false)}
-                >
+                <Button variant={"outline"} onClick={handleImport}>
                   <ImportIcon size={26} className="pr-2" />
                   Change Custom Blocks Directory
                 </Button>
@@ -203,7 +213,7 @@ const Sidebar = ({
               <Button
                 variant={"outline"}
                 data-testid="import-custom-block"
-                onClick={() => handleImportCustomBlocks(false)}
+                onClick={handleImport}
               >
                 <ImportIcon size={26} className="pr-2" />
                 Import Custom Blocks

@@ -1,0 +1,70 @@
+<svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+    viewBox="0 0 1080 1080" xml:space="preserve">
+    <defs>
+    </defs>
+    <g transform="matrix(1 0 0 1 540 540)" id="eec364ad-f0b4-406d-84bb-0082de6432df">
+        <rect
+            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1; visibility: hidden;"
+            vector-effect="non-scaling-stroke" x="-540" y="-540" rx="0" ry="0" width="1080" height="1080" />
+    </g>
+    <g transform="matrix(Infinity NaN NaN Infinity 0 0)" id="f57e5686-d6b7-4fb6-86a3-3d72a7c2d804">
+    </g>
+    <g transform="matrix(8.49 0 0 8.49 540 540)">
+        <path
+            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(250,250,250); fill-opacity: 0; fill-rule: nonzero; opacity: 1;"
+            vector-effect="non-scaling-stroke" transform=" translate(-62.5, -62.9)"
+            d="M 0.5 6 C 0.5 2.96244 2.96243 0.5 6 0.5 L 119 0.5 C 122.038 0.5 124.5 2.96243 124.5 6 L 124.5 119.796 C 124.5 122.834 122.038 125.296 119 125.296 L 6 125.296 C 2.96243 125.296 0.5 122.834 0.5 119.796 L 0.5 6 Z"
+            stroke-linecap="round" />
+    </g>
+    <g transform="matrix(9.41 0 0 11.39 248.33 226.75)">
+        <path class="fill-accent5" fillOpacity="0.8" vector-effect="non-scaling-stroke"
+            transform=" translate(-32.5, -48)"
+            d="M 19 43 C 19 41.8954 19.8954 41 21 41 L 44 41 C 45.1046 41 46 41.8954 46 43 L 46 53 C 46 54.1046 45.1046 55 44 55 L 21 55 C 19.8954 55 19 54.1046 19 53 L 19 43 Z"
+            stroke-linecap="round" />
+    </g>
+    <g transform="matrix(9.41 0 0 11.39 831.67 443.18)">
+        <path class="fill-accent5" fillOpacity="1" vector-effect="non-scaling-stroke" transform=" translate(-94.5, -67)"
+            d="M 81 62 C 81 60.8954 81.8954 60 83 60 L 106 60 C 107.105 60 108 60.8954 108 62 L 108 72 C 108 73.1046 107.105 74 106 74 L 83 74 C 81.8954 74 81 73.1046 81 72 L 81 62 Z"
+            stroke-linecap="round" />
+    </g>
+    <g transform="matrix(9.41 0 0 11.39 831.67 226.75)">
+        <path class="fill-accent5" fillOpacity="0.8" vector-effect="non-scaling-stroke"
+            transform=" translate(-94.5, -48)"
+            d="M 81 43 C 81 41.8954 81.8954 41 83 41 L 106 41 C 107.105 41 108 41.8954 108 43 L 108 53 C 108 54.1046 107.105 55 106 55 L 83 55 C 81.8954 55 81 54.1046 81 53 L 81 43 Z"
+            stroke-linecap="round" />
+    </g>
+    <g transform="matrix(9.41 0 0 11.39 540 739.34)">
+        <path class="fill-accent5" fillOpacity="0.8" vector-effect="non-scaling-stroke"
+            transform=" translate(-63.5, -93)"
+            d="M 50 88 C 50 86.8954 50.8954 86 52 86 L 75 86 C 76.1046 86 77 86.8954 77 88 L 77 98 C 77 99.1046 76.1046 100 75 100 L 52 100 C 50.8954 100 50 99.1046 50 98 L 50 88 Z"
+            stroke-linecap="round" />
+    </g>
+    <g transform="matrix(9.41 0 0 11.39 248.33 853.25)">
+        <rect class="fill-accent5" fillOpacity="0.8" vector-effect="non-scaling-stroke" x="-13.5" y="-7" rx="2" ry="2"
+            width="27" height="14" />
+    </g>
+    <g transform="matrix(9.41 0 0 11.39 248.33 648.21)">
+        <rect class="fill-accent5" fillOpacity="1" vector-effect="non-scaling-stroke" x="-13.5" y="-7" rx="2" ry="2"
+            width="27" height="14" />
+    </g>
+    <g transform="matrix(9.41 0 0 11.39 831.67 853.25)">
+        <rect class="fill-accent5" fillOpacity="1" vector-effect="non-scaling-stroke" x="-13.5" y="-7" rx="2" ry="2"
+            width="27" height="14" />
+    </g>
+    <g transform="matrix(9.41 0 0 11.39 248.33 431.79)">
+        <rect class="fill-accent5" fillOpacity="1" vector-effect="non-scaling-stroke" x="-13.5" y="-7" rx="2" ry="2"
+            width="27" height="14" />
+    </g>
+    <g transform="matrix(9.41 0 0 11.39 540 329.27)">
+        <rect class="fill-accent5" fillOpacity="1" vector-effect="non-scaling-stroke" x="-13.5" y="-7" rx="2" ry="2"
+            width="27" height="14" />
+    </g>
+    <g transform="matrix(9.41 0 0 11.39 540 534.3)">
+        <rect class="fill-accent5" fillOpacity="0.8" vector-effect="non-scaling-stroke" x="-13.5" y="-7" rx="2" ry="2"
+            width="27" height="14" />
+    </g>
+    <g transform="matrix(9.41 0 0 11.39 831.67 648.21)">
+        <rect class="fill-accent5" fill-opacity="0.8" vector-effect="non-scaling-stroke" x="-13.5" y="-7" rx="2" ry="2"
+            width="27" height="14" />
+    </g>
+</svg>

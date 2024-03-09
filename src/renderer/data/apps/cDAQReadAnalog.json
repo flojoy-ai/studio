@@ -1,16 +1,177 @@
 {
+  "name": "Read Analog value from NI CompactDAQ",
   "rfInstance": {
     "nodes": [
       {
-        "width": 192,
-        "height": 192,
-        "id": "CONFIG_INPUT_STREAM-af72b593-96d8-449e-8ffc-8da91b3810ea",
-        "type": "HARDWARE",
+        "id": "CREATE_TASK-990e405d-e0b0-4ec1-8498-ba5acfa98717",
+        "type": "NATIONAL_INSTRUMENTS",
         "data": {
-          "id": "CONFIG_INPUT_STREAM-af72b593-96d8-449e-8ffc-8da91b3810ea",
+          "id": "CREATE_TASK-990e405d-e0b0-4ec1-8498-ba5acfa98717",
+          "label": "CREATE TASK",
+          "func": "CREATE_TASK",
+          "type": "NATIONAL_INSTRUMENTS",
+          "ctrls": {
+            "task_name": {
+              "type": "str",
+              "default": null,
+              "desc": "The name of the task to create.",
+              "overload": null,
+              "functionName": "CREATE_TASK",
+              "param": "task_name",
+              "value": "task"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": "This block does not return any meaningful data;"
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "nidaqmx",
+              "v": "0.9.0"
+            }
+          ],
+          "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CREATE_TASK/CREATE_TASK.py"
+        },
+        "position": {
+          "x": -1006.7970360050101,
+          "y": -669.3358276412137
+        },
+        "width": 216,
+        "height": 197,
+        "selected": false,
+        "positionAbsolute": {
+          "x": -1006.7970360050101,
+          "y": -669.3358276412137
+        },
+        "dragging": true
+      },
+      {
+        "id": "ATTACH_ANALOG_INPUT_CURRENT-bd382f72-4830-45ee-8a47-6fcc1222a85e",
+        "type": "NATIONAL_INSTRUMENTS",
+        "data": {
+          "id": "ATTACH_ANALOG_INPUT_CURRENT-bd382f72-4830-45ee-8a47-6fcc1222a85e",
+          "label": "ATTACH ANALOG INPUT CURRENT",
+          "func": "ATTACH_ANALOG_INPUT_CURRENT",
+          "type": "NATIONAL_INSTRUMENTS",
+          "ctrls": {
+            "task_name": {
+              "type": "str",
+              "default": null,
+              "desc": "The name of the task to attach the channel(s) to.",
+              "overload": null,
+              "functionName": "ATTACH_ANALOG_INPUT_CURRENT",
+              "param": "task_name",
+              "value": "task"
+            },
+            "cDAQ_start_channel": {
+              "type": "NIDAQmxDevice",
+              "default": null,
+              "desc": "The device and channel to read from. Flojoy will register this address as a connection.",
+              "overload": null,
+              "functionName": "ATTACH_ANALOG_INPUT_CURRENT",
+              "param": "cDAQ_start_channel",
+              "value": ""
+            },
+            "cDAQ_end_channel": {
+              "type": "NIDAQmxDevice",
+              "default": null,
+              "desc": "To read from only one channel, set this to the same as `cDAQ_start_channel`. To read from multiple channels, set this to the last channel you want to read from.",
+              "overload": null,
+              "functionName": "ATTACH_ANALOG_INPUT_CURRENT",
+              "param": "cDAQ_end_channel",
+              "value": ""
+            },
+            "min_val": {
+              "type": "float",
+              "default": -0.01,
+              "desc": "Specifies in **units** the minimum value you expect to measure (default is -0.01).",
+              "overload": null,
+              "functionName": "ATTACH_ANALOG_INPUT_CURRENT",
+              "param": "min_val",
+              "value": -0.01
+            },
+            "max_val": {
+              "type": "float",
+              "default": 0.01,
+              "desc": "Specifies in **units** the maximum value you expect to measure (default is 0.01).",
+              "overload": null,
+              "functionName": "ATTACH_ANALOG_INPUT_CURRENT",
+              "param": "max_val",
+              "value": 0.01
+            },
+            "units": {
+              "type": "select",
+              "options": ["AMPS"],
+              "default": "AMPS",
+              "desc": "The units to use to return current measurements (default is \"AMPS\").",
+              "overload": null,
+              "functionName": "ATTACH_ANALOG_INPUT_CURRENT",
+              "param": "units",
+              "value": "AMPS"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": "This block does not return any meaningful data; it is designed for creating a task to measure current."
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "nidaqmx",
+              "v": "0.9.0"
+            }
+          ],
+          "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/ATTACH_ANALOG_INPUT_CURRENT/ATTACH_ANALOG_INPUT_CURRENT.py"
+        },
+        "position": {
+          "x": -585.2740285622627,
+          "y": -670.7833290211987
+        },
+        "width": 216,
+        "height": 305,
+        "selected": false,
+        "positionAbsolute": {
+          "x": -585.2740285622627,
+          "y": -670.7833290211987
+        },
+        "dragging": true
+      },
+      {
+        "id": "CONFIG_INPUT_STREAM-bf46413a-5af0-4d98-a963-75d5fb8ef29f",
+        "type": "NATIONAL_INSTRUMENTS",
+        "data": {
+          "id": "CONFIG_INPUT_STREAM-bf46413a-5af0-4d98-a963-75d5fb8ef29f",
           "label": "CONFIG INPUT STREAM",
           "func": "CONFIG_INPUT_STREAM",
-          "type": "HARDWARE",
+          "type": "NATIONAL_INSTRUMENTS",
           "ctrls": {
             "task_name": {
               "type": "str",
@@ -92,26 +253,26 @@
           "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CONFIG_INPUT_STREAM/CONFIG_INPUT_STREAM.py"
         },
         "position": {
-          "x": -331.39021116936885,
-          "y": -350.8730824486672
+          "x": -261.8280731221082,
+          "y": -657.516272612816
         },
+        "width": 216,
+        "height": 269,
         "selected": false,
         "positionAbsolute": {
-          "x": -331.39021116936885,
-          "y": -350.8730824486672
+          "x": -261.8280731221082,
+          "y": -657.516272612816
         },
         "dragging": true
       },
       {
-        "width": 192,
-        "height": 192,
-        "id": "READ_INPUT_STREAM-6d2b9e84-f469-44ca-a925-c645414d86cf",
-        "type": "HARDWARE",
+        "id": "READ_INPUT_STREAM-50e0b897-f75b-4901-8831-e4ac63694da5",
+        "type": "NATIONAL_INSTRUMENTS",
         "data": {
-          "id": "READ_INPUT_STREAM-6d2b9e84-f469-44ca-a925-c645414d86cf",
+          "id": "READ_INPUT_STREAM-50e0b897-f75b-4901-8831-e4ac63694da5",
           "label": "READ INPUT STREAM",
           "func": "READ_INPUT_STREAM",
-          "type": "HARDWARE",
+          "type": "NATIONAL_INSTRUMENTS",
           "ctrls": {
             "task_name": {
               "type": "str",
@@ -168,26 +329,26 @@
           "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/READ_INPUT_STREAM/READ_INPUT_STREAM.py"
         },
         "position": {
-          "x": -89.79646363654197,
-          "y": -347.0739403606249
+          "x": 78.95868409473644,
+          "y": -660.2063714655242
         },
+        "width": 216,
+        "height": 233,
         "selected": false,
         "positionAbsolute": {
-          "x": -89.79646363654197,
-          "y": -347.0739403606249
+          "x": 78.95868409473644,
+          "y": -660.2063714655242
         },
         "dragging": true
       },
       {
-        "width": 192,
-        "height": 192,
-        "id": "READ_INPUT_STREAM_INTO_BUFFER-f278586c-b416-40f6-b2a3-d2328b25f107",
-        "type": "HARDWARE",
+        "id": "READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffb",
+        "type": "NATIONAL_INSTRUMENTS",
         "data": {
-          "id": "READ_INPUT_STREAM_INTO_BUFFER-f278586c-b416-40f6-b2a3-d2328b25f107",
+          "id": "READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffb",
           "label": "READ INPUT STREAM INTO BUFFER",
           "func": "READ_INPUT_STREAM_INTO_BUFFER",
-          "type": "HARDWARE",
+          "type": "NATIONAL_INSTRUMENTS",
           "ctrls": {
             "task_name": {
               "type": "str",
@@ -233,23 +394,23 @@
           "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/READ_INPUT_STREAM_INTO_BUFFER/READ_INPUT_STREAM_INTO_BUFFER.py"
         },
         "position": {
-          "x": 184.06544084867164,
-          "y": -344.9250317628166
+          "x": 300.0440656652148,
+          "y": -274.2231387721813
         },
-        "selected": true,
+        "width": 216,
+        "height": 269,
+        "selected": false,
         "positionAbsolute": {
-          "x": 184.06544084867164,
-          "y": -344.9250317628166
+          "x": 300.0440656652148,
+          "y": -274.2231387721813
         },
         "dragging": true
       },
       {
-        "width": 96,
-        "height": 96,
-        "id": "LOOP-94264bb9-dc7c-4c56-bd13-8f40733eaa67",
+        "id": "LOOP-4f57cfad-1f62-40ec-861b-7829cd387693",
         "type": "CONTROL_FLOW",
         "data": {
-          "id": "LOOP-94264bb9-dc7c-4c56-bd13-8f40733eaa67",
+          "id": "LOOP-4f57cfad-1f62-40ec-861b-7829cd387693",
           "label": "LOOP",
           "func": "LOOP",
           "type": "CONTROL_FLOW",
@@ -291,23 +452,65 @@
           "path": "CONTROL_FLOW/LOOPS/LOOP/LOOP.py"
         },
         "position": {
-          "x": 34.193457429524095,
-          "y": -43.127165005276424
+          "x": -168.51965642623577,
+          "y": -116.73428139362989
         },
+        "width": 236,
+        "height": 152,
         "selected": false,
         "positionAbsolute": {
-          "x": 34.193457429524095,
-          "y": -43.127165005276424
+          "x": -168.51965642623577,
+          "y": -116.73428139362989
         },
         "dragging": true
       },
       {
-        "width": 96,
-        "height": 96,
-        "id": "TIMER-d2394f75-d927-48b3-866a-c786a31a2413",
+        "id": "PRINT_DATACONTAINER-52a6886b-56b6-4569-98b0-7103bc71f55c",
+        "type": "DEBUGGING",
+        "data": {
+          "id": "PRINT_DATACONTAINER-52a6886b-56b6-4569-98b0-7103bc71f55c",
+          "label": "PRINT DATACONTAINER",
+          "func": "PRINT_DATACONTAINER",
+          "type": "DEBUGGING",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": "The input DataContainer to print."
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "String: Input datacontainer information"
+            }
+          ],
+          "path": "DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py"
+        },
+        "position": {
+          "x": 645.3580611983512,
+          "y": -14.029678190743653
+        },
+        "width": 281,
+        "height": 233,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 645.3580611983512,
+          "y": -14.029678190743653
+        },
+        "dragging": true
+      },
+      {
+        "id": "TIMER-95f0cd1d-1eda-46cb-b12a-ef68af07ea84",
         "type": "CONTROL_FLOW",
         "data": {
-          "id": "TIMER-d2394f75-d927-48b3-866a-c786a31a2413",
+          "id": "TIMER-95f0cd1d-1eda-46cb-b12a-ef68af07ea84",
           "label": "TIMER",
           "func": "TIMER",
           "type": "CONTROL_FLOW",
@@ -343,61 +546,34 @@
           "path": "CONTROL_FLOW/TIMERS/TIMER/TIMER.py"
         },
         "position": {
-          "x": 1157.4287907707292,
-          "y": -317.026974540539
+          "x": 1360.2395856189287,
+          "y": -410.90937280774244
         },
+        "width": 236,
+        "height": 114,
         "selected": false,
         "positionAbsolute": {
-          "x": 1157.4287907707292,
-          "y": -317.026974540539
+          "x": 1360.2395856189287,
+          "y": -410.90937280774244
         },
         "dragging": true
       },
       {
-        "width": 625,
-        "height": 266,
-        "id": "LINE-66220d0b-2186-427c-8987-e084854350f9",
+        "id": "TEXT_VIEW-c11af392-853f-4fe8-85ed-9ae47622349d",
         "type": "VISUALIZATION",
         "data": {
-          "id": "LINE-66220d0b-2186-427c-8987-e084854350f9",
-          "label": "LINE",
-          "func": "LINE",
+          "id": "TEXT_VIEW-c11af392-853f-4fe8-85ed-9ae47622349d",
+          "label": "TEXT VIEW",
+          "func": "TEXT_VIEW",
           "type": "VISUALIZATION",
           "ctrls": {
-            "xaxis_title": {
-              "type": "str",
-              "default": "",
-              "desc": "Choose the label for the x axis.",
-              "overload": null,
-              "functionName": "LINE",
-              "param": "xaxis_title",
-              "value": ""
-            },
-            "yaxis_title": {
-              "type": "str",
-              "default": "",
-              "desc": "Choose the label for the y axis.",
-              "overload": null,
-              "functionName": "LINE",
-              "param": "yaxis_title",
-              "value": ""
-            },
-            "x_log_scale": {
+            "prettify": {
               "type": "bool",
               "default": false,
-              "desc": null,
+              "desc": "Whether to prettify the displayed text (defaults to True)",
               "overload": null,
-              "functionName": "LINE",
-              "param": "x_log_scale",
-              "value": false
-            },
-            "y_log_scale": {
-              "type": "bool",
-              "default": false,
-              "desc": null,
-              "overload": null,
-              "functionName": "LINE",
-              "param": "y_log_scale",
+              "functionName": "TEXT_VIEW",
+              "param": "prettify",
               "value": false
             }
           },
@@ -406,44 +582,39 @@
             {
               "name": "default",
               "id": "default",
-              "type": "OrderedPair|DataFrame|Matrix|Vector",
+              "type": "String|Boolean",
               "multiple": false,
-              "desc": "the DataContainer to be visualized"
+              "desc": "The DataContainer to be visualized in text format"
             }
           ],
           "outputs": [
             {
               "name": "default",
               "id": "default",
-              "type": "Plotly",
-              "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+              "type": "String",
+              "desc": "The DataContainer containing text data"
             }
           ],
-          "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+          "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
         },
         "position": {
-          "x": 469.96684759295806,
-          "y": -397.3841916248107
+          "x": 1170.407648587769,
+          "y": -12.730012263097706
         },
+        "width": 225,
+        "height": 269,
         "selected": false,
         "positionAbsolute": {
-          "x": 469.96684759295806,
-          "y": -397.3841916248107
+          "x": 1170.407648587769,
+          "y": -12.730012263097706
         },
-        "style": {
-          "width": 625,
-          "height": 266
-        },
-        "resizing": false,
         "dragging": true
       },
       {
-        "width": 622,
-        "height": 259,
-        "id": "LINE-90ea5005-4e54-402a-a5b4-3d32b68b41e6",
+        "id": "LINE-d7c39d62-6c72-40c5-9b57-3296b754d93a",
         "type": "VISUALIZATION",
         "data": {
-          "id": "LINE-90ea5005-4e54-402a-a5b4-3d32b68b41e6",
+          "id": "LINE-d7c39d62-6c72-40c5-9b57-3296b754d93a",
           "label": "LINE 1",
           "func": "LINE",
           "type": "VISUALIZATION",
@@ -506,81 +677,61 @@
           "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
         },
         "position": {
-          "x": 145.2058372841695,
-          "y": -686.8486484420752
+          "x": 543.6261574410157,
+          "y": -857.0229108224314
         },
+        "width": 225,
+        "height": 269,
         "selected": false,
         "positionAbsolute": {
-          "x": 145.2058372841695,
-          "y": -686.8486484420752
-        },
-        "dragging": true,
-        "style": {
-          "width": 622,
-          "height": 259
-        },
-        "resizing": false
-      },
-      {
-        "width": 150,
-        "height": 180,
-        "id": "PRINT_DATACONTAINER-b0595bb5-6784-416b-9608-962c6c548454",
-        "type": "DEBUGGING",
-        "data": {
-          "id": "PRINT_DATACONTAINER-b0595bb5-6784-416b-9608-962c6c548454",
-          "label": "PRINT DATACONTAINER",
-          "func": "PRINT_DATACONTAINER",
-          "type": "DEBUGGING",
-          "ctrls": {},
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false,
-              "desc": "The input DataContainer to print."
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "String",
-              "desc": "String: Input datacontainer information"
-            }
-          ],
-          "path": "DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py"
-        },
-        "position": {
-          "x": 393.6557359163233,
-          "y": -58.66081444746516
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 393.6557359163233,
-          "y": -58.66081444746516
+          "x": 543.6261574410157,
+          "y": -857.0229108224314
         },
         "dragging": true
       },
       {
-        "width": 601,
-        "height": 225,
-        "id": "TEXT_VIEW-86881dcf-439a-48d2-8e39-20c0185ee18d",
+        "id": "LINE-1c068608-4e1f-4694-a991-98a254a4404f",
         "type": "VISUALIZATION",
         "data": {
-          "id": "TEXT_VIEW-86881dcf-439a-48d2-8e39-20c0185ee18d",
-          "label": "TEXT VIEW",
-          "func": "TEXT_VIEW",
+          "id": "LINE-1c068608-4e1f-4694-a991-98a254a4404f",
+          "label": "LINE",
+          "func": "LINE",
           "type": "VISUALIZATION",
           "ctrls": {
-            "prettify": {
+            "xaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the x axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "xaxis_title",
+              "value": ""
+            },
+            "yaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the y axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "yaxis_title",
+              "value": ""
+            },
+            "x_log_scale": {
               "type": "bool",
               "default": false,
-              "desc": "Whether to prettify the displayed text (defaults to True)",
+              "desc": null,
               "overload": null,
-              "functionName": "TEXT_VIEW",
-              "param": "prettify",
+              "functionName": "LINE",
+              "param": "x_log_scale",
+              "value": false
+            },
+            "y_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "y_log_scale",
               "value": false
             }
           },
@@ -589,270 +740,105 @@
             {
               "name": "default",
               "id": "default",
-              "type": "String|Boolean",
+              "type": "OrderedPair|DataFrame|Matrix|Vector",
               "multiple": false,
-              "desc": "The DataContainer to be visualized in text format"
+              "desc": "the DataContainer to be visualized"
             }
           ],
           "outputs": [
             {
               "name": "default",
               "id": "default",
-              "type": "String",
-              "desc": "The DataContainer containing text data"
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Line visualization of the input data"
             }
           ],
-          "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
+          "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
         },
         "position": {
-          "x": 660.6952545437109,
-          "y": -75.14288524369061
+          "x": 821.7895159106995,
+          "y": -469.47351370460046
         },
+        "width": 225,
+        "height": 269,
         "selected": false,
         "positionAbsolute": {
-          "x": 660.6952545437109,
-          "y": -75.14288524369061
-        },
-        "dragging": true,
-        "style": {
-          "width": 601,
-          "height": 225
-        },
-        "resizing": false
-      },
-      {
-        "width": 192,
-        "height": 192,
-        "id": "CREATE_TASK-1ae94fa9-0c18-4ff5-bd6a-88c6b563703e",
-        "type": "HARDWARE",
-        "data": {
-          "id": "CREATE_TASK-1ae94fa9-0c18-4ff5-bd6a-88c6b563703e",
-          "label": "CREATE TASK",
-          "func": "CREATE_TASK",
-          "type": "HARDWARE",
-          "ctrls": {
-            "task_name": {
-              "type": "str",
-              "default": null,
-              "desc": "The name of the task to create.",
-              "overload": null,
-              "functionName": "CREATE_TASK",
-              "param": "task_name",
-              "value": "task"
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false,
-              "desc": null
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "desc": "This block does not return any meaningful data;"
-            }
-          ],
-          "pip_dependencies": [
-            {
-              "name": "nidaqmx",
-              "v": "0.9.0"
-            }
-          ],
-          "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CREATE_TASK/CREATE_TASK.py"
-        },
-        "position": {
-          "x": -345.2147096369755,
-          "y": -634.5708800909578
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": -345.2147096369755,
-          "y": -634.5708800909578
-        },
-        "dragging": true
-      },
-      {
-        "width": 192,
-        "height": 192,
-        "id": "ATTACH_ANALOG_INPUT_CURRENT-efa6c0f8-0093-4519-aa18-9650c1a0075e",
-        "type": "HARDWARE",
-        "data": {
-          "id": "ATTACH_ANALOG_INPUT_CURRENT-efa6c0f8-0093-4519-aa18-9650c1a0075e",
-          "label": "ATTACH ANALOG INPUT CURRENT",
-          "func": "ATTACH_ANALOG_INPUT_CURRENT",
-          "type": "HARDWARE",
-          "ctrls": {
-            "task_name": {
-              "type": "str",
-              "default": null,
-              "desc": "The name of the task to create.",
-              "overload": null,
-              "functionName": "ATTACH_ANALOG_INPUT_CURRENT",
-              "param": "task_name",
-              "value": "task"
-            },
-            "cDAQ_start_channel": {
-              "type": "NIDAQmxDevice",
-              "default": null,
-              "desc": "The device and channel to read from. Flojoy will register this address as a connection.",
-              "overload": null,
-              "functionName": "ATTACH_ANALOG_INPUT_CURRENT",
-              "param": "cDAQ_start_channel",
-              "value": "cDAQ1Mod1/ai0"
-            },
-            "cDAQ_end_channel": {
-              "type": "NIDAQmxDevice",
-              "default": null,
-              "desc": "To read from only one channel, set this to the same as `cDAQ_start_channel`. To read from multiple channels, set this to the last channel you want to read from.",
-              "overload": null,
-              "functionName": "ATTACH_ANALOG_INPUT_CURRENT",
-              "param": "cDAQ_end_channel",
-              "value": "cDAQ1Mod1/ai0"
-            },
-            "min_val": {
-              "type": "float",
-              "default": -0.01,
-              "desc": "Specifies in **units** the minimum value you expect to measure (default is -0.01).",
-              "overload": null,
-              "functionName": "ATTACH_ANALOG_INPUT_CURRENT",
-              "param": "min_val",
-              "value": -0.01
-            },
-            "max_val": {
-              "type": "float",
-              "default": 0.01,
-              "desc": "Specifies in **units** the maximum value you expect to measure (default is 0.01).",
-              "overload": null,
-              "functionName": "ATTACH_ANALOG_INPUT_CURRENT",
-              "param": "max_val",
-              "value": 0.01
-            },
-            "units": {
-              "type": "select",
-              "options": ["AMPS"],
-              "default": "AMPS",
-              "desc": "The units to use to return current measurements (default is \"AMPS\").",
-              "overload": null,
-              "functionName": "ATTACH_ANALOG_INPUT_CURRENT",
-              "param": "units",
-              "value": "AMPS"
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false,
-              "desc": null
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "desc": "This block does not return any meaningful data; it is designed for creating a task to measure current."
-            }
-          ],
-          "pip_dependencies": [
-            {
-              "name": "nidaqmx",
-              "v": "0.9.0"
-            }
-          ],
-          "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/ATTACH_ANALOG_INPUT_CURRENT/ATTACH_ANALOG_INPUT_CURRENT.py"
-        },
-        "position": {
-          "x": -100.8236860140721,
-          "y": -633.8781778970845
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": -100.8236860140721,
-          "y": -633.8781778970845
+          "x": 821.7895159106995,
+          "y": -469.47351370460046
         },
         "dragging": true
       }
     ],
     "edges": [
       {
-        "source": "ATTACH_ANALOG_INPUT_CURRENT-efa6c0f8-0093-4519-aa18-9650c1a0075e",
+        "source": "CREATE_TASK-990e405d-e0b0-4ec1-8498-ba5acfa98717",
         "sourceHandle": "default",
-        "target": "CONFIG_INPUT_STREAM-af72b593-96d8-449e-8ffc-8da91b3810ea",
+        "target": "ATTACH_ANALOG_INPUT_CURRENT-bd382f72-4830-45ee-8a47-6fcc1222a85e",
         "targetHandle": "default",
-        "id": "reactflow__edge-ATTACH_ANALOG_INPUT_CURRENT-efa6c0f8-0093-4519-aa18-9650c1a0075edefault-CONFIG_INPUT_STREAM-af72b593-96d8-449e-8ffc-8da91b3810eadefault"
+        "id": "reactflow__edge-CREATE_TASK-990e405d-e0b0-4ec1-8498-ba5acfa98717default-ATTACH_ANALOG_INPUT_CURRENT-bd382f72-4830-45ee-8a47-6fcc1222a85edefault"
       },
       {
-        "source": "CONFIG_INPUT_STREAM-af72b593-96d8-449e-8ffc-8da91b3810ea",
+        "source": "ATTACH_ANALOG_INPUT_CURRENT-bd382f72-4830-45ee-8a47-6fcc1222a85e",
         "sourceHandle": "default",
-        "target": "READ_INPUT_STREAM-6d2b9e84-f469-44ca-a925-c645414d86cf",
+        "target": "CONFIG_INPUT_STREAM-bf46413a-5af0-4d98-a963-75d5fb8ef29f",
         "targetHandle": "default",
-        "id": "reactflow__edge-CONFIG_INPUT_STREAM-af72b593-96d8-449e-8ffc-8da91b3810eadefault-READ_INPUT_STREAM-6d2b9e84-f469-44ca-a925-c645414d86cfdefault"
+        "id": "reactflow__edge-ATTACH_ANALOG_INPUT_CURRENT-bd382f72-4830-45ee-8a47-6fcc1222a85edefault-CONFIG_INPUT_STREAM-bf46413a-5af0-4d98-a963-75d5fb8ef29fdefault"
       },
       {
-        "source": "READ_INPUT_STREAM-6d2b9e84-f469-44ca-a925-c645414d86cf",
+        "source": "CONFIG_INPUT_STREAM-bf46413a-5af0-4d98-a963-75d5fb8ef29f",
         "sourceHandle": "default",
-        "target": "READ_INPUT_STREAM_INTO_BUFFER-f278586c-b416-40f6-b2a3-d2328b25f107",
-        "targetHandle": "buffer",
-        "id": "reactflow__edge-READ_INPUT_STREAM-6d2b9e84-f469-44ca-a925-c645414d86cfdefault-READ_INPUT_STREAM_INTO_BUFFER-f278586c-b416-40f6-b2a3-d2328b25f107buffer"
+        "target": "READ_INPUT_STREAM-50e0b897-f75b-4901-8831-e4ac63694da5",
+        "targetHandle": "default",
+        "id": "reactflow__edge-CONFIG_INPUT_STREAM-bf46413a-5af0-4d98-a963-75d5fb8ef29fdefault-READ_INPUT_STREAM-50e0b897-f75b-4901-8831-e4ac63694da5default"
       },
       {
-        "source": "LOOP-94264bb9-dc7c-4c56-bd13-8f40733eaa67",
+        "source": "READ_INPUT_STREAM-50e0b897-f75b-4901-8831-e4ac63694da5",
+        "sourceHandle": "default",
+        "target": "LINE-d7c39d62-6c72-40c5-9b57-3296b754d93a",
+        "targetHandle": "default",
+        "id": "reactflow__edge-READ_INPUT_STREAM-50e0b897-f75b-4901-8831-e4ac63694da5default-LINE-d7c39d62-6c72-40c5-9b57-3296b754d93adefault"
+      },
+      {
+        "source": "LOOP-4f57cfad-1f62-40ec-861b-7829cd387693",
         "sourceHandle": "body",
-        "target": "READ_INPUT_STREAM_INTO_BUFFER-f278586c-b416-40f6-b2a3-d2328b25f107",
+        "target": "READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffb",
         "targetHandle": "default",
-        "id": "reactflow__edge-LOOP-94264bb9-dc7c-4c56-bd13-8f40733eaa67body-READ_INPUT_STREAM_INTO_BUFFER-f278586c-b416-40f6-b2a3-d2328b25f107default"
+        "id": "reactflow__edge-LOOP-4f57cfad-1f62-40ec-861b-7829cd387693body-READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffbdefault"
       },
       {
-        "source": "LINE-66220d0b-2186-427c-8987-e084854350f9",
+        "source": "READ_INPUT_STREAM-50e0b897-f75b-4901-8831-e4ac63694da5",
         "sourceHandle": "default",
-        "target": "TIMER-d2394f75-d927-48b3-866a-c786a31a2413",
-        "targetHandle": "default",
-        "id": "reactflow__edge-LINE-66220d0b-2186-427c-8987-e084854350f9default-TIMER-d2394f75-d927-48b3-866a-c786a31a2413default"
+        "target": "READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffb",
+        "targetHandle": "buffer",
+        "id": "reactflow__edge-READ_INPUT_STREAM-50e0b897-f75b-4901-8831-e4ac63694da5default-READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffbbuffer"
       },
       {
-        "source": "READ_INPUT_STREAM_INTO_BUFFER-f278586c-b416-40f6-b2a3-d2328b25f107",
+        "source": "READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffb",
         "sourceHandle": "default",
-        "target": "LINE-66220d0b-2186-427c-8987-e084854350f9",
+        "target": "LINE-1c068608-4e1f-4694-a991-98a254a4404f",
         "targetHandle": "default",
-        "id": "reactflow__edge-READ_INPUT_STREAM_INTO_BUFFER-f278586c-b416-40f6-b2a3-d2328b25f107default-LINE-66220d0b-2186-427c-8987-e084854350f9default"
+        "id": "reactflow__edge-READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffbdefault-LINE-1c068608-4e1f-4694-a991-98a254a4404fdefault"
       },
       {
-        "source": "READ_INPUT_STREAM-6d2b9e84-f469-44ca-a925-c645414d86cf",
+        "source": "READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffb",
         "sourceHandle": "default",
-        "target": "LINE-90ea5005-4e54-402a-a5b4-3d32b68b41e6",
+        "target": "PRINT_DATACONTAINER-52a6886b-56b6-4569-98b0-7103bc71f55c",
         "targetHandle": "default",
-        "id": "reactflow__edge-READ_INPUT_STREAM-6d2b9e84-f469-44ca-a925-c645414d86cfdefault-LINE-90ea5005-4e54-402a-a5b4-3d32b68b41e6default"
+        "id": "reactflow__edge-READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffbdefault-PRINT_DATACONTAINER-52a6886b-56b6-4569-98b0-7103bc71f55cdefault"
       },
       {
-        "source": "READ_INPUT_STREAM_INTO_BUFFER-f278586c-b416-40f6-b2a3-d2328b25f107",
+        "source": "PRINT_DATACONTAINER-52a6886b-56b6-4569-98b0-7103bc71f55c",
         "sourceHandle": "default",
-        "target": "PRINT_DATACONTAINER-b0595bb5-6784-416b-9608-962c6c548454",
+        "target": "TEXT_VIEW-c11af392-853f-4fe8-85ed-9ae47622349d",
         "targetHandle": "default",
-        "id": "reactflow__edge-READ_INPUT_STREAM_INTO_BUFFER-f278586c-b416-40f6-b2a3-d2328b25f107default-PRINT_DATACONTAINER-b0595bb5-6784-416b-9608-962c6c548454default"
+        "id": "reactflow__edge-PRINT_DATACONTAINER-52a6886b-56b6-4569-98b0-7103bc71f55cdefault-TEXT_VIEW-c11af392-853f-4fe8-85ed-9ae47622349ddefault"
       },
       {
-        "source": "PRINT_DATACONTAINER-b0595bb5-6784-416b-9608-962c6c548454",
+        "source": "LINE-1c068608-4e1f-4694-a991-98a254a4404f",
         "sourceHandle": "default",
-        "target": "TEXT_VIEW-86881dcf-439a-48d2-8e39-20c0185ee18d",
+        "target": "TIMER-95f0cd1d-1eda-46cb-b12a-ef68af07ea84",
         "targetHandle": "default",
-        "id": "reactflow__edge-PRINT_DATACONTAINER-b0595bb5-6784-416b-9608-962c6c548454default-TEXT_VIEW-86881dcf-439a-48d2-8e39-20c0185ee18ddefault"
-      },
-      {
-        "source": "CREATE_TASK-1ae94fa9-0c18-4ff5-bd6a-88c6b563703e",
-        "sourceHandle": "default",
-        "target": "ATTACH_ANALOG_INPUT_CURRENT-efa6c0f8-0093-4519-aa18-9650c1a0075e",
-        "targetHandle": "default",
-        "id": "reactflow__edge-CREATE_TASK-1ae94fa9-0c18-4ff5-bd6a-88c6b563703edefault-ATTACH_ANALOG_INPUT_CURRENT-efa6c0f8-0093-4519-aa18-9650c1a0075edefault"
+        "id": "reactflow__edge-LINE-1c068608-4e1f-4694-a991-98a254a4404fdefault-TIMER-95f0cd1d-1eda-46cb-b12a-ef68af07ea84default"
       }
     ],
     "viewport": {

@@ -1,41 +1,24 @@
-import { useAtomValue, useAtom } from "jotai";
 import { toast } from "sonner";
-import { useFlowChartGraph } from "./useFlowChartGraph";
-import { projectAtom, projectPathAtom } from "./useFlowChartState";
-import { useHasUnsavedChanges } from "./useHasUnsavedChanges";
-import { makeAppFileContent, saveFileAs } from "@/renderer/lib/save";
-import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 import useWithPermission from "./useWithPermission";
+import { useProjectStore } from "@/renderer/stores/project";
+import { useShallow } from "zustand/react/shallow";
 
 export const useSave = () => {
   const { withPermissionCheck } = useWithPermission();
-  const { nodes, edges, textNodes } = useFlowChartGraph();
-  const { setHasUnsavedChanges } = useHasUnsavedChanges();
-  const project = useAtomValue(projectAtom);
-  const [projectPath, setProjectPath] = useAtom(projectPathAtom);
+
+  const saveProject = useProjectStore(useShallow((state) => state.saveProject));
 
   const handleSave = async () => {
-    if (projectPath && "api" in window) {
-      sendEventToMix("Saving Project");
-      const fileContent = makeAppFileContent(project, nodes, edges, textNodes);
-      window.api.saveFile(projectPath, fileContent);
-
-      toast.success("App saved!");
-      setHasUnsavedChanges(false);
-      return;
-    }
-    try {
-      const path = await saveFileAs(project, nodes, edges, textNodes);
-      setProjectPath(path);
-
-      const message = path
-        ? `Saved app to ${path}!`
-        : "Saved app successfully!";
-      toast.success(message);
-      setHasUnsavedChanges(false);
-    } catch {
-      // exception just means user cancelled save
-    }
+    (await saveProject()).match(
+      (path) => {
+        if (path === undefined) {
+          return;
+        }
+        toast.success(`App saved to ${path}.`);
+      },
+      (e) =>
+        toast.error(`An error occurred while trying to save: ${e.message}`),
+    );
   };
 
   return withPermissionCheck(handleSave);

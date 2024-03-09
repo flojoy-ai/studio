@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { Children } from "react";
 import { twMerge } from "tailwind-merge";
 import { cva } from "class-variance-authority";
-import { categoryMap, sidebarVariants } from "./SidebarNode";
+import {
+  categoryMap,
+  sidebarVariants,
+} from "@/renderer/routes/common/Sidebar/SidebarNode";
 import {
   Collapsible,
   CollapsibleContent,

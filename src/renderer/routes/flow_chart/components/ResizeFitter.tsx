@@ -1,16 +1,14 @@
-import { useSettings } from "@/renderer/hooks/useSettings";
+import { useSettingsStore } from "@/renderer/stores/settings";
 import { useEffect } from "react";
 import { useReactFlow, useStore } from "reactflow";
 
 export const ResizeFitter = () => {
-  const { settings } = useSettings("frontend");
+  const { fitViewOnResize } = useSettingsStore((state) => state.frontend);
   const rfInstance = useReactFlow();
   const width = useStore((state) => state.width);
   const height = useStore((state) => state.height);
 
-  const shouldResize = settings.find(
-    (setting) => setting.key === "fitViewOnResize",
-  )?.value;
+  const shouldResize = fitViewOnResize.value;
 
   useEffect(() => {
     if (shouldResize) {

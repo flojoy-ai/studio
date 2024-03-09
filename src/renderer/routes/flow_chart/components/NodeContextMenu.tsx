@@ -1,10 +1,11 @@
 import { Button } from "@/renderer/components/ui/button";
-import { useFlowChartState } from "@/renderer/hooks/useFlowChartState";
-import { ElementsData } from "@/renderer/types";
+import { BlockData } from "@/renderer/types/block";
 import { Code, CopyPlus, Info, LucideIcon, Pencil, X } from "lucide-react";
 import { useCallback } from "react";
 import { useStore, Node, useReactFlow } from "reactflow";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
+import { useFlowchartStore } from "@/renderer/stores/flowchart";
+import { useShallow } from "zustand/react/shallow";
 
 export type MenuInfo = {
   id: string;
@@ -51,7 +52,7 @@ type ContextMenuProps = {
   bottom?: number;
   fullPath: string;
   onClick?: () => void;
-  duplicateNode: (node: Node<ElementsData>) => void;
+  duplicateBlock: (node: Node<BlockData>) => void;
   setNodeModalOpen: (open: boolean) => void;
 };
 
@@ -63,13 +64,16 @@ export default function ContextMenu({
   bottom,
   fullPath,
   onClick,
-  duplicateNode,
+  duplicateBlock,
   setNodeModalOpen,
 }: ContextMenuProps) {
   const { withPermissionCheck } = useWithPermission();
   const { getNode, setNodes, setEdges } = useReactFlow();
 
-  const { setIsEditMode } = useFlowChartState();
+  const setIsEditMode = useFlowchartStore(
+    useShallow((state) => state.setIsEditMode),
+  );
+
   const { addSelectedNodes } = useStore((state) => ({
     resetSelectedElements: state.resetSelectedElements,
     addSelectedNodes: state.addSelectedNodes,
@@ -95,7 +99,7 @@ export default function ContextMenu({
     if (!node) {
       return;
     }
-    duplicateNode(node);
+    duplicateBlock(node);
   };
 
   const openInVSC = async () => {

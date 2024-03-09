@@ -29,7 +29,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
+} from "@/renderer/components/ui/form";
 import { capitalize } from "lodash";
 
 type CreateUserProfileProps = {

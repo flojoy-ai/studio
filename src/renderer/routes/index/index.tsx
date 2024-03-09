@@ -13,19 +13,17 @@ import {
 } from "@/renderer/components/ui/alert-dialog";
 import { Button } from "@/renderer/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { IServerStatus } from "@/renderer/context/socket.context";
-import { useSocket } from "@/renderer/hooks/useSocket";
+import { ServerStatus } from "@/renderer/types/socket";
 import StatusBar from "@/renderer/routes/common/StatusBar";
 import { InterpretersList } from "src/main/python/interpreter";
 import {
   MixPanelEvents,
   sendEventToMix,
 } from "@/renderer/services/MixpanelServices";
+import { useSocketStore } from "@/renderer/stores/socket";
 
 export const Index = (): JSX.Element => {
-  const {
-    states: { serverStatus },
-  } = useSocket();
+  const serverStatus = useSocketStore((state) => state.serverStatus);
   const [pyInterpreters, setPyInterpreters] = useState<InterpretersList | null>(
     null,
   );
@@ -278,7 +276,7 @@ export const Index = (): JSX.Element => {
 
   useEffect(() => {
     if (
-      ![IServerStatus.OFFLINE, IServerStatus.CONNECTING].includes(serverStatus)
+      ![ServerStatus.OFFLINE, ServerStatus.CONNECTING].includes(serverStatus)
     ) {
       navigate("/auth");
     }

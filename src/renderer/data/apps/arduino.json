@@ -1,125 +1,21 @@
 {
+  "name": "Arduino",
   "rfInstance": {
     "nodes": [
       {
-        "width": 192,
-        "height": 192,
-        "id": "SERIAL_SINGLE_MEASUREMENT-e2db0dcb-93ee-4548-babe-27a69ed71b1b",
-        "type": "INSTRUMENTS",
+        "id": "LOOP-318da67b-0246-43f1-a435-63e2383d8728",
+        "type": "CONTROL_FLOW",
         "data": {
-          "id": "SERIAL_SINGLE_MEASUREMENT-e2db0dcb-93ee-4548-babe-27a69ed71b1b",
-          "label": "SERIAL SINGLE MEASUREMENT",
-          "func": "SERIAL_SINGLE_MEASUREMENT",
-          "type": "INSTRUMENTS",
-          "ctrls": {
-            "comport": {
-              "type": "str",
-              "default": "/dev/ttyUSB0",
-              "functionName": "SERIAL_SINGLE_MEASUREMENT",
-              "param": "comport",
-              "value": "/dev/ttyACM0"
-            },
-            "baudrate": {
-              "type": "int",
-              "default": 9600,
-              "functionName": "SERIAL_SINGLE_MEASUREMENT",
-              "param": "baudrate",
-              "value": 9600
-            }
-          },
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair",
-              "multiple": false
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair"
-            }
-          ],
-          "pip_dependencies": [
-            {
-              "name": "pyserial",
-              "v": "3.5"
-            }
-          ],
-          "path": "PYTHON/nodes/INSTRUMENTS/SERIAL/SERIAL_SINGLE_MEASUREMENT/SERIAL_SINGLE_MEASUREMENT.py",
-          "selected": false
-        },
-        "position": {
-          "x": 363.7748423359979,
-          "y": -229.87883107518553
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 363.7748423359979,
-          "y": -229.87883107518553
-        },
-        "dragging": true
-      },
-      {
-        "width": 225,
-        "height": 226,
-        "id": "TABLE-793e7360-2513-448d-b225-b326aa744eb2",
-        "type": "VISUALIZERS",
-        "data": {
-          "id": "TABLE-793e7360-2513-448d-b225-b326aa744eb2",
-          "label": "TABLE",
-          "func": "TABLE",
-          "type": "VISUALIZERS",
-          "ctrls": {},
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Plotly",
-              "desc": "the DataContainer containing Plotly Table visualization"
-            }
-          ],
-          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
-          "selected": false
-        },
-        "position": {
-          "x": 723.8902776366289,
-          "y": -243.60166094613493
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 723.8902776366289,
-          "y": -243.60166094613493
-        },
-        "dragging": true
-      },
-      {
-        "width": 96,
-        "height": 96,
-        "id": "LOOP-8397b774-573b-45a5-bc81-ece212163cc8",
-        "type": "LOGIC_GATES",
-        "data": {
-          "id": "LOOP-8397b774-573b-45a5-bc81-ece212163cc8",
+          "id": "LOOP-318da67b-0246-43f1-a435-63e2383d8728",
           "label": "LOOP",
           "func": "LOOP",
-          "type": "LOGIC_GATES",
+          "type": "CONTROL_FLOW",
           "ctrls": {
             "num_loops": {
               "type": "int",
               "default": -1,
               "desc": "number of times to iterate through body nodes, default is \"-1\" meaning infinity.",
+              "overload": null,
               "functionName": "LOOP",
               "param": "num_loops",
               "value": -1
@@ -140,44 +36,139 @@
               "name": "body",
               "id": "body",
               "type": "Any",
-              "desc": null
+              "desc": "Forwards the input DataContainer to the body."
             },
             {
               "name": "end",
               "id": "end",
               "type": "Any",
+              "desc": "Forwards the input DataContainer to the end."
+            }
+          ],
+          "path": "CONTROL_FLOW/LOOPS/LOOP/LOOP.py"
+        },
+        "position": {
+          "x": 32.04243321028062,
+          "y": -209.6558274533503
+        },
+        "width": 236,
+        "height": 152,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 32.04243321028062,
+          "y": -209.6558274533503
+        },
+        "dragging": true
+      },
+      {
+        "id": "SERIAL_SINGLE_MEASUREMENT-5e05eaa3-2e4f-4a3e-b369-e36ac7d53dcf",
+        "type": "PROTOCOLS",
+        "data": {
+          "id": "SERIAL_SINGLE_MEASUREMENT-5e05eaa3-2e4f-4a3e-b369-e36ac7d53dcf",
+          "label": "SERIAL SINGLE MEASUREMENT",
+          "func": "SERIAL_SINGLE_MEASUREMENT",
+          "type": "PROTOCOLS",
+          "ctrls": {
+            "connection": {
+              "type": "SerialDevice",
+              "default": null,
+              "desc": null,
+              "overload": null,
+              "functionName": "SERIAL_SINGLE_MEASUREMENT",
+              "param": "connection",
+              "value": ""
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
               "desc": null
             }
           ],
-          "path": "PYTHON/nodes/LOGIC_GATES/LOOPS/LOOP/LOOP.py",
-          "selected": false
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Vector",
+              "desc": "The output from the serial device."
+            }
+          ],
+          "path": "HARDWARE/PROTOCOLS/SERIAL/SERIAL_SINGLE_MEASUREMENT/SERIAL_SINGLE_MEASUREMENT.py"
         },
         "position": {
-          "x": 54.40404553162867,
-          "y": -140.29725973798512
+          "x": 453.13714011770975,
+          "y": -248.98318135296915
         },
+        "width": 239,
+        "height": 233,
         "selected": false,
         "positionAbsolute": {
-          "x": 54.40404553162867,
-          "y": -140.29725973798512
+          "x": 453.13714011770975,
+          "y": -248.98318135296915
+        },
+        "dragging": true
+      },
+      {
+        "id": "TABLE-a4ede59c-5d26-424c-b4a0-c4c7acf0e0e7",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "TABLE-a4ede59c-5d26-424c-b4a0-c4c7acf0e0e7",
+          "label": "TABLE",
+          "func": "TABLE",
+          "type": "VISUALIZATION",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Table visualization"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
+        },
+        "position": {
+          "x": 896.1898736363456,
+          "y": -304.6406273186306
+        },
+        "width": 225,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 896.1898736363456,
+          "y": -304.6406273186306
         },
         "dragging": true
       }
     ],
     "edges": [
       {
-        "source": "LOOP-8397b774-573b-45a5-bc81-ece212163cc8",
+        "source": "LOOP-318da67b-0246-43f1-a435-63e2383d8728",
         "sourceHandle": "body",
-        "target": "SERIAL_SINGLE_MEASUREMENT-e2db0dcb-93ee-4548-babe-27a69ed71b1b",
+        "target": "SERIAL_SINGLE_MEASUREMENT-5e05eaa3-2e4f-4a3e-b369-e36ac7d53dcf",
         "targetHandle": "default",
-        "id": "reactflow__edge-LOOP-8397b774-573b-45a5-bc81-ece212163cc8body-SERIAL_SINGLE_MEASUREMENT-e2db0dcb-93ee-4548-babe-27a69ed71b1bdefault"
+        "id": "reactflow__edge-LOOP-318da67b-0246-43f1-a435-63e2383d8728body-SERIAL_SINGLE_MEASUREMENT-5e05eaa3-2e4f-4a3e-b369-e36ac7d53dcfdefault"
       },
       {
-        "source": "SERIAL_SINGLE_MEASUREMENT-e2db0dcb-93ee-4548-babe-27a69ed71b1b",
+        "source": "SERIAL_SINGLE_MEASUREMENT-5e05eaa3-2e4f-4a3e-b369-e36ac7d53dcf",
         "sourceHandle": "default",
-        "target": "TABLE-793e7360-2513-448d-b225-b326aa744eb2",
+        "target": "TABLE-a4ede59c-5d26-424c-b4a0-c4c7acf0e0e7",
         "targetHandle": "default",
-        "id": "reactflow__edge-SERIAL_SINGLE_MEASUREMENT-e2db0dcb-93ee-4548-babe-27a69ed71b1bdefault-TABLE-793e7360-2513-448d-b225-b326aa744eb2default"
+        "id": "reactflow__edge-SERIAL_SINGLE_MEASUREMENT-5e05eaa3-2e4f-4a3e-b369-e36ac7d53dcfdefault-TABLE-a4ede59c-5d26-424c-b4a0-c4c7acf0e0e7default"
       }
     ],
     "viewport": {
@@ -186,42 +177,23 @@
       "zoom": 0.5478943342594492
     }
   },
-  "ctrlsManifest": [
-    {
-      "type": "input",
-      "name": "Slider",
-      "id": "INPUT_PLACEHOLDER",
-      "hidden": false,
-      "minHeight": 1,
-      "minWidth": 2,
-      "layout": {
-        "x": 0,
-        "y": 0,
-        "h": 2,
-        "w": 2,
-        "minH": 1,
-        "minW": 2,
-        "i": "INPUT_PLACEHOLDER"
-      }
-    }
-  ],
   "textNodes": [
     {
       "id": "TextNode-98eaa4bd-dd3e-4fea-8791-eb2f414b482d",
       "position": {
-        "x": 356.1024827249459,
-        "y": -339.3802187008158
+        "x": 12.088991539200975,
+        "y": -361.5746374869929
       },
       "type": "TextNode",
       "data": {
         "text": "Read the [Serial Single measurement](https://docs.flojoy.ai/blocks/hardware/protocols/serial/serial-single-measurement/) docs before running the app"
       },
       "width": 288,
-      "height": 50,
+      "height": 100,
       "selected": false,
       "positionAbsolute": {
-        "x": 356.1024827249459,
-        "y": -339.3802187008158
+        "x": 12.088991539200975,
+        "y": -361.5746374869929
       },
       "dragging": false
     }

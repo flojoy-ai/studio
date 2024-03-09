@@ -1,10 +1,16 @@
-export type Result<T, E = Error> =
-  | { ok: true; value: T }
-  | { ok: false; error: E };
+import { Result, ok, err } from "neverthrow";
+import { z } from "zod";
 
-export function Ok<T, E>(value: T): Result<T, E> {
-  return { ok: true, value };
+export function tryParse<Z extends z.ZodTypeAny>(
+  z: Z,
+): (val: unknown) => Result<z.infer<Z>, z.ZodError> {
+  return (val: unknown) => {
+    const res = z.safeParse(val);
+    if (res.success) {
+      return ok(res.data as z.infer<Z>);
+    }
+    return err(res.error);
+  };
 }
-export function Err<T, E>(error: E): Result<T, E> {
-  return { ok: false, error };
-}
+
+export function pass() {}

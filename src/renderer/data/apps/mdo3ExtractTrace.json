@@ -1,16 +1,15 @@
 {
+  "name": "Tektronix",
   "rfInstance": {
     "nodes": [
       {
-        "width": 192,
-        "height": 192,
-        "id": "CONNECTION_MDO3XXX-9ce85b60-e790-43df-bb20-2d71fda6c1b3",
-        "type": "IO",
+        "id": "CONNECTION_MDO3XXX-c4ea6352-5ff3-498b-a155-f271059751f4",
+        "type": "OSCILLOSCOPES",
         "data": {
-          "id": "CONNECTION_MDO3XXX-9ce85b60-e790-43df-bb20-2d71fda6c1b3",
+          "id": "CONNECTION_MDO3XXX-c4ea6352-5ff3-498b-a155-f271059751f4",
           "label": "CONNECTION MDO3XXX",
           "func": "CONNECTION_MDO3XXX",
-          "type": "IO",
+          "type": "OSCILLOSCOPES",
           "ctrls": {
             "device": {
               "type": "VisaDevice",
@@ -19,7 +18,7 @@
               "overload": null,
               "functionName": "CONNECTION_MDO3XXX",
               "param": "device",
-              "value": "USB0::1689::1032::C012101::0::INSTR"
+              "value": ""
             },
             "num_channels": {
               "type": "int",
@@ -49,39 +48,38 @@
               "desc": "Optional: None"
             }
           ],
-          "path": "IO/INSTRUMENTS/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/BASIC/CONNECTION_MDO3XXX/CONNECTION_MDO3XXX.py",
-          "selected": false
+          "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/CONNECTION_MDO3XXX/CONNECTION_MDO3XXX.py"
         },
         "position": {
-          "x": -255.44879430712533,
-          "y": -98.564770643341
+          "x": -295.6160974785919,
+          "y": -216.96952794341377
         },
+        "width": 218,
+        "height": 233,
         "selected": false,
         "positionAbsolute": {
-          "x": -255.44879430712533,
-          "y": -98.564770643341
+          "x": -295.6160974785919,
+          "y": -216.96952794341377
         },
         "dragging": true
       },
       {
-        "width": 192,
-        "height": 192,
-        "id": "EXTRACT_TRACE_MDO3XXX-c47a35fb-de9e-404b-84e6-223f569e975f",
-        "type": "IO",
+        "id": "EXTRACT_TRACE_MDO3XXX-47fe53e8-d9e9-472c-8e77-b09400d4ff5f",
+        "type": "OSCILLOSCOPES",
         "data": {
-          "id": "EXTRACT_TRACE_MDO3XXX-c47a35fb-de9e-404b-84e6-223f569e975f",
+          "id": "EXTRACT_TRACE_MDO3XXX-47fe53e8-d9e9-472c-8e77-b09400d4ff5f",
           "label": "EXTRACT TRACE CH1",
           "func": "EXTRACT_TRACE_MDO3XXX",
-          "type": "IO",
+          "type": "OSCILLOSCOPES",
           "ctrls": {
             "connection": {
               "type": "VisaConnection",
               "default": null,
-              "desc": "The VISA address (requires the CONNECTION_MDO3XXX node).",
+              "desc": "The VISA address (requires the CONNECTION_MDO3XXX block).",
               "overload": null,
               "functionName": "EXTRACT_TRACE_MDO3XXX",
               "param": "connection",
-              "value": "USB0::1689::1032::C012101::0::INSTR"
+              "value": ""
             },
             "channel": {
               "type": "int",
@@ -130,39 +128,38 @@
               "desc": "OrderedPair: The trace of the oscilloscope is returned."
             }
           ],
-          "path": "IO/INSTRUMENTS/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/BASIC/EXTRACT_TRACE_MDO3XXX/EXTRACT_TRACE_MDO3XXX.py",
-          "selected": false
+          "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/EXTRACT_TRACE_MDO3XXX/EXTRACT_TRACE_MDO3XXX.py"
         },
         "position": {
-          "x": 113.84773865986861,
-          "y": -250.27104415997167
+          "x": 175.47913442579454,
+          "y": -397.0895940827009
         },
+        "width": 216,
+        "height": 233,
         "selected": false,
         "positionAbsolute": {
-          "x": 113.84773865986861,
-          "y": -250.27104415997167
+          "x": 175.47913442579454,
+          "y": -397.0895940827009
         },
         "dragging": true
       },
       {
-        "width": 192,
-        "height": 192,
-        "id": "EXTRACT_TRACE_MDO3XXX-ae2c4d4c-59d2-4262-8817-0589e25c285c",
-        "type": "IO",
+        "id": "EXTRACT_TRACE_MDO3XXX-56398a88-4b6c-4379-9294-48d2d1f4f5c9",
+        "type": "OSCILLOSCOPES",
         "data": {
-          "id": "EXTRACT_TRACE_MDO3XXX-ae2c4d4c-59d2-4262-8817-0589e25c285c",
+          "id": "EXTRACT_TRACE_MDO3XXX-56398a88-4b6c-4379-9294-48d2d1f4f5c9",
           "label": "EXTRACT TRACE CH2",
           "func": "EXTRACT_TRACE_MDO3XXX",
-          "type": "IO",
+          "type": "OSCILLOSCOPES",
           "ctrls": {
             "connection": {
               "type": "VisaConnection",
               "default": null,
-              "desc": "The VISA address (requires the CONNECTION_MDO3XXX node).",
+              "desc": "The VISA address (requires the CONNECTION_MDO3XXX block).",
               "overload": null,
               "functionName": "EXTRACT_TRACE_MDO3XXX",
               "param": "connection",
-              "value": "USB0::1689::1032::C012101::0::INSTR"
+              "value": ""
             },
             "channel": {
               "type": "int",
@@ -211,30 +208,29 @@
               "desc": "OrderedPair: The trace of the oscilloscope is returned."
             }
           ],
-          "path": "IO/INSTRUMENTS/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/BASIC/EXTRACT_TRACE_MDO3XXX/EXTRACT_TRACE_MDO3XXX.py",
-          "selected": false
+          "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/EXTRACT_TRACE_MDO3XXX/EXTRACT_TRACE_MDO3XXX.py"
         },
         "position": {
-          "x": 111.1114171685565,
-          "y": 67.69996146361609
+          "x": 195.40300785579257,
+          "y": 12.180353714597857
         },
+        "width": 216,
+        "height": 233,
         "selected": false,
         "positionAbsolute": {
-          "x": 111.1114171685565,
-          "y": 67.69996146361609
+          "x": 195.40300785579257,
+          "y": 12.180353714597857
         },
         "dragging": true
       },
       {
-        "width": 380,
-        "height": 293,
-        "id": "COMPOSITE-5248f5d5-8e45-4b9b-9bf3-d16bda395638",
-        "type": "VISUALIZERS",
+        "id": "COMPOSITE-61f6f874-4abb-43f9-9678-cfb6fb8f03f2",
+        "type": "VISUALIZATION",
         "data": {
-          "id": "COMPOSITE-5248f5d5-8e45-4b9b-9bf3-d16bda395638",
+          "id": "COMPOSITE-61f6f874-4abb-43f9-9678-cfb6fb8f03f2",
           "label": "COMPOSITE",
           "func": "COMPOSITE",
-          "type": "VISUALIZERS",
+          "type": "VISUALIZATION",
           "ctrls": {
             "first_figure": {
               "type": "select",
@@ -282,49 +278,50 @@
               "desc": "the DataContainer containing Plotly visualization of both figures"
             }
           ],
-          "path": "VISUALIZERS/PLOTLY/COMPOSITE/COMPOSITE.py",
-          "selected": false
+          "path": "DATA/VISUALIZATION/PLOTLY/COMPOSITE/COMPOSITE.py"
         },
         "position": {
-          "x": 476.34881803417886,
-          "y": -117.74799180659221
+          "x": 619.2206129387368,
+          "y": -237.93260957770687
         },
+        "width": 225,
+        "height": 269,
         "selected": false,
         "positionAbsolute": {
-          "x": 476.34881803417886,
-          "y": -117.74799180659221
+          "x": 619.2206129387368,
+          "y": -237.93260957770687
         },
         "dragging": true
       }
     ],
     "edges": [
       {
-        "source": "CONNECTION_MDO3XXX-9ce85b60-e790-43df-bb20-2d71fda6c1b3",
+        "source": "EXTRACT_TRACE_MDO3XXX-56398a88-4b6c-4379-9294-48d2d1f4f5c9",
         "sourceHandle": "default",
-        "target": "EXTRACT_TRACE_MDO3XXX-c47a35fb-de9e-404b-84e6-223f569e975f",
-        "targetHandle": "default",
-        "id": "reactflow__edge-CONNECTION_MDO3XXX-9ce85b60-e790-43df-bb20-2d71fda6c1b3default-EXTRACT_TRACE_MDO3XXX-c47a35fb-de9e-404b-84e6-223f569e975fdefault"
-      },
-      {
-        "source": "CONNECTION_MDO3XXX-9ce85b60-e790-43df-bb20-2d71fda6c1b3",
-        "sourceHandle": "default",
-        "target": "EXTRACT_TRACE_MDO3XXX-ae2c4d4c-59d2-4262-8817-0589e25c285c",
-        "targetHandle": "default",
-        "id": "reactflow__edge-CONNECTION_MDO3XXX-9ce85b60-e790-43df-bb20-2d71fda6c1b3default-EXTRACT_TRACE_MDO3XXX-ae2c4d4c-59d2-4262-8817-0589e25c285cdefault"
-      },
-      {
-        "source": "EXTRACT_TRACE_MDO3XXX-c47a35fb-de9e-404b-84e6-223f569e975f",
-        "sourceHandle": "default",
-        "target": "COMPOSITE-5248f5d5-8e45-4b9b-9bf3-d16bda395638",
-        "targetHandle": "primary_trace",
-        "id": "reactflow__edge-EXTRACT_TRACE_MDO3XXX-c47a35fb-de9e-404b-84e6-223f569e975fdefault-COMPOSITE-5248f5d5-8e45-4b9b-9bf3-d16bda395638primary_trace"
-      },
-      {
-        "source": "EXTRACT_TRACE_MDO3XXX-ae2c4d4c-59d2-4262-8817-0589e25c285c",
-        "sourceHandle": "default",
-        "target": "COMPOSITE-5248f5d5-8e45-4b9b-9bf3-d16bda395638",
+        "target": "COMPOSITE-61f6f874-4abb-43f9-9678-cfb6fb8f03f2",
         "targetHandle": "secondary_trace",
-        "id": "reactflow__edge-EXTRACT_TRACE_MDO3XXX-ae2c4d4c-59d2-4262-8817-0589e25c285cdefault-COMPOSITE-5248f5d5-8e45-4b9b-9bf3-d16bda395638secondary_trace"
+        "id": "reactflow__edge-EXTRACT_TRACE_MDO3XXX-56398a88-4b6c-4379-9294-48d2d1f4f5c9default-COMPOSITE-61f6f874-4abb-43f9-9678-cfb6fb8f03f2secondary_trace"
+      },
+      {
+        "source": "EXTRACT_TRACE_MDO3XXX-47fe53e8-d9e9-472c-8e77-b09400d4ff5f",
+        "sourceHandle": "default",
+        "target": "COMPOSITE-61f6f874-4abb-43f9-9678-cfb6fb8f03f2",
+        "targetHandle": "primary_trace",
+        "id": "reactflow__edge-EXTRACT_TRACE_MDO3XXX-47fe53e8-d9e9-472c-8e77-b09400d4ff5fdefault-COMPOSITE-61f6f874-4abb-43f9-9678-cfb6fb8f03f2primary_trace"
+      },
+      {
+        "source": "CONNECTION_MDO3XXX-c4ea6352-5ff3-498b-a155-f271059751f4",
+        "sourceHandle": "default",
+        "target": "EXTRACT_TRACE_MDO3XXX-47fe53e8-d9e9-472c-8e77-b09400d4ff5f",
+        "targetHandle": "default",
+        "id": "reactflow__edge-CONNECTION_MDO3XXX-c4ea6352-5ff3-498b-a155-f271059751f4default-EXTRACT_TRACE_MDO3XXX-47fe53e8-d9e9-472c-8e77-b09400d4ff5fdefault"
+      },
+      {
+        "source": "CONNECTION_MDO3XXX-c4ea6352-5ff3-498b-a155-f271059751f4",
+        "sourceHandle": "default",
+        "target": "EXTRACT_TRACE_MDO3XXX-56398a88-4b6c-4379-9294-48d2d1f4f5c9",
+        "targetHandle": "default",
+        "id": "reactflow__edge-CONNECTION_MDO3XXX-c4ea6352-5ff3-498b-a155-f271059751f4default-EXTRACT_TRACE_MDO3XXX-56398a88-4b6c-4379-9294-48d2d1f4f5c9default"
       }
     ],
     "viewport": {
@@ -332,5 +329,6 @@
       "y": 584.5880790869217,
       "zoom": 1.2397346348267997
     }
-  }
+  },
+  "textNodes": []
 }

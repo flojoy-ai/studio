@@ -1,9 +1,10 @@
 {
+  "name": "Time Series Forecasting",
   "rfInstance": {
     "nodes": [
       {
-        "width": 210,
-        "height": 96,
+        "width": 218,
+        "height": 197,
         "id": "TIMESERIES-41bdb0f6-5383-41c7-a1b2-0cf9969e17d5",
         "type": "DATA",
         "data": {
@@ -55,8 +56,8 @@
         "dragging": true
       },
       {
-        "width": 208,
-        "height": 96,
+        "width": 216,
+        "height": 233,
         "id": "PROPHET_PREDICT-f14e49ba-ab10-4b45-98ca-459ebeae2c6e",
         "type": "AI_ML",
         "data": {
@@ -123,8 +124,8 @@
         "dragging": true
       },
       {
-        "width": 380,
-        "height": 293,
+        "width": 225,
+        "height": 305,
         "id": "PROPHET_COMPONENTS-5c7d5f10-27fc-46d9-a415-a48f4a1b478b",
         "type": "VISUALIZATION",
         "data": {
@@ -171,19 +172,19 @@
           "selected": false
         },
         "position": {
-          "x": 448.5007210204103,
-          "y": 45.945163573344644
+          "x": 460.51244862612,
+          "y": 89.98816479427995
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 448.5007210204103,
-          "y": 45.945163573344644
+          "x": 460.51244862612,
+          "y": 89.98816479427995
         },
         "dragging": true
       },
       {
-        "width": 380,
-        "height": 293,
+        "width": 225,
+        "height": 305,
         "id": "PROPHET_PLOT-3fd5fc0a-4b1a-492c-8714-f816ab020861",
         "type": "VISUALIZATION",
         "data": {
@@ -230,13 +231,13 @@
           "selected": false
         },
         "position": {
-          "x": 433.49933518543037,
-          "y": -248.15828737809923
+          "x": 457.5227903968496,
+          "y": -298.87447060220654
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 433.49933518543037,
-          "y": -248.15828737809923
+          "x": 457.5227903968496,
+          "y": -298.87447060220654
         },
         "dragging": true
       }
@@ -252,16 +253,16 @@
       {
         "source": "PROPHET_PREDICT-f14e49ba-ab10-4b45-98ca-459ebeae2c6e",
         "sourceHandle": "default",
-        "target": "PROPHET_PLOT-3fd5fc0a-4b1a-492c-8714-f816ab020861",
+        "target": "PROPHET_COMPONENTS-5c7d5f10-27fc-46d9-a415-a48f4a1b478b",
         "targetHandle": "default",
-        "id": "reactflow__edge-PROPHET_PREDICT-f14e49ba-ab10-4b45-98ca-459ebeae2c6edefault-PROPHET_PLOT-3fd5fc0a-4b1a-492c-8714-f816ab020861default"
+        "id": "reactflow__edge-PROPHET_PREDICT-f14e49ba-ab10-4b45-98ca-459ebeae2c6edefault-PROPHET_COMPONENTS-5c7d5f10-27fc-46d9-a415-a48f4a1b478bdefault"
       },
       {
         "source": "PROPHET_PREDICT-f14e49ba-ab10-4b45-98ca-459ebeae2c6e",
         "sourceHandle": "default",
-        "target": "PROPHET_COMPONENTS-5c7d5f10-27fc-46d9-a415-a48f4a1b478b",
+        "target": "PROPHET_PLOT-3fd5fc0a-4b1a-492c-8714-f816ab020861",
         "targetHandle": "default",
-        "id": "reactflow__edge-PROPHET_PREDICT-f14e49ba-ab10-4b45-98ca-459ebeae2c6edefault-PROPHET_COMPONENTS-5c7d5f10-27fc-46d9-a415-a48f4a1b478bdefault"
+        "id": "reactflow__edge-PROPHET_PREDICT-f14e49ba-ab10-4b45-98ca-459ebeae2c6edefault-PROPHET_PLOT-3fd5fc0a-4b1a-492c-8714-f816ab020861default"
       }
     ],
     "viewport": {

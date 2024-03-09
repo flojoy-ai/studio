@@ -9,10 +9,12 @@ const handle = cva(undefined, {
     variant: {
       blue: "!border-blue-500",
       red: "!border-red-400",
-      accent1: "!border-accent1",
-      accent2: "!border-accent2",
-      accent3: "!border-accent3",
-      accent4: "!border-accent4",
+      accent1: "!border-accent1 !bg-accent1",
+      accent2: "!border-accent2 !bg-accent2",
+      accent3: "!border-accent3 !bg-accent3",
+      accent4: "!border-accent4 !bg-accent4",
+      accent6: "!border-accent6 !bg-accent6",
+      accent5: "!border-accent5 !bg-accent5",
     },
   },
 });
@@ -34,7 +36,7 @@ const HandleWrapper = forwardRef<HTMLDivElement, CustomHandleProps>(
     return (
       <Handle
         className={clsx(
-          "!h-5 !w-5 !border-2 !bg-white transition-colors duration-150 dark:!bg-black",
+          "!h-7 !w-3 !rounded-none !border-2 transition-colors duration-150",
           handle({ variant }),
           className,
         )}

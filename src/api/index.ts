@@ -1,10 +1,65 @@
 import { app, ipcRenderer } from "electron";
 import * as fileSave from "./fileSave";
-import { API } from "../types/api";
-import { InterpretersList } from "../main/python/interpreter";
+import { InterpretersList } from "@/main/python/interpreter";
 import { PoetryGroupInfo, PythonDependency } from "src/types/poetry";
-import { Result } from "src/types/result";
-import type { User } from "../types/auth";
+import { ResultAsync, fromPromise } from "neverthrow";
+import type { User } from "@/types/auth";
+
+export const API = {
+  checkPythonInstallation: "CHECK_PYTHON_INSTALLATION",
+  installPipx: "INSTALL_PIPX",
+  pipxEnsurepath: "PIPX_ENSUREPATH",
+  installPoetry: "INSTALL_POETRY",
+  installDependencies: "INSTALL_DEPENDENCIES",
+  getPoetryVenvExecutable: "GET_POETRY_EXECUTABLE",
+  spawnCaptain: "SPAWN_CAPTAIN",
+  killCaptain: "KILL_CAPTAIN",
+  openLogFolder: "OPEN_LOG_FOLDER",
+  restartFlojoyStudio: "RESTART_STUDIO",
+  setUnsavedChanges: "SET_UNSAVED_CHANGES",
+  statusBarLogging: "STATUSBAR_LOGGING",
+  setPythonInterpreter: "SET_PY_INTERPRETER",
+  writeFileSync: "WRITE_FILE_SYNC",
+  showSaveDialog: "SHOW_SAVE_DIALOG",
+  browsePythonInterpreter: "BROWSE_PY_INTERPRETER",
+  sendLogToStatusbar: "SEND_LOG_TO_STATUSBAR",
+  listPythonPackages: "LIST_PYTHON_PACKAGES",
+  pyvisaInfo: "PYVISA_INFO",
+  ping: "PING",
+  netstat: "NETSTAT",
+  ifconfig: "IFCONFIG",
+  downloadLogs: "DOWNLOAD_LOGS",
+  checkForUpdates: "CHECK_FOR_UPDATES",
+  restartCaptain: "RESTART_CAPTAIN",
+  pickDirectory: "PICK_DIRECTORY",
+  getCustomBlocksDir: "GET_CUSTOM_BLOCKS_DIR",
+  cacheCustomBlocksDir: "CACHE_CUSTOM_BLOCKS_DIR",
+  poetryShowTopLevel: "POETRY_SHOW_TOP_LEVEL",
+  poetryShowUserGroup: "POETRY_SHOW_USER_GROUP",
+  poetryGetGroupInfo: "POETRY_GET_GROUP_INFO",
+  poetryInstallDepGroup: "POETRY_INSTALL_DEP_GROUP",
+  poetryInstallDepUserGroup: "POETRY_INSTALL_DEP_USER_GROUP",
+  poetryUninstallDepUserGroup: "POETRY_UNINSTALL_DEP_USER_GROUP",
+  poetryUninstallDepGroup: "POETRY_UNINSTALL_DEP_GROUP",
+  openFilePicker: "OPEN_FILE_PICKER",
+  getFileContent: "GET_FILE_CONTENT",
+  openEditorWindow: "OPEN_EDITOR_WINDOW",
+  loadFileFromFullPath: "LOAD_FILE_FROM_FULL_PATH",
+  saveFileToFullPath: "SAVE_FILE_TO_FULL_PATH",
+  setupExecutionTime: "SETUP_EXEC_TIME",
+  isCI: "IS_CI",
+  isDev: "IS_DEV",
+  getAllLogs: "GET_ALL_LOGS",
+  openLink: "OPEN_LINK",
+  openTestPicker: "OPEN_TEST_PICKER",
+  // Authentication
+  getUserProfiles: "GET_USER_PROFILES",
+  setUserProfile: "SET_USER_PROFILE",
+  setUserProfilePassword: "SET_USER_PROFILE_PASSWORD",
+  validatePassword: "VALIDATE_PASSWORD",
+  createUserProfile: "CREATE_USER_PROFILE",
+  deleteUserProfile: "DELETE_USER_PROFILE",
+} as const;
 
 export default {
   ...fileSave,
@@ -69,7 +124,7 @@ export default {
 
   openFilePicker: (
     allowedExtensions: string[] = ["json"],
-  ): Promise<{ filePath: string; fileContent: string }> =>
+  ): Promise<{ filePath: string; fileContent: string } | undefined> =>
     ipcRenderer.invoke(API.openFilePicker, allowedExtensions),
 
   getFileContent: (filepath: string): Promise<string> =>
@@ -84,8 +139,11 @@ export default {
   saveFileToFullPath: (
     filepath: string,
     fileContent: string,
-  ): Promise<Result<void>> =>
-    ipcRenderer.invoke(API.saveFileToFullPath, filepath, fileContent),
+  ): ResultAsync<void, Error> =>
+    fromPromise(
+      ipcRenderer.invoke(API.saveFileToFullPath, filepath, fileContent),
+      (e) => e as Error,
+    ),
 
   getSetupExecutionTime: (): Promise<number> =>
     ipcRenderer.invoke(API.setupExecutionTime),

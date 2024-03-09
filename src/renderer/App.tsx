@@ -1,22 +1,21 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useLayoutEffect } from "react";
 
 import { useRouteError, Route, Routes } from "react-router-dom";
 import "./App.css";
-import { useFlowChartState } from "./hooks/useFlowChartState";
-import { useSocket } from "./hooks/useSocket";
 import { ErrorPage } from "@/renderer/ErrorPage";
 import FlowChartTab from "./routes/flow_chart/FlowChartTabView";
 import TestSequencerTab from "./routes/test_sequencer_panel/TestSequencerView";
 import DeviceTab from "./routes/device_panel/DeviceView";
-import { useTheme } from "@/renderer/providers/themeProvider";
-import PythonManagerTabView from "./routes/python_manager_panel/PythonManagerTabView";
+import { useTheme } from "@/renderer/providers/them-provider";
 import { Layout } from "./routes/common/Layout";
 import { Index } from "./routes/index";
+// eslint-disable-next-line no-restricted-imports
 import packageJson from "../../package.json";
 import EditorView from "./routes/editor/EditorView";
 import { initMixPanel } from "./services/MixpanelServices";
 import AuthPage from "./routes/auth/Auth";
 import { Toaster } from "sonner";
+import { SocketReceiver } from "./socket-receiver";
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;
@@ -26,21 +25,16 @@ function ErrorBoundary() {
 }
 
 const App = () => {
-  const {
-    states: { runningNode, failedNodes },
-  } = useSocket();
-  const { setRunningNode, setFailedNodes } = useFlowChartState();
   const { resolvedTheme } = useTheme();
-  useEffect(() => {
-    setRunningNode(runningNode);
-    setFailedNodes(failedNodes);
-  }, [runningNode, failedNodes, setRunningNode, setFailedNodes]);
+
   useLayoutEffect(() => {
     initMixPanel();
   }, []);
+
   return (
-    <div id="tw-theme-root">
+    <div>
       <Toaster theme={resolvedTheme} closeButton />
+      <SocketReceiver />
       <div className="titlebar flex h-12 items-center justify-center bg-background font-bold">
         Flojoy Studio ({packageJson.version})
       </div>
@@ -65,11 +59,6 @@ const App = () => {
           <Route
             path="/devices"
             element={<DeviceTab />}
-            errorElement={<ErrorBoundary />}
-          />
-          <Route
-            path="/pymgr"
-            element={<PythonManagerTabView />}
             errorElement={<ErrorBoundary />}
           />
         </Route>

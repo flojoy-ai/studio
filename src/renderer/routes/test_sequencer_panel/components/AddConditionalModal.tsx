@@ -2,7 +2,7 @@ import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import {
   CONDITIONALS,
   ConditionalComponent,
-} from "@/renderer/types/testSequencer";
+} from "@/renderer/types/test-sequencer";
 import { Button } from "@/renderer/components/ui/button";
 import { Dispatch, SetStateAction } from "react";
 
