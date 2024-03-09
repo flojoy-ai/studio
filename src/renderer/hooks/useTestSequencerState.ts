@@ -15,7 +15,6 @@ import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useShallow } from "zustand/react/shallow";
 
-
 // sync this with the definition of setElems
 export type SetElemsFn = {
   (elems: TestSequenceElement[]): void;

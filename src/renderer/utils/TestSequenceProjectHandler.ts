@@ -6,7 +6,6 @@
 //   4. Return a Result<T, Error>
 // Note: All path in a project should be using '/' for cross-platform compatibility
 
-
 // Note: Toast.promise doesn't work with neverthrow -----
 export type Result<T, E = Error> =
   | { ok: true; value: T }
@@ -19,7 +18,6 @@ export function Err<T, E>(error: E): Result<T, E> {
   return { ok: false, error };
 }
 // End of note ------------------------------------------
-
 
 import {
   readJsonProject,
@@ -78,7 +76,7 @@ export async function saveProject(
     }
     const elems = stateManager.elem;
     // @ts-ignore: We know that project is not null
-    project = validatePath(project); 
+    project = validatePath(project);
     project = updateProjectElements(
       project,
       await createProjectElementsFromTestSequencerElements(

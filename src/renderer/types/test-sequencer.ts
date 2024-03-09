@@ -115,7 +115,7 @@ export const TestDiscoverContainer = z.object({
 export type TestDiscoverContainer = z.infer<typeof TestDiscoverContainer>;
 
 /* DEFINITIONS FOR PROJECT */
-export const InterpreterType  = z.enum(["flojoy", "poetry", "pipenv", "conda"]);
+export const InterpreterType = z.enum(["flojoy", "poetry", "pipenv", "conda"]);
 
 export const Interpreter = z.object({
   type: InterpreterType,
