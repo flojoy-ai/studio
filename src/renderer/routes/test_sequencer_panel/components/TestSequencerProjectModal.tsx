@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/renderer/components/ui/select";
-import { InterpreterType } from "@/renderer/types/testSequencer";
+import { InterpreterType } from "@/renderer/types/test-sequencer";
 import { PathInput } from "@/renderer/components/ui/path-input";
 
 export const TestSequencerProjectModal = ({
