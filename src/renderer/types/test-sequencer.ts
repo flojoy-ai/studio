@@ -119,8 +119,8 @@ export const InterpreterType  = z.enum(["flojoy", "poetry", "pipenv", "conda"]);
 
 export const Interpreter = z.object({
   type: InterpreterType,
-  path: z.string().optional(),
-  requirementsPath: z.string().optional(),
+  path: z.union([z.null(), z.string()]),
+  requirementsPath: z.union([z.null(), z.string()]),
 });
 
 export type Interpreter = z.infer<typeof Interpreter>;
