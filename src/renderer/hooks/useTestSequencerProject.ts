@@ -1,6 +1,6 @@
 import useWithPermission from "./useWithPermission";
 import { useTestSequencerState } from "./useTestSequencerState";
-import { TestSequencerProject } from "../types/testSequencer";
+import { TestSequencerProject } from "@/renderer/types/test-sequencer";
 import { toast } from "sonner";
 import { Dispatch, SetStateAction } from "react";
 import {
@@ -17,7 +17,6 @@ function getPrepareStateManager(
   const { elems, setElems, project, setProject, setUnsaved } =
     useTestSequencerState();
   if (withoutPermission) {
-    // @ts-ignore
     return {
       setElems: setElems.withException,
       setProject,
@@ -26,7 +25,6 @@ function getPrepareStateManager(
       project,
     };
   }
-  // @ts-ignore
   return { setElems, setProject, setUnsaved, elem: elems, project };
 }
 

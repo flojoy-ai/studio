@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from "uuid";
-
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import {
@@ -7,7 +6,7 @@ import {
   TestRootNode,
   TestSequenceElement,
 } from "@/renderer/types/test-sequencer";
-import { TestSequencerProject } from "../types/testSequencer";
+import { TestSequencerProject } from "@/renderer/types/test-sequencer";
 
 type State = {
   curRun: string[];

@@ -6,7 +6,6 @@
 //   4. Return a Result<T, Error>
 // Note: All path in a project should be using '/' for cross-platform compatibility
 
-import { Err, Ok, Result } from "@/types/result";
 import {
   readJsonProject,
   stringifyProject,
@@ -14,7 +13,8 @@ import {
 import {
   TestSequenceElement,
   TestSequencerProject,
-} from "@/renderer/types/testSequencer";
+} from "@/renderer/types/test-sequencer";
+import { Err, Ok, Result } from "neverthrow";
 
 // Exposed API
 export type StateManager = {
@@ -45,7 +45,7 @@ export async function createProject(
     );
     await saveToDisk(project);
     await syncProject(project, stateManager);
-    return Ok(null);
+    return new Ok(null);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
     return buildResultFromCatch(e);
@@ -59,11 +59,12 @@ export async function saveProject(
   // Save the current project to disk
   try {
     let project = stateManager.project;
-    if (!project) {
-      return Err(new Error("No project to save"));
+    if (project === null) {
+      new Error("No project to save");
     }
     const elems = stateManager.elem;
-    project = validatePath(project);
+    // @ts-ignore: We know that project is not null
+    project = validatePath(project); 
     project = updateProjectElements(
       project,
       await createProjectElementsFromTestSequencerElements(
@@ -74,7 +75,7 @@ export async function saveProject(
     );
     await saveToDisk(project);
     await syncProject(project, stateManager);
-    return Ok(null);
+    return new Ok(null);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
     return buildResultFromCatch(e);
@@ -101,7 +102,7 @@ export async function importProject(
       throw Error("Error installing dependencies");
     }
     await syncProject(project, stateManager);
-    return Ok(null);
+    return new Ok(null);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
     return buildResultFromCatch(e);
@@ -116,7 +117,7 @@ export async function exportProject(
   await saveProject(stateManager);
   const error = new Error("Export Not Implemented");
   if (throwInsteadOfResult) throw error;
-  return Err(error);
+  return new Err(error);
 }
 
 export async function closeProject(
@@ -125,7 +126,7 @@ export async function closeProject(
 ): Promise<Result<null, Error>> {
   // Close the current proejct from the app. The project is NOT deleted from disk
   stateManager.setProject(null);
-  return Ok(null);
+  return new Ok(null);
 }
 
 export async function verifyElementCompatibleWithProject(
@@ -136,7 +137,7 @@ export async function verifyElementCompatibleWithProject(
   // Verify that the elements are within the current project directory.
   try {
     await throwIfNotInAllBaseFolder(elements, project.projectPath);
-    return Ok(null);
+    return new Ok(null);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
     return buildResultFromCatch(e);
@@ -165,10 +166,10 @@ export function toUnixPath(str: string) {
 
 function buildResultFromCatch(e: unknown): Result<null, Error> {
   if (e instanceof Error) {
-    return Err(e);
+    return new Err(e);
   } else {
     console.error("[SaveProject] Unknown error", e);
-    return Err(new Error("Unknown error while creating the project"));
+    return new Err(new Error("Unknown error while creating the project"));
   }
 }
 

@@ -130,7 +130,7 @@ export const TestSequencerProject = z.object({
   description: z.string(),
   elems: TestSequenceElement.array(),
   projectPath: z.string(),
-  interpreter: Interpreter.array(),
+  interpreter: Interpreter,
 });
 
 export type TestSequencerProject = z.infer<typeof TestSequencerProject>;
