@@ -1,13 +1,12 @@
 import asyncio
 import subprocess
 import time
-from flojoy_cloud.client import FlojoyCloudException
+from flojoy_cloud.client import FlojoyCloudException, FlojoyCloud
 from flojoy_cloud.measurement import MeasurementData
 from flojoy_cloud import test_sequencer
 import traceback
 from typing import Callable, List, Union
 import pydantic
-from flojoy_cloud.client import FlojoyCloud, FlojoyCloudException
 
 from captain.models.test_sequencer import (
     IfNode,
