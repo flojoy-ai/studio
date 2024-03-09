@@ -14,19 +14,11 @@ function parseDiscoverContainer(
   data: TestDiscoverContainer,
   settings: ImportTestSettings,
 ) {
-  const { getPathSeparator } = window.api;
-  const sep = getPathSeparator();
-  function escape(str: string) {
-    if (sep === "\\") {
-      return str.replaceAll("\\", "/");
-    }
-    return str;
-  }
   return map(data.response, (container) => {
     const new_elem: Test = {
       ...container,
-      path: escape(container.path),
-      testName: escape(container.testName),
+      path: container.path,
+      testName: container.testName,
       type: "test",
       id: uuidv4(),
       groupId: uuidv4(),

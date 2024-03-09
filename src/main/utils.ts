@@ -4,10 +4,11 @@ import { isIP } from "net";
 import { execCommand } from "./executor";
 import { Command } from "./command";
 import { app, dialog } from "electron";
-import { join } from "path";
+import { join, posix, sep } from "path";
 import { killCaptain } from "./python";
 import log from "electron-log";
 import { ChildProcess } from "node:child_process";
+
 
 export const isPortFree = (port: number) =>
   new Promise((resolve) => {
@@ -85,7 +86,7 @@ export const pickDirectory = async (
     // @ts-ignore
     properties: properties,
   });
-  return handler.canceled ? "" : handler.filePaths[0];
+  return handler.canceled ? "" : handler.filePaths[0].split(sep).join(posix.sep);
 };
 
 export const getCustomBlocksDir = async () => {
@@ -136,7 +137,7 @@ export const openFilePicker = (
           encoding: "utf-8",
         });
         resolve({
-          filePath: selectedPaths[0],
+          filePath: selectedPaths[0].split(sep).join(posix.sep),
           fileContent,
         });
       }

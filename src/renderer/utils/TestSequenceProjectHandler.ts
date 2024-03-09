@@ -47,6 +47,7 @@ export async function createProject(
   try {
     const elems = stateManager.elem;
     project = validatePath(project);
+    console.log(project);
     project = updateProjectElements(
       project,
       await createProjectElementsFromTestSequencerElements(
@@ -156,24 +157,6 @@ export async function verifyElementCompatibleWithProject(
   }
 }
 
-// Utils ---------------------------------------------------------------------------------------------------
-const { getPathSeparator } = window.api;
-const SEP = getPathSeparator();
-
-export function toWinPathIfOnWin(str: string) {
-  if (SEP === "\\") {
-    return str.replaceAll(/(?<!\\)\//g, "\\"); // Replace / with \ if not preceded by \ (escaped)
-  }
-  return str;
-}
-
-export function toUnixPath(str: string) {
-  if (SEP === "\\") {
-    return str.replaceAll("\\", "/");
-  }
-  return str;
-}
-
 // Private -------------------------------------------------------------------------------------------------
 
 function buildResultFromCatch(e: unknown): Result<null, Error> {
@@ -186,7 +169,7 @@ function buildResultFromCatch(e: unknown): Result<null, Error> {
 }
 
 function validatePath(project: TestSequencerProject): TestSequencerProject {
-  let path = toUnixPath(project.projectPath);
+  let path = project.projectPath;
   if (!path.endsWith("/")) {
     path = path + "/";
   }
@@ -229,8 +212,7 @@ async function saveToDisk(project: TestSequencerProject): Promise<void> {
 async function installDeps(project: TestSequencerProject): Promise<boolean> {
   if ("api" in window) {
     const succes = await window.api.poetryInstallRequirementsUserGroup(
-      toWinPathIfOnWin(project.projectPath) +
-        project.interpreter.requirementsPath,
+      project.projectPath + project.interpreter.requirementsPath,
     );
     return succes;
   } else {
@@ -257,7 +239,7 @@ async function createProjectElementsFromTestSequencerElements(
   baseFolder: string,
   verifStateOrThrow: boolean,
 ): Promise<TestSequenceElement[]> {
-  baseFolder = toUnixPath(baseFolder);
+  baseFolder = baseFolder;
   if (verifStateOrThrow) {
     await throwIfNotInAllBaseFolder(elems, baseFolder);
   }
@@ -269,8 +251,8 @@ async function createProjectElementsFromTestSequencerElements(
           completionTime: undefined,
           error: null,
           isSavedToCloud: false,
-          testName: toUnixPath(elem.path).replaceAll(baseFolder, ""),
-          path: toUnixPath(elem.path).replaceAll(baseFolder, ""),
+          testName: elem.path.replaceAll(baseFolder, ""),
+          path: elem.path.replaceAll(baseFolder, ""),
         }
       : {
           ...elem,
@@ -294,7 +276,7 @@ async function createTestSequencerElementsFromProjectElements(
           completionTime: undefined,
           error: null,
           isSavedToCloud: false,
-          path: toWinPathIfOnWin(baseFolder) + toWinPathIfOnWin(elem.path),
+          path: baseFolder + elem.path,
         }
       : {
           ...elem,
@@ -310,21 +292,19 @@ async function throwIfNotInAllBaseFolder(
   elems: TestSequenceElement[],
   baseFolder: string,
 ) {
-  baseFolder = toWinPathIfOnWin(baseFolder);
   for (let elem of elems) {
     let weGoodBro = false;
     if (elem.type === "conditional") {
       continue;
     }
-    let path = toWinPathIfOnWin(elem.path);
-    if (path.startsWith(baseFolder)) {
+    if (elem.path.startsWith(baseFolder)) {
       // Absolute path
       continue;
     }
     if ("api" in window) {
       // Relative path
       await window.api
-        .isFileOnDisk(baseFolder + path)
+        .isFileOnDisk(baseFolder + elem.path)
         .then((result) => {
           if (result) {
             weGoodBro = true;
@@ -338,7 +318,7 @@ async function throwIfNotInAllBaseFolder(
     // New test type ? Handle it here
     if (!weGoodBro) {
       throw new Error(
-        `The element ${path} is not in the base folder ${baseFolder}`,
+        `The element ${elem.path} is not in the base folder ${baseFolder}`,
       );
     }
   }
