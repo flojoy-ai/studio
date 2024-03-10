@@ -104,13 +104,15 @@ const TestSequencerView = () => {
                   >
                     Add Python Tests
                   </LockableButton>
-                  <LockableButton
-                    className="mt-4 w-full"
-                    variant="outline"
-                    onClick={projectImport}
-                  >
-                    Import Project
-                  </LockableButton>
+                  {project === null && (
+                    <LockableButton
+                      className="mt-4 w-full"
+                      variant="outline"
+                      onClick={projectImport}
+                    >
+                      Import Project
+                    </LockableButton>
+                  )}
                   {project !== null && (
                     <LockableButton
                       className="mt-4 w-full"
