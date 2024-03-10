@@ -102,10 +102,13 @@ export function DataTable() {
     setElems.withException((elems) => {
       const newElems = [...elems];
       const idx = newElems.findIndex((elem) => elem.id === id);
-      newElems[idx] = {
-        ...newElems[idx],
-        exportToCloud: !newElems[idx].exportToCloud,
-      } as Test;
+      if (newElems[idx].type === "test") {
+        newElems[idx] = {
+          ...newElems[idx],
+          // @ts-ignore: LSP doesn't understand the type === "test"
+          exportToCloud: !newElems[idx].exportToCloud,
+        } as Test;
+      }
       return newElems;
     });
   }
