@@ -90,6 +90,7 @@ export function createNewTest(
   name: string,
   path: string,
   type: TestType,
+  exportToCloud?: boolean,
   id?: string,
   groupId?: string,
 ): Test {
@@ -105,6 +106,7 @@ export function createNewTest(
     completionTime: undefined,
     error: null,
     isSavedToCloud: false,
+    exportToCloud: exportToCloud || true,
   };
   return newTest;
 }

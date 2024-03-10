@@ -19,6 +19,7 @@ function parseDiscoverContainer(
       container.testName,
       container.path,
       settings.importType,
+      container.exportToCloud,
     );
     return new_elem;
   });
