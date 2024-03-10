@@ -274,7 +274,6 @@ async def run_test_sequence(data):
 
 
 def _with_stream_test_upload(func: Callable[[TestNode, str, str], Extract]):
-    # TODO: support run in parallel feature
     async def wrapper(node: TestNode, hardware_id: str, project_id: str) -> Extract:
         await _stream_result_to_frontend(MsgState.running, test_id=node.id)
         try:
@@ -337,7 +336,9 @@ def _case_test_upload(node: TestNode, hardware_id: str, project_id: str) -> Extr
                 logger.info(f"{test_name}: Uploaded to cloud")
             except FlojoyCloudException as err:
                 logger.error(err)
-                raise FlojoyCloudException("Failed to upload to the cloud: {e}") from err
+                raise FlojoyCloudException(
+                    "Failed to upload to the cloud: {e}"
+                ) from err
         else:
             raise ValueError("Uploading a pending test is not allowed.")
     return lambda _: None, TestResult(
