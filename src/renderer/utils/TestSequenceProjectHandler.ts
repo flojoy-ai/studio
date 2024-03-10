@@ -27,6 +27,7 @@ import {
   TestSequenceElement,
   TestSequencerProject,
 } from "@/renderer/types/test-sequencer";
+import { createNewTest } from "../hooks/useTestSequencerState";
 
 // Exposed API
 export type StateManager = {
@@ -270,14 +271,7 @@ async function createTestSequencerElementsFromProjectElements(
 ): Promise<TestSequenceElement[]> {
   const elements: TestSequenceElement[] = [...project.elems].map((elem) => {
     return elem.type === "test"
-      ? {
-          ...elem,
-          status: "pending",
-          completionTime: undefined,
-          error: null,
-          isSavedToCloud: false,
-          path: baseFolder + elem.path,
-        }
+      ? createNewTest(elem.testName, baseFolder + elem.path, elem.testType, elem.id, elem.groupId)
       : {
           ...elem,
         };

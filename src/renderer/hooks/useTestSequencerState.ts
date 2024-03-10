@@ -5,6 +5,7 @@ import {
   TestSequenceElementNode,
   IfNode,
   TestNode,
+  TestType,
 } from "@/renderer/types/test-sequencer";
 import {
   checkUniqueNames,
@@ -14,6 +15,8 @@ import {
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useShallow } from "zustand/react/shallow";
+import { v4 as uuidv4 } from "uuid";
+
 
 // sync this with the definition of setElems
 export type SetElemsFn = {
@@ -81,6 +84,23 @@ const validateElements = (
 ): boolean => {
   return !validators.some((validator) => !validator(elems), validators);
 };
+
+export function createNewTest(name: string, path: string, type: TestType, id?: string, groupId?: string): Test {
+  const newTest: Test = {
+    type: "test",
+    id: id || uuidv4(),
+    groupId: groupId || uuidv4(), 
+    path: path,
+    testName: name,
+    runInParallel: false,
+    testType: type,
+    status: "pending",
+    completionTime: undefined,
+    error: null,
+    isSavedToCloud: false,
+  };
+  return newTest;
+}
 
 export function useTestSequencerState() {
   const {
@@ -164,10 +184,20 @@ export function useTestSequencerState() {
 
   const setElemsWithPermissions = withPermissionCheck(setElems);
 
+  function AddNewTest(name: string, type: TestType, path: string) {
+    const newTest = createNewTest(name, type, path);
+    setElems((elems) => {
+      return [...elems, newTest];
+    });
+  }
+  
+  const addNewTestWithPermissions = withPermissionCheck(AddNewTest);
+
   return {
     elems,
     websocketId,
     setElems: setElemsWithPermissions,
+    addNewTest: addNewTestWithPermissions,
     tree,
     running,
     markTestAsDone,

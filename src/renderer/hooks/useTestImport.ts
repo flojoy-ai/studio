@@ -1,5 +1,5 @@
 import { Test, TestDiscoverContainer } from "@/renderer/types/test-sequencer";
-import { useTestSequencerState } from "./useTestSequencerState";
+import { createNewTest, useTestSequencerState } from "./useTestSequencerState";
 import { map } from "lodash";
 import { v4 as uuidv4 } from "uuid";
 import { ImportTestSettings } from "@/renderer/routes/test_sequencer_panel/components/ImportTestModal";
@@ -15,20 +15,7 @@ function parseDiscoverContainer(
   settings: ImportTestSettings,
 ) {
   return map(data.response, (container) => {
-    const new_elem: Test = {
-      ...container,
-      path: container.path,
-      testName: container.testName,
-      type: "test",
-      id: uuidv4(),
-      groupId: uuidv4(),
-      runInParallel: false,
-      testType: settings.importType,
-      status: "pending",
-      completionTime: undefined,
-      isSavedToCloud: false,
-      error: null,
-    };
+    const new_elem = createNewTest(container.testName, container.path, settings.importType);
     return new_elem;
   });
 }
