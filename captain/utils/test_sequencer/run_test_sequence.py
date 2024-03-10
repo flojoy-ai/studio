@@ -337,7 +337,7 @@ def _case_test_upload(node: TestNode, hardware_id: str, project_id: str) -> Extr
             except FlojoyCloudException as err:
                 logger.error(err)
                 raise FlojoyCloudException(
-                    "Failed to upload to the cloud: {e}"
+                    f"Failed to upload to the cloud: {err}"
                 ) from err
         else:
             raise ValueError("Uploading a pending test is not allowed.")
