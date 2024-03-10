@@ -104,7 +104,7 @@ export function DataTable() {
       const idx = newElems.findIndex((elem) => elem.id === id);
       newElems[idx] = {
         ...newElems[idx],
-        exportToCloud : !newElems[idx].exportToCloud,
+        exportToCloud: !newElems[idx].exportToCloud,
       } as Test;
       return newElems;
     });
@@ -215,18 +215,22 @@ export function DataTable() {
       cell: ({ row }) => {
         if (row.original.type === "test") {
           if (!row.original.exportToCloud) {
-            return (<div> - </div>);
+            return <div> - </div>;
           } else {
-            return (<div
-              className={
-                row.original.isSavedToCloud ? "text-green-500" : "text-red-500"
-              }
-            >
-              {row.original.isSavedToCloud ? "Saved" : "Not Saved"}
-            </div>)
+            return (
+              <div
+                className={
+                  row.original.isSavedToCloud
+                    ? "text-green-500"
+                    : "text-red-500"
+                }
+              >
+                {row.original.isSavedToCloud ? "Saved" : "Not Saved"}
+              </div>
+            );
           }
         }
-        return null
+        return null;
       },
     },
 
@@ -501,9 +505,13 @@ export function DataTable() {
                     )}
                     {row.original.type === "test" && (
                       <ContextMenuItem
-                        onClick={() => {toggleExportToCloud(row.original.id)}}
+                        onClick={() => {
+                          toggleExportToCloud(row.original.id);
+                        }}
                       >
-                        {row.original.exportToCloud ? "Disable export to Cloud" : "Enable export to Cloud"}
+                        {row.original.exportToCloud
+                          ? "Disable export to Cloud"
+                          : "Enable export to Cloud"}
                       </ContextMenuItem>
                     )}
                   </ContextMenuContent>
