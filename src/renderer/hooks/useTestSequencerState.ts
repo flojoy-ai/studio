@@ -19,7 +19,6 @@ import { v4 as uuidv4 } from "uuid";
 import { Err, Ok, Result } from "neverthrow";
 import { verifyElementCompatibleWithProject } from "../utils/TestSequenceProjectHandler";
 
-
 // sync this with the definition of setElems
 export type SetElemsFn = {
   (elems: TestSequenceElement[]): void;
@@ -87,11 +86,17 @@ const validateElements = (
   return !validators.some((validator) => !validator(elems), validators);
 };
 
-export function createNewTest(name: string, path: string, type: TestType, id?: string, groupId?: string): Test {
+export function createNewTest(
+  name: string,
+  path: string,
+  type: TestType,
+  id?: string,
+  groupId?: string,
+): Test {
   const newTest: Test = {
     type: "test",
     id: id || uuidv4(),
-    groupId: groupId || uuidv4(), 
+    groupId: groupId || uuidv4(),
     path: path,
     testName: name,
     runInParallel: false,
@@ -186,7 +191,9 @@ export function useTestSequencerState() {
 
   const setElemsWithPermissions = withPermissionCheck(setElems);
 
-  async function AddNewElems(newElems: TestSequenceElement[]): Promise<Result<null, Error>> {
+  async function AddNewElems(
+    newElems: TestSequenceElement[],
+  ): Promise<Result<null, Error>> {
     // Validate with project
     if (project !== null) {
       const result = await verifyElementCompatibleWithProject(
@@ -199,10 +206,10 @@ export function useTestSequencerState() {
       }
     }
     // Add new elements
-    setElems((elems) => [...elems, ...newElems]); 
+    setElems((elems) => [...elems, ...newElems]);
     return new Ok(null);
   }
-  
+
   const addNewElemsWithPermissions = withPermissionCheck(AddNewElems);
 
   return {

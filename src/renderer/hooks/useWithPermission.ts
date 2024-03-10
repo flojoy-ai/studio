@@ -32,4 +32,3 @@ const useWithPermission = () => {
 };
 
 export default useWithPermission;
-

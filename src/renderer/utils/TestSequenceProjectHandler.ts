@@ -271,7 +271,13 @@ async function createTestSequencerElementsFromProjectElements(
 ): Promise<TestSequenceElement[]> {
   const elements: TestSequenceElement[] = [...project.elems].map((elem) => {
     return elem.type === "test"
-      ? createNewTest(elem.testName, baseFolder + elem.path, elem.testType, elem.id, elem.groupId)
+      ? createNewTest(
+          elem.testName,
+          baseFolder + elem.path,
+          elem.testType,
+          elem.id,
+          elem.groupId,
+        )
       : {
           ...elem,
         };
