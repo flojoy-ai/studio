@@ -285,44 +285,45 @@ async def _case_test_upload(node: TestNode, hardware_id, project_id) -> Extract:
 
     status = node.status
     if status != StatusTypes.pending:
-        passed = True if status == StatusTypes.pass_ else False
-        test_name = node.test_name.split("::")[-1]
-        try:
-            await _stream_result_to_frontend(MsgState.running, test_id=node.id)
-            node.is_saved_to_cloud = False
-            cloud.upload(
-                data=passed,
-                test_id=reverse_id(test_name),
-                hardware_id=hardware_id,
-                name=test_name,
-                passed=passed,
-            )
-            node.is_saved_to_cloud = True
-            logger.info(f"{test_name}: Uploaded to cloud")
-        except KeyError:
-            cloud.create_test(test_name, project_id, measurement_type="boolean")
-            cloud.upload(
-                data=passed,
-                test_id=reverse_id(test_name),
-                hardware_id=hardware_id,
-                name=test_name,
-                passed=passed,
-            )
-            node.is_saved_to_cloud = True
-            logger.info(f"{test_name}: Uploaded to cloud")
-        except FlojoyCloudException as err:
-            logger.error(err)
-            raise FlojoyCloudException("Failed to upload to the cloud.") from err
-        finally:
-            if node.completion_time is None:
-                raise Exception(f"{node.id}: Unexpected None for completion_time")
-            await _stream_result_to_frontend(
-                state=MsgState.test_done,
-                test_id=node.id,
-                result=passed,
-                time_taken=node.completion_time,
-                is_saved_to_cloud=node.is_saved_to_cloud,
-            )
+        if node.completion_time is None:
+            raise Exception(f"{node.id}: Unexpected None for completion_time")
+        if node.export_to_cloud:
+            passed = True if status == StatusTypes.pass_ else False
+            test_name = node.test_name.split("::")[-1]
+            try:
+                await _stream_result_to_frontend(MsgState.running, test_id=node.id)
+                node.is_saved_to_cloud = False
+                cloud.upload(
+                    data=passed,
+                    test_id=reverse_id(test_name),
+                    hardware_id=hardware_id,
+                    name=test_name,
+                    passed=passed,
+                )
+                node.is_saved_to_cloud = True
+                logger.info(f"{test_name}: Uploaded to cloud")
+            except KeyError:
+                cloud.create_test(test_name, project_id, measurement_type="boolean")
+                cloud.upload(
+                    data=passed,
+                    test_id=reverse_id(test_name),
+                    hardware_id=hardware_id,
+                    name=test_name,
+                    passed=passed,
+                )
+                node.is_saved_to_cloud = True
+                logger.info(f"{test_name}: Uploaded to cloud")
+            except FlojoyCloudException as err:
+                logger.error(err)
+                raise FlojoyCloudException("Failed to upload to the cloud.") from err
+            finally:
+                await _stream_result_to_frontend(
+                    state=MsgState.test_done,
+                    test_id=node.id,
+                    result=passed,
+                    time_taken=node.completion_time,
+                    is_saved_to_cloud=node.is_saved_to_cloud,
+                )
     else:
         raise ValueError("Uploading a pending test is not allowed.")
     return lambda _: None, TestResult(

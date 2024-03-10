@@ -48,6 +48,7 @@ export const Test = z.object({
   error: z.string().nullable(),
   completionTime: z.number().optional(),
   isSavedToCloud: z.boolean(),
+  exportToCloud: z.boolean(),
 });
 
 export type Test = z.infer<typeof Test>;
