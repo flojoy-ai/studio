@@ -16,6 +16,8 @@ import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useShallow } from "zustand/react/shallow";
 import { v4 as uuidv4 } from "uuid";
+import { Err, Ok, Result } from "neverthrow";
+import { verifyElementCompatibleWithProject } from "../utils/TestSequenceProjectHandler";
 
 
 // sync this with the definition of setElems
@@ -184,20 +186,30 @@ export function useTestSequencerState() {
 
   const setElemsWithPermissions = withPermissionCheck(setElems);
 
-  function AddNewTest(name: string, type: TestType, path: string) {
-    const newTest = createNewTest(name, type, path);
-    setElems((elems) => {
-      return [...elems, newTest];
-    });
+  async function AddNewElems(newElems: TestSequenceElement[]): Promise<Result<null, Error>> {
+    // Validate with project
+    if (project !== null) {
+      const result = await verifyElementCompatibleWithProject(
+        project,
+        newElems,
+        false,
+      );
+      if (!result.ok) {
+        return new Err(result.error);
+      }
+    }
+    // Add new elements
+    setElems((elems) => [...elems, ...newElems]); 
+    return new Ok(null);
   }
   
-  const addNewTestWithPermissions = withPermissionCheck(AddNewTest);
+  const addNewElemsWithPermissions = withPermissionCheck(AddNewElems);
 
   return {
     elems,
     websocketId,
     setElems: setElemsWithPermissions,
-    addNewTest: addNewTestWithPermissions,
+    AddNewElems: addNewElemsWithPermissions,
     tree,
     running,
     markTestAsDone,

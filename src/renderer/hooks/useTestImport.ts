@@ -21,7 +21,7 @@ function parseDiscoverContainer(
 }
 
 export const useTestImport = () => {
-  const { setElems, project } = useTestSequencerState();
+  const { project, AddNewElems } = useTestSequencerState();
 
   const handleUserDepInstall = useCallback(async (depName: string) => {
     const promise = () => window.api.poetryInstallDepUserGroup(depName);
@@ -72,21 +72,12 @@ export const useTestImport = () => {
       toast.error("No tests found in the specified file.");
       throw new Error("No tests found in the file");
     }
-    if (project !== null) {
-      const result = await verifyElementCompatibleWithProject(
-        project,
-        newElems,
-        false,
-      );
-      if (!result.ok) {
-        toast.error(`${result.error}`);
-        return;
-      }
+    const result = await AddNewElems(newElems);
+    if (result.isErr()) {
+      toast.error(`${result.error}`);
+      return;
     }
     setModalOpen(false);
-    setElems((elems) => {
-      return [...elems, ...newElems];
-    });
   }
 
   const openFilePicker = (
