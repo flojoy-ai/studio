@@ -273,25 +273,47 @@ async def run_test_sequence(data):
         logger.error(f"{e}: {traceback.format_exc()}")
 
 
-async def _case_test_upload(node: TestNode, hardware_id, project_id) -> Extract:
-    cloud = FlojoyCloud(workspace_secret=get_env_var("FLOJOY_CLOUD_KEY"))
+def _with_stream_test_upload(func: Callable[[TestNode, str, str], Extract]):
+    # TODO: support run in parallel feature
+    async def wrapper(node: TestNode, hardware_id: str, project_id: str) -> Extract:
+        await _stream_result_to_frontend(MsgState.running, test_id=node.id)
+        try:
+            children_getter, test_result = func(node, hardware_id, project_id)
+            return children_getter, test_result
+        except Exception as e:
+            raise e
+        finally:
+            await _stream_result_to_frontend(
+                state=MsgState.test_done,
+                test_id=node.id,
+                result=True if node.status == StatusTypes.pass_ else False,
+                time_taken=node.completion_time if node.completion_time else -1,
+                is_saved_to_cloud=node.is_saved_to_cloud,
+            )
 
-    def reverse_id(test_name) -> str:
-        tests = cloud.get_all_tests_by_project_id(project_id)
-        for i in tests:
-            if i.name == test_name:
-                return str(i.id)
-        raise KeyError(f"No cloud test for {test_name}")
+    return wrapper
 
-    status = node.status
-    if status != StatusTypes.pending:
-        if node.completion_time is None:
-            raise Exception(f"{node.id}: Unexpected None for completion_time")
-        if node.export_to_cloud:
-            passed = True if status == StatusTypes.pass_ else False
+
+@_with_stream_test_upload
+def _case_test_upload(node: TestNode, hardware_id: str, project_id: str) -> Extract:
+    if node.completion_time is None:
+        raise Exception(f"{node.id}: Can't upload a test that wasn't run")
+    if node.export_to_cloud:
+        cloud = FlojoyCloud(workspace_secret=get_env_var("FLOJOY_CLOUD_KEY"))
+
+        def reverse_id(test_name) -> str:
+            tests = cloud.get_all_tests_by_project_id(project_id)
+            for i in tests:
+                if i.name == test_name:
+                    return str(i.id)
+            raise KeyError(f"No cloud test for {test_name}")
+
+        if node.status != StatusTypes.pending:
+            if node.completion_time is None:
+                raise Exception(f"{node.id}: Unexpected None for completion_time")
+            passed = True if node.status == StatusTypes.pass_ else False
             test_name = node.test_name
             try:
-                await _stream_result_to_frontend(MsgState.running, test_id=node.id)
                 node.is_saved_to_cloud = False
                 cloud.upload(
                     data=passed,
@@ -302,7 +324,7 @@ async def _case_test_upload(node: TestNode, hardware_id, project_id) -> Extract:
                 )
                 node.is_saved_to_cloud = True
                 logger.info(f"{test_name}: Uploaded to cloud")
-            except KeyError:
+            except KeyError:  # Not in cloud: create a new test
                 cloud.create_test(test_name, project_id, measurement_type="boolean")
                 cloud.upload(
                     data=passed,
@@ -315,19 +337,11 @@ async def _case_test_upload(node: TestNode, hardware_id, project_id) -> Extract:
                 logger.info(f"{test_name}: Uploaded to cloud")
             except FlojoyCloudException as err:
                 logger.error(err)
-                raise FlojoyCloudException("Failed to upload to the cloud.") from err
-            finally:
-                await _stream_result_to_frontend(
-                    state=MsgState.test_done,
-                    test_id=node.id,
-                    result=passed,
-                    time_taken=node.completion_time,
-                    is_saved_to_cloud=node.is_saved_to_cloud,
-                )
-    else:
-        raise ValueError("Uploading a pending test is not allowed.")
+                raise FlojoyCloudException("Failed to upload to the cloud: {e}") from err
+        else:
+            raise ValueError("Uploading a pending test is not allowed.")
     return lambda _: None, TestResult(
-        node, True if status == StatusTypes.pass_ else False, node.completion_time
+        node, True if node.status == StatusTypes.pass_ else False, node.completion_time
     )
 
 
