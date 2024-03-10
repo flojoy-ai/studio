@@ -246,15 +246,14 @@ async function createProjectElementsFromTestSequencerElements(
   }
   const elements = [...elems].map((elem) => {
     return elem.type === "test"
-      ? {
-          ...elem,
-          status: "pending",
-          completionTime: undefined,
-          error: null,
-          isSavedToCloud: false,
-          testName: elem.path.replaceAll(baseFolder, ""),
-          path: elem.path.replaceAll(baseFolder, ""),
-        }
+      ? createNewTest(
+          elem.path.replaceAll(baseFolder, ""),
+          elem.path.replaceAll(baseFolder, ""),
+          elem.testType,
+          elem.exportToCloud,
+          elem.id,
+          elem.groupId,
+        ) 
       : {
           ...elem,
           condition: elem.condition.replaceAll(baseFolder, ""),
@@ -275,6 +274,7 @@ async function createTestSequencerElementsFromProjectElements(
           elem.testName,
           baseFolder + elem.path,
           elem.testType,
+          elem.exportToCloud,
           elem.id,
           elem.groupId,
         )

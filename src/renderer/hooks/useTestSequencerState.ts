@@ -106,7 +106,7 @@ export function createNewTest(
     completionTime: undefined,
     error: null,
     isSavedToCloud: false,
-    exportToCloud: exportToCloud || true,
+    exportToCloud: exportToCloud === undefined ? true: exportToCloud,
   };
   return newTest;
 }
