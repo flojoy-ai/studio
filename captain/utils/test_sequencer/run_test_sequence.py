@@ -289,7 +289,7 @@ async def _case_test_upload(node: TestNode, hardware_id, project_id) -> Extract:
             raise Exception(f"{node.id}: Unexpected None for completion_time")
         if node.export_to_cloud:
             passed = True if status == StatusTypes.pass_ else False
-            test_name = node.test_name.split("::")[-1]
+            test_name = node.test_name
             try:
                 await _stream_result_to_frontend(MsgState.running, test_id=node.id)
                 node.is_saved_to_cloud = False
