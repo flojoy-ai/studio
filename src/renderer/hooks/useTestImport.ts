@@ -24,6 +24,7 @@ function parseDiscoverContainer(
       status: "pending",
       completionTime: undefined,
       isSavedToCloud: false,
+      exportToCloud: true,
       error: null,
     };
     return new_elem;
