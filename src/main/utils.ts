@@ -9,7 +9,6 @@ import { killCaptain } from "./python";
 import log from "electron-log";
 import { ChildProcess } from "node:child_process";
 
-
 export const isPortFree = (port: number) =>
   new Promise((resolve) => {
     const server = http
@@ -86,7 +85,9 @@ export const pickDirectory = async (
     // @ts-ignore
     properties: properties,
   });
-  return handler.canceled ? "" : handler.filePaths[0].split(sep).join(posix.sep);
+  return handler.canceled
+    ? ""
+    : handler.filePaths[0].split(sep).join(posix.sep);
 };
 
 export const getCustomBlocksDir = async () => {
