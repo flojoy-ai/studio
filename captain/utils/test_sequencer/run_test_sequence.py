@@ -64,7 +64,6 @@ def _with_stream_test_result(func: Callable[[TestNode], Extract]):
     async def wrapper(node: TestNode) -> Extract:
         await _stream_result_to_frontend(MsgState.running, test_id=node.id)
         test_sequencer._set_output_loc(node.id)
-        logger.info(node.id)
         children_getter, test_result = func(node)
         if test_result is None:
             raise Exception(f"{node.id}: Test returned None")
