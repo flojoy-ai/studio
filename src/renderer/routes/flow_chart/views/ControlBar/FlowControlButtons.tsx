@@ -1,6 +1,6 @@
 import { Ban, Play } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
-import { sendProgramToMix } from "@/renderer/services/MixpanelServices";
+// import { sendProgramToMix } from "@/renderer/services/MixpanelServices";
 import { ServerStatus } from "@/renderer/types/socket";
 import WatchBtn from "./WatchBtn";
 import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
@@ -55,7 +55,7 @@ const FlowControlButtons = () => {
       return;
     }
 
-    sendProgramToMix(nodes, true, false);
+    // sendProgramToMix(nodes, true, false);
     wipeBlockResults();
 
     (

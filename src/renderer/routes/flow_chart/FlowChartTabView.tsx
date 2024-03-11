@@ -21,10 +21,6 @@ import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import { BlockExpandMenu } from "./views/BlockExpandMenu";
 import {
-  MixPanelEvents,
-  sendEventToMix,
-} from "@/renderer/services/MixpanelServices";
-import {
   ACTIONS_HEIGHT,
   BOTTOM_STATUS_BAR_HEIGHT,
   LAYOUT_TOP_HEIGHT,
@@ -194,7 +190,7 @@ const FlowChartTab = () => {
 
   const onEdgesChange: OnEdgesChange = useCallback(
     (changes) => {
-      sendEventToMix(MixPanelEvents.edgesChanged);
+      // sendEventToMix(MixPanelEvents.edgesChanged);
       handleEdgeChanges((es) => applyEdgeChanges(changes, es));
     },
     [handleEdgeChanges],
@@ -213,7 +209,7 @@ const FlowChartTab = () => {
     clearProjectCanvas();
     wipeBlockResults();
 
-    sendEventToMix(MixPanelEvents.canvasCleared);
+    // sendEventToMix(MixPanelEvents.canvasCleared);
   }, [clearProjectCanvas, wipeBlockResults]);
 
   useEffect(() => {
