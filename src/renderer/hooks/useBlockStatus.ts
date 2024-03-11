@@ -1,15 +1,19 @@
 import { useSocketStore } from "@/renderer/stores/socket";
 import { useBlockResults } from "./useBlockResults";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 
 export const useBlockStatus = (nodeId: string) => {
-  const runningBlock = useRef(useSocketStore.getState().runningBlock);
-  const failedBlocks = useRef(useSocketStore.getState().failedBlocks);
+  const [runningBlock, setRunningBlock] = useState(
+    useSocketStore.getState().runningBlock,
+  );
+  const [failedBlocks, setFailedBlocks] = useState(
+    useSocketStore.getState().failedBlocks,
+  );
   useEffect(
     () =>
       useSocketStore.subscribe((state) => {
-        runningBlock.current = state.runningBlock;
-        failedBlocks.current = state.failedBlocks;
+        setRunningBlock(state.runningBlock);
+        setFailedBlocks(state.failedBlocks);
       }),
     [],
   );
@@ -17,8 +21,8 @@ export const useBlockStatus = (nodeId: string) => {
   const blockResults = useBlockResults();
 
   return {
-    blockError: failedBlocks.current[nodeId],
-    blockRunning: runningBlock.current === nodeId,
+    blockError: failedBlocks[nodeId],
+    blockRunning: runningBlock === nodeId,
     blockResult: blockResults[nodeId],
   };
 };
