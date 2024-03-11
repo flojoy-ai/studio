@@ -15,6 +15,7 @@ import {
   SlidersHorizontal,
   SquareCheck,
   TextCursorInput,
+  ToggleRight,
   Variable,
 } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -42,6 +43,7 @@ const widgetTypeIcons = {
   slider: SlidersHorizontal,
   "number input": TextCursorInput,
   checkbox: SquareCheck,
+  switch: ToggleRight,
 };
 
 const WidgetTypeIcon = ({ type }: { type: WidgetType }) => {
@@ -60,7 +62,7 @@ const WidgetTypeIcon = ({ type }: { type: WidgetType }) => {
 const allowedWidgetTypes: Record<PythonType, WidgetType[]> = {
   int: ["slider", "number input"],
   float: ["slider", "number input"],
-  bool: ["checkbox"],
+  bool: ["checkbox", "switch"],
 };
 
 type Props = {

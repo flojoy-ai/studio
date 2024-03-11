@@ -48,7 +48,12 @@ export const CONFIG_DEFAULT_VALUES = {
 
 export type WidgetConfig = Config[keyof Config];
 
-export const WIDGET_TYPES = ["slider", "number input", "checkbox"] as const;
+export const WIDGET_TYPES = [
+  "slider",
+  "number input",
+  "checkbox",
+  "switch",
+] as const;
 export const isWidgetType = (value: string): value is WidgetType =>
   WIDGET_TYPES.includes(value);
 

@@ -45,9 +45,11 @@ import { TextData } from "@/renderer/types/block";
 import { calculateContextMenuOffset } from "@/renderer/utils/context-menu";
 import { toast } from "sonner";
 import { useContextMenu } from "@/renderer/hooks/useContextMenu";
+import { SwitchNode } from "@/renderer/components/controls/switch-node";
 
 const nodeTypes = {
   slider: SliderNode,
+  switch: SwitchNode,
   checkbox: CheckboxNode,
   visualization: VisualizationNode,
   TextNode: ControlTextNode,
