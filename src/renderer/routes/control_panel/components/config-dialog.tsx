@@ -8,6 +8,7 @@ import {
 } from "@/renderer/components/ui/dialog";
 import { SliderConfigForm } from "./slider-form";
 import { match } from "ts-pattern";
+import { FileUploadConfigForm } from "./file-upload-form";
 
 type Props = {
   initialValues: WidgetConfig;
@@ -26,6 +27,9 @@ export const ConfigDialog = ({
   const form = match(initialValues)
     .with({ type: "slider" }, (vals) => (
       <SliderConfigForm initialValues={vals} onSubmit={onSubmit} />
+    ))
+    .with({ type: "file upload" }, (vals) => (
+      <FileUploadConfigForm initialValues={vals} onSubmit={onSubmit} />
     ))
     .otherwise(() => undefined);
 

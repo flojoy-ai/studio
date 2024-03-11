@@ -12,6 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Box,
   ChevronsUpDown,
+  File,
   Joystick,
   LucideIcon,
   SlidersHorizontal,
@@ -45,6 +46,7 @@ import { FormIconLabel } from "@/renderer/components/common/form-icon-label";
 const widgetTypeIcons: Record<WidgetType, LucideIcon> = {
   slider: SlidersHorizontal,
   "number input": TextCursorInput,
+  "file upload": File,
   checkbox: SquareCheck,
   switch: ToggleRight,
   combobox: ChevronsUpDown,
@@ -68,6 +70,7 @@ const allowedWidgetTypes: Record<PythonType, WidgetType[]> = {
   float: ["slider", "number input"],
   bool: ["checkbox", "switch"],
   select: ["combobox"],
+  File: ["file upload"],
 };
 
 type Props = {

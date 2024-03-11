@@ -1,7 +1,7 @@
 import { NodeProps } from "reactflow";
 import { z } from "zod";
 
-export type PythonType = "int" | "float" | "bool" | "select";
+export type PythonType = "int" | "float" | "bool" | "select" | "File";
 
 export const SliderConfig = z.object({
   type: z.literal("slider"),
@@ -11,7 +11,34 @@ export const SliderConfig = z.object({
 });
 export type SliderConfig = z.infer<typeof SliderConfig>;
 
-export const CONFIGURABLE = ["slider"] as const;
+const isValidFileFilter = (filter: string) => {
+  if (filter === "") return true;
+  // Regular expression pattern to match file extensions
+  const extensionPattern = /^\.[a-zA-Z0-9]+$/;
+
+  // Regular expression pattern to match pattern notation like image/*
+  const patternPattern = /^[a-zA-Z0-9]+\/.*$/;
+
+  return extensionPattern.test(filter) || patternPattern.test(filter);
+};
+
+export const FileUploadConfig = z.object({
+  type: z.literal("file upload"),
+  allowedExtensions: z.array(
+    z.object({
+      ext: z
+        .string()
+        .transform((s) => s.trim())
+        .refine(isValidFileFilter, {
+          message:
+            'Invalid file filter. Must be in the form ".ext" or "type/*"',
+        }),
+    }),
+  ),
+});
+export type FileUploadConfig = z.infer<typeof FileUploadConfig>;
+
+export const CONFIGURABLE = ["slider", "file upload"] as const;
 export type Configurable = (typeof CONFIGURABLE)[number];
 
 export const isConfigurable = (
@@ -22,6 +49,7 @@ export const isConfigurable = (
 
 export type Config = {
   slider: SliderConfig;
+  "file upload": FileUploadConfig;
 };
 
 export const CONFIG_DEFAULT_VALUES = {
@@ -31,6 +59,10 @@ export const CONFIG_DEFAULT_VALUES = {
     max: 100,
     step: 1,
   },
+  "file upload": {
+    type: "file upload",
+    allowedExtensions: [{ ext: "" }],
+  },
 } satisfies Record<Configurable, WidgetConfig>;
 
 export type WidgetConfig = Config[keyof Config];
@@ -38,6 +70,7 @@ export type WidgetConfig = Config[keyof Config];
 export const WIDGET_TYPES = [
   "slider",
   "number input",
+  "file upload",
   "checkbox",
   "switch",
   "combobox",

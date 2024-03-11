@@ -48,6 +48,7 @@ import { useContextMenu } from "@/renderer/hooks/useContextMenu";
 import { SwitchNode } from "@/renderer/components/controls/switch-node";
 import { NumberInputNode } from "@/renderer/components/controls/number-input-node";
 import { ComboboxNode } from "@/renderer/components/controls/combobox-node";
+import { FileUploadNode } from "@/renderer/components/controls/file-upload-node";
 
 // INFO: Widget
 const nodeTypes = {
@@ -55,6 +56,7 @@ const nodeTypes = {
   switch: SwitchNode,
   "number input": NumberInputNode,
   checkbox: CheckboxNode,
+  "file upload": FileUploadNode,
   visualization: VisualizationNode,
   combobox: ComboboxNode,
   TextNode: ControlTextNode,
