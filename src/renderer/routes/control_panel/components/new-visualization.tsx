@@ -9,20 +9,20 @@ import {
 } from "@/renderer/components/ui/dialog";
 import { useProjectStore } from "@/renderer/stores/project";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LineChart } from "lucide-react";
+import { Box, LineChart } from "lucide-react";
 import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/renderer/components/ui/form";
 import { z } from "zod";
 import { Combobox } from "@/renderer/components/ui/combobox";
 import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
+import { FormIconLabel } from "@/renderer/components/common/form-icon-label";
 
 const formSchema = z.object({
   blockId: z.string(),
@@ -69,9 +69,9 @@ export const NewVisualizationModal = ({ open, setOpen }: Props) => {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[360px]">
         <DialogHeader>
-          <DialogTitle>New widget</DialogTitle>
+          <DialogTitle>New Visualization</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
@@ -87,22 +87,25 @@ export const NewVisualizationModal = ({ open, setOpen }: Props) => {
               name="blockId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Block</FormLabel>
-                  <FormControl>
-                    <Combobox
-                      options={visualizationBlocks}
-                      value={field.value}
-                      onValueChange={(val) => form.setValue("blockId", val)}
-                      displaySelector={(b) => b.data.label}
-                      valueSelector={(b) => b.id}
-                    />
-                  </FormControl>
+                  <div className="flex justify-between">
+                    <FormIconLabel icon={Box}>Block</FormIconLabel>
+                    <FormControl>
+                      <Combobox
+                        options={visualizationBlocks}
+                        value={field.value}
+                        onValueChange={(val) => form.setValue("blockId", val)}
+                        displaySelector={(b) => b.data.label}
+                        valueSelector={(b) => b.id}
+                      />
+                    </FormControl>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
             />
+            <div className="py-1" />
             <DialogFooter>
-              <Button type="submit">Create visualization</Button>
+              <Button type="submit">Confirm</Button>
             </DialogFooter>
           </form>
         </Form>

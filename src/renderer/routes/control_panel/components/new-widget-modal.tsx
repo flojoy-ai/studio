@@ -26,7 +26,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/renderer/components/ui/form";
 import { Combobox } from "@/renderer/components/ui/combobox";
@@ -40,6 +39,7 @@ import {
   Clickables,
   ClickablesItem,
 } from "@/renderer/components/common/clickables";
+import { FormIconLabel } from "@/renderer/components/common/form-icon-label";
 
 // INFO: Widget
 const widgetTypeIcons: Record<WidgetType, LucideIcon> = {
@@ -130,10 +130,7 @@ export const NewWidgetModal = ({ open, setOpen, onSubmit }: Props) => {
               render={({ field }) => (
                 <FormItem>
                   <div className="flex justify-between">
-                    <FormLabel className="flex items-center gap-2">
-                      <Box size={20} className="stroke-muted-foreground" />
-                      <div className="font-bold">Block</div>
-                    </FormLabel>
+                    <FormIconLabel icon={Box}>Block</FormIconLabel>
                     <FormControl>
                       <Combobox
                         options={blocks}
@@ -159,13 +156,7 @@ export const NewWidgetModal = ({ open, setOpen, onSubmit }: Props) => {
                 render={({ field }) => (
                   <FormItem>
                     <div className="flex justify-between">
-                      <FormLabel className="flex items-center gap-2">
-                        <Variable
-                          size={20}
-                          className="stroke-muted-foreground"
-                        />
-                        <div className="font-bold">Parameter</div>
-                      </FormLabel>
+                      <FormIconLabel icon={Variable}>Parameter</FormIconLabel>
                       <FormControl>
                         <Combobox
                           options={parameters}
@@ -184,7 +175,7 @@ export const NewWidgetModal = ({ open, setOpen, onSubmit }: Props) => {
                 )}
               />
             )}
-            <div className="py-0.5" />
+            <div className="h-0.5" />
             {selectedParameter &&
               (widgetTypes ? (
                 <FormField
@@ -192,14 +183,8 @@ export const NewWidgetModal = ({ open, setOpen, onSubmit }: Props) => {
                   name="widgetType"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="mb-0.5 flex items-center gap-2">
-                        <Joystick
-                          size={20}
-                          className="stroke-muted-foreground"
-                        />
-                        <div className="font-bold">Widget Type</div>
-                      </FormLabel>
-                      <div className="py-0.5" />
+                      <FormIconLabel icon={Joystick}>Widget Type</FormIconLabel>
+                      <div className="h-0.5" />
                       <FormControl>
                         <Clickables onChange={field.onChange}>
                           {widgetTypes.map((t) => (
