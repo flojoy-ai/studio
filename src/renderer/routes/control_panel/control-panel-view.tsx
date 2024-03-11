@@ -49,6 +49,7 @@ import { SwitchNode } from "@/renderer/components/controls/switch-node";
 import { NumberInputNode } from "@/renderer/components/controls/number-input-node";
 import { ComboboxNode } from "@/renderer/components/controls/combobox-node";
 import { FileUploadNode } from "@/renderer/components/controls/file-upload-node";
+import { RadioGroupNode } from "@/renderer/components/controls/radio-group-node";
 
 // INFO: Widget
 const nodeTypes = {
@@ -59,6 +60,7 @@ const nodeTypes = {
   "file upload": FileUploadNode,
   visualization: VisualizationNode,
   combobox: ComboboxNode,
+  "radio group": RadioGroupNode,
   TextNode: ControlTextNode,
 };
 
