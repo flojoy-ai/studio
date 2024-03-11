@@ -316,7 +316,9 @@ def _case_test_upload(node: TestNode, hardware_id: str, project_id: str) -> Extr
             passed = True if node.status == StatusTypes.pass_ else False
             data = test_sequencer._get_most_recent_data(node.id)
             if not isinstance(data, MeasurementData):
-                logger.info(f"{node.id}: Unexpected data type for test data: {type(data)}")
+                logger.info(
+                    f"{node.id}: Unexpected data type for test data: {type(data)}"
+                )
                 data = passed
             test_name = node.test_name
             try:
