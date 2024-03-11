@@ -36,7 +36,7 @@ export const CheckboxNode = ({ id, data }: WidgetProps) => {
       />
       <div className="py-1" />
       <Checkbox
-        className="nodrag"
+        className="nodrag h-6 w-6"
         checked={paramVal as boolean}
         onCheckedChange={handleChange}
       />
