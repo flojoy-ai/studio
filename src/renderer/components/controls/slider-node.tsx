@@ -3,8 +3,9 @@ import { useControlBlock } from "@/renderer/hooks/useControlBlock";
 import { SliderConfig, WidgetProps } from "@/renderer/types/control";
 import { ChangeEvent } from "react";
 import { toast } from "sonner";
+import WidgetLabel from "@/renderer/components/common/widget-label";
 
-export const SliderNode = ({ data }: WidgetProps<SliderConfig>) => {
+export const SliderNode = ({ id, data }: WidgetProps<SliderConfig>) => {
   const { block, updateBlockParameter } = useControlBlock(data.blockId);
   if (!block) {
     return <div className="text-2xl text-red-500">NOT FOUND</div>;
@@ -27,20 +28,24 @@ export const SliderNode = ({ data }: WidgetProps<SliderConfig>) => {
   };
 
   return (
-    <div className="flex flex-col items-center rounded-md border p-2">
-      <div className="text-muted-foreground">
-        {name} ({data.blockParameter})
-      </div>
-      <Input
-        type="range"
-        className="nodrag"
-        min={data.config.min}
-        max={data.config.max}
-        step={data.config.step}
-        value={paramVal as number}
-        onChange={handleChange}
+    <div className="flex flex-col items-center gap-2">
+      <WidgetLabel
+        label={data.label}
+        placeholder={`${name} (${data.blockParameter})`}
+        widgetId={id}
       />
-      <div className="text-xl font-bold">{paramVal}</div>
+      <div className="flex flex-col items-center rounded-md border p-2">
+        <Input
+          type="range"
+          className="nodrag w-48"
+          min={data.config.min}
+          max={data.config.max}
+          step={data.config.step}
+          value={paramVal as number}
+          onChange={handleChange}
+        />
+        <div className="text-xl font-bold">{paramVal}</div>
+      </div>
     </div>
   );
 };

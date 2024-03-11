@@ -1,4 +1,5 @@
-import { useProjectStore } from "@/renderer/stores/project";
+import { cn } from "@/renderer/lib/utils";
+import { Result } from "neverthrow";
 import {
   Dispatch,
   SetStateAction,
@@ -9,18 +10,21 @@ import {
 } from "react";
 import { toast } from "sonner";
 
-import { useShallow } from "zustand/react/shallow";
-
 type Props = {
   title: string;
   id: string;
   setIsRenamingTitle: Dispatch<SetStateAction<boolean>>;
+  updateLabel: (id: string, newLabel: string) => Result<void, Error>;
+  className?: string;
 };
 
-const BlockLabelInput = ({ title, id, setIsRenamingTitle }: Props) => {
-  const updateBlockLabel = useProjectStore(
-    useShallow((state) => state.updateBlockLabel),
-  );
+const NodeInput = ({
+  title,
+  id,
+  setIsRenamingTitle,
+  updateLabel,
+  className,
+}: Props) => {
   const [newTitle, setNewTitle] = useState<string>(title);
 
   const ref = useRef<HTMLInputElement>(null);
@@ -28,12 +32,12 @@ const BlockLabelInput = ({ title, id, setIsRenamingTitle }: Props) => {
   const tryUpdate = useCallback(
     (newTitle: string) => {
       setIsRenamingTitle(false);
-      const res = updateBlockLabel(id, newTitle);
+      const res = updateLabel(id, newTitle);
       if (res.isErr()) {
         toast.error(res.error.message);
       }
     },
-    [id, setIsRenamingTitle, updateBlockLabel],
+    [id, setIsRenamingTitle, updateLabel],
   );
 
   useEffect(() => {
@@ -67,12 +71,13 @@ const BlockLabelInput = ({ title, id, setIsRenamingTitle }: Props) => {
         onChange={(e) => {
           setNewTitle(e.target.value);
         }}
-        className={
-          "w-full bg-inherit px-2 text-center font-sans text-2xl font-extrabold tracking-wider outline-0"
-        }
+        className={cn(
+          "nodrag max-w-fit bg-inherit text-center outline-0",
+          className,
+        )}
       />
     </div>
   );
 };
 
-export default BlockLabelInput;
+export default NodeInput;

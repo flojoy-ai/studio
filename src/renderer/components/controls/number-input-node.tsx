@@ -2,8 +2,9 @@ import { useControlBlock } from "@/renderer/hooks/useControlBlock";
 import { WidgetProps } from "@/renderer/types/control";
 import { toast } from "sonner";
 import { NumberInput } from "@/renderer/components/common/NumberInput";
+import WidgetLabel from "@/renderer/components/common/widget-label";
 
-export const NumberInputNode = ({ data }: WidgetProps) => {
+export const NumberInputNode = ({ id, data }: WidgetProps) => {
   const { block, updateBlockParameter } = useControlBlock(data.blockId);
   if (!block) {
     return <div className="text-2xl text-red-500">NOT FOUND</div>;
@@ -26,10 +27,12 @@ export const NumberInputNode = ({ data }: WidgetProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center rounded-md border p-2">
-      <div className="text-muted-foreground">
-        {name} ({data.blockParameter})
-      </div>
+    <div className="flex flex-col items-center gap-2">
+      <WidgetLabel
+        label={data.label}
+        placeholder={`${name} (${data.blockParameter})`}
+        widgetId={id}
+      />
       <NumberInput
         value={paramVal as number}
         onChange={handleChange}

@@ -3,8 +3,9 @@ import { WidgetProps } from "@/renderer/types/control";
 import { toast } from "sonner";
 import { CheckedState } from "@radix-ui/react-checkbox";
 import { Switch } from "@/renderer/components/ui/switch";
+import WidgetLabel from "@/renderer/components/common/widget-label";
 
-export const SwitchNode = ({ data }: WidgetProps) => {
+export const SwitchNode = ({ id, data }: WidgetProps) => {
   const { block, updateBlockParameter } = useControlBlock(data.blockId);
   if (!block) {
     return <div className="text-2xl text-red-500">NOT FOUND</div>;
@@ -27,10 +28,13 @@ export const SwitchNode = ({ data }: WidgetProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center rounded-md border p-2">
-      <div className="mb-2 text-muted-foreground">
-        {name} ({data.blockParameter})
-      </div>
+    <div className="flex flex-col items-center rounded-md">
+      <WidgetLabel
+        label={data.label}
+        placeholder={`${name} (${data.blockParameter})`}
+        widgetId={id}
+      />
+      <div className="py-1" />
       <Switch
         className="nodrag"
         checked={paramVal as boolean}

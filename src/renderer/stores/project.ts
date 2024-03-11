@@ -77,7 +77,7 @@ type Actions = {
     paramName: string,
     value: BlockParameterValue,
   ) => Result<void, Error>;
-  updateBlockLabel: (blockId: string, name: string) => Result<void, Error>;
+  updateBlockLabel: (blockId: string, newLabel: string) => Result<void, Error>;
 
   handleNodeChanges: (
     blocksUpdate: (nodes: Node<BlockData>[]) => Node<BlockData>[],
@@ -108,6 +108,10 @@ type Actions = {
     config: WidgetConfig,
   ) => Result<void, Error>;
   deleteControlWidget: (controlNodeId: string) => void;
+  updateControlWidgetLabel: (
+    widgetId: string,
+    newLabel: string,
+  ) => Result<void, Error>;
 
   addControlVisualization: (blockId: string) => Result<void, Error>;
 
@@ -232,7 +236,12 @@ export const useProjectStore = create<State & Actions>()(
       return ok(undefined);
     },
 
-    updateBlockLabel: (blockId: string, name: string) => {
+    updateBlockLabel: (blockId: string, newLabel: string) => {
+      newLabel = newLabel.trim();
+      if (newLabel.length === 0) {
+        return err(new Error("Block label can't be empty"));
+      }
+
       try {
         set((state) => {
           const node = state.nodes.find((n) => n.data.id === blockId);
@@ -240,25 +249,25 @@ export const useProjectStore = create<State & Actions>()(
             throw new Error("Block not found");
           }
 
-          if (name === node?.data.label) {
+          if (newLabel === node?.data.label) {
             return;
           }
 
           const isDuplicate = state.nodes.find(
-            (n) => n.data.label === name && n.data.id !== blockId,
+            (n) => n.data.label === newLabel && n.data.id !== blockId,
           );
           if (isDuplicate) {
             throw new Error(
-              `There is another node with the same label: ${name}`,
+              `There is another node with the same label: ${newLabel}`,
             );
           }
-          node.data.label = name;
+          node.data.label = newLabel;
         });
       } catch (e) {
         return err(e as Error);
       }
 
-      sendEventToMix("Block Name Changed", { blockId, name });
+      sendEventToMix("Block Name Changed", { blockId, name: newLabel });
       setHasUnsavedChanges(true);
 
       return ok(undefined);
@@ -392,6 +401,23 @@ export const useProjectStore = create<State & Actions>()(
           (n) => n.id !== controlNodeId,
         );
       });
+    },
+
+    updateControlWidgetLabel: (widgetId: string, newLabel: string) => {
+      newLabel = newLabel.trim();
+      try {
+        set((state) => {
+          const node = state.controlWidgetNodes.find((n) => n.id === widgetId);
+          if (node === undefined) {
+            throw new Error("Block not found");
+          }
+
+          node.data.label = newLabel;
+        });
+      } catch (e) {
+        return err(e as Error);
+      }
+      return ok(undefined);
     },
 
     addControlVisualization: (blockId: string) => {

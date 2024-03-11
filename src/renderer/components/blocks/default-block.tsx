@@ -8,6 +8,8 @@ import { useBlockStatus } from "@/renderer/hooks/useBlockStatus";
 import { BlockLabel } from "@/renderer/components/common/block-label";
 import { TVariant } from "@/renderer/types/tailwind";
 import { variantClassMap } from "@/renderer/lib/utils";
+import { useProjectStore } from "@/renderer/stores/project";
+import { useShallow } from "zustand/react/shallow";
 
 type DefaultBlockProps = BlockProps & {
   width?: CSSProperties["width"];
@@ -32,6 +34,9 @@ const DefaultBlock = ({
 }: DefaultBlockProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   const { blockRunning, blockError } = useBlockStatus(data.id);
+  const updateBlockLabel = useProjectStore(
+    useShallow((state) => state.updateBlockLabel),
+  );
   const maxInputOutput = useMemo(
     () => Math.max(data.inputs?.length ?? 0, data.outputs?.length ?? 0),
     [data.inputs?.length, data.outputs?.length],
@@ -60,6 +65,8 @@ const DefaultBlock = ({
             title={data.label}
             id={data.id}
             setIsRenamingTitle={setIsRenamingTitle}
+            updateLabel={updateBlockLabel}
+            className="w-full px-2 font-sans text-2xl font-extrabold tracking-wider"
           />
         ) : (
           children ?? <BlockLabel label={data.label} variant={variant} />

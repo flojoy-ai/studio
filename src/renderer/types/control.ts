@@ -60,6 +60,7 @@ export type WidgetData<
 > = {
   blockId: string;
   blockParameter: string;
+  label?: string;
   config: T;
 };
 
