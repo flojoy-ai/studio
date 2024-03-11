@@ -526,7 +526,7 @@ export const useCreateEdge = () => {
         return edges;
       }
       const newEdge: Edge<EdgeData> = {
-        id: `${connection.source}->${connection.target}_${connection.sourceHandle}->${connection.targetHandle}`,
+        id: `${connection.source}->${connection.target}_${uuidv4()}`,
         source: connection.source,
         target: connection.target,
         sourceHandle: connection.sourceHandle,
