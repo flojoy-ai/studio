@@ -1,4 +1,4 @@
-import { Node, Edge, XYPosition, Connection, addEdge } from "reactflow";
+import { Node, Edge, XYPosition, Connection } from "reactflow";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import {
@@ -46,6 +46,7 @@ import {
   BlockDefinition,
   BlockParameterValue,
 } from "@/renderer/types/manifest";
+import { EdgeVariant } from "@/renderer/types/edge";
 
 type State = {
   name: string | undefined;
@@ -530,7 +531,7 @@ export const useCreateEdge = () => {
         target: connection.target,
         sourceHandle: connection.sourceHandle,
         targetHandle: connection.targetHandle,
-        data: { outputType: sourceType.split("|")[0] },
+        data: { outputType: sourceType.split("|")[0] as EdgeVariant },
       };
       return edges.concat(newEdge);
     });

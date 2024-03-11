@@ -1,17 +1,17 @@
 import { BlockProps } from "@/renderer/types/block";
-import { memo, useMemo, useState } from "react";
+import { memo, useMemo } from "react";
 import { makePlotlyData } from "@/renderer/components/plotly/formatPlotlyData";
 import PlotlyComponent from "@/renderer/components/plotly/PlotlyComponent";
 import MarkDownText from "@/renderer/components/common/MarkDownText";
 import { useTheme } from "@/renderer/providers/them-provider";
 import { useBlockStatus } from "@/renderer/hooks/useBlockStatus";
-import { NodeResizer, useUpdateNodeInternals } from "reactflow";
+import { NodeResizer } from "reactflow";
 import DefaultBlock from "./default-block";
 import { useBlockIcon } from "@/renderer/hooks/useBlockIcon";
-// import { useSocketStore } from "@/renderer/stores/socket";
+import { useBlockDimension } from "@/renderer/hooks/useBlockDimension";
 
 const VisorBlock = (props: BlockProps) => {
-  const { selected, id, data } = props;
+  const { selected, data } = props;
   const { SvgIcon } = useBlockIcon(props.type.toLowerCase(), props.data.func);
   const { resolvedTheme } = useTheme();
   const { blockResult } = useBlockStatus(data.id);
@@ -25,24 +25,24 @@ const VisorBlock = (props: BlockProps) => {
     [plotlyFig, resolvedTheme],
   );
 
-  const [dimensions, setDimensions] = useState({ width: 225, height: 205 });
-
-  const updateNodeInternals = useUpdateNodeInternals();
+  const { height, width } = useBlockDimension(data.id);
 
   return (
     <>
       <NodeResizer
-        minWidth={225}
+        minWidth={220}
         minHeight={225}
         isVisible={selected}
         lineClassName="p-1"
         handleClassName="p-1"
-        onResizeEnd={(e, params) => {
-          setDimensions({ width: params.width, height: params.height });
-          updateNodeInternals(id);
-        }}
       />
-      <DefaultBlock {...props} variant="accent5" width={dimensions.width}>
+      <DefaultBlock
+        {...props}
+        variant="accent5"
+        height={height}
+        width={width}
+        wrapperStyle={{ height, width }}
+      >
         <>
           {plotlyData && (
             <PlotlyComponent
@@ -51,7 +51,10 @@ const VisorBlock = (props: BlockProps) => {
               layout={plotlyFig?.layout ?? {}}
               useResizeHandler
               isThumbnail
-              style={dimensions}
+              style={{
+                height,
+                width,
+              }}
             />
           )}
           {textBlob && <MarkDownText text={textBlob} isThumbnail />}

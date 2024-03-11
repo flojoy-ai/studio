@@ -2,6 +2,7 @@ import { NodeProps } from "reactflow";
 import { Nullish } from "@/renderer/types/util";
 import { z } from "zod";
 import { BlockDefinition, BlockParameterValue } from "./manifest";
+import { EdgeVariant } from "./edge";
 
 export type CtrlData = Record<
   string,
@@ -47,5 +48,5 @@ export const positionSchema = z.object({
 });
 
 export type EdgeData = {
-  outputType: string;
+  outputType: EdgeVariant;
 };

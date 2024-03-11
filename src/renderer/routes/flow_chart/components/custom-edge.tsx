@@ -25,6 +25,7 @@ const edgeVariantConfigMap: Record<
   boolean: { label: "Bool", variant: "accent6", dashArray: true },
   any: { label: "DC", variant: "accent1", dashArray: true },
 };
+
 export const CustomEdge = ({
   id,
   data,
