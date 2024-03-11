@@ -69,7 +69,7 @@ export const NewVisualizationModal = ({ open, setOpen }: Props) => {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[360px]">
+      <DialogContent className="max-w-[360px]">
         <DialogHeader>
           <DialogTitle>New Visualization</DialogTitle>
         </DialogHeader>

@@ -37,7 +37,7 @@ export const SliderNode = ({ id, data }: WidgetProps<SliderConfig>) => {
       <div className="flex flex-col items-center rounded-md border p-2">
         <Input
           type="range"
-          className="nodrag w-48"
+          className="nodrag w-48 accent-accent2"
           min={data.config.min}
           max={data.config.max}
           step={data.config.step}

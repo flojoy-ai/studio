@@ -111,7 +111,7 @@ export const NewWidgetModal = ({ open, setOpen, onSubmit }: Props) => {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[396px]">
+      <DialogContent className="max-w-[396px]">
         <DialogHeader>
           <DialogTitle>New Widget</DialogTitle>
         </DialogHeader>
