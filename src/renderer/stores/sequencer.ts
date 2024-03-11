@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from "uuid";
-
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import {
@@ -7,6 +6,7 @@ import {
   TestRootNode,
   TestSequenceElement,
 } from "@/renderer/types/test-sequencer";
+import { TestSequencerProject } from "@/renderer/types/test-sequencer";
 
 type State = {
   curRun: string[];
@@ -17,6 +17,7 @@ type State = {
   backendState: MsgState;
   testSequenceUnsaved: boolean;
   testSequenceTree: TestRootNode;
+  testSequencerProject: TestSequencerProject | null;
 };
 
 type Actions = {
@@ -30,6 +31,7 @@ type Actions = {
   setBackendState: (val: MsgState) => void;
   setTestSequenceUnsaved: (val: boolean) => void;
   setTestSequenceTree: (val: TestRootNode) => void;
+  setTestSequencerProject: (val: TestSequencerProject | null) => void;
 };
 
 export const useSequencerStore = create<State & Actions>()(
@@ -56,6 +58,7 @@ export const useSequencerStore = create<State & Actions>()(
       children: [],
       identifiers: [],
     },
+    testSequencerProject: null,
 
     markTestAsDone: (val) =>
       set((state) => {
@@ -86,6 +89,10 @@ export const useSequencerStore = create<State & Actions>()(
     setTestSequenceTree: (val) =>
       set((state) => {
         state.testSequenceTree = val;
+      }),
+    setTestSequencerProject: (val) =>
+      set((state) => {
+        state.testSequencerProject = val;
       }),
   })),
 );

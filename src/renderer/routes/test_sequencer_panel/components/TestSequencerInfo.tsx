@@ -12,17 +12,23 @@ import { ImportTestModal } from "./ImportTestModal";
 import LockableButton from "./lockable/LockedButtons";
 import { TSWebSocketContext } from "@/renderer/context/testSequencerWS.context";
 import { LockedContextProvider } from "@/renderer/context/lock.context";
-import { useTestSetSave } from "@/renderer/hooks/useTestSetSave";
-import { useTestSetImport } from "@/renderer/hooks/useTestSetImport";
 import _ from "lodash";
 import {
   LAYOUT_TOP_HEIGHT,
   BOTTOM_STATUS_BAR_HEIGHT,
 } from "@/renderer/routes/common/Layout";
+import { TestSequencerProjectModal } from "./TestSequencerProjectModal";
+import {
+  useImportProject,
+  useSaveProject,
+  useCloseProject,
+} from "@/renderer/hooks/useTestSequencerProject";
 
 const TestSequencerView = () => {
-  const { setElems, tree, setIsLocked, backendState } = useTestSequencerState();
+  const { setElems, tree, setIsLocked, backendState, project } =
+    useTestSequencerState();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
 
   const resetStatus = () => {
     setElems.withException((elems: TestSequenceElement[]) => {
@@ -51,8 +57,9 @@ const TestSequencerView = () => {
     tSSendJsonMessage(testSequenceStopRequest(tree));
     setIsLocked(false);
   };
-  const testSetSave = useTestSetSave();
-  const testSetImport = useTestSetImport();
+  const projectImport = useImportProject();
+  const saveProject = useSaveProject();
+  const closeProject = useCloseProject();
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const handleClickImportTest = () => {
     setIsImportModalOpen(true);
@@ -60,6 +67,10 @@ const TestSequencerView = () => {
 
   return (
     <LockedContextProvider>
+      <TestSequencerProjectModal
+        isProjectModalOpen={isProjectModalOpen}
+        handleProjectModalOpen={setIsProjectModalOpen}
+      />
       <div
         style={{
           height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT}px)`,
@@ -93,20 +104,48 @@ const TestSequencerView = () => {
                   >
                     Add Python Tests
                   </LockableButton>
-                  <LockableButton
-                    className="mt-4 w-full"
-                    variant="outline"
-                    onClick={testSetImport}
-                  >
-                    Import Test Set
-                  </LockableButton>
-                  <LockableButton
-                    className="mt-4 w-full"
-                    variant="outline"
-                    onClick={testSetSave}
-                  >
-                    Save Test Set
-                  </LockableButton>
+                  {project === null && (
+                    <LockableButton
+                      className="mt-4 w-full"
+                      variant="outline"
+                      onClick={projectImport}
+                    >
+                      Import Project
+                    </LockableButton>
+                  )}
+                  {project !== null && (
+                    <LockableButton
+                      className="mt-4 w-full"
+                      variant="outline"
+                      onClick={() => {
+                        saveProject();
+                      }}
+                    >
+                      Save Project
+                    </LockableButton>
+                  )}
+                  {project !== null && (
+                    <LockableButton
+                      className="mt-4 w-full"
+                      variant="outline"
+                      onClick={() => {
+                        closeProject();
+                      }}
+                    >
+                      Close Project
+                    </LockableButton>
+                  )}
+                  {project === null && (
+                    <LockableButton
+                      className="mt-4 w-full"
+                      variant="outline"
+                      onClick={() => {
+                        setIsProjectModalOpen(true);
+                      }}
+                    >
+                      New Project
+                    </LockableButton>
+                  )}
                   <LockableButton
                     variant="dotted"
                     className="mt-4 w-full gap-2"

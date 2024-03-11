@@ -16,10 +16,6 @@ import { useNavigate } from "react-router-dom";
 import { ServerStatus } from "@/renderer/types/socket";
 import StatusBar from "@/renderer/routes/common/StatusBar";
 import { InterpretersList } from "src/main/python/interpreter";
-import {
-  MixPanelEvents,
-  sendEventToMix,
-} from "@/renderer/services/MixpanelServices";
 import { useSocketStore } from "@/renderer/stores/socket";
 
 export const Index = (): JSX.Element => {
@@ -110,12 +106,12 @@ export const Index = (): JSX.Element => {
         message: "Something went wrong when installing dependencies...",
       });
       setErrorTitle("Something went wrong :(");
-      sendEventToMix(MixPanelEvents.setupError, {
-        stage: "install-dependencies",
-        message: err.message,
-        error: String(err),
-        logs: await window.api.getAllLogs(),
-      });
+      // sendEventToMix(MixPanelEvents.setupError, {
+      //   stage: "install-dependencies",
+      //   message: err.message,
+      //   error: String(err),
+      //   logs: await window.api.getAllLogs(),
+      // });
       setErrorDesc(
         "Sorry about that! Please open the log folder and send the log to us on Discord!",
       );
@@ -134,12 +130,12 @@ export const Index = (): JSX.Element => {
         message: "Something went wrong when starting Flojoy Studio...",
       });
       setErrorTitle("Failed to spawn captain!");
-      sendEventToMix(MixPanelEvents.setupError, {
-        stage: "spawn-captain",
-        message: err.message,
-        error: String(err),
-        logs: await window.api.getAllLogs(),
-      });
+      // sendEventToMix(MixPanelEvents.setupError, {
+      //   stage: "spawn-captain",
+      //   message: err.message,
+      //   error: String(err),
+      //   logs: await window.api.getAllLogs(),
+      // });
       setErrorDesc(
         "Sorry about that! Please open the log folder and send the log to us on Discord!",
       );
@@ -213,7 +209,7 @@ export const Index = (): JSX.Element => {
 
   useEffect(() => {
     // Kick off the setup process with this useEffect
-    sendEventToMix(MixPanelEvents.setupStarted);
+    // sendEventToMix(MixPanelEvents.setupStarted);
     checkPythonInstallation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

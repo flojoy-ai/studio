@@ -1,4 +1,7 @@
-import { TestSequenceElement } from "@/renderer/types/test-sequencer";
+import {
+  TestSequenceElement,
+  TestSequencerProject,
+} from "@/renderer/types/test-sequencer";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -14,6 +17,25 @@ export const readJsonTestSet = (
   try {
     const elems = z.array(TestSequenceElement).parse(JSON.parse(elemsStr));
     return elems;
+  } catch (exception) {
+    if (exception instanceof Error) {
+      toast.error(exception.message);
+    }
+  }
+  return null;
+};
+
+export const stringifyProject = (project: TestSequencerProject): string => {
+  const projectString = JSON.stringify(project);
+  return projectString;
+};
+
+export const readJsonProject = (
+  projectString: string,
+): TestSequencerProject | null => {
+  try {
+    const project = TestSequencerProject.parse(JSON.parse(projectString));
+    return project;
   } catch (exception) {
     if (exception instanceof Error) {
       toast.error(exception.message);

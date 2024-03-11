@@ -7,7 +7,6 @@ import {
 import { isLeaf, isRoot, isLeafParentNode } from "@/renderer/utils/manifest";
 import SidebarSection from "@/renderer/routes/common/Sidebar/SidebarSection";
 import { LeafClickHandler } from "@/renderer/routes/common/Sidebar/Sidebar";
-import { sendEventToMix } from "@/renderer/services/MixpanelServices";
 import { twMerge } from "tailwind-merge";
 import { cva } from "class-variance-authority";
 import { ReactNode } from "react";
@@ -106,9 +105,9 @@ const SidebarNode = ({
           }),
         )}
         onClick={() => {
-          if (query !== "") {
-            sendEventToMix("Node Searched", { nodeTitle: node.name ?? "" });
-          }
+          // if (query !== "") {
+          // sendEventToMix("Node Searched", { nodeTitle: node.name ?? "" });
+          // }
           leafClickHandler(node);
         }}
       >
@@ -213,11 +212,11 @@ const SidebarNode = ({
               }),
             )}
             onClick={() => {
-              if (query !== "") {
-                sendEventToMix("Node Searched", {
-                  nodeTitle: command.name ?? "",
-                });
-              }
+              // if (query !== "") {
+              //   sendEventToMix("Node Searched", {
+              //     nodeTitle: command.name ?? "",
+              //   });
+              // }
               leafClickHandler(command);
             }}
           >

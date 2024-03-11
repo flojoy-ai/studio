@@ -46,7 +46,7 @@ export const useManifestStore = create<State & Actions>()(
 
     importCustomBlocks: async (startup: boolean) => {
       const blocksDirPath = !startup
-        ? await window.api.pickDirectory()
+        ? await window.api.pickDirectory(false)
         : await window.api.getCustomBlocksDir();
 
       if (!blocksDirPath) {

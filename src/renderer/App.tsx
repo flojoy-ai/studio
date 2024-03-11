@@ -1,5 +1,3 @@
-import { useLayoutEffect } from "react";
-
 import { useRouteError, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { ErrorPage } from "@/renderer/ErrorPage";
@@ -13,7 +11,6 @@ import { Index } from "./routes/index";
 // eslint-disable-next-line no-restricted-imports
 import packageJson from "../../package.json";
 import EditorView from "./routes/editor/EditorView";
-import { initMixPanel } from "./services/MixpanelServices";
 import AuthPage from "./routes/auth/Auth";
 import { Toaster } from "sonner";
 import { SocketReceiver } from "./socket-receiver";
@@ -28,9 +25,9 @@ function ErrorBoundary() {
 const App = () => {
   const { resolvedTheme } = useTheme();
 
-  useLayoutEffect(() => {
-    initMixPanel();
-  }, []);
+  // useLayoutEffect(() => {
+  //   initMixPanel();
+  // }, []);
 
   return (
     <div>
