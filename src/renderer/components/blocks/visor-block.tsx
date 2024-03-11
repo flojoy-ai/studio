@@ -1,18 +1,20 @@
 import { BlockProps } from "@/renderer/types/block";
-import { memo, useMemo } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { makePlotlyData } from "@/renderer/components/plotly/formatPlotlyData";
 import PlotlyComponent from "@/renderer/components/plotly/PlotlyComponent";
 import MarkDownText from "@/renderer/components/common/MarkDownText";
 import { useTheme } from "@/renderer/providers/them-provider";
 import { useBlockStatus } from "@/renderer/hooks/useBlockStatus";
-import { NodeResizer } from "reactflow";
+import { NodeResizer, useUpdateNodeInternals } from "reactflow";
 import DefaultBlock from "./default-block";
 import { useBlockIcon } from "@/renderer/hooks/useBlockIcon";
-import { useBlockDimension } from "@/renderer/hooks/useBlockDimension";
+import { useProjectStore } from "@/renderer/stores/project";
 
 const VisorBlock = (props: BlockProps) => {
-  const { selected, data } = props;
+  const { selected, data, id } = props;
   const { SvgIcon } = useBlockIcon(props.type.toLowerCase(), props.data.func);
+  const nodes = useProjectStore((state) => state.nodes);
+
   const { resolvedTheme } = useTheme();
   const { blockResult } = useBlockStatus(data.id);
 
@@ -24,24 +26,39 @@ const VisorBlock = (props: BlockProps) => {
       plotlyFig ? makePlotlyData(plotlyFig.data, resolvedTheme, true) : null,
     [plotlyFig, resolvedTheme],
   );
+  const [dimensions, setDimensions] = useState({ width: 225, height: 225 });
 
-  const { height, width } = useBlockDimension(data.id);
+  const updateNodeInternals = useUpdateNodeInternals();
+
+  // TODO: Fix this
+  useEffect(() => {
+    // Weird hack to make it properly set the dimensions when loading an app...
+    // I tried like 10 different things but this is the only thing that works without being crazy slow
+    const node = nodes.find((n) => n.id === id);
+    if (node?.width && node?.height) {
+      setDimensions({ width: node.width, height: node.height });
+    }
+  }, [id, nodes]);
 
   return (
     <>
       <NodeResizer
-        minWidth={220}
+        minWidth={225}
         minHeight={225}
         isVisible={selected}
         lineClassName="p-1"
         handleClassName="p-1"
+        onResizeEnd={(e, params) => {
+          setDimensions({ width: params.width, height: params.height });
+          updateNodeInternals(id);
+        }}
       />
       <DefaultBlock
         {...props}
         variant="accent5"
-        height={height}
-        width={width}
-        wrapperStyle={{ height, width }}
+        height={dimensions.height}
+        width={dimensions.width}
+        wrapperStyle={dimensions}
       >
         <>
           {plotlyData && (
@@ -51,10 +68,7 @@ const VisorBlock = (props: BlockProps) => {
               layout={plotlyFig?.layout ?? {}}
               useResizeHandler
               isThumbnail
-              style={{
-                height,
-                width,
-              }}
+              style={dimensions}
             />
           )}
           {textBlob && <MarkDownText text={textBlob} isThumbnail />}
