@@ -1,7 +1,7 @@
 import { NodeProps } from "reactflow";
 import { z } from "zod";
 
-export type PythonType = "int" | "float" | "bool";
+export type PythonType = "int" | "float" | "bool" | "select";
 
 export const SliderConfig = z.object({
   type: z.literal("slider"),
@@ -40,6 +40,7 @@ export const WIDGET_TYPES = [
   "number input",
   "checkbox",
   "switch",
+  "combobox",
 ] as const;
 export const isWidgetType = (value: string): value is WidgetType =>
   WIDGET_TYPES.includes(value);

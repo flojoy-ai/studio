@@ -11,7 +11,9 @@ import { useProjectStore } from "@/renderer/stores/project";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Box,
+  ChevronsUpDown,
   Joystick,
+  LucideIcon,
   SlidersHorizontal,
   SquareCheck,
   TextCursorInput,
@@ -39,11 +41,13 @@ import {
   ClickablesItem,
 } from "@/renderer/components/common/clickables";
 
-const widgetTypeIcons = {
+// INFO: Widget
+const widgetTypeIcons: Record<WidgetType, LucideIcon> = {
   slider: SlidersHorizontal,
   "number input": TextCursorInput,
   checkbox: SquareCheck,
   switch: ToggleRight,
+  combobox: ChevronsUpDown,
 };
 
 const WidgetTypeIcon = ({ type }: { type: WidgetType }) => {
@@ -58,11 +62,12 @@ const WidgetTypeIcon = ({ type }: { type: WidgetType }) => {
   );
 };
 
-// TODO: Implement the rest
+// INFO: Widget
 const allowedWidgetTypes: Record<PythonType, WidgetType[]> = {
   int: ["slider", "number input"],
   float: ["slider", "number input"],
   bool: ["checkbox", "switch"],
+  select: ["combobox"],
 };
 
 type Props = {

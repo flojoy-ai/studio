@@ -47,13 +47,16 @@ import { toast } from "sonner";
 import { useContextMenu } from "@/renderer/hooks/useContextMenu";
 import { SwitchNode } from "@/renderer/components/controls/switch-node";
 import { NumberInputNode } from "@/renderer/components/controls/number-input-node";
+import { ComboboxNode } from "@/renderer/components/controls/combobox-node";
 
+// INFO: Widget
 const nodeTypes = {
   slider: SliderNode,
   switch: SwitchNode,
   "number input": NumberInputNode,
   checkbox: CheckboxNode,
   visualization: VisualizationNode,
+  combobox: ComboboxNode,
   TextNode: ControlTextNode,
 };
 
