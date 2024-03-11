@@ -56,6 +56,7 @@ class Test(BaseModel):
     status: StatusTypes = Field(..., alias="status")
     completion_time: Optional[float] = Field(None, alias="completionTime")
     is_saved_to_cloud: bool = Field(..., alias="isSavedToCloud")
+    export_to_cloud: bool = Field(..., alias="exportToCloud")
 
 
 class Role(str, Enum):

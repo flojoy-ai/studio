@@ -4,7 +4,7 @@ import { isIP } from "net";
 import { execCommand } from "./executor";
 import { Command } from "./command";
 import { app, dialog } from "electron";
-import { join } from "path";
+import { join, posix, sep } from "path";
 import { killCaptain } from "./python";
 import log from "electron-log";
 import { ChildProcess } from "node:child_process";
@@ -73,11 +73,21 @@ export const writeFileSync = (_, filePath: string, text: string): void => {
   fs.writeFileSync(filePath, text);
 };
 
-export const pickDirectory = async (): Promise<string> => {
+export const pickDirectory = async (
+  _,
+  allowDirectoryCreation: boolean = false,
+): Promise<string> => {
+  const properties = ["openDirectory"];
+  if (allowDirectoryCreation) {
+    properties.push("createDirectory");
+  }
   const handler = await dialog.showOpenDialog({
-    properties: ["openDirectory"],
+    // @ts-ignore
+    properties: properties,
   });
-  return handler.canceled ? "" : handler.filePaths[0];
+  return handler.canceled
+    ? ""
+    : handler.filePaths[0].split(sep).join(posix.sep);
 };
 
 export const getCustomBlocksDir = async () => {
@@ -128,7 +138,7 @@ export const openFilePicker = (
           encoding: "utf-8",
         });
         resolve({
-          filePath: selectedPaths[0],
+          filePath: selectedPaths[0].split(sep).join(posix.sep),
           fileContent,
         });
       }
@@ -165,4 +175,8 @@ export const loadFileFromFullPath = async (
 export const saveFileToFullPath = fs.writeFileSync;
 export const readFileSync = (_, filePath: string) => {
   return fs.readFileSync(filePath, { encoding: "utf-8" });
+};
+
+export const isFileOnDisk = (_, filePath: string): Promise<boolean> => {
+  return Promise.resolve(fs.existsSync(filePath));
 };

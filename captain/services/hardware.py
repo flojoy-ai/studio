@@ -86,10 +86,15 @@ class DefaultDeviceFinder:
             devices = []
 
             def extract_device(channel, device) -> NIDAQmxDevice:
+                description = "NI-DAQmx Device"
+                try:
+                    description = f"{device.product_type} - {device.compact_daq_chassis_device}/{device.compact_daq_slot_num}"
+                except Exception as e:
+                    logging.warn("Can't extract device description: " + str(e))
                 return NIDAQmxDevice(
                     name=f"{device.product_type} - {channel.name.split('/')[-1]}",
                     address=channel.name,
-                    description=f"{device.product_type} - {device.compact_daq_chassis_device}/{device.compact_daq_slot_num}",
+                    description=description,
                 )
 
             for device in system.devices:

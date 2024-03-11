@@ -276,64 +276,85 @@ async def run_test_sequence(data):
         logger.error(f"{e}: {traceback.format_exc()}")
 
 
-async def _case_test_upload(node: TestNode, hardware_id, project_id) -> Extract:
-    cloud = FlojoyCloud(workspace_secret=get_env_var("FLOJOY_CLOUD_KEY"))
-
-    def reverse_id(test_name) -> str:
-        tests = cloud.get_all_tests_by_project_id(project_id)
-        for i in tests:
-            if i.name == test_name:
-                return str(i.id)
-        raise KeyError(f"No cloud test for {test_name}")
-
-    status = node.status
-    if status != StatusTypes.pending:
-        passed = True if status == StatusTypes.pass_ else False
-        data = test_sequencer._get_most_recent_data(node.id)
-        if not isinstance(data, MeasurementData):
-            logger.info(f"{node.id}: Unexpected data type for test data: {type(data)}")
-            data = passed
-        test_name = node.test_name.split("::")[-1]
+def _with_stream_test_upload(func: Callable[[TestNode, str, str], Extract]):
+    async def wrapper(node: TestNode, hardware_id: str, project_id: str) -> Extract:
+        await _stream_result_to_frontend(MsgState.running, test_id=node.id)
         try:
-            await _stream_result_to_frontend(MsgState.running, test_id=node.id)
-            node.is_saved_to_cloud = False
-            cloud.upload(
-                data=data,
-                test_id=reverse_id(test_name),
-                hardware_id=hardware_id,
-                name=test_name,
-                passed=passed,
-            )
-            node.is_saved_to_cloud = True
-            logger.info(f"{test_name}: Uploaded to cloud")
-        except KeyError:
-            cloud.create_test(test_name, project_id, measurement_type="boolean")
-            cloud.upload(
-                data=passed,
-                test_id=reverse_id(test_name),
-                hardware_id=hardware_id,
-                name=test_name,
-                passed=passed,
-            )
-            node.is_saved_to_cloud = True
-            logger.info(f"{test_name}: Uploaded to cloud")
-        except FlojoyCloudException as err:
-            logger.error(err)
-            raise FlojoyCloudException("Failed to upload to the cloud.") from err
+            children_getter, test_result = func(node, hardware_id, project_id)
+            return children_getter, test_result
+        except Exception as e:
+            raise e
         finally:
-            if node.completion_time is None:
-                raise Exception(f"{node.id}: Unexpected None for completion_time")
             await _stream_result_to_frontend(
                 state=MsgState.test_done,
                 test_id=node.id,
-                result=passed,
-                time_taken=node.completion_time,
+                result=True if node.status == StatusTypes.pass_ else False,
+                time_taken=node.completion_time if node.completion_time else -1,
                 is_saved_to_cloud=node.is_saved_to_cloud,
             )
-    else:
-        raise ValueError("Uploading a pending test is not allowed.")
+
+    return wrapper
+
+
+@_with_stream_test_upload
+def _case_test_upload(node: TestNode, hardware_id: str, project_id: str) -> Extract:
+    if node.completion_time is None:
+        raise Exception(f"{node.id}: Can't upload a test that wasn't run")
+    if node.export_to_cloud:
+        cloud = FlojoyCloud(workspace_secret=get_env_var("FLOJOY_CLOUD_KEY"))
+
+        def reverse_id(test_name) -> str:
+            tests = cloud.get_all_tests_by_project_id(project_id)
+            for i in tests:
+                if i.name == test_name:
+                    return str(i.id)
+            raise KeyError(f"No cloud test for {test_name}")
+
+        if node.status != StatusTypes.pending:
+            if node.completion_time is None:
+                raise Exception(f"{node.id}: Unexpected None for completion_time")
+            passed = True if node.status == StatusTypes.pass_ else False
+            data = test_sequencer._get_most_recent_data(node.id)
+            if not isinstance(data, MeasurementData):
+                logger.info(f"{node.id}: Unexpected data type for test data: {type(data)}")
+                data = passed
+            test_name = node.test_name
+            try:
+                node.is_saved_to_cloud = False
+                cloud.upload(
+                    data=data,
+                    test_id=reverse_id(test_name),
+                    hardware_id=hardware_id,
+                    name=test_name,
+                    passed=passed,
+                )
+                node.is_saved_to_cloud = True
+                logger.info(f"{test_name}: Uploaded to cloud")
+            except KeyError:  # Not in cloud: create a new test
+                cloud.create_test(test_name, project_id, measurement_type="boolean")
+                cloud.upload(
+                    data=passed,
+                    test_id=reverse_id(test_name),
+                    hardware_id=hardware_id,
+                    name=test_name,
+                    passed=passed,
+                )
+                node.is_saved_to_cloud = True
+                logger.info(f"{test_name}: Uploaded to cloud")
+            except FlojoyCloudException as err:
+                logger.error(err)
+                if "NOT_FOUND" in str(err):
+                    raise FlojoyCloudException(
+                        "Fail to upload to the cloud: Please make sure the hardware id is correct"
+                    ) from err
+                else:
+                    raise FlojoyCloudException(
+                        f"Failed to upload to the cloud: {err}"
+                    ) from err
+        else:
+            raise ValueError("Uploading a pending test is not allowed.")
     return lambda _: None, TestResult(
-        node, True if status == StatusTypes.pass_ else False, node.completion_time
+        node, True if node.status == StatusTypes.pass_ else False, node.completion_time
     )
 
 
