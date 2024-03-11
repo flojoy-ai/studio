@@ -5,6 +5,7 @@ import {
   TestSequenceElementNode,
   IfNode,
   TestNode,
+  TestType,
 } from "@/renderer/types/test-sequencer";
 import {
   checkUniqueNames,
@@ -14,6 +15,9 @@ import {
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useShallow } from "zustand/react/shallow";
+import { v4 as uuidv4 } from "uuid";
+import { Err, Ok, Result } from "neverthrow";
+import { verifyElementCompatibleWithProject } from "../utils/TestSequenceProjectHandler";
 
 // sync this with the definition of setElems
 export type SetElemsFn = {
@@ -82,6 +86,31 @@ const validateElements = (
   return !validators.some((validator) => !validator(elems), validators);
 };
 
+export function createNewTest(
+  name: string,
+  path: string,
+  type: TestType,
+  exportToCloud?: boolean,
+  id?: string,
+  groupId?: string,
+): Test {
+  const newTest: Test = {
+    type: "test",
+    id: id || uuidv4(),
+    groupId: groupId || uuidv4(),
+    path: path,
+    testName: name,
+    runInParallel: false,
+    testType: type,
+    status: "pending",
+    completionTime: undefined,
+    error: null,
+    isSavedToCloud: false,
+    exportToCloud: exportToCloud === undefined ? true : exportToCloud,
+  };
+  return newTest;
+}
+
 export function useTestSequencerState() {
   const {
     elems,
@@ -100,6 +129,8 @@ export function useTestSequencerState() {
     setUnsaved,
     tree,
     setTree,
+    project,
+    setProject,
   } = useSequencerStore(
     useShallow((state) => {
       return {
@@ -119,6 +150,8 @@ export function useTestSequencerState() {
         setUnsaved: state.setTestSequenceUnsaved,
         tree: state.testSequenceTree,
         setTree: state.setTestSequenceTree,
+        project: state.testSequencerProject,
+        setProject: state.setTestSequencerProject,
       };
     }),
   );
@@ -160,10 +193,32 @@ export function useTestSequencerState() {
 
   const setElemsWithPermissions = withPermissionCheck(setElems);
 
+  async function AddNewElems(
+    newElems: TestSequenceElement[],
+  ): Promise<Result<null, Error>> {
+    // Validate with project
+    if (project !== null) {
+      const result = await verifyElementCompatibleWithProject(
+        project,
+        newElems,
+        false,
+      );
+      if (!result.ok) {
+        return new Err(result.error);
+      }
+    }
+    // Add new elements
+    setElems((elems) => [...elems, ...newElems]);
+    return new Ok(null);
+  }
+
+  const addNewElemsWithPermissions = withPermissionCheck(AddNewElems);
+
   return {
     elems,
     websocketId,
     setElems: setElemsWithPermissions,
+    AddNewElems: addNewElemsWithPermissions,
     tree,
     running,
     markTestAsDone,
@@ -176,5 +231,7 @@ export function useTestSequencerState() {
     setIsLoading,
     setUnsaved,
     isUnsaved,
+    project,
+    setProject,
   };
 }

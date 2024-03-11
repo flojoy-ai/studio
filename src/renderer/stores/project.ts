@@ -13,10 +13,10 @@ import * as galleryItems from "@/renderer/data/apps";
 import { ExampleProjects } from "@/renderer/data/docs-example-apps";
 import * as RECIPES from "@/renderer/data/RECIPES";
 import { syncFlowchartWithManifest } from "@/renderer/lib/sync";
-import {
-  MixPanelEvents,
-  sendEventToMix,
-} from "@/renderer/services/MixpanelServices";
+// import {
+//   MixPanelEvents,
+//   sendEventToMix,
+// } from "@/renderer/services/MixpanelServices";
 import { v4 as uuidv4 } from "uuid";
 import { Project } from "@/renderer/types/project";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
@@ -148,11 +148,11 @@ export const useProjectStore = create<State & Actions>()(
         return err(e as Error);
       }
 
-      sendEventToMix("Control Input Data Updated", {
-        blockId,
-        paramName,
-        value,
-      });
+      // sendEventToMix("Control Input Data Updated", {
+      //   blockId,
+      //   paramName,
+      //   value,
+      // });
       setHasUnsavedChanges(true);
 
       return ok(undefined);
@@ -180,11 +180,11 @@ export const useProjectStore = create<State & Actions>()(
         return err(e as Error);
       }
 
-      sendEventToMix("Control Input Data Updated", {
-        blockId,
-        paramName,
-        value,
-      });
+      // sendEventToMix("Control Input Data Updated", {
+      //   blockId,
+      //   paramName,
+      //   value,
+      // });
 
       setHasUnsavedChanges(true);
 
@@ -217,7 +217,7 @@ export const useProjectStore = create<State & Actions>()(
         return err(e as Error);
       }
 
-      sendEventToMix("Block Name Changed", { blockId, name });
+      // sendEventToMix("Block Name Changed", { blockId, name });
       setHasUnsavedChanges(true);
 
       return ok(undefined);
@@ -250,7 +250,7 @@ export const useProjectStore = create<State & Actions>()(
       } catch (e) {
         return err(e as Error);
       }
-      sendEventToMix("Text Node Updated", { id, text });
+      // sendEventToMix("Text Node Updated", { id, text });
       setHasUnsavedChanges(true);
       return ok(undefined);
     },
@@ -278,7 +278,7 @@ export const useProjectStore = create<State & Actions>()(
 
       const projectPath = get().path;
       if (projectPath) {
-        sendEventToMix("Saving Project");
+        // sendEventToMix("Saving Project");
         const save = fromThrowable(
           () => window.api.saveFile(projectPath, fileContent),
           (e) => e as Error,
@@ -355,7 +355,7 @@ export const useLoadProject = () => {
       setHasUnsavedChanges(false);
       wipeBlockResults();
 
-      sendEventToMix("Project Loaded");
+      // sendEventToMix("Project Loaded");
 
       return ok(undefined);
     },
@@ -426,7 +426,7 @@ export const useAddBlock = () => {
       });
 
       localStorage.setItem("prev_block_pos", JSON.stringify(nodePosition));
-      sendEventToMix("Node Added", { nodeTitle: newNode.data?.label ?? "" });
+      // sendEventToMix("Node Added", { nodeTitle: newNode.data?.label ?? "" });
     },
     [setNodes, center, metadata, hardwareDevices],
   );
@@ -437,12 +437,13 @@ export const useDeleteBlock = () => {
   const setEdges = useProtectedSetter("edges");
 
   return useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     (nodeId: string, nodeLabel: string) => {
       setNodes((prev) => prev.filter((node) => node.id !== nodeId));
       setEdges((prev) =>
         prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId),
       );
-      sendEventToMix(MixPanelEvents.nodeDeleted, { nodeTitle: nodeLabel });
+      // sendEventToMix(MixPanelEvents.nodeDeleted, { nodeTitle: nodeLabel });
     },
     [setNodes, setEdges],
   );
@@ -582,7 +583,7 @@ export const useAddTextNode = () => {
   return useCallback(() => {
     const pos = center ?? { x: 0, y: 0 };
     addTextNode(pos);
-    sendEventToMix("Text Node Added");
+    // sendEventToMix("Text Node Added");
   }, [addTextNode, center]);
 };
 

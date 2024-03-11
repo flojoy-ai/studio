@@ -6,10 +6,10 @@ const useWithPermission = () => {
   const { user } = useAuth();
   const withPermissionCheck = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    function <S extends (...params: any[]) => void>(
+    function <S extends (...params: any[]) => any>(
       innerFn: S,
-    ): ((...args: Parameters<S>) => void) & {
-      withException: (...args: Parameters<S>) => void;
+    ): ((...args: Parameters<S>) => ReturnType<S>) & {
+      withException: (...args: Parameters<S>) => ReturnType<S>;
     } {
       const fn = function (...args: Parameters<S>) {
         if (user?.role !== "Admin") {

@@ -9,11 +9,6 @@ import { useLoadApp } from "@/renderer/hooks/useLoadApp";
 import { Button } from "@/renderer/components/ui/button";
 
 import { useManifest } from "@/renderer/stores/manifest";
-import { useEffect } from "react";
-import {
-  MixPanelEvents,
-  sendEventToMix,
-} from "@/renderer/services/MixpanelServices";
 import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
 // eslint-disable-next-line no-restricted-imports
@@ -29,13 +24,13 @@ export function WelcomeModal() {
     })),
   );
 
-  useEffect(() => {
-    window.api.getSetupExecutionTime().then((t) => {
-      sendEventToMix(MixPanelEvents.flojoyLoaded, {
-        timeTaken: `${t} seconds`,
-      });
-    });
-  }, []);
+  // useEffect(() => {
+  //   window.api.getSetupExecutionTime().then((t) => {
+  //     sendEventToMix(MixPanelEvents.flojoyLoaded, {
+  //       timeTaken: `${t} seconds`,
+  //     });
+  //   });
+  // }, []);
 
   return (
     <AlertDialog open={showWelcomeScreen}>

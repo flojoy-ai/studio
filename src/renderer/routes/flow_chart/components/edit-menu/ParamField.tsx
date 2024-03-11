@@ -177,7 +177,7 @@ const ParamField = ({
           <Button
             variant={"secondary"}
             onClick={async () => {
-              const dir = await window.api.pickDirectory();
+              const dir = await window.api.pickDirectory(false);
               handleChange(dir);
             }}
           >

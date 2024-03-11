@@ -98,6 +98,21 @@ export function DataTable() {
   const [openPyTestFileModal, setOpenPyTestFileModal] = useState(false);
   const [testToDisplay, setTestToDisplay] = useState<Test | null>(null);
 
+  function toggleExportToCloud(id: string) {
+    setElems.withException((elems) => {
+      const newElems = [...elems];
+      const idx = newElems.findIndex((elem) => elem.id === id);
+      if (newElems[idx].type === "test") {
+        newElems[idx] = {
+          ...newElems[idx],
+          // @ts-ignore: LSP doesn't understand the type === "test"
+          exportToCloud: !newElems[idx].exportToCloud,
+        } as Test;
+      }
+      return newElems;
+    });
+  }
+
   const columns: ColumnDef<TestSequenceElement>[] = [
     {
       id: "selected",
@@ -201,15 +216,24 @@ export function DataTable() {
       },
       header: "Saved To Cloud",
       cell: ({ row }) => {
-        return row.original.type === "test" ? (
-          <div
-            className={
-              row.original.isSavedToCloud ? "text-green-500" : "text-red-500"
-            }
-          >
-            {row.original.isSavedToCloud ? "Saved" : "Not Saved"}
-          </div>
-        ) : null;
+        if (row.original.type === "test") {
+          if (!row.original.exportToCloud) {
+            return <div> - </div>;
+          } else {
+            return (
+              <div
+                className={
+                  row.original.isSavedToCloud
+                    ? "text-green-500"
+                    : "text-red-500"
+                }
+              >
+                {row.original.isSavedToCloud ? "Saved" : "Not Saved"}
+              </div>
+            );
+          }
+        }
+        return null;
       },
     },
 
@@ -480,6 +504,17 @@ export function DataTable() {
                         }}
                       >
                         Consult Code
+                      </ContextMenuItem>
+                    )}
+                    {row.original.type === "test" && (
+                      <ContextMenuItem
+                        onClick={() => {
+                          toggleExportToCloud(row.original.id);
+                        }}
+                      >
+                        {row.original.exportToCloud
+                          ? "Disable export to Cloud"
+                          : "Enable export to Cloud"}
                       </ContextMenuItem>
                     )}
                   </ContextMenuContent>
