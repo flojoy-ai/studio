@@ -4,6 +4,7 @@ import { InterpretersList } from "@/main/python/interpreter";
 import { PoetryGroupInfo, PythonDependency } from "src/types/poetry";
 import { ResultAsync, fromPromise } from "neverthrow";
 import type { User } from "@/types/auth";
+import path from "path";
 
 export const API = {
   checkPythonInstallation: "CHECK_PYTHON_INSTALLATION",
@@ -20,6 +21,7 @@ export const API = {
   statusBarLogging: "STATUSBAR_LOGGING",
   setPythonInterpreter: "SET_PY_INTERPRETER",
   writeFileSync: "WRITE_FILE_SYNC",
+  writeFile: "WRITE_FILE",
   showSaveDialog: "SHOW_SAVE_DIALOG",
   browsePythonInterpreter: "BROWSE_PY_INTERPRETER",
   sendLogToStatusbar: "SEND_LOG_TO_STATUSBAR",
@@ -41,8 +43,10 @@ export const API = {
   poetryInstallDepUserGroup: "POETRY_INSTALL_DEP_USER_GROUP",
   poetryUninstallDepUserGroup: "POETRY_UNINSTALL_DEP_USER_GROUP",
   poetryUninstallDepGroup: "POETRY_UNINSTALL_DEP_GROUP",
+  poetryInstallRequirementsUserGroup: "POETRY_INSTALL_REQUIREMENTS_USER_GROUP",
   openFilePicker: "OPEN_FILE_PICKER",
   getFileContent: "GET_FILE_CONTENT",
+  isFileOnDisk: "IS_FILE_ON_DISK",
   openEditorWindow: "OPEN_EDITOR_WINDOW",
   loadFileFromFullPath: "LOAD_FILE_FROM_FULL_PATH",
   saveFileToFullPath: "SAVE_FILE_TO_FULL_PATH",
@@ -95,7 +99,8 @@ export default {
   ping: (addr: string): Promise<string> => ipcRenderer.invoke(API.ping, addr),
   netstat: (): Promise<string> => ipcRenderer.invoke(API.netstat),
   ifconfig: (): Promise<string> => ipcRenderer.invoke(API.ifconfig),
-  pickDirectory: (): Promise<string> => ipcRenderer.invoke(API.pickDirectory),
+  pickDirectory: (allowDirectoryCreation: boolean): Promise<string> =>
+    ipcRenderer.invoke(API.pickDirectory, allowDirectoryCreation),
   downloadLogs: (): void => ipcRenderer.send(API.downloadLogs),
   checkForUpdates: (): void => ipcRenderer.send(API.checkForUpdates),
   restartCaptain: (): Promise<void> => ipcRenderer.invoke(API.restartCaptain),
@@ -116,11 +121,16 @@ export default {
     ipcRenderer.invoke(API.poetryUninstallDepGroup, group),
   poetryInstallDepUserGroup: (dep: string): Promise<boolean> =>
     ipcRenderer.invoke(API.poetryInstallDepUserGroup, dep),
+  poetryInstallRequirementsUserGroup: (filePath: string): Promise<boolean> =>
+    ipcRenderer.invoke(API.poetryInstallRequirementsUserGroup, filePath),
   poetryUninstallDepUserGroup: (dep: string): Promise<boolean> =>
     ipcRenderer.invoke(API.poetryUninstallDepUserGroup, dep),
 
   openTestPicker: (): Promise<{ filePath: string; fileContent: string }> =>
     ipcRenderer.invoke(API.openTestPicker),
+
+  isFileOnDisk: (filepath: string): Promise<boolean> =>
+    ipcRenderer.invoke(API.isFileOnDisk, filepath),
 
   openFilePicker: (
     allowedExtensions: string[] = ["json"],
@@ -129,6 +139,8 @@ export default {
 
   getFileContent: (filepath: string): Promise<string> =>
     ipcRenderer.invoke(API.getFileContent, filepath),
+
+  getPathSeparator: () => path.sep,
 
   openEditorWindow: (filepath: string): Promise<void> =>
     ipcRenderer.invoke(API.openEditorWindow, filepath),

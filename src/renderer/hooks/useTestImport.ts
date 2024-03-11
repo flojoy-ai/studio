@@ -1,11 +1,12 @@
 import { Test, TestDiscoverContainer } from "@/renderer/types/test-sequencer";
-import { useTestSequencerState } from "./useTestSequencerState";
+import { createNewTest, useTestSequencerState } from "./useTestSequencerState";
 import { map } from "lodash";
 import { v4 as uuidv4 } from "uuid";
 import { ImportTestSettings } from "@/renderer/routes/test_sequencer_panel/components/ImportTestModal";
 import { toast } from "sonner";
 import { useCallback } from "react";
 import { Dispatch, SetStateAction } from "react";
+import { verifyElementCompatibleWithProject } from "@/renderer/utils/TestSequenceProjectHandler";
 import { discoverPytest } from "@/renderer/lib/api";
 import { toastQueryError } from "@/renderer/utils/report-error";
 
@@ -14,25 +15,17 @@ function parseDiscoverContainer(
   settings: ImportTestSettings,
 ) {
   return map(data.response, (container) => {
-    const new_elem: Test = {
-      ...container,
-      type: "test",
-      id: uuidv4(),
-      groupId: uuidv4(),
-      runInParallel: false,
-      testType: settings.importType,
-      status: "pending",
-      completionTime: undefined,
-      isSavedToCloud: false,
-      exportToCloud: true,
-      error: null,
-    };
+    const new_elem = createNewTest(
+      container.testName,
+      container.path,
+      settings.importType,
+    );
     return new_elem;
   });
 }
 
 export const useTestImport = () => {
-  const { setElems } = useTestSequencerState();
+  const { project, AddNewElems } = useTestSequencerState();
 
   const handleUserDepInstall = useCallback(async (depName: string) => {
     const promise = () => window.api.poetryInstallDepUserGroup(depName);
@@ -83,10 +76,12 @@ export const useTestImport = () => {
       toast.error("No tests found in the specified file.");
       throw new Error("No tests found in the file");
     }
+    const result = await AddNewElems(newElems);
+    if (result.isErr()) {
+      toast.error(`${result.error}`);
+      return;
+    }
     setModalOpen(false);
-    setElems((elems) => {
-      return [...elems, ...newElems];
-    });
   }
 
   const openFilePicker = (

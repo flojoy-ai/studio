@@ -11,6 +11,7 @@ import {
   readFileSync,
   saveFileToFullPath,
   writeFileSync,
+  isFileOnDisk,
 } from "./utils";
 import {
   getAllLogs,
@@ -41,6 +42,7 @@ import {
   poetryGetGroupInfo,
   poetryInstallDepGroup,
   poetryInstallDepUserGroup,
+  poetryInstallRequirementsUserGroup,
   poetryShowTopLevel,
   poetryShowUserGroup,
   poetryUninstallDepGroup,
@@ -100,6 +102,7 @@ export const registerIpcMainHandlers = () => {
     return Promise.resolve(!app.isPackaged);
   });
   ipcMain.handle(API.getAllLogs, getAllLogs);
+  ipcMain.handle(API.writeFile, writeFileSync);
   ipcMain.handle(API.getCustomBlocksDir, getCustomBlocksDir);
   ipcMain.handle(API.restartCaptain, restartCaptain);
   ipcMain.handle(API.setPythonInterpreter, handlePythonInterpreter);
@@ -139,6 +142,9 @@ export const registerIpcMainHandlers = () => {
   ipcMain.handle(API.poetryInstallDepUserGroup, (_, dep) => {
     return poetryInstallDepUserGroup(dep);
   });
+  ipcMain.handle(API.poetryInstallRequirementsUserGroup, (_, filePath) => {
+    return poetryInstallRequirementsUserGroup(filePath);
+  });
   ipcMain.handle(API.openFilePicker, openFilePicker);
   ipcMain.handle(
     API.openTestPicker,
@@ -168,4 +174,5 @@ export const registerIpcMainHandlers = () => {
   ipcMain.handle(API.createUserProfile, createUserProfile);
   ipcMain.handle(API.deleteUserProfile, deleteUserProfile);
   ipcMain.handle(API.getFileContent, readFileSync);
+  ipcMain.handle(API.isFileOnDisk, isFileOnDisk);
 };

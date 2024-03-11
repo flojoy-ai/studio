@@ -114,3 +114,25 @@ export const TestDiscoverContainer = z.object({
 });
 
 export type TestDiscoverContainer = z.infer<typeof TestDiscoverContainer>;
+
+/* DEFINITIONS FOR PROJECT */
+export const InterpreterType = z.enum(["flojoy", "poetry", "pipenv", "conda"]);
+export type InterpreterType = z.infer<typeof InterpreterType>;
+
+export const Interpreter = z.object({
+  type: InterpreterType,
+  path: z.union([z.null(), z.string()]),
+  requirementsPath: z.union([z.null(), z.string()]),
+});
+
+export type Interpreter = z.infer<typeof Interpreter>;
+
+export const TestSequencerProject = z.object({
+  name: z.string(),
+  description: z.string(),
+  elems: TestSequenceElement.array(),
+  projectPath: z.string(),
+  interpreter: Interpreter,
+});
+
+export type TestSequencerProject = z.infer<typeof TestSequencerProject>;
