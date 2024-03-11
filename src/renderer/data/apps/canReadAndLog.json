@@ -1,1384 +1,1384 @@
 {
-    "name": "Read CAN Bus",
-    "rfInstance": {
-        "nodes": [
-            {
-                "width": 225,
-                "height": 271,
-                "id": "TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaab",
-                "type": "VISUALIZATION",
-                "data": {
-                    "id": "TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaab",
-                    "label": "TEXT VIEW",
-                    "func": "TEXT_VIEW",
-                    "type": "VISUALIZATION",
-                    "ctrls": {
-                        "prettify": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": "Whether to prettify the displayed text (defaults to True)",
-                            "overload": null,
-                            "functionName": "TEXT_VIEW",
-                            "param": "prettify",
-                            "value": false
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String|Boolean",
-                            "desc": "The DataContainer to be visualized in text format",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "The DataContainer containing text data"
-                        }
-                    ],
-                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
-                },
-                "position": {
-                    "x": -693.5774397818724,
-                    "y": -426.17049690958675
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -693.5774397818724,
-                    "y": -426.17049690958675
-                },
-                "dragging": false
-            },
-            {
-                "width": 235,
-                "height": 198,
-                "id": "LOOP-744938fd-44a2-4d05-8589-3db5efb27bdf",
-                "type": "CONTROL_FLOW",
-                "data": {
-                    "id": "LOOP-744938fd-44a2-4d05-8589-3db5efb27bdf",
-                    "label": "LOOP",
-                    "func": "LOOP",
-                    "type": "CONTROL_FLOW",
-                    "ctrls": {
-                        "num_loops": {
-                            "type": "int",
-                            "default": -1,
-                            "desc": "number of times to iterate through body nodes, default is \"-1\" meaning infinity.",
-                            "overload": null,
-                            "functionName": "LOOP",
-                            "param": "num_loops",
-                            "value": 5
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": null,
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "body",
-                            "id": "body",
-                            "type": "Any",
-                            "desc": "Forwards the input DataContainer to the body."
-                        },
-                        {
-                            "name": "end",
-                            "id": "end",
-                            "type": "Any",
-                            "desc": "Forwards the input DataContainer to the end."
-                        }
-                    ],
-                    "path": "CONTROL_FLOW/LOOPS/LOOP/LOOP.py"
-                },
-                "position": {
-                    "x": -291.3260349383128,
-                    "y": 268.76421558955076
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -291.3260349383128,
-                    "y": 268.76421558955076
-                },
-                "dragging": false
-            },
-            {
-                "width": 216,
-                "height": 197,
-                "id": "EXPORT_CSV-3e28c08b-5198-4e2e-bbaa-605f90317212",
-                "type": "DATA",
-                "data": {
-                    "id": "EXPORT_CSV-3e28c08b-5198-4e2e-bbaa-605f90317212",
-                    "label": "EXPORT CSV",
-                    "func": "EXPORT_CSV",
-                    "type": "DATA",
-                    "ctrls": {
-                        "dir": {
-                            "type": "Directory",
-                            "default": null,
-                            "desc": "The directory to export to.",
-                            "overload": null,
-                            "functionName": "EXPORT_CSV",
-                            "param": "dir",
-                            "value": "C:\\Users\\zzzgu\\Documents\\flojoy\\apps\\PEAK_EXAMPLE"
-                        },
-                        "filename": {
-                            "type": "str",
-                            "default": "exported.csv",
-                            "desc": "The name of the file to output.",
-                            "overload": null,
-                            "functionName": "EXPORT_CSV",
-                            "param": "filename",
-                            "value": "exported.csv"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "dc",
-                            "id": "dc",
-                            "type": "OrderedPair|OrderedTriple|DataFrame|Matrix",
-                            "desc": "The DataContainer to export.",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": null
-                        }
-                    ],
-                    "path": "DATA/EXPORT/EXPORT_CSV/EXPORT_CSV.py"
-                },
-                "position": {
-                    "x": 1199.8355230975267,
-                    "y": -109.84682401250097
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1199.8355230975267,
-                    "y": -109.84682401250097
-                },
-                "dragging": false
-            },
-            {
-                "width": 216,
-                "height": 198,
-                "id": "EXPORT_S3-6a75204c-fa54-4457-8e6a-9504e95c4a40",
-                "type": "DATA",
-                "data": {
-                    "id": "EXPORT_S3-6a75204c-fa54-4457-8e6a-9504e95c4a40",
-                    "label": "EXPORT S3",
-                    "func": "EXPORT_S3",
-                    "type": "DATA",
-                    "ctrls": {
-                        "s3_access_key": {
-                            "type": "Secret",
-                            "default": null,
-                            "desc": "AWS access key.",
-                            "overload": null,
-                            "functionName": "EXPORT_S3",
-                            "param": "s3_access_key",
-                            "value": ""
-                        },
-                        "s3_secret_key": {
-                            "type": "Secret",
-                            "default": null,
-                            "desc": "AWS secret key.",
-                            "overload": null,
-                            "functionName": "EXPORT_S3",
-                            "param": "s3_secret_key",
-                            "value": ""
-                        },
-                        "bucket": {
-                            "type": "str",
-                            "default": "",
-                            "desc": "The S3 bucket to upload the file to.",
-                            "overload": null,
-                            "functionName": "EXPORT_S3",
-                            "param": "bucket",
-                            "value": "guillaume-flojoy"
-                        },
-                        "region": {
-                            "type": "select",
-                            "options": [
-                                "us-east-1",
-                                "us-east-2",
-                                "us-west-1",
-                                "us-west-2",
-                                "ca-central-1",
-                                "ca-west-1",
-                                "eu-north-1",
-                                "eu-west-3",
-                                "eu-west-2",
-                                "eu-west-1",
-                                "eu-central-1",
-                                "eu-south-1",
-                                "ap-south-1",
-                                "ap-northeast-1",
-                                "ap-northeast-2",
-                                "ap-northeast-3",
-                                "ap-southeast-1",
-                                "ap-southeast-2",
-                                "ap-southeast-3",
-                                "ap-east-1",
-                                "sa-east-1",
-                                "cn-north-1",
-                                "cn-northwest-1",
-                                "us-gov-east-1",
-                                "us-gov-west-1",
-                                "us-isob-east-1",
-                                "us-iso-east-1",
-                                "us-iso-west-1",
-                                "me-south-1",
-                                "af-south-1",
-                                "me-central-1",
-                                "eu-south-2",
-                                "eu-central-2",
-                                "ap-south-2",
-                                "ap-southeast-4",
-                                "il-central-1"
-                            ],
-                            "default": "us-east-1",
-                            "desc": "The AWS region (default is \"us-east-1\").",
-                            "overload": null,
-                            "functionName": "EXPORT_S3",
-                            "param": "region",
-                            "value": "us-east-1"
-                        },
-                        "enable_overwrite": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": "Whether to overwrite the file if it already exists (default is False).",
-                            "overload": null,
-                            "functionName": "EXPORT_S3",
-                            "param": "enable_overwrite",
-                            "value": true
-                        },
-                        "file": {
-                            "type": "File",
-                            "default": null,
-                            "desc": "The file to be uploaded to the S3 bucket.",
-                            "overload": null,
-                            "functionName": "EXPORT_S3",
-                            "param": "file",
-                            "value": "C:\\Users\\zzzgu\\Documents\\flojoy\\apps\\PEAK_EXAMPLE\\exported.csv"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "object_name",
-                            "id": "object_name",
-                            "type": "String",
-                            "desc": "Flojoy input to dynamically provide a string for the name of the object in S3. If not specified, the name of the file will be used.",
-                            "multiple": false
-                        },
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": null,
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Boolean",
-                            "desc": "Returns a Boolean indicating the success of the file export operation (True if successful, False otherwise)."
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "boto3",
-                            "v": "1.34.21"
-                        }
-                    ],
-                    "path": "DATA/EXPORT/EXPORT_S3/EXPORT_S3.py"
-                },
-                "position": {
-                    "x": 1535.9873925555482,
-                    "y": -137.72876340178357
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1535.9873925555482,
-                    "y": -137.72876340178357
-                },
-                "dragging": false
-            },
-            {
-                "width": 216,
-                "height": 269,
-                "id": "PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0",
-                "type": "DEBUGGING",
-                "data": {
-                    "id": "PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0",
-                    "label": "DISPLAY RAW MESSAGE",
-                    "func": "PRINT_DATACONTAINER",
-                    "type": "DEBUGGING",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "The input DataContainer to print.",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "String: Input datacontainer information"
-                        }
-                    ],
-                    "path": "DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py"
-                },
-                "position": {
-                    "x": 674.7719326782403,
-                    "y": -194.21593179589036
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 674.7719326782403,
-                    "y": -194.21593179589036
-                },
-                "dragging": false
-            },
-            {
-                "id": "PEAK_DETECT_AVAILABLE_DEVICES-c7aeae1d-42d3-44a4-9c62-201fd8c7f19d",
-                "type": "PROTOCOLS",
-                "data": {
-                    "id": "PEAK_DETECT_AVAILABLE_DEVICES-c7aeae1d-42d3-44a4-9c62-201fd8c7f19d",
-                    "label": "PEAK DETECT AVAILABLE DEVICES",
-                    "func": "PEAK_DETECT_AVAILABLE_DEVICES",
-                    "type": "PROTOCOLS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": null,
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "A string containing the device name and the channel number."
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "python-can",
-                            "v": "4.3.1"
-                        },
-                        {
-                            "name": "uptime",
-                            "v": "3.0.1"
-                        }
-                    ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/PEAK_DETECT_AVAILABLE_DEVICES/PEAK_DETECT_AVAILABLE_DEVICES.py"
-                },
-                "position": {
-                    "x": -1223.1411973833758,
-                    "y": -239.73972113618333
-                },
-                "width": 216,
-                "height": 269,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -1223.1411973833758,
-                    "y": -239.73972113618333
-                },
-                "dragging": false
-            },
-            {
-                "id": "PEAK_CONNECT-3cee83af-1a08-44f6-9bcd-a69da5212eee",
-                "type": "PROTOCOLS",
-                "data": {
-                    "id": "PEAK_CONNECT-3cee83af-1a08-44f6-9bcd-a69da5212eee",
-                    "label": "PEAK CONNECT",
-                    "func": "PEAK_CONNECT",
-                    "type": "PROTOCOLS",
-                    "ctrls": {
-                        "PCAN_address": {
-                            "type": "str",
-                            "default": null,
-                            "desc": "The PCAN device address to connect to. This address can be found by the PCAN_DETECT_AVAILABLE_DEVICES block.\nâ†’ Example: \"PCAN_USBBUS1\"",
-                            "overload": null,
-                            "functionName": "PEAK_CONNECT",
-                            "param": "PCAN_address",
-                            "value": "PCAN_USBBUS1"
-                        },
-                        "bitrate": {
-                            "type": "int",
-                            "default": 500000,
-                            "desc": "The bitrate of the PCAN device. Default is 500000.",
-                            "overload": null,
-                            "functionName": "PEAK_CONNECT",
-                            "param": "bitrate",
-                            "value": 500000
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": null,
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "Optional: None"
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "python-can",
-                            "v": "4.3.1"
-                        },
-                        {
-                            "name": "uptime",
-                            "v": "3.0.1"
-                        }
-                    ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/PEAK_CONNECT/PEAK_CONNECT.py"
-                },
-                "position": {
-                    "x": -701.0771447711779,
-                    "y": -83.08090278877751
-                },
-                "width": 216,
-                "height": 233,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -701.0771447711779,
-                    "y": -83.08090278877751
-                },
-                "dragging": false
-            },
-            {
-                "id": "SET_CAN_BUS_FILTER-a8a2fc71-fd4e-40a9-835c-6885857d2e60",
-                "type": "PROTOCOLS",
-                "data": {
-                    "id": "SET_CAN_BUS_FILTER-a8a2fc71-fd4e-40a9-835c-6885857d2e60",
-                    "label": "SET CAN BUS FILTER",
-                    "func": "SET_CAN_BUS_FILTER",
-                    "type": "PROTOCOLS",
-                    "ctrls": {
-                        "CAN_address": {
-                            "type": "str",
-                            "default": null,
-                            "desc": "The CAN bus address to attach the filter to.",
-                            "overload": null,
-                            "functionName": "SET_CAN_BUS_FILTER",
-                            "param": "CAN_address",
-                            "value": "PCAN_USBBUS1"
-                        },
-                        "can_id": {
-                            "type": "int",
-                            "default": 1,
-                            "desc": "The ID of the message to filter.",
-                            "overload": null,
-                            "functionName": "SET_CAN_BUS_FILTER",
-                            "param": "can_id",
-                            "value": 1
-                        },
-                        "can_mask": {
-                            "type": "int",
-                            "default": 4294967295,
-                            "desc": "Apply a binary mask to the ID and can_id.",
-                            "overload": null,
-                            "functionName": "SET_CAN_BUS_FILTER",
-                            "param": "can_mask",
-                            "value": 1
-                        },
-                        "extended": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": "If true, only matches messages where <received_is_extended> == extended.",
-                            "overload": null,
-                            "functionName": "SET_CAN_BUS_FILTER",
-                            "param": "extended",
-                            "value": false
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": null,
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "Optional: None"
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "python-can",
-                            "v": "4.3.1"
-                        }
-                    ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/SET_CAN_BUS_FILTER/SET_CAN_BUS_FILTER.py"
-                },
-                "position": {
-                    "x": -684.3349698018321,
-                    "y": 266.1626498582265
-                },
-                "width": 216,
-                "height": 233,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -684.3349698018321,
-                    "y": 266.1626498582265
-                },
-                "dragging": false
-            },
-            {
-                "id": "MF4_CREATE_WRITER-4561fef7-a506-42c2-af1a-704c9a282825",
-                "type": "PROTOCOLS",
-                "data": {
-                    "id": "MF4_CREATE_WRITER-4561fef7-a506-42c2-af1a-704c9a282825",
-                    "label": "MF4 CREATE WRITER",
-                    "func": "MF4_CREATE_WRITER",
-                    "type": "PROTOCOLS",
-                    "ctrls": {
-                        "dir": {
-                            "type": "Directory",
-                            "default": null,
-                            "desc": "The directory to export to.",
-                            "overload": null,
-                            "functionName": "MF4_CREATE_WRITER",
-                            "param": "dir",
-                            "value": ""
-                        },
-                        "filename": {
-                            "type": "str",
-                            "default": "can_exported.mf4",
-                            "desc": "The name of the file to output.",
-                            "overload": null,
-                            "functionName": "MF4_CREATE_WRITER",
-                            "param": "filename",
-                            "value": "can_exported.mf4"
-                        },
-                        "database": {
-                            "type": "File",
-                            "default": null,
-                            "desc": "Path to a DBC or ARXML file that contains message description.",
-                            "overload": null,
-                            "functionName": "MF4_CREATE_WRITER",
-                            "param": "database",
-                            "value": ""
-                        },
-                        "compression_level": {
-                            "type": "select",
-                            "options": [
-                                "No compression",
-                                "Deflate (slower, but produces smaller files)",
-                                "Transposition + Deflate (slowest, but produces the smallest files)"
-                            ],
-                            "default": "No compression",
-                            "desc": "The compression level to use. Defaults to \"No compression\".",
-                            "overload": null,
-                            "functionName": "MF4_CREATE_WRITER",
-                            "param": "compression_level",
-                            "value": "No compression"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": null,
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Stateful",
-                            "desc": "A stateful object that can be used to write CAN data to the file."
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "python-can",
-                            "v": "4.3.1"
-                        },
-                        {
-                            "name": "asammdf",
-                            "v": "7.4.1"
-                        }
-                    ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_CREATE_WRITER/MF4_CREATE_WRITER.py"
-                },
-                "position": {
-                    "x": -137.43067066664128,
-                    "y": -322.09138451526474
-                },
-                "width": 216,
-                "height": 233,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -137.43067066664128,
-                    "y": -322.09138451526474
-                },
-                "dragging": false
-            },
-            {
-                "id": "MF4_CLOSE_WRITER-3c1bca70-ef9d-4e94-93e1-b7282b14f0d3",
-                "type": "PROTOCOLS",
-                "data": {
-                    "id": "MF4_CLOSE_WRITER-3c1bca70-ef9d-4e94-93e1-b7282b14f0d3",
-                    "label": "MF4 CLOSE WRITER",
-                    "func": "MF4_CLOSE_WRITER",
-                    "type": "PROTOCOLS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "MF4_writer",
-                            "id": "MF4_writer",
-                            "type": "Stateful",
-                            "desc": "A mf4 writer object from a MF4_CREATE_WRITER block.",
-                            "multiple": false
-                        },
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Stateful",
-                            "desc": null,
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "None"
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "python-can",
-                            "v": "4.3.1"
-                        },
-                        {
-                            "name": "asammdf",
-                            "v": "7.4.1"
-                        }
-                    ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_CLOSE_WRITER/MF4_CLOSE_WRITER.py"
-                },
-                "position": {
-                    "x": 194.53689473330917,
-                    "y": 261.5706681877847
-                },
-                "width": 216,
-                "height": 234,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 194.53689473330917,
-                    "y": 261.5706681877847
-                },
-                "dragging": false
-            },
-            {
-                "id": "MF4_WRITE-2126db8f-3316-4122-9861-b8e9b1779029",
-                "type": "PROTOCOLS",
-                "data": {
-                    "id": "MF4_WRITE-2126db8f-3316-4122-9861-b8e9b1779029",
-                    "label": "MF4 WRITE",
-                    "func": "MF4_WRITE",
-                    "type": "PROTOCOLS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "MF4_writer",
-                            "id": "MF4_writer",
-                            "type": "Stateful",
-                            "desc": "A mf4 writer object from a MF4_CREATE_WRITER block.",
-                            "multiple": false
-                        },
-                        {
-                            "name": "messages",
-                            "id": "messages",
-                            "type": "Stateful",
-                            "desc": "A list of message in the python-can format.",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "None"
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "python-can",
-                            "v": "4.3.1"
-                        },
-                        {
-                            "name": "asammdf",
-                            "v": "7.4.1"
-                        }
-                    ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_WRITE/MF4_WRITE.py"
-                },
-                "position": {
-                    "x": 669.0100838150538,
-                    "y": -426.7502388544141
-                },
-                "width": 216,
-                "height": 198,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 669.0100838150538,
-                    "y": -426.7502388544141
-                },
-                "dragging": false
-            },
-            {
-                "id": "MF4_CREATE_READER-c4ee48d6-b3d8-493f-b37d-5687b178482c",
-                "type": "PROTOCOLS",
-                "data": {
-                    "id": "MF4_CREATE_READER-c4ee48d6-b3d8-493f-b37d-5687b178482c",
-                    "label": "MF4 CREATE READER",
-                    "func": "MF4_CREATE_READER",
-                    "type": "PROTOCOLS",
-                    "ctrls": {
-                        "file": {
-                            "type": "File",
-                            "default": null,
-                            "desc": "The file to write from.",
-                            "overload": null,
-                            "functionName": "MF4_CREATE_READER",
-                            "param": "file",
-                            "value": ""
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": null,
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Stateful",
-                            "desc": "A stateful object that contains can a list of message."
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "python-can",
-                            "v": "4.3.1"
-                        },
-                        {
-                            "name": "asammdf",
-                            "v": "7.4.1"
-                        }
-                    ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_CREATE_READER/MF4_CREATE_READER.py"
-                },
-                "position": {
-                    "x": 529.7554538460614,
-                    "y": 456.347738768318
-                },
-                "width": 216,
-                "height": 233,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 529.7554538460614,
-                    "y": 456.347738768318
-                },
-                "dragging": true
-            },
-            {
-                "id": "RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603",
-                "type": "PROTOCOLS",
-                "data": {
-                    "id": "RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603",
-                    "label": "RECEIVE CAN MESSAGE",
-                    "func": "RECEIVE_CAN_MESSAGE",
-                    "type": "PROTOCOLS",
-                    "ctrls": {
-                        "CAN_address": {
-                            "type": "str",
-                            "default": null,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "RECEIVE_CAN_MESSAGE",
-                            "param": "CAN_address",
-                            "value": "PCAN_USBBUS1"
-                        },
-                        "timeout": {
-                            "type": "int",
-                            "default": 10,
-                            "desc": "The timeout in seconds to wait for a message. Default is 10.",
-                            "overload": null,
-                            "functionName": "RECEIVE_CAN_MESSAGE",
-                            "param": "timeout",
-                            "value": 10
-                        },
-                        "raise_error": {
-                            "type": "bool",
-                            "default": true,
-                            "desc": "If True, an exception will be raised if no data is received. Default is True.",
-                            "overload": null,
-                            "functionName": "RECEIVE_CAN_MESSAGE",
-                            "param": "raise_error",
-                            "value": false
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": null,
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Stateful",
-                            "desc": "Return a can bus message"
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "python-can",
-                            "v": "4.3.1"
-                        }
-                    ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/BUS/RECEIVE_CAN_MESSAGE/RECEIVE_CAN_MESSAGE.py"
-                },
-                "position": {
-                    "x": 189.9181798681958,
-                    "y": -100.08022675572283
-                },
-                "width": 216,
-                "height": 233,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 189.9181798681958,
-                    "y": -100.08022675572283
-                },
-                "dragging": false
-            },
-            {
-                "id": "TEXT_VIEW-8386e00f-df8b-45e0-b52b-478054baa335",
-                "type": "VISUALIZATION",
-                "data": {
-                    "id": "TEXT_VIEW-8386e00f-df8b-45e0-b52b-478054baa335",
-                    "label": "TEXT VIEW 2",
-                    "func": "TEXT_VIEW",
-                    "type": "VISUALIZATION",
-                    "ctrls": {
-                        "prettify": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": "Whether to prettify the displayed text (defaults to True)",
-                            "overload": null,
-                            "functionName": "TEXT_VIEW",
-                            "param": "prettify",
-                            "value": false
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String|Boolean",
-                            "desc": "The DataContainer to be visualized in text format",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "The DataContainer containing text data"
-                        }
-                    ],
-                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
-                },
-                "position": {
-                    "x": 1078.5159010224559,
-                    "y": -580.9671667844208
-                },
-                "width": 225,
-                "height": 271,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1078.5159010224559,
-                    "y": -580.9671667844208
-                },
-                "dragging": false
-            },
-            {
-                "id": "LOAD_DBC-aaeaedbc-e92b-4c58-a289-2dee5c3ce882",
-                "type": "PROTOCOLS",
-                "data": {
-                    "id": "LOAD_DBC-aaeaedbc-e92b-4c58-a289-2dee5c3ce882",
-                    "label": "LOAD DBC",
-                    "func": "LOAD_DBC",
-                    "type": "PROTOCOLS",
-                    "ctrls": {
-                        "file_path": {
-                            "type": "File",
-                            "default": null,
-                            "desc": "The path to the DBC file.",
-                            "overload": null,
-                            "functionName": "LOAD_DBC",
-                            "param": "file_path",
-                            "value": ""
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": null,
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Stateful",
-                            "desc": "Return a cantools database object."
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "python-can",
-                            "v": "4.3.1"
-                        },
-                        {
-                            "name": "cantools",
-                            "v": "39.4.2"
-                        }
-                    ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/LOAD_DBC/LOAD_DBC.py"
-                },
-                "position": {
-                    "x": 509.77273573034677,
-                    "y": 128.22321512709675
-                },
-                "width": 216,
-                "height": 197,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 509.77273573034677,
-                    "y": 128.22321512709675
-                },
-                "dragging": false
-            },
-            {
-                "id": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1",
-                "type": "PROTOCOLS",
-                "data": {
-                    "id": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1",
-                    "label": "DECODE CAN MESSAGE",
-                    "func": "DECODE_CAN_MESSAGE",
-                    "type": "PROTOCOLS",
-                    "ctrls": {
-                        "ignore_undefined_id_error": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": "If True, ignore undefined id error. Default is False.",
-                            "overload": null,
-                            "functionName": "DECODE_CAN_MESSAGE",
-                            "param": "ignore_undefined_id_error",
-                            "value": false
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "dbc",
-                            "id": "dbc",
-                            "type": "Stateful",
-                            "desc": "The database to use for decoding the message.",
-                            "multiple": false
-                        },
-                        {
-                            "name": "messages",
-                            "id": "messages",
-                            "type": "Stateful",
-                            "desc": "The message to DECODE_CAN. Must be a can.Message object.",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "DataFrame",
-                            "desc": "Return dataframe containing the decoded message."
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "python-can",
-                            "v": "4.3.1"
-                        },
-                        {
-                            "name": "cantools",
-                            "v": "39.4.2"
-                        }
-                    ],
-                    "path": "HARDWARE/PROTOCOLS/CAN/UTILS/DECODE_CAN_MESSAGE/DECODE_CAN_MESSAGE.py"
-                },
-                "position": {
-                    "x": 909.672420750032,
-                    "y": 288.8990379935757
-                },
-                "width": 216,
-                "height": 234,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 909.672420750032,
-                    "y": 288.8990379935757
-                },
-                "dragging": false
-            },
-            {
-                "id": "TABLE-eb5c79f8-1a8c-4632-8fc5-d4d737152b2f",
-                "type": "VISUALIZATION",
-                "data": {
-                    "id": "TABLE-eb5c79f8-1a8c-4632-8fc5-d4d737152b2f",
-                    "label": "TABLE",
-                    "func": "TABLE",
-                    "type": "VISUALIZATION",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
-                            "desc": "the DataContainer to be visualized",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly Table visualization"
-                        }
-                    ],
-                    "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
-                },
-                "position": {
-                    "x": 1505.7252884130085,
-                    "y": 252.55765008900232
-                },
-                "width": 225,
-                "height": 269,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1505.7252884130085,
-                    "y": 252.55765008900232
-                },
-                "dragging": true
+  "name": "Read CAN Bus",
+  "rfInstance": {
+    "nodes": [
+      {
+        "width": 225,
+        "height": 271,
+        "id": "TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaab",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaab",
+          "label": "TEXT VIEW",
+          "func": "TEXT_VIEW",
+          "type": "VISUALIZATION",
+          "ctrls": {
+            "prettify": {
+              "type": "bool",
+              "default": false,
+              "desc": "Whether to prettify the displayed text (defaults to True)",
+              "overload": null,
+              "functionName": "TEXT_VIEW",
+              "param": "prettify",
+              "value": false
             }
-        ],
-        "edges": [
+          },
+          "initCtrls": {},
+          "inputs": [
             {
-                "id": "PEAK_DETECT_AVAILABLE_DEVICES-c7aeae1d-42d3-44a4-9c62-201fd8c7f19d->TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaab",
-                "source": "PEAK_DETECT_AVAILABLE_DEVICES-c7aeae1d-42d3-44a4-9c62-201fd8c7f19d",
-                "target": "TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaab",
-                "sourceHandle": "default",
-                "targetHandle": "default",
-                "data": {
-                    "outputType": "String"
-                }
-            },
-            {
-                "source": "SET_CAN_BUS_FILTER-a8a2fc71-fd4e-40a9-835c-6885857d2e60",
-                "sourceHandle": "default",
-                "target": "LOOP-744938fd-44a2-4d05-8589-3db5efb27bdf",
-                "targetHandle": "default",
-                "id": "reactflow__edge-SET_CAN_BUS_FILTER-a8a2fc71-fd4e-40a9-835c-6885857d2e60default-LOOP-744938fd-44a2-4d05-8589-3db5efb27bdfdefault"
-            },
-            {
-                "id": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1->EXPORT_CSV-3e28c08b-5198-4e2e-bbaa-605f90317212",
-                "source": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1",
-                "target": "EXPORT_CSV-3e28c08b-5198-4e2e-bbaa-605f90317212",
-                "sourceHandle": "default",
-                "targetHandle": "dc",
-                "data": {
-                    "outputType": "DataFrame"
-                }
-            },
-            {
-                "id": "EXPORT_CSV-3e28c08b-5198-4e2e-bbaa-605f90317212->EXPORT_S3-6a75204c-fa54-4457-8e6a-9504e95c4a40",
-                "source": "EXPORT_CSV-3e28c08b-5198-4e2e-bbaa-605f90317212",
-                "target": "EXPORT_S3-6a75204c-fa54-4457-8e6a-9504e95c4a40",
-                "sourceHandle": "default",
-                "targetHandle": "default",
-                "data": {
-                    "outputType": "Any"
-                }
-            },
-            {
-                "source": "RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603",
-                "sourceHandle": "default",
-                "target": "PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0",
-                "targetHandle": "default",
-                "id": "reactflow__edge-RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603default-PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0default"
-            },
-            {
-                "id": "PEAK_DETECT_AVAILABLE_DEVICES-c7aeae1d-42d3-44a4-9c62-201fd8c7f19d->PEAK_CONNECT-3cee83af-1a08-44f6-9bcd-a69da5212eee",
-                "source": "PEAK_DETECT_AVAILABLE_DEVICES-c7aeae1d-42d3-44a4-9c62-201fd8c7f19d",
-                "target": "PEAK_CONNECT-3cee83af-1a08-44f6-9bcd-a69da5212eee",
-                "sourceHandle": "default",
-                "targetHandle": "default",
-                "data": {
-                    "outputType": "String"
-                }
-            },
-            {
-                "source": "PEAK_CONNECT-3cee83af-1a08-44f6-9bcd-a69da5212eee",
-                "sourceHandle": "default",
-                "target": "SET_CAN_BUS_FILTER-a8a2fc71-fd4e-40a9-835c-6885857d2e60",
-                "targetHandle": "default",
-                "id": "reactflow__edge-PEAK_CONNECT-3cee83af-1a08-44f6-9bcd-a69da5212eeedefault-SET_CAN_BUS_FILTER-a8a2fc71-fd4e-40a9-835c-6885857d2e60default"
-            },
-            {
-                "source": "MF4_CREATE_WRITER-4561fef7-a506-42c2-af1a-704c9a282825",
-                "sourceHandle": "default",
-                "target": "MF4_CLOSE_WRITER-3c1bca70-ef9d-4e94-93e1-b7282b14f0d3",
-                "targetHandle": "MF4_writer",
-                "id": "reactflow__edge-MF4_CREATE_WRITER-4561fef7-a506-42c2-af1a-704c9a282825default-MF4_CLOSE_WRITER-3c1bca70-ef9d-4e94-93e1-b7282b14f0d3MF4_writer"
-            },
-            {
-                "source": "LOOP-744938fd-44a2-4d05-8589-3db5efb27bdf",
-                "sourceHandle": "end",
-                "target": "MF4_CLOSE_WRITER-3c1bca70-ef9d-4e94-93e1-b7282b14f0d3",
-                "targetHandle": "default",
-                "id": "reactflow__edge-LOOP-744938fd-44a2-4d05-8589-3db5efb27bdfend-MF4_CLOSE_WRITER-3c1bca70-ef9d-4e94-93e1-b7282b14f0d3default"
-            },
-            {
-                "source": "MF4_CREATE_WRITER-4561fef7-a506-42c2-af1a-704c9a282825",
-                "sourceHandle": "default",
-                "target": "MF4_WRITE-2126db8f-3316-4122-9861-b8e9b1779029",
-                "targetHandle": "MF4_writer",
-                "id": "reactflow__edge-MF4_CREATE_WRITER-4561fef7-a506-42c2-af1a-704c9a282825default-MF4_WRITE-2126db8f-3316-4122-9861-b8e9b1779029MF4_writer"
-            },
-            {
-                "source": "RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603",
-                "sourceHandle": "default",
-                "target": "MF4_WRITE-2126db8f-3316-4122-9861-b8e9b1779029",
-                "targetHandle": "messages",
-                "id": "reactflow__edge-RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603default-MF4_WRITE-2126db8f-3316-4122-9861-b8e9b1779029messages"
-            },
-            {
-                "source": "MF4_CLOSE_WRITER-3c1bca70-ef9d-4e94-93e1-b7282b14f0d3",
-                "sourceHandle": "default",
-                "target": "MF4_CREATE_READER-c4ee48d6-b3d8-493f-b37d-5687b178482c",
-                "targetHandle": "default",
-                "id": "reactflow__edge-MF4_CLOSE_WRITER-3c1bca70-ef9d-4e94-93e1-b7282b14f0d3default-MF4_CREATE_READER-c4ee48d6-b3d8-493f-b37d-5687b178482cdefault"
-            },
-            {
-                "source": "LOOP-744938fd-44a2-4d05-8589-3db5efb27bdf",
-                "sourceHandle": "body",
-                "target": "RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603",
-                "targetHandle": "default",
-                "id": "reactflow__edge-LOOP-744938fd-44a2-4d05-8589-3db5efb27bdfbody-RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603default"
-            },
-            {
-                "id": "PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0->TEXT_VIEW-8386e00f-df8b-45e0-b52b-478054baa335",
-                "source": "PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0",
-                "target": "TEXT_VIEW-8386e00f-df8b-45e0-b52b-478054baa335",
-                "sourceHandle": "default",
-                "targetHandle": "default",
-                "data": {
-                    "outputType": "String"
-                }
-            },
-            {
-                "source": "LOAD_DBC-aaeaedbc-e92b-4c58-a289-2dee5c3ce882",
-                "sourceHandle": "default",
-                "target": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1",
-                "targetHandle": "dbc",
-                "id": "reactflow__edge-LOAD_DBC-aaeaedbc-e92b-4c58-a289-2dee5c3ce882default-DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1dbc"
-            },
-            {
-                "source": "MF4_CREATE_READER-c4ee48d6-b3d8-493f-b37d-5687b178482c",
-                "sourceHandle": "default",
-                "target": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1",
-                "targetHandle": "messages",
-                "id": "reactflow__edge-MF4_CREATE_READER-c4ee48d6-b3d8-493f-b37d-5687b178482cdefault-DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1messages"
-            },
-            {
-                "id": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1->TABLE-eb5c79f8-1a8c-4632-8fc5-d4d737152b2f",
-                "source": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1",
-                "target": "TABLE-eb5c79f8-1a8c-4632-8fc5-d4d737152b2f",
-                "sourceHandle": "default",
-                "targetHandle": "default",
-                "data": {
-                    "outputType": "DataFrame"
-                },
-                "selected": false
+              "name": "default",
+              "id": "default",
+              "type": "String|Boolean",
+              "desc": "The DataContainer to be visualized in text format",
+              "multiple": false
             }
-        ]
-    },
-    "textNodes": [
-        {
-            "id": "TextNode-6dedfc42-90bf-4605-925f-792e9f25c848",
-            "position": {
-                "x": -1207.5683826330173,
-                "y": -419.8653348291523
-            },
-            "type": "TextNode",
-            "data": {
-                "text": "Discover connected PEAK hardware with the PCANDriver"
-            },
-            "width": 200,
-            "height": 150,
-            "selected": false,
-            "positionAbsolute": {
-                "x": -1207.5683826330173,
-                "y": -419.8653348291523
-            },
-            "dragging": false
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "The DataContainer containing text data"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
         },
-        {
-            "id": "TextNode-76939ee6-4f2e-4a91-b79b-5e2e8f8cc5e6",
-            "position": {
-                "x": 1200.5786747134277,
-                "y": -188.79315943202482
-            },
-            "type": "TextNode",
-            "data": {
-                "text": "Upload the MF4 File to S3"
-            },
-            "width": 247,
-            "height": 160,
-            "selected": false,
-            "positionAbsolute": {
-                "x": 1200.5786747134277,
-                "y": -188.79315943202482
-            },
-            "dragging": false,
-            "style": {
-                "width": 247,
-                "height": 160
-            },
-            "resizing": false
+        "position": {
+          "x": -693.5774397818724,
+          "y": -426.17049690958675
         },
-        {
-            "id": "TextNode-369b8231-3636-4604-9f04-7161482c34db",
-            "position": {
-                "x": 195.50287481105295,
-                "y": -209.53111973155342
-            },
-            "type": "TextNode",
-            "data": {
-                "text": "Read the data and write it to the file.\n\n\n\n"
-            },
-            "width": 216,
-            "height": 100,
-            "selected": false,
-            "positionAbsolute": {
-                "x": 195.50287481105295,
-                "y": -209.53111973155342
-            },
-            "dragging": false,
-            "style": {
-                "width": 216,
-                "height": 100
-            },
-            "resizing": false
+        "selected": false,
+        "positionAbsolute": {
+          "x": -693.5774397818724,
+          "y": -426.17049690958675
         },
-        {
-            "id": "TextNode-5e6ffd5f-f833-4179-b7c2-14b1c2387640",
-            "position": {
-                "x": 528.2447009679795,
-                "y": 364.7256384001133
+        "dragging": false
+      },
+      {
+        "width": 235,
+        "height": 198,
+        "id": "LOOP-744938fd-44a2-4d05-8589-3db5efb27bdf",
+        "type": "CONTROL_FLOW",
+        "data": {
+          "id": "LOOP-744938fd-44a2-4d05-8589-3db5efb27bdf",
+          "label": "LOOP",
+          "func": "LOOP",
+          "type": "CONTROL_FLOW",
+          "ctrls": {
+            "num_loops": {
+              "type": "int",
+              "default": -1,
+              "desc": "number of times to iterate through body nodes, default is \"-1\" meaning infinity.",
+              "overload": null,
+              "functionName": "LOOP",
+              "param": "num_loops",
+              "value": 5
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": null,
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "body",
+              "id": "body",
+              "type": "Any",
+              "desc": "Forwards the input DataContainer to the body."
             },
-            "type": "TextNode",
-            "data": {
-                "text": "Decode CAN Messages."
+            {
+              "name": "end",
+              "id": "end",
+              "type": "Any",
+              "desc": "Forwards the input DataContainer to the end."
+            }
+          ],
+          "path": "CONTROL_FLOW/LOOPS/LOOP/LOOP.py"
+        },
+        "position": {
+          "x": -291.3260349383128,
+          "y": 268.76421558955076
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -291.3260349383128,
+          "y": 268.76421558955076
+        },
+        "dragging": false
+      },
+      {
+        "width": 216,
+        "height": 197,
+        "id": "EXPORT_CSV-3e28c08b-5198-4e2e-bbaa-605f90317212",
+        "type": "DATA",
+        "data": {
+          "id": "EXPORT_CSV-3e28c08b-5198-4e2e-bbaa-605f90317212",
+          "label": "EXPORT CSV",
+          "func": "EXPORT_CSV",
+          "type": "DATA",
+          "ctrls": {
+            "dir": {
+              "type": "Directory",
+              "default": null,
+              "desc": "The directory to export to.",
+              "overload": null,
+              "functionName": "EXPORT_CSV",
+              "param": "dir",
+              "value": "C:\\Users\\zzzgu\\Documents\\flojoy\\apps\\PEAK_EXAMPLE"
             },
-            "width": 321,
-            "height": 144,
-            "selected": false,
-            "dragging": false,
-            "positionAbsolute": {
-                "x": 528.2447009679795,
-                "y": 364.7256384001133
+            "filename": {
+              "type": "str",
+              "default": "exported.csv",
+              "desc": "The name of the file to output.",
+              "overload": null,
+              "functionName": "EXPORT_CSV",
+              "param": "filename",
+              "value": "exported.csv"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "dc",
+              "id": "dc",
+              "type": "OrderedPair|OrderedTriple|DataFrame|Matrix",
+              "desc": "The DataContainer to export.",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": null
+            }
+          ],
+          "path": "DATA/EXPORT/EXPORT_CSV/EXPORT_CSV.py"
+        },
+        "position": {
+          "x": 1199.8355230975267,
+          "y": -109.84682401250097
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1199.8355230975267,
+          "y": -109.84682401250097
+        },
+        "dragging": false
+      },
+      {
+        "width": 216,
+        "height": 198,
+        "id": "EXPORT_S3-6a75204c-fa54-4457-8e6a-9504e95c4a40",
+        "type": "DATA",
+        "data": {
+          "id": "EXPORT_S3-6a75204c-fa54-4457-8e6a-9504e95c4a40",
+          "label": "EXPORT S3",
+          "func": "EXPORT_S3",
+          "type": "DATA",
+          "ctrls": {
+            "s3_access_key": {
+              "type": "Secret",
+              "default": null,
+              "desc": "AWS access key.",
+              "overload": null,
+              "functionName": "EXPORT_S3",
+              "param": "s3_access_key",
+              "value": ""
             },
-            "style": {
-                "width": 321,
-                "height": 144
+            "s3_secret_key": {
+              "type": "Secret",
+              "default": null,
+              "desc": "AWS secret key.",
+              "overload": null,
+              "functionName": "EXPORT_S3",
+              "param": "s3_secret_key",
+              "value": ""
             },
-            "resizing": false
+            "bucket": {
+              "type": "str",
+              "default": "",
+              "desc": "The S3 bucket to upload the file to.",
+              "overload": null,
+              "functionName": "EXPORT_S3",
+              "param": "bucket",
+              "value": "guillaume-flojoy"
+            },
+            "region": {
+              "type": "select",
+              "options": [
+                "us-east-1",
+                "us-east-2",
+                "us-west-1",
+                "us-west-2",
+                "ca-central-1",
+                "ca-west-1",
+                "eu-north-1",
+                "eu-west-3",
+                "eu-west-2",
+                "eu-west-1",
+                "eu-central-1",
+                "eu-south-1",
+                "ap-south-1",
+                "ap-northeast-1",
+                "ap-northeast-2",
+                "ap-northeast-3",
+                "ap-southeast-1",
+                "ap-southeast-2",
+                "ap-southeast-3",
+                "ap-east-1",
+                "sa-east-1",
+                "cn-north-1",
+                "cn-northwest-1",
+                "us-gov-east-1",
+                "us-gov-west-1",
+                "us-isob-east-1",
+                "us-iso-east-1",
+                "us-iso-west-1",
+                "me-south-1",
+                "af-south-1",
+                "me-central-1",
+                "eu-south-2",
+                "eu-central-2",
+                "ap-south-2",
+                "ap-southeast-4",
+                "il-central-1"
+              ],
+              "default": "us-east-1",
+              "desc": "The AWS region (default is \"us-east-1\").",
+              "overload": null,
+              "functionName": "EXPORT_S3",
+              "param": "region",
+              "value": "us-east-1"
+            },
+            "enable_overwrite": {
+              "type": "bool",
+              "default": false,
+              "desc": "Whether to overwrite the file if it already exists (default is False).",
+              "overload": null,
+              "functionName": "EXPORT_S3",
+              "param": "enable_overwrite",
+              "value": true
+            },
+            "file": {
+              "type": "File",
+              "default": null,
+              "desc": "The file to be uploaded to the S3 bucket.",
+              "overload": null,
+              "functionName": "EXPORT_S3",
+              "param": "file",
+              "value": "C:\\Users\\zzzgu\\Documents\\flojoy\\apps\\PEAK_EXAMPLE\\exported.csv"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "object_name",
+              "id": "object_name",
+              "type": "String",
+              "desc": "Flojoy input to dynamically provide a string for the name of the object in S3. If not specified, the name of the file will be used.",
+              "multiple": false
+            },
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": null,
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Boolean",
+              "desc": "Returns a Boolean indicating the success of the file export operation (True if successful, False otherwise)."
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "boto3",
+              "v": "1.34.21"
+            }
+          ],
+          "path": "DATA/EXPORT/EXPORT_S3/EXPORT_S3.py"
+        },
+        "position": {
+          "x": 1535.9873925555482,
+          "y": -137.72876340178357
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1535.9873925555482,
+          "y": -137.72876340178357
+        },
+        "dragging": false
+      },
+      {
+        "width": 216,
+        "height": 269,
+        "id": "PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0",
+        "type": "DEBUGGING",
+        "data": {
+          "id": "PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0",
+          "label": "DISPLAY RAW MESSAGE",
+          "func": "PRINT_DATACONTAINER",
+          "type": "DEBUGGING",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": "The input DataContainer to print.",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "String: Input datacontainer information"
+            }
+          ],
+          "path": "DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py"
+        },
+        "position": {
+          "x": 674.7719326782403,
+          "y": -194.21593179589036
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 674.7719326782403,
+          "y": -194.21593179589036
+        },
+        "dragging": false
+      },
+      {
+        "id": "PEAK_DETECT_AVAILABLE_DEVICES-c7aeae1d-42d3-44a4-9c62-201fd8c7f19d",
+        "type": "PROTOCOLS",
+        "data": {
+          "id": "PEAK_DETECT_AVAILABLE_DEVICES-c7aeae1d-42d3-44a4-9c62-201fd8c7f19d",
+          "label": "PEAK DETECT AVAILABLE DEVICES",
+          "func": "PEAK_DETECT_AVAILABLE_DEVICES",
+          "type": "PROTOCOLS",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": null,
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "A string containing the device name and the channel number."
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "python-can",
+              "v": "4.3.1"
+            },
+            {
+              "name": "uptime",
+              "v": "3.0.1"
+            }
+          ],
+          "path": "HARDWARE/PROTOCOLS/CAN/BUS/PEAK_DETECT_AVAILABLE_DEVICES/PEAK_DETECT_AVAILABLE_DEVICES.py"
+        },
+        "position": {
+          "x": -1223.1411973833758,
+          "y": -239.73972113618333
+        },
+        "width": 216,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": -1223.1411973833758,
+          "y": -239.73972113618333
+        },
+        "dragging": false
+      },
+      {
+        "id": "PEAK_CONNECT-3cee83af-1a08-44f6-9bcd-a69da5212eee",
+        "type": "PROTOCOLS",
+        "data": {
+          "id": "PEAK_CONNECT-3cee83af-1a08-44f6-9bcd-a69da5212eee",
+          "label": "PEAK CONNECT",
+          "func": "PEAK_CONNECT",
+          "type": "PROTOCOLS",
+          "ctrls": {
+            "PCAN_address": {
+              "type": "str",
+              "default": null,
+              "desc": "The PCAN device address to connect to. This address can be found by the PCAN_DETECT_AVAILABLE_DEVICES block.\nâ†’ Example: \"PCAN_USBBUS1\"",
+              "overload": null,
+              "functionName": "PEAK_CONNECT",
+              "param": "PCAN_address",
+              "value": "PCAN_USBBUS1"
+            },
+            "bitrate": {
+              "type": "int",
+              "default": 500000,
+              "desc": "The bitrate of the PCAN device. Default is 500000.",
+              "overload": null,
+              "functionName": "PEAK_CONNECT",
+              "param": "bitrate",
+              "value": 500000
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": null,
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": "Optional: None"
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "python-can",
+              "v": "4.3.1"
+            },
+            {
+              "name": "uptime",
+              "v": "3.0.1"
+            }
+          ],
+          "path": "HARDWARE/PROTOCOLS/CAN/BUS/PEAK_CONNECT/PEAK_CONNECT.py"
+        },
+        "position": {
+          "x": -701.0771447711779,
+          "y": -83.08090278877751
+        },
+        "width": 216,
+        "height": 233,
+        "selected": false,
+        "positionAbsolute": {
+          "x": -701.0771447711779,
+          "y": -83.08090278877751
+        },
+        "dragging": false
+      },
+      {
+        "id": "SET_CAN_BUS_FILTER-a8a2fc71-fd4e-40a9-835c-6885857d2e60",
+        "type": "PROTOCOLS",
+        "data": {
+          "id": "SET_CAN_BUS_FILTER-a8a2fc71-fd4e-40a9-835c-6885857d2e60",
+          "label": "SET CAN BUS FILTER",
+          "func": "SET_CAN_BUS_FILTER",
+          "type": "PROTOCOLS",
+          "ctrls": {
+            "CAN_address": {
+              "type": "str",
+              "default": null,
+              "desc": "The CAN bus address to attach the filter to.",
+              "overload": null,
+              "functionName": "SET_CAN_BUS_FILTER",
+              "param": "CAN_address",
+              "value": "PCAN_USBBUS1"
+            },
+            "can_id": {
+              "type": "int",
+              "default": 1,
+              "desc": "The ID of the message to filter.",
+              "overload": null,
+              "functionName": "SET_CAN_BUS_FILTER",
+              "param": "can_id",
+              "value": 1
+            },
+            "can_mask": {
+              "type": "int",
+              "default": 4294967295,
+              "desc": "Apply a binary mask to the ID and can_id.",
+              "overload": null,
+              "functionName": "SET_CAN_BUS_FILTER",
+              "param": "can_mask",
+              "value": 1
+            },
+            "extended": {
+              "type": "bool",
+              "default": false,
+              "desc": "If true, only matches messages where <received_is_extended> == extended.",
+              "overload": null,
+              "functionName": "SET_CAN_BUS_FILTER",
+              "param": "extended",
+              "value": false
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": null,
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": "Optional: None"
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "python-can",
+              "v": "4.3.1"
+            }
+          ],
+          "path": "HARDWARE/PROTOCOLS/CAN/BUS/SET_CAN_BUS_FILTER/SET_CAN_BUS_FILTER.py"
+        },
+        "position": {
+          "x": -684.3349698018321,
+          "y": 266.1626498582265
+        },
+        "width": 216,
+        "height": 233,
+        "selected": false,
+        "positionAbsolute": {
+          "x": -684.3349698018321,
+          "y": 266.1626498582265
+        },
+        "dragging": false
+      },
+      {
+        "id": "MF4_CREATE_WRITER-4561fef7-a506-42c2-af1a-704c9a282825",
+        "type": "PROTOCOLS",
+        "data": {
+          "id": "MF4_CREATE_WRITER-4561fef7-a506-42c2-af1a-704c9a282825",
+          "label": "MF4 CREATE WRITER",
+          "func": "MF4_CREATE_WRITER",
+          "type": "PROTOCOLS",
+          "ctrls": {
+            "dir": {
+              "type": "Directory",
+              "default": null,
+              "desc": "The directory to export to.",
+              "overload": null,
+              "functionName": "MF4_CREATE_WRITER",
+              "param": "dir",
+              "value": ""
+            },
+            "filename": {
+              "type": "str",
+              "default": "can_exported.mf4",
+              "desc": "The name of the file to output.",
+              "overload": null,
+              "functionName": "MF4_CREATE_WRITER",
+              "param": "filename",
+              "value": "can_exported.mf4"
+            },
+            "database": {
+              "type": "File",
+              "default": null,
+              "desc": "Path to a DBC or ARXML file that contains message description.",
+              "overload": null,
+              "functionName": "MF4_CREATE_WRITER",
+              "param": "database",
+              "value": ""
+            },
+            "compression_level": {
+              "type": "select",
+              "options": [
+                "No compression",
+                "Deflate (slower, but produces smaller files)",
+                "Transposition + Deflate (slowest, but produces the smallest files)"
+              ],
+              "default": "No compression",
+              "desc": "The compression level to use. Defaults to \"No compression\".",
+              "overload": null,
+              "functionName": "MF4_CREATE_WRITER",
+              "param": "compression_level",
+              "value": "No compression"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": null,
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Stateful",
+              "desc": "A stateful object that can be used to write CAN data to the file."
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "python-can",
+              "v": "4.3.1"
+            },
+            {
+              "name": "asammdf",
+              "v": "7.4.1"
+            }
+          ],
+          "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_CREATE_WRITER/MF4_CREATE_WRITER.py"
+        },
+        "position": {
+          "x": -137.43067066664128,
+          "y": -322.09138451526474
+        },
+        "width": 216,
+        "height": 233,
+        "selected": false,
+        "positionAbsolute": {
+          "x": -137.43067066664128,
+          "y": -322.09138451526474
+        },
+        "dragging": false
+      },
+      {
+        "id": "MF4_CLOSE_WRITER-3c1bca70-ef9d-4e94-93e1-b7282b14f0d3",
+        "type": "PROTOCOLS",
+        "data": {
+          "id": "MF4_CLOSE_WRITER-3c1bca70-ef9d-4e94-93e1-b7282b14f0d3",
+          "label": "MF4 CLOSE WRITER",
+          "func": "MF4_CLOSE_WRITER",
+          "type": "PROTOCOLS",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "MF4_writer",
+              "id": "MF4_writer",
+              "type": "Stateful",
+              "desc": "A mf4 writer object from a MF4_CREATE_WRITER block.",
+              "multiple": false
+            },
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Stateful",
+              "desc": null,
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": "None"
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "python-can",
+              "v": "4.3.1"
+            },
+            {
+              "name": "asammdf",
+              "v": "7.4.1"
+            }
+          ],
+          "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_CLOSE_WRITER/MF4_CLOSE_WRITER.py"
+        },
+        "position": {
+          "x": 194.53689473330917,
+          "y": 261.5706681877847
+        },
+        "width": 216,
+        "height": 234,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 194.53689473330917,
+          "y": 261.5706681877847
+        },
+        "dragging": false
+      },
+      {
+        "id": "MF4_WRITE-2126db8f-3316-4122-9861-b8e9b1779029",
+        "type": "PROTOCOLS",
+        "data": {
+          "id": "MF4_WRITE-2126db8f-3316-4122-9861-b8e9b1779029",
+          "label": "MF4 WRITE",
+          "func": "MF4_WRITE",
+          "type": "PROTOCOLS",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "MF4_writer",
+              "id": "MF4_writer",
+              "type": "Stateful",
+              "desc": "A mf4 writer object from a MF4_CREATE_WRITER block.",
+              "multiple": false
+            },
+            {
+              "name": "messages",
+              "id": "messages",
+              "type": "Stateful",
+              "desc": "A list of message in the python-can format.",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": "None"
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "python-can",
+              "v": "4.3.1"
+            },
+            {
+              "name": "asammdf",
+              "v": "7.4.1"
+            }
+          ],
+          "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_WRITE/MF4_WRITE.py"
+        },
+        "position": {
+          "x": 669.0100838150538,
+          "y": -426.7502388544141
+        },
+        "width": 216,
+        "height": 198,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 669.0100838150538,
+          "y": -426.7502388544141
+        },
+        "dragging": false
+      },
+      {
+        "id": "MF4_CREATE_READER-c4ee48d6-b3d8-493f-b37d-5687b178482c",
+        "type": "PROTOCOLS",
+        "data": {
+          "id": "MF4_CREATE_READER-c4ee48d6-b3d8-493f-b37d-5687b178482c",
+          "label": "MF4 CREATE READER",
+          "func": "MF4_CREATE_READER",
+          "type": "PROTOCOLS",
+          "ctrls": {
+            "file": {
+              "type": "File",
+              "default": null,
+              "desc": "The file to write from.",
+              "overload": null,
+              "functionName": "MF4_CREATE_READER",
+              "param": "file",
+              "value": ""
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": null,
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Stateful",
+              "desc": "A stateful object that contains can a list of message."
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "python-can",
+              "v": "4.3.1"
+            },
+            {
+              "name": "asammdf",
+              "v": "7.4.1"
+            }
+          ],
+          "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_CREATE_READER/MF4_CREATE_READER.py"
+        },
+        "position": {
+          "x": 529.7554538460614,
+          "y": 456.347738768318
+        },
+        "width": 216,
+        "height": 233,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 529.7554538460614,
+          "y": 456.347738768318
+        },
+        "dragging": true
+      },
+      {
+        "id": "RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603",
+        "type": "PROTOCOLS",
+        "data": {
+          "id": "RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603",
+          "label": "RECEIVE CAN MESSAGE",
+          "func": "RECEIVE_CAN_MESSAGE",
+          "type": "PROTOCOLS",
+          "ctrls": {
+            "CAN_address": {
+              "type": "str",
+              "default": null,
+              "desc": null,
+              "overload": null,
+              "functionName": "RECEIVE_CAN_MESSAGE",
+              "param": "CAN_address",
+              "value": "PCAN_USBBUS1"
+            },
+            "timeout": {
+              "type": "int",
+              "default": 10,
+              "desc": "The timeout in seconds to wait for a message. Default is 10.",
+              "overload": null,
+              "functionName": "RECEIVE_CAN_MESSAGE",
+              "param": "timeout",
+              "value": 10
+            },
+            "raise_error": {
+              "type": "bool",
+              "default": true,
+              "desc": "If True, an exception will be raised if no data is received. Default is True.",
+              "overload": null,
+              "functionName": "RECEIVE_CAN_MESSAGE",
+              "param": "raise_error",
+              "value": false
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": null,
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Stateful",
+              "desc": "Return a can bus message"
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "python-can",
+              "v": "4.3.1"
+            }
+          ],
+          "path": "HARDWARE/PROTOCOLS/CAN/BUS/RECEIVE_CAN_MESSAGE/RECEIVE_CAN_MESSAGE.py"
+        },
+        "position": {
+          "x": 189.9181798681958,
+          "y": -100.08022675572283
+        },
+        "width": 216,
+        "height": 233,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 189.9181798681958,
+          "y": -100.08022675572283
+        },
+        "dragging": false
+      },
+      {
+        "id": "TEXT_VIEW-8386e00f-df8b-45e0-b52b-478054baa335",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "TEXT_VIEW-8386e00f-df8b-45e0-b52b-478054baa335",
+          "label": "TEXT VIEW 2",
+          "func": "TEXT_VIEW",
+          "type": "VISUALIZATION",
+          "ctrls": {
+            "prettify": {
+              "type": "bool",
+              "default": false,
+              "desc": "Whether to prettify the displayed text (defaults to True)",
+              "overload": null,
+              "functionName": "TEXT_VIEW",
+              "param": "prettify",
+              "value": false
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String|Boolean",
+              "desc": "The DataContainer to be visualized in text format",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "The DataContainer containing text data"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
+        },
+        "position": {
+          "x": 1078.5159010224559,
+          "y": -580.9671667844208
+        },
+        "width": 225,
+        "height": 271,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1078.5159010224559,
+          "y": -580.9671667844208
+        },
+        "dragging": false
+      },
+      {
+        "id": "LOAD_DBC-aaeaedbc-e92b-4c58-a289-2dee5c3ce882",
+        "type": "PROTOCOLS",
+        "data": {
+          "id": "LOAD_DBC-aaeaedbc-e92b-4c58-a289-2dee5c3ce882",
+          "label": "LOAD DBC",
+          "func": "LOAD_DBC",
+          "type": "PROTOCOLS",
+          "ctrls": {
+            "file_path": {
+              "type": "File",
+              "default": null,
+              "desc": "The path to the DBC file.",
+              "overload": null,
+              "functionName": "LOAD_DBC",
+              "param": "file_path",
+              "value": ""
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": null,
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Stateful",
+              "desc": "Return a cantools database object."
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "python-can",
+              "v": "4.3.1"
+            },
+            {
+              "name": "cantools",
+              "v": "39.4.2"
+            }
+          ],
+          "path": "HARDWARE/PROTOCOLS/CAN/UTILS/LOAD_DBC/LOAD_DBC.py"
+        },
+        "position": {
+          "x": 509.77273573034677,
+          "y": 128.22321512709675
+        },
+        "width": 216,
+        "height": 197,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 509.77273573034677,
+          "y": 128.22321512709675
+        },
+        "dragging": false
+      },
+      {
+        "id": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1",
+        "type": "PROTOCOLS",
+        "data": {
+          "id": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1",
+          "label": "DECODE CAN MESSAGE",
+          "func": "DECODE_CAN_MESSAGE",
+          "type": "PROTOCOLS",
+          "ctrls": {
+            "ignore_undefined_id_error": {
+              "type": "bool",
+              "default": false,
+              "desc": "If True, ignore undefined id error. Default is False.",
+              "overload": null,
+              "functionName": "DECODE_CAN_MESSAGE",
+              "param": "ignore_undefined_id_error",
+              "value": false
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "dbc",
+              "id": "dbc",
+              "type": "Stateful",
+              "desc": "The database to use for decoding the message.",
+              "multiple": false
+            },
+            {
+              "name": "messages",
+              "id": "messages",
+              "type": "Stateful",
+              "desc": "The message to DECODE_CAN. Must be a can.Message object.",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "DataFrame",
+              "desc": "Return dataframe containing the decoded message."
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "python-can",
+              "v": "4.3.1"
+            },
+            {
+              "name": "cantools",
+              "v": "39.4.2"
+            }
+          ],
+          "path": "HARDWARE/PROTOCOLS/CAN/UTILS/DECODE_CAN_MESSAGE/DECODE_CAN_MESSAGE.py"
+        },
+        "position": {
+          "x": 909.672420750032,
+          "y": 288.8990379935757
+        },
+        "width": 216,
+        "height": 234,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 909.672420750032,
+          "y": 288.8990379935757
+        },
+        "dragging": false
+      },
+      {
+        "id": "TABLE-eb5c79f8-1a8c-4632-8fc5-d4d737152b2f",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "TABLE-eb5c79f8-1a8c-4632-8fc5-d4d737152b2f",
+          "label": "TABLE",
+          "func": "TABLE",
+          "type": "VISUALIZATION",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Table visualization"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
+        },
+        "position": {
+          "x": 1505.7252884130085,
+          "y": 252.55765008900232
+        },
+        "width": 225,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1505.7252884130085,
+          "y": 252.55765008900232
+        },
+        "dragging": true
+      }
+    ],
+    "edges": [
+      {
+        "id": "PEAK_DETECT_AVAILABLE_DEVICES-c7aeae1d-42d3-44a4-9c62-201fd8c7f19d->TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaab",
+        "source": "PEAK_DETECT_AVAILABLE_DEVICES-c7aeae1d-42d3-44a4-9c62-201fd8c7f19d",
+        "target": "TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaab",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "String"
         }
+      },
+      {
+        "source": "SET_CAN_BUS_FILTER-a8a2fc71-fd4e-40a9-835c-6885857d2e60",
+        "sourceHandle": "default",
+        "target": "LOOP-744938fd-44a2-4d05-8589-3db5efb27bdf",
+        "targetHandle": "default",
+        "id": "reactflow__edge-SET_CAN_BUS_FILTER-a8a2fc71-fd4e-40a9-835c-6885857d2e60default-LOOP-744938fd-44a2-4d05-8589-3db5efb27bdfdefault"
+      },
+      {
+        "id": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1->EXPORT_CSV-3e28c08b-5198-4e2e-bbaa-605f90317212",
+        "source": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1",
+        "target": "EXPORT_CSV-3e28c08b-5198-4e2e-bbaa-605f90317212",
+        "sourceHandle": "default",
+        "targetHandle": "dc",
+        "data": {
+          "outputType": "DataFrame"
+        }
+      },
+      {
+        "id": "EXPORT_CSV-3e28c08b-5198-4e2e-bbaa-605f90317212->EXPORT_S3-6a75204c-fa54-4457-8e6a-9504e95c4a40",
+        "source": "EXPORT_CSV-3e28c08b-5198-4e2e-bbaa-605f90317212",
+        "target": "EXPORT_S3-6a75204c-fa54-4457-8e6a-9504e95c4a40",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "Any"
+        }
+      },
+      {
+        "source": "RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603",
+        "sourceHandle": "default",
+        "target": "PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0",
+        "targetHandle": "default",
+        "id": "reactflow__edge-RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603default-PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0default"
+      },
+      {
+        "id": "PEAK_DETECT_AVAILABLE_DEVICES-c7aeae1d-42d3-44a4-9c62-201fd8c7f19d->PEAK_CONNECT-3cee83af-1a08-44f6-9bcd-a69da5212eee",
+        "source": "PEAK_DETECT_AVAILABLE_DEVICES-c7aeae1d-42d3-44a4-9c62-201fd8c7f19d",
+        "target": "PEAK_CONNECT-3cee83af-1a08-44f6-9bcd-a69da5212eee",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "String"
+        }
+      },
+      {
+        "source": "PEAK_CONNECT-3cee83af-1a08-44f6-9bcd-a69da5212eee",
+        "sourceHandle": "default",
+        "target": "SET_CAN_BUS_FILTER-a8a2fc71-fd4e-40a9-835c-6885857d2e60",
+        "targetHandle": "default",
+        "id": "reactflow__edge-PEAK_CONNECT-3cee83af-1a08-44f6-9bcd-a69da5212eeedefault-SET_CAN_BUS_FILTER-a8a2fc71-fd4e-40a9-835c-6885857d2e60default"
+      },
+      {
+        "source": "MF4_CREATE_WRITER-4561fef7-a506-42c2-af1a-704c9a282825",
+        "sourceHandle": "default",
+        "target": "MF4_CLOSE_WRITER-3c1bca70-ef9d-4e94-93e1-b7282b14f0d3",
+        "targetHandle": "MF4_writer",
+        "id": "reactflow__edge-MF4_CREATE_WRITER-4561fef7-a506-42c2-af1a-704c9a282825default-MF4_CLOSE_WRITER-3c1bca70-ef9d-4e94-93e1-b7282b14f0d3MF4_writer"
+      },
+      {
+        "source": "LOOP-744938fd-44a2-4d05-8589-3db5efb27bdf",
+        "sourceHandle": "end",
+        "target": "MF4_CLOSE_WRITER-3c1bca70-ef9d-4e94-93e1-b7282b14f0d3",
+        "targetHandle": "default",
+        "id": "reactflow__edge-LOOP-744938fd-44a2-4d05-8589-3db5efb27bdfend-MF4_CLOSE_WRITER-3c1bca70-ef9d-4e94-93e1-b7282b14f0d3default"
+      },
+      {
+        "source": "MF4_CREATE_WRITER-4561fef7-a506-42c2-af1a-704c9a282825",
+        "sourceHandle": "default",
+        "target": "MF4_WRITE-2126db8f-3316-4122-9861-b8e9b1779029",
+        "targetHandle": "MF4_writer",
+        "id": "reactflow__edge-MF4_CREATE_WRITER-4561fef7-a506-42c2-af1a-704c9a282825default-MF4_WRITE-2126db8f-3316-4122-9861-b8e9b1779029MF4_writer"
+      },
+      {
+        "source": "RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603",
+        "sourceHandle": "default",
+        "target": "MF4_WRITE-2126db8f-3316-4122-9861-b8e9b1779029",
+        "targetHandle": "messages",
+        "id": "reactflow__edge-RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603default-MF4_WRITE-2126db8f-3316-4122-9861-b8e9b1779029messages"
+      },
+      {
+        "source": "MF4_CLOSE_WRITER-3c1bca70-ef9d-4e94-93e1-b7282b14f0d3",
+        "sourceHandle": "default",
+        "target": "MF4_CREATE_READER-c4ee48d6-b3d8-493f-b37d-5687b178482c",
+        "targetHandle": "default",
+        "id": "reactflow__edge-MF4_CLOSE_WRITER-3c1bca70-ef9d-4e94-93e1-b7282b14f0d3default-MF4_CREATE_READER-c4ee48d6-b3d8-493f-b37d-5687b178482cdefault"
+      },
+      {
+        "source": "LOOP-744938fd-44a2-4d05-8589-3db5efb27bdf",
+        "sourceHandle": "body",
+        "target": "RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603",
+        "targetHandle": "default",
+        "id": "reactflow__edge-LOOP-744938fd-44a2-4d05-8589-3db5efb27bdfbody-RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603default"
+      },
+      {
+        "id": "PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0->TEXT_VIEW-8386e00f-df8b-45e0-b52b-478054baa335",
+        "source": "PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0",
+        "target": "TEXT_VIEW-8386e00f-df8b-45e0-b52b-478054baa335",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "String"
+        }
+      },
+      {
+        "source": "LOAD_DBC-aaeaedbc-e92b-4c58-a289-2dee5c3ce882",
+        "sourceHandle": "default",
+        "target": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1",
+        "targetHandle": "dbc",
+        "id": "reactflow__edge-LOAD_DBC-aaeaedbc-e92b-4c58-a289-2dee5c3ce882default-DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1dbc"
+      },
+      {
+        "source": "MF4_CREATE_READER-c4ee48d6-b3d8-493f-b37d-5687b178482c",
+        "sourceHandle": "default",
+        "target": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1",
+        "targetHandle": "messages",
+        "id": "reactflow__edge-MF4_CREATE_READER-c4ee48d6-b3d8-493f-b37d-5687b178482cdefault-DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1messages"
+      },
+      {
+        "id": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1->TABLE-eb5c79f8-1a8c-4632-8fc5-d4d737152b2f",
+        "source": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1",
+        "target": "TABLE-eb5c79f8-1a8c-4632-8fc5-d4d737152b2f",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "DataFrame"
+        },
+        "selected": false
+      }
     ]
+  },
+  "textNodes": [
+    {
+      "id": "TextNode-6dedfc42-90bf-4605-925f-792e9f25c848",
+      "position": {
+        "x": -1207.5683826330173,
+        "y": -419.8653348291523
+      },
+      "type": "TextNode",
+      "data": {
+        "text": "Discover connected PEAK hardware with the PCANDriver"
+      },
+      "width": 200,
+      "height": 150,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -1207.5683826330173,
+        "y": -419.8653348291523
+      },
+      "dragging": false
+    },
+    {
+      "id": "TextNode-76939ee6-4f2e-4a91-b79b-5e2e8f8cc5e6",
+      "position": {
+        "x": 1200.5786747134277,
+        "y": -188.79315943202482
+      },
+      "type": "TextNode",
+      "data": {
+        "text": "Upload the MF4 File to S3"
+      },
+      "width": 247,
+      "height": 160,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1200.5786747134277,
+        "y": -188.79315943202482
+      },
+      "dragging": false,
+      "style": {
+        "width": 247,
+        "height": 160
+      },
+      "resizing": false
+    },
+    {
+      "id": "TextNode-369b8231-3636-4604-9f04-7161482c34db",
+      "position": {
+        "x": 195.50287481105295,
+        "y": -209.53111973155342
+      },
+      "type": "TextNode",
+      "data": {
+        "text": "Read the data and write it to the file.\n\n\n\n"
+      },
+      "width": 216,
+      "height": 100,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 195.50287481105295,
+        "y": -209.53111973155342
+      },
+      "dragging": false,
+      "style": {
+        "width": 216,
+        "height": 100
+      },
+      "resizing": false
+    },
+    {
+      "id": "TextNode-5e6ffd5f-f833-4179-b7c2-14b1c2387640",
+      "position": {
+        "x": 528.2447009679795,
+        "y": 364.7256384001133
+      },
+      "type": "TextNode",
+      "data": {
+        "text": "Decode CAN Messages."
+      },
+      "width": 321,
+      "height": 144,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 528.2447009679795,
+        "y": 364.7256384001133
+      },
+      "style": {
+        "width": 321,
+        "height": 144
+      },
+      "resizing": false
+    }
+  ]
 }

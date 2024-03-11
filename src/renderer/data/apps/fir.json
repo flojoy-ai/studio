@@ -1,1419 +1,1389 @@
 {
-    "name": "FIR Filter",
-    "rfInstance": {
-        "nodes": [
-            {
-                "id": "BASIC_OSCILLATOR-41ff262b-a3ef-400e-9aa1-733a0e4cafac",
-                "type": "DATA",
-                "data": {
-                    "id": "BASIC_OSCILLATOR-41ff262b-a3ef-400e-9aa1-733a0e4cafac",
-                    "label": "BASIC OSCILLATOR 4",
-                    "func": "BASIC_OSCILLATOR",
-                    "type": "DATA",
-                    "ctrls": {
-                        "sample_rate": {
-                            "type": "int",
-                            "default": 100,
-                            "desc": "The number of samples that are taken in a second.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "sample_rate",
-                            "value": 100
-                        },
-                        "time": {
-                            "type": "int",
-                            "default": 10,
-                            "desc": "The total amount of time of the signal.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "time",
-                            "value": 4
-                        },
-                        "waveform": {
-                            "type": "select",
-                            "options": [
-                                "sine",
-                                "square",
-                                "triangle",
-                                "sawtooth"
-                            ],
-                            "default": "sine",
-                            "desc": "The waveform type of the wave.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "waveform",
-                            "value": "sine"
-                        },
-                        "amplitude": {
-                            "type": "float",
-                            "default": 1,
-                            "desc": "The amplitude of the wave.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "amplitude",
-                            "value": 0.5
-                        },
-                        "frequency": {
-                            "type": "float",
-                            "default": 1,
-                            "desc": "The wave frequency in radians/2pi.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "frequency",
-                            "value": 35
-                        },
-                        "offset": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "The y axis offset of the function.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "offset",
-                            "value": 0
-                        },
-                        "phase": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "The x axis offset of the function.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "phase",
-                            "value": 0
-                        }
-                    },
-                    "initCtrls": {},
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "desc": "x: time domain\ny: generated signal"
-                        }
-                    ],
-                    "path": "DATA/GENERATION/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py"
-                },
-                "position": {
-                    "x": 433.1372703344118,
-                    "y": 670.3992304617955
-                },
-                "width": 218,
-                "height": 269,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 433.1372703344118,
-                    "y": 670.3992304617955
-                },
-                "dragging": false
+  "name": "FIR Filter",
+  "rfInstance": {
+    "nodes": [
+      {
+        "id": "BASIC_OSCILLATOR-41ff262b-a3ef-400e-9aa1-733a0e4cafac",
+        "type": "DATA",
+        "data": {
+          "id": "BASIC_OSCILLATOR-41ff262b-a3ef-400e-9aa1-733a0e4cafac",
+          "label": "BASIC OSCILLATOR 4",
+          "func": "BASIC_OSCILLATOR",
+          "type": "DATA",
+          "ctrls": {
+            "sample_rate": {
+              "type": "int",
+              "default": 100,
+              "desc": "The number of samples that are taken in a second.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "sample_rate",
+              "value": 100
             },
-            {
-                "id": "BASIC_OSCILLATOR-9f2a14df-e969-4f74-b82e-e27ff0e313dc",
-                "type": "DATA",
-                "data": {
-                    "id": "BASIC_OSCILLATOR-9f2a14df-e969-4f74-b82e-e27ff0e313dc",
-                    "label": "BASIC OSCILLATOR 5",
-                    "func": "BASIC_OSCILLATOR",
-                    "type": "DATA",
-                    "ctrls": {
-                        "sample_rate": {
-                            "type": "int",
-                            "default": 100,
-                            "desc": "The number of samples that are taken in a second.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "sample_rate",
-                            "value": 100
-                        },
-                        "time": {
-                            "type": "int",
-                            "default": 10,
-                            "desc": "The total amount of time of the signal.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "time",
-                            "value": 4
-                        },
-                        "waveform": {
-                            "type": "select",
-                            "options": [
-                                "sine",
-                                "square",
-                                "triangle",
-                                "sawtooth"
-                            ],
-                            "default": "sine",
-                            "desc": "The waveform type of the wave.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "waveform",
-                            "value": "sine"
-                        },
-                        "amplitude": {
-                            "type": "float",
-                            "default": 1,
-                            "desc": "The amplitude of the wave.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "amplitude",
-                            "value": 1
-                        },
-                        "frequency": {
-                            "type": "float",
-                            "default": 1,
-                            "desc": "The wave frequency in radians/2pi.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "frequency",
-                            "value": 25
-                        },
-                        "offset": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "The y axis offset of the function.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "offset",
-                            "value": 0
-                        },
-                        "phase": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "The x axis offset of the function.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "phase",
-                            "value": 0
-                        }
-                    },
-                    "initCtrls": {},
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "desc": "x: time domain\ny: generated signal"
-                        }
-                    ],
-                    "path": "DATA/GENERATION/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py"
-                },
-                "position": {
-                    "x": 444.08863675204975,
-                    "y": 960.3900352360727
-                },
-                "width": 218,
-                "height": 269,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 444.08863675204975,
-                    "y": 960.3900352360727
-                },
-                "dragging": false
+            "time": {
+              "type": "int",
+              "default": 10,
+              "desc": "The total amount of time of the signal.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "time",
+              "value": 4
             },
-            {
-                "id": "BASIC_OSCILLATOR-616f4cff-3acd-4814-a771-edcddf8ba62c",
-                "type": "DATA",
-                "data": {
-                    "id": "BASIC_OSCILLATOR-616f4cff-3acd-4814-a771-edcddf8ba62c",
-                    "label": "BASIC OSCILLATOR 3",
-                    "func": "BASIC_OSCILLATOR",
-                    "type": "DATA",
-                    "ctrls": {
-                        "sample_rate": {
-                            "type": "int",
-                            "default": 100,
-                            "desc": "The number of samples that are taken in a second.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "sample_rate",
-                            "value": 100
-                        },
-                        "time": {
-                            "type": "int",
-                            "default": 10,
-                            "desc": "The total amount of time of the signal.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "time",
-                            "value": 4
-                        },
-                        "waveform": {
-                            "type": "select",
-                            "options": [
-                                "sine",
-                                "square",
-                                "triangle",
-                                "sawtooth"
-                            ],
-                            "default": "sine",
-                            "desc": "The waveform type of the wave.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "waveform",
-                            "value": "sine"
-                        },
-                        "amplitude": {
-                            "type": "float",
-                            "default": 1,
-                            "desc": "The amplitude of the wave.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "amplitude",
-                            "value": 0.25
-                        },
-                        "frequency": {
-                            "type": "float",
-                            "default": 1,
-                            "desc": "The wave frequency in radians/2pi.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "frequency",
-                            "value": 20
-                        },
-                        "offset": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "The y axis offset of the function.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "offset",
-                            "value": 0
-                        },
-                        "phase": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "The x axis offset of the function.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "phase",
-                            "value": 0
-                        }
-                    },
-                    "initCtrls": {},
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "desc": "x: time domain\ny: generated signal"
-                        }
-                    ],
-                    "path": "DATA/GENERATION/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py"
-                },
-                "position": {
-                    "x": 423.47406569615714,
-                    "y": 391.2341831325564
-                },
-                "width": 218,
-                "height": 269,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 423.47406569615714,
-                    "y": 391.2341831325564
-                },
-                "dragging": false
+            "waveform": {
+              "type": "select",
+              "options": ["sine", "square", "triangle", "sawtooth"],
+              "default": "sine",
+              "desc": "The waveform type of the wave.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "waveform",
+              "value": "sine"
             },
-            {
-                "id": "BASIC_OSCILLATOR-2a9272df-968d-4e6d-a6ea-4c47e2d96f19",
-                "type": "DATA",
-                "data": {
-                    "id": "BASIC_OSCILLATOR-2a9272df-968d-4e6d-a6ea-4c47e2d96f19",
-                    "label": "BASIC OSCILLATOR 1",
-                    "func": "BASIC_OSCILLATOR",
-                    "type": "DATA",
-                    "ctrls": {
-                        "sample_rate": {
-                            "type": "int",
-                            "default": 100,
-                            "desc": "The number of samples that are taken in a second.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "sample_rate",
-                            "value": 100
-                        },
-                        "time": {
-                            "type": "int",
-                            "default": 10,
-                            "desc": "The total amount of time of the signal.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "time",
-                            "value": 4
-                        },
-                        "waveform": {
-                            "type": "select",
-                            "options": [
-                                "sine",
-                                "square",
-                                "triangle",
-                                "sawtooth"
-                            ],
-                            "default": "sine",
-                            "desc": "The waveform type of the wave.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "waveform",
-                            "value": "sine"
-                        },
-                        "amplitude": {
-                            "type": "float",
-                            "default": 1,
-                            "desc": "The amplitude of the wave.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "amplitude",
-                            "value": 1.5
-                        },
-                        "frequency": {
-                            "type": "float",
-                            "default": 1,
-                            "desc": "The wave frequency in radians/2pi.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "frequency",
-                            "value": 10
-                        },
-                        "offset": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "The y axis offset of the function.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "offset",
-                            "value": 0
-                        },
-                        "phase": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "The x axis offset of the function.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "phase",
-                            "value": 0
-                        }
-                    },
-                    "initCtrls": {},
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "desc": "x: time domain\ny: generated signal"
-                        }
-                    ],
-                    "path": "DATA/GENERATION/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py"
-                },
-                "position": {
-                    "x": 406.2340082237888,
-                    "y": -176.3490316296414
-                },
-                "width": 218,
-                "height": 269,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 406.2340082237888,
-                    "y": -176.3490316296414
-                },
-                "dragging": false
+            "amplitude": {
+              "type": "float",
+              "default": 1,
+              "desc": "The amplitude of the wave.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "amplitude",
+              "value": 0.5
             },
-            {
-                "id": "BASIC_OSCILLATOR-f13d7d11-a322-4a1a-ac35-48c7224be513",
-                "type": "DATA",
-                "data": {
-                    "id": "BASIC_OSCILLATOR-f13d7d11-a322-4a1a-ac35-48c7224be513",
-                    "label": "BASIC OSCILLATOR 2",
-                    "func": "BASIC_OSCILLATOR",
-                    "type": "DATA",
-                    "ctrls": {
-                        "sample_rate": {
-                            "type": "int",
-                            "default": 100,
-                            "desc": "The number of samples that are taken in a second.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "sample_rate",
-                            "value": 100
-                        },
-                        "time": {
-                            "type": "int",
-                            "default": 10,
-                            "desc": "The total amount of time of the signal.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "time",
-                            "value": 4
-                        },
-                        "waveform": {
-                            "type": "select",
-                            "options": [
-                                "sine",
-                                "square",
-                                "triangle",
-                                "sawtooth"
-                            ],
-                            "default": "sine",
-                            "desc": "The waveform type of the wave.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "waveform",
-                            "value": "sine"
-                        },
-                        "amplitude": {
-                            "type": "float",
-                            "default": 1,
-                            "desc": "The amplitude of the wave.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "amplitude",
-                            "value": 0.75
-                        },
-                        "frequency": {
-                            "type": "float",
-                            "default": 1,
-                            "desc": "The wave frequency in radians/2pi.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "frequency",
-                            "value": 15
-                        },
-                        "offset": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "The y axis offset of the function.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "offset",
-                            "value": 0
-                        },
-                        "phase": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "The x axis offset of the function.",
-                            "overload": null,
-                            "functionName": "BASIC_OSCILLATOR",
-                            "param": "phase",
-                            "value": 0
-                        }
-                    },
-                    "initCtrls": {},
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "desc": "x: time domain\ny: generated signal"
-                        }
-                    ],
-                    "path": "DATA/GENERATION/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py"
-                },
-                "position": {
-                    "x": 408.90210729563114,
-                    "y": 98.57305558486689
-                },
-                "width": 218,
-                "height": 269,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 408.90210729563114,
-                    "y": 98.57305558486689
-                },
-                "dragging": false
+            "frequency": {
+              "type": "float",
+              "default": 1,
+              "desc": "The wave frequency in radians/2pi.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "frequency",
+              "value": 35
             },
-            {
-                "id": "LINE-e2d72d3f-a7e3-4c2c-9964-c3fd2b2452f6",
-                "type": "VISUALIZATION",
-                "data": {
-                    "id": "LINE-e2d72d3f-a7e3-4c2c-9964-c3fd2b2452f6",
-                    "label": "LINE 3",
-                    "func": "LINE",
-                    "type": "VISUALIZATION",
-                    "ctrls": {
-                        "xaxis_title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": "Choose the label for the x axis.",
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "xaxis_title",
-                            "value": ""
-                        },
-                        "yaxis_title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": "Choose the label for the y axis.",
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "yaxis_title",
-                            "value": ""
-                        },
-                        "x_log_scale": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "x_log_scale",
-                            "value": false
-                        },
-                        "y_log_scale": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "y_log_scale",
-                            "value": false
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "desc": "the DataContainer to be visualized",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
-                        }
-                    ],
-                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
-                },
-                "position": {
-                    "x": 2262.9914773356536,
-                    "y": 498.2424536409013
-                },
-                "width": 225,
-                "height": 269,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 2262.9914773356536,
-                    "y": 498.2424536409013
-                },
-                "dragging": false
+            "offset": {
+              "type": "float",
+              "default": 0,
+              "desc": "The y axis offset of the function.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "offset",
+              "value": 0
             },
-            {
-                "id": "LINE-501100c7-0584-4c19-be74-0419972d26e6",
-                "type": "VISUALIZATION",
-                "data": {
-                    "id": "LINE-501100c7-0584-4c19-be74-0419972d26e6",
-                    "label": "LINE 2",
-                    "func": "LINE",
-                    "type": "VISUALIZATION",
-                    "ctrls": {
-                        "xaxis_title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": "Choose the label for the x axis.",
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "xaxis_title",
-                            "value": ""
-                        },
-                        "yaxis_title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": "Choose the label for the y axis.",
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "yaxis_title",
-                            "value": ""
-                        },
-                        "x_log_scale": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "x_log_scale",
-                            "value": false
-                        },
-                        "y_log_scale": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "y_log_scale",
-                            "value": false
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "desc": "the DataContainer to be visualized",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
-                        }
-                    ],
-                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
-                },
-                "position": {
-                    "x": 2019.9198743075913,
-                    "y": 206.6462299648041
-                },
-                "width": 225,
-                "height": 269,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 2019.9198743075913,
-                    "y": 206.6462299648041
-                },
-                "dragging": false
-            },
-            {
-                "id": "LINE-284bceff-5770-4d68-9efd-954e07a1ff61",
-                "type": "VISUALIZATION",
-                "data": {
-                    "id": "LINE-284bceff-5770-4d68-9efd-954e07a1ff61",
-                    "label": "LINE 5",
-                    "func": "LINE",
-                    "type": "VISUALIZATION",
-                    "ctrls": {
-                        "xaxis_title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": "Choose the label for the x axis.",
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "xaxis_title",
-                            "value": ""
-                        },
-                        "yaxis_title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": "Choose the label for the y axis.",
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "yaxis_title",
-                            "value": ""
-                        },
-                        "x_log_scale": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "x_log_scale",
-                            "value": false
-                        },
-                        "y_log_scale": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "y_log_scale",
-                            "value": false
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "desc": "the DataContainer to be visualized",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
-                        }
-                    ],
-                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
-                },
-                "position": {
-                    "x": 1734.1625943761865,
-                    "y": 887.1739972386238
-                },
-                "width": 225,
-                "height": 269,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1734.1625943761865,
-                    "y": 887.1739972386238
-                },
-                "dragging": false
-            },
-            {
-                "id": "LINE-71bad01b-893a-4254-b4f5-e3fcf7de7ea2",
-                "type": "VISUALIZATION",
-                "data": {
-                    "id": "LINE-71bad01b-893a-4254-b4f5-e3fcf7de7ea2",
-                    "label": "LINE 4",
-                    "func": "LINE",
-                    "type": "VISUALIZATION",
-                    "ctrls": {
-                        "xaxis_title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": "Choose the label for the x axis.",
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "xaxis_title",
-                            "value": ""
-                        },
-                        "yaxis_title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": "Choose the label for the y axis.",
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "yaxis_title",
-                            "value": ""
-                        },
-                        "x_log_scale": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "x_log_scale",
-                            "value": false
-                        },
-                        "y_log_scale": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "y_log_scale",
-                            "value": false
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "desc": "the DataContainer to be visualized",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
-                        }
-                    ],
-                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
-                },
-                "position": {
-                    "x": 1008.97618634826,
-                    "y": 916.66960698657
-                },
-                "width": 225,
-                "height": 269,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1008.97618634826,
-                    "y": 916.66960698657
-                },
-                "dragging": false
-            },
-            {
-                "id": "LINE-63591da7-f524-4084-bdc2-eed334f7f405",
-                "type": "VISUALIZATION",
-                "data": {
-                    "id": "LINE-63591da7-f524-4084-bdc2-eed334f7f405",
-                    "label": "LINE 1",
-                    "func": "LINE",
-                    "type": "VISUALIZATION",
-                    "ctrls": {
-                        "xaxis_title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": "Choose the label for the x axis.",
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "xaxis_title",
-                            "value": ""
-                        },
-                        "yaxis_title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": "Choose the label for the y axis.",
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "yaxis_title",
-                            "value": ""
-                        },
-                        "x_log_scale": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "x_log_scale",
-                            "value": false
-                        },
-                        "y_log_scale": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "y_log_scale",
-                            "value": false
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "desc": "the DataContainer to be visualized",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
-                        }
-                    ],
-                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
-                },
-                "position": {
-                    "x": 1260.6352953721748,
-                    "y": -86.90368621420748
-                },
-                "width": 225,
-                "height": 269,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1260.6352953721748,
-                    "y": -86.90368621420748
-                },
-                "dragging": false
-            },
-            {
-                "id": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
-                "type": "MATH",
-                "data": {
-                    "id": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
-                    "label": "ADD",
-                    "func": "ADD",
-                    "type": "MATH",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "a",
-                            "id": "a",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "desc": "The input a use to compute the sum of a and b.",
-                            "multiple": false
-                        },
-                        {
-                            "name": "b",
-                            "id": "b",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "desc": "The input b use to compute the sum of a and b.",
-                            "multiple": true
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the sum of input a and input b.\n\nScalar if a is a Scalar.\nc: the sum of input a and input b.\n\nVector if a is a Vector.\nv: the sum of input a and input b."
-                        }
-                    ],
-                    "path": "MATH/ARITHMETIC/ADD/ADD.py"
-                },
-                "position": {
-                    "x": 1024.0851251994877,
-                    "y": 369.42168850960365
-                },
-                "width": 216,
-                "height": 198,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1024.0851251994877,
-                    "y": 369.42168850960365
-                },
-                "dragging": false
-            },
-            {
-                "id": "FIR-e26fd3ad-7958-491b-afa3-02a9705c3bd6",
-                "type": "DSP",
-                "data": {
-                    "id": "FIR-e26fd3ad-7958-491b-afa3-02a9705c3bd6",
-                    "label": "FIR",
-                    "func": "FIR",
-                    "type": "DSP",
-                    "ctrls": {
-                        "sample_rate": {
-                            "type": "int",
-                            "default": 100,
-                            "desc": "the amount of samples within a second",
-                            "overload": null,
-                            "functionName": "FIR",
-                            "param": "sample_rate",
-                            "value": 100
-                        },
-                        "filter_type": {
-                            "type": "select",
-                            "options": [
-                                "lowpass",
-                                "highpass",
-                                "bandpass",
-                                "bandstop"
-                            ],
-                            "default": "lowpass",
-                            "desc": "how the filter behaves",
-                            "overload": null,
-                            "functionName": "FIR",
-                            "param": "filter_type",
-                            "value": "bandpass"
-                        },
-                        "window": {
-                            "type": "select",
-                            "options": [
-                                "boxcar",
-                                "triang",
-                                "blackman",
-                                "hamming",
-                                "hann",
-                                "bartlett",
-                                "flattop",
-                                "parzen",
-                                "bohman",
-                                "blackmanharris",
-                                "nuttall",
-                                "barthann",
-                                "cosine",
-                                "exponential",
-                                "tukey",
-                                "taylor",
-                                "lanczos"
-                            ],
-                            "default": "hann",
-                            "desc": "the window function used in the FIR",
-                            "overload": null,
-                            "functionName": "FIR",
-                            "param": "window",
-                            "value": "hann"
-                        },
-                        "cutoff_low": {
-                            "type": "float",
-                            "default": 10,
-                            "desc": "the frequency cutoff to filter out the lower frequencies",
-                            "overload": null,
-                            "functionName": "FIR",
-                            "param": "cutoff_low",
-                            "value": 23
-                        },
-                        "cutoff_high": {
-                            "type": "float",
-                            "default": 15,
-                            "desc": "the frequency cutoff to filter out the upper frequencies",
-                            "overload": null,
-                            "functionName": "FIR",
-                            "param": "cutoff_high",
-                            "value": 28
-                        },
-                        "taps": {
-                            "type": "int",
-                            "default": 200,
-                            "desc": "the length of the filter",
-                            "overload": null,
-                            "functionName": "FIR",
-                            "param": "taps",
-                            "value": 80
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "desc": "The data to apply a FIR filter to.",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "desc": "x: time domain\ny: filtered signal"
-                        }
-                    ],
-                    "path": "DSP/FIR/FIR.py"
-                },
-                "position": {
-                    "x": 1251.805894446667,
-                    "y": 696.6089879612791
-                },
-                "width": 216,
-                "height": 197,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1251.805894446667,
-                    "y": 696.6089879612791
-                },
-                "dragging": false
-            },
-            {
-                "id": "FFT-0d5d1c6b-8d86-4f4b-af1a-2bd95beec8f9",
-                "type": "DSP",
-                "data": {
-                    "id": "FFT-0d5d1c6b-8d86-4f4b-af1a-2bd95beec8f9",
-                    "label": "FFT",
-                    "func": "FFT",
-                    "type": "DSP",
-                    "ctrls": {
-                        "window": {
-                            "type": "select",
-                            "options": [
-                                "none",
-                                "boxcar",
-                                "triang",
-                                "blackman",
-                                "hamming",
-                                "hann",
-                                "bartlett",
-                                "flattop",
-                                "parzen",
-                                "bohman",
-                                "blackmanharris",
-                                "nuttall",
-                                "barthann",
-                                "cosine",
-                                "exponential",
-                                "tukey",
-                                "taylor",
-                                "lanczos"
-                            ],
-                            "default": "hann",
-                            "desc": "the node will apply a window to the signal to avoid spectral leakage",
-                            "overload": null,
-                            "functionName": "FFT",
-                            "param": "window",
-                            "value": "hann"
-                        },
-                        "real_signal": {
-                            "type": "bool",
-                            "default": true,
-                            "desc": "whether the input signal is real or complex",
-                            "overload": null,
-                            "functionName": "FFT",
-                            "param": "real_signal",
-                            "value": true
-                        },
-                        "sample_rate": {
-                            "type": "int",
-                            "default": 1,
-                            "desc": "the sample rate of the signal, defaults to 1",
-                            "overload": null,
-                            "functionName": "FFT",
-                            "param": "sample_rate",
-                            "value": 100
-                        },
-                        "display": {
-                            "type": "bool",
-                            "default": true,
-                            "desc": "whether the output would be graphed, set to false for pure data and true for data that is more suitable to be graphed",
-                            "overload": null,
-                            "functionName": "FFT",
-                            "param": "display",
-                            "value": true
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "desc": "The data to apply FFT to.",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame",
-                            "desc": "x: frequency\ny: spectrum of the signal"
-                        }
-                    ],
-                    "path": "DSP/FFT/FFT.py"
-                },
-                "position": {
-                    "x": 1708.7633909341175,
-                    "y": 535.7326877058035
-                },
-                "width": 216,
-                "height": 197,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1708.7633909341175,
-                    "y": 535.7326877058035
-                },
-                "dragging": false
-            },
-            {
-                "id": "FFT-2eb36bd7-4be3-4b7d-9101-086a381872c8",
-                "type": "DSP",
-                "data": {
-                    "id": "FFT-2eb36bd7-4be3-4b7d-9101-086a381872c8",
-                    "label": "FFT 1",
-                    "func": "FFT",
-                    "type": "DSP",
-                    "ctrls": {
-                        "window": {
-                            "type": "select",
-                            "options": [
-                                "none",
-                                "boxcar",
-                                "triang",
-                                "blackman",
-                                "hamming",
-                                "hann",
-                                "bartlett",
-                                "flattop",
-                                "parzen",
-                                "bohman",
-                                "blackmanharris",
-                                "nuttall",
-                                "barthann",
-                                "cosine",
-                                "exponential",
-                                "tukey",
-                                "taylor",
-                                "lanczos"
-                            ],
-                            "default": "hann",
-                            "desc": "the node will apply a window to the signal to avoid spectral leakage",
-                            "overload": null,
-                            "functionName": "FFT",
-                            "param": "window",
-                            "value": "hann"
-                        },
-                        "real_signal": {
-                            "type": "bool",
-                            "default": true,
-                            "desc": "whether the input signal is real or complex",
-                            "overload": null,
-                            "functionName": "FFT",
-                            "param": "real_signal",
-                            "value": true
-                        },
-                        "sample_rate": {
-                            "type": "int",
-                            "default": 1,
-                            "desc": "the sample rate of the signal, defaults to 1",
-                            "overload": null,
-                            "functionName": "FFT",
-                            "param": "sample_rate",
-                            "value": 100
-                        },
-                        "display": {
-                            "type": "bool",
-                            "default": true,
-                            "desc": "whether the output would be graphed, set to false for pure data and true for data that is more suitable to be graphed",
-                            "overload": null,
-                            "functionName": "FFT",
-                            "param": "display",
-                            "value": true
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "desc": "The data to apply FFT to.",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame",
-                            "desc": "x: frequency\ny: spectrum of the signal"
-                        }
-                    ],
-                    "path": "DSP/FFT/FFT.py"
-                },
-                "position": {
-                    "x": 1601.5921018623958,
-                    "y": 237.13544844405658
-                },
-                "width": 216,
-                "height": 197,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1601.5921018623958,
-                    "y": 237.13544844405658
-                },
-                "dragging": false
+            "phase": {
+              "type": "float",
+              "default": 0,
+              "desc": "The x axis offset of the function.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "phase",
+              "value": 0
             }
-        ],
-        "edges": [
+          },
+          "initCtrls": {},
+          "outputs": [
             {
-                "id": "BASIC_OSCILLATOR-2a9272df-968d-4e6d-a6ea-4c47e2d96f19->ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
-                "source": "BASIC_OSCILLATOR-2a9272df-968d-4e6d-a6ea-4c47e2d96f19",
-                "target": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
-                "sourceHandle": "default",
-                "targetHandle": "a",
-                "data": {
-                    "outputType": "OrderedPair"
-                }
-            },
-            {
-                "id": "BASIC_OSCILLATOR-f13d7d11-a322-4a1a-ac35-48c7224be513->ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
-                "source": "BASIC_OSCILLATOR-f13d7d11-a322-4a1a-ac35-48c7224be513",
-                "target": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
-                "sourceHandle": "default",
-                "targetHandle": "b",
-                "data": {
-                    "outputType": "OrderedPair"
-                }
-            },
-            {
-                "id": "BASIC_OSCILLATOR-9f2a14df-e969-4f74-b82e-e27ff0e313dc->ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
-                "source": "BASIC_OSCILLATOR-9f2a14df-e969-4f74-b82e-e27ff0e313dc",
-                "target": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
-                "sourceHandle": "default",
-                "targetHandle": "b",
-                "data": {
-                    "outputType": "OrderedPair"
-                }
-            },
-            {
-                "id": "BASIC_OSCILLATOR-41ff262b-a3ef-400e-9aa1-733a0e4cafac->ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
-                "source": "BASIC_OSCILLATOR-41ff262b-a3ef-400e-9aa1-733a0e4cafac",
-                "target": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
-                "sourceHandle": "default",
-                "targetHandle": "b",
-                "data": {
-                    "outputType": "OrderedPair"
-                }
-            },
-            {
-                "id": "BASIC_OSCILLATOR-616f4cff-3acd-4814-a771-edcddf8ba62c->ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
-                "source": "BASIC_OSCILLATOR-616f4cff-3acd-4814-a771-edcddf8ba62c",
-                "target": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
-                "sourceHandle": "default",
-                "targetHandle": "b",
-                "data": {
-                    "outputType": "OrderedPair"
-                }
-            },
-            {
-                "id": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4->LINE-63591da7-f524-4084-bdc2-eed334f7f405",
-                "source": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
-                "target": "LINE-63591da7-f524-4084-bdc2-eed334f7f405",
-                "sourceHandle": "default",
-                "targetHandle": "default",
-                "data": {
-                    "outputType": "OrderedPair"
-                }
-            },
-            {
-                "id": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4->FFT-2eb36bd7-4be3-4b7d-9101-086a381872c8",
-                "source": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
-                "target": "FFT-2eb36bd7-4be3-4b7d-9101-086a381872c8",
-                "sourceHandle": "default",
-                "targetHandle": "default",
-                "data": {
-                    "outputType": "OrderedPair"
-                }
-            },
-            {
-                "id": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4->FIR-e26fd3ad-7958-491b-afa3-02a9705c3bd6",
-                "source": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
-                "target": "FIR-e26fd3ad-7958-491b-afa3-02a9705c3bd6",
-                "sourceHandle": "default",
-                "targetHandle": "default",
-                "data": {
-                    "outputType": "OrderedPair"
-                }
-            },
-            {
-                "id": "FIR-e26fd3ad-7958-491b-afa3-02a9705c3bd6->LINE-284bceff-5770-4d68-9efd-954e07a1ff61",
-                "source": "FIR-e26fd3ad-7958-491b-afa3-02a9705c3bd6",
-                "target": "LINE-284bceff-5770-4d68-9efd-954e07a1ff61",
-                "sourceHandle": "default",
-                "targetHandle": "default",
-                "data": {
-                    "outputType": "OrderedPair"
-                }
-            },
-            {
-                "id": "FIR-e26fd3ad-7958-491b-afa3-02a9705c3bd6->FFT-0d5d1c6b-8d86-4f4b-af1a-2bd95beec8f9",
-                "source": "FIR-e26fd3ad-7958-491b-afa3-02a9705c3bd6",
-                "target": "FFT-0d5d1c6b-8d86-4f4b-af1a-2bd95beec8f9",
-                "sourceHandle": "default",
-                "targetHandle": "default",
-                "data": {
-                    "outputType": "OrderedPair"
-                }
-            },
-            {
-                "id": "FFT-0d5d1c6b-8d86-4f4b-af1a-2bd95beec8f9->LINE-e2d72d3f-a7e3-4c2c-9964-c3fd2b2452f6",
-                "source": "FFT-0d5d1c6b-8d86-4f4b-af1a-2bd95beec8f9",
-                "target": "LINE-e2d72d3f-a7e3-4c2c-9964-c3fd2b2452f6",
-                "sourceHandle": "default",
-                "targetHandle": "default",
-                "data": {
-                    "outputType": "OrderedPair"
-                }
-            },
-            {
-                "id": "FFT-2eb36bd7-4be3-4b7d-9101-086a381872c8->LINE-501100c7-0584-4c19-be74-0419972d26e6",
-                "source": "FFT-2eb36bd7-4be3-4b7d-9101-086a381872c8",
-                "target": "LINE-501100c7-0584-4c19-be74-0419972d26e6",
-                "sourceHandle": "default",
-                "targetHandle": "default",
-                "data": {
-                    "outputType": "OrderedPair"
-                }
-            },
-            {
-                "id": "BASIC_OSCILLATOR-9f2a14df-e969-4f74-b82e-e27ff0e313dc->LINE-71bad01b-893a-4254-b4f5-e3fcf7de7ea2",
-                "source": "BASIC_OSCILLATOR-9f2a14df-e969-4f74-b82e-e27ff0e313dc",
-                "target": "LINE-71bad01b-893a-4254-b4f5-e3fcf7de7ea2",
-                "sourceHandle": "default",
-                "targetHandle": "default",
-                "data": {
-                    "outputType": "OrderedPair"
-                }
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "desc": "x: time domain\ny: generated signal"
             }
-        ]
-    },
-    "textNodes": []
+          ],
+          "path": "DATA/GENERATION/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py"
+        },
+        "position": {
+          "x": 433.1372703344118,
+          "y": 670.3992304617955
+        },
+        "width": 218,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 433.1372703344118,
+          "y": 670.3992304617955
+        },
+        "dragging": false
+      },
+      {
+        "id": "BASIC_OSCILLATOR-9f2a14df-e969-4f74-b82e-e27ff0e313dc",
+        "type": "DATA",
+        "data": {
+          "id": "BASIC_OSCILLATOR-9f2a14df-e969-4f74-b82e-e27ff0e313dc",
+          "label": "BASIC OSCILLATOR 5",
+          "func": "BASIC_OSCILLATOR",
+          "type": "DATA",
+          "ctrls": {
+            "sample_rate": {
+              "type": "int",
+              "default": 100,
+              "desc": "The number of samples that are taken in a second.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "sample_rate",
+              "value": 100
+            },
+            "time": {
+              "type": "int",
+              "default": 10,
+              "desc": "The total amount of time of the signal.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "time",
+              "value": 4
+            },
+            "waveform": {
+              "type": "select",
+              "options": ["sine", "square", "triangle", "sawtooth"],
+              "default": "sine",
+              "desc": "The waveform type of the wave.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "waveform",
+              "value": "sine"
+            },
+            "amplitude": {
+              "type": "float",
+              "default": 1,
+              "desc": "The amplitude of the wave.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "amplitude",
+              "value": 1
+            },
+            "frequency": {
+              "type": "float",
+              "default": 1,
+              "desc": "The wave frequency in radians/2pi.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "frequency",
+              "value": 25
+            },
+            "offset": {
+              "type": "float",
+              "default": 0,
+              "desc": "The y axis offset of the function.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "offset",
+              "value": 0
+            },
+            "phase": {
+              "type": "float",
+              "default": 0,
+              "desc": "The x axis offset of the function.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "phase",
+              "value": 0
+            }
+          },
+          "initCtrls": {},
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "desc": "x: time domain\ny: generated signal"
+            }
+          ],
+          "path": "DATA/GENERATION/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py"
+        },
+        "position": {
+          "x": 444.08863675204975,
+          "y": 960.3900352360727
+        },
+        "width": 218,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 444.08863675204975,
+          "y": 960.3900352360727
+        },
+        "dragging": false
+      },
+      {
+        "id": "BASIC_OSCILLATOR-616f4cff-3acd-4814-a771-edcddf8ba62c",
+        "type": "DATA",
+        "data": {
+          "id": "BASIC_OSCILLATOR-616f4cff-3acd-4814-a771-edcddf8ba62c",
+          "label": "BASIC OSCILLATOR 3",
+          "func": "BASIC_OSCILLATOR",
+          "type": "DATA",
+          "ctrls": {
+            "sample_rate": {
+              "type": "int",
+              "default": 100,
+              "desc": "The number of samples that are taken in a second.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "sample_rate",
+              "value": 100
+            },
+            "time": {
+              "type": "int",
+              "default": 10,
+              "desc": "The total amount of time of the signal.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "time",
+              "value": 4
+            },
+            "waveform": {
+              "type": "select",
+              "options": ["sine", "square", "triangle", "sawtooth"],
+              "default": "sine",
+              "desc": "The waveform type of the wave.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "waveform",
+              "value": "sine"
+            },
+            "amplitude": {
+              "type": "float",
+              "default": 1,
+              "desc": "The amplitude of the wave.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "amplitude",
+              "value": 0.25
+            },
+            "frequency": {
+              "type": "float",
+              "default": 1,
+              "desc": "The wave frequency in radians/2pi.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "frequency",
+              "value": 20
+            },
+            "offset": {
+              "type": "float",
+              "default": 0,
+              "desc": "The y axis offset of the function.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "offset",
+              "value": 0
+            },
+            "phase": {
+              "type": "float",
+              "default": 0,
+              "desc": "The x axis offset of the function.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "phase",
+              "value": 0
+            }
+          },
+          "initCtrls": {},
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "desc": "x: time domain\ny: generated signal"
+            }
+          ],
+          "path": "DATA/GENERATION/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py"
+        },
+        "position": {
+          "x": 423.47406569615714,
+          "y": 391.2341831325564
+        },
+        "width": 218,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 423.47406569615714,
+          "y": 391.2341831325564
+        },
+        "dragging": false
+      },
+      {
+        "id": "BASIC_OSCILLATOR-2a9272df-968d-4e6d-a6ea-4c47e2d96f19",
+        "type": "DATA",
+        "data": {
+          "id": "BASIC_OSCILLATOR-2a9272df-968d-4e6d-a6ea-4c47e2d96f19",
+          "label": "BASIC OSCILLATOR 1",
+          "func": "BASIC_OSCILLATOR",
+          "type": "DATA",
+          "ctrls": {
+            "sample_rate": {
+              "type": "int",
+              "default": 100,
+              "desc": "The number of samples that are taken in a second.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "sample_rate",
+              "value": 100
+            },
+            "time": {
+              "type": "int",
+              "default": 10,
+              "desc": "The total amount of time of the signal.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "time",
+              "value": 4
+            },
+            "waveform": {
+              "type": "select",
+              "options": ["sine", "square", "triangle", "sawtooth"],
+              "default": "sine",
+              "desc": "The waveform type of the wave.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "waveform",
+              "value": "sine"
+            },
+            "amplitude": {
+              "type": "float",
+              "default": 1,
+              "desc": "The amplitude of the wave.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "amplitude",
+              "value": 1.5
+            },
+            "frequency": {
+              "type": "float",
+              "default": 1,
+              "desc": "The wave frequency in radians/2pi.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "frequency",
+              "value": 10
+            },
+            "offset": {
+              "type": "float",
+              "default": 0,
+              "desc": "The y axis offset of the function.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "offset",
+              "value": 0
+            },
+            "phase": {
+              "type": "float",
+              "default": 0,
+              "desc": "The x axis offset of the function.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "phase",
+              "value": 0
+            }
+          },
+          "initCtrls": {},
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "desc": "x: time domain\ny: generated signal"
+            }
+          ],
+          "path": "DATA/GENERATION/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py"
+        },
+        "position": {
+          "x": 406.2340082237888,
+          "y": -176.3490316296414
+        },
+        "width": 218,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 406.2340082237888,
+          "y": -176.3490316296414
+        },
+        "dragging": false
+      },
+      {
+        "id": "BASIC_OSCILLATOR-f13d7d11-a322-4a1a-ac35-48c7224be513",
+        "type": "DATA",
+        "data": {
+          "id": "BASIC_OSCILLATOR-f13d7d11-a322-4a1a-ac35-48c7224be513",
+          "label": "BASIC OSCILLATOR 2",
+          "func": "BASIC_OSCILLATOR",
+          "type": "DATA",
+          "ctrls": {
+            "sample_rate": {
+              "type": "int",
+              "default": 100,
+              "desc": "The number of samples that are taken in a second.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "sample_rate",
+              "value": 100
+            },
+            "time": {
+              "type": "int",
+              "default": 10,
+              "desc": "The total amount of time of the signal.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "time",
+              "value": 4
+            },
+            "waveform": {
+              "type": "select",
+              "options": ["sine", "square", "triangle", "sawtooth"],
+              "default": "sine",
+              "desc": "The waveform type of the wave.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "waveform",
+              "value": "sine"
+            },
+            "amplitude": {
+              "type": "float",
+              "default": 1,
+              "desc": "The amplitude of the wave.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "amplitude",
+              "value": 0.75
+            },
+            "frequency": {
+              "type": "float",
+              "default": 1,
+              "desc": "The wave frequency in radians/2pi.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "frequency",
+              "value": 15
+            },
+            "offset": {
+              "type": "float",
+              "default": 0,
+              "desc": "The y axis offset of the function.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "offset",
+              "value": 0
+            },
+            "phase": {
+              "type": "float",
+              "default": 0,
+              "desc": "The x axis offset of the function.",
+              "overload": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "phase",
+              "value": 0
+            }
+          },
+          "initCtrls": {},
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "desc": "x: time domain\ny: generated signal"
+            }
+          ],
+          "path": "DATA/GENERATION/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py"
+        },
+        "position": {
+          "x": 408.90210729563114,
+          "y": 98.57305558486689
+        },
+        "width": 218,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 408.90210729563114,
+          "y": 98.57305558486689
+        },
+        "dragging": false
+      },
+      {
+        "id": "LINE-e2d72d3f-a7e3-4c2c-9964-c3fd2b2452f6",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "LINE-e2d72d3f-a7e3-4c2c-9964-c3fd2b2452f6",
+          "label": "LINE 3",
+          "func": "LINE",
+          "type": "VISUALIZATION",
+          "ctrls": {
+            "xaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the x axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "xaxis_title",
+              "value": ""
+            },
+            "yaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the y axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "yaxis_title",
+              "value": ""
+            },
+            "x_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "x_log_scale",
+              "value": false
+            },
+            "y_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "y_log_scale",
+              "value": false
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix|Vector",
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+        },
+        "position": {
+          "x": 2262.9914773356536,
+          "y": 498.2424536409013
+        },
+        "width": 225,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 2262.9914773356536,
+          "y": 498.2424536409013
+        },
+        "dragging": false
+      },
+      {
+        "id": "LINE-501100c7-0584-4c19-be74-0419972d26e6",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "LINE-501100c7-0584-4c19-be74-0419972d26e6",
+          "label": "LINE 2",
+          "func": "LINE",
+          "type": "VISUALIZATION",
+          "ctrls": {
+            "xaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the x axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "xaxis_title",
+              "value": ""
+            },
+            "yaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the y axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "yaxis_title",
+              "value": ""
+            },
+            "x_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "x_log_scale",
+              "value": false
+            },
+            "y_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "y_log_scale",
+              "value": false
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix|Vector",
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+        },
+        "position": {
+          "x": 2019.9198743075913,
+          "y": 206.6462299648041
+        },
+        "width": 225,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 2019.9198743075913,
+          "y": 206.6462299648041
+        },
+        "dragging": false
+      },
+      {
+        "id": "LINE-284bceff-5770-4d68-9efd-954e07a1ff61",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "LINE-284bceff-5770-4d68-9efd-954e07a1ff61",
+          "label": "LINE 5",
+          "func": "LINE",
+          "type": "VISUALIZATION",
+          "ctrls": {
+            "xaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the x axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "xaxis_title",
+              "value": ""
+            },
+            "yaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the y axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "yaxis_title",
+              "value": ""
+            },
+            "x_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "x_log_scale",
+              "value": false
+            },
+            "y_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "y_log_scale",
+              "value": false
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix|Vector",
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+        },
+        "position": {
+          "x": 1734.1625943761865,
+          "y": 887.1739972386238
+        },
+        "width": 225,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1734.1625943761865,
+          "y": 887.1739972386238
+        },
+        "dragging": false
+      },
+      {
+        "id": "LINE-71bad01b-893a-4254-b4f5-e3fcf7de7ea2",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "LINE-71bad01b-893a-4254-b4f5-e3fcf7de7ea2",
+          "label": "LINE 4",
+          "func": "LINE",
+          "type": "VISUALIZATION",
+          "ctrls": {
+            "xaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the x axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "xaxis_title",
+              "value": ""
+            },
+            "yaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the y axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "yaxis_title",
+              "value": ""
+            },
+            "x_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "x_log_scale",
+              "value": false
+            },
+            "y_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "y_log_scale",
+              "value": false
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix|Vector",
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+        },
+        "position": {
+          "x": 1008.97618634826,
+          "y": 916.66960698657
+        },
+        "width": 225,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1008.97618634826,
+          "y": 916.66960698657
+        },
+        "dragging": false
+      },
+      {
+        "id": "LINE-63591da7-f524-4084-bdc2-eed334f7f405",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "LINE-63591da7-f524-4084-bdc2-eed334f7f405",
+          "label": "LINE 1",
+          "func": "LINE",
+          "type": "VISUALIZATION",
+          "ctrls": {
+            "xaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the x axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "xaxis_title",
+              "value": ""
+            },
+            "yaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the y axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "yaxis_title",
+              "value": ""
+            },
+            "x_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "x_log_scale",
+              "value": false
+            },
+            "y_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "y_log_scale",
+              "value": false
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix|Vector",
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+        },
+        "position": {
+          "x": 1260.6352953721748,
+          "y": -86.90368621420748
+        },
+        "width": 225,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1260.6352953721748,
+          "y": -86.90368621420748
+        },
+        "dragging": false
+      },
+      {
+        "id": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
+        "type": "MATH",
+        "data": {
+          "id": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
+          "label": "ADD",
+          "func": "ADD",
+          "type": "MATH",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "a",
+              "id": "a",
+              "type": "OrderedPair|Scalar|Vector",
+              "desc": "The input a use to compute the sum of a and b.",
+              "multiple": false
+            },
+            {
+              "name": "b",
+              "id": "b",
+              "type": "OrderedPair|Scalar|Vector",
+              "desc": "The input b use to compute the sum of a and b.",
+              "multiple": true
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|Scalar|Vector",
+              "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the sum of input a and input b.\n\nScalar if a is a Scalar.\nc: the sum of input a and input b.\n\nVector if a is a Vector.\nv: the sum of input a and input b."
+            }
+          ],
+          "path": "MATH/ARITHMETIC/ADD/ADD.py"
+        },
+        "position": {
+          "x": 1024.0851251994877,
+          "y": 369.42168850960365
+        },
+        "width": 216,
+        "height": 198,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1024.0851251994877,
+          "y": 369.42168850960365
+        },
+        "dragging": false
+      },
+      {
+        "id": "FIR-e26fd3ad-7958-491b-afa3-02a9705c3bd6",
+        "type": "DSP",
+        "data": {
+          "id": "FIR-e26fd3ad-7958-491b-afa3-02a9705c3bd6",
+          "label": "FIR",
+          "func": "FIR",
+          "type": "DSP",
+          "ctrls": {
+            "sample_rate": {
+              "type": "int",
+              "default": 100,
+              "desc": "the amount of samples within a second",
+              "overload": null,
+              "functionName": "FIR",
+              "param": "sample_rate",
+              "value": 100
+            },
+            "filter_type": {
+              "type": "select",
+              "options": ["lowpass", "highpass", "bandpass", "bandstop"],
+              "default": "lowpass",
+              "desc": "how the filter behaves",
+              "overload": null,
+              "functionName": "FIR",
+              "param": "filter_type",
+              "value": "bandpass"
+            },
+            "window": {
+              "type": "select",
+              "options": [
+                "boxcar",
+                "triang",
+                "blackman",
+                "hamming",
+                "hann",
+                "bartlett",
+                "flattop",
+                "parzen",
+                "bohman",
+                "blackmanharris",
+                "nuttall",
+                "barthann",
+                "cosine",
+                "exponential",
+                "tukey",
+                "taylor",
+                "lanczos"
+              ],
+              "default": "hann",
+              "desc": "the window function used in the FIR",
+              "overload": null,
+              "functionName": "FIR",
+              "param": "window",
+              "value": "hann"
+            },
+            "cutoff_low": {
+              "type": "float",
+              "default": 10,
+              "desc": "the frequency cutoff to filter out the lower frequencies",
+              "overload": null,
+              "functionName": "FIR",
+              "param": "cutoff_low",
+              "value": 23
+            },
+            "cutoff_high": {
+              "type": "float",
+              "default": 15,
+              "desc": "the frequency cutoff to filter out the upper frequencies",
+              "overload": null,
+              "functionName": "FIR",
+              "param": "cutoff_high",
+              "value": 28
+            },
+            "taps": {
+              "type": "int",
+              "default": 200,
+              "desc": "the length of the filter",
+              "overload": null,
+              "functionName": "FIR",
+              "param": "taps",
+              "value": 80
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "desc": "The data to apply a FIR filter to.",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "desc": "x: time domain\ny: filtered signal"
+            }
+          ],
+          "path": "DSP/FIR/FIR.py"
+        },
+        "position": {
+          "x": 1251.805894446667,
+          "y": 696.6089879612791
+        },
+        "width": 216,
+        "height": 197,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1251.805894446667,
+          "y": 696.6089879612791
+        },
+        "dragging": false
+      },
+      {
+        "id": "FFT-0d5d1c6b-8d86-4f4b-af1a-2bd95beec8f9",
+        "type": "DSP",
+        "data": {
+          "id": "FFT-0d5d1c6b-8d86-4f4b-af1a-2bd95beec8f9",
+          "label": "FFT",
+          "func": "FFT",
+          "type": "DSP",
+          "ctrls": {
+            "window": {
+              "type": "select",
+              "options": [
+                "none",
+                "boxcar",
+                "triang",
+                "blackman",
+                "hamming",
+                "hann",
+                "bartlett",
+                "flattop",
+                "parzen",
+                "bohman",
+                "blackmanharris",
+                "nuttall",
+                "barthann",
+                "cosine",
+                "exponential",
+                "tukey",
+                "taylor",
+                "lanczos"
+              ],
+              "default": "hann",
+              "desc": "the node will apply a window to the signal to avoid spectral leakage",
+              "overload": null,
+              "functionName": "FFT",
+              "param": "window",
+              "value": "hann"
+            },
+            "real_signal": {
+              "type": "bool",
+              "default": true,
+              "desc": "whether the input signal is real or complex",
+              "overload": null,
+              "functionName": "FFT",
+              "param": "real_signal",
+              "value": true
+            },
+            "sample_rate": {
+              "type": "int",
+              "default": 1,
+              "desc": "the sample rate of the signal, defaults to 1",
+              "overload": null,
+              "functionName": "FFT",
+              "param": "sample_rate",
+              "value": 100
+            },
+            "display": {
+              "type": "bool",
+              "default": true,
+              "desc": "whether the output would be graphed, set to false for pure data and true for data that is more suitable to be graphed",
+              "overload": null,
+              "functionName": "FFT",
+              "param": "display",
+              "value": true
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "desc": "The data to apply FFT to.",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame",
+              "desc": "x: frequency\ny: spectrum of the signal"
+            }
+          ],
+          "path": "DSP/FFT/FFT.py"
+        },
+        "position": {
+          "x": 1708.7633909341175,
+          "y": 535.7326877058035
+        },
+        "width": 216,
+        "height": 197,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1708.7633909341175,
+          "y": 535.7326877058035
+        },
+        "dragging": false
+      },
+      {
+        "id": "FFT-2eb36bd7-4be3-4b7d-9101-086a381872c8",
+        "type": "DSP",
+        "data": {
+          "id": "FFT-2eb36bd7-4be3-4b7d-9101-086a381872c8",
+          "label": "FFT 1",
+          "func": "FFT",
+          "type": "DSP",
+          "ctrls": {
+            "window": {
+              "type": "select",
+              "options": [
+                "none",
+                "boxcar",
+                "triang",
+                "blackman",
+                "hamming",
+                "hann",
+                "bartlett",
+                "flattop",
+                "parzen",
+                "bohman",
+                "blackmanharris",
+                "nuttall",
+                "barthann",
+                "cosine",
+                "exponential",
+                "tukey",
+                "taylor",
+                "lanczos"
+              ],
+              "default": "hann",
+              "desc": "the node will apply a window to the signal to avoid spectral leakage",
+              "overload": null,
+              "functionName": "FFT",
+              "param": "window",
+              "value": "hann"
+            },
+            "real_signal": {
+              "type": "bool",
+              "default": true,
+              "desc": "whether the input signal is real or complex",
+              "overload": null,
+              "functionName": "FFT",
+              "param": "real_signal",
+              "value": true
+            },
+            "sample_rate": {
+              "type": "int",
+              "default": 1,
+              "desc": "the sample rate of the signal, defaults to 1",
+              "overload": null,
+              "functionName": "FFT",
+              "param": "sample_rate",
+              "value": 100
+            },
+            "display": {
+              "type": "bool",
+              "default": true,
+              "desc": "whether the output would be graphed, set to false for pure data and true for data that is more suitable to be graphed",
+              "overload": null,
+              "functionName": "FFT",
+              "param": "display",
+              "value": true
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "desc": "The data to apply FFT to.",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame",
+              "desc": "x: frequency\ny: spectrum of the signal"
+            }
+          ],
+          "path": "DSP/FFT/FFT.py"
+        },
+        "position": {
+          "x": 1601.5921018623958,
+          "y": 237.13544844405658
+        },
+        "width": 216,
+        "height": 197,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1601.5921018623958,
+          "y": 237.13544844405658
+        },
+        "dragging": false
+      }
+    ],
+    "edges": [
+      {
+        "id": "BASIC_OSCILLATOR-2a9272df-968d-4e6d-a6ea-4c47e2d96f19->ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
+        "source": "BASIC_OSCILLATOR-2a9272df-968d-4e6d-a6ea-4c47e2d96f19",
+        "target": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
+        "sourceHandle": "default",
+        "targetHandle": "a",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "BASIC_OSCILLATOR-f13d7d11-a322-4a1a-ac35-48c7224be513->ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
+        "source": "BASIC_OSCILLATOR-f13d7d11-a322-4a1a-ac35-48c7224be513",
+        "target": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
+        "sourceHandle": "default",
+        "targetHandle": "b",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "BASIC_OSCILLATOR-9f2a14df-e969-4f74-b82e-e27ff0e313dc->ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
+        "source": "BASIC_OSCILLATOR-9f2a14df-e969-4f74-b82e-e27ff0e313dc",
+        "target": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
+        "sourceHandle": "default",
+        "targetHandle": "b",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "BASIC_OSCILLATOR-41ff262b-a3ef-400e-9aa1-733a0e4cafac->ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
+        "source": "BASIC_OSCILLATOR-41ff262b-a3ef-400e-9aa1-733a0e4cafac",
+        "target": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
+        "sourceHandle": "default",
+        "targetHandle": "b",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "BASIC_OSCILLATOR-616f4cff-3acd-4814-a771-edcddf8ba62c->ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
+        "source": "BASIC_OSCILLATOR-616f4cff-3acd-4814-a771-edcddf8ba62c",
+        "target": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
+        "sourceHandle": "default",
+        "targetHandle": "b",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4->LINE-63591da7-f524-4084-bdc2-eed334f7f405",
+        "source": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
+        "target": "LINE-63591da7-f524-4084-bdc2-eed334f7f405",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4->FFT-2eb36bd7-4be3-4b7d-9101-086a381872c8",
+        "source": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
+        "target": "FFT-2eb36bd7-4be3-4b7d-9101-086a381872c8",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4->FIR-e26fd3ad-7958-491b-afa3-02a9705c3bd6",
+        "source": "ADD-bd73bf44-b5b7-4f0e-83a3-9d4429f1eba4",
+        "target": "FIR-e26fd3ad-7958-491b-afa3-02a9705c3bd6",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "FIR-e26fd3ad-7958-491b-afa3-02a9705c3bd6->LINE-284bceff-5770-4d68-9efd-954e07a1ff61",
+        "source": "FIR-e26fd3ad-7958-491b-afa3-02a9705c3bd6",
+        "target": "LINE-284bceff-5770-4d68-9efd-954e07a1ff61",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "FIR-e26fd3ad-7958-491b-afa3-02a9705c3bd6->FFT-0d5d1c6b-8d86-4f4b-af1a-2bd95beec8f9",
+        "source": "FIR-e26fd3ad-7958-491b-afa3-02a9705c3bd6",
+        "target": "FFT-0d5d1c6b-8d86-4f4b-af1a-2bd95beec8f9",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "FFT-0d5d1c6b-8d86-4f4b-af1a-2bd95beec8f9->LINE-e2d72d3f-a7e3-4c2c-9964-c3fd2b2452f6",
+        "source": "FFT-0d5d1c6b-8d86-4f4b-af1a-2bd95beec8f9",
+        "target": "LINE-e2d72d3f-a7e3-4c2c-9964-c3fd2b2452f6",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "FFT-2eb36bd7-4be3-4b7d-9101-086a381872c8->LINE-501100c7-0584-4c19-be74-0419972d26e6",
+        "source": "FFT-2eb36bd7-4be3-4b7d-9101-086a381872c8",
+        "target": "LINE-501100c7-0584-4c19-be74-0419972d26e6",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "BASIC_OSCILLATOR-9f2a14df-e969-4f74-b82e-e27ff0e313dc->LINE-71bad01b-893a-4254-b4f5-e3fcf7de7ea2",
+        "source": "BASIC_OSCILLATOR-9f2a14df-e969-4f74-b82e-e27ff0e313dc",
+        "target": "LINE-71bad01b-893a-4254-b4f5-e3fcf7de7ea2",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      }
+    ]
+  },
+  "textNodes": []
 }
