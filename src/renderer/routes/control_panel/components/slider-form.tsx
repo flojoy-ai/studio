@@ -7,13 +7,13 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/renderer/components/ui/form";
 import { NumberInput } from "@/renderer/components/common/NumberInput";
 import { DialogFooter } from "@/renderer/components/ui/dialog";
 import { Button } from "@/renderer/components/ui/button";
 import { Box } from "lucide-react";
+import { FormIconLabel } from "@/renderer/components/common/form-icon-label";
 
 type Props = {
   initialValues: SliderConfig;
@@ -36,10 +36,7 @@ export const SliderConfigForm = ({ onSubmit, initialValues }: Props) => {
           render={({ field }) => (
             <FormItem>
               <div className="flex items-center justify-between font-bold">
-                <FormLabel className="flex items-center gap-2">
-                  <Box size={20} className="stroke-muted-foreground" />
-                  <div className="font-bold">Min</div>
-                </FormLabel>
+                <FormIconLabel icon={Box}>Min</FormIconLabel>
                 <FormControl className="w-48">
                   <NumberInput {...field} floating={float} precision={7} />
                 </FormControl>
@@ -54,10 +51,7 @@ export const SliderConfigForm = ({ onSubmit, initialValues }: Props) => {
           render={({ field }) => (
             <FormItem>
               <div className="flex items-center justify-between font-bold">
-                <FormLabel className="flex items-center gap-2">
-                  <Box size={20} className="stroke-muted-foreground" />
-                  <div className="font-bold">Max</div>
-                </FormLabel>
+                <FormIconLabel icon={Box}>Max</FormIconLabel>
                 <FormControl className="w-48">
                   <NumberInput {...field} floating={float} precision={7} />
                 </FormControl>
@@ -72,10 +66,7 @@ export const SliderConfigForm = ({ onSubmit, initialValues }: Props) => {
           render={({ field }) => (
             <FormItem>
               <div className="flex items-center justify-between font-bold">
-                <FormLabel className="flex items-center gap-2">
-                  <Box size={20} className="stroke-muted-foreground" />
-                  <div className="font-bold">Step</div>
-                </FormLabel>
+                <FormIconLabel icon={Box}>Step</FormIconLabel>
                 <FormControl className="w-48">
                   <NumberInput {...field} floating={float} precision={7} />
                 </FormControl>

@@ -46,10 +46,12 @@ import { calculateContextMenuOffset } from "@/renderer/utils/context-menu";
 import { toast } from "sonner";
 import { useContextMenu } from "@/renderer/hooks/useContextMenu";
 import { SwitchNode } from "@/renderer/components/controls/switch-node";
+import { NumberInputNode } from "@/renderer/components/controls/number-input-node";
 
 const nodeTypes = {
   slider: SliderNode,
   switch: SwitchNode,
+  "number input": NumberInputNode,
   checkbox: CheckboxNode,
   visualization: VisualizationNode,
   TextNode: ControlTextNode,
