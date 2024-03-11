@@ -253,7 +253,7 @@ async function createProjectElementsFromTestSequencerElements(
           elem.exportToCloud,
           elem.id,
           elem.groupId,
-        ) 
+        )
       : {
           ...elem,
           condition: elem.condition.replaceAll(baseFolder, ""),
