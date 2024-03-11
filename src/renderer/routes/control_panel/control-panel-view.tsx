@@ -29,12 +29,11 @@ import { NewVisualizationModal } from "./components/new-visualization";
 import {
   WidgetConfig,
   WidgetBlockInfo,
-  CONFIGURABLE,
-  Configurable,
-  WidgetType,
   WidgetData,
   VisualizationData,
   isWidgetType,
+  CONFIG_DEFAULT_VALUES,
+  isConfigurable,
 } from "@/renderer/types/control";
 import { ConfigDialog } from "./components/config-dialog";
 import { useShallow } from "zustand/react/shallow";
@@ -52,24 +51,6 @@ const nodeTypes = {
   checkbox: CheckboxNode,
   visualization: VisualizationNode,
   TextNode: ControlTextNode,
-};
-
-const CONFIG_DEFAULT_VALUES = {
-  slider: {
-    type: "slider",
-    min: 0,
-    max: 100,
-    step: 1,
-  },
-  "number input": {
-    type: "number input",
-    min: 0,
-    max: 100,
-  },
-} satisfies Record<Configurable, WidgetConfig>;
-
-const isConfigurable = (widgetType: WidgetType): widgetType is Configurable => {
-  return CONFIGURABLE.includes(widgetType);
 };
 
 const ControlPanelView = () => {

@@ -21,10 +21,30 @@ export type NumberInputConfig = z.infer<typeof NumberInputConfig>;
 export const CONFIGURABLE = ["slider", "number input"] as const;
 export type Configurable = (typeof CONFIGURABLE)[number];
 
+export const isConfigurable = (
+  widgetType: WidgetType,
+): widgetType is Configurable => {
+  return CONFIGURABLE.includes(widgetType);
+};
+
 export type Config = {
   slider: SliderConfig;
   "number input": NumberInputConfig;
 };
+
+export const CONFIG_DEFAULT_VALUES = {
+  slider: {
+    type: "slider",
+    min: 0,
+    max: 100,
+    step: 1,
+  },
+  "number input": {
+    type: "number input",
+    min: 0,
+    max: 100,
+  },
+} satisfies Record<Configurable, WidgetConfig>;
 
 export type WidgetConfig = Config[keyof Config];
 
