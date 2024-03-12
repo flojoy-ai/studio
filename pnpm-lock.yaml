@@ -89,9 +89,6 @@ dependencies:
   '@tanstack/react-table':
     specifier: ^8.13.2
     version: 8.13.2(react-dom@18.2.0)(react@18.2.0)
-  '@tisoap/react-flow-smart-edge':
-    specifier: file:bauhaus/tisoap-react-flow-smart-edge-v3.0.0.tgz
-    version: file:bauhaus/tisoap-react-flow-smart-edge-v3.0.0.tgz(react-dom@18.2.0)(react@18.2.0)(reactflow@11.10.4)(typescript@5.3.3)
   '@types/plotly.js':
     specifier: ^2.29.1
     version: 2.29.1
@@ -6778,10 +6775,6 @@ packages:
       space-separated-tokens: 1.1.5
     dev: false
 
-  /heap@0.2.5:
-    resolution: {integrity: sha512-G7HLD+WKcrOyJP5VQwYZNC3Z6FcQ7YYjEFiFoIj8PfEr73mu421o8B1N5DKUcc8K37EsJ2XXWA8DtrDz/2dReg==}
-    dev: false
-
   /highlight.js@10.7.3:
     resolution: {integrity: sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A==}
     dev: false
@@ -8655,12 +8648,6 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
     dev: true
-
-  /pathfinding@0.4.18:
-    resolution: {integrity: sha512-R0TGEQ9GRcFCDvAWlJAWC+KGJ9SLbW4c0nuZRcioVlXVTlw+F5RvXQ8SQgSqI9KXWC1ew95vgmIiyaWTlCe9Ag==}
-    dependencies:
-      heap: 0.2.5
-    dev: false
 
   /pbf@3.2.1:
     resolution: {integrity: sha512-ClrV7pNOn7rtmoQVF4TS1vyU0WhYRnP92fzbfF75jAIwpnzdJXf8iTd4CMEqO4yUenH6NDqLiwjqlh6QgZzgLQ==}
@@ -11141,22 +11128,4 @@ packages:
 
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
-    dev: false
-
-  file:bauhaus/tisoap-react-flow-smart-edge-v3.0.0.tgz(react-dom@18.2.0)(react@18.2.0)(reactflow@11.10.4)(typescript@5.3.3):
-    resolution: {integrity: sha512-5GgOKz20CXnJu67awbYXtFpE6nELTtMgTQzzZOFIWhdDCdxkNQ98gz81sTy7m93N6QI4uIrULzP6ymI5hG1enA==, tarball: file:bauhaus/tisoap-react-flow-smart-edge-v3.0.0.tgz}
-    id: file:bauhaus/tisoap-react-flow-smart-edge-v3.0.0.tgz
-    name: '@tisoap/react-flow-smart-edge'
-    version: 3.0.0
-    peerDependencies:
-      react: '>=17'
-      react-dom: '>=17'
-      reactflow: '>=11'
-      typescript: '>=4.6'
-    dependencies:
-      pathfinding: 0.4.18
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      reactflow: 11.10.4(@types/react@18.2.61)(immer@10.0.3)(react-dom@18.2.0)(react@18.2.0)
-      typescript: 5.3.3
     dev: false

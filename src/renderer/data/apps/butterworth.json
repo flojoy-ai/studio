@@ -88,17 +88,17 @@
           "path": "DATA/GENERATION/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py"
         },
         "position": {
-          "x": 222.45785375782242,
-          "y": 158.09709873320975
+          "x": 242.2414114403308,
+          "y": 194.36695448447512
         },
         "width": 218,
         "height": 233,
         "selected": false,
         "positionAbsolute": {
-          "x": 222.45785375782242,
-          "y": 158.09709873320975
+          "x": 242.2414114403308,
+          "y": 194.36695448447512
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "FFT-e3f4c90d-d183-44d5-95b3-2430455054bd",
@@ -172,8 +172,8 @@
               "name": "default",
               "id": "default",
               "type": "OrderedPair",
-              "multiple": false,
-              "desc": "The data to apply FFT to."
+              "desc": "The data to apply FFT to.",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -251,8 +251,8 @@
               "name": "default",
               "id": "default",
               "type": "OrderedPair|DataFrame|Matrix|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -266,17 +266,17 @@
           "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
         },
         "position": {
-          "x": 1299.0428654642517,
-          "y": -66.29830767900677
+          "x": 1251.6032816728184,
+          "y": -59.658147408685636
         },
         "width": 225,
         "height": 269,
         "selected": false,
         "positionAbsolute": {
-          "x": 1299.0428654642517,
-          "y": -66.29830767900677
+          "x": 1251.6032816728184,
+          "y": -59.658147408685636
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "BUTTER-6936acaa-065a-4aee-a1a7-e157e6da996a",
@@ -331,8 +331,8 @@
               "name": "default",
               "id": "default",
               "type": "OrderedPair",
-              "multiple": false,
-              "desc": "The data to apply the butter filter to."
+              "desc": "The data to apply the butter filter to.",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -346,17 +346,17 @@
           "path": "DSP/BUTTER/BUTTER.py"
         },
         "position": {
-          "x": 684.8058326610757,
-          "y": 394.19720889807775
+          "x": 701.2921307298327,
+          "y": 390.89994928432645
         },
         "width": 216,
         "height": 197,
         "selected": false,
         "positionAbsolute": {
-          "x": 684.8058326610757,
-          "y": 394.19720889807775
+          "x": 701.2921307298327,
+          "y": 390.89994928432645
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "FFT-f3e5ccb4-d671-441e-8ab6-7900d9fa238c",
@@ -430,8 +430,8 @@
               "name": "default",
               "id": "default",
               "type": "OrderedPair",
-              "multiple": false,
-              "desc": "The data to apply FFT to."
+              "desc": "The data to apply FFT to.",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -445,17 +445,17 @@
           "path": "DSP/FFT/FFT.py"
         },
         "position": {
-          "x": 1143.3715357160245,
-          "y": 402.5649532091227
+          "x": 1145.0201655229002,
+          "y": 391.0245445609928
         },
         "width": 216,
         "height": 197,
         "selected": false,
         "positionAbsolute": {
-          "x": 1143.3715357160245,
-          "y": 402.5649532091227
+          "x": 1145.0201655229002,
+          "y": 391.0245445609928
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "LINE-05a2a297-f1c1-4b22-b04b-a626739736ff",
@@ -509,8 +509,8 @@
               "name": "default",
               "id": "default",
               "type": "OrderedPair|DataFrame|Matrix|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -525,16 +525,16 @@
         },
         "position": {
           "x": 1556.8063580980615,
-          "y": 301.18859888136035
+          "y": 353.94475270138275
         },
         "width": 225,
         "height": 269,
         "selected": false,
         "positionAbsolute": {
           "x": 1556.8063580980615,
-          "y": 301.18859888136035
+          "y": 353.94475270138275
         },
-        "dragging": true
+        "dragging": false
       }
     ],
     "edges": [
@@ -546,13 +546,6 @@
         "id": "reactflow__edge-BASIC_OSCILLATOR-ae2a5db9-625b-4174-830d-9340c9e3fe68default-FFT-e3f4c90d-d183-44d5-95b3-2430455054bddefault"
       },
       {
-        "source": "FFT-e3f4c90d-d183-44d5-95b3-2430455054bd",
-        "sourceHandle": "default",
-        "target": "LINE-6fe3b004-d21d-4b75-9c24-14c422f65c11",
-        "targetHandle": "default",
-        "id": "reactflow__edge-FFT-e3f4c90d-d183-44d5-95b3-2430455054bddefault-LINE-6fe3b004-d21d-4b75-9c24-14c422f65c11default"
-      },
-      {
         "source": "BASIC_OSCILLATOR-ae2a5db9-625b-4174-830d-9340c9e3fe68",
         "sourceHandle": "default",
         "target": "BUTTER-6936acaa-065a-4aee-a1a7-e157e6da996a",
@@ -560,25 +553,36 @@
         "id": "reactflow__edge-BASIC_OSCILLATOR-ae2a5db9-625b-4174-830d-9340c9e3fe68default-BUTTER-6936acaa-065a-4aee-a1a7-e157e6da996adefault"
       },
       {
-        "source": "FFT-f3e5ccb4-d671-441e-8ab6-7900d9fa238c",
+        "id": "FFT-e3f4c90d-d183-44d5-95b3-2430455054bd->LINE-6fe3b004-d21d-4b75-9c24-14c422f65c11",
+        "source": "FFT-e3f4c90d-d183-44d5-95b3-2430455054bd",
+        "target": "LINE-6fe3b004-d21d-4b75-9c24-14c422f65c11",
         "sourceHandle": "default",
-        "target": "LINE-05a2a297-f1c1-4b22-b04b-a626739736ff",
         "targetHandle": "default",
-        "id": "reactflow__edge-FFT-f3e5ccb4-d671-441e-8ab6-7900d9fa238cdefault-LINE-05a2a297-f1c1-4b22-b04b-a626739736ffdefault"
+        "data": {
+          "outputType": "OrderedPair"
+        }
       },
       {
+        "id": "BUTTER-6936acaa-065a-4aee-a1a7-e157e6da996a->FFT-f3e5ccb4-d671-441e-8ab6-7900d9fa238c",
         "source": "BUTTER-6936acaa-065a-4aee-a1a7-e157e6da996a",
-        "sourceHandle": "default",
         "target": "FFT-f3e5ccb4-d671-441e-8ab6-7900d9fa238c",
+        "sourceHandle": "default",
         "targetHandle": "default",
-        "id": "reactflow__edge-BUTTER-6936acaa-065a-4aee-a1a7-e157e6da996adefault-FFT-f3e5ccb4-d671-441e-8ab6-7900d9fa238cdefault"
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "FFT-f3e5ccb4-d671-441e-8ab6-7900d9fa238c->LINE-05a2a297-f1c1-4b22-b04b-a626739736ff",
+        "source": "FFT-f3e5ccb4-d671-441e-8ab6-7900d9fa238c",
+        "target": "LINE-05a2a297-f1c1-4b22-b04b-a626739736ff",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "OrderedPair"
+        }
       }
-    ],
-    "viewport": {
-      "x": -373.4542219202399,
-      "y": 120.20973884288571,
-      "zoom": 1.101977389476256
-    }
+    ]
   },
   "textNodes": []
 }

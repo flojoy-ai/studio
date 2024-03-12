@@ -1,9 +1,10 @@
 {
+  "name": "Bode Plot",
   "rfInstance": {
     "nodes": [
       {
-        "width": 96,
-        "height": 96,
+        "width": 235,
+        "height": 198,
         "id": "LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3",
         "type": "CONTROL_FLOW",
         "data": {
@@ -28,8 +29,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -49,26 +50,1223 @@
           "path": "CONTROL_FLOW/LOOPS/LOOP/LOOP.py"
         },
         "position": {
-          "x": 428.3542501896365,
-          "y": -49.422234451125405
+          "x": 346.3542501896365,
+          "y": -27.422234451125405
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 428.3542501896365,
-          "y": -49.422234451125405
+          "x": 346.3542501896365,
+          "y": -27.422234451125405
         },
-        "dragging": true
+        "dragging": false
       },
       {
-        "width": 192,
-        "height": 192,
-        "id": "CONNECT_MSO2X-28dfef06-d9cf-49dd-8b54-0a599e9580f4",
-        "type": "HARDWARE",
+        "width": 216,
+        "height": 234,
+        "id": "APPEND-2d84844c-f736-4334-844d-31a278a4bada",
+        "type": "CONTROL_FLOW",
         "data": {
-          "id": "CONNECT_MSO2X-28dfef06-d9cf-49dd-8b54-0a599e9580f4",
+          "id": "APPEND-2d84844c-f736-4334-844d-31a278a4bada",
+          "label": "APPEND AMPLITUDE",
+          "func": "APPEND",
+          "type": "CONTROL_FLOW",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "primary_dp",
+              "id": "primary_dp",
+              "type": "OrderedPair|Matrix|DataFrame|Scalar|Vector",
+              "desc": "Input that ends up \"on top\" of the resulting DataContainer.",
+              "multiple": false
+            },
+            {
+              "name": "secondary_dp",
+              "id": "secondary_dp",
+              "type": "OrderedPair|Matrix|DataFrame|Scalar|Vector",
+              "desc": "Input that ends up \"on the bottom\" of the resulting DataContainer.",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|Matrix|DataFrame|Vector|Scalar",
+              "desc": null
+            }
+          ],
+          "path": "CONTROL_FLOW/LOOPS/APPEND/APPEND.py"
+        },
+        "position": {
+          "x": 2518.570395541311,
+          "y": -411.9616514338412
+        },
+        "selected": true,
+        "positionAbsolute": {
+          "x": 2518.570395541311,
+          "y": -411.9616514338412
+        },
+        "dragging": false
+      },
+      {
+        "width": 216,
+        "height": 233,
+        "id": "FEEDBACK-409b76e8-249d-4384-8b79-73300945eca3",
+        "type": "DATA",
+        "data": {
+          "id": "FEEDBACK-409b76e8-249d-4384-8b79-73300945eca3",
+          "label": "FEEDBACK AMPLITUDE",
+          "func": "FEEDBACK",
+          "type": "DATA",
+          "ctrls": {
+            "referred_node": {
+              "type": "NodeReference",
+              "default": null,
+              "desc": "The node ID to capture the result from.",
+              "overload": null,
+              "functionName": "FEEDBACK",
+              "param": "referred_node",
+              "value": "APPEND-2d84844c-f736-4334-844d-31a278a4bada"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": null,
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": "The result of the specified node ID, or the result of the parent node if it was not found."
+            }
+          ],
+          "path": "DATA/GENERATION/SIMULATIONS/FEEDBACK/FEEDBACK.py"
+        },
+        "position": {
+          "x": 1953.2682668999946,
+          "y": -383.0798088845336
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1953.2682668999946,
+          "y": -383.0798088845336
+        },
+        "dragging": false
+      },
+      {
+        "width": 216,
+        "height": 233,
+        "id": "FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05",
+        "type": "DATA",
+        "data": {
+          "id": "FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05",
+          "label": "FEEDBACK PREV FREQ",
+          "func": "FEEDBACK",
+          "type": "DATA",
+          "ctrls": {
+            "referred_node": {
+              "type": "NodeReference",
+              "default": null,
+              "desc": "The node ID to capture the result from.",
+              "overload": null,
+              "functionName": "FEEDBACK",
+              "param": "referred_node",
+              "value": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": null,
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": "The result of the specified node ID, or the result of the parent node if it was not found."
+            }
+          ],
+          "path": "DATA/GENERATION/SIMULATIONS/FEEDBACK/FEEDBACK.py"
+        },
+        "position": {
+          "x": 586.857195950552,
+          "y": -480.349319845648
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 586.857195950552,
+          "y": -480.349319845648
+        },
+        "dragging": false
+      },
+      {
+        "width": 216,
+        "height": 269,
+        "id": "FEEDBACK-c12d2603-c2cd-41d8-9e66-170de00cdd7b",
+        "type": "DATA",
+        "data": {
+          "id": "FEEDBACK-c12d2603-c2cd-41d8-9e66-170de00cdd7b",
+          "label": "FEEDBACK AMPLITUDE PLOT",
+          "func": "FEEDBACK",
+          "type": "DATA",
+          "ctrls": {
+            "referred_node": {
+              "type": "NodeReference",
+              "default": null,
+              "desc": "The node ID to capture the result from.",
+              "overload": null,
+              "functionName": "FEEDBACK",
+              "param": "referred_node",
+              "value": "APPEND-2d84844c-f736-4334-844d-31a278a4bada"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": null,
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": "The result of the specified node ID, or the result of the parent node if it was not found."
+            }
+          ],
+          "path": "DATA/GENERATION/SIMULATIONS/FEEDBACK/FEEDBACK.py"
+        },
+        "position": {
+          "x": 647.1709798288726,
+          "y": 329.28873802494434
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 647.1709798288726,
+          "y": 329.28873802494434
+        },
+        "dragging": false
+      },
+      {
+        "width": 216,
+        "height": 234,
+        "id": "APPEND-3bbac391-5d18-4258-8924-24179e83e8cc",
+        "type": "CONTROL_FLOW",
+        "data": {
+          "id": "APPEND-3bbac391-5d18-4258-8924-24179e83e8cc",
+          "label": "APPEND FREQ",
+          "func": "APPEND",
+          "type": "CONTROL_FLOW",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "primary_dp",
+              "id": "primary_dp",
+              "type": "OrderedPair|Matrix|DataFrame|Scalar|Vector",
+              "desc": "Input that ends up \"on top\" of the resulting DataContainer.",
+              "multiple": false
+            },
+            {
+              "name": "secondary_dp",
+              "id": "secondary_dp",
+              "type": "OrderedPair|Matrix|DataFrame|Scalar|Vector",
+              "desc": "Input that ends up \"on the bottom\" of the resulting DataContainer.",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|Matrix|DataFrame|Vector|Scalar",
+              "desc": null
+            }
+          ],
+          "path": "CONTROL_FLOW/LOOPS/APPEND/APPEND.py"
+        },
+        "position": {
+          "x": 1669.9007456222516,
+          "y": -198.46779094050248
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1669.9007456222516,
+          "y": -198.46779094050248
+        },
+        "dragging": false
+      },
+      {
+        "width": 216,
+        "height": 233,
+        "id": "FEEDBACK-e35202b1-5554-4e35-a47f-0c5bab7304d0",
+        "type": "DATA",
+        "data": {
+          "id": "FEEDBACK-e35202b1-5554-4e35-a47f-0c5bab7304d0",
+          "label": "FEEDBACK FREQ LOOP",
+          "func": "FEEDBACK",
+          "type": "DATA",
+          "ctrls": {
+            "referred_node": {
+              "type": "NodeReference",
+              "default": null,
+              "desc": "The node ID to capture the result from.",
+              "overload": null,
+              "functionName": "FEEDBACK",
+              "param": "referred_node",
+              "value": "APPEND-3bbac391-5d18-4258-8924-24179e83e8cc"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": null,
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": "The result of the specified node ID, or the result of the parent node if it was not found."
+            }
+          ],
+          "path": "DATA/GENERATION/SIMULATIONS/FEEDBACK/FEEDBACK.py"
+        },
+        "position": {
+          "x": 1135.743741675531,
+          "y": -177.65448643438287
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1135.743741675531,
+          "y": -177.65448643438287
+        },
+        "dragging": false
+      },
+      {
+        "width": 216,
+        "height": 233,
+        "id": "FEEDBACK-26c1b027-61a2-4e4d-b527-c277b7741e65",
+        "type": "DATA",
+        "data": {
+          "id": "FEEDBACK-26c1b027-61a2-4e4d-b527-c277b7741e65",
+          "label": "FEEDBACK FREQ PLOT",
+          "func": "FEEDBACK",
+          "type": "DATA",
+          "ctrls": {
+            "referred_node": {
+              "type": "NodeReference",
+              "default": null,
+              "desc": "The node ID to capture the result from.",
+              "overload": null,
+              "functionName": "FEEDBACK",
+              "param": "referred_node",
+              "value": "APPEND-3bbac391-5d18-4258-8924-24179e83e8cc"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": null,
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": "The result of the specified node ID, or the result of the parent node if it was not found."
+            }
+          ],
+          "path": "DATA/GENERATION/SIMULATIONS/FEEDBACK/FEEDBACK.py"
+        },
+        "position": {
+          "x": 1041.7904075679467,
+          "y": 67.62585751941401
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1041.7904075679467,
+          "y": 67.62585751941401
+        },
+        "dragging": false
+      },
+      {
+        "width": 150,
+        "height": 119,
+        "id": "ORDERED_PAIR_DELETE-681dbca5-97e4-496e-a019-f44c43358eb5",
+        "type": "ETL",
+        "data": {
+          "id": "ORDERED_PAIR_DELETE-681dbca5-97e4-496e-a019-f44c43358eb5",
+          "label": "DELETE 1ST ROW",
+          "func": "ORDERED_PAIR_DELETE",
+          "type": "ETL",
+          "ctrls": {
+            "indices": {
+              "type": "Array",
+              "default": null,
+              "desc": "specified indices to delete value(s) at from the input OrderedPair",
+              "overload": null,
+              "functionName": "ORDERED_PAIR_DELETE",
+              "param": "indices",
+              "value": "0"
+            },
+            "length": {
+              "type": "int",
+              "default": 1,
+              "desc": "number of elements to delete from the input OrderedPair, default is 1 (this only applies when one index is specified for indices parameter)",
+              "overload": null,
+              "functionName": "ORDERED_PAIR_DELETE",
+              "param": "length",
+              "value": 1
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "desc": "The input OrderedPair to delete from",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "desc": "The new OrderedPair with element(s) deleted from the input OrderedPair"
+            }
+          ],
+          "path": "ETL/TRANSFORM/ORDERED_PAIR_MANIPULATION/ORDERED_PAIR_DELETE/ORDERED_PAIR_DELETE.py"
+        },
+        "position": {
+          "x": 1838.436490204777,
+          "y": 184.2144801879855
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1838.436490204777,
+          "y": 184.2144801879855
+        },
+        "dragging": false
+      },
+      {
+        "width": 216,
+        "height": 197,
+        "id": "SCALAR-d6075cfe-406f-4c75-9b3d-4067ec8206aa",
+        "type": "DATA",
+        "data": {
+          "id": "SCALAR-d6075cfe-406f-4c75-9b3d-4067ec8206aa",
+          "label": "1",
+          "func": "SCALAR",
+          "type": "DATA",
+          "ctrls": {
+            "value": {
+              "type": "float",
+              "default": 3,
+              "desc": "The value set in Parameters",
+              "overload": null,
+              "functionName": "SCALAR",
+              "param": "value",
+              "value": 1
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "_",
+              "id": "_",
+              "type": "Any",
+              "desc": null,
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Scalar",
+              "desc": "c: return the value being set in Parameters"
+            }
+          ],
+          "path": "DATA/GENERATION/SIMULATIONS/SCALAR/SCALAR.py"
+        },
+        "position": {
+          "x": 649.9385345662489,
+          "y": -182.2210757582884
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 649.9385345662489,
+          "y": -182.2210757582884
+        },
+        "dragging": false
+      },
+      {
+        "width": 235,
+        "height": 140,
+        "id": "TIMER-466340e3-0708-472b-91da-27d78410cb7f",
+        "type": "CONTROL_FLOW",
+        "data": {
+          "id": "TIMER-466340e3-0708-472b-91da-27d78410cb7f",
+          "label": "TIMER",
+          "func": "TIMER",
+          "type": "CONTROL_FLOW",
+          "ctrls": {
+            "sleep_time": {
+              "type": "float",
+              "default": 0,
+              "desc": "number of seconds to sleep",
+              "overload": null,
+              "functionName": "TIMER",
+              "param": "sleep_time",
+              "value": 0.05
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": null,
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": "Returns the input if one was passed in."
+            }
+          ],
+          "path": "CONTROL_FLOW/TIMERS/TIMER/TIMER.py"
+        },
+        "position": {
+          "x": 1764.3814166711638,
+          "y": -636.0468868894886
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1764.3814166711638,
+          "y": -636.0468868894886
+        },
+        "dragging": false
+      },
+      {
+        "width": 216,
+        "height": 197,
+        "id": "VOLT_TO_DB-10925d08-7ae8-4d81-ad34-36802aeeb573",
+        "type": "DSP",
+        "data": {
+          "id": "VOLT_TO_DB-10925d08-7ae8-4d81-ad34-36802aeeb573",
+          "label": "VOLT TO DB",
+          "func": "VOLT_TO_DB",
+          "type": "DSP",
+          "ctrls": {
+            "ref_value": {
+              "type": "float",
+              "default": null,
+              "desc": "The reference",
+              "overload": null,
+              "functionName": "VOLT_TO_DB",
+              "param": "ref_value",
+              "value": 5
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "data",
+              "id": "data",
+              "type": "OrderedPair|Vector",
+              "desc": "The input to apply the absolute value to.",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|Vector",
+              "desc": "x: the x-axis of the input.\ny: the absolute value of the input."
+            }
+          ],
+          "path": "DSP/VOLT_TO_DB/VOLT_TO_DB.py"
+        },
+        "position": {
+          "x": 1075.507117838674,
+          "y": 329.39142094058593
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1075.507117838674,
+          "y": 329.39142094058593
+        },
+        "dragging": false
+      },
+      {
+        "width": 216,
+        "height": 197,
+        "id": "CONSTANT-0e860ebc-1f04-4fba-be18-398f42bf5cdb",
+        "type": "DATA",
+        "data": {
+          "id": "CONSTANT-0e860ebc-1f04-4fba-be18-398f42bf5cdb",
+          "label": "1",
+          "func": "CONSTANT",
+          "type": "DATA",
+          "ctrls": {
+            "dc_type": {
+              "type": "select",
+              "options": ["Scalar", "Vector", "OrderedPair"],
+              "default": "OrderedPair",
+              "desc": "The type of DataContainer to return.",
+              "overload": null,
+              "functionName": "CONSTANT",
+              "param": "dc_type",
+              "value": "Scalar"
+            },
+            "constant": {
+              "type": "float",
+              "default": 3,
+              "desc": "The value of the y axis output.",
+              "overload": null,
+              "functionName": "CONSTANT",
+              "param": "constant",
+              "value": 1
+            },
+            "step": {
+              "type": "float",
+              "default": 1000,
+              "desc": "The size of the y and x axes.",
+              "overload": null,
+              "functionName": "CONSTANT",
+              "param": "step",
+              "value": 1000
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Vector|OrderedPair",
+              "desc": "Optional input that defines the size of the output.",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|Vector|Scalar",
+              "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
+            }
+          ],
+          "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
+        },
+        "position": {
+          "x": 1470.0344375490365,
+          "y": -379.12499514310025
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1470.0344375490365,
+          "y": -379.12499514310025
+        },
+        "dragging": false
+      },
+      {
+        "width": 216,
+        "height": 197,
+        "id": "CONSTANT-05e987eb-c32d-4252-aff6-c5e63c20063e",
+        "type": "DATA",
+        "data": {
+          "id": "CONSTANT-05e987eb-c32d-4252-aff6-c5e63c20063e",
+          "label": "98000",
+          "func": "CONSTANT",
+          "type": "DATA",
+          "ctrls": {
+            "dc_type": {
+              "type": "select",
+              "options": ["Scalar", "Vector", "OrderedPair"],
+              "default": "OrderedPair",
+              "desc": "The type of DataContainer to return.",
+              "overload": null,
+              "functionName": "CONSTANT",
+              "param": "dc_type",
+              "value": "Scalar"
+            },
+            "constant": {
+              "type": "float",
+              "default": 3,
+              "desc": "The value of the y axis output.",
+              "overload": null,
+              "functionName": "CONSTANT",
+              "param": "constant",
+              "value": 98000
+            },
+            "step": {
+              "type": "float",
+              "default": 1000,
+              "desc": "The size of the y and x axes.",
+              "overload": null,
+              "functionName": "CONSTANT",
+              "param": "step",
+              "value": 1000
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Vector|OrderedPair",
+              "desc": "Optional input that defines the size of the output.",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|Vector|Scalar",
+              "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
+            }
+          ],
+          "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
+        },
+        "position": {
+          "x": 196.06564409383736,
+          "y": -478.7924627742059
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 196.06564409383736,
+          "y": -478.7924627742059
+        },
+        "dragging": false
+      },
+      {
+        "width": 216,
+        "height": 197,
+        "id": "CONSTANT-e3c85926-b4ec-489d-96cd-f54f52ac60ef",
+        "type": "DATA",
+        "data": {
+          "id": "CONSTANT-e3c85926-b4ec-489d-96cd-f54f52ac60ef",
+          "label": "1.02",
+          "func": "CONSTANT",
+          "type": "DATA",
+          "ctrls": {
+            "dc_type": {
+              "type": "select",
+              "options": ["Scalar", "Vector", "OrderedPair"],
+              "default": "OrderedPair",
+              "desc": "The type of DataContainer to return.",
+              "overload": null,
+              "functionName": "CONSTANT",
+              "param": "dc_type",
+              "value": "Scalar"
+            },
+            "constant": {
+              "type": "float",
+              "default": 3,
+              "desc": "The value of the y axis output.",
+              "overload": null,
+              "functionName": "CONSTANT",
+              "param": "constant",
+              "value": 1.02
+            },
+            "step": {
+              "type": "float",
+              "default": 1000,
+              "desc": "The size of the y and x axes.",
+              "overload": null,
+              "functionName": "CONSTANT",
+              "param": "step",
+              "value": 1000
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Vector|OrderedPair",
+              "desc": "Optional input that defines the size of the output.",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|Vector|Scalar",
+              "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
+            }
+          ],
+          "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
+        },
+        "position": {
+          "x": 621.8464696159206,
+          "y": -695.7768737511649
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 621.8464696159206,
+          "y": -695.7768737511649
+        },
+        "dragging": false
+      },
+      {
+        "id": "LINE-e4cff545-91b5-4bea-97f8-0ebd09621b80",
+        "type": "VISUALIZATION",
+        "data": {
+          "id": "LINE-e4cff545-91b5-4bea-97f8-0ebd09621b80",
+          "label": "LINE",
+          "func": "LINE",
+          "type": "VISUALIZATION",
+          "ctrls": {
+            "xaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the x axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "xaxis_title",
+              "value": ""
+            },
+            "yaxis_title": {
+              "type": "str",
+              "default": "",
+              "desc": "Choose the label for the y axis.",
+              "overload": null,
+              "functionName": "LINE",
+              "param": "yaxis_title",
+              "value": ""
+            },
+            "x_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "x_log_scale",
+              "value": false
+            },
+            "y_log_scale": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "LINE",
+              "param": "y_log_scale",
+              "value": false
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix|Vector",
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+            }
+          ],
+          "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+        },
+        "position": {
+          "x": 2234.855865566333,
+          "y": -117.53015342845652
+        },
+        "width": 225,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 2234.855865566333,
+          "y": -117.53015342845652
+        },
+        "dragging": false
+      },
+      {
+        "id": "VECTOR_2_ORDERED_PAIR-5d1faefe-283d-4bc7-b4c5-989c27270d22",
+        "type": "TYPE_CASTING",
+        "data": {
+          "id": "VECTOR_2_ORDERED_PAIR-5d1faefe-283d-4bc7-b4c5-989c27270d22",
+          "label": "VECTOR 2 ORDERED PAIR 1",
+          "func": "VECTOR_2_ORDERED_PAIR",
+          "type": "TYPE_CASTING",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Vector",
+              "desc": "The input vector that will be the x axis of OrderedPair.",
+              "multiple": false
+            },
+            {
+              "name": "y",
+              "id": "y",
+              "type": "Vector",
+              "desc": "The input vector that will be the y axis of OrderedPair.",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "desc": "The OrderedPair that is generated from the input vectors"
+            }
+          ],
+          "path": "ETL/TRANSFORM/TYPE_CASTING/VECTOR_2_ORDERED_PAIR/VECTOR_2_ORDERED_PAIR.py"
+        },
+        "position": {
+          "x": 1523.9701688241128,
+          "y": 311.34130954994475
+        },
+        "width": 184,
+        "height": 154,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1523.9701688241128,
+          "y": 311.34130954994475
+        },
+        "dragging": false
+      },
+      {
+        "id": "MEASUREMENT_MSO2X-77d30c3b-1af9-4efe-bae2-b75bf17d425e",
+        "type": "OSCILLOSCOPES",
+        "data": {
+          "id": "MEASUREMENT_MSO2X-77d30c3b-1af9-4efe-bae2-b75bf17d425e",
+          "label": "MEASUREMENT MSO2X 1",
+          "func": "MEASUREMENT_MSO2X",
+          "type": "OSCILLOSCOPES",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
+              "overload": null,
+              "functionName": "MEASUREMENT_MSO2X",
+              "param": "connection",
+              "value": ""
+            },
+            "delete_all": {
+              "type": "bool",
+              "default": false,
+              "desc": null,
+              "overload": null,
+              "functionName": "MEASUREMENT_MSO2X",
+              "param": "delete_all",
+              "value": false
+            },
+            "channel": {
+              "type": "select",
+              "default": "1",
+              "options": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "D1",
+                "D2",
+                "D3",
+                "D4",
+                "D5",
+                "D6",
+                "D7",
+                "D8",
+                "D9",
+                "D10",
+                "D12",
+                "D13",
+                "D14",
+                "D15"
+              ],
+              "desc": "What channel to extract the measurement from.",
+              "overload": null,
+              "functionName": "MEASUREMENT_MSO2X",
+              "param": "channel",
+              "value": "1"
+            },
+            "measure_num": {
+              "type": "int",
+              "default": 1,
+              "desc": "What measurement number to use on the scope.",
+              "overload": null,
+              "functionName": "MEASUREMENT_MSO2X",
+              "param": "measure_num",
+              "value": 1
+            },
+            "measurement": {
+              "type": "select",
+              "default": "frequency",
+              "options": [
+                "acrms",
+                "amplitude",
+                "area",
+                "base",
+                "burstwidth",
+                "datarate",
+                "delay",
+                "fallslewrate",
+                "falltime",
+                "frequency",
+                "hightime",
+                "hold",
+                "lowtime",
+                "maximum",
+                "mean",
+                "minimum",
+                "nduty",
+                "novershoot",
+                "nperiod",
+                "nwidtth",
+                "pduty",
+                "period",
+                "phase",
+                "pk2pk",
+                "povershoot",
+                "pwidth",
+                "riseslewrate",
+                "risetime",
+                "rms",
+                "setup",
+                "skew",
+                "timeoutsidelevel",
+                "timetomax",
+                "timetomin",
+                "top"
+              ],
+              "desc": "The type of measurement to make.",
+              "overload": null,
+              "functionName": "MEASUREMENT_MSO2X",
+              "param": "measurement",
+              "value": "amplitude"
+            },
+            "statistic": {
+              "type": "select",
+              "default": "mean",
+              "options": ["mean", "minumum", "maximum", "population", "stddev"],
+              "desc": "The type of statistic to use for the measurement.",
+              "overload": null,
+              "functionName": "MEASUREMENT_MSO2X",
+              "param": "statistic",
+              "value": "mean"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "input",
+              "id": "input",
+              "type": "Any",
+              "desc": null,
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Scalar",
+              "desc": "The measured value"
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/MEASUREMENT_MSO2X/MEASUREMENT_MSO2X.py"
+        },
+        "position": {
+          "x": 2126.4661753414266,
+          "y": -663.5694552269189
+        },
+        "width": 239,
+        "height": 233,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 2126.4661753414266,
+          "y": -663.5694552269189
+        },
+        "dragging": false
+      },
+      {
+        "id": "INPUT_PARAM_AFG31000-d6a5468c-cbd6-47cb-90aa-fa9eb6ddb01d",
+        "type": "FUNCTION_GENERATORS",
+        "data": {
+          "id": "INPUT_PARAM_AFG31000-d6a5468c-cbd6-47cb-90aa-fa9eb6ddb01d",
+          "label": "INPUT PARAM AFG31000",
+          "func": "INPUT_PARAM_AFG31000",
+          "type": "FUNCTION_GENERATORS",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECTION_AFG31000 block).",
+              "overload": null,
+              "functionName": "INPUT_PARAM_AFG31000",
+              "param": "connection",
+              "value": ""
+            },
+            "source": {
+              "type": "select",
+              "default": "1",
+              "options": ["1", "2"],
+              "desc": "Choose the channel to alter.",
+              "overload": null,
+              "functionName": "INPUT_PARAM_AFG31000",
+              "param": "source",
+              "value": "1"
+            },
+            "parameter": {
+              "type": "select",
+              "default": "frequency",
+              "options": [
+                "frequency",
+                "amplitude",
+                "offset",
+                "phase",
+                "pulse_width",
+                "ramp_symmetry"
+              ],
+              "desc": "Choose the parameter to alter.",
+              "overload": null,
+              "functionName": "INPUT_PARAM_AFG31000",
+              "param": "parameter",
+              "value": "frequency"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "input",
+              "id": "input",
+              "type": "Scalar",
+              "desc": "The value to change the selected parameter to.",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Scalar",
+              "desc": "The input value"
+            }
+          ],
+          "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/INPUT_PARAM_AFG31000/INPUT_PARAM_AFG31000.py"
+        },
+        "position": {
+          "x": 1394.9838149968382,
+          "y": -660.543159872326
+        },
+        "width": 216,
+        "height": 269,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1394.9838149968382,
+          "y": -660.543159872326
+        },
+        "dragging": false
+      },
+      {
+        "id": "MULTIPLY-adf728b8-7276-45bc-8307-d3c170be01af",
+        "type": "MATH",
+        "data": {
+          "id": "MULTIPLY-adf728b8-7276-45bc-8307-d3c170be01af",
+          "label": "MULTIPLY",
+          "func": "MULTIPLY",
+          "type": "MATH",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "a",
+              "id": "a",
+              "type": "OrderedPair|Scalar|Vector",
+              "desc": "The input a use to compute the product of a and b.",
+              "multiple": false
+            },
+            {
+              "name": "b",
+              "id": "b",
+              "type": "OrderedPair|Scalar|Vector",
+              "desc": "The input b use to compute the product of a and b.",
+              "multiple": true
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|Scalar|Vector",
+              "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the result of the product of input a and input b.\n\nScalar if a is a Scalar.\nc: the result of the product of input a and input b.\n\nVector if a is a Vector.\nv: the result of the product of input a and input b."
+            }
+          ],
+          "path": "MATH/ARITHMETIC/MULTIPLY/MULTIPLY.py"
+        },
+        "position": {
+          "x": 989.0372649343831,
+          "y": -513.3744877244529
+        },
+        "width": 216,
+        "height": 198,
+        "selected": false,
+        "positionAbsolute": {
+          "x": 989.0372649343831,
+          "y": -513.3744877244529
+        },
+        "dragging": false
+      },
+      {
+        "id": "CONNECT_MSO2X-250102a6-3e2b-486a-b5dc-4e1f13475086",
+        "type": "OSCILLOSCOPES",
+        "data": {
+          "id": "CONNECT_MSO2X-250102a6-3e2b-486a-b5dc-4e1f13475086",
           "label": "CONNECT MSO2X",
           "func": "CONNECT_MSO2X",
-          "type": "HARDWARE",
+          "type": "OSCILLOSCOPES",
           "ctrls": {
             "device": {
               "type": "VisaDevice",
@@ -77,7 +1275,7 @@
               "overload": null,
               "functionName": "CONNECT_MSO2X",
               "param": "device",
-              "value": "TCPIP::169.254.9.12::INSTR"
+              "value": ""
             }
           },
           "initCtrls": {},
@@ -98,26 +1296,103 @@
           "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/CONNECT_MSO2X/CONNECT_MSO2X.py"
         },
         "position": {
-          "x": -510.48717843046114,
-          "y": -230.05715983790512
+          "x": -561.6270232480917,
+          "y": -156.27073945929828
         },
+        "width": 216,
+        "height": 233,
         "selected": false,
         "positionAbsolute": {
-          "x": -510.48717843046114,
-          "y": -230.05715983790512
+          "x": -561.6270232480917,
+          "y": -156.27073945929828
         },
-        "dragging": true
+        "dragging": false
       },
       {
-        "width": 192,
-        "height": 192,
-        "id": "CONNECT_AFG31000-0062226e-0b7d-4fa6-80c7-c54374e26689",
-        "type": "HARDWARE",
+        "id": "SETUP_FILE_MSO2X-822c386d-423c-4788-a5c4-5aa6827e2c57",
+        "type": "OSCILLOSCOPES",
         "data": {
-          "id": "CONNECT_AFG31000-0062226e-0b7d-4fa6-80c7-c54374e26689",
-          "label": "CONNECT AFG31000",
+          "id": "SETUP_FILE_MSO2X-822c386d-423c-4788-a5c4-5aa6827e2c57",
+          "label": "SETUP FILE MSO2X",
+          "func": "SETUP_FILE_MSO2X",
+          "type": "OSCILLOSCOPES",
+          "ctrls": {
+            "connection": {
+              "type": "VisaConnection",
+              "default": null,
+              "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
+              "overload": null,
+              "functionName": "SETUP_FILE_MSO2X",
+              "param": "connection",
+              "value": ""
+            },
+            "save_or_recall": {
+              "type": "select",
+              "default": "save",
+              "options": ["save", "recall"],
+              "desc": "Save or recall the file.",
+              "overload": null,
+              "functionName": "SETUP_FILE_MSO2X",
+              "param": "save_or_recall",
+              "value": "recall"
+            },
+            "filename": {
+              "type": "str",
+              "default": "flojoy",
+              "desc": "The file name to save or recall (\"flojoy\" results in \"C:/flojoy.set\").",
+              "overload": null,
+              "functionName": "SETUP_FILE_MSO2X",
+              "param": "filename",
+              "value": "flojoy001"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "input",
+              "id": "input",
+              "type": "Any",
+              "desc": null,
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "String",
+              "desc": "Filename"
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "tm_devices",
+              "v": "1"
+            }
+          ],
+          "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/SETUP_FILE_MSO2X/SETUP_FILE_MSO2X.py"
+        },
+        "position": {
+          "x": -171.49778910090436,
+          "y": -152.2314595446178
+        },
+        "width": 216,
+        "height": 233,
+        "selected": false,
+        "positionAbsolute": {
+          "x": -171.49778910090436,
+          "y": -152.2314595446178
+        },
+        "dragging": false
+      },
+      {
+        "id": "CONNECT_AFG31000-118e0fc6-06d3-4fd0-88ac-e22b454e19d2",
+        "type": "FUNCTION_GENERATORS",
+        "data": {
+          "id": "CONNECT_AFG31000-118e0fc6-06d3-4fd0-88ac-e22b454e19d2",
+          "label": "CONNECT AFG31000 ",
           "func": "CONNECT_AFG31000",
-          "type": "HARDWARE",
+          "type": "FUNCTION_GENERATORS",
           "ctrls": {
             "device": {
               "type": "VisaDevice",
@@ -126,7 +1401,7 @@
               "overload": null,
               "functionName": "CONNECT_AFG31000",
               "param": "device",
-              "value": "TCPIP::10.0.0.219::INSTR"
+              "value": ""
             }
           },
           "initCtrls": {},
@@ -141,26 +1416,26 @@
           "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/CONNECT_AFG31000/CONNECT_AFG31000.py"
         },
         "position": {
-          "x": -507.3494741955685,
-          "y": 31.721910171604577
+          "x": -597.011056288648,
+          "y": 85.75642513787864
         },
+        "width": 216,
+        "height": 233,
         "selected": false,
         "positionAbsolute": {
-          "x": -507.3494741955685,
-          "y": 31.721910171604577
+          "x": -597.011056288648,
+          "y": 85.75642513787864
         },
-        "dragging": true
+        "dragging": false
       },
       {
-        "width": 192,
-        "height": 192,
-        "id": "FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0a",
-        "type": "HARDWARE",
+        "id": "FUNCTION_AFG31000-3f4ed983-34aa-4b3a-ba80-2722272f4468",
+        "type": "FUNCTION_GENERATORS",
         "data": {
-          "id": "FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0a",
+          "id": "FUNCTION_AFG31000-3f4ed983-34aa-4b3a-ba80-2722272f4468",
           "label": "FUNCTION AFG31000",
           "func": "FUNCTION_AFG31000",
-          "type": "HARDWARE",
+          "type": "FUNCTION_GENERATORS",
           "ctrls": {
             "connection": {
               "type": "VisaConnection",
@@ -169,12 +1444,12 @@
               "overload": null,
               "functionName": "FUNCTION_AFG31000",
               "param": "connection",
-              "value": "TCPIP::10.0.0.219::INSTR"
+              "value": ""
             },
             "source": {
               "type": "select",
-              "options": ["1", "2"],
               "default": "1",
+              "options": ["1", "2"],
               "desc": null,
               "overload": null,
               "functionName": "FUNCTION_AFG31000",
@@ -183,6 +1458,7 @@
             },
             "functions": {
               "type": "select",
+              "default": "sinusoid",
               "options": [
                 "sinusoid",
                 "square",
@@ -197,7 +1473,6 @@
                 "edecay",
                 "haversine"
               ],
-              "default": "sinusoid",
               "desc": "Choose the function to output",
               "overload": null,
               "functionName": "FUNCTION_AFG31000",
@@ -265,8 +1540,8 @@
               "name": "input",
               "id": "input",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -280,26 +1555,26 @@
           "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/FUNCTION_AFG31000/FUNCTION_AFG31000.py"
         },
         "position": {
-          "x": -259.9952385474512,
-          "y": 33.80200469012783
+          "x": -283.0139539677805,
+          "y": 101.76020934939834
         },
+        "width": 216,
+        "height": 233,
         "selected": false,
         "positionAbsolute": {
-          "x": -259.9952385474512,
-          "y": 33.80200469012783
+          "x": -283.0139539677805,
+          "y": 101.76020934939834
         },
-        "dragging": true
+        "dragging": false
       },
       {
-        "width": 192,
-        "height": 192,
-        "id": "OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346",
-        "type": "HARDWARE",
+        "id": "OUTPUT_AFG31000-1ad63bb4-2ea7-4aed-8b74-978706236cc5",
+        "type": "FUNCTION_GENERATORS",
         "data": {
-          "id": "OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346",
+          "id": "OUTPUT_AFG31000-1ad63bb4-2ea7-4aed-8b74-978706236cc5",
           "label": "OUTPUT AFG31000",
           "func": "OUTPUT_AFG31000",
-          "type": "HARDWARE",
+          "type": "FUNCTION_GENERATORS",
           "ctrls": {
             "connection": {
               "type": "VisaConnection",
@@ -308,12 +1583,12 @@
               "overload": null,
               "functionName": "OUTPUT_AFG31000",
               "param": "connection",
-              "value": "TCPIP::10.0.0.219::INSTR"
+              "value": ""
             },
             "ch1": {
               "type": "select",
-              "options": ["on", "off"],
               "default": "on",
+              "options": ["on", "off"],
               "desc": "Turn channel 1 output on or off.",
               "overload": null,
               "functionName": "OUTPUT_AFG31000",
@@ -322,8 +1597,8 @@
             },
             "ch2": {
               "type": "select",
-              "options": ["on", "off"],
               "default": "on",
+              "options": ["on", "off"],
               "desc": "Turn channel 2 output on or off.",
               "overload": null,
               "functionName": "OUTPUT_AFG31000",
@@ -332,8 +1607,8 @@
             },
             "ch1_impedance": {
               "type": "select",
-              "options": ["50", "1e6"],
               "default": "50",
+              "options": ["50", "1e6"],
               "desc": "Choosen channel 1 impedance.",
               "overload": null,
               "functionName": "OUTPUT_AFG31000",
@@ -342,8 +1617,8 @@
             },
             "ch2_impedance": {
               "type": "select",
-              "options": ["50", "1e6"],
               "default": "50",
+              "options": ["50", "1e6"],
               "desc": "Choosen channel 2 impedance",
               "overload": null,
               "functionName": "OUTPUT_AFG31000",
@@ -357,8 +1632,8 @@
               "name": "input",
               "id": "input",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -372,1375 +1647,59 @@
           "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/OUTPUT_AFG31000/OUTPUT_AFG31000.py"
         },
         "position": {
-          "x": -26.132934232706447,
-          "y": 34.13303713403599
+          "x": 38.95056482089012,
+          "y": 103.37811432622198
         },
+        "width": 216,
+        "height": 233,
         "selected": false,
         "positionAbsolute": {
-          "x": -26.132934232706447,
-          "y": 34.13303713403599
+          "x": 38.95056482089012,
+          "y": 103.37811432622198
         },
-        "dragging": true
-      },
-      {
-        "width": 96,
-        "height": 96,
-        "id": "APPEND-2d84844c-f736-4334-844d-31a278a4bada",
-        "type": "CONTROL_FLOW",
-        "data": {
-          "id": "APPEND-2d84844c-f736-4334-844d-31a278a4bada",
-          "label": "APPEND AMPLITUDE",
-          "func": "APPEND",
-          "type": "CONTROL_FLOW",
-          "ctrls": {},
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "primary_dp",
-              "id": "primary_dp",
-              "type": "OrderedPair|Matrix|DataFrame|Scalar|Vector",
-              "multiple": false,
-              "desc": "Input that ends up \"on top\" of the resulting DataContainer."
-            },
-            {
-              "name": "secondary_dp",
-              "id": "secondary_dp",
-              "type": "OrderedPair|Matrix|DataFrame|Scalar|Vector",
-              "multiple": false,
-              "desc": "Input that ends up \"on the bottom\" of the resulting DataContainer."
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair|Matrix|DataFrame|Vector|Scalar",
-              "desc": null
-            }
-          ],
-          "path": "CONTROL_FLOW/LOOPS/APPEND/APPEND.py"
-        },
-        "position": {
-          "x": 1761.570395541311,
-          "y": -394.9616514338412
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 1761.570395541311,
-          "y": -394.9616514338412
-        },
-        "dragging": true
-      },
-      {
-        "width": 192,
-        "height": 192,
-        "id": "SETUP_FILE_MSO2X-1f358314-e9cc-478d-a1d8-3c19695c74c2",
-        "type": "HARDWARE",
-        "data": {
-          "id": "SETUP_FILE_MSO2X-1f358314-e9cc-478d-a1d8-3c19695c74c2",
-          "label": "SETUP FILE MSO2X",
-          "func": "SETUP_FILE_MSO2X",
-          "type": "HARDWARE",
-          "ctrls": {
-            "connection": {
-              "type": "VisaConnection",
-              "default": null,
-              "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
-              "overload": null,
-              "functionName": "SETUP_FILE_MSO2X",
-              "param": "connection",
-              "value": "TCPIP::169.254.9.12::INSTR"
-            },
-            "save_or_recall": {
-              "type": "select",
-              "options": ["save", "recall"],
-              "default": "save",
-              "desc": "Save or recall the file.",
-              "overload": null,
-              "functionName": "SETUP_FILE_MSO2X",
-              "param": "save_or_recall",
-              "value": "recall"
-            },
-            "filename": {
-              "type": "str",
-              "default": "flojoy",
-              "desc": "The file name to save or recall (\"flojoy\" results in \"C:/flojoy.set\").",
-              "overload": null,
-              "functionName": "SETUP_FILE_MSO2X",
-              "param": "filename",
-              "value": "flojoy001"
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "input",
-              "id": "input",
-              "type": "Any",
-              "multiple": false,
-              "desc": null
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "String",
-              "desc": "Filename"
-            }
-          ],
-          "pip_dependencies": [
-            {
-              "name": "tm_devices",
-              "v": "1"
-            }
-          ],
-          "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/SETUP_FILE_MSO2X/SETUP_FILE_MSO2X.py"
-        },
-        "position": {
-          "x": -33.11920977422133,
-          "y": -227.5654888244817
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": -33.11920977422133,
-          "y": -227.5654888244817
-        },
-        "dragging": true
-      },
-      {
-        "width": 208,
-        "height": 96,
-        "id": "FEEDBACK-409b76e8-249d-4384-8b79-73300945eca3",
-        "type": "DATA",
-        "data": {
-          "id": "FEEDBACK-409b76e8-249d-4384-8b79-73300945eca3",
-          "label": "FEEDBACK AMPLITUDE",
-          "func": "FEEDBACK",
-          "type": "DATA",
-          "ctrls": {
-            "referred_node": {
-              "type": "NodeReference",
-              "default": null,
-              "desc": "The node ID to capture the result from.",
-              "overload": null,
-              "functionName": "FEEDBACK",
-              "param": "referred_node",
-              "value": "APPEND-2d84844c-f736-4334-844d-31a278a4bada"
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false,
-              "desc": null
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "desc": "The result of the specified node ID, or the result of the parent node if it was not found."
-            }
-          ],
-          "path": "DATA/GENERATION/SIMULATIONS/FEEDBACK/FEEDBACK.py"
-        },
-        "position": {
-          "x": 1409.2682668999946,
-          "y": -295.07980888453363
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 1409.2682668999946,
-          "y": -295.07980888453363
-        },
-        "dragging": true
-      },
-      {
-        "width": 208,
-        "height": 96,
-        "id": "FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05",
-        "type": "DATA",
-        "data": {
-          "id": "FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05",
-          "label": "FEEDBACK PREV FREQ",
-          "func": "FEEDBACK",
-          "type": "DATA",
-          "ctrls": {
-            "referred_node": {
-              "type": "NodeReference",
-              "default": null,
-              "desc": "The node ID to capture the result from.",
-              "overload": null,
-              "functionName": "FEEDBACK",
-              "param": "referred_node",
-              "value": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa"
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false,
-              "desc": null
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "desc": "The result of the specified node ID, or the result of the parent node if it was not found."
-            }
-          ],
-          "path": "DATA/GENERATION/SIMULATIONS/FEEDBACK/FEEDBACK.py"
-        },
-        "position": {
-          "x": 766.857195950552,
-          "y": -358.349319845648
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 766.857195950552,
-          "y": -358.349319845648
-        },
-        "dragging": true
-      },
-      {
-        "width": 72,
-        "height": 72,
-        "id": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa",
-        "type": "ARITHMETIC",
-        "data": {
-          "id": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa",
-          "label": "MULTIPLY",
-          "func": "MULTIPLY",
-          "type": "ARITHMETIC",
-          "ctrls": {},
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "a",
-              "id": "a",
-              "type": "OrderedPair|Scalar|Vector",
-              "multiple": false,
-              "desc": "The input a use to compute the product of a and b."
-            },
-            {
-              "name": "b",
-              "id": "b",
-              "type": "OrderedPair|Scalar|Vector",
-              "multiple": true,
-              "desc": "The input b use to compute the product of a and b."
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair|Scalar|Vector",
-              "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the result of the product of input a and input b.\n\nScalar if a is a Scalar.\nc: the result of the product of input a and input b.\n\nVector if a is a Vector.\nv: the result of the product of input a and input b."
-            }
-          ],
-          "path": "MATH/ARITHMETIC/MULTIPLY/MULTIPLY.py"
-        },
-        "position": {
-          "x": 1017.2072018822597,
-          "y": -423.9519694905548
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 1017.2072018822597,
-          "y": -423.9519694905548
-        },
-        "dragging": true
-      },
-      {
-        "width": 208,
-        "height": 116,
-        "id": "FEEDBACK-c12d2603-c2cd-41d8-9e66-170de00cdd7b",
-        "type": "DATA",
-        "data": {
-          "id": "FEEDBACK-c12d2603-c2cd-41d8-9e66-170de00cdd7b",
-          "label": "FEEDBACK AMPLITUDE PLOT",
-          "func": "FEEDBACK",
-          "type": "DATA",
-          "ctrls": {
-            "referred_node": {
-              "type": "NodeReference",
-              "default": null,
-              "desc": "The node ID to capture the result from.",
-              "overload": null,
-              "functionName": "FEEDBACK",
-              "param": "referred_node",
-              "value": "APPEND-2d84844c-f736-4334-844d-31a278a4bada"
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false,
-              "desc": null
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "desc": "The result of the specified node ID, or the result of the parent node if it was not found."
-            }
-          ],
-          "path": "DATA/GENERATION/SIMULATIONS/FEEDBACK/FEEDBACK.py"
-        },
-        "position": {
-          "x": 589.1709798288726,
-          "y": 195.28873802494434
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 589.1709798288726,
-          "y": 195.28873802494434
-        },
-        "dragging": true
-      },
-      {
-        "width": 96,
-        "height": 96,
-        "id": "APPEND-3bbac391-5d18-4258-8924-24179e83e8cc",
-        "type": "CONTROL_FLOW",
-        "data": {
-          "id": "APPEND-3bbac391-5d18-4258-8924-24179e83e8cc",
-          "label": "APPEND FREQ",
-          "func": "APPEND",
-          "type": "CONTROL_FLOW",
-          "ctrls": {},
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "primary_dp",
-              "id": "primary_dp",
-              "type": "OrderedPair|Matrix|DataFrame|Scalar|Vector",
-              "multiple": false,
-              "desc": "Input that ends up \"on top\" of the resulting DataContainer."
-            },
-            {
-              "name": "secondary_dp",
-              "id": "secondary_dp",
-              "type": "OrderedPair|Matrix|DataFrame|Scalar|Vector",
-              "multiple": false,
-              "desc": "Input that ends up \"on the bottom\" of the resulting DataContainer."
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair|Matrix|DataFrame|Vector|Scalar",
-              "desc": null
-            }
-          ],
-          "path": "CONTROL_FLOW/LOOPS/APPEND/APPEND.py"
-        },
-        "position": {
-          "x": 1131.9007456222514,
-          "y": -178.46779094050245
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 1131.9007456222514,
-          "y": -178.46779094050245
-        },
-        "dragging": true
-      },
-      {
-        "width": 208,
-        "height": 96,
-        "id": "FEEDBACK-e35202b1-5554-4e35-a47f-0c5bab7304d0",
-        "type": "DATA",
-        "data": {
-          "id": "FEEDBACK-e35202b1-5554-4e35-a47f-0c5bab7304d0",
-          "label": "FEEDBACK FREQ LOOP",
-          "func": "FEEDBACK",
-          "type": "DATA",
-          "ctrls": {
-            "referred_node": {
-              "type": "NodeReference",
-              "default": null,
-              "desc": "The node ID to capture the result from.",
-              "overload": null,
-              "functionName": "FEEDBACK",
-              "param": "referred_node",
-              "value": "APPEND-3bbac391-5d18-4258-8924-24179e83e8cc"
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false,
-              "desc": null
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "desc": "The result of the specified node ID, or the result of the parent node if it was not found."
-            }
-          ],
-          "path": "DATA/GENERATION/SIMULATIONS/FEEDBACK/FEEDBACK.py"
-        },
-        "position": {
-          "x": 865.7437416755312,
-          "y": -121.6544864343829
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 865.7437416755312,
-          "y": -121.6544864343829
-        },
-        "dragging": true
-      },
-      {
-        "width": 208,
-        "height": 96,
-        "id": "FEEDBACK-26c1b027-61a2-4e4d-b527-c277b7741e65",
-        "type": "DATA",
-        "data": {
-          "id": "FEEDBACK-26c1b027-61a2-4e4d-b527-c277b7741e65",
-          "label": "FEEDBACK FREQ PLOT",
-          "func": "FEEDBACK",
-          "type": "DATA",
-          "ctrls": {
-            "referred_node": {
-              "type": "NodeReference",
-              "default": null,
-              "desc": "The node ID to capture the result from.",
-              "overload": null,
-              "functionName": "FEEDBACK",
-              "param": "referred_node",
-              "value": "APPEND-3bbac391-5d18-4258-8924-24179e83e8cc"
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false,
-              "desc": null
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "desc": "The result of the specified node ID, or the result of the parent node if it was not found."
-            }
-          ],
-          "path": "DATA/GENERATION/SIMULATIONS/FEEDBACK/FEEDBACK.py"
-        },
-        "position": {
-          "x": 821.7904075679467,
-          "y": 57.625857519413955
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 821.7904075679467,
-          "y": 57.625857519413955
-        },
-        "dragging": true
-      },
-      {
-        "width": 160,
-        "height": 160,
-        "id": "VECTOR_2_ORDERED_PAIR-50d0af6c-cc82-4e8f-b1ec-2d93faf5331b",
-        "type": "ETL",
-        "data": {
-          "id": "VECTOR_2_ORDERED_PAIR-50d0af6c-cc82-4e8f-b1ec-2d93faf5331b",
-          "label": "VECTOR 2 ORDERED PAIR",
-          "func": "VECTOR_2_ORDERED_PAIR",
-          "type": "ETL",
-          "ctrls": {},
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Vector",
-              "multiple": false,
-              "desc": "The input vector that will be the x axis of OrderedPair."
-            },
-            {
-              "name": "y",
-              "id": "y",
-              "type": "Vector",
-              "multiple": false,
-              "desc": "The input vector that will be the y axis of OrderedPair."
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair",
-              "desc": "The OrderedPair that is generated from the input vectors"
-            }
-          ],
-          "path": "ETL/TRANSFORM/TYPE_CASTING/VECTOR_2_ORDERED_PAIR/VECTOR_2_ORDERED_PAIR.py"
-        },
-        "position": {
-          "x": 1226.5426232176512,
-          "y": 111.45768868332812
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 1226.5426232176512,
-          "y": 111.45768868332812
-        },
-        "dragging": true
-      },
-      {
-        "width": 1082,
-        "height": 518,
-        "id": "LINE-e45a4e57-3a5e-4be6-917f-96f282083dbb",
-        "type": "VISUALIZATION",
-        "data": {
-          "id": "LINE-e45a4e57-3a5e-4be6-917f-96f282083dbb",
-          "label": "LINE",
-          "func": "LINE",
-          "type": "VISUALIZATION",
-          "ctrls": {
-            "xaxis_title": {
-              "type": "str",
-              "default": "",
-              "desc": "Choose the label for the x axis.",
-              "overload": null,
-              "functionName": "LINE",
-              "param": "xaxis_title",
-              "value": "Frequency (Hz)"
-            },
-            "yaxis_title": {
-              "type": "str",
-              "default": "",
-              "desc": "Choose the label for the y axis.",
-              "overload": null,
-              "functionName": "LINE",
-              "param": "yaxis_title",
-              "value": "Power (dB)"
-            },
-            "x_log_scale": {
-              "type": "bool",
-              "default": false,
-              "desc": null,
-              "overload": null,
-              "functionName": "LINE",
-              "param": "x_log_scale",
-              "value": true
-            },
-            "y_log_scale": {
-              "type": "bool",
-              "default": false,
-              "desc": null,
-              "overload": null,
-              "functionName": "LINE",
-              "param": "y_log_scale",
-              "value": false
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair|DataFrame|Matrix|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Plotly",
-              "desc": "the DataContainer containing the Plotly Line visualization of the input data"
-            }
-          ],
-          "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
-        },
-        "position": {
-          "x": 1928.335585620578,
-          "y": -546.7982766994405
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 1928.335585620578,
-          "y": -546.7982766994405
-        },
-        "dragging": true,
-        "style": {
-          "width": 1082,
-          "height": 518
-        },
-        "resizing": false
-      },
-      {
-        "width": 192,
-        "height": 192,
-        "id": "MEASUREMENT_MSO2X-d95634d5-631b-4c7b-8a51-746e9615f6ce",
-        "type": "HARDWARE",
-        "data": {
-          "id": "MEASUREMENT_MSO2X-d95634d5-631b-4c7b-8a51-746e9615f6ce",
-          "label": "MEASUREMENT MSO2X",
-          "func": "MEASUREMENT_MSO2X",
-          "type": "HARDWARE",
-          "ctrls": {
-            "connection": {
-              "type": "VisaConnection",
-              "default": null,
-              "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
-              "overload": null,
-              "functionName": "MEASUREMENT_MSO2X",
-              "param": "connection",
-              "value": "TCPIP::169.254.9.12::INSTR"
-            },
-            "delete_all": {
-              "type": "bool",
-              "default": false,
-              "desc": null,
-              "overload": null,
-              "functionName": "MEASUREMENT_MSO2X",
-              "param": "delete_all",
-              "value": false
-            },
-            "channel": {
-              "type": "select",
-              "options": [
-                "1",
-                "2",
-                "3",
-                "4",
-                "D1",
-                "D2",
-                "D3",
-                "D4",
-                "D5",
-                "D6",
-                "D7",
-                "D8",
-                "D9",
-                "D10",
-                "D12",
-                "D13",
-                "D14",
-                "D15"
-              ],
-              "default": "1",
-              "desc": "What channel to extract the measurement from.",
-              "overload": null,
-              "functionName": "MEASUREMENT_MSO2X",
-              "param": "channel",
-              "value": "1"
-            },
-            "measure_num": {
-              "type": "int",
-              "default": 1,
-              "desc": "What measurement number to use on the scope.",
-              "overload": null,
-              "functionName": "MEASUREMENT_MSO2X",
-              "param": "measure_num",
-              "value": 1
-            },
-            "measurement": {
-              "type": "select",
-              "options": [
-                "acrms",
-                "amplitude",
-                "area",
-                "base",
-                "burstwidth",
-                "datarate",
-                "delay",
-                "fallslewrate",
-                "falltime",
-                "frequency",
-                "hightime",
-                "hold",
-                "lowtime",
-                "maximum",
-                "mean",
-                "minimum",
-                "nduty",
-                "novershoot",
-                "nperiod",
-                "nwidtth",
-                "pduty",
-                "period",
-                "phase",
-                "pk2pk",
-                "povershoot",
-                "pwidth",
-                "riseslewrate",
-                "risetime",
-                "rms",
-                "setup",
-                "skew",
-                "timeoutsidelevel",
-                "timetomax",
-                "timetomin",
-                "top"
-              ],
-              "default": "frequency",
-              "desc": "The type of measurement to make.",
-              "overload": null,
-              "functionName": "MEASUREMENT_MSO2X",
-              "param": "measurement",
-              "value": "AMPLITUDE"
-            },
-            "statistic": {
-              "type": "select",
-              "options": ["mean", "minumum", "maximum", "population", "stddev"],
-              "default": "mean",
-              "desc": "The type of statistic to use for the measurement.",
-              "overload": null,
-              "functionName": "MEASUREMENT_MSO2X",
-              "param": "statistic",
-              "value": "mean"
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "input",
-              "id": "input",
-              "type": "Any",
-              "multiple": false,
-              "desc": null
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Scalar",
-              "desc": "The measured value"
-            }
-          ],
-          "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/MEASUREMENT_MSO2X/MEASUREMENT_MSO2X.py"
-        },
-        "position": {
-          "x": 1525.864346969836,
-          "y": -570.064124554214
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 1525.864346969836,
-          "y": -570.064124554214
-        },
-        "dragging": true
-      },
-      {
-        "width": 192,
-        "height": 192,
-        "id": "INPUT_PARAM_AFG31000-50267130-4ee8-4811-8d6f-311592e860aa",
-        "type": "HARDWARE",
-        "data": {
-          "id": "INPUT_PARAM_AFG31000-50267130-4ee8-4811-8d6f-311592e860aa",
-          "label": "INPUT PARAM AFG31000",
-          "func": "INPUT_PARAM_AFG31000",
-          "type": "HARDWARE",
-          "ctrls": {
-            "connection": {
-              "type": "VisaConnection",
-              "default": null,
-              "desc": "The VISA address (requires the CONNECTION_AFG31000 block).",
-              "overload": null,
-              "functionName": "INPUT_PARAM_AFG31000",
-              "param": "connection",
-              "value": "TCPIP::10.0.0.219::INSTR"
-            },
-            "source": {
-              "type": "select",
-              "options": ["1", "2"],
-              "default": "1",
-              "desc": "Choose the channel to alter.",
-              "overload": null,
-              "functionName": "INPUT_PARAM_AFG31000",
-              "param": "source",
-              "value": "1"
-            },
-            "parameter": {
-              "type": "select",
-              "options": [
-                "frequency",
-                "amplitude",
-                "offset",
-                "phase",
-                "pulse_width",
-                "ramp_symmetry"
-              ],
-              "default": "frequency",
-              "desc": "Choose the parameter to alter.",
-              "overload": null,
-              "functionName": "INPUT_PARAM_AFG31000",
-              "param": "parameter",
-              "value": "frequency"
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "input",
-              "id": "input",
-              "type": "Scalar",
-              "multiple": false,
-              "desc": "The value to change the selected parameter to."
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Scalar",
-              "desc": "The input value"
-            }
-          ],
-          "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/INPUT_PARAM_AFG31000/INPUT_PARAM_AFG31000.py"
-        },
-        "position": {
-          "x": 1139.5066627315634,
-          "y": -566.5038150406965
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 1139.5066627315634,
-          "y": -566.5038150406965
-        },
-        "dragging": true
-      },
-      {
-        "width": 160,
-        "height": 160,
-        "id": "ORDERED_PAIR_DELETE-681dbca5-97e4-496e-a019-f44c43358eb5",
-        "type": "ETL",
-        "data": {
-          "id": "ORDERED_PAIR_DELETE-681dbca5-97e4-496e-a019-f44c43358eb5",
-          "label": "DELETE 1ST ROW",
-          "func": "ORDERED_PAIR_DELETE",
-          "type": "ETL",
-          "ctrls": {
-            "indices": {
-              "type": "Array",
-              "default": null,
-              "desc": "specified indices to delete value(s) at from the input OrderedPair",
-              "overload": null,
-              "functionName": "ORDERED_PAIR_DELETE",
-              "param": "indices",
-              "value": "0"
-            },
-            "length": {
-              "type": "int",
-              "default": 1,
-              "desc": "number of elements to delete from the input OrderedPair, default is 1 (this only applies when one index is specified for indices parameter)",
-              "overload": null,
-              "functionName": "ORDERED_PAIR_DELETE",
-              "param": "length",
-              "value": 1
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair",
-              "multiple": false,
-              "desc": "The input OrderedPair to delete from"
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair",
-              "desc": "The new OrderedPair with element(s) deleted from the input OrderedPair"
-            }
-          ],
-          "path": "ETL/TRANSFORM/ORDERED_PAIR_MANIPULATION/ORDERED_PAIR_DELETE/ORDERED_PAIR_DELETE.py"
-        },
-        "position": {
-          "x": 1456.436490204777,
-          "y": 110.21448018798549
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 1456.436490204777,
-          "y": 110.21448018798549
-        },
-        "dragging": true
-      },
-      {
-        "width": 208,
-        "height": 96,
-        "id": "SCALAR-d6075cfe-406f-4c75-9b3d-4067ec8206aa",
-        "type": "DATA",
-        "data": {
-          "id": "SCALAR-d6075cfe-406f-4c75-9b3d-4067ec8206aa",
-          "label": "1",
-          "func": "SCALAR",
-          "type": "DATA",
-          "ctrls": {
-            "value": {
-              "type": "float",
-              "default": 3,
-              "desc": "The value set in Parameters",
-              "overload": null,
-              "functionName": "SCALAR",
-              "param": "value",
-              "value": 1
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "_",
-              "id": "_",
-              "type": "Any",
-              "multiple": false,
-              "desc": null
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Scalar",
-              "desc": "c: return the value being set in Parameters"
-            }
-          ],
-          "path": "DATA/GENERATION/SIMULATIONS/SCALAR/SCALAR.py"
-        },
-        "position": {
-          "x": 577.9385345662489,
-          "y": -112.2210757582884
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 577.9385345662489,
-          "y": -112.2210757582884
-        },
-        "dragging": true
-      },
-      {
-        "width": 96,
-        "height": 96,
-        "id": "TIMER-466340e3-0708-472b-91da-27d78410cb7f",
-        "type": "CONTROL_FLOW",
-        "data": {
-          "id": "TIMER-466340e3-0708-472b-91da-27d78410cb7f",
-          "label": "TIMER",
-          "func": "TIMER",
-          "type": "CONTROL_FLOW",
-          "ctrls": {
-            "sleep_time": {
-              "type": "float",
-              "default": 0,
-              "desc": "number of seconds to sleep",
-              "overload": null,
-              "functionName": "TIMER",
-              "param": "sleep_time",
-              "value": 0.05
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false,
-              "desc": null
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "desc": "Returns the input if one was passed in."
-            }
-          ],
-          "path": "CONTROL_FLOW/TIMERS/TIMER/TIMER.py"
-        },
-        "position": {
-          "x": 1380.381416671164,
-          "y": -520.0468868894886
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 1380.381416671164,
-          "y": -520.0468868894886
-        },
-        "dragging": true
-      },
-      {
-        "width": 160,
-        "height": 160,
-        "id": "VOLT_TO_DB-10925d08-7ae8-4d81-ad34-36802aeeb573",
-        "type": "DSP",
-        "data": {
-          "id": "VOLT_TO_DB-10925d08-7ae8-4d81-ad34-36802aeeb573",
-          "label": "VOLT TO DB",
-          "func": "VOLT_TO_DB",
-          "type": "DSP",
-          "ctrls": {
-            "ref_value": {
-              "type": "float",
-              "default": null,
-              "desc": "The reference",
-              "overload": null,
-              "functionName": "VOLT_TO_DB",
-              "param": "ref_value",
-              "value": 5
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "data",
-              "id": "data",
-              "type": "OrderedPair|Vector",
-              "multiple": false,
-              "desc": "The input to apply the absolute value to."
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair|Vector",
-              "desc": "x: the x-axis of the input.\ny: the absolute value of the input."
-            }
-          ],
-          "path": "DSP/VOLT_TO_DB/VOLT_TO_DB.py"
-        },
-        "position": {
-          "x": 907.507117838674,
-          "y": 173.39142094058593
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 907.507117838674,
-          "y": 173.39142094058593
-        },
-        "dragging": true
-      },
-      {
-        "width": 208,
-        "height": 96,
-        "id": "CONSTANT-0e860ebc-1f04-4fba-be18-398f42bf5cdb",
-        "type": "DATA",
-        "data": {
-          "id": "CONSTANT-0e860ebc-1f04-4fba-be18-398f42bf5cdb",
-          "label": "1",
-          "func": "CONSTANT",
-          "type": "DATA",
-          "ctrls": {
-            "dc_type": {
-              "type": "select",
-              "options": ["Scalar", "Vector", "OrderedPair"],
-              "default": "OrderedPair",
-              "desc": "The type of DataContainer to return.",
-              "overload": null,
-              "functionName": "CONSTANT",
-              "param": "dc_type",
-              "value": "Scalar"
-            },
-            "constant": {
-              "type": "float",
-              "default": 3,
-              "desc": "The value of the y axis output.",
-              "overload": null,
-              "functionName": "CONSTANT",
-              "param": "constant",
-              "value": 1
-            },
-            "step": {
-              "type": "float",
-              "default": 1000,
-              "desc": "The size of the y and x axes.",
-              "overload": null,
-              "functionName": "CONSTANT",
-              "param": "step",
-              "value": 1000
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Vector|OrderedPair",
-              "multiple": false,
-              "desc": "Optional input that defines the size of the output."
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair|Vector|Scalar",
-              "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
-            }
-          ],
-          "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
-        },
-        "position": {
-          "x": 1142.0344375490365,
-          "y": -293.12499514310025
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 1142.0344375490365,
-          "y": -293.12499514310025
-        },
-        "dragging": true
-      },
-      {
-        "width": 208,
-        "height": 96,
-        "id": "CONSTANT-05e987eb-c32d-4252-aff6-c5e63c20063e",
-        "type": "DATA",
-        "data": {
-          "id": "CONSTANT-05e987eb-c32d-4252-aff6-c5e63c20063e",
-          "label": "98000",
-          "func": "CONSTANT",
-          "type": "DATA",
-          "ctrls": {
-            "dc_type": {
-              "type": "select",
-              "options": ["Scalar", "Vector", "OrderedPair"],
-              "default": "OrderedPair",
-              "desc": "The type of DataContainer to return.",
-              "overload": null,
-              "functionName": "CONSTANT",
-              "param": "dc_type",
-              "value": "Scalar"
-            },
-            "constant": {
-              "type": "float",
-              "default": 3,
-              "desc": "The value of the y axis output.",
-              "overload": null,
-              "functionName": "CONSTANT",
-              "param": "constant",
-              "value": 98000
-            },
-            "step": {
-              "type": "float",
-              "default": 1000,
-              "desc": "The size of the y and x axes.",
-              "overload": null,
-              "functionName": "CONSTANT",
-              "param": "step",
-              "value": 1000
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Vector|OrderedPair",
-              "multiple": false,
-              "desc": "Optional input that defines the size of the output."
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair|Vector|Scalar",
-              "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
-            }
-          ],
-          "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
-        },
-        "position": {
-          "x": 476.06564409383736,
-          "y": -356.79246277420594
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 476.06564409383736,
-          "y": -356.79246277420594
-        },
-        "dragging": true
-      },
-      {
-        "width": 208,
-        "height": 96,
-        "id": "CONSTANT-e3c85926-b4ec-489d-96cd-f54f52ac60ef",
-        "type": "DATA",
-        "data": {
-          "id": "CONSTANT-e3c85926-b4ec-489d-96cd-f54f52ac60ef",
-          "label": "1.02",
-          "func": "CONSTANT",
-          "type": "DATA",
-          "ctrls": {
-            "dc_type": {
-              "type": "select",
-              "options": ["Scalar", "Vector", "OrderedPair"],
-              "default": "OrderedPair",
-              "desc": "The type of DataContainer to return.",
-              "overload": null,
-              "functionName": "CONSTANT",
-              "param": "dc_type",
-              "value": "Scalar"
-            },
-            "constant": {
-              "type": "float",
-              "default": 3,
-              "desc": "The value of the y axis output.",
-              "overload": null,
-              "functionName": "CONSTANT",
-              "param": "constant",
-              "value": 1.02
-            },
-            "step": {
-              "type": "float",
-              "default": 1000,
-              "desc": "The size of the y and x axes.",
-              "overload": null,
-              "functionName": "CONSTANT",
-              "param": "step",
-              "value": 1000
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Vector|OrderedPair",
-              "multiple": false,
-              "desc": "Optional input that defines the size of the output."
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair|Vector|Scalar",
-              "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
-            }
-          ],
-          "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
-        },
-        "position": {
-          "x": 745.8464696159206,
-          "y": -521.7768737511649
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 745.8464696159206,
-          "y": -521.7768737511649
-        },
-        "dragging": true
+        "dragging": false
       }
     ],
     "edges": [
       {
-        "source": "SETUP_FILE_MSO2X-1f358314-e9cc-478d-a1d8-3c19695c74c2",
-        "sourceHandle": "default",
+        "id": "SETUP_FILE_MSO2X-822c386d-423c-4788-a5c4-5aa6827e2c57->LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3",
+        "source": "SETUP_FILE_MSO2X-822c386d-423c-4788-a5c4-5aa6827e2c57",
         "target": "LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3",
+        "sourceHandle": "default",
         "targetHandle": "default",
-        "id": "reactflow__edge-SETUP_FILE_MSO2X-1f358314-e9cc-478d-a1d8-3c19695c74c2default-LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3default"
+        "data": {
+          "outputType": "String"
+        }
       },
       {
-        "source": "OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346",
-        "sourceHandle": "default",
+        "id": "OUTPUT_AFG31000-1ad63bb4-2ea7-4aed-8b74-978706236cc5->LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3",
+        "source": "OUTPUT_AFG31000-1ad63bb4-2ea7-4aed-8b74-978706236cc5",
         "target": "LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3",
+        "sourceHandle": "default",
         "targetHandle": "default",
-        "id": "reactflow__edge-OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346default-LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3default"
+        "data": {
+          "outputType": "String"
+        }
       },
       {
-        "source": "CONNECT_AFG31000-0062226e-0b7d-4fa6-80c7-c54374e26689",
-        "sourceHandle": "default",
-        "target": "FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0a",
-        "targetHandle": "input",
-        "id": "reactflow__edge-CONNECT_AFG31000-0062226e-0b7d-4fa6-80c7-c54374e26689default-FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0ainput"
-      },
-      {
-        "source": "FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0a",
-        "sourceHandle": "default",
-        "target": "OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346",
-        "targetHandle": "input",
-        "id": "reactflow__edge-FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0adefault-OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346input"
-      },
-      {
-        "source": "FEEDBACK-409b76e8-249d-4384-8b79-73300945eca3",
-        "sourceHandle": "default",
-        "target": "APPEND-2d84844c-f736-4334-844d-31a278a4bada",
-        "targetHandle": "primary_dp",
-        "id": "reactflow__edge-FEEDBACK-409b76e8-249d-4384-8b79-73300945eca3default-APPEND-2d84844c-f736-4334-844d-31a278a4badaprimary_dp"
-      },
-      {
-        "source": "MEASUREMENT_MSO2X-d95634d5-631b-4c7b-8a51-746e9615f6ce",
-        "sourceHandle": "default",
-        "target": "APPEND-2d84844c-f736-4334-844d-31a278a4bada",
-        "targetHandle": "secondary_dp",
-        "id": "reactflow__edge-MEASUREMENT_MSO2X-d95634d5-631b-4c7b-8a51-746e9615f6cedefault-APPEND-2d84844c-f736-4334-844d-31a278a4badasecondary_dp"
-      },
-      {
-        "source": "CONNECT_MSO2X-28dfef06-d9cf-49dd-8b54-0a599e9580f4",
-        "sourceHandle": "default",
-        "target": "SETUP_FILE_MSO2X-1f358314-e9cc-478d-a1d8-3c19695c74c2",
-        "targetHandle": "input",
-        "id": "reactflow__edge-CONNECT_MSO2X-28dfef06-d9cf-49dd-8b54-0a599e9580f4default-SETUP_FILE_MSO2X-1f358314-e9cc-478d-a1d8-3c19695c74c2input"
-      },
-      {
+        "id": "CONSTANT-0e860ebc-1f04-4fba-be18-398f42bf5cdb->FEEDBACK-409b76e8-249d-4384-8b79-73300945eca3",
         "source": "CONSTANT-0e860ebc-1f04-4fba-be18-398f42bf5cdb",
-        "sourceHandle": "default",
         "target": "FEEDBACK-409b76e8-249d-4384-8b79-73300945eca3",
+        "sourceHandle": "default",
         "targetHandle": "default",
-        "id": "reactflow__edge-CONSTANT-0e860ebc-1f04-4fba-be18-398f42bf5cdbdefault-FEEDBACK-409b76e8-249d-4384-8b79-73300945eca3default"
+        "data": {
+          "outputType": "OrderedPair"
+        }
       },
       {
+        "id": "CONSTANT-05e987eb-c32d-4252-aff6-c5e63c20063e->FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05",
         "source": "CONSTANT-05e987eb-c32d-4252-aff6-c5e63c20063e",
-        "sourceHandle": "default",
         "target": "FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05",
+        "sourceHandle": "default",
         "targetHandle": "default",
-        "id": "reactflow__edge-CONSTANT-05e987eb-c32d-4252-aff6-c5e63c20063edefault-FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05default"
-      },
-      {
-        "source": "FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05",
-        "sourceHandle": "default",
-        "target": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa",
-        "targetHandle": "b",
-        "id": "reactflow__edge-FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05default-MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffab"
-      },
-      {
-        "source": "CONSTANT-e3c85926-b4ec-489d-96cd-f54f52ac60ef",
-        "sourceHandle": "default",
-        "target": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa",
-        "targetHandle": "a",
-        "id": "reactflow__edge-CONSTANT-e3c85926-b4ec-489d-96cd-f54f52ac60efdefault-MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffaa"
+        "data": {
+          "outputType": "OrderedPair"
+        }
       },
       {
         "source": "LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3",
@@ -1750,25 +1709,14 @@
         "id": "reactflow__edge-LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3end-FEEDBACK-c12d2603-c2cd-41d8-9e66-170de00cdd7bdefault"
       },
       {
-        "source": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa",
-        "sourceHandle": "default",
-        "target": "APPEND-3bbac391-5d18-4258-8924-24179e83e8cc",
-        "targetHandle": "secondary_dp",
-        "id": "reactflow__edge-MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffadefault-APPEND-3bbac391-5d18-4258-8924-24179e83e8ccsecondary_dp"
-      },
-      {
-        "source": "FEEDBACK-e35202b1-5554-4e35-a47f-0c5bab7304d0",
-        "sourceHandle": "default",
-        "target": "APPEND-3bbac391-5d18-4258-8924-24179e83e8cc",
-        "targetHandle": "primary_dp",
-        "id": "reactflow__edge-FEEDBACK-e35202b1-5554-4e35-a47f-0c5bab7304d0default-APPEND-3bbac391-5d18-4258-8924-24179e83e8ccprimary_dp"
-      },
-      {
+        "id": "SCALAR-d6075cfe-406f-4c75-9b3d-4067ec8206aa->FEEDBACK-e35202b1-5554-4e35-a47f-0c5bab7304d0",
         "source": "SCALAR-d6075cfe-406f-4c75-9b3d-4067ec8206aa",
-        "sourceHandle": "default",
         "target": "FEEDBACK-e35202b1-5554-4e35-a47f-0c5bab7304d0",
+        "sourceHandle": "default",
         "targetHandle": "default",
-        "id": "reactflow__edge-SCALAR-d6075cfe-406f-4c75-9b3d-4067ec8206aadefault-FEEDBACK-e35202b1-5554-4e35-a47f-0c5bab7304d0default"
+        "data": {
+          "outputType": "Scalar"
+        }
       },
       {
         "source": "LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3",
@@ -1778,46 +1726,14 @@
         "id": "reactflow__edge-LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3end-FEEDBACK-26c1b027-61a2-4e4d-b527-c277b7741e65default"
       },
       {
-        "source": "FEEDBACK-26c1b027-61a2-4e4d-b527-c277b7741e65",
-        "sourceHandle": "default",
-        "target": "VECTOR_2_ORDERED_PAIR-50d0af6c-cc82-4e8f-b1ec-2d93faf5331b",
-        "targetHandle": "default",
-        "id": "reactflow__edge-FEEDBACK-26c1b027-61a2-4e4d-b527-c277b7741e65default-VECTOR_2_ORDERED_PAIR-50d0af6c-cc82-4e8f-b1ec-2d93faf5331bdefault"
-      },
-      {
-        "source": "VOLT_TO_DB-10925d08-7ae8-4d81-ad34-36802aeeb573",
-        "sourceHandle": "default",
-        "target": "VECTOR_2_ORDERED_PAIR-50d0af6c-cc82-4e8f-b1ec-2d93faf5331b",
-        "targetHandle": "y",
-        "id": "reactflow__edge-VOLT_TO_DB-10925d08-7ae8-4d81-ad34-36802aeeb573default-VECTOR_2_ORDERED_PAIR-50d0af6c-cc82-4e8f-b1ec-2d93faf5331by"
-      },
-      {
-        "source": "ORDERED_PAIR_DELETE-681dbca5-97e4-496e-a019-f44c43358eb5",
-        "sourceHandle": "default",
-        "target": "LINE-e45a4e57-3a5e-4be6-917f-96f282083dbb",
-        "targetHandle": "default",
-        "id": "reactflow__edge-ORDERED_PAIR_DELETE-681dbca5-97e4-496e-a019-f44c43358eb5default-LINE-e45a4e57-3a5e-4be6-917f-96f282083dbbdefault"
-      },
-      {
-        "source": "TIMER-466340e3-0708-472b-91da-27d78410cb7f",
-        "sourceHandle": "default",
-        "target": "MEASUREMENT_MSO2X-d95634d5-631b-4c7b-8a51-746e9615f6ce",
-        "targetHandle": "input",
-        "id": "reactflow__edge-TIMER-466340e3-0708-472b-91da-27d78410cb7fdefault-MEASUREMENT_MSO2X-d95634d5-631b-4c7b-8a51-746e9615f6ceinput"
-      },
-      {
-        "source": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa",
-        "sourceHandle": "default",
-        "target": "INPUT_PARAM_AFG31000-50267130-4ee8-4811-8d6f-311592e860aa",
-        "targetHandle": "input",
-        "id": "reactflow__edge-MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffadefault-INPUT_PARAM_AFG31000-50267130-4ee8-4811-8d6f-311592e860aainput"
-      },
-      {
-        "source": "VECTOR_2_ORDERED_PAIR-50d0af6c-cc82-4e8f-b1ec-2d93faf5331b",
-        "sourceHandle": "default",
+        "id": "VECTOR_2_ORDERED_PAIR-5d1faefe-283d-4bc7-b4c5-989c27270d22->ORDERED_PAIR_DELETE-681dbca5-97e4-496e-a019-f44c43358eb5",
+        "source": "VECTOR_2_ORDERED_PAIR-5d1faefe-283d-4bc7-b4c5-989c27270d22",
         "target": "ORDERED_PAIR_DELETE-681dbca5-97e4-496e-a019-f44c43358eb5",
+        "sourceHandle": "default",
         "targetHandle": "default",
-        "id": "reactflow__edge-VECTOR_2_ORDERED_PAIR-50d0af6c-cc82-4e8f-b1ec-2d93faf5331bdefault-ORDERED_PAIR_DELETE-681dbca5-97e4-496e-a019-f44c43358eb5default"
+        "data": {
+          "outputType": "OrderedPair"
+        }
       },
       {
         "source": "LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3",
@@ -1827,11 +1743,14 @@
         "id": "reactflow__edge-LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3body-SCALAR-d6075cfe-406f-4c75-9b3d-4067ec8206aa_"
       },
       {
-        "source": "INPUT_PARAM_AFG31000-50267130-4ee8-4811-8d6f-311592e860aa",
-        "sourceHandle": "default",
+        "id": "INPUT_PARAM_AFG31000-d6a5468c-cbd6-47cb-90aa-fa9eb6ddb01d->TIMER-466340e3-0708-472b-91da-27d78410cb7f",
+        "source": "INPUT_PARAM_AFG31000-d6a5468c-cbd6-47cb-90aa-fa9eb6ddb01d",
         "target": "TIMER-466340e3-0708-472b-91da-27d78410cb7f",
+        "sourceHandle": "default",
         "targetHandle": "default",
-        "id": "reactflow__edge-INPUT_PARAM_AFG31000-50267130-4ee8-4811-8d6f-311592e860aadefault-TIMER-466340e3-0708-472b-91da-27d78410cb7fdefault"
+        "data": {
+          "outputType": "Scalar"
+        }
       },
       {
         "source": "FEEDBACK-c12d2603-c2cd-41d8-9e66-170de00cdd7b",
@@ -1845,7 +1764,8 @@
         "sourceHandle": "body",
         "target": "CONSTANT-0e860ebc-1f04-4fba-be18-398f42bf5cdb",
         "targetHandle": "default",
-        "id": "reactflow__edge-LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3body-CONSTANT-0e860ebc-1f04-4fba-be18-398f42bf5cdbdefault"
+        "id": "reactflow__edge-LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3body-CONSTANT-0e860ebc-1f04-4fba-be18-398f42bf5cdbdefault",
+        "selected": false
       },
       {
         "source": "LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3",
@@ -1853,13 +1773,148 @@
         "target": "CONSTANT-05e987eb-c32d-4252-aff6-c5e63c20063e",
         "targetHandle": "default",
         "id": "reactflow__edge-LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3body-CONSTANT-05e987eb-c32d-4252-aff6-c5e63c20063edefault"
+      },
+      {
+        "id": "ORDERED_PAIR_DELETE-681dbca5-97e4-496e-a019-f44c43358eb5->LINE-e4cff545-91b5-4bea-97f8-0ebd09621b80",
+        "source": "ORDERED_PAIR_DELETE-681dbca5-97e4-496e-a019-f44c43358eb5",
+        "target": "LINE-e4cff545-91b5-4bea-97f8-0ebd09621b80",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "FEEDBACK-26c1b027-61a2-4e4d-b527-c277b7741e65->VECTOR_2_ORDERED_PAIR-5d1faefe-283d-4bc7-b4c5-989c27270d22",
+        "source": "FEEDBACK-26c1b027-61a2-4e4d-b527-c277b7741e65",
+        "target": "VECTOR_2_ORDERED_PAIR-5d1faefe-283d-4bc7-b4c5-989c27270d22",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "Any"
+        }
+      },
+      {
+        "id": "VOLT_TO_DB-10925d08-7ae8-4d81-ad34-36802aeeb573->VECTOR_2_ORDERED_PAIR-5d1faefe-283d-4bc7-b4c5-989c27270d22",
+        "source": "VOLT_TO_DB-10925d08-7ae8-4d81-ad34-36802aeeb573",
+        "target": "VECTOR_2_ORDERED_PAIR-5d1faefe-283d-4bc7-b4c5-989c27270d22",
+        "sourceHandle": "default",
+        "targetHandle": "y",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "TIMER-466340e3-0708-472b-91da-27d78410cb7f->MEASUREMENT_MSO2X-77d30c3b-1af9-4efe-bae2-b75bf17d425e",
+        "source": "TIMER-466340e3-0708-472b-91da-27d78410cb7f",
+        "target": "MEASUREMENT_MSO2X-77d30c3b-1af9-4efe-bae2-b75bf17d425e",
+        "sourceHandle": "default",
+        "targetHandle": "input",
+        "data": {
+          "outputType": "Any"
+        }
+      },
+      {
+        "id": "MULTIPLY-adf728b8-7276-45bc-8307-d3c170be01af->INPUT_PARAM_AFG31000-d6a5468c-cbd6-47cb-90aa-fa9eb6ddb01d",
+        "source": "MULTIPLY-adf728b8-7276-45bc-8307-d3c170be01af",
+        "target": "INPUT_PARAM_AFG31000-d6a5468c-cbd6-47cb-90aa-fa9eb6ddb01d",
+        "sourceHandle": "default",
+        "targetHandle": "input",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "CONSTANT-e3c85926-b4ec-489d-96cd-f54f52ac60ef->MULTIPLY-adf728b8-7276-45bc-8307-d3c170be01af",
+        "source": "CONSTANT-e3c85926-b4ec-489d-96cd-f54f52ac60ef",
+        "target": "MULTIPLY-adf728b8-7276-45bc-8307-d3c170be01af",
+        "sourceHandle": "default",
+        "targetHandle": "a",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05->MULTIPLY-adf728b8-7276-45bc-8307-d3c170be01af",
+        "source": "FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05",
+        "target": "MULTIPLY-adf728b8-7276-45bc-8307-d3c170be01af",
+        "sourceHandle": "default",
+        "targetHandle": "b",
+        "data": {
+          "outputType": "Any"
+        }
+      },
+      {
+        "id": "CONNECT_MSO2X-250102a6-3e2b-486a-b5dc-4e1f13475086->SETUP_FILE_MSO2X-822c386d-423c-4788-a5c4-5aa6827e2c57",
+        "source": "CONNECT_MSO2X-250102a6-3e2b-486a-b5dc-4e1f13475086",
+        "target": "SETUP_FILE_MSO2X-822c386d-423c-4788-a5c4-5aa6827e2c57",
+        "sourceHandle": "default",
+        "targetHandle": "input",
+        "data": {
+          "outputType": "String"
+        }
+      },
+      {
+        "id": "CONNECT_AFG31000-118e0fc6-06d3-4fd0-88ac-e22b454e19d2->FUNCTION_AFG31000-3f4ed983-34aa-4b3a-ba80-2722272f4468",
+        "source": "CONNECT_AFG31000-118e0fc6-06d3-4fd0-88ac-e22b454e19d2",
+        "target": "FUNCTION_AFG31000-3f4ed983-34aa-4b3a-ba80-2722272f4468",
+        "sourceHandle": "default",
+        "targetHandle": "input",
+        "data": {
+          "outputType": "String"
+        }
+      },
+      {
+        "id": "FUNCTION_AFG31000-3f4ed983-34aa-4b3a-ba80-2722272f4468->OUTPUT_AFG31000-1ad63bb4-2ea7-4aed-8b74-978706236cc5",
+        "source": "FUNCTION_AFG31000-3f4ed983-34aa-4b3a-ba80-2722272f4468",
+        "target": "OUTPUT_AFG31000-1ad63bb4-2ea7-4aed-8b74-978706236cc5",
+        "sourceHandle": "default",
+        "targetHandle": "input",
+        "data": {
+          "outputType": "String"
+        }
+      },
+      {
+        "id": "MULTIPLY-adf728b8-7276-45bc-8307-d3c170be01af->APPEND-3bbac391-5d18-4258-8924-24179e83e8cc",
+        "source": "MULTIPLY-adf728b8-7276-45bc-8307-d3c170be01af",
+        "target": "APPEND-3bbac391-5d18-4258-8924-24179e83e8cc",
+        "sourceHandle": "default",
+        "targetHandle": "primary_dp",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "FEEDBACK-e35202b1-5554-4e35-a47f-0c5bab7304d0->APPEND-3bbac391-5d18-4258-8924-24179e83e8cc",
+        "source": "FEEDBACK-e35202b1-5554-4e35-a47f-0c5bab7304d0",
+        "target": "APPEND-3bbac391-5d18-4258-8924-24179e83e8cc",
+        "sourceHandle": "default",
+        "targetHandle": "secondary_dp",
+        "data": {
+          "outputType": "Any"
+        }
+      },
+      {
+        "id": "FEEDBACK-409b76e8-249d-4384-8b79-73300945eca3->APPEND-2d84844c-f736-4334-844d-31a278a4bada",
+        "source": "FEEDBACK-409b76e8-249d-4384-8b79-73300945eca3",
+        "target": "APPEND-2d84844c-f736-4334-844d-31a278a4bada",
+        "sourceHandle": "default",
+        "targetHandle": "secondary_dp",
+        "data": {
+          "outputType": "Any"
+        }
+      },
+      {
+        "id": "MEASUREMENT_MSO2X-77d30c3b-1af9-4efe-bae2-b75bf17d425e->APPEND-2d84844c-f736-4334-844d-31a278a4bada",
+        "source": "MEASUREMENT_MSO2X-77d30c3b-1af9-4efe-bae2-b75bf17d425e",
+        "target": "APPEND-2d84844c-f736-4334-844d-31a278a4bada",
+        "sourceHandle": "default",
+        "targetHandle": "primary_dp",
+        "data": {
+          "outputType": "Scalar"
+        }
       }
-    ],
-    "viewport": {
-      "x": 759.6034496961545,
-      "y": 603.2270380507501,
-      "zoom": 0.5383814557176602
-    }
+    ]
   },
   "textNodes": [
     {
@@ -1889,8 +1944,8 @@
     {
       "id": "TextNode-8c4bd002-822b-4d0a-8c06-932bedf1287a",
       "position": {
-        "x": 411.403607264063,
-        "y": -545.883199953279
+        "x": 67.403607264063,
+        "y": -659.883199953279
       },
       "type": "TextNode",
       "data": {
@@ -1900,8 +1955,8 @@
       "height": 167,
       "selected": false,
       "positionAbsolute": {
-        "x": 411.403607264063,
-        "y": -545.883199953279
+        "x": 67.403607264063,
+        "y": -659.883199953279
       },
       "dragging": false,
       "style": {
@@ -1913,8 +1968,8 @@
     {
       "id": "TextNode-cdb50038-8bcb-472e-9723-8e90d21fa33b",
       "position": {
-        "x": 971.7079937272215,
-        "y": -748.2957904048651
+        "x": 1205.7079937272215,
+        "y": -844.2957904048651
       },
       "type": "TextNode",
       "data": {
@@ -1924,8 +1979,8 @@
       "height": 166,
       "selected": false,
       "positionAbsolute": {
-        "x": 971.7079937272215,
-        "y": -748.2957904048651
+        "x": 1205.7079937272215,
+        "y": -844.2957904048651
       },
       "dragging": false,
       "style": {
@@ -1937,8 +1992,8 @@
     {
       "id": "TextNode-548be5c0-d1e3-4661-9c04-71b38080d75b",
       "position": {
-        "x": 1407.5639648546394,
-        "y": -3.04595638581128
+        "x": 1749.5639648546392,
+        "y": 94.95404361418878
       },
       "type": "TextNode",
       "data": {
@@ -1948,8 +2003,8 @@
       "height": 102,
       "selected": false,
       "positionAbsolute": {
-        "x": 1407.5639648546394,
-        "y": -3.04595638581128
+        "x": 1749.5639648546392,
+        "y": 94.95404361418878
       },
       "dragging": false,
       "style": {

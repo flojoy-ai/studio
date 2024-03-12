@@ -27,8 +27,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -48,17 +48,17 @@
           "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CREATE_TASK/CREATE_TASK.py"
         },
         "position": {
-          "x": -1006.7970360050101,
-          "y": -669.3358276412137
+          "x": -1042.79703600501,
+          "y": -637.3358276412137
         },
-        "width": 216,
-        "height": 197,
+        "width": 236,
+        "height": 96,
         "selected": false,
         "positionAbsolute": {
-          "x": -1006.7970360050101,
-          "y": -669.3358276412137
+          "x": -1042.79703600501,
+          "y": -637.3358276412137
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "ATTACH_ANALOG_INPUT_CURRENT-bd382f72-4830-45ee-8a47-6fcc1222a85e",
@@ -131,8 +131,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -152,17 +152,17 @@
           "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/ATTACH_ANALOG_INPUT_CURRENT/ATTACH_ANALOG_INPUT_CURRENT.py"
         },
         "position": {
-          "x": -585.2740285622627,
-          "y": -670.7833290211987
+          "x": -629.2740285622627,
+          "y": -672.7833290211987
         },
-        "width": 216,
-        "height": 305,
+        "width": 236,
+        "height": 172,
         "selected": false,
         "positionAbsolute": {
-          "x": -585.2740285622627,
-          "y": -670.7833290211987
+          "x": -629.2740285622627,
+          "y": -672.7833290211987
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "CONFIG_INPUT_STREAM-bf46413a-5af0-4d98-a963-75d5fb8ef29f",
@@ -232,8 +232,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -254,16 +254,16 @@
         },
         "position": {
           "x": -261.8280731221082,
-          "y": -657.516272612816
+          "y": -653.516272612816
         },
-        "width": 216,
-        "height": 269,
+        "width": 236,
+        "height": 136,
         "selected": false,
         "positionAbsolute": {
           "x": -261.8280731221082,
-          "y": -657.516272612816
+          "y": -653.516272612816
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "READ_INPUT_STREAM-50e0b897-f75b-4901-8831-e4ac63694da5",
@@ -308,8 +308,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -329,17 +329,17 @@
           "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/READ_INPUT_STREAM/READ_INPUT_STREAM.py"
         },
         "position": {
-          "x": 78.95868409473644,
-          "y": -660.2063714655242
+          "x": 102.95868409473644,
+          "y": -636.2063714655242
         },
-        "width": 216,
-        "height": 233,
+        "width": 236,
+        "height": 100,
         "selected": false,
         "positionAbsolute": {
-          "x": 78.95868409473644,
-          "y": -660.2063714655242
+          "x": 102.95868409473644,
+          "y": -636.2063714655242
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffb",
@@ -366,15 +366,15 @@
               "name": "buffer",
               "id": "buffer",
               "type": "Vector",
-              "multiple": false,
-              "desc": "Reads raw samples from the specified task or virtual channels into this pre-allocated buffer.\nEnsure that the buffer size is appropriate for the expected number of samples and the raw sample size."
+              "desc": "Reads raw samples from the specified task or virtual channels into this pre-allocated buffer.\nEnsure that the buffer size is appropriate for the expected number of samples and the raw sample size.",
+              "multiple": false
             },
             {
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": "Special parameter used by Flojoy to connect blocks together."
+              "desc": "Special parameter used by Flojoy to connect blocks together.",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -394,17 +394,17 @@
           "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/READ_INPUT_STREAM_INTO_BUFFER/READ_INPUT_STREAM_INTO_BUFFER.py"
         },
         "position": {
-          "x": 300.0440656652148,
-          "y": -274.2231387721813
+          "x": 302.0440656652148,
+          "y": -278.2231387721813
         },
-        "width": 216,
-        "height": 269,
+        "width": 236,
+        "height": 154,
         "selected": false,
         "positionAbsolute": {
-          "x": 300.0440656652148,
-          "y": -274.2231387721813
+          "x": 302.0440656652148,
+          "y": -278.2231387721813
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "LOOP-4f57cfad-1f62-40ec-861b-7829cd387693",
@@ -431,8 +431,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -452,17 +452,17 @@
           "path": "CONTROL_FLOW/LOOPS/LOOP/LOOP.py"
         },
         "position": {
-          "x": -168.51965642623577,
-          "y": -116.73428139362989
+          "x": -268.51965642623577,
+          "y": -222.73428139362989
         },
         "width": 236,
-        "height": 152,
+        "height": 198,
         "selected": false,
         "positionAbsolute": {
-          "x": -168.51965642623577,
-          "y": -116.73428139362989
+          "x": -268.51965642623577,
+          "y": -222.73428139362989
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "PRINT_DATACONTAINER-52a6886b-56b6-4569-98b0-7103bc71f55c",
@@ -479,8 +479,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": "The input DataContainer to print."
+              "desc": "The input DataContainer to print.",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -494,17 +494,17 @@
           "path": "DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py"
         },
         "position": {
-          "x": 645.3580611983512,
-          "y": -14.029678190743653
+          "x": 719.3580611983512,
+          "y": -40.02967819074365
         },
         "width": 281,
         "height": 233,
         "selected": false,
         "positionAbsolute": {
-          "x": 645.3580611983512,
-          "y": -14.029678190743653
+          "x": 719.3580611983512,
+          "y": -40.02967819074365
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "TIMER-95f0cd1d-1eda-46cb-b12a-ef68af07ea84",
@@ -531,8 +531,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -546,17 +546,17 @@
           "path": "CONTROL_FLOW/TIMERS/TIMER/TIMER.py"
         },
         "position": {
-          "x": 1360.2395856189287,
-          "y": -410.90937280774244
+          "x": 1362.2395856189287,
+          "y": -408.90937280774244
         },
         "width": 236,
-        "height": 114,
+        "height": 140,
         "selected": false,
         "positionAbsolute": {
-          "x": 1360.2395856189287,
-          "y": -410.90937280774244
+          "x": 1362.2395856189287,
+          "y": -408.90937280774244
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "TEXT_VIEW-c11af392-853f-4fe8-85ed-9ae47622349d",
@@ -583,8 +583,8 @@
               "name": "default",
               "id": "default",
               "type": "String|Boolean",
-              "multiple": false,
-              "desc": "The DataContainer to be visualized in text format"
+              "desc": "The DataContainer to be visualized in text format",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -598,17 +598,17 @@
           "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
         },
         "position": {
-          "x": 1170.407648587769,
-          "y": -12.730012263097706
+          "x": 1222.407648587769,
+          "y": -78.7300122630977
         },
         "width": 225,
-        "height": 269,
+        "height": 271,
         "selected": false,
         "positionAbsolute": {
-          "x": 1170.407648587769,
-          "y": -12.730012263097706
+          "x": 1222.407648587769,
+          "y": -78.7300122630977
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "LINE-d7c39d62-6c72-40c5-9b57-3296b754d93a",
@@ -662,8 +662,8 @@
               "name": "default",
               "id": "default",
               "type": "OrderedPair|DataFrame|Matrix|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -741,8 +741,8 @@
               "name": "default",
               "id": "default",
               "type": "OrderedPair|DataFrame|Matrix|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -792,13 +792,6 @@
         "id": "reactflow__edge-CONFIG_INPUT_STREAM-bf46413a-5af0-4d98-a963-75d5fb8ef29fdefault-READ_INPUT_STREAM-50e0b897-f75b-4901-8831-e4ac63694da5default"
       },
       {
-        "source": "READ_INPUT_STREAM-50e0b897-f75b-4901-8831-e4ac63694da5",
-        "sourceHandle": "default",
-        "target": "LINE-d7c39d62-6c72-40c5-9b57-3296b754d93a",
-        "targetHandle": "default",
-        "id": "reactflow__edge-READ_INPUT_STREAM-50e0b897-f75b-4901-8831-e4ac63694da5default-LINE-d7c39d62-6c72-40c5-9b57-3296b754d93adefault"
-      },
-      {
         "source": "LOOP-4f57cfad-1f62-40ec-861b-7829cd387693",
         "sourceHandle": "body",
         "target": "READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffb",
@@ -806,46 +799,63 @@
         "id": "reactflow__edge-LOOP-4f57cfad-1f62-40ec-861b-7829cd387693body-READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffbdefault"
       },
       {
-        "source": "READ_INPUT_STREAM-50e0b897-f75b-4901-8831-e4ac63694da5",
-        "sourceHandle": "default",
-        "target": "READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffb",
-        "targetHandle": "buffer",
-        "id": "reactflow__edge-READ_INPUT_STREAM-50e0b897-f75b-4901-8831-e4ac63694da5default-READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffbbuffer"
-      },
-      {
-        "source": "READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffb",
-        "sourceHandle": "default",
-        "target": "LINE-1c068608-4e1f-4694-a991-98a254a4404f",
-        "targetHandle": "default",
-        "id": "reactflow__edge-READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffbdefault-LINE-1c068608-4e1f-4694-a991-98a254a4404fdefault"
-      },
-      {
-        "source": "READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffb",
-        "sourceHandle": "default",
-        "target": "PRINT_DATACONTAINER-52a6886b-56b6-4569-98b0-7103bc71f55c",
-        "targetHandle": "default",
-        "id": "reactflow__edge-READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffbdefault-PRINT_DATACONTAINER-52a6886b-56b6-4569-98b0-7103bc71f55cdefault"
-      },
-      {
-        "source": "PRINT_DATACONTAINER-52a6886b-56b6-4569-98b0-7103bc71f55c",
-        "sourceHandle": "default",
-        "target": "TEXT_VIEW-c11af392-853f-4fe8-85ed-9ae47622349d",
-        "targetHandle": "default",
-        "id": "reactflow__edge-PRINT_DATACONTAINER-52a6886b-56b6-4569-98b0-7103bc71f55cdefault-TEXT_VIEW-c11af392-853f-4fe8-85ed-9ae47622349ddefault"
-      },
-      {
         "source": "LINE-1c068608-4e1f-4694-a991-98a254a4404f",
         "sourceHandle": "default",
         "target": "TIMER-95f0cd1d-1eda-46cb-b12a-ef68af07ea84",
         "targetHandle": "default",
         "id": "reactflow__edge-LINE-1c068608-4e1f-4694-a991-98a254a4404fdefault-TIMER-95f0cd1d-1eda-46cb-b12a-ef68af07ea84default"
+      },
+      {
+        "id": "READ_INPUT_STREAM-50e0b897-f75b-4901-8831-e4ac63694da5->LINE-d7c39d62-6c72-40c5-9b57-3296b754d93a",
+        "source": "READ_INPUT_STREAM-50e0b897-f75b-4901-8831-e4ac63694da5",
+        "target": "LINE-d7c39d62-6c72-40c5-9b57-3296b754d93a",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "Vector"
+        }
+      },
+      {
+        "id": "READ_INPUT_STREAM-50e0b897-f75b-4901-8831-e4ac63694da5->READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffb",
+        "source": "READ_INPUT_STREAM-50e0b897-f75b-4901-8831-e4ac63694da5",
+        "target": "READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffb",
+        "sourceHandle": "default",
+        "targetHandle": "buffer",
+        "data": {
+          "outputType": "Vector"
+        }
+      },
+      {
+        "id": "READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffb->LINE-1c068608-4e1f-4694-a991-98a254a4404f",
+        "source": "READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffb",
+        "target": "LINE-1c068608-4e1f-4694-a991-98a254a4404f",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "Vector"
+        }
+      },
+      {
+        "id": "READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffb->PRINT_DATACONTAINER-52a6886b-56b6-4569-98b0-7103bc71f55c",
+        "source": "READ_INPUT_STREAM_INTO_BUFFER-fe64de1f-45aa-4cb8-b0b2-15bd8d6abffb",
+        "target": "PRINT_DATACONTAINER-52a6886b-56b6-4569-98b0-7103bc71f55c",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "Vector"
+        }
+      },
+      {
+        "id": "PRINT_DATACONTAINER-52a6886b-56b6-4569-98b0-7103bc71f55c->TEXT_VIEW-c11af392-853f-4fe8-85ed-9ae47622349d",
+        "source": "PRINT_DATACONTAINER-52a6886b-56b6-4569-98b0-7103bc71f55c",
+        "target": "TEXT_VIEW-c11af392-853f-4fe8-85ed-9ae47622349d",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "String"
+        }
       }
-    ],
-    "viewport": {
-      "x": 811.5885732768018,
-      "y": 439.15420524755007,
-      "zoom": 0.7447829407266607
-    }
+    ]
   },
   "textNodes": []
 }

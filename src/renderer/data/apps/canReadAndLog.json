@@ -4,7 +4,7 @@
     "nodes": [
       {
         "width": 225,
-        "height": 269,
+        "height": 271,
         "id": "TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaab",
         "type": "VISUALIZATION",
         "data": {
@@ -29,8 +29,8 @@
               "name": "default",
               "id": "default",
               "type": "String|Boolean",
-              "multiple": false,
-              "desc": "The DataContainer to be visualized in text format"
+              "desc": "The DataContainer to be visualized in text format",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -44,19 +44,19 @@
           "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
         },
         "position": {
-          "x": -913.5774397818724,
-          "y": -656.1704969095867
+          "x": -693.5774397818724,
+          "y": -426.17049690958675
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -913.5774397818724,
-          "y": -656.1704969095867
+          "x": -693.5774397818724,
+          "y": -426.17049690958675
         },
-        "dragging": true
+        "dragging": false
       },
       {
-        "width": 236,
-        "height": 152,
+        "width": 235,
+        "height": 198,
         "id": "LOOP-744938fd-44a2-4d05-8589-3db5efb27bdf",
         "type": "CONTROL_FLOW",
         "data": {
@@ -81,8 +81,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -102,15 +102,15 @@
           "path": "CONTROL_FLOW/LOOPS/LOOP/LOOP.py"
         },
         "position": {
-          "x": -245.32603493831277,
-          "y": 180.76421558955076
+          "x": -291.3260349383128,
+          "y": 268.76421558955076
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -245.32603493831277,
-          "y": 180.76421558955076
+          "x": -291.3260349383128,
+          "y": 268.76421558955076
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "width": 216,
@@ -148,8 +148,8 @@
               "name": "dc",
               "id": "dc",
               "type": "OrderedPair|OrderedTriple|DataFrame|Matrix",
-              "multiple": false,
-              "desc": "The DataContainer to export."
+              "desc": "The DataContainer to export.",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -163,19 +163,19 @@
           "path": "DATA/EXPORT/EXPORT_CSV/EXPORT_CSV.py"
         },
         "position": {
-          "x": 1163.8355230975267,
+          "x": 1199.8355230975267,
           "y": -109.84682401250097
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 1163.8355230975267,
+          "x": 1199.8355230975267,
           "y": -109.84682401250097
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "width": 216,
-        "height": 197,
+        "height": 198,
         "id": "EXPORT_S3-6a75204c-fa54-4457-8e6a-9504e95c4a40",
         "type": "DATA",
         "data": {
@@ -186,7 +186,7 @@
           "ctrls": {
             "s3_access_key": {
               "type": "Secret",
-              "default": "",
+              "default": null,
               "desc": "AWS access key.",
               "overload": null,
               "functionName": "EXPORT_S3",
@@ -195,7 +195,7 @@
             },
             "s3_secret_key": {
               "type": "Secret",
-              "default": "",
+              "default": null,
               "desc": "AWS secret key.",
               "overload": null,
               "functionName": "EXPORT_S3",
@@ -283,15 +283,15 @@
               "name": "object_name",
               "id": "object_name",
               "type": "String",
-              "multiple": false,
-              "desc": "Flojoy input to dynamically provide a string for the name of the object in S3. If not specified, the name of the file will be used."
+              "desc": "Flojoy input to dynamically provide a string for the name of the object in S3. If not specified, the name of the file will be used.",
+              "multiple": false
             },
             {
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -311,15 +311,15 @@
           "path": "DATA/EXPORT/EXPORT_S3/EXPORT_S3.py"
         },
         "position": {
-          "x": 1501.9873925555482,
-          "y": -261.72876340178357
+          "x": 1535.9873925555482,
+          "y": -137.72876340178357
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 1501.9873925555482,
-          "y": -261.72876340178357
+          "x": 1535.9873925555482,
+          "y": -137.72876340178357
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "width": 216,
@@ -338,8 +338,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": "The input DataContainer to print."
+              "desc": "The input DataContainer to print.",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -353,15 +353,15 @@
           "path": "DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py"
         },
         "position": {
-          "x": 736.7719326782403,
-          "y": -180.21593179589036
+          "x": 674.7719326782403,
+          "y": -194.21593179589036
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 736.7719326782403,
-          "y": -180.21593179589036
+          "x": 674.7719326782403,
+          "y": -194.21593179589036
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "PEAK_DETECT_AVAILABLE_DEVICES-c7aeae1d-42d3-44a4-9c62-201fd8c7f19d",
@@ -378,8 +378,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -403,17 +403,17 @@
           "path": "HARDWARE/PROTOCOLS/CAN/BUS/PEAK_DETECT_AVAILABLE_DEVICES/PEAK_DETECT_AVAILABLE_DEVICES.py"
         },
         "position": {
-          "x": -1177.1411973833758,
+          "x": -1223.1411973833758,
           "y": -239.73972113618333
         },
         "width": 216,
         "height": 269,
         "selected": false,
         "positionAbsolute": {
-          "x": -1177.1411973833758,
+          "x": -1223.1411973833758,
           "y": -239.73972113618333
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "PEAK_CONNECT-3cee83af-1a08-44f6-9bcd-a69da5212eee",
@@ -427,7 +427,7 @@
             "PCAN_address": {
               "type": "str",
               "default": null,
-              "desc": "The PCAN device address to connect to. This address can be found by the PCAN_DETECT_AVAILABLE_DEVICES block.\n→ Example: \"PCAN_USBBUS1\"",
+              "desc": "The PCAN device address to connect to. This address can be found by the PCAN_DETECT_AVAILABLE_DEVICES block.\nâ†’ Example: \"PCAN_USBBUS1\"",
               "overload": null,
               "functionName": "PEAK_CONNECT",
               "param": "PCAN_address",
@@ -449,8 +449,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -474,17 +474,17 @@
           "path": "HARDWARE/PROTOCOLS/CAN/BUS/PEAK_CONNECT/PEAK_CONNECT.py"
         },
         "position": {
-          "x": -827.0771447711779,
-          "y": -233.0809027887775
+          "x": -701.0771447711779,
+          "y": -83.08090278877751
         },
         "width": 216,
         "height": 233,
         "selected": false,
         "positionAbsolute": {
-          "x": -827.0771447711779,
-          "y": -233.0809027887775
+          "x": -701.0771447711779,
+          "y": -83.08090278877751
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "SET_CAN_BUS_FILTER-a8a2fc71-fd4e-40a9-835c-6885857d2e60",
@@ -538,8 +538,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -559,17 +559,17 @@
           "path": "HARDWARE/PROTOCOLS/CAN/BUS/SET_CAN_BUS_FILTER/SET_CAN_BUS_FILTER.py"
         },
         "position": {
-          "x": -634.3349698018321,
-          "y": 64.16264985822647
+          "x": -684.3349698018321,
+          "y": 266.1626498582265
         },
         "width": 216,
         "height": 233,
         "selected": false,
         "positionAbsolute": {
-          "x": -634.3349698018321,
-          "y": 64.16264985822647
+          "x": -684.3349698018321,
+          "y": 266.1626498582265
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "MF4_CREATE_WRITER-4561fef7-a506-42c2-af1a-704c9a282825",
@@ -628,8 +628,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -653,17 +653,17 @@
           "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_CREATE_WRITER/MF4_CREATE_WRITER.py"
         },
         "position": {
-          "x": -273.4306706666413,
-          "y": -148.09138451526474
+          "x": -137.43067066664128,
+          "y": -322.09138451526474
         },
         "width": 216,
         "height": 233,
         "selected": false,
         "positionAbsolute": {
-          "x": -273.4306706666413,
-          "y": -148.09138451526474
+          "x": -137.43067066664128,
+          "y": -322.09138451526474
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "MF4_CLOSE_WRITER-3c1bca70-ef9d-4e94-93e1-b7282b14f0d3",
@@ -680,15 +680,15 @@
               "name": "MF4_writer",
               "id": "MF4_writer",
               "type": "Stateful",
-              "multiple": false,
-              "desc": "A mf4 writer object from a MF4_CREATE_WRITER block."
+              "desc": "A mf4 writer object from a MF4_CREATE_WRITER block.",
+              "multiple": false
             },
             {
               "name": "default",
               "id": "default",
               "type": "Stateful",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -712,17 +712,17 @@
           "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_CLOSE_WRITER/MF4_CLOSE_WRITER.py"
         },
         "position": {
-          "x": 178.53689473330917,
-          "y": 315.5706681877847
+          "x": 194.53689473330917,
+          "y": 261.5706681877847
         },
         "width": 216,
-        "height": 233,
+        "height": 234,
         "selected": false,
         "positionAbsolute": {
-          "x": 178.53689473330917,
-          "y": 315.5706681877847
+          "x": 194.53689473330917,
+          "y": 261.5706681877847
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "MF4_WRITE-2126db8f-3316-4122-9861-b8e9b1779029",
@@ -739,15 +739,15 @@
               "name": "MF4_writer",
               "id": "MF4_writer",
               "type": "Stateful",
-              "multiple": false,
-              "desc": "A mf4 writer object from a MF4_CREATE_WRITER block."
+              "desc": "A mf4 writer object from a MF4_CREATE_WRITER block.",
+              "multiple": false
             },
             {
               "name": "messages",
               "id": "messages",
               "type": "Stateful",
-              "multiple": false,
-              "desc": "A list of message in the python-can format."
+              "desc": "A list of message in the python-can format.",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -771,17 +771,17 @@
           "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_WRITE/MF4_WRITE.py"
         },
         "position": {
-          "x": 645.0100838150538,
-          "y": -514.7502388544141
+          "x": 669.0100838150538,
+          "y": -426.7502388544141
         },
         "width": 216,
-        "height": 197,
+        "height": 198,
         "selected": false,
         "positionAbsolute": {
-          "x": 645.0100838150538,
-          "y": -514.7502388544141
+          "x": 669.0100838150538,
+          "y": -426.7502388544141
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "MF4_CREATE_READER-c4ee48d6-b3d8-493f-b37d-5687b178482c",
@@ -808,8 +808,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -888,8 +888,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -909,17 +909,17 @@
           "path": "HARDWARE/PROTOCOLS/CAN/BUS/RECEIVE_CAN_MESSAGE/RECEIVE_CAN_MESSAGE.py"
         },
         "position": {
-          "x": 217.9181798681958,
-          "y": -140.08022675572283
+          "x": 189.9181798681958,
+          "y": -100.08022675572283
         },
         "width": 216,
         "height": 233,
         "selected": false,
         "positionAbsolute": {
-          "x": 217.9181798681958,
-          "y": -140.08022675572283
+          "x": 189.9181798681958,
+          "y": -100.08022675572283
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "TEXT_VIEW-8386e00f-df8b-45e0-b52b-478054baa335",
@@ -946,8 +946,8 @@
               "name": "default",
               "id": "default",
               "type": "String|Boolean",
-              "multiple": false,
-              "desc": "The DataContainer to be visualized in text format"
+              "desc": "The DataContainer to be visualized in text format",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -961,17 +961,17 @@
           "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
         },
         "position": {
-          "x": 1088.5159010224559,
-          "y": -604.9671667844208
+          "x": 1078.5159010224559,
+          "y": -580.9671667844208
         },
         "width": 225,
-        "height": 269,
+        "height": 271,
         "selected": false,
         "positionAbsolute": {
-          "x": 1088.5159010224559,
-          "y": -604.9671667844208
+          "x": 1078.5159010224559,
+          "y": -580.9671667844208
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "LOAD_DBC-aaeaedbc-e92b-4c58-a289-2dee5c3ce882",
@@ -998,8 +998,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -1023,17 +1023,17 @@
           "path": "HARDWARE/PROTOCOLS/CAN/UTILS/LOAD_DBC/LOAD_DBC.py"
         },
         "position": {
-          "x": 541.7727357303468,
-          "y": 132.22321512709675
+          "x": 509.77273573034677,
+          "y": 128.22321512709675
         },
         "width": 216,
         "height": 197,
         "selected": false,
         "positionAbsolute": {
-          "x": 541.7727357303468,
-          "y": 132.22321512709675
+          "x": 509.77273573034677,
+          "y": 128.22321512709675
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1",
@@ -1060,15 +1060,15 @@
               "name": "dbc",
               "id": "dbc",
               "type": "Stateful",
-              "multiple": false,
-              "desc": "The database to use for decoding the message."
+              "desc": "The database to use for decoding the message.",
+              "multiple": false
             },
             {
               "name": "messages",
               "id": "messages",
               "type": "Stateful",
-              "multiple": false,
-              "desc": "The message to DECODE_CAN. Must be a can.Message object."
+              "desc": "The message to DECODE_CAN. Must be a can.Message object.",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -1092,17 +1092,17 @@
           "path": "HARDWARE/PROTOCOLS/CAN/UTILS/DECODE_CAN_MESSAGE/DECODE_CAN_MESSAGE.py"
         },
         "position": {
-          "x": 907.672420750032,
-          "y": 292.8990379935757
+          "x": 909.672420750032,
+          "y": 288.8990379935757
         },
         "width": 216,
-        "height": 233,
+        "height": 234,
         "selected": false,
         "positionAbsolute": {
-          "x": 907.672420750032,
-          "y": 292.8990379935757
+          "x": 909.672420750032,
+          "y": 288.8990379935757
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "TABLE-eb5c79f8-1a8c-4632-8fc5-d4d737152b2f",
@@ -1119,8 +1119,8 @@
               "name": "default",
               "id": "default",
               "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -1149,32 +1149,14 @@
     ],
     "edges": [
       {
-        "source": "EXPORT_CSV-3e28c08b-5198-4e2e-bbaa-605f90317212",
-        "sourceHandle": "default",
-        "target": "EXPORT_S3-6a75204c-fa54-4457-8e6a-9504e95c4a40",
-        "targetHandle": "default",
-        "id": "reactflow__edge-EXPORT_CSV-3e28c08b-5198-4e2e-bbaa-605f90317212default-EXPORT_S3-6a75204c-fa54-4457-8e6a-9504e95c4a40default"
-      },
-      {
+        "id": "PEAK_DETECT_AVAILABLE_DEVICES-c7aeae1d-42d3-44a4-9c62-201fd8c7f19d->TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaab",
         "source": "PEAK_DETECT_AVAILABLE_DEVICES-c7aeae1d-42d3-44a4-9c62-201fd8c7f19d",
-        "sourceHandle": "default",
         "target": "TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaab",
-        "targetHandle": "default",
-        "id": "reactflow__edge-PEAK_DETECT_AVAILABLE_DEVICES-c7aeae1d-42d3-44a4-9c62-201fd8c7f19ddefault-TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaabdefault"
-      },
-      {
-        "source": "TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaab",
         "sourceHandle": "default",
-        "target": "PEAK_CONNECT-3cee83af-1a08-44f6-9bcd-a69da5212eee",
         "targetHandle": "default",
-        "id": "reactflow__edge-TEXT_VIEW-99414fa2-83f0-478b-8fa1-ebefca56eaabdefault-PEAK_CONNECT-3cee83af-1a08-44f6-9bcd-a69da5212eeedefault"
-      },
-      {
-        "source": "PEAK_CONNECT-3cee83af-1a08-44f6-9bcd-a69da5212eee",
-        "sourceHandle": "default",
-        "target": "SET_CAN_BUS_FILTER-a8a2fc71-fd4e-40a9-835c-6885857d2e60",
-        "targetHandle": "default",
-        "id": "reactflow__edge-PEAK_CONNECT-3cee83af-1a08-44f6-9bcd-a69da5212eeedefault-SET_CAN_BUS_FILTER-a8a2fc71-fd4e-40a9-835c-6885857d2e60default"
+        "data": {
+          "outputType": "String"
+        }
       },
       {
         "source": "SET_CAN_BUS_FILTER-a8a2fc71-fd4e-40a9-835c-6885857d2e60",
@@ -1184,11 +1166,48 @@
         "id": "reactflow__edge-SET_CAN_BUS_FILTER-a8a2fc71-fd4e-40a9-835c-6885857d2e60default-LOOP-744938fd-44a2-4d05-8589-3db5efb27bdfdefault"
       },
       {
-        "source": "MF4_CREATE_WRITER-4561fef7-a506-42c2-af1a-704c9a282825",
+        "id": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1->EXPORT_CSV-3e28c08b-5198-4e2e-bbaa-605f90317212",
+        "source": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1",
+        "target": "EXPORT_CSV-3e28c08b-5198-4e2e-bbaa-605f90317212",
         "sourceHandle": "default",
-        "target": "MF4_WRITE-2126db8f-3316-4122-9861-b8e9b1779029",
-        "targetHandle": "MF4_writer",
-        "id": "reactflow__edge-MF4_CREATE_WRITER-4561fef7-a506-42c2-af1a-704c9a282825default-MF4_WRITE-2126db8f-3316-4122-9861-b8e9b1779029MF4_writer"
+        "targetHandle": "dc",
+        "data": {
+          "outputType": "DataFrame"
+        }
+      },
+      {
+        "id": "EXPORT_CSV-3e28c08b-5198-4e2e-bbaa-605f90317212->EXPORT_S3-6a75204c-fa54-4457-8e6a-9504e95c4a40",
+        "source": "EXPORT_CSV-3e28c08b-5198-4e2e-bbaa-605f90317212",
+        "target": "EXPORT_S3-6a75204c-fa54-4457-8e6a-9504e95c4a40",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "Any"
+        }
+      },
+      {
+        "source": "RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603",
+        "sourceHandle": "default",
+        "target": "PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0",
+        "targetHandle": "default",
+        "id": "reactflow__edge-RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603default-PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0default"
+      },
+      {
+        "id": "PEAK_DETECT_AVAILABLE_DEVICES-c7aeae1d-42d3-44a4-9c62-201fd8c7f19d->PEAK_CONNECT-3cee83af-1a08-44f6-9bcd-a69da5212eee",
+        "source": "PEAK_DETECT_AVAILABLE_DEVICES-c7aeae1d-42d3-44a4-9c62-201fd8c7f19d",
+        "target": "PEAK_CONNECT-3cee83af-1a08-44f6-9bcd-a69da5212eee",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "String"
+        }
+      },
+      {
+        "source": "PEAK_CONNECT-3cee83af-1a08-44f6-9bcd-a69da5212eee",
+        "sourceHandle": "default",
+        "target": "SET_CAN_BUS_FILTER-a8a2fc71-fd4e-40a9-835c-6885857d2e60",
+        "targetHandle": "default",
+        "id": "reactflow__edge-PEAK_CONNECT-3cee83af-1a08-44f6-9bcd-a69da5212eeedefault-SET_CAN_BUS_FILTER-a8a2fc71-fd4e-40a9-835c-6885857d2e60default"
       },
       {
         "source": "MF4_CREATE_WRITER-4561fef7-a506-42c2-af1a-704c9a282825",
@@ -1205,6 +1224,20 @@
         "id": "reactflow__edge-LOOP-744938fd-44a2-4d05-8589-3db5efb27bdfend-MF4_CLOSE_WRITER-3c1bca70-ef9d-4e94-93e1-b7282b14f0d3default"
       },
       {
+        "source": "MF4_CREATE_WRITER-4561fef7-a506-42c2-af1a-704c9a282825",
+        "sourceHandle": "default",
+        "target": "MF4_WRITE-2126db8f-3316-4122-9861-b8e9b1779029",
+        "targetHandle": "MF4_writer",
+        "id": "reactflow__edge-MF4_CREATE_WRITER-4561fef7-a506-42c2-af1a-704c9a282825default-MF4_WRITE-2126db8f-3316-4122-9861-b8e9b1779029MF4_writer"
+      },
+      {
+        "source": "RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603",
+        "sourceHandle": "default",
+        "target": "MF4_WRITE-2126db8f-3316-4122-9861-b8e9b1779029",
+        "targetHandle": "messages",
+        "id": "reactflow__edge-RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603default-MF4_WRITE-2126db8f-3316-4122-9861-b8e9b1779029messages"
+      },
+      {
         "source": "MF4_CLOSE_WRITER-3c1bca70-ef9d-4e94-93e1-b7282b14f0d3",
         "sourceHandle": "default",
         "target": "MF4_CREATE_READER-c4ee48d6-b3d8-493f-b37d-5687b178482c",
@@ -1219,25 +1252,14 @@
         "id": "reactflow__edge-LOOP-744938fd-44a2-4d05-8589-3db5efb27bdfbody-RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603default"
       },
       {
-        "source": "RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603",
-        "sourceHandle": "default",
-        "target": "MF4_WRITE-2126db8f-3316-4122-9861-b8e9b1779029",
-        "targetHandle": "messages",
-        "id": "reactflow__edge-RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603default-MF4_WRITE-2126db8f-3316-4122-9861-b8e9b1779029messages"
-      },
-      {
-        "source": "RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603",
-        "sourceHandle": "default",
-        "target": "PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0",
-        "targetHandle": "default",
-        "id": "reactflow__edge-RECEIVE_CAN_MESSAGE-0f08b5f4-2a67-4c7c-a08e-559abff59603default-PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0default"
-      },
-      {
+        "id": "PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0->TEXT_VIEW-8386e00f-df8b-45e0-b52b-478054baa335",
         "source": "PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0",
-        "sourceHandle": "default",
         "target": "TEXT_VIEW-8386e00f-df8b-45e0-b52b-478054baa335",
+        "sourceHandle": "default",
         "targetHandle": "default",
-        "id": "reactflow__edge-PRINT_DATACONTAINER-dca6408b-0da9-4cda-888e-250d8fb63ac0default-TEXT_VIEW-8386e00f-df8b-45e0-b52b-478054baa335default"
+        "data": {
+          "outputType": "String"
+        }
       },
       {
         "source": "LOAD_DBC-aaeaedbc-e92b-4c58-a289-2dee5c3ce882",
@@ -1254,32 +1276,24 @@
         "id": "reactflow__edge-MF4_CREATE_READER-c4ee48d6-b3d8-493f-b37d-5687b178482cdefault-DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1messages"
       },
       {
+        "id": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1->TABLE-eb5c79f8-1a8c-4632-8fc5-d4d737152b2f",
         "source": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1",
-        "sourceHandle": "default",
-        "target": "EXPORT_CSV-3e28c08b-5198-4e2e-bbaa-605f90317212",
-        "targetHandle": "dc",
-        "id": "reactflow__edge-DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1default-EXPORT_CSV-3e28c08b-5198-4e2e-bbaa-605f90317212dc"
-      },
-      {
-        "source": "DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1",
-        "sourceHandle": "default",
         "target": "TABLE-eb5c79f8-1a8c-4632-8fc5-d4d737152b2f",
+        "sourceHandle": "default",
         "targetHandle": "default",
-        "id": "reactflow__edge-DECODE_CAN_MESSAGE-9e760c22-5874-4e90-8ba3-80ab1f6969d1default-TABLE-eb5c79f8-1a8c-4632-8fc5-d4d737152b2fdefault"
+        "data": {
+          "outputType": "DataFrame"
+        },
+        "selected": false
       }
-    ],
-    "viewport": {
-      "x": 803.626355346428,
-      "y": 455.6158501842781,
-      "zoom": 0.7727010437043228
-    }
+    ]
   },
   "textNodes": [
     {
       "id": "TextNode-6dedfc42-90bf-4605-925f-792e9f25c848",
       "position": {
-        "x": -1175.5683826330173,
-        "y": -409.8653348291523
+        "x": -1207.5683826330173,
+        "y": -419.8653348291523
       },
       "type": "TextNode",
       "data": {
@@ -1289,16 +1303,16 @@
       "height": 150,
       "selected": false,
       "positionAbsolute": {
-        "x": -1175.5683826330173,
-        "y": -409.8653348291523
+        "x": -1207.5683826330173,
+        "y": -419.8653348291523
       },
       "dragging": false
     },
     {
       "id": "TextNode-76939ee6-4f2e-4a91-b79b-5e2e8f8cc5e6",
       "position": {
-        "x": 1442.5786747134277,
-        "y": -458.7931594320248
+        "x": 1200.5786747134277,
+        "y": -188.79315943202482
       },
       "type": "TextNode",
       "data": {
@@ -1308,8 +1322,8 @@
       "height": 160,
       "selected": false,
       "positionAbsolute": {
-        "x": 1442.5786747134277,
-        "y": -458.7931594320248
+        "x": 1200.5786747134277,
+        "y": -188.79315943202482
       },
       "dragging": false,
       "style": {
@@ -1321,8 +1335,8 @@
     {
       "id": "TextNode-369b8231-3636-4604-9f04-7161482c34db",
       "position": {
-        "x": -240.49712518894705,
-        "y": -281.5311197315534
+        "x": 195.50287481105295,
+        "y": -209.53111973155342
       },
       "type": "TextNode",
       "data": {
@@ -1332,8 +1346,8 @@
       "height": 100,
       "selected": false,
       "positionAbsolute": {
-        "x": -240.49712518894705,
-        "y": -281.5311197315534
+        "x": 195.50287481105295,
+        "y": -209.53111973155342
       },
       "dragging": false,
       "style": {
@@ -1345,8 +1359,8 @@
     {
       "id": "TextNode-5e6ffd5f-f833-4179-b7c2-14b1c2387640",
       "position": {
-        "x": -641.7552990320205,
-        "y": 352.7256384001133
+        "x": 528.2447009679795,
+        "y": 364.7256384001133
       },
       "type": "TextNode",
       "data": {
@@ -1357,8 +1371,8 @@
       "selected": false,
       "dragging": false,
       "positionAbsolute": {
-        "x": -641.7552990320205,
-        "y": 352.7256384001133
+        "x": 528.2447009679795,
+        "y": 364.7256384001133
       },
       "style": {
         "width": 321,

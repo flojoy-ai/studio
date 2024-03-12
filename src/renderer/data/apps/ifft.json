@@ -54,8 +54,8 @@
               "name": "default",
               "id": "default",
               "type": "OrderedPair|DataFrame|Matrix|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -70,16 +70,16 @@
         },
         "position": {
           "x": 2119.13766521344,
-          "y": 165.9349604480858
+          "y": 159.9349604480858
         },
         "width": 225,
         "height": 269,
         "selected": false,
         "positionAbsolute": {
           "x": 2119.13766521344,
-          "y": 165.9349604480858
+          "y": 159.9349604480858
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "LINE-841a6079-b004-4b32-87a6-a5e666b668bc",
@@ -133,8 +133,8 @@
               "name": "default",
               "id": "default",
               "type": "OrderedPair|DataFrame|Matrix|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -148,17 +148,17 @@
           "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
         },
         "position": {
-          "x": 1225.1134467425227,
-          "y": 549.2371253945885
+          "x": 1341.1134467425227,
+          "y": 539.2371253945885
         },
         "width": 225,
         "height": 269,
         "selected": false,
         "positionAbsolute": {
-          "x": 1225.1134467425227,
-          "y": 549.2371253945885
+          "x": 1341.1134467425227,
+          "y": 539.2371253945885
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "LINE-5b6f4ca6-fa5b-46c4-af27-cf23a377fa17",
@@ -212,8 +212,8 @@
               "name": "default",
               "id": "default",
               "type": "OrderedPair|DataFrame|Matrix|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -282,8 +282,8 @@
               "name": "default",
               "id": "default",
               "type": "Vector|OrderedPair",
-              "multiple": false,
-              "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+              "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -371,8 +371,8 @@
               "name": "default",
               "id": "default",
               "type": "OrderedPair|Vector",
-              "multiple": false,
-              "desc": "Input that defines the x-axis values of the function and output."
+              "desc": "Input that defines the x-axis values of the function and output.",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -460,8 +460,8 @@
               "name": "default",
               "id": "default",
               "type": "OrderedPair|Vector",
-              "multiple": false,
-              "desc": "Input that defines the x-axis values of the function and output."
+              "desc": "Input that defines the x-axis values of the function and output.",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -502,15 +502,15 @@
               "name": "a",
               "id": "a",
               "type": "OrderedPair|Scalar|Vector",
-              "multiple": false,
-              "desc": "The input a use to compute the sum of a and b."
+              "desc": "The input a use to compute the sum of a and b.",
+              "multiple": false
             },
             {
               "name": "b",
               "id": "b",
               "type": "OrderedPair|Scalar|Vector",
-              "multiple": true,
-              "desc": "The input b use to compute the sum of a and b."
+              "desc": "The input b use to compute the sum of a and b.",
+              "multiple": true
             }
           ],
           "outputs": [
@@ -528,7 +528,7 @@
           "y": 202.5382321191389
         },
         "width": 216,
-        "height": 164,
+        "height": 198,
         "selected": false,
         "positionAbsolute": {
           "x": 1005.6846635421198,
@@ -608,8 +608,8 @@
               "name": "default",
               "id": "default",
               "type": "OrderedPair",
-              "multiple": false,
-              "desc": "The data to apply FFT to."
+              "desc": "The data to apply FFT to.",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -624,16 +624,16 @@
         },
         "position": {
           "x": 1343.1892941940291,
-          "y": -81.94864068043614
+          "y": -161.94864068043609
         },
         "width": 216,
         "height": 197,
         "selected": false,
         "positionAbsolute": {
           "x": 1343.1892941940291,
-          "y": -81.94864068043614
+          "y": -161.94864068043609
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "FFT-8d637303-1655-4395-83e1-5b8cc032fab3",
@@ -707,8 +707,8 @@
               "name": "default",
               "id": "default",
               "type": "OrderedPair",
-              "multiple": false,
-              "desc": "The data to apply FFT to."
+              "desc": "The data to apply FFT to.",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -723,16 +723,16 @@
         },
         "position": {
           "x": 1317.351669175751,
-          "y": 226.07253060115522
+          "y": 202.07253060115522
         },
         "width": 216,
         "height": 197,
         "selected": false,
         "positionAbsolute": {
           "x": 1317.351669175751,
-          "y": 226.07253060115522
+          "y": 202.07253060115522
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "IFFT-400a13c9-5232-4fc2-93b1-28082a2841aa",
@@ -759,8 +759,8 @@
               "name": "default",
               "id": "default",
               "type": "DataFrame",
-              "multiple": false,
-              "desc": "The data to apply inverse FFT to."
+              "desc": "The data to apply inverse FFT to.",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -774,96 +774,121 @@
           "path": "DSP/IFFT/IFFT.py"
         },
         "position": {
-          "x": 1722.3976919111592,
-          "y": 213.2618870082207
+          "x": 1670.3976919111592,
+          "y": 197.2618870082207
         },
         "width": 216,
         "height": 197,
         "selected": false,
         "positionAbsolute": {
-          "x": 1722.3976919111592,
-          "y": 213.2618870082207
+          "x": 1670.3976919111592,
+          "y": 197.2618870082207
         },
-        "dragging": true
+        "dragging": false
       }
     ],
     "edges": [
       {
-        "source": "LINSPACE-caedc8d5-4d29-4b53-b65f-5b1cf11f7a98",
-        "sourceHandle": "default",
-        "target": "SINE-9425e9f5-d3da-441d-af90-048ac9036b6b",
-        "targetHandle": "default",
-        "id": "reactflow__edge-LINSPACE-caedc8d5-4d29-4b53-b65f-5b1cf11f7a98default-SINE-9425e9f5-d3da-441d-af90-048ac9036b6bdefault"
-      },
-      {
-        "source": "LINSPACE-caedc8d5-4d29-4b53-b65f-5b1cf11f7a98",
-        "sourceHandle": "default",
-        "target": "SINE-d5fb12f7-cb44-4858-876d-3c11eaf554b7",
-        "targetHandle": "default",
-        "id": "reactflow__edge-LINSPACE-caedc8d5-4d29-4b53-b65f-5b1cf11f7a98default-SINE-d5fb12f7-cb44-4858-876d-3c11eaf554b7default"
-      },
-      {
-        "source": "SINE-9425e9f5-d3da-441d-af90-048ac9036b6b",
-        "sourceHandle": "default",
-        "target": "ADD-bc0a9c6e-c935-4881-8e56-8c7fc23587cc",
-        "targetHandle": "a",
-        "id": "reactflow__edge-SINE-9425e9f5-d3da-441d-af90-048ac9036b6bdefault-ADD-bc0a9c6e-c935-4881-8e56-8c7fc23587cca"
-      },
-      {
-        "source": "SINE-d5fb12f7-cb44-4858-876d-3c11eaf554b7",
-        "sourceHandle": "default",
-        "target": "ADD-bc0a9c6e-c935-4881-8e56-8c7fc23587cc",
-        "targetHandle": "b",
-        "id": "reactflow__edge-SINE-d5fb12f7-cb44-4858-876d-3c11eaf554b7default-ADD-bc0a9c6e-c935-4881-8e56-8c7fc23587ccb"
-      },
-      {
-        "source": "ADD-bc0a9c6e-c935-4881-8e56-8c7fc23587cc",
-        "sourceHandle": "default",
-        "target": "LINE-841a6079-b004-4b32-87a6-a5e666b668bc",
-        "targetHandle": "default",
-        "id": "reactflow__edge-ADD-bc0a9c6e-c935-4881-8e56-8c7fc23587ccdefault-LINE-841a6079-b004-4b32-87a6-a5e666b668bcdefault"
-      },
-      {
-        "source": "ADD-bc0a9c6e-c935-4881-8e56-8c7fc23587cc",
-        "sourceHandle": "default",
-        "target": "FFT-8d637303-1655-4395-83e1-5b8cc032fab3",
-        "targetHandle": "default",
-        "id": "reactflow__edge-ADD-bc0a9c6e-c935-4881-8e56-8c7fc23587ccdefault-FFT-8d637303-1655-4395-83e1-5b8cc032fab3default"
-      },
-      {
-        "source": "ADD-bc0a9c6e-c935-4881-8e56-8c7fc23587cc",
-        "sourceHandle": "default",
-        "target": "FFT-f173d4bc-b7f4-4747-88b0-ecf7679ce86f",
-        "targetHandle": "default",
-        "id": "reactflow__edge-ADD-bc0a9c6e-c935-4881-8e56-8c7fc23587ccdefault-FFT-f173d4bc-b7f4-4747-88b0-ecf7679ce86fdefault"
-      },
-      {
+        "id": "FFT-f173d4bc-b7f4-4747-88b0-ecf7679ce86f->LINE-5b6f4ca6-fa5b-46c4-af27-cf23a377fa17",
         "source": "FFT-f173d4bc-b7f4-4747-88b0-ecf7679ce86f",
-        "sourceHandle": "default",
         "target": "LINE-5b6f4ca6-fa5b-46c4-af27-cf23a377fa17",
-        "targetHandle": "default",
-        "id": "reactflow__edge-FFT-f173d4bc-b7f4-4747-88b0-ecf7679ce86fdefault-LINE-5b6f4ca6-fa5b-46c4-af27-cf23a377fa17default"
-      },
-      {
-        "source": "FFT-8d637303-1655-4395-83e1-5b8cc032fab3",
         "sourceHandle": "default",
-        "target": "IFFT-400a13c9-5232-4fc2-93b1-28082a2841aa",
         "targetHandle": "default",
-        "id": "reactflow__edge-FFT-8d637303-1655-4395-83e1-5b8cc032fab3default-IFFT-400a13c9-5232-4fc2-93b1-28082a2841aadefault"
+        "data": {
+          "outputType": "OrderedPair"
+        }
       },
       {
+        "id": "IFFT-400a13c9-5232-4fc2-93b1-28082a2841aa->LINE-60fba9bb-bec1-43a1-b033-87164292977f",
         "source": "IFFT-400a13c9-5232-4fc2-93b1-28082a2841aa",
-        "sourceHandle": "default",
         "target": "LINE-60fba9bb-bec1-43a1-b033-87164292977f",
+        "sourceHandle": "default",
         "targetHandle": "default",
-        "id": "reactflow__edge-IFFT-400a13c9-5232-4fc2-93b1-28082a2841aadefault-LINE-60fba9bb-bec1-43a1-b033-87164292977fdefault"
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "FFT-8d637303-1655-4395-83e1-5b8cc032fab3->IFFT-400a13c9-5232-4fc2-93b1-28082a2841aa",
+        "source": "FFT-8d637303-1655-4395-83e1-5b8cc032fab3",
+        "target": "IFFT-400a13c9-5232-4fc2-93b1-28082a2841aa",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "ADD-bc0a9c6e-c935-4881-8e56-8c7fc23587cc->FFT-f173d4bc-b7f4-4747-88b0-ecf7679ce86f",
+        "source": "ADD-bc0a9c6e-c935-4881-8e56-8c7fc23587cc",
+        "target": "FFT-f173d4bc-b7f4-4747-88b0-ecf7679ce86f",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "ADD-bc0a9c6e-c935-4881-8e56-8c7fc23587cc->LINE-841a6079-b004-4b32-87a6-a5e666b668bc",
+        "source": "ADD-bc0a9c6e-c935-4881-8e56-8c7fc23587cc",
+        "target": "LINE-841a6079-b004-4b32-87a6-a5e666b668bc",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "ADD-bc0a9c6e-c935-4881-8e56-8c7fc23587cc->FFT-8d637303-1655-4395-83e1-5b8cc032fab3",
+        "source": "ADD-bc0a9c6e-c935-4881-8e56-8c7fc23587cc",
+        "target": "FFT-8d637303-1655-4395-83e1-5b8cc032fab3",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "SINE-9425e9f5-d3da-441d-af90-048ac9036b6b->ADD-bc0a9c6e-c935-4881-8e56-8c7fc23587cc",
+        "source": "SINE-9425e9f5-d3da-441d-af90-048ac9036b6b",
+        "target": "ADD-bc0a9c6e-c935-4881-8e56-8c7fc23587cc",
+        "sourceHandle": "default",
+        "targetHandle": "a",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "SINE-d5fb12f7-cb44-4858-876d-3c11eaf554b7->ADD-bc0a9c6e-c935-4881-8e56-8c7fc23587cc",
+        "source": "SINE-d5fb12f7-cb44-4858-876d-3c11eaf554b7",
+        "target": "ADD-bc0a9c6e-c935-4881-8e56-8c7fc23587cc",
+        "sourceHandle": "default",
+        "targetHandle": "b",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "LINSPACE-caedc8d5-4d29-4b53-b65f-5b1cf11f7a98->SINE-9425e9f5-d3da-441d-af90-048ac9036b6b",
+        "source": "LINSPACE-caedc8d5-4d29-4b53-b65f-5b1cf11f7a98",
+        "target": "SINE-9425e9f5-d3da-441d-af90-048ac9036b6b",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "Vector"
+        }
+      },
+      {
+        "id": "LINSPACE-caedc8d5-4d29-4b53-b65f-5b1cf11f7a98->SINE-d5fb12f7-cb44-4858-876d-3c11eaf554b7",
+        "source": "LINSPACE-caedc8d5-4d29-4b53-b65f-5b1cf11f7a98",
+        "target": "SINE-d5fb12f7-cb44-4858-876d-3c11eaf554b7",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "Vector"
+        }
       }
-    ],
-    "viewport": {
-      "x": -373.4542219202399,
-      "y": 120.20973884288571,
-      "zoom": 1.101977389476256
-    }
+    ]
   },
   "textNodes": []
 }

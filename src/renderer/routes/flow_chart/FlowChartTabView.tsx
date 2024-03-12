@@ -1,5 +1,4 @@
 import { BlockDefinition, TreeNode } from "@/renderer/types/manifest";
-import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import { useCallback, useEffect, useState } from "react";
 import {
   ConnectionLineType,
@@ -69,12 +68,13 @@ import {
   useManifestStore,
   useMetadata,
 } from "@/renderer/stores/manifest";
+import CustomEdge from "./components/custom-edge";
 import { useSocketStore } from "@/renderer/stores/socket";
 import { calculateContextMenuOffset } from "@/renderer/utils/context-menu";
 import { useContextMenu } from "@/renderer/hooks/useContextMenu";
 
 const edgeTypes = {
-  default: SmartBezierEdge,
+  default: CustomEdge,
 };
 
 const FlowChartTab = () => {

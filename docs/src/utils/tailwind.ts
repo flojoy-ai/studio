@@ -1,22 +1,9 @@
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-import { TVariant } from "@/renderer/types/tailwind";
+import type { TVariant } from "@/types/tailwind";
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
-type Style = {
-  stroke: string;
-  fill: string;
-  text: string;
-  shadow: string;
-  border: string;
-};
-
-// Tailwind CSS requires class names to be in full and not concatenated
-// https://tailwindcss.com/docs/content-configuration#dynamic-class-names
-export const variantClassMap: Record<TVariant, Style> = {
+export const variantClassMap: Record<
+  TVariant,
+  Record<"stroke" | "fill" | "text" | "shadow" | "border", string>
+> = {
   accent1: {
     stroke: "stroke-accent1",
     fill: "fill-accent1",

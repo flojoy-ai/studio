@@ -36,8 +36,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -116,8 +116,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -196,8 +196,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -259,15 +259,15 @@
               "name": "primary_trace",
               "id": "primary_trace",
               "type": "OrderedPair|DataFrame|Matrix|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized as the first figure"
+              "desc": "the DataContainer to be visualized as the first figure",
+              "multiple": false
             },
             {
               "name": "secondary_trace",
               "id": "secondary_trace",
               "type": "OrderedPair|DataFrame|Matrix|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized as the second figure"
+              "desc": "the DataContainer to be visualized as the second figure",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -285,7 +285,7 @@
           "y": -237.93260957770687
         },
         "width": 225,
-        "height": 269,
+        "height": 271,
         "selected": false,
         "positionAbsolute": {
           "x": 619.2206129387368,
@@ -295,20 +295,6 @@
       }
     ],
     "edges": [
-      {
-        "source": "EXTRACT_TRACE_MDO3XXX-56398a88-4b6c-4379-9294-48d2d1f4f5c9",
-        "sourceHandle": "default",
-        "target": "COMPOSITE-61f6f874-4abb-43f9-9678-cfb6fb8f03f2",
-        "targetHandle": "secondary_trace",
-        "id": "reactflow__edge-EXTRACT_TRACE_MDO3XXX-56398a88-4b6c-4379-9294-48d2d1f4f5c9default-COMPOSITE-61f6f874-4abb-43f9-9678-cfb6fb8f03f2secondary_trace"
-      },
-      {
-        "source": "EXTRACT_TRACE_MDO3XXX-47fe53e8-d9e9-472c-8e77-b09400d4ff5f",
-        "sourceHandle": "default",
-        "target": "COMPOSITE-61f6f874-4abb-43f9-9678-cfb6fb8f03f2",
-        "targetHandle": "primary_trace",
-        "id": "reactflow__edge-EXTRACT_TRACE_MDO3XXX-47fe53e8-d9e9-472c-8e77-b09400d4ff5fdefault-COMPOSITE-61f6f874-4abb-43f9-9678-cfb6fb8f03f2primary_trace"
-      },
       {
         "source": "CONNECTION_MDO3XXX-c4ea6352-5ff3-498b-a155-f271059751f4",
         "sourceHandle": "default",
@@ -322,13 +308,28 @@
         "target": "EXTRACT_TRACE_MDO3XXX-56398a88-4b6c-4379-9294-48d2d1f4f5c9",
         "targetHandle": "default",
         "id": "reactflow__edge-CONNECTION_MDO3XXX-c4ea6352-5ff3-498b-a155-f271059751f4default-EXTRACT_TRACE_MDO3XXX-56398a88-4b6c-4379-9294-48d2d1f4f5c9default"
+      },
+      {
+        "id": "EXTRACT_TRACE_MDO3XXX-47fe53e8-d9e9-472c-8e77-b09400d4ff5f->COMPOSITE-61f6f874-4abb-43f9-9678-cfb6fb8f03f2",
+        "source": "EXTRACT_TRACE_MDO3XXX-47fe53e8-d9e9-472c-8e77-b09400d4ff5f",
+        "target": "COMPOSITE-61f6f874-4abb-43f9-9678-cfb6fb8f03f2",
+        "sourceHandle": "default",
+        "targetHandle": "primary_trace",
+        "data": {
+          "outputType": "OrderedPair"
+        }
+      },
+      {
+        "id": "EXTRACT_TRACE_MDO3XXX-56398a88-4b6c-4379-9294-48d2d1f4f5c9->COMPOSITE-61f6f874-4abb-43f9-9678-cfb6fb8f03f2",
+        "source": "EXTRACT_TRACE_MDO3XXX-56398a88-4b6c-4379-9294-48d2d1f4f5c9",
+        "target": "COMPOSITE-61f6f874-4abb-43f9-9678-cfb6fb8f03f2",
+        "sourceHandle": "default",
+        "targetHandle": "secondary_trace",
+        "data": {
+          "outputType": "OrderedPair"
+        }
       }
-    ],
-    "viewport": {
-      "x": 1136.4492687849445,
-      "y": 584.5880790869217,
-      "zoom": 1.2397346348267997
-    }
+    ]
   },
   "textNodes": []
 }

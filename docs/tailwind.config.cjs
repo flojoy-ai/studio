@@ -36,6 +36,8 @@ module.exports = {
         accent2: "rgb(var(--color-accent2) / <alpha-value>)",
         accent3: "rgb(var(--color-accent3) / <alpha-value>)",
         accent4: "rgb(var(--color-accent4) / <alpha-value>)",
+        accent5: "var(--color-accent5)",
+        accent6: "var(--color-accent6)",
       },
       fontFamily: {
         // Your preferred text font. Starlight uses a system font stack by default.

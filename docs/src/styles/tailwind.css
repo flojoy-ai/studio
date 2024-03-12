@@ -14,6 +14,8 @@
   --controls-hover: 0 0% 20%;
   --controls-border: 0 0% 40%;
   --foreground: 210 40% 98%;
+  --color-accent5: #8c9599;
+  --color-accent6: #88fa4e;
 }
 /* Light mode colors. */
 :root[data-theme="light"] {
@@ -26,4 +28,6 @@
   --controls-hover: 0 0% 90%;
   --controls-border: 0 0% 80%;
   --foreground: 222.2 84% 4.9%;
+  --color-accent5: #8c9599;
+  --color-accent6: #1db100;
 }

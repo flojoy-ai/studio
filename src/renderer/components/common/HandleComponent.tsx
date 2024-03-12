@@ -13,7 +13,7 @@ const HandleComponent = ({
 
   return (
     <>
-      <div className="absolute -left-2 top-0 flex h-full flex-col justify-evenly">
+      <div className="absolute -left-3 top-0 flex h-full flex-col justify-evenly">
         {inputs.map((param) => (
           <div
             className="relative flex items-center"
@@ -31,7 +31,7 @@ const HandleComponent = ({
         ))}
       </div>
 
-      <div className="absolute -right-2 top-0 flex h-full flex-col justify-evenly">
+      <div className="absolute -right-3 top-0 flex h-full flex-col justify-evenly">
         {outputs.map((param) => (
           <div
             className="relative flex items-center"

@@ -2,6 +2,7 @@ import ReactFlow, { Background, Controls, MiniMap } from "reactflow";
 import "reactflow/dist/style.css";
 import { Download } from "lucide-react";
 import nodeTypes from "./nodes/nodeTypes";
+import { CustomEdge } from "./custom-edge";
 
 type AppDisplayProps = {
   app: any;
@@ -22,6 +23,9 @@ const FlowMiniMap = () => {
       pannable
     />
   );
+};
+const edgeTypes = {
+  default: CustomEdge,
 };
 
 const AppDisplay = ({ app, blockName }: AppDisplayProps) => {
@@ -62,6 +66,7 @@ const AppDisplay = ({ app, blockName }: AppDisplayProps) => {
               nodes={nodes}
               nodeTypes={nodeTypes}
               edges={edges}
+              edgeTypes={edgeTypes}
               minZoom={0.25}
               fitView
               proOptions={{ hideAttribution: true }}

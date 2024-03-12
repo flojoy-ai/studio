@@ -91,8 +91,8 @@
               "name": "default",
               "id": "default",
               "type": "DataFrame",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -125,7 +125,7 @@
       },
       {
         "width": 225,
-        "height": 305,
+        "height": 306,
         "id": "PROPHET_COMPONENTS-5c7d5f10-27fc-46d9-a415-a48f4a1b478b",
         "type": "VISUALIZATION",
         "data": {
@@ -150,8 +150,8 @@
               "name": "default",
               "id": "default",
               "type": "DataFrame",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -209,8 +209,8 @@
               "name": "default",
               "id": "default",
               "type": "DataFrame",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -251,25 +251,26 @@
         "id": "reactflow__edge-TIMESERIES-41bdb0f6-5383-41c7-a1b2-0cf9969e17d5default-PROPHET_PREDICT-f14e49ba-ab10-4b45-98ca-459ebeae2c6edefault"
       },
       {
+        "id": "PROPHET_PREDICT-f14e49ba-ab10-4b45-98ca-459ebeae2c6e->PROPHET_PLOT-3fd5fc0a-4b1a-492c-8714-f816ab020861",
         "source": "PROPHET_PREDICT-f14e49ba-ab10-4b45-98ca-459ebeae2c6e",
+        "target": "PROPHET_PLOT-3fd5fc0a-4b1a-492c-8714-f816ab020861",
         "sourceHandle": "default",
-        "target": "PROPHET_COMPONENTS-5c7d5f10-27fc-46d9-a415-a48f4a1b478b",
         "targetHandle": "default",
-        "id": "reactflow__edge-PROPHET_PREDICT-f14e49ba-ab10-4b45-98ca-459ebeae2c6edefault-PROPHET_COMPONENTS-5c7d5f10-27fc-46d9-a415-a48f4a1b478bdefault"
+        "data": {
+          "outputType": "DataFrame"
+        }
       },
       {
+        "id": "PROPHET_PREDICT-f14e49ba-ab10-4b45-98ca-459ebeae2c6e->PROPHET_COMPONENTS-5c7d5f10-27fc-46d9-a415-a48f4a1b478b",
         "source": "PROPHET_PREDICT-f14e49ba-ab10-4b45-98ca-459ebeae2c6e",
+        "target": "PROPHET_COMPONENTS-5c7d5f10-27fc-46d9-a415-a48f4a1b478b",
         "sourceHandle": "default",
-        "target": "PROPHET_PLOT-3fd5fc0a-4b1a-492c-8714-f816ab020861",
         "targetHandle": "default",
-        "id": "reactflow__edge-PROPHET_PREDICT-f14e49ba-ab10-4b45-98ca-459ebeae2c6edefault-PROPHET_PLOT-3fd5fc0a-4b1a-492c-8714-f816ab020861default"
+        "data": {
+          "outputType": "DataFrame"
+        }
       }
-    ],
-    "viewport": {
-      "x": 804.6656120755285,
-      "y": 345.6859295932446,
-      "zoom": 0.6867439342345503
-    }
+    ]
   },
   "textNodes": []
 }

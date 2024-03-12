@@ -103,8 +103,8 @@
               "name": "input",
               "id": "input",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -118,15 +118,15 @@
           "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/I2C_TRIGGER_MSO2X/I2C_TRIGGER_MSO2X.py"
         },
         "position": {
-          "x": -520.6655291507428,
-          "y": -163.46468809772102
+          "x": -847.4572960688344,
+          "y": -158.38607079180736
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -520.6655291507428,
-          "y": -163.46468809772102
+          "x": -847.4572960688344,
+          "y": -158.38607079180736
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "width": 216,
@@ -242,8 +242,8 @@
               "name": "input",
               "id": "input",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -257,15 +257,15 @@
           "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/DECODE_I2C_MSO2X/DECODE_I2C_MSO2X.py"
         },
         "position": {
-          "x": 49.186271758709495,
-          "y": -168.1195378653855
+          "x": -28.813728241290505,
+          "y": -162.1195378653855
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 49.186271758709495,
-          "y": -168.1195378653855
+          "x": -28.813728241290505,
+          "y": -162.1195378653855
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "width": 216,
@@ -303,8 +303,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -318,15 +318,15 @@
           "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/SINGLE_TRIGGER_DS1047Z/SINGLE_TRIGGER_DS1047Z.py"
         },
         "position": {
-          "x": -242.86191034648988,
-          "y": -165.6294711816543
+          "x": -455.89918701339025,
+          "y": -158.63912901272215
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -242.86191034648988,
-          "y": -165.6294711816543
+          "x": -455.89918701339025,
+          "y": -158.63912901272215
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "width": 216,
@@ -367,19 +367,19 @@
           "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/CONNECT_MSO2X/CONNECT_MSO2X.py"
         },
         "position": {
-          "x": -1122.6230403591221,
-          "y": -163.4519067613058
+          "x": -1681.945190910868,
+          "y": -148.78044410141013
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -1122.6230403591221,
-          "y": -163.4519067613058
+          "x": -1681.945190910868,
+          "y": -148.78044410141013
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "width": 225,
-        "height": 225,
+        "height": 271,
         "id": "TEXT_VIEW-ea52689d-df4d-443a-8865-9cbe8ff47e21",
         "type": "VISUALIZATION",
         "data": {
@@ -404,8 +404,8 @@
               "name": "default",
               "id": "default",
               "type": "String|Boolean",
-              "multiple": false,
-              "desc": "The DataContainer to be visualized in text format"
+              "desc": "The DataContainer to be visualized in text format",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -419,15 +419,15 @@
           "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
         },
         "position": {
-          "x": 357.5089084742751,
-          "y": -206.00997100358666
+          "x": 391.5089084742751,
+          "y": -200.00997100358666
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 357.5089084742751,
-          "y": -206.00997100358666
+          "x": 391.5089084742751,
+          "y": -200.00997100358666
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "width": 216,
@@ -625,8 +625,8 @@
               "name": "input",
               "id": "input",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -646,59 +646,69 @@
           "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/DIGITAL_CHANNELS_MSO2X/DIGITAL_CHANNELS_MSO2X.py"
         },
         "position": {
-          "x": -825.4227875922302,
-          "y": -162.43302191909356
+          "x": -1262.3414609715746,
+          "y": -154.7171629921737
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -825.4227875922302,
-          "y": -162.43302191909356
+          "x": -1262.3414609715746,
+          "y": -154.7171629921737
         },
-        "dragging": true
+        "dragging": false
       }
     ],
     "edges": [
       {
-        "source": "DIGITAL_CHANNELS_MSO2X-89a0dc23-4020-4fd8-a2e6-41a47823bde3",
-        "sourceHandle": "default",
-        "target": "I2C_TRIGGER_MSO2X-172af13d-d1e2-4137-9e99-f928d90e56d6",
-        "targetHandle": "input",
-        "id": "reactflow__edge-DIGITAL_CHANNELS_MSO2X-89a0dc23-4020-4fd8-a2e6-41a47823bde3default-I2C_TRIGGER_MSO2X-172af13d-d1e2-4137-9e99-f928d90e56d6input"
-      },
-      {
-        "source": "SINGLE_TRIGGER_DS1047Z-906d16c2-c6b7-4f78-8451-fc9cf996c744",
-        "sourceHandle": "default",
-        "target": "DECODE_I2C_MSO2X-90d58f0c-a24d-4043-9108-00d944f082b7",
-        "targetHandle": "input",
-        "id": "reactflow__edge-SINGLE_TRIGGER_DS1047Z-906d16c2-c6b7-4f78-8451-fc9cf996c744default-DECODE_I2C_MSO2X-90d58f0c-a24d-4043-9108-00d944f082b7input"
-      },
-      {
-        "source": "I2C_TRIGGER_MSO2X-172af13d-d1e2-4137-9e99-f928d90e56d6",
-        "sourceHandle": "default",
-        "target": "SINGLE_TRIGGER_DS1047Z-906d16c2-c6b7-4f78-8451-fc9cf996c744",
-        "targetHandle": "default",
-        "id": "reactflow__edge-I2C_TRIGGER_MSO2X-172af13d-d1e2-4137-9e99-f928d90e56d6default-SINGLE_TRIGGER_DS1047Z-906d16c2-c6b7-4f78-8451-fc9cf996c744default"
-      },
-      {
-        "source": "DECODE_I2C_MSO2X-90d58f0c-a24d-4043-9108-00d944f082b7",
-        "sourceHandle": "default",
-        "target": "TEXT_VIEW-ea52689d-df4d-443a-8865-9cbe8ff47e21",
-        "targetHandle": "default",
-        "id": "reactflow__edge-DECODE_I2C_MSO2X-90d58f0c-a24d-4043-9108-00d944f082b7default-TEXT_VIEW-ea52689d-df4d-443a-8865-9cbe8ff47e21default"
-      },
-      {
+        "id": "CONNECT_MSO2X-f430790c-b0b4-4501-ab19-a9012d39e228->DIGITAL_CHANNELS_MSO2X-89a0dc23-4020-4fd8-a2e6-41a47823bde3",
         "source": "CONNECT_MSO2X-f430790c-b0b4-4501-ab19-a9012d39e228",
-        "sourceHandle": "default",
         "target": "DIGITAL_CHANNELS_MSO2X-89a0dc23-4020-4fd8-a2e6-41a47823bde3",
+        "sourceHandle": "default",
         "targetHandle": "input",
-        "id": "reactflow__edge-CONNECT_MSO2X-f430790c-b0b4-4501-ab19-a9012d39e228default-DIGITAL_CHANNELS_MSO2X-89a0dc23-4020-4fd8-a2e6-41a47823bde3input"
+        "data": {
+          "outputType": "String"
+        }
+      },
+      {
+        "id": "DIGITAL_CHANNELS_MSO2X-89a0dc23-4020-4fd8-a2e6-41a47823bde3->I2C_TRIGGER_MSO2X-172af13d-d1e2-4137-9e99-f928d90e56d6",
+        "source": "DIGITAL_CHANNELS_MSO2X-89a0dc23-4020-4fd8-a2e6-41a47823bde3",
+        "target": "I2C_TRIGGER_MSO2X-172af13d-d1e2-4137-9e99-f928d90e56d6",
+        "sourceHandle": "default",
+        "targetHandle": "input",
+        "data": {
+          "outputType": "String"
+        }
+      },
+      {
+        "id": "I2C_TRIGGER_MSO2X-172af13d-d1e2-4137-9e99-f928d90e56d6->SINGLE_TRIGGER_DS1047Z-906d16c2-c6b7-4f78-8451-fc9cf996c744",
+        "source": "I2C_TRIGGER_MSO2X-172af13d-d1e2-4137-9e99-f928d90e56d6",
+        "target": "SINGLE_TRIGGER_DS1047Z-906d16c2-c6b7-4f78-8451-fc9cf996c744",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "String"
+        }
+      },
+      {
+        "id": "SINGLE_TRIGGER_DS1047Z-906d16c2-c6b7-4f78-8451-fc9cf996c744->DECODE_I2C_MSO2X-90d58f0c-a24d-4043-9108-00d944f082b7",
+        "source": "SINGLE_TRIGGER_DS1047Z-906d16c2-c6b7-4f78-8451-fc9cf996c744",
+        "target": "DECODE_I2C_MSO2X-90d58f0c-a24d-4043-9108-00d944f082b7",
+        "sourceHandle": "default",
+        "targetHandle": "input",
+        "data": {
+          "outputType": "String"
+        }
+      },
+      {
+        "id": "DECODE_I2C_MSO2X-90d58f0c-a24d-4043-9108-00d944f082b7->TEXT_VIEW-ea52689d-df4d-443a-8865-9cbe8ff47e21",
+        "source": "DECODE_I2C_MSO2X-90d58f0c-a24d-4043-9108-00d944f082b7",
+        "target": "TEXT_VIEW-ea52689d-df4d-443a-8865-9cbe8ff47e21",
+        "sourceHandle": "default",
+        "targetHandle": "default",
+        "data": {
+          "outputType": "String"
+        }
       }
-    ],
-    "viewport": {
-      "x": 998.2402235606428,
-      "y": 582.5298224384069,
-      "zoom": 0.9879406118224267
-    }
+    ]
   },
   "textNodes": []
 }
