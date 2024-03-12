@@ -134,9 +134,6 @@ dependencies:
   file-saver:
     specifier: ^2.0.5
     version: 2.0.5
-  fp-ts:
-    specifier: ^2.16.3
-    version: 2.16.3
   html-to-image:
     specifier: ^1.11.11
     version: 1.11.11
@@ -6263,10 +6260,6 @@ packages:
   /format@0.2.2:
     resolution: {integrity: sha512-wzsgA6WOq+09wrU1tsJ09udeR/YZRaeArL9e1wPbFg3GG2yDnC2ldKpxs4xunpFF9DgqCqOIra3bc1HWrJ37Ww==}
     engines: {node: '>=0.4.x'}
-    dev: false
-
-  /fp-ts@2.16.3:
-    resolution: {integrity: sha512-REm0sOecd4inACbAiFeOxpyOgB+f0OqhmZBBVOc5Ku1HqdroDU5uxYu9mybKj+be4DQ5L2YI6LuosjAfmuJCBQ==}
     dev: false
 
   /fraction.js@4.3.7:
