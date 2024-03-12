@@ -1,31 +1,14 @@
 import { Input } from "@/renderer/components/ui/input";
-import { useControlBlock } from "@/renderer/hooks/useControlBlock";
 import { SliderConfig, WidgetProps } from "@/renderer/types/control";
-import { ChangeEvent } from "react";
-import { toast } from "sonner";
 import WidgetLabel from "@/renderer/components/common/widget-label";
+import { useControl } from "@/renderer/hooks/useControl";
 
 export const SliderNode = ({ id, data }: WidgetProps<SliderConfig>) => {
-  const { block, updateBlockParameter } = useControlBlock(data.blockId);
-  if (!block) {
+  const control = useControl(data);
+  if (!control) {
     return <div className="text-2xl text-red-500">NOT FOUND</div>;
   }
-
-  const name = block.data.label;
-  const paramVal = block.data.ctrls[data.blockParameter].value;
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const res = updateBlockParameter(
-      block.id,
-      data.blockParameter,
-      parseInt(e.target.value, 10),
-    );
-    if (res.isErr()) {
-      toast.error("Error updating block parameter", {
-        description: res.error.message,
-      });
-    }
-  };
+  const { name, value, onValueChange } = control;
 
   return (
     <div className="flex flex-col items-center gap-2">
@@ -41,10 +24,10 @@ export const SliderNode = ({ id, data }: WidgetProps<SliderConfig>) => {
           min={data.config.min}
           max={data.config.max}
           step={data.config.step}
-          value={paramVal as number}
-          onChange={handleChange}
+          value={value as number}
+          onChange={(e) => onValueChange(parseInt(e.target.value, 10))}
         />
-        <div className="text-xl font-bold">{paramVal}</div>
+        <div className="text-xl font-bold">{value}</div>
       </div>
     </div>
   );
