@@ -2,65 +2,149 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 150,
-                "height": 180,
-                "id": "READ_CSV-c6754ffa-7213-485b-a8b5-0a0f7b5bebe0",
-                "type": "EXTRACTORS",
+                "id": "READ_CSV-b954903f-43ef-427c-a872-c24d85bf2255",
+                "type": "EXTRACT",
                 "data": {
-                    "id": "READ_CSV-c6754ffa-7213-485b-a8b5-0a0f7b5bebe0",
+                    "id": "READ_CSV-b954903f-43ef-427c-a872-c24d85bf2255",
                     "label": "READ CSV",
                     "func": "READ_CSV",
-                    "type": "EXTRACTORS",
+                    "type": "EXTRACT",
                     "ctrls": {
                         "file_path": {
                             "type": "str",
                             "default": "https://raw.githubusercontent.com/cs109/2014_data/master/countries.csv",
-                            "desc": "File path to the CSV file or an URL of CSV file",
+                            "desc": "File path to the .csv file or an URL of a .csv file.",
+                            "overload": null,
                             "functionName": "READ_CSV",
                             "param": "file_path",
-                            "value": "PYTHON/nodes/AI_ML/TEXT_SUMMARIZATION/BART_LARGE_CNN/assets/story.csv"
+                            "value": "blocks/AI_ML/TEXT_SUMMARIZATION/BART_LARGE_CNN/assets/story.csv"
                         }
                     },
+                    "initCtrls": {},
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "DataFrame",
-                            "desc": null
+                            "desc": "DataFrame loaded from .csv file"
                         }
                     ],
-                    "path": "PYTHON/nodes/EXTRACTORS/FILE/READ_CSV/READ_CSV.py",
-                    "selected": false
+                    "path": "ETL/EXTRACT/FILE/READ_CSV/READ_CSV.py"
                 },
                 "position": {
-                    "x": -193.61455765591296,
-                    "y": 22.506262839810688
+                    "x": -375.0277248823157,
+                    "y": -158.16982696408166
                 },
+                "width": 216,
+                "height": 260,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -193.61455765591296,
-                    "y": 22.506262839810688
+                    "x": -375.0277248823157,
+                    "y": -158.16982696408166
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 150,
-                "height": 180,
-                "id": "BART_LARGE_CNN-cfe29f1d-4632-4270-af07-2eb6b5848cd6",
+                "id": "TABLE-7c59fde7-fea7-4f44-a914-ddaa16dd7f1b",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TABLE-7c59fde7-fea7-4f44-a914-ddaa16dd7f1b",
+                    "label": "TABLE",
+                    "func": "TABLE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Table visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
+                },
+                "position": {
+                    "x": 182.48073675423342,
+                    "y": -393.5270964485311
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 182.48073675423342,
+                    "y": -393.5270964485311
+                },
+                "dragging": false
+            },
+            {
+                "id": "TABLE-f90a14fa-0e12-49b2-b3cb-14cdfa04f9c2",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TABLE-f90a14fa-0e12-49b2-b3cb-14cdfa04f9c2",
+                    "label": "TABLE 1",
+                    "func": "TABLE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Table visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
+                },
+                "position": {
+                    "x": 606.9444406736582,
+                    "y": -59.58984396986017
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 606.9444406736582,
+                    "y": -59.58984396986017
+                },
+                "dragging": false
+            },
+            {
+                "id": "BART_LARGE_CNN-33793920-d9b1-4d11-83d7-e15727cf3525",
                 "type": "AI_ML",
                 "data": {
-                    "id": "BART_LARGE_CNN-cfe29f1d-4632-4270-af07-2eb6b5848cd6",
+                    "id": "BART_LARGE_CNN-33793920-d9b1-4d11-83d7-e15727cf3525",
                     "label": "BART LARGE CNN",
                     "func": "BART_LARGE_CNN",
                     "type": "AI_ML",
                     "ctrls": {},
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "DataFrame",
-                            "multiple": false,
-                            "desc": null
+                            "desc": "The text to summarize.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -68,154 +152,71 @@
                             "name": "default",
                             "id": "default",
                             "type": "DataFrame",
-                            "desc": null
+                            "desc": "dataframe containing the summary text in the \"summary_text\" column"
                         }
                     ],
-                    "path": "PYTHON/nodes/AI_ML/TEXT_SUMMARIZATION/BART_LARGE_CNN/BART_LARGE_CNN.py",
-                    "selected": false
+                    "pip_dependencies": [
+                        {
+                            "name": "transformers",
+                            "v": "4.30.2"
+                        },
+                        {
+                            "name": "torch",
+                            "v": "2.0.1"
+                        },
+                        {
+                            "name": "torchvision",
+                            "v": "0.15.2"
+                        }
+                    ],
+                    "path": "AI_ML/TEXT_SUMMARIZATION/BART_LARGE_CNN/BART_LARGE_CNN.py"
                 },
                 "position": {
-                    "x": 28.275977938396807,
-                    "y": 23.26432657684532
+                    "x": 179.94048472164243,
+                    "y": -22.238416796721765
                 },
+                "width": 216,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 28.275977938396807,
-                    "y": 23.26432657684532
+                    "x": 179.94048472164243,
+                    "y": -22.238416796721765
                 },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "TABLE-d835eca9-2954-43ea-9970-2345933e2629",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TABLE-d835eca9-2954-43ea-9970-2345933e2629",
-                    "label": "TABLE",
-                    "func": "TABLE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple|OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": null
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 265.7401587466265,
-                    "y": -1.1595788699638092
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 265.7401587466265,
-                    "y": -1.1595788699638092
-                },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "TABLE-aa682847-ab68-4ef8-a3fa-bc0ad1c4f002",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TABLE-aa682847-ab68-4ef8-a3fa-bc0ad1c4f002",
-                    "label": "TABLE 1",
-                    "func": "TABLE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple|OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": null
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -8.474838373483692,
-                    "y": -232.87989856523
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -8.474838373483692,
-                    "y": -232.87989856523
-                },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "READ_CSV-c6754ffa-7213-485b-a8b5-0a0f7b5bebe0",
+                "id": "READ_CSV-b954903f-43ef-427c-a872-c24d85bf2255->TABLE-7c59fde7-fea7-4f44-a914-ddaa16dd7f1b_66a80534-4ca0-4a3b-b229-85e4e6878659",
+                "source": "READ_CSV-b954903f-43ef-427c-a872-c24d85bf2255",
+                "target": "TABLE-7c59fde7-fea7-4f44-a914-ddaa16dd7f1b",
                 "sourceHandle": "default",
-                "target": "BART_LARGE_CNN-cfe29f1d-4632-4270-af07-2eb6b5848cd6",
                 "targetHandle": "default",
-                "id": "reactflow__edge-READ_CSV-c6754ffa-7213-485b-a8b5-0a0f7b5bebe0default-BART_LARGE_CNN-cfe29f1d-4632-4270-af07-2eb6b5848cd6default"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             },
             {
-                "source": "READ_CSV-c6754ffa-7213-485b-a8b5-0a0f7b5bebe0",
+                "id": "READ_CSV-b954903f-43ef-427c-a872-c24d85bf2255->BART_LARGE_CNN-33793920-d9b1-4d11-83d7-e15727cf3525_20c43f2f-75a9-402b-ac1a-fdb7bca617d2",
+                "source": "READ_CSV-b954903f-43ef-427c-a872-c24d85bf2255",
+                "target": "BART_LARGE_CNN-33793920-d9b1-4d11-83d7-e15727cf3525",
                 "sourceHandle": "default",
-                "target": "TABLE-aa682847-ab68-4ef8-a3fa-bc0ad1c4f002",
                 "targetHandle": "default",
-                "id": "reactflow__edge-READ_CSV-c6754ffa-7213-485b-a8b5-0a0f7b5bebe0default-TABLE-aa682847-ab68-4ef8-a3fa-bc0ad1c4f002default"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             },
             {
-                "source": "BART_LARGE_CNN-cfe29f1d-4632-4270-af07-2eb6b5848cd6",
+                "id": "BART_LARGE_CNN-33793920-d9b1-4d11-83d7-e15727cf3525->TABLE-f90a14fa-0e12-49b2-b3cb-14cdfa04f9c2_d3b6e98a-2d14-4f60-8578-1867bc79abe7",
+                "source": "BART_LARGE_CNN-33793920-d9b1-4d11-83d7-e15727cf3525",
+                "target": "TABLE-f90a14fa-0e12-49b2-b3cb-14cdfa04f9c2",
                 "sourceHandle": "default",
-                "target": "TABLE-d835eca9-2954-43ea-9970-2345933e2629",
                 "targetHandle": "default",
-                "id": "reactflow__edge-BART_LARGE_CNN-cfe29f1d-4632-4270-af07-2eb6b5848cd6default-TABLE-d835eca9-2954-43ea-9970-2345933e2629default"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             }
-        ],
-        "viewport": {
-            "x": 671.2662705290845,
-            "y": 234.65628139815956,
-            "zoom": 0.9964993552221201
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": []
 }

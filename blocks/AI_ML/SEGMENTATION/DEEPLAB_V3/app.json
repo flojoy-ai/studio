@@ -2,72 +2,8 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 150,
-                "height": 150,
-                "id": "LOCAL_FILE-ea2690c7-1b37-40c0-9d02-b000a553c3ec",
-                "type": "LOADERS",
-                "data": {
-                    "id": "LOCAL_FILE-ea2690c7-1b37-40c0-9d02-b000a553c3ec",
-                    "label": "LOCAL FILE",
-                    "func": "LOCAL_FILE",
-                    "type": "LOADERS",
-                    "ctrls": {
-                        "file_path": {
-                            "type": "str",
-                            "default": null,
-                            "functionName": "LOCAL_FILE",
-                            "param": "file_path",
-                            "value": "./PYTHON/nodes/AI_ML/SEGMENTATION/DEEPLAB_V3/assets/obama_image.jpg"
-                        },
-                        "file_type": {
-                            "type": "select",
-                            "default": "Image",
-                            "options": [
-                                "Image",
-                                "JSON",
-                                "CSV",
-                                "Excel",
-                                "XML"
-                            ],
-                            "functionName": "LOCAL_FILE",
-                            "param": "file_type",
-                            "value": "Image"
-                        }
-                    },
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image|DataFrame"
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "xlrd",
-                            "v": "2.0.1"
-                        },
-                        {
-                            "name": "lxml",
-                            "v": "4.9.2"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/LOADERS/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 321.61799971188316,
-                    "y": 651.583895198448
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 321.61799971188316,
-                    "y": 651.583895198448
-                },
-                "dragging": true
-            },
-            {
-                "width": 150,
-                "height": 150,
+                "width": 216,
+                "height": 197,
                 "id": "DEEPLAB_V3-d48ad00f-5f1d-4abc-b6e9-5dbca49c6504",
                 "type": "AI_ML",
                 "data": {
@@ -81,6 +17,7 @@
                             "name": "default",
                             "id": "default",
                             "type": "Image",
+                            "desc": "The input image to be segmented.",
                             "multiple": false
                         }
                     ],
@@ -88,39 +25,113 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Image"
+                            "type": "Image",
+                            "desc": "The segmented image."
                         }
                     ],
-                    "path": "PYTHON/nodes/AI_ML/SEGMENTATION/DEEPLAB_V3/DEEPLAB_V3.py",
+                    "path": "AI_ML/SEGMENTATION/DEEPLAB_V3/DEEPLAB_V3.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 854.15096460019,
-                    "y": 672.1244411503056
+                    "x": 845.1811409736407,
+                    "y": 496.3158980699403
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 854.15096460019,
-                    "y": 672.1244411503056
+                    "x": 845.1811409736407,
+                    "y": 496.3158980699403
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "IMAGE-4f7be017-7bb2-4650-b357-536574caaef9",
-                "type": "VISUALIZERS",
+                "id": "LOCAL_FILE-707574d6-2e44-4737-a609-a0d550e759b3",
+                "type": "LOAD",
                 "data": {
-                    "id": "IMAGE-4f7be017-7bb2-4650-b357-536574caaef9",
+                    "id": "LOCAL_FILE-707574d6-2e44-4737-a609-a0d550e759b3",
+                    "label": "LOCAL FILE",
+                    "func": "LOCAL_FILE",
+                    "type": "LOAD",
+                    "ctrls": {
+                        "file_path": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "The path to the file to be loaded. This can be either an absolute path or\na path relative to the \"nodes\" directory.",
+                            "overload": null,
+                            "functionName": "LOCAL_FILE",
+                            "param": "file_path",
+                            "value": "AI_ML/SEGMENTATION/DEEPLAB_V3/assets/obama_image.jpg"
+                        },
+                        "file_type": {
+                            "type": "select",
+                            "default": "Image",
+                            "options": [
+                                "Image",
+                                "Grayscale",
+                                "JSON",
+                                "CSV"
+                            ],
+                            "desc": "Type of file to load, default = image.\nIf both 'file_path' and 'default' are not specified when 'file_type=\"Image\"',\na default image will be loaded.\nIf the file path is not specified and the default input is not connected,\na ValueError is raised.",
+                            "overload": null,
+                            "functionName": "LOCAL_FILE",
+                            "param": "file_type",
+                            "value": "Image"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "If this input node is connected, the file name will be taken from\nthe output of the connected node.\nTo be used in conjunction with batch processing.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|DataFrame|Grayscale",
+                            "desc": "Image for file_type 'image'.\nGrayscale from file_type 'Grayscale'.\nDataFrame for file_type 'json', 'csv'."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "scikit-image",
+                            "v": "0.21.0"
+                        }
+                    ],
+                    "path": "ETL/LOAD/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py"
+                },
+                "position": {
+                    "x": 188.78885342779978,
+                    "y": 503.25320086430804
+                },
+                "width": 216,
+                "height": 188,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 188.78885342779978,
+                    "y": 503.25320086430804
+                },
+                "dragging": false
+            },
+            {
+                "id": "IMAGE-c534ea31-0ca7-4b51-9379-be876ebd3e3f",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "IMAGE-c534ea31-0ca7-4b51-9379-be876ebd3e3f",
                     "label": "IMAGE",
                     "func": "IMAGE",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Image",
+                            "type": "Image|Grayscale",
+                            "desc": "the DataContainer to be visualized",
                             "multiple": false
                         }
                     ],
@@ -128,39 +139,41 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Plotly"
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
                         }
                     ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
                 },
                 "position": {
-                    "x": 1358.296287493712,
-                    "y": 620.4805276906546
+                    "x": 862.6170324512686,
+                    "y": 154.40486030768375
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1358.296287493712,
-                    "y": 620.4805276906546
+                    "x": 862.6170324512686,
+                    "y": 154.40486030768375
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "IMAGE-587cc53c-8da9-4bd5-a525-44386424da4b",
-                "type": "VISUALIZERS",
+                "id": "IMAGE-75890da4-6dd3-48ae-9ef5-e734b7086e75",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "IMAGE-587cc53c-8da9-4bd5-a525-44386424da4b",
+                    "id": "IMAGE-75890da4-6dd3-48ae-9ef5-e734b7086e75",
                     "label": "IMAGE 1",
                     "func": "IMAGE",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Image",
+                            "type": "Image|Grayscale",
+                            "desc": "the DataContainer to be visualized",
                             "multiple": false
                         }
                     ],
@@ -168,70 +181,58 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Plotly"
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
                         }
                     ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
                 },
                 "position": {
-                    "x": 850.1563653366388,
-                    "y": 223.0733492297885
+                    "x": 1253.8464386424123,
+                    "y": 464.0063484500196
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 850.1563653366388,
-                    "y": 223.0733492297885
+                    "x": 1253.8464386424123,
+                    "y": 464.0063484500196
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "LOCAL_FILE-ea2690c7-1b37-40c0-9d02-b000a553c3ec",
+                "id": "LOCAL_FILE-707574d6-2e44-4737-a609-a0d550e759b3->IMAGE-c534ea31-0ca7-4b51-9379-be876ebd3e3f_5679c92f-64de-43f3-ae38-2054e8c6d08e",
+                "source": "LOCAL_FILE-707574d6-2e44-4737-a609-a0d550e759b3",
+                "target": "IMAGE-c534ea31-0ca7-4b51-9379-be876ebd3e3f",
                 "sourceHandle": "default",
-                "target": "DEEPLAB_V3-d48ad00f-5f1d-4abc-b6e9-5dbca49c6504",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LOCAL_FILE-ea2690c7-1b37-40c0-9d02-b000a553c3ecdefault-DEEPLAB_V3-d48ad00f-5f1d-4abc-b6e9-5dbca49c6504default"
+                "data": {
+                    "outputType": "Image"
+                }
             },
             {
+                "id": "DEEPLAB_V3-d48ad00f-5f1d-4abc-b6e9-5dbca49c6504->IMAGE-75890da4-6dd3-48ae-9ef5-e734b7086e75_6ad106d4-159d-4a7b-8ea3-e3053aa79547",
                 "source": "DEEPLAB_V3-d48ad00f-5f1d-4abc-b6e9-5dbca49c6504",
+                "target": "IMAGE-75890da4-6dd3-48ae-9ef5-e734b7086e75",
                 "sourceHandle": "default",
-                "target": "IMAGE-4f7be017-7bb2-4650-b357-536574caaef9",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DEEPLAB_V3-d48ad00f-5f1d-4abc-b6e9-5dbca49c6504default-IMAGE-4f7be017-7bb2-4650-b357-536574caaef9default"
+                "data": {
+                    "outputType": "Image"
+                }
             },
             {
-                "source": "LOCAL_FILE-ea2690c7-1b37-40c0-9d02-b000a553c3ec",
+                "id": "LOCAL_FILE-707574d6-2e44-4737-a609-a0d550e759b3->DEEPLAB_V3-d48ad00f-5f1d-4abc-b6e9-5dbca49c6504_aebfe958-1916-4d29-aedf-804e16fa66da",
+                "source": "LOCAL_FILE-707574d6-2e44-4737-a609-a0d550e759b3",
+                "target": "DEEPLAB_V3-d48ad00f-5f1d-4abc-b6e9-5dbca49c6504",
                 "sourceHandle": "default",
-                "target": "IMAGE-587cc53c-8da9-4bd5-a525-44386424da4b",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LOCAL_FILE-ea2690c7-1b37-40c0-9d02-b000a553c3ecdefault-IMAGE-587cc53c-8da9-4bd5-a525-44386424da4bdefault"
+                "data": {
+                    "outputType": "Image"
+                }
             }
-        ],
-        "viewport": {
-            "x": -501.95459935516146,
-            "y": 197.98083177807212,
-            "zoom": 1.4811524052100216
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": []
 }
