@@ -7,7 +7,6 @@ const LinkRenderer = ({
 }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
   return (
     <a
-      href={props.href}
       target="_blank"
       className="text-accent1 hover:text-accent1-hover"
       {...props}

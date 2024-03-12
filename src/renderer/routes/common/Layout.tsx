@@ -35,7 +35,8 @@ export const Layout = () => {
   return (
     <div>
       <div className="relative bg-background px-8 pb-2">
-        {activeTab === "Visual Python Script" && (
+        {(activeTab === "Visual Python Script" ||
+          activeTab === "Control Panel") && (
           <div className="absolute left-10 top-1.5 flex items-center gap-x-1 rounded-md p-1">
             <Input
               className={

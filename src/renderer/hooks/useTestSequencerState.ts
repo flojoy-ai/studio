@@ -17,7 +17,7 @@ import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useShallow } from "zustand/react/shallow";
 import { v4 as uuidv4 } from "uuid";
 import { Err, Ok, Result } from "neverthrow";
-import { verifyElementCompatibleWithProject } from "../utils/TestSequenceProjectHandler";
+import { verifyElementCompatibleWithProject } from "@/renderer/utils/TestSequenceProjectHandler";
 
 // sync this with the definition of setElems
 export type SetElemsFn = {

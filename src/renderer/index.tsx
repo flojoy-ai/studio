@@ -12,7 +12,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { ErrorPage } from "@/renderer/ErrorPage";
 import { HashRouter } from "react-router-dom";
 import { AuthContextProvider } from "./context/auth.context";
-import { ThemeProvider } from "./providers/them-provider";
+import { ThemeProvider } from "./providers/theme-provider";
 import { TestSequencerWSProvider } from "./context/testSequencerWS.context";
 
 const root = createRoot(document.getElementById("root") as HTMLElement);

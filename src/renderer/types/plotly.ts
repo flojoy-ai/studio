@@ -4,13 +4,13 @@ import type { PlotParams } from "react-plotly.js";
 export type OverridePlotData = Array<
   Partial<PlotData> & {
     header?: {
-      values?: any[];
+      values?: unknown[];
       fill: {
         color: string;
       };
     };
     cells?: {
-      values?: any[];
+      values?: unknown[];
       fill: { color: string };
     };
   }

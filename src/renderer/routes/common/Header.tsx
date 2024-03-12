@@ -25,6 +25,12 @@ const tabs: Tab[] = [
     testId: "script-btn",
   },
   {
+    to: "/control",
+    fullText: "Control Panel",
+    shortText: "Control",
+    testId: "control-btn",
+  },
+  {
     to: "/devices",
     fullText: "Hardware Devices",
     shortText: "Devices",

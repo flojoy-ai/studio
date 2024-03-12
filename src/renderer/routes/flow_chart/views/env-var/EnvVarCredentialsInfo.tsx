@@ -10,9 +10,6 @@ import {
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { EnvVar } from "@/renderer/types/env-var";
 import { getEnvironmentVariable } from "@/renderer/lib/api";
-import { ZodError } from "zod";
-import { toast } from "sonner";
-import { fromZodError } from "zod-validation-error";
 import { toastQueryError } from "@/renderer/utils/report-error";
 
 type Props = {

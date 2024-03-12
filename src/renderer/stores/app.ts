@@ -4,6 +4,7 @@ import { immer } from "zustand/middleware/immer";
 export type TabName =
   | "Test Sequencer"
   | "Visual Python Script"
+  | "Control Panel"
   | "Hardware Devices";
 
 type State = {

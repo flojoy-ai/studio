@@ -3,7 +3,7 @@ import { memo, useEffect, useMemo, useState } from "react";
 import { makePlotlyData } from "@/renderer/components/plotly/formatPlotlyData";
 import PlotlyComponent from "@/renderer/components/plotly/PlotlyComponent";
 import MarkDownText from "@/renderer/components/common/MarkDownText";
-import { useTheme } from "@/renderer/providers/them-provider";
+import { useTheme } from "@/renderer/providers/theme-provider";
 import { useBlockStatus } from "@/renderer/hooks/useBlockStatus";
 import { NodeResizer, useUpdateNodeInternals } from "reactflow";
 import DefaultBlock from "./default-block";

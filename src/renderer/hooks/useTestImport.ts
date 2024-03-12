@@ -1,12 +1,10 @@
-import { Test, TestDiscoverContainer } from "@/renderer/types/test-sequencer";
+import { TestDiscoverContainer } from "@/renderer/types/test-sequencer";
 import { createNewTest, useTestSequencerState } from "./useTestSequencerState";
 import { map } from "lodash";
-import { v4 as uuidv4 } from "uuid";
 import { ImportTestSettings } from "@/renderer/routes/test_sequencer_panel/components/ImportTestModal";
 import { toast } from "sonner";
 import { useCallback } from "react";
 import { Dispatch, SetStateAction } from "react";
-import { verifyElementCompatibleWithProject } from "@/renderer/utils/TestSequenceProjectHandler";
 import { discoverPytest } from "@/renderer/lib/api";
 import { toastQueryError } from "@/renderer/utils/report-error";
 
@@ -25,7 +23,7 @@ function parseDiscoverContainer(
 }
 
 export const useTestImport = () => {
-  const { project, AddNewElems } = useTestSequencerState();
+  const { AddNewElems } = useTestSequencerState();
 
   const handleUserDepInstall = useCallback(async (depName: string) => {
     const promise = () => window.api.poetryInstallDepUserGroup(depName);

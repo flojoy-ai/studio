@@ -77,14 +77,17 @@ export const pickDirectory = async (
   _,
   allowDirectoryCreation: boolean = false,
 ): Promise<string> => {
-  const properties = ["openDirectory"];
+  let handler: Electron.OpenDialogReturnValue;
   if (allowDirectoryCreation) {
-    properties.push("createDirectory");
+    handler = await dialog.showOpenDialog({
+      properties: ["openDirectory", "createDirectory"],
+    });
+  } else {
+    handler = await dialog.showOpenDialog({
+      properties: ["openDirectory"],
+    });
   }
-  const handler = await dialog.showOpenDialog({
-    // @ts-ignore
-    properties: properties,
-  });
+
   return handler.canceled
     ? ""
     : handler.filePaths[0].split(sep).join(posix.sep);
