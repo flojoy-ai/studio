@@ -17,6 +17,7 @@ type DefaultBlockProps = BlockProps & {
   showLabel?: boolean;
   className?: string;
   labelPosition?: "left" | "right" | "center";
+  wrapperStyle?: CSSProperties;
 };
 
 const DefaultBlock = ({
@@ -29,6 +30,7 @@ const DefaultBlock = ({
   showLabel = true,
   className,
   labelPosition,
+  wrapperStyle,
 }: DefaultBlockProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   const { blockRunning, blockError } = useBlockStatus(data.id);
@@ -38,7 +40,12 @@ const DefaultBlock = ({
   );
 
   return (
-    <NodeWrapper nodeError={blockError} data={data} selected={selected}>
+    <NodeWrapper
+      nodeError={blockError}
+      data={data}
+      selected={selected}
+      style={wrapperStyle}
+    >
       <div
         className={clsx(
           `${variantClassMap[variant].border} relative flex min-h-[96px] items-center justify-center rounded-lg border-2 border-solid p-2`,
@@ -50,8 +57,8 @@ const DefaultBlock = ({
           className,
         )}
         style={{
-          width,
-          minHeight: height || maxInputOutput * 38 + 32,
+          width: width,
+          minHeight: height || maxInputOutput * 58 + 38,
         }}
         onDoubleClick={() => setIsRenamingTitle(true)}
       >

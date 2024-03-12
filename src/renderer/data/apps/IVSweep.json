@@ -1,4 +1,5 @@
 {
+  "name": "IV Sweep",
   "rfInstance": {
     "nodes": [
       {
@@ -48,7 +49,7 @@
           "x": -672.9705519399253,
           "y": -345.8676653985847
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "width": 192,
@@ -160,8 +161,8 @@
               "name": "input",
               "id": "input",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -181,15 +182,15 @@
           "path": "HARDWARE/SOURCEMETERS/KEITHLEY/2450/IV_SWEEP_2450/IV_SWEEP_2450.py"
         },
         "position": {
-          "x": -378.6506972556997,
-          "y": -345.45165192434666
+          "x": -188.32832784400642,
+          "y": -346.5454586451035
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -378.6506972556997,
-          "y": -345.45165192434666
+          "x": -188.32832784400642,
+          "y": -346.5454586451035
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "width": 380,
@@ -245,8 +246,8 @@
               "name": "default",
               "id": "default",
               "type": "OrderedPair|DataFrame|Matrix|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -260,45 +261,46 @@
           "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
         },
         "position": {
-          "x": -49.74793183836513,
-          "y": -396.3301324465528
+          "x": 277.6353132585617,
+          "y": -388.71783537569377
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -49.74793183836513,
-          "y": -396.3301324465528
+          "x": 277.6353132585617,
+          "y": -388.71783537569377
         },
-        "dragging": true
+        "dragging": false
       }
     ],
     "edges": [
       {
-        "source": "IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010",
+        "id": "CONNECT_2450-72b8d59f-b577-4f92-b3df-705b3fc2cd06->IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010",
+        "source": "CONNECT_2450-72b8d59f-b577-4f92-b3df-705b3fc2cd06",
+        "target": "IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010",
         "sourceHandle": "default",
-        "target": "LINE-30feab30-6d4f-4274-8877-383382355e5f",
-        "targetHandle": "default",
-        "id": "reactflow__edge-IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010default-LINE-30feab30-6d4f-4274-8877-383382355e5fdefault"
+        "targetHandle": "input",
+        "data": {
+          "outputType": "String"
+        }
       },
       {
-        "source": "CONNECT_2450-72b8d59f-b577-4f92-b3df-705b3fc2cd06",
+        "id": "IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010->LINE-30feab30-6d4f-4274-8877-383382355e5f",
+        "source": "IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010",
+        "target": "LINE-30feab30-6d4f-4274-8877-383382355e5f",
         "sourceHandle": "default",
-        "target": "IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010",
-        "targetHandle": "input",
-        "id": "reactflow__edge-CONNECT_2450-72b8d59f-b577-4f92-b3df-705b3fc2cd06default-IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010input"
+        "targetHandle": "default",
+        "data": {
+          "outputType": "OrderedPair"
+        }
       }
-    ],
-    "viewport": {
-      "x": 994.2991122110108,
-      "y": 573.4932402039965,
-      "zoom": 0.9719556784888205
-    }
+    ]
   },
   "textNodes": [
     {
       "id": "TextNode-1c9af5ae-81b7-437f-a108-1d85efbe8963",
       "position": {
-        "x": -656.9814908380006,
-        "y": -115.55375134086628
+        "x": -357.595171168341,
+        "y": -47.6374103046935
       },
       "type": "TextNode",
       "data": {
@@ -308,8 +310,8 @@
       "height": 161,
       "selected": false,
       "positionAbsolute": {
-        "x": -656.9814908380006,
-        "y": -115.55375134086628
+        "x": -357.595171168341,
+        "y": -47.6374103046935
       },
       "dragging": false,
       "style": {

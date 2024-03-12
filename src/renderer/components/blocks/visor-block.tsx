@@ -1,5 +1,5 @@
 import { BlockProps } from "@/renderer/types/block";
-import { memo, useMemo, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { makePlotlyData } from "@/renderer/components/plotly/formatPlotlyData";
 import PlotlyComponent from "@/renderer/components/plotly/PlotlyComponent";
 import MarkDownText from "@/renderer/components/common/MarkDownText";
@@ -8,11 +8,13 @@ import { useBlockStatus } from "@/renderer/hooks/useBlockStatus";
 import { NodeResizer, useUpdateNodeInternals } from "reactflow";
 import DefaultBlock from "./default-block";
 import { useBlockIcon } from "@/renderer/hooks/useBlockIcon";
-// import { useSocketStore } from "@/renderer/stores/socket";
+import { useProjectStore } from "@/renderer/stores/project";
 
 const VisorBlock = (props: BlockProps) => {
-  const { selected, id, data } = props;
+  const { selected, data, id } = props;
   const { SvgIcon } = useBlockIcon(props.type.toLowerCase(), props.data.func);
+  const nodes = useProjectStore((state) => state.nodes);
+
   const { resolvedTheme } = useTheme();
   const { blockResult } = useBlockStatus(data.id);
 
@@ -24,10 +26,19 @@ const VisorBlock = (props: BlockProps) => {
       plotlyFig ? makePlotlyData(plotlyFig.data, resolvedTheme, true) : null,
     [plotlyFig, resolvedTheme],
   );
-
-  const [dimensions, setDimensions] = useState({ width: 225, height: 205 });
+  const [dimensions, setDimensions] = useState({ width: 225, height: 225 });
 
   const updateNodeInternals = useUpdateNodeInternals();
+
+  // TODO: Fix this
+  useEffect(() => {
+    // Weird hack to make it properly set the dimensions when loading an app...
+    // I tried like 10 different things but this is the only thing that works without being crazy slow
+    const node = nodes.find((n) => n.id === id);
+    if (node?.width && node?.height) {
+      setDimensions({ width: node.width, height: node.height });
+    }
+  }, [id, nodes]);
 
   return (
     <>
@@ -42,7 +53,13 @@ const VisorBlock = (props: BlockProps) => {
           updateNodeInternals(id);
         }}
       />
-      <DefaultBlock {...props} variant="accent5" width={dimensions.width}>
+      <DefaultBlock
+        {...props}
+        variant="accent5"
+        height={dimensions.height}
+        width={dimensions.width}
+        wrapperStyle={dimensions}
+      >
         <>
           {plotlyData && (
             <PlotlyComponent

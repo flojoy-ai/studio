@@ -17,8 +17,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -38,17 +38,17 @@
           "path": "HARDWARE/OSCILLOSCOPES/PICO/PICO2000/CONNECTION_2000/CONNECTION_2000.py"
         },
         "position": {
-          "x": 43.119757002993,
-          "y": 116.52836919733494
+          "x": -130.41074309455755,
+          "y": 112.7831066053015
         },
         "width": 218,
         "height": 233,
         "selected": false,
         "positionAbsolute": {
-          "x": 43.119757002993,
-          "y": 116.52836919733494
+          "x": -130.41074309455755,
+          "y": 112.7831066053015
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "EXTRACT_TRACE_2000-84519beb-1e40-4a09-8304-c36a04f8754a",
@@ -114,8 +114,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -135,17 +135,17 @@
           "path": "HARDWARE/OSCILLOSCOPES/PICO/PICO2000/EXTRACT_TRACE_2000/EXTRACT_TRACE_2000.py"
         },
         "position": {
-          "x": 715.4758525611298,
-          "y": 112.74400889793924
+          "x": 686.7621726888732,
+          "y": 112.7440088979393
         },
         "width": 216,
         "height": 233,
         "selected": false,
         "positionAbsolute": {
-          "x": 715.4758525611298,
-          "y": 112.74400889793924
+          "x": 686.7621726888732,
+          "y": 112.7440088979393
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "FUNCTION_GENERATION_2000-b4c4902b-b6a8-4539-8bfc-109579dfa1ba",
@@ -246,8 +246,8 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "multiple": false,
-              "desc": null
+              "desc": null,
+              "multiple": false
             }
           ],
           "outputs": [
@@ -267,17 +267,17 @@
           "path": "HARDWARE/OSCILLOSCOPES/PICO/PICO2000/FUNCTION_GENERATION_2000/FUNCTION_GENERATION_2000.py"
         },
         "position": {
-          "x": 371.93290130834936,
-          "y": 115.41256599883326
+          "x": 290.78554514762425,
+          "y": 111.66730340679976
         },
         "width": 218,
         "height": 269,
         "selected": false,
         "positionAbsolute": {
-          "x": 371.93290130834936,
-          "y": 115.41256599883326
+          "x": 290.78554514762425,
+          "y": 111.66730340679976
         },
-        "dragging": true
+        "dragging": false
       },
       {
         "id": "LINE-fb8b28c1-081c-45f8-b2e5-10058d3cf759",
@@ -331,8 +331,8 @@
               "name": "default",
               "id": "default",
               "type": "OrderedPair|DataFrame|Matrix|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -346,47 +346,51 @@
           "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
         },
         "position": {
-          "x": 1016.6037864537018,
-          "y": 75.2162133095485
+          "x": 1132.7069268067391,
+          "y": 73.96779244553733
         },
         "width": 225,
         "height": 269,
         "selected": false,
         "positionAbsolute": {
-          "x": 1016.6037864537018,
-          "y": 75.2162133095485
+          "x": 1132.7069268067391,
+          "y": 73.96779244553733
         },
-        "dragging": true
+        "dragging": false
       }
     ],
     "edges": [
       {
+        "id": "CONNECTION_2000-b3e3eb27-280a-435b-a27c-3c095161eee8->FUNCTION_GENERATION_2000-b4c4902b-b6a8-4539-8bfc-109579dfa1ba",
         "source": "CONNECTION_2000-b3e3eb27-280a-435b-a27c-3c095161eee8",
-        "sourceHandle": "default",
         "target": "FUNCTION_GENERATION_2000-b4c4902b-b6a8-4539-8bfc-109579dfa1ba",
+        "sourceHandle": "default",
         "targetHandle": "default",
-        "id": "reactflow__edge-CONNECTION_2000-b3e3eb27-280a-435b-a27c-3c095161eee8default-FUNCTION_GENERATION_2000-b4c4902b-b6a8-4539-8bfc-109579dfa1badefault"
+        "data": {
+          "outputType": "String"
+        }
       },
       {
+        "id": "FUNCTION_GENERATION_2000-b4c4902b-b6a8-4539-8bfc-109579dfa1ba->EXTRACT_TRACE_2000-84519beb-1e40-4a09-8304-c36a04f8754a",
         "source": "FUNCTION_GENERATION_2000-b4c4902b-b6a8-4539-8bfc-109579dfa1ba",
-        "sourceHandle": "default",
         "target": "EXTRACT_TRACE_2000-84519beb-1e40-4a09-8304-c36a04f8754a",
+        "sourceHandle": "default",
         "targetHandle": "default",
-        "id": "reactflow__edge-FUNCTION_GENERATION_2000-b4c4902b-b6a8-4539-8bfc-109579dfa1badefault-EXTRACT_TRACE_2000-84519beb-1e40-4a09-8304-c36a04f8754adefault"
+        "data": {
+          "outputType": "String"
+        }
       },
       {
+        "id": "EXTRACT_TRACE_2000-84519beb-1e40-4a09-8304-c36a04f8754a->LINE-fb8b28c1-081c-45f8-b2e5-10058d3cf759",
         "source": "EXTRACT_TRACE_2000-84519beb-1e40-4a09-8304-c36a04f8754a",
-        "sourceHandle": "default",
         "target": "LINE-fb8b28c1-081c-45f8-b2e5-10058d3cf759",
+        "sourceHandle": "default",
         "targetHandle": "default",
-        "id": "reactflow__edge-EXTRACT_TRACE_2000-84519beb-1e40-4a09-8304-c36a04f8754adefault-LINE-fb8b28c1-081c-45f8-b2e5-10058d3cf759default"
+        "data": {
+          "outputType": "OrderedPair"
+        }
       }
-    ],
-    "viewport": {
-      "x": 1139.470292881633,
-      "y": 572.2854272048312,
-      "zoom": 1.2136444284334926
-    }
+    ]
   },
   "textNodes": []
 }

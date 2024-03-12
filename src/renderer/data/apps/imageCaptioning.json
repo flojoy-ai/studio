@@ -19,8 +19,8 @@
               "name": "default",
               "id": "default",
               "type": "Image",
-              "multiple": false,
-              "desc": "The image to caption."
+              "desc": "The image to caption.",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -74,8 +74,8 @@
               "name": "default",
               "id": "default",
               "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -116,8 +116,8 @@
               "name": "default",
               "id": "default",
               "type": "Image|Grayscale",
-              "multiple": false,
-              "desc": "the DataContainer to be visualized"
+              "desc": "the DataContainer to be visualized",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -178,8 +178,8 @@
               "name": "default",
               "id": "default",
               "type": "String",
-              "multiple": false,
-              "desc": "If this input node is connected, the file name will be taken from\nthe output of the connected node.\nTo be used in conjunction with batch processing."
+              "desc": "If this input node is connected, the file name will be taken from\nthe output of the connected node.\nTo be used in conjunction with batch processing.",
+              "multiple": false
             }
           ],
           "outputs": [
@@ -228,18 +228,16 @@
         "id": "reactflow__edge-LOCAL_FILE-4ac28979-fe48-4258-ad02-9363203b400ddefault-IMAGE-09bb95a6-f298-43ad-9c06-86ebc1896deadefault"
       },
       {
+        "id": "NLP_CONNECT_VIT_GPT2-d11a4ea9-8f99-44cb-a6ba-338ddbc8582a->TABLE-03f4426e-9546-4b9a-82f4-402ade6b4358",
         "source": "NLP_CONNECT_VIT_GPT2-d11a4ea9-8f99-44cb-a6ba-338ddbc8582a",
-        "sourceHandle": "default",
         "target": "TABLE-03f4426e-9546-4b9a-82f4-402ade6b4358",
+        "sourceHandle": "default",
         "targetHandle": "default",
-        "id": "reactflow__edge-NLP_CONNECT_VIT_GPT2-d11a4ea9-8f99-44cb-a6ba-338ddbc8582adefault-TABLE-03f4426e-9546-4b9a-82f4-402ade6b4358default"
+        "data": {
+          "outputType": "DataFrame"
+        }
       }
-    ],
-    "viewport": {
-      "x": 804.6656120755285,
-      "y": 345.6859295932446,
-      "zoom": 0.6867439342345503
-    }
+    ]
   },
   "textNodes": []
 }

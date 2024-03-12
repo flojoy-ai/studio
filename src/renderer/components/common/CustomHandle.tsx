@@ -36,7 +36,7 @@ const HandleWrapper = forwardRef<HTMLDivElement, CustomHandleProps>(
     return (
       <Handle
         className={clsx(
-          "!h-7 !w-3 !rounded-none !border-2 transition-colors duration-150",
+          "!h-10 !w-4 !rounded-none !border-2 transition-colors duration-150",
           handle({ variant }),
           className,
         )}
