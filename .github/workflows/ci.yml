@@ -66,11 +66,14 @@ jobs:
       - name: Install Node Dependencies
         run: pnpm install
 
-      - name: Black Prettier check
-        run: pnpm run check
+      - name: Eslint check
+        run: pnpm lint
 
       - name: Typescript check
         run: pnpm exec tsc --noEmit
+
+      - name: Black Prettier check
+        run: pnpm run check
 
   python-tests:
     runs-on: ubuntu-latest

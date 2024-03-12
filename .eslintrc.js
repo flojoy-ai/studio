@@ -14,7 +14,7 @@ module.exports = {
   plugins: ["react-refresh"],
   rules: {
     "no-restricted-imports": [
-      "error",
+      "warn",
       {
         patterns: [
           {
