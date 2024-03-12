@@ -2,8 +2,8 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f",
                 "type": "DATA",
                 "data": {
@@ -47,7 +47,7 @@
             },
             {
                 "width": 225,
-                "height": 226,
+                "height": 225,
                 "id": "TEXT_VIEW-b4f49971-09c4-4ad9-a4a2-417eae73808c",
                 "type": "VISUALIZATION",
                 "data": {
@@ -72,8 +72,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "String|Boolean",
-                            "multiple": false,
-                            "desc": "The DataContainer to be visualized in text format"
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -88,31 +88,29 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 286.78490831190555,
-                    "y": -189.95722633108144
+                    "x": 292.2652641397788,
+                    "y": -163.92553614868348
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 286.78490831190555,
-                    "y": -189.95722633108144
+                    "x": 292.2652641397788,
+                    "y": -163.92553614868348
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
+                "id": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f->TEXT_VIEW-b4f49971-09c4-4ad9-a4a2-417eae73808c_14f372ba-c686-4e5a-ac33-a6b711e352d7",
                 "source": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f",
-                "sourceHandle": "default",
                 "target": "TEXT_VIEW-b4f49971-09c4-4ad9-a4a2-417eae73808c",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91fdefault-TEXT_VIEW-b4f49971-09c4-4ad9-a4a2-417eae73808cdefault"
+                "data": {
+                    "outputType": "Boolean"
+                }
             }
-        ],
-        "viewport": {
-            "x": 695.5292625331784,
-            "y": 411.9979742640432,
-            "zoom": 0.6998961918490142
-        }
+        ]
     },
     "textNodes": []
 }

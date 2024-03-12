@@ -2,15 +2,13 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 150,
-                "height": 150,
-                "id": "PLOTLY_DATASET-18ff6bc0-bc2c-4a83-8d32-e0017d63b86a",
-                "type": "GENERATORS",
+                "id": "PLOTLY_DATASET-bcaa60ef-752f-411b-b0ac-d20dc54a2771",
+                "type": "DATA",
                 "data": {
-                    "id": "PLOTLY_DATASET-18ff6bc0-bc2c-4a83-8d32-e0017d63b86a",
+                    "id": "PLOTLY_DATASET-bcaa60ef-752f-411b-b0ac-d20dc54a2771",
                     "label": "PLOTLY DATASET",
                     "func": "PLOTLY_DATASET",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "dataset_key": {
                             "type": "select",
@@ -27,48 +25,53 @@
                                 "medals_wide",
                                 "stocks"
                             ],
+                            "desc": null,
+                            "overload": null,
                             "functionName": "PLOTLY_DATASET",
                             "param": "dataset_key",
                             "value": "wind"
                         }
                     },
+                    "initCtrls": {},
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "DataFrame"
+                            "type": "DataFrame",
+                            "desc": null
                         }
                     ],
-                    "path": "PYTHON/nodes\\GENERATORS\\SAMPLE_DATASETS\\PLOTLY_DATASET\\PLOTLY_DATASET.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SAMPLE_DATASETS/PLOTLY_DATASET/PLOTLY_DATASET.py"
                 },
                 "position": {
-                    "x": 642.5684228036087,
-                    "y": 144.85787227656903
+                    "x": 602.1528415563926,
+                    "y": 85.99189546103509
                 },
+                "width": 216,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 642.5684228036087,
-                    "y": 144.85787227656903
+                    "x": 602.1528415563926,
+                    "y": 85.99189546103509
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 225,
-                "height": 226,
-                "id": "TABLE-074b186e-cc6b-43d4-910e-63c2a8e3650a",
-                "type": "VISUALIZERS",
+                "id": "TABLE-d0a1287b-9fe8-41f5-b269-7f6b4899db75",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "TABLE-074b186e-cc6b-43d4-910e-63c2a8e3650a",
+                    "id": "TABLE-d0a1287b-9fe8-41f5-b269-7f6b4899db75",
                     "label": "TABLE",
                     "func": "TABLE",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "OrderedTriple|OrderedPair|DataFrame|Matrix|Vector",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "desc": "the DataContainer to be visualized",
                             "multiple": false
                         }
                     ],
@@ -76,56 +79,38 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Plotly"
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Table visualization"
                         }
                     ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\TABLE\\TABLE.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
                 },
                 "position": {
-                    "x": 1069.1596600416776,
-                    "y": 111.92430876780708
+                    "x": 1058.8810274585119,
+                    "y": 49.021530590116754
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1069.1596600416776,
-                    "y": 111.92430876780708
+                    "x": 1058.8810274585119,
+                    "y": 49.021530590116754
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "PLOTLY_DATASET-18ff6bc0-bc2c-4a83-8d32-e0017d63b86a",
+                "id": "PLOTLY_DATASET-bcaa60ef-752f-411b-b0ac-d20dc54a2771->TABLE-d0a1287b-9fe8-41f5-b269-7f6b4899db75_d7fd47a0-f7f0-43d2-bad7-2bc558b487af",
+                "source": "PLOTLY_DATASET-bcaa60ef-752f-411b-b0ac-d20dc54a2771",
+                "target": "TABLE-d0a1287b-9fe8-41f5-b269-7f6b4899db75",
                 "sourceHandle": "default",
-                "target": "TABLE-074b186e-cc6b-43d4-910e-63c2a8e3650a",
                 "targetHandle": "default",
-                "id": "reactflow__edge-PLOTLY_DATASET-18ff6bc0-bc2c-4a83-8d32-e0017d63b86adefault-TABLE-074b186e-cc6b-43d4-910e-63c2a8e3650adefault"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             }
-        ],
-        "viewport": {
-            "x": -296.35399545928726,
-            "y": 66.8470830817738,
-            "zoom": 0.8744723800359967
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": []
 }

@@ -2,79 +2,94 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
-                "id": "CONSTANT-9bfa0626-7664-41a7-b5bc-ec8f62540e35",
-                "type": "GENERATORS",
+                "id": "CONSTANT-32b85769-dc09-410f-ad3b-0eb3f0136644",
+                "type": "DATA",
                 "data": {
-                    "id": "CONSTANT-9bfa0626-7664-41a7-b5bc-ec8f62540e35",
-                    "label": "3.0",
+                    "id": "CONSTANT-32b85769-dc09-410f-ad3b-0eb3f0136644",
+                    "label": "3",
                     "func": "CONSTANT",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
+                        "dc_type": {
+                            "type": "select",
+                            "default": "OrderedPair",
+                            "options": [
+                                "Scalar",
+                                "Vector",
+                                "OrderedPair"
+                            ],
+                            "desc": "The type of DataContainer to return.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "dc_type",
+                            "value": "Scalar"
+                        },
                         "constant": {
                             "type": "float",
                             "default": 3,
-                            "desc": null,
+                            "desc": "The value of the y axis output.",
+                            "overload": null,
                             "functionName": "CONSTANT",
                             "param": "constant",
                             "value": 3
                         },
                         "step": {
-                            "type": "int",
+                            "type": "float",
                             "default": 1000,
-                            "desc": null,
+                            "desc": "The size of the y and x axes.",
+                            "overload": null,
                             "functionName": "CONSTANT",
                             "param": "step",
                             "value": 1000
                         }
                     },
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": null
+                            "desc": "Optional input that defines the size of the output.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "OrderedPair",
-                            "desc": null
+                            "type": "OrderedPair|Vector|Scalar",
+                            "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
                         }
                     ],
-                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\CONSTANT\\CONSTANT.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
                 },
                 "position": {
-                    "x": -130.83989138018498,
-                    "y": 13.422546284269998
+                    "x": -68.43400302979374,
+                    "y": -217.55557300786677
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -130.83989138018498,
-                    "y": 13.422546284269998
+                    "x": -68.43400302979374,
+                    "y": -217.55557300786677
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 225,
-                "height": 226,
-                "id": "BIG_NUMBER-23d35b1d-f436-4201-8aa1-69c93ff7ed99",
-                "type": "VISUALIZERS",
+                "id": "BIG_NUMBER-32cc1056-990d-4b40-9b65-404e82a97b6a",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "BIG_NUMBER-23d35b1d-f436-4201-8aa1-69c93ff7ed99",
+                    "id": "BIG_NUMBER-32cc1056-990d-4b40-9b65-404e82a97b6a",
                     "label": "BIG NUMBER",
                     "func": "BIG_NUMBER",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {
                         "suffix": {
                             "type": "str",
                             "default": null,
-                            "desc": null,
+                            "desc": "any suffix to show with big number",
+                            "overload": null,
                             "functionName": "BIG_NUMBER",
                             "param": "suffix",
                             "value": ""
@@ -82,7 +97,8 @@
                         "prefix": {
                             "type": "str",
                             "default": null,
-                            "desc": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
                             "functionName": "BIG_NUMBER",
                             "param": "prefix",
                             "value": ""
@@ -90,27 +106,48 @@
                         "title": {
                             "type": "str",
                             "default": null,
-                            "desc": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
                             "functionName": "BIG_NUMBER",
                             "param": "title",
                             "value": ""
                         },
+                        "dec_places": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "dec_places",
+                            "value": 0
+                        },
                         "relative_delta": {
                             "type": "bool",
                             "default": true,
-                            "desc": null,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
                             "functionName": "BIG_NUMBER",
                             "param": "relative_delta",
                             "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Use scientific notation? Defaults to 4 decimal places.",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": false
                         }
                     },
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "OrderedPair|Scalar",
-                            "multiple": false,
-                            "desc": null
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -118,56 +155,37 @@
                             "name": "default",
                             "id": "default",
                             "type": "Plotly",
-                            "desc": null
+                            "desc": "the DataContainer containing the Plotly big number visualization"
                         }
                     ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\BIG_NUMBER\\BIG_NUMBER.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py"
                 },
                 "position": {
-                    "x": 294.1748962833931,
-                    "y": -62.1556648169163
+                    "x": 277.1903437528849,
+                    "y": -251.32486409757897
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 294.1748962833931,
-                    "y": -62.1556648169163
+                    "x": 277.1903437528849,
+                    "y": -251.32486409757897
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "CONSTANT-9bfa0626-7664-41a7-b5bc-ec8f62540e35",
+                "id": "CONSTANT-32b85769-dc09-410f-ad3b-0eb3f0136644->BIG_NUMBER-32cc1056-990d-4b40-9b65-404e82a97b6a_9f403a89-1c4e-4f0f-ae46-c851dba6ce3d",
+                "source": "CONSTANT-32b85769-dc09-410f-ad3b-0eb3f0136644",
+                "target": "BIG_NUMBER-32cc1056-990d-4b40-9b65-404e82a97b6a",
                 "sourceHandle": "default",
-                "target": "BIG_NUMBER-23d35b1d-f436-4201-8aa1-69c93ff7ed99",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CONSTANT-9bfa0626-7664-41a7-b5bc-ec8f62540e35default-BIG_NUMBER-23d35b1d-f436-4201-8aa1-69c93ff7ed99default"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             }
-        ],
-        "viewport": {
-            "x": 606.4472645567363,
-            "y": 234.63130388602087,
-            "zoom": 0.9186369849831518
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": []
 }

@@ -27,6 +27,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "lucide-react": "^0.331.0",
+    "neverthrow": "^6.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^9.0.1",
@@ -34,7 +35,9 @@
     "rehype-katex": "^7.0.0",
     "remark-math": "^6.0.0",
     "sharp": "^0.33.2",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.1",
+    "vite-plugin-svgr": "^4.2.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "prettier": "^3.2.5",

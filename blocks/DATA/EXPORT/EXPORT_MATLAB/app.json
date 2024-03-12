@@ -1,4 +1,5 @@
 {
+    "name": "app",
     "rfInstance": {
         "nodes": [
             {
@@ -70,8 +71,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Vector",
-                            "multiple": false,
-                            "desc": "Input that defines the x-axis values of the function and output."
+                            "desc": "Input that defines the x-axis values of the function and output.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -85,15 +86,15 @@
                     "path": "DATA/GENERATION/SIMULATIONS/SINE/SINE.py"
                 },
                 "position": {
-                    "x": -34.00149618766076,
-                    "y": -71.99401792117084
+                    "x": 265.65660445184267,
+                    "y": -75.98945926303088
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -34.00149618766076,
-                    "y": -71.99401792117084
+                    "x": 265.65660445184267,
+                    "y": -75.98945926303088
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 208,
@@ -140,8 +141,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -155,19 +156,19 @@
                     "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
                 },
                 "position": {
-                    "x": -336.67341264118056,
-                    "y": -71.7546304438876
+                    "x": -348.6597366667607,
+                    "y": -75.7500717857476
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -336.67341264118056,
-                    "y": -71.7546304438876
+                    "x": -348.6597366667607,
+                    "y": -75.7500717857476
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "EXPORT_MATLAB-e97b008b-863a-4952-9603-2f758b21fc85",
                 "type": "DATA",
                 "data": {
@@ -187,7 +188,7 @@
                         },
                         "filename": {
                             "type": "str",
-                            "default": "exported.csv",
+                            "default": "exported.mat",
                             "desc": "The name of the file to output.",
                             "overload": null,
                             "functionName": "EXPORT_MATLAB",
@@ -232,8 +233,8 @@
                             "name": "dc",
                             "id": "dc",
                             "type": "OrderedPair|OrderedTriple|DataFrame|Matrix",
-                            "multiple": false,
-                            "desc": "The DataContainer to export."
+                            "desc": "The DataContainer to export.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -247,39 +248,39 @@
                     "path": "DATA/EXPORT/EXPORT_MATLAB/EXPORT_MATLAB.py"
                 },
                 "position": {
-                    "x": 330.32660573014545,
-                    "y": -69.58630526811419
+                    "x": 859.7225835266015,
+                    "y": -77.57718795183433
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 330.32660573014545,
-                    "y": -69.58630526811419
+                    "x": 859.7225835266015,
+                    "y": -77.57718795183433
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
+                "id": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c->SINE-e3058354-d58c-49ac-9590-97f739e56270_b0efcfa0-457a-439d-9f27-716fa91b9945",
                 "source": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c",
-                "sourceHandle": "default",
                 "target": "SINE-e3058354-d58c-49ac-9590-97f739e56270",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356cdefault-SINE-e3058354-d58c-49ac-9590-97f739e56270default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
+                "id": "SINE-e3058354-d58c-49ac-9590-97f739e56270->EXPORT_MATLAB-e97b008b-863a-4952-9603-2f758b21fc85_516f835a-551a-4a48-b7da-5440e180a4fc",
                 "source": "SINE-e3058354-d58c-49ac-9590-97f739e56270",
-                "sourceHandle": "default",
                 "target": "EXPORT_MATLAB-e97b008b-863a-4952-9603-2f758b21fc85",
+                "sourceHandle": "default",
                 "targetHandle": "dc",
-                "id": "reactflow__edge-SINE-e3058354-d58c-49ac-9590-97f739e56270default-EXPORT_MATLAB-e97b008b-863a-4952-9603-2f758b21fc85dc"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             }
-        ],
-        "viewport": {
-            "x": 770.7046898488547,
-            "y": 391.36233285059785,
-            "zoom": 0.6637303836947388
-        }
+        ]
     },
-    "name": "app",
     "textNodes": []
 }

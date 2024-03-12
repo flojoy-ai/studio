@@ -2,8 +2,8 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1d",
                 "type": "DATA",
                 "data": {
@@ -51,8 +51,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input that defines the size of the output."
+                            "desc": "Optional input that defines the size of the output.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -77,8 +77,8 @@
                 "dragging": true
             },
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "RAND-17189505-635e-428c-8a2a-9620ce0ac25e",
                 "type": "DATA",
                 "data": {
@@ -177,8 +177,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": "unused in this node"
+                            "desc": "unused in this node",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -192,19 +192,19 @@
                     "path": "DATA/GENERATION/SIMULATIONS/RAND/RAND.py"
                 },
                 "position": {
-                    "x": 71.49537299909832,
-                    "y": -72.33823990380307
+                    "x": 70.45593017304142,
+                    "y": -75.45656838197377
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 71.49537299909832,
-                    "y": -72.33823990380307
+                    "x": 70.45593017304142,
+                    "y": -75.45656838197377
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "SINE-e3058354-d58c-49ac-9590-97f739e56270",
                 "type": "DATA",
                 "data": {
@@ -271,8 +271,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Vector",
-                            "multiple": false,
-                            "desc": "Input that defines the x-axis values of the function and output."
+                            "desc": "Input that defines the x-axis values of the function and output.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -297,8 +297,8 @@
                 "dragging": true
             },
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c",
                 "type": "DATA",
                 "data": {
@@ -341,8 +341,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -364,60 +364,11 @@
                     "x": -336.67341264118056,
                     "y": -71.7546304438876
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 72,
-                "height": 72,
-                "id": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
-                "type": "ARITHMETIC",
-                "data": {
-                    "id": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
-                    "label": "ADD",
-                    "func": "ADD",
-                    "type": "ARITHMETIC",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "a",
-                            "id": "a",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "The input a use to compute the sum of a and b."
-                        },
-                        {
-                            "name": "b",
-                            "id": "b",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": true,
-                            "desc": "The input b use to compute the sum of a and b."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the sum of input a and input b.\n\nScalar if a is a Scalar.\nc: the sum of input a and input b.\n\nVector if a is a Vector.\nv: the sum of input a and input b."
-                        }
-                    ],
-                    "path": "MATH/ARITHMETIC/ADD/ADD.py"
-                },
-                "position": {
-                    "x": 455.81410014711645,
-                    "y": -65.80836687150429
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 455.81410014711645,
-                    "y": -65.80836687150429
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "HISTOGRAM-149d70e3-3b62-411e-b5af-cd6793361245",
                 "type": "VISUALIZATION",
                 "data": {
@@ -432,8 +383,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -447,19 +398,19 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/HISTOGRAM/HISTOGRAM.py"
                 },
                 "position": {
-                    "x": 675.7697531609749,
-                    "y": -400.0941438515998
+                    "x": 939.432617206576,
+                    "y": -448.7128280018525
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 675.7697531609749,
-                    "y": -400.0941438515998
+                    "x": 939.432617206576,
+                    "y": -448.7128280018525
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "SCATTER-1d9a92a3-7920-4c42-999d-d13af5481b20",
                 "type": "VISUALIZATION",
                 "data": {
@@ -474,8 +425,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -489,23 +440,70 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
                 },
                 "position": {
-                    "x": 682.0263689660662,
-                    "y": 48.99663152269517
+                    "x": 947.5591824020614,
+                    "y": 133.14435409044012
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 682.0263689660662,
-                    "y": 48.99663152269517
+                    "x": 947.5591824020614,
+                    "y": 133.14435409044012
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
-                "id": "EXPORT_CSV-d5c10408-fcd5-4c6c-ac00-1fa12b6da0ce",
+                "id": "ADD-a465d714-3a48-4676-8bb3-af8e9e0a2c51",
+                "type": "MATH",
+                "data": {
+                    "id": "ADD-a465d714-3a48-4676-8bb3-af8e9e0a2c51",
+                    "label": "ADD 1",
+                    "func": "ADD",
+                    "type": "MATH",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "a",
+                            "id": "a",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "The input a use to compute the sum of a and b.",
+                            "multiple": false
+                        },
+                        {
+                            "name": "b",
+                            "id": "b",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "The input b use to compute the sum of a and b.",
+                            "multiple": true
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the sum of input a and input b.\n\nScalar if a is a Scalar.\nc: the sum of input a and input b.\n\nVector if a is a Vector.\nv: the sum of input a and input b."
+                        }
+                    ],
+                    "path": "MATH/ARITHMETIC/ADD/ADD.py"
+                },
+                "position": {
+                    "x": 494.47602057044605,
+                    "y": -104.42606708025176
+                },
+                "width": 216,
+                "height": 198,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 494.47602057044605,
+                    "y": -104.42606708025176
+                },
+                "dragging": false
+            },
+            {
+                "id": "EXPORT_CSV-f132af7a-223d-4531-a1a1-ba438d86e9c5",
                 "type": "DATA",
                 "data": {
-                    "id": "EXPORT_CSV-d5c10408-fcd5-4c6c-ac00-1fa12b6da0ce",
+                    "id": "EXPORT_CSV-f132af7a-223d-4531-a1a1-ba438d86e9c5",
                     "label": "EXPORT CSV",
                     "func": "EXPORT_CSV",
                     "type": "DATA",
@@ -513,7 +511,7 @@
                         "dir": {
                             "type": "Directory",
                             "default": null,
-                            "desc": null,
+                            "desc": "The directory to export to.",
                             "overload": null,
                             "functionName": "EXPORT_CSV",
                             "param": "dir",
@@ -522,7 +520,7 @@
                         "filename": {
                             "type": "str",
                             "default": "exported.csv",
-                            "desc": null,
+                            "desc": "The name of the file to output.",
                             "overload": null,
                             "functionName": "EXPORT_CSV",
                             "param": "filename",
@@ -534,9 +532,9 @@
                         {
                             "name": "dc",
                             "id": "dc",
-                            "type": "OrderedPair|OrderedTriple|DataFrame",
-                            "multiple": false,
-                            "desc": null
+                            "type": "OrderedPair|OrderedTriple|DataFrame|Matrix",
+                            "desc": "The DataContainer to export.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -550,87 +548,111 @@
                     "path": "DATA/EXPORT/EXPORT_CSV/EXPORT_CSV.py"
                 },
                 "position": {
-                    "x": 738.010731949527,
-                    "y": -73.02865885781654
+                    "x": 960.7048630787915,
+                    "y": -104.42699192310943
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 738.010731949527,
-                    "y": -73.02865885781654
+                    "x": 960.7048630787915,
+                    "y": -104.42699192310943
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
+                "id": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c->CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1d_6469db07-4ea1-4954-8d1c-886f368165e0",
                 "source": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c",
-                "sourceHandle": "default",
                 "target": "CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1d",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356cdefault-CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1ddefault"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
+                "id": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c->RAND-17189505-635e-428c-8a2a-9620ce0ac25e_5d162a31-a400-439c-8cf2-197f4021ed19",
                 "source": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c",
-                "sourceHandle": "default",
                 "target": "RAND-17189505-635e-428c-8a2a-9620ce0ac25e",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356cdefault-RAND-17189505-635e-428c-8a2a-9620ce0ac25edefault"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
+                "id": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c->SINE-e3058354-d58c-49ac-9590-97f739e56270_6d4cae10-008b-419d-8d9b-5141277da7d6",
                 "source": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c",
-                "sourceHandle": "default",
                 "target": "SINE-e3058354-d58c-49ac-9590-97f739e56270",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356cdefault-SINE-e3058354-d58c-49ac-9590-97f739e56270default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "RAND-17189505-635e-428c-8a2a-9620ce0ac25e",
-                "sourceHandle": "default",
-                "target": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
-                "targetHandle": "b",
-                "id": "reactflow__edge-RAND-17189505-635e-428c-8a2a-9620ce0ac25edefault-ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676b"
-            },
-            {
-                "source": "CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1d",
-                "sourceHandle": "default",
-                "target": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
-                "targetHandle": "b",
-                "id": "reactflow__edge-CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1ddefault-ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676b"
-            },
-            {
-                "source": "SINE-e3058354-d58c-49ac-9590-97f739e56270",
-                "sourceHandle": "default",
-                "target": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
-                "targetHandle": "a",
-                "id": "reactflow__edge-SINE-e3058354-d58c-49ac-9590-97f739e56270default-ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676a"
-            },
-            {
-                "source": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
-                "sourceHandle": "default",
+                "id": "ADD-a465d714-3a48-4676-8bb3-af8e9e0a2c51->HISTOGRAM-149d70e3-3b62-411e-b5af-cd6793361245_32449250-3dd2-4f88-bfa6-bbe91bc14eea",
+                "source": "ADD-a465d714-3a48-4676-8bb3-af8e9e0a2c51",
                 "target": "HISTOGRAM-149d70e3-3b62-411e-b5af-cd6793361245",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676default-HISTOGRAM-149d70e3-3b62-411e-b5af-cd6793361245default"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
-                "sourceHandle": "default",
+                "id": "ADD-a465d714-3a48-4676-8bb3-af8e9e0a2c51->SCATTER-1d9a92a3-7920-4c42-999d-d13af5481b20_abe5d217-b0e1-4930-a1df-58f84553586d",
+                "source": "ADD-a465d714-3a48-4676-8bb3-af8e9e0a2c51",
                 "target": "SCATTER-1d9a92a3-7920-4c42-999d-d13af5481b20",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676default-SCATTER-1d9a92a3-7920-4c42-999d-d13af5481b20default"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
+                "id": "SINE-e3058354-d58c-49ac-9590-97f739e56270->ADD-a465d714-3a48-4676-8bb3-af8e9e0a2c51_ae39076c-8044-4b75-aedf-b65b1c839a42",
+                "source": "SINE-e3058354-d58c-49ac-9590-97f739e56270",
+                "target": "ADD-a465d714-3a48-4676-8bb3-af8e9e0a2c51",
                 "sourceHandle": "default",
-                "target": "EXPORT_CSV-d5c10408-fcd5-4c6c-ac00-1fa12b6da0ce",
+                "targetHandle": "a",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "RAND-17189505-635e-428c-8a2a-9620ce0ac25e->ADD-a465d714-3a48-4676-8bb3-af8e9e0a2c51_c150c9d7-10ff-4a78-bb42-f79fdffea6b0",
+                "source": "RAND-17189505-635e-428c-8a2a-9620ce0ac25e",
+                "target": "ADD-a465d714-3a48-4676-8bb3-af8e9e0a2c51",
+                "sourceHandle": "default",
+                "targetHandle": "b",
+                "data": {
+                    "outputType": "Vector"
+                }
+            },
+            {
+                "id": "CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1d->ADD-a465d714-3a48-4676-8bb3-af8e9e0a2c51_3c15672b-9a36-4972-adac-3e86fd27da93",
+                "source": "CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1d",
+                "target": "ADD-a465d714-3a48-4676-8bb3-af8e9e0a2c51",
+                "sourceHandle": "default",
+                "targetHandle": "b",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "ADD-a465d714-3a48-4676-8bb3-af8e9e0a2c51->EXPORT_CSV-f132af7a-223d-4531-a1a1-ba438d86e9c5_417e8093-d062-4abb-96f5-ca59c96ce070",
+                "source": "ADD-a465d714-3a48-4676-8bb3-af8e9e0a2c51",
+                "target": "EXPORT_CSV-f132af7a-223d-4531-a1a1-ba438d86e9c5",
+                "sourceHandle": "default",
                 "targetHandle": "dc",
-                "id": "reactflow__edge-ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676default-EXPORT_CSV-d5c10408-fcd5-4c6c-ac00-1fa12b6da0cedc"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             }
-        ],
-        "viewport": {
-            "x": 322.90044843403956,
-            "y": 412.972605301969,
-            "zoom": 0.5
-        }
+        ]
     },
     "textNodes": []
 }

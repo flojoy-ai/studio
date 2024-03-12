@@ -35,15 +35,15 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -324.4557052032284,
-                    "y": -245.95532808996285
+                    "x": -313.14452664399516,
+                    "y": 7.917790683938733
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -324.4557052032284,
-                    "y": -245.95532808996285
+                    "x": -313.14452664399516,
+                    "y": 7.917790683938733
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 225,
@@ -72,8 +72,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "String|Boolean",
-                            "multiple": false,
-                            "desc": "The DataContainer to be visualized in text format"
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -88,15 +88,15 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 286.78490831190555,
-                    "y": -189.95722633108144
+                    "x": 735.4616578281573,
+                    "y": -167.334869212615
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 286.78490831190555,
-                    "y": -189.95722633108144
+                    "x": 735.4616578281573,
+                    "y": -167.334869212615
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 208,
@@ -132,19 +132,19 @@
                     "selected": true
                 },
                 "position": {
-                    "x": -322.80617305443747,
-                    "y": -53.36684959669492
+                    "x": -314.0085897305894,
+                    "y": -285.87440886982256
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
-                    "x": -322.80617305443747,
-                    "y": -53.36684959669492
+                    "x": -314.0085897305894,
+                    "y": -285.87440886982256
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 96,
-                "height": 96,
+                "width": 236,
+                "height": 198,
                 "id": "NOT_OR-93d6f904-9dce-4e1f-afc4-4c82d1e5e76e",
                 "type": "CONTROL_FLOW",
                 "data": {
@@ -159,15 +159,15 @@
                             "name": "default",
                             "id": "default",
                             "type": "Boolean",
-                            "multiple": false,
-                            "desc": "The input boolean to which we apply the NOT OR operation."
+                            "desc": "The input boolean to which we apply the NOT OR operation.",
+                            "multiple": false
                         },
                         {
                             "name": "a",
                             "id": "a",
                             "type": "Boolean",
-                            "multiple": false,
-                            "desc": "The input boolean to which we apply the NOT OR operation."
+                            "desc": "The input boolean to which we apply the NOT OR operation.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -182,45 +182,49 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 32.08157330234643,
-                    "y": -123.95506029362167
+                    "x": 159.0181326892972,
+                    "y": -131.4958459997772
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 32.08157330234643,
-                    "y": -123.95506029362167
+                    "x": 159.0181326892972,
+                    "y": -131.4958459997772
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f",
-                "sourceHandle": "default",
-                "target": "NOT_OR-93d6f904-9dce-4e1f-afc4-4c82d1e5e76e",
-                "targetHandle": "a",
-                "id": "reactflow__edge-BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91fdefault-NOT_OR-93d6f904-9dce-4e1f-afc4-4c82d1e5e76ea"
-            },
-            {
+                "id": "BOOLEAN-1ae06ff9-112a-49b7-a49a-6981056c54d0->NOT_OR-93d6f904-9dce-4e1f-afc4-4c82d1e5e76e_a1b0ab74-45ae-4fe2-91d8-11e8257cbf7e",
                 "source": "BOOLEAN-1ae06ff9-112a-49b7-a49a-6981056c54d0",
-                "sourceHandle": "default",
                 "target": "NOT_OR-93d6f904-9dce-4e1f-afc4-4c82d1e5e76e",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-BOOLEAN-1ae06ff9-112a-49b7-a49a-6981056c54d0default-NOT_OR-93d6f904-9dce-4e1f-afc4-4c82d1e5e76edefault"
+                "data": {
+                    "outputType": "Boolean"
+                }
             },
             {
-                "source": "NOT_OR-93d6f904-9dce-4e1f-afc4-4c82d1e5e76e",
+                "id": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f->NOT_OR-93d6f904-9dce-4e1f-afc4-4c82d1e5e76e_8eff9b44-5625-42f1-b940-d9136f4686fe",
+                "source": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f",
+                "target": "NOT_OR-93d6f904-9dce-4e1f-afc4-4c82d1e5e76e",
                 "sourceHandle": "default",
+                "targetHandle": "a",
+                "data": {
+                    "outputType": "Boolean"
+                }
+            },
+            {
+                "id": "NOT_OR-93d6f904-9dce-4e1f-afc4-4c82d1e5e76e->TEXT_VIEW-b4f49971-09c4-4ad9-a4a2-417eae73808c_e8f3c00c-f682-45fb-aeea-95a92564a1b6",
+                "source": "NOT_OR-93d6f904-9dce-4e1f-afc4-4c82d1e5e76e",
                 "target": "TEXT_VIEW-b4f49971-09c4-4ad9-a4a2-417eae73808c",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-NOT_OR-93d6f904-9dce-4e1f-afc4-4c82d1e5e76edefault-TEXT_VIEW-b4f49971-09c4-4ad9-a4a2-417eae73808cdefault"
+                "data": {
+                    "outputType": "Boolean"
+                }
             }
-        ],
-        "viewport": {
-            "x": 695.5292625331784,
-            "y": 411.9979742640432,
-            "zoom": 0.6998961918490142
-        }
+        ]
     },
     "textNodes": []
 }

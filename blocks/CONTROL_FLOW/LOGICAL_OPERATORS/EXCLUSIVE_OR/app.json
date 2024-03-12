@@ -35,15 +35,15 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -311.59665538296366,
-                    "y": -223.094795076159
+                    "x": -355.584572002204,
+                    "y": 34.548716550820245
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -311.59665538296366,
-                    "y": -223.094795076159
+                    "x": -355.584572002204,
+                    "y": 34.548716550820245
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 208,
@@ -79,19 +79,19 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -313.75929763327065,
-                    "y": -49.701388444218594
+                    "x": -365.28799995866655,
+                    "y": -307.34490007119786
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -313.75929763327065,
-                    "y": -49.701388444218594
+                    "x": -365.28799995866655,
+                    "y": -307.34490007119786
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 225,
-                "height": 226,
+                "height": 225,
                 "id": "TEXT_VIEW-95dff93f-272c-4114-bfb0-e96dc2874f96",
                 "type": "VISUALIZATION",
                 "data": {
@@ -116,8 +116,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "String|Boolean",
-                            "multiple": false,
-                            "desc": "The DataContainer to be visualized in text format"
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -132,19 +132,19 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 279.52778925438827,
-                    "y": -204.87788411638337
+                    "x": 631.4311222083112,
+                    "y": -164.66036035022069
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 279.52778925438827,
-                    "y": -204.87788411638337
+                    "x": 631.4311222083112,
+                    "y": -164.66036035022069
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 96,
-                "height": 96,
+                "width": 280,
+                "height": 234,
                 "id": "EXCLUSIVE_OR-145ec963-0bcd-4da1-a7b8-a5e89c9975c2",
                 "type": "CONTROL_FLOW",
                 "data": {
@@ -159,15 +159,15 @@
                             "name": "default",
                             "id": "default",
                             "type": "Boolean",
-                            "multiple": false,
-                            "desc": "The input boolean to which we apply the EXCLUSIVE OR operation."
+                            "desc": "The input boolean to which we apply the EXCLUSIVE OR operation.",
+                            "multiple": false
                         },
                         {
                             "name": "a",
                             "id": "a",
                             "type": "Boolean",
-                            "multiple": false,
-                            "desc": "The input boolean to which we apply the EXCLUSIVE OR operation."
+                            "desc": "The input boolean to which we apply the EXCLUSIVE OR operation.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -195,32 +195,36 @@
         ],
         "edges": [
             {
+                "id": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f->EXCLUSIVE_OR-145ec963-0bcd-4da1-a7b8-a5e89c9975c2_b5b77125-4b20-42c7-affa-423e4ea13989",
                 "source": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f",
-                "sourceHandle": "default",
                 "target": "EXCLUSIVE_OR-145ec963-0bcd-4da1-a7b8-a5e89c9975c2",
+                "sourceHandle": "default",
                 "targetHandle": "a",
-                "id": "reactflow__edge-BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91fdefault-EXCLUSIVE_OR-145ec963-0bcd-4da1-a7b8-a5e89c9975c2a"
+                "data": {
+                    "outputType": "Boolean"
+                }
             },
             {
+                "id": "BOOLEAN-18f5a10d-63ed-43ca-8955-a295a0f273c8->EXCLUSIVE_OR-145ec963-0bcd-4da1-a7b8-a5e89c9975c2_5c8b1bc7-7494-47a0-b5d9-172bc1bea399",
                 "source": "BOOLEAN-18f5a10d-63ed-43ca-8955-a295a0f273c8",
-                "sourceHandle": "default",
                 "target": "EXCLUSIVE_OR-145ec963-0bcd-4da1-a7b8-a5e89c9975c2",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-BOOLEAN-18f5a10d-63ed-43ca-8955-a295a0f273c8default-EXCLUSIVE_OR-145ec963-0bcd-4da1-a7b8-a5e89c9975c2default"
+                "data": {
+                    "outputType": "Boolean"
+                }
             },
             {
+                "id": "EXCLUSIVE_OR-145ec963-0bcd-4da1-a7b8-a5e89c9975c2->TEXT_VIEW-95dff93f-272c-4114-bfb0-e96dc2874f96_aa50a6c8-baa8-4441-815a-3b8e1f2c05e1",
                 "source": "EXCLUSIVE_OR-145ec963-0bcd-4da1-a7b8-a5e89c9975c2",
-                "sourceHandle": "default",
                 "target": "TEXT_VIEW-95dff93f-272c-4114-bfb0-e96dc2874f96",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-EXCLUSIVE_OR-145ec963-0bcd-4da1-a7b8-a5e89c9975c2default-TEXT_VIEW-95dff93f-272c-4114-bfb0-e96dc2874f96default"
+                "data": {
+                    "outputType": "Boolean"
+                }
             }
-        ],
-        "viewport": {
-            "x": 695.5292625331784,
-            "y": 411.9979742640432,
-            "zoom": 0.6998961918490142
-        }
+        ]
     },
     "textNodes": []
 }

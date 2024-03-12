@@ -2,32 +2,32 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 96,
-                "height": 96,
-                "id": "LOOP-e209afec-0fe8-41e1-a665-d055e0179cc7",
-                "type": "LOGIC_GATES",
+                "id": "LOOP-d9b0c073-c565-490a-8f77-7b8b83186589",
+                "type": "CONTROL_FLOW",
                 "data": {
-                    "id": "LOOP-e209afec-0fe8-41e1-a665-d055e0179cc7",
+                    "id": "LOOP-d9b0c073-c565-490a-8f77-7b8b83186589",
                     "label": "LOOP",
                     "func": "LOOP",
-                    "type": "LOGIC_GATES",
+                    "type": "CONTROL_FLOW",
                     "ctrls": {
                         "num_loops": {
                             "type": "int",
                             "default": -1,
-                            "desc": "number of times to iterate through body nodes default is `-1` meaning infinity.",
+                            "desc": "number of times to iterate through body nodes, default is \"-1\" meaning infinity.",
+                            "overload": null,
                             "functionName": "LOOP",
                             "param": "num_loops",
-                            "value": "100"
+                            "value": 100
                         }
                     },
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -35,131 +35,57 @@
                             "name": "body",
                             "id": "body",
                             "type": "Any",
-                            "desc": null
+                            "desc": "Forwards the input DataContainer to the body."
                         },
                         {
                             "name": "end",
                             "id": "end",
                             "type": "Any",
-                            "desc": null
+                            "desc": "Forwards the input DataContainer to the end."
                         }
                     ],
-                    "path": "PYTHON/nodes/LOGIC_GATES/LOOPS/LOOP/LOOP.py",
-                    "selected": false
+                    "path": "CONTROL_FLOW/LOOPS/LOOP/LOOP.py"
                 },
                 "position": {
-                    "x": 107.82251723419245,
-                    "y": 146.23765020337572
+                    "x": -192.28342754191695,
+                    "y": 58.39404477599987
                 },
+                "width": 236,
+                "height": 198,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 107.82251723419245,
-                    "y": 146.23765020337572
+                    "x": -192.28342754191695,
+                    "y": 58.39404477599987
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "BIG_NUMBER-ca0dc263-0e3f-4c7e-9a71-50dd014ec851",
-                "type": "VISUALIZERS",
+                "id": "LOOP_INDEX-9b0f1310-a5ea-4aa5-b46c-8d87962c7305",
+                "type": "CONTROL_FLOW",
                 "data": {
-                    "id": "BIG_NUMBER-ca0dc263-0e3f-4c7e-9a71-50dd014ec851",
-                    "label": "BIG NUMBER",
-                    "func": "BIG_NUMBER",
-                    "type": "VISUALIZERS",
-                    "ctrls": {
-                        "suffix": {
-                            "type": "str",
-                            "default": null,
-                            "desc": null,
-                            "functionName": "BIG_NUMBER",
-                            "param": "suffix",
-                            "value": ""
-                        },
-                        "prefix": {
-                            "type": "str",
-                            "default": null,
-                            "desc": null,
-                            "functionName": "BIG_NUMBER",
-                            "param": "prefix",
-                            "value": ""
-                        },
-                        "title": {
-                            "type": "str",
-                            "default": null,
-                            "desc": null,
-                            "functionName": "BIG_NUMBER",
-                            "param": "title",
-                            "value": ""
-                        },
-                        "relative_delta": {
-                            "type": "bool",
-                            "default": true,
-                            "desc": null,
-                            "functionName": "BIG_NUMBER",
-                            "param": "relative_delta",
-                            "value": true
-                        }
-                    },
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Scalar",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": null
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 821.3726227277857,
-                    "y": -56.51459992169677
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 821.3726227277857,
-                    "y": -56.51459992169677
-                },
-                "dragging": true
-            },
-            {
-                "width": 150,
-                "height": 180,
-                "id": "LOOP_INDEX-908a6860-ae5a-4be7-bff4-bb92070f526a",
-                "type": "default",
-                "data": {
-                    "id": "LOOP_INDEX-908a6860-ae5a-4be7-bff4-bb92070f526a",
+                    "id": "LOOP_INDEX-9b0f1310-a5ea-4aa5-b46c-8d87962c7305",
                     "label": "LOOP INDEX",
                     "func": "LOOP_INDEX",
-                    "type": "default",
+                    "type": "CONTROL_FLOW",
                     "ctrls": {
                         "loop_node": {
                             "type": "NodeReference",
                             "default": null,
                             "desc": "The LOOP node to track the loop index from.",
+                            "overload": null,
                             "functionName": "LOOP_INDEX",
                             "param": "loop_node",
-                            "value": "LOOP-e209afec-0fe8-41e1-a665-d055e0179cc7"
+                            "value": "LOOP-d9b0c073-c565-490a-8f77-7b8b83186589"
                         }
                     },
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Scalar",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -170,73 +96,135 @@
                             "desc": "The loop index in Scalar form."
                         }
                     ],
-                    "path": "PYTHON/nodes\\LOGIC_GATES\\LOOP_TOOLS\\LOOP_INDEX\\LOOP_INDEX.py",
-                    "selected": false
+                    "path": "CONTROL_FLOW/LOOP_TOOLS/LOOP_INDEX/LOOP_INDEX.py"
                 },
                 "position": {
-                    "x": 472.5656805220707,
-                    "y": 3.5093485056772806
+                    "x": 308.00007574926855,
+                    "y": -80.35700010057639
                 },
+                "width": 238,
+                "height": 140,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 472.5656805220707,
-                    "y": 3.5093485056772806
+                    "x": 308.00007574926855,
+                    "y": -80.35700010057639
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 384,
-                "height": 288,
-                "id": "TEXT_VIEW-564890c3-92c0-48b0-92e7-69606304b36f",
-                "type": "VISUALIZERS",
+                "id": "BIG_NUMBER-04c18090-4598-4270-95e0-775c31071f4f",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "TEXT_VIEW-564890c3-92c0-48b0-92e7-69606304b36f",
-                    "label": "TEXT VIEW",
-                    "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "id": "BIG_NUMBER-04c18090-4598-4270-95e0-775c31071f4f",
+                    "label": "BIG NUMBER",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any suffix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": ""
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "dec_places": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "dec_places",
+                            "value": 0
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Use scientific notation? Defaults to 4 decimal places.",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
-                    "path": "PYTHON/nodes/VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py"
                 },
                 "position": {
-                    "x": 750.98197077314,
-                    "y": 284.7652093480159
+                    "x": 754.6164854377489,
+                    "y": -145.079981595515
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 750.98197077314,
-                    "y": 284.7652093480159
+                    "x": 754.6164854377489,
+                    "y": -145.079981595515
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 231,
-                "height": 96,
-                "id": "TEXT-c0f0f515-0dba-4738-8a41-14da92c41ea2",
-                "type": "GENERATORS",
+                "id": "TEXT-98f798df-8d89-4e73-a7ea-c5e1e752dcf6",
+                "type": "DATA",
                 "data": {
-                    "id": "TEXT-c0f0f515-0dba-4738-8a41-14da92c41ea2",
+                    "id": "TEXT-98f798df-8d89-4e73-a7ea-c5e1e752dcf6",
                     "label": "DESCRIPTION",
                     "func": "TEXT",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "value": {
-                            "type": "str",
+                            "type": "TextArea",
                             "default": "Hello World!",
-                            "desc": "The value set in Parameters",
+                            "desc": "The value set in Parameters.",
+                            "overload": null,
                             "functionName": "TEXT",
                             "param": "value",
-                            "value": "This app shows the functionality of the LOOP_INDEX node. The app uses the LOOP node to loop 100 times. The index node increases by 1 for each loop and the value is shown in the BIG_NUMBER node."
+                            "value": "Hello World!"
                         }
                     },
                     "initCtrls": {},
@@ -245,8 +233,8 @@
                             "name": "_",
                             "id": "_",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -254,77 +242,119 @@
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "desc": "s: return the value being set in Parameters"
+                            "desc": "Return the value being set in Parameters."
                         }
                     ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TEXT/TEXT.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/TEXT/TEXT.py"
                 },
                 "position": {
-                    "x": 303.88247122605776,
-                    "y": 327.7798006810302
+                    "x": 309.92144868243025,
+                    "y": 228.44764021913312
                 },
+                "width": 239,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 303.88247122605776,
-                    "y": 327.7798006810302
+                    "x": 309.92144868243025,
+                    "y": 228.44764021913312
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "TEXT_VIEW-367bd076-fb20-45e9-ae35-c85648bf2375",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TEXT_VIEW-367bd076-fb20-45e9-ae35-c85648bf2375",
+                    "label": "TEXT VIEW 1",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
+                },
+                "position": {
+                    "x": 752.6947779760591,
+                    "y": 190.7889046002348
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 752.6947779760591,
+                    "y": 190.7889046002348
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "LOOP-e209afec-0fe8-41e1-a665-d055e0179cc7",
+                "id": "LOOP-d9b0c073-c565-490a-8f77-7b8b83186589->LOOP_INDEX-9b0f1310-a5ea-4aa5-b46c-8d87962c7305_7a60ce51-ca91-49b0-9372-0cc88f915b3c",
+                "source": "LOOP-d9b0c073-c565-490a-8f77-7b8b83186589",
+                "target": "LOOP_INDEX-9b0f1310-a5ea-4aa5-b46c-8d87962c7305",
                 "sourceHandle": "body",
-                "target": "LOOP_INDEX-908a6860-ae5a-4be7-bff4-bb92070f526a",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LOOP-e209afec-0fe8-41e1-a665-d055e0179cc7body-LOOP_INDEX-908a6860-ae5a-4be7-bff4-bb92070f526adefault"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "LOOP_INDEX-908a6860-ae5a-4be7-bff4-bb92070f526a",
+                "id": "LOOP_INDEX-9b0f1310-a5ea-4aa5-b46c-8d87962c7305->BIG_NUMBER-04c18090-4598-4270-95e0-775c31071f4f_40c67c47-856c-4039-a5c7-bf5a5fa13e80",
+                "source": "LOOP_INDEX-9b0f1310-a5ea-4aa5-b46c-8d87962c7305",
+                "target": "BIG_NUMBER-04c18090-4598-4270-95e0-775c31071f4f",
                 "sourceHandle": "default",
-                "target": "BIG_NUMBER-ca0dc263-0e3f-4c7e-9a71-50dd014ec851",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LOOP_INDEX-908a6860-ae5a-4be7-bff4-bb92070f526adefault-BIG_NUMBER-ca0dc263-0e3f-4c7e-9a71-50dd014ec851default"
+                "data": {
+                    "outputType": "Scalar"
+                }
             },
             {
-                "source": "LOOP-e209afec-0fe8-41e1-a665-d055e0179cc7",
+                "id": "TEXT-98f798df-8d89-4e73-a7ea-c5e1e752dcf6->TEXT_VIEW-367bd076-fb20-45e9-ae35-c85648bf2375_abf9fa67-4b17-43e0-90f8-b0b34e292955",
+                "source": "TEXT-98f798df-8d89-4e73-a7ea-c5e1e752dcf6",
+                "target": "TEXT_VIEW-367bd076-fb20-45e9-ae35-c85648bf2375",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "LOOP-d9b0c073-c565-490a-8f77-7b8b83186589->TEXT-98f798df-8d89-4e73-a7ea-c5e1e752dcf6_22eb188f-b0c2-4563-bd82-4a38f2ca5fef",
+                "source": "LOOP-d9b0c073-c565-490a-8f77-7b8b83186589",
+                "target": "TEXT-98f798df-8d89-4e73-a7ea-c5e1e752dcf6",
                 "sourceHandle": "end",
-                "target": "TEXT-c0f0f515-0dba-4738-8a41-14da92c41ea2",
                 "targetHandle": "_",
-                "id": "reactflow__edge-LOOP-e209afec-0fe8-41e1-a665-d055e0179cc7end-TEXT-c0f0f515-0dba-4738-8a41-14da92c41ea2_"
-            },
-            {
-                "source": "TEXT-c0f0f515-0dba-4738-8a41-14da92c41ea2",
-                "sourceHandle": "default",
-                "target": "TEXT_VIEW-564890c3-92c0-48b0-92e7-69606304b36f",
-                "targetHandle": "default",
-                "id": "reactflow__edge-TEXT-c0f0f515-0dba-4738-8a41-14da92c41ea2default-TEXT_VIEW-564890c3-92c0-48b0-92e7-69606304b36fdefault"
+                "data": {
+                    "outputType": "Any"
+                }
             }
-        ],
-        "viewport": {
-            "x": 1122.8706531201733,
-            "y": 516.7113790478016,
-            "zoom": 1.0957886685188984
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": []
 }
