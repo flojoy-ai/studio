@@ -11,7 +11,7 @@ import {
   closeProject,
 } from "@/renderer/utils/TestSequenceProjectHandler";
 
-function getPrepareStateManager(
+function usePrepareStateManager(
   withoutPermission: boolean = false,
 ): StateManager {
   const { elems, setElems, project, setProject, setUnsaved } =
@@ -30,7 +30,7 @@ function getPrepareStateManager(
 
 export function useSaveProject() {
   const { withPermissionCheck } = useWithPermission();
-  const manager = getPrepareStateManager();
+  const manager = usePrepareStateManager();
   const handle = async () => {
     toast.promise(saveProject(manager, true), {
       loading: "Saving project...",
@@ -50,7 +50,7 @@ export function useSaveProject() {
 
 export function useCreateProject() {
   const { withPermissionCheck } = useWithPermission();
-  const manager = getPrepareStateManager();
+  const manager = usePrepareStateManager();
   const handle = async (
     project: TestSequencerProject,
     setModalOpen: Dispatch<SetStateAction<boolean>> | null,
@@ -76,7 +76,7 @@ export function useCreateProject() {
 
 export const useImportProject = () => {
   const { isUnsaved } = useTestSequencerState();
-  const manager = getPrepareStateManager(true);
+  const manager = usePrepareStateManager(true);
   const handleImport = async () => {
     if (isUnsaved) {
       const shouldContinue = window.confirm(
@@ -105,7 +105,7 @@ export const useImportProject = () => {
 
 export const useCloseProject = () => {
   const { isUnsaved } = useTestSequencerState();
-  const manager = getPrepareStateManager();
+  const manager = usePrepareStateManager();
   const handle = async () => {
     if (isUnsaved) {
       const shouldContinue = window.confirm(
@@ -113,7 +113,7 @@ export const useCloseProject = () => {
       );
       if (!shouldContinue) return;
     }
-    await closeProject(manager, false);
+    await closeProject(manager);
   };
 
   return handle;

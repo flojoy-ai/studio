@@ -79,7 +79,7 @@ export const TestSequenceElement = z.discriminatedUnion("type", [
   Conditional,
 ]);
 
-export type TestSequenceElement = Test | Conditional;
+export type TestSequenceElement = z.infer<typeof TestSequenceElement>;
 
 /* DEFINITIONS FOR TREE STRUCTURE OF TEST SEQUENCER */
 

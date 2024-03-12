@@ -27,7 +27,7 @@ import {
   TestSequenceElement,
   TestSequencerProject,
 } from "@/renderer/types/test-sequencer";
-import { createNewTest } from "../hooks/useTestSequencerState";
+import { createNewTest } from "@/renderer/hooks/useTestSequencerState";
 
 // Exposed API
 export type StateManager = {
@@ -74,10 +74,9 @@ export async function saveProject(
   try {
     let project = stateManager.project;
     if (project === null) {
-      new Error("No project to save");
+      throw new Error("No project to save");
     }
     const elems = stateManager.elem;
-    // @ts-ignore: We know that project is not null
     project = validatePath(project);
     project = updateProjectElements(
       project,
@@ -136,7 +135,6 @@ export async function exportProject(
 
 export async function closeProject(
   stateManager: StateManager,
-  throwInsteadOfResult: boolean = false,
 ): Promise<Result<null, Error>> {
   // Close the current proejct from the app. The project is NOT deleted from disk
   stateManager.setProject(null);
@@ -240,7 +238,6 @@ async function createProjectElementsFromTestSequencerElements(
   baseFolder: string,
   verifStateOrThrow: boolean,
 ): Promise<TestSequenceElement[]> {
-  baseFolder = baseFolder;
   if (verifStateOrThrow) {
     await throwIfNotInAllBaseFolder(elems, baseFolder);
   }
@@ -259,7 +256,6 @@ async function createProjectElementsFromTestSequencerElements(
           condition: elem.condition.replaceAll(baseFolder, ""),
         };
   });
-  // @ts-ignore because LSP can't understand the element.type
   return elements;
 }
 
@@ -292,7 +288,7 @@ async function throwIfNotInAllBaseFolder(
   elems: TestSequenceElement[],
   baseFolder: string,
 ) {
-  for (let elem of elems) {
+  for (const elem of elems) {
     let weGoodBro = false;
     if (elem.type === "conditional") {
       continue;

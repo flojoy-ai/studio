@@ -98,8 +98,7 @@ const PathInput = React.forwardRef<HTMLInputElement, InputProps>(
             className,
           )}
           ref={ref}
-          // @ts-ignore
-          value={selectedFilePath !== "" ? selectedFilePath : manualPath}
+          value={selectedFilePath ?? manualPath}
           onChange={handleManualPathChange}
           disabled={disabled}
           {...props}
