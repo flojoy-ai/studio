@@ -1,5 +1,13 @@
 import { NodeProps } from "reactflow";
 import { z } from "zod";
+import { SliderNode } from "@/renderer/components/controls/slider-node";
+import { NumberInputNode } from "@/renderer/components/controls/number-input-node";
+import { FileUploadNode } from "@/renderer/components/controls/file-upload-node";
+import { CheckboxNode } from "@/renderer/components/controls/checkbox-node";
+import { SwitchNode } from "@/renderer/components/controls/switch-node";
+import { ComboboxNode } from "@/renderer/components/controls/combobox-node";
+import { RadioGroupNode } from "@/renderer/components/controls/radio-group-node";
+import { ValuesOf, typedObjectKeys } from "./util";
 
 export type PythonType = "int" | "float" | "bool" | "select" | "File";
 
@@ -38,50 +46,59 @@ export const FileUploadConfig = z.object({
 });
 export type FileUploadConfig = z.infer<typeof FileUploadConfig>;
 
-export const CONFIGURABLE = ["slider", "file upload"] as const;
-export type Configurable = (typeof CONFIGURABLE)[number];
+export const WIDGET_NODES = {
+  slider: SliderNode,
+  "number input": NumberInputNode,
+  "file upload": FileUploadNode,
+  checkbox: CheckboxNode,
+  switch: SwitchNode,
+  combobox: ComboboxNode,
+  "radio group": RadioGroupNode,
+} as const;
+
+export const WIDGET_CONFIGS = {
+  slider: {
+    schema: SliderConfig,
+    defaultValues: {
+      type: "slider",
+      min: 0,
+      max: 100,
+      step: 1,
+    },
+  },
+  "file upload": {
+    schema: FileUploadConfig,
+    defaultValues: {
+      type: "file upload",
+      allowedExtensions: [{ ext: "" }],
+    },
+  },
+} as const;
+
+const [k, ks] = typedObjectKeys(WIDGET_NODES);
+export const WidgetType = z.enum([k, ...ks]);
+export type WidgetType = z.infer<typeof WidgetType>;
+
+export const isWidgetType = (value: string): value is WidgetType =>
+  value in WIDGET_NODES;
+
+export type Configurable = keyof typeof WIDGET_CONFIGS;
 
 export const isConfigurable = (
   widgetType: WidgetType,
 ): widgetType is Configurable => {
-  return CONFIGURABLE.includes(widgetType);
+  return widgetType in WIDGET_CONFIGS;
 };
 
-export type Config = {
-  slider: SliderConfig;
-  "file upload": FileUploadConfig;
+type GetConfigSchemas<T> = {
+  [K in keyof T]: T[K] extends { schema: infer S }
+    ? S extends z.ZodType
+      ? z.infer<S>
+      : never
+    : never;
 };
-
-export const CONFIG_DEFAULT_VALUES = {
-  slider: {
-    type: "slider",
-    min: 0,
-    max: 100,
-    step: 1,
-  },
-  "file upload": {
-    type: "file upload",
-    allowedExtensions: [{ ext: "" }],
-  },
-} satisfies Record<Configurable, WidgetConfig>;
-
-export type WidgetConfig = Config[keyof Config];
-
-// INFO: Widget
-export const WIDGET_TYPES = [
-  "slider",
-  "number input",
-  "file upload",
-  "checkbox",
-  "switch",
-  "combobox",
-  "radio group",
-] as const;
-export const isWidgetType = (value: string): value is WidgetType =>
-  WIDGET_TYPES.includes(value);
-
-export const WidgetType = z.enum(WIDGET_TYPES);
-export type WidgetType = z.infer<typeof WidgetType>;
+export type ConfigMap = GetConfigSchemas<typeof WIDGET_CONFIGS>;
+export type WidgetConfig = ValuesOf<ConfigMap>;
 
 export const WidgetBlockInfo = z.object({
   blockId: z.string(),
@@ -118,5 +135,6 @@ export type VisualizationData = {
   visualizationType: string;
 };
 
-export type WidgetProps<T extends WidgetConfig | undefined = undefined> =
-  NodeProps<WidgetData<T>>;
+export type WidgetProps<
+  T extends WidgetConfig | undefined = WidgetConfig | undefined,
+> = NodeProps<WidgetData<T>>;
