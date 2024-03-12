@@ -15,13 +15,10 @@ import { runFlowchart, cancelFlowchartRun } from "@/renderer/lib/api";
 import { useSocketStore } from "@/renderer/stores/socket";
 
 const FlowControlButtons = () => {
-  const { socketId, serverStatus, wipeBlockResults } = useSocketStore(
-    (state) => ({
-      socketId: state.socketId,
-      serverStatus: state.serverStatus,
-      wipeBlockResults: state.wipeBlockResults,
-    }),
-  );
+  const { socketId, serverStatus } = useSocketStore((state) => ({
+    socketId: state.socketId,
+    serverStatus: state.serverStatus,
+  }));
 
   const backendSettings = useSettingsStore((state) => state.backend);
 
@@ -56,7 +53,6 @@ const FlowControlButtons = () => {
     }
 
     // sendProgramToMix(nodes, true, false);
-    wipeBlockResults();
 
     (
       await runFlowchart({

@@ -13,8 +13,7 @@ import { toast } from "sonner";
 import { Edit, Trash } from "lucide-react";
 import { cn } from "@/renderer/lib/utils";
 import { TextData } from "@/renderer/types/block";
-import { useProjectStore } from "@/renderer/stores/project";
-import { useShallow } from "zustand/react/shallow";
+import { Result } from "neverthrow";
 
 const LinkRenderer = (props: AnchorHTMLAttributes<HTMLAnchorElement>) => {
   const handleClick = () => {
@@ -33,14 +32,18 @@ const LinkRenderer = (props: AnchorHTMLAttributes<HTMLAnchorElement>) => {
   );
 };
 
-const TextNode = ({ selected, data, id }: NodeProps<TextData>) => {
-  const { deleteTextNode, updateTextNodeText } = useProjectStore(
-    useShallow((state) => ({
-      deleteTextNode: state.deleteTextNode,
-      updateTextNodeText: state.updateTextNodeText,
-    })),
-  );
+type Props = {
+  deleteTextNode: (id: string) => void;
+  updateTextNodeText: (id: string, text: string) => Result<void, Error>;
+};
 
+const TextNode = ({
+  selected,
+  data,
+  id,
+  deleteTextNode,
+  updateTextNodeText,
+}: NodeProps<TextData> & Props) => {
   const size = useStore((s) => {
     const node = s.nodeInternals.get(id);
     if (!node) {

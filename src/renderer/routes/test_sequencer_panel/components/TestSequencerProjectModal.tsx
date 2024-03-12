@@ -4,15 +4,6 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { Input } from "@/renderer/components/ui/input";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useCreateProject } from "@/renderer/hooks/useTestSequencerProject";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/renderer/components/ui/select";
 import { InterpreterType } from "@/renderer/types/test-sequencer";
 import { PathInput } from "@/renderer/components/ui/path-input";
 
@@ -28,14 +19,10 @@ export const TestSequencerProjectModal = ({
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [projectDirPath, setProjectDirPath] = useState("");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [interpreterPath, setInterpreterPath] = useState("");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [type, setType] = useState<InterpreterType>("flojoy");
-  const availableInterpreter: InterpreterType[] = [
-    "flojoy",
-    "poetry",
-    "pipenv",
-    "conda",
-  ];
 
   function handleSubmit() {
     handleCreate(

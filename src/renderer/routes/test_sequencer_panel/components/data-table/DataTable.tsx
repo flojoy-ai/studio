@@ -100,16 +100,17 @@ export function DataTable() {
 
   function toggleExportToCloud(id: string) {
     setElems.withException((elems) => {
-      const newElems = [...elems];
-      const idx = newElems.findIndex((elem) => elem.id === id);
-      if (newElems[idx].type === "test") {
-        newElems[idx] = {
-          ...newElems[idx],
-          // @ts-ignore: LSP doesn't understand the type === "test"
-          exportToCloud: !newElems[idx].exportToCloud,
-        } as Test;
-      }
-      return newElems;
+      return elems.map((elem) => {
+        if (elem.id === id) {
+          if (elem.type === "test") {
+            return {
+              ...elem,
+              exportToCloud: !elem.exportToCloud,
+            };
+          }
+        }
+        return elem;
+      });
     });
   }
 

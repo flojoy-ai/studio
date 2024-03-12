@@ -8,7 +8,7 @@ import HardwareBlock, { HardwareCategory } from "./hardware-block";
 import CtrlFlowBlock, { CtrlFlowCategory } from "./ctrl-flow-block";
 import NumpyBlock, { NumpyCategory } from "./numpy-block";
 import ScipyBlock, { ScipyCategory } from "./scipy-block";
-import TextNode from "./text-node";
+import TextNode from "./flowchart-text-node";
 import VisorBlock from "./visor-block";
 import { ComponentType } from "react";
 import ETLBlock, { ETLCategory } from "./etl-block";

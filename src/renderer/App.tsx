@@ -4,7 +4,8 @@ import { ErrorPage } from "@/renderer/ErrorPage";
 import FlowChartTab from "./routes/flow_chart/FlowChartTabView";
 import TestSequencerTab from "./routes/test_sequencer_panel/TestSequencerView";
 import DeviceTab from "./routes/device_panel/DeviceView";
-import { useTheme } from "@/renderer/providers/them-provider";
+import ControlPanelTab from "./routes/control_panel/control-panel-view";
+import { useTheme } from "@/renderer/providers/theme-provider";
 import { Layout } from "./routes/common/Layout";
 import { Index } from "./routes/index";
 // eslint-disable-next-line no-restricted-imports
@@ -51,6 +52,11 @@ const App = () => {
           <Route
             path="/flowchart"
             element={<FlowChartTab />}
+            errorElement={<ErrorBoundary />}
+          />
+          <Route
+            path="/control"
+            element={<ControlPanelTab />}
             errorElement={<ErrorBoundary />}
           />
           <Route

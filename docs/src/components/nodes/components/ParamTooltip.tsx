@@ -43,7 +43,7 @@ export const ParamTooltip = ({
 }: ParamTooltipProps) => {
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const elemRef = useRef<HTMLDivElement>(null);
+  const elemRef = useRef<HTMLElement>(null);
 
   const onHover = () => {
     if (timeoutRef.current) {
@@ -67,7 +67,7 @@ export const ParamTooltip = ({
     throw new Error("ParamTooltip must have a child element");
   }
 
-  const child = Children.only(children);
+  const child = Children.only<React.ReactNode>(children);
 
   if (!isValidElement(child)) {
     throw new Error("Child must be a valid JSX element");
@@ -75,7 +75,7 @@ export const ParamTooltip = ({
 
   return (
     <>
-      {cloneElement<any>(child, {
+      {cloneElement(children, {
         ref: elemRef,
         onMouseEnter: onHover,
         onMouseLeave: onLeave,

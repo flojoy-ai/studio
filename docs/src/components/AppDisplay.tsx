@@ -5,7 +5,7 @@ import nodeTypes from "./nodes/nodeTypes";
 import { CustomEdge } from "./custom-edge";
 
 type AppDisplayProps = {
-  app: any;
+  app: unknown;
   blockName: string;
 };
 

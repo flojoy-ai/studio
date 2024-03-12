@@ -46,6 +46,14 @@ import {
   BlockDefinition,
   BlockParameterValue,
 } from "@/renderer/types/manifest";
+import {
+  Config,
+  Configurable,
+  VisualizationData,
+  WidgetConfig,
+  WidgetData,
+  WidgetType,
+} from "@/renderer/types/control";
 import { EdgeVariant } from "@/renderer/types/edge";
 
 type State = {
@@ -56,6 +64,10 @@ type State = {
   nodes: Node<BlockData>[]; // TODO: Turn this into a record for fast lookup
   edges: Edge<EdgeData>[];
   textNodes: Node<TextData>[];
+
+  controlWidgetNodes: Node<WidgetData>[];
+  controlVisualizationNodes: Node<VisualizationData>[];
+  controlTextNodes: Node<TextData>[];
 };
 
 type Actions = {
@@ -71,19 +83,47 @@ type Actions = {
     paramName: string,
     value: BlockParameterValue,
   ) => Result<void, Error>;
-  updateBlockLabel: (blockId: string, name: string) => Result<void, Error>;
+  updateBlockLabel: (blockId: string, newLabel: string) => Result<void, Error>;
 
   handleNodeChanges: (
-    cb: (nodes: Node<BlockData>[]) => Node<BlockData>[],
-  ) => void;
-  handleTextNodeChanges: (
-    cb: (nodes: Node<TextData>[]) => Node<TextData>[],
+    blocksUpdate: (nodes: Node<BlockData>[]) => Node<BlockData>[],
+    textNodesUpdate: (nodes: Node<TextData>[]) => Node<TextData>[],
   ) => void;
   handleEdgeChanges: (cb: (nodes: Edge[]) => Edge[]) => void;
+
+  handleControlChanges: (
+    widgetsUpdate: (nodes: Node<WidgetData>[]) => Node<WidgetData>[],
+    visualizationUpdate: (
+      nodes: Node<VisualizationData>[],
+    ) => Node<VisualizationData>[],
+    textNodesUpdate: (nodes: Node<TextData>[]) => Node<TextData>[],
+  ) => void;
 
   addTextNode: (position: XYPosition) => void;
   updateTextNodeText: (id: string, text: string) => Result<void, Error>;
   deleteTextNode: (id: string) => void;
+
+  addControlWidget: <K extends WidgetType>(
+    blockId: string,
+    blockParameter: string,
+    widgetType: K,
+    config?: K extends Configurable ? Config[K] : never,
+  ) => void;
+  editControlWidgetConfig: (
+    widgetId: string,
+    config: WidgetConfig,
+  ) => Result<void, Error>;
+  deleteControlWidget: (controlNodeId: string) => void;
+  updateControlWidgetLabel: (
+    widgetId: string,
+    newLabel: string,
+  ) => Result<void, Error>;
+
+  addControlVisualization: (blockId: string) => Result<void, Error>;
+
+  addControlTextNode: (position: XYPosition) => void;
+  updateControlTextNodeText: (id: string, text: string) => Result<void, Error>;
+  deleteControlTextNode: (id: string) => void;
 
   saveProject: () => Promise<Result<string | undefined, Error>>;
 };
@@ -108,23 +148,38 @@ export const useProjectStore = create<State & Actions>()(
     edges: initialEdges,
     textNodes: [],
 
+    controlWidgetNodes: [],
+    controlVisualizationNodes: [],
+    controlTextNodes: [],
+
     handleNodeChanges: (
-      cb: (nodes: Node<BlockData>[]) => Node<BlockData>[],
+      blocksUpdate: (nodes: Node<BlockData>[]) => Node<BlockData>[],
+      textNodesUpdate: (nodes: Node<TextData>[]) => Node<TextData>[],
     ) => {
       set((state) => {
-        state.nodes = cb(state.nodes);
-      });
-    },
-    handleTextNodeChanges: (
-      cb: (nodes: Node<TextData>[]) => Node<TextData>[],
-    ) => {
-      set((state) => {
-        state.textNodes = cb(state.textNodes);
+        state.nodes = blocksUpdate(state.nodes);
+        state.textNodes = textNodesUpdate(state.textNodes);
       });
     },
     handleEdgeChanges: (cb: (edges: Edge[]) => Edge[]) => {
       set((state) => {
         state.edges = cb(state.edges);
+      });
+    },
+
+    handleControlChanges: (
+      widgetsUpdate: (nodes: Node<WidgetData>[]) => Node<WidgetData>[],
+      visualizationUpdate: (
+        nodes: Node<VisualizationData>[],
+      ) => Node<VisualizationData>[],
+      textNodesUpdate: (nodes: Node<TextData>[]) => Node<TextData>[],
+    ) => {
+      set((state) => {
+        state.controlWidgetNodes = widgetsUpdate(state.controlWidgetNodes);
+        state.controlVisualizationNodes = visualizationUpdate(
+          state.controlVisualizationNodes,
+        );
+        state.controlTextNodes = textNodesUpdate(state.controlTextNodes);
       });
     },
 
@@ -192,7 +247,12 @@ export const useProjectStore = create<State & Actions>()(
       return ok(undefined);
     },
 
-    updateBlockLabel: (blockId: string, name: string) => {
+    updateBlockLabel: (blockId: string, newLabel: string) => {
+      newLabel = newLabel.trim();
+      if (newLabel.length === 0) {
+        return err(new Error("Block label can't be empty"));
+      }
+
       try {
         set((state) => {
           const node = state.nodes.find((n) => n.data.id === blockId);
@@ -200,19 +260,19 @@ export const useProjectStore = create<State & Actions>()(
             throw new Error("Block not found");
           }
 
-          if (name === node?.data.label) {
+          if (newLabel === node?.data.label) {
             return;
           }
 
           const isDuplicate = state.nodes.find(
-            (n) => n.data.label === name && n.data.id !== blockId,
+            (n) => n.data.label === newLabel && n.data.id !== blockId,
           );
           if (isDuplicate) {
             throw new Error(
-              `There is another node with the same label: ${name}`,
+              `There is another node with the same label: ${newLabel}`,
             );
           }
-          node.data.label = name;
+          node.data.label = newLabel;
         });
       } catch (e) {
         return err(e as Error);
@@ -257,25 +317,160 @@ export const useProjectStore = create<State & Actions>()(
     },
 
     deleteTextNode: (id: string) => {
+      set({ textNodes: get().textNodes.filter((n) => n.id !== id) });
+      setHasUnsavedChanges(true);
+    },
+
+    addControlTextNode: (pos: XYPosition) => {
       set((state) => {
-        state.textNodes = state.textNodes.filter((n) => n.id !== id);
+        state.controlTextNodes.push({
+          id: `TextNode-${uuidv4()}`,
+          position: addRandomPositionOffset(pos, 30),
+          type: "TextNode",
+          data: {
+            text: "Enter text here",
+          },
+        });
+      });
+
+      setHasUnsavedChanges(true);
+    },
+
+    updateControlTextNodeText: (id: string, text: string) => {
+      try {
+        set((state) => {
+          const node = state.controlTextNodes.find((n) => n.id === id);
+          if (node === undefined) {
+            throw new Error("Text node not found");
+          }
+          node.data.text = text;
+        });
+      } catch (e) {
+        return err(e as Error);
+      }
+      // sendEventToMix("Text Node Updated", { id, text });
+      setHasUnsavedChanges(true);
+      return ok(undefined);
+    },
+
+    deleteControlTextNode: (id: string) => {
+      set({
+        controlTextNodes: get().controlTextNodes.filter((n) => n.id !== id),
       });
       setHasUnsavedChanges(true);
     },
 
-    saveProject: async () => {
-      const fileContent = JSON.stringify(
-        {
-          name: get().name,
-          rfInstance: {
-            nodes: get().nodes,
-            edges: get().edges,
-          },
-          textNodes: get().textNodes,
+    addControlWidget: <K extends WidgetType>(
+      blockId: string,
+      blockParameter: string,
+      widgetType: K,
+      config?: K extends Configurable ? Config[K] : never,
+    ) => {
+      const node = {
+        id: uuidv4(),
+        type: widgetType,
+        data: {
+          blockId,
+          blockParameter,
+          config: config,
         },
-        undefined,
-        4,
-      );
+        position: { x: 0, y: 0 },
+      };
+      set((state) => {
+        state.controlWidgetNodes.push(node);
+      });
+    },
+
+    editControlWidgetConfig: (blockId: string, config: WidgetConfig) => {
+      try {
+        set((state) => {
+          const node = state.controlWidgetNodes.find(
+            (n) => n.data.blockId === blockId,
+          );
+          if (!node) {
+            throw new Error("Control widget not found");
+          }
+
+          if (node.type !== config.type) {
+            return err(
+              new Error("Control widget type does not match config type"),
+            );
+          }
+
+          node.data.config = config;
+        });
+      } catch (e) {
+        return err(e as Error);
+      }
+
+      return ok(undefined);
+    },
+
+    deleteControlWidget: (controlNodeId: string) => {
+      set((state) => {
+        state.controlWidgetNodes = state.controlWidgetNodes.filter(
+          (n) => n.id !== controlNodeId,
+        );
+      });
+    },
+
+    updateControlWidgetLabel: (widgetId: string, newLabel: string) => {
+      newLabel = newLabel.trim();
+      try {
+        set((state) => {
+          const node = state.controlWidgetNodes.find((n) => n.id === widgetId);
+          if (node === undefined) {
+            throw new Error("Block not found");
+          }
+
+          node.data.label = newLabel;
+        });
+      } catch (e) {
+        return err(e as Error);
+      }
+      return ok(undefined);
+    },
+
+    addControlVisualization: (blockId: string) => {
+      const sourceBlock = get().nodes.find((n) => n.id === blockId);
+      if (sourceBlock === undefined) {
+        return err(new Error("Source block not found"));
+      }
+      if (sourceBlock.type !== "VISUALIZATION") {
+        return err(new Error("Source block must be a visualization block"));
+      }
+
+      const node: Node<VisualizationData> = {
+        id: uuidv4(),
+        type: "visualization",
+        data: {
+          blockId,
+          visualizationType: sourceBlock.data.func,
+        },
+        position: { x: 0, y: 0 },
+      };
+      set((state) => {
+        state.controlVisualizationNodes.push(node);
+      });
+
+      return ok(undefined);
+    },
+
+    saveProject: async () => {
+      const project: Project = {
+        name: get().name,
+        rfInstance: {
+          nodes: get().nodes,
+          edges: get().edges,
+        },
+        textNodes: get().textNodes,
+
+        controlNodes: get().controlWidgetNodes,
+        controlVisualizationNodes: get().controlVisualizationNodes,
+        controlTextNodes: get().controlTextNodes,
+      };
+
+      const fileContent = JSON.stringify(project, undefined, 4);
 
       const projectPath = get().path;
       if (projectPath) {
@@ -337,6 +532,9 @@ export const useLoadProject = () => {
         name,
         rfInstance: { nodes, edges },
         textNodes,
+        controlNodes,
+        controlVisualizationNodes,
+        controlTextNodes,
       } = project;
       const [syncedNodes, syncedEdges] = syncFlowchartWithManifest(
         nodes,
@@ -349,6 +547,9 @@ export const useLoadProject = () => {
         nodes: syncedNodes,
         edges: syncedEdges,
         textNodes: textNodes ?? [],
+        controlWidgetNodes: controlNodes ?? [],
+        controlVisualizationNodes: controlVisualizationNodes ?? [],
+        controlTextNodes: controlTextNodes ?? [],
         name,
         path,
       });
@@ -436,6 +637,7 @@ export const useAddBlock = () => {
 export const useDeleteBlock = () => {
   const setNodes = useProtectedSetter("nodes");
   const setEdges = useProtectedSetter("edges");
+  const setControlWidgetNodes = useProtectedSetter("controlWidgetNodes");
 
   return useCallback(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -444,9 +646,12 @@ export const useDeleteBlock = () => {
       setEdges((prev) =>
         prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId),
       );
+      setControlWidgetNodes((prev) =>
+        prev.filter((widget) => widget.data.blockId !== nodeId),
+      );
       // sendEventToMix(MixPanelEvents.nodeDeleted, { nodeTitle: nodeLabel });
     },
-    [setNodes, setEdges],
+    [setNodes, setEdges, setControlWidgetNodes],
   );
 };
 
@@ -596,6 +801,18 @@ export const useClearCanvas = () => {
   return () => {
     setNodes([]);
     setEdges([]);
+    setTextNodes([]);
+  };
+};
+
+export const useClearControlPanel = () => {
+  const setNodes = useProtectedSetter("controlWidgetNodes");
+  const setVizNodes = useProtectedSetter("controlVisualizationNodes");
+  const setTextNodes = useProtectedSetter("controlTextNodes");
+
+  return () => {
+    setNodes([]);
+    setVizNodes([]);
     setTextNodes([]);
   };
 };

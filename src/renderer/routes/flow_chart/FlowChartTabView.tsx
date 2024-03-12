@@ -1,5 +1,5 @@
 import { BlockDefinition, TreeNode } from "@/renderer/types/manifest";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   ConnectionLineType,
   MiniMap,
@@ -14,10 +14,10 @@ import {
   applyEdgeChanges,
   applyNodeChanges,
   OnConnect,
+  NodeMouseHandler,
 } from "reactflow";
 import Sidebar from "@/renderer/routes/common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
-import { useFlowChartTabState } from "./FlowChartTabState";
 import { BlockExpandMenu } from "./views/BlockExpandMenu";
 import {
   ACTIONS_HEIGHT,
@@ -28,7 +28,7 @@ import { CenterObserver } from "./components/CenterObserver";
 import { Separator } from "@/renderer/components/ui/separator";
 import { Pencil, Text, Workflow, X } from "lucide-react";
 import { GalleryModal } from "@/renderer/components/gallery/GalleryModal";
-import { useTheme } from "@/renderer/providers/them-provider";
+import { useTheme } from "@/renderer/providers/theme-provider";
 import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
 import { Button } from "@/renderer/components/ui/button";
 import { ResizeFitter } from "./components/ResizeFitter";
@@ -43,7 +43,9 @@ import {
 } from "@/renderer/components/ui/tooltip";
 import { BlockData } from "@/renderer/types/block";
 import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
-import ContextMenu, { MenuInfo } from "./components/NodeContextMenu";
+import BlockContextMenu, {
+  BlockContextMenuInfo,
+} from "./components/block-context-menu";
 import { Spinner } from "@/renderer/components/ui/spinner";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import nodeTypesMap from "@/renderer/components/blocks/block-types";
@@ -68,6 +70,8 @@ import {
 } from "@/renderer/stores/manifest";
 import CustomEdge from "./components/custom-edge";
 import { useSocketStore } from "@/renderer/stores/socket";
+import { calculateContextMenuOffset } from "@/renderer/utils/context-menu";
+import { useContextMenu } from "@/renderer/hooks/useContextMenu";
 
 const edgeTypes = {
   default: CustomEdge,
@@ -90,32 +94,20 @@ const FlowChartTab = () => {
 
   const wipeBlockResults = useSocketStore((state) => state.wipeBlockResults);
 
-  const {
-    pythonString,
-    setPythonString,
-    nodeFilePath,
-    setNodeFilePath,
-    blockFullPath,
-    setBlockFullPath,
-  } = useFlowChartTabState();
+  const [pythonString, setPythonString] = useState("...");
+  const [nodeFilePath, setNodeFilePath] = useState("...");
+  const [blockFullPath, setBlockFullPath] = useState("");
 
-  const {
-    nodes,
-    edges,
-    textNodes,
-    handleTextNodeChanges,
-    handleNodeChanges,
-    handleEdgeChanges,
-  } = useProjectStore(
-    useShallow((state) => ({
-      nodes: state.nodes,
-      edges: state.edges,
-      textNodes: state.textNodes,
-      handleTextNodeChanges: state.handleTextNodeChanges,
-      handleNodeChanges: state.handleNodeChanges,
-      handleEdgeChanges: state.handleEdgeChanges,
-    })),
-  );
+  const { nodes, edges, textNodes, handleNodeChanges, handleEdgeChanges } =
+    useProjectStore(
+      useShallow((state) => ({
+        nodes: state.nodes,
+        edges: state.edges,
+        textNodes: state.textNodes,
+        handleNodeChanges: state.handleNodeChanges,
+        handleEdgeChanges: state.handleEdgeChanges,
+      })),
+    );
 
   const [selectedNodes, otherNodes] = _.partition(nodes, (n) => n.selected);
   const selectedNode = selectedNodes.length === 1 ? selectedNodes[0] : null;
@@ -182,10 +174,12 @@ const FlowChartTab = () => {
 
   const onNodesChange: OnNodesChange = useCallback(
     (changes) => {
-      handleNodeChanges((ns) => applyNodeChanges(changes, ns));
-      handleTextNodeChanges((ns) => applyNodeChanges(changes, ns));
+      handleNodeChanges(
+        (ns) => applyNodeChanges(changes, ns),
+        (ns) => applyNodeChanges(changes, ns),
+      );
     },
-    [handleNodeChanges, handleTextNodeChanges],
+    [handleNodeChanges],
   );
 
   const onEdgesChange: OnEdgesChange = useCallback(
@@ -231,8 +225,6 @@ const FlowChartTab = () => {
 
   const deleteKeyCodes = ["Delete", "Backspace"];
 
-  const proOptions = { hideAttribution: true };
-
   const onCommandMenuItemSelect = useCallback(
     (node: BlockDefinition) => {
       addBlock(node);
@@ -241,63 +233,36 @@ const FlowChartTab = () => {
     [addBlock, setCommandMenuOpen],
   );
 
-  const [menu, setMenu] = useState<MenuInfo | null>(null);
-  const ref = useRef<HTMLDivElement | null>(null);
+  const { menu, setMenu, flowRef, onPaneClick } =
+    useContextMenu<BlockContextMenuInfo>();
 
-  const onNodeContextMenu = useCallback(
+  const onNodeContextMenu: NodeMouseHandler = useCallback(
     (event, node: Node<BlockData>) => {
       // Prevent native context menu from showing
       event.preventDefault();
 
-      if (ref.current === null || !metadata) {
+      if (flowRef.current === null || !metadata) {
         return;
       }
 
       const nodeFileName = `${node.data.func}.py`;
       const nodeFileData = metadata[nodeFileName] ?? {};
 
-      // Calculate position of the context menu. We want to make sure it
-      // doesn't get positioned off-screen.
-      const pane = ref.current.getBoundingClientRect();
-      const topToBlock = event.clientY;
-      const contextMenuHeight = 200;
+      const offset = calculateContextMenuOffset(
+        event.clientX,
+        event.clientY,
+        flowRef.current,
+      );
 
-      const paneToBlock = topToBlock - 200;
-
-      let top: number | undefined = undefined;
-      let bottom: number | undefined = undefined;
-
-      if (paneToBlock < contextMenuHeight / 2) {
-        top = paneToBlock;
-      } else if (paneToBlock < contextMenuHeight) {
-        if (pane.height - paneToBlock < contextMenuHeight) {
-          top = contextMenuHeight - paneToBlock;
-        } else {
-          top = paneToBlock;
-        }
-      } else if (pane.height - paneToBlock < contextMenuHeight) {
-        top = undefined;
-        bottom = pane.height - paneToBlock;
-      } else {
-        top = paneToBlock;
-      }
       setMenu({
-        id: node.id,
-        top,
-        left: event.clientX < pane.width - 200 ? event.clientX : undefined,
-        right:
-          event.clientX >= pane.width - 200
-            ? pane.width - event.clientX
-            : undefined,
-        bottom,
+        node,
+        ...offset,
         fullPath: nodeFileData.full_path ?? "",
       });
     },
-    [setMenu, metadata],
+    [flowRef, metadata, setMenu],
   );
 
-  // Close the context menu if it's open whenever the window is clicked.
-  const onPaneClick = useCallback(() => setMenu(null), [setMenu]);
   const addBlockReady = manifest !== undefined;
 
   return (
@@ -417,10 +382,10 @@ const FlowChartTab = () => {
 
           <ReactFlow
             id="flow-chart"
-            ref={ref}
+            ref={flowRef}
             className="!absolute"
             deleteKeyCode={isAdmin() ? deleteKeyCodes : null}
-            proOptions={proOptions}
+            proOptions={{ hideAttribution: true }}
             nodes={[...nodes, ...textNodes]}
             nodeTypes={nodeTypesMap}
             edges={edges}
@@ -458,7 +423,7 @@ const FlowChartTab = () => {
               className="!bottom-1 !shadow-control"
             />
             {menu && (
-              <ContextMenu
+              <BlockContextMenu
                 onClick={onPaneClick}
                 duplicateBlock={duplicateBlock}
                 setNodeModalOpen={setNodeModalOpen}

@@ -1,14 +1,17 @@
 import { memo } from "react";
 import ReactMarkdown from "react-markdown";
 
-const LinkRenderer = (props: any) => {
+const LinkRenderer = ({
+  children,
+  ...props
+}: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
   return (
     <a
-      href={props.href}
       target="_blank"
       className="text-accent1 hover:text-accent1-hover"
+      {...props}
     >
-      {props.children}
+      {children}
     </a>
   );
 };
