@@ -2,55 +2,13 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 380,
-                "height": 293,
-                "id": "HISTOGRAM-c5469532-dd28-4465-b8b0-524174db86e4",
-                "type": "VISUALIZERS",
+                "id": "LINSPACE-fabbc4a7-3e4d-4ff7-bb76-f8f8d26322af",
+                "type": "DATA",
                 "data": {
-                    "id": "HISTOGRAM-c5469532-dd28-4465-b8b0-524174db86e4",
-                    "label": "HISTOGRAM",
-                    "func": "HISTOGRAM",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/HISTOGRAM/HISTOGRAM.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 794.6062406107221,
-                    "y": -355.5689772430068
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 794.6062406107221,
-                    "y": -355.5689772430068
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "LINSPACE-14e316a4-dcdb-47ac-868d-d829b0c30678",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "LINSPACE-14e316a4-dcdb-47ac-868d-d829b0c30678",
+                    "id": "LINSPACE-fabbc4a7-3e4d-4ff7-bb76-f8f8d26322af",
                     "label": "LINSPACE",
                     "func": "LINSPACE",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "start": {
                             "type": "float",
@@ -86,8 +44,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -98,39 +56,38 @@
                             "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
                         }
                     ],
-                    "path": "GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
                 },
                 "position": {
-                    "x": 60.78604888475641,
-                    "y": -72.26608171130152
+                    "x": -114.55415506669934,
+                    "y": -133.687496793126
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 60.78604888475641,
-                    "y": -72.26608171130152
+                    "x": -114.55415506669934,
+                    "y": -133.687496793126
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
-                "id": "POPULATE-b27a1155-ccd8-4e60-a0ca-3a0744f6f19c",
-                "type": "GENERATORS",
+                "id": "POPULATE-1b7691f6-f9dc-4b81-9e46-86b96399fdcb",
+                "type": "DATA",
                 "data": {
-                    "id": "POPULATE-b27a1155-ccd8-4e60-a0ca-3a0744f6f19c",
+                    "id": "POPULATE-1b7691f6-f9dc-4b81-9e46-86b96399fdcb",
                     "label": "POPULATE",
                     "func": "POPULATE",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "distribution": {
                             "type": "select",
+                            "default": "normal",
                             "options": [
                                 "normal",
                                 "uniform",
                                 "poisson"
                             ],
-                            "default": "normal",
                             "desc": "the distribution over the random samples",
                             "overload": {
                                 "uniform": [
@@ -201,8 +158,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Vector",
-                            "multiple": false,
-                            "desc": "Input to use as the x-axis for the random samples."
+                            "desc": "Input to use as the x-axis for the random samples.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -213,39 +170,122 @@
                             "desc": "x: provided from input data\ny: the random samples"
                         }
                     ],
-                    "path": "GENERATORS/SIMULATIONS/POPULATE/POPULATE.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/POPULATE/POPULATE.py"
                 },
                 "position": {
-                    "x": 428.99358191180903,
-                    "y": -258.88112365217773
+                    "x": 380.29139219937156,
+                    "y": -336.5242949796274
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
+                "dragging": false,
                 "positionAbsolute": {
-                    "x": 428.99358191180903,
-                    "y": -258.88112365217773
-                },
-                "dragging": true
+                    "x": 380.29139219937156,
+                    "y": -336.5242949796274
+                }
             },
             {
-                "width": 208,
-                "height": 96,
-                "id": "POPULATE-fb436d2a-9db1-4de7-8e25-97b7c56a9f29",
-                "type": "GENERATORS",
+                "id": "HISTOGRAM-67281851-507b-4e77-889c-95ef31aea816",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "POPULATE-fb436d2a-9db1-4de7-8e25-97b7c56a9f29",
+                    "id": "HISTOGRAM-67281851-507b-4e77-889c-95ef31aea816",
+                    "label": "HISTOGRAM",
+                    "func": "HISTOGRAM",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Histogram visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/HISTOGRAM/HISTOGRAM.py"
+                },
+                "position": {
+                    "x": 844.7095204037357,
+                    "y": -371.5081201730654
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 844.7095204037357,
+                    "y": -371.5081201730654
+                },
+                "dragging": false
+            },
+            {
+                "id": "HISTOGRAM-3073458c-3beb-47c6-8a4b-70a0e80401cc",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "HISTOGRAM-3073458c-3beb-47c6-8a4b-70a0e80401cc",
+                    "label": "HISTOGRAM 1",
+                    "func": "HISTOGRAM",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Histogram visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/HISTOGRAM/HISTOGRAM.py"
+                },
+                "position": {
+                    "x": 844.2334057499638,
+                    "y": -20.86267555055099
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 844.2334057499638,
+                    "y": -20.86267555055099
+                },
+                "dragging": false
+            },
+            {
+                "id": "POPULATE-b30db345-a12c-4f5f-8aad-b31d8a1ebd53",
+                "type": "DATA",
+                "data": {
+                    "id": "POPULATE-b30db345-a12c-4f5f-8aad-b31d8a1ebd53",
                     "label": "POPULATE 1",
                     "func": "POPULATE",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "distribution": {
                             "type": "select",
+                            "default": "normal",
                             "options": [
                                 "normal",
                                 "uniform",
                                 "poisson"
                             ],
-                            "default": "normal",
                             "desc": "the distribution over the random samples",
                             "overload": {
                                 "uniform": [
@@ -316,8 +356,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Vector",
-                            "multiple": false,
-                            "desc": "Input to use as the x-axis for the random samples."
+                            "desc": "Input to use as the x-axis for the random samples.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -328,117 +368,67 @@
                             "desc": "x: provided from input data\ny: the random samples"
                         }
                     ],
-                    "path": "GENERATORS/SIMULATIONS/POPULATE/POPULATE.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/POPULATE/POPULATE.py"
                 },
                 "position": {
-                    "x": 423.735359873562,
-                    "y": 61.2094115519848
+                    "x": 376.2653702788037,
+                    "y": 16.11135155257017
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 423.735359873562,
-                    "y": 61.2094115519848
+                    "x": 376.2653702788037,
+                    "y": 16.11135155257017
                 },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "HISTOGRAM-e426b844-934e-4b27-983f-68afc25b5659",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "HISTOGRAM-e426b844-934e-4b27-983f-68afc25b5659",
-                    "label": "HISTOGRAM 1",
-                    "func": "HISTOGRAM",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly Histogram visualization"
-                        }
-                    ],
-                    "path": "VISUALIZERS/PLOTLY/HISTOGRAM/HISTOGRAM.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 792.6069096920073,
-                    "y": -29.88744351696306
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 792.6069096920073,
-                    "y": -29.88744351696306
-                },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "LINSPACE-14e316a4-dcdb-47ac-868d-d829b0c30678",
+                "id": "LINSPACE-fabbc4a7-3e4d-4ff7-bb76-f8f8d26322af->POPULATE-1b7691f6-f9dc-4b81-9e46-86b96399fdcb_bba5b195-7c29-4a07-bebf-4b5f6fac529d",
+                "source": "LINSPACE-fabbc4a7-3e4d-4ff7-bb76-f8f8d26322af",
+                "target": "POPULATE-1b7691f6-f9dc-4b81-9e46-86b96399fdcb",
                 "sourceHandle": "default",
-                "target": "POPULATE-b27a1155-ccd8-4e60-a0ca-3a0744f6f19c",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-14e316a4-dcdb-47ac-868d-d829b0c30678default-POPULATE-b27a1155-ccd8-4e60-a0ca-3a0744f6f19cdefault"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "POPULATE-b27a1155-ccd8-4e60-a0ca-3a0744f6f19c",
+                "id": "POPULATE-1b7691f6-f9dc-4b81-9e46-86b96399fdcb->HISTOGRAM-67281851-507b-4e77-889c-95ef31aea816_4252a6cc-9759-4c60-bc30-7fcc05fc0340",
+                "source": "POPULATE-1b7691f6-f9dc-4b81-9e46-86b96399fdcb",
+                "target": "HISTOGRAM-67281851-507b-4e77-889c-95ef31aea816",
                 "sourceHandle": "default",
-                "target": "HISTOGRAM-c5469532-dd28-4465-b8b0-524174db86e4",
                 "targetHandle": "default",
-                "id": "reactflow__edge-POPULATE-b27a1155-ccd8-4e60-a0ca-3a0744f6f19cdefault-HISTOGRAM-c5469532-dd28-4465-b8b0-524174db86e4default"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "LINSPACE-14e316a4-dcdb-47ac-868d-d829b0c30678",
+                "id": "LINSPACE-fabbc4a7-3e4d-4ff7-bb76-f8f8d26322af->POPULATE-b30db345-a12c-4f5f-8aad-b31d8a1ebd53_acfb7d4d-6ed5-4198-857e-f94c57716be3",
+                "source": "LINSPACE-fabbc4a7-3e4d-4ff7-bb76-f8f8d26322af",
+                "target": "POPULATE-b30db345-a12c-4f5f-8aad-b31d8a1ebd53",
                 "sourceHandle": "default",
-                "target": "POPULATE-fb436d2a-9db1-4de7-8e25-97b7c56a9f29",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-14e316a4-dcdb-47ac-868d-d829b0c30678default-POPULATE-fb436d2a-9db1-4de7-8e25-97b7c56a9f29default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "POPULATE-fb436d2a-9db1-4de7-8e25-97b7c56a9f29",
+                "id": "POPULATE-b30db345-a12c-4f5f-8aad-b31d8a1ebd53->HISTOGRAM-3073458c-3beb-47c6-8a4b-70a0e80401cc_0a564d23-709d-4633-802d-6349fcf1cf46",
+                "source": "POPULATE-b30db345-a12c-4f5f-8aad-b31d8a1ebd53",
+                "target": "HISTOGRAM-3073458c-3beb-47c6-8a4b-70a0e80401cc",
                 "sourceHandle": "default",
-                "target": "HISTOGRAM-e426b844-934e-4b27-983f-68afc25b5659",
                 "targetHandle": "default",
-                "id": "reactflow__edge-POPULATE-fb436d2a-9db1-4de7-8e25-97b7c56a9f29default-HISTOGRAM-e426b844-934e-4b27-983f-68afc25b5659default"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             }
-        ],
-        "viewport": {
-            "x": -373.4542219202399,
-            "y": 120.20973884288571,
-            "zoom": 1.101977389476256
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

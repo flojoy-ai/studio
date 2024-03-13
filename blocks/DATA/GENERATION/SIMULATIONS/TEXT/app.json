@@ -2,116 +2,125 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
-                "id": "TEXT-45fcfb81-572f-4dcc-bcb5-b9a8ab089b26",
-                "type": "GENERATORS",
+                "id": "TEXT-789a641a-b038-4c12-8122-a9869e25d3ee",
+                "type": "DATA",
                 "data": {
-                    "id": "TEXT-45fcfb81-572f-4dcc-bcb5-b9a8ab089b26",
+                    "id": "TEXT-789a641a-b038-4c12-8122-a9869e25d3ee",
                     "label": "TEXT",
                     "func": "TEXT",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "value": {
-                            "type": "str",
+                            "type": "TextArea",
                             "default": "Hello World!",
-                            "desc": "The value set in Parameters",
+                            "desc": "The value set in Parameters.",
+                            "overload": null,
                             "functionName": "TEXT",
                             "param": "value",
-                            "value": "Hello World! This is Flojoy App text example."
+                            "value": "Hello World!"
                         }
                     },
                     "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "_",
+                            "id": "_",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "desc": "s: return the value being set in Parameters"
+                            "desc": "Return the value being set in Parameters."
                         }
                     ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TEXT/TEXT.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/TEXT/TEXT.py"
                 },
                 "position": {
-                    "x": 100.43021110919187,
-                    "y": -17.92250301470844
+                    "x": 80.7609505497251,
+                    "y": -76.6455683898206
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 100.43021110919187,
-                    "y": -17.92250301470844
+                    "x": 80.7609505497251,
+                    "y": -76.6455683898206
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 384,
-                "height": 288,
-                "id": "TEXT_VIEW-681bb72c-63d9-4be1-b20d-5888c47200c9",
-                "type": "VISUALIZERS",
+                "id": "TEXT_VIEW-cb77c1d2-0792-411f-85c7-abbd83b64aef",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "TEXT_VIEW-681bb72c-63d9-4be1-b20d-5888c47200c9",
+                    "id": "TEXT_VIEW-cb77c1d2-0792-411f-85c7-abbd83b64aef",
                     "label": "TEXT VIEW",
                     "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
-                    "path": "PYTHON/nodes/VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
                 },
                 "position": {
-                    "x": 525.0850419547326,
-                    "y": -82.05123546038055
+                    "x": 540.4472275985725,
+                    "y": -114.3174407198068
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 525.0850419547326,
-                    "y": -82.05123546038055
+                    "x": 540.4472275985725,
+                    "y": -114.3174407198068
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "TEXT-45fcfb81-572f-4dcc-bcb5-b9a8ab089b26",
+                "id": "TEXT-789a641a-b038-4c12-8122-a9869e25d3ee->TEXT_VIEW-cb77c1d2-0792-411f-85c7-abbd83b64aef_d7de559d-7126-44b0-9e02-32932d301aa8",
+                "source": "TEXT-789a641a-b038-4c12-8122-a9869e25d3ee",
+                "target": "TEXT_VIEW-cb77c1d2-0792-411f-85c7-abbd83b64aef",
                 "sourceHandle": "default",
-                "target": "TEXT_VIEW-681bb72c-63d9-4be1-b20d-5888c47200c9",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TEXT-45fcfb81-572f-4dcc-bcb5-b9a8ab089b26default-TEXT_VIEW-681bb72c-63d9-4be1-b20d-5888c47200c9default"
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 574.9737644785836,
-            "y": 258.3200412975903,
-            "zoom": 1.01138398827472
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

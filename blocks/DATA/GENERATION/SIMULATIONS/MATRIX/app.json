@@ -38,15 +38,15 @@
                     "path": "DATA/GENERATION/SIMULATIONS/MATRIX/MATRIX.py"
                 },
                 "position": {
-                    "x": 401.5230876368789,
-                    "y": 46.57209717253659
+                    "x": 390.4935558302994,
+                    "y": 18.210443955617848
                 },
                 "width": 216,
                 "height": 198,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 401.5230876368789,
-                    "y": 46.57209717253659
+                    "x": 390.4935558302994,
+                    "y": 18.210443955617848
                 },
                 "dragging": false
             },
@@ -83,8 +83,8 @@
                     "x": 829.1949673186948,
                     "y": -19.890647808802242
                 },
-                "width": 433,
-                "height": 276,
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
                     "x": 829.1949673186948,
@@ -92,8 +92,8 @@
                 },
                 "dragging": false,
                 "style": {
-                    "width": 433,
-                    "height": 276
+                    "width": 225,
+                    "height": 225
                 },
                 "resizing": false
             }
@@ -111,5 +111,8 @@
             }
         ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

@@ -92,15 +92,15 @@
                     "path": "DATA/GENERATION/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py"
                 },
                 "position": {
-                    "x": 1134.7579451784752,
-                    "y": 159.34194840699422
+                    "x": -461.37287197367175,
+                    "y": -273.96108685148596
                 },
                 "width": 218,
                 "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1134.7579451784752,
-                    "y": 159.34194840699422
+                    "x": -461.37287197367175,
+                    "y": -273.96108685148596
                 },
                 "dragging": false
             },
@@ -171,16 +171,16 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
                 },
                 "position": {
-                    "x": 1732.4269832257448,
-                    "y": 120.39284183066161
+                    "x": 487.6655364832019,
+                    "y": -316.0614882296984
                 },
                 "width": 225,
                 "height": 225,
                 "selected": false,
                 "dragging": false,
                 "positionAbsolute": {
-                    "x": 1732.4269832257448,
-                    "y": 120.39284183066161
+                    "x": 487.6655364832019,
+                    "y": -316.0614882296984
                 }
             },
             {
@@ -250,15 +250,15 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
                 },
                 "position": {
-                    "x": 1893.1554271684242,
-                    "y": 439.83118123011866
+                    "x": 525.4934831525668,
+                    "y": 17.557677778217908
                 },
                 "width": 225,
                 "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1893.1554271684242,
-                    "y": 439.83118123011866
+                    "x": 525.4934831525668,
+                    "y": 17.557677778217908
                 },
                 "dragging": false
             },
@@ -320,15 +320,15 @@
                     "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
                 },
                 "position": {
-                    "x": 1103.261815796554,
-                    "y": 467.2703445570546
+                    "x": -417.2379261104763,
+                    "y": 59.49279719380132
                 },
                 "width": 216,
                 "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1103.261815796554,
-                    "y": 467.2703445570546
+                    "x": -417.2379261104763,
+                    "y": 59.49279719380132
                 },
                 "dragging": false
             },
@@ -414,15 +414,15 @@
                     "path": "DATA/GENERATION/SIMULATIONS/SINE/SINE.py"
                 },
                 "position": {
-                    "x": 1535.2422515687551,
-                    "y": 470.082331166845
+                    "x": 11.59121485984491,
+                    "y": 57.26271212058384
                 },
                 "width": 216,
                 "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1535.2422515687551,
-                    "y": 470.082331166845
+                    "x": 11.59121485984491,
+                    "y": 57.26271212058384
                 },
                 "dragging": false
             }
@@ -439,16 +439,6 @@
                 }
             },
             {
-                "id": "LINSPACE-ec14dbe7-9651-439f-98e1-bf8493cc3e5c->SINE-51c900b9-4eeb-4cd5-b4be-03685375e9ee_e81c114b-362a-4635-996c-3085509f4b2c",
-                "source": "LINSPACE-ec14dbe7-9651-439f-98e1-bf8493cc3e5c",
-                "target": "SINE-51c900b9-4eeb-4cd5-b4be-03685375e9ee",
-                "sourceHandle": "default",
-                "targetHandle": "default",
-                "data": {
-                    "outputType": "Vector"
-                }
-            },
-            {
                 "id": "SINE-51c900b9-4eeb-4cd5-b4be-03685375e9ee->LINE-305e1d73-693e-4651-b321-e2b135f4f2ec_5833a0e3-ba9f-44f0-8553-46776a40cf32",
                 "source": "SINE-51c900b9-4eeb-4cd5-b4be-03685375e9ee",
                 "target": "LINE-305e1d73-693e-4651-b321-e2b135f4f2ec",
@@ -457,8 +447,21 @@
                 "data": {
                     "outputType": "OrderedPair"
                 }
+            },
+            {
+                "id": "LINSPACE-ec14dbe7-9651-439f-98e1-bf8493cc3e5c->SINE-51c900b9-4eeb-4cd5-b4be-03685375e9ee_e81c114b-362a-4635-996c-3085509f4b2c",
+                "source": "LINSPACE-ec14dbe7-9651-439f-98e1-bf8493cc3e5c",
+                "target": "SINE-51c900b9-4eeb-4cd5-b4be-03685375e9ee",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Vector"
+                }
             }
         ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

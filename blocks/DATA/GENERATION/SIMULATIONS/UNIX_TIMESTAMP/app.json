@@ -2,24 +2,22 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
-                "id": "RAND-987d9a50-aeff-488c-90f2-23199a00b3b0",
-                "type": "GENERATORS",
+                "id": "RAND-2c8f3a6e-310e-488a-a3b0-861de42c8f54",
+                "type": "DATA",
                 "data": {
-                    "id": "RAND-987d9a50-aeff-488c-90f2-23199a00b3b0",
+                    "id": "RAND-2c8f3a6e-310e-488a-a3b0-861de42c8f54",
                     "label": "RAND",
                     "func": "RAND",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "distribution": {
                             "type": "select",
+                            "default": "normal",
                             "options": [
                                 "normal",
                                 "uniform",
                                 "poisson"
                             ],
-                            "default": "normal",
                             "desc": "the distribution over the random samples",
                             "overload": {
                                 "uniform": [
@@ -102,8 +100,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": "unused in this node"
+                            "desc": "unused in this node",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -114,39 +112,94 @@
                             "desc": "Vector if size > 1\nv: the random samples\n\nScalar if size = 1\nc: the random number"
                         }
                     ],
-                    "path": "GENERATORS/SIMULATIONS/RAND/RAND.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/RAND/RAND.py"
                 },
                 "position": {
-                    "x": -242.33431249118965,
-                    "y": -637.0697092164855
+                    "x": -670.6202608264015,
+                    "y": -1123.8087359947274
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -242.33431249118965,
-                    "y": -637.0697092164855
+                    "x": -670.6202608264015,
+                    "y": -1123.8087359947274
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 96,
-                "height": 96,
-                "id": "LOOP-054de831-8b4d-484b-a534-ff2cdb8a7cab",
-                "type": "LOGIC_GATES",
+                "id": "UNIX_TIMESTAMP-d7d80ec6-7362-4191-aad5-78d9d8fa2ba2",
+                "type": "DATA",
                 "data": {
-                    "id": "LOOP-054de831-8b4d-484b-a534-ff2cdb8a7cab",
-                    "label": "LOOP",
-                    "func": "LOOP",
-                    "type": "LOGIC_GATES",
+                    "id": "UNIX_TIMESTAMP-d7d80ec6-7362-4191-aad5-78d9d8fa2ba2",
+                    "label": "UNIX TIMESTAMP",
+                    "func": "UNIX_TIMESTAMP",
+                    "type": "DATA",
                     "ctrls": {
-                        "num_loops": {
-                            "type": "int",
-                            "default": -1,
-                            "desc": "number of times to iterate through body nodes, default is \"-1\" meaning infinity.",
+                        "dc_type": {
+                            "type": "select",
+                            "default": "Scalar",
+                            "options": [
+                                "Scalar",
+                                "Vector"
+                            ],
+                            "desc": "The type of DataContainer to return.",
                             "overload": null,
-                            "functionName": "LOOP",
-                            "param": "num_loops",
-                            "value": -1
+                            "functionName": "UNIX_TIMESTAMP",
+                            "param": "dc_type",
+                            "value": "Scalar"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "A value to timestamp",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar|Vector|OrderedPair",
+                            "desc": null
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/UNIX_TIMESTAMP/UNIX_TIMESTAMP.py"
+                },
+                "position": {
+                    "x": -242.16485387583498,
+                    "y": -1124.5532553784706
+                },
+                "width": 216,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -242.16485387583498,
+                    "y": -1124.5532553784706
+                },
+                "dragging": false
+            },
+            {
+                "id": "TIMER-ca59e144-453d-4a6c-b83c-78f0036d681e",
+                "type": "CONTROL_FLOW",
+                "data": {
+                    "id": "TIMER-ca59e144-453d-4a6c-b83c-78f0036d681e",
+                    "label": "TIMER 2",
+                    "func": "TIMER",
+                    "type": "CONTROL_FLOW",
+                    "ctrls": {
+                        "sleep_time": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "number of seconds to sleep",
+                            "overload": null,
+                            "functionName": "TIMER",
+                            "param": "sleep_time",
+                            "value": 1
                         }
                     },
                     "initCtrls": {},
@@ -155,48 +208,41 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
                         {
-                            "name": "body",
-                            "id": "body",
+                            "name": "default",
+                            "id": "default",
                             "type": "Any",
-                            "desc": null
-                        },
-                        {
-                            "name": "end",
-                            "id": "end",
-                            "type": "Any",
-                            "desc": null
+                            "desc": "Returns the input if one was passed in."
                         }
                     ],
-                    "path": "LOGIC_GATES/LOOPS/LOOP/LOOP.py",
-                    "selected": false
+                    "path": "CONTROL_FLOW/TIMERS/TIMER/TIMER.py"
                 },
                 "position": {
-                    "x": 504.4038765323662,
-                    "y": -478.8683067596952
+                    "x": 203.9235665558208,
+                    "y": -1099.13848283938
                 },
+                "width": 236,
+                "height": 140,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 504.4038765323662,
-                    "y": -478.8683067596952
+                    "x": 203.9235665558208,
+                    "y": -1099.13848283938
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 96,
-                "height": 96,
-                "id": "APPEND-fc16b70b-1482-4e75-8165-8cd84c9e9e18",
-                "type": "LOGIC_GATES",
+                "id": "APPEND-44d02537-f0f6-4db2-bd73-b8a9c8c5cc48",
+                "type": "CONTROL_FLOW",
                 "data": {
-                    "id": "APPEND-fc16b70b-1482-4e75-8165-8cd84c9e9e18",
+                    "id": "APPEND-44d02537-f0f6-4db2-bd73-b8a9c8c5cc48",
                     "label": "APPEND",
                     "func": "APPEND",
-                    "type": "LOGIC_GATES",
+                    "type": "CONTROL_FLOW",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -204,58 +250,438 @@
                             "name": "primary_dp",
                             "id": "primary_dp",
                             "type": "OrderedPair|Matrix|DataFrame|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "Input that ends up \"on top\" of the resulting DataContainer."
+                            "desc": "Input that ends up \"on top\" of the resulting DataContainer.",
+                            "multiple": false
                         },
                         {
                             "name": "secondary_dp",
                             "id": "secondary_dp",
                             "type": "OrderedPair|Matrix|DataFrame|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "Input that ends up \"on the bottom\" of the resulting DataContainer."
+                            "desc": "Input that ends up \"on the bottom\" of the resulting DataContainer.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "OrderedPair|Matrix|DataFrame|Vector",
+                            "type": "OrderedPair|Matrix|DataFrame|Vector|Scalar",
                             "desc": null
                         }
                     ],
-                    "path": "LOGIC_GATES/LOOPS/APPEND/APPEND.py",
-                    "selected": false
+                    "path": "CONTROL_FLOW/LOOPS/APPEND/APPEND.py"
                 },
                 "position": {
-                    "x": 1172.5810645388167,
-                    "y": -497.1805544135991
+                    "x": 1276.9227822088324,
+                    "y": -793.7092007862093
                 },
+                "width": 216,
+                "height": 198,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1172.5810645388167,
-                    "y": -497.1805544135991
+                    "x": 1276.9227822088324,
+                    "y": -793.7092007862093
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "LINE-e852868c-ffba-479b-ab6d-96835ae72744",
-                "type": "VISUALIZERS",
+                "id": "UNIX_TIMESTAMP-4b42cb5e-57a8-4726-9a7e-22f0f99e51fb",
+                "type": "DATA",
                 "data": {
-                    "id": "LINE-e852868c-ffba-479b-ab6d-96835ae72744",
+                    "id": "UNIX_TIMESTAMP-4b42cb5e-57a8-4726-9a7e-22f0f99e51fb",
+                    "label": "UNIX TIMESTAMP 2",
+                    "func": "UNIX_TIMESTAMP",
+                    "type": "DATA",
+                    "ctrls": {
+                        "dc_type": {
+                            "type": "select",
+                            "default": "Scalar",
+                            "options": [
+                                "Scalar",
+                                "Vector"
+                            ],
+                            "desc": "The type of DataContainer to return.",
+                            "overload": null,
+                            "functionName": "UNIX_TIMESTAMP",
+                            "param": "dc_type",
+                            "value": "Scalar"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "A value to timestamp",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar|Vector|OrderedPair",
+                            "desc": null
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/UNIX_TIMESTAMP/UNIX_TIMESTAMP.py"
+                },
+                "position": {
+                    "x": 917.8577539628104,
+                    "y": -1067.9866339485854
+                },
+                "width": 216,
+                "height": 269,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 917.8577539628104,
+                    "y": -1067.9866339485854
+                },
+                "dragging": false
+            },
+            {
+                "id": "LOOP-23ac2803-29a8-4e96-af07-04e7bf0d36c8",
+                "type": "CONTROL_FLOW",
+                "data": {
+                    "id": "LOOP-23ac2803-29a8-4e96-af07-04e7bf0d36c8",
+                    "label": "LOOP 1",
+                    "func": "LOOP",
+                    "type": "CONTROL_FLOW",
+                    "ctrls": {
+                        "num_loops": {
+                            "type": "int",
+                            "default": -1,
+                            "desc": "number of times to iterate through body nodes, default is \"-1\" meaning infinity.",
+                            "overload": null,
+                            "functionName": "LOOP",
+                            "param": "num_loops",
+                            "value": 100
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "body",
+                            "id": "body",
+                            "type": "Any",
+                            "desc": "Forwards the input DataContainer to the body."
+                        },
+                        {
+                            "name": "end",
+                            "id": "end",
+                            "type": "Any",
+                            "desc": "Forwards the input DataContainer to the end."
+                        }
+                    ],
+                    "path": "CONTROL_FLOW/LOOPS/LOOP/LOOP.py"
+                },
+                "position": {
+                    "x": 206.58369074566326,
+                    "y": -840.3369395236846
+                },
+                "width": 236,
+                "height": 198,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 206.58369074566326,
+                    "y": -840.3369395236846
+                },
+                "dragging": false
+            },
+            {
+                "id": "FEEDBACK-64a10596-dff0-442a-a07f-ce1a4e9ca980",
+                "type": "DATA",
+                "data": {
+                    "id": "FEEDBACK-64a10596-dff0-442a-a07f-ce1a4e9ca980",
+                    "label": "FEEDBACK",
+                    "func": "FEEDBACK",
+                    "type": "DATA",
+                    "ctrls": {
+                        "referred_node": {
+                            "type": "NodeReference",
+                            "default": null,
+                            "desc": "The node ID to capture the result from.",
+                            "overload": null,
+                            "functionName": "FEEDBACK",
+                            "param": "referred_node",
+                            "value": "APPEND-44d02537-f0f6-4db2-bd73-b8a9c8c5cc48"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "The result of the specified node ID, or the result of the parent node if it was not found."
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/FEEDBACK/FEEDBACK.py"
+                },
+                "position": {
+                    "x": 568.602077644472,
+                    "y": -673.8489797088461
+                },
+                "width": 216,
+                "height": 197,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 568.602077644472,
+                    "y": -673.8489797088461
+                },
+                "dragging": false
+            },
+            {
+                "id": "RAND-80e7c4ea-bf2d-4aeb-9fb5-1e84438abd8a",
+                "type": "DATA",
+                "data": {
+                    "id": "RAND-80e7c4ea-bf2d-4aeb-9fb5-1e84438abd8a",
+                    "label": "RAND 1",
+                    "func": "RAND",
+                    "type": "DATA",
+                    "ctrls": {
+                        "distribution": {
+                            "type": "select",
+                            "default": "normal",
+                            "options": [
+                                "normal",
+                                "uniform",
+                                "poisson"
+                            ],
+                            "desc": "the distribution over the random samples",
+                            "overload": {
+                                "uniform": [
+                                    "size",
+                                    "lower_bound",
+                                    "upper_bound"
+                                ],
+                                "normal": [
+                                    "size",
+                                    "normal_mean",
+                                    "normal_standard_deviation"
+                                ],
+                                "poisson": [
+                                    "size",
+                                    "poisson_events"
+                                ]
+                            },
+                            "functionName": "RAND",
+                            "param": "distribution",
+                            "value": "normal"
+                        },
+                        "size": {
+                            "type": "int",
+                            "default": 1000,
+                            "desc": "the size of the output. =1 outputs Scalar, >1 outputs Vector",
+                            "overload": null,
+                            "functionName": "RAND",
+                            "param": "size",
+                            "value": 1
+                        },
+                        "lower_bound": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "the lower bound of the output interval",
+                            "overload": null,
+                            "functionName": "RAND",
+                            "param": "lower_bound",
+                            "value": 0
+                        },
+                        "upper_bound": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "the upper bound of the output interval",
+                            "overload": null,
+                            "functionName": "RAND",
+                            "param": "upper_bound",
+                            "value": 1
+                        },
+                        "normal_mean": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "the mean or \"center\" of the normal distribution",
+                            "overload": null,
+                            "functionName": "RAND",
+                            "param": "normal_mean",
+                            "value": 100
+                        },
+                        "normal_standard_deviation": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "the spread or \"width\" of the normal distribution",
+                            "overload": null,
+                            "functionName": "RAND",
+                            "param": "normal_standard_deviation",
+                            "value": 10
+                        },
+                        "poisson_events": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "the expected number of events occurring in a fixed time-interval when distribution is poisson",
+                            "overload": null,
+                            "functionName": "RAND",
+                            "param": "poisson_events",
+                            "value": 1
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "unused in this node",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|Scalar",
+                            "desc": "Vector if size > 1\nv: the random samples\n\nScalar if size = 1\nc: the random number"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/RAND/RAND.py"
+                },
+                "position": {
+                    "x": 572.5116078210998,
+                    "y": -1066.4123600127482
+                },
+                "width": 216,
+                "height": 197,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 572.5116078210998,
+                    "y": -1066.4123600127482
+                },
+                "dragging": false
+            },
+            {
+                "id": "TIMER-8ec35a48-d203-4476-9b71-e1c9cb2f9e26",
+                "type": "CONTROL_FLOW",
+                "data": {
+                    "id": "TIMER-8ec35a48-d203-4476-9b71-e1c9cb2f9e26",
+                    "label": "TIMER 1",
+                    "func": "TIMER",
+                    "type": "CONTROL_FLOW",
+                    "ctrls": {
+                        "sleep_time": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "number of seconds to sleep",
+                            "overload": null,
+                            "functionName": "TIMER",
+                            "param": "sleep_time",
+                            "value": 0.5
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "Returns the input if one was passed in."
+                        }
+                    ],
+                    "path": "CONTROL_FLOW/TIMERS/TIMER/TIMER.py"
+                },
+                "position": {
+                    "x": 1980.703046540871,
+                    "y": -765.6866825519197
+                },
+                "width": 236,
+                "height": 140,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1980.703046540871,
+                    "y": -765.6866825519197
+                },
+                "dragging": false
+            },
+            {
+                "id": "LINE-786e52e6-1357-416d-9960-0c7ced9d204a",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-786e52e6-1357-416d-9960-0c7ced9d204a",
                     "label": "LINE",
                     "func": "LINE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -266,498 +692,127 @@
                             "desc": "the DataContainer containing the Plotly Line visualization of the input data"
                         }
                     ],
-                    "path": "VISUALIZERS/PLOTLY/LINE/LINE.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
                 },
                 "position": {
-                    "x": 1347.1958561916588,
-                    "y": -596.9591300883288
+                    "x": 1596.813428229114,
+                    "y": -823.2439585173903
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1347.1958561916588,
-                    "y": -596.9591300883288
+                    "x": 1596.813428229114,
+                    "y": -823.2439585173903
                 },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "UNIX_TIMESTAMP-64abaef5-9f68-495d-81e8-63ebd0dd0323",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "UNIX_TIMESTAMP-64abaef5-9f68-495d-81e8-63ebd0dd0323",
-                    "label": "UNIX TIMESTAMP",
-                    "func": "UNIX_TIMESTAMP",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "dc_type": {
-                            "type": "select",
-                            "options": [
-                                "Scalar",
-                                "Vector"
-                            ],
-                            "default": "Scalar",
-                            "desc": "The type of DataContainer to return.",
-                            "overload": null,
-                            "functionName": "UNIX_TIMESTAMP",
-                            "param": "dc_type",
-                            "value": "Scalar"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Scalar",
-                            "multiple": false,
-                            "desc": "A value to timestamp"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Scalar|Vector|OrderedPair",
-                            "desc": null
-                        }
-                    ],
-                    "path": "GENERATORS/SIMULATIONS/UNIX_TIMESTAMP/UNIX_TIMESTAMP.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 38.753833080484014,
-                    "y": -577.7658714357179
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 38.753833080484014,
-                    "y": -577.7658714357179
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "RAND-dfa7d0bb-1484-4702-9e54-7007fc1c0f47",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "RAND-dfa7d0bb-1484-4702-9e54-7007fc1c0f47",
-                    "label": "RAND 1",
-                    "func": "RAND",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "distribution": {
-                            "type": "select",
-                            "options": [
-                                "normal",
-                                "uniform",
-                                "poisson"
-                            ],
-                            "default": "normal",
-                            "desc": "the distribution over the random samples",
-                            "overload": {
-                                "uniform": [
-                                    "size",
-                                    "lower_bound",
-                                    "upper_bound"
-                                ],
-                                "normal": [
-                                    "size",
-                                    "normal_mean",
-                                    "normal_standard_deviation"
-                                ],
-                                "poisson": [
-                                    "size",
-                                    "poisson_events"
-                                ]
-                            },
-                            "functionName": "RAND",
-                            "param": "distribution",
-                            "value": "normal"
-                        },
-                        "size": {
-                            "type": "int",
-                            "default": 1000,
-                            "desc": "the size of the output. =1 outputs Scalar, >1 outputs Vector",
-                            "overload": null,
-                            "functionName": "RAND",
-                            "param": "size",
-                            "value": 1
-                        },
-                        "lower_bound": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "the lower bound of the output interval",
-                            "overload": null,
-                            "functionName": "RAND",
-                            "param": "lower_bound",
-                            "value": 0
-                        },
-                        "upper_bound": {
-                            "type": "float",
-                            "default": 1,
-                            "desc": "the upper bound of the output interval",
-                            "overload": null,
-                            "functionName": "RAND",
-                            "param": "upper_bound",
-                            "value": 1
-                        },
-                        "normal_mean": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "the mean or \"center\" of the normal distribution",
-                            "overload": null,
-                            "functionName": "RAND",
-                            "param": "normal_mean",
-                            "value": 100
-                        },
-                        "normal_standard_deviation": {
-                            "type": "float",
-                            "default": 1,
-                            "desc": "the spread or \"width\" of the normal distribution",
-                            "overload": null,
-                            "functionName": "RAND",
-                            "param": "normal_standard_deviation",
-                            "value": 10
-                        },
-                        "poisson_events": {
-                            "type": "float",
-                            "default": 1,
-                            "desc": "the expected number of events occurring in a fixed time-interval when distribution is poisson",
-                            "overload": null,
-                            "functionName": "RAND",
-                            "param": "poisson_events",
-                            "value": 1
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": "unused in this node"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector|Scalar",
-                            "desc": "Vector if size > 1\nv: the random samples\n\nScalar if size = 1\nc: the random number"
-                        }
-                    ],
-                    "path": "GENERATORS/SIMULATIONS/RAND/RAND.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 626.7598156825101,
-                    "y": -630.5123356277638
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 626.7598156825101,
-                    "y": -630.5123356277638
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "UNIX_TIMESTAMP-731e7b82-9071-43a9-872f-381ad862ecc5",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "UNIX_TIMESTAMP-731e7b82-9071-43a9-872f-381ad862ecc5",
-                    "label": "UNIX TIMESTAMP 1",
-                    "func": "UNIX_TIMESTAMP",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "dc_type": {
-                            "type": "select",
-                            "options": [
-                                "Scalar",
-                                "Vector"
-                            ],
-                            "default": "Scalar",
-                            "desc": "The type of DataContainer to return.",
-                            "overload": null,
-                            "functionName": "UNIX_TIMESTAMP",
-                            "param": "dc_type",
-                            "value": "Scalar"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Scalar",
-                            "multiple": false,
-                            "desc": "A value to timestamp"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Scalar|Vector|OrderedPair",
-                            "desc": null
-                        }
-                    ],
-                    "path": "GENERATORS/SIMULATIONS/UNIX_TIMESTAMP/UNIX_TIMESTAMP.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 912.2055226400296,
-                    "y": -630.8223776023647
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 912.2055226400296,
-                    "y": -630.8223776023647
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "FEEDBACK-6faeef8a-6ce3-4377-ac84-72311b02287a",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "FEEDBACK-6faeef8a-6ce3-4377-ac84-72311b02287a",
-                    "label": "FEEDBACK",
-                    "func": "FEEDBACK",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "referred_node": {
-                            "type": "NodeReference",
-                            "default": null,
-                            "desc": "The node ID to capture the result from.",
-                            "overload": null,
-                            "functionName": "FEEDBACK",
-                            "param": "referred_node",
-                            "value": "APPEND-fc16b70b-1482-4e75-8165-8cd84c9e9e18"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": null
-                        }
-                    ],
-                    "path": "GENERATORS/SIMULATIONS/FEEDBACK/FEEDBACK.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 790.8954066879804,
-                    "y": -409.22964244525434
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 790.8954066879804,
-                    "y": -409.22964244525434
-                },
-                "dragging": true
-            },
-            {
-                "width": 96,
-                "height": 96,
-                "id": "TIMER-1d70971e-c028-4e68-95e1-ed4cc9e1badf",
-                "type": "LOGIC_GATES",
-                "data": {
-                    "id": "TIMER-1d70971e-c028-4e68-95e1-ed4cc9e1badf",
-                    "label": "TIMER",
-                    "func": "TIMER",
-                    "type": "LOGIC_GATES",
-                    "ctrls": {
-                        "sleep_time": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "number of seconds to sleep",
-                            "overload": null,
-                            "functionName": "TIMER",
-                            "param": "sleep_time",
-                            "value": 1
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": null
-                        }
-                    ],
-                    "path": "LOGIC_GATES/TIMERS/TIMER/TIMER.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 1833.4271235393514,
-                    "y": -513.7129865082782
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1833.4271235393514,
-                    "y": -513.7129865082782
-                },
-                "dragging": true
-            },
-            {
-                "width": 96,
-                "height": 96,
-                "id": "TIMER-da8c5336-7f7e-449b-80cb-8da9e66e40c6",
-                "type": "LOGIC_GATES",
-                "data": {
-                    "id": "TIMER-da8c5336-7f7e-449b-80cb-8da9e66e40c6",
-                    "label": "TIMER 1",
-                    "func": "TIMER",
-                    "type": "LOGIC_GATES",
-                    "ctrls": {
-                        "sleep_time": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "number of seconds to sleep",
-                            "overload": null,
-                            "functionName": "TIMER",
-                            "param": "sleep_time",
-                            "value": 1
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": null
-                        }
-                    ],
-                    "path": "LOGIC_GATES/TIMERS/TIMER/TIMER.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 320.32046713908926,
-                    "y": -528.8507916716401
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 320.32046713908926,
-                    "y": -528.8507916716401
-                },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "LOOP-054de831-8b4d-484b-a534-ff2cdb8a7cab",
+                "id": "RAND-2c8f3a6e-310e-488a-a3b0-861de42c8f54->UNIX_TIMESTAMP-d7d80ec6-7362-4191-aad5-78d9d8fa2ba2_0e42c5b6-55c3-430c-8915-54ab3196500d",
+                "source": "RAND-2c8f3a6e-310e-488a-a3b0-861de42c8f54",
+                "target": "UNIX_TIMESTAMP-d7d80ec6-7362-4191-aad5-78d9d8fa2ba2",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Vector"
+                }
+            },
+            {
+                "id": "UNIX_TIMESTAMP-d7d80ec6-7362-4191-aad5-78d9d8fa2ba2->TIMER-ca59e144-453d-4a6c-b83c-78f0036d681e_58a5e1b1-8e34-4949-b66f-c615711c4fd4",
+                "source": "UNIX_TIMESTAMP-d7d80ec6-7362-4191-aad5-78d9d8fa2ba2",
+                "target": "TIMER-ca59e144-453d-4a6c-b83c-78f0036d681e",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Scalar"
+                }
+            },
+            {
+                "id": "TIMER-ca59e144-453d-4a6c-b83c-78f0036d681e->LOOP-23ac2803-29a8-4e96-af07-04e7bf0d36c8_5d17892b-98b8-416e-931c-2df17420fbcf",
+                "source": "TIMER-ca59e144-453d-4a6c-b83c-78f0036d681e",
+                "target": "LOOP-23ac2803-29a8-4e96-af07-04e7bf0d36c8",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Any"
+                }
+            },
+            {
+                "id": "LOOP-23ac2803-29a8-4e96-af07-04e7bf0d36c8->RAND-80e7c4ea-bf2d-4aeb-9fb5-1e84438abd8a_848d378f-2bf7-4c03-b76f-d0d7f21999f3",
+                "source": "LOOP-23ac2803-29a8-4e96-af07-04e7bf0d36c8",
+                "target": "RAND-80e7c4ea-bf2d-4aeb-9fb5-1e84438abd8a",
                 "sourceHandle": "body",
-                "target": "RAND-dfa7d0bb-1484-4702-9e54-7007fc1c0f47",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LOOP-054de831-8b4d-484b-a534-ff2cdb8a7cabbody-RAND-dfa7d0bb-1484-4702-9e54-7007fc1c0f47default"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "RAND-dfa7d0bb-1484-4702-9e54-7007fc1c0f47",
-                "sourceHandle": "default",
-                "target": "UNIX_TIMESTAMP-731e7b82-9071-43a9-872f-381ad862ecc5",
+                "id": "LOOP-23ac2803-29a8-4e96-af07-04e7bf0d36c8->FEEDBACK-64a10596-dff0-442a-a07f-ce1a4e9ca980_5dbd989f-c61f-48cb-9e8c-8713f2c746bf",
+                "source": "LOOP-23ac2803-29a8-4e96-af07-04e7bf0d36c8",
+                "target": "FEEDBACK-64a10596-dff0-442a-a07f-ce1a4e9ca980",
+                "sourceHandle": "body",
                 "targetHandle": "default",
-                "id": "reactflow__edge-RAND-dfa7d0bb-1484-4702-9e54-7007fc1c0f47default-UNIX_TIMESTAMP-731e7b82-9071-43a9-872f-381ad862ecc5default"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "UNIX_TIMESTAMP-731e7b82-9071-43a9-872f-381ad862ecc5",
+                "id": "RAND-80e7c4ea-bf2d-4aeb-9fb5-1e84438abd8a->UNIX_TIMESTAMP-4b42cb5e-57a8-4726-9a7e-22f0f99e51fb_735b0f91-f41b-4b0f-9a2b-1ca1fdc49a58",
+                "source": "RAND-80e7c4ea-bf2d-4aeb-9fb5-1e84438abd8a",
+                "target": "UNIX_TIMESTAMP-4b42cb5e-57a8-4726-9a7e-22f0f99e51fb",
                 "sourceHandle": "default",
-                "target": "APPEND-fc16b70b-1482-4e75-8165-8cd84c9e9e18",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Vector"
+                }
+            },
+            {
+                "id": "UNIX_TIMESTAMP-4b42cb5e-57a8-4726-9a7e-22f0f99e51fb->APPEND-44d02537-f0f6-4db2-bd73-b8a9c8c5cc48_8dba60da-c95c-49f9-9e62-1611845c2ff4",
+                "source": "UNIX_TIMESTAMP-4b42cb5e-57a8-4726-9a7e-22f0f99e51fb",
+                "target": "APPEND-44d02537-f0f6-4db2-bd73-b8a9c8c5cc48",
+                "sourceHandle": "default",
                 "targetHandle": "secondary_dp",
-                "id": "reactflow__edge-UNIX_TIMESTAMP-731e7b82-9071-43a9-872f-381ad862ecc5default-APPEND-fc16b70b-1482-4e75-8165-8cd84c9e9e18secondary_dp"
+                "data": {
+                    "outputType": "Scalar"
+                }
             },
             {
-                "source": "APPEND-fc16b70b-1482-4e75-8165-8cd84c9e9e18",
+                "id": "FEEDBACK-64a10596-dff0-442a-a07f-ce1a4e9ca980->APPEND-44d02537-f0f6-4db2-bd73-b8a9c8c5cc48_7584140a-3f40-4e0e-8aa1-a6a119d2abcf",
+                "source": "FEEDBACK-64a10596-dff0-442a-a07f-ce1a4e9ca980",
+                "target": "APPEND-44d02537-f0f6-4db2-bd73-b8a9c8c5cc48",
                 "sourceHandle": "default",
-                "target": "LINE-e852868c-ffba-479b-ab6d-96835ae72744",
-                "targetHandle": "default",
-                "id": "reactflow__edge-APPEND-fc16b70b-1482-4e75-8165-8cd84c9e9e18default-LINE-e852868c-ffba-479b-ab6d-96835ae72744default"
-            },
-            {
-                "source": "FEEDBACK-6faeef8a-6ce3-4377-ac84-72311b02287a",
-                "sourceHandle": "default",
-                "target": "APPEND-fc16b70b-1482-4e75-8165-8cd84c9e9e18",
                 "targetHandle": "primary_dp",
-                "id": "reactflow__edge-FEEDBACK-6faeef8a-6ce3-4377-ac84-72311b02287adefault-APPEND-fc16b70b-1482-4e75-8165-8cd84c9e9e18primary_dp"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "LINE-e852868c-ffba-479b-ab6d-96835ae72744",
+                "id": "APPEND-44d02537-f0f6-4db2-bd73-b8a9c8c5cc48->LINE-786e52e6-1357-416d-9960-0c7ced9d204a_ff84ace3-05a5-46d4-b83f-93b9451e712f",
+                "source": "APPEND-44d02537-f0f6-4db2-bd73-b8a9c8c5cc48",
+                "target": "LINE-786e52e6-1357-416d-9960-0c7ced9d204a",
                 "sourceHandle": "default",
-                "target": "TIMER-1d70971e-c028-4e68-95e1-ed4cc9e1badf",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINE-e852868c-ffba-479b-ab6d-96835ae72744default-TIMER-1d70971e-c028-4e68-95e1-ed4cc9e1badfdefault"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "LOOP-054de831-8b4d-484b-a534-ff2cdb8a7cab",
-                "sourceHandle": "body",
-                "target": "FEEDBACK-6faeef8a-6ce3-4377-ac84-72311b02287a",
-                "targetHandle": "default",
-                "id": "reactflow__edge-LOOP-054de831-8b4d-484b-a534-ff2cdb8a7cabbody-FEEDBACK-6faeef8a-6ce3-4377-ac84-72311b02287adefault"
-            },
-            {
-                "source": "RAND-987d9a50-aeff-488c-90f2-23199a00b3b0",
+                "id": "LINE-786e52e6-1357-416d-9960-0c7ced9d204a->TIMER-8ec35a48-d203-4476-9b71-e1c9cb2f9e26_45c20ad3-bb85-42bc-b0e9-a81f28629d7e",
+                "source": "LINE-786e52e6-1357-416d-9960-0c7ced9d204a",
+                "target": "TIMER-8ec35a48-d203-4476-9b71-e1c9cb2f9e26",
                 "sourceHandle": "default",
-                "target": "UNIX_TIMESTAMP-64abaef5-9f68-495d-81e8-63ebd0dd0323",
                 "targetHandle": "default",
-                "id": "reactflow__edge-RAND-987d9a50-aeff-488c-90f2-23199a00b3b0default-UNIX_TIMESTAMP-64abaef5-9f68-495d-81e8-63ebd0dd0323default"
-            },
-            {
-                "source": "UNIX_TIMESTAMP-64abaef5-9f68-495d-81e8-63ebd0dd0323",
-                "sourceHandle": "default",
-                "target": "TIMER-da8c5336-7f7e-449b-80cb-8da9e66e40c6",
-                "targetHandle": "default",
-                "id": "reactflow__edge-UNIX_TIMESTAMP-64abaef5-9f68-495d-81e8-63ebd0dd0323default-TIMER-da8c5336-7f7e-449b-80cb-8da9e66e40c6default"
-            },
-            {
-                "source": "TIMER-da8c5336-7f7e-449b-80cb-8da9e66e40c6",
-                "sourceHandle": "default",
-                "target": "LOOP-054de831-8b4d-484b-a534-ff2cdb8a7cab",
-                "targetHandle": "default",
-                "id": "reactflow__edge-TIMER-da8c5336-7f7e-449b-80cb-8da9e66e40c6default-LOOP-054de831-8b4d-484b-a534-ff2cdb8a7cabdefault"
+                "data": {
+                    "outputType": "Plotly"
+                }
             }
-        ],
-        "viewport": {
-            "x": 283.72679723795954,
-            "y": 649.7572098262036,
-            "zoom": 0.5
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

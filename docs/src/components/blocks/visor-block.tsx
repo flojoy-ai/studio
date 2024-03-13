@@ -8,7 +8,7 @@ const VisorBlock = (props: BlockProps) => {
 
   return (
     <>
-      <DefaultBlock {...props} variant="accent5">
+      <DefaultBlock {...props} height={225} variant="accent5">
         {SvgIcon && <SvgIcon />}
       </DefaultBlock>
     </>
