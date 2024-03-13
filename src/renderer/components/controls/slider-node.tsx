@@ -2,12 +2,33 @@ import { Input } from "@/renderer/components/ui/input";
 import { SliderConfig, WidgetProps } from "@/renderer/types/control";
 import WidgetLabel from "@/renderer/components/common/widget-label";
 import { useControl } from "@/renderer/hooks/useControl";
+import { useMemo } from "react";
+
+const countDecimalPlaces = (num: number) => {
+  const numString = num.toString();
+  const decimalIndex = numString.indexOf(".");
+  if (decimalIndex === -1) {
+    return 0;
+  }
+
+  return numString.length - decimalIndex - 1;
+};
 
 export const SliderNode = ({ id, data }: WidgetProps<SliderConfig>) => {
   const control = useControl(data);
+  const parseFunc = useMemo(
+    () => (data.config.floating ? parseFloat : parseInt),
+    [data.config.floating],
+  );
+  const numDecimals = useMemo(
+    () => countDecimalPlaces(data.config.step),
+    [data.config.step],
+  );
+
   if (!control) {
     return <div className="text-2xl text-red-500">NOT FOUND</div>;
   }
+
   const { name, value, onValueChange } = control;
 
   return (
@@ -25,9 +46,11 @@ export const SliderNode = ({ id, data }: WidgetProps<SliderConfig>) => {
           max={data.config.max}
           step={data.config.step}
           value={value as number}
-          onChange={(e) => onValueChange(parseInt(e.target.value, 10))}
+          onChange={(e) => onValueChange(parseFunc(e.target.value))}
         />
-        <div className="text-xl font-bold">{value}</div>
+        <div className="text-xl font-bold">
+          {(value as number).toFixed(numDecimals)}
+        </div>
       </div>
     </div>
   );

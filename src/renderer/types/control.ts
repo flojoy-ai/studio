@@ -22,13 +22,15 @@ import {
 } from "lucide-react";
 
 export const PYTHON_TYPES = ["int", "float", "bool", "select", "File"] as const;
-export type PythonType = (typeof PYTHON_TYPES)[number];
+export const PythonType = z.enum(PYTHON_TYPES);
+export type PythonType = z.infer<typeof PythonType>;
 
 export const SliderConfig = z.object({
   type: z.literal("slider"),
   min: z.number(),
   max: z.number(),
   step: z.number().positive(),
+  floating: z.boolean().optional(),
 });
 export type SliderConfig = z.infer<typeof SliderConfig>;
 
@@ -37,6 +39,7 @@ export const KnobConfig = z.object({
   min: z.number(),
   max: z.number(),
   step: z.number().positive(),
+  floating: z.boolean().optional(),
 });
 export type KnobConfig = z.infer<typeof KnobConfig>;
 

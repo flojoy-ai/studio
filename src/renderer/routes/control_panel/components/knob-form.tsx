@@ -18,14 +18,18 @@ import { FormIconLabel } from "@/renderer/components/common/form-icon-label";
 type Props = {
   initialValues: KnobConfig;
   onSubmit: (data: KnobConfig) => void;
+  float?: boolean;
 };
 
-export const KnobConfigForm = ({ onSubmit, initialValues }: Props) => {
+export const KnobConfigForm = ({
+  onSubmit,
+  initialValues,
+  float = false,
+}: Props) => {
   const form = useForm<KnobConfig>({
     resolver: zodResolver(KnobConfig),
-    defaultValues: initialValues,
+    defaultValues: { ...initialValues, floating: float },
   });
-  const float = false;
 
   return (
     <Form {...form}>
