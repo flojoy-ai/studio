@@ -7,7 +7,7 @@ import { CheckboxNode } from "@/renderer/components/controls/checkbox-node";
 import { SwitchNode } from "@/renderer/components/controls/switch-node";
 import { ComboboxNode } from "@/renderer/components/controls/combobox-node";
 import { RadioGroupNode } from "@/renderer/components/controls/radio-group-node";
-import { ValuesOf, typedObjectKeys } from "./util";
+import { ValuesOf, getZodEnumFromObjectKeys } from "./util";
 import { KnobNode } from "@/renderer/components/controls/knob-node";
 import {
   LucideIcon,
@@ -21,7 +21,8 @@ import {
   Radius,
 } from "lucide-react";
 
-export type PythonType = "int" | "float" | "bool" | "select" | "File";
+export const PYTHON_TYPES = ["int", "float", "bool", "select", "File"] as const;
+export type PythonType = (typeof PYTHON_TYPES)[number];
 
 export const SliderConfig = z.object({
   type: z.literal("slider"),
@@ -128,8 +129,7 @@ export const WIDGET_CONFIGS = {
   },
 } as const;
 
-const [k, ks] = typedObjectKeys(WIDGETS);
-export const WidgetType = z.enum([k, ...ks]);
+const WidgetType = getZodEnumFromObjectKeys(WIDGETS);
 export type WidgetType = z.infer<typeof WidgetType>;
 
 export const isWidgetType = (value: string): value is WidgetType =>

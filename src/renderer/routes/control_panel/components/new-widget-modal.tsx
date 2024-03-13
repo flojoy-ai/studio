@@ -20,6 +20,7 @@ import {
 } from "@/renderer/components/ui/form";
 import { Combobox } from "@/renderer/components/ui/combobox";
 import {
+  PYTHON_TYPES,
   PythonType,
   WIDGETS,
   WidgetBlockInfo,
@@ -31,21 +32,20 @@ import {
   ClickablesItem,
 } from "@/renderer/components/common/clickables";
 import { FormIconLabel } from "@/renderer/components/common/form-icon-label";
+import { typedObjectFromEntries, typedObjectKeys } from "@/renderer/types/util";
 
 const mapTypesToWidgets = () => {
-  const res = {};
+  const res: Record<PythonType, WidgetType[]> = typedObjectFromEntries(
+    PYTHON_TYPES.map((t) => [t, []]),
+  );
 
-  for (const [k, v] of Object.entries(WIDGETS)) {
-    for (const type of v.allowedTypes) {
-      if (type in res) {
-        res[type].push(k);
-      } else {
-        res[type] = [];
-      }
+  for (const k of typedObjectKeys(WIDGETS)) {
+    for (const type of WIDGETS[k].allowedTypes) {
+      res[type].push(k);
     }
   }
 
-  return res as Record<PythonType, WidgetType[]>;
+  return res;
 };
 
 const WidgetTypeIcon = ({ type }: { type: WidgetType }) => {
