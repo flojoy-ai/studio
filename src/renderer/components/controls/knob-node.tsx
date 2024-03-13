@@ -15,6 +15,9 @@ type Vector2 = {
   y: number;
 };
 
+const minAngle = 0;
+const maxAngle = Math.PI;
+
 const frac = (value: number, min: number, max: number) => {
   return (value - min) / (max - min);
 };
@@ -30,11 +33,13 @@ const clamp = (value: number, min: number, max: number) => {
 };
 
 const angleFromValue = (value: number, min: number, max: number) => {
-  return clamp(Math.PI * frac(value, min, max), 0, Math.PI);
+  return clamp(maxAngle * frac(value, min, max), minAngle, maxAngle);
 };
 
 const valueFromAngle = (angle: number, min: number, max: number) => {
-  return clamp(min + (max - min) * (angle / Math.PI), min, max);
+  const angleRange = maxAngle - minAngle;
+  const valRange = max - min;
+  return Math.round(clamp(min + valRange * (angle / angleRange), min, max));
 };
 
 const multiply = (v: Vector2, s: number) => {
@@ -61,7 +66,7 @@ const Knob = ({ value, min, max, onValueChange }: Props) => {
   const knobRef = useRef<HTMLDivElement>(null);
   const angle = useRef(angleFromValue(value, min, max));
   const radius = 80;
-  const rotationSpeed = 4;
+  const rotationSpeed = 16;
 
   const handleMouseDown = (event) => {
     event.preventDefault();
@@ -100,7 +105,13 @@ const Knob = ({ value, min, max, onValueChange }: Props) => {
       }),
       radius,
     );
-    const newAngle = Math.atan2(newPos.y, newPos.x);
+    let newAngle = Math.atan2(newPos.y, newPos.x);
+    if (newAngle < minAngle && dot(normal, { x: 0, y: 1 }) > 0) {
+      newAngle = maxAngle;
+    }
+    if (newAngle > maxAngle && dot(normal, { x: 0, y: 1 }) < 0) {
+      newAngle = minAngle;
+    }
 
     const newValue = valueFromAngle(newAngle, min, max);
     angle.current = newAngle;
@@ -126,7 +137,7 @@ const Knob = ({ value, min, max, onValueChange }: Props) => {
           height: radius,
         }}
       >
-        <div className="absolute right-0 top-1/2 h-1/5 w-2/5 -translate-y-1/2 transform bg-gray-600" />
+        <div className="absolute right-0 top-1/2 h-2 w-4 -translate-y-1/2 transform bg-gray-600" />
       </div>
       <span className="text-sm text-gray-600">{value}</span>
     </div>
