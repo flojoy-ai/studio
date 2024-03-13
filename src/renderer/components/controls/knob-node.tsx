@@ -3,13 +3,6 @@ import WidgetLabel from "@/renderer/components/common/widget-label";
 import { useControl } from "@/renderer/hooks/useControl";
 import { useRef } from "react";
 
-type Props = {
-  value: number;
-  min: number;
-  max: number;
-  onValueChange: (value: number) => void;
-};
-
 type Vector2 = {
   x: number;
   y: number;
@@ -36,10 +29,23 @@ const angleFromValue = (value: number, min: number, max: number) => {
   return clamp(maxAngle * frac(value, min, max), minAngle, maxAngle);
 };
 
-const valueFromAngle = (angle: number, min: number, max: number) => {
+const nearestMultiple = (x: number, y: number) => {
+  return Math.round(x / y) * y;
+};
+
+const valueFromAngle = (
+  angle: number,
+  min: number,
+  max: number,
+  step: number,
+) => {
   const angleRange = maxAngle - minAngle;
   const valRange = max - min;
-  return Math.round(clamp(min + valRange * (angle / angleRange), min, max));
+  return clamp(
+    nearestMultiple(min + valRange * (angle / angleRange), step),
+    min,
+    max,
+  );
 };
 
 const multiply = (v: Vector2, s: number) => {
@@ -62,7 +68,15 @@ const magnitude = (v: Vector2) => {
   return Math.sqrt(v.x * v.x + v.y * v.y);
 };
 
-const Knob = ({ value, min, max, onValueChange }: Props) => {
+type Props = {
+  value: number;
+  min: number;
+  max: number;
+  step: number;
+  onValueChange: (value: number) => void;
+};
+
+const Knob = ({ value, min, max, step, onValueChange }: Props) => {
   const knobRef = useRef<HTMLDivElement>(null);
   const angle = useRef(angleFromValue(value, min, max));
   const radius = 80;
@@ -113,7 +127,7 @@ const Knob = ({ value, min, max, onValueChange }: Props) => {
       newAngle = minAngle;
     }
 
-    const newValue = valueFromAngle(newAngle, min, max);
+    const newValue = valueFromAngle(newAngle, min, max, step);
     angle.current = newAngle;
 
     onValueChange(newValue);
@@ -164,6 +178,7 @@ export const KnobNode = ({ id, data }: WidgetProps<KnobConfig>) => {
         onValueChange={onValueChange}
         min={data.config.min}
         max={data.config.max}
+        step={data.config.step}
       />
     </div>
   );
