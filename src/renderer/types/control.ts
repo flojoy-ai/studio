@@ -28,7 +28,7 @@ export const SliderConfig = z.object({
   type: z.literal("slider"),
   min: z.number(),
   max: z.number(),
-  step: z.number(),
+  step: z.number().positive(),
 });
 export type SliderConfig = z.infer<typeof SliderConfig>;
 
@@ -36,7 +36,7 @@ export const KnobConfig = z.object({
   type: z.literal("knob"),
   min: z.number(),
   max: z.number(),
-  step: z.number(),
+  step: z.number().positive(),
 });
 export type KnobConfig = z.infer<typeof KnobConfig>;
 
