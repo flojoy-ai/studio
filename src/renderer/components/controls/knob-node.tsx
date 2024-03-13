@@ -4,11 +4,13 @@ import { useControl } from "@/renderer/hooks/useControl";
 import { useRef } from "react";
 import { Vector2, clamp, frac, nearestMultiple } from "@/renderer/utils/math";
 
-const minAngle = 0;
-const maxAngle = Math.PI;
+const minAngle = -Math.PI / 6;
+const maxAngle = (7 * Math.PI) / 6;
 
 const angleFromValue = (value: number, min: number, max: number) => {
-  return clamp(maxAngle * frac(value, min, max), minAngle, maxAngle);
+  const angleRange = maxAngle - minAngle;
+  const f = frac(value, min, max);
+  return clamp(minAngle + angleRange * f, minAngle, maxAngle);
 };
 
 const valueFromAngle = (
@@ -19,11 +21,8 @@ const valueFromAngle = (
 ) => {
   const angleRange = maxAngle - minAngle;
   const valRange = max - min;
-  return clamp(
-    nearestMultiple(min + valRange * (angle / angleRange), step),
-    min,
-    max,
-  );
+  const computedVal = min + valRange * ((angle - minAngle) / angleRange);
+  return clamp(nearestMultiple(computedVal, step), min, max);
 };
 
 type Props = {
@@ -31,23 +30,24 @@ type Props = {
   min: number;
   max: number;
   step: number;
+  radius: number;
   onValueChange: (value: number) => void;
 };
 
-const Knob = ({ value, min, max, step, onValueChange }: Props) => {
+const Knob = ({ value, min, max, step, radius, onValueChange }: Props) => {
   const knobRef = useRef<HTMLDivElement>(null);
   const angle = useRef(angleFromValue(value, min, max));
-  const radius = 80;
-  const rotationSpeed = 16;
 
-  const handleMouseDown = (event) => {
+  const handleMouseDown = (
+    event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
+  ) => {
     event.preventDefault();
     angle.current = angleFromValue(value, min, max);
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
   };
 
-  const handleMouseMove = (event) => {
+  const handleMouseMove = (event: MouseEvent) => {
     if (knobRef.current === null) {
       return;
     }
@@ -55,29 +55,14 @@ const Knob = ({ value, min, max, step, onValueChange }: Props) => {
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
 
-    const pointPos = new Vector2(
-      Math.cos(angle.current) * radius,
-      Math.sin(angle.current) * radius,
-    );
-    const normal = new Vector2(pointPos.y, -pointPos.x).normalized();
-
-    // Project the mouse position onto the normal
     const mouseVec = new Vector2(
       event.clientX - centerX,
       centerY - event.clientY,
     ).normalized();
-    const proj = normal.scaled(mouseVec.dot(normal) * rotationSpeed);
-    const newPos = pointPos.add(proj).normalized().scaled(radius);
-
+    const newPos = mouseVec.scaled(radius);
     let newAngle = Math.atan2(newPos.y, newPos.x);
-
-    const up = new Vector2(0, 1);
-    const dp = normal.dot(up);
-    if (newAngle < minAngle && dp > 0) {
-      newAngle = maxAngle;
-    }
-    if (newAngle > maxAngle && dp < 0) {
-      newAngle = minAngle;
+    if (newAngle < -Math.PI / 2) {
+      newAngle += 2 * Math.PI;
     }
 
     const newValue = valueFromAngle(newAngle, min, max, step);
@@ -99,7 +84,7 @@ const Knob = ({ value, min, max, step, onValueChange }: Props) => {
         onTouchStart={handleMouseDown}
         ref={knobRef}
         style={{
-          transform: `rotate(-${angleFromValue(value, min, max)}rad)`,
+          transform: `rotate(${-angleFromValue(value, min, max)}rad)`,
           width: radius,
           height: radius,
         }}
@@ -132,6 +117,7 @@ export const KnobNode = ({ id, data }: WidgetProps<KnobConfig>) => {
         min={data.config.min}
         max={data.config.max}
         step={data.config.step}
+        radius={80}
       />
     </div>
   );
