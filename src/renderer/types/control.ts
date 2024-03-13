@@ -8,6 +8,18 @@ import { SwitchNode } from "@/renderer/components/controls/switch-node";
 import { ComboboxNode } from "@/renderer/components/controls/combobox-node";
 import { RadioGroupNode } from "@/renderer/components/controls/radio-group-node";
 import { ValuesOf, typedObjectKeys } from "./util";
+import { KnobNode } from "@/renderer/components/controls/knob-node";
+import {
+  LucideIcon,
+  SlidersHorizontal,
+  TextCursorInput,
+  File,
+  SquareCheck,
+  ToggleRight,
+  ChevronsUpDown,
+  CircleDot,
+  Radius,
+} from "lucide-react";
 
 export type PythonType = "int" | "float" | "bool" | "select" | "File";
 
@@ -18,6 +30,14 @@ export const SliderConfig = z.object({
   step: z.number(),
 });
 export type SliderConfig = z.infer<typeof SliderConfig>;
+
+export const KnobConfig = z.object({
+  type: z.literal("knob"),
+  min: z.number(),
+  max: z.number(),
+  step: z.number(),
+});
+export type KnobConfig = z.infer<typeof SliderConfig>;
 
 const isValidFileFilter = (filter: string) => {
   if (filter === "") return true;
@@ -46,15 +66,39 @@ export const FileUploadConfig = z.object({
 });
 export type FileUploadConfig = z.infer<typeof FileUploadConfig>;
 
-export const WIDGET_NODES = {
-  slider: SliderNode,
-  "number input": NumberInputNode,
-  "file upload": FileUploadNode,
-  checkbox: CheckboxNode,
-  switch: SwitchNode,
-  combobox: ComboboxNode,
-  "radio group": RadioGroupNode,
-} as const;
+type WidgetEntry = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  node: React.FC<WidgetProps<any>>;
+  allowedTypes: PythonType[];
+  icon: LucideIcon;
+};
+
+export const WIDGETS = {
+  slider: {
+    node: SliderNode,
+    allowedTypes: ["int", "float"],
+    icon: SlidersHorizontal,
+  },
+  "number input": {
+    node: NumberInputNode,
+    allowedTypes: ["int", "float"],
+    icon: TextCursorInput,
+  },
+  "file upload": { node: FileUploadNode, allowedTypes: ["File"], icon: File },
+  checkbox: { node: CheckboxNode, allowedTypes: ["bool"], icon: SquareCheck },
+  switch: { node: SwitchNode, allowedTypes: ["bool"], icon: ToggleRight },
+  combobox: {
+    node: ComboboxNode,
+    allowedTypes: ["select"],
+    icon: ChevronsUpDown,
+  },
+  "radio group": {
+    node: RadioGroupNode,
+    allowedTypes: ["select"],
+    icon: CircleDot,
+  },
+  knob: { node: KnobNode, allowedTypes: ["int", "float"], icon: Radius },
+} as const satisfies Record<string, WidgetEntry>;
 
 export const WIDGET_CONFIGS = {
   slider: {
@@ -73,14 +117,23 @@ export const WIDGET_CONFIGS = {
       allowedExtensions: [{ ext: "" }],
     },
   },
+  knob: {
+    schema: KnobConfig,
+    defaultValues: {
+      type: "knob",
+      min: 0,
+      max: 100,
+      step: 1,
+    },
+  },
 } as const;
 
-const [k, ks] = typedObjectKeys(WIDGET_NODES);
+const [k, ks] = typedObjectKeys(WIDGETS);
 export const WidgetType = z.enum([k, ...ks]);
 export type WidgetType = z.infer<typeof WidgetType>;
 
 export const isWidgetType = (value: string): value is WidgetType =>
-  value in WIDGET_NODES;
+  value in WIDGETS;
 
 export type Configurable = keyof typeof WIDGET_CONFIGS;
 

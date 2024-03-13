@@ -32,7 +32,7 @@ import {
   VisualizationData,
   isWidgetType,
   isConfigurable,
-  WIDGET_NODES,
+  WIDGETS,
   WIDGET_CONFIGS,
 } from "@/renderer/types/control";
 import { ConfigDialog } from "./components/config-dialog";
@@ -49,7 +49,7 @@ import { deepMutableClone } from "@/renderer/utils/clone";
 const nodeTypes = {
   TextNode: ControlTextNode,
   visualization: VisualizationNode,
-  ...WIDGET_NODES,
+  ...Object.fromEntries(Object.entries(WIDGETS).map(([k, v]) => [k, v.node])),
 };
 
 const ControlPanelView = () => {
