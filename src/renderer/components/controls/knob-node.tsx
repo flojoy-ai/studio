@@ -3,11 +3,6 @@ import WidgetLabel from "@/renderer/components/common/widget-label";
 import { useControl } from "@/renderer/hooks/useControl";
 import { useRef } from "react";
 
-type Vector2 = {
-  x: number;
-  y: number;
-};
-
 const minAngle = 0;
 const maxAngle = Math.PI;
 
@@ -48,25 +43,34 @@ const valueFromAngle = (
   );
 };
 
-const multiply = (v: Vector2, s: number) => {
-  return { x: s * v.x, y: s * v.y };
-};
+class Vector2 {
+  readonly x: number;
+  readonly y: number;
+  constructor(x: number, y: number) {
+    this.x = x;
+    this.y = y;
+  }
 
-const divide = (v: Vector2, s: number) => {
-  return multiply(v, 1 / s);
-};
+  magnitude() {
+    return Math.sqrt(this.x * this.x + this.y * this.y);
+  }
 
-const dot = (v1: Vector2, v2: Vector2) => {
-  return v1.x * v2.x + v1.y * v2.y;
-};
+  add(other: Vector2) {
+    return new Vector2(this.x + other.x, this.y + other.y);
+  }
 
-const normalize = (v: Vector2) => {
-  return divide(v, magnitude(v));
-};
+  scaled(s: number) {
+    return new Vector2(s * this.x, s * this.y);
+  }
 
-const magnitude = (v: Vector2) => {
-  return Math.sqrt(v.x * v.x + v.y * v.y);
-};
+  dot(other: Vector2) {
+    return this.x * other.x + this.y * other.y;
+  }
+
+  normalized() {
+    return this.scaled(1 / this.magnitude());
+  }
+}
 
 type Props = {
   value: number;
@@ -97,33 +101,28 @@ const Knob = ({ value, min, max, step, onValueChange }: Props) => {
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
 
-    const pointPos = {
-      x: Math.cos(angle.current) * radius,
-      y: Math.sin(angle.current) * radius,
-    };
-    const normal = normalize({
-      x: pointPos.y,
-      y: -pointPos.x,
-    });
-    // Project the mouse position onto the normal
-    const mouseVec = normalize({
-      x: event.clientX - centerX,
-      y: centerY - event.clientY,
-    });
-
-    const proj = multiply(normal, dot(mouseVec, normal) * rotationSpeed);
-    const newPos = multiply(
-      normalize({
-        x: pointPos.x + proj.x,
-        y: pointPos.y + proj.y,
-      }),
-      radius,
+    const pointPos = new Vector2(
+      Math.cos(angle.current) * radius,
+      Math.sin(angle.current) * radius,
     );
+    const normal = new Vector2(pointPos.y, -pointPos.x).normalized();
+
+    // Project the mouse position onto the normal
+    const mouseVec = new Vector2(
+      event.clientX - centerX,
+      centerY - event.clientY,
+    ).normalized();
+    const proj = normal.scaled(mouseVec.dot(normal) * rotationSpeed);
+    const newPos = pointPos.add(proj).normalized().scaled(radius);
+
     let newAngle = Math.atan2(newPos.y, newPos.x);
-    if (newAngle < minAngle && dot(normal, { x: 0, y: 1 }) > 0) {
+
+    const up = new Vector2(0, 1);
+    const dp = normal.dot(up);
+    if (newAngle < minAngle && dp > 0) {
       newAngle = maxAngle;
     }
-    if (newAngle > maxAngle && dot(normal, { x: 0, y: 1 }) < 0) {
+    if (newAngle > maxAngle && dp < 0) {
       newAngle = minAngle;
     }
 
@@ -141,7 +140,7 @@ const Knob = ({ value, min, max, step, onValueChange }: Props) => {
   return (
     <div className="nodrag mb-4 flex flex-col items-center">
       <div
-        className="relative cursor-pointer rounded-full bg-gray-200"
+        className="relative cursor-pointer rounded-full border-2 bg-background"
         onMouseDown={handleMouseDown}
         onTouchStart={handleMouseDown}
         ref={knobRef}
@@ -151,7 +150,7 @@ const Knob = ({ value, min, max, step, onValueChange }: Props) => {
           height: radius,
         }}
       >
-        <div className="absolute right-0 top-1/2 h-2 w-4 -translate-y-1/2 transform bg-gray-600" />
+        <div className="absolute right-0 top-1/2 h-2 w-4 -translate-y-1/2 transform rounded-sm bg-accent1" />
       </div>
       <span className="text-sm text-gray-600">{value}</span>
     </div>
