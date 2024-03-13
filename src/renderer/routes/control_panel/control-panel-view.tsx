@@ -201,6 +201,7 @@ const ControlPanelView = () => {
         initialValues={widgetConfig.current}
         open={widgetConfigOpen}
         setOpen={setWidgetConfigOpen}
+        widgetBlockInfo={widgetBlockInfo.current}
         onSubmit={
           editingWidgetConfig.current
             ? onWidgetConfigEditSubmit

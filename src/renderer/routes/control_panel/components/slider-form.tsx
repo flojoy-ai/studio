@@ -18,14 +18,18 @@ import { FormIconLabel } from "@/renderer/components/common/form-icon-label";
 type Props = {
   initialValues: SliderConfig;
   onSubmit: (data: SliderConfig) => void;
+  float?: boolean;
 };
 
-export const SliderConfigForm = ({ onSubmit, initialValues }: Props) => {
+export const SliderConfigForm = ({
+  onSubmit,
+  initialValues,
+  float = false,
+}: Props) => {
   const form = useForm<SliderConfig>({
     resolver: zodResolver(SliderConfig),
-    defaultValues: initialValues,
+    defaultValues: { ...initialValues, floating: float },
   });
-  const float = false;
 
   return (
     <Form {...form}>
