@@ -2,61 +2,21 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 150,
-                "height": 150,
-                "id": "READ_CSV-8b04aea4-84df-4d71-ae8c-356334a25be2",
-                "type": "EXTRACTORS",
+                "id": "TABLE-800d8f88-c192-4b21-b423-b3572d30733c",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "READ_CSV-8b04aea4-84df-4d71-ae8c-356334a25be2",
-                    "label": "READ CSV",
-                    "func": "READ_CSV",
-                    "type": "EXTRACTORS",
-                    "ctrls": {
-                        "file_path": {
-                            "type": "str",
-                            "default": "https://raw.githubusercontent.com/cs109/2014_data/master/countries.csv",
-                            "functionName": "READ_CSV",
-                            "param": "file_path",
-                            "value": "https://raw.githubusercontent.com/cs109/2014_data/master/countries.csv"
-                        }
-                    },
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "DataFrame"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/EXTRACTORS/FILE/READ_CSV/READ_CSV.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 432.8381403735173,
-                    "y": 231.4266921283094
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 432.8381403735173,
-                    "y": 231.4266921283094
-                },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "TABLE-de9611d6-a05a-4679-afe3-a7fa7f49f8a4",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TABLE-de9611d6-a05a-4679-afe3-a7fa7f49f8a4",
+                    "id": "TABLE-800d8f88-c192-4b21-b423-b3572d30733c",
                     "label": "TABLE",
                     "func": "TABLE",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "OrderedTriple|OrderedPair|DataFrame|Matrix",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "desc": "the DataContainer to be visualized",
                             "multiple": false
                         }
                     ],
@@ -64,56 +24,84 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Plotly"
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Table visualization"
                         }
                     ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
                 },
                 "position": {
-                    "x": 960.2573915409084,
-                    "y": 186.96473062581748
+                    "x": 628.5602540352941,
+                    "y": 105.59492475749431
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 960.2573915409084,
-                    "y": 186.96473062581748
+                    "x": 628.5602540352941,
+                    "y": 105.59492475749431
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "READ_CSV-78be83c2-3f38-4676-97cf-7660d4b5e46e",
+                "type": "EXTRACT",
+                "data": {
+                    "id": "READ_CSV-78be83c2-3f38-4676-97cf-7660d4b5e46e",
+                    "label": "READ CSV",
+                    "func": "READ_CSV",
+                    "type": "EXTRACT",
+                    "ctrls": {
+                        "file_path": {
+                            "type": "str",
+                            "default": "https://raw.githubusercontent.com/cs109/2014_data/master/countries.csv",
+                            "desc": "File path to the .csv file or an URL of a .csv file.",
+                            "overload": null,
+                            "functionName": "READ_CSV",
+                            "param": "file_path",
+                            "value": "https://raw.githubusercontent.com/cs109/2014_data/master/countries.csv"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame",
+                            "desc": "DataFrame loaded from .csv file"
+                        }
+                    ],
+                    "path": "ETL/EXTRACT/FILE/READ_CSV/READ_CSV.py"
+                },
+                "position": {
+                    "x": 166.8877849886787,
+                    "y": 111.48754970524686
+                },
+                "width": 216,
+                "height": 260,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 166.8877849886787,
+                    "y": 111.48754970524686
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "READ_CSV-8b04aea4-84df-4d71-ae8c-356334a25be2",
+                "id": "READ_CSV-78be83c2-3f38-4676-97cf-7660d4b5e46e->TABLE-800d8f88-c192-4b21-b423-b3572d30733c_76261cde-eff7-4b0b-b17b-0fb9d6d8b2f5",
+                "source": "READ_CSV-78be83c2-3f38-4676-97cf-7660d4b5e46e",
+                "target": "TABLE-800d8f88-c192-4b21-b423-b3572d30733c",
                 "sourceHandle": "default",
-                "target": "TABLE-de9611d6-a05a-4679-afe3-a7fa7f49f8a4",
                 "targetHandle": "default",
-                "id": "reactflow__edge-READ_CSV-8b04aea4-84df-4d71-ae8c-356334a25be2default-TABLE-de9611d6-a05a-4679-afe3-a7fa7f49f8a4default"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             }
-        ],
-        "viewport": {
-            "x": -277.07893884404893,
-            "y": 75.99194886435214,
-            "zoom": 0.8175961276759318
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

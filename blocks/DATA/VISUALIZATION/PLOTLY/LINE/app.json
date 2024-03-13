@@ -2,66 +2,19 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
-                "id": "MATRIX-adb7407c-2ba3-4478-8c1a-2c0d2dc1f095",
-                "type": "GENERATORS",
+                "id": "TIMESERIES-ab607ecc-1854-4115-b1ff-6523768b329d",
+                "type": "DATA",
                 "data": {
-                    "id": "MATRIX-adb7407c-2ba3-4478-8c1a-2c0d2dc1f095",
-                    "label": "MATRIX",
-                    "func": "MATRIX",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "row": {
-                            "type": "int",
-                            "default": 2,
-                            "functionName": "MATRIX",
-                            "param": "row",
-                            "value": "8"
-                        },
-                        "column": {
-                            "type": "int",
-                            "default": 2,
-                            "functionName": "MATRIX",
-                            "param": "column",
-                            "value": "8"
-                        }
-                    },
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Matrix"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\MATRIX\\MATRIX.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 97.49407720704693,
-                    "y": 504.76065391278627
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 97.49407720704693,
-                    "y": 504.76065391278627
-                },
-                "dragging": true
-            },
-            {
-                "width": 210,
-                "height": 96,
-                "id": "TIMESERIES-511ecdda-9fd1-443e-95bb-2399e69b6484",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "TIMESERIES-511ecdda-9fd1-443e-95bb-2399e69b6484",
+                    "id": "TIMESERIES-ab607ecc-1854-4115-b1ff-6523768b329d",
                     "label": "TIMESERIES",
                     "func": "TIMESERIES",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "start_date": {
                             "type": "str",
                             "default": "2023-01-01",
+                            "desc": "The start date of the timeseries in the format 'YYYY:MM:DD'.",
+                            "overload": null,
                             "functionName": "TIMESERIES",
                             "param": "start_date",
                             "value": "2023-01-01"
@@ -69,179 +22,11 @@
                         "end_date": {
                             "type": "str",
                             "default": "2023-07-20",
+                            "desc": "The end date of the timeseries in the format 'YYYY:MM:DD'.",
+                            "overload": null,
                             "functionName": "TIMESERIES",
                             "param": "end_date",
                             "value": "2023-07-20"
-                        }
-                    },
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "DataFrame"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\TIMESERIES\\TIMESERIES.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 67.1589140181004,
-                    "y": -18.011849048761917
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 67.1589140181004,
-                    "y": -18.011849048761917
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "LINE-b77bfca4-130d-46b6-9962-f53f605d7107",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "LINE-b77bfca4-130d-46b6-9962-f53f605d7107",
-                    "label": "LINE 1",
-                    "func": "LINE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\LINE\\LINE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 467.6942592380291,
-                    "y": 399.4670320892793
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 467.6942592380291,
-                    "y": 399.4670320892793
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "LINE-fba98010-ffc1-4864-8a5a-356f46f70a26",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "LINE-fba98010-ffc1-4864-8a5a-356f46f70a26",
-                    "label": "LINE 2",
-                    "func": "LINE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\LINE\\LINE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 780.1266899002345,
-                    "y": 114.937459376096
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 780.1266899002345,
-                    "y": 114.937459376096
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "LINE-be1cb8d9-dc67-4567-8952-8b7eaeb9134d",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "LINE-be1cb8d9-dc67-4567-8952-8b7eaeb9134d",
-                    "label": "LINE 3",
-                    "func": "LINE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\LINE\\LINE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 417.740720779551,
-                    "y": -119.7453669582851
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 417.740720779551,
-                    "y": -119.7453669582851
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "SCIKIT_LEARN_DATASET-1abc7ecd-da77-4b00-bfdc-8068bd315a63",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "SCIKIT_LEARN_DATASET-1abc7ecd-da77-4b00-bfdc-8068bd315a63",
-                    "label": "SCIKIT LEARN DATASET",
-                    "func": "SCIKIT_LEARN_DATASET",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "dataset_name": {
-                            "type": "select",
-                            "options": [
-                                "iris",
-                                "diabetes",
-                                "digits",
-                                "linnerud",
-                                "wine",
-                                "breast_cancer"
-                            ],
-                            "default": "iris",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "SCIKIT_LEARN_DATASET",
-                            "param": "dataset_name",
-                            "value": "iris"
                         }
                     },
                     "initCtrls": {},
@@ -250,71 +35,609 @@
                             "name": "default",
                             "id": "default",
                             "type": "DataFrame",
-                            "desc": "A DataContainer object containing the retrieved pandas DataFrame."
+                            "desc": "m: the resulting timeseries"
                         }
                     ],
-                    "path": "GENERATORS/SAMPLE_DATASETS/SCIKIT_LEARN_DATASET/SCIKIT_LEARN_DATASET.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/TIMESERIES/TIMESERIES.py"
                 },
                 "position": {
-                    "x": 79.88477303643154,
-                    "y": 236.65339910085572
+                    "x": -706.6342260457454,
+                    "y": 308.5365774434166
                 },
+                "width": 218,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 79.88477303643154,
-                    "y": 236.65339910085572
+                    "x": -706.6342260457454,
+                    "y": 308.5365774434166
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "LINE-2e2fbdb3-03a5-4544-aea7-5dfc46d4ed57",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-2e2fbdb3-03a5-4544-aea7-5dfc46d4ed57",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": -209.9325922173016,
+                    "y": 270.2786088878396
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -209.9325922173016,
+                    "y": 270.2786088878396
+                },
+                "dragging": false
+            },
+            {
+                "id": "LINSPACE-fe7698a9-d2fd-45d6-9c06-33bbd811d7a2",
+                "type": "DATA",
+                "data": {
+                    "id": "LINSPACE-fe7698a9-d2fd-45d6-9c06-33bbd811d7a2",
+                    "label": "LINSPACE",
+                    "func": "LINSPACE",
+                    "type": "DATA",
+                    "ctrls": {
+                        "start": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "The start point of the data.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": 10
+                        },
+                        "end": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The end point of the data.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": 0
+                        },
+                        "step": {
+                            "type": "int",
+                            "default": 1000,
+                            "desc": "The number of points in the vector.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": 1000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
+                },
+                "position": {
+                    "x": -135.84194732745803,
+                    "y": 12.16387597072901
+                },
+                "width": 216,
+                "height": 197,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -135.84194732745803,
+                    "y": 12.16387597072901
+                },
+                "dragging": false
+            },
+            {
+                "id": "SINE-5e9aa9bb-fd90-49e2-81d6-6b3f59a482b7",
+                "type": "DATA",
+                "data": {
+                    "id": "SINE-5e9aa9bb-fd90-49e2-81d6-6b3f59a482b7",
+                    "label": "SINE",
+                    "func": "SINE",
+                    "type": "DATA",
+                    "ctrls": {
+                        "amplitude": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The amplitude of the wave.",
+                            "overload": null,
+                            "functionName": "SINE",
+                            "param": "amplitude",
+                            "value": 1
+                        },
+                        "frequency": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The wave frequency in radians/2pi.",
+                            "overload": null,
+                            "functionName": "SINE",
+                            "param": "frequency",
+                            "value": 1
+                        },
+                        "offset": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The y axis offset of the function.",
+                            "overload": null,
+                            "functionName": "SINE",
+                            "param": "offset",
+                            "value": 0
+                        },
+                        "phase": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The x axis offset of the function.",
+                            "overload": null,
+                            "functionName": "SINE",
+                            "param": "phase",
+                            "value": 0
+                        },
+                        "waveform": {
+                            "type": "select",
+                            "default": "sine",
+                            "options": [
+                                "sine",
+                                "square",
+                                "triangle",
+                                "sawtooth"
+                            ],
+                            "desc": "The waveform type of the wave.",
+                            "overload": null,
+                            "functionName": "SINE",
+                            "param": "waveform",
+                            "value": "sine"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Vector",
+                            "desc": "Input that defines the x-axis values of the function and output.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "x: the input v or x values\ny: the resulting sine function"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/SINE/SINE.py"
+                },
+                "position": {
+                    "x": 167.4170675228966,
+                    "y": 308.8124310415666
+                },
+                "width": 216,
+                "height": 197,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 167.4170675228966,
+                    "y": 308.8124310415666
+                },
+                "dragging": false
+            },
+            {
+                "id": "LINE-f664e926-58b2-48dd-90e8-8040eb702710",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-f664e926-58b2-48dd-90e8-8040eb702710",
+                    "label": "LINE 3",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": 519.0501183668023,
+                    "y": 269.43794520799827
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 519.0501183668023,
+                    "y": 269.43794520799827
+                },
+                "dragging": false
+            },
+            {
+                "id": "LINE-fcb14b04-1525-4ca8-9195-d71a99426463",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-fcb14b04-1525-4ca8-9195-d71a99426463",
+                    "label": "LINE 1",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": 517.385909235687,
+                    "y": -20.84350126725542
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 517.385909235687,
+                    "y": -20.84350126725542
+                },
+                "dragging": false
+            },
+            {
+                "id": "LINE-2aa58515-c7e0-4a57-8599-8582fa7e838c",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-2aa58515-c7e0-4a57-8599-8582fa7e838c",
+                    "label": "LINE 2",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": 119.98870095142843,
+                    "y": -249.75181500208248
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 119.98870095142843,
+                    "y": -249.75181500208248
+                },
+                "dragging": false
+            },
+            {
+                "id": "MATRIX-cc07c4a8-3722-4bc2-995c-7aab3f86d05d",
+                "type": "DATA",
+                "data": {
+                    "id": "MATRIX-cc07c4a8-3722-4bc2-995c-7aab3f86d05d",
+                    "label": "MATRIX",
+                    "func": "MATRIX",
+                    "type": "DATA",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "row",
+                            "id": "row",
+                            "type": "Scalar",
+                            "desc": "number of rows",
+                            "multiple": false
+                        },
+                        {
+                            "name": "column",
+                            "id": "column",
+                            "type": "Scalar",
+                            "desc": "number of columns",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Matrix",
+                            "desc": "Randomly generated matrix"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/MATRIX/MATRIX.py"
+                },
+                "position": {
+                    "x": -715.7231208610201,
+                    "y": -17.497787557324045
+                },
+                "width": 216,
+                "height": 198,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -715.7231208610201,
+                    "y": -17.497787557324045
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "TIMESERIES-511ecdda-9fd1-443e-95bb-2399e69b6484",
+                "id": "TIMESERIES-ab607ecc-1854-4115-b1ff-6523768b329d->LINE-2e2fbdb3-03a5-4544-aea7-5dfc46d4ed57_ae64a40b-f0ae-4d37-925d-9eb42d2a622f",
+                "source": "TIMESERIES-ab607ecc-1854-4115-b1ff-6523768b329d",
+                "target": "LINE-2e2fbdb3-03a5-4544-aea7-5dfc46d4ed57",
                 "sourceHandle": "default",
-                "target": "LINE-be1cb8d9-dc67-4567-8952-8b7eaeb9134d",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TIMESERIES-511ecdda-9fd1-443e-95bb-2399e69b6484default-LINE-be1cb8d9-dc67-4567-8952-8b7eaeb9134ddefault"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             },
             {
-                "source": "MATRIX-adb7407c-2ba3-4478-8c1a-2c0d2dc1f095",
+                "id": "LINSPACE-fe7698a9-d2fd-45d6-9c06-33bbd811d7a2->LINE-fcb14b04-1525-4ca8-9195-d71a99426463_08586867-91e6-47ce-a8cf-6d8cdaf01217",
+                "source": "LINSPACE-fe7698a9-d2fd-45d6-9c06-33bbd811d7a2",
+                "target": "LINE-fcb14b04-1525-4ca8-9195-d71a99426463",
                 "sourceHandle": "default",
-                "target": "LINE-b77bfca4-130d-46b6-9962-f53f605d7107",
                 "targetHandle": "default",
-                "id": "reactflow__edge-MATRIX-adb7407c-2ba3-4478-8c1a-2c0d2dc1f095default-LINE-b77bfca4-130d-46b6-9962-f53f605d7107default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "SCIKIT_LEARN_DATASET-1abc7ecd-da77-4b00-bfdc-8068bd315a63",
+                "id": "LINSPACE-fe7698a9-d2fd-45d6-9c06-33bbd811d7a2->SINE-5e9aa9bb-fd90-49e2-81d6-6b3f59a482b7_86ee7287-3fba-4f48-af47-c1eb7782dec0",
+                "source": "LINSPACE-fe7698a9-d2fd-45d6-9c06-33bbd811d7a2",
+                "target": "SINE-5e9aa9bb-fd90-49e2-81d6-6b3f59a482b7",
                 "sourceHandle": "default",
-                "target": "LINE-fba98010-ffc1-4864-8a5a-356f46f70a26",
                 "targetHandle": "default",
-                "id": "reactflow__edge-SCIKIT_LEARN_DATASET-1abc7ecd-da77-4b00-bfdc-8068bd315a63default-LINE-fba98010-ffc1-4864-8a5a-356f46f70a26default"
+                "data": {
+                    "outputType": "Vector"
+                }
+            },
+            {
+                "id": "SINE-5e9aa9bb-fd90-49e2-81d6-6b3f59a482b7->LINE-f664e926-58b2-48dd-90e8-8040eb702710_a19438bd-b16c-4a26-ba2d-18d44cc5e507",
+                "source": "SINE-5e9aa9bb-fd90-49e2-81d6-6b3f59a482b7",
+                "target": "LINE-f664e926-58b2-48dd-90e8-8040eb702710",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "MATRIX-cc07c4a8-3722-4bc2-995c-7aab3f86d05d->LINE-2aa58515-c7e0-4a57-8599-8582fa7e838c_e803c011-850a-4354-84a1-4abff887bf30",
+                "source": "MATRIX-cc07c4a8-3722-4bc2-995c-7aab3f86d05d",
+                "target": "LINE-2aa58515-c7e0-4a57-8599-8582fa7e838c",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Matrix"
+                }
             }
-        ],
-        "viewport": {
-            "x": 606.4472645567363,
-            "y": 234.63130388602087,
-            "zoom": 0.9186369849831518
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ],
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

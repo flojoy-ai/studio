@@ -2,15 +2,13 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
-                "id": "PLOTLY_DATASET-6af3469b-5751-4778-84a1-2b17bc9c0894",
-                "type": "GENERATORS",
+                "id": "PLOTLY_DATASET-7ef50f93-b857-412d-bb38-74a7ade144ee",
+                "type": "DATA",
                 "data": {
-                    "id": "PLOTLY_DATASET-6af3469b-5751-4778-84a1-2b17bc9c0894",
+                    "id": "PLOTLY_DATASET-7ef50f93-b857-412d-bb38-74a7ade144ee",
                     "label": "PLOTLY DATASET",
                     "func": "PLOTLY_DATASET",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "dataset_key": {
                             "type": "select",
@@ -27,127 +25,51 @@
                                 "medals_wide",
                                 "stocks"
                             ],
+                            "desc": null,
+                            "overload": null,
                             "functionName": "PLOTLY_DATASET",
                             "param": "dataset_key",
-                            "value": "iris"
+                            "value": "wind"
                         }
                     },
+                    "initCtrls": {},
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "DataFrame"
+                            "type": "DataFrame",
+                            "desc": null
                         }
                     ],
-                    "path": "PYTHON/nodes\\GENERATORS\\SAMPLE_DATASETS\\PLOTLY_DATASET\\PLOTLY_DATASET.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SAMPLE_DATASETS/PLOTLY_DATASET/PLOTLY_DATASET.py"
                 },
                 "position": {
-                    "x": -298.0815755738636,
-                    "y": 105.97367325652914
+                    "x": 455.9527740396502,
+                    "y": 273.7101093582786
                 },
+                "width": 216,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -298.0815755738636,
-                    "y": 105.97367325652914
+                    "x": 455.9527740396502,
+                    "y": 273.7101093582786
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 225,
-                "height": 226,
-                "id": "SCATTER3D-27578128-aa7b-40fe-8dfd-d971192bba27",
-                "type": "VISUALIZERS",
+                "id": "DF_2_ORDERED_TRIPLE-8ad591c6-c3b2-47b8-b4a2-c66f1eb5e2dd",
+                "type": "TYPE_CASTING",
                 "data": {
-                    "id": "SCATTER3D-27578128-aa7b-40fe-8dfd-d971192bba27",
-                    "label": "SCATTER3D 1",
-                    "func": "SCATTER3D",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple|DataFrame",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\SCATTER3D\\SCATTER3D.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 194.33796607992497,
-                    "y": 418.50728439606235
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 194.33796607992497,
-                    "y": 418.50728439606235
-                },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "SCATTER3D-0ba51c41-646b-47e4-a6e0-a306230f4ec6",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "SCATTER3D-0ba51c41-646b-47e4-a6e0-a306230f4ec6",
-                    "label": "SCATTER3D 1",
-                    "func": "SCATTER3D",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple|DataFrame",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\SCATTER3D\\SCATTER3D.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 484.38259832770757,
-                    "y": 34.16199428293129
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 484.38259832770757,
-                    "y": 34.16199428293129
-                },
-                "dragging": true
-            },
-            {
-                "width": 160,
-                "height": 160,
-                "id": "DF_2_ORDERED_TRIPLE-d6e4cf4b-8ff3-4432-910f-76361d564b61",
-                "type": "TRANSFORMERS",
-                "data": {
-                    "id": "DF_2_ORDERED_TRIPLE-d6e4cf4b-8ff3-4432-910f-76361d564b61",
-                    "label": "DF 2 ORDERED TRIPLE",
+                    "id": "DF_2_ORDERED_TRIPLE-8ad591c6-c3b2-47b8-b4a2-c66f1eb5e2dd",
+                    "label": "DF 2 ORDERED TRIPLE 1",
                     "func": "DF_2_ORDERED_TRIPLE",
-                    "type": "TRANSFORMERS",
+                    "type": "TYPE_CASTING",
                     "ctrls": {
                         "x": {
                             "type": "int",
                             "default": 0,
                             "desc": "The index of the column that represents the x-axis.",
+                            "overload": null,
                             "functionName": "DF_2_ORDERED_TRIPLE",
                             "param": "x",
                             "value": 0
@@ -156,6 +78,7 @@
                             "type": "int",
                             "default": 1,
                             "desc": "The index of the column that represents the y-axis.",
+                            "overload": null,
                             "functionName": "DF_2_ORDERED_TRIPLE",
                             "param": "y",
                             "value": 1
@@ -164,6 +87,7 @@
                             "type": "int",
                             "default": 2,
                             "desc": "The index of the column that represents the z-axis.",
+                            "overload": null,
                             "functionName": "DF_2_ORDERED_TRIPLE",
                             "param": "z",
                             "value": 2
@@ -175,8 +99,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "DataFrame",
-                            "multiple": false,
-                            "desc": "The input dataframe to which we apply the conversion to."
+                            "desc": "The input dataframe to which we apply the conversion to.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -187,67 +111,141 @@
                             "desc": "The OrderedTriple result from the conversion of the input."
                         }
                     ],
-                    "path": "PYTHON/nodes\\TRANSFORMERS\\TYPE_CASTING\\DF_2_ORDERED_TRIPLE\\DF_2_ORDERED_TRIPLE.py",
-                    "selected": false
+                    "path": "ETL/TRANSFORM/TYPE_CASTING/DF_2_ORDERED_TRIPLE/DF_2_ORDERED_TRIPLE.py"
                 },
                 "position": {
-                    "x": 122.38447463973523,
-                    "y": 12.199074249669422
+                    "x": 950.212940451405,
+                    "y": 490.5179719093685
                 },
+                "width": 224,
+                "height": 96,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 122.38447463973523,
-                    "y": 12.199074249669422
+                    "x": 950.212940451405,
+                    "y": 490.5179719093685
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "SCATTER3D-cc9190d6-aa43-4d27-ae92-b72af74dcff0",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "SCATTER3D-cc9190d6-aa43-4d27-ae92-b72af74dcff0",
+                    "label": "SCATTER3D",
+                    "func": "SCATTER3D",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|DataFrame",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly 3D Scatter visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER3D/SCATTER3D.py"
+                },
+                "position": {
+                    "x": 1400.7529096205683,
+                    "y": 424.59662503760114
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1400.7529096205683,
+                    "y": 424.59662503760114
+                },
+                "dragging": false
+            },
+            {
+                "id": "SCATTER3D-d1243e32-5a2c-412e-bcb1-6261c6ad91ee",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "SCATTER3D-d1243e32-5a2c-412e-bcb1-6261c6ad91ee",
+                    "label": "SCATTER3D 1",
+                    "func": "SCATTER3D",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|DataFrame",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly 3D Scatter visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER3D/SCATTER3D.py"
+                },
+                "position": {
+                    "x": 950.5099655689571,
+                    "y": -14.498690742881422
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 950.5099655689571,
+                    "y": -14.498690742881422
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "PLOTLY_DATASET-6af3469b-5751-4778-84a1-2b17bc9c0894",
+                "id": "PLOTLY_DATASET-7ef50f93-b857-412d-bb38-74a7ade144ee->SCATTER3D-d1243e32-5a2c-412e-bcb1-6261c6ad91ee_34223f7f-32a2-48c6-9a8d-238a89110a8b",
+                "source": "PLOTLY_DATASET-7ef50f93-b857-412d-bb38-74a7ade144ee",
+                "target": "SCATTER3D-d1243e32-5a2c-412e-bcb1-6261c6ad91ee",
                 "sourceHandle": "default",
-                "target": "SCATTER3D-27578128-aa7b-40fe-8dfd-d971192bba27",
                 "targetHandle": "default",
-                "id": "reactflow__edge-PLOTLY_DATASET-6af3469b-5751-4778-84a1-2b17bc9c0894default-SCATTER3D-27578128-aa7b-40fe-8dfd-d971192bba27default"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             },
             {
-                "source": "PLOTLY_DATASET-6af3469b-5751-4778-84a1-2b17bc9c0894",
+                "id": "PLOTLY_DATASET-7ef50f93-b857-412d-bb38-74a7ade144ee->DF_2_ORDERED_TRIPLE-8ad591c6-c3b2-47b8-b4a2-c66f1eb5e2dd_462cd952-6791-4761-8bcc-a95165f35c6f",
+                "source": "PLOTLY_DATASET-7ef50f93-b857-412d-bb38-74a7ade144ee",
+                "target": "DF_2_ORDERED_TRIPLE-8ad591c6-c3b2-47b8-b4a2-c66f1eb5e2dd",
                 "sourceHandle": "default",
-                "target": "DF_2_ORDERED_TRIPLE-d6e4cf4b-8ff3-4432-910f-76361d564b61",
                 "targetHandle": "default",
-                "id": "reactflow__edge-PLOTLY_DATASET-6af3469b-5751-4778-84a1-2b17bc9c0894default-DF_2_ORDERED_TRIPLE-d6e4cf4b-8ff3-4432-910f-76361d564b61default"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             },
             {
-                "source": "DF_2_ORDERED_TRIPLE-d6e4cf4b-8ff3-4432-910f-76361d564b61",
+                "id": "DF_2_ORDERED_TRIPLE-8ad591c6-c3b2-47b8-b4a2-c66f1eb5e2dd->SCATTER3D-cc9190d6-aa43-4d27-ae92-b72af74dcff0_afac05b0-c419-422c-8094-8f569484a928",
+                "source": "DF_2_ORDERED_TRIPLE-8ad591c6-c3b2-47b8-b4a2-c66f1eb5e2dd",
+                "target": "SCATTER3D-cc9190d6-aa43-4d27-ae92-b72af74dcff0",
                 "sourceHandle": "default",
-                "target": "SCATTER3D-0ba51c41-646b-47e4-a6e0-a306230f4ec6",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DF_2_ORDERED_TRIPLE-d6e4cf4b-8ff3-4432-910f-76361d564b61default-SCATTER3D-0ba51c41-646b-47e4-a6e0-a306230f4ec6default"
+                "data": {
+                    "outputType": "OrderedTriple"
+                }
             }
-        ],
-        "viewport": {
-            "x": 688.7902964004815,
-            "y": 260.4768364001233,
-            "zoom": 0.5523926457065711
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

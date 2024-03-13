@@ -2,71 +2,187 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
-                "id": "PLOTLY_DATASET-686a1fd9-8dab-4de2-80d6-21386dc65e34",
-                "type": "GENERATORS",
+                "id": "SCATTER-03c925f2-6f56-4148-8140-9106f7c67766",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "PLOTLY_DATASET-686a1fd9-8dab-4de2-80d6-21386dc65e34",
-                    "label": "PLOTLY DATASET",
-                    "func": "PLOTLY_DATASET",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "dataset_key": {
-                            "type": "select",
-                            "default": "wind",
-                            "options": [
-                                "wind",
-                                "iris",
-                                "carshare",
-                                "tips",
-                                "election",
-                                "experiment",
-                                "gapminder",
-                                "medals_long",
-                                "medals_wide",
-                                "stocks"
-                            ],
-                            "functionName": "PLOTLY_DATASET",
-                            "param": "dataset_key",
-                            "value": "iris"
+                    "id": "SCATTER-03c925f2-6f56-4148-8140-9106f7c67766",
+                    "label": "SCATTER",
+                    "func": "SCATTER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
-                    },
+                    ],
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "DataFrame"
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Scatter visualization"
                         }
                     ],
-                    "path": "PYTHON/nodes\\GENERATORS\\SAMPLE_DATASETS\\PLOTLY_DATASET\\PLOTLY_DATASET.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
                 },
                 "position": {
-                    "x": 96.7381246005109,
-                    "y": 744.7785434386891
+                    "x": 499.58769344494453,
+                    "y": -10.656605428280045
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 96.7381246005109,
-                    "y": 744.7785434386891
+                    "x": 499.58769344494453,
+                    "y": -10.656605428280045
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
-                "id": "TIMESERIES-a11c4d23-595e-4325-91ab-6901e4626395",
-                "type": "GENERATORS",
+                "id": "SCATTER-6ff31a6a-6931-4578-b8f9-23772624ca16",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "TIMESERIES-a11c4d23-595e-4325-91ab-6901e4626395",
+                    "id": "SCATTER-6ff31a6a-6931-4578-b8f9-23772624ca16",
+                    "label": "SCATTER 3",
+                    "func": "SCATTER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Scatter visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
+                },
+                "position": {
+                    "x": 1177.9608544796192,
+                    "y": 448.62570484255093
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1177.9608544796192,
+                    "y": 448.62570484255093
+                },
+                "dragging": false
+            },
+            {
+                "id": "SCATTER-917e3ebc-b122-4f60-a549-4af30b71f6db",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "SCATTER-917e3ebc-b122-4f60-a549-4af30b71f6db",
+                    "label": "SCATTER 2",
+                    "func": "SCATTER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Scatter visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
+                },
+                "position": {
+                    "x": 451.4730092467298,
+                    "y": 559.3776550121979
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 451.4730092467298,
+                    "y": 559.3776550121979
+                },
+                "dragging": false
+            },
+            {
+                "id": "SCATTER-e0cfa9f9-a523-401f-a80c-eba773ed4e9b",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "SCATTER-e0cfa9f9-a523-401f-a80c-eba773ed4e9b",
+                    "label": "SCATTER 1",
+                    "func": "SCATTER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Scatter visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
+                },
+                "position": {
+                    "x": 893.6033728036552,
+                    "y": 183.4437109759932
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 893.6033728036552,
+                    "y": 183.4437109759932
+                },
+                "dragging": false
+            },
+            {
+                "id": "TIMESERIES-c090ffc7-201e-42a1-826e-f56ee4161743",
+                "type": "DATA",
+                "data": {
+                    "id": "TIMESERIES-c090ffc7-201e-42a1-826e-f56ee4161743",
                     "label": "TIMESERIES",
                     "func": "TIMESERIES",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "start_date": {
                             "type": "str",
                             "default": "2023-01-01",
+                            "desc": "The start date of the timeseries in the format 'YYYY:MM:DD'.",
+                            "overload": null,
                             "functionName": "TIMESERIES",
                             "param": "start_date",
                             "value": "2023-01-01"
@@ -74,95 +190,81 @@
                         "end_date": {
                             "type": "str",
                             "default": "2023-07-20",
+                            "desc": "The end date of the timeseries in the format 'YYYY:MM:DD'.",
+                            "overload": null,
                             "functionName": "TIMESERIES",
                             "param": "end_date",
                             "value": "2023-07-20"
                         }
                     },
+                    "initCtrls": {},
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "DataFrame"
+                            "type": "DataFrame",
+                            "desc": "m: the resulting timeseries"
                         }
                     ],
-                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\TIMESERIES\\TIMESERIES.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/TIMESERIES/TIMESERIES.py"
                 },
                 "position": {
-                    "x": 96.06118244399238,
-                    "y": 329.71860208595893
+                    "x": 745.1048664391203,
+                    "y": 560.1256521777935
                 },
+                "width": 218,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 96.06118244399238,
-                    "y": 329.71860208595893
+                    "x": 745.1048664391203,
+                    "y": 560.1256521777935
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
-                "id": "MATRIX-8f1eae39-3d4b-4382-a18a-8db31ab0e1a8",
-                "type": "GENERATORS",
+                "id": "LINSPACE-93a4eb57-bfbe-40c0-ada3-d3d689ad6b21",
+                "type": "DATA",
                 "data": {
-                    "id": "MATRIX-8f1eae39-3d4b-4382-a18a-8db31ab0e1a8",
-                    "label": "MATRIX",
-                    "func": "MATRIX",
-                    "type": "GENERATORS",
+                    "id": "LINSPACE-93a4eb57-bfbe-40c0-ada3-d3d689ad6b21",
+                    "label": "LINSPACE",
+                    "func": "LINSPACE",
+                    "type": "DATA",
                     "ctrls": {
-                        "row": {
-                            "type": "int",
-                            "default": 2,
-                            "functionName": "MATRIX",
-                            "param": "row",
-                            "value": "10"
+                        "start": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "The start point of the data.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": 10
                         },
-                        "column": {
+                        "end": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The end point of the data.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": 0
+                        },
+                        "step": {
                             "type": "int",
-                            "default": 2,
-                            "functionName": "MATRIX",
-                            "param": "column",
-                            "value": "10"
+                            "default": 1000,
+                            "desc": "The number of points in the vector.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": 1000
                         }
                     },
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Matrix"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\MATRIX\\MATRIX.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 107.17107103989554,
-                    "y": 547.4990642631835
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 107.17107103989554,
-                    "y": 547.4990642631835
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "SCATTER-8f064bb5-af44-44fd-82f4-9a948f3695b5",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "SCATTER-8f064bb5-af44-44fd-82f4-9a948f3695b5",
-                    "label": "SCATTER",
-                    "func": "SCATTER",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix",
+                            "type": "Vector|OrderedPair",
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
                             "multiple": false
                         }
                     ],
@@ -170,39 +272,93 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Plotly"
+                            "type": "Vector",
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
                         }
                     ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\SCATTER\\SCATTER.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
                 },
                 "position": {
-                    "x": 345.47622757570446,
-                    "y": 453.29086666590865
+                    "x": -0.12056954567505329,
+                    "y": 178.2391264761868
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 345.47622757570446,
-                    "y": 453.29086666590865
+                    "x": -0.12056954567505329,
+                    "y": 178.2391264761868
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "SCATTER-bbfa1109-425d-457f-8f4f-bd6477f6ed0f",
-                "type": "VISUALIZERS",
+                "id": "SINE-d190ca5c-0a30-4f01-84a3-2fcff0d6aa18",
+                "type": "DATA",
                 "data": {
-                    "id": "SCATTER-bbfa1109-425d-457f-8f4f-bd6477f6ed0f",
-                    "label": "SCATTER 1",
-                    "func": "SCATTER",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "id": "SINE-d190ca5c-0a30-4f01-84a3-2fcff0d6aa18",
+                    "label": "SINE",
+                    "func": "SINE",
+                    "type": "DATA",
+                    "ctrls": {
+                        "amplitude": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The amplitude of the wave.",
+                            "overload": null,
+                            "functionName": "SINE",
+                            "param": "amplitude",
+                            "value": 1
+                        },
+                        "frequency": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The wave frequency in radians/2pi.",
+                            "overload": null,
+                            "functionName": "SINE",
+                            "param": "frequency",
+                            "value": 1
+                        },
+                        "offset": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The y axis offset of the function.",
+                            "overload": null,
+                            "functionName": "SINE",
+                            "param": "offset",
+                            "value": 0
+                        },
+                        "phase": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The x axis offset of the function.",
+                            "overload": null,
+                            "functionName": "SINE",
+                            "param": "phase",
+                            "value": 0
+                        },
+                        "waveform": {
+                            "type": "select",
+                            "default": "sine",
+                            "options": [
+                                "sine",
+                                "square",
+                                "triangle",
+                                "sawtooth"
+                            ],
+                            "desc": "The waveform type of the wave.",
+                            "overload": null,
+                            "functionName": "SINE",
+                            "param": "waveform",
+                            "value": "sine"
+                        }
+                    },
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix",
+                            "type": "OrderedPair|Vector",
+                            "desc": "Input that defines the x-axis values of the function and output.",
                             "multiple": false
                         }
                     ],
@@ -210,39 +366,48 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Plotly"
+                            "type": "OrderedPair",
+                            "desc": "x: the input v or x values\ny: the resulting sine function"
                         }
                     ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\SCATTER\\SCATTER.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/SINE/SINE.py"
                 },
                 "position": {
-                    "x": 761.4205476584486,
-                    "y": 659.4631580061657
+                    "x": 447.62610054779964,
+                    "y": 352.75140411003224
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 761.4205476584486,
-                    "y": 659.4631580061657
+                    "x": 447.62610054779964,
+                    "y": 352.75140411003224
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "SCATTER-a4744b2a-78e6-4874-a2ae-177e1dd6aa82",
-                "type": "VISUALIZERS",
+                "id": "MATRIX-2dd8635f-d564-4061-bdaf-eb06b169744f",
+                "type": "DATA",
                 "data": {
-                    "id": "SCATTER-a4744b2a-78e6-4874-a2ae-177e1dd6aa82",
-                    "label": "SCATTER 2",
-                    "func": "SCATTER",
-                    "type": "VISUALIZERS",
+                    "id": "MATRIX-2dd8635f-d564-4061-bdaf-eb06b169744f",
+                    "label": "MATRIX",
+                    "func": "MATRIX",
+                    "type": "DATA",
                     "ctrls": {},
+                    "initCtrls": {},
                     "inputs": [
                         {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix",
+                            "name": "row",
+                            "id": "row",
+                            "type": "Scalar",
+                            "desc": "number of rows",
+                            "multiple": false
+                        },
+                        {
+                            "name": "column",
+                            "id": "column",
+                            "type": "Scalar",
+                            "desc": "number of columns",
                             "multiple": false
                         }
                     ],
@@ -250,70 +415,81 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Plotly"
+                            "type": "Matrix",
+                            "desc": "Randomly generated matrix"
                         }
                     ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\SCATTER\\SCATTER.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/MATRIX/MATRIX.py"
                 },
                 "position": {
-                    "x": 713.7453784769118,
-                    "y": 248.50330062718808
+                    "x": 3.3896947666751345,
+                    "y": 594.5947721806779
                 },
+                "width": 216,
+                "height": 198,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 713.7453784769118,
-                    "y": 248.50330062718808
+                    "x": 3.3896947666751345,
+                    "y": 594.5947721806779
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "TIMESERIES-a11c4d23-595e-4325-91ab-6901e4626395",
+                "id": "LINSPACE-93a4eb57-bfbe-40c0-ada3-d3d689ad6b21->SINE-d190ca5c-0a30-4f01-84a3-2fcff0d6aa18_e176f876-505d-4424-bd40-4b92380c5a52",
+                "source": "LINSPACE-93a4eb57-bfbe-40c0-ada3-d3d689ad6b21",
+                "target": "SINE-d190ca5c-0a30-4f01-84a3-2fcff0d6aa18",
                 "sourceHandle": "default",
-                "target": "SCATTER-a4744b2a-78e6-4874-a2ae-177e1dd6aa82",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TIMESERIES-a11c4d23-595e-4325-91ab-6901e4626395default-SCATTER-a4744b2a-78e6-4874-a2ae-177e1dd6aa82default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "MATRIX-8f1eae39-3d4b-4382-a18a-8db31ab0e1a8",
+                "id": "SINE-d190ca5c-0a30-4f01-84a3-2fcff0d6aa18->SCATTER-e0cfa9f9-a523-401f-a80c-eba773ed4e9b_f725a26e-6dce-4890-ae27-603b7833c13c",
+                "source": "SINE-d190ca5c-0a30-4f01-84a3-2fcff0d6aa18",
+                "target": "SCATTER-e0cfa9f9-a523-401f-a80c-eba773ed4e9b",
                 "sourceHandle": "default",
-                "target": "SCATTER-8f064bb5-af44-44fd-82f4-9a948f3695b5",
                 "targetHandle": "default",
-                "id": "reactflow__edge-MATRIX-8f1eae39-3d4b-4382-a18a-8db31ab0e1a8default-SCATTER-8f064bb5-af44-44fd-82f4-9a948f3695b5default"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "PLOTLY_DATASET-686a1fd9-8dab-4de2-80d6-21386dc65e34",
+                "id": "LINSPACE-93a4eb57-bfbe-40c0-ada3-d3d689ad6b21->SCATTER-03c925f2-6f56-4148-8140-9106f7c67766_c3f706fc-8dcc-4ba7-9974-798a1f284c0d",
+                "source": "LINSPACE-93a4eb57-bfbe-40c0-ada3-d3d689ad6b21",
+                "target": "SCATTER-03c925f2-6f56-4148-8140-9106f7c67766",
                 "sourceHandle": "default",
-                "target": "SCATTER-bbfa1109-425d-457f-8f4f-bd6477f6ed0f",
                 "targetHandle": "default",
-                "id": "reactflow__edge-PLOTLY_DATASET-686a1fd9-8dab-4de2-80d6-21386dc65e34default-SCATTER-bbfa1109-425d-457f-8f4f-bd6477f6ed0fdefault"
+                "data": {
+                    "outputType": "Vector"
+                }
+            },
+            {
+                "id": "MATRIX-2dd8635f-d564-4061-bdaf-eb06b169744f->SCATTER-917e3ebc-b122-4f60-a549-4af30b71f6db_c2677fbc-70d9-4e63-9060-88fcc687e520",
+                "source": "MATRIX-2dd8635f-d564-4061-bdaf-eb06b169744f",
+                "target": "SCATTER-917e3ebc-b122-4f60-a549-4af30b71f6db",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Matrix"
+                }
+            },
+            {
+                "id": "TIMESERIES-c090ffc7-201e-42a1-826e-f56ee4161743->SCATTER-6ff31a6a-6931-4578-b8f9-23772624ca16_0da826c0-57cd-4f97-84fb-cfe9efd1a7bb",
+                "source": "TIMESERIES-c090ffc7-201e-42a1-826e-f56ee4161743",
+                "target": "SCATTER-6ff31a6a-6931-4578-b8f9-23772624ca16",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "DataFrame"
+                }
             }
-        ],
-        "viewport": {
-            "x": 606.4472645567363,
-            "y": 234.63130388602087,
-            "zoom": 0.9186369849831518
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

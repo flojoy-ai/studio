@@ -2,15 +2,13 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 150,
-                "height": 150,
-                "id": "PLOTLY_DATASET-d91971aa-7143-46d8-82a7-5ec15eba9816",
-                "type": "GENERATORS",
+                "id": "PLOTLY_DATASET-1218cf6e-6c3e-44dd-a52c-d8857e3a4f78",
+                "type": "DATA",
                 "data": {
-                    "id": "PLOTLY_DATASET-d91971aa-7143-46d8-82a7-5ec15eba9816",
+                    "id": "PLOTLY_DATASET-1218cf6e-6c3e-44dd-a52c-d8857e3a4f78",
                     "label": "PLOTLY DATASET",
                     "func": "PLOTLY_DATASET",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "dataset_key": {
                             "type": "select",
@@ -27,104 +25,63 @@
                                 "medals_wide",
                                 "stocks"
                             ],
+                            "desc": null,
+                            "overload": null,
                             "functionName": "PLOTLY_DATASET",
                             "param": "dataset_key",
                             "value": "tips"
                         }
                     },
+                    "initCtrls": {},
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "DataFrame"
+                            "type": "DataFrame",
+                            "desc": null
                         }
                     ],
-                    "path": "PYTHON/nodes/GENERATORS/SAMPLE_DATASETS/PLOTLY_DATASET/PLOTLY_DATASET.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SAMPLE_DATASETS/PLOTLY_DATASET/PLOTLY_DATASET.py"
                 },
                 "position": {
-                    "x": 246.6265685991994,
-                    "y": 514.6410134767791
+                    "x": 146.79652106781964,
+                    "y": 454.32517012839446
                 },
+                "width": 216,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 246.6265685991994,
-                    "y": 514.6410134767791
+                    "x": 146.79652106781964,
+                    "y": 454.32517012839446
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 150,
-                "height": 150,
-                "id": "EXTRACT_COLUMNS-e8f40b9e-1d83-478f-b43a-e0a53829e018",
-                "type": "EXTRACTORS",
+                "id": "EXTRACT_COLUMNS-54b80aa8-309b-4304-a6da-8470246065ea",
+                "type": "EXTRACT",
                 "data": {
-                    "id": "EXTRACT_COLUMNS-e8f40b9e-1d83-478f-b43a-e0a53829e018",
-                    "label": "EXTRACT COLUMNS",
-                    "func": "EXTRACT_COLUMNS",
-                    "type": "EXTRACTORS",
-                    "ctrls": {
-                        "columns": {
-                            "type": "Array",
-                            "default": null,
-                            "functionName": "EXTRACT_COLUMNS",
-                            "param": "columns",
-                            "value": "tip, time"
-                        }
-                    },
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "DataFrame|Matrix",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "DataFrame"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/EXTRACTORS/EXTRACT_COLUMNS/EXTRACT_COLUMNS/EXTRACT_COLUMNS.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 586.4576631006794,
-                    "y": 385.19678110303124
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 586.4576631006794,
-                    "y": 385.19678110303124
-                },
-                "dragging": true
-            },
-            {
-                "width": 150,
-                "height": 150,
-                "id": "EXTRACT_COLUMNS-19b5a943-df28-49dd-b030-f48cd6fc0444",
-                "type": "EXTRACTORS",
-                "data": {
-                    "id": "EXTRACT_COLUMNS-19b5a943-df28-49dd-b030-f48cd6fc0444",
+                    "id": "EXTRACT_COLUMNS-54b80aa8-309b-4304-a6da-8470246065ea",
                     "label": "EXTRACT COLUMNS 1",
                     "func": "EXTRACT_COLUMNS",
-                    "type": "EXTRACTORS",
+                    "type": "EXTRACT",
                     "ctrls": {
                         "columns": {
                             "type": "Array",
                             "default": null,
+                            "desc": "The columns to extract from the input dataframe",
+                            "overload": null,
                             "functionName": "EXTRACT_COLUMNS",
                             "param": "columns",
                             "value": "total_bill"
                         }
                     },
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "DataFrame|Matrix",
+                            "desc": "Input to use as the table for column extraction",
                             "multiple": false
                         }
                     ],
@@ -132,39 +89,51 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "DataFrame"
+                            "type": "DataFrame",
+                            "desc": "DataFrame or Matrix with only the specified columns"
                         }
                     ],
-                    "path": "PYTHON/nodes/EXTRACTORS/EXTRACT_COLUMNS/EXTRACT_COLUMNS/EXTRACT_COLUMNS.py",
-                    "selected": false
+                    "path": "ETL/EXTRACT/DATAFRAME/EXTRACT_COLUMNS/EXTRACT_COLUMNS.py"
                 },
                 "position": {
-                    "x": 583.6116199640052,
-                    "y": 638.6433365798632
+                    "x": 542.4996568708716,
+                    "y": 641.1734478409235
                 },
+                "width": 216,
+                "height": 296,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 583.6116199640052,
-                    "y": 638.6433365798632
+                    "x": 542.4996568708716,
+                    "y": 641.1734478409235
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "TABLE-54f2efe9-ff96-4337-a557-5b04987361a1",
-                "type": "VISUALIZERS",
+                "id": "EXTRACT_COLUMNS-53dae371-6571-4097-85fe-617c2fd9ac8f",
+                "type": "EXTRACT",
                 "data": {
-                    "id": "TABLE-54f2efe9-ff96-4337-a557-5b04987361a1",
-                    "label": "TABLE",
-                    "func": "TABLE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "id": "EXTRACT_COLUMNS-53dae371-6571-4097-85fe-617c2fd9ac8f",
+                    "label": "EXTRACT COLUMNS",
+                    "func": "EXTRACT_COLUMNS",
+                    "type": "EXTRACT",
+                    "ctrls": {
+                        "columns": {
+                            "type": "Array",
+                            "default": null,
+                            "desc": "The columns to extract from the input dataframe",
+                            "overload": null,
+                            "functionName": "EXTRACT_COLUMNS",
+                            "param": "columns",
+                            "value": "tip, time"
+                        }
+                    },
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "OrderedTriple|OrderedPair|DataFrame|Matrix",
+                            "type": "DataFrame|Matrix",
+                            "desc": "Input to use as the table for column extraction",
                             "multiple": false
                         }
                     ],
@@ -172,39 +141,41 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Plotly"
+                            "type": "DataFrame",
+                            "desc": "DataFrame or Matrix with only the specified columns"
                         }
                     ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
-                    "selected": false
+                    "path": "ETL/EXTRACT/DATAFRAME/EXTRACT_COLUMNS/EXTRACT_COLUMNS.py"
                 },
                 "position": {
-                    "x": 860.9858764800861,
-                    "y": 316.2359989426046
+                    "x": 543.053395244221,
+                    "y": 185.35072335085107
                 },
+                "width": 216,
+                "height": 296,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 860.9858764800861,
-                    "y": 316.2359989426046
+                    "x": 543.053395244221,
+                    "y": 185.35072335085107
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "TABLE-78464c37-c0ed-4eeb-ac3a-0d13b241e24a",
-                "type": "VISUALIZERS",
+                "id": "TABLE-3655fe15-f12c-40e8-bca4-5f8ff6aa5fd9",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "TABLE-78464c37-c0ed-4eeb-ac3a-0d13b241e24a",
+                    "id": "TABLE-3655fe15-f12c-40e8-bca4-5f8ff6aa5fd9",
                     "label": "TABLE 1",
                     "func": "TABLE",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "OrderedTriple|OrderedPair|DataFrame|Matrix",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "desc": "the DataContainer to be visualized",
                             "multiple": false
                         }
                     ],
@@ -212,77 +183,113 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Plotly"
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Table visualization"
                         }
                     ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
                 },
                 "position": {
-                    "x": 868.488229602283,
-                    "y": 655.3282103193458
+                    "x": 958.2259889954869,
+                    "y": 637.0805067479929
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 868.488229602283,
-                    "y": 655.3282103193458
+                    "x": 958.2259889954869,
+                    "y": 637.0805067479929
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "TABLE-df84e92c-8d4b-4a1b-93f4-d93a71125457",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TABLE-df84e92c-8d4b-4a1b-93f4-d93a71125457",
+                    "label": "TABLE",
+                    "func": "TABLE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Table visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
+                },
+                "position": {
+                    "x": 951.7202897028892,
+                    "y": 181.6968260733471
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 951.7202897028892,
+                    "y": 181.6968260733471
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "PLOTLY_DATASET-d91971aa-7143-46d8-82a7-5ec15eba9816",
+                "id": "EXTRACT_COLUMNS-54b80aa8-309b-4304-a6da-8470246065ea->TABLE-3655fe15-f12c-40e8-bca4-5f8ff6aa5fd9_c2c6cb22-cfe0-4913-b605-7c03ec6dfeee",
+                "source": "EXTRACT_COLUMNS-54b80aa8-309b-4304-a6da-8470246065ea",
+                "target": "TABLE-3655fe15-f12c-40e8-bca4-5f8ff6aa5fd9",
                 "sourceHandle": "default",
-                "target": "EXTRACT_COLUMNS-e8f40b9e-1d83-478f-b43a-e0a53829e018",
                 "targetHandle": "default",
-                "id": "reactflow__edge-PLOTLY_DATASET-d91971aa-7143-46d8-82a7-5ec15eba9816default-EXTRACT_COLUMNS-e8f40b9e-1d83-478f-b43a-e0a53829e018default"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             },
             {
-                "source": "PLOTLY_DATASET-d91971aa-7143-46d8-82a7-5ec15eba9816",
+                "id": "EXTRACT_COLUMNS-53dae371-6571-4097-85fe-617c2fd9ac8f->TABLE-df84e92c-8d4b-4a1b-93f4-d93a71125457_f8a7be74-9362-449a-bebf-9556126d90e8",
+                "source": "EXTRACT_COLUMNS-53dae371-6571-4097-85fe-617c2fd9ac8f",
+                "target": "TABLE-df84e92c-8d4b-4a1b-93f4-d93a71125457",
                 "sourceHandle": "default",
-                "target": "EXTRACT_COLUMNS-19b5a943-df28-49dd-b030-f48cd6fc0444",
                 "targetHandle": "default",
-                "id": "reactflow__edge-PLOTLY_DATASET-d91971aa-7143-46d8-82a7-5ec15eba9816default-EXTRACT_COLUMNS-19b5a943-df28-49dd-b030-f48cd6fc0444default"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             },
             {
-                "source": "EXTRACT_COLUMNS-e8f40b9e-1d83-478f-b43a-e0a53829e018",
+                "id": "PLOTLY_DATASET-1218cf6e-6c3e-44dd-a52c-d8857e3a4f78->EXTRACT_COLUMNS-53dae371-6571-4097-85fe-617c2fd9ac8f_0969bfb4-c70b-4e99-b6c0-882393590a92",
+                "source": "PLOTLY_DATASET-1218cf6e-6c3e-44dd-a52c-d8857e3a4f78",
+                "target": "EXTRACT_COLUMNS-53dae371-6571-4097-85fe-617c2fd9ac8f",
                 "sourceHandle": "default",
-                "target": "TABLE-54f2efe9-ff96-4337-a557-5b04987361a1",
                 "targetHandle": "default",
-                "id": "reactflow__edge-EXTRACT_COLUMNS-e8f40b9e-1d83-478f-b43a-e0a53829e018default-TABLE-54f2efe9-ff96-4337-a557-5b04987361a1default"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             },
             {
-                "source": "EXTRACT_COLUMNS-19b5a943-df28-49dd-b030-f48cd6fc0444",
+                "id": "PLOTLY_DATASET-1218cf6e-6c3e-44dd-a52c-d8857e3a4f78->EXTRACT_COLUMNS-54b80aa8-309b-4304-a6da-8470246065ea_e2f96058-9d78-4f08-af52-61a9889ac809",
+                "source": "PLOTLY_DATASET-1218cf6e-6c3e-44dd-a52c-d8857e3a4f78",
+                "target": "EXTRACT_COLUMNS-54b80aa8-309b-4304-a6da-8470246065ea",
                 "sourceHandle": "default",
-                "target": "TABLE-78464c37-c0ed-4eeb-ac3a-0d13b241e24a",
                 "targetHandle": "default",
-                "id": "reactflow__edge-EXTRACT_COLUMNS-19b5a943-df28-49dd-b030-f48cd6fc0444default-TABLE-78464c37-c0ed-4eeb-ac3a-0d13b241e24adefault"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             }
-        ],
-        "viewport": {
-            "x": -456.37712173371256,
-            "y": 259.03077225262325,
-            "zoom": 1.3466637668169514
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }
