@@ -2,30 +2,13 @@ import { KnobConfig, WidgetProps } from "@/renderer/types/control";
 import WidgetLabel from "@/renderer/components/common/widget-label";
 import { useControl } from "@/renderer/hooks/useControl";
 import { useRef } from "react";
+import { Vector2, clamp, frac, nearestMultiple } from "@/renderer/utils/math";
 
 const minAngle = 0;
 const maxAngle = Math.PI;
 
-const frac = (value: number, min: number, max: number) => {
-  return (value - min) / (max - min);
-};
-
-const clamp = (value: number, min: number, max: number) => {
-  if (value < min) {
-    return min;
-  }
-  if (value > max) {
-    return max;
-  }
-  return value;
-};
-
 const angleFromValue = (value: number, min: number, max: number) => {
   return clamp(maxAngle * frac(value, min, max), minAngle, maxAngle);
-};
-
-const nearestMultiple = (x: number, y: number) => {
-  return Math.round(x / y) * y;
 };
 
 const valueFromAngle = (
@@ -42,35 +25,6 @@ const valueFromAngle = (
     max,
   );
 };
-
-class Vector2 {
-  readonly x: number;
-  readonly y: number;
-  constructor(x: number, y: number) {
-    this.x = x;
-    this.y = y;
-  }
-
-  magnitude() {
-    return Math.sqrt(this.x * this.x + this.y * this.y);
-  }
-
-  add(other: Vector2) {
-    return new Vector2(this.x + other.x, this.y + other.y);
-  }
-
-  scaled(s: number) {
-    return new Vector2(s * this.x, s * this.y);
-  }
-
-  dot(other: Vector2) {
-    return this.x * other.x + this.y * other.y;
-  }
-
-  normalized() {
-    return this.scaled(1 / this.magnitude());
-  }
-}
 
 type Props = {
   value: number;
