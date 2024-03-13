@@ -38,7 +38,7 @@ export const KnobConfig = z.object({
   max: z.number(),
   step: z.number(),
 });
-export type KnobConfig = z.infer<typeof SliderConfig>;
+export type KnobConfig = z.infer<typeof KnobConfig>;
 
 const isValidFileFilter = (filter: string) => {
   if (filter === "") return true;
