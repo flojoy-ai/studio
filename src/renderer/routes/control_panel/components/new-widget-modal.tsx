@@ -9,19 +9,7 @@ import {
 } from "@/renderer/components/ui/dialog";
 import { useProjectStore } from "@/renderer/stores/project";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Box,
-  ChevronsUpDown,
-  CircleDot,
-  File,
-  Joystick,
-  LucideIcon,
-  SlidersHorizontal,
-  SquareCheck,
-  TextCursorInput,
-  ToggleRight,
-  Variable,
-} from "lucide-react";
+import { Box, Joystick, SlidersHorizontal, Variable } from "lucide-react";
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -32,7 +20,9 @@ import {
 } from "@/renderer/components/ui/form";
 import { Combobox } from "@/renderer/components/ui/combobox";
 import {
+  PYTHON_TYPES,
   PythonType,
+  WIDGETS,
   WidgetBlockInfo,
   WidgetType,
 } from "@/renderer/types/control";
@@ -42,20 +32,24 @@ import {
   ClickablesItem,
 } from "@/renderer/components/common/clickables";
 import { FormIconLabel } from "@/renderer/components/common/form-icon-label";
+import { typedObjectFromEntries, typedObjectKeys } from "@/renderer/types/util";
 
-// INFO: Widget
-const widgetTypeIcons: Record<WidgetType, LucideIcon> = {
-  slider: SlidersHorizontal,
-  "number input": TextCursorInput,
-  "file upload": File,
-  checkbox: SquareCheck,
-  switch: ToggleRight,
-  combobox: ChevronsUpDown,
-  "radio group": CircleDot,
+const mapTypesToWidgets = () => {
+  const res: Record<PythonType, WidgetType[]> = typedObjectFromEntries(
+    PYTHON_TYPES.map((t) => [t, []]),
+  );
+
+  for (const k of typedObjectKeys(WIDGETS)) {
+    for (const type of WIDGETS[k].allowedTypes) {
+      res[type].push(k);
+    }
+  }
+
+  return res;
 };
 
 const WidgetTypeIcon = ({ type }: { type: WidgetType }) => {
-  const Icon = widgetTypeIcons[type];
+  const Icon = WIDGETS[type].icon;
   return (
     <div className="flex flex-col items-center">
       <Icon className="stroke-muted-foreground" />
@@ -65,15 +59,7 @@ const WidgetTypeIcon = ({ type }: { type: WidgetType }) => {
     </div>
   );
 };
-
-// INFO: Widget
-const allowedWidgetTypes: Record<PythonType, WidgetType[]> = {
-  int: ["slider", "number input"],
-  float: ["slider", "number input"],
-  bool: ["checkbox", "switch"],
-  File: ["file upload"],
-  select: ["combobox", "radio group"],
-};
+const allowedWidgetTypes = mapTypesToWidgets();
 
 type Props = {
   open: boolean;

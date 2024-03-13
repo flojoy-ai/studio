@@ -76,7 +76,6 @@
     "electron-updater": "^6.1.8",
     "electron-vite": "2.1.0",
     "file-saver": "^2.0.5",
-    "fp-ts": "^2.16.3",
     "html-to-image": "^1.11.11",
     "http-proxy-middleware": "^2.0.6",
     "immer": "^10.0.4",

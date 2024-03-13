@@ -1,31 +1,35 @@
 import { Input } from "@/renderer/components/ui/input";
-import { useControlBlock } from "@/renderer/hooks/useControlBlock";
 import { SliderConfig, WidgetProps } from "@/renderer/types/control";
-import { ChangeEvent } from "react";
-import { toast } from "sonner";
 import WidgetLabel from "@/renderer/components/common/widget-label";
+import { useControl } from "@/renderer/hooks/useControl";
+import { useMemo } from "react";
+
+const countDecimalPlaces = (num: number) => {
+  const numString = num.toString();
+  const decimalIndex = numString.indexOf(".");
+  if (decimalIndex === -1) {
+    return 0;
+  }
+
+  return numString.length - decimalIndex - 1;
+};
 
 export const SliderNode = ({ id, data }: WidgetProps<SliderConfig>) => {
-  const { block, updateBlockParameter } = useControlBlock(data.blockId);
-  if (!block) {
+  const control = useControl(data);
+  const parseFunc = useMemo(
+    () => (data.config.floating ? parseFloat : parseInt),
+    [data.config.floating],
+  );
+  const numDecimals = useMemo(
+    () => countDecimalPlaces(data.config.step),
+    [data.config.step],
+  );
+
+  if (!control) {
     return <div className="text-2xl text-red-500">NOT FOUND</div>;
   }
 
-  const name = block.data.label;
-  const paramVal = block.data.ctrls[data.blockParameter].value;
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const res = updateBlockParameter(
-      block.id,
-      data.blockParameter,
-      parseInt(e.target.value, 10),
-    );
-    if (res.isErr()) {
-      toast.error("Error updating block parameter", {
-        description: res.error.message,
-      });
-    }
-  };
+  const { name, value, onValueChange } = control;
 
   return (
     <div className="flex flex-col items-center gap-2">
@@ -41,10 +45,12 @@ export const SliderNode = ({ id, data }: WidgetProps<SliderConfig>) => {
           min={data.config.min}
           max={data.config.max}
           step={data.config.step}
-          value={paramVal as number}
-          onChange={handleChange}
+          value={value as number}
+          onChange={(e) => onValueChange(parseFunc(e.target.value))}
         />
-        <div className="text-xl font-bold">{paramVal}</div>
+        <div className="text-xl font-bold">
+          {(value as number).toFixed(numDecimals)}
+        </div>
       </div>
     </div>
   );
