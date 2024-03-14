@@ -2,86 +2,13 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 160,
-                "height": 160,
-                "id": "REPLACE_SUBSET-1ceabec0-02a8-481d-bb7d-4b2ae7f0c643",
-                "type": "TRANSFORMERS",
+                "id": "LINSPACE-098217aa-6c9b-4085-ab21-7cdd451e05b3",
+                "type": "DATA",
                 "data": {
-                    "id": "REPLACE_SUBSET-1ceabec0-02a8-481d-bb7d-4b2ae7f0c643",
-                    "label": "REPLACE SUBSET",
-                    "func": "REPLACE_SUBSET",
-                    "type": "TRANSFORMERS",
-                    "ctrls": {
-                        "indices": {
-                            "type": "Array",
-                            "default": null,
-                            "desc": "specified indices to replace values at from the input vector",
-                            "overload": null,
-                            "functionName": "REPLACE_SUBSET",
-                            "param": "indices",
-                            "value": "1,4,6"
-                        },
-                        "values": {
-                            "type": "Array",
-                            "default": null,
-                            "desc": "subset of values to replace the specified indices",
-                            "overload": null,
-                            "functionName": "REPLACE_SUBSET",
-                            "param": "values",
-                            "value": "-5,22,13"
-                        },
-                        "length": {
-                            "type": "int",
-                            "default": 1,
-                            "desc": "number of elements to replace from the input vector, default is 1 (this only applies when one index is specified for indices parameter)",
-                            "overload": null,
-                            "functionName": "REPLACE_SUBSET",
-                            "param": "length",
-                            "value": 3
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "desc": "The new vector with subset of elements replaced from the input vector"
-                        }
-                    ],
-                    "path": "TRANSFORMERS/VECTOR_MANIPULATION/REPLACE_SUBSET/REPLACE_SUBSET.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 46.292395321543836,
-                    "y": -191.62402629147334
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 46.292395321543836,
-                    "y": -191.62402629147334
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "LINSPACE-773b378b-53c4-41db-a6e0-62bd9a366bcb",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "LINSPACE-773b378b-53c4-41db-a6e0-62bd9a366bcb",
+                    "id": "LINSPACE-098217aa-6c9b-4085-ab21-7cdd451e05b3",
                     "label": "LINSPACE",
                     "func": "LINSPACE",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "start": {
                             "type": "float",
@@ -117,8 +44,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -126,33 +53,102 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector",
-                            "desc": "v: the vector between start and end with step number of points."
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
                         }
                     ],
-                    "path": "GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
                 },
                 "position": {
-                    "x": -259.1040792489622,
-                    "y": -159.2030807433828
+                    "x": -248.47599101062983,
+                    "y": -551.4334798903042
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -259.1040792489622,
-                    "y": -159.2030807433828
+                    "x": -248.47599101062983,
+                    "y": -551.4334798903042
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "SCATTER-ac863ad4-e233-40ac-a67e-239e7cf8acb5",
-                "type": "VISUALIZERS",
+                "id": "REPLACE_SUBSET-e4bb79e4-d31e-4c80-84db-4df1474d50d9",
+                "type": "TRANSFORM",
                 "data": {
-                    "id": "SCATTER-ac863ad4-e233-40ac-a67e-239e7cf8acb5",
+                    "id": "REPLACE_SUBSET-e4bb79e4-d31e-4c80-84db-4df1474d50d9",
+                    "label": "REPLACE SUBSET",
+                    "func": "REPLACE_SUBSET",
+                    "type": "TRANSFORM",
+                    "ctrls": {
+                        "indices": {
+                            "type": "Array",
+                            "default": null,
+                            "desc": "specified indices to replace values at from the input vector",
+                            "overload": null,
+                            "functionName": "REPLACE_SUBSET",
+                            "param": "indices",
+                            "value": "1,4,6"
+                        },
+                        "values": {
+                            "type": "Array",
+                            "default": null,
+                            "desc": "subset of values to replace the specified indices",
+                            "overload": null,
+                            "functionName": "REPLACE_SUBSET",
+                            "param": "values",
+                            "value": "-5,22,13"
+                        },
+                        "length": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "number of elements to replace from the input vector, default is 1 (this only applies when one index is specified for indices parameter)",
+                            "overload": null,
+                            "functionName": "REPLACE_SUBSET",
+                            "param": "length",
+                            "value": 3
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "The new vector with subset of elements replaced from the input vector"
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/VECTOR_MANIPULATION/REPLACE_SUBSET/REPLACE_SUBSET.py"
+                },
+                "position": {
+                    "x": 171.43723804484654,
+                    "y": -590.2549341784297
+                },
+                "width": 216,
+                "height": 296,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 171.43723804484654,
+                    "y": -590.2549341784297
+                },
+                "dragging": false
+            },
+            {
+                "id": "SCATTER-e4908d00-acfa-47b8-96d3-c4e67aac4203",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "SCATTER-e4908d00-acfa-47b8-96d3-c4e67aac4203",
                     "label": "SCATTER",
                     "func": "SCATTER",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -160,8 +156,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -169,42 +165,41 @@
                             "name": "default",
                             "id": "default",
                             "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Scatter visualization"
+                            "desc": "the DataContainer containing the Plotly Scatter visualization"
                         }
                     ],
-                    "path": "VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
                 },
                 "position": {
-                    "x": 337.9370892627744,
-                    "y": -261.0285656908869
+                    "x": 530.929000668322,
+                    "y": -597.7932048243663
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 337.9370892627744,
-                    "y": -261.0285656908869
+                    "x": 530.929000668322,
+                    "y": -597.7932048243663
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
-                "id": "TEXT-f7ac9b15-5256-41be-8944-6622466175bc",
-                "type": "GENERATORS",
+                "id": "TEXT-ef8fe414-6590-4574-9f84-4ca568c72f9f",
+                "type": "DATA",
                 "data": {
-                    "id": "TEXT-f7ac9b15-5256-41be-8944-6622466175bc",
-                    "label": "TEXT",
+                    "id": "TEXT-ef8fe414-6590-4574-9f84-4ca568c72f9f",
+                    "label": "DESCRIPTION",
                     "func": "TEXT",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "value": {
-                            "type": "str",
+                            "type": "TextArea",
                             "default": "Hello World!",
-                            "desc": "The value set in Parameters",
+                            "desc": "The value set in Parameters.",
                             "overload": null,
                             "functionName": "TEXT",
                             "param": "value",
-                            "value": "This app replaces the subsets of the input vector according to the values and corresponding indices specified. In this example, elements  -5, 22, and 13 have been specified to replace the elements in indices 1, 4, and 6. "
+                            "value": "Hello World!"
                         }
                     },
                     "initCtrls": {},
@@ -213,8 +208,8 @@
                             "name": "_",
                             "id": "_",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -222,93 +217,122 @@
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "desc": "s: return the value being set in Parameters"
+                            "desc": "Return the value being set in Parameters."
                         }
                     ],
-                    "path": "GENERATORS/SIMULATIONS/TEXT/TEXT.py",
-                    "selected": true
+                    "path": "DATA/GENERATION/SIMULATIONS/TEXT/TEXT.py"
                 },
                 "position": {
-                    "x": 884.1369074495883,
-                    "y": -162.24699099748312
+                    "x": 260.63796225658507,
+                    "y": -97.33222595469141
                 },
-                "selected": true,
+                "width": 239,
+                "height": 197,
+                "selected": false,
                 "positionAbsolute": {
-                    "x": 884.1369074495883,
-                    "y": -162.24699099748312
+                    "x": 260.63796225658507,
+                    "y": -97.33222595469141
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 384,
-                "height": 288,
-                "id": "TEXT_VIEW-477492c2-b628-4289-9a51-528af5e09d70",
-                "type": "VISUALIZERS",
+                "id": "TEXT_VIEW-fc310a2b-69f1-47cc-8025-ee3871ef3d5f",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "TEXT_VIEW-477492c2-b628-4289-9a51-528af5e09d70",
-                    "label": "TEXT VIEW",
+                    "id": "TEXT_VIEW-fc310a2b-69f1-47cc-8025-ee3871ef3d5f",
+                    "label": "TEXT VIEW 1",
                     "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
                 },
                 "position": {
-                    "x": 784.046104132004,
-                    "y": -520.1653348334285
+                    "x": 732.0922577315796,
+                    "y": -145.71274204802984
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 784.046104132004,
-                    "y": -520.1653348334285
+                    "x": 732.0922577315796,
+                    "y": -145.71274204802984
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "LINSPACE-773b378b-53c4-41db-a6e0-62bd9a366bcb",
+                "id": "LINSPACE-098217aa-6c9b-4085-ab21-7cdd451e05b3->REPLACE_SUBSET-e4bb79e4-d31e-4c80-84db-4df1474d50d9_1b7cc8b3-e1d7-4422-8dfa-eab38546a23b",
+                "source": "LINSPACE-098217aa-6c9b-4085-ab21-7cdd451e05b3",
+                "target": "REPLACE_SUBSET-e4bb79e4-d31e-4c80-84db-4df1474d50d9",
                 "sourceHandle": "default",
-                "target": "REPLACE_SUBSET-1ceabec0-02a8-481d-bb7d-4b2ae7f0c643",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-773b378b-53c4-41db-a6e0-62bd9a366bcbdefault-REPLACE_SUBSET-1ceabec0-02a8-481d-bb7d-4b2ae7f0c643default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "REPLACE_SUBSET-1ceabec0-02a8-481d-bb7d-4b2ae7f0c643",
+                "id": "REPLACE_SUBSET-e4bb79e4-d31e-4c80-84db-4df1474d50d9->SCATTER-e4908d00-acfa-47b8-96d3-c4e67aac4203_53af0aee-c6d3-4478-b9a8-1343571364ca",
+                "source": "REPLACE_SUBSET-e4bb79e4-d31e-4c80-84db-4df1474d50d9",
+                "target": "SCATTER-e4908d00-acfa-47b8-96d3-c4e67aac4203",
                 "sourceHandle": "default",
-                "target": "SCATTER-ac863ad4-e233-40ac-a67e-239e7cf8acb5",
                 "targetHandle": "default",
-                "id": "reactflow__edge-REPLACE_SUBSET-1ceabec0-02a8-481d-bb7d-4b2ae7f0c643default-SCATTER-ac863ad4-e233-40ac-a67e-239e7cf8acb5default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "SCATTER-ac863ad4-e233-40ac-a67e-239e7cf8acb5",
+                "id": "SCATTER-e4908d00-acfa-47b8-96d3-c4e67aac4203->TEXT-ef8fe414-6590-4574-9f84-4ca568c72f9f_427c89ae-9c8f-4dff-b0a9-900019252f6b",
+                "source": "SCATTER-e4908d00-acfa-47b8-96d3-c4e67aac4203",
+                "target": "TEXT-ef8fe414-6590-4574-9f84-4ca568c72f9f",
                 "sourceHandle": "default",
-                "target": "TEXT-f7ac9b15-5256-41be-8944-6622466175bc",
                 "targetHandle": "_",
-                "id": "reactflow__edge-SCATTER-ac863ad4-e233-40ac-a67e-239e7cf8acb5default-TEXT-f7ac9b15-5256-41be-8944-6622466175bc_"
+                "data": {
+                    "outputType": "Plotly"
+                }
             },
             {
-                "source": "TEXT-f7ac9b15-5256-41be-8944-6622466175bc",
+                "id": "TEXT-ef8fe414-6590-4574-9f84-4ca568c72f9f->TEXT_VIEW-fc310a2b-69f1-47cc-8025-ee3871ef3d5f_0d51939b-8b2b-4343-95a2-6aeed4f5fe83",
+                "source": "TEXT-ef8fe414-6590-4574-9f84-4ca568c72f9f",
+                "target": "TEXT_VIEW-fc310a2b-69f1-47cc-8025-ee3871ef3d5f",
                 "sourceHandle": "default",
-                "target": "TEXT_VIEW-477492c2-b628-4289-9a51-528af5e09d70",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TEXT-f7ac9b15-5256-41be-8944-6622466175bcdefault-TEXT_VIEW-477492c2-b628-4289-9a51-528af5e09d70default"
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 637.654905587641,
-            "y": 363.60612546109087,
-            "zoom": 0.7111497425822767
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

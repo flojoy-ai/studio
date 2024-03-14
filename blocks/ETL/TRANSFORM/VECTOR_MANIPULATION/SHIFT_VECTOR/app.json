@@ -2,172 +2,13 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
-                "id": "LINSPACE-e379dbbd-8e84-49d0-a55a-73c7bb83a9d0",
-                "type": "GENERATORS",
+                "id": "LINSPACE-5b885f86-f576-4fe6-b877-23bc5da5b5bb",
+                "type": "DATA",
                 "data": {
-                    "id": "LINSPACE-e379dbbd-8e84-49d0-a55a-73c7bb83a9d0",
-                    "label": "LINSPACE",
-                    "func": "LINSPACE",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "start": {
-                            "type": "float",
-                            "default": 10,
-                            "desc": "The start point of the data.",
-                            "overload": null,
-                            "functionName": "LINSPACE",
-                            "param": "start",
-                            "value": 0
-                        },
-                        "end": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "The end point of the data.",
-                            "overload": null,
-                            "functionName": "LINSPACE",
-                            "param": "end",
-                            "value": 10
-                        },
-                        "step": {
-                            "type": "int",
-                            "default": 1000,
-                            "desc": "The number of points in the vector.",
-                            "overload": null,
-                            "functionName": "LINSPACE",
-                            "param": "step",
-                            "value": 10
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "desc": "v: the vector between start and end with step number of points."
-                        }
-                    ],
-                    "path": "GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -223.86517863731433,
-                    "y": 120.02433306680166
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -223.86517863731433,
-                    "y": 120.02433306680166
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "SCATTER-fc390cc7-cd39-478c-b149-44510a1abc55",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "SCATTER-fc390cc7-cd39-478c-b149-44510a1abc55",
-                    "label": "SCATTER",
-                    "func": "SCATTER",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Scatter visualization"
-                        }
-                    ],
-                    "path": "VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 467.0975797559655,
-                    "y": -172.3190063382396
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 467.0975797559655,
-                    "y": -172.3190063382396
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "SCATTER-c4aaa4eb-367d-49f9-944a-de4aa7b5eab7",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "SCATTER-c4aaa4eb-367d-49f9-944a-de4aa7b5eab7",
-                    "label": "SCATTER 1",
-                    "func": "SCATTER",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Scatter visualization"
-                        }
-                    ],
-                    "path": "VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 443.10500366948986,
-                    "y": 179.3090438343204
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 443.10500366948986,
-                    "y": 179.3090438343204
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "LINSPACE-a3ecb471-ef0c-4af6-9b42-8b85d63aa15b",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "LINSPACE-a3ecb471-ef0c-4af6-9b42-8b85d63aa15b",
+                    "id": "LINSPACE-5b885f86-f576-4fe6-b877-23bc5da5b5bb",
                     "label": "LINSPACE 1",
                     "func": "LINSPACE",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "start": {
                             "type": "float",
@@ -203,8 +44,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -212,173 +53,59 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector",
-                            "desc": "v: the vector between start and end with step number of points."
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
                         }
                     ],
-                    "path": "GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
                 },
                 "position": {
-                    "x": -223.96114622718932,
-                    "y": 707.270566627652
+                    "x": -177.06401395293233,
+                    "y": 434.6041971699417
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -223.96114622718932,
-                    "y": 707.270566627652
+                    "x": -177.06401395293233,
+                    "y": 434.6041971699417
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "SCATTER-4cd82265-65b6-462c-9523-286c65163e01",
-                "type": "VISUALIZERS",
+                "id": "LINSPACE-cbcf398e-1c0b-4d65-ba64-70d4672a5a56",
+                "type": "DATA",
                 "data": {
-                    "id": "SCATTER-4cd82265-65b6-462c-9523-286c65163e01",
-                    "label": "SCATTER 2",
-                    "func": "SCATTER",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Scatter visualization"
-                        }
-                    ],
-                    "path": "VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 461.85436957217325,
-                    "y": 633.327989002352
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 461.85436957217325,
-                    "y": 633.327989002352
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "TEXT-3c162e78-3b90-4392-9ef6-8988c48bac83",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "TEXT-3c162e78-3b90-4392-9ef6-8988c48bac83",
-                    "label": "TEXT",
-                    "func": "TEXT",
-                    "type": "GENERATORS",
+                    "id": "LINSPACE-cbcf398e-1c0b-4d65-ba64-70d4672a5a56",
+                    "label": "LINSPACE",
+                    "func": "LINSPACE",
+                    "type": "DATA",
                     "ctrls": {
-                        "value": {
-                            "type": "str",
-                            "default": "Hello World!",
-                            "desc": "The value set in Parameters",
+                        "start": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "The start point of the data.",
                             "overload": null,
-                            "functionName": "TEXT",
-                            "param": "value",
-                            "value": "This app shows elements in the vector can be rotated (i.e shifted) in both directions. The one on the top shows elements that are shifted to the right by 3. The one on the bottom shows the elements that are shifted to the left by 3."
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "_",
-                            "id": "_",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "s: return the value being set in Parameters"
-                        }
-                    ],
-                    "path": "GENERATORS/SIMULATIONS/TEXT/TEXT.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 931.0391647029419,
-                    "y": 248.74566673722245
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 931.0391647029419,
-                    "y": 248.74566673722245
-                },
-                "dragging": true
-            },
-            {
-                "width": 384,
-                "height": 288,
-                "id": "TEXT_VIEW-e7df43bd-4f8a-45d5-8b38-ee14fa4d26ef",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TEXT_VIEW-e7df43bd-4f8a-45d5-8b38-ee14fa4d26ef",
-                    "label": "TEXT VIEW",
-                    "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
-                        }
-                    ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 1353.5947356865488,
-                    "y": 172.47563144496644
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1353.5947356865488,
-                    "y": 172.47563144496644
-                },
-                "dragging": true
-            },
-            {
-                "width": 160,
-                "height": 160,
-                "id": "SHIFT_VECTOR-19f0b259-c5c9-4691-bb1d-266f00b6bb8c",
-                "type": "TRANSFORMERS",
-                "data": {
-                    "id": "SHIFT_VECTOR-19f0b259-c5c9-4691-bb1d-266f00b6bb8c",
-                    "label": "SHIFT VECTOR",
-                    "func": "SHIFT_VECTOR",
-                    "type": "TRANSFORMERS",
-                    "ctrls": {
-                        "shift": {
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": 0
+                        },
+                        "end": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The end point of the data.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": 10
+                        },
+                        "step": {
                             "type": "int",
-                            "default": 1,
-                            "desc": "the number of places in which elements are moved (negative values will shift them to the left)",
+                            "default": 1000,
+                            "desc": "The number of points in the vector.",
                             "overload": null,
-                            "functionName": "SHIFT_VECTOR",
-                            "param": "shift",
-                            "value": 3
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": 10
                         }
                     },
                     "initCtrls": {},
@@ -386,9 +113,9 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Vector",
-                            "multiple": false,
-                            "desc": null
+                            "type": "Vector|OrderedPair",
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -396,33 +123,32 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector",
-                            "desc": "The new vector with elements shifted"
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
                         }
                     ],
-                    "path": "TRANSFORMERS/VECTOR_MANIPULATION/SHIFT_VECTOR/SHIFT_VECTOR.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
                 },
                 "position": {
-                    "x": 132.48736880826465,
-                    "y": -42.665656394050814
+                    "x": -193.40267940967885,
+                    "y": -87.27237026057838
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 132.48736880826465,
-                    "y": -42.665656394050814
+                    "x": -193.40267940967885,
+                    "y": -87.27237026057838
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 160,
-                "height": 160,
-                "id": "SHIFT_VECTOR-344524df-0eae-49bf-ad50-c5dfcae04ca0",
-                "type": "TRANSFORMERS",
+                "id": "SHIFT_VECTOR-37c07402-e10e-4cc7-9885-c038627972fb",
+                "type": "TRANSFORM",
                 "data": {
-                    "id": "SHIFT_VECTOR-344524df-0eae-49bf-ad50-c5dfcae04ca0",
-                    "label": "SHIFT VECTOR 1",
+                    "id": "SHIFT_VECTOR-37c07402-e10e-4cc7-9885-c038627972fb",
+                    "label": "SHIFT VECTOR 2",
                     "func": "SHIFT_VECTOR",
-                    "type": "TRANSFORMERS",
+                    "type": "TRANSFORM",
                     "ctrls": {
                         "shift": {
                             "type": "int",
@@ -440,8 +166,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -452,69 +178,255 @@
                             "desc": "The new vector with elements shifted"
                         }
                     ],
-                    "path": "TRANSFORMERS/VECTOR_MANIPULATION/SHIFT_VECTOR/SHIFT_VECTOR.py",
-                    "selected": false
+                    "path": "ETL/TRANSFORM/VECTOR_MANIPULATION/SHIFT_VECTOR/SHIFT_VECTOR.py"
                 },
                 "position": {
-                    "x": 124.56549480602405,
-                    "y": 654.762527395164
+                    "x": 313.7719503414081,
+                    "y": 400.7845132901599
                 },
+                "width": 216,
+                "height": 296,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 124.56549480602405,
-                    "y": 654.762527395164
+                    "x": 313.7719503414081,
+                    "y": 400.7845132901599
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "SHIFT_VECTOR-0b2e8dc5-0cd2-42f4-b16a-7e342a9e43e7",
+                "type": "TRANSFORM",
+                "data": {
+                    "id": "SHIFT_VECTOR-0b2e8dc5-0cd2-42f4-b16a-7e342a9e43e7",
+                    "label": "SHIFT VECTOR",
+                    "func": "SHIFT_VECTOR",
+                    "type": "TRANSFORM",
+                    "ctrls": {
+                        "shift": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "the number of places in which elements are moved (negative values will shift them to the left)",
+                            "overload": null,
+                            "functionName": "SHIFT_VECTOR",
+                            "param": "shift",
+                            "value": 3
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "The new vector with elements shifted"
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/VECTOR_MANIPULATION/SHIFT_VECTOR/SHIFT_VECTOR.py"
+                },
+                "position": {
+                    "x": 301.24734481249004,
+                    "y": 48.1981621055852
+                },
+                "width": 216,
+                "height": 296,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 301.24734481249004,
+                    "y": 48.1981621055852
+                },
+                "dragging": false
+            },
+            {
+                "id": "SCATTER-a2c40583-9954-4c7e-a3ee-380ac398b30a",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "SCATTER-a2c40583-9954-4c7e-a3ee-380ac398b30a",
+                    "label": "SCATTER 1",
+                    "func": "SCATTER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Scatter visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
+                },
+                "position": {
+                    "x": 723.3785756632442,
+                    "y": -128.65196422211568
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 723.3785756632442,
+                    "y": -128.65196422211568
+                },
+                "dragging": false
+            },
+            {
+                "id": "SCATTER-197f2d3d-0019-42b6-a126-1f912c7b11fd",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "SCATTER-197f2d3d-0019-42b6-a126-1f912c7b11fd",
+                    "label": "SCATTER 2",
+                    "func": "SCATTER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Scatter visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
+                },
+                "position": {
+                    "x": 737.7405622249657,
+                    "y": 388.3152607978377
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 737.7405622249657,
+                    "y": 388.3152607978377
+                },
+                "dragging": false
+            },
+            {
+                "id": "SCATTER-a1a1b85e-2fc6-4841-8cd0-74edc25af7b8",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "SCATTER-a1a1b85e-2fc6-4841-8cd0-74edc25af7b8",
+                    "label": "SCATTER",
+                    "func": "SCATTER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Scatter visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
+                },
+                "position": {
+                    "x": 302.7778811271601,
+                    "y": -295.0370541233638
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 302.7778811271601,
+                    "y": -295.0370541233638
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "LINSPACE-e379dbbd-8e84-49d0-a55a-73c7bb83a9d0",
+                "id": "LINSPACE-5b885f86-f576-4fe6-b877-23bc5da5b5bb->SHIFT_VECTOR-37c07402-e10e-4cc7-9885-c038627972fb_35010b75-b779-4b26-8c75-95f7e8564700",
+                "source": "LINSPACE-5b885f86-f576-4fe6-b877-23bc5da5b5bb",
+                "target": "SHIFT_VECTOR-37c07402-e10e-4cc7-9885-c038627972fb",
                 "sourceHandle": "default",
-                "target": "SCATTER-c4aaa4eb-367d-49f9-944a-de4aa7b5eab7",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-e379dbbd-8e84-49d0-a55a-73c7bb83a9d0default-SCATTER-c4aaa4eb-367d-49f9-944a-de4aa7b5eab7default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "TEXT-3c162e78-3b90-4392-9ef6-8988c48bac83",
+                "id": "SHIFT_VECTOR-37c07402-e10e-4cc7-9885-c038627972fb->SCATTER-197f2d3d-0019-42b6-a126-1f912c7b11fd_bbd40654-1992-450d-89ba-349c1cc4414a",
+                "source": "SHIFT_VECTOR-37c07402-e10e-4cc7-9885-c038627972fb",
+                "target": "SCATTER-197f2d3d-0019-42b6-a126-1f912c7b11fd",
                 "sourceHandle": "default",
-                "target": "TEXT_VIEW-e7df43bd-4f8a-45d5-8b38-ee14fa4d26ef",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TEXT-3c162e78-3b90-4392-9ef6-8988c48bac83default-TEXT_VIEW-e7df43bd-4f8a-45d5-8b38-ee14fa4d26efdefault"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "SHIFT_VECTOR-19f0b259-c5c9-4691-bb1d-266f00b6bb8c",
+                "id": "LINSPACE-cbcf398e-1c0b-4d65-ba64-70d4672a5a56->SHIFT_VECTOR-0b2e8dc5-0cd2-42f4-b16a-7e342a9e43e7_0f6db137-a2b6-4f49-821c-570da4ebef8f",
+                "source": "LINSPACE-cbcf398e-1c0b-4d65-ba64-70d4672a5a56",
+                "target": "SHIFT_VECTOR-0b2e8dc5-0cd2-42f4-b16a-7e342a9e43e7",
                 "sourceHandle": "default",
-                "target": "SCATTER-fc390cc7-cd39-478c-b149-44510a1abc55",
                 "targetHandle": "default",
-                "id": "reactflow__edge-SHIFT_VECTOR-19f0b259-c5c9-4691-bb1d-266f00b6bb8cdefault-SCATTER-fc390cc7-cd39-478c-b149-44510a1abc55default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "LINSPACE-e379dbbd-8e84-49d0-a55a-73c7bb83a9d0",
+                "id": "SHIFT_VECTOR-0b2e8dc5-0cd2-42f4-b16a-7e342a9e43e7->SCATTER-a2c40583-9954-4c7e-a3ee-380ac398b30a_5aef1b35-72a5-4062-9557-0a836dda453d",
+                "source": "SHIFT_VECTOR-0b2e8dc5-0cd2-42f4-b16a-7e342a9e43e7",
+                "target": "SCATTER-a2c40583-9954-4c7e-a3ee-380ac398b30a",
                 "sourceHandle": "default",
-                "target": "SHIFT_VECTOR-19f0b259-c5c9-4691-bb1d-266f00b6bb8c",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-e379dbbd-8e84-49d0-a55a-73c7bb83a9d0default-SHIFT_VECTOR-19f0b259-c5c9-4691-bb1d-266f00b6bb8cdefault"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "LINSPACE-a3ecb471-ef0c-4af6-9b42-8b85d63aa15b",
+                "id": "LINSPACE-cbcf398e-1c0b-4d65-ba64-70d4672a5a56->SCATTER-a1a1b85e-2fc6-4841-8cd0-74edc25af7b8_bc977447-2d5d-4d1d-9ff3-af0ed3c9ae6a",
+                "source": "LINSPACE-cbcf398e-1c0b-4d65-ba64-70d4672a5a56",
+                "target": "SCATTER-a1a1b85e-2fc6-4841-8cd0-74edc25af7b8",
                 "sourceHandle": "default",
-                "target": "SHIFT_VECTOR-344524df-0eae-49bf-ad50-c5dfcae04ca0",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-a3ecb471-ef0c-4af6-9b42-8b85d63aa15bdefault-SHIFT_VECTOR-344524df-0eae-49bf-ad50-c5dfcae04ca0default"
-            },
-            {
-                "source": "SHIFT_VECTOR-344524df-0eae-49bf-ad50-c5dfcae04ca0",
-                "sourceHandle": "default",
-                "target": "SCATTER-4cd82265-65b6-462c-9523-286c65163e01",
-                "targetHandle": "default",
-                "id": "reactflow__edge-SHIFT_VECTOR-344524df-0eae-49bf-ad50-c5dfcae04ca0default-SCATTER-4cd82265-65b6-462c-9523-286c65163e01default"
+                "data": {
+                    "outputType": "Vector"
+                }
             }
-        ],
-        "viewport": {
-            "x": 637.654905587641,
-            "y": 363.60612546109087,
-            "zoom": 0.7111497425822767
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }
