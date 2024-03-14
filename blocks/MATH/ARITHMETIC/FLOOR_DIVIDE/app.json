@@ -2,106 +2,8 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 72,
-                "height": 72,
-                "id": "FLOOR_DIVIDE-c46da156-a03e-4cd8-b963-bfe48c956fc6",
-                "type": "ARITHMETIC",
-                "data": {
-                    "id": "FLOOR_DIVIDE-c46da156-a03e-4cd8-b963-bfe48c956fc6",
-                    "label": "FLOOR DIVIDE",
-                    "func": "FLOOR_DIVIDE",
-                    "type": "ARITHMETIC",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "a",
-                            "id": "a",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "The input that will be divide by b."
-                        },
-                        {
-                            "name": "b",
-                            "id": "b",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": true,
-                            "desc": "The input that will divide a."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the result of the division of input a by input b.\n\nScalar if a is a Scalar.\nc: the result of the division of input a by input b.\n\nVector if a is a Vector.\nv: the result of the division of input a by input b."
-                        }
-                    ],
-                    "path": "MATH/ARITHMETIC/FLOOR_DIVIDE/FLOOR_DIVIDE.py"
-                },
-                "position": {
-                    "x": 246.01795031377316,
-                    "y": -141.7675184639236
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 246.01795031377316,
-                    "y": -141.7675184639236
-                },
-                "dragging": true
-            },
-            {
-                "width": 72,
-                "height": 72,
-                "id": "REMAINDER-6948736e-d257-445e-842c-cedae2d7ae3a",
-                "type": "ARITHMETIC",
-                "data": {
-                    "id": "REMAINDER-6948736e-d257-445e-842c-cedae2d7ae3a",
-                    "label": "REMAINDER",
-                    "func": "REMAINDER",
-                    "type": "ARITHMETIC",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "a",
-                            "id": "a",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "The input that will be divide by b."
-                        },
-                        {
-                            "name": "b",
-                            "id": "b",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": true,
-                            "desc": "The input that will divide a."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the result of the division of input a by input b.\n\nScalar if a is a Scalar.\nc: the result of the division of input a by input b.\n\nVector if a is a Vector.\nv: the result of the division of input a by input b."
-                        }
-                    ],
-                    "path": "MATH/ARITHMETIC/REMAINDER/REMAINDER.py"
-                },
-                "position": {
-                    "x": 250.67792774555954,
-                    "y": 68.06966783007044
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 250.67792774555954,
-                    "y": 68.06966783007044
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "CONSTANT-45dc72d3-baec-493d-82e1-8a818c9a9348",
                 "type": "DATA",
                 "data": {
@@ -149,8 +51,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input that defines the size of the output."
+                            "desc": "Optional input that defines the size of the output.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -164,19 +66,19 @@
                     "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
                 },
                 "position": {
-                    "x": -200.47958011610487,
-                    "y": -165.19541754610998
+                    "x": -265.8828143811253,
+                    "y": -375.9766210544872
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -200.47958011610487,
-                    "y": -165.19541754610998
+                    "x": -265.8828143811253,
+                    "y": -375.9766210544872
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "CONSTANT-dff544a3-0bf5-469e-b478-074a01c0a110",
                 "type": "DATA",
                 "data": {
@@ -224,8 +126,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input that defines the size of the output."
+                            "desc": "Optional input that defines the size of the output.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -239,15 +141,15 @@
                     "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
                 },
                 "position": {
-                    "x": -203.93886589288093,
-                    "y": 76.71894895189558
+                    "x": -253.18505832949626,
+                    "y": 10.226583346478662
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -203.93886589288093,
-                    "y": 76.71894895189558
+                    "x": -253.18505832949626,
+                    "y": 10.226583346478662
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 225,
@@ -287,6 +189,15 @@
                             "param": "title",
                             "value": ""
                         },
+                        "dec_places": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "dec_places",
+                            "value": 0
+                        },
                         "relative_delta": {
                             "type": "bool",
                             "default": true,
@@ -299,7 +210,7 @@
                         "scientific_notation": {
                             "type": "bool",
                             "default": false,
-                            "desc": null,
+                            "desc": "Use scientific notation? Defaults to 4 decimal places.",
                             "overload": null,
                             "functionName": "BIG_NUMBER",
                             "param": "scientific_notation",
@@ -312,8 +223,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -327,15 +238,15 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py"
                 },
                 "position": {
-                    "x": 567.7350123066145,
-                    "y": 26.47625977302897
+                    "x": 700.8786196496604,
+                    "y": -55.24117177885523
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 567.7350123066145,
-                    "y": 26.47625977302897
+                    "x": 700.8786196496604,
+                    "y": -55.24117177885523
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 225,
@@ -344,7 +255,7 @@
                 "type": "VISUALIZATION",
                 "data": {
                     "id": "BIG_NUMBER-2739a2de-81a1-4fb4-9edc-811b038c1af2",
-                    "label": "BIG NUMBER 2",
+                    "label": "BIG NUMBER 1",
                     "func": "BIG_NUMBER",
                     "type": "VISUALIZATION",
                     "ctrls": {
@@ -375,6 +286,15 @@
                             "param": "title",
                             "value": ""
                         },
+                        "dec_places": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "dec_places",
+                            "value": 0
+                        },
                         "relative_delta": {
                             "type": "bool",
                             "default": true,
@@ -387,7 +307,7 @@
                         "scientific_notation": {
                             "type": "bool",
                             "default": false,
-                            "desc": null,
+                            "desc": "Use scientific notation? Defaults to 4 decimal places.",
                             "overload": null,
                             "functionName": "BIG_NUMBER",
                             "param": "scientific_notation",
@@ -400,8 +320,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -415,66 +335,180 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py"
                 },
                 "position": {
-                    "x": 562.0553470874513,
-                    "y": -222.56144869590264
+                    "x": 697.218371481212,
+                    "y": -385.9858327356315
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 562.0553470874513,
-                    "y": -222.56144869590264
+                    "x": 697.218371481212,
+                    "y": -385.9858327356315
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "FLOOR_DIVIDE-e0c0a539-af2e-4fda-a006-aa6fcb4275d4",
+                "type": "MATH",
+                "data": {
+                    "id": "FLOOR_DIVIDE-e0c0a539-af2e-4fda-a006-aa6fcb4275d4",
+                    "label": "FLOOR DIVIDE",
+                    "func": "FLOOR_DIVIDE",
+                    "type": "MATH",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "a",
+                            "id": "a",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "The input that will be divided by b.",
+                            "multiple": false
+                        },
+                        {
+                            "name": "b",
+                            "id": "b",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "The input that will divide a.",
+                            "multiple": true
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the result of the floor division of input a by input b.\n\nScalar if a is a Scalar.\nc: the result of the floor division of input a by input b.\n\nVector if a is a Vector.\nv: the result of the floor division of input a by input b."
+                        }
+                    ],
+                    "path": "MATH/ARITHMETIC/FLOOR_DIVIDE/FLOOR_DIVIDE.py"
+                },
+                "position": {
+                    "x": 350.4308261241712,
+                    "y": -351.04244658421953
+                },
+                "width": 216,
+                "height": 234,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 350.4308261241712,
+                    "y": -351.04244658421953
+                },
+                "dragging": false
+            },
+            {
+                "id": "REMAINDER-ad2e4084-7411-46ab-9fa3-05e7ccb420b3",
+                "type": "MATH",
+                "data": {
+                    "id": "REMAINDER-ad2e4084-7411-46ab-9fa3-05e7ccb420b3",
+                    "label": "REMAINDER",
+                    "func": "REMAINDER",
+                    "type": "MATH",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "a",
+                            "id": "a",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "The input that will be divided by b.",
+                            "multiple": false
+                        },
+                        {
+                            "name": "b",
+                            "id": "b",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "The input that will divide a.",
+                            "multiple": true
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the remainder of input a by input b.\n\nScalar if a is a Scalar.\nc: the remainder of input a by input b.\n\nVector if a is a Vector.\nv: the remainder of input a by input b."
+                        }
+                    ],
+                    "path": "MATH/ARITHMETIC/REMAINDER/REMAINDER.py"
+                },
+                "position": {
+                    "x": 364.9204551164989,
+                    "y": -18.125900536053905
+                },
+                "width": 216,
+                "height": 198,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 364.9204551164989,
+                    "y": -18.125900536053905
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
+                "id": "CONSTANT-45dc72d3-baec-493d-82e1-8a818c9a9348->FLOOR_DIVIDE-e0c0a539-af2e-4fda-a006-aa6fcb4275d4_ad33bed4-2d0d-4ea2-b47f-43ace6756119",
                 "source": "CONSTANT-45dc72d3-baec-493d-82e1-8a818c9a9348",
+                "target": "FLOOR_DIVIDE-e0c0a539-af2e-4fda-a006-aa6fcb4275d4",
                 "sourceHandle": "default",
-                "target": "FLOOR_DIVIDE-c46da156-a03e-4cd8-b963-bfe48c956fc6",
                 "targetHandle": "a",
-                "id": "reactflow__edge-CONSTANT-45dc72d3-baec-493d-82e1-8a818c9a9348default-FLOOR_DIVIDE-c46da156-a03e-4cd8-b963-bfe48c956fc6a"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
+                "id": "CONSTANT-dff544a3-0bf5-469e-b478-074a01c0a110->FLOOR_DIVIDE-e0c0a539-af2e-4fda-a006-aa6fcb4275d4_9af114a4-4f0a-430f-abba-13dab336d38d",
                 "source": "CONSTANT-dff544a3-0bf5-469e-b478-074a01c0a110",
+                "target": "FLOOR_DIVIDE-e0c0a539-af2e-4fda-a006-aa6fcb4275d4",
                 "sourceHandle": "default",
-                "target": "FLOOR_DIVIDE-c46da156-a03e-4cd8-b963-bfe48c956fc6",
                 "targetHandle": "b",
-                "id": "reactflow__edge-CONSTANT-dff544a3-0bf5-469e-b478-074a01c0a110default-FLOOR_DIVIDE-c46da156-a03e-4cd8-b963-bfe48c956fc6b"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "CONSTANT-45dc72d3-baec-493d-82e1-8a818c9a9348",
-                "sourceHandle": "default",
-                "target": "REMAINDER-6948736e-d257-445e-842c-cedae2d7ae3a",
-                "targetHandle": "a",
-                "id": "reactflow__edge-CONSTANT-45dc72d3-baec-493d-82e1-8a818c9a9348default-REMAINDER-6948736e-d257-445e-842c-cedae2d7ae3aa"
-            },
-            {
-                "source": "CONSTANT-dff544a3-0bf5-469e-b478-074a01c0a110",
-                "sourceHandle": "default",
-                "target": "REMAINDER-6948736e-d257-445e-842c-cedae2d7ae3a",
-                "targetHandle": "b",
-                "id": "reactflow__edge-CONSTANT-dff544a3-0bf5-469e-b478-074a01c0a110default-REMAINDER-6948736e-d257-445e-842c-cedae2d7ae3ab"
-            },
-            {
-                "source": "REMAINDER-6948736e-d257-445e-842c-cedae2d7ae3a",
-                "sourceHandle": "default",
-                "target": "BIG_NUMBER-c7ac2dd5-f5d8-4f6e-91f7-741a7d888de3",
-                "targetHandle": "default",
-                "id": "reactflow__edge-REMAINDER-6948736e-d257-445e-842c-cedae2d7ae3adefault-BIG_NUMBER-c7ac2dd5-f5d8-4f6e-91f7-741a7d888de3default"
-            },
-            {
-                "source": "FLOOR_DIVIDE-c46da156-a03e-4cd8-b963-bfe48c956fc6",
-                "sourceHandle": "default",
+                "id": "FLOOR_DIVIDE-e0c0a539-af2e-4fda-a006-aa6fcb4275d4->BIG_NUMBER-2739a2de-81a1-4fb4-9edc-811b038c1af2_17423058-c46c-4cff-bad5-6cfd53cf7816",
+                "source": "FLOOR_DIVIDE-e0c0a539-af2e-4fda-a006-aa6fcb4275d4",
                 "target": "BIG_NUMBER-2739a2de-81a1-4fb4-9edc-811b038c1af2",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-FLOOR_DIVIDE-c46da156-a03e-4cd8-b963-bfe48c956fc6default-BIG_NUMBER-2739a2de-81a1-4fb4-9edc-811b038c1af2default"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "CONSTANT-45dc72d3-baec-493d-82e1-8a818c9a9348->REMAINDER-ad2e4084-7411-46ab-9fa3-05e7ccb420b3_74de2bc5-e482-40b9-b7e5-7813c74b6682",
+                "source": "CONSTANT-45dc72d3-baec-493d-82e1-8a818c9a9348",
+                "target": "REMAINDER-ad2e4084-7411-46ab-9fa3-05e7ccb420b3",
+                "sourceHandle": "default",
+                "targetHandle": "a",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "CONSTANT-dff544a3-0bf5-469e-b478-074a01c0a110->REMAINDER-ad2e4084-7411-46ab-9fa3-05e7ccb420b3_d28a1b5a-61e1-4192-9bb6-e2992a8802a4",
+                "source": "CONSTANT-dff544a3-0bf5-469e-b478-074a01c0a110",
+                "target": "REMAINDER-ad2e4084-7411-46ab-9fa3-05e7ccb420b3",
+                "sourceHandle": "default",
+                "targetHandle": "b",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "REMAINDER-ad2e4084-7411-46ab-9fa3-05e7ccb420b3->BIG_NUMBER-c7ac2dd5-f5d8-4f6e-91f7-741a7d888de3_ee1eb544-d557-4cf8-9263-8ab4414506a7",
+                "source": "REMAINDER-ad2e4084-7411-46ab-9fa3-05e7ccb420b3",
+                "target": "BIG_NUMBER-c7ac2dd5-f5d8-4f6e-91f7-741a7d888de3",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             }
-        ],
-        "viewport": {
-            "x": 998.2402235606428,
-            "y": 582.5298224384069,
-            "zoom": 0.9879406118224267
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

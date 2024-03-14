@@ -2,68 +2,62 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
-                "id": "MATRIX-0731e4bc-e7a7-454f-8eeb-cfec09eb29ed",
-                "type": "GENERATORS",
+                "id": "MATRIX-e00cc54b-0494-4560-bab8-525100ea3c30",
+                "type": "DATA",
                 "data": {
-                    "id": "MATRIX-0731e4bc-e7a7-454f-8eeb-cfec09eb29ed",
+                    "id": "MATRIX-e00cc54b-0494-4560-bab8-525100ea3c30",
                     "label": "MATRIX",
                     "func": "MATRIX",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "row": {
-                            "type": "int",
-                            "default": 2,
-                            "desc": "number of rows",
-                            "overload": null,
-                            "functionName": "MATRIX",
-                            "param": "row",
-                            "value": 2
-                        },
-                        "column": {
-                            "type": "int",
-                            "default": 2,
-                            "desc": "number of columns",
-                            "overload": null,
-                            "functionName": "MATRIX",
-                            "param": "column",
-                            "value": 2
-                        }
-                    },
+                    "type": "DATA",
+                    "ctrls": {},
                     "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "row",
+                            "id": "row",
+                            "type": "Scalar",
+                            "desc": "number of rows",
+                            "multiple": false
+                        },
+                        {
+                            "name": "column",
+                            "id": "column",
+                            "type": "Scalar",
+                            "desc": "number of columns",
+                            "multiple": false
+                        }
+                    ],
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "Matrix",
-                            "desc": "randomly generated matrix"
+                            "desc": "Randomly generated matrix"
                         }
                     ],
-                    "path": "GENERATORS/SIMULATIONS/MATRIX/MATRIX.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/MATRIX/MATRIX.py"
                 },
                 "position": {
-                    "x": -38.37785503354446,
-                    "y": 189.537203766789
+                    "x": -183.1155206581403,
+                    "y": 32.11159219505322
                 },
+                "width": 216,
+                "height": 198,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -38.37785503354446,
-                    "y": 189.537203766789
+                    "x": -183.1155206581403,
+                    "y": 32.11159219505322
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 160,
-                "height": 160,
-                "id": "MATRIX_2_VECTOR-10ab3c5f-4fde-4f15-a911-73f7e28d5c77",
-                "type": "TRANSFORMERS",
+                "id": "MATRIX_2_VECTOR-9caef7bf-e2cc-4dfa-aa49-af7303948436",
+                "type": "TYPE_CASTING",
                 "data": {
-                    "id": "MATRIX_2_VECTOR-10ab3c5f-4fde-4f15-a911-73f7e28d5c77",
-                    "label": "MATRIX 2 VECTOR",
+                    "id": "MATRIX_2_VECTOR-9caef7bf-e2cc-4dfa-aa49-af7303948436",
+                    "label": "MATRIX 2 VECTOR 1",
                     "func": "MATRIX_2_VECTOR",
-                    "type": "TRANSFORMERS",
+                    "type": "TYPE_CASTING",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -71,8 +65,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Matrix",
-                            "multiple": false,
-                            "desc": "The input matrix that will be transformed into vector data type."
+                            "desc": "The input matrix that will be transformed into vector data type.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -83,73 +77,29 @@
                             "desc": "Vector that is flatten from input matrix."
                         }
                     ],
-                    "path": "TRANSFORMERS/TYPE_CASTING/MATRIX_2_VECTOR/MATRIX_2_VECTOR.py",
-                    "selected": false
+                    "path": "ETL/TRANSFORM/TYPE_CASTING/MATRIX_2_VECTOR/MATRIX_2_VECTOR.py"
                 },
                 "position": {
-                    "x": 287.41662237244384,
-                    "y": 155.08880218618646
+                    "x": 231.92121108229838,
+                    "y": -65.2540294982503
                 },
+                "width": 142,
+                "height": 96,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 287.41662237244384,
-                    "y": 155.08880218618646
+                    "x": 231.92121108229838,
+                    "y": -65.2540294982503
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 225,
-                "height": 226,
-                "id": "SCATTER-fa58da1d-1622-40ba-84b7-daf55cb5b473",
-                "type": "VISUALIZERS",
+                "id": "MATRIX_VIEW-985e3932-9dd2-4ea2-a99f-1b18399b8c9b",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "SCATTER-fa58da1d-1622-40ba-84b7-daf55cb5b473",
-                    "label": "SCATTER",
-                    "func": "SCATTER",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly Scatter visualization"
-                        }
-                    ],
-                    "path": "VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 535.9457412353186,
-                    "y": 120.7409564654132
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 535.9457412353186,
-                    "y": 120.7409564654132
-                },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "MATRIX_VIEW-f3ca9cbf-873a-4a6f-b0ef-e542d63fb3b1",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "MATRIX_VIEW-f3ca9cbf-873a-4a6f-b0ef-e542d63fb3b1",
+                    "id": "MATRIX_VIEW-985e3932-9dd2-4ea2-a99f-1b18399b8c9b",
                     "label": "MATRIX VIEW",
                     "func": "MATRIX_VIEW",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -157,8 +107,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Matrix",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in matrix format."
+                            "desc": "the DataContainer to be visualized in matrix format.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -169,49 +119,99 @@
                             "desc": "the DataContainer containing visualization of the input in matrix format"
                         }
                     ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/MATRIX_VIEW/MATRIX_VIEW.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/MATRIX_VIEW/MATRIX_VIEW.py"
                 },
                 "position": {
-                    "x": 270.4256674894864,
-                    "y": -119.99353958033126
+                    "x": 232.71458928363012,
+                    "y": 152.00654924789433
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 270.4256674894864,
-                    "y": -119.99353958033126
+                    "x": 232.71458928363012,
+                    "y": 152.00654924789433
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "SCATTER-899bffbd-9b05-44cd-8bd4-292fd965405c",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "SCATTER-899bffbd-9b05-44cd-8bd4-292fd965405c",
+                    "label": "SCATTER",
+                    "func": "SCATTER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Scatter visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
+                },
+                "position": {
+                    "x": 578.2722303071831,
+                    "y": -129.98239948954833
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 578.2722303071831,
+                    "y": -129.98239948954833
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "MATRIX-0731e4bc-e7a7-454f-8eeb-cfec09eb29ed",
+                "id": "MATRIX-e00cc54b-0494-4560-bab8-525100ea3c30->MATRIX_2_VECTOR-9caef7bf-e2cc-4dfa-aa49-af7303948436_bd3d0da4-56ca-4d6b-a6d3-4d84a49ab642",
+                "source": "MATRIX-e00cc54b-0494-4560-bab8-525100ea3c30",
+                "target": "MATRIX_2_VECTOR-9caef7bf-e2cc-4dfa-aa49-af7303948436",
                 "sourceHandle": "default",
-                "target": "MATRIX_2_VECTOR-10ab3c5f-4fde-4f15-a911-73f7e28d5c77",
                 "targetHandle": "default",
-                "id": "reactflow__edge-MATRIX-0731e4bc-e7a7-454f-8eeb-cfec09eb29eddefault-MATRIX_2_VECTOR-10ab3c5f-4fde-4f15-a911-73f7e28d5c77default"
+                "data": {
+                    "outputType": "Matrix"
+                }
             },
             {
-                "source": "MATRIX_2_VECTOR-10ab3c5f-4fde-4f15-a911-73f7e28d5c77",
+                "id": "MATRIX_2_VECTOR-9caef7bf-e2cc-4dfa-aa49-af7303948436->SCATTER-899bffbd-9b05-44cd-8bd4-292fd965405c_36593fca-ae16-4e12-a71e-f0337709381e",
+                "source": "MATRIX_2_VECTOR-9caef7bf-e2cc-4dfa-aa49-af7303948436",
+                "target": "SCATTER-899bffbd-9b05-44cd-8bd4-292fd965405c",
                 "sourceHandle": "default",
-                "target": "SCATTER-fa58da1d-1622-40ba-84b7-daf55cb5b473",
                 "targetHandle": "default",
-                "id": "reactflow__edge-MATRIX_2_VECTOR-10ab3c5f-4fde-4f15-a911-73f7e28d5c77default-SCATTER-fa58da1d-1622-40ba-84b7-daf55cb5b473default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "MATRIX-0731e4bc-e7a7-454f-8eeb-cfec09eb29ed",
+                "id": "MATRIX-e00cc54b-0494-4560-bab8-525100ea3c30->MATRIX_VIEW-985e3932-9dd2-4ea2-a99f-1b18399b8c9b_d42cc1ef-ba4b-41c3-bc26-d3fae3875a48",
+                "source": "MATRIX-e00cc54b-0494-4560-bab8-525100ea3c30",
+                "target": "MATRIX_VIEW-985e3932-9dd2-4ea2-a99f-1b18399b8c9b",
                 "sourceHandle": "default",
-                "target": "MATRIX_VIEW-f3ca9cbf-873a-4a6f-b0ef-e542d63fb3b1",
                 "targetHandle": "default",
-                "id": "reactflow__edge-MATRIX-0731e4bc-e7a7-454f-8eeb-cfec09eb29eddefault-MATRIX_VIEW-f3ca9cbf-873a-4a6f-b0ef-e542d63fb3b1default"
+                "data": {
+                    "outputType": "Matrix"
+                }
             }
-        ],
-        "viewport": {
-            "x": 669.537650867023,
-            "y": 359.1114317341454,
-            "zoom": 0.7467072297113905
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

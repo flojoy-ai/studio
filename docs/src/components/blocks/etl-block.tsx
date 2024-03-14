@@ -5,7 +5,7 @@ import DefaultBlock from "./default-block";
 import clsx from "clsx";
 import { useBlockIcon } from "@/hooks/useBlockIcon";
 
-export type ETLCategory = "EXTRACT" | "TRANSFORM" | "LOAD" | "TYPE_CASTING";
+export type ETLCategory = "TRANSFORM" | "EXTRACT" | "LOAD" | "TYPE_CASTING";
 
 const ETLBlock = (props: BlockProps) => {
   const { SvgIcon } = useBlockIcon(

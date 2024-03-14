@@ -2,345 +2,17 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 231,
-                "height": 96,
-                "id": "TEXT-92862b82-03c7-45b3-955e-381cde864d77",
-                "type": "GENERATORS",
+                "id": "SCIKIT_LEARN_DATASET-a0488e86-cd07-4ea9-b949-30e3cf8e89ac",
+                "type": "DATA",
                 "data": {
-                    "id": "TEXT-92862b82-03c7-45b3-955e-381cde864d77",
-                    "label": "DESCRIPTION",
-                    "func": "TEXT",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "value": {
-                            "type": "str",
-                            "default": "Hello World!",
-                            "desc": "The value set in Parameters",
-                            "functionName": "TEXT",
-                            "param": "value",
-                            "value": "This app shows how the DF_2_ORDERED_TRIPLE node works. First the random dataset is generate and pass to the df 2 ordered triple node. Then the node converts it in an ordered triple where x is the column 5, y is the column 4 and z is the column 3. We visualize the results with the TABLE and SCATTER3D nodes."
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "_",
-                            "id": "_",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "s: return the value being set in Parameters"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TEXT/TEXT.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 92.43487721362627,
-                    "y": 319.40167881410343
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 92.43487721362627,
-                    "y": 319.40167881410343
-                },
-                "dragging": true
-            },
-            {
-                "width": 384,
-                "height": 288,
-                "id": "TEXT_VIEW-b70bbfaf-d726-4ff5-b243-1441ab16befc",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TEXT_VIEW-b70bbfaf-d726-4ff5-b243-1441ab16befc",
-                    "label": "TEXT VIEW",
-                    "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 423.28687718789644,
-                    "y": 258.0784623999033
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 423.28687718789644,
-                    "y": 258.0784623999033
-                },
-                "dragging": true
-            },
-            {
-                "width": 160,
-                "height": 160,
-                "id": "DF_2_ORDERED_TRIPLE-a6cde1bc-b701-45c7-beac-24381f68ff83",
-                "type": "TRANSFORMERS",
-                "data": {
-                    "id": "DF_2_ORDERED_TRIPLE-a6cde1bc-b701-45c7-beac-24381f68ff83",
-                    "label": "DF 2 ORDERED TRIPLE",
-                    "func": "DF_2_ORDERED_TRIPLE",
-                    "type": "TRANSFORMERS",
-                    "ctrls": {
-                        "x": {
-                            "type": "int",
-                            "default": 0,
-                            "desc": "The index of the column that represents the x-axis.",
-                            "functionName": "DF_2_ORDERED_TRIPLE",
-                            "param": "x",
-                            "value": 5
-                        },
-                        "y": {
-                            "type": "int",
-                            "default": 1,
-                            "desc": "The index of the column that represents the y-axis.",
-                            "functionName": "DF_2_ORDERED_TRIPLE",
-                            "param": "y",
-                            "value": 4
-                        },
-                        "z": {
-                            "type": "int",
-                            "default": 2,
-                            "desc": "The index of the column that represents the z-axis.",
-                            "functionName": "DF_2_ORDERED_TRIPLE",
-                            "param": "z",
-                            "value": 3
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "DataFrame",
-                            "multiple": false,
-                            "desc": "The input dataframe to which we apply the conversion to."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple",
-                            "desc": "The OrderedTriple result from the conversion of the input."
-                        }
-                    ],
-                    "path": "PYTHON/nodes/TRANSFORMERS/TYPE_CASTING/DF_2_ORDERED_TRIPLE/DF_2_ORDERED_TRIPLE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -185.95794250117393,
-                    "y": 286.0662088310163
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -185.95794250117393,
-                    "y": 286.0662088310163
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "TABLE-62eb9ff0-2e0f-4ea7-9770-be6a54d3c45f",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TABLE-62eb9ff0-2e0f-4ea7-9770-be6a54d3c45f",
-                    "label": "TABLE",
-                    "func": "TABLE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Table visualization"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 31.521079459966586,
-                    "y": -20.38491519532323
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 31.521079459966586,
-                    "y": -20.38491519532323
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "TABLE-de8a3838-f5c7-45e3-b045-2f838d8002d4",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TABLE-de8a3838-f5c7-45e3-b045-2f838d8002d4",
-                    "label": "TABLE 1",
-                    "func": "TABLE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Table visualization"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -508.1309324231863,
-                    "y": -25.905546949515326
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -508.1309324231863,
-                    "y": -25.905546949515326
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "SCATTER3D-9cb36053-f988-4c5f-a860-32c18d550b66",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "SCATTER3D-9cb36053-f988-4c5f-a860-32c18d550b66",
-                    "label": "SCATTER3D",
-                    "func": "SCATTER3D",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple|DataFrame",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly 3D Scatter visualization"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/SCATTER3D/SCATTER3D.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -444.01934078161423,
-                    "y": 477.4423073008652
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -444.01934078161423,
-                    "y": 477.4423073008652
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "SCATTER3D-cbfb4d9c-b0ff-4aaf-8aa5-6909ba2e2350",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "SCATTER3D-cbfb4d9c-b0ff-4aaf-8aa5-6909ba2e2350",
-                    "label": "SCATTER3D 1",
-                    "func": "SCATTER3D",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple|DataFrame",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly 3D Scatter visualization"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/SCATTER3D/SCATTER3D.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 26.894897670534192,
-                    "y": 496.85585704666755
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 26.894897670534192,
-                    "y": 496.85585704666755
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "SCIKIT_LEARN_DATASET-25706df5-5161-49f1-b8f7-ddb6053a64a6",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "SCIKIT_LEARN_DATASET-25706df5-5161-49f1-b8f7-ddb6053a64a6",
+                    "id": "SCIKIT_LEARN_DATASET-a0488e86-cd07-4ea9-b949-30e3cf8e89ac",
                     "label": "SCIKIT LEARN DATASET",
                     "func": "SCIKIT_LEARN_DATASET",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "dataset_name": {
                             "type": "select",
+                            "default": "iris",
                             "options": [
                                 "iris",
                                 "diabetes",
@@ -349,7 +21,6 @@
                                 "wine",
                                 "breast_cancer"
                             ],
-                            "default": "iris",
                             "desc": null,
                             "overload": null,
                             "functionName": "SCIKIT_LEARN_DATASET",
@@ -366,77 +37,315 @@
                             "desc": "A DataContainer object containing the retrieved pandas DataFrame."
                         }
                     ],
-                    "path": "GENERATORS/SAMPLE_DATASETS/SCIKIT_LEARN_DATASET/SCIKIT_LEARN_DATASET.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SAMPLE_DATASETS/SCIKIT_LEARN_DATASET/SCIKIT_LEARN_DATASET.py"
                 },
                 "position": {
-                    "x": -745.491934881735,
-                    "y": 336.62103541988444
+                    "x": -810.8298003300214,
+                    "y": 231.13486307416025
                 },
+                "width": 216,
+                "height": 269,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -745.491934881735,
-                    "y": 336.62103541988444
+                    "x": -810.8298003300214,
+                    "y": 231.13486307416025
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "DF_2_ORDERED_TRIPLE-db53f0f0-a242-431e-a937-8b5dc2c92762",
+                "type": "TYPE_CASTING",
+                "data": {
+                    "id": "DF_2_ORDERED_TRIPLE-db53f0f0-a242-431e-a937-8b5dc2c92762",
+                    "label": "DF 2 ORDERED TRIPLE 1",
+                    "func": "DF_2_ORDERED_TRIPLE",
+                    "type": "TYPE_CASTING",
+                    "ctrls": {
+                        "x": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "The index of the column that represents the x-axis.",
+                            "overload": null,
+                            "functionName": "DF_2_ORDERED_TRIPLE",
+                            "param": "x",
+                            "value": 0
+                        },
+                        "y": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "The index of the column that represents the y-axis.",
+                            "overload": null,
+                            "functionName": "DF_2_ORDERED_TRIPLE",
+                            "param": "y",
+                            "value": 1
+                        },
+                        "z": {
+                            "type": "int",
+                            "default": 2,
+                            "desc": "The index of the column that represents the z-axis.",
+                            "overload": null,
+                            "functionName": "DF_2_ORDERED_TRIPLE",
+                            "param": "z",
+                            "value": 2
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame",
+                            "desc": "The input dataframe to which we apply the conversion to.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple",
+                            "desc": "The OrderedTriple result from the conversion of the input."
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/TYPE_CASTING/DF_2_ORDERED_TRIPLE/DF_2_ORDERED_TRIPLE.py"
+                },
+                "position": {
+                    "x": -441.6694612111412,
+                    "y": 257.02075597134757
+                },
+                "width": 224,
+                "height": 96,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -441.6694612111412,
+                    "y": 257.02075597134757
+                },
+                "dragging": false
+            },
+            {
+                "id": "TABLE-1ca4387a-3c49-4f78-8e7f-bcb134dc91cc",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TABLE-1ca4387a-3c49-4f78-8e7f-bcb134dc91cc",
+                    "label": "TABLE",
+                    "func": "TABLE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Table visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
+                },
+                "position": {
+                    "x": -436.3094354485963,
+                    "y": -105.0382670163163
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -436.3094354485963,
+                    "y": -105.0382670163163
+                },
+                "dragging": false
+            },
+            {
+                "id": "TABLE-c8f08c3a-4622-487e-b6a8-cdec67f615e0",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TABLE-c8f08c3a-4622-487e-b6a8-cdec67f615e0",
+                    "label": "TABLE 1",
+                    "func": "TABLE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Table visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
+                },
+                "position": {
+                    "x": 160.87110036114893,
+                    "y": 188.1948035962639
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 160.87110036114893,
+                    "y": 188.1948035962639
+                },
+                "dragging": false
+            },
+            {
+                "id": "SCATTER3D-98a3c481-8ad4-4e02-99bf-3c8717cfdf68",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "SCATTER3D-98a3c481-8ad4-4e02-99bf-3c8717cfdf68",
+                    "label": "SCATTER3D",
+                    "func": "SCATTER3D",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|DataFrame",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly 3D Scatter visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER3D/SCATTER3D.py"
+                },
+                "position": {
+                    "x": 146.57878450813826,
+                    "y": -154.41060796479724
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 146.57878450813826,
+                    "y": -154.41060796479724
+                },
+                "dragging": false
+            },
+            {
+                "id": "SCATTER3D-2cfa470a-7144-4d35-a301-e778e7bc518e",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "SCATTER3D-2cfa470a-7144-4d35-a301-e778e7bc518e",
+                    "label": "SCATTER3D 1",
+                    "func": "SCATTER3D",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|DataFrame",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly 3D Scatter visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER3D/SCATTER3D.py"
+                },
+                "position": {
+                    "x": -432.40366708664874,
+                    "y": 511.20595171482466
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -432.40366708664874,
+                    "y": 511.20595171482466
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "DF_2_ORDERED_TRIPLE-a6cde1bc-b701-45c7-beac-24381f68ff83",
+                "id": "SCIKIT_LEARN_DATASET-a0488e86-cd07-4ea9-b949-30e3cf8e89ac->DF_2_ORDERED_TRIPLE-db53f0f0-a242-431e-a937-8b5dc2c92762_20c2ab8d-a0aa-4db2-8081-a9907d3cacb1",
+                "source": "SCIKIT_LEARN_DATASET-a0488e86-cd07-4ea9-b949-30e3cf8e89ac",
+                "target": "DF_2_ORDERED_TRIPLE-db53f0f0-a242-431e-a937-8b5dc2c92762",
                 "sourceHandle": "default",
-                "target": "SCATTER3D-cbfb4d9c-b0ff-4aaf-8aa5-6909ba2e2350",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DF_2_ORDERED_TRIPLE-a6cde1bc-b701-45c7-beac-24381f68ff83default-SCATTER3D-cbfb4d9c-b0ff-4aaf-8aa5-6909ba2e2350default"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             },
             {
-                "source": "DF_2_ORDERED_TRIPLE-a6cde1bc-b701-45c7-beac-24381f68ff83",
+                "id": "SCIKIT_LEARN_DATASET-a0488e86-cd07-4ea9-b949-30e3cf8e89ac->TABLE-1ca4387a-3c49-4f78-8e7f-bcb134dc91cc_a5933b7f-560d-44f8-ab95-631a7146e96d",
+                "source": "SCIKIT_LEARN_DATASET-a0488e86-cd07-4ea9-b949-30e3cf8e89ac",
+                "target": "TABLE-1ca4387a-3c49-4f78-8e7f-bcb134dc91cc",
                 "sourceHandle": "default",
-                "target": "TABLE-62eb9ff0-2e0f-4ea7-9770-be6a54d3c45f",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DF_2_ORDERED_TRIPLE-a6cde1bc-b701-45c7-beac-24381f68ff83default-TABLE-62eb9ff0-2e0f-4ea7-9770-be6a54d3c45fdefault"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             },
             {
-                "source": "DF_2_ORDERED_TRIPLE-a6cde1bc-b701-45c7-beac-24381f68ff83",
+                "id": "DF_2_ORDERED_TRIPLE-db53f0f0-a242-431e-a937-8b5dc2c92762->SCATTER3D-98a3c481-8ad4-4e02-99bf-3c8717cfdf68_3deac546-e4c9-4236-8e17-8de0bb4b47f1",
+                "source": "DF_2_ORDERED_TRIPLE-db53f0f0-a242-431e-a937-8b5dc2c92762",
+                "target": "SCATTER3D-98a3c481-8ad4-4e02-99bf-3c8717cfdf68",
                 "sourceHandle": "default",
-                "target": "TEXT-92862b82-03c7-45b3-955e-381cde864d77",
-                "targetHandle": "_",
-                "id": "reactflow__edge-DF_2_ORDERED_TRIPLE-a6cde1bc-b701-45c7-beac-24381f68ff83default-TEXT-92862b82-03c7-45b3-955e-381cde864d77_"
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedTriple"
+                }
             },
             {
-                "source": "TEXT-92862b82-03c7-45b3-955e-381cde864d77",
+                "id": "DF_2_ORDERED_TRIPLE-db53f0f0-a242-431e-a937-8b5dc2c92762->TABLE-c8f08c3a-4622-487e-b6a8-cdec67f615e0_c06b449d-212d-41f6-929d-7edf7a3232c8",
+                "source": "DF_2_ORDERED_TRIPLE-db53f0f0-a242-431e-a937-8b5dc2c92762",
+                "target": "TABLE-c8f08c3a-4622-487e-b6a8-cdec67f615e0",
                 "sourceHandle": "default",
-                "target": "TEXT_VIEW-b70bbfaf-d726-4ff5-b243-1441ab16befc",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TEXT-92862b82-03c7-45b3-955e-381cde864d77default-TEXT_VIEW-b70bbfaf-d726-4ff5-b243-1441ab16befcdefault"
+                "data": {
+                    "outputType": "OrderedTriple"
+                }
             },
             {
-                "source": "SCIKIT_LEARN_DATASET-25706df5-5161-49f1-b8f7-ddb6053a64a6",
+                "id": "SCIKIT_LEARN_DATASET-a0488e86-cd07-4ea9-b949-30e3cf8e89ac->SCATTER3D-2cfa470a-7144-4d35-a301-e778e7bc518e_df6952b9-e7fe-4885-8936-bbf8892b0894",
+                "source": "SCIKIT_LEARN_DATASET-a0488e86-cd07-4ea9-b949-30e3cf8e89ac",
+                "target": "SCATTER3D-2cfa470a-7144-4d35-a301-e778e7bc518e",
                 "sourceHandle": "default",
-                "target": "TABLE-de8a3838-f5c7-45e3-b045-2f838d8002d4",
                 "targetHandle": "default",
-                "id": "reactflow__edge-SCIKIT_LEARN_DATASET-25706df5-5161-49f1-b8f7-ddb6053a64a6default-TABLE-de8a3838-f5c7-45e3-b045-2f838d8002d4default"
-            },
-            {
-                "source": "SCIKIT_LEARN_DATASET-25706df5-5161-49f1-b8f7-ddb6053a64a6",
-                "sourceHandle": "default",
-                "target": "SCATTER3D-9cb36053-f988-4c5f-a860-32c18d550b66",
-                "targetHandle": "default",
-                "id": "reactflow__edge-SCIKIT_LEARN_DATASET-25706df5-5161-49f1-b8f7-ddb6053a64a6default-SCATTER3D-9cb36053-f988-4c5f-a860-32c18d550b66default"
-            },
-            {
-                "source": "SCIKIT_LEARN_DATASET-25706df5-5161-49f1-b8f7-ddb6053a64a6",
-                "sourceHandle": "default",
-                "target": "DF_2_ORDERED_TRIPLE-a6cde1bc-b701-45c7-beac-24381f68ff83",
-                "targetHandle": "default",
-                "id": "reactflow__edge-SCIKIT_LEARN_DATASET-25706df5-5161-49f1-b8f7-ddb6053a64a6default-DF_2_ORDERED_TRIPLE-a6cde1bc-b701-45c7-beac-24381f68ff83default"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             }
-        ],
-        "viewport": {
-            "x": 328.30307914563144,
-            "y": 226.88940714410813,
-            "zoom": 0.5
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

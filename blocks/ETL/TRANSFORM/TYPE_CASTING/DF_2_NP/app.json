@@ -2,234 +2,17 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 231,
-                "height": 96,
-                "id": "TEXT-55b6e973-c612-43ad-8d7a-b911e16dc39c",
-                "type": "GENERATORS",
+                "id": "SCIKIT_LEARN_DATASET-a0f95d50-df3d-48d8-a0a3-a710cbf5266a",
+                "type": "DATA",
                 "data": {
-                    "id": "TEXT-55b6e973-c612-43ad-8d7a-b911e16dc39c",
-                    "label": "DESCRIPTION",
-                    "func": "TEXT",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "value": {
-                            "type": "str",
-                            "default": "Hello World!",
-                            "desc": "The value set in Parameters",
-                            "functionName": "TEXT",
-                            "param": "value",
-                            "value": "This app shows how the DF_2_NP node works. First we generate a random dataset with the R_DATASET node. Then we convert this DataFrame into a numpy array. We visualize the result with the LINE node."
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "_",
-                            "id": "_",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "s: return the value being set in Parameters"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TEXT/TEXT.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -623.3466911332591,
-                    "y": -912.0240306553187
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -623.3466911332591,
-                    "y": -912.0240306553187
-                },
-                "dragging": true
-            },
-            {
-                "width": 384,
-                "height": 288,
-                "id": "TEXT_VIEW-228214a7-b6be-493b-b311-3022b731cb68",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TEXT_VIEW-228214a7-b6be-493b-b311-3022b731cb68",
-                    "label": "TEXT VIEW",
-                    "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -318.8753835779974,
-                    "y": -993.731054155216
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -318.8753835779974,
-                    "y": -993.731054155216
-                },
-                "dragging": true
-            },
-            {
-                "width": 160,
-                "height": 160,
-                "id": "DF_2_NP-c3182546-506f-428e-ab39-8870d2c38003",
-                "type": "TRANSFORMERS",
-                "data": {
-                    "id": "DF_2_NP-c3182546-506f-428e-ab39-8870d2c38003",
-                    "label": "DF 2 NP",
-                    "func": "DF_2_NP",
-                    "type": "TRANSFORMERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "DataFrame",
-                            "multiple": false,
-                            "desc": "The input dataframe to which we apply the conversion to."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Matrix",
-                            "desc": "The matrix result from the conversion of the input."
-                        }
-                    ],
-                    "path": "PYTHON/nodes/TRANSFORMERS/TYPE_CASTING/DF_2_NP/DF_2_NP.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -842.2766838958584,
-                    "y": -857.6948601065781
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -842.2766838958584,
-                    "y": -857.6948601065781
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "LINE-b936bc3c-9199-4a7b-b8ca-1a57a9ab4c0a",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "LINE-b936bc3c-9199-4a7b-b8ca-1a57a9ab4c0a",
-                    "label": "LINE",
-                    "func": "LINE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Line visualization of the input data"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -301.06622007553875,
-                    "y": -717.6466301398989
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -301.06622007553875,
-                    "y": -717.6466301398989
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "LINE-cb11873f-7720-4b9f-b4c0-4d665d748b8a",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "LINE-cb11873f-7720-4b9f-b4c0-4d665d748b8a",
-                    "label": "LINE 1",
-                    "func": "LINE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Line visualization of the input data"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -844.5031405454856,
-                    "y": -651.2243747293668
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -844.5031405454856,
-                    "y": -651.2243747293668
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "SCIKIT_LEARN_DATASET-af21c865-05de-409b-8ed9-3d5be39210e0",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "SCIKIT_LEARN_DATASET-af21c865-05de-409b-8ed9-3d5be39210e0",
+                    "id": "SCIKIT_LEARN_DATASET-a0f95d50-df3d-48d8-a0a3-a710cbf5266a",
                     "label": "SCIKIT LEARN DATASET",
                     "func": "SCIKIT_LEARN_DATASET",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "dataset_name": {
                             "type": "select",
+                            "default": "iris",
                             "options": [
                                 "iris",
                                 "diabetes",
@@ -238,7 +21,6 @@
                                 "wine",
                                 "breast_cancer"
                             ],
-                            "default": "iris",
                             "desc": null,
                             "overload": null,
                             "functionName": "SCIKIT_LEARN_DATASET",
@@ -255,63 +37,381 @@
                             "desc": "A DataContainer object containing the retrieved pandas DataFrame."
                         }
                     ],
-                    "path": "GENERATORS/SAMPLE_DATASETS/SCIKIT_LEARN_DATASET/SCIKIT_LEARN_DATASET.py",
-                    "selected": true
+                    "path": "DATA/GENERATION/SAMPLE_DATASETS/SCIKIT_LEARN_DATASET/SCIKIT_LEARN_DATASET.py"
                 },
                 "position": {
-                    "x": -1179.2533628642557,
-                    "y": -790.5389574962747
+                    "x": -1545.5906790879462,
+                    "y": -906.869428408424
                 },
-                "selected": true,
+                "width": 216,
+                "height": 269,
+                "selected": false,
                 "positionAbsolute": {
-                    "x": -1179.2533628642557,
-                    "y": -790.5389574962747
+                    "x": -1545.5906790879462,
+                    "y": -906.869428408424
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "DF_2_NP-99b9f7d3-f884-4bb5-ab63-00baac5b386a",
+                "type": "TYPE_CASTING",
+                "data": {
+                    "id": "DF_2_NP-99b9f7d3-f884-4bb5-ab63-00baac5b386a",
+                    "label": "DF 2 NP 1",
+                    "func": "DF_2_NP",
+                    "type": "TYPE_CASTING",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame",
+                            "desc": "The input dataframe to which we apply the conversion to.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Matrix",
+                            "desc": "The matrix result from the conversion of the input."
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/TYPE_CASTING/DF_2_NP/DF_2_NP.py"
+                },
+                "position": {
+                    "x": -1146.905877256852,
+                    "y": -871.4514785401716
+                },
+                "width": 170,
+                "height": 96,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -1146.905877256852,
+                    "y": -871.4514785401716
+                },
+                "dragging": false
+            },
+            {
+                "id": "LINE-45dfc28a-3929-439c-88da-fc4ec421edc5",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-45dfc28a-3929-439c-88da-fc4ec421edc5",
+                    "label": "LINE 2",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": -803.7282029447027,
+                    "y": -935.1846810879368
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -803.7282029447027,
+                    "y": -935.1846810879368
+                },
+                "dragging": false
+            },
+            {
+                "id": "LINE-f91ae4dc-db1e-4b15-82c0-b2d6f1fbaf74",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-f91ae4dc-db1e-4b15-82c0-b2d6f1fbaf74",
+                    "label": "LINE 3",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": -1166.4693416617472,
+                    "y": -587.839550193875
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -1166.4693416617472,
+                    "y": -587.839550193875
+                },
+                "dragging": false
+            },
+            {
+                "id": "TEXT-860eedb4-d220-4aa7-a72c-a942d7fff913",
+                "type": "DATA",
+                "data": {
+                    "id": "TEXT-860eedb4-d220-4aa7-a72c-a942d7fff913",
+                    "label": "TEXT",
+                    "func": "TEXT",
+                    "type": "DATA",
+                    "ctrls": {
+                        "value": {
+                            "type": "TextArea",
+                            "default": "Hello World!",
+                            "desc": "The value set in Parameters.",
+                            "overload": null,
+                            "functionName": "TEXT",
+                            "param": "value",
+                            "value": "Hello World!"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "_",
+                            "id": "_",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Return the value being set in Parameters."
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/TEXT/TEXT.py"
+                },
+                "position": {
+                    "x": -470.5315432317535,
+                    "y": -897.3210802867299
+                },
+                "width": 216,
+                "height": 197,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -470.5315432317535,
+                    "y": -897.3210802867299
+                },
+                "dragging": false
+            },
+            {
+                "id": "TEXT_VIEW-3851d949-2ade-4e93-b8f1-c037ec5fc425",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TEXT_VIEW-3851d949-2ade-4e93-b8f1-c037ec5fc425",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
+                },
+                "position": {
+                    "x": -149.21718684574233,
+                    "y": -605.8463400538043
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -149.21718684574233,
+                    "y": -605.8463400538043
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "DF_2_NP-c3182546-506f-428e-ab39-8870d2c38003",
+                "id": "SCIKIT_LEARN_DATASET-a0f95d50-df3d-48d8-a0a3-a710cbf5266a->DF_2_NP-99b9f7d3-f884-4bb5-ab63-00baac5b386a_e27ac0e5-f320-415b-a77c-071dc48358b4",
+                "source": "SCIKIT_LEARN_DATASET-a0f95d50-df3d-48d8-a0a3-a710cbf5266a",
+                "target": "DF_2_NP-99b9f7d3-f884-4bb5-ab63-00baac5b386a",
                 "sourceHandle": "default",
-                "target": "TEXT-55b6e973-c612-43ad-8d7a-b911e16dc39c",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "DataFrame"
+                }
+            },
+            {
+                "id": "DF_2_NP-99b9f7d3-f884-4bb5-ab63-00baac5b386a->LINE-45dfc28a-3929-439c-88da-fc4ec421edc5_15a3b76a-5538-491e-9971-678bbbcbe01e",
+                "source": "DF_2_NP-99b9f7d3-f884-4bb5-ab63-00baac5b386a",
+                "target": "LINE-45dfc28a-3929-439c-88da-fc4ec421edc5",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Matrix"
+                }
+            },
+            {
+                "id": "SCIKIT_LEARN_DATASET-a0f95d50-df3d-48d8-a0a3-a710cbf5266a->LINE-f91ae4dc-db1e-4b15-82c0-b2d6f1fbaf74_8ac980d4-0616-4780-9820-89136c962122",
+                "source": "SCIKIT_LEARN_DATASET-a0f95d50-df3d-48d8-a0a3-a710cbf5266a",
+                "target": "LINE-f91ae4dc-db1e-4b15-82c0-b2d6f1fbaf74",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "DataFrame"
+                }
+            },
+            {
+                "id": "LINE-45dfc28a-3929-439c-88da-fc4ec421edc5->TEXT-860eedb4-d220-4aa7-a72c-a942d7fff913_2afd2aba-4fb7-42f7-bbdb-204250451e58",
+                "source": "LINE-45dfc28a-3929-439c-88da-fc4ec421edc5",
+                "target": "TEXT-860eedb4-d220-4aa7-a72c-a942d7fff913",
+                "sourceHandle": "default",
                 "targetHandle": "_",
-                "id": "reactflow__edge-DF_2_NP-c3182546-506f-428e-ab39-8870d2c38003default-TEXT-55b6e973-c612-43ad-8d7a-b911e16dc39c_"
+                "data": {
+                    "outputType": "Plotly"
+                }
             },
             {
-                "source": "DF_2_NP-c3182546-506f-428e-ab39-8870d2c38003",
+                "id": "TEXT-860eedb4-d220-4aa7-a72c-a942d7fff913->TEXT_VIEW-3851d949-2ade-4e93-b8f1-c037ec5fc425_522bb56c-fd1e-4f7a-a6fa-abbdf8dad171",
+                "source": "TEXT-860eedb4-d220-4aa7-a72c-a942d7fff913",
+                "target": "TEXT_VIEW-3851d949-2ade-4e93-b8f1-c037ec5fc425",
                 "sourceHandle": "default",
-                "target": "LINE-b936bc3c-9199-4a7b-b8ca-1a57a9ab4c0a",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DF_2_NP-c3182546-506f-428e-ab39-8870d2c38003default-LINE-b936bc3c-9199-4a7b-b8ca-1a57a9ab4c0adefault"
-            },
-            {
-                "source": "TEXT-55b6e973-c612-43ad-8d7a-b911e16dc39c",
-                "sourceHandle": "default",
-                "target": "TEXT_VIEW-228214a7-b6be-493b-b311-3022b731cb68",
-                "targetHandle": "default",
-                "id": "reactflow__edge-TEXT-55b6e973-c612-43ad-8d7a-b911e16dc39cdefault-TEXT_VIEW-228214a7-b6be-493b-b311-3022b731cb68default"
-            },
-            {
-                "source": "SCIKIT_LEARN_DATASET-af21c865-05de-409b-8ed9-3d5be39210e0",
-                "sourceHandle": "default",
-                "target": "DF_2_NP-c3182546-506f-428e-ab39-8870d2c38003",
-                "targetHandle": "default",
-                "id": "reactflow__edge-SCIKIT_LEARN_DATASET-af21c865-05de-409b-8ed9-3d5be39210e0default-DF_2_NP-c3182546-506f-428e-ab39-8870d2c38003default"
-            },
-            {
-                "source": "SCIKIT_LEARN_DATASET-af21c865-05de-409b-8ed9-3d5be39210e0",
-                "sourceHandle": "default",
-                "target": "LINE-cb11873f-7720-4b9f-b4c0-4d665d748b8a",
-                "targetHandle": "default",
-                "id": "reactflow__edge-SCIKIT_LEARN_DATASET-af21c865-05de-409b-8ed9-3d5be39210e0default-LINE-cb11873f-7720-4b9f-b4c0-4d665d748b8adefault"
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 328.30307914563144,
-            "y": 226.88940714410813,
-            "zoom": 0.5
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

@@ -2,20 +2,207 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
-                "id": "LINSPACE-11d46127-5570-4ed4-a4bf-2da340fad697",
-                "type": "GENERATORS",
+                "id": "ABS-988131f0-94e0-4f42-933d-48a307fce820",
+                "type": "MATH",
                 "data": {
-                    "id": "LINSPACE-11d46127-5570-4ed4-a4bf-2da340fad697",
-                    "label": "LINSPACE",
+                    "id": "ABS-988131f0-94e0-4f42-933d-48a307fce820",
+                    "label": "ABS",
+                    "func": "ABS",
+                    "type": "MATH",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Vector|Scalar",
+                            "desc": "The input to apply the absolute value to.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "x: the x-axis of the input.\ny: the absolute value of the input."
+                        }
+                    ],
+                    "path": "MATH/ARITHMETIC/ABS/ABS.py"
+                },
+                "position": {
+                    "x": 53.50502485619283,
+                    "y": -162.43592986903647
+                },
+                "width": 216,
+                "height": 164,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 53.50502485619283,
+                    "y": -162.43592986903647
+                },
+                "dragging": false
+            },
+            {
+                "id": "SCATTER-6f57a888-7f35-4455-97ff-a44e58177553",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "SCATTER-6f57a888-7f35-4455-97ff-a44e58177553",
+                    "label": "SCATTER",
+                    "func": "SCATTER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Scatter visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
+                },
+                "position": {
+                    "x": 420.8114538216054,
+                    "y": -216.7551251214076
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 420.8114538216054,
+                    "y": -216.7551251214076
+                },
+                "dragging": false
+            },
+            {
+                "id": "TEXT-e3c0e439-29ed-4721-adee-e494952e7523",
+                "type": "DATA",
+                "data": {
+                    "id": "TEXT-e3c0e439-29ed-4721-adee-e494952e7523",
+                    "label": "TEXT",
+                    "func": "TEXT",
+                    "type": "DATA",
+                    "ctrls": {
+                        "value": {
+                            "type": "TextArea",
+                            "default": "Hello World!",
+                            "desc": "The value set in Parameters.",
+                            "overload": null,
+                            "functionName": "TEXT",
+                            "param": "value",
+                            "value": "Hello World!"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "_",
+                            "id": "_",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Return the value being set in Parameters."
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/TEXT/TEXT.py"
+                },
+                "position": {
+                    "x": 48.42477152707425,
+                    "y": 159.45411491309528
+                },
+                "width": 216,
+                "height": 197,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 48.42477152707425,
+                    "y": 159.45411491309528
+                },
+                "dragging": false
+            },
+            {
+                "id": "TEXT_VIEW-8509426f-c3ba-4a10-a895-8b8cff6126f0",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TEXT_VIEW-8509426f-c3ba-4a10-a895-8b8cff6126f0",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
+                },
+                "position": {
+                    "x": 523.5630460193981,
+                    "y": 127.70494989512923
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 523.5630460193981,
+                    "y": 127.70494989512923
+                },
+                "dragging": false
+            },
+            {
+                "id": "LINSPACE-4908c127-cacd-45ac-a502-4013fadd0562",
+                "type": "DATA",
+                "data": {
+                    "id": "LINSPACE-4908c127-cacd-45ac-a502-4013fadd0562",
+                    "label": "LINSPACE 1",
                     "func": "LINSPACE",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "start": {
                             "type": "float",
                             "default": 10,
                             "desc": "The start point of the data.",
+                            "overload": null,
                             "functionName": "LINSPACE",
                             "param": "start",
                             "value": -10
@@ -24,6 +211,7 @@
                             "type": "float",
                             "default": 0,
                             "desc": "The end point of the data.",
+                            "overload": null,
                             "functionName": "LINSPACE",
                             "param": "end",
                             "value": 10
@@ -32,6 +220,7 @@
                             "type": "int",
                             "default": 1000,
                             "desc": "The number of points in the vector.",
+                            "overload": null,
                             "functionName": "LINSPACE",
                             "param": "step",
                             "value": 1000
@@ -43,8 +232,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -52,231 +241,70 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector",
-                            "desc": "v: the vector between start and end with step number of points."
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
                         }
                     ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-                    "selected": true
+                    "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
                 },
                 "position": {
-                    "x": -134.89631453208858,
-                    "y": 43.170140259972584
+                    "x": -329.5197554524622,
+                    "y": -19.283608249844576
                 },
-                "selected": true,
-                "positionAbsolute": {
-                    "x": -134.89631453208858,
-                    "y": 43.170140259972584
-                },
-                "dragging": true
-            },
-            {
-                "width": 72,
-                "height": 72,
-                "id": "ABS-13396e8e-fa90-4b4e-b8e8-b83b83062d76",
-                "type": "ARITHMETIC",
-                "data": {
-                    "id": "ABS-13396e8e-fa90-4b4e-b8e8-b83b83062d76",
-                    "label": "ABS",
-                    "func": "ABS",
-                    "type": "ARITHMETIC",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Vector|Scalar",
-                            "multiple": false,
-                            "desc": "The input to apply the absolute value to."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "desc": "x: the x-axis of the input.\ny: the absolute value of the input."
-                        }
-                    ],
-                    "path": "PYTHON/nodes/TRANSFORMERS/ARITHMETIC/ABS/ABS.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 163.35687318085155,
-                    "y": -42.70353213709677
-                },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 163.35687318085155,
-                    "y": -42.70353213709677
+                    "x": -329.5197554524622,
+                    "y": -19.283608249844576
                 },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "TEXT-e3f90d0e-e5d6-4e35-9904-81869991e968",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "TEXT-e3f90d0e-e5d6-4e35-9904-81869991e968",
-                    "label": "TEXT",
-                    "func": "TEXT",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "value": {
-                            "type": "str",
-                            "default": "Hello World!",
-                            "desc": "The value set in Parameters",
-                            "functionName": "TEXT",
-                            "param": "value",
-                            "value": "This app shows how the ABS node works. We gave an input to the node, here our input is a function from -10 to 10. Then the abs node returns the absolute value of the input."
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "_",
-                            "id": "_",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "s: return the value being set in Parameters"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TEXT/TEXT.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 119.04672037643181,
-                    "y": 146.8953702601495
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 119.04672037643181,
-                    "y": 146.8953702601495
-                },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "TEXT_VIEW-114093ad-15b1-42a6-8840-7b32598da83c",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TEXT_VIEW-114093ad-15b1-42a6-8840-7b32598da83c",
-                    "label": "TEXT VIEW",
-                    "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 356.8108953782835,
-                    "y": 115.74223587436978
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 356.8108953782835,
-                    "y": 115.74223587436978
-                },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "SCATTER-69af7410-0866-46ca-bcfe-7eeb5ee03943",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "SCATTER-69af7410-0866-46ca-bcfe-7eeb5ee03943",
-                    "label": "SCATTER",
-                    "func": "SCATTER",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Scatter visualization"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 350.23161171482496,
-                    "y": -163.15318250315033
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 350.23161171482496,
-                    "y": -163.15318250315033
-                },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "LINSPACE-11d46127-5570-4ed4-a4bf-2da340fad697",
+                "id": "LINSPACE-4908c127-cacd-45ac-a502-4013fadd0562->ABS-988131f0-94e0-4f42-933d-48a307fce820_740dedf8-1781-4a3c-bab3-16c034217c07",
+                "source": "LINSPACE-4908c127-cacd-45ac-a502-4013fadd0562",
+                "target": "ABS-988131f0-94e0-4f42-933d-48a307fce820",
                 "sourceHandle": "default",
-                "target": "ABS-13396e8e-fa90-4b4e-b8e8-b83b83062d76",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-11d46127-5570-4ed4-a4bf-2da340fad697default-ABS-13396e8e-fa90-4b4e-b8e8-b83b83062d76default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "LINSPACE-11d46127-5570-4ed4-a4bf-2da340fad697",
+                "id": "ABS-988131f0-94e0-4f42-933d-48a307fce820->SCATTER-6f57a888-7f35-4455-97ff-a44e58177553_18f0af88-075c-4d9f-aa48-6e4d138bb0b2",
+                "source": "ABS-988131f0-94e0-4f42-933d-48a307fce820",
+                "target": "SCATTER-6f57a888-7f35-4455-97ff-a44e58177553",
                 "sourceHandle": "default",
-                "target": "TEXT-e3f90d0e-e5d6-4e35-9904-81869991e968",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "LINSPACE-4908c127-cacd-45ac-a502-4013fadd0562->TEXT-e3c0e439-29ed-4721-adee-e494952e7523_8f9c8c1c-803b-4754-b799-d4b36962ecc9",
+                "source": "LINSPACE-4908c127-cacd-45ac-a502-4013fadd0562",
+                "target": "TEXT-e3c0e439-29ed-4721-adee-e494952e7523",
+                "sourceHandle": "default",
                 "targetHandle": "_",
-                "id": "reactflow__edge-LINSPACE-11d46127-5570-4ed4-a4bf-2da340fad697default-TEXT-e3f90d0e-e5d6-4e35-9904-81869991e968_"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "TEXT-e3f90d0e-e5d6-4e35-9904-81869991e968",
+                "id": "TEXT-e3c0e439-29ed-4721-adee-e494952e7523->TEXT_VIEW-8509426f-c3ba-4a10-a895-8b8cff6126f0_0ea1542e-6df2-4e91-a25a-dd0f66f254c8",
+                "source": "TEXT-e3c0e439-29ed-4721-adee-e494952e7523",
+                "target": "TEXT_VIEW-8509426f-c3ba-4a10-a895-8b8cff6126f0",
                 "sourceHandle": "default",
-                "target": "TEXT_VIEW-114093ad-15b1-42a6-8840-7b32598da83c",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TEXT-e3f90d0e-e5d6-4e35-9904-81869991e968default-TEXT_VIEW-114093ad-15b1-42a6-8840-7b32598da83cdefault"
-            },
-            {
-                "source": "ABS-13396e8e-fa90-4b4e-b8e8-b83b83062d76",
-                "sourceHandle": "default",
-                "target": "SCATTER-69af7410-0866-46ca-bcfe-7eeb5ee03943",
-                "targetHandle": "default",
-                "id": "reactflow__edge-ABS-13396e8e-fa90-4b4e-b8e8-b83b83062d76default-SCATTER-69af7410-0866-46ca-bcfe-7eeb5ee03943default"
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 328.30307914563144,
-            "y": 226.88940714410813,
-            "zoom": 0.5
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

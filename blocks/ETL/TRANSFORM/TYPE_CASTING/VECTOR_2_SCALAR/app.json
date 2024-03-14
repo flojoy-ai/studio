@@ -2,51 +2,8 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 160,
-                "height": 160,
-                "id": "VECTOR_2_SCALAR-39be59c6-f14e-41c1-bfab-3be8b8fe0fd6",
-                "type": "ETL",
-                "data": {
-                    "id": "VECTOR_2_SCALAR-39be59c6-f14e-41c1-bfab-3be8b8fe0fd6",
-                    "label": "VECTOR 2 SCALAR",
-                    "func": "VECTOR_2_SCALAR",
-                    "type": "ETL",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "multiple": false,
-                            "desc": "The input vector that will be transformed into scalar data type."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Scalar",
-                            "desc": "The scalar that is generated from the given vector."
-                        }
-                    ],
-                    "path": "ETL/TRANSFORM/TYPE_CASTING/VECTOR_2_SCALAR/VECTOR_2_SCALAR.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 80.31208640319248,
-                    "y": 1.3466293088192742
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 80.31208640319248,
-                    "y": 1.3466293088192742
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "VECTOR-c146e798-6347-4fa2-b118-03a9d5a836ed",
                 "type": "DATA",
                 "data": {
@@ -68,7 +25,7 @@
                             "type": "select",
                             "options": [
                                 "boolean",
-                                "integer"
+                                "numeric"
                             ],
                             "default": "boolean",
                             "desc": null,
@@ -91,24 +48,24 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -265.58733543196865,
-                    "y": 35.64806642459058
+                    "x": -412.2706281848168,
+                    "y": -17.481315202425264
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -265.58733543196865,
-                    "y": 35.64806642459058
+                    "x": -412.2706281848168,
+                    "y": -17.481315202425264
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 225,
-                "height": 226,
+                "height": 225,
                 "id": "BIG_NUMBER-0aa17efe-6172-4905-849b-6cf9cb942940",
                 "type": "VISUALIZATION",
                 "data": {
                     "id": "BIG_NUMBER-0aa17efe-6172-4905-849b-6cf9cb942940",
-                    "label": "BIG NUMBER 1",
+                    "label": "BIG NUMBER",
                     "func": "BIG_NUMBER",
                     "type": "VISUALIZATION",
                     "ctrls": {
@@ -139,6 +96,15 @@
                             "param": "title",
                             "value": ""
                         },
+                        "dec_places": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "dec_places",
+                            "value": 0
+                        },
                         "relative_delta": {
                             "type": "bool",
                             "default": true,
@@ -151,7 +117,7 @@
                         "scientific_notation": {
                             "type": "bool",
                             "default": false,
-                            "desc": null,
+                            "desc": "Use scientific notation? Defaults to 4 decimal places.",
                             "overload": null,
                             "functionName": "BIG_NUMBER",
                             "param": "scientific_notation",
@@ -164,8 +130,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -181,37 +147,83 @@
                 },
                 "position": {
                     "x": 393.6714561006442,
-                    "y": -40.06384938101104
+                    "y": -53.92368806631953
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
                     "x": 393.6714561006442,
-                    "y": -40.06384938101104
+                    "y": -53.92368806631953
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "VECTOR_2_SCALAR-7465da85-fed5-41d0-9276-1483dae2f4b8",
+                "type": "TYPE_CASTING",
+                "data": {
+                    "id": "VECTOR_2_SCALAR-7465da85-fed5-41d0-9276-1483dae2f4b8",
+                    "label": "VECTOR 2 SCALAR 1",
+                    "func": "VECTOR_2_SCALAR",
+                    "type": "TYPE_CASTING",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "The input vector that will be transformed into scalar data type.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "The scalar that is generated from the given vector."
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/TYPE_CASTING/VECTOR_2_SCALAR/VECTOR_2_SCALAR.py"
+                },
+                "position": {
+                    "x": -38.65472271845856,
+                    "y": 12.12052616514859
+                },
+                "width": 209,
+                "height": 96,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -38.65472271845856,
+                    "y": 12.12052616514859
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
+                "id": "VECTOR-c146e798-6347-4fa2-b118-03a9d5a836ed->VECTOR_2_SCALAR-7465da85-fed5-41d0-9276-1483dae2f4b8_e5c12adf-c569-4f32-9c50-7a977ff71afe",
                 "source": "VECTOR-c146e798-6347-4fa2-b118-03a9d5a836ed",
+                "target": "VECTOR_2_SCALAR-7465da85-fed5-41d0-9276-1483dae2f4b8",
                 "sourceHandle": "default",
-                "target": "VECTOR_2_SCALAR-39be59c6-f14e-41c1-bfab-3be8b8fe0fd6",
                 "targetHandle": "default",
-                "id": "reactflow__edge-VECTOR-c146e798-6347-4fa2-b118-03a9d5a836eddefault-VECTOR_2_SCALAR-39be59c6-f14e-41c1-bfab-3be8b8fe0fd6default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "VECTOR_2_SCALAR-39be59c6-f14e-41c1-bfab-3be8b8fe0fd6",
-                "sourceHandle": "default",
+                "id": "VECTOR_2_SCALAR-7465da85-fed5-41d0-9276-1483dae2f4b8->BIG_NUMBER-0aa17efe-6172-4905-849b-6cf9cb942940_24e6d6cb-e33e-48cb-abc6-1d9f7d3a9e36",
+                "source": "VECTOR_2_SCALAR-7465da85-fed5-41d0-9276-1483dae2f4b8",
                 "target": "BIG_NUMBER-0aa17efe-6172-4905-849b-6cf9cb942940",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-VECTOR_2_SCALAR-39be59c6-f14e-41c1-bfab-3be8b8fe0fd6default-BIG_NUMBER-0aa17efe-6172-4905-849b-6cf9cb942940default"
+                "data": {
+                    "outputType": "Scalar"
+                }
             }
-        ],
-        "viewport": {
-            "x": 695.5292625331784,
-            "y": 411.9979742640432,
-            "zoom": 0.6998961918490142
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }
