@@ -2,230 +2,8 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
-                "id": "CONNECT_AFG31000-6e227039-f81f-4f48-92a5-e4a1c0207f3e",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "CONNECT_AFG31000-6e227039-f81f-4f48-92a5-e4a1c0207f3e",
-                    "label": "CONNECT AFG31000",
-                    "func": "CONNECT_AFG31000",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "device": {
-                            "type": "VisaDevice",
-                            "default": null,
-                            "desc": "The VISA address to connect to.",
-                            "overload": null,
-                            "functionName": "CONNECT_AFG31000",
-                            "param": "device",
-                            "value": "TCPIP::169.254.145.144::INSTR"
-                        }
-                    },
-                    "initCtrls": {},
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "The IP or VISA address of the VISA device."
-                        }
-                    ],
-                    "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/CONNECT_AFG31000/CONNECT_AFG31000.py"
-                },
-                "position": {
-                    "x": -174.2226058564158,
-                    "y": -353.6710962643813
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -174.2226058564158,
-                    "y": -353.6710962643813
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "ARBITRARY_AFG31000-82d2ab69-9799-49ac-9259-8f0f668dd2ac",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "ARBITRARY_AFG31000-82d2ab69-9799-49ac-9259-8f0f668dd2ac",
-                    "label": "ARBITRARY AFG31000",
-                    "func": "ARBITRARY_AFG31000",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "VisaConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_AFG31000 block).",
-                            "overload": null,
-                            "functionName": "ARBITRARY_AFG31000",
-                            "param": "connection",
-                            "value": "TCPIP::169.254.145.144::INSTR"
-                        },
-                        "memory_state": {
-                            "type": "select",
-                            "options": [
-                                "EMEM1",
-                                "EMEM2"
-                            ],
-                            "default": "EMEM1",
-                            "desc": "Save the function in \"Edit Memory\" 1 or 2.",
-                            "overload": null,
-                            "functionName": "ARBITRARY_AFG31000",
-                            "param": "memory_state",
-                            "value": "EMEM1"
-                        },
-                        "source": {
-                            "type": "select",
-                            "options": [
-                                "1",
-                                "2"
-                            ],
-                            "default": "1",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "ARBITRARY_AFG31000",
-                            "param": "source",
-                            "value": "1"
-                        },
-                        "frequency": {
-                            "type": "float",
-                            "default": 1000000,
-                            "desc": "The voltage of the waveform to set, in Hz.",
-                            "overload": null,
-                            "functionName": "ARBITRARY_AFG31000",
-                            "param": "frequency",
-                            "value": 100000
-                        },
-                        "amplitude": {
-                            "type": "float",
-                            "default": 1,
-                            "desc": "The voltage of the waveform to set.",
-                            "overload": null,
-                            "functionName": "ARBITRARY_AFG31000",
-                            "param": "amplitude",
-                            "value": 1
-                        },
-                        "offset": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "The voltage offset to set the waveform to, in volts.",
-                            "overload": null,
-                            "functionName": "ARBITRARY_AFG31000",
-                            "param": "offset",
-                            "value": 0
-                        },
-                        "phase": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "The phase to set the waveform to, in degrees.",
-                            "overload": null,
-                            "functionName": "ARBITRARY_AFG31000",
-                            "param": "phase",
-                            "value": 0
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "input",
-                            "id": "input",
-                            "type": "OrderedPair|Vector",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "Placeholder"
-                        }
-                    ],
-                    "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/ARBITRARY_AFG31000/ARBITRARY_AFG31000.py"
-                },
-                "position": {
-                    "x": 145.66871932962246,
-                    "y": -43.37213414482457
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 145.66871932962246,
-                    "y": -43.37213414482457
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "COPY_AFG31000-3f95b109-8283-4ab0-84bf-d4f1a9123781",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "COPY_AFG31000-3f95b109-8283-4ab0-84bf-d4f1a9123781",
-                    "label": "PLACEHOLDER",
-                    "func": "COPY_AFG31000",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "VisaConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_AFG31000 block).",
-                            "overload": null,
-                            "functionName": "COPY_AFG31000",
-                            "param": "connection",
-                            "value": "TCPIP::169.254.145.144::INSTR"
-                        },
-                        "channel": {
-                            "type": "select",
-                            "options": [
-                                "ch1",
-                                "ch2"
-                            ],
-                            "default": "ch1",
-                            "desc": "Which channel to copy to the other channel.",
-                            "overload": null,
-                            "functionName": "COPY_AFG31000",
-                            "param": "channel",
-                            "value": "ch1"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "input",
-                            "id": "input",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "Placeholder"
-                        }
-                    ],
-                    "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/COPY_AFG31000/COPY_AFG31000.py"
-                },
-                "position": {
-                    "x": 144.4620281465655,
-                    "y": -351.58208891808863
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 144.4620281465655,
-                    "y": -351.58208891808863
-                },
-                "dragging": true
-            },
-            {
-                "width": 210,
-                "height": 96,
+                "width": 218,
+                "height": 233,
                 "id": "BASIC_OSCILLATOR-5ea02552-dcaf-43d9-b296-075501fa958a",
                 "type": "DATA",
                 "data": {
@@ -316,19 +94,19 @@
                     "path": "DATA/GENERATION/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py"
                 },
                 "position": {
-                    "x": -362.1075027285308,
-                    "y": 31.080632360951938
+                    "x": -598.3018804427991,
+                    "y": -190.46603200669495
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -362.1075027285308,
-                    "y": 31.080632360951938
+                    "x": -598.3018804427991,
+                    "y": -190.46603200669495
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 210,
-                "height": 96,
+                "width": 218,
+                "height": 269,
                 "id": "BASIC_OSCILLATOR-7ce8d7e2-ec85-4e06-a3c3-c04359d10b94",
                 "type": "DATA",
                 "data": {
@@ -419,68 +197,19 @@
                     "path": "DATA/GENERATION/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py"
                 },
                 "position": {
-                    "x": -356.8896911005901,
-                    "y": 166.0972138398535
+                    "x": -604.0698538248241,
+                    "y": 89.19671877009188
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -356.8896911005901,
-                    "y": 166.0972138398535
+                    "x": -604.0698538248241,
+                    "y": 89.19671877009188
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 72,
-                "height": 72,
-                "id": "MULTIPLY-280a75f4-7a1c-4f5f-84cf-1453439aa1ca",
-                "type": "ARITHMETIC",
-                "data": {
-                    "id": "MULTIPLY-280a75f4-7a1c-4f5f-84cf-1453439aa1ca",
-                    "label": "MULTIPLY",
-                    "func": "MULTIPLY",
-                    "type": "ARITHMETIC",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "a",
-                            "id": "a",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "The input a use to compute the product of a and b."
-                        },
-                        {
-                            "name": "b",
-                            "id": "b",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": true,
-                            "desc": "The input b use to compute the product of a and b."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the result of the product of input a and input b.\n\nScalar if a is a Scalar.\nc: the result of the product of input a and input b.\n\nVector if a is a Vector.\nv: the result of the product of input a and input b."
-                        }
-                    ],
-                    "path": "MATH/ARITHMETIC/MULTIPLY/MULTIPLY.py"
-                },
-                "position": {
-                    "x": -29.35682713839612,
-                    "y": 129.60080736694715
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -29.35682713839612,
-                    "y": 129.60080736694715
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "LINE-f160352e-ab73-47c2-a1b9-658bd41a8865",
                 "type": "VISUALIZATION",
                 "data": {
@@ -488,15 +217,52 @@
                     "label": "LINE",
                     "func": "LINE",
                     "type": "VISUALIZATION",
-                    "ctrls": {},
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -510,123 +276,19 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
                 },
                 "position": {
-                    "x": 257.6493418294323,
-                    "y": 219.14870774764609
+                    "x": 570.7442146134621,
+                    "y": -93.94616503638372
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 257.6493418294323,
-                    "y": 219.14870774764609
+                    "x": 570.7442146134621,
+                    "y": -93.94616503638372
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
-                "id": "OUTPUT_AFG31000-03bf3003-a20a-4fc5-9cfb-7fbb4538dee3",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "OUTPUT_AFG31000-03bf3003-a20a-4fc5-9cfb-7fbb4538dee3",
-                    "label": "OUTPUT AFG31000",
-                    "func": "OUTPUT_AFG31000",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "VisaConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_AFG31000 block).",
-                            "overload": null,
-                            "functionName": "OUTPUT_AFG31000",
-                            "param": "connection",
-                            "value": "TCPIP::169.254.145.144::INSTR"
-                        },
-                        "ch1": {
-                            "type": "select",
-                            "options": [
-                                "on",
-                                "off"
-                            ],
-                            "default": "on",
-                            "desc": "Turn channel 1 output on or off.",
-                            "overload": null,
-                            "functionName": "OUTPUT_AFG31000",
-                            "param": "ch1",
-                            "value": "on"
-                        },
-                        "ch2": {
-                            "type": "select",
-                            "options": [
-                                "on",
-                                "off"
-                            ],
-                            "default": "on",
-                            "desc": "Turn channel 2 output on or off.",
-                            "overload": null,
-                            "functionName": "OUTPUT_AFG31000",
-                            "param": "ch2",
-                            "value": "on"
-                        },
-                        "ch1_impedance": {
-                            "type": "select",
-                            "options": [
-                                "50",
-                                "1e6"
-                            ],
-                            "default": "50",
-                            "desc": "Choosen channel 1 impedance.",
-                            "overload": null,
-                            "functionName": "OUTPUT_AFG31000",
-                            "param": "ch1_impedance",
-                            "value": "50"
-                        },
-                        "ch2_impedance": {
-                            "type": "select",
-                            "options": [
-                                "50",
-                                "1e6"
-                            ],
-                            "default": "50",
-                            "desc": "Choosen channel 2 impedance",
-                            "overload": null,
-                            "functionName": "OUTPUT_AFG31000",
-                            "param": "ch2_impedance",
-                            "value": "50"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "input",
-                            "id": "input",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "Placeholder"
-                        }
-                    ],
-                    "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/OUTPUT_AFG31000/OUTPUT_AFG31000.py"
-                },
-                "position": {
-                    "x": 521.5212679159422,
-                    "y": -167.45967092017608
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 521.5212679159422,
-                    "y": -167.45967092017608
-                },
-                "dragging": true
-            },
-            {
-                "width": 210,
-                "height": 96,
+                "width": 218,
+                "height": 269,
                 "id": "BASIC_OSCILLATOR-fc420f32-3b96-4cf9-ad6f-a16bbab741d8",
                 "type": "DATA",
                 "data": {
@@ -717,80 +379,477 @@
                     "path": "DATA/GENERATION/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py"
                 },
                 "position": {
-                    "x": -350.3747265214252,
-                    "y": 299.2271519922165
+                    "x": -604.87874591897,
+                    "y": 385.2824679036165
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -350.3747265214252,
-                    "y": 299.2271519922165
+                    "x": -604.87874591897,
+                    "y": 385.2824679036165
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "CONNECT_AFG31000-4cae10bb-5112-43d3-9f98-ebcc6a0063d7",
+                "type": "FUNCTION_GENERATORS",
+                "data": {
+                    "id": "CONNECT_AFG31000-4cae10bb-5112-43d3-9f98-ebcc6a0063d7",
+                    "label": "CONNECT AFG31000 1",
+                    "func": "CONNECT_AFG31000",
+                    "type": "FUNCTION_GENERATORS",
+                    "ctrls": {
+                        "device": {
+                            "type": "VisaDevice",
+                            "default": null,
+                            "desc": "The VISA address to connect to.",
+                            "overload": null,
+                            "functionName": "CONNECT_AFG31000",
+                            "param": "device",
+                            "value": ""
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The IP or VISA address of the VISA device."
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/CONNECT_AFG31000/CONNECT_AFG31000.py"
+                },
+                "position": {
+                    "x": -591.462160280168,
+                    "y": -465.1444935859646
+                },
+                "width": 216,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -591.462160280168,
+                    "y": -465.1444935859646
+                },
+                "dragging": false
+            },
+            {
+                "id": "COPY_AFG31000-c319ffe1-0c35-45a5-ac49-cd879d6b4a4f",
+                "type": "FUNCTION_GENERATORS",
+                "data": {
+                    "id": "COPY_AFG31000-c319ffe1-0c35-45a5-ac49-cd879d6b4a4f",
+                    "label": "PLACEHOLDER",
+                    "func": "COPY_AFG31000",
+                    "type": "FUNCTION_GENERATORS",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_AFG31000 block).",
+                            "overload": null,
+                            "functionName": "COPY_AFG31000",
+                            "param": "connection",
+                            "value": ""
+                        },
+                        "channel": {
+                            "type": "select",
+                            "default": "ch1",
+                            "options": [
+                                "ch1",
+                                "ch2"
+                            ],
+                            "desc": "Which channel to copy to the other channel.",
+                            "overload": null,
+                            "functionName": "COPY_AFG31000",
+                            "param": "channel",
+                            "value": "ch1"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Placeholder"
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/COPY_AFG31000/COPY_AFG31000.py"
+                },
+                "position": {
+                    "x": -63.21452781281485,
+                    "y": -467.3625712324737
+                },
+                "width": 239,
+                "height": 197,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -63.21452781281485,
+                    "y": -467.3625712324737
+                },
+                "dragging": false
+            },
+            {
+                "id": "MULTIPLY-ee1d79f3-cf3d-4c42-921d-b69752af75b0",
+                "type": "MATH",
+                "data": {
+                    "id": "MULTIPLY-ee1d79f3-cf3d-4c42-921d-b69752af75b0",
+                    "label": "MULTIPLY 1",
+                    "func": "MULTIPLY",
+                    "type": "MATH",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "a",
+                            "id": "a",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "The input a use to compute the product of a and b.",
+                            "multiple": false
+                        },
+                        {
+                            "name": "b",
+                            "id": "b",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "The input b use to compute the product of a and b.",
+                            "multiple": true
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the result of the product of input a and input b.\n\nScalar if a is a Scalar.\nc: the result of the product of input a and input b.\n\nVector if a is a Vector.\nv: the result of the product of input a and input b."
+                        }
+                    ],
+                    "path": "MATH/ARITHMETIC/MULTIPLY/MULTIPLY.py"
+                },
+                "position": {
+                    "x": 81.23965119352317,
+                    "y": -63.82440052290309
+                },
+                "width": 216,
+                "height": 198,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 81.23965119352317,
+                    "y": -63.82440052290309
+                },
+                "dragging": false
+            },
+            {
+                "id": "ARBITRARY_AFG31000-45ccbd5b-42a6-4eea-b9ea-0747b0c3af98",
+                "type": "FUNCTION_GENERATORS",
+                "data": {
+                    "id": "ARBITRARY_AFG31000-45ccbd5b-42a6-4eea-b9ea-0747b0c3af98",
+                    "label": "ARBITRARY AFG31000 1",
+                    "func": "ARBITRARY_AFG31000",
+                    "type": "FUNCTION_GENERATORS",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_AFG31000 block).",
+                            "overload": null,
+                            "functionName": "ARBITRARY_AFG31000",
+                            "param": "connection",
+                            "value": ""
+                        },
+                        "memory_state": {
+                            "type": "select",
+                            "default": "EMEM1",
+                            "options": [
+                                "EMEM1",
+                                "EMEM2"
+                            ],
+                            "desc": "Save the function in \"Edit Memory\" 1 or 2.",
+                            "overload": null,
+                            "functionName": "ARBITRARY_AFG31000",
+                            "param": "memory_state",
+                            "value": "EMEM1"
+                        },
+                        "source": {
+                            "type": "select",
+                            "default": "1",
+                            "options": [
+                                "1",
+                                "2"
+                            ],
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "ARBITRARY_AFG31000",
+                            "param": "source",
+                            "value": "1"
+                        },
+                        "frequency": {
+                            "type": "float",
+                            "default": 1000000,
+                            "desc": "The voltage of the waveform to set, in Hz.",
+                            "overload": null,
+                            "functionName": "ARBITRARY_AFG31000",
+                            "param": "frequency",
+                            "value": 1000000
+                        },
+                        "amplitude": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The voltage of the waveform to set.",
+                            "overload": null,
+                            "functionName": "ARBITRARY_AFG31000",
+                            "param": "amplitude",
+                            "value": 1
+                        },
+                        "offset": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The voltage offset to set the waveform to, in volts.",
+                            "overload": null,
+                            "functionName": "ARBITRARY_AFG31000",
+                            "param": "offset",
+                            "value": 0
+                        },
+                        "phase": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The phase to set the waveform to, in degrees.",
+                            "overload": null,
+                            "functionName": "ARBITRARY_AFG31000",
+                            "param": "phase",
+                            "value": 0
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "OrderedPair|Vector",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Set FG parameters"
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/ARBITRARY_AFG31000/ARBITRARY_AFG31000.py"
+                },
+                "position": {
+                    "x": 280.9877643689264,
+                    "y": -263.8886344404656
+                },
+                "width": 216,
+                "height": 233,
+                "selected": false,
+                "dragging": false,
+                "positionAbsolute": {
+                    "x": 280.9877643689264,
+                    "y": -263.8886344404656
+                }
+            },
+            {
+                "id": "OUTPUT_AFG31000-3231b66c-e68c-4284-8195-de2d5413ccc6",
+                "type": "FUNCTION_GENERATORS",
+                "data": {
+                    "id": "OUTPUT_AFG31000-3231b66c-e68c-4284-8195-de2d5413ccc6",
+                    "label": "OUTPUT AFG31000",
+                    "func": "OUTPUT_AFG31000",
+                    "type": "FUNCTION_GENERATORS",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_AFG31000 block).",
+                            "overload": null,
+                            "functionName": "OUTPUT_AFG31000",
+                            "param": "connection",
+                            "value": ""
+                        },
+                        "ch1": {
+                            "type": "select",
+                            "default": "on",
+                            "options": [
+                                "on",
+                                "off"
+                            ],
+                            "desc": "Turn channel 1 output on or off.",
+                            "overload": null,
+                            "functionName": "OUTPUT_AFG31000",
+                            "param": "ch1",
+                            "value": "on"
+                        },
+                        "ch2": {
+                            "type": "select",
+                            "default": "on",
+                            "options": [
+                                "on",
+                                "off"
+                            ],
+                            "desc": "Turn channel 2 output on or off.",
+                            "overload": null,
+                            "functionName": "OUTPUT_AFG31000",
+                            "param": "ch2",
+                            "value": "on"
+                        },
+                        "ch1_impedance": {
+                            "type": "select",
+                            "default": "50",
+                            "options": [
+                                "50",
+                                "1e6"
+                            ],
+                            "desc": "Choosen channel 1 impedance.",
+                            "overload": null,
+                            "functionName": "OUTPUT_AFG31000",
+                            "param": "ch1_impedance",
+                            "value": "50"
+                        },
+                        "ch2_impedance": {
+                            "type": "select",
+                            "default": "50",
+                            "options": [
+                                "50",
+                                "1e6"
+                            ],
+                            "desc": "Choosen channel 2 impedance",
+                            "overload": null,
+                            "functionName": "OUTPUT_AFG31000",
+                            "param": "ch2_impedance",
+                            "value": "50"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Placeholder"
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/OUTPUT_AFG31000/OUTPUT_AFG31000.py"
+                },
+                "position": {
+                    "x": 591.77141147307,
+                    "y": -466.841728427871
+                },
+                "width": 216,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 591.77141147307,
+                    "y": -466.841728427871
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "MULTIPLY-280a75f4-7a1c-4f5f-84cf-1453439aa1ca",
+                "id": "CONNECT_AFG31000-4cae10bb-5112-43d3-9f98-ebcc6a0063d7->COPY_AFG31000-c319ffe1-0c35-45a5-ac49-cd879d6b4a4f_030cfdd7-edfe-437c-9555-1b724bfdd072",
+                "source": "CONNECT_AFG31000-4cae10bb-5112-43d3-9f98-ebcc6a0063d7",
+                "target": "COPY_AFG31000-c319ffe1-0c35-45a5-ac49-cd879d6b4a4f",
                 "sourceHandle": "default",
-                "target": "ARBITRARY_AFG31000-82d2ab69-9799-49ac-9259-8f0f668dd2ac",
                 "targetHandle": "input",
-                "id": "reactflow__edge-MULTIPLY-280a75f4-7a1c-4f5f-84cf-1453439aa1cadefault-ARBITRARY_AFG31000-82d2ab69-9799-49ac-9259-8f0f668dd2acinput"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "BASIC_OSCILLATOR-5ea02552-dcaf-43d9-b296-075501fa958a->MULTIPLY-ee1d79f3-cf3d-4c42-921d-b69752af75b0_2ff1fc27-1ad3-4ea1-a94a-5d7142addc00",
                 "source": "BASIC_OSCILLATOR-5ea02552-dcaf-43d9-b296-075501fa958a",
+                "target": "MULTIPLY-ee1d79f3-cf3d-4c42-921d-b69752af75b0",
                 "sourceHandle": "default",
-                "target": "MULTIPLY-280a75f4-7a1c-4f5f-84cf-1453439aa1ca",
                 "targetHandle": "a",
-                "id": "reactflow__edge-BASIC_OSCILLATOR-5ea02552-dcaf-43d9-b296-075501fa958adefault-MULTIPLY-280a75f4-7a1c-4f5f-84cf-1453439aa1caa"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
+                "id": "BASIC_OSCILLATOR-7ce8d7e2-ec85-4e06-a3c3-c04359d10b94->MULTIPLY-ee1d79f3-cf3d-4c42-921d-b69752af75b0_0495664d-ab41-4d3d-b8c7-7797af010425",
                 "source": "BASIC_OSCILLATOR-7ce8d7e2-ec85-4e06-a3c3-c04359d10b94",
+                "target": "MULTIPLY-ee1d79f3-cf3d-4c42-921d-b69752af75b0",
                 "sourceHandle": "default",
-                "target": "MULTIPLY-280a75f4-7a1c-4f5f-84cf-1453439aa1ca",
                 "targetHandle": "b",
-                "id": "reactflow__edge-BASIC_OSCILLATOR-7ce8d7e2-ec85-4e06-a3c3-c04359d10b94default-MULTIPLY-280a75f4-7a1c-4f5f-84cf-1453439aa1cab"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "MULTIPLY-280a75f4-7a1c-4f5f-84cf-1453439aa1ca",
-                "sourceHandle": "default",
-                "target": "LINE-f160352e-ab73-47c2-a1b9-658bd41a8865",
-                "targetHandle": "default",
-                "id": "reactflow__edge-MULTIPLY-280a75f4-7a1c-4f5f-84cf-1453439aa1cadefault-LINE-f160352e-ab73-47c2-a1b9-658bd41a8865default"
-            },
-            {
-                "source": "CONNECT_AFG31000-6e227039-f81f-4f48-92a5-e4a1c0207f3e",
-                "sourceHandle": "default",
-                "target": "COPY_AFG31000-3f95b109-8283-4ab0-84bf-d4f1a9123781",
-                "targetHandle": "input",
-                "id": "reactflow__edge-CONNECT_AFG31000-6e227039-f81f-4f48-92a5-e4a1c0207f3edefault-COPY_AFG31000-3f95b109-8283-4ab0-84bf-d4f1a9123781input"
-            },
-            {
-                "source": "COPY_AFG31000-3f95b109-8283-4ab0-84bf-d4f1a9123781",
-                "sourceHandle": "default",
-                "target": "OUTPUT_AFG31000-03bf3003-a20a-4fc5-9cfb-7fbb4538dee3",
-                "targetHandle": "input",
-                "id": "reactflow__edge-COPY_AFG31000-3f95b109-8283-4ab0-84bf-d4f1a9123781default-OUTPUT_AFG31000-03bf3003-a20a-4fc5-9cfb-7fbb4538dee3input"
-            },
-            {
-                "source": "ARBITRARY_AFG31000-82d2ab69-9799-49ac-9259-8f0f668dd2ac",
-                "sourceHandle": "default",
-                "target": "OUTPUT_AFG31000-03bf3003-a20a-4fc5-9cfb-7fbb4538dee3",
-                "targetHandle": "input",
-                "id": "reactflow__edge-ARBITRARY_AFG31000-82d2ab69-9799-49ac-9259-8f0f668dd2acdefault-OUTPUT_AFG31000-03bf3003-a20a-4fc5-9cfb-7fbb4538dee3input"
-            },
-            {
+                "id": "BASIC_OSCILLATOR-fc420f32-3b96-4cf9-ad6f-a16bbab741d8->MULTIPLY-ee1d79f3-cf3d-4c42-921d-b69752af75b0_1edbd020-7b42-4239-81b2-ddd518aca173",
                 "source": "BASIC_OSCILLATOR-fc420f32-3b96-4cf9-ad6f-a16bbab741d8",
+                "target": "MULTIPLY-ee1d79f3-cf3d-4c42-921d-b69752af75b0",
                 "sourceHandle": "default",
-                "target": "MULTIPLY-280a75f4-7a1c-4f5f-84cf-1453439aa1ca",
                 "targetHandle": "b",
-                "id": "reactflow__edge-BASIC_OSCILLATOR-fc420f32-3b96-4cf9-ad6f-a16bbab741d8default-MULTIPLY-280a75f4-7a1c-4f5f-84cf-1453439aa1cab"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "MULTIPLY-ee1d79f3-cf3d-4c42-921d-b69752af75b0->LINE-f160352e-ab73-47c2-a1b9-658bd41a8865_52763420-04de-4ed7-9a17-399047885dcb",
+                "source": "MULTIPLY-ee1d79f3-cf3d-4c42-921d-b69752af75b0",
+                "target": "LINE-f160352e-ab73-47c2-a1b9-658bd41a8865",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "MULTIPLY-ee1d79f3-cf3d-4c42-921d-b69752af75b0->ARBITRARY_AFG31000-45ccbd5b-42a6-4eea-b9ea-0747b0c3af98_fa0c50c3-54a1-463a-9ccc-1f3027175978",
+                "source": "MULTIPLY-ee1d79f3-cf3d-4c42-921d-b69752af75b0",
+                "target": "ARBITRARY_AFG31000-45ccbd5b-42a6-4eea-b9ea-0747b0c3af98",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "ARBITRARY_AFG31000-45ccbd5b-42a6-4eea-b9ea-0747b0c3af98->OUTPUT_AFG31000-3231b66c-e68c-4284-8195-de2d5413ccc6_c8c8f1ce-b1a0-42c5-80d4-8257def8460b",
+                "source": "ARBITRARY_AFG31000-45ccbd5b-42a6-4eea-b9ea-0747b0c3af98",
+                "target": "OUTPUT_AFG31000-3231b66c-e68c-4284-8195-de2d5413ccc6",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "COPY_AFG31000-c319ffe1-0c35-45a5-ac49-cd879d6b4a4f->OUTPUT_AFG31000-3231b66c-e68c-4284-8195-de2d5413ccc6_e2fa304f-4ad5-468f-87c7-b7409a1c8cbb",
+                "source": "COPY_AFG31000-c319ffe1-0c35-45a5-ac49-cd879d6b4a4f",
+                "target": "OUTPUT_AFG31000-3231b66c-e68c-4284-8195-de2d5413ccc6",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 998.0979704909867,
-            "y": 583.9050842369531,
-            "zoom": 0.9793470432493011
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

@@ -2,8 +2,8 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 96,
-                "height": 96,
+                "width": 236,
+                "height": 198,
                 "id": "LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3",
                 "type": "CONTROL_FLOW",
                 "data": {
@@ -28,8 +28,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -49,26 +49,180 @@
                     "path": "CONTROL_FLOW/LOOPS/LOOP/LOOP.py"
                 },
                 "position": {
-                    "x": 297.84241033180757,
-                    "y": -48.25951440373504
+                    "x": 428.46874246924756,
+                    "y": -401.7190013638667
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 297.84241033180757,
-                    "y": -48.25951440373504
+                    "x": 428.46874246924756,
+                    "y": -401.7190013638667
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
-                "id": "CONNECT_AFG31000-0062226e-0b7d-4fa6-80c7-c54374e26689",
-                "type": "HARDWARE",
+                "width": 216,
+                "height": 197,
+                "id": "SCALAR-9208fd1c-ccd5-4143-afaf-817b0aae682c",
+                "type": "DATA",
                 "data": {
-                    "id": "CONNECT_AFG31000-0062226e-0b7d-4fa6-80c7-c54374e26689",
+                    "id": "SCALAR-9208fd1c-ccd5-4143-afaf-817b0aae682c",
+                    "label": "SCALAR 2",
+                    "func": "SCALAR",
+                    "type": "DATA",
+                    "ctrls": {
+                        "value": {
+                            "type": "float",
+                            "default": 3,
+                            "desc": "The value set in Parameters",
+                            "overload": null,
+                            "functionName": "SCALAR",
+                            "param": "value",
+                            "value": 1.47
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "_",
+                            "id": "_",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "c: return the value being set in Parameters"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/SCALAR/SCALAR.py"
+                },
+                "position": {
+                    "x": 613.6105028212694,
+                    "y": -125.92032594348632
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 613.6105028212694,
+                    "y": -125.92032594348632
+                },
+                "dragging": false
+            },
+            {
+                "width": 216,
+                "height": 197,
+                "id": "FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05",
+                "type": "DATA",
+                "data": {
+                    "id": "FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05",
+                    "label": "FEEDBACK 1",
+                    "func": "FEEDBACK",
+                    "type": "DATA",
+                    "ctrls": {
+                        "referred_node": {
+                            "type": "NodeReference",
+                            "default": null,
+                            "desc": "The node ID to capture the result from.",
+                            "overload": null,
+                            "functionName": "FEEDBACK",
+                            "param": "referred_node",
+                            "value": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "The result of the specified node ID, or the result of the parent node if it was not found."
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/FEEDBACK/FEEDBACK.py"
+                },
+                "position": {
+                    "x": 274.4443751035902,
+                    "y": -14.263754280153364
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 274.4443751035902,
+                    "y": -14.263754280153364
+                },
+                "dragging": false
+            },
+            {
+                "width": 216,
+                "height": 197,
+                "id": "SCALAR-7293af6c-58be-4aae-b370-a7d7932920cf",
+                "type": "DATA",
+                "data": {
+                    "id": "SCALAR-7293af6c-58be-4aae-b370-a7d7932920cf",
+                    "label": "SCALAR 1",
+                    "func": "SCALAR",
+                    "type": "DATA",
+                    "ctrls": {
+                        "value": {
+                            "type": "float",
+                            "default": 3,
+                            "desc": "The value set in Parameters",
+                            "overload": null,
+                            "functionName": "SCALAR",
+                            "param": "value",
+                            "value": 680.2721
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "_",
+                            "id": "_",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "c: return the value being set in Parameters"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/SCALAR/SCALAR.py"
+                },
+                "position": {
+                    "x": -109.28192047559793,
+                    "y": -16.905382348850253
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -109.28192047559793,
+                    "y": -16.905382348850253
+                },
+                "dragging": false
+            },
+            {
+                "id": "CONNECT_AFG31000-f5526760-189c-4bb8-8d8c-185e3061d863",
+                "type": "FUNCTION_GENERATORS",
+                "data": {
+                    "id": "CONNECT_AFG31000-f5526760-189c-4bb8-8d8c-185e3061d863",
                     "label": "CONNECT AFG31000",
                     "func": "CONNECT_AFG31000",
-                    "type": "HARDWARE",
+                    "type": "FUNCTION_GENERATORS",
                     "ctrls": {
                         "device": {
                             "type": "VisaDevice",
@@ -77,7 +231,7 @@
                             "overload": null,
                             "functionName": "CONNECT_AFG31000",
                             "param": "device",
-                            "value": "TCPIP::169.254.45.145::INSTR"
+                            "value": ""
                         }
                     },
                     "initCtrls": {},
@@ -92,26 +246,26 @@
                     "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/CONNECT_AFG31000/CONNECT_AFG31000.py"
                 },
                 "position": {
-                    "x": -487.5832333899324,
-                    "y": -85.71281461482198
+                    "x": -586.7773548021745,
+                    "y": -58.699815732075194
                 },
+                "width": 216,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -487.5832333899324,
-                    "y": -85.71281461482198
+                    "x": -586.7773548021745,
+                    "y": -58.699815732075194
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
-                "id": "FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0a",
-                "type": "HARDWARE",
+                "id": "FUNCTION_AFG31000-42684055-f31e-4393-8719-a216da029656",
+                "type": "FUNCTION_GENERATORS",
                 "data": {
-                    "id": "FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0a",
+                    "id": "FUNCTION_AFG31000-42684055-f31e-4393-8719-a216da029656",
                     "label": "FUNCTION AFG31000",
                     "func": "FUNCTION_AFG31000",
-                    "type": "HARDWARE",
+                    "type": "FUNCTION_GENERATORS",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -120,15 +274,15 @@
                             "overload": null,
                             "functionName": "FUNCTION_AFG31000",
                             "param": "connection",
-                            "value": "TCPIP::169.254.45.145::INSTR"
+                            "value": ""
                         },
                         "source": {
                             "type": "select",
+                            "default": "1",
                             "options": [
                                 "1",
                                 "2"
                             ],
-                            "default": "1",
                             "desc": null,
                             "overload": null,
                             "functionName": "FUNCTION_AFG31000",
@@ -137,6 +291,7 @@
                         },
                         "functions": {
                             "type": "select",
+                            "default": "sinusoid",
                             "options": [
                                 "sinusoid",
                                 "square",
@@ -151,7 +306,6 @@
                                 "edecay",
                                 "haversine"
                             ],
-                            "default": "sinusoid",
                             "desc": "Choose the function to output",
                             "overload": null,
                             "functionName": "FUNCTION_AFG31000",
@@ -219,8 +373,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -234,26 +388,26 @@
                     "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/FUNCTION_AFG31000/FUNCTION_AFG31000.py"
                 },
                 "position": {
-                    "x": -247.20531802615722,
-                    "y": -88.28360028586019
+                    "x": -288.735425082433,
+                    "y": -416.12388245509044
                 },
-                "selected": true,
+                "width": 216,
+                "height": 233,
+                "selected": false,
                 "positionAbsolute": {
-                    "x": -247.20531802615722,
-                    "y": -88.28360028586019
+                    "x": -288.735425082433,
+                    "y": -416.12388245509044
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
-                "id": "OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346",
-                "type": "HARDWARE",
+                "id": "OUTPUT_AFG31000-0bab8f72-fcc3-4c32-a7d6-6db8a8ff6786",
+                "type": "FUNCTION_GENERATORS",
                 "data": {
-                    "id": "OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346",
+                    "id": "OUTPUT_AFG31000-0bab8f72-fcc3-4c32-a7d6-6db8a8ff6786",
                     "label": "OUTPUT AFG31000",
                     "func": "OUTPUT_AFG31000",
-                    "type": "HARDWARE",
+                    "type": "FUNCTION_GENERATORS",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -262,15 +416,15 @@
                             "overload": null,
                             "functionName": "OUTPUT_AFG31000",
                             "param": "connection",
-                            "value": "TCPIP::169.254.45.145::INSTR"
+                            "value": ""
                         },
                         "ch1": {
                             "type": "select",
+                            "default": "on",
                             "options": [
                                 "on",
                                 "off"
                             ],
-                            "default": "on",
                             "desc": "Turn channel 1 output on or off.",
                             "overload": null,
                             "functionName": "OUTPUT_AFG31000",
@@ -279,11 +433,11 @@
                         },
                         "ch2": {
                             "type": "select",
+                            "default": "on",
                             "options": [
                                 "on",
                                 "off"
                             ],
-                            "default": "on",
                             "desc": "Turn channel 2 output on or off.",
                             "overload": null,
                             "functionName": "OUTPUT_AFG31000",
@@ -292,11 +446,11 @@
                         },
                         "ch1_impedance": {
                             "type": "select",
+                            "default": "50",
                             "options": [
                                 "50",
                                 "1e6"
                             ],
-                            "default": "50",
                             "desc": "Choosen channel 1 impedance.",
                             "overload": null,
                             "functionName": "OUTPUT_AFG31000",
@@ -305,11 +459,11 @@
                         },
                         "ch2_impedance": {
                             "type": "select",
+                            "default": "50",
                             "options": [
                                 "50",
                                 "1e6"
                             ],
-                            "default": "50",
                             "desc": "Choosen channel 2 impedance",
                             "overload": null,
                             "functionName": "OUTPUT_AFG31000",
@@ -323,8 +477,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -338,130 +492,26 @@
                     "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/OUTPUT_AFG31000/OUTPUT_AFG31000.py"
                 },
                 "position": {
-                    "x": -4.041253332289557,
-                    "y": -89.11528788934237
+                    "x": 76.33585127636573,
+                    "y": -407.99764987470786
                 },
+                "width": 216,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -4.041253332289557,
-                    "y": -89.11528788934237
+                    "x": 76.33585127636573,
+                    "y": -407.99764987470786
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
-                "id": "SCALAR-9208fd1c-ccd5-4143-afaf-817b0aae682c",
-                "type": "DATA",
+                "id": "MULTIPLY-c1978c28-7eee-40b0-8c76-2f855ba5667e",
+                "type": "MATH",
                 "data": {
-                    "id": "SCALAR-9208fd1c-ccd5-4143-afaf-817b0aae682c",
-                    "label": "SCALAR 2",
-                    "func": "SCALAR",
-                    "type": "DATA",
-                    "ctrls": {
-                        "value": {
-                            "type": "float",
-                            "default": 3,
-                            "desc": "The value set in Parameters",
-                            "overload": null,
-                            "functionName": "SCALAR",
-                            "param": "value",
-                            "value": 1.47
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "_",
-                            "id": "_",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Scalar",
-                            "desc": "c: return the value being set in Parameters"
-                        }
-                    ],
-                    "path": "DATA/GENERATION/SIMULATIONS/SCALAR/SCALAR.py"
-                },
-                "position": {
-                    "x": 713.5012273969588,
-                    "y": -360.27933360183454
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 713.5012273969588,
-                    "y": -360.27933360183454
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05",
-                "type": "DATA",
-                "data": {
-                    "id": "FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05",
-                    "label": "FEEDBACK 1",
-                    "func": "FEEDBACK",
-                    "type": "DATA",
-                    "ctrls": {
-                        "referred_node": {
-                            "type": "NodeReference",
-                            "default": null,
-                            "desc": "The node ID to capture the result from.",
-                            "overload": null,
-                            "functionName": "FEEDBACK",
-                            "param": "referred_node",
-                            "value": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "The result of the specified node ID, or the result of the parent node if it was not found."
-                        }
-                    ],
-                    "path": "DATA/GENERATION/SIMULATIONS/FEEDBACK/FEEDBACK.py"
-                },
-                "position": {
-                    "x": 720.1106847489735,
-                    "y": -166.0208166162968
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 720.1106847489735,
-                    "y": -166.0208166162968
-                },
-                "dragging": true
-            },
-            {
-                "width": 72,
-                "height": 72,
-                "id": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa",
-                "type": "ARITHMETIC",
-                "data": {
-                    "id": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa",
+                    "id": "MULTIPLY-c1978c28-7eee-40b0-8c76-2f855ba5667e",
                     "label": "MULTIPLY",
                     "func": "MULTIPLY",
-                    "type": "ARITHMETIC",
+                    "type": "MATH",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -469,15 +519,15 @@
                             "name": "a",
                             "id": "a",
                             "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "The input a use to compute the product of a and b."
+                            "desc": "The input a use to compute the product of a and b.",
+                            "multiple": false
                         },
                         {
                             "name": "b",
                             "id": "b",
                             "type": "OrderedPair|Scalar|Vector",
-                            "multiple": true,
-                            "desc": "The input b use to compute the product of a and b."
+                            "desc": "The input b use to compute the product of a and b.",
+                            "multiple": true
                         }
                     ],
                     "outputs": [
@@ -491,26 +541,26 @@
                     "path": "MATH/ARITHMETIC/MULTIPLY/MULTIPLY.py"
                 },
                 "position": {
-                    "x": 1006.5222850361846,
-                    "y": -257.0001437706319
+                    "x": 713.0578528723049,
+                    "y": 205.32942580576412
                 },
+                "width": 216,
+                "height": 198,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1006.5222850361846,
-                    "y": -257.0001437706319
+                    "x": 713.0578528723049,
+                    "y": 205.32942580576412
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
-                "id": "INPUT_PARAM_AFG31000-50267130-4ee8-4811-8d6f-311592e860aa",
-                "type": "HARDWARE",
+                "id": "INPUT_PARAM_AFG31000-c55d151f-e302-43d4-88a5-f1860cd30e69",
+                "type": "FUNCTION_GENERATORS",
                 "data": {
-                    "id": "INPUT_PARAM_AFG31000-50267130-4ee8-4811-8d6f-311592e860aa",
+                    "id": "INPUT_PARAM_AFG31000-c55d151f-e302-43d4-88a5-f1860cd30e69",
                     "label": "INPUT PARAM AFG31000",
                     "func": "INPUT_PARAM_AFG31000",
-                    "type": "HARDWARE",
+                    "type": "FUNCTION_GENERATORS",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -519,16 +569,16 @@
                             "overload": null,
                             "functionName": "INPUT_PARAM_AFG31000",
                             "param": "connection",
-                            "value": "TCPIP::169.254.45.145::INSTR"
+                            "value": ""
                         },
                         "source": {
                             "type": "select",
+                            "default": "1",
                             "options": [
                                 "1",
                                 "2"
                             ],
-                            "default": "1",
-                            "desc": null,
+                            "desc": "Choose the channel to alter.",
                             "overload": null,
                             "functionName": "INPUT_PARAM_AFG31000",
                             "param": "source",
@@ -536,6 +586,7 @@
                         },
                         "parameter": {
                             "type": "select",
+                            "default": "frequency",
                             "options": [
                                 "frequency",
                                 "amplitude",
@@ -544,7 +595,6 @@
                                 "pulse_width",
                                 "ramp_symmetry"
                             ],
-                            "default": "frequency",
                             "desc": "Choose the parameter to alter.",
                             "overload": null,
                             "functionName": "INPUT_PARAM_AFG31000",
@@ -558,8 +608,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Scalar",
-                            "multiple": false,
-                            "desc": "The value to change the selected parameter to."
+                            "desc": "The value to change the selected parameter to.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -573,91 +623,117 @@
                     "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/INPUT_PARAM_AFG31000/INPUT_PARAM_AFG31000.py"
                 },
                 "position": {
-                    "x": 1140.5532203151026,
-                    "y": -316.4184436689111
+                    "x": 1018.3417854575966,
+                    "y": -461.8711830313305
                 },
+                "width": 216,
+                "height": 269,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1140.5532203151026,
-                    "y": -316.4184436689111
+                    "x": 1018.3417854575966,
+                    "y": -461.8711830313305
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
-                "id": "SCALAR-7293af6c-58be-4aae-b370-a7d7932920cf",
-                "type": "DATA",
+                "id": "BIG_NUMBER-37671654-f9fc-488c-bc8d-275bdfd66876",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "SCALAR-7293af6c-58be-4aae-b370-a7d7932920cf",
-                    "label": "SCALAR 1",
-                    "func": "SCALAR",
-                    "type": "DATA",
+                    "id": "BIG_NUMBER-37671654-f9fc-488c-bc8d-275bdfd66876",
+                    "label": "BIG NUMBER",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZATION",
                     "ctrls": {
-                        "value": {
-                            "type": "float",
-                            "default": 3,
-                            "desc": "The value set in Parameters",
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any suffix to show with big number",
                             "overload": null,
-                            "functionName": "SCALAR",
-                            "param": "value",
-                            "value": 680.2721
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": ""
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "dec_places": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "dec_places",
+                            "value": 0
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Use scientific notation? Defaults to 4 decimal places.",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": false
                         }
                     },
                     "initCtrls": {},
                     "inputs": [
                         {
-                            "name": "_",
-                            "id": "_",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Scalar",
-                            "desc": "c: return the value being set in Parameters"
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
                         }
                     ],
-                    "path": "DATA/GENERATION/SIMULATIONS/SCALAR/SCALAR.py"
+                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py"
                 },
                 "position": {
-                    "x": 442.0380401633032,
-                    "y": -155.21561637672798
+                    "x": 1079.5948376490019,
+                    "y": -8.600448381824663
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 442.0380401633032,
-                    "y": -155.21561637672798
+                    "x": 1079.5948376490019,
+                    "y": -8.600448381824663
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
-            {
-                "source": "OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346",
-                "sourceHandle": "default",
-                "target": "LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3",
-                "targetHandle": "default",
-                "id": "reactflow__edge-OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346default-LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3default"
-            },
-            {
-                "source": "CONNECT_AFG31000-0062226e-0b7d-4fa6-80c7-c54374e26689",
-                "sourceHandle": "default",
-                "target": "FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0a",
-                "targetHandle": "input",
-                "id": "reactflow__edge-CONNECT_AFG31000-0062226e-0b7d-4fa6-80c7-c54374e26689default-FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0ainput"
-            },
-            {
-                "source": "FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0a",
-                "sourceHandle": "default",
-                "target": "OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346",
-                "targetHandle": "input",
-                "id": "reactflow__edge-FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0adefault-OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346input"
-            },
             {
                 "source": "SCALAR-7293af6c-58be-4aae-b370-a7d7932920cf",
                 "sourceHandle": "default",
@@ -666,39 +742,86 @@
                 "id": "reactflow__edge-SCALAR-7293af6c-58be-4aae-b370-a7d7932920cfdefault-FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05default"
             },
             {
-                "source": "FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05",
-                "sourceHandle": "default",
-                "target": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa",
-                "targetHandle": "b",
-                "id": "reactflow__edge-FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05default-MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffab"
-            },
-            {
-                "source": "SCALAR-9208fd1c-ccd5-4143-afaf-817b0aae682c",
-                "sourceHandle": "default",
-                "target": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa",
-                "targetHandle": "a",
-                "id": "reactflow__edge-SCALAR-9208fd1c-ccd5-4143-afaf-817b0aae682cdefault-MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffaa"
-            },
-            {
-                "source": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa",
-                "sourceHandle": "default",
-                "target": "INPUT_PARAM_AFG31000-50267130-4ee8-4811-8d6f-311592e860aa",
-                "targetHandle": "input",
-                "id": "reactflow__edge-MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffadefault-INPUT_PARAM_AFG31000-50267130-4ee8-4811-8d6f-311592e860aainput"
-            },
-            {
                 "source": "LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3",
                 "sourceHandle": "body",
                 "target": "SCALAR-7293af6c-58be-4aae-b370-a7d7932920cf",
                 "targetHandle": "_",
                 "id": "reactflow__edge-LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3body-SCALAR-7293af6c-58be-4aae-b370-a7d7932920cf_"
+            },
+            {
+                "id": "MULTIPLY-c1978c28-7eee-40b0-8c76-2f855ba5667e->INPUT_PARAM_AFG31000-c55d151f-e302-43d4-88a5-f1860cd30e69_2e22b1da-e94d-4d9f-bb08-1f8d124b402c",
+                "source": "MULTIPLY-c1978c28-7eee-40b0-8c76-2f855ba5667e",
+                "target": "INPUT_PARAM_AFG31000-c55d151f-e302-43d4-88a5-f1860cd30e69",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "INPUT_PARAM_AFG31000-c55d151f-e302-43d4-88a5-f1860cd30e69->BIG_NUMBER-37671654-f9fc-488c-bc8d-275bdfd66876_67460ea8-ba4e-42b8-ad57-926e1e65dfab",
+                "source": "INPUT_PARAM_AFG31000-c55d151f-e302-43d4-88a5-f1860cd30e69",
+                "target": "BIG_NUMBER-37671654-f9fc-488c-bc8d-275bdfd66876",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Scalar"
+                }
+            },
+            {
+                "id": "SCALAR-9208fd1c-ccd5-4143-afaf-817b0aae682c->MULTIPLY-c1978c28-7eee-40b0-8c76-2f855ba5667e_925a04a8-ec56-4770-a5c3-5695a7a80d33",
+                "source": "SCALAR-9208fd1c-ccd5-4143-afaf-817b0aae682c",
+                "target": "MULTIPLY-c1978c28-7eee-40b0-8c76-2f855ba5667e",
+                "sourceHandle": "default",
+                "targetHandle": "a",
+                "data": {
+                    "outputType": "Scalar"
+                }
+            },
+            {
+                "id": "FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05->MULTIPLY-c1978c28-7eee-40b0-8c76-2f855ba5667e_6a50642d-1e72-4edf-b8ca-95125f147d43",
+                "source": "FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05",
+                "target": "MULTIPLY-c1978c28-7eee-40b0-8c76-2f855ba5667e",
+                "sourceHandle": "default",
+                "targetHandle": "b",
+                "data": {
+                    "outputType": "Any"
+                }
+            },
+            {
+                "id": "OUTPUT_AFG31000-0bab8f72-fcc3-4c32-a7d6-6db8a8ff6786->LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3_c01e6570-6c33-449a-ba0a-f981e3b4077f",
+                "source": "OUTPUT_AFG31000-0bab8f72-fcc3-4c32-a7d6-6db8a8ff6786",
+                "target": "LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "FUNCTION_AFG31000-42684055-f31e-4393-8719-a216da029656->OUTPUT_AFG31000-0bab8f72-fcc3-4c32-a7d6-6db8a8ff6786_2515c0cd-5800-40cb-9a95-0ecb9ea23ece",
+                "source": "FUNCTION_AFG31000-42684055-f31e-4393-8719-a216da029656",
+                "target": "OUTPUT_AFG31000-0bab8f72-fcc3-4c32-a7d6-6db8a8ff6786",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "CONNECT_AFG31000-f5526760-189c-4bb8-8d8c-185e3061d863->FUNCTION_AFG31000-42684055-f31e-4393-8719-a216da029656_96a2b232-00c6-4f18-9694-aad8fcc96b59",
+                "source": "CONNECT_AFG31000-f5526760-189c-4bb8-8d8c-185e3061d863",
+                "target": "FUNCTION_AFG31000-42684055-f31e-4393-8719-a216da029656",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 759.6034496961545,
-            "y": 603.2270380507501,
-            "zoom": 0.5383814557176602
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

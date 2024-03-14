@@ -2,15 +2,13 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
-                "id": "CONNECTION_33510B-4c8ca1dd-a8ee-4ba9-ae8b-886c80a0a027",
-                "type": "IO",
+                "id": "CONNECTION_33510B-5cf13e91-12f9-4b36-befa-d658a1eb59d1",
+                "type": "FUNCTION_GENERATORS",
                 "data": {
-                    "id": "CONNECTION_33510B-4c8ca1dd-a8ee-4ba9-ae8b-886c80a0a027",
+                    "id": "CONNECTION_33510B-5cf13e91-12f9-4b36-befa-d658a1eb59d1",
                     "label": "CONNECTION 33510B",
                     "func": "CONNECTION_33510B",
-                    "type": "IO",
+                    "type": "FUNCTION_GENERATORS",
                     "ctrls": {
                         "device": {
                             "type": "VisaDevice",
@@ -19,7 +17,7 @@
                             "overload": null,
                             "functionName": "CONNECTION_33510B",
                             "param": "device",
-                            "value": "USB0::2391::9735::MY59003244::0::INSTR"
+                            "value": ""
                         }
                     },
                     "initCtrls": {},
@@ -28,8 +26,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -40,65 +38,29 @@
                             "desc": "Optional: None"
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/FUNCTION_GENERATORS/KEYSIGHT/33XXX/BASIC/CONNECTION_33510B/CONNECTION_33510B.py",
-                    "selected": false
+                    "path": "HARDWARE/FUNCTION_GENERATORS/KEYSIGHT/33XXX/CONNECTION_33510B/CONNECTION_33510B.py"
                 },
                 "position": {
-                    "x": -886.7395156170513,
-                    "y": -112.96725387394693
+                    "x": -1302.6354256130553,
+                    "y": -157.74601063120832
                 },
+                "width": 218,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -886.7395156170513,
-                    "y": -112.96725387394693
+                    "x": -1302.6354256130553,
+                    "y": -157.74601063120832
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 225,
-                "height": 226,
-                "id": "TEXT_VIEW-1e087237-ee3a-4db7-963d-46fbdbd7b59b",
-                "type": "VISUALIZERS",
+                "id": "OUTPUT_SYNC_33510B-5c8d1c62-5b47-4f02-86b6-db0b97eea126",
+                "type": "FUNCTION_GENERATORS",
                 "data": {
-                    "id": "TEXT_VIEW-1e087237-ee3a-4db7-963d-46fbdbd7b59b",
-                    "label": "TEXT VIEW",
-                    "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
-                        }
-                    ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -228.91602197898922,
-                    "y": -130.8283743248985
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -228.91602197898922,
-                    "y": -130.8283743248985
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "OUTPUT_SYNC_33510B-a889708d-f110-42a5-a7ce-67c30d4eb9c0",
-                "type": "IO",
-                "data": {
-                    "id": "OUTPUT_SYNC_33510B-a889708d-f110-42a5-a7ce-67c30d4eb9c0",
+                    "id": "OUTPUT_SYNC_33510B-5c8d1c62-5b47-4f02-86b6-db0b97eea126",
                     "label": "OUTPUT SYNC 33510B",
                     "func": "OUTPUT_SYNC_33510B",
-                    "type": "IO",
+                    "type": "FUNCTION_GENERATORS",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -107,15 +69,15 @@
                             "overload": null,
                             "functionName": "OUTPUT_SYNC_33510B",
                             "param": "connection",
-                            "value": "USB0::2391::9735::MY59003244::0::INSTR"
+                            "value": ""
                         },
                         "on_off": {
                             "type": "select",
+                            "default": "OFF",
                             "options": [
                                 "ON",
                                 "OFF"
                             ],
-                            "default": "OFF",
                             "desc": "Whether to turn the waveform phase syncing on or off.",
                             "overload": null,
                             "functionName": "OUTPUT_SYNC_33510B",
@@ -124,11 +86,11 @@
                         },
                         "channel": {
                             "type": "select",
+                            "default": "1",
                             "options": [
                                 "1",
                                 "2"
                             ],
-                            "default": "1",
                             "desc": "The channel to use as the baseline phase.",
                             "overload": null,
                             "functionName": "OUTPUT_SYNC_33510B",
@@ -142,8 +104,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -154,41 +116,99 @@
                             "desc": "String: The channel, and ON or OFF depending on on_off value."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/FUNCTION_GENERATORS/KEYSIGHT/33XXX/BASIC/OUTPUT_SYNC_33510B/OUTPUT_SYNC_33510B.py",
-                    "selected": false
+                    "path": "HARDWARE/FUNCTION_GENERATORS/KEYSIGHT/33XXX/OUTPUT_SYNC_33510B/OUTPUT_SYNC_33510B.py"
                 },
                 "position": {
-                    "x": -576.8436213938844,
-                    "y": -112.88858916855764
+                    "x": -704.0673721319438,
+                    "y": -158.48163167451025
                 },
+                "width": 216,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -576.8436213938844,
-                    "y": -112.88858916855764
+                    "x": -704.0673721319438,
+                    "y": -158.48163167451025
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "TEXT_VIEW-85ee75d7-be54-4778-8bbd-cca992cea2af",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TEXT_VIEW-85ee75d7-be54-4778-8bbd-cca992cea2af",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
+                },
+                "position": {
+                    "x": -208.46860375455964,
+                    "y": -193.95059290715318
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -208.46860375455964,
+                    "y": -193.95059290715318
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "CONNECTION_33510B-4c8ca1dd-a8ee-4ba9-ae8b-886c80a0a027",
+                "id": "CONNECTION_33510B-5cf13e91-12f9-4b36-befa-d658a1eb59d1->OUTPUT_SYNC_33510B-5c8d1c62-5b47-4f02-86b6-db0b97eea126_d7cbcb65-261e-4b33-b938-1e545554eaf6",
+                "source": "CONNECTION_33510B-5cf13e91-12f9-4b36-befa-d658a1eb59d1",
+                "target": "OUTPUT_SYNC_33510B-5c8d1c62-5b47-4f02-86b6-db0b97eea126",
                 "sourceHandle": "default",
-                "target": "OUTPUT_SYNC_33510B-a889708d-f110-42a5-a7ce-67c30d4eb9c0",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CONNECTION_33510B-4c8ca1dd-a8ee-4ba9-ae8b-886c80a0a027default-OUTPUT_SYNC_33510B-a889708d-f110-42a5-a7ce-67c30d4eb9c0default"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "OUTPUT_SYNC_33510B-a889708d-f110-42a5-a7ce-67c30d4eb9c0",
+                "id": "OUTPUT_SYNC_33510B-5c8d1c62-5b47-4f02-86b6-db0b97eea126->TEXT_VIEW-85ee75d7-be54-4778-8bbd-cca992cea2af_b2cebd62-ea40-4248-aaee-795c9c51e38a",
+                "source": "OUTPUT_SYNC_33510B-5c8d1c62-5b47-4f02-86b6-db0b97eea126",
+                "target": "TEXT_VIEW-85ee75d7-be54-4778-8bbd-cca992cea2af",
                 "sourceHandle": "default",
-                "target": "TEXT_VIEW-1e087237-ee3a-4db7-963d-46fbdbd7b59b",
                 "targetHandle": "default",
-                "id": "reactflow__edge-OUTPUT_SYNC_33510B-a889708d-f110-42a5-a7ce-67c30d4eb9c0default-TEXT_VIEW-1e087237-ee3a-4db7-963d-46fbdbd7b59bdefault"
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 1104.261946392206,
-            "y": 573.1338859553202,
-            "zoom": 1.2154437530123414
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

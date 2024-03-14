@@ -2,8 +2,8 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "RECORD_AUDIO-e5913fab-f10c-48b9-b297-bbb24a680033",
                 "type": "HARDWARE",
                 "data": {
@@ -28,7 +28,7 @@
                             "overload": null,
                             "functionName": "RECORD_AUDIO",
                             "param": "file_path",
-                            "value": "C:\\Users\\dstra\\Downloads\\output.wav"
+                            "value": "~/Downloads/output.wav"
                         },
                         "record_length": {
                             "type": "float",
@@ -87,8 +87,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -109,19 +109,19 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -221.62173889806004,
-                    "y": -145.5049196471718
+                    "x": -223.04541239847603,
+                    "y": -159.74165465133174
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -221.62173889806004,
-                    "y": -145.5049196471718
+                    "x": -223.04541239847603,
+                    "y": -159.74165465133174
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 233,
                 "id": "SPEECH_2_TEXT-801955f6-463e-42d2-9a3d-6731c5b13d13",
                 "type": "AI_ML",
                 "data": {
@@ -137,7 +137,7 @@
                             "overload": null,
                             "functionName": "SPEECH_2_TEXT",
                             "param": "file_path",
-                            "value": "C:\\Users\\dstra\\Downloads\\output.wav"
+                            "value": "~/Downloads/output.wav"
                         }
                     },
                     "initCtrls": {},
@@ -146,8 +146,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -168,19 +168,19 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 87.82163589028886,
-                    "y": -99.23182091561101
+                    "x": 291.40694644977646,
+                    "y": -164.72080193474687
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 87.82163589028886,
-                    "y": -99.23182091561101
+                    "x": 291.40694644977646,
+                    "y": -164.72080193474687
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 384,
-                "height": 288,
+                "width": 225,
+                "height": 225,
                 "id": "TEXT_VIEW-a3c0fadb-c0a9-4927-b29d-688e253a2831",
                 "type": "VISUALIZATION",
                 "data": {
@@ -205,8 +205,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "String|Boolean",
-                            "multiple": false,
-                            "desc": "The DataContainer to be visualized in text format"
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -221,38 +221,40 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 426.56090557893475,
-                    "y": -164.50566149896525
+                    "x": 802.4107096887581,
+                    "y": -207.21586651144517
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 426.56090557893475,
-                    "y": -164.50566149896525
+                    "x": 802.4107096887581,
+                    "y": -207.21586651144517
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
-            {
-                "source": "RECORD_AUDIO-e5913fab-f10c-48b9-b297-bbb24a680033",
-                "sourceHandle": "default",
-                "target": "SPEECH_2_TEXT-801955f6-463e-42d2-9a3d-6731c5b13d13",
-                "targetHandle": "default",
-                "id": "reactflow__edge-RECORD_AUDIO-e5913fab-f10c-48b9-b297-bbb24a680033default-SPEECH_2_TEXT-801955f6-463e-42d2-9a3d-6731c5b13d13default"
-            },
             {
                 "source": "SPEECH_2_TEXT-801955f6-463e-42d2-9a3d-6731c5b13d13",
                 "sourceHandle": "default",
                 "target": "TEXT_VIEW-a3c0fadb-c0a9-4927-b29d-688e253a2831",
                 "targetHandle": "default",
-                "id": "reactflow__edge-SPEECH_2_TEXT-801955f6-463e-42d2-9a3d-6731c5b13d13default-TEXT_VIEW-a3c0fadb-c0a9-4927-b29d-688e253a2831default"
+                "id": "reactflow__edge-SPEECH_2_TEXT-801955f6-463e-42d2-9a3d-6731c5b13d13default-TEXT_VIEW-a3c0fadb-c0a9-4927-b29d-688e253a2831default",
+                "selected": false
+            },
+            {
+                "id": "RECORD_AUDIO-e5913fab-f10c-48b9-b297-bbb24a680033->SPEECH_2_TEXT-801955f6-463e-42d2-9a3d-6731c5b13d13_104ab0b7-72a7-4579-ad48-b019580002f6",
+                "source": "RECORD_AUDIO-e5913fab-f10c-48b9-b297-bbb24a680033",
+                "target": "SPEECH_2_TEXT-801955f6-463e-42d2-9a3d-6731c5b13d13",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Any"
+                }
             }
-        ],
-        "viewport": {
-            "x": 1177.6156825958576,
-            "y": 667.56535325129,
-            "zoom": 1.1850094253528283
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }
