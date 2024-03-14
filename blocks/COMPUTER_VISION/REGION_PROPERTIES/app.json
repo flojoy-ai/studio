@@ -5,12 +5,12 @@
                 "width": 225,
                 "height": 226,
                 "id": "REGION_PROPERTIES-9dc0938b-62a1-4f69-80a8-acba5b30981b",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "REGION_PROPERTIES-9dc0938b-62a1-4f69-80a8-acba5b30981b",
                     "label": "REGION PROPERTIES",
                     "func": "REGION_PROPERTIES",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [

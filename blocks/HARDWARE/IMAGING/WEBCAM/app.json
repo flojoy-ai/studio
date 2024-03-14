@@ -2,20 +2,18 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
-                "id": "OPEN_WEBCAM-89c7016f-6198-4bee-bb37-0ffa21729da5",
-                "type": "IO",
+                "id": "OPEN_WEBCAM-e7fa6f59-7292-40be-9c46-778c8249b2e2",
+                "type": "IMAGING",
                 "data": {
-                    "id": "OPEN_WEBCAM-89c7016f-6198-4bee-bb37-0ffa21729da5",
+                    "id": "OPEN_WEBCAM-e7fa6f59-7292-40be-9c46-778c8249b2e2",
                     "label": "OPEN WEBCAM",
                     "func": "OPEN_WEBCAM",
-                    "type": "IO",
+                    "type": "IMAGING",
                     "ctrls": {
                         "camera": {
                             "type": "CameraDevice",
                             "default": null,
-                            "desc": null,
+                            "desc": "The camera to use.",
                             "overload": null,
                             "functionName": "OPEN_WEBCAM",
                             "param": "camera",
@@ -28,8 +26,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -43,38 +41,37 @@
                     "pip_dependencies": [
                         {
                             "name": "opencv-python-headless",
-                            "v": "4.7.0.72"
+                            "v": "4.8.1.78"
                         }
                     ],
-                    "path": "IO/IMAGING/OPEN_WEBCAM/OPEN_WEBCAM.py",
-                    "selected": false
+                    "path": "HARDWARE/IMAGING/OPEN_WEBCAM/OPEN_WEBCAM.py"
                 },
                 "position": {
-                    "x": -179.01679378861343,
-                    "y": 3.074962043597168
+                    "x": -270.14213042999626,
+                    "y": -331.25385944212314
                 },
+                "width": 216,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -179.01679378861343,
-                    "y": 3.074962043597168
+                    "x": -270.14213042999626,
+                    "y": -331.25385944212314
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
-                "id": "WEBCAM-89b91b3a-0682-44db-95d9-b1e26d1dd12c",
-                "type": "IO",
+                "id": "WEBCAM-717ede30-6203-4a2e-9674-79cd02ed488f",
+                "type": "IMAGING",
                 "data": {
-                    "id": "WEBCAM-89b91b3a-0682-44db-95d9-b1e26d1dd12c",
+                    "id": "WEBCAM-717ede30-6203-4a2e-9674-79cd02ed488f",
                     "label": "WEBCAM",
                     "func": "WEBCAM",
-                    "type": "IO",
+                    "type": "IMAGING",
                     "ctrls": {
                         "connection": {
                             "type": "CameraConnection",
                             "default": null,
-                            "desc": null,
+                            "desc": "The opened camera connection to use.",
                             "overload": null,
                             "functionName": "WEBCAM",
                             "param": "connection",
@@ -82,6 +79,7 @@
                         },
                         "resolution": {
                             "type": "select",
+                            "default": "default",
                             "options": [
                                 "default",
                                 "640x360",
@@ -89,7 +87,6 @@
                                 "1280x720",
                                 "1920x1080"
                             ],
-                            "default": "default",
                             "desc": "Camera resolution. Choose from a few options.",
                             "overload": null,
                             "functionName": "WEBCAM",
@@ -103,8 +100,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -118,33 +115,32 @@
                     "pip_dependencies": [
                         {
                             "name": "opencv-python-headless",
-                            "v": "4.7.0.72"
+                            "v": "4.8.1.78"
                         }
                     ],
-                    "path": "IO/IMAGING/WEBCAM/WEBCAM.py",
-                    "selected": false
+                    "path": "HARDWARE/IMAGING/WEBCAM/WEBCAM.py"
                 },
                 "position": {
-                    "x": 179.0676354144525,
-                    "y": 0.6447218141543658
+                    "x": 126.02423721176353,
+                    "y": -328.40628831145784
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 179.0676354144525,
-                    "y": 0.6447218141543658
+                    "x": 126.02423721176353,
+                    "y": -328.40628831145784
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 225,
-                "height": 226,
-                "id": "IMAGE-d27c4496-301f-4882-8670-6bb84ebe7e06",
-                "type": "VISUALIZERS",
+                "id": "IMAGE-8affd92f-17ac-42e3-bfcb-39230a3b9b89",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "IMAGE-d27c4496-301f-4882-8670-6bb84ebe7e06",
+                    "id": "IMAGE-8affd92f-17ac-42e3-bfcb-39230a3b9b89",
                     "label": "IMAGE",
                     "func": "IMAGE",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -152,8 +148,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Image|Grayscale",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -164,41 +160,47 @@
                             "desc": "the DataContainer containing the Plotly Image visualization of the input image"
                         }
                     ],
-                    "path": "VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
                 },
                 "position": {
-                    "x": 515.9438185125092,
-                    "y": -20.240488117947223
+                    "x": 554.1742771164149,
+                    "y": -364.0660814592186
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 515.9438185125092,
-                    "y": -20.240488117947223
+                    "x": 554.1742771164149,
+                    "y": -364.0660814592186
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "WEBCAM-89b91b3a-0682-44db-95d9-b1e26d1dd12c",
+                "id": "OPEN_WEBCAM-e7fa6f59-7292-40be-9c46-778c8249b2e2->WEBCAM-717ede30-6203-4a2e-9674-79cd02ed488f_40a441f7-c6ab-4245-8155-41883ea1f55f",
+                "source": "OPEN_WEBCAM-e7fa6f59-7292-40be-9c46-778c8249b2e2",
+                "target": "WEBCAM-717ede30-6203-4a2e-9674-79cd02ed488f",
                 "sourceHandle": "default",
-                "target": "IMAGE-d27c4496-301f-4882-8670-6bb84ebe7e06",
                 "targetHandle": "default",
-                "id": "reactflow__edge-WEBCAM-89b91b3a-0682-44db-95d9-b1e26d1dd12cdefault-IMAGE-d27c4496-301f-4882-8670-6bb84ebe7e06default"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "OPEN_WEBCAM-89c7016f-6198-4bee-bb37-0ffa21729da5",
+                "id": "WEBCAM-717ede30-6203-4a2e-9674-79cd02ed488f->IMAGE-8affd92f-17ac-42e3-bfcb-39230a3b9b89_be8d2cf4-c260-4eaf-8f85-1b1f29c3e937",
+                "source": "WEBCAM-717ede30-6203-4a2e-9674-79cd02ed488f",
+                "target": "IMAGE-8affd92f-17ac-42e3-bfcb-39230a3b9b89",
                 "sourceHandle": "default",
-                "target": "WEBCAM-89b91b3a-0682-44db-95d9-b1e26d1dd12c",
                 "targetHandle": "default",
-                "id": "reactflow__edge-OPEN_WEBCAM-89c7016f-6198-4bee-bb37-0ffa21729da5default-WEBCAM-89b91b3a-0682-44db-95d9-b1e26d1dd12cdefault"
+                "data": {
+                    "outputType": "Image"
+                }
             }
-        ],
-        "viewport": {
-            "x": 255.10425070720453,
-            "y": 317.88940714410813,
-            "zoom": 0.5
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

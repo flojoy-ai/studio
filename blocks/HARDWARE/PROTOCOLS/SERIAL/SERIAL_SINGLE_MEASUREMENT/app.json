@@ -129,12 +129,12 @@
                 "width": 225,
                 "height": 226,
                 "id": "TABLE-915065a2-936c-4c61-a1d4-b4600fed1930",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "TABLE-915065a2-936c-4c61-a1d4-b4600fed1930",
                     "label": "TABLE",
                     "func": "TABLE",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [

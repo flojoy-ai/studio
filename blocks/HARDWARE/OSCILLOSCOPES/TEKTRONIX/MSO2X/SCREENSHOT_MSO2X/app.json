@@ -3,12 +3,12 @@
         "nodes": [
             {
                 "id": "SCREENSHOT_MSO2X-ed5dd55f-2d07-41aa-b01e-d74ddfcd921f",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "SCREENSHOT_MSO2X-ed5dd55f-2d07-41aa-b01e-d74ddfcd921f",
                     "label": "SCREENSHOT MSO2X",
                     "func": "SCREENSHOT_MSO2X",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -62,8 +62,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -77,22 +77,28 @@
                     "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/SCREENSHOT_MSO2X/SCREENSHOT_MSO2X.py"
                 },
                 "position": {
-                    "x": 264.92177010148936,
-                    "y": 22.76214254079747
+                    "x": -301.07822989851064,
+                    "y": 32.76214254079741
                 },
-                "width": 192,
-                "height": 192
+                "width": 218,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -301.07822989851064,
+                    "y": 32.76214254079741
+                },
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "CONNECT_MSO2X-64938f2c-dd05-40fc-9718-7a0fc9675932",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "CONNECT_MSO2X-64938f2c-dd05-40fc-9718-7a0fc9675932",
                     "label": "CONNECT MSO2X",
                     "func": "CONNECT_MSO2X",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "device": {
                             "type": "VisaDevice",
@@ -122,15 +128,15 @@
                     "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/CONNECT_MSO2X/CONNECT_MSO2X.py"
                 },
                 "position": {
-                    "x": -20.396069961777386,
-                    "y": 26.544309721940635
+                    "x": -780.3960699617774,
+                    "y": 34.544309721940635
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -20.396069961777386,
-                    "y": 26.544309721940635
+                    "x": -780.3960699617774,
+                    "y": 34.544309721940635
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 225,
@@ -149,8 +155,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Image|Grayscale",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -164,38 +170,42 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
                 },
                 "position": {
-                    "x": 554.612937547467,
-                    "y": 2.7757509852843896
+                    "x": 182.61293754746703,
+                    "y": 0.7757509852843896
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 554.612937547467,
-                    "y": 2.7757509852843896
+                    "x": 182.61293754746703,
+                    "y": 0.7757509852843896
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
+                "id": "CONNECT_MSO2X-64938f2c-dd05-40fc-9718-7a0fc9675932->SCREENSHOT_MSO2X-ed5dd55f-2d07-41aa-b01e-d74ddfcd921f_8e096fc3-7347-4de7-8027-851ba1974e6f",
                 "source": "CONNECT_MSO2X-64938f2c-dd05-40fc-9718-7a0fc9675932",
-                "sourceHandle": "default",
                 "target": "SCREENSHOT_MSO2X-ed5dd55f-2d07-41aa-b01e-d74ddfcd921f",
+                "sourceHandle": "default",
                 "targetHandle": "input",
-                "id": "reactflow__edge-CONNECT_MSO2X-64938f2c-dd05-40fc-9718-7a0fc9675932default-SCREENSHOT_MSO2X-ed5dd55f-2d07-41aa-b01e-d74ddfcd921finput"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "SCREENSHOT_MSO2X-ed5dd55f-2d07-41aa-b01e-d74ddfcd921f->IMAGE-85d6ce75-0a91-40a0-b58b-d2c239965ce9_1c5b337d-1d9f-4dd6-9c80-9d04b2426f51",
                 "source": "SCREENSHOT_MSO2X-ed5dd55f-2d07-41aa-b01e-d74ddfcd921f",
-                "sourceHandle": "default",
                 "target": "IMAGE-85d6ce75-0a91-40a0-b58b-d2c239965ce9",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-SCREENSHOT_MSO2X-ed5dd55f-2d07-41aa-b01e-d74ddfcd921fdefault-IMAGE-85d6ce75-0a91-40a0-b58b-d2c239965ce9default"
+                "data": {
+                    "outputType": "Image"
+                }
             }
-        ],
-        "viewport": {
-            "x": 989.7402235606428,
-            "y": 582.5298224384069,
-            "zoom": 0.9879406118224267
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

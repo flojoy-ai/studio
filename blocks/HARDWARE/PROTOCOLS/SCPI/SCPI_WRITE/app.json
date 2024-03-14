@@ -176,12 +176,12 @@
                 "width": 384,
                 "height": 288,
                 "id": "TEXT_VIEW-784462fd-3284-40ac-bbd2-446e740f9edb",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "TEXT_VIEW-784462fd-3284-40ac-bbd2-446e740f9edb",
                     "label": "TEXT VIEW",
                     "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [

@@ -2,15 +2,13 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
-                "id": "CONNECTION_2000-8a729079-b42a-41b0-b0c9-218b956f8db7",
-                "type": "IO",
+                "id": "CONNECTION_2000-af4adc4d-5968-4012-b203-b2ec43587957",
+                "type": "OSCILLOSCOPES",
                 "data": {
-                    "id": "CONNECTION_2000-8a729079-b42a-41b0-b0c9-218b956f8db7",
+                    "id": "CONNECTION_2000-af4adc4d-5968-4012-b203-b2ec43587957",
                     "label": "CONNECTION 2000",
                     "func": "CONNECTION_2000",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -18,8 +16,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -27,7 +25,7 @@
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "desc": "OrderedPair: The trace of the oscilloscope is returned."
+                            "desc": "Placeholder return currently"
                         }
                     ],
                     "pip_dependencies": [
@@ -36,82 +34,38 @@
                             "v": "1.1"
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/PICO/PICO2000/CONNECTION_2000/CONNECTION_2000.py",
-                    "selected": false
+                    "path": "HARDWARE/OSCILLOSCOPES/PICO/PICO2000/CONNECTION_2000/CONNECTION_2000.py"
                 },
                 "position": {
-                    "x": 135.11925920185442,
-                    "y": 168.7580364703365
+                    "x": 20.634306543542323,
+                    "y": 339.9907299141606
                 },
+                "width": 218,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 135.11925920185442,
-                    "y": 168.7580364703365
+                    "x": 20.634306543542323,
+                    "y": 339.9907299141606
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "LINE-c1ee6803-b2db-447f-92aa-bc990b57f977",
-                "type": "VISUALIZERS",
+                "id": "EXTRACT_TRACE_2000-356c2115-f7d5-4413-8b4c-6eb9ede59fc8",
+                "type": "OSCILLOSCOPES",
                 "data": {
-                    "id": "LINE-c1ee6803-b2db-447f-92aa-bc990b57f977",
-                    "label": "LINE",
-                    "func": "LINE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
-                        }
-                    ],
-                    "path": "VISUALIZERS/PLOTLY/LINE/LINE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 1078.4681532312363,
-                    "y": 122.67623589918526
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1078.4681532312363,
-                    "y": 122.67623589918526
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "EXTRACT_TRACE_2000-6df126c3-f82c-400e-9ba5-70e2e2529871",
-                "type": "IO",
-                "data": {
-                    "id": "EXTRACT_TRACE_2000-6df126c3-f82c-400e-9ba5-70e2e2529871",
+                    "id": "EXTRACT_TRACE_2000-356c2115-f7d5-4413-8b4c-6eb9ede59fc8",
                     "label": "EXTRACT TRACE 2000",
                     "func": "EXTRACT_TRACE_2000",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "channel": {
                             "type": "select",
+                            "default": "A",
                             "options": [
                                 "A",
                                 "B"
                             ],
-                            "default": "A",
-                            "desc": null,
+                            "desc": "Select the channel to extract a trace from.",
                             "overload": null,
                             "functionName": "EXTRACT_TRACE_2000",
                             "param": "channel",
@@ -119,13 +73,13 @@
                         },
                         "coupling_type": {
                             "type": "select",
+                            "default": "1",
                             "options": [
                                 "0",
                                 "1",
                                 "2"
                             ],
-                            "default": "1",
-                            "desc": null,
+                            "desc": "Select the coupling type (0:AC, 1:DC)",
                             "overload": null,
                             "functionName": "EXTRACT_TRACE_2000",
                             "param": "coupling_type",
@@ -133,8 +87,8 @@
                         },
                         "trig_threshold": {
                             "type": "float",
-                            "default": 0.1,
-                            "desc": null,
+                            "default": 300,
+                            "desc": "The threshold to trigger the oscilloscope timing, in mV.",
                             "overload": null,
                             "functionName": "EXTRACT_TRACE_2000",
                             "param": "trig_threshold",
@@ -142,13 +96,13 @@
                         },
                         "trig_direction": {
                             "type": "select",
+                            "default": "1",
                             "options": [
                                 "0",
                                 "1",
                                 "2"
                             ],
-                            "default": "0",
-                            "desc": null,
+                            "desc": "The direction (slope) to search for a trigger (1:Rising, 2:Falling).",
                             "overload": null,
                             "functionName": "EXTRACT_TRACE_2000",
                             "param": "trig_direction",
@@ -157,7 +111,7 @@
                         "x_samples": {
                             "type": "int",
                             "default": 1000,
-                            "desc": null,
+                            "desc": "The number of samples in time (i.e. # of x axis pixels).",
                             "overload": null,
                             "functionName": "EXTRACT_TRACE_2000",
                             "param": "x_samples",
@@ -170,8 +124,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -179,7 +133,7 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair",
-                            "desc": "OrderedPair: The trace of the oscilloscope is returned."
+                            "desc": "The trace of the oscilloscope is returned."
                         }
                     ],
                     "pip_dependencies": [
@@ -188,35 +142,34 @@
                             "v": "1.1"
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/PICO/PICO2000/EXTRACT_TRACE_2000/EXTRACT_TRACE_2000.py",
-                    "selected": false
+                    "path": "HARDWARE/OSCILLOSCOPES/PICO/PICO2000/EXTRACT_TRACE_2000/EXTRACT_TRACE_2000.py"
                 },
                 "position": {
-                    "x": 788.4024727731698,
-                    "y": 171.99457076252872
+                    "x": 775.3172343617488,
+                    "y": 339.35647798193094
                 },
+                "width": 216,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 788.4024727731698,
-                    "y": 171.99457076252872
+                    "x": 775.3172343617488,
+                    "y": 339.35647798193094
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
-                "id": "FUNCTION_GENERATION_2000-6e34d2b5-7245-49f9-a2a0-c7f75385090a",
-                "type": "IO",
+                "id": "FUNCTION_GENERATION_2000-6fe0c568-121f-4d8a-abd2-fab01b04f3f7",
+                "type": "OSCILLOSCOPES",
                 "data": {
-                    "id": "FUNCTION_GENERATION_2000-6e34d2b5-7245-49f9-a2a0-c7f75385090a",
+                    "id": "FUNCTION_GENERATION_2000-6fe0c568-121f-4d8a-abd2-fab01b04f3f7",
                     "label": "FUNCTION GENERATION 2000",
                     "func": "FUNCTION_GENERATION_2000",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "offset_voltage": {
                             "type": "int",
                             "default": 0,
-                            "desc": null,
+                            "desc": "The offset (vertical) voltage, in uV (microvolts).",
                             "overload": null,
                             "functionName": "FUNCTION_GENERATION_2000",
                             "param": "offset_voltage",
@@ -225,7 +178,7 @@
                         "amplitude": {
                             "type": "int",
                             "default": 1000000,
-                            "desc": null,
+                            "desc": "The peak-to-peak amplitude, in uV (microvolts).",
                             "overload": null,
                             "functionName": "FUNCTION_GENERATION_2000",
                             "param": "amplitude",
@@ -233,6 +186,7 @@
                         },
                         "wave_type": {
                             "type": "select",
+                            "default": "1",
                             "options": [
                                 "0",
                                 "1",
@@ -243,8 +197,7 @@
                                 "6",
                                 "7"
                             ],
-                            "default": "1",
-                            "desc": null,
+                            "desc": "The type of waveform to generate (e.g. 0 is a sine)",
                             "overload": null,
                             "functionName": "FUNCTION_GENERATION_2000",
                             "param": "wave_type",
@@ -253,7 +206,7 @@
                         "start_frequency": {
                             "type": "int",
                             "default": 10000,
-                            "desc": null,
+                            "desc": "The static or starting frequency, in Hz.",
                             "overload": null,
                             "functionName": "FUNCTION_GENERATION_2000",
                             "param": "start_frequency",
@@ -262,7 +215,7 @@
                         "end_frequency": {
                             "type": "int",
                             "default": 100000,
-                            "desc": null,
+                            "desc": "The ending frequency if sweeping is activated, in Hz.",
                             "overload": null,
                             "functionName": "FUNCTION_GENERATION_2000",
                             "param": "end_frequency",
@@ -271,7 +224,7 @@
                         "sweep_increment": {
                             "type": "int",
                             "default": 1000,
-                            "desc": null,
+                            "desc": "The increment to increase frequency during sweeping, in Hz",
                             "overload": null,
                             "functionName": "FUNCTION_GENERATION_2000",
                             "param": "sweep_increment",
@@ -280,7 +233,7 @@
                         "dwell_time": {
                             "type": "int",
                             "default": 1,
-                            "desc": null,
+                            "desc": "The time to dwell at a frequency during sweeping, in ms.",
                             "overload": null,
                             "functionName": "FUNCTION_GENERATION_2000",
                             "param": "dwell_time",
@@ -288,14 +241,14 @@
                         },
                         "sweep_type": {
                             "type": "select",
+                            "default": "0",
                             "options": [
                                 "0",
                                 "1",
                                 "2",
                                 "3"
                             ],
-                            "default": "0",
-                            "desc": null,
+                            "desc": "The type of sweeping. 0 deactivates sweeping.",
                             "overload": null,
                             "functionName": "FUNCTION_GENERATION_2000",
                             "param": "sweep_type",
@@ -304,7 +257,7 @@
                         "sweeps": {
                             "type": "int",
                             "default": 0,
-                            "desc": null,
+                            "desc": "The number of sweeps.",
                             "overload": null,
                             "functionName": "FUNCTION_GENERATION_2000",
                             "param": "sweeps",
@@ -317,8 +270,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -326,7 +279,7 @@
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "desc": "OrderedPair: The trace of the oscilloscope is returned."
+                            "desc": "Placeholder return currently"
                         }
                     ],
                     "pip_dependencies": [
@@ -335,49 +288,136 @@
                             "v": "1.1"
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/PICO/PICO2000/FUNCTION_GENERATION_2000/FUNCTION_GENERATION_2000.py",
-                    "selected": false
+                    "path": "HARDWARE/OSCILLOSCOPES/PICO/PICO2000/FUNCTION_GENERATION_2000/FUNCTION_GENERATION_2000.py"
                 },
                 "position": {
-                    "x": 455.6566677862645,
-                    "y": 165.9649268496604
+                    "x": 391.4772929349326,
+                    "y": 339.4102425345384
                 },
+                "width": 218,
+                "height": 269,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 455.6566677862645,
-                    "y": 165.9649268496604
+                    "x": 391.4772929349326,
+                    "y": 339.4102425345384
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "LINE-32cf7bff-61c5-46ad-8421-f1ee526f022d",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-32cf7bff-61c5-46ad-8421-f1ee526f022d",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": 1143.245017201726,
+                    "y": 301.62300892066366
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1143.245017201726,
+                    "y": 301.62300892066366
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "EXTRACT_TRACE_2000-6df126c3-f82c-400e-9ba5-70e2e2529871",
+                "id": "EXTRACT_TRACE_2000-356c2115-f7d5-4413-8b4c-6eb9ede59fc8->LINE-32cf7bff-61c5-46ad-8421-f1ee526f022d_bf1616e8-9ca7-4c3f-a769-503024ee0a99",
+                "source": "EXTRACT_TRACE_2000-356c2115-f7d5-4413-8b4c-6eb9ede59fc8",
+                "target": "LINE-32cf7bff-61c5-46ad-8421-f1ee526f022d",
                 "sourceHandle": "default",
-                "target": "LINE-c1ee6803-b2db-447f-92aa-bc990b57f977",
                 "targetHandle": "default",
-                "id": "reactflow__edge-EXTRACT_TRACE_2000-6df126c3-f82c-400e-9ba5-70e2e2529871default-LINE-c1ee6803-b2db-447f-92aa-bc990b57f977default"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "FUNCTION_GENERATION_2000-6e34d2b5-7245-49f9-a2a0-c7f75385090a",
+                "id": "FUNCTION_GENERATION_2000-6fe0c568-121f-4d8a-abd2-fab01b04f3f7->EXTRACT_TRACE_2000-356c2115-f7d5-4413-8b4c-6eb9ede59fc8_cb9d76c6-0106-48e3-be3d-758bbb7a2747",
+                "source": "FUNCTION_GENERATION_2000-6fe0c568-121f-4d8a-abd2-fab01b04f3f7",
+                "target": "EXTRACT_TRACE_2000-356c2115-f7d5-4413-8b4c-6eb9ede59fc8",
                 "sourceHandle": "default",
-                "target": "EXTRACT_TRACE_2000-6df126c3-f82c-400e-9ba5-70e2e2529871",
                 "targetHandle": "default",
-                "id": "reactflow__edge-FUNCTION_GENERATION_2000-6e34d2b5-7245-49f9-a2a0-c7f75385090adefault-EXTRACT_TRACE_2000-6df126c3-f82c-400e-9ba5-70e2e2529871default"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "CONNECTION_2000-8a729079-b42a-41b0-b0c9-218b956f8db7",
+                "id": "CONNECTION_2000-af4adc4d-5968-4012-b203-b2ec43587957->FUNCTION_GENERATION_2000-6fe0c568-121f-4d8a-abd2-fab01b04f3f7_73a97506-7ef5-4ea4-a447-694041c52487",
+                "source": "CONNECTION_2000-af4adc4d-5968-4012-b203-b2ec43587957",
+                "target": "FUNCTION_GENERATION_2000-6fe0c568-121f-4d8a-abd2-fab01b04f3f7",
                 "sourceHandle": "default",
-                "target": "FUNCTION_GENERATION_2000-6e34d2b5-7245-49f9-a2a0-c7f75385090a",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CONNECTION_2000-8a729079-b42a-41b0-b0c9-218b956f8db7default-FUNCTION_GENERATION_2000-6e34d2b5-7245-49f9-a2a0-c7f75385090adefault"
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 1139.470292881633,
-            "y": 572.2854272048312,
-            "zoom": 1.2136444284334926
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

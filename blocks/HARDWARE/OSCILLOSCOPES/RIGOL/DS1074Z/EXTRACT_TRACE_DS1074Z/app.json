@@ -2,15 +2,15 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
+                "width": 218,
+                "height": 233,
                 "id": "CONNECTION_DS1074Z-2915183b-c77b-4a8d-b762-2c39ae72ccbd",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "CONNECTION_DS1074Z-2915183b-c77b-4a8d-b762-2c39ae72ccbd",
                     "label": "CONNECTION DS1074Z",
                     "func": "CONNECTION_DS1074Z",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "device": {
                             "type": "VisaDevice",
@@ -28,8 +28,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -37,38 +37,38 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "desc": "Optional: None"
+                            "desc": "None"
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/CONNECTION_DS1074Z/CONNECTION_DS1074Z.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/CONNECTION_DS1074Z/CONNECTION_DS1074Z.py",
                     "selected": false
                 },
                 "position": {
-                    "x": -724.7576961471643,
-                    "y": -183.4745577192959
+                    "x": -1102.4592976253807,
+                    "y": -185.20713387286577
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -724.7576961471643,
-                    "y": -183.4745577192959
+                    "x": -1102.4592976253807,
+                    "y": -185.20713387286577
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254",
                     "label": "EXTRACT TRACE CH1",
                     "func": "EXTRACT_TRACE_DS1074Z",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_MDO3XXX node).",
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
                             "overload": null,
                             "functionName": "EXTRACT_TRACE_DS1074Z",
                             "param": "connection",
@@ -96,8 +96,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -105,38 +105,38 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair",
-                            "desc": "OrderedPair: The trace of the oscilloscope is returned."
+                            "desc": "The trace of the oscilloscope."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/EXTRACT_TRACE_DS1074Z/EXTRACT_TRACE_DS1074Z.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/EXTRACT_TRACE_DS1074Z/EXTRACT_TRACE_DS1074Z.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 939.3054778379178,
-                    "y": -160.51627665928027
+                    "x": -945.0538435397061,
+                    "y": 430.38305327964576
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 939.3054778379178,
-                    "y": -160.51627665928027
+                    "x": -945.0538435397061,
+                    "y": 430.38305327964576
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4",
                     "label": "TRIGGER SETTINGS",
                     "func": "TRIGGER_DS1074Z",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
                             "overload": null,
                             "functionName": "TRIGGER_DS1074Z",
                             "param": "connection",
@@ -217,8 +217,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -226,42 +226,79 @@
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "desc": "String: The triggering settings."
+                            "desc": "The triggering settings."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/TRIGGER_DS1074Z/TRIGGER_DS1074Z.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/TRIGGER_DS1074Z/TRIGGER_DS1074Z.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 133.07895656458095,
-                    "y": -168.4905183682502
+                    "x": -83.49306263164412,
+                    "y": -173.68824682895968
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 133.07895656458095,
-                    "y": -168.4905183682502
+                    "x": -83.49306263164412,
+                    "y": -173.68824682895968
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535",
                     "label": "LINE",
                     "func": "LINE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -272,35 +309,35 @@
                             "desc": "the DataContainer containing the Plotly Line visualization of the input data"
                         }
                     ],
-                    "path": "VISUALIZERS/PLOTLY/LINE/LINE.py",
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 1186.7302261216023,
-                    "y": -183.3288097960594
+                    "x": -551.1396783489733,
+                    "y": 400.2447586071685
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1186.7302261216023,
-                    "y": -183.3288097960594
+                    "x": -551.1396783489733,
+                    "y": 400.2447586071685
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 197,
                 "id": "TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2",
                     "label": "TIME AXIS",
                     "func": "TIME_AXIS_DS1074Z",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
                             "overload": null,
                             "functionName": "TIME_AXIS_DS1074Z",
                             "param": "connection",
@@ -344,8 +381,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -353,38 +390,38 @@
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "desc": "String: The triggering settings."
+                            "desc": "summary of the time axis settings."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/TIME_AXIS_DS1074Z/TIME_AXIS_DS1074Z.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/TIME_AXIS_DS1074Z/TIME_AXIS_DS1074Z.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 681.2430377624725,
-                    "y": -162.70605036769487
+                    "x": 630.9983293089483,
+                    "y": -171.36893113554385
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 681.2430377624725,
-                    "y": -162.70605036769487
+                    "x": 630.9983293089483,
+                    "y": -171.36893113554385
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552",
                     "label": "VERTICAL AXIS",
                     "func": "VERTICAL_AXIS_DS1074Z",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
                             "overload": null,
                             "functionName": "VERTICAL_AXIS_DS1074Z",
                             "param": "connection",
@@ -443,8 +480,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -452,38 +489,38 @@
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "desc": "String: The triggering settings."
+                            "desc": "Summary of the vertical axis settings."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/VERTICAL_AXIS_DS1074Z/VERTICAL_AXIS_DS1074Z.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/VERTICAL_AXIS_DS1074Z/VERTICAL_AXIS_DS1074Z.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 419.4983121301581,
-                    "y": -164.56738808036144
+                    "x": 275.6944913838647,
+                    "y": -171.4976926946407
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 419.4983121301581,
-                    "y": -164.56738808036144
+                    "x": 275.6944913838647,
+                    "y": -171.4976926946407
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "TIME_AXIS_DS1074Z-051d7526-3136-4bf0-a3cc-14dcc0f2e92f",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "TIME_AXIS_DS1074Z-051d7526-3136-4bf0-a3cc-14dcc0f2e92f",
                     "label": "TIME AXIS ZOOM",
                     "func": "TIME_AXIS_DS1074Z",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
                             "overload": null,
                             "functionName": "TIME_AXIS_DS1074Z",
                             "param": "connection",
@@ -527,8 +564,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -536,38 +573,38 @@
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "desc": "String: The triggering settings."
+                            "desc": "summary of the time axis settings."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/TIME_AXIS_DS1074Z/TIME_AXIS_DS1074Z.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/TIME_AXIS_DS1074Z/TIME_AXIS_DS1074Z.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 681.1759587934414,
-                    "y": 158.93327587351155
+                    "x": -180.3346242995102,
+                    "y": 722.2962089125742
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 681.1759587934414,
-                    "y": 158.93327587351155
+                    "x": -180.3346242995102,
+                    "y": 722.2962089125742
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 269,
                 "id": "EXTRACT_TRACE_DS1074Z-01c1d809-75ba-463b-b7f2-995c083b49dc",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "EXTRACT_TRACE_DS1074Z-01c1d809-75ba-463b-b7f2-995c083b49dc",
                     "label": "EXTRACT TRACE CH1 ZOOM",
                     "func": "EXTRACT_TRACE_DS1074Z",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
                             "overload": null,
                             "functionName": "EXTRACT_TRACE_DS1074Z",
                             "param": "connection",
@@ -595,8 +632,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -604,42 +641,79 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair",
-                            "desc": "OrderedPair: The trace of the oscilloscope is returned."
+                            "desc": "The trace of the oscilloscope."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/EXTRACT_TRACE_DS1074Z/EXTRACT_TRACE_DS1074Z.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/EXTRACT_TRACE_DS1074Z/EXTRACT_TRACE_DS1074Z.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 949.9500790674134,
-                    "y": 150.3439215923338
+                    "x": 226.67284673153335,
+                    "y": 722.9045830921059
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 949.9500790674134,
-                    "y": 150.3439215923338
+                    "x": 226.67284673153335,
+                    "y": 722.9045830921059
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "LINE-99251a58-3364-4653-809f-9926102db6cc",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "LINE-99251a58-3364-4653-809f-9926102db6cc",
                     "label": "LINE 1",
                     "func": "LINE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -650,35 +724,35 @@
                             "desc": "the DataContainer containing the Plotly Line visualization of the input data"
                         }
                     ],
-                    "path": "VISUALIZERS/PLOTLY/LINE/LINE.py",
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 1209.5249100018245,
-                    "y": 142.28118075787148
+                    "x": 671.283299962306,
+                    "y": 695.8516507470938
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1209.5249100018245,
-                    "y": 142.28118075787148
+                    "x": 671.283299962306,
+                    "y": 695.8516507470938
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "SIGNAL_FACTOR_DS1074Z-6c45c50f-05c5-491f-83d3-153464f21edc",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "SIGNAL_FACTOR_DS1074Z-6c45c50f-05c5-491f-83d3-153464f21edc",
                     "label": "SIGNAL FACTOR CH2",
                     "func": "SIGNAL_FACTOR_DS1074Z",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
                             "overload": null,
                             "functionName": "SIGNAL_FACTOR_DS1074Z",
                             "param": "connection",
@@ -691,7 +765,7 @@
                                 "set"
                             ],
                             "default": "query",
-                            "desc": "\"query\" or \"set\" the trigger settings.",
+                            "desc": "\"query\" or \"set\" the setting.",
                             "overload": null,
                             "functionName": "SIGNAL_FACTOR_DS1074Z",
                             "param": "query_set",
@@ -706,7 +780,7 @@
                                 "ch4"
                             ],
                             "default": "ch1",
-                            "desc": "Which channel to use as the trigger channel.",
+                            "desc": "Which channel to use.",
                             "overload": null,
                             "functionName": "SIGNAL_FACTOR_DS1074Z",
                             "param": "channel",
@@ -715,7 +789,7 @@
                         "probe_factor": {
                             "type": "float",
                             "default": 1,
-                            "desc": null,
+                            "desc": "Multiply the y axis by this factor.",
                             "overload": null,
                             "functionName": "SIGNAL_FACTOR_DS1074Z",
                             "param": "probe_factor",
@@ -728,8 +802,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -737,38 +811,38 @@
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "desc": "String: The triggering settings."
+                            "desc": "The probe factor settings."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/SIGNAL_FACTOR_DS1074Z/SIGNAL_FACTOR_DS1074Z.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/SIGNAL_FACTOR_DS1074Z/SIGNAL_FACTOR_DS1074Z.py",
                     "selected": false
                 },
                 "position": {
-                    "x": -163.86169266533938,
-                    "y": -58.60838038414761
+                    "x": -437.6087249293679,
+                    "y": -32.619738080600655
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -163.86169266533938,
-                    "y": -58.60838038414761
+                    "x": -437.6087249293679,
+                    "y": -32.619738080600655
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "SIGNAL_FACTOR_DS1074Z-185baa5b-f346-4338-9d2d-3aee15c08666",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "SIGNAL_FACTOR_DS1074Z-185baa5b-f346-4338-9d2d-3aee15c08666",
                     "label": "SIGNAL FACTOR CH1",
                     "func": "SIGNAL_FACTOR_DS1074Z",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
                             "overload": null,
                             "functionName": "SIGNAL_FACTOR_DS1074Z",
                             "param": "connection",
@@ -781,7 +855,7 @@
                                 "set"
                             ],
                             "default": "query",
-                            "desc": "\"query\" or \"set\" the trigger settings.",
+                            "desc": "\"query\" or \"set\" the setting.",
                             "overload": null,
                             "functionName": "SIGNAL_FACTOR_DS1074Z",
                             "param": "query_set",
@@ -796,7 +870,7 @@
                                 "ch4"
                             ],
                             "default": "ch1",
-                            "desc": "Which channel to use as the trigger channel.",
+                            "desc": "Which channel to use.",
                             "overload": null,
                             "functionName": "SIGNAL_FACTOR_DS1074Z",
                             "param": "channel",
@@ -805,7 +879,7 @@
                         "probe_factor": {
                             "type": "float",
                             "default": 1,
-                            "desc": null,
+                            "desc": "Multiply the y axis by this factor.",
                             "overload": null,
                             "functionName": "SIGNAL_FACTOR_DS1074Z",
                             "param": "probe_factor",
@@ -818,8 +892,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -827,38 +901,38 @@
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "desc": "String: The triggering settings."
+                            "desc": "The probe factor settings."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/SIGNAL_FACTOR_DS1074Z/SIGNAL_FACTOR_DS1074Z.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/SIGNAL_FACTOR_DS1074Z/SIGNAL_FACTOR_DS1074Z.py",
                     "selected": false
                 },
                 "position": {
-                    "x": -168.86410131510203,
-                    "y": -307.93722100480187
+                    "x": -437.4134051184211,
+                    "y": -294.07661177624345
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -168.86410131510203,
-                    "y": -307.93722100480187
+                    "x": -437.4134051184211,
+                    "y": -294.07661177624345
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 239,
+                "height": 233,
                 "id": "MEASUREMENT_DS1074Z-6730b353-acdd-4a33-a3ce-b44991262222",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "MEASUREMENT_DS1074Z-6730b353-acdd-4a33-a3ce-b44991262222",
                     "label": "MEASUREMENT FREQUENCY",
                     "func": "MEASUREMENT_DS1074Z",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
                             "overload": null,
                             "functionName": "MEASUREMENT_DS1074Z",
                             "param": "connection",
@@ -873,7 +947,7 @@
                                 "ch4"
                             ],
                             "default": "ch1",
-                            "desc": null,
+                            "desc": "The channel to measure.",
                             "overload": null,
                             "functionName": "MEASUREMENT_DS1074Z",
                             "param": "channel",
@@ -900,7 +974,7 @@
                                 "TVMIN"
                             ],
                             "default": "VMAX",
-                            "desc": null,
+                            "desc": "The measurement to extract.",
                             "overload": null,
                             "functionName": "MEASUREMENT_DS1074Z",
                             "param": "measurement",
@@ -916,7 +990,7 @@
                                 "DEV"
                             ],
                             "default": "CURR",
-                            "desc": null,
+                            "desc": "The statistic to use (e.g. CURR=instant measurement, AVER=average).",
                             "overload": null,
                             "functionName": "MEASUREMENT_DS1074Z",
                             "param": "stat",
@@ -929,8 +1003,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -938,38 +1012,38 @@
                             "name": "default",
                             "id": "default",
                             "type": "Scalar",
-                            "desc": "OrderedPair: The trace of the oscilloscope is returned."
+                            "desc": "The extracted measurement."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/MEASUREMENT_DS1074Z/MEASUREMENT_DS1074Z.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/MEASUREMENT_DS1074Z/MEASUREMENT_DS1074Z.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 1568.0300758121612,
-                    "y": -349.62042797431707
+                    "x": -46.42010713708669,
+                    "y": 440.83801425737806
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1568.0300758121612,
-                    "y": -349.62042797431707
+                    "x": -46.42010713708669,
+                    "y": 440.83801425737806
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 239,
+                "height": 269,
                 "id": "MEASUREMENT_DS1074Z-4d8bd567-fa73-4926-88c7-9420d03dcf35",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "MEASUREMENT_DS1074Z-4d8bd567-fa73-4926-88c7-9420d03dcf35",
                     "label": "MEASUREMENT MAX VOLTAGE CH2",
                     "func": "MEASUREMENT_DS1074Z",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
                             "overload": null,
                             "functionName": "MEASUREMENT_DS1074Z",
                             "param": "connection",
@@ -984,7 +1058,7 @@
                                 "ch4"
                             ],
                             "default": "ch1",
-                            "desc": null,
+                            "desc": "The channel to measure.",
                             "overload": null,
                             "functionName": "MEASUREMENT_DS1074Z",
                             "param": "channel",
@@ -1011,7 +1085,7 @@
                                 "TVMIN"
                             ],
                             "default": "VMAX",
-                            "desc": null,
+                            "desc": "The measurement to extract.",
                             "overload": null,
                             "functionName": "MEASUREMENT_DS1074Z",
                             "param": "measurement",
@@ -1027,7 +1101,7 @@
                                 "DEV"
                             ],
                             "default": "CURR",
-                            "desc": null,
+                            "desc": "The statistic to use (e.g. CURR=instant measurement, AVER=average).",
                             "overload": null,
                             "functionName": "MEASUREMENT_DS1074Z",
                             "param": "stat",
@@ -1040,8 +1114,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -1049,38 +1123,38 @@
                             "name": "default",
                             "id": "default",
                             "type": "Scalar",
-                            "desc": "OrderedPair: The trace of the oscilloscope is returned."
+                            "desc": "The extracted measurement."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/MEASUREMENT_DS1074Z/MEASUREMENT_DS1074Z.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/MEASUREMENT_DS1074Z/MEASUREMENT_DS1074Z.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 1646.832585998151,
-                    "y": 287.561122819746
+                    "x": 1208.067485962225,
+                    "y": 782.2384596980535
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1646.832585998151,
-                    "y": 287.561122819746
+                    "x": 1208.067485962225,
+                    "y": 782.2384596980535
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 239,
+                "height": 269,
                 "id": "MEASUREMENT_DS1074Z-46f16e1e-d11f-47f5-97aa-d436ae4a0dfb",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "MEASUREMENT_DS1074Z-46f16e1e-d11f-47f5-97aa-d436ae4a0dfb",
                     "label": "MEASUREMENT MAX VOLTAGE CH1",
                     "func": "MEASUREMENT_DS1074Z",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
                             "overload": null,
                             "functionName": "MEASUREMENT_DS1074Z",
                             "param": "connection",
@@ -1095,7 +1169,7 @@
                                 "ch4"
                             ],
                             "default": "ch1",
-                            "desc": null,
+                            "desc": "The channel to measure.",
                             "overload": null,
                             "functionName": "MEASUREMENT_DS1074Z",
                             "param": "channel",
@@ -1122,7 +1196,7 @@
                                 "TVMIN"
                             ],
                             "default": "VMAX",
-                            "desc": null,
+                            "desc": "The measurement to extract.",
                             "overload": null,
                             "functionName": "MEASUREMENT_DS1074Z",
                             "param": "measurement",
@@ -1138,7 +1212,7 @@
                                 "DEV"
                             ],
                             "default": "CURR",
-                            "desc": null,
+                            "desc": "The statistic to use (e.g. CURR=instant measurement, AVER=average).",
                             "overload": null,
                             "functionName": "MEASUREMENT_DS1074Z",
                             "param": "stat",
@@ -1151,8 +1225,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -1160,33 +1234,33 @@
                             "name": "default",
                             "id": "default",
                             "type": "Scalar",
-                            "desc": "OrderedPair: The trace of the oscilloscope is returned."
+                            "desc": "The extracted measurement."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/MEASUREMENT_DS1074Z/MEASUREMENT_DS1074Z.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/MEASUREMENT_DS1074Z/MEASUREMENT_DS1074Z.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 1658.9615679645647,
-                    "y": 34.57026505282113
+                    "x": 1168.6146402429636,
+                    "y": 479.14228424904627
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1658.9615679645647,
-                    "y": 34.57026505282113
+                    "x": 1168.6146402429636,
+                    "y": 479.14228424904627
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "BIG_NUMBER-8d9c1891-82c7-487a-b50d-6bf146a324c0",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "BIG_NUMBER-8d9c1891-82c7-487a-b50d-6bf146a324c0",
                     "label": "BIG NUMBER",
                     "func": "BIG_NUMBER",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {
                         "suffix": {
                             "type": "str",
@@ -1215,6 +1289,15 @@
                             "param": "title",
                             "value": ""
                         },
+                        "dec_places": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "dec_places",
+                            "value": 0
+                        },
                         "relative_delta": {
                             "type": "bool",
                             "default": true,
@@ -1227,7 +1310,7 @@
                         "scientific_notation": {
                             "type": "bool",
                             "default": false,
-                            "desc": null,
+                            "desc": "Use scientific notation? Defaults to 4 decimal places.",
                             "overload": null,
                             "functionName": "BIG_NUMBER",
                             "param": "scientific_notation",
@@ -1240,8 +1323,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -1252,30 +1335,30 @@
                             "desc": "the DataContainer containing the Plotly big number visualization"
                         }
                     ],
-                    "path": "VISUALIZERS/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
+                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 1903.4573202254608,
-                    "y": -409.27340562379544
+                    "x": 400.0768326619336,
+                    "y": 407.42664664741824
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1903.4573202254608,
-                    "y": -409.27340562379544
+                    "x": 400.0768326619336,
+                    "y": 407.42664664741824
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "BIG_NUMBER-0ff2ad0d-7b37-4d37-9d22-85437a146e8e",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "BIG_NUMBER-0ff2ad0d-7b37-4d37-9d22-85437a146e8e",
                     "label": "BIG NUMBER 1",
                     "func": "BIG_NUMBER",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {
                         "suffix": {
                             "type": "str",
@@ -1304,6 +1387,15 @@
                             "param": "title",
                             "value": ""
                         },
+                        "dec_places": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "dec_places",
+                            "value": 0
+                        },
                         "relative_delta": {
                             "type": "bool",
                             "default": true,
@@ -1316,7 +1408,7 @@
                         "scientific_notation": {
                             "type": "bool",
                             "default": false,
-                            "desc": null,
+                            "desc": "Use scientific notation? Defaults to 4 decimal places.",
                             "overload": null,
                             "functionName": "BIG_NUMBER",
                             "param": "scientific_notation",
@@ -1329,8 +1421,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -1341,30 +1433,30 @@
                             "desc": "the DataContainer containing the Plotly big number visualization"
                         }
                     ],
-                    "path": "VISUALIZERS/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
+                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 1958.3788256812559,
-                    "y": 254.5251164829956
+                    "x": 1587.437990245239,
+                    "y": 534.8038980258789
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1958.3788256812559,
-                    "y": 254.5251164829956
+                    "x": 1587.437990245239,
+                    "y": 534.8038980258789
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "BIG_NUMBER-2193dc0f-9e9f-435a-92ba-d25bab3f4258",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "BIG_NUMBER-2193dc0f-9e9f-435a-92ba-d25bab3f4258",
                     "label": "BIG NUMBER 2",
                     "func": "BIG_NUMBER",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {
                         "suffix": {
                             "type": "str",
@@ -1393,6 +1485,15 @@
                             "param": "title",
                             "value": ""
                         },
+                        "dec_places": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "dec_places",
+                            "value": 0
+                        },
                         "relative_delta": {
                             "type": "bool",
                             "default": true,
@@ -1405,7 +1506,7 @@
                         "scientific_notation": {
                             "type": "bool",
                             "default": false,
-                            "desc": null,
+                            "desc": "Use scientific notation? Defaults to 4 decimal places.",
                             "overload": null,
                             "functionName": "BIG_NUMBER",
                             "param": "scientific_notation",
@@ -1418,8 +1519,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -1430,35 +1531,35 @@
                             "desc": "the DataContainer containing the Plotly big number visualization"
                         }
                     ],
-                    "path": "VISUALIZERS/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
+                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 1958.4548142583037,
-                    "y": -33.23904081834979
+                    "x": 1532.5033434581214,
+                    "y": 51.89880074608891
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1958.4548142583037,
-                    "y": -33.23904081834979
+                    "x": 1532.5033434581214,
+                    "y": 51.89880074608891
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055eb",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055eb",
                     "label": "CHANNEL ON OFF",
                     "func": "CHANNEL_ON_OFF_DS1074Z",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_DS1074Z node).",
+                            "desc": "The VISA address (requires the CONNECTION_DS1074Z block).",
                             "overload": null,
                             "functionName": "CHANNEL_ON_OFF_DS1074Z",
                             "param": "connection",
@@ -1523,8 +1624,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -1532,52 +1633,31 @@
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "desc": "String: summary of channel settings."
+                            "desc": "Summary of channel settings."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/CHANNEL_ON_OFF_DS1074Z/CHANNEL_ON_OFF_DS1074Z.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/CHANNEL_ON_OFF_DS1074Z/CHANNEL_ON_OFF_DS1074Z.py",
                     "selected": false
                 },
                 "position": {
-                    "x": -451.63481901871245,
-                    "y": -184.81895128736548
+                    "x": -768.696255121986,
+                    "y": -176.15607051951645
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -451.63481901871245,
-                    "y": -184.81895128736548
+                    "x": -768.696255121986,
+                    "y": -176.15607051951645
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254",
+                "source": "LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535",
                 "sourceHandle": "default",
-                "target": "LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535",
+                "target": "TIME_AXIS_DS1074Z-051d7526-3136-4bf0-a3cc-14dcc0f2e92f",
                 "targetHandle": "default",
-                "id": "reactflow__edge-EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254default-LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535default"
-            },
-            {
-                "source": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4",
-                "sourceHandle": "default",
-                "target": "VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552",
-                "targetHandle": "default",
-                "id": "reactflow__edge-TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4default-VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552default"
-            },
-            {
-                "source": "VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552",
-                "sourceHandle": "default",
-                "target": "TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2",
-                "targetHandle": "default",
-                "id": "reactflow__edge-VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552default-TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2default"
-            },
-            {
-                "source": "TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2",
-                "sourceHandle": "default",
-                "target": "EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254",
-                "targetHandle": "default",
-                "id": "reactflow__edge-TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2default-EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254default"
+                "id": "reactflow__edge-LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535default-TIME_AXIS_DS1074Z-051d7526-3136-4bf0-a3cc-14dcc0f2e92fdefault"
             },
             {
                 "source": "TIME_AXIS_DS1074Z-051d7526-3136-4bf0-a3cc-14dcc0f2e92f",
@@ -1587,25 +1667,11 @@
                 "id": "reactflow__edge-TIME_AXIS_DS1074Z-051d7526-3136-4bf0-a3cc-14dcc0f2e92fdefault-EXTRACT_TRACE_DS1074Z-01c1d809-75ba-463b-b7f2-995c083b49dcdefault"
             },
             {
-                "source": "EXTRACT_TRACE_DS1074Z-01c1d809-75ba-463b-b7f2-995c083b49dc",
+                "source": "LINE-99251a58-3364-4653-809f-9926102db6cc",
                 "sourceHandle": "default",
-                "target": "LINE-99251a58-3364-4653-809f-9926102db6cc",
+                "target": "MEASUREMENT_DS1074Z-4d8bd567-fa73-4926-88c7-9420d03dcf35",
                 "targetHandle": "default",
-                "id": "reactflow__edge-EXTRACT_TRACE_DS1074Z-01c1d809-75ba-463b-b7f2-995c083b49dcdefault-LINE-99251a58-3364-4653-809f-9926102db6ccdefault"
-            },
-            {
-                "source": "SIGNAL_FACTOR_DS1074Z-6c45c50f-05c5-491f-83d3-153464f21edc",
-                "sourceHandle": "default",
-                "target": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4",
-                "targetHandle": "default",
-                "id": "reactflow__edge-SIGNAL_FACTOR_DS1074Z-6c45c50f-05c5-491f-83d3-153464f21edcdefault-TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4default"
-            },
-            {
-                "source": "SIGNAL_FACTOR_DS1074Z-185baa5b-f346-4338-9d2d-3aee15c08666",
-                "sourceHandle": "default",
-                "target": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4",
-                "targetHandle": "default",
-                "id": "reactflow__edge-SIGNAL_FACTOR_DS1074Z-185baa5b-f346-4338-9d2d-3aee15c08666default-TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4default"
+                "id": "reactflow__edge-LINE-99251a58-3364-4653-809f-9926102db6ccdefault-MEASUREMENT_DS1074Z-4d8bd567-fa73-4926-88c7-9420d03dcf35default"
             },
             {
                 "source": "LINE-99251a58-3364-4653-809f-9926102db6cc",
@@ -1615,48 +1681,6 @@
                 "id": "reactflow__edge-LINE-99251a58-3364-4653-809f-9926102db6ccdefault-MEASUREMENT_DS1074Z-46f16e1e-d11f-47f5-97aa-d436ae4a0dfbdefault"
             },
             {
-                "source": "LINE-99251a58-3364-4653-809f-9926102db6cc",
-                "sourceHandle": "default",
-                "target": "MEASUREMENT_DS1074Z-4d8bd567-fa73-4926-88c7-9420d03dcf35",
-                "targetHandle": "default",
-                "id": "reactflow__edge-LINE-99251a58-3364-4653-809f-9926102db6ccdefault-MEASUREMENT_DS1074Z-4d8bd567-fa73-4926-88c7-9420d03dcf35default"
-            },
-            {
-                "source": "MEASUREMENT_DS1074Z-46f16e1e-d11f-47f5-97aa-d436ae4a0dfb",
-                "sourceHandle": "default",
-                "target": "BIG_NUMBER-2193dc0f-9e9f-435a-92ba-d25bab3f4258",
-                "targetHandle": "default",
-                "id": "reactflow__edge-MEASUREMENT_DS1074Z-46f16e1e-d11f-47f5-97aa-d436ae4a0dfbdefault-BIG_NUMBER-2193dc0f-9e9f-435a-92ba-d25bab3f4258default"
-            },
-            {
-                "source": "MEASUREMENT_DS1074Z-4d8bd567-fa73-4926-88c7-9420d03dcf35",
-                "sourceHandle": "default",
-                "target": "BIG_NUMBER-0ff2ad0d-7b37-4d37-9d22-85437a146e8e",
-                "targetHandle": "default",
-                "id": "reactflow__edge-MEASUREMENT_DS1074Z-4d8bd567-fa73-4926-88c7-9420d03dcf35default-BIG_NUMBER-0ff2ad0d-7b37-4d37-9d22-85437a146e8edefault"
-            },
-            {
-                "source": "MEASUREMENT_DS1074Z-6730b353-acdd-4a33-a3ce-b44991262222",
-                "sourceHandle": "default",
-                "target": "BIG_NUMBER-8d9c1891-82c7-487a-b50d-6bf146a324c0",
-                "targetHandle": "default",
-                "id": "reactflow__edge-MEASUREMENT_DS1074Z-6730b353-acdd-4a33-a3ce-b44991262222default-BIG_NUMBER-8d9c1891-82c7-487a-b50d-6bf146a324c0default"
-            },
-            {
-                "source": "LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535",
-                "sourceHandle": "default",
-                "target": "MEASUREMENT_DS1074Z-6730b353-acdd-4a33-a3ce-b44991262222",
-                "targetHandle": "default",
-                "id": "reactflow__edge-LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535default-MEASUREMENT_DS1074Z-6730b353-acdd-4a33-a3ce-b44991262222default"
-            },
-            {
-                "source": "LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535",
-                "sourceHandle": "default",
-                "target": "TIME_AXIS_DS1074Z-051d7526-3136-4bf0-a3cc-14dcc0f2e92f",
-                "targetHandle": "default",
-                "id": "reactflow__edge-LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535default-TIME_AXIS_DS1074Z-051d7526-3136-4bf0-a3cc-14dcc0f2e92fdefault"
-            },
-            {
                 "source": "CONNECTION_DS1074Z-2915183b-c77b-4a8d-b762-2c39ae72ccbd",
                 "sourceHandle": "default",
                 "target": "CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055eb",
@@ -1664,25 +1688,139 @@
                 "id": "reactflow__edge-CONNECTION_DS1074Z-2915183b-c77b-4a8d-b762-2c39ae72ccbddefault-CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055ebdefault"
             },
             {
+                "id": "CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055eb->SIGNAL_FACTOR_DS1074Z-185baa5b-f346-4338-9d2d-3aee15c08666_4a38af1f-aba5-447e-8927-060ed577eb88",
                 "source": "CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055eb",
-                "sourceHandle": "default",
                 "target": "SIGNAL_FACTOR_DS1074Z-185baa5b-f346-4338-9d2d-3aee15c08666",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055ebdefault-SIGNAL_FACTOR_DS1074Z-185baa5b-f346-4338-9d2d-3aee15c08666default"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055eb->SIGNAL_FACTOR_DS1074Z-6c45c50f-05c5-491f-83d3-153464f21edc_1dc289b7-e9b4-4c4f-8ad8-5d5dae88a022",
                 "source": "CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055eb",
-                "sourceHandle": "default",
                 "target": "SIGNAL_FACTOR_DS1074Z-6c45c50f-05c5-491f-83d3-153464f21edc",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CHANNEL_ON_OFF_DS1074Z-a0da7771-cead-4617-a859-9d184df055ebdefault-SIGNAL_FACTOR_DS1074Z-6c45c50f-05c5-491f-83d3-153464f21edcdefault"
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "SIGNAL_FACTOR_DS1074Z-6c45c50f-05c5-491f-83d3-153464f21edc->TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4_4117218d-b8b2-4ece-81e5-7ee8020220a0",
+                "source": "SIGNAL_FACTOR_DS1074Z-6c45c50f-05c5-491f-83d3-153464f21edc",
+                "target": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "SIGNAL_FACTOR_DS1074Z-185baa5b-f346-4338-9d2d-3aee15c08666->TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4_1c59a3aa-8f97-4eaf-904d-9c3c476b3074",
+                "source": "SIGNAL_FACTOR_DS1074Z-185baa5b-f346-4338-9d2d-3aee15c08666",
+                "target": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4->VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552_86b48daa-f0ab-4c63-af2f-d79efbb1848f",
+                "source": "TRIGGER_DS1074Z-6ca1c259-597f-4a22-bc1c-2ebc803322a4",
+                "target": "VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552->TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2_d1a3d432-7af1-4f57-9b2f-b22843c7e0c6",
+                "source": "VERTICAL_AXIS_DS1074Z-3b2f47ed-58f2-4a4d-a8d4-cc8fc9983552",
+                "target": "TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2->EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254_a3adf84a-9982-4e8c-a70f-3d86d6e229c2",
+                "source": "TIME_AXIS_DS1074Z-dbd9837e-f4e0-40c6-bee4-e7a23c53b8f2",
+                "target": "EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254->LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535_9e96c536-6377-4b1e-9ea2-e9cbe13a476d",
+                "source": "EXTRACT_TRACE_DS1074Z-41dd3bcb-03eb-49f5-81ed-3bf9751f1254",
+                "target": "LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535->MEASUREMENT_DS1074Z-6730b353-acdd-4a33-a3ce-b44991262222_79b078cf-6052-4b9a-a35f-ea11de0d900b",
+                "source": "LINE-7eb7cd09-1583-4fb9-8b95-9d533f877535",
+                "target": "MEASUREMENT_DS1074Z-6730b353-acdd-4a33-a3ce-b44991262222",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Plotly"
+                }
+            },
+            {
+                "id": "MEASUREMENT_DS1074Z-6730b353-acdd-4a33-a3ce-b44991262222->BIG_NUMBER-8d9c1891-82c7-487a-b50d-6bf146a324c0_05acb078-ed8e-4a03-8b4b-f177946ea8db",
+                "source": "MEASUREMENT_DS1074Z-6730b353-acdd-4a33-a3ce-b44991262222",
+                "target": "BIG_NUMBER-8d9c1891-82c7-487a-b50d-6bf146a324c0",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Scalar"
+                }
+            },
+            {
+                "id": "EXTRACT_TRACE_DS1074Z-01c1d809-75ba-463b-b7f2-995c083b49dc->LINE-99251a58-3364-4653-809f-9926102db6cc_bd11681b-5d89-4633-89c6-36127b911069",
+                "source": "EXTRACT_TRACE_DS1074Z-01c1d809-75ba-463b-b7f2-995c083b49dc",
+                "target": "LINE-99251a58-3364-4653-809f-9926102db6cc",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "MEASUREMENT_DS1074Z-46f16e1e-d11f-47f5-97aa-d436ae4a0dfb->BIG_NUMBER-2193dc0f-9e9f-435a-92ba-d25bab3f4258_8985b699-9567-4e57-8b35-7ca6458b97a8",
+                "source": "MEASUREMENT_DS1074Z-46f16e1e-d11f-47f5-97aa-d436ae4a0dfb",
+                "target": "BIG_NUMBER-2193dc0f-9e9f-435a-92ba-d25bab3f4258",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Scalar"
+                }
+            },
+            {
+                "id": "MEASUREMENT_DS1074Z-4d8bd567-fa73-4926-88c7-9420d03dcf35->BIG_NUMBER-0ff2ad0d-7b37-4d37-9d22-85437a146e8e_dc57b295-6fdf-4a03-ba42-faac72f3a06d",
+                "source": "MEASUREMENT_DS1074Z-4d8bd567-fa73-4926-88c7-9420d03dcf35",
+                "target": "BIG_NUMBER-0ff2ad0d-7b37-4d37-9d22-85437a146e8e",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Scalar"
+                }
             }
-        ],
-        "viewport": {
-            "x": 1139.470292881633,
-            "y": 572.2854272048312,
-            "zoom": 1.2136444284334926
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

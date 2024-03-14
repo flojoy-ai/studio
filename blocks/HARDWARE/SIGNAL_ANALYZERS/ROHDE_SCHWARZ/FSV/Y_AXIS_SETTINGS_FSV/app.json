@@ -5,12 +5,12 @@
                 "width": 380,
                 "height": 293,
                 "id": "LINE-437e1ca3-fdc5-43c7-89a4-95766a021c45",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "LINE-437e1ca3-fdc5-43c7-89a4-95766a021c45",
                     "label": "LINE",
                     "func": "LINE",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [

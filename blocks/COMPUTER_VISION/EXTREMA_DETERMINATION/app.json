@@ -5,12 +5,12 @@
                 "width": 150,
                 "height": 174,
                 "id": "EXTREMA_DETERMINATION-601e08c6-42d6-4b85-aa87-5e8ea4d4abb5",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "EXTREMA_DETERMINATION-601e08c6-42d6-4b85-aa87-5e8ea4d4abb5",
                     "label": "LoG PEAK FINDER",
                     "func": "EXTREMA_DETERMINATION",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {
                         "center": {
                             "type": "list[int]",
@@ -136,12 +136,12 @@
                 "width": 150,
                 "height": 174,
                 "id": "EXTREMA_DETERMINATION-044a2e60-2992-456e-807d-27a973df9925",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "EXTREMA_DETERMINATION-044a2e60-2992-456e-807d-27a973df9925",
                     "label": "LDR PEAK FINDER",
                     "func": "EXTREMA_DETERMINATION",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {
                         "center": {
                             "type": "list[int]",
@@ -267,12 +267,12 @@
                 "width": 150,
                 "height": 156,
                 "id": "REGION_PROPERTIES-5d3e79fd-90cb-49a9-8cad-30468d046ec8",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "REGION_PROPERTIES-5d3e79fd-90cb-49a9-8cad-30468d046ec8",
                     "label": "REGION PROPERTIES 1",
                     "func": "REGION_PROPERTIES",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -316,12 +316,12 @@
                 "width": 150,
                 "height": 156,
                 "id": "REGION_PROPERTIES-373847d3-c96e-4c79-a80e-8d6d1f551945",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "REGION_PROPERTIES-373847d3-c96e-4c79-a80e-8d6d1f551945",
                     "label": "REGION PROPERTIES 2",
                     "func": "REGION_PROPERTIES",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -365,12 +365,12 @@
                 "width": 150,
                 "height": 156,
                 "id": "REGION_PROPERTIES-bd45eb65-94ef-4d5b-a822-ca6653fe7988",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "REGION_PROPERTIES-bd45eb65-94ef-4d5b-a822-ca6653fe7988",
                     "label": "REGION PROPERTIES 3",
                     "func": "REGION_PROPERTIES",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -414,12 +414,12 @@
                 "width": 150,
                 "height": 174,
                 "id": "EXTREMA_DETERMINATION-31c62e4e-d139-421c-aa63-7029a27dd453",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "EXTREMA_DETERMINATION-31c62e4e-d139-421c-aa63-7029a27dd453",
                     "label": "HDR PEAK FINDER",
                     "func": "EXTREMA_DETERMINATION",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {
                         "center": {
                             "type": "list[int]",

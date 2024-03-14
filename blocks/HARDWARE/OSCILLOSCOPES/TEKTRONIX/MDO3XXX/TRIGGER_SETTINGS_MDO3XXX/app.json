@@ -2,28 +2,46 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 384,
-                "height": 288,
+                "width": 225,
+                "height": 225,
                 "id": "TEXT_VIEW-c807e381-2130-4944-b8b7-f46f4b0a8d40",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "TEXT_VIEW-c807e381-2130-4944-b8b7-f46f4b0a8d40",
                     "label": "TEXT VIEW",
                     "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false,
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ]
                 },
                 "position": {
                     "x": 964.1822969308419,
@@ -37,15 +55,15 @@
                 "dragging": true
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 150,
+                "height": 120,
                 "id": "CONNECTION_MDO3XXX-2a8773e7-2c57-4f02-b3a6-f48bd1c6413c",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "CONNECTION_MDO3XXX-2a8773e7-2c57-4f02-b3a6-f48bd1c6413c",
                     "label": "CONNECTION MDO3XXX",
                     "func": "CONNECTION_MDO3XXX",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "device": {
                             "type": "VisaDevice",
@@ -72,8 +90,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -84,35 +102,35 @@
                             "desc": "Optional: None"
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/BASIC/CONNECTION_MDO3XXX/CONNECTION_MDO3XXX.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/CONNECTION_MDO3XXX/CONNECTION_MDO3XXX.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 261.6429352205555,
-                    "y": -47.202790829975726
+                    "x": 137.97102032585065,
+                    "y": -25.946680457448394
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 261.6429352205555,
-                    "y": -47.202790829975726
+                    "x": 137.97102032585065,
+                    "y": -25.946680457448394
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 150,
+                "height": 156,
                 "id": "TRIGGER_SETTINGS_MDO3XXX-7a1c35c4-18cb-4609-9b40-f2a1a429ef7a",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "TRIGGER_SETTINGS_MDO3XXX-7a1c35c4-18cb-4609-9b40-f2a1a429ef7a",
                     "label": "TRIGGER SETTINGS MDO3XXX",
                     "func": "TRIGGER_SETTINGS_MDO3XXX",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_MDO3XXX node).",
+                            "desc": "The VISA address (requires the CONNECTION_MDO3XXX block).",
                             "overload": null,
                             "functionName": "TRIGGER_SETTINGS_MDO3XXX",
                             "param": "connection",
@@ -185,8 +203,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -197,7 +215,7 @@
                             "desc": "String: Summary of trigger settings."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/ADVANCED/TRIGGER_SETTINGS_MDO3XXX/TRIGGER_SETTINGS_MDO3XXX.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/TRIGGER_SETTINGS_MDO3XXX/TRIGGER_SETTINGS_MDO3XXX.py",
                     "selected": false
                 },
                 "position": {
@@ -214,24 +232,29 @@
         ],
         "edges": [
             {
-                "source": "CONNECTION_MDO3XXX-2a8773e7-2c57-4f02-b3a6-f48bd1c6413c",
+                "id": "TRIGGER_SETTINGS_MDO3XXX-7a1c35c4-18cb-4609-9b40-f2a1a429ef7a->TEXT_VIEW-c807e381-2130-4944-b8b7-f46f4b0a8d40_4d0848cf-a871-4ad6-8282-f9a471c9f1e0",
+                "source": "TRIGGER_SETTINGS_MDO3XXX-7a1c35c4-18cb-4609-9b40-f2a1a429ef7a",
+                "target": "TEXT_VIEW-c807e381-2130-4944-b8b7-f46f4b0a8d40",
                 "sourceHandle": "default",
-                "target": "TRIGGER_SETTINGS_MDO3XXX-7a1c35c4-18cb-4609-9b40-f2a1a429ef7a",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CONNECTION_MDO3XXX-2a8773e7-2c57-4f02-b3a6-f48bd1c6413cdefault-TRIGGER_SETTINGS_MDO3XXX-7a1c35c4-18cb-4609-9b40-f2a1a429ef7adefault"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "TRIGGER_SETTINGS_MDO3XXX-7a1c35c4-18cb-4609-9b40-f2a1a429ef7a",
+                "id": "CONNECTION_MDO3XXX-2a8773e7-2c57-4f02-b3a6-f48bd1c6413c->TRIGGER_SETTINGS_MDO3XXX-7a1c35c4-18cb-4609-9b40-f2a1a429ef7a_9f6d4ae5-290a-4c80-af38-61d663b6d853",
+                "source": "CONNECTION_MDO3XXX-2a8773e7-2c57-4f02-b3a6-f48bd1c6413c",
+                "target": "TRIGGER_SETTINGS_MDO3XXX-7a1c35c4-18cb-4609-9b40-f2a1a429ef7a",
                 "sourceHandle": "default",
-                "target": "TEXT_VIEW-c807e381-2130-4944-b8b7-f46f4b0a8d40",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TRIGGER_SETTINGS_MDO3XXX-7a1c35c4-18cb-4609-9b40-f2a1a429ef7adefault-TEXT_VIEW-c807e381-2130-4944-b8b7-f46f4b0a8d40default"
+                "data": {
+                    "outputType": "Any"
+                }
             }
-        ],
-        "viewport": {
-            "x": 1104.261946392206,
-            "y": 573.1338859553202,
-            "zoom": 1.2154437530123414
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

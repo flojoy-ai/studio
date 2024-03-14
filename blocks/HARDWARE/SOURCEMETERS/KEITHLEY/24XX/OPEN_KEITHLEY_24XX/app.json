@@ -194,12 +194,12 @@
                 "width": 225,
                 "height": 226,
                 "id": "SCATTER-fee34277-0702-4342-af77-37c9d68701c6",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "SCATTER-fee34277-0702-4342-af77-37c9d68701c6",
                     "label": "SCATTER",
                     "func": "SCATTER",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [

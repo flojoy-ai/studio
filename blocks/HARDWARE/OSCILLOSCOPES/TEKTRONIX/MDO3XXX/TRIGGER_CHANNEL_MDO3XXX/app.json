@@ -2,15 +2,15 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
+                "width": 218,
+                "height": 233,
                 "id": "CONNECTION_MDO3XXX-aa9a5c99-20e6-444c-a550-ac552f791a56",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "CONNECTION_MDO3XXX-aa9a5c99-20e6-444c-a550-ac552f791a56",
                     "label": "CONNECTION MDO3XXX",
                     "func": "CONNECTION_MDO3XXX",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "device": {
                             "type": "VisaDevice",
@@ -37,8 +37,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -49,35 +49,35 @@
                             "desc": "Optional: None"
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/BASIC/CONNECTION_MDO3XXX/CONNECTION_MDO3XXX.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/CONNECTION_MDO3XXX/CONNECTION_MDO3XXX.py",
                     "selected": false
                 },
                 "position": {
-                    "x": -938.6144043410202,
-                    "y": 470.49780714269536
+                    "x": -1540.6144043410202,
+                    "y": 476.49780714269536
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -938.6144043410202,
-                    "y": 470.49780714269536
+                    "x": -1540.6144043410202,
+                    "y": 476.49780714269536
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 269,
                 "id": "TRIGGER_CHANNEL_MDO3XXX-cf419afe-2271-4831-9d0a-b4e8e00c18a2",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "TRIGGER_CHANNEL_MDO3XXX-cf419afe-2271-4831-9d0a-b4e8e00c18a2",
                     "label": "TRIGGER CHANNEL MDO3XXX",
                     "func": "TRIGGER_CHANNEL_MDO3XXX",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_MDO3XXX node).",
+                            "desc": "The VISA address (requires the CONNECTION_MDO3XXX block).",
                             "overload": null,
                             "functionName": "TRIGGER_CHANNEL_MDO3XXX",
                             "param": "connection",
@@ -112,8 +112,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -124,35 +124,35 @@
                             "desc": "String: The triggering channel (e.g. CH1)."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/BASIC/TRIGGER_CHANNEL_MDO3XXX/TRIGGER_CHANNEL_MDO3XXX.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/TRIGGER_CHANNEL_MDO3XXX/TRIGGER_CHANNEL_MDO3XXX.py",
                     "selected": false
                 },
                 "position": {
-                    "x": -570.9525773294033,
-                    "y": 466.494436792541
+                    "x": -1102.9525773294033,
+                    "y": 480.494436792541
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -570.9525773294033,
-                    "y": 466.494436792541
+                    "x": -1102.9525773294033,
+                    "y": 480.494436792541
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 269,
                 "id": "TRIGGER_LEVEL_MDO3XXX-181c17a3-c48d-47ac-b87e-2d4b12988577",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "TRIGGER_LEVEL_MDO3XXX-181c17a3-c48d-47ac-b87e-2d4b12988577",
                     "label": "TRIGGER LEVEL MDO3XXX",
                     "func": "TRIGGER_LEVEL_MDO3XXX",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_MDO3XXX node).",
+                            "desc": "The VISA address (requires the CONNECTION_MDO3XXX block).",
                             "overload": null,
                             "functionName": "TRIGGER_LEVEL_MDO3XXX",
                             "param": "connection",
@@ -187,8 +187,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -199,35 +199,35 @@
                             "desc": "Scalar: The triggering voltage."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/BASIC/TRIGGER_LEVEL_MDO3XXX/TRIGGER_LEVEL_MDO3XXX.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/TRIGGER_LEVEL_MDO3XXX/TRIGGER_LEVEL_MDO3XXX.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 149.8114874246843,
-                    "y": 479.5869710079853
+                    "x": 51.81148742468429,
+                    "y": 483.5869710079853
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 149.8114874246843,
-                    "y": 479.5869710079853
+                    "x": 51.81148742468429,
+                    "y": 483.5869710079853
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 239,
+                "height": 233,
                 "id": "TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679",
                     "label": "TERMINATION MDO3XXX",
                     "func": "TERMINATION_MDO3XXX",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_MDO3XXX node).",
+                            "desc": "The VISA address (requires the CONNECTION_MDO3XXX block).",
                             "overload": null,
                             "functionName": "TERMINATION_MDO3XXX",
                             "param": "connection",
@@ -276,8 +276,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -288,65 +288,88 @@
                             "desc": "Scalar: The termination value for the chosen channel."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/BASIC/TERMINATION_MDO3XXX/TERMINATION_MDO3XXX.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/TERMINATION_MDO3XXX/TERMINATION_MDO3XXX.py",
                     "selected": false
                 },
                 "position": {
-                    "x": -208.52964407405477,
+                    "x": -454.5296440740548,
                     "y": 477.0224555404336
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -208.52964407405477,
+                    "x": -454.5296440740548,
                     "y": 477.0224555404336
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 384,
-                "height": 288,
+                "width": 225,
+                "height": 225,
                 "id": "TEXT_VIEW-fc0fcff6-9d54-458c-99ed-119ebefa9df7",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "TEXT_VIEW-fc0fcff6-9d54-458c-99ed-119ebefa9df7",
                     "label": "TEXT VIEW",
                     "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false,
+                    "outputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
+                            "desc": "The DataContainer containing text data"
                         }
-                    ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
+                    ]
                 },
                 "position": {
-                    "x": -236.5887560458949,
-                    "y": 214.9500448205381
+                    "x": -462.5887560458949,
+                    "y": 120.9500448205381
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -236.5887560458949,
-                    "y": 214.9500448205381
+                    "x": -462.5887560458949,
+                    "y": 120.9500448205381
                 },
-                "dragging": true
+                "dragging": false,
+                "style": {
+                    "width": 225,
+                    "height": 225
+                },
+                "resizing": false
             },
             {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "BIG_NUMBER-55e20b98-1835-4d2d-b780-bc59b89a8457",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "BIG_NUMBER-55e20b98-1835-4d2d-b780-bc59b89a8457",
                     "label": "BIG NUMBER",
                     "func": "BIG_NUMBER",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {
                         "suffix": {
                             "type": "str",
@@ -375,6 +398,15 @@
                             "param": "title",
                             "value": ""
                         },
+                        "dec_places": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "dec_places",
+                            "value": 0
+                        },
                         "relative_delta": {
                             "type": "bool",
                             "default": true,
@@ -387,7 +419,7 @@
                         "scientific_notation": {
                             "type": "bool",
                             "default": false,
-                            "desc": null,
+                            "desc": "Use scientific notation? Defaults to 4 decimal places.",
                             "overload": null,
                             "functionName": "BIG_NUMBER",
                             "param": "scientific_notation",
@@ -400,8 +432,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -412,30 +444,35 @@
                             "desc": "the DataContainer containing the Plotly big number visualization"
                         }
                     ],
-                    "path": "VISUALIZERS/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
+                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 123.40424633518722,
-                    "y": 702.8387346964474
+                    "x": 107.40424633518722,
+                    "y": 842.8387346964474
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 123.40424633518722,
-                    "y": 702.8387346964474
+                    "x": 107.40424633518722,
+                    "y": 842.8387346964474
                 },
-                "dragging": true
+                "dragging": false,
+                "style": {
+                    "width": 225,
+                    "height": 225
+                },
+                "resizing": false
             },
             {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "BIG_NUMBER-5cf6b81c-ad59-4e32-a87a-696f5e318249",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "BIG_NUMBER-5cf6b81c-ad59-4e32-a87a-696f5e318249",
                     "label": "BIG NUMBER 1",
                     "func": "BIG_NUMBER",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {
                         "suffix": {
                             "type": "str",
@@ -464,6 +501,15 @@
                             "param": "title",
                             "value": ""
                         },
+                        "dec_places": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "dec_places",
+                            "value": 0
+                        },
                         "relative_delta": {
                             "type": "bool",
                             "default": true,
@@ -476,7 +522,7 @@
                         "scientific_notation": {
                             "type": "bool",
                             "default": false,
-                            "desc": null,
+                            "desc": "Use scientific notation? Defaults to 4 decimal places.",
                             "overload": null,
                             "functionName": "BIG_NUMBER",
                             "param": "scientific_notation",
@@ -489,8 +535,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -501,19 +547,24 @@
                             "desc": "the DataContainer containing the Plotly big number visualization"
                         }
                     ],
-                    "path": "VISUALIZERS/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
+                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 484.61744162067066,
-                    "y": 463.62850205243456
+                    "x": 504.61744162067066,
+                    "y": 447.62850205243456
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 484.61744162067066,
-                    "y": 463.62850205243456
+                    "x": 504.61744162067066,
+                    "y": 447.62850205243456
                 },
-                "dragging": true
+                "dragging": false,
+                "style": {
+                    "width": 225,
+                    "height": 225
+                },
+                "resizing": false
             }
         ],
         "edges": [
@@ -525,45 +576,59 @@
                 "id": "reactflow__edge-CONNECTION_MDO3XXX-aa9a5c99-20e6-444c-a550-ac552f791a56default-TRIGGER_CHANNEL_MDO3XXX-cf419afe-2271-4831-9d0a-b4e8e00c18a2default"
             },
             {
+                "id": "TRIGGER_CHANNEL_MDO3XXX-cf419afe-2271-4831-9d0a-b4e8e00c18a2->TEXT_VIEW-fc0fcff6-9d54-458c-99ed-119ebefa9df7_cc85f6c1-084f-402e-892d-7650a35a446e",
                 "source": "TRIGGER_CHANNEL_MDO3XXX-cf419afe-2271-4831-9d0a-b4e8e00c18a2",
-                "sourceHandle": "default",
-                "target": "TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679",
-                "targetHandle": "default",
-                "id": "reactflow__edge-TRIGGER_CHANNEL_MDO3XXX-cf419afe-2271-4831-9d0a-b4e8e00c18a2default-TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679default"
-            },
-            {
-                "source": "TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679",
-                "sourceHandle": "default",
-                "target": "TRIGGER_LEVEL_MDO3XXX-181c17a3-c48d-47ac-b87e-2d4b12988577",
-                "targetHandle": "default",
-                "id": "reactflow__edge-TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679default-TRIGGER_LEVEL_MDO3XXX-181c17a3-c48d-47ac-b87e-2d4b12988577default"
-            },
-            {
-                "source": "TRIGGER_LEVEL_MDO3XXX-181c17a3-c48d-47ac-b87e-2d4b12988577",
-                "sourceHandle": "default",
-                "target": "BIG_NUMBER-5cf6b81c-ad59-4e32-a87a-696f5e318249",
-                "targetHandle": "default",
-                "id": "reactflow__edge-TRIGGER_LEVEL_MDO3XXX-181c17a3-c48d-47ac-b87e-2d4b12988577default-BIG_NUMBER-5cf6b81c-ad59-4e32-a87a-696f5e318249default"
-            },
-            {
-                "source": "TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679",
-                "sourceHandle": "default",
-                "target": "BIG_NUMBER-55e20b98-1835-4d2d-b780-bc59b89a8457",
-                "targetHandle": "default",
-                "id": "reactflow__edge-TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679default-BIG_NUMBER-55e20b98-1835-4d2d-b780-bc59b89a8457default"
-            },
-            {
-                "source": "TRIGGER_CHANNEL_MDO3XXX-cf419afe-2271-4831-9d0a-b4e8e00c18a2",
-                "sourceHandle": "default",
                 "target": "TEXT_VIEW-fc0fcff6-9d54-458c-99ed-119ebefa9df7",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TRIGGER_CHANNEL_MDO3XXX-cf419afe-2271-4831-9d0a-b4e8e00c18a2default-TEXT_VIEW-fc0fcff6-9d54-458c-99ed-119ebefa9df7default"
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "TRIGGER_CHANNEL_MDO3XXX-cf419afe-2271-4831-9d0a-b4e8e00c18a2->TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679_ea297370-4db2-4d36-8ed0-542488e6703d",
+                "source": "TRIGGER_CHANNEL_MDO3XXX-cf419afe-2271-4831-9d0a-b4e8e00c18a2",
+                "target": "TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679->TRIGGER_LEVEL_MDO3XXX-181c17a3-c48d-47ac-b87e-2d4b12988577_69485317-0a23-4589-8690-da638532667f",
+                "source": "TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679",
+                "target": "TRIGGER_LEVEL_MDO3XXX-181c17a3-c48d-47ac-b87e-2d4b12988577",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Scalar"
+                }
+            },
+            {
+                "id": "TRIGGER_LEVEL_MDO3XXX-181c17a3-c48d-47ac-b87e-2d4b12988577->BIG_NUMBER-5cf6b81c-ad59-4e32-a87a-696f5e318249_f3f3117e-ce67-4909-94cc-99138f3199d9",
+                "source": "TRIGGER_LEVEL_MDO3XXX-181c17a3-c48d-47ac-b87e-2d4b12988577",
+                "target": "BIG_NUMBER-5cf6b81c-ad59-4e32-a87a-696f5e318249",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Scalar"
+                }
+            },
+            {
+                "id": "TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679->BIG_NUMBER-55e20b98-1835-4d2d-b780-bc59b89a8457_f4b9f64c-f71f-4b55-8d40-0b235bfd772b",
+                "source": "TERMINATION_MDO3XXX-8b73c21d-c6a0-47eb-8f86-55b330c7e679",
+                "target": "BIG_NUMBER-55e20b98-1835-4d2d-b780-bc59b89a8457",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Scalar"
+                }
             }
-        ],
-        "viewport": {
-            "x": 855.945537953298,
-            "y": 287.6844024349923,
-            "zoom": 2
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

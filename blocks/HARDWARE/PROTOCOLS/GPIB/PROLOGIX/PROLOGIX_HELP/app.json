@@ -123,12 +123,12 @@
                 "width": 384,
                 "height": 288,
                 "id": "TEXT_VIEW-8260cd6b-0c5d-4e6a-b9f3-a5aca4c53567",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "TEXT_VIEW-8260cd6b-0c5d-4e6a-b9f3-a5aca4c53567",
                     "label": "TEXT VIEW",
                     "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {
                         "prettify": {
                             "type": "bool",
@@ -235,12 +235,12 @@
                 "width": 384,
                 "height": 288,
                 "id": "TEXT_VIEW-e28cbcd7-ed1f-42bb-816a-e95fc6fc8c37",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "TEXT_VIEW-e28cbcd7-ed1f-42bb-816a-e95fc6fc8c37",
                     "label": "TEXT VIEW 1",
                     "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {
                         "prettify": {
                             "type": "bool",

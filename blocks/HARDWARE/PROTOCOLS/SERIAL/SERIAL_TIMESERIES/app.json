@@ -80,12 +80,12 @@
                 "width": 225,
                 "height": 226,
                 "id": "TABLE-e0ba3b06-fcc8-40a5-bb12-14370fe009e9",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "TABLE-e0ba3b06-fcc8-40a5-bb12-14370fe009e9",
                     "label": "TABLE",
                     "func": "TABLE",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "inputs": [
                         {

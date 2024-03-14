@@ -2,50 +2,58 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 150,
-                "height": 150,
-                "id": "STEPPER_DRIVER_TIC_KNOB-3b234e79-4648-4661-a8e8-3e14b3d0e72b",
-                "type": "INSTRUMENTS",
+                "id": "TIC_KNOB-06b10a6d-302f-4c4b-914a-acbf8111d6e6",
+                "type": "MOTORS",
                 "data": {
-                    "id": "STEPPER_DRIVER_TIC_KNOB-3b234e79-4648-4661-a8e8-3e14b3d0e72b",
-                    "label": "STEPPER DRIVER TIC KNOB",
-                    "func": "STEPPER_DRIVER_TIC_KNOB",
-                    "type": "INSTRUMENTS",
+                    "id": "TIC_KNOB-06b10a6d-302f-4c4b-914a-acbf8111d6e6",
+                    "label": "TIC KNOB",
+                    "func": "TIC_KNOB",
+                    "type": "MOTORS",
                     "ctrls": {
                         "knob_value": {
                             "type": "int",
                             "default": 0,
-                            "functionName": "STEPPER_DRIVER_TIC_KNOB",
+                            "desc": "Defines the position of the motor (rotational movement).",
+                            "overload": null,
+                            "functionName": "TIC_KNOB",
                             "param": "knob_value",
                             "value": 0
                         },
                         "current_limit": {
                             "type": "int",
                             "default": 30,
-                            "functionName": "STEPPER_DRIVER_TIC_KNOB",
+                            "desc": "Defines the current limitation that the stepper motor will receive.",
+                            "overload": null,
+                            "functionName": "TIC_KNOB",
                             "param": "current_limit",
                             "value": 30
                         },
                         "sleep_time": {
                             "type": "int",
                             "default": 2,
-                            "functionName": "STEPPER_DRIVER_TIC_KNOB",
+                            "desc": "Defines the sleep time after moving to each position.",
+                            "overload": null,
+                            "functionName": "TIC_KNOB",
                             "param": "sleep_time",
                             "value": 2
                         },
                         "speed": {
                             "type": "int",
                             "default": 200000,
-                            "functionName": "STEPPER_DRIVER_TIC_KNOB",
+                            "desc": "Defines the speed of the motor movement (between 0 and 200000).",
+                            "overload": null,
+                            "functionName": "TIC_KNOB",
                             "param": "speed",
                             "value": 200000
                         }
                     },
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair",
+                            "desc": "The default value of the node, by default None",
                             "multiple": false
                         }
                     ],
@@ -53,7 +61,8 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "OrderedPair"
+                            "type": "OrderedPair",
+                            "desc": null
                         }
                     ],
                     "pip_dependencies": [
@@ -62,45 +71,26 @@
                             "v": "0.2.2"
                         }
                     ],
-                    "path": "PYTHON/nodes/INSTRUMENTS/STEPPER_MOTOR/STEPPER_DRIVER_TIC_KNOB/STEPPER_DRIVER_TIC_KNOB.py",
-                    "selected": false
+                    "path": "HARDWARE/MOTORS/STEPPER/POLULU/TIC_KNOB/TIC_KNOB.py"
                 },
                 "position": {
-                    "x": 934.1949826356821,
-                    "y": -1.452956731347598
+                    "x": 887.5502976420885,
+                    "y": 7.809322733360943
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 934.1949826356821,
-                    "y": -1.452956731347598
+                    "x": 887.5502976420885,
+                    "y": 7.809322733360943
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
-        "edges": [],
-        "viewport": {
-            "x": -358.59636577932724,
-            "y": 99.85117439980638,
-            "zoom": 1.0581352782820395
-        }
+        "edges": []
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }
