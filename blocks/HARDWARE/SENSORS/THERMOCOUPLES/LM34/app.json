@@ -2,24 +2,50 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 150,
-                "height": 180,
-                "id": "LM34-a4fabeea-988a-4de9-9c47-218f4575717e",
-                "type": "IO",
+                "id": "LM34-db9cd234-8ec2-4870-bd8f-cab68eeb6c07",
+                "type": "HARDWARE",
                 "data": {
-                    "id": "LM34-a4fabeea-988a-4de9-9c47-218f4575717e",
+                    "id": "LM34-db9cd234-8ec2-4870-bd8f-cab68eeb6c07",
                     "label": "LM34",
                     "func": "LM34",
-                    "type": "IO",
-                    "ctrls": {},
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "calibration1": {
+                            "type": "float",
+                            "default": 100,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LM34",
+                            "param": "calibration1",
+                            "value": 100
+                        },
+                        "calibration2": {
+                            "type": "float",
+                            "default": 32,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LM34",
+                            "param": "calibration2",
+                            "value": 32
+                        },
+                        "calibration3": {
+                            "type": "float",
+                            "default": 1.8,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LM34",
+                            "param": "calibration3",
+                            "value": 1.8
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "type": "OrderedPair",
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -27,29 +53,29 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair",
-                            "desc": null
+                            "desc": "The output of the node is a list of temperatures measured from the sensors."
                         }
                     ],
-                    "path": "PYTHON/nodes/IO/ANALOG_SENSORS/THERMOCOUPLES/LM34/LM34.py",
-                    "selected": true
+                    "path": "HARDWARE/SENSORS/THERMOCOUPLES/LM34/LM34.py"
                 },
                 "position": {
-                    "x": -140.33430403903543,
-                    "y": -274.5727434927463
+                    "x": 403.9379547703177,
+                    "y": -111.50552585388823
                 },
+                "width": 216,
+                "height": 197,
                 "selected": true,
                 "positionAbsolute": {
-                    "x": -140.33430403903543,
-                    "y": -274.5727434927463
+                    "x": 403.9379547703177,
+                    "y": -111.50552585388823
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
-        "edges": [],
-        "viewport": {
-            "x": 819.7643144890276,
-            "y": 420.4113108673,
-            "zoom": 0.8915653288195635
-        }
-    }
+        "edges": []
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }
