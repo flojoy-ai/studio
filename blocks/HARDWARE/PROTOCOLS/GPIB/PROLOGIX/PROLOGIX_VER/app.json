@@ -2,15 +2,15 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 197,
                 "id": "OPEN_SERIAL-0379a423-93ea-47e9-83e4-13d5b7e33231",
-                "type": "IO",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "OPEN_SERIAL-0379a423-93ea-47e9-83e4-13d5b7e33231",
                     "label": "OPEN SERIAL",
                     "func": "OPEN_SERIAL",
-                    "type": "IO",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "device": {
                             "type": "SerialDevice",
@@ -29,6 +29,15 @@
                             "functionName": "OPEN_SERIAL",
                             "param": "baudrate",
                             "value": 9600
+                        },
+                        "connection_time": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "connection_time",
+                            "value": 0
                         }
                     },
                     "initCtrls": {},
@@ -46,30 +55,30 @@
                             "v": "3.5"
                         }
                     ],
-                    "path": "IO/PROTOCOLS/SERIAL/BASIC/OPEN_SERIAL/OPEN_SERIAL.py",
+                    "path": "HARDWARE/PROTOCOLS/SERIAL/OPEN_SERIAL/OPEN_SERIAL.py",
                     "selected": false
                 },
                 "position": {
-                    "x": -409.7072613691855,
-                    "y": -119.46721173101321
+                    "x": -469.7072613691855,
+                    "y": -83.46721173101326
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -409.7072613691855,
-                    "y": -119.46721173101321
+                    "x": -469.7072613691855,
+                    "y": -83.46721173101326
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "PROLOGIX_HELP-73c23bcf-494c-4a68-9467-4da78bfb3fb4",
-                "type": "IO",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "PROLOGIX_HELP-73c23bcf-494c-4a68-9467-4da78bfb3fb4",
                     "label": "PROLOGIX HELP",
                     "func": "PROLOGIX_HELP",
-                    "type": "IO",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "connection": {
                             "type": "SerialConnection",
@@ -87,8 +96,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": "Any DataContainer - likely connected to the output of the OPEN_SERIAL node."
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -105,23 +114,23 @@
                             "v": "3.5"
                         }
                     ],
-                    "path": "IO/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_HELP/PROLOGIX_HELP.py",
+                    "path": "HARDWARE/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_HELP/PROLOGIX_HELP.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 43.7677951992148,
-                    "y": -301.62936069100147
+                    "x": 27.767795199214802,
+                    "y": -277.6293606910014
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 43.7677951992148,
-                    "y": -301.62936069100147
+                    "x": 27.767795199214802,
+                    "y": -277.6293606910014
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 384,
-                "height": 288,
+                "width": 225,
+                "height": 225,
                 "id": "TEXT_VIEW-8260cd6b-0c5d-4e6a-b9f3-a5aca4c53567",
                 "type": "VISUALIZATION",
                 "data": {
@@ -132,7 +141,7 @@
                     "ctrls": {
                         "prettify": {
                             "type": "bool",
-                            "default": true,
+                            "default": false,
                             "desc": "Whether to prettify the displayed text (defaults to True)",
                             "overload": null,
                             "functionName": "TEXT_VIEW",
@@ -145,9 +154,9 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "The DataContainer to be visualized in text format"
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -158,30 +167,35 @@
                             "desc": "The DataContainer containing text data"
                         }
                     ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 423.4185766491661,
-                    "y": -355.54847177565506
+                    "x": 479.4185766491661,
+                    "y": -317.54847177565506
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 423.4185766491661,
-                    "y": -355.54847177565506
+                    "x": 479.4185766491661,
+                    "y": -317.54847177565506
                 },
-                "dragging": true
+                "dragging": false,
+                "style": {
+                    "width": 225,
+                    "height": 225
+                },
+                "resizing": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "PROLOGIX_VER-3ba9a232-95ac-4ff1-89fe-226ccd734e98",
-                "type": "IO",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "PROLOGIX_VER-3ba9a232-95ac-4ff1-89fe-226ccd734e98",
                     "label": "PROLOGIX VER",
                     "func": "PROLOGIX_VER",
-                    "type": "IO",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "connection": {
                             "type": "SerialConnection",
@@ -199,8 +213,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": "Any DataContainer - likely connected to the output of the OPEN_SERIAL node."
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -217,7 +231,7 @@
                             "v": "3.5"
                         }
                     ],
-                    "path": "IO/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_VER/PROLOGIX_VER.py",
+                    "path": "HARDWARE/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_VER/PROLOGIX_VER.py",
                     "selected": false
                 },
                 "position": {
@@ -232,8 +246,8 @@
                 "dragging": true
             },
             {
-                "width": 384,
-                "height": 288,
+                "width": 225,
+                "height": 225,
                 "id": "TEXT_VIEW-e28cbcd7-ed1f-42bb-816a-e95fc6fc8c37",
                 "type": "VISUALIZATION",
                 "data": {
@@ -257,9 +271,9 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "The DataContainer to be visualized in text format"
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -270,55 +284,71 @@
                             "desc": "The DataContainer containing text data"
                         }
                     ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 434.2592704786502,
-                    "y": 53.58359116674569
+                    "x": 482.25927047865025,
+                    "y": 67.58359116674569
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 434.2592704786502,
-                    "y": 53.58359116674569
+                    "x": 482.25927047865025,
+                    "y": 67.58359116674569
                 },
-                "dragging": true
+                "dragging": false,
+                "style": {
+                    "width": 225,
+                    "height": 225
+                },
+                "resizing": false
             }
         ],
         "edges": [
             {
+                "id": "OPEN_SERIAL-0379a423-93ea-47e9-83e4-13d5b7e33231->PROLOGIX_VER-3ba9a232-95ac-4ff1-89fe-226ccd734e98_63d8d866-75d1-43d6-9761-797cec05c838",
                 "source": "OPEN_SERIAL-0379a423-93ea-47e9-83e4-13d5b7e33231",
-                "sourceHandle": "default",
-                "target": "PROLOGIX_HELP-73c23bcf-494c-4a68-9467-4da78bfb3fb4",
-                "targetHandle": "default",
-                "id": "reactflow__edge-OPEN_SERIAL-0379a423-93ea-47e9-83e4-13d5b7e33231default-PROLOGIX_HELP-73c23bcf-494c-4a68-9467-4da78bfb3fb4default"
-            },
-            {
-                "source": "PROLOGIX_HELP-73c23bcf-494c-4a68-9467-4da78bfb3fb4",
-                "sourceHandle": "default",
-                "target": "TEXT_VIEW-8260cd6b-0c5d-4e6a-b9f3-a5aca4c53567",
-                "targetHandle": "default",
-                "id": "reactflow__edge-PROLOGIX_HELP-73c23bcf-494c-4a68-9467-4da78bfb3fb4default-TEXT_VIEW-8260cd6b-0c5d-4e6a-b9f3-a5aca4c53567default"
-            },
-            {
-                "source": "OPEN_SERIAL-0379a423-93ea-47e9-83e4-13d5b7e33231",
-                "sourceHandle": "default",
                 "target": "PROLOGIX_VER-3ba9a232-95ac-4ff1-89fe-226ccd734e98",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-OPEN_SERIAL-0379a423-93ea-47e9-83e4-13d5b7e33231default-PROLOGIX_VER-3ba9a232-95ac-4ff1-89fe-226ccd734e98default"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "PROLOGIX_VER-3ba9a232-95ac-4ff1-89fe-226ccd734e98",
+                "id": "OPEN_SERIAL-0379a423-93ea-47e9-83e4-13d5b7e33231->PROLOGIX_HELP-73c23bcf-494c-4a68-9467-4da78bfb3fb4_08287ebb-cf52-47c2-8ff7-5ac1342777ca",
+                "source": "OPEN_SERIAL-0379a423-93ea-47e9-83e4-13d5b7e33231",
+                "target": "PROLOGIX_HELP-73c23bcf-494c-4a68-9467-4da78bfb3fb4",
                 "sourceHandle": "default",
-                "target": "TEXT_VIEW-e28cbcd7-ed1f-42bb-816a-e95fc6fc8c37",
                 "targetHandle": "default",
-                "id": "reactflow__edge-PROLOGIX_VER-3ba9a232-95ac-4ff1-89fe-226ccd734e98default-TEXT_VIEW-e28cbcd7-ed1f-42bb-816a-e95fc6fc8c37default"
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "PROLOGIX_HELP-73c23bcf-494c-4a68-9467-4da78bfb3fb4->TEXT_VIEW-8260cd6b-0c5d-4e6a-b9f3-a5aca4c53567_f895d32a-fcec-4d1f-a3c3-8ae1947a717e",
+                "source": "PROLOGIX_HELP-73c23bcf-494c-4a68-9467-4da78bfb3fb4",
+                "target": "TEXT_VIEW-8260cd6b-0c5d-4e6a-b9f3-a5aca4c53567",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "PROLOGIX_VER-3ba9a232-95ac-4ff1-89fe-226ccd734e98->TEXT_VIEW-e28cbcd7-ed1f-42bb-816a-e95fc6fc8c37_cf7dd418-f97e-4445-a12f-8e743983782c",
+                "source": "PROLOGIX_VER-3ba9a232-95ac-4ff1-89fe-226ccd734e98",
+                "target": "TEXT_VIEW-e28cbcd7-ed1f-42bb-816a-e95fc6fc8c37",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 466.68096270497455,
-            "y": 429.1170430912722,
-            "zoom": 0.5180199090230052
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

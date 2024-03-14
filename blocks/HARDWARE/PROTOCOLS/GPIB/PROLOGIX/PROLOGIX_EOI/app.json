@@ -2,15 +2,15 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 197,
                 "id": "OPEN_SERIAL-ada6382f-64a9-4428-a27e-b832c2d900cd",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "OPEN_SERIAL-ada6382f-64a9-4428-a27e-b832c2d900cd",
                     "label": "OPEN SERIAL",
                     "func": "OPEN_SERIAL",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "device": {
                             "type": "SerialDevice",
@@ -58,26 +58,26 @@
                     "path": "HARDWARE/PROTOCOLS/SERIAL/OPEN_SERIAL/OPEN_SERIAL.py"
                 },
                 "position": {
-                    "x": -377.602018227022,
-                    "y": 32.946810087101596
+                    "x": -689.8706247305083,
+                    "y": -79.46988825415349
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -377.602018227022,
-                    "y": 32.946810087101596
+                    "x": -689.8706247305083,
+                    "y": -79.46988825415349
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "SERIAL_WRITE-50e29a18-4cf7-4c07-8544-c61710a6e3aa",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "SERIAL_WRITE-50e29a18-4cf7-4c07-8544-c61710a6e3aa",
                     "label": "SERIAL WRITE",
                     "func": "SERIAL_WRITE",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "connection": {
                             "type": "SerialDevice",
@@ -133,8 +133,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -148,26 +148,26 @@
                     "path": "HARDWARE/PROTOCOLS/SERIAL/SERIAL_WRITE/SERIAL_WRITE.py"
                 },
                 "position": {
-                    "x": 113.40292092393003,
-                    "y": 297.9630526327541
+                    "x": 140.16880148137173,
+                    "y": 198.03709855163856
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 113.40292092393003,
-                    "y": 297.9630526327541
+                    "x": 140.16880148137173,
+                    "y": 198.03709855163856
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "PROLOGIX_READ-fe3235c1-6942-43ad-a58c-5d1fbb35f817",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "PROLOGIX_READ-fe3235c1-6942-43ad-a58c-5d1fbb35f817",
                     "label": "PROLOGIX READ",
                     "func": "PROLOGIX_READ",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "connection": {
                             "type": "SerialConnection",
@@ -185,8 +185,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -200,15 +200,15 @@
                     "path": "HARDWARE/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_READ/PROLOGIX_READ.py"
                 },
                 "position": {
-                    "x": 388.7726467887907,
-                    "y": 298.47173991945294
+                    "x": 545.7991460591153,
+                    "y": 193.192609726849
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 388.7726467887907,
-                    "y": 298.47173991945294
+                    "x": 545.7991460591153,
+                    "y": 193.192609726849
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 225,
@@ -237,8 +237,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "String|Boolean",
-                            "multiple": false,
-                            "desc": "The DataContainer to be visualized in text format"
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -252,26 +252,26 @@
                     "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
                 },
                 "position": {
-                    "x": 659.9374603621416,
-                    "y": 286.15895483051247
+                    "x": 975.7748509399536,
+                    "y": 205.8613131581874
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 659.9374603621416,
-                    "y": 286.15895483051247
+                    "x": 975.7748509399536,
+                    "y": 205.8613131581874
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "PROLOGIX_ADDR-5baef704-7306-4e26-a3c9-a2a8b782acc3",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "PROLOGIX_ADDR-5baef704-7306-4e26-a3c9-a2a8b782acc3",
                     "label": "PROLOGIX ADDR",
                     "func": "PROLOGIX_ADDR",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "connection": {
                             "type": "SerialConnection",
@@ -285,7 +285,7 @@
                         "addr": {
                             "type": "int",
                             "default": 10,
-                            "desc": null,
+                            "desc": "The GPIB address.",
                             "overload": null,
                             "functionName": "PROLOGIX_ADDR",
                             "param": "addr",
@@ -298,8 +298,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -313,19 +313,19 @@
                     "path": "HARDWARE/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_ADDR/PROLOGIX_ADDR.py"
                 },
                 "position": {
-                    "x": 118.5040430748484,
-                    "y": 38.816589633363435
+                    "x": 141.70113955796455,
+                    "y": -77.16889278221726
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 118.5040430748484,
-                    "y": 38.816589633363435
+                    "x": 141.70113955796455,
+                    "y": -77.16889278221726
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 96,
-                "height": 96,
+                "width": 239,
+                "height": 198,
                 "id": "CONDITIONAL-b7acf2a6-3aae-4f92-94ed-47f7de235d27",
                 "type": "CONDITIONALS",
                 "data": {
@@ -358,15 +358,15 @@
                             "name": "x",
                             "id": "x",
                             "type": "Scalar",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         },
                         {
                             "name": "y",
                             "id": "y",
                             "type": "Scalar",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -386,19 +386,19 @@
                     "path": "CONTROL_FLOW/CONDITIONALS/CONDITIONAL/CONDITIONAL.py"
                 },
                 "position": {
-                    "x": -145.56073391848298,
-                    "y": 310.91074709080783
+                    "x": -270.46817651987755,
+                    "y": 319.8327072766217
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -145.56073391848298,
-                    "y": 310.91074709080783
+                    "x": -270.46817651987755,
+                    "y": 319.8327072766217
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "CONSTANT-3b254347-f49f-4500-8732-627fdf23a0a6",
                 "type": "DATA",
                 "data": {
@@ -446,8 +446,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input that defines the size of the output."
+                            "desc": "Optional input that defines the size of the output.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -461,19 +461,19 @@
                     "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
                 },
                 "position": {
-                    "x": -376.8491245614603,
-                    "y": 256.16730639553714
+                    "x": -696.2552992135978,
+                    "y": 438.1752941861405
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -376.8491245614603,
-                    "y": 256.16730639553714
+                    "x": -696.2552992135978,
+                    "y": 438.1752941861405
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "CONSTANT-727f1f03-353d-4aa2-8b6a-34fa7dd99a04",
                 "type": "DATA",
                 "data": {
@@ -521,8 +521,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input that defines the size of the output."
+                            "desc": "Optional input that defines the size of the output.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -536,26 +536,26 @@
                     "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
                 },
                 "position": {
-                    "x": -367.190112823889,
-                    "y": 384.54188978684056
+                    "x": -697.3026396990033,
+                    "y": 193.6119418104231
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -367.190112823889,
-                    "y": 384.54188978684056
+                    "x": -697.3026396990033,
+                    "y": 193.6119418104231
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "PROLOGIX_MODE-baaf1088-3646-4d60-8142-9ae1be79aa6d",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "PROLOGIX_MODE-baaf1088-3646-4d60-8142-9ae1be79aa6d",
                     "label": "PROLOGIX MODE",
                     "func": "PROLOGIX_MODE",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "connection": {
                             "type": "SerialConnection",
@@ -586,8 +586,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -601,26 +601,26 @@
                     "path": "HARDWARE/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_MODE/PROLOGIX_MODE.py"
                 },
                 "position": {
-                    "x": 379.78880018930107,
-                    "y": 40.66710752230051
+                    "x": 602.8378048346486,
+                    "y": -77.10276693044284
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 379.78880018930107,
-                    "y": 40.66710752230051
+                    "x": 602.8378048346486,
+                    "y": -77.10276693044284
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "PROLOGIX_EOI-9460b729-ca76-462f-8d38-945ae37361e9",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "PROLOGIX_EOI-9460b729-ca76-462f-8d38-945ae37361e9",
                     "label": "PROLOGIX EOI",
                     "func": "PROLOGIX_EOI",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "connection": {
                             "type": "SerialConnection",
@@ -662,8 +662,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -677,15 +677,15 @@
                     "path": "HARDWARE/PROTOCOLS/GPIB/PROLOGIX/PROLOGIX_EOI/PROLOGIX_EOI.py"
                 },
                 "position": {
-                    "x": 634.026697912751,
-                    "y": 40.58449846723852
+                    "x": 1021.2397699770743,
+                    "y": -70.04780783685379
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 634.026697912751,
-                    "y": 40.58449846723852
+                    "x": 1021.2397699770743,
+                    "y": -70.04780783685379
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
@@ -695,20 +695,6 @@
                 "target": "SERIAL_WRITE-50e29a18-4cf7-4c07-8544-c61710a6e3aa",
                 "targetHandle": "default",
                 "id": "reactflow__edge-CONDITIONAL-b7acf2a6-3aae-4f92-94ed-47f7de235d27false-SERIAL_WRITE-50e29a18-4cf7-4c07-8544-c61710a6e3aadefault"
-            },
-            {
-                "source": "OPEN_SERIAL-ada6382f-64a9-4428-a27e-b832c2d900cd",
-                "sourceHandle": "default",
-                "target": "SERIAL_WRITE-50e29a18-4cf7-4c07-8544-c61710a6e3aa",
-                "targetHandle": "default",
-                "id": "reactflow__edge-OPEN_SERIAL-ada6382f-64a9-4428-a27e-b832c2d900cddefault-SERIAL_WRITE-50e29a18-4cf7-4c07-8544-c61710a6e3aadefault"
-            },
-            {
-                "source": "SERIAL_WRITE-50e29a18-4cf7-4c07-8544-c61710a6e3aa",
-                "sourceHandle": "default",
-                "target": "PROLOGIX_READ-fe3235c1-6942-43ad-a58c-5d1fbb35f817",
-                "targetHandle": "default",
-                "id": "reactflow__edge-SERIAL_WRITE-50e29a18-4cf7-4c07-8544-c61710a6e3aadefault-PROLOGIX_READ-fe3235c1-6942-43ad-a58c-5d1fbb35f817default"
             },
             {
                 "source": "PROLOGIX_READ-fe3235c1-6942-43ad-a58c-5d1fbb35f817",
@@ -725,53 +711,83 @@
                 "id": "reactflow__edge-CONDITIONAL-b7acf2a6-3aae-4f92-94ed-47f7de235d27true-PROLOGIX_ADDR-5baef704-7306-4e26-a3c9-a2a8b782acc3default"
             },
             {
-                "source": "OPEN_SERIAL-ada6382f-64a9-4428-a27e-b832c2d900cd",
-                "sourceHandle": "default",
-                "target": "PROLOGIX_ADDR-5baef704-7306-4e26-a3c9-a2a8b782acc3",
-                "targetHandle": "default",
-                "id": "reactflow__edge-OPEN_SERIAL-ada6382f-64a9-4428-a27e-b832c2d900cddefault-PROLOGIX_ADDR-5baef704-7306-4e26-a3c9-a2a8b782acc3default"
-            },
-            {
-                "source": "CONSTANT-3b254347-f49f-4500-8732-627fdf23a0a6",
-                "sourceHandle": "default",
-                "target": "CONDITIONAL-b7acf2a6-3aae-4f92-94ed-47f7de235d27",
-                "targetHandle": "y",
-                "id": "reactflow__edge-CONSTANT-3b254347-f49f-4500-8732-627fdf23a0a6default-CONDITIONAL-b7acf2a6-3aae-4f92-94ed-47f7de235d27y"
-            },
-            {
+                "id": "CONSTANT-727f1f03-353d-4aa2-8b6a-34fa7dd99a04->CONDITIONAL-b7acf2a6-3aae-4f92-94ed-47f7de235d27_9a8dde3a-817c-4698-85d6-710915cfab9e",
                 "source": "CONSTANT-727f1f03-353d-4aa2-8b6a-34fa7dd99a04",
-                "sourceHandle": "default",
                 "target": "CONDITIONAL-b7acf2a6-3aae-4f92-94ed-47f7de235d27",
+                "sourceHandle": "default",
                 "targetHandle": "x",
-                "id": "reactflow__edge-CONSTANT-727f1f03-353d-4aa2-8b6a-34fa7dd99a04default-CONDITIONAL-b7acf2a6-3aae-4f92-94ed-47f7de235d27x"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
+                "id": "CONSTANT-3b254347-f49f-4500-8732-627fdf23a0a6->CONDITIONAL-b7acf2a6-3aae-4f92-94ed-47f7de235d27_6e9f3021-e7df-42b9-ba93-c6c6585a84ef",
+                "source": "CONSTANT-3b254347-f49f-4500-8732-627fdf23a0a6",
+                "target": "CONDITIONAL-b7acf2a6-3aae-4f92-94ed-47f7de235d27",
+                "sourceHandle": "default",
+                "targetHandle": "y",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "OPEN_SERIAL-ada6382f-64a9-4428-a27e-b832c2d900cd->PROLOGIX_ADDR-5baef704-7306-4e26-a3c9-a2a8b782acc3_65bf2497-c2fa-4e5d-8097-abaaf55203b6",
+                "source": "OPEN_SERIAL-ada6382f-64a9-4428-a27e-b832c2d900cd",
+                "target": "PROLOGIX_ADDR-5baef704-7306-4e26-a3c9-a2a8b782acc3",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "OPEN_SERIAL-ada6382f-64a9-4428-a27e-b832c2d900cd->SERIAL_WRITE-50e29a18-4cf7-4c07-8544-c61710a6e3aa_9fb86243-453d-4fb6-96a9-223df397db1e",
+                "source": "OPEN_SERIAL-ada6382f-64a9-4428-a27e-b832c2d900cd",
+                "target": "SERIAL_WRITE-50e29a18-4cf7-4c07-8544-c61710a6e3aa",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "PROLOGIX_ADDR-5baef704-7306-4e26-a3c9-a2a8b782acc3->PROLOGIX_MODE-baaf1088-3646-4d60-8142-9ae1be79aa6d_4ead8430-2e19-43a3-9fac-c9e851afc319",
                 "source": "PROLOGIX_ADDR-5baef704-7306-4e26-a3c9-a2a8b782acc3",
-                "sourceHandle": "default",
                 "target": "PROLOGIX_MODE-baaf1088-3646-4d60-8142-9ae1be79aa6d",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-PROLOGIX_ADDR-5baef704-7306-4e26-a3c9-a2a8b782acc3default-PROLOGIX_MODE-baaf1088-3646-4d60-8142-9ae1be79aa6ddefault"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "PROLOGIX_MODE-baaf1088-3646-4d60-8142-9ae1be79aa6d->PROLOGIX_EOI-9460b729-ca76-462f-8d38-945ae37361e9_c7409cdb-5c94-409c-8f7e-b75885651d75",
                 "source": "PROLOGIX_MODE-baaf1088-3646-4d60-8142-9ae1be79aa6d",
-                "sourceHandle": "default",
                 "target": "PROLOGIX_EOI-9460b729-ca76-462f-8d38-945ae37361e9",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-PROLOGIX_MODE-baaf1088-3646-4d60-8142-9ae1be79aa6ddefault-PROLOGIX_EOI-9460b729-ca76-462f-8d38-945ae37361e9default"
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "SERIAL_WRITE-50e29a18-4cf7-4c07-8544-c61710a6e3aa->PROLOGIX_READ-fe3235c1-6942-43ad-a58c-5d1fbb35f817_3a8f7d54-8950-4bb4-83a7-27998e78cc2d",
+                "source": "SERIAL_WRITE-50e29a18-4cf7-4c07-8544-c61710a6e3aa",
+                "target": "PROLOGIX_READ-fe3235c1-6942-43ad-a58c-5d1fbb35f817",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 789.9703331218914,
-            "y": 505.07257789105404,
-            "zoom": 1.2011303724799078
-        }
+        ]
     },
     "textNodes": [
         {
             "id": "TextNode-9202b4b2-71fb-4b6c-923d-4bd262f31d53",
             "position": {
-                "x": -383.5803289720387,
-                "y": 536.6429273189574
+                "x": -306.85147137403925,
+                "y": 591.9590804710035
             },
             "type": "TextNode",
             "data": {
@@ -782,8 +798,8 @@
             "selected": false,
             "dragging": false,
             "positionAbsolute": {
-                "x": -383.5803289720387,
-                "y": 536.6429273189574
+                "x": -306.85147137403925,
+                "y": 591.9590804710035
             },
             "style": {
                 "width": 1299,
@@ -791,5 +807,8 @@
             },
             "resizing": false
         }
-    ]
+    ],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }
