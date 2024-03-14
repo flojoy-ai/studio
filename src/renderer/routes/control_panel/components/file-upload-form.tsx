@@ -5,13 +5,14 @@ import { useFieldArray, useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormMessage,
 } from "@/renderer/components/ui/form";
 import { DialogFooter } from "@/renderer/components/ui/dialog";
 import { Button } from "@/renderer/components/ui/button";
-import { PlusCircle, Trash2 } from "lucide-react";
+import { File, PlusCircle, Trash2 } from "lucide-react";
 import { Input } from "@/renderer/components/ui/input";
 
 type Props = {
@@ -46,9 +47,26 @@ export const FileUploadConfigForm = ({ onSubmit, initialValues }: Props) => {
 
   return (
     <Form {...form}>
+      <FormDescription>
+        Optionally add file filters here to limit the types of files that can be
+        selected.
+        <br />
+        <br />
+        Filters can be:
+        <ul className="ml-8 list-disc">
+          <li>
+            File extensions (ex: <code>.png</code>)
+          </li>
+          <li>A MIME type</li>
+          <li>
+            A pattern such as <code>image/*</code>
+          </li>
+        </ul>
+      </FormDescription>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-2">
         {fields.map((_, index) => (
           <div className="flex items-center justify-center">
+            <File size={20} className="mr-4 stroke-muted-foreground" />
             <FormField
               control={form.control}
               name={`allowedExtensions.${index}.ext` as const}
@@ -61,6 +79,7 @@ export const FileUploadConfigForm = ({ onSubmit, initialValues }: Props) => {
                 </FormItem>
               )}
             />
+            <div className="px-1" />
             <Button
               size="icon"
               variant="ghost"

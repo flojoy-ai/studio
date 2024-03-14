@@ -1,25 +1,14 @@
-import { useControlBlock } from "@/renderer/hooks/useControlBlock";
 import { WidgetProps } from "@/renderer/types/control";
-import { toast } from "sonner";
 import { Combobox } from "@/renderer/components/ui/combobox";
+import { useControl } from "@/renderer/hooks/useControl";
 
 export const ComboboxNode = ({ data }: WidgetProps) => {
-  const { block, updateBlockParameter } = useControlBlock(data.blockId);
-  if (!block) {
+  const control = useControl(data);
+  if (!control) {
     return <div className="text-2xl text-red-500">NOT FOUND</div>;
   }
 
-  const name = block.data.label;
-  const paramVal = block.data.ctrls[data.blockParameter].value;
-
-  const handleChange = (val: string) => {
-    const res = updateBlockParameter(block.id, data.blockParameter, val);
-    if (res.isErr()) {
-      toast.error("Error updating block parameter", {
-        description: res.error.message,
-      });
-    }
-  };
+  const { block, name, value, onValueChange } = control;
 
   return (
     <div className="flex flex-col items-center rounded-md border p-2">
@@ -32,8 +21,8 @@ export const ComboboxNode = ({ data }: WidgetProps) => {
             (v) => v.toString() ?? "",
           ) ?? []
         }
-        value={paramVal?.toString() ?? ""}
-        onValueChange={handleChange}
+        value={value?.toString() ?? ""}
+        onValueChange={onValueChange}
         valueSelector={(v) => v}
         displaySelector={(v) => v}
       />

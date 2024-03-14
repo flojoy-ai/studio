@@ -1,30 +1,14 @@
-import { useControlBlock } from "@/renderer/hooks/useControlBlock";
 import { WidgetProps } from "@/renderer/types/control";
-import { toast } from "sonner";
 import { NumberInput } from "@/renderer/components/common/NumberInput";
 import WidgetLabel from "@/renderer/components/common/widget-label";
+import { useControl } from "@/renderer/hooks/useControl";
 
 export const NumberInputNode = ({ id, data }: WidgetProps) => {
-  const { block, updateBlockParameter } = useControlBlock(data.blockId);
-  if (!block) {
+  const control = useControl(data);
+  if (!control) {
     return <div className="text-2xl text-red-500">NOT FOUND</div>;
   }
-
-  const name = block.data.label;
-  const paramVal = block.data.ctrls[data.blockParameter].value;
-
-  const handleChange = (val: number | "") => {
-    const res = updateBlockParameter(
-      block.id,
-      data.blockParameter,
-      val === "" ? undefined : val,
-    );
-    if (res.isErr()) {
-      toast.error("Error updating block parameter", {
-        description: res.error.message,
-      });
-    }
-  };
+  const { name, value, onValueChange } = control;
 
   return (
     <div className="flex flex-col items-center gap-2">
@@ -34,8 +18,8 @@ export const NumberInputNode = ({ id, data }: WidgetProps) => {
         widgetId={id}
       />
       <NumberInput
-        value={paramVal as number}
-        onChange={handleChange}
+        value={value as number}
+        onChange={(val) => onValueChange(val === "" ? undefined : val)}
         className="nodrag text-xl font-bold"
         hideArrows
       />

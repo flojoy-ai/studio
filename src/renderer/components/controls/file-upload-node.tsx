@@ -1,26 +1,14 @@
-import { useControlBlock } from "@/renderer/hooks/useControlBlock";
 import { FileUploadConfig, WidgetProps } from "@/renderer/types/control";
 import WidgetLabel from "@/renderer/components/common/widget-label";
 import { Button } from "@/renderer/components/ui/button";
-import { toast } from "sonner";
+import { useControl } from "@/renderer/hooks/useControl";
 
 export const FileUploadNode = ({ id, data }: WidgetProps<FileUploadConfig>) => {
-  const { block, updateBlockParameter } = useControlBlock(data.blockId);
-  if (!block) {
+  const control = useControl(data);
+  if (!control) {
     return <div className="text-2xl text-red-500">NOT FOUND</div>;
   }
-
-  const name = block.data.label;
-  const paramVal = block.data.ctrls[data.blockParameter].value;
-
-  const handleChange = (path: string) => {
-    const res = updateBlockParameter(block.id, data.blockParameter, path);
-    if (res.isErr()) {
-      toast.error("Error updating block parameter", {
-        description: res.error.message,
-      });
-    }
-  };
+  const { name, value, onValueChange } = control;
 
   return (
     <div className="flex flex-col items-center gap-2">
@@ -35,7 +23,6 @@ export const FileUploadNode = ({ id, data }: WidgetProps<FileUploadConfig>) => {
           onClick={() => {
             const fileInput = document.createElement("input");
             fileInput.type = "file";
-            console.log(data.config.allowedExtensions.join(","));
             fileInput.accept =
               data.config.allowedExtensions.length > 0
                 ? data.config.allowedExtensions.map((v) => v.ext).join(",")
@@ -45,7 +32,7 @@ export const FileUploadNode = ({ id, data }: WidgetProps<FileUploadConfig>) => {
               if (files && files.length > 0) {
                 const file = files[0];
                 const path = file.path;
-                handleChange(path);
+                onValueChange(path);
               }
             };
             fileInput.click();
@@ -53,7 +40,7 @@ export const FileUploadNode = ({ id, data }: WidgetProps<FileUploadConfig>) => {
         >
           Browse
         </Button>
-        <div className="text-xl font-bold">{paramVal}</div>
+        <div className="text-xl font-bold">{value}</div>
       </div>
     </div>
   );

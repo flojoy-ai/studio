@@ -13,10 +13,6 @@ import * as galleryItems from "@/renderer/data/apps";
 import { ExampleProjects } from "@/renderer/data/docs-example-apps";
 import * as RECIPES from "@/renderer/data/RECIPES";
 import { syncFlowchartWithManifest } from "@/renderer/lib/sync";
-// import {
-//   MixPanelEvents,
-//   sendEventToMix,
-// } from "@/renderer/services/MixpanelServices";
 import { v4 as uuidv4 } from "uuid";
 import { Project } from "@/renderer/types/project";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
@@ -47,7 +43,7 @@ import {
   BlockParameterValue,
 } from "@/renderer/types/manifest";
 import {
-  Config,
+  ConfigMap,
   Configurable,
   VisualizationData,
   WidgetConfig,
@@ -107,7 +103,7 @@ type Actions = {
     blockId: string,
     blockParameter: string,
     widgetType: K,
-    config?: K extends Configurable ? Config[K] : never,
+    config?: K extends Configurable ? ConfigMap[K] : never,
   ) => void;
   editControlWidgetConfig: (
     widgetId: string,
@@ -364,7 +360,7 @@ export const useProjectStore = create<State & Actions>()(
       blockId: string,
       blockParameter: string,
       widgetType: K,
-      config?: K extends Configurable ? Config[K] : never,
+      config?: K extends Configurable ? ConfigMap[K] : never,
     ) => {
       const node = {
         id: uuidv4(),

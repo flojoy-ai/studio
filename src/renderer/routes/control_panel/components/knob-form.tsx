@@ -1,4 +1,4 @@
-import { SliderConfig } from "@/renderer/types/control";
+import { KnobConfig } from "@/renderer/types/control";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -16,18 +16,18 @@ import { Box } from "lucide-react";
 import { FormIconLabel } from "@/renderer/components/common/form-icon-label";
 
 type Props = {
-  initialValues: SliderConfig;
-  onSubmit: (data: SliderConfig) => void;
+  initialValues: KnobConfig;
+  onSubmit: (data: KnobConfig) => void;
   float?: boolean;
 };
 
-export const SliderConfigForm = ({
+export const KnobConfigForm = ({
   onSubmit,
   initialValues,
   float = false,
 }: Props) => {
-  const form = useForm<SliderConfig>({
-    resolver: zodResolver(SliderConfig),
+  const form = useForm<KnobConfig>({
+    resolver: zodResolver(KnobConfig),
     defaultValues: { ...initialValues, floating: float },
   });
 

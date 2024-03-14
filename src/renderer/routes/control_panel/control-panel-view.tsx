@@ -12,7 +12,6 @@ import ReactFlow, {
   Node,
   applyNodeChanges,
 } from "reactflow";
-import { SliderNode } from "@/renderer/components/controls/slider-node";
 import ControlTextNode from "@/renderer/components/controls/control-text-node";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import {
@@ -32,12 +31,12 @@ import {
   WidgetData,
   VisualizationData,
   isWidgetType,
-  CONFIG_DEFAULT_VALUES,
   isConfigurable,
+  WIDGETS,
+  WIDGET_CONFIGS,
 } from "@/renderer/types/control";
 import { ConfigDialog } from "./components/config-dialog";
 import { useShallow } from "zustand/react/shallow";
-import { CheckboxNode } from "@/renderer/components/controls/checkbox-node";
 import WidgetContextMenu, {
   WidgetContextMenuInfo,
 } from "./components/widget-context-menu";
@@ -45,23 +44,12 @@ import { TextData } from "@/renderer/types/block";
 import { calculateContextMenuOffset } from "@/renderer/utils/context-menu";
 import { toast } from "sonner";
 import { useContextMenu } from "@/renderer/hooks/useContextMenu";
-import { SwitchNode } from "@/renderer/components/controls/switch-node";
-import { NumberInputNode } from "@/renderer/components/controls/number-input-node";
-import { ComboboxNode } from "@/renderer/components/controls/combobox-node";
-import { FileUploadNode } from "@/renderer/components/controls/file-upload-node";
-import { RadioGroupNode } from "@/renderer/components/controls/radio-group-node";
+import { deepMutableClone } from "@/renderer/utils/clone";
 
-// INFO: Widget
 const nodeTypes = {
-  slider: SliderNode,
-  switch: SwitchNode,
-  "number input": NumberInputNode,
-  checkbox: CheckboxNode,
-  "file upload": FileUploadNode,
-  visualization: VisualizationNode,
-  combobox: ComboboxNode,
-  "radio group": RadioGroupNode,
   TextNode: ControlTextNode,
+  visualization: VisualizationNode,
+  ...Object.fromEntries(Object.entries(WIDGETS).map(([k, v]) => [k, v.node])),
 };
 
 const ControlPanelView = () => {
@@ -72,7 +60,9 @@ const ControlPanelView = () => {
   const [widgetConfigOpen, setWidgetConfigOpen] = useState(false);
   const widgetBlockInfo = useRef<WidgetBlockInfo | null>(null);
   const editingWidgetConfig = useRef<boolean>(false);
-  const widgetConfig = useRef<WidgetConfig>(CONFIG_DEFAULT_VALUES["slider"]);
+  const widgetConfig = useRef<WidgetConfig>(
+    deepMutableClone(WIDGET_CONFIGS.slider.defaultValues),
+  );
 
   const { isAdmin } = useWithPermission();
   const {
@@ -154,7 +144,9 @@ const ControlPanelView = () => {
       return;
     }
 
-    widgetConfig.current = CONFIG_DEFAULT_VALUES[data.widgetType];
+    widgetConfig.current = deepMutableClone(
+      WIDGET_CONFIGS[data.widgetType].defaultValues,
+    );
     widgetBlockInfo.current = data;
     editingWidgetConfig.current = false;
     setWidgetConfigOpen(true);
@@ -209,6 +201,7 @@ const ControlPanelView = () => {
         initialValues={widgetConfig.current}
         open={widgetConfigOpen}
         setOpen={setWidgetConfigOpen}
+        widgetBlockInfo={widgetBlockInfo.current}
         onSubmit={
           editingWidgetConfig.current
             ? onWidgetConfigEditSubmit
