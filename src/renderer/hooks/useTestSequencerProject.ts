@@ -9,7 +9,7 @@ import {
   importProject,
   StateManager,
   closeProject,
-} from "@/renderer/utils/TestSequenceProjectHandler";
+} from "@/renderer/routes/test_sequencer_panel/utils/TestSequenceProjectHandler";
 
 function usePrepareStateManager(
   withoutPermission: boolean = false,
