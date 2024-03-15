@@ -34,6 +34,7 @@ def run_worker(
     task_queue: Queue[Any],
     finish_queue: Queue[Any],
     imported_functions: dict[str, Any],
+    observe_blocks: list[str],
     node_delay: float,
     signaler: Signaler,
 ):
@@ -49,6 +50,7 @@ def run_worker(
             task_queue=task_queue,
             finish_queue=finish_queue,
             imported_functions=imported_functions,
+            observe_blocks=observe_blocks,
             node_delay=node_delay,
             signaler=signaler,
         )
@@ -114,6 +116,7 @@ def spawn_producer(manager: Manager):
 def spawn_workers(
     manager: Manager,
     imported_functions: dict[str, Any],
+    observe_blocks: list[str],
     node_delay: float,
     max_workers: int,
 ):
@@ -136,6 +139,7 @@ def spawn_workers(
                 manager.task_queue,
                 manager.finish_queue,
                 imported_functions,
+                observe_blocks,
                 node_delay,
                 signaler,
             ),
@@ -323,7 +327,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
 
     # spawn threads
     os.environ["OBJC_DISABLE_INITIALIZE_FORK_SAFETY"] = "YES"
-    spawn_workers(manager, funcs, request.nodeDelay, request.maximumConcurrentWorkers)
+    spawn_workers(manager, funcs, request.observeBlocks, request.nodeDelay, request.maximumConcurrentWorkers)
     spawn_producer(manager)
 
     asyncio.create_task(cancel_when_max_time(manager, request))

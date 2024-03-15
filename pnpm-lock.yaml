@@ -167,6 +167,9 @@ dependencies:
   react:
     specifier: ^18.2.0
     version: 18.2.0
+  react-7-segment-display:
+    specifier: ^1.1.1
+    version: 1.1.1(react-dom@18.2.0)(react@18.2.0)
   react-dnd:
     specifier: ^16.0.1
     version: 16.0.1(@types/node@20.11.27)(@types/react@18.2.65)(react@18.2.0)
@@ -9135,6 +9138,17 @@ packages:
       safe-buffer: 5.2.1
     dev: true
 
+  /react-7-segment-display@1.1.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-94zulfurFnOiH2+kpb2o8eMUB8poqDKPtU0szvbXnatumFDCYfaOwGhv1++3ccadkS5eKiZ4d5b2r5cQ6iggaQ==}
+    peerDependencies:
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      typescript: 4.9.5
+    dev: false
+
   /react-base16-styling@0.9.1:
     resolution: {integrity: sha512-1s0CY1zRBOQ5M3T61wetEpvQmsYSNtWEcdYzyZNxKa8t7oDvaOn9d21xrGezGAHFWLM7SHcktPuPTrvoqxSfKw==}
     dependencies:
@@ -10574,6 +10588,12 @@ packages:
 
   /typedarray@0.0.6:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
+    dev: false
+
+  /typescript@4.9.5:
+    resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
     dev: false
 
   /typescript@5.4.2:

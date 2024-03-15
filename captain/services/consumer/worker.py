@@ -20,12 +20,14 @@ class Worker:
         task_queue: Queue[Any],  # queue for tasks to be processed
         finish_queue: Queue[Any],  # queue for finished tasks
         imported_functions: dict[str, Any],  # map of job id to corresponding function
+        observe_blocks: list[str],
         signaler: Signaler | None = None,  # signaler object to signal to the front-end
         node_delay: float = 0,
     ):
         self.task_queue = task_queue
         self.finish_queue = finish_queue
         self.imported_functions = imported_functions
+        self.observe_blocks = observe_blocks
         self.signaler = signaler
         self.job_service = JobService()
         self.uuid = uuid.uuid4()
@@ -61,6 +63,7 @@ class Worker:
             kwargs: dict[str, Any] = {
                 "ctrls": job.ctrls,
                 "previous_jobs": job.previous_jobs,
+                "observe_blocks": self.observe_blocks,
                 "jobset_id": job.jobset_id,
                 "node_id": job.job_id,
                 "job_id": job.iteration_id,

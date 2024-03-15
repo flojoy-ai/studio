@@ -1,5 +1,3 @@
-import { OverridePlotData } from "@/renderer/types/plotly";
-
 export const ALL_DC_TYPE = [
   "grayscale",
   "matrix",
@@ -13,17 +11,11 @@ export const ALL_DC_TYPE = [
 
 export type DataContainerType = (typeof ALL_DC_TYPE)[number];
 
-export interface DataContainer {
-  type: DataContainerType;
-  x?: number[];
-  y?: number[];
-  z?: number[];
-  t?: number[];
-  m?: string;
-  c?: number[];
-  r?: number[];
-  g?: number[];
-  b?: number[];
-  a?: number[];
-  fig?: { data: OverridePlotData };
-}
+export type DataContainer = Scalar;
+
+type Scalar = {
+  type: "scalar";
+  c: number;
+};
+
+// TODO: Add the rest

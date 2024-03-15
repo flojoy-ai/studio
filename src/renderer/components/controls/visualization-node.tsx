@@ -18,7 +18,10 @@ const VisualizationNode = ({
 }: NodeProps<VisualizationData>) => {
   const { resolvedTheme } = useTheme();
   const { blockResult } = useBlockStatus(data.blockId);
-  const nodes = useProjectStore((state) => state.controlVisualizationNodes);
+  const { vizNodes, blocks } = useProjectStore((state) => ({
+    vizNodes: state.controlVisualizationNodes,
+    blocks: state.nodes,
+  }));
 
   const plotlyFig = blockResult?.plotly_fig;
   const textBlob = blockResult?.text_blob;
@@ -31,13 +34,19 @@ const VisualizationNode = ({
 
   const updateNodeInternals = useUpdateNodeInternals();
 
-  const { SvgIcon } = useBlockIcon("visualization", data.visualizationType);
+  const thisNode = vizNodes.find((b) => b.id === id);
+  const mirroredBlock = blocks.find((b) => b.id === data.blockId);
+  if (!mirroredBlock) {
+    throw new Error("Block to mirror not found, this shouldn't happen");
+  }
 
-  const thisNode = nodes.find((b) => b.id === id);
   const dimensions = {
     width: thisNode?.width ?? 225,
     height: thisNode?.height ?? 225,
   };
+
+  const { SvgIcon } = useBlockIcon("visualization", mirroredBlock.data.func);
+
   const iconSideLength = Math.min(dimensions.width, dimensions.height);
 
   return (
