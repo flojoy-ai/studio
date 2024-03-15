@@ -327,7 +327,13 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
 
     # spawn threads
     os.environ["OBJC_DISABLE_INITIALIZE_FORK_SAFETY"] = "YES"
-    spawn_workers(manager, funcs, request.observeBlocks, request.nodeDelay, request.maximumConcurrentWorkers)
+    spawn_workers(
+        manager,
+        funcs,
+        request.observeBlocks,
+        request.nodeDelay,
+        request.maximumConcurrentWorkers,
+    )
     spawn_producer(manager)
 
     asyncio.create_task(cancel_when_max_time(manager, request))

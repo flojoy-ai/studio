@@ -256,7 +256,9 @@ def flojoy(
 
                 # Package the result and return it
                 FN = func.__name__
-                result = get_frontend_res_obj_from_result(node_id, observe_blocks, dc_obj)
+                result = get_frontend_res_obj_from_result(
+                    node_id, observe_blocks, dc_obj
+                )
                 return JobSuccess(
                     result=result,
                     fn=FN,
