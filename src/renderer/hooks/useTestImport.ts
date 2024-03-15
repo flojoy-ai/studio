@@ -6,7 +6,6 @@ import { toast } from "sonner";
 import { useCallback } from "react";
 import { Dispatch, SetStateAction } from "react";
 import { discoverPytest } from "@/renderer/lib/api";
-import { toastQueryError } from "@/renderer/utils/report-error";
 
 function parseDiscoverContainer(
   data: TestDiscoverContainer,
@@ -73,8 +72,7 @@ export const useTestImport = () => {
     }
     const newElems = parseDiscoverContainer(data, settings);
     if (newElems.length === 0) {
-      toast.error("No tests found in the specified file.");
-      throw new Error("No tests found in the file");
+      throw new Error("No tests were found in the specified file.");
     }
     const result = await AddNewElems(newElems);
     if (result.isErr()) {
@@ -97,7 +95,7 @@ export const useTestImport = () => {
           success: () => {
             return "Test Imported.";
           },
-          error: (e) => `Error while trying to discover tests: ${e}`,
+          error: (e) => `Error while attempting to discover tests: ${e.message.replace("Error: ", "")}`,
         });
       })
       .catch((error) => {
