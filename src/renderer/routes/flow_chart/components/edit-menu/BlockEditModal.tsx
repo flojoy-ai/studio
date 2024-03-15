@@ -10,7 +10,7 @@ import { LAYOUT_TOP_HEIGHT } from "@/renderer/routes/common/Layout";
 import { ScrollArea } from "@/renderer/components/ui/scroll-area";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
-import { useProjectStore } from "@/renderer/stores/project";
+import { useDeleteBlock, useProjectStore } from "@/renderer/stores/project";
 import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
 
@@ -18,15 +18,9 @@ type Props = {
   node: Node<BlockData>;
   otherNodes: Node<BlockData>[] | null;
   setNodeModalOpen: (open: boolean) => void;
-  handleDelete: (nodeId: string, nodeLabel: string) => void;
 };
 
-const BlockEditModal = ({
-  node,
-  otherNodes,
-  setNodeModalOpen,
-  handleDelete,
-}: Props) => {
+const BlockEditModal = ({ node, otherNodes, setNodeModalOpen }: Props) => {
   const { updateBlockParameter, updateBlockInitParameter, updateBlockLabel } =
     useProjectStore(
       useShallow((state) => ({
@@ -46,6 +40,7 @@ const BlockEditModal = ({
       nodeParamChanged: state.nodeParamChanged,
     })),
   );
+  const deleteBlock = useDeleteBlock();
 
   //converted from node to Ids here so that it will only do this when the edit menu is opened
   const nodeReferenceOptions =
@@ -178,7 +173,7 @@ const BlockEditModal = ({
           <Button
             size="icon"
             variant="ghost"
-            onClick={() => handleDelete(node.id, node.data.label)}
+            onClick={() => deleteBlock(node.id)}
             className="mr-4"
             data-testid="delete-node-button"
           >

@@ -670,7 +670,7 @@ export const useDeleteBlock = () => {
 
   return useCallback(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    (nodeId: string, nodeLabel: string) => {
+    (nodeId: string) => {
       setNodes((prev) => prev.filter((node) => node.id !== nodeId));
       setEdges((prev) =>
         prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId),
