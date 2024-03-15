@@ -43,11 +43,14 @@ class DiscoverPytestParams(BaseModel):
 async def discover_pytest(params: DiscoverPytestParams = Depends()):
     path = params.path
     one_file = params.one_file
-    return_val = []
-    missing_lib = []
+    return_val, missing_lib, errors = [], [], []  # For passing info between threads
     thread = Thread(
-        target=discover_pytest_file, args=(path, one_file, return_val, missing_lib)
+        target=discover_pytest_file, args=(path, one_file, return_val, missing_lib, errors)
     )
     thread.start()
     thread.join()
-    return TestDiscoverContainer(response=return_val, missing_libraries=missing_lib)
+    return TestDiscoverContainer(
+        response=return_val,
+        missing_libraries=missing_lib,
+        error=errors[0] if len(errors) > 0 else None
+    )

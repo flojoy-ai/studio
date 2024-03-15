@@ -14,8 +14,10 @@ import re
 import pathlib
 
 
-def check_missing_imports(report: RootModel):
+def extract_error(report: RootModel):
+    """ Return a list of missing libraries and a optional error message """
     missing_lib = set()
+    error_msg = None
     if not report.collectors:
         return missing_lib
     for element in report.collectors:
@@ -24,15 +26,14 @@ def check_missing_imports(report: RootModel):
             match = re.search(r"No module named '(\w+)'", error_message)
             if match:
                 missing_library = match.group(1)
-                logger.info(f"Missing library: {missing_library}")
                 missing_lib.add(missing_library)
             else:
-                logger.error(f"Error occured while discovering test: {error_message}")
-    return missing_lib
+                error_msg = error_message
+    return missing_lib, error_msg
 
 
 def discover_pytest_file(
-    path: str, one_file: bool, return_val: list, missing_lib: list
+    path: str, one_file: bool, return_val: list, missing_lib: list, errors: list
 ):
     unload_module(path)
     plugin = JSONReport()
@@ -41,7 +42,9 @@ def discover_pytest_file(
     )
     logger.info(plugin.report)
     json_data: RootModel = RootModel.model_validate(plugin.report)
-    missing_lib.extend(check_missing_imports(json_data))
+    missing_libs, error_msg = extract_error(json_data)
+    missing_lib.extend(missing_libs)
+    errors.append(error_msg)
     logger.info(json_data.root)
 
     # run dfs on the json data and collect the tests

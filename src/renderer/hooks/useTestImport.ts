@@ -47,14 +47,18 @@ export const useTestImport = () => {
       data = {
         response: [{ testName: path, path: path }],
         missingLibraries: [],
+        error: null
       };
     } else {
       const res = await discoverPytest(path, settings.importAsOneRef);
       if (res.isErr()) {
-        toastQueryError(res.error, "Error while trying to discover tests");
-        return;
+        throw res.error;
       }
       data = res.value;
+    }
+    if (data.error) {
+      // Warning: This can be a big trace, might be better not showing it as a toast
+      throw new Error(data.error);
     }
     for (const lib of data.missingLibraries) {
       toast.error(`Missing Python Library: ${lib}`, {
@@ -65,9 +69,7 @@ export const useTestImport = () => {
           },
         },
       });
-    }
-    if (data.missingLibraries && data.missingLibraries.length > 0) {
-      throw new Error("Missing Libraries");
+      throw new Error("Please retry after installing the missing libraries.");
     }
     const newElems = parseDiscoverContainer(data, settings);
     if (newElems.length === 0) {
@@ -76,8 +78,7 @@ export const useTestImport = () => {
     }
     const result = await AddNewElems(newElems);
     if (result.isErr()) {
-      toast.error(`${result.error}`);
-      return;
+      throw result.error;
     }
     setModalOpen(false);
   }
@@ -91,7 +92,13 @@ export const useTestImport = () => {
       .then((result) => {
         if (!result) return;
         const { filePath } = result;
-        getTests(filePath, settings, setModalOpen);
+        toast.promise(getTests(filePath, settings, setModalOpen), {
+          loading: "Importing test...",
+          success: () => {
+            return "Test Imported.";
+          },
+          error: (e) => `Error while trying to discover tests: ${e}`,
+        });
       })
       .catch((error) => {
         console.error("Errors when trying to load file: ", error);

@@ -67,15 +67,15 @@ const TestSequencerView = () => {
 
   return (
     <LockedContextProvider>
-      <TestSequencerProjectModal
-        isProjectModalOpen={isProjectModalOpen}
-        handleProjectModalOpen={setIsProjectModalOpen}
-      />
       <div
         style={{
           height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT}px)`,
         }}
       >
+        <TestSequencerProjectModal
+          isProjectModalOpen={isProjectModalOpen}
+          handleProjectModalOpen={setIsProjectModalOpen}
+        />
         <ImportTestModal
           isModalOpen={isImportModalOpen}
           handleModalOpen={setIsImportModalOpen}
