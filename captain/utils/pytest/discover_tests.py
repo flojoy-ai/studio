@@ -15,7 +15,7 @@ import pathlib
 
 
 def extract_error(report: RootModel):
-    """ Return a list of missing libraries and a optional error message """
+    """Return a list of missing libraries and a optional error message"""
     missing_lib = set()
     error_msg = None
     if not report.collectors:

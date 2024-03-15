@@ -47,7 +47,7 @@ export const useTestImport = () => {
       data = {
         response: [{ testName: path, path: path }],
         missingLibraries: [],
-        error: null
+        error: null,
       };
     } else {
       const res = await discoverPytest(path, settings.importAsOneRef);
