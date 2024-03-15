@@ -1,8 +1,14 @@
 import { KnobConfig, WidgetProps } from "@/renderer/types/control";
-import WidgetLabel from "@/renderer/components/common/widget-label";
+import { WidgetLabel } from "@/renderer/components/common/control-label";
 import { useControl } from "@/renderer/hooks/useControl";
-import { useRef } from "react";
-import { Vector2, clamp, frac, nearestMultiple } from "@/renderer/utils/math";
+import { useMemo, useRef } from "react";
+import {
+  Vector2,
+  clamp,
+  countDecimalPlaces,
+  frac,
+  nearestMultiple,
+} from "@/renderer/utils/math";
 
 const minAngle = -Math.PI / 6;
 const maxAngle = (7 * Math.PI) / 6;
@@ -77,7 +83,7 @@ const Knob = ({ value, min, max, step, radius, onValueChange }: Props) => {
   };
 
   return (
-    <div className="nodrag mb-4 flex flex-col items-center">
+    <div className="nodrag flex flex-col items-center">
       <div
         className="relative cursor-pointer rounded-full border-2 bg-background"
         onMouseDown={handleMouseDown}
@@ -91,13 +97,17 @@ const Knob = ({ value, min, max, step, radius, onValueChange }: Props) => {
       >
         <div className="absolute right-0 top-1/2 h-2 w-4 -translate-y-1/2 transform rounded-sm bg-accent1" />
       </div>
-      <span className="text-sm text-gray-600">{value}</span>
     </div>
   );
 };
 
 export const KnobNode = ({ id, data }: WidgetProps<KnobConfig>) => {
   const control = useControl(data);
+  const numDecimals = useMemo(
+    () => countDecimalPlaces(data.config.step),
+    [data.config.step],
+  );
+
   if (!control) {
     return <div className="text-2xl text-red-500">NOT FOUND</div>;
   }
@@ -109,7 +119,7 @@ export const KnobNode = ({ id, data }: WidgetProps<KnobConfig>) => {
       <WidgetLabel
         label={data.label}
         placeholder={`${name} (${data.blockParameter})`}
-        widgetId={id}
+        id={id}
       />
       <Knob
         value={value as number}
@@ -119,6 +129,9 @@ export const KnobNode = ({ id, data }: WidgetProps<KnobConfig>) => {
         step={data.config.step}
         radius={80}
       />
+      <div className="text-xl font-bold">
+        {(value as number).toFixed(numDecimals)}
+      </div>
     </div>
   );
 };

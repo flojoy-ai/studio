@@ -1,18 +1,9 @@
 import { Input } from "@/renderer/components/ui/input";
 import { SliderConfig, WidgetProps } from "@/renderer/types/control";
-import WidgetLabel from "@/renderer/components/common/widget-label";
+import { WidgetLabel } from "@/renderer/components/common/control-label";
 import { useControl } from "@/renderer/hooks/useControl";
 import { useMemo } from "react";
-
-const countDecimalPlaces = (num: number) => {
-  const numString = num.toString();
-  const decimalIndex = numString.indexOf(".");
-  if (decimalIndex === -1) {
-    return 0;
-  }
-
-  return numString.length - decimalIndex - 1;
-};
+import { countDecimalPlaces } from "@/renderer/utils/math";
 
 export const SliderNode = ({ id, data }: WidgetProps<SliderConfig>) => {
   const control = useControl(data);
@@ -36,7 +27,7 @@ export const SliderNode = ({ id, data }: WidgetProps<SliderConfig>) => {
       <WidgetLabel
         label={data.label}
         placeholder={`${name} (${data.blockParameter})`}
-        widgetId={id}
+        id={id}
       />
       <div className="flex flex-col items-center rounded-md border p-2">
         <Input

@@ -1,5 +1,5 @@
 import { FileUploadConfig, WidgetProps } from "@/renderer/types/control";
-import WidgetLabel from "@/renderer/components/common/widget-label";
+import { WidgetLabel } from "@/renderer/components/common/control-label";
 import { Button } from "@/renderer/components/ui/button";
 import { useControl } from "@/renderer/hooks/useControl";
 
@@ -15,7 +15,7 @@ export const FileUploadNode = ({ id, data }: WidgetProps<FileUploadConfig>) => {
       <WidgetLabel
         label={data.label}
         placeholder={`${name} (${data.blockParameter})`}
-        widgetId={id}
+        id={id}
       />
       <div className="flex flex-col items-center rounded-md border p-2">
         <Button

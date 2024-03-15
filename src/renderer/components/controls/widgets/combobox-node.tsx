@@ -1,8 +1,9 @@
 import { WidgetProps } from "@/renderer/types/control";
 import { Combobox } from "@/renderer/components/ui/combobox";
 import { useControl } from "@/renderer/hooks/useControl";
+import { WidgetLabel } from "@/renderer/components/common/control-label";
 
-export const ComboboxNode = ({ data }: WidgetProps) => {
+export const ComboboxNode = ({ id, data }: WidgetProps) => {
   const control = useControl(data);
   if (!control) {
     return <div className="text-2xl text-red-500">NOT FOUND</div>;
@@ -12,9 +13,11 @@ export const ComboboxNode = ({ data }: WidgetProps) => {
 
   return (
     <div className="flex flex-col items-center rounded-md border p-2">
-      <div className="text-muted-foreground">
-        {name} ({data.blockParameter})
-      </div>
+      <WidgetLabel
+        label={data.label}
+        placeholder={`${name} (${data.blockParameter})`}
+        id={id}
+      />
       <Combobox
         options={
           block.data.ctrls[data.blockParameter].options?.map(

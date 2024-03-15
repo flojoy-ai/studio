@@ -5,8 +5,9 @@ import {
   RadioGroupItem,
 } from "@/renderer/components/ui/radio-group";
 import { useControl } from "@/renderer/hooks/useControl";
+import { WidgetLabel } from "@/renderer/components/common/control-label";
 
-export const RadioGroupNode = ({ data }: WidgetProps) => {
+export const RadioGroupNode = ({ id, data }: WidgetProps) => {
   const control = useControl(data);
   if (!control) {
     return <div className="text-2xl text-red-500">NOT FOUND</div>;
@@ -20,9 +21,11 @@ export const RadioGroupNode = ({ data }: WidgetProps) => {
 
   return (
     <div className="flex flex-col items-center rounded-md border p-2">
-      <div className="text-muted-foreground">
-        {name} ({data.blockParameter})
-      </div>
+      <WidgetLabel
+        label={data.label}
+        placeholder={`${name} (${data.blockParameter})`}
+        id={id}
+      />
       <div className="py-2"></div>
       <RadioGroup
         value={value?.toString() ?? undefined}

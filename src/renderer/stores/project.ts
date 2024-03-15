@@ -121,6 +121,10 @@ type Actions = {
     output: string,
     type: VisualizationType,
   ) => Result<void, Error>;
+  updateControlVisualizationLabel: (
+    widgetId: string,
+    newLabel: string,
+  ) => Result<void, Error>;
 
   addControlTextNode: (position: XYPosition) => void;
   updateControlTextNodeText: (id: string, text: string) => Result<void, Error>;
@@ -421,7 +425,7 @@ export const useProjectStore = create<State & Actions>()(
         set((state) => {
           const node = state.controlWidgetNodes.find((n) => n.id === widgetId);
           if (node === undefined) {
-            throw new Error("Block not found");
+            throw new Error("Widget not found");
           }
 
           node.data.label = newLabel;
@@ -456,6 +460,25 @@ export const useProjectStore = create<State & Actions>()(
         state.controlVisualizationNodes.push(node);
       });
 
+      return ok(undefined);
+    },
+
+    updateControlVisualizationLabel: (vizId: string, newLabel: string) => {
+      newLabel = newLabel.trim();
+      try {
+        set((state) => {
+          const node = state.controlVisualizationNodes.find(
+            (n) => n.id === vizId,
+          );
+          if (node === undefined) {
+            throw new Error("Block not found");
+          }
+
+          node.data.label = newLabel;
+        });
+      } catch (e) {
+        return err(e as Error);
+      }
       return ok(undefined);
     },
 

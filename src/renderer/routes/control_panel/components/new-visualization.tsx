@@ -90,15 +90,21 @@ export const NewVisualizationModal = ({ open, setOpen }: Props) => {
     },
   });
 
-  const handleSetBlock = (val: string) => {
-    form.setValue("blockId", val);
+  const getOutputs = (val: string | undefined) => {
     const selectedBlock = blocks.find((b) => b.id === val);
     const outputs =
       selectedBlock && selectedBlock.data.outputs
-        ? selectedBlock.data.outputs.map((o) => o.name)
+        ? selectedBlock.data.outputs
         : undefined;
     const multipleOutputs = outputs && outputs.length > 1;
-    const defaultOutput = outputs?.[0];
+    const defaultOutput = outputs?.[0].name;
+
+    return { outputs, multipleOutputs, defaultOutput };
+  };
+
+  const handleSetBlock = (val: string) => {
+    form.setValue("blockId", val);
+    const { multipleOutputs, defaultOutput } = getOutputs(val);
     if (!multipleOutputs && defaultOutput) {
       form.setValue("blockOutput", defaultOutput);
     }
@@ -116,17 +122,12 @@ export const NewVisualizationModal = ({ open, setOpen }: Props) => {
     setOpen(false);
   };
 
-  const selectedBlock = blocks.find((b) => b.id === form.watch("blockId"));
-  const outputs =
-    selectedBlock && selectedBlock.data.outputs
-      ? selectedBlock.data.outputs.map((o) => o.name)
-      : undefined;
-  const multipleOutputs = outputs && outputs.length > 1;
+  const { outputs, multipleOutputs } = getOutputs(form.watch("blockId"));
 
   const selectedOutput = form.watch("blockOutput");
   const selectedOutputType =
-    selectedBlock && selectedBlock.data.outputs && selectedOutput
-      ? selectedBlock.data.outputs.find((o) => o.name === selectedOutput)?.type
+    selectedOutput && outputs
+      ? outputs.find((o) => o.name === selectedOutput)?.type
       : undefined;
 
   const visualizationTypes = selectedOutputType
@@ -192,8 +193,8 @@ export const NewVisualizationModal = ({ open, setOpen }: Props) => {
                             form.resetField("visualizationType");
                             form.setValue("blockOutput", val);
                           }}
-                          displaySelector={(param) => param}
-                          valueSelector={(param) => param}
+                          displaySelector={(param) => param.name}
+                          valueSelector={(param) => param.name}
                         />
                       </FormControl>
                     </div>

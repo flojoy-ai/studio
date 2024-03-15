@@ -210,6 +210,7 @@ export type VisualizationType = z.infer<typeof VisualizationType>;
 export type VisualizationData = {
   blockId: string;
   blockOutput: string;
+  label?: string;
   visualizationType: VisualizationType;
 };
 

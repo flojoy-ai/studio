@@ -11,11 +11,7 @@ import PlotlyComponent from "@/renderer/components/plotly/PlotlyComponent";
 import { useProjectStore } from "@/renderer/stores/project";
 import { useBlockIcon } from "@/renderer/hooks/useBlockIcon";
 
-const VisualizationNode = ({
-  selected,
-  id,
-  data,
-}: NodeProps<VisualizationData>) => {
+const MirrorNode = ({ selected, id, data }: NodeProps<VisualizationData>) => {
   const { resolvedTheme } = useTheme();
   const { blockResult } = useBlockStatus(data.blockId);
   const { vizNodes, blocks } = useProjectStore((state) => ({
@@ -92,4 +88,4 @@ const VisualizationNode = ({
   );
 };
 
-export default memo(VisualizationNode);
+export default memo(MirrorNode);
