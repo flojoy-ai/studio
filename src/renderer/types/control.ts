@@ -23,7 +23,7 @@ import {
   ScatterChart,
 } from "lucide-react";
 import { SevenSegmentDisplayNode } from "@/renderer/components/controls/visualization/seven-segment-display-node";
-import VisualizationNode from "@/renderer/components/controls/visualization-node";
+import MirrorNode from "@/renderer/components/controls/visualization/mirror-node";
 
 export const PYTHON_TYPES = ["int", "float", "bool", "select", "File"] as const;
 export const PythonType = z.enum(PYTHON_TYPES);
@@ -198,7 +198,7 @@ export const VISUALIZATIONS = {
     icon: Square,
   },
   mirror: {
-    node: VisualizationNode,
+    node: MirrorNode,
     allowedTypes: ["Plotly"],
     icon: ScatterChart,
   },
