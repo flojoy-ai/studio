@@ -55,7 +55,7 @@ export function CloudPanel() {
         </h2>
 
         <div className="pb-1 text-muted-foreground">
-          <h2>Hardware id</h2>
+          <h2>Serial Number</h2>
         </div>
         <Input
           className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
