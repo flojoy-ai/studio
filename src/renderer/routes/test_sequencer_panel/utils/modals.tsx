@@ -8,15 +8,11 @@ export function ModalProvider() {
   
   return (
     <div>
-        <TestSequencerProjectModal
-          isProjectModalOpen={isCreateProjectModalOpen}
-          handleProjectModalOpen={setIsCreateProjectModalOpen}
-        />
+        <TestSequencerProjectModal/>
         <ImportTestModal
           isModalOpen={isImportTestModalOpen}
           handleModalOpen={setIsImportTestModalOpen}
         />
     </div>
-
   )
 };

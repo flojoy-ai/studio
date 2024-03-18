@@ -6,14 +6,10 @@ import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useCreateProject } from "@/renderer/hooks/useTestSequencerProject";
 import { InterpreterType } from "@/renderer/types/test-sequencer";
 import { PathInput } from "@/renderer/components/ui/path-input";
+import { useModalStore } from "@/renderer/stores/modal";
 
-export const TestSequencerProjectModal = ({
-  isProjectModalOpen,
-  handleProjectModalOpen,
-}: {
-  isProjectModalOpen: boolean;
-    handleProjectModalOpen: (val: boolean) => void;
-}) => {
+export const TestSequencerProjectModal = () => {
+  const { isCreateProjectModalOpen, setIsCreateProjectModalOpen } = useModalStore();
   const { elems } = useTestSequencerState();
   const handleCreate = useCreateProject();
   const [name, setName] = useState("");
@@ -37,12 +33,12 @@ export const TestSequencerProjectModal = ({
           requirementsPath: "flojoy_requirements.txt",
         },
       },
-      handleProjectModalOpen,
+      setIsCreateProjectModalOpen,
     );
   }
 
   return (
-    <Dialog open={isProjectModalOpen} onOpenChange={handleProjectModalOpen}>
+    <Dialog open={isCreateProjectModalOpen} onOpenChange={setIsCreateProjectModalOpen}>
       <DialogContent>
         <h2 className="mb-2 pt-3 text-center text-lg font-bold text-accent1 ">
           Project Manager
@@ -94,8 +90,7 @@ export const TestSequencerProjectModal = ({
           // </div>
         }
         <Button variant={"default"} onClick={() => handleSubmit()}>
-          {" "}
-          New Project{" "}
+          New Project
         </Button>
       </DialogContent>
     </Dialog>

@@ -5,6 +5,7 @@ import { Separator } from "@/renderer/components/ui/separator";
 import { useTestImport } from "@/renderer/hooks/useTestImport";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useAppStore } from "@/renderer/stores/app";
+import { useModalStore } from "@/renderer/stores/modal";
 import { ExternalLinkIcon } from "lucide-react";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useShallow } from "zustand/react/shallow";
@@ -16,12 +17,8 @@ export type ImportTestSettings = {
 
 export type ImportType = "pytest" | "python";
 
-type Props = {
-  isModalOpen: boolean;
-  handleModalOpen: (val: boolean) => void;
-};
-
-export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
+export const ImportTestModal = () => {
+    const { isImportTestModalOpen, setIsImportTestModalOpen } = useModalStore();
   const [checked, setChecked] = useState<boolean>(false);
 
   const { setIsDepManagerModalOpen } = useAppStore(
@@ -40,13 +37,13 @@ export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
         importType: importType,
         importAsOneRef: checked,
       },
-      handleModalOpen,
+      setIsImportTestModalOpen,
     );
     setIsLocked(false);
   };
 
   return (
-    <Dialog open={isModalOpen} onOpenChange={handleModalOpen}>
+    <Dialog open={isImportTestModalOpen} onOpenChange={setIsImportTestModalOpen}>
       <DialogContent>
         <h2 className="text-lg font-bold text-accent1">
           Import Python Scripts & Tests
