@@ -6,12 +6,14 @@ type State = {
   isImportTestModalOpen: boolean;
   isCreateProjectModalOpen: boolean;
   isErrorModalOpen: boolean;
+  errorModalMessage: string;
 };
 
 type Actions = {
   setIsImportTestModalOpen: (val: boolean) => void;
   setIsCreateProjectModalOpen: (val: boolean) => void;
   setIsErrorModalOpen: (val: boolean) => void;
+  setErrorModalMessage: (val: string) => void;
 };
 
 
@@ -33,6 +35,12 @@ export const useModalStore = create<State & Actions>()(
     setIsErrorModalOpen: (val) =>
       set((state) => {
       state.isErrorModalOpen = val;
+      }),
+
+    errorModalMessage: "No error message provided.",
+    setErrorModalMessage: (val) =>
+      set((state) => {
+      state.errorModalMessage = val;
       }),
   })),
 );

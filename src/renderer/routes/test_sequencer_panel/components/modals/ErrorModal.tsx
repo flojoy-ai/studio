@@ -2,8 +2,8 @@ import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { useModalStore } from "@/renderer/stores/modal";
 
 export const ErrorModal = () => {
-  const { isErrorModalOpen, setIsErrorModalOpen } = useModalStore();
-  const text = "Place your content here";
+  const { isErrorModalOpen, setIsErrorModalOpen, errorModalMessage } = useModalStore();
+  const lines = errorModalMessage.split("\n");
 
   return (
     <Dialog open={isErrorModalOpen} onOpenChange={setIsErrorModalOpen}>
@@ -12,8 +12,10 @@ export const ErrorModal = () => {
           Error Details
         </h2>
 
-        <div className="mt-2 max-h-[400px] overflow-y-auto whitespace-pre rounded-md bg-secondary p-2">
-          { text }
+        <div className="mt-2 max-h-[400px] max-w-[600px] overflow-y-auto whitespace-pre rounded-md bg-secondary p-2">
+          {lines.map((line, index) => (
+            <div key={index}>{line}</div>
+          ))}
         </div>
       </DialogContent>
     </Dialog>

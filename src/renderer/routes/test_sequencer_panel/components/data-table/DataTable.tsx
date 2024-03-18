@@ -47,7 +47,7 @@ import {
   getIndentLevels,
 } from "@/renderer/routes/test_sequencer_panel/utils/ConditionalUtils";
 import { ChevronUpIcon, ChevronDownIcon, TrashIcon } from "lucide-react";
-import { WriteConditionalModal } from "@/renderer/routes/test_sequencer_panel/components/AddWriteConditionalModal";
+import { WriteConditionalModal } from "@/renderer/routes/test_sequencer_panel/components/modals/AddWriteConditionalModal";
 import LockableButton from "@/renderer/routes/test_sequencer_panel/components/lockable/LockedButtons";
 import { useRef, useState, useEffect } from "react";
 import TestNameCell from "./test-name-cell";
@@ -57,7 +57,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/renderer/components/ui/hover-card";
-import PythonTestFileModal from "@/renderer/routes/test_sequencer_panel/components/PythonTestFileModal";
+import PythonTestFileModal from "@/renderer/routes/test_sequencer_panel/components/modals/PythonTestFileModal";
 
 function renderErrorMessage(text: string): JSX.Element {
   const lines = text.split("\n");
