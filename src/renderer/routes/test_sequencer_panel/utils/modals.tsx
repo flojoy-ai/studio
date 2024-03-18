@@ -1,24 +1,20 @@
-import { TestSequencerProjectModal } from "@/renderer/routes/test_Sequencer_panel/components/TestSequencerProjectModal";
-import { ImportTestModal } from "@/renderer/routes/test_Sequencer_panel/components/ImportTestModal";
+import { useModalStore } from "@/renderer/stores/modal";
+import { TestSequencerProjectModal } from "../components/TestSequencerProjectModal";
+import { ImportTestModal } from "../components/ImportTestModal";
 
 
-export const createModalProvider = () => {
-  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
-  const handleClickImportTest = () => {
-    setIsImportModalOpen(true);
-  };
-
-  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
-
+export function ModalProvider() {
+  const { isImportTestModalOpen, setIsImportTestModalOpen, isCreateProjectModalOpen, setIsCreateProjectModalOpen } = useModalStore();
+  
   return (
     <div>
         <TestSequencerProjectModal
-          isProjectModalOpen={isProjectModalOpen}
-          handleProjectModalOpen={setIsProjectModalOpen}
+          isProjectModalOpen={isCreateProjectModalOpen}
+          handleProjectModalOpen={setIsCreateProjectModalOpen}
         />
         <ImportTestModal
-          isModalOpen={isImportModalOpen}
-          handleModalOpen={setIsImportModalOpen}
+          isModalOpen={isImportTestModalOpen}
+          handleModalOpen={setIsImportTestModalOpen}
         />
     </div>
 

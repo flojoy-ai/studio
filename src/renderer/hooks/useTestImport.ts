@@ -39,7 +39,7 @@ export const useTestImport = () => {
   async function getTests(
     path: string,
     settings: ImportTestSettings,
-    setModalOpen: Dispatch<SetStateAction<boolean>>,
+    setModalOpen: (val: boolean) => void,
   ) {
     let data: TestDiscoverContainer;
     if (settings.importType == "python") {
@@ -83,7 +83,7 @@ export const useTestImport = () => {
 
   const openFilePicker = (
     settings: ImportTestSettings,
-    setModalOpen: Dispatch<SetStateAction<boolean>>,
+    setModalOpen: (val: boolean) => void,
   ) => {
     window.api
       .openTestPicker()

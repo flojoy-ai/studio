@@ -18,7 +18,7 @@ export type ImportType = "pytest" | "python";
 
 type Props = {
   isModalOpen: boolean;
-  handleModalOpen: Dispatch<SetStateAction<boolean>>;
+  handleModalOpen: (val: boolean) => void;
 };
 
 export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {

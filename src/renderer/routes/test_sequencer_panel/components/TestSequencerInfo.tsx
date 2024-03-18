@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { DataTable } from "./data-table/DataTable";
 import { SummaryTable } from "./SummaryTable";
 import { CloudPanel } from "./CloudPanel";
@@ -21,13 +21,16 @@ import {
   useSaveProject,
   useCloseProject,
 } from "@/renderer/hooks/useTestSequencerProject";
+import { useModalStore } from "@/renderer/stores/modal";
+import { ModalProvider } from "../utils/modals";
 
 const TestSequencerView = () => {
   const { setElems, tree, setIsLocked, backendState, project } =
     useTestSequencerState();
+  const { setIsImportTestModalOpen, setIsCreateProjectModalOpen } = useModalStore();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
   const handleClickImportTest = () => {
-    setIsImportModalOpen(true);
+    setIsImportTestModalOpen(true);
   };
 
   const resetStatus = () => {
@@ -68,6 +71,7 @@ const TestSequencerView = () => {
           height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT}px)`,
         }}
       >
+        <ModalProvider/>         
         <div className="flex overflow-y-auto">
           <div
             className="ml-auto mr-auto h-3/5 flex-grow flex-col overflow-y-auto"
@@ -128,7 +132,7 @@ const TestSequencerView = () => {
                       className="mt-4 w-full"
                       variant="outline"
                       onClick={() => {
-                        setIsProjectModalOpen(true);
+                        setIsCreateProjectModalOpen(true);
                       }}
                     >
                       New Project

@@ -53,7 +53,7 @@ export function useCreateProject() {
   const manager = usePrepareStateManager();
   const handle = async (
     project: TestSequencerProject,
-    setModalOpen: Dispatch<SetStateAction<boolean>> | null,
+    setModalOpen: (val: boolean) => void | null,
   ) => {
     toast.promise(createProject(project, manager, true), {
       loading: "Creating project...",

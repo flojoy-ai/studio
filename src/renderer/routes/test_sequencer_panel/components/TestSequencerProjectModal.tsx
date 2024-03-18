@@ -1,6 +1,6 @@
 import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { Button } from "@/renderer/components/ui/button";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { Input } from "@/renderer/components/ui/input";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useCreateProject } from "@/renderer/hooks/useTestSequencerProject";
@@ -12,7 +12,7 @@ export const TestSequencerProjectModal = ({
   handleProjectModalOpen,
 }: {
   isProjectModalOpen: boolean;
-  handleProjectModalOpen: Dispatch<SetStateAction<boolean>>;
+    handleProjectModalOpen: (val: boolean) => void;
 }) => {
   const { elems } = useTestSequencerState();
   const handleCreate = useCreateProject();
