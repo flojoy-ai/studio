@@ -3,13 +3,10 @@ import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { Input } from "@/renderer/components/ui/input";
 import { useModalState } from "@/renderer/hooks/useModalState";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
-import { useModalStore } from "@/renderer/stores/modal";
 import { useState } from "react";
 
 export const RenameTestModal = () => {
-  const { isRenameTestModalOpen, setIsRenameTestModalOpen } =
-    useModalStore();
-  const { renameTestId } = useModalState();
+  const { renameTestId, isRenameTestModalOpen, setIsRenameTestModalOpen } = useModalState();
   const { elems, setElems } = useTestSequencerState();
   const [testName, setTestName] = useState<string>("");
 
