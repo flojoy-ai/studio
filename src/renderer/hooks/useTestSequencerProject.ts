@@ -2,7 +2,6 @@ import useWithPermission from "./useWithPermission";
 import { useTestSequencerState } from "./useTestSequencerState";
 import { TestSequencerProject } from "@/renderer/types/test-sequencer";
 import { toast } from "sonner";
-import { Dispatch, SetStateAction } from "react";
 import {
   createProject,
   saveProject,

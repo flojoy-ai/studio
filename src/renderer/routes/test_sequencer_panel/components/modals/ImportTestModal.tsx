@@ -7,7 +7,7 @@ import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useAppStore } from "@/renderer/stores/app";
 import { useModalStore } from "@/renderer/stores/modal";
 import { ExternalLinkIcon } from "lucide-react";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useShallow } from "zustand/react/shallow";
 
 export type ImportTestSettings = {
