@@ -244,7 +244,7 @@ async function createProjectElementsFromTestSequencerElements(
   const elements = [...elems].map((elem) => {
     return elem.type === "test"
       ? createNewTest(
-          elem.path.replaceAll(baseFolder, ""),
+          elem.testName,
           elem.path.replaceAll(baseFolder, ""),
           elem.testType,
           elem.exportToCloud,
