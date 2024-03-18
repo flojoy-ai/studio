@@ -43,10 +43,10 @@ export const useModalStore = create<State & Actions>()(
         state.isErrorModalOpen = val;
       }),
     openErrorModal: (message) =>
-    set((state) => {
-      state.isErrorModalOpen = true;
-      state.errorModalMessage = message;
-    }),
+      set((state) => {
+        state.isErrorModalOpen = true;
+        state.errorModalMessage = message;
+      }),
 
     isRenameTestModalOpen: false,
     renameTestId: "",
