@@ -59,7 +59,6 @@ import {
 } from "@/renderer/components/ui/hover-card";
 import PythonTestFileModal from "@/renderer/routes/test_sequencer_panel/components/modals/PythonTestFileModal";
 import { useModalState } from "@/renderer/hooks/useModalState";
-import { useModalStore } from "@/renderer/stores/modal";
 
 function renderErrorMessage(text: string): JSX.Element {
   const lines = text.split("\n");
@@ -95,7 +94,7 @@ const mapStatusToDisplay: { [k in StatusType] } = {
 
 export function DataTable() {
   const { elems, setElems, running } = useTestSequencerState();
-  const { setIsRenameTestModalOpen } = useModalStore();
+  const { openRenameTestModal } = useModalState();
   const [addIfStatement] = useState(false);
   const indentLevels = getIndentLevels(elems);
   const [openPyTestFileModal, setOpenPyTestFileModal] = useState(false);
@@ -498,7 +497,7 @@ export function DataTable() {
                     {row.original.type === "test" && (
                       <ContextMenuItem
                         onClick={() => {
-                          setIsRenameTestModalOpen(true, row.original.id);
+                          openRenameTestModal(row.original.id);
                         }}
                       >
                         Rename Test

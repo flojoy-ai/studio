@@ -27,7 +27,7 @@ export const RenameTestModal = () => {
   return (
     <Dialog
       open={isRenameTestModalOpen}
-      onOpenChange={() => setIsRenameTestModalOpen(false, null)}
+      onOpenChange={setIsRenameTestModalOpen}
     >
       <DialogContent>
         <h2 className="text-lg font-bold text-accent1 ">Rename Test</h2>

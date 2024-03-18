@@ -17,9 +17,9 @@ type Actions = {
   setIsImportTestModalOpen: (val: boolean) => void;
   setIsCreateProjectModalOpen: (val: boolean) => void;
   setIsErrorModalOpen: (val: boolean) => void;
-  setIsRenameTestModalOpen: (val: boolean, testId: string | null) => void;
-  // Data
-  setErrorModalMessage: (val: string) => void;
+  openErrorModal: (message: string) => void;
+  setIsRenameTestModalOpen: (val: boolean) => void;
+  openRenameTestModal: (testId: string) => void;
 };
 
 export const useModalStore = create<State & Actions>()(
@@ -37,22 +37,27 @@ export const useModalStore = create<State & Actions>()(
       }),
 
     isErrorModalOpen: false,
+    errorModalMessage: "No error message provided.",
     setIsErrorModalOpen: (val) =>
       set((state) => {
         state.isErrorModalOpen = val;
       }),
-
-    errorModalMessage: "No error message provided.",
-    setErrorModalMessage: (val) =>
-      set((state) => {
-        state.errorModalMessage = val;
-      }),
+    openErrorModal: (message) =>
+    set((state) => {
+      state.isErrorModalOpen = true;
+      state.errorModalMessage = message;
+    }),
 
     isRenameTestModalOpen: false,
     renameTestId: "",
-    setIsRenameTestModalOpen: (val, testId) =>
+    setIsRenameTestModalOpen: (val) =>
       set((state) => {
         state.isRenameTestModalOpen = val;
+        state.renameTestId = null;
+      }),
+    openRenameTestModal: (testId) =>
+      set((state) => {
+        state.isRenameTestModalOpen = true;
         state.renameTestId = testId;
       }),
   })),

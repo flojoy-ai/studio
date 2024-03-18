@@ -5,7 +5,7 @@ import { ImportTestSettings } from "@/renderer/routes/test_sequencer_panel/compo
 import { toast } from "sonner";
 import { useCallback } from "react";
 import { discoverPytest } from "@/renderer/lib/api";
-import { useModalStore } from "@/renderer/stores/modal";
+import { useModalState } from "./useModalState";
 
 function parseDiscoverContainer(
   data: TestDiscoverContainer,
@@ -23,7 +23,7 @@ function parseDiscoverContainer(
 
 export const useTestImport = () => {
   const { AddNewElems } = useTestSequencerState();
-  const { setErrorModalMessage, setIsErrorModalOpen } = useModalStore();
+  const { openErrorModal } = useModalState();
 
   const handleUserDepInstall = useCallback(async (depName: string) => {
     const promise = () => window.api.poetryInstallDepUserGroup(depName);
@@ -102,8 +102,7 @@ export const useTestImport = () => {
                 action: {
                   label: "More details",
                   onClick: () => {
-                    setErrorModalMessage(e.message);
-                    setIsErrorModalOpen(true);
+                    openErrorModal(e.message);
                   },
                 },
               });

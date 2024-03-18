@@ -1,9 +1,9 @@
 import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
-import { useModalStore } from "@/renderer/stores/modal";
+import { useModalState } from "@/renderer/hooks/useModalState";
 
 export const ErrorModal = () => {
   const { isErrorModalOpen, setIsErrorModalOpen, errorModalMessage } =
-    useModalStore();
+    useModalState();
   const lines = errorModalMessage.split("\n");
   const maxLen = 100;
   for (let i = 0; i < lines.length; i++) {
