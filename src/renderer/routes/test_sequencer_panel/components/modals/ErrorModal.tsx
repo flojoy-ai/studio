@@ -2,7 +2,8 @@ import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { useModalStore } from "@/renderer/stores/modal";
 
 export const ErrorModal = () => {
-  const { isErrorModalOpen, setIsErrorModalOpen, errorModalMessage } = useModalStore();
+  const { isErrorModalOpen, setIsErrorModalOpen, errorModalMessage } =
+    useModalStore();
   const lines = errorModalMessage.split("\n");
   const maxLen = 100;
   for (let i = 0; i < lines.length; i++) {
@@ -11,7 +12,7 @@ export const ErrorModal = () => {
       lines.splice(i, 1, line.slice(0, maxLen), line.slice(maxLen));
     }
   }
-  
+
   return (
     <Dialog open={isErrorModalOpen} onOpenChange={setIsErrorModalOpen}>
       <DialogContent className="max-w-4xl">

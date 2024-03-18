@@ -9,7 +9,8 @@ import { PathInput } from "@/renderer/components/ui/path-input";
 import { useModalStore } from "@/renderer/stores/modal";
 
 export const TestSequencerProjectModal = () => {
-  const { isCreateProjectModalOpen, setIsCreateProjectModalOpen } = useModalStore();
+  const { isCreateProjectModalOpen, setIsCreateProjectModalOpen } =
+    useModalStore();
   const { elems } = useTestSequencerState();
   const handleCreate = useCreateProject();
   const [name, setName] = useState("");
@@ -38,7 +39,10 @@ export const TestSequencerProjectModal = () => {
   }
 
   return (
-    <Dialog open={isCreateProjectModalOpen} onOpenChange={setIsCreateProjectModalOpen}>
+    <Dialog
+      open={isCreateProjectModalOpen}
+      onOpenChange={setIsCreateProjectModalOpen}
+    >
       <DialogContent>
         <h2 className="mb-2 pt-3 text-center text-lg font-bold text-accent1 ">
           Project Manager

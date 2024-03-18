@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
-
 type State = {
   isImportTestModalOpen: boolean;
   isCreateProjectModalOpen: boolean;
@@ -16,7 +15,6 @@ type Actions = {
   setErrorModalMessage: (val: string) => void;
 };
 
-
 export const useModalStore = create<State & Actions>()(
   immer((set) => ({
     isImportTestModalOpen: false,
@@ -28,19 +26,19 @@ export const useModalStore = create<State & Actions>()(
     isCreateProjectModalOpen: false,
     setIsCreateProjectModalOpen: (val) =>
       set((state) => {
-      state.isCreateProjectModalOpen = val;
+        state.isCreateProjectModalOpen = val;
       }),
 
     isErrorModalOpen: false,
     setIsErrorModalOpen: (val) =>
       set((state) => {
-      state.isErrorModalOpen = val;
+        state.isErrorModalOpen = val;
       }),
 
     errorModalMessage: "No error message provided.",
     setErrorModalMessage: (val) =>
       set((state) => {
-      state.errorModalMessage = val;
+        state.errorModalMessage = val;
       }),
   })),
 );

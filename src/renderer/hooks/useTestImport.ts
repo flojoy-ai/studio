@@ -99,15 +99,18 @@ export const useTestImport = () => {
           error: (e) => {
             // If message too long, open a Error modal instead (with the click of a button)
             if (e.message.length > 100) {
-              toast('Error while attempting to discover tests', {
+              toast("Error while attempting to discover tests", {
                 action: {
-                  label: 'More details',
-                  onClick: () => { setErrorModalMessage(e.message); setIsErrorModalOpen(true) }
+                  label: "More details",
+                  onClick: () => {
+                    setErrorModalMessage(e.message);
+                    setIsErrorModalOpen(true);
+                  },
                 },
               });
               return "Failed to discover tests due to an unexpected error.";
             }
-            return `Error while attempting to discover tests: ${e.message.replace("Error: ", "")}`
+            return `Error while attempting to discover tests: ${e.message.replace("Error: ", "")}`;
           },
         });
       })

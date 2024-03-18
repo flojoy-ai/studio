@@ -18,7 +18,7 @@ export type ImportTestSettings = {
 export type ImportType = "pytest" | "python";
 
 export const ImportTestModal = () => {
-    const { isImportTestModalOpen, setIsImportTestModalOpen } = useModalStore();
+  const { isImportTestModalOpen, setIsImportTestModalOpen } = useModalStore();
   const [checked, setChecked] = useState<boolean>(false);
 
   const { setIsDepManagerModalOpen } = useAppStore(
@@ -43,7 +43,10 @@ export const ImportTestModal = () => {
   };
 
   return (
-    <Dialog open={isImportTestModalOpen} onOpenChange={setIsImportTestModalOpen}>
+    <Dialog
+      open={isImportTestModalOpen}
+      onOpenChange={setIsImportTestModalOpen}
+    >
       <DialogContent>
         <h2 className="text-lg font-bold text-accent1">
           Import Python Scripts & Tests

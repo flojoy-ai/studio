@@ -3,10 +3,10 @@ import { useShallow } from "zustand/react/shallow";
 
 export function useModalState() {
   const state: {
-    isImportTestModalOpen,
-    isCreateProjectModalOpen,
-    setIsImportTestModalOpen,
-    setIsCreateProjectModalOpen,
+    isImportTestModalOpen;
+    isCreateProjectModalOpen;
+    setIsImportTestModalOpen;
+    setIsCreateProjectModalOpen;
   } = useModalStore(
     useShallow((state) => {
       return {
@@ -19,4 +19,3 @@ export function useModalState() {
   );
   return state;
 }
-
