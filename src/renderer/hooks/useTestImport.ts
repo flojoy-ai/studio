@@ -1,11 +1,11 @@
 import { TestDiscoverContainer } from "@/renderer/types/test-sequencer";
 import { createNewTest, useTestSequencerState } from "./useTestSequencerState";
 import { map } from "lodash";
-import { ImportTestSettings } from "@/renderer/routes/test_sequencer_panel/components/ImportTestModal";
+import { ImportTestSettings } from "@/renderer/routes/test_sequencer_panel/components/modals/ImportTestModal";
 import { toast } from "sonner";
 import { useCallback } from "react";
-import { Dispatch, SetStateAction } from "react";
 import { discoverPytest } from "@/renderer/lib/api";
+import { useModalStore } from "../stores/modal";
 
 function parseDiscoverContainer(
   data: TestDiscoverContainer,
@@ -23,6 +23,7 @@ function parseDiscoverContainer(
 
 export const useTestImport = () => {
   const { AddNewElems } = useTestSequencerState();
+  const { setErrorModalMessage, setIsErrorModalOpen } = useModalStore();
 
   const handleUserDepInstall = useCallback(async (depName: string) => {
     const promise = () => window.api.poetryInstallDepUserGroup(depName);
@@ -95,7 +96,19 @@ export const useTestImport = () => {
           success: () => {
             return "Test Imported.";
           },
-          error: (e) => `Error while attempting to discover tests: ${e.message.replace("Error: ", "")}`,
+          error: (e) => {
+            // If message too long, open a Error modal instead (with the click of a button)
+            if (e.message.length > 100) {
+              toast('Error while attempting to discover tests', {
+                action: {
+                  label: 'More details',
+                  onClick: () => { setErrorModalMessage(e.message); setIsErrorModalOpen(true) }
+                },
+              });
+              return "Failed to discover tests due to an unexpected error.";
+            }
+            return `Error while attempting to discover tests: ${e.message.replace("Error: ", "")}`
+          },
         });
       })
       .catch((error) => {
