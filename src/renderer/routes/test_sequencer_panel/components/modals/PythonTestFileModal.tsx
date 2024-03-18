@@ -20,7 +20,7 @@ SyntaxHighlighter.registerLanguage("python", python);
 
 const PythonTestFileModal = ({ isModalOpen, handleModalOpen, test }: Props) => {
   const [sourceCode, setSourceCode] = useState("");
-  const [target, setTarget] = useState<string>("")
+  const [target, setTarget] = useState<string>("");
 
   useEffect(() => {
     window.api

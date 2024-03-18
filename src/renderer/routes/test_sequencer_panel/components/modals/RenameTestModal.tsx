@@ -5,13 +5,12 @@ import { useModalState } from "@/renderer/hooks/useModalState";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useState, useEffect } from "react";
 
-
 export const RenameTestModal = () => {
   const { renameTestId, isRenameTestModalOpen, setIsRenameTestModalOpen } =
     useModalState();
   const { elems, setElems, project } = useTestSequencerState();
-  const [testName, setTestName] = useState<string>("")
-  const [target, setTarget] = useState<string>("")
+  const [testName, setTestName] = useState<string>("");
+  const [target, setTarget] = useState<string>("");
 
   useEffect(() => {
     const test = elems.find((elem) => elem.id === renameTestId);
