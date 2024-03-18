@@ -52,9 +52,8 @@ export const useModalStore = create<State & Actions>()(
     renameTestId: "",
     setIsRenameTestModalOpen: (val, testId) =>
       set((state) => {
-      state.isRenameTestModalOpen = val;
-      state.renameTestId = testId;
+        state.isRenameTestModalOpen = val;
+        state.renameTestId = testId;
       }),
-
   })),
 );

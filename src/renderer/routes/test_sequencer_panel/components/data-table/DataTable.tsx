@@ -95,7 +95,7 @@ const mapStatusToDisplay: { [k in StatusType] } = {
 
 export function DataTable() {
   const { elems, setElems, running } = useTestSequencerState();
-  const { setIsRenameTestModalOpen } = useModalStore()
+  const { setIsRenameTestModalOpen } = useModalStore();
   const [addIfStatement] = useState(false);
   const indentLevels = getIndentLevels(elems);
   const [openPyTestFileModal, setOpenPyTestFileModal] = useState(false);
@@ -498,16 +498,18 @@ export function DataTable() {
                     {row.original.type === "test" && (
                       <ContextMenuItem
                         onClick={() => {
-                          setIsRenameTestModalOpen(true, row.original.id)
+                          setIsRenameTestModalOpen(true, row.original.id);
                         }}
                       >
-                        Rename Test 
+                        Rename Test
                       </ContextMenuItem>
                     )}
                     <ContextMenuItem
                       onClick={() => onRemoveTest([parseInt(row.id)])}
                     >
-                      { row.original.type === "test" ? "Remove Test" : "Remove Conditional" }
+                      {row.original.type === "test"
+                        ? "Remove Test"
+                        : "Remove Conditional"}
                     </ContextMenuItem>
                     {row.original.type === "test" && (
                       <ContextMenuItem

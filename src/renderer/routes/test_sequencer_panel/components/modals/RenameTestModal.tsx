@@ -6,33 +6,38 @@ import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useState } from "react";
 
 export const RenameTestModal = () => {
-  const { renameTestId, isRenameTestModalOpen, setIsRenameTestModalOpen } = useModalState();
+  const { renameTestId, isRenameTestModalOpen, setIsRenameTestModalOpen } =
+    useModalState();
   const { elems, setElems } = useTestSequencerState();
   const [testName, setTestName] = useState<string>("");
 
   function handleClick() {
     setElems(
       elems.map((elem) => {
-      if (elem.id === renameTestId) {
-        return { ...elem, testName: testName };
-      } else {
-        return elem;
-      }
+        if (elem.id === renameTestId) {
+          return { ...elem, testName: testName };
+        } else {
+          return elem;
+        }
       }),
     );
     setIsRenameTestModalOpen(false, null);
   }
 
   return (
-    <Dialog open={isRenameTestModalOpen} onOpenChange={() => setIsRenameTestModalOpen(false, null)}>
+    <Dialog
+      open={isRenameTestModalOpen}
+      onOpenChange={() => setIsRenameTestModalOpen(false, null)}
+    >
       <DialogContent>
-        <h2 className="text-lg font-bold text-accent1 ">
-          Rename Test
-        </h2>
-        <Input placeholder="New Name" value={testName} onChange={(e) => setTestName(e.target.value)} />
+        <h2 className="text-lg font-bold text-accent1 ">Rename Test</h2>
+        <Input
+          placeholder="New Name"
+          value={testName}
+          onChange={(e) => setTestName(e.target.value)}
+        />
         <Button onClick={handleClick}>Rename</Button>
       </DialogContent>
     </Dialog>
   );
 };
-
