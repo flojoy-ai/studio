@@ -356,6 +356,10 @@ export function DataTable() {
     handleAddConditionalModal("if");
   };
 
+  const handleClickRenameTest = (idx: number) => {
+    setShowRenameTestModal(true);
+  }
+
   const onClickWriteCondition = (idx: number) => {
     writeConditionalForIdx.current = idx;
     setShowWriteConditionalModal(true);
@@ -492,10 +496,19 @@ export function DataTable() {
                     >
                       Add Conditional
                     </ContextMenuItem>
+                    {row.original.type === "test" && (
+                      <ContextMenuItem
+                        onClick={() => {
+                          handleClickRename(parseInt(row.id))
+                        }}
+                      >
+                        Rename Test 
+                      </ContextMenuItem>
+                    )}
                     <ContextMenuItem
                       onClick={() => onRemoveTest([parseInt(row.id)])}
                     >
-                      Remove Test
+                      { row.original.type === "test" ? "Remove Test" : "Remove Conditional" }
                     </ContextMenuItem>
                     {row.original.type === "test" && (
                       <ContextMenuItem
