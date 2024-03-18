@@ -27,12 +27,9 @@ import { ModalsProvider } from "./modals/ModalsProvider";
 const TestSequencerView = () => {
   const { setElems, tree, setIsLocked, backendState, project } =
     useTestSequencerState();
+  const { tSSendJsonMessage } = useContext(TSWebSocketContext);
   const { setIsImportTestModalOpen, setIsCreateProjectModalOpen } =
     useModalStore();
-  const { tSSendJsonMessage } = useContext(TSWebSocketContext);
-  const handleClickImportTest = () => {
-    setIsImportTestModalOpen(true);
-  };
 
   const resetStatus = () => {
     setElems.withException((elems: TestSequenceElement[]) => {
@@ -93,7 +90,9 @@ const TestSequencerView = () => {
                   <LockableButton
                     className="mt-4 w-full"
                     variant="outline"
-                    onClick={handleClickImportTest}
+                    onClick={() => {
+                      setIsImportTestModalOpen(true);
+                    }}
                   >
                     Add Python Tests
                   </LockableButton>

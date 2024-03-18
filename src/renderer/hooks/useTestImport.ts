@@ -5,7 +5,7 @@ import { ImportTestSettings } from "@/renderer/routes/test_sequencer_panel/compo
 import { toast } from "sonner";
 import { useCallback } from "react";
 import { discoverPytest } from "@/renderer/lib/api";
-import { useModalStore } from "../stores/modal";
+import { useModalStore } from "@/renderer/stores/modal";
 
 function parseDiscoverContainer(
   data: TestDiscoverContainer,
@@ -57,7 +57,6 @@ export const useTestImport = () => {
       data = res.value;
     }
     if (data.error) {
-      // Warning: This can be a big trace, might be better not showing it as a toast
       throw new Error(data.error);
     }
     for (const lib of data.missingLibraries) {
