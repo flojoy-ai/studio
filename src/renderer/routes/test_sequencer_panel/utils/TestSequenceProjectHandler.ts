@@ -233,6 +233,17 @@ async function syncProject(
   stateManager.setUnsaved(false);
 }
 
+function removeBaseFolderFromName(name: string, baseFolder: string): string {
+  if (name.startsWith(baseFolder)) {
+    return name.replace(baseFolder, "");
+  }
+  // Pytest have only part of the "path" in the name
+  const splitName = name.split("/");
+  const splitBase = new Set(baseFolder.split("/"));
+  const filtered = splitName.filter((el) => !splitBase.has(el));
+  return filtered.join("/");
+}
+
 async function createProjectElementsFromTestSequencerElements(
   elems: TestSequenceElement[],
   baseFolder: string,
@@ -244,7 +255,7 @@ async function createProjectElementsFromTestSequencerElements(
   const elements = [...elems].map((elem) => {
     return elem.type === "test"
       ? createNewTest(
-          elem.testName,
+          removeBaseFolderFromName(elem.testName, baseFolder),
           elem.path.replaceAll(baseFolder, ""),
           elem.testType,
           elem.exportToCloud,
@@ -267,7 +278,7 @@ async function createTestSequencerElementsFromProjectElements(
   const elements: TestSequenceElement[] = [...project.elems].map((elem) => {
     return elem.type === "test"
       ? createNewTest(
-          elem.testName,
+          removeBaseFolderFromName(elem.testName, baseFolder),
           baseFolder + elem.path,
           elem.testType,
           elem.exportToCloud,
