@@ -58,6 +58,8 @@ import {
   HoverCardTrigger,
 } from "@/renderer/components/ui/hover-card";
 import PythonTestFileModal from "@/renderer/routes/test_sequencer_panel/components/modals/PythonTestFileModal";
+import { useModalState } from "@/renderer/hooks/useModalState";
+import { useModalStore } from "@/renderer/stores/modal";
 
 function renderErrorMessage(text: string): JSX.Element {
   const lines = text.split("\n");
@@ -93,6 +95,7 @@ const mapStatusToDisplay: { [k in StatusType] } = {
 
 export function DataTable() {
   const { elems, setElems, running } = useTestSequencerState();
+  const { setIsRenameTestModalOpen } = useModalStore()
   const [addIfStatement] = useState(false);
   const indentLevels = getIndentLevels(elems);
   const [openPyTestFileModal, setOpenPyTestFileModal] = useState(false);
@@ -356,10 +359,6 @@ export function DataTable() {
     handleAddConditionalModal("if");
   };
 
-  const handleClickRenameTest = (idx: number) => {
-    setShowRenameTestModal(true);
-  }
-
   const onClickWriteCondition = (idx: number) => {
     writeConditionalForIdx.current = idx;
     setShowWriteConditionalModal(true);
@@ -499,7 +498,7 @@ export function DataTable() {
                     {row.original.type === "test" && (
                       <ContextMenuItem
                         onClick={() => {
-                          handleClickRename(parseInt(row.id))
+                          setIsRenameTestModalOpen(true, row.original.id)
                         }}
                       >
                         Rename Test 

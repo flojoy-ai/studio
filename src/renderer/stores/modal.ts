@@ -2,16 +2,23 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
 type State = {
+  // Modals
   isImportTestModalOpen: boolean;
   isCreateProjectModalOpen: boolean;
   isErrorModalOpen: boolean;
+  isRenameTestModalOpen: boolean;
+  // Data
   errorModalMessage: string;
+  renameTestId: string | null;
 };
 
 type Actions = {
+  // Modals
   setIsImportTestModalOpen: (val: boolean) => void;
   setIsCreateProjectModalOpen: (val: boolean) => void;
   setIsErrorModalOpen: (val: boolean) => void;
+  setIsRenameTestModalOpen: (val: boolean, testId: string | null) => void;
+  // Data
   setErrorModalMessage: (val: string) => void;
 };
 
@@ -40,5 +47,14 @@ export const useModalStore = create<State & Actions>()(
       set((state) => {
         state.errorModalMessage = val;
       }),
+
+    isRenameTestModalOpen: false,
+    renameTestId: "",
+    setIsRenameTestModalOpen: (val, testId) =>
+      set((state) => {
+      state.isRenameTestModalOpen = val;
+      state.renameTestId = testId;
+      }),
+
   })),
 );
