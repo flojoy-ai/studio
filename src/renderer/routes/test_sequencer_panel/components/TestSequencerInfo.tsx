@@ -8,7 +8,6 @@ import {
   testSequenceStopRequest,
 } from "@/renderer/routes/test_sequencer_panel/models/models";
 import { TestSequenceElement } from "@/renderer/types/test-sequencer";
-import { ImportTestModal } from "./ImportTestModal";
 import LockableButton from "./lockable/LockedButtons";
 import { TSWebSocketContext } from "@/renderer/context/testSequencerWS.context";
 import { LockedContextProvider } from "@/renderer/context/lock.context";
@@ -17,7 +16,6 @@ import {
   LAYOUT_TOP_HEIGHT,
   BOTTOM_STATUS_BAR_HEIGHT,
 } from "@/renderer/routes/common/Layout";
-import { TestSequencerProjectModal } from "./TestSequencerProjectModal";
 import {
   useImportProject,
   useSaveProject,
@@ -28,7 +26,9 @@ const TestSequencerView = () => {
   const { setElems, tree, setIsLocked, backendState, project } =
     useTestSequencerState();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
-  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+  const handleClickImportTest = () => {
+    setIsImportModalOpen(true);
+  };
 
   const resetStatus = () => {
     setElems.withException((elems: TestSequenceElement[]) => {
@@ -60,10 +60,6 @@ const TestSequencerView = () => {
   const projectImport = useImportProject();
   const saveProject = useSaveProject();
   const closeProject = useCloseProject();
-  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
-  const handleClickImportTest = () => {
-    setIsImportModalOpen(true);
-  };
 
   return (
     <LockedContextProvider>
@@ -72,14 +68,6 @@ const TestSequencerView = () => {
           height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT}px)`,
         }}
       >
-        <TestSequencerProjectModal
-          isProjectModalOpen={isProjectModalOpen}
-          handleProjectModalOpen={setIsProjectModalOpen}
-        />
-        <ImportTestModal
-          isModalOpen={isImportModalOpen}
-          handleModalOpen={setIsImportModalOpen}
-        />
         <div className="flex overflow-y-auto">
           <div
             className="ml-auto mr-auto h-3/5 flex-grow flex-col overflow-y-auto"
