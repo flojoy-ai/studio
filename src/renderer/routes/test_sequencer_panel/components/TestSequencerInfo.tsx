@@ -11,6 +11,7 @@ import {
 } from "@/renderer/routes/common/Layout";
 import { ModalsProvider } from "./modals/ModalsProvider";
 import { ControlPanel } from "./ControlPanel";
+import { ImportPanel } from "./ImportPanel";
 
 const TestSequencerView = () => {
   const { setElems, tree, setIsLocked, backendState } =
@@ -27,27 +28,25 @@ const TestSequencerView = () => {
       >
         <ModalsProvider />
         <div className="flex overflow-y-auto">
+
           <div
             className="ml-auto mr-auto h-3/5 flex-grow flex-col overflow-y-auto"
             style={{ height: "calc(100vh - 260px)" }}
           >
-            <div className="flex">
-              <div className="rounded-xl mr-5 border border-gray-300 p-4 py-4 dark:border-gray-800 w-500 h-102">
-                Control Panel 
-              </div>
+            <div className="flex w-full">
               <ControlPanel />
               <SummaryTable />
             </div>
-
             <DataTable />
           </div>
 
           <div>
             <div className="top-0 h-full flex-none overflow-y-auto pl-5">
+              <ImportPanel />
               <CloudPanel />
-              <ControlPanel />
             </div>
           </div>
+
         </div>
       </div>
     </LockedContextProvider>

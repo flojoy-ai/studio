@@ -89,14 +89,14 @@ export function CloudPanel() {
 
   if (!isCloudKeySet) {
     return (
-      <Button onClick={() => setIsEnvVarModalOpen(true)} className="w-full">
+      <Button onClick={() => setIsEnvVarModalOpen(true)} className="w-full mt-5">
         Connect to Flojoy Cloud
       </Button>
     );
   }
 
   return (
-    <div className="min-w-[240px] rounded-xl border border-gray-300 p-4 py-4 dark:border-gray-800">
+    <div className="mt-5 min-w-[240px] rounded-xl border border-gray-300 p-4 py-4 dark:border-gray-800">
       <div className="flex flex-col">
         <h2 className="mb-2 text-center text-lg font-bold text-accent1 ">
           Unit Under Test

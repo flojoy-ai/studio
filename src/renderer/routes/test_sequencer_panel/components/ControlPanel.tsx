@@ -1,10 +1,4 @@
-import { useModalStore } from "@/renderer/stores/modal";
 import LockableButton from "./lockable/LockedButtons";
-import {
-  useImportProject,
-  useSaveProject,
-  useCloseProject,
-} from "@/renderer/hooks/useTestSequencerProject";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import _ from "lodash";
 import { TestSequenceElement } from "@/renderer/types/test-sequencer";
@@ -14,16 +8,12 @@ import {
 } from "@/renderer/routes/test_sequencer_panel/models/models";
 import { TSWebSocketContext } from "@/renderer/context/testSequencerWS.context";
 import { useContext } from "react";
+import { useImportProject } from "@/renderer/hooks/useTestSequencerProject";
 
 
 export function ControlPanel() {
-  const { setIsImportTestModalOpen, setIsCreateProjectModalOpen } = useModalStore();
   const { setElems, tree, setIsLocked, backendState, project } = useTestSequencerState();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
-
-  const projectImport = useImportProject();
-  const saveProject = useSaveProject();
-  const closeProject = useCloseProject();
 
   const resetStatus = () => {
     setElems.withException((elems: TestSequenceElement[]) => {
@@ -41,7 +31,6 @@ export function ControlPanel() {
     });
   };
 
-
   const handleClickRunTest = () => {
     console.log("Start test");
     setIsLocked(true);
@@ -54,67 +43,18 @@ export function ControlPanel() {
     setIsLocked(false);
   };
 
+  const projectImport = useImportProject();
 
   return (
-    <div className="mt-5 rounded-xl border border-gray-300 p-4 py-4 dark:border-gray-800">
+    <div className="rounded-xl border border-gray-300 dark:border-gray-800 mr-4 flex-none">
       <div className="flex flex-col">
-        <h2 className="mb-2 pt-3 text-center text-lg font-bold text-accent1 ">
-          Control Panel
+        <h2 className="px-4 py-2 text-lg font-bold text-accent1 ">
+          Sequencer Controls
         </h2>
-        <LockableButton
-          className="mt-4 w-full"
-          variant="outline"
-          onClick={() => {
-            setIsImportTestModalOpen(true);
-          }}
-        >
-          Add Python Tests
-        </LockableButton>
-        {project === null && (
-          <LockableButton
-            className="mt-4 w-full"
-            variant="outline"
-            onClick={projectImport}
-          >
-            Import Project
-          </LockableButton>
-        )}
-        {project !== null && (
-          <LockableButton
-            className="mt-4 w-full"
-            variant="outline"
-            onClick={() => {
-              saveProject();
-            }}
-          >
-            Save Project
-          </LockableButton>
-        )}
-        {project !== null && (
-          <LockableButton
-            className="mt-4 w-full"
-            variant="outline"
-            onClick={() => {
-              closeProject();
-            }}
-          >
-            Close Project
-          </LockableButton>
-        )}
-        {project === null && (
-          <LockableButton
-            className="mt-4 w-full"
-            variant="outline"
-            onClick={() => {
-              setIsCreateProjectModalOpen(true);
-            }}
-          >
-            New Project
-          </LockableButton>
-        )}
+        <div className="px-4 flex">
         <LockableButton
           variant="dotted"
-          className="mt-4 w-full gap-2"
+          className="mt-1 gap-2"
           isLocked={_.isEmpty(tree)}
           isException={backendState === "test_set_start"}
           onClick={
@@ -127,6 +67,15 @@ export function ControlPanel() {
             ? "Stop Test Sequence"
             : "Run Test Sequence"}
         </LockableButton>
+        <LockableButton
+          className="mt-2 gap-2 ml-4"
+          variant="outline"
+          onClick={projectImport}
+        >
+          Import Project
+        </LockableButton>
+
+        </div>
       </div>
     </div>
   );
