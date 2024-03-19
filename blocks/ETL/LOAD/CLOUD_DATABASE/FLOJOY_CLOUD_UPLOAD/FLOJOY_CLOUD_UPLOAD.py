@@ -26,7 +26,7 @@ FLOJOY_CLOUD_URI: str = os.environ.get("FLOJOY_CLOUD_URI") or "https://cloud.flo
 
 @node_preflight
 def preflight():
-    api_key = get_env_var("FLOJOY_CLOUD_KEY")
+    api_key = get_env_var("FLOJOY_CLOUD_WORKSPACE_SECRET")
 
     if api_key is None:
         raise KeyError(
@@ -65,7 +65,7 @@ def FLOJOY_CLOUD_UPLOAD(
         The input DataContainer will be returned as it is.
     """
 
-    api_key = get_env_var("FLOJOY_CLOUD_KEY")
+    api_key = get_env_var("FLOJOY_CLOUD_WORKSPACE_SECRET")
 
     if api_key is None:
         raise KeyError(

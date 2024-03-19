@@ -100,23 +100,21 @@ const EnvVarModal = () => {
 
   const handleSetCloudKey = async () => {
     if (flojoyCloudKey === "") {
-      toast("Please enter your Flojoy Cloud API key");
+      toast("Please enter your Flojoy Cloud workspace secret");
       return;
     }
     const res = await postEnvironmentVariable({
-      key: "FLOJOY_CLOUD_KEY",
+      key: "FLOJOY_CLOUD_WORKSPACE_SECRET",
       value: flojoyCloudKey,
     });
     res.match(
       () => {
-        toast(
-          "Successfully set your Flojoy Cloud API key, let's stream some data to the cloud!",
-        );
+        toast("Successfully set your Flojoy Cloud workspace secret!");
         setFlojoyCloudKey("");
         fetchCredentials();
       },
       (e) => {
-        toast("Error adding your Flojoy Cloud API key", {
+        toast("Error adding your Flojoy Cloud workspace secret", {
           description: e.message,
         });
       },
@@ -140,7 +138,7 @@ const EnvVarModal = () => {
             target="_blank"
             className="text-sm underline"
           >
-            Get your Flojoy Cloud API key
+            Get your Flojoy Cloud workspace secret (in your workspace settings)
           </a>
           <div className="py-1" />
           <div className="flex w-full items-center space-x-2">
@@ -150,7 +148,7 @@ const EnvVarModal = () => {
               onChange={(e) => setFlojoyCloudKey(e.target.value)}
               className="bg-modal"
               data-testid="flojoy-cloud-api-input"
-              placeholder="Paste your Flojoy Cloud API key here :)"
+              placeholder="Paste your Flojoy Cloud workspace secret here :)"
             />
             <Button
               data-testid="flojoy-cloud-api-submit"
