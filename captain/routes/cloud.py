@@ -1,8 +1,8 @@
 import json
 
 from fastapi import APIRouter, Response
-from flojoy_cloud.client import FlojoyCloud
 from flojoy.env_var import get_env_var
+from flojoy_cloud.client import FlojoyCloud
 
 router = APIRouter(tags=["cloud"])
 
@@ -16,7 +16,7 @@ async def get_cloud_projects():
     if workspace_secret is None:
         return Response(status_code=401, content=json.dumps([]))
 
-    cloud = FlojoyCloud(workspace_secret=get_env_var("FLOJOY_CLOUD_WORKSPACE_SECRET"))
+    cloud = FlojoyCloud(workspace_secret=workspace_secret)
 
     projects = cloud.get_all_projects(
         ""
