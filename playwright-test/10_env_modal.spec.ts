@@ -59,7 +59,9 @@ test.describe("Environment modal", () => {
 
     try {
       // Expect "FLOJOY_CLOUD_WORKSPACE_SECRET" to be listed in the modal
-      await expect(window.getByText("FLOJOY_CLOUD_WORKSPACE_SECRET")).toBeVisible({
+      await expect(
+        window.getByText("FLOJOY_CLOUD_WORKSPACE_SECRET"),
+      ).toBeVisible({
         timeout: 20000,
       });
     } catch (error) {
