@@ -111,6 +111,7 @@ export type TestDiscoveryResponse = z.infer<typeof TestDiscoveryResponse>;
 export const TestDiscoverContainer = z.object({
   response: TestDiscoveryResponse.array(),
   missingLibraries: z.string().array(),
+  error: z.string().nullable(),
 });
 
 export type TestDiscoverContainer = z.infer<typeof TestDiscoverContainer>;

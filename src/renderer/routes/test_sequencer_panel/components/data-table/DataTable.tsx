@@ -47,7 +47,7 @@ import {
   getIndentLevels,
 } from "@/renderer/routes/test_sequencer_panel/utils/ConditionalUtils";
 import { ChevronUpIcon, ChevronDownIcon, TrashIcon } from "lucide-react";
-import { WriteConditionalModal } from "@/renderer/routes/test_sequencer_panel/components/AddWriteConditionalModal";
+import { WriteConditionalModal } from "@/renderer/routes/test_sequencer_panel/components/modals/AddWriteConditionalModal";
 import LockableButton from "@/renderer/routes/test_sequencer_panel/components/lockable/LockedButtons";
 import { useRef, useState, useEffect } from "react";
 import TestNameCell from "./test-name-cell";
@@ -57,7 +57,8 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/renderer/components/ui/hover-card";
-import PythonTestFileModal from "@/renderer/routes/test_sequencer_panel/components/PythonTestFileModal";
+import PythonTestFileModal from "@/renderer/routes/test_sequencer_panel/components/modals/PythonTestFileModal";
+import { useModalState } from "@/renderer/hooks/useModalState";
 
 function renderErrorMessage(text: string): JSX.Element {
   const lines = text.split("\n");
@@ -93,6 +94,7 @@ const mapStatusToDisplay: { [k in StatusType] } = {
 
 export function DataTable() {
   const { elems, setElems, running } = useTestSequencerState();
+  const { openRenameTestModal } = useModalState();
   const [addIfStatement] = useState(false);
   const indentLevels = getIndentLevels(elems);
   const [openPyTestFileModal, setOpenPyTestFileModal] = useState(false);
@@ -492,10 +494,21 @@ export function DataTable() {
                     >
                       Add Conditional
                     </ContextMenuItem>
+                    {row.original.type === "test" && (
+                      <ContextMenuItem
+                        onClick={() => {
+                          openRenameTestModal(row.original.id);
+                        }}
+                      >
+                        Rename Test
+                      </ContextMenuItem>
+                    )}
                     <ContextMenuItem
                       onClick={() => onRemoveTest([parseInt(row.id)])}
                     >
-                      Remove Test
+                      {row.original.type === "test"
+                        ? "Remove Test"
+                        : "Remove Conditional"}
                     </ContextMenuItem>
                     {row.original.type === "test" && (
                       <ContextMenuItem

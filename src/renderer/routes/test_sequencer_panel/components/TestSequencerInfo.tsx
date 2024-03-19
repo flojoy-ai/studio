@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { DataTable } from "./data-table/DataTable";
 import { SummaryTable } from "./SummaryTable";
 import { CloudPanel } from "./CloudPanel";
@@ -8,7 +8,6 @@ import {
   testSequenceStopRequest,
 } from "@/renderer/routes/test_sequencer_panel/models/models";
 import { TestSequenceElement } from "@/renderer/types/test-sequencer";
-import { ImportTestModal } from "./ImportTestModal";
 import LockableButton from "./lockable/LockedButtons";
 import { TSWebSocketContext } from "@/renderer/context/testSequencerWS.context";
 import { LockedContextProvider } from "@/renderer/context/lock.context";
@@ -17,18 +16,20 @@ import {
   LAYOUT_TOP_HEIGHT,
   BOTTOM_STATUS_BAR_HEIGHT,
 } from "@/renderer/routes/common/Layout";
-import { TestSequencerProjectModal } from "./TestSequencerProjectModal";
 import {
   useImportProject,
   useSaveProject,
   useCloseProject,
 } from "@/renderer/hooks/useTestSequencerProject";
+import { useModalStore } from "@/renderer/stores/modal";
+import { ModalsProvider } from "./modals/ModalsProvider";
 
 const TestSequencerView = () => {
   const { setElems, tree, setIsLocked, backendState, project } =
     useTestSequencerState();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
-  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+  const { setIsImportTestModalOpen, setIsCreateProjectModalOpen } =
+    useModalStore();
 
   const resetStatus = () => {
     setElems.withException((elems: TestSequenceElement[]) => {
@@ -60,26 +61,15 @@ const TestSequencerView = () => {
   const projectImport = useImportProject();
   const saveProject = useSaveProject();
   const closeProject = useCloseProject();
-  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
-  const handleClickImportTest = () => {
-    setIsImportModalOpen(true);
-  };
 
   return (
     <LockedContextProvider>
-      <TestSequencerProjectModal
-        isProjectModalOpen={isProjectModalOpen}
-        handleProjectModalOpen={setIsProjectModalOpen}
-      />
       <div
         style={{
           height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT}px)`,
         }}
       >
-        <ImportTestModal
-          isModalOpen={isImportModalOpen}
-          handleModalOpen={setIsImportModalOpen}
-        />
+        <ModalsProvider />
         <div className="flex overflow-y-auto">
           <div
             className="ml-auto mr-auto h-3/5 flex-grow flex-col overflow-y-auto"
@@ -100,7 +90,9 @@ const TestSequencerView = () => {
                   <LockableButton
                     className="mt-4 w-full"
                     variant="outline"
-                    onClick={handleClickImportTest}
+                    onClick={() => {
+                      setIsImportTestModalOpen(true);
+                    }}
                   >
                     Add Python Tests
                   </LockableButton>
@@ -140,7 +132,7 @@ const TestSequencerView = () => {
                       className="mt-4 w-full"
                       variant="outline"
                       onClick={() => {
-                        setIsProjectModalOpen(true);
+                        setIsCreateProjectModalOpen(true);
                       }}
                     >
                       New Project

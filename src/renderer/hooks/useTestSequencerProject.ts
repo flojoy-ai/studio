@@ -2,14 +2,13 @@ import useWithPermission from "./useWithPermission";
 import { useTestSequencerState } from "./useTestSequencerState";
 import { TestSequencerProject } from "@/renderer/types/test-sequencer";
 import { toast } from "sonner";
-import { Dispatch, SetStateAction } from "react";
 import {
   createProject,
   saveProject,
   importProject,
   StateManager,
   closeProject,
-} from "@/renderer/utils/TestSequenceProjectHandler";
+} from "@/renderer/routes/test_sequencer_panel/utils/TestSequenceProjectHandler";
 
 function usePrepareStateManager(
   withoutPermission: boolean = false,
@@ -53,7 +52,7 @@ export function useCreateProject() {
   const manager = usePrepareStateManager();
   const handle = async (
     project: TestSequencerProject,
-    setModalOpen: Dispatch<SetStateAction<boolean>> | null,
+    setModalOpen: (val: boolean) => void | null,
   ) => {
     toast.promise(createProject(project, manager, true), {
       loading: "Creating project...",
