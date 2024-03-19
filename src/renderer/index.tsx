@@ -14,8 +14,10 @@ import { HashRouter } from "react-router-dom";
 import { AuthContextProvider } from "./context/auth.context";
 import { ThemeProvider } from "./providers/theme-provider";
 import { TestSequencerWSProvider } from "./context/testSequencerWS.context";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
+const queryClient = new QueryClient();
 
 function fallbackRender({ error, resetErrorBoundary }) {
   return <ErrorPage error={error} resetErrorBoundary={resetErrorBoundary} />;
@@ -26,11 +28,13 @@ root.render(
   <HashRouter>
     <ErrorBoundary fallbackRender={fallbackRender}>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <AuthContextProvider>
-          <TestSequencerWSProvider>
-            <App />
-          </TestSequencerWSProvider>
-        </AuthContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <AuthContextProvider>
+            <TestSequencerWSProvider>
+              <App />
+            </TestSequencerWSProvider>
+          </AuthContextProvider>
+        </QueryClientProvider>
       </ThemeProvider>
     </ErrorBoundary>
   </HashRouter>,
