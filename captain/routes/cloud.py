@@ -12,11 +12,11 @@ async def get_cloud_projects():
     """
     Get all projects from the Flojoy Cloud.
     """
-    workspace_secret = get_env_var("FLOJOY_CLOUD_KEY")
+    workspace_secret = get_env_var("FLOJOY_CLOUD_WORKSPACE_SECRET")
     if workspace_secret is None:
         return Response(status_code=401, content=json.dumps([]))
 
-    cloud = FlojoyCloud(workspace_secret=get_env_var("FLOJOY_CLOUD_KEY"))
+    cloud = FlojoyCloud(workspace_secret=get_env_var("FLOJOY_CLOUD_WORKSPACE_SECRET"))
 
     projects = cloud.get_all_projects(
         ""

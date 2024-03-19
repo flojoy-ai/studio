@@ -58,8 +58,8 @@ test.describe("Environment modal", () => {
     await window.getByTestId(Selectors.flojoyCloudApiSubmit).click();
 
     try {
-      // Expect "FLOJOY_CLOUD_KEY" to be listed in the modal
-      await expect(window.getByText("FLOJOY_CLOUD_KEY")).toBeVisible({
+      // Expect "FLOJOY_CLOUD_WORKSPACE_SECRET" to be listed in the modal
+      await expect(window.getByText("FLOJOY_CLOUD_WORKSPACE_SECRET")).toBeVisible({
         timeout: 20000,
       });
     } catch (error) {

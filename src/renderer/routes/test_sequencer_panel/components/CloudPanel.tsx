@@ -44,7 +44,7 @@ export function CloudPanel() {
     queryKey: ["projects"],
     queryFn: async () => {
       if (envsQuery.isSuccess) {
-        if (envsQuery.data.some((c) => c.key === "FLOJOY_CLOUD_KEY")) {
+        if (envsQuery.data.some((c) => c.key === "FLOJOY_CLOUD_WORKSPACE_SECRET")) {
           const res = await getCloudProjects();
           return res.match(
             (vars) => vars,
@@ -82,7 +82,7 @@ export function CloudPanel() {
   }
 
   const isCloudKeySet = envsQuery.data.some(
-    (c) => c.key === "FLOJOY_CLOUD_KEY",
+    (c) => c.key === "FLOJOY_CLOUD_WORKSPACE_SECRET",
   );
 
   if (!isCloudKeySet) {
