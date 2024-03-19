@@ -300,7 +300,9 @@ def _case_test_upload(node: TestNode, hardware_id: str, project_id: str) -> Extr
     if node.completion_time is None:
         raise Exception(f"{node.id}: Can't upload a test that wasn't run")
     if node.export_to_cloud:
-        cloud = FlojoyCloud(workspace_secret=get_env_var("FLOJOY_CLOUD_WORKSPACE_SECRET"))
+        cloud = FlojoyCloud(
+            workspace_secret=get_env_var("FLOJOY_CLOUD_WORKSPACE_SECRET")
+        )
 
         def reverse_id(test_name) -> str:
             tests = cloud.get_all_tests_by_project_id(project_id)
