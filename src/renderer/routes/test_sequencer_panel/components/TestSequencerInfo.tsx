@@ -2,7 +2,6 @@ import { DataTable } from "./data-table/DataTable";
 import { SummaryTable } from "./SummaryTable";
 import { CloudPanel } from "./CloudPanel";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
-import LockableButton from "./lockable/LockedButtons";
 import { LockedContextProvider } from "@/renderer/context/lock.context";
 import _ from "lodash";
 import {
@@ -11,13 +10,14 @@ import {
 } from "@/renderer/routes/common/Layout";
 import { ModalsProvider } from "./modals/ModalsProvider";
 import { ControlPanel } from "./ControlPanel";
-import { ImportPanel } from "./ImportPanel";
+import { Tabs, TabsContent, TabsList } from "@/renderer/components/ui/tabs";
+import { TabsTrigger } from "@radix-ui/react-tabs";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/renderer/components/ui/card";
+import { DesignPanel } from "./DesignPanel";
 
 const TestSequencerView = () => {
   const { setElems, tree, setIsLocked, backendState } =
     useTestSequencerState();
-
-
 
   return (
     <LockedContextProvider>
@@ -30,7 +30,7 @@ const TestSequencerView = () => {
         <div className="flex overflow-y-auto">
 
           <div
-            className="ml-auto mr-auto h-3/5 flex-grow flex-col overflow-y-auto"
+            className="pt-12 ml-auto mr-auto h-3/5 flex-grow flex-col overflow-y-auto"
             style={{ height: "calc(100vh - 260px)" }}
           >
             <div className="flex w-full">
@@ -42,8 +42,40 @@ const TestSequencerView = () => {
 
           <div>
             <div className="top-0 h-full flex-none overflow-y-auto pl-5">
-              <ImportPanel />
-              <CloudPanel />
+              <Tabs defaultValue="Execution" className="w-100 h-full">
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="Execution">Test Execution Panel</TabsTrigger>
+                  <TabsTrigger value="Design">Design Panel</TabsTrigger>
+                </TabsList>
+                <TabsContent value="Design">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Design</CardTitle>
+                      <CardDescription>
+                        Design and manage test sequences
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <hr />
+                      <DesignPanel />
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+                <TabsContent value="Execution">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Execution</CardTitle>
+                      <CardDescription>
+                        Monitor and control test execution
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <hr />
+                      <CloudPanel />
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+              </Tabs>
             </div>
           </div>
 

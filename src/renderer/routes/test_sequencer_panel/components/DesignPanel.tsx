@@ -9,7 +9,7 @@ import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import _ from "lodash";
 
 
-export function ImportPanel() {
+export function DesignPanel() {
   const { setIsImportTestModalOpen, setIsCreateProjectModalOpen } = useModalStore();
   const { project } = useTestSequencerState();
 
@@ -18,9 +18,9 @@ export function ImportPanel() {
   const closeProject = useCloseProject();
 
   return (
-    <div className="rounded-xl border border-gray-300 p-4 py-4 dark:border-gray-800">
+    <div className="py-4">
       <div className="flex flex-col">
-        <h2 className="text-center text-lg font-bold text-accent1 ">
+        <h2 className="text-lg font-bold text-accent1 ">
           Import Test 
         </h2>
         <LockableButton
@@ -30,7 +30,7 @@ export function ImportPanel() {
             setIsImportTestModalOpen(true);
           }}
         >
-          Add Python Tests
+          Add New Tests
         </LockableButton>
         {project === null && (
           <LockableButton

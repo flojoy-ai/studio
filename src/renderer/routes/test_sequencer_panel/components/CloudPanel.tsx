@@ -21,8 +21,10 @@ import { Spinner } from "@/renderer/components/ui/spinner";
 
 export function CloudPanel() {
   const queryClient = useQueryClient();
-  const [hardwareId, setHardwareId] = useState("");
+  const [serialNumber, setSerialNumber] = useState("");
+  const [lotNumber, setLotNumber] = useState("");
   const [projectId, setProjectId] = useState("");
+  const [partNumber, setPartNumber ] = useState("");
   const { tree, setIsLocked } = useTestSequencerState();
   const { tSSendJsonMessage } = useTestSequencerWS();
 
@@ -62,6 +64,9 @@ export function CloudPanel() {
     enabled: envsQuery.isSuccess,
   });
 
+  // Todo: part query base on the project id
+  const dummyPartQuery = ["part1", "part2", "part3"];
+
   const { isEnvVarModalOpen, setIsEnvVarModalOpen } = useAppStore(
     useShallow((state) => ({
       isEnvVarModalOpen: state.isEnvVarModalOpen,
@@ -75,12 +80,16 @@ export function CloudPanel() {
   }, [isEnvVarModalOpen]);
 
   const handleExport = () => {
-    tSSendJsonMessage(testSequenceExportCloud(tree, hardwareId, projectId));
+    tSSendJsonMessage(testSequenceExportCloud(tree, serialNumber, projectId));
     setIsLocked(true);
   };
 
   if (!envsQuery.isSuccess || !projectsQuery.isSuccess) {
-    return <Spinner />;
+    return (
+      <div className="grid grid-cols-1 gap-4 place-items-center pt-5">
+        <Spinner />
+      </div>
+    );
   }
 
   const isCloudKeySet = envsQuery.data.some(
@@ -96,31 +105,76 @@ export function CloudPanel() {
   }
 
   return (
-    <div className="mt-5 min-w-[240px] rounded-xl border border-gray-300 p-4 py-4 dark:border-gray-800">
+    <div className="mt-4">
       <div className="flex flex-col">
-        <h2 className="mb-2 text-center text-lg font-bold text-accent1 ">
+        <h2 className="mb-2 text-lg font-bold text-accent1 ">
           Unit Under Test
         </h2>
 
-        <div className="pb-1 text-muted-foreground">
-          <h2>Serial Number</h2>
+        <div className="pb-1 pt-2 text-xs text-muted-foreground">
+          <p>Serial Number</p>
         </div>
         <Input
           className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
           type="text"
-          value={hardwareId}
-          onChange={(e) => setHardwareId(e.target.value)}
-          placeholder="Scan or enter hardware id"
+          value={serialNumber}
+          onChange={(e) => setSerialNumber(e.target.value)}
+          placeholder="Scan or enter the Serial Number"
           autoFocus
         />
 
-        <div className="pb-1 pt-2 text-muted-foreground">
-          <h2>Project</h2>
+        <div className="pb-1 pt-2 text-xs text-muted-foreground">
+          <p>Lot Number</p>
+        </div>
+        <Input
+          className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
+          type="text"
+          value={lotNumber}
+          onChange={(e) => setLotNumber(e.target.value)}
+          placeholder="Enter the Lot Number"
+          autoFocus
+        />
+
+
+        <div className="pb-1 pt-2 text-xs text-muted-foreground">
+          <p>Part Number</p>
+        </div>
+        <Select onValueChange={setPartNumber}>
+          <SelectTrigger>
+            <SelectValue placeholder={"Select a part..."} />
+          </SelectTrigger>
+          <SelectContent className="max-h-72">
+            {dummyPartQuery.map((part) => (
+              <SelectItem key={part} value={part}>
+                {part}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <div>
+          <LockableButton
+            isLocked={serialNumber === "" || projectId === ""}
+            className="mt-4 w-full"
+            onClick={handleExport}
+          >
+            Upload Test Results
+          </LockableButton>
+        </div>
+
+        <hr className="mt-4"/>
+        
+        <h2 className="my-2 text-lg font-bold text-accent1 ">
+          Test Environment
+        </h2>
+
+        <div className="pb-1 text-xs text-muted-foreground">
+          <p>Test Station</p>
         </div>
 
         <Select onValueChange={setProjectId}>
           <SelectTrigger>
-            <SelectValue placeholder={"Select a project..."} />
+            <SelectValue placeholder={"Select a test JIG..."} />
           </SelectTrigger>
           <SelectContent className="max-h-72">
             {projectsQuery.data.length === 0 && (
@@ -130,7 +184,7 @@ export function CloudPanel() {
                   onClick={() => projectsQuery.refetch()}
                   variant={"ghost"}
                 >
-                  Refresh project list
+                  Refresh part list
                 </Button>
               </div>
             )}
@@ -141,15 +195,14 @@ export function CloudPanel() {
             ))}
           </SelectContent>
         </Select>
-        <div>
-          <LockableButton
-            isLocked={hardwareId === "" || projectId === ""}
-            className="mt-4 w-full"
-            onClick={handleExport}
-          >
-            Upload Test Results
-          </LockableButton>
+
+        <div className="pb-1 pt-2 text-xs text-muted-foreground">
+          <p>Operator: Joe Black</p>
+          <p>Location: Test Station 1.254 | Line 3d </p>
+          <p>Time: 12:30 PM | 12th April 2021</p>
+          <p className="flex">{ "Integrity: " } <p className="text-green-500 text-bold">PASS</p></p>
         </div>
+        
       </div>
     </div>
   );

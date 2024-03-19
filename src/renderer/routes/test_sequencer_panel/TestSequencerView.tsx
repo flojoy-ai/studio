@@ -7,7 +7,7 @@ const TestSequencerView = () => {
   const { isLoading } = useTestSequencerState();
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="p-12">
+      <div className="px-12 py-2">
         {!isLoading && <TestSequencerInfo />}
         {isLoading && <h1 className="font-bold text-gray-500">Loading...</h1>}
       </div>

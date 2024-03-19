@@ -8,7 +8,6 @@ import {
 } from "@/renderer/routes/test_sequencer_panel/models/models";
 import { TSWebSocketContext } from "@/renderer/context/testSequencerWS.context";
 import { useContext } from "react";
-import { useImportProject } from "@/renderer/hooks/useTestSequencerProject";
 
 
 export function ControlPanel() {
@@ -43,12 +42,11 @@ export function ControlPanel() {
     setIsLocked(false);
   };
 
-  const projectImport = useImportProject();
 
   return (
     <div className="rounded-xl border border-gray-300 dark:border-gray-800 mr-4 flex-none">
       <div className="flex flex-col">
-        <h2 className="px-4 py-2 text-lg font-bold text-accent1 ">
+        <h2 className="px-4 py-2 text-center text-lg font-bold text-accent1 ">
           Sequencer Controls
         </h2>
         <div className="px-4 flex">
@@ -67,14 +65,6 @@ export function ControlPanel() {
             ? "Stop Test Sequence"
             : "Run Test Sequence"}
         </LockableButton>
-        <LockableButton
-          className="mt-2 gap-2 ml-4"
-          variant="outline"
-          onClick={projectImport}
-        >
-          Import Project
-        </LockableButton>
-
         </div>
       </div>
     </div>
