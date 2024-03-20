@@ -40,14 +40,14 @@ const TestSequencerView = () => {
             <DataTable />
           </div>
 
-          <div>
-            <div className="top-0 h-full flex-none overflow-y-auto pl-5">
-              <Tabs defaultValue="Execution" className="w-100 h-full">
+          <div className="flex-none" style={{ width: "28%" }} >
+            <div className="top-0 h-full flex-none overflow-y-auto pl-5 w-full">
+              <Tabs defaultValue="Execution" className="w-full h-full">
                 <TabsList className="grid w-full grid-cols-2">
                   <TabsTrigger value="Execution">Test Execution Panel</TabsTrigger>
                   <TabsTrigger value="Design">Design Panel</TabsTrigger>
                 </TabsList>
-                <TabsContent value="Design">
+                  <TabsContent value="Design">
                   <Card>
                     <CardHeader>
                       <CardTitle>Design</CardTitle>

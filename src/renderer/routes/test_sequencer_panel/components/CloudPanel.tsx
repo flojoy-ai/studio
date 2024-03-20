@@ -110,30 +110,38 @@ export function CloudPanel() {
         <h2 className="mb-2 text-lg font-bold text-accent1 ">
           Unit Under Test
         </h2>
+        
+        <div className="flex">
 
-        <div className="pb-1 pt-2 text-xs text-muted-foreground">
-          <p>Serial Number</p>
-        </div>
-        <Input
-          className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
-          type="text"
-          value={serialNumber}
-          onChange={(e) => setSerialNumber(e.target.value)}
-          placeholder="Scan or enter the Serial Number"
-          autoFocus
-        />
+          <div className="flex-grow">
+            <div className="pb-1 pt-2 text-xs text-muted-foreground">
+              <p>Serial Number</p>
+            </div>
+            <Input
+              className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
+              type="text"
+              value={serialNumber}
+              onChange={(e) => setSerialNumber(e.target.value)}
+              placeholder="SN-0001"
+              autoFocus
+            />
+          </div>
 
-        <div className="pb-1 pt-2 text-xs text-muted-foreground">
-          <p>Lot Number</p>
+          <div className="ml-2 flex-none w-1/3">
+            <div className="pb-1 pt-2 text-xs text-muted-foreground">
+              <p>Lot Number</p>
+            </div>
+            <Input
+              className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
+              type="text"
+              value={lotNumber}
+              onChange={(e) => setLotNumber(e.target.value)}
+              placeholder="L-001"
+              autoFocus
+            />
+          </div>
+
         </div>
-        <Input
-          className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
-          type="text"
-          value={lotNumber}
-          onChange={(e) => setLotNumber(e.target.value)}
-          placeholder="Enter the Lot Number"
-          autoFocus
-        />
 
 
         <div className="pb-1 pt-2 text-xs text-muted-foreground">
@@ -151,6 +159,12 @@ export function CloudPanel() {
             ))}
           </SelectContent>
         </Select>
+
+        <div className="pt-2 text-xs text-muted-foreground">
+          <p>Description: Actuator 62mm </p>
+          <p>Product: Arm-Link 6</p>
+        </div>
+
 
         <div>
           <LockableButton
@@ -196,13 +210,13 @@ export function CloudPanel() {
           </SelectContent>
         </Select>
 
-        <div className="pb-1 pt-2 text-xs text-muted-foreground">
-          <p>Operator: Joe Black</p>
-          <p>Location: Test Station 1.254 | Line 3d </p>
-          <p>Time: 12:30 PM | 12th April 2021</p>
-          <p className="flex">{ "Integrity: " } <p className="text-green-500 text-bold">PASS</p></p>
+        <div className="mt-2 grid grid-cols-2 grid-flow-row gap-1 text-xs text-muted-foreground">
+          <p>Station: ID-12345678 </p>
+          <p>Test JIG P/N: PN-0123456</p>
+          <p>Test JIG SN: SN-0123456</p>
+          <p>Operator: John Doe</p>
+          <p> Sequencer: TSW-0.3.0 </p>
         </div>
-        
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ import { useContext } from "react";
 
 
 export function ControlPanel() {
-  const { setElems, tree, setIsLocked, backendState, project } = useTestSequencerState();
+  const { setElems, tree, setIsLocked, backendState } = useTestSequencerState();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
 
   const resetStatus = () => {
