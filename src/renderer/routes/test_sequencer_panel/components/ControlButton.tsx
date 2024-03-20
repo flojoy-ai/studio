@@ -8,12 +8,11 @@ import {
 } from "@/renderer/routes/test_sequencer_panel/models/models";
 import { TSWebSocketContext } from "@/renderer/context/testSequencerWS.context";
 import { useContext } from "react";
-import { Label } from "@/renderer/components/ui/label";
-import { Input } from "@/renderer/components/ui/input";
-import { Switch } from "@/renderer/components/ui/switch";
+import { Button } from "@/renderer/components/ui/button";
+import { PauseIcon, PlayIcon } from "lucide-react";
 
 
-export function ControlPanel() {
+export function ControlButton() {
   const { setElems, tree, setIsLocked, backendState } = useTestSequencerState();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
 
@@ -47,15 +46,10 @@ export function ControlPanel() {
 
 
   return (
-    <div className="rounded-xl border border-gray-300 dark:border-gray-800 mr-4 flex-none">
-      <div className="flex flex-col">
-        <h2 className="px-4 pt-2 text-lg font-bold text-accent1 ml-1 ">
-          Sequencer Controls
-        </h2>
-        <div className="px-4 flex mb-2">
+    <div className="flex w-full mt-4">
         <LockableButton
           variant="dotted"
-          className="mt-1 gap-2 mt-3"
+          className="gap-2 flex-grow"
           isLocked={_.isEmpty(tree)}
           isException={backendState === "test_set_start"}
           onClick={
@@ -68,17 +62,15 @@ export function ControlPanel() {
             ? "Stop Test Sequence"
             : "Run Test Sequence"}
         </LockableButton>
+      {/*
+        <Button disabled={true} className="flex-none m-2 mt-3.5" variant="outline" size="icon">
+          <PlayIcon className="h-4 w-4 bg-grey" />
+        </Button>
+        <Button disabled={true} className="flex-none m-2 mt-3.5" variant="outline" size="icon">
+          <PauseIcon className="h-4 w-4 bg-grey" />
+        </Button>
+      */}
 
-        <div className="grid max-w-sm items-center gap-1.5 ml-4 mt-1">
-          <Label className="text-xs text-muted-foreground" htmlFor="cycle">Cycle</Label>
-          <Input className="h-7 w-16" type="number" id="cycle" placeholder="1" />
-        </div>
-        <div className="grid max-w-sm items-center gap-1.5 ml-4">
-          <Label className="text-xs text-muted-foreground" htmlFor="infinte">Infinite</Label>
-          <Switch id="infinite" />
-        </div>
-        </div>
-      </div>
     </div>
   );
 }

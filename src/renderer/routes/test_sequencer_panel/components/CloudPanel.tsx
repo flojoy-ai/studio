@@ -18,6 +18,8 @@ import { getCloudProjects, getEnvironmentVariables } from "@/renderer/lib/api";
 import { toastQueryError } from "@/renderer/utils/report-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Spinner } from "@/renderer/components/ui/spinner";
+import { PauseIcon } from "lucide-react";
+import { ControlButton } from "./ControlButton";
 
 export function CloudPanel() {
   const queryClient = useQueryClient();
@@ -166,21 +168,12 @@ export function CloudPanel() {
           <p>Product: Arm-Link 6</p>
         </div>
 
-
-        <div>
-          <LockableButton
-            isLocked={serialNumber === "" || projectId === ""}
-            className="mt-4 w-full"
-            onClick={handleExport}
-          >
-            Upload Test Results
-          </LockableButton>
-        </div>
+        <ControlButton /> 
 
         <hr className="mt-4"/>
         
         <h2 className="my-2 text-lg font-bold text-accent1 ">
-          Test Environment
+          Test Environmenu
         </h2>
 
         <div className="pb-1 text-xs text-muted-foreground">

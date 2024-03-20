@@ -7,6 +7,9 @@ import {
 } from "@/renderer/hooks/useTestSequencerProject";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import _ from "lodash";
+import { Button } from "@/renderer/components/ui/button";
+import { PauseIcon } from "lucide-react";
+import { ControlButton } from "./ControlButton";
 
 
 export function DesignPanel() {
@@ -74,6 +77,9 @@ export function DesignPanel() {
             New Project
           </LockableButton>
         )}
+
+        <ControlButton />
+
       </div>
     </div>
   );

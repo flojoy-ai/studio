@@ -9,11 +9,11 @@ import {
   BOTTOM_STATUS_BAR_HEIGHT,
 } from "@/renderer/routes/common/Layout";
 import { ModalsProvider } from "./modals/ModalsProvider";
-import { ControlPanel } from "./ControlPanel";
 import { Tabs, TabsContent, TabsList } from "@/renderer/components/ui/tabs";
 import { TabsTrigger } from "@radix-ui/react-tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/renderer/components/ui/card";
 import { DesignPanel } from "./DesignPanel";
+import { CyclePanel } from "./CyclePanel";
 
 const TestSequencerView = () => {
   const { setElems, tree, setIsLocked, backendState } =
@@ -34,7 +34,7 @@ const TestSequencerView = () => {
             style={{ height: "calc(100vh - 260px)" }}
           >
             <div className="flex w-full">
-              <ControlPanel />
+              <CyclePanel />
               <SummaryTable />
             </div>
             <DataTable />
