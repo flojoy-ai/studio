@@ -173,7 +173,7 @@ export function CloudPanel() {
         <hr className="mt-4"/>
         
         <h2 className="my-2 text-lg font-bold text-accent1 ">
-          Test Environmenu
+          Test Environment
         </h2>
 
         <div className="pb-1 text-xs text-muted-foreground">
