@@ -58,15 +58,50 @@ const getSuccessRate = (data: TestSequenceElement[]): number => {
   );
 };
 
+const getNumberOfTest = (data: TestSequenceElement[]): number => {
+  let count = 0;
+  data.forEach((elem) => {
+    if (elem.type === "test") count++;
+  });
+  return count;
+}
+
+const getNumberOfTestRun = (data: TestSequenceElement[]): number => {
+  let count = 0;
+  data.forEach((elem) => {
+    if (elem.type === "test" && elem.status != "pending") count++;
+  });
+  return count;
+}
+
 const columns: ColumnDef<Summary>[] = [
   {
     accessorKey: "id",
     header: () => (
       <h2 className="mb-2 pt-2 text-lg font-bold text-accent1">
-        Information 
+        Info 
       </h2>
     ),
     cell: () => <div>Summary:</div>,
+  },
+  {
+    accessorKey: "integrity",
+    header: "Integrity",
+    cell: () => <div className="text-green-500 text-bold">PASS</div>
+  },
+  {
+    accessorKey: "nb_cycle_run",
+    header: "Cycle Run",
+    cell: ({ row }) => {
+      return <div>{"13/25"}</div>;
+    },
+  },
+  {
+    accessorKey: "nb_test_run",
+    header: "Tests Run",
+    cell: ({ row }) => {
+      return <div>{row.original.numberOfTestRun + "/" + row.original.numberOfTest}</div>;
+    },
   },
   {
     accessorKey: "success_rate",
@@ -95,6 +130,8 @@ export function SummaryTable() {
     setSummary([
       {
         id: "1",
+        numberOfTestRun: getNumberOfTestRun(elems),
+        numberOfTest: getNumberOfTest(elems),
         successRate: getSuccessRate(elems),
         completionTime: getCompletionTime(elems),
       },

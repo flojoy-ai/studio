@@ -4,6 +4,8 @@ export type Summary = {
   id: string;
   successRate: number;
   completionTime: number;
+  numberOfTestRun: number;
+  numberOfTest: number;
 };
 
 export type LockedContextType = {
