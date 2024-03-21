@@ -6,7 +6,7 @@ from queue import Queue
 from typing import Any
 
 from captain.internal.wsmanager import ConnectionManager
-from captain.models.test_sequencer import MsgState
+from captain.models.test_sequencer import MsgState, StatusTypes
 from captain.models.topology import Topology
 from captain.services.consumer.blocks_watcher import BlocksWatcher
 from captain.types.test_sequence import TestSequenceMessage
@@ -48,7 +48,7 @@ class TSManager(WSManager):
                 TestSequenceMessage(
                     state=MsgState.paused.value,
                     target_id=id_of_test_waiting_for_resume,
-                    result=False,
+                    status=StatusTypes.paused.value,
                     time_taken=-1,
                     is_saved_to_cloud=False,
                     error=None,
@@ -78,7 +78,7 @@ class TSManager(WSManager):
                     TestSequenceMessage(
                         MsgState.error.value,
                         "",
-                        False,
+                        StatusTypes.aborted.value,
                         -1,
                         False,
                         "Test sequence was interrupted",

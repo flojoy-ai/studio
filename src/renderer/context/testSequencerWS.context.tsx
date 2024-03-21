@@ -4,7 +4,6 @@ import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { BackendMsg, Test } from "@/renderer/types/test-sequencer";
-import { mapToTestResult } from "@/renderer/routes/test_sequencer_panel/utils/TestUtils";
 import { toast } from "sonner";
 import { env } from "@/env";
 
@@ -23,8 +22,6 @@ export function TestSequencerWSProvider({
 }) {
   const {
     websocketId,
-    markTestAsDone,
-    addTestToRunning,
     setElems,
     setIsLocked,
     setIsLoading,
@@ -41,10 +38,23 @@ export function TestSequencerWSProvider({
     },
   );
 
+  const updateTestStatus = (id: string, status: string) => {
+    setElems.withException((elems) => {
+      const newElems = [...elems];
+      const idx = newElems.findIndex((elem) => elem.id === id);
+      newElems[idx] = {
+        ...newElems[idx],
+        status: status,
+      } as Test;
+      return newElems;
+    });
+  };
+
+
   // Set result when received from backend for specific test
   const setResult = (
     id: string,
-    result: boolean,
+    result: string,
     timeTaken: number,
     isSavedToCloud: boolean,
     error: string | null,
@@ -54,7 +64,7 @@ export function TestSequencerWSProvider({
       const idx = newElems.findIndex((elem) => elem.id === id);
       newElems[idx] = {
         ...newElems[idx],
-        status: mapToTestResult(result),
+        status: result,
         completionTime: timeTaken,
         isSavedToCloud: isSavedToCloud,
         error: error,
@@ -119,10 +129,9 @@ export function TestSequencerWSProvider({
         break;
       // Test state -------------------------
       case "test_done":
-        markTestAsDone(msg.data.target_id);
         setResult(
           msg.data.target_id,
-          msg.data.result,
+          msg.data.status,
           msg.data.time_taken,
           msg.data.is_saved_to_cloud,
           msg.data.error,
@@ -130,11 +139,11 @@ export function TestSequencerWSProvider({
         setBackendState(msg.data.state);
         break;
       case "running":
-        addTestToRunning(msg.data.target_id);
+        updateTestStatus(msg.data.target_id, msg.data.state);
         setBackendState(msg.data.state);
         break;
       case "paused":
-        addTestToRunning(msg.data.target_id);
+        updateTestStatus(msg.data.target_id, msg.data.state);
         setBackendState(msg.data.state);
         break
       default:

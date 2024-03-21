@@ -64,7 +64,7 @@ Extract = tuple[
 def _with_stream_test_result(func: Callable[[TestNode], Extract]):
     # TODO: support run in parallel feature
     async def wrapper(node: TestNode) -> Extract:
-        await _stream_result_to_frontend(MsgState.running, test_id=node.id)
+        await _stream_result_to_frontend(MsgState.running, test_id=node.id, result=StatusTypes.pending)
         test_sequencer._set_output_loc(node.id)
         children_getter, test_result = func(node)
         if test_result is None:
@@ -73,7 +73,7 @@ def _with_stream_test_result(func: Callable[[TestNode], Extract]):
             await _stream_result_to_frontend(
                 state=MsgState.test_done,
                 test_id=node.id,
-                result=test_result.result,
+                result=StatusTypes.pass_ if test_result.result else StatusTypes.fail,
                 time_taken=test_result.time_taken,  # TODO result, time_taken should be together
                 error=test_result.error,
                 is_saved_to_cloud=False,
@@ -180,7 +180,7 @@ def _eval_condition(
 async def _stream_result_to_frontend(
     state: MsgState,
     test_id: str = "",
-    result: bool = False,
+    result: StatusTypes = StatusTypes.pending,
     time_taken: float = 0,
     is_saved_to_cloud: bool = False,
     error: str | None = None,
@@ -188,7 +188,7 @@ async def _stream_result_to_frontend(
     asyncio.create_task(
         ts_manager.ws.broadcast(
             TestSequenceMessage(
-                state.value, test_id, result, time_taken, is_saved_to_cloud, error
+                state.value, test_id, result.value, time_taken, is_saved_to_cloud, error
             )
         )
     )
@@ -295,7 +295,7 @@ def _with_stream_test_upload(func: Callable[[TestNode, str, str], Extract]):
             await _stream_result_to_frontend(
                 state=MsgState.test_done,
                 test_id=node.id,
-                result=True if node.status == StatusTypes.pass_ else False,
+                result=node.status,
                 time_taken=node.completion_time if node.completion_time else -1,
                 is_saved_to_cloud=node.is_saved_to_cloud,
             )

@@ -10,7 +10,6 @@ import {
 import { TestSequencerProject } from "@/renderer/types/test-sequencer";
 
 type State = {
-  curRun: string[];
   websocketId: string;
   elements: TestSequenceElement[];
   isLocked: boolean;
@@ -23,9 +22,6 @@ type State = {
 };
 
 type Actions = {
-  markTestAsDone: (val: string) => void;
-  addTestToRunning: (val: string) => void;
-
   setWebsocketId: (val: string) => void;
   setElements: (val: TestSequenceElement[]) => void;
   setIsLocked: (val: boolean) => void;
@@ -63,15 +59,6 @@ export const useSequencerStore = create<State & Actions>()(
       identifiers: [],
     },
     testSequencerProject: null,
-
-    markTestAsDone: (val) =>
-      set((state) => {
-        state.curRun = state.curRun.filter((v) => v !== val);
-      }),
-    addTestToRunning: (val) =>
-      set((state) => {
-        state.curRun.push(val);
-      }),
 
     setWebsocketId: (val) =>
       set((state) => {

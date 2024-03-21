@@ -15,7 +15,10 @@ export type LockedContextType = {
 export const TestType = z.enum(["pytest", "python", "flojoy", "matlab"]);
 export type TestType = z.infer<typeof TestType>;
 
-export const StatusType = z.enum(["pending", "pass", "failed"]);
+export const ResultType = z.enum(["pass", "fail", "aborted"]);
+export type ResultType = z.infer<typeof ResultType>;
+
+export const StatusType =  z.union([ResultType, z.enum(["pending", "running", "paused"])]);;
 export type StatusType = z.infer<typeof StatusType>;
 
 export const MsgState = z.enum([
@@ -40,7 +43,7 @@ export type BackendGlobalState = z.infer<typeof BackendGlobalState>;
 export const BackendMsg = z.object({
   state: MsgState,
   target_id: z.string(),
-  result: z.boolean(),
+  status: StatusType,
   time_taken: z.number(),
   is_saved_to_cloud: z.boolean(),
   error: z.string().nullable(),

@@ -72,9 +72,12 @@ function renderErrorMessage(text: string): JSX.Element {
 }
 
 const mapStatusToDisplay: { [k in StatusType] } = {
-  pending: <p className="text-yellow-500">PENDING</p>,
+  pending: <p className="text-grey-500">PENDING</p>,
+  running: <p className="text-blue-500">RUNNING</p>,
+  paused: <p className="text-yellow-500">PAUSED</p>,
   pass: <p className="text-green-500">PASS</p>,
-  failed: (status: string | null) =>
+  aborted: <p className="text-red-500">ABORTED</p>,
+  fail: (status: string | null) =>
     status === null || status === "" ? (
       <p className="text-red-500">FAIL</p>
     ) : (

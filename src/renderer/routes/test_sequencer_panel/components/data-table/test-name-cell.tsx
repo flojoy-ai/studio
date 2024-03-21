@@ -4,7 +4,6 @@ import {
   TestSequenceElement,
 } from "@/renderer/types/test-sequencer";
 import { CellContext } from "@tanstack/react-table";
-import { Loader } from "lucide-react";
 import { ReactNode } from "react";
 
 type Props = {
@@ -32,7 +31,7 @@ const IndentLine = ({
   </div>
 );
 
-const TestNameCell = ({ cellProps: { row }, indentLevels, running }: Props) => {
+const TestNameCell = ({ cellProps: { row }, indentLevels }: Props) => {
   const isTest = row.original.type === "test";
 
   return isTest ? (
@@ -44,7 +43,6 @@ const TestNameCell = ({ cellProps: { row }, indentLevels, running }: Props) => {
             content={(row.original as Test).testName}
             level={indentLevels[row.id]}
           />
-          {running.includes(row.original.id) && <Loader className="scale-50" />}
         </div>
       </div>
     </>
