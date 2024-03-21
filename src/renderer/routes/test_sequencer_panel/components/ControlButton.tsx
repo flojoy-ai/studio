@@ -15,7 +15,7 @@ import { PauseIcon, PlayIcon } from "lucide-react";
 
 
 export function ControlButton() {
-  const { setElems, tree, setIsLocked, backendState } = useTestSequencerState();
+  const { setElems, tree, setIsLocked, backendGlobalState, backendState } = useTestSequencerState();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
 
   const resetStatus = () => {
@@ -47,14 +47,14 @@ export function ControlButton() {
   };
 
   const handleClickPauseTest = () => {
-    if (backendState === "test_set_start") {
+    if (backendGlobalState === "test_set_start") {
       console.log("Pause test");
       tSSendJsonMessage(testSequencePauseRequest(tree));
     }
   }
 
   const handleClickResumeTest = () => {
-    if (backendState === "test_set_start") {
+    if (backendGlobalState === "test_set_start") {
       console.log("Resume test");
       tSSendJsonMessage(testSequenceResumeRequest(tree));
     }
@@ -66,23 +66,23 @@ export function ControlButton() {
           variant="dotted"
           className="gap-2 flex-grow"
           isLocked={_.isEmpty(tree)}
-          isException={backendState === "test_set_start"}
+          isException={backendGlobalState === "test_set_start"}
           onClick={
-            backendState === "test_set_start"
+            backendGlobalState === "test_set_start"
               ? handleClickStopTest
               : handleClickRunTest
           }
         >
-          {backendState === "test_set_start"
+          {backendGlobalState === "test_set_start"
             ? "Stop Test Sequence"
             : "Run Test Sequence"}
         </LockableButton>
-        { true && (
+        { backendGlobalState === "test_set_start" && (
           <div className="flex flex-none mt-1">
-          <Button className="flex-none ml-2" variant="outline" size="icon">
+          <Button className="flex-none ml-2" disabled={backendState !== "paused"} variant="outline" size="icon">
             <PlayIcon className="h-4 w-4 bg-grey" onClick={handleClickResumeTest} />
           </Button>
-          <Button className="flex-none ml-2" variant="outline" size="icon">
+          <Button className="flex-none ml-2" disabled={backendState !== "running"} variant="outline" size="icon">
             <PauseIcon className="h-4 w-4 bg-grey" onClick={handleClickPauseTest} />
           </Button>
           </div>

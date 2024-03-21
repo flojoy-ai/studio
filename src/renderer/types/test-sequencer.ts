@@ -23,10 +23,19 @@ export const MsgState = z.enum([
   "test_set_export",
   "test_set_done",
   "running",
+  "paused",
   "test_done",
   "error",
 ]);
 export type MsgState = z.infer<typeof MsgState>;
+
+export const BackendGlobalState = z.enum([
+  "test_set_start",
+  "test_set_export",
+  "test_set_done",
+  "error",
+]);
+export type BackendGlobalState = z.infer<typeof BackendGlobalState>;
 
 export const BackendMsg = z.object({
   state: MsgState,

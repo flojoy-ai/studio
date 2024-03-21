@@ -28,6 +28,7 @@ export function TestSequencerWSProvider({
     setElems,
     setIsLocked,
     setIsLoading,
+    setBackendGlobalState,
     setBackendState,
   } = useTestSequencerState();
 
@@ -81,34 +82,28 @@ export function TestSequencerWSProvider({
   // Run when a new WebSocket message is received (lastJsonMessage)
   useEffect(() => {
     if (!lastJsonMessage) return;
-
     const msg = BackendMsg.safeParse(lastJsonMessage);
     if (!msg.success) {
       console.error(msg.error);
       return;
+    } else {
+      console.log("Received message from backend: ", msg.data);
     }
 
     switch (msg.data.state) {
+      // Global state ----------------------
       case "test_set_start":
-        setBackendState("test_set_start");
+        setBackendGlobalState(msg.data.state);
+        setBackendState(msg.data.state);
         break;
       case "test_set_export":
-        setBackendState("test_set_export");
+        setBackendGlobalState(msg.data.state);
+        setBackendState(msg.data.state);
         break;
-      case "test_done":
-        markTestAsDone(msg.data.target_id);
-        setResult(
-          msg.data.target_id,
-          msg.data.result,
-          msg.data.time_taken,
-          msg.data.is_saved_to_cloud,
-          msg.data.error,
-        );
-        // Don't specify a backend state here, because we want to keep the "RUNNER" or "EXPORT" state
-        break;
-      case "running":
-        addTestToRunning(msg.data.target_id);
-        // Don't specify a backend state here, because we want to keep the "RUNNER" or "EXPORT" state
+      case "test_set_done":
+        setIsLocked(false);
+        setBackendGlobalState(msg.data.state);
+        setBackendState(msg.data.state);
         break;
       case "error":
         toast.error(
@@ -119,13 +114,29 @@ export function TestSequencerWSProvider({
         );
         console.error(msg.data.error);
         setIsLocked(false);
-        setBackendState("error");
+        setBackendGlobalState(msg.data.state);
+        setBackendState(msg.data.state);
         break;
-      case "test_set_done":
-        console.log("tests are done", msg.data);
-        setIsLocked(false);
-        setBackendState("test_set_done");
+      // Test state -------------------------
+      case "test_done":
+        markTestAsDone(msg.data.target_id);
+        setResult(
+          msg.data.target_id,
+          msg.data.result,
+          msg.data.time_taken,
+          msg.data.is_saved_to_cloud,
+          msg.data.error,
+        );
+        setBackendState(msg.data.state);
         break;
+      case "running":
+        addTestToRunning(msg.data.target_id);
+        setBackendState(msg.data.state);
+        break;
+      case "paused":
+        addTestToRunning(msg.data.target_id);
+        setBackendState(msg.data.state);
+        break
       default:
         break;
     }

@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import {
+    BackendGlobalState,
   MsgState,
   TestRootNode,
   TestSequenceElement,
@@ -14,6 +15,7 @@ type State = {
   elements: TestSequenceElement[];
   isLocked: boolean;
   isLoading: boolean;
+  backendGlobalState: BackendGlobalState;
   backendState: MsgState;
   testSequenceUnsaved: boolean;
   testSequenceTree: TestRootNode;
@@ -28,6 +30,7 @@ type Actions = {
   setElements: (val: TestSequenceElement[]) => void;
   setIsLocked: (val: boolean) => void;
   setIsLoading: (val: boolean) => void;
+  setBackendGlobalState: (val: BackendGlobalState) => void;
   setBackendState: (val: MsgState) => void;
   setTestSequenceUnsaved: (val: boolean) => void;
   setTestSequenceTree: (val: TestRootNode) => void;
@@ -51,6 +54,7 @@ export const useSequencerStore = create<State & Actions>()(
     curRun: [],
     websocketId: uuidv4(),
     elements: [],
+    backendGlobalState: "test_set_done",
     backendState: "test_set_done",
     testSequenceUnsaved: false,
     testSequenceTree: {
@@ -81,6 +85,10 @@ export const useSequencerStore = create<State & Actions>()(
     setBackendState: (val) =>
       set((state) => {
         state.backendState = val;
+      }),
+    setBackendGlobalState: (val) =>
+      set((state) => {
+        state.backendGlobalState = val;
       }),
     setTestSequenceUnsaved: (val) =>
       set((state) => {

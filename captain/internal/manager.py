@@ -19,14 +19,13 @@ from captain.utils.logger import logger
 class WSManager:
     def __init__(self):
         self.ws = ConnectionManager()
-        self.pause = False
 
 
 # Manager for Test Sequencer activities
 class TSManager(WSManager):
     def __init__(self):
         self.runner: asyncio.Runner | None = None  # holds the running sequencer (only one at a time)
-        self.paused = False
+        self.pause = False
         self.poison_pill: PoisonPill | None = None
         super().__init__()
 
@@ -40,13 +39,27 @@ class TSManager(WSManager):
         self.runner = None
         self.pause = False
 
-    def wait_if_paused(self):
-        logger.info("Check if paused")
+    async def wait_if_paused(self, id_of_test_waiting_for_resume: str):
+        logger.info(f"Check if paused: {self.pause}")
+        if self.pause:
+            logger.info("Sending pause message")
+            await self.ws.broadcast(
+                TestSequenceMessage(
+                    state=MsgState.paused.value,
+                    target_id=id_of_test_waiting_for_resume,
+                    result=False,
+                    time_taken=-1,
+                    is_saved_to_cloud=False,
+                    error=None,
+                )
+            )
         while self.pause:
             logger.info("Waiting for pause to be lifted")
             if self.poison_pill is not None:
                 logger.info("Poison pill detected")
-                raise self.poison_pill
+                posion_pill = self.poison_pill
+                self.poison_pill = None
+                raise posion_pill
             time.sleep(0.5)
 
     def kill_runner(self, *args, **kwargs):

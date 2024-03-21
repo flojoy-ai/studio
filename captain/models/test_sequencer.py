@@ -33,6 +33,7 @@ class MsgState(str, Enum):
     running = "running"
     test_done = "test_done"
     error = "error"
+    paused = "paused"
     test_set_done = "test_set_done"
 
 

@@ -256,6 +256,9 @@ async def run_test_sequence(data, ts_manager: TSManager):
     try:
 
         async def run_dfs(node: TestRootNode | TestSequenceElementNode):
+            if isinstance(node, TestNode):
+                await ts_manager.wait_if_paused(node.id)
+
             children_getter, test_result = await _extract_from_node(
                 node, map_to_handler_run
             )
@@ -264,7 +267,6 @@ async def run_test_sequence(data, ts_manager: TSManager):
                 context.result_dict[test_result.test_node.test_name] = test_result
 
             children = children_getter(context)
-            ts_manager.wait_if_paused()
             if not children:
                 return
             for child in children:
