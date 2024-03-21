@@ -1,7 +1,6 @@
 import { DataTable } from "./data-table/DataTable";
 import { SummaryTable } from "./SummaryTable";
 import { CloudPanel } from "./CloudPanel";
-import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { LockedContextProvider } from "@/renderer/context/lock.context";
 import _ from "lodash";
 import {
