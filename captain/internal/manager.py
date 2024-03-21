@@ -34,6 +34,7 @@ class TSManager(WSManager):
             self.kill_runner()
         self.runner = runner
         self.pause = False
+        self.poison_pill = None
 
     def cleanup(self, *args, **kwargs):
         self.runner = None
