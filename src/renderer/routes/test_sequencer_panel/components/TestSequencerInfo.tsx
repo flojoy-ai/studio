@@ -14,10 +14,11 @@ import { TabsTrigger } from "@radix-ui/react-tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/renderer/components/ui/card";
 import { DesignPanel } from "./DesignPanel";
 import { CyclePanel } from "./CyclePanel";
+import useWithPermission from "@/renderer/hooks/useWithPermission";
 
 const TestSequencerView = () => {
-  const { setElems, tree, setIsLocked, backendState } =
-    useTestSequencerState();
+
+  const { isAdmin } = useWithPermission();
 
   return (
     <LockedContextProvider>
@@ -43,11 +44,13 @@ const TestSequencerView = () => {
           <div className="flex-none" style={{ width: "28%" }} >
             <div className="top-0 h-full flex-none overflow-y-auto pl-5 w-full">
               <Tabs defaultValue="Execution" className="w-full h-full">
-                <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="Execution">Test Execution</TabsTrigger>
-                  <TabsTrigger value="Design">Design Panel</TabsTrigger>
-                </TabsList>
-                  <TabsContent value="Design">
+                { isAdmin() &&
+                  <TabsList className="grid w-full grid-cols-2">
+                    <TabsTrigger value="Execution">Test Execution</TabsTrigger>
+                     <TabsTrigger value="Design">Design Panel</TabsTrigger>
+                  </TabsList>
+                }
+                <TabsContent value="Design">
                   <Card>
                     <CardHeader>
                       <CardTitle>Design</CardTitle>
