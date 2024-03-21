@@ -5,6 +5,8 @@ import { TestSequenceElement } from "@/renderer/types/test-sequencer";
 import {
   testSequenceRunRequest,
   testSequenceStopRequest,
+  testSequencePauseRequest,
+  testSequenceResumeRequest,
 } from "@/renderer/routes/test_sequencer_panel/models/models";
 import { TSWebSocketContext } from "@/renderer/context/testSequencerWS.context";
 import { useContext } from "react";
@@ -44,6 +46,19 @@ export function ControlButton() {
     setIsLocked(false);
   };
 
+  const handleClickPauseTest = () => {
+    if (backendState === "test_set_start") {
+      console.log("Pause test");
+      tSSendJsonMessage(testSequencePauseRequest(tree));
+    }
+  }
+
+  const handleClickResumeTest = () => {
+    if (backendState === "test_set_start") {
+      console.log("Resume test");
+      tSSendJsonMessage(testSequenceResumeRequest(tree));
+    }
+  }
 
   return (
     <div className="flex w-full mt-4">
@@ -62,15 +77,16 @@ export function ControlButton() {
             ? "Stop Test Sequence"
             : "Run Test Sequence"}
         </LockableButton>
-      {/*
-        <Button disabled={true} className="flex-none m-2 mt-3.5" variant="outline" size="icon">
-          <PlayIcon className="h-4 w-4 bg-grey" />
-        </Button>
-        <Button disabled={true} className="flex-none m-2 mt-3.5" variant="outline" size="icon">
-          <PauseIcon className="h-4 w-4 bg-grey" />
-        </Button>
-      */}
-
+        { true && (
+          <div className="flex flex-none mt-1">
+          <Button className="flex-none ml-2" variant="outline" size="icon">
+            <PlayIcon className="h-4 w-4 bg-grey" onClick={handleClickResumeTest} />
+          </Button>
+          <Button className="flex-none ml-2" variant="outline" size="icon">
+            <PauseIcon className="h-4 w-4 bg-grey" onClick={handleClickPauseTest} />
+          </Button>
+          </div>
+        )}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { TestRootNode } from "@/renderer/types/test-sequencer";
 
-export type TestSequenceEvents = "run" | "stop" | "subscribe" | "export";
+export type TestSequenceEvents = "run" | "stop" | "subscribe" | "export" | "pause" | "resume";
 type CloudId = string | null;
 
 export type TestSequenceRun = {
@@ -26,6 +26,28 @@ export const testSequenceStopRequest: (
 ) => TestSequenceRun = (tree: TestRootNode) => {
   return {
     event: "stop",
+    data: tree,
+    hardware_id: null,
+    project_id: null,
+  };
+};
+
+export const testSequenceResumeRequest: (
+  tree: TestRootNode,
+) => TestSequenceRun = (tree: TestRootNode) => {
+  return {
+    event: "resume",
+    data: tree,
+    hardware_id: null,
+    project_id: null,
+  };
+};
+
+export const testSequencePauseRequest: (
+  tree: TestRootNode,
+) => TestSequenceRun = (tree: TestRootNode) => {
+  return {
+    event: "pause",
     data: tree,
     hardware_id: null,
     project_id: null,

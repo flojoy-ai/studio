@@ -1,5 +1,7 @@
 import asyncio
 import threading
+import time
+
 from queue import Queue
 from typing import Any
 
@@ -17,13 +19,27 @@ from captain.utils.logger import logger
 class WSManager:
     def __init__(self):
         self.ws = ConnectionManager()
+        self.pause = False
 
 
 # Manager for Test Sequencer activities
 class TSManager(WSManager):
     def __init__(self):
         self.runner: asyncio.Runner | None = None  # holds the running sequencer
+        self.paused = False
         super().__init__()
+
+    def new_runner(self, runner: asyncio.Runner, *args, **kwargs):
+        self.runner = runner
+        self.pause = False
+
+    def cleanup(self, *args, **kwargs):
+        self.runner = None
+        self.pause = False
+
+    def wait_if_paused(self):
+        while self.pause:
+            time.sleep(0.5)
 
     def kill_runner(self, *args, **kwargs):
         if self.runner is not None:
@@ -46,6 +62,17 @@ class TSManager(WSManager):
                     )
                 )
             )
+
+    def pause_runner(self, *args, **kwargs):
+        if self.runner is not None:
+            logger.info("Pausing TS Runner")
+            self.pause = True
+
+
+    def resume_runner(self, *args, **kwargs):
+        if self.pause:
+            logger.info("Resuming TS Runner")
+            self.pause = False 
 
 
 # Manager for flowchart activities (main manager)

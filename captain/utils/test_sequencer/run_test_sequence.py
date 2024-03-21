@@ -7,6 +7,7 @@ from flojoy_cloud import test_sequencer
 import traceback
 from typing import Callable, List, Union
 import pydantic
+from captain.internal.manager import TSManager
 
 from captain.models.test_sequencer import (
     IfNode,
@@ -247,7 +248,7 @@ async def _extract_from_node(
 
 
 # TODO have pydantic model for data, convert camelCase to snake_case
-async def run_test_sequence(data):
+async def run_test_sequence(data, ts_manager: TSManager):
     data = pydantic.TypeAdapter(TestRootNode).validate_python(data)
     identifiers = set(data.identifiers)
     context = Context({}, identifiers)
@@ -264,6 +265,7 @@ async def run_test_sequence(data):
             children = children_getter(context)
             if not children:
                 return
+            ts_manager.wait_if_paused()
             for child in children:
                 await run_dfs(child)
 

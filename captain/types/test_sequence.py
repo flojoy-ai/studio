@@ -6,6 +6,7 @@ class MsgState(Enum):
     test_set_start = "test_set_start"
     test_set_export = "test_set_export"
     running = "running"
+    pause = "pause"
     test_done = "test_done"
     error = "error"
     test_set_done = "test_set_done"

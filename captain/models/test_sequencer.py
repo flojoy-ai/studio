@@ -119,7 +119,7 @@ class TestDiscoverContainer(BaseModel):
     response: List[TestDiscoveryResponse] = Field(..., alias="response")
 
 
-TestSequenceEvents = Literal["run", "stop", "subscribe", "export"]
+TestSequenceEvents = Literal["run", "stop", "subscribe", "export", "pause", "resume"]
 
 
 class TestData(BaseModel):
