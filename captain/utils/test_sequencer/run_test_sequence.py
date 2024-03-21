@@ -20,6 +20,7 @@ from captain.models.test_sequencer import (
 from captain.parser.bool_parser.bool_parser import eval_expression
 from captain.parser.bool_parser.expressions.models import Variable
 from captain.types.test_sequence import MsgState, TestSequenceMessage
+from captain.types.worker import PoisonPill
 from captain.utils.config import ts_manager
 from captain.utils.logger import logger
 from pkgs.flojoy.flojoy.env_var import get_env_var
@@ -263,15 +264,18 @@ async def run_test_sequence(data, ts_manager: TSManager):
                 context.result_dict[test_result.test_node.test_name] = test_result
 
             children = children_getter(context)
+            ts_manager.wait_if_paused()
             if not children:
                 return
-            ts_manager.wait_if_paused()
             for child in children:
                 await run_dfs(child)
 
         await _stream_result_to_frontend(state=MsgState.test_set_start)
         await run_dfs(data)  # run tests
         await _stream_result_to_frontend(state=MsgState.test_set_done)
+    except PoisonPill as e:
+        logger.info(f"PoisonPill received: {e}")
+        # Broadcast handled in TSManager
     except Exception as e:
         await _stream_result_to_frontend(state=MsgState.error, error=str(e))
         logger.error(f"{e}: {traceback.format_exc()}")

@@ -43,6 +43,8 @@ event_to_handle: dict[
     "subscribe": _handle_subscribe,
     "run": _handle_run,
     "stop": ts_manager.kill_runner,
+    "pause": ts_manager.pause_runner,
+    "resume": ts_manager.resume_runner,
     "export": _handle_export,
 }
 
@@ -50,15 +52,18 @@ event_to_handle: dict[
 def handle_data(data: TestSequenceRun):
     """
     Handles the data received from the test sequencer websocket
+    - Some event are trigger imeadiatly (run, stop, pause, resume)
+    - Only one sequence or export can be run at the same time
 
     Parameters:
     data (string): the text received from the websocket
     """
     if data.event == "stop":
         ts_manager.kill_runner()
-    if data.event == "pause":
+    elif data.event == "pause":
         ts_manager.pause_runner()
-    if data.event == "resume":
+    elif data.event == "resume":
         ts_manager.resume_runner()
-    with lock:
-        event_to_handle[data.event](data, ts_manager)
+    else:
+        with lock:
+            event_to_handle[data.event](data, ts_manager)

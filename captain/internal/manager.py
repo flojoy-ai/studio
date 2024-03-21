@@ -25,11 +25,14 @@ class WSManager:
 # Manager for Test Sequencer activities
 class TSManager(WSManager):
     def __init__(self):
-        self.runner: asyncio.Runner | None = None  # holds the running sequencer
+        self.runner: asyncio.Runner | None = None  # holds the running sequencer (only one at a time)
         self.paused = False
+        self.poison_pill: PoisonPill | None = None
         super().__init__()
 
     def new_runner(self, runner: asyncio.Runner, *args, **kwargs):
+        if self.runner is not None:
+            self.kill_runner()
         self.runner = runner
         self.pause = False
 
@@ -38,17 +41,23 @@ class TSManager(WSManager):
         self.pause = False
 
     def wait_if_paused(self):
+        logger.info("Check if paused")
         while self.pause:
+            logger.info("Waiting for pause to be lifted")
+            if self.poison_pill is not None:
+                logger.info("Poison pill detected")
+                raise self.poison_pill
             time.sleep(0.5)
 
     def kill_runner(self, *args, **kwargs):
         if self.runner is not None:
             logger.info("Killing TS Runner")
             try:
+                self.poison_pill = PoisonPill()
                 self.runner.close()
-            except Exception as e:
-                # Current Task can't be kill, but a PoisonPill in queue will stop the next task
-                logger.error(f"Error while killing TS Runner: {e}")
+            except Exception:
+                # Current Task can't be kill, but this put a "Poison Pill" in queue will stop the next task
+                pass
             self.runner = None
             asyncio.run(
                 self.ws.broadcast(
@@ -68,11 +77,10 @@ class TSManager(WSManager):
             logger.info("Pausing TS Runner")
             self.pause = True
 
-
     def resume_runner(self, *args, **kwargs):
         if self.pause:
             logger.info("Resuming TS Runner")
-            self.pause = False 
+            self.pause = False
 
 
 # Manager for flowchart activities (main manager)
