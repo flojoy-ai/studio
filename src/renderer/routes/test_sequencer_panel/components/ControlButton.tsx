@@ -16,7 +16,7 @@ import { toast } from "sonner";
 
 
 export function ControlButton() {
-  const { setElems, tree, setIsLocked, backendGlobalState, backendState } = useTestSequencerState();
+  const { setElems, tree, setIsLocked, backendGlobalState, backendState, clearPreviousRuns } = useTestSequencerState();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
 
   const resetStatus = () => {
@@ -33,6 +33,7 @@ export function ControlButton() {
       });
       return newElems;
     });
+    clearPreviousRuns();
   };
 
   const handleClickRunTest = () => {

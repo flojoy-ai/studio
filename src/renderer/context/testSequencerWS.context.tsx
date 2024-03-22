@@ -3,9 +3,10 @@ import { SendJsonMessage } from "react-use-websocket/dist/lib/types";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
-import { BackendMsg, Test } from "@/renderer/types/test-sequencer";
+import { BackendMsg, Test, TestSequenceElement } from "@/renderer/types/test-sequencer";
 import { toast } from "sonner";
 import { env } from "@/env";
+import { testSequenceRunRequest } from "../routes/test_sequencer_panel/models/models";
 
 type ContextType = {
   tSSendJsonMessage: SendJsonMessage;
@@ -21,13 +22,17 @@ export function TestSequencerWSProvider({
   children?: React.ReactNode;
 }) {
   const {
+    tree,
     websocketId,
     setElems,
     setIsLocked,
     setIsLoading,
     setBackendGlobalState,
     setBackendState,
+    saveRun,
+    cycle,
   } = useTestSequencerState();
+  const { tSSendJsonMessage } = useContext(TSWebSocketContext);
 
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
     `ws://${env.VITE_BACKEND_HOST}:${env.VITE_BACKEND_PORT}/ts-ws/${websocketId}`,
@@ -114,6 +119,24 @@ export function TestSequencerWSProvider({
         setIsLocked(false);
         setBackendGlobalState(msg.data.state);
         setBackendState(msg.data.state);
+        saveRun();
+        if (cycle.cycleNumber < cycle.cycleCount - 1 || cycle.infinite) {
+          console.log("Test set done" + cycle.cycleNumber + " " + cycle.cycleCount);
+          setElems.withException((elems: TestSequenceElement[]) => {
+            const newElems: TestSequenceElement[] = [...elems].map((elem) => {
+              return elem.type === "test"
+                ? {
+                    ...elem,
+                    status: "pending",
+                    completionTime: undefined,
+                    isSavedToCloud: false,
+                  }
+                : { ...elem };
+            });
+            return newElems;
+          });
+          sendJsonMessage(testSequenceRunRequest(tree));
+        }
         break;
       case "error":
         toast.error(
