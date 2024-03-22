@@ -77,9 +77,9 @@ const getNumberOfTestRun = (data: TestSequenceElement[]): number => {
 
 const getNumberOfCycleRun = (cycle: Cycle): string => {
   if (cycle.infinite) {
-    return cycle.cycleNumber + "/∞";
+    return (cycle.ptrCycle + 1) + "/∞";
   }
-  return cycle.cycleNumber + "/" + cycle.cycleCount;
+  return (cycle.ptrCycle + 1) + "/" + cycle.cycleCount;
 }
 
 const columns: ColumnDef<Summary>[] = [

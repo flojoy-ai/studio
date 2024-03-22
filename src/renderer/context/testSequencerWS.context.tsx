@@ -116,7 +116,6 @@ export function TestSequencerWSProvider({
         setBackendState(msg.data.state);
         break;
       case "test_set_done":
-        setIsLocked(false);
         setBackendGlobalState(msg.data.state);
         setBackendState(msg.data.state);
         saveRun();
@@ -136,6 +135,8 @@ export function TestSequencerWSProvider({
             return newElems;
           });
           sendJsonMessage(testSequenceRunRequest(tree));
+        } else {
+          setIsLocked(false);
         }
         break;
       case "error":

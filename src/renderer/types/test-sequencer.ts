@@ -45,6 +45,7 @@ export const Cycle = z.object({
   infinite: z.boolean(),
   cycleCount: z.number(),
   cycleNumber: z.number(),
+  ptrCycle: z.number(),
 });
 export type Cycle = z.infer<typeof Cycle>;
 

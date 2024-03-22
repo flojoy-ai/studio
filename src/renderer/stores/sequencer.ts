@@ -18,7 +18,6 @@ type State = {
   backendGlobalState: BackendGlobalState;
   cycle: Cycle;
   runs: TestSequenceElement[];
-  ptrRuns: number;
   backendState: MsgState;
   testSequenceUnsaved: boolean;
   testSequenceTree: TestRootNode;
@@ -75,8 +74,8 @@ export const useSequencerStore = create<State & Actions>()(
       infinite: false,
       cycleCount: 1,
       cycleNumber: 0,
+      ptrCycle: -1,
     },
-    ptrRuns: -1,
     runs: [],
     setCycleCount: (val: number) =>
       set((state) => {
@@ -92,33 +91,33 @@ export const useSequencerStore = create<State & Actions>()(
     saveRun: () => 
       set((state) => {
         state.runs.push(state.elements);
-        state.ptrRuns = state.ptrRuns + 1;
+        state.cycle.ptrCycle = state.cycle.ptrCycle + 1;
         state.cycle.cycleNumber = state.cycle.cycleNumber + 1;
       }),
     previousCycle: () =>
       set((state) => {
         if (state.runs.length > 0) {
-          state.ptrRuns = state.ptrRuns - 1;
-          if (state.ptrRuns < 0) {
-            state.ptrRuns = 0;
+          state.cycle.ptrCycle = state.cycle.ptrCycle - 1;
+          if (state.cycle.ptrCycle < 0) {
+            state.cycle.ptrCycle = 0;
           }
-          state.elements = state.runs[state.ptrRuns];
+          state.elements = state.runs[state.cycle.ptrCycle];
         }
       }),
     nextCycle: () =>
       set((state) => {
         if (state.runs.length > 0) {
-          state.ptrRuns = state.ptrRuns + 1;
-          if (state.ptrRuns >= state.runs.length) {
-            state.ptrRuns = state.runs.length - 1;
+          state.cycle.ptrCycle = state.cycle.ptrCycle + 1;
+          if (state.cycle.ptrCycle >= state.runs.length) {
+            state.cycle.ptrCycle = state.runs.length - 1;
           }
-          state.elements = state.runs[state.ptrRuns];
+          state.elements = state.runs[state.cycle.ptrCycle];
         }
       }),
     clearPreviousRuns: () =>
       set((state) => {
         state.runs = [];
-        state.ptrRuns = -1;
+        state.cycle.ptrCycle = -1;
         state.cycle.cycleNumber = 0;
       }),  
 
