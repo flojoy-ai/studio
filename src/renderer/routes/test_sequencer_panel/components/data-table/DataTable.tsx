@@ -59,6 +59,7 @@ import {
 } from "@/renderer/components/ui/hover-card";
 import PythonTestFileModal from "@/renderer/routes/test_sequencer_panel/components/modals/PythonTestFileModal";
 import { useModalState } from "@/renderer/hooks/useModalState";
+import { Badge } from "@/renderer/components/ui/badge";
 
 function renderErrorMessage(text: string): JSX.Element {
   const lines = text.split("\n");
@@ -72,20 +73,22 @@ function renderErrorMessage(text: string): JSX.Element {
 }
 
 const mapStatusToDisplay: { [k in StatusType] } = {
-  pending: <p className="text-grey-500">PENDING</p>,
-  running: <p className="text-blue-500">RUNNING</p>,
-  paused: <p className="text-yellow-500">PAUSED</p>,
-  pass: <p className="text-green-500">PASS</p>,
-  aborted: <p className="text-red-500">ABORTED</p>,
+  pending: <Badge className="bg-secondary text-primary">PENDING</Badge>,
+  running: <Badge className="bg-blue-500 border-dash border-secondary">RUNNING</Badge>,
+  paused:  <Badge className="bg-yellow-500">PAUSED</Badge>,
+  pass:    <Badge className="bg-green-500">PASS</Badge>,
+  aborted: <Badge className="bg-red-500">ABORTED</Badge>,
   fail: (status: string | null) =>
     status === null || status === "" ? (
-      <p className="text-red-500">FAIL</p>
+      <Badge  className="text-red-500">FAIL</Badge>
     ) : (
       <HoverCard>
         <HoverCardTrigger>
-          <p className="text relative z-20 text-red-500 underline underline-offset-2">
+          <Badge
+            className="text relative z-20 bg-red-500 underline underline-offset-2 hover:bg-red-700"
+          >
             FAIL
-          </p>
+          </Badge>
         </HoverCardTrigger>
         <HoverCardContent className="w-256">
           <h2 className="text-muted-foreground">Error Message:</h2>
@@ -96,7 +99,7 @@ const mapStatusToDisplay: { [k in StatusType] } = {
 };
 
 export function DataTable() {
-  const { elems, setElems, running } = useTestSequencerState();
+  const { elems, setElems } = useTestSequencerState();
   const { openRenameTestModal } = useModalState();
   const [addIfStatement] = useState(false);
   const indentLevels = getIndentLevels(elems);
@@ -153,7 +156,6 @@ export function DataTable() {
         return (
           <TestNameCell
             cellProps={props}
-            running={running}
             indentLevels={indentLevels}
           />
         );

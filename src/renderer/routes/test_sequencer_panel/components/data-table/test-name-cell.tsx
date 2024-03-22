@@ -9,7 +9,6 @@ import { ReactNode } from "react";
 type Props = {
   cellProps: CellContext<TestSequenceElement, unknown>;
   indentLevels: number[];
-  running: string[];
 };
 
 const IndentLine = ({
