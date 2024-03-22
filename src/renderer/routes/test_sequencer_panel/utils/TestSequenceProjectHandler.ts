@@ -28,6 +28,7 @@ import {
   TestSequencerProject,
 } from "@/renderer/types/test-sequencer";
 import { createNewTest } from "@/renderer/hooks/useTestSequencerState";
+import { useSequencerStore } from "@/renderer/stores/sequencer";
 
 // Exposed API
 export type StateManager = {
@@ -36,6 +37,7 @@ export type StateManager = {
   project: TestSequencerProject | null;
   setProject: (project: TestSequencerProject | null) => void;
   setUnsaved: (unsaved: boolean) => void;
+  setCycleCount: (cycleCount: number) => void;
 };
 
 export async function createProject(
@@ -231,6 +233,7 @@ async function syncProject(
   stateManager.setElems(elements);
   stateManager.setProject(project);
   stateManager.setUnsaved(false);
+  stateManager.setCycleCount(project.cycle !== undefined && project.cycle !== null ? project.cycle : 1);
 }
 
 function removeBaseFolderFromName(name: string, baseFolder: string): string {
@@ -338,5 +341,7 @@ function updateProjectElements(
   return {
     ...project,
     elems: elements,
+    // This could be cleanup if we ignore backward compatibility
+    cycle: useSequencerStore.getState().cycle.infinite ? -1 : useSequencerStore.getState().cycle.cycleCount,
   };
 }

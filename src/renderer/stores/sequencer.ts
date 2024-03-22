@@ -79,10 +79,14 @@ export const useSequencerStore = create<State & Actions>()(
     runs: [],
     setCycleCount: (val: number) =>
       set((state) => {
+        console.log("setCycleCount", val);
         if (val < 1) {
-          val = 1;
+          state.cycle.cycleCount = 1;
+          state.cycle.infinite = true;
+        } else {
+          state.cycle.cycleCount = val;
+          state.cycle.infinite = false;
         }
-        state.cycle.cycleCount = val;
       }),
     setInfinite: (val: boolean) =>
       set((state) => {

@@ -13,7 +13,7 @@ import {
 function usePrepareStateManager(
   withoutPermission: boolean = false,
 ): StateManager {
-  const { elems, setElems, project, setProject, setUnsaved } =
+  const { elems, setElems, project, setProject, setUnsaved, setCycleCount } =
     useTestSequencerState();
   if (withoutPermission) {
     return {
@@ -22,9 +22,10 @@ function usePrepareStateManager(
       setUnsaved,
       elem: elems,
       project,
+      setCycleCount,
     };
   }
-  return { setElems, setProject, setUnsaved, elem: elems, project };
+  return { setElems, setProject, setUnsaved, elem: elems, project, setCycleCount };
 }
 
 export function useSaveProject() {
