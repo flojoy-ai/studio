@@ -12,6 +12,7 @@ import { TSWebSocketContext } from "@/renderer/context/testSequencerWS.context";
 import { useContext } from "react";
 import { Button } from "@/renderer/components/ui/button";
 import { PauseIcon, PlayIcon } from "lucide-react";
+import { toast } from "sonner";
 
 
 export function ControlButton() {
@@ -47,6 +48,7 @@ export function ControlButton() {
   };
 
   const handleClickPauseTest = () => {
+    toast.warning("Pausing test sequencer after this test.");
     if (backendGlobalState === "test_set_start") {
       console.log("Pause test");
       tSSendJsonMessage(testSequencePauseRequest(tree));
@@ -54,6 +56,7 @@ export function ControlButton() {
   }
 
   const handleClickResumeTest = () => {
+    toast.info("Resuming test sequencer.");
     if (backendGlobalState === "test_set_start") {
       console.log("Resume test");
       tSSendJsonMessage(testSequenceResumeRequest(tree));
