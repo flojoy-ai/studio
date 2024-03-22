@@ -3,6 +3,7 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import {
     BackendGlobalState,
+  Cycle,
   MsgState,
   TestRootNode,
   TestSequenceElement,
@@ -15,6 +16,9 @@ type State = {
   isLocked: boolean;
   isLoading: boolean;
   backendGlobalState: BackendGlobalState;
+  cycle: Cycle;
+  runs: TestRootNode[];
+  ptrRuns: number;
   backendState: MsgState;
   testSequenceUnsaved: boolean;
   testSequenceTree: TestRootNode;
@@ -59,6 +63,48 @@ export const useSequencerStore = create<State & Actions>()(
       identifiers: [],
     },
     testSequencerProject: null,
+
+
+    cycle: {
+      infinite: false,
+      cycleCount: 1,
+      cycleNumber: 0,
+    },
+    ptrRuns: -1,
+    runs: [],
+    saveRun: () => 
+      set((state) => {
+        state.runs.push(state.testSequenceTree);
+        state.ptrRuns = state.ptrRuns + 1;
+        state.cycle.cycleNumber = state.cycle.cycleNumber + 1;
+      }),
+    previousCycle: () =>
+      set((state) => {
+        if (state.runs.length > 0) {
+          state.ptrRuns = state.ptrRuns - 1;
+          if (state.ptrRuns < 0) {
+            state.ptrRuns = 0;
+          }
+          state.testSequenceTree = state.runs[state.ptrRuns];
+        }
+      }),
+    nextCycle: () =>
+      set((state) => {
+        if (state.runs.length > 0) {
+          state.ptrRuns = state.ptrRuns + 1;
+          if (state.ptrRuns >= state.runs.length) {
+            state.ptrRuns = state.runs.length - 1;
+          }
+          state.testSequenceTree = state.runs[state.ptrRuns];
+        }
+      }),
+    clearPreviousRuns: () =>
+      set((state) => {
+        state.runs = [];
+        state.ptrRuns = -1;
+        state.cycle.cycleNumber = 0;
+      }),  
+
 
     setWebsocketId: (val) =>
       set((state) => {

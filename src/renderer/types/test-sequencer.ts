@@ -40,6 +40,13 @@ export const BackendGlobalState = z.enum([
 ]);
 export type BackendGlobalState = z.infer<typeof BackendGlobalState>;
 
+export const Cycle = z.object({
+  infinite: z.boolean(),
+  cycleCount: z.number(),
+  cycleNumber: z.number(),
+});
+export type Cycle = z.infer<typeof Cycle>;
+
 export const BackendMsg = z.object({
   state: MsgState,
   target_id: z.string(),
