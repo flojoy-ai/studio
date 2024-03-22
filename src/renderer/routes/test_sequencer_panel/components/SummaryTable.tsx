@@ -22,6 +22,7 @@ import {
 } from "@/renderer/components/ui/table";
 import { filter, max, sum } from "lodash";
 import {
+  Cycle,
   Summary,
   Test,
   TestSequenceElement,
@@ -74,6 +75,13 @@ const getNumberOfTestRun = (data: TestSequenceElement[]): number => {
   return count;
 }
 
+const getNumberOfCycleRun = (cycle: Cycle): string => {
+  if (cycle.infinite) {
+    return cycle.cycleNumber + "/∞";
+  }
+  return cycle.cycleNumber + "/" + cycle.cycleCount;
+}
+
 const columns: ColumnDef<Summary>[] = [
   {
     accessorKey: "id",
@@ -92,8 +100,8 @@ const columns: ColumnDef<Summary>[] = [
   {
     accessorKey: "nb_cycle_run",
     header: "Cycle Run",
-    cell: () => {
-      return <div>{"13/25"}</div>;
+    cell: ({ row }) => {
+      return <div>{row.original.numberOfCycleRunDisplay}</div>;
     },
   },
   {
@@ -124,7 +132,7 @@ export function SummaryTable() {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const { elems } = useTestSequencerState();
+  const { elems, cycle } = useTestSequencerState();
   const [summary, setSummary] = useState<Summary[]>([]);
   useEffect(() => {
     setSummary([
@@ -134,9 +142,10 @@ export function SummaryTable() {
         numberOfTest: getNumberOfTest(elems),
         successRate: getSuccessRate(elems),
         completionTime: getCompletionTime(elems),
+        numberOfCycleRunDisplay: getNumberOfCycleRun(cycle),
       },
     ]);
-  }, [elems]);
+  }, [elems, cycle]);
 
   const data = summary;
   const summaryTable = useReactTable({

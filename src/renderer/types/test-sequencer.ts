@@ -6,6 +6,7 @@ export type Summary = {
   completionTime: number;
   numberOfTestRun: number;
   numberOfTest: number;
+  numberOfCycleRunDisplay: string
 };
 
 export type LockedContextType = {
