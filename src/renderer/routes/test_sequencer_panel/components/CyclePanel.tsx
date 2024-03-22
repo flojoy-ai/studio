@@ -3,11 +3,12 @@ import { Label } from "@/renderer/components/ui/label";
 import { Input } from "@/renderer/components/ui/input";
 import { Switch } from "@/renderer/components/ui/switch";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import { Button } from "@/renderer/components/ui/button";
 
 
 export function CyclePanel() {
 
-  const { cycle, setCycleCount, setInfinite } = useTestSequencerState();
+  const { cycle, setCycleCount, setInfinite, previousCycle, nextCycle } = useTestSequencerState();
 
   return (
     <div className="rounded-xl border border-gray-300 dark:border-gray-800 mr-4 flex-none">
@@ -36,6 +37,14 @@ export function CyclePanel() {
               checked={cycle.infinite}
               onCheckedChange={setInfinite}
             />
+          </div>
+
+          <div className="ml-4">
+            <Label className="text-xs text-muted-foreground" htmlFor="checkCycle"> Cycle Navigation </Label>
+            <div id="checkCycle" className="flex gap-2 mt-1">
+              <Button variant="outline" onClick={previousCycle} className="h-6">←</Button>
+              <Button variant="outline" onClick={nextCycle} className="h-6">→</Button>
+            </div>
           </div>
 
         </div>

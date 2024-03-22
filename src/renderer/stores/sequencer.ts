@@ -17,7 +17,7 @@ type State = {
   isLoading: boolean;
   backendGlobalState: BackendGlobalState;
   cycle: Cycle;
-  runs: TestRootNode[];
+  runs: TestSequenceElement[];
   ptrRuns: number;
   backendState: MsgState;
   testSequenceUnsaved: boolean;
@@ -91,7 +91,7 @@ export const useSequencerStore = create<State & Actions>()(
       }),
     saveRun: () => 
       set((state) => {
-        state.runs.push(state.testSequenceTree);
+        state.runs.push(state.elements);
         state.ptrRuns = state.ptrRuns + 1;
         state.cycle.cycleNumber = state.cycle.cycleNumber + 1;
       }),
@@ -102,7 +102,7 @@ export const useSequencerStore = create<State & Actions>()(
           if (state.ptrRuns < 0) {
             state.ptrRuns = 0;
           }
-          state.testSequenceTree = state.runs[state.ptrRuns];
+          state.elements = state.runs[state.ptrRuns];
         }
       }),
     nextCycle: () =>
@@ -112,7 +112,7 @@ export const useSequencerStore = create<State & Actions>()(
           if (state.ptrRuns >= state.runs.length) {
             state.ptrRuns = state.runs.length - 1;
           }
-          state.testSequenceTree = state.runs[state.ptrRuns];
+          state.elements = state.runs[state.ptrRuns];
         }
       }),
     clearPreviousRuns: () =>
