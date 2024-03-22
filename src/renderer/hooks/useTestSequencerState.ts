@@ -130,6 +130,13 @@ export function useTestSequencerState() {
     setTree,
     project,
     setProject,
+    cycle,
+    setCycleCount,
+    setInfinite,
+    saveRun,
+    previousCycle,
+    nextCycle,
+    clearPreviousRun,
   } = useSequencerStore(
     useShallow((state) => {
       return {
@@ -150,6 +157,13 @@ export function useTestSequencerState() {
         setTree: state.setTestSequenceTree,
         project: state.testSequencerProject,
         setProject: state.setTestSequencerProject,
+        cycle: state.cycle,
+        setCycleCount: state.setCycleCount,
+        setInfinite: state.setInfinite,
+        saveRun: state.saveRun,
+        previousCycle: state.previousCycle,
+        nextCycle: state.nextCycle,
+        clearPreviousRun: state.clearPreviousRuns,
       };
     }),
   );
@@ -230,5 +244,12 @@ export function useTestSequencerState() {
     isUnsaved,
     project,
     setProject,
+    cycle,
+    setCycleCount,
+    setInfinite,
+    saveRun,
+    previousCycle,
+    nextCycle,
+    clearPreviousRun,
   };
 }

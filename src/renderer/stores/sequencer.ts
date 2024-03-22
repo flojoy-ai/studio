@@ -35,6 +35,12 @@ type Actions = {
   setTestSequenceUnsaved: (val: boolean) => void;
   setTestSequenceTree: (val: TestRootNode) => void;
   setTestSequencerProject: (val: TestSequencerProject | null) => void;
+  setCycleCount: (val: number) => void;
+  setInfinite: (val: boolean) => void;
+  saveRun: () => void;
+  previousCycle: () => void;
+  nextCycle: () => void;
+  clearPreviousRuns: () => void;
 };
 
 export const useSequencerStore = create<State & Actions>()(
@@ -72,6 +78,17 @@ export const useSequencerStore = create<State & Actions>()(
     },
     ptrRuns: -1,
     runs: [],
+    setCycleCount: (val: number) =>
+      set((state) => {
+        if (val < 1) {
+          val = 1;
+        }
+        state.cycle.cycleCount = val;
+      }),
+    setInfinite: (val: boolean) =>
+      set((state) => {
+        state.cycle.infinite = val;
+      }),
     saveRun: () => 
       set((state) => {
         state.runs.push(state.testSequenceTree);

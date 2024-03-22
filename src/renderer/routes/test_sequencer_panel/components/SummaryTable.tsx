@@ -92,7 +92,7 @@ const columns: ColumnDef<Summary>[] = [
   {
     accessorKey: "nb_cycle_run",
     header: "Cycle Run",
-    cell: ({ row }) => {
+    cell: () => {
       return <div>{"13/25"}</div>;
     },
   },

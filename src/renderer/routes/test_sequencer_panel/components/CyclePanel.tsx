@@ -2,13 +2,12 @@ import _ from "lodash";
 import { Label } from "@/renderer/components/ui/label";
 import { Input } from "@/renderer/components/ui/input";
 import { Switch } from "@/renderer/components/ui/switch";
-import { useState } from "react";
+import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 
 
 export function CyclePanel() {
 
-  const [cycle, setCycle] = useState(1);
-  const [infinite, setInfinite] = useState(false);
+  const { cycle, setCycleCount, setInfinite } = useTestSequencerState();
 
   return (
     <div className="rounded-xl border border-gray-300 dark:border-gray-800 mr-4 flex-none">
@@ -25,16 +24,16 @@ export function CyclePanel() {
               type="number" 
               id="cycle" 
               placeholder="1" 
-              disabled={infinite}
-              value={cycle} 
-              onChange={(event) => { setCycle(Number(event.target.value)); }} />
+              disabled={cycle.infinite}
+              value={cycle.cycleCount} 
+              onChange={(event) => { setCycleCount(Number(event.target.value)); }} />
           </div>
 
           <div className="grid max-w-sm items-center gap-1.5 ml-4">
             <Label className="text-xs text-muted-foreground" htmlFor="infinte">Infinite</Label>
             <Switch 
               id="infinite"
-              checked={infinite}
+              checked={cycle.infinite}
               onCheckedChange={setInfinite}
             />
           </div>
