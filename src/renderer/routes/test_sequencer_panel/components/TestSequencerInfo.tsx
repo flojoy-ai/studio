@@ -1,5 +1,6 @@
-import { DataTable } from "./data-table/DataTable";
-import { SummaryTable } from "./SummaryTable";
+import { StepTable } from "./data-table/StepTable";
+import { SummaryTable } from "./data-table/SummaryTable";
+import { SequenceTable } from "./data-table/SequenceTable";
 import { CloudPanel } from "./CloudPanel";
 import { LockedContextProvider } from "@/renderer/context/lock.context";
 import _ from "lodash";
@@ -37,7 +38,8 @@ const TestSequencerView = () => {
               <CyclePanel />
               <SummaryTable />
             </div>
-            <DataTable />
+            <SequenceTable />
+            <StepTable />
           </div>
 
           <div className="flex-none" style={{ width: "28%" }} >
@@ -45,8 +47,8 @@ const TestSequencerView = () => {
               <Tabs defaultValue="Execution" className="w-full h-full">
                 { isAdmin() &&
                   <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="Execution">Test Execution</TabsTrigger>
-                     <TabsTrigger value="Design">Design Panel</TabsTrigger>
+                    <TabsTrigger value="Execution">Execution Panel</TabsTrigger>
+                    <TabsTrigger value="Design">Design Panel</TabsTrigger>
                   </TabsList>
                 }
                 <TabsContent value="Design">

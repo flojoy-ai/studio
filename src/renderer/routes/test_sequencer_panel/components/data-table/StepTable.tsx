@@ -98,7 +98,7 @@ const mapStatusToDisplay: { [k in StatusType] } = {
     ),
 };
 
-export function DataTable() {
+export function StepTable() {
   const { elems, setElems } = useTestSequencerState();
   const { openRenameTestModal } = useModalState();
   const [addIfStatement] = useState(false);
@@ -542,10 +542,10 @@ export function DataTable() {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={columns.length}
+                  colSpan={columns.length + 1}
                   className="h-24 text-center"
                 >
-                  No results.
+                    No steps available.
                 </TableCell>
               </TableRow>
             )}
