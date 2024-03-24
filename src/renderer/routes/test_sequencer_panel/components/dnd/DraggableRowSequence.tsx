@@ -94,7 +94,7 @@ export const DraggableRowSequence = ({
       )}
 
       {row.getVisibleCells().map((cell) => (
-        <TableCell isCompact={true} key={cell.id}>
+        <TableCell isCompact={false} key={cell.id}>
           {flexRender(cell.column.columnDef.cell, cell.getContext())}
         </TableCell>
       ))}

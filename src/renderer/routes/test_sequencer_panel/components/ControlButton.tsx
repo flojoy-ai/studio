@@ -66,31 +66,31 @@ export function ControlButton() {
 
   return (
     <div className="flex w-full mt-4">
-        <LockableButton
-          variant="dotted"
-          className="gap-2 flex-grow"
-          isLocked={_.isEmpty(tree)}
-          isException={backendGlobalState === "test_set_start"}
-          onClick={
-            backendGlobalState === "test_set_start"
-              ? handleClickStopTest
-              : handleClickRunTest
-          }
-        >
-          {backendGlobalState === "test_set_start"
-            ? "Stop Test Sequence"
-            : "Run Test Sequence"}
-        </LockableButton>
-        { backendGlobalState === "test_set_start" && (
-          <div className="flex flex-none mt-1">
-          <Button className="flex-none ml-2" disabled={backendState !== "paused"} variant="outline" size="icon">
-            <PlayIcon className="h-4 w-4 bg-grey" onClick={handleClickResumeTest} />
-          </Button>
-          <Button className="flex-none ml-2" disabled={backendState !== "running"} variant="outline" size="icon">
-            <PauseIcon className="h-4 w-4 bg-grey" onClick={handleClickPauseTest} />
-          </Button>
-          </div>
-        )}
+      <LockableButton
+        variant="dotted"
+        className="gap-2 flex-grow"
+        isLocked={_.isEmpty(tree)}
+        isException={backendGlobalState === "test_set_start"}
+        onClick={
+          backendGlobalState === "test_set_start"
+            ? handleClickStopTest
+            : handleClickRunTest
+        }
+      >
+        {backendGlobalState === "test_set_start"
+          ? "Stop Test Sequence"
+          : "Run Test Sequence"}
+      </LockableButton>
+      { backendGlobalState === "test_set_start" && (
+        <div className="flex flex-none mt-1">
+        <Button className="flex-none ml-2" disabled={backendState !== "paused"} variant="outline" size="icon">
+          <PlayIcon className="h-4 w-4 bg-grey" onClick={handleClickResumeTest} />
+        </Button>
+        <Button className="flex-none ml-2" disabled={backendState !== "running"} variant="outline" size="icon">
+          <PauseIcon className="h-4 w-4 bg-grey" onClick={handleClickPauseTest} />
+        </Button>
+        </div>
+      )}
     </div>
   );
 }

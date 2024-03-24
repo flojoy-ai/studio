@@ -174,9 +174,10 @@ export const useSequencerStore = create<State & Actions>()(
           );
           if (idx < state.sequences.length - 1) {
             state.testSequencerProject = state.sequences[idx + 1];
+            state.elements = state.testSequencerProject.elems;
+            state.testSequenceTree.children = state.testSequencerProject.elems; 
           }
         }
-
       }),
     setSequenceAsRunnable: (name) =>
       set((state) => {
@@ -184,6 +185,7 @@ export const useSequencerStore = create<State & Actions>()(
         if (idx >= 0) {
           state.testSequencerProject = state.sequences[idx];
           state.elements = state.testSequencerProject.elems;
+          state.testSequenceTree.children = state.testSequencerProject.elems; 
         }
       }),
 

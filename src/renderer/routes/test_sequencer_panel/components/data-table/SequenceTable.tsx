@@ -125,47 +125,6 @@ export function SequenceTable() {
       },
     },
 
-    {
-      accessorKey: "up-down",
-      header: () => <div className="text-center">Reorder</div>,
-      enableHiding: false,
-      cell: ({ row }) => {
-        const onUpClick = () => {
-          setRowSelection([]);
-          setElems((data) => {
-            const new_data = [...data];
-            const index = parseInt(row.id);
-            if (index == 0) return data;
-            new_data[index] = data[index - 1];
-            new_data[index - 1] = data[index];
-            return new_data;
-          });
-        };
-        const onDownClick = () => {
-          setRowSelection([]);
-          setElems((data) => {
-            const new_data = [...data];
-            const index = parseInt(row.id);
-            if (index == data.length) return data;
-            new_data[index] = data[index + 1];
-            new_data[index + 1] = data[index];
-            return new_data;
-          });
-        };
-        return (
-          <div className="relative z-20 flex flex-row justify-center">
-            <LockableButton variant="ghost">
-              <ChevronUpIcon onClick={onUpClick} />
-            </LockableButton>
-            <LockableButton variant="ghost">
-              <ChevronDownIcon onClick={onDownClick} />
-            </LockableButton>
-          </div>
-        );
-      },
-    },
-
-
   ];
 
   const [sorting, setSorting] = useState<SortingState>([]);

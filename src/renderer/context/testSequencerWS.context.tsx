@@ -31,8 +31,9 @@ export function TestSequencerWSProvider({
     setBackendState,
     saveRun,
     cycle,
+    project,
+    setNextSequenceAsRunnable
   } = useTestSequencerState();
-  const { tSSendJsonMessage } = useContext(TSWebSocketContext);
 
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
     `ws://${env.VITE_BACKEND_HOST}:${env.VITE_BACKEND_PORT}/ts-ws/${websocketId}`,
@@ -136,6 +137,19 @@ export function TestSequencerWSProvider({
           });
           sendJsonMessage(testSequenceRunRequest(tree));
         } else {
+          console.log("Test set done");
+          if (project !== null) {
+            console.log("Potential Multi sequence");
+            const name = project.name;
+            console.log("Current sequence: " + name);
+            setNextSequenceAsRunnable();
+            if (name !== project.name) {
+              console.log("New sequence: " + project.name);
+              sendJsonMessage(testSequenceRunRequest(tree));
+              break
+            }
+            console.log("Next sequence: " + project.name);
+          }
           setIsLocked(false);
         }
         break;
