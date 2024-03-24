@@ -22,6 +22,7 @@ type State = {
   testSequenceUnsaved: boolean;
   testSequenceTree: TestRootNode;
   testSequencerProject: TestSequencerProject | null;
+  testSequencerProjects: TestSequencerProject[];
 };
 
 type Actions = {
@@ -68,6 +69,7 @@ export const useSequencerStore = create<State & Actions>()(
       identifiers: [],
     },
     testSequencerProject: null,
+    testSequencerProjects: [],
 
 
     cycle: {
@@ -154,6 +156,9 @@ export const useSequencerStore = create<State & Actions>()(
     setTestSequencerProject: (val) =>
       set((state) => {
         state.testSequencerProject = val;
+        if (val !== null) {
+          state.testSequencerProjects.push(val);
+        }
       }),
   })),
 );

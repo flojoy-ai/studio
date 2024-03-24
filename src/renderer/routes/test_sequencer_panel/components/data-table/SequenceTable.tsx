@@ -33,25 +33,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/renderer/components/ui/table";
-import {
-} from "@/renderer/types/test-sequencer";
+import { TestSequencerProject } from "@/renderer/types/test-sequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
-import { parseInt, filter, map } from "lodash";
-import {
-  generateConditional,
-} from "@/renderer/routes/test_sequencer_panel/utils/ConditionalUtils";
+import { parseInt, map } from "lodash";
 import { ChevronDownIcon, TrashIcon } from "lucide-react";
-import { WriteConditionalModal } from "@/renderer/routes/test_sequencer_panel/components/modals/AddWriteConditionalModal";
 import LockableButton from "@/renderer/routes/test_sequencer_panel/components/lockable/LockedButtons";
 import { useRef, useState } from "react";
-import TestNameCell from "./test-name-cell";
-import { DraggableRow } from "@/renderer/routes/test_sequencer_panel/components/dnd/DraggableRow";
-import { Project } from "@/renderer/types/project";
+import { DraggableRowSequence } from "../dnd/DraggableRowSequence";
 
 
 export function SequenceTable() {
 
-  const columns: ColumnDef<Project>[] = [
+  const columns: ColumnDef<TestSequencerProject>[] = [
     {
       id: "selected",
       header: ({ table }) => (
@@ -104,15 +97,43 @@ export function SequenceTable() {
       },
     },
 
+    {
+      accessorFn: (elem) => {
+        return "status";
+      },
+      header: "Status",
+      cell: ({ row }) => {
+        return (
+          <div>
+            <p className="text-red-500"> FAIL </p>
+          </div>
+        )
+      },
+    },
+
+    {
+      accessorFn: (elem) => {
+        return "completion_time";
+      },
+      header: "Completion Time",
+      cell: ({ row }) => {
+        return (
+          <div>
+            <p className="text-primary"> 10:30:215 </p>
+          </div>
+        )
+      },
+    },
+
   ];
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const { project } = useTestSequencerState();
+  const { projects } = useTestSequencerState();
 
-  const data = project != null ? [project] : [];
+  const data = projects;
 
   const table = useReactTable({
     data: data,
@@ -207,7 +228,7 @@ export function SequenceTable() {
               table.getRowModel().rows.map((row) => (
                 <ContextMenu>
                   <ContextMenuTrigger asChild>
-                    <DraggableRow
+                    <DraggableRowSequence
                       row={row}
                       key={row.id}
                       data-state={row.getIsSelected() && "selected"}
