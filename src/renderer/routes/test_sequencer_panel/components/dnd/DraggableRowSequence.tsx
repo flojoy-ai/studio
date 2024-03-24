@@ -8,7 +8,6 @@ import { TableCell, TableRow } from "@/renderer/components/ui/table";
 import { Row, flexRender } from "@tanstack/react-table";
 import { parseInt } from "lodash";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
-import { Project } from "@/renderer/types/project";
 
 export const DraggableRowSequence = ({
   isSelected,
@@ -18,10 +17,15 @@ export const DraggableRowSequence = ({
   isSelected: boolean;
   row: Row<any>;
 }): React.ReactNode => {
-  const { elems, setElems } = useTestSequencerState();
+  const { sequences, setSequences } = useTestSequencerState();
 
   // Only important part, could be pass from the table ----------------------------
   const elementMover = (fromIdx: number, toIdx: number) => {
+    let newSequences = [...sequences];
+    newSequences.splice(toIdx, 0, newSequences[fromIdx]);
+    fromIdx = toIdx < fromIdx ? fromIdx + 1 : fromIdx;
+    newSequences.splice(fromIdx, 1);
+    setSequences(newSequences);
   };
   // -------------------------------------------------------------------------------
 
@@ -41,7 +45,7 @@ export const DraggableRowSequence = ({
         isDragging: monitor.isDragging(),
       }),
     }),
-    [elems],
+    [sequences],
   );
 
   //define behaviour for drop

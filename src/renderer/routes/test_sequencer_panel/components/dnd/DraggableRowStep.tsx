@@ -22,10 +22,8 @@ export const DraggableRowStep = ({
     setElems((elems) => {
       const new_elems = [...elems];
       new_elems.splice(toIdx, 0, elems[fromIdx]);
-      // console.log(new_elems.map((elem) => elem.testName));
       fromIdx = toIdx < fromIdx ? fromIdx + 1 : fromIdx;
       new_elems.splice(fromIdx, 1);
-      // console.log(new_elems.map((elem) => elem.testName));
       return new_elems;
     });
   };
