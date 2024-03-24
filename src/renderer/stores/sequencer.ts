@@ -10,6 +10,7 @@ import {
   TestSequenceElement,
 } from "@/renderer/types/test-sequencer";
 import { TestSequencerProject } from "@/renderer/types/test-sequencer";
+import { testSequenceRunRequest } from "../routes/test_sequencer_panel/models/models";
 
 type State = {
   websocketId: string;
@@ -23,7 +24,6 @@ type State = {
   testSequenceUnsaved: boolean;
   testSequenceTree: TestRootNode;
   testSequencerProject: TestSequencerProject | null;
-  currentSequence: TestSequencerProject | null;
   sequences: TestSequenceContainer[];
 };
 
@@ -45,6 +45,7 @@ type Actions = {
   clearPreviousRuns: () => void;
   setSequenceAsRunnable: (name: string) => void;
   setNextSequenceAsRunnable: () => void;
+  runNextSequence: (sender: any) => void;
 };
 
 export const useSequencerStore = create<State & Actions>()(
@@ -160,40 +161,56 @@ export const useSequencerStore = create<State & Actions>()(
       }),
     setTestSequencerProject: (val) =>
       set((state) => {
-        state.testSequencerProject = val;
-        if (val !== null) {
-          state.sequences.push({
-            project: val,
-            cycle: state.cycle,
-            tree: state.testSequenceTree,
-            elements: state.elements,
-          });
+        if (val === null) {
+          state.testSequencerProject = null;
+        } else {
+          // check if project name is unique
+          const idx = state.sequences.findIndex(
+            (seq) => seq.project.name === val.name,
+          );
+          if (idx === -1) {
+            state.testSequencerProject = val;
+            state.sequences.push({
+              project: val,
+              cycle: state.cycle,
+              tree: state.testSequenceTree,
+              elements: state.elements,
+              testSequenceUnsaved: state.testSequenceUnsaved,
+            });
+          }
         }
       }),
 
-    // Navigation through sequences: TODO set the elems
-    setNextSequenceAsRunnable: () =>
+    // Navigation through sequences
+    runNextSequence: (sender) =>
+      // TODO: Reset all status before a run + Optional run
       set((state) => {
-        if (state.testSequencerProject !== null) {
-          const idx = state.sequences.findIndex(
-            (seq) => seq.project.name === state.currentSequence?.name,
-          );
-          if (idx < state.sequences.length - 1) {
-            // Save the current state and do the swap
-            const currSequence = {
-              project: { ...state.testSequencerProject },
-              cycle: { ...state.cycle },
-              tree: { ...state.testSequenceTree },
-              elements: [...state.elements],
-            };
-            console.log("saving current sequence", currSequence);
-            state.sequences[idx] = currSequence;
-            state.testSequencerProject = state.sequences[idx + 1].project;
-            state.testSequenceTree = state.sequences[idx + 1].tree;
-            state.elements = state.sequences[idx + 1].elements;
-            state.cycle = state.sequences[idx + 1].cycle;
-          }
+        if (state.testSequencerProject === null) {
+          return;  // User only has steps
         }
+        // Find the current sequence and save it
+        const idx = state.sequences.findIndex(
+          (seq) => seq.project.name === state.testSequencerProject?.name,
+        );
+        if (idx === -1 || idx === state.sequences.length - 1) {
+          return;
+        }
+        const currSequence = {
+          project: { ...state.testSequencerProject },
+          cycle: { ...state.cycle },
+          tree: { ...state.testSequenceTree },
+          elements: [...state.elements],
+          testSequenceUnsaved: state.testSequenceUnsaved,
+        };
+        state.sequences[idx] = currSequence;
+        // Load the next sequence and run it
+        state.testSequencerProject = state.sequences[idx + 1].project;
+        state.testSequenceTree = state.sequences[idx + 1].tree;
+        state.elements = state.sequences[idx + 1].elements;
+        state.cycle = state.sequences[idx + 1].cycle;
+        state.testSequenceUnsaved = state.sequences[idx + 1].testSequenceUnsaved;
+        sender(testSequenceRunRequest(state.testSequenceTree));
+        state.isLocked = true;
       }),
 
     setSequenceAsRunnable: (name) =>
@@ -201,6 +218,9 @@ export const useSequencerStore = create<State & Actions>()(
         if (state.testSequencerProject !== null) {
           const idx = state.sequences.findIndex(
             (seq) => seq.project.name === name);
+          if (idx === -1) {
+            return
+          }
           const oldIdx = state.sequences.findIndex(
             (seq) => seq.project.name === state.testSequencerProject.name);
           const currSequence = {
@@ -208,14 +228,14 @@ export const useSequencerStore = create<State & Actions>()(
             cycle: { ...state.cycle },
             tree: { ...state.testSequenceTree },
             elements: [...state.elements],
+            testSequenceUnsaved: state.testSequenceUnsaved,
           };
           state.sequences[oldIdx] = currSequence;
           state.testSequencerProject = state.sequences[idx].project;
           state.testSequenceTree = state.sequences[idx].tree;
           state.elements = state.sequences[idx].elements;
           state.cycle = state.sequences[idx].cycle;
-
-          
+          state.testSequenceUnsaved = state.sequences[idx].testSequenceUnsaved;
         }
       }),
 

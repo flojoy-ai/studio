@@ -31,9 +31,7 @@ export function TestSequencerWSProvider({
     setBackendState,
     saveRun,
     cycle,
-    project,
-    setNextSequenceAsRunnable,
-    sequences,
+    runNextSequence,
   } = useTestSequencerState();
 
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
@@ -138,19 +136,8 @@ export function TestSequencerWSProvider({
           });
           sendJsonMessage(testSequenceRunRequest(tree));
         } else {
-          // if (project !== null) {
-          //   // find project idx in sequences
-          //   const idx = sequences.findIndex((seq) => seq.project.name === project.name);
-          //   console.log("idx: ", idx, " - lenght: ", sequences.length);
-          //   if (idx < sequences.length - 1) {
-          //     console.log("Updating view");
-          //     setNextSequenceAsRunnable();
-          //     // sendJsonMessage(testSequenceRunRequest(sequences[idx+1].tree));
-          //
-          //     break;
-          //   }
-          // }
           setIsLocked(false);
+          runNextSequence(sendJsonMessage);
         }
         break;
       case "error":
