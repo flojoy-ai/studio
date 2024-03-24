@@ -35,15 +35,13 @@ export function DesignPanel() {
         >
           Add New Tests
         </LockableButton>
-        {project === null && (
           <LockableButton
             className="mt-4 w-full"
             variant="outline"
             onClick={projectImport}
           >
-            Import Project
+            Import Sequence
           </LockableButton>
-        )}
         {project !== null && (
           <LockableButton
             className="mt-4 w-full"
@@ -52,31 +50,18 @@ export function DesignPanel() {
               saveProject();
             }}
           >
-            Save Project
+            Save Sequence
           </LockableButton>
         )}
-        {project !== null && (
-          <LockableButton
-            className="mt-4 w-full"
-            variant="outline"
-            onClick={() => {
-              closeProject();
-            }}
-          >
-            Close Project
-          </LockableButton>
-        )}
-        {project === null && (
-          <LockableButton
-            className="mt-4 w-full"
-            variant="outline"
-            onClick={() => {
-              setIsCreateProjectModalOpen(true);
-            }}
-          >
-            New Project
-          </LockableButton>
-        )}
+        <LockableButton
+          className="mt-4 w-full"
+          variant="outline"
+          onClick={() => {
+            setIsCreateProjectModalOpen(true);
+          }}
+        >
+          New Sequence
+        </LockableButton>
 
         <ControlButton />
 

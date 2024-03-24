@@ -6,6 +6,7 @@ import {
   Cycle,
   MsgState,
   TestRootNode,
+  TestSequenceContainer,
   TestSequenceElement,
 } from "@/renderer/types/test-sequencer";
 import { TestSequencerProject } from "@/renderer/types/test-sequencer";
@@ -23,7 +24,7 @@ type State = {
   testSequenceTree: TestRootNode;
   testSequencerProject: TestSequencerProject | null;
   currentSequence: TestSequencerProject | null;
-  sequences: TestSequencerProject[];
+  sequences: TestSequenceContainer[];
 };
 
 type Actions = {
@@ -161,7 +162,12 @@ export const useSequencerStore = create<State & Actions>()(
       set((state) => {
         state.testSequencerProject = val;
         if (val !== null) {
-          state.sequences.push(val);
+          state.sequences.push({
+            project: val,
+            cycle: state.cycle,
+            tree: state.testSequenceTree,
+            elements: state.elements,
+          });
         }
       }),
 
@@ -170,22 +176,46 @@ export const useSequencerStore = create<State & Actions>()(
       set((state) => {
         if (state.testSequencerProject !== null) {
           const idx = state.sequences.findIndex(
-            (seq) => seq.name === state.currentSequence?.name,
+            (seq) => seq.project.name === state.currentSequence?.name,
           );
           if (idx < state.sequences.length - 1) {
-            state.testSequencerProject = state.sequences[idx + 1];
-            state.elements = state.testSequencerProject.elems;
-            state.testSequenceTree.children = state.testSequencerProject.elems; 
+            // Save the current state and do the swap
+            const currSequence = {
+              project: { ...state.testSequencerProject },
+              cycle: { ...state.cycle },
+              tree: { ...state.testSequenceTree },
+              elements: [...state.elements],
+            };
+            console.log("saving current sequence", currSequence);
+            state.sequences[idx] = currSequence;
+            state.testSequencerProject = state.sequences[idx + 1].project;
+            state.testSequenceTree = state.sequences[idx + 1].tree;
+            state.elements = state.sequences[idx + 1].elements;
+            state.cycle = state.sequences[idx + 1].cycle;
           }
         }
       }),
+
     setSequenceAsRunnable: (name) =>
       set((state) => {
-        const idx = state.sequences.findIndex((seq) => seq.name === name);
-        if (idx >= 0) {
-          state.testSequencerProject = state.sequences[idx];
-          state.elements = state.testSequencerProject.elems;
-          state.testSequenceTree.children = state.testSequencerProject.elems; 
+        if (state.testSequencerProject !== null) {
+          const idx = state.sequences.findIndex(
+            (seq) => seq.project.name === name);
+          const oldIdx = state.sequences.findIndex(
+            (seq) => seq.project.name === state.testSequencerProject.name);
+          const currSequence = {
+            project: { ...state.testSequencerProject },
+            cycle: { ...state.cycle },
+            tree: { ...state.testSequenceTree },
+            elements: [...state.elements],
+          };
+          state.sequences[oldIdx] = currSequence;
+          state.testSequencerProject = state.sequences[idx].project;
+          state.testSequenceTree = state.sequences[idx].tree;
+          state.elements = state.sequences[idx].elements;
+          state.cycle = state.sequences[idx].cycle;
+
+          
         }
       }),
 

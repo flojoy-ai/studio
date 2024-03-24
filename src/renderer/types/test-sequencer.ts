@@ -161,3 +161,10 @@ export const TestSequencerProject = z.object({
 });
 
 export type TestSequencerProject = z.infer<typeof TestSequencerProject>;
+
+export type TestSequenceContainer = {
+  project: TestSequencerProject;
+  tree: TestRootNode;
+  elements: TestSequenceElement[];
+  cycle: Cycle;
+};

@@ -33,7 +33,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/renderer/components/ui/table";
-import { TestSequencerProject } from "@/renderer/types/test-sequencer";
+import { TestSequenceContainer, TestSequencerProject } from "@/renderer/types/test-sequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { parseInt, map } from "lodash";
 import { ChevronDownIcon, ChevronUpIcon, TrashIcon } from "lucide-react";
@@ -44,7 +44,7 @@ import { DraggableRowSequence } from "../dnd/DraggableRowSequence";
 
 export function SequenceTable() {
 
-  const columns: ColumnDef<TestSequencerProject>[] = [
+  const columns: ColumnDef<TestSequenceContainer>[] = [
     {
       id: "selected",
       header: ({ table }) => (
@@ -77,7 +77,7 @@ export function SequenceTable() {
       cell: ({ row }) => {
         return (
           <div>
-            {row.original.name}
+            {row.original.project.name}
           </div>
         );
       },
@@ -91,7 +91,7 @@ export function SequenceTable() {
       cell: ({ row }) => {
         return (
           <div>
-            {row.original.description}
+            {row.original.project.description}
           </div>
         )
       },
@@ -232,7 +232,7 @@ export function SequenceTable() {
                       row={row}
                       key={row.id}
                       data-state={row.getIsSelected() && "selected"}
-                      onClick={() => setSequenceAsRunnable(row.original.name)}
+                      onClick={() => setSequenceAsRunnable(row.original.project.name)}
                     />
                   </ContextMenuTrigger>
                   <ContextMenuContent>

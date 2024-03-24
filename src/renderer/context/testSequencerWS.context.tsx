@@ -32,7 +32,8 @@ export function TestSequencerWSProvider({
     saveRun,
     cycle,
     project,
-    setNextSequenceAsRunnable
+    setNextSequenceAsRunnable,
+    sequences,
   } = useTestSequencerState();
 
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
@@ -137,19 +138,18 @@ export function TestSequencerWSProvider({
           });
           sendJsonMessage(testSequenceRunRequest(tree));
         } else {
-          console.log("Test set done");
-          if (project !== null) {
-            console.log("Potential Multi sequence");
-            const name = project.name;
-            console.log("Current sequence: " + name);
-            setNextSequenceAsRunnable();
-            if (name !== project.name) {
-              console.log("New sequence: " + project.name);
-              sendJsonMessage(testSequenceRunRequest(tree));
-              break
-            }
-            console.log("Next sequence: " + project.name);
-          }
+          // if (project !== null) {
+          //   // find project idx in sequences
+          //   const idx = sequences.findIndex((seq) => seq.project.name === project.name);
+          //   console.log("idx: ", idx, " - lenght: ", sequences.length);
+          //   if (idx < sequences.length - 1) {
+          //     console.log("Updating view");
+          //     setNextSequenceAsRunnable();
+          //     // sendJsonMessage(testSequenceRunRequest(sequences[idx+1].tree));
+          //
+          //     break;
+          //   }
+          // }
           setIsLocked(false);
         }
         break;
