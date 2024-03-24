@@ -140,6 +140,8 @@ export function useTestSequencerState() {
     previousCycle,
     nextCycle,
     clearPreviousRuns,
+    setSequenceStatus,
+    runSequences,
   } = useSequencerStore(
     useShallow((state) => {
       return {
@@ -170,6 +172,8 @@ export function useTestSequencerState() {
         previousCycle: state.previousCycle,
         nextCycle: state.nextCycle,
         clearPreviousRuns: state.clearPreviousRuns,
+        setSequenceStatus: state.setSequenceStatus,
+        runSequences: state.runSequences,
       };
     }),
   );
@@ -260,5 +264,7 @@ export function useTestSequencerState() {
     previousCycle,
     nextCycle,
     clearPreviousRuns,
+    setSequenceStatus,
+    runSequences,
   };
 }

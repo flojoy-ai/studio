@@ -16,31 +16,16 @@ import { toast } from "sonner";
 
 
 export function ControlButton() {
-  const { setElems, tree, setIsLocked, backendGlobalState, backendState, clearPreviousRuns } = useTestSequencerState();
+  const { sequences, setSequenceAsRunnable, setElems, tree, setIsLocked, backendGlobalState, backendState, clearPreviousRuns, runSequences } = useTestSequencerState();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
-
-  const resetStatus = () => {
-    setElems.withException((elems: TestSequenceElement[]) => {
-      const newElems: TestSequenceElement[] = [...elems].map((elem) => {
-        return elem.type === "test"
-          ? {
-              ...elem,
-              status: "pending",
-              completionTime: undefined,
-              isSavedToCloud: false,
-            }
-          : { ...elem };
-      });
-      return newElems;
-    });
-    clearPreviousRuns();
-  };
 
   const handleClickRunTest = () => {
     console.log("Start test");
     setIsLocked(true);
-    resetStatus();
-    tSSendJsonMessage(testSequenceRunRequest(tree));
+    if (sequences.length > 0) {
+      setSequenceAsRunnable(sequences[0].project.name);
+    }
+    runSequences(tSSendJsonMessage);
   };
   const handleClickStopTest = () => {
     console.log("Stop test");

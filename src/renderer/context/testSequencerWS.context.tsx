@@ -22,6 +22,7 @@ export function TestSequencerWSProvider({
   children?: React.ReactNode;
 }) {
   const {
+    elems,
     tree,
     websocketId,
     setElems,
@@ -32,6 +33,7 @@ export function TestSequencerWSProvider({
     saveRun,
     cycle,
     runNextSequence,
+    setSequenceStatus: updateSequenceStatus,
   } = useTestSequencerState();
 
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
@@ -137,6 +139,13 @@ export function TestSequencerWSProvider({
           sendJsonMessage(testSequenceRunRequest(tree));
         } else {
           setIsLocked(false);
+          // Verif if a test is failed
+          const failed = elems.some((elem) => {
+            if (elem.type === "test")
+              return elem.status === "fail";
+            return false;
+          });
+          updateSequenceStatus(failed ? "fail" : "pass");
           runNextSequence(sendJsonMessage);
         }
         break;
@@ -151,6 +160,7 @@ export function TestSequencerWSProvider({
         setIsLocked(false);
         setBackendGlobalState(msg.data.state);
         setBackendState(msg.data.state);
+        updateSequenceStatus(msg.data.status);
         break;
       // Test state -------------------------
       case "test_done":
@@ -165,11 +175,14 @@ export function TestSequencerWSProvider({
         break;
       case "running":
         updateTestStatus(msg.data.target_id, msg.data.state);
+        updateSequenceStatus(msg.data.state);
         setBackendState(msg.data.state);
         break;
       case "paused":
         updateTestStatus(msg.data.target_id, msg.data.state);
+        updateSequenceStatus(msg.data.state);
         setBackendState(msg.data.state);
+
         break
       default:
         break;

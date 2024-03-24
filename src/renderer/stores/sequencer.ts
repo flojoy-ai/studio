@@ -5,6 +5,7 @@ import {
     BackendGlobalState,
   Cycle,
   MsgState,
+  StatusType,
   TestRootNode,
   TestSequenceContainer,
   TestSequenceElement,
@@ -44,8 +45,9 @@ type Actions = {
   nextCycle: () => void;
   clearPreviousRuns: () => void;
   setSequenceAsRunnable: (name: string) => void;
-  setNextSequenceAsRunnable: () => void;
   runNextSequence: (sender: any) => void;
+  runSequences: (sender: any) => void;
+  setSequenceStatus: (val: StatusType) => void;
 };
 
 export const useSequencerStore = create<State & Actions>()(
@@ -76,7 +78,8 @@ export const useSequencerStore = create<State & Actions>()(
     testSequencerProject: null,
     currentSequence: null,
     sequences: [],
-
+    globalStatus: "pending",
+    sequenceStatus: "pending",
 
     cycle: {
       infinite: false,
@@ -142,7 +145,6 @@ export const useSequencerStore = create<State & Actions>()(
       set((state) => {
         state.elements = val;
       }),
-
     setBackendState: (val) =>
       set((state) => {
         state.backendState = val;
@@ -176,8 +178,22 @@ export const useSequencerStore = create<State & Actions>()(
               tree: state.testSequenceTree,
               elements: state.elements,
               testSequenceUnsaved: state.testSequenceUnsaved,
+              status: "pending",
             });
           }
+        }
+      }),
+    setSequenceStatus: (val: StatusType) =>
+      set((state) => {
+        if (state.testSequencerProject !== null) {
+          const idx = state.sequences.findIndex(
+            (seq) => seq.project.name === state.testSequencerProject?.name,
+          );
+          if (idx === -1) {
+            return;
+          }
+          console.log("Updating sequence status", val);
+          state.sequences[idx].status = val;
         }
       }),
 
@@ -201,6 +217,7 @@ export const useSequencerStore = create<State & Actions>()(
           tree: { ...state.testSequenceTree },
           elements: [...state.elements],
           testSequenceUnsaved: state.testSequenceUnsaved,
+          status: state.sequences[idx].status,
         };
         state.sequences[idx] = currSequence;
         // Load the next sequence and run it
@@ -211,6 +228,51 @@ export const useSequencerStore = create<State & Actions>()(
         state.testSequenceUnsaved = state.sequences[idx + 1].testSequenceUnsaved;
         sender(testSequenceRunRequest(state.testSequenceTree));
         state.isLocked = true;
+      }),
+
+    runSequences: (sender) =>
+      set((state) => {
+        if (state.testSequencerProject !== null) {
+          state.sequences.forEach((seq) => {
+            const newElems: TestSequenceElement[] = [...seq.elements].map((elem) => {
+              return elem.type === "test"
+                ? {
+                    ...elem,
+                    status: "pending",
+                    completionTime: undefined,
+                    isSavedToCloud: false,
+                  }
+                : { ...elem };
+            });
+            seq.elements = newElems;
+            seq.status = "pending";
+            seq.cycle.ptrCycle = -1;
+            seq.cycle.cycleNumber = 0;
+            if (seq.project.name === state.testSequencerProject.name) {
+              state.elements = newElems;
+              state.testSequenceTree = seq.tree;
+              state.cycle.ptrCycle = -1;
+              state.cycle.cycleNumber = 0;
+            }
+          });
+          state.runs = [];
+          // set the first sequence
+          state.setSequenceAsRunnable(state.sequences[0].project.name);
+        } else {
+          const newElems = [...state.elements].map((elem) => {
+            return elem.type === "test"
+              ? {
+                  ...elem,
+                  status: "pending",
+                  completionTime: undefined,
+                  isSavedToCloud: false,
+                }
+              : { ...elem };
+          });
+          state.elements = newElems;
+          state.clearPreviousRuns();
+        }
+        sender(testSequenceRunRequest(state.testSequenceTree));
       }),
 
     setSequenceAsRunnable: (name) =>
@@ -229,6 +291,7 @@ export const useSequencerStore = create<State & Actions>()(
             tree: { ...state.testSequenceTree },
             elements: [...state.elements],
             testSequenceUnsaved: state.testSequenceUnsaved,
+            status: state.sequences[oldIdx].status,
           };
           state.sequences[oldIdx] = currSequence;
           state.testSequencerProject = state.sequences[idx].project;

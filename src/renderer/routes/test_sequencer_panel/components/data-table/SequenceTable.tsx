@@ -7,7 +7,6 @@ import {
 import {
   ColumnDef,
   ColumnFiltersState,
-  Row,
   SortingState,
   VisibilityState,
   flexRender,
@@ -33,13 +32,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/renderer/components/ui/table";
-import { TestSequenceContainer, TestSequencerProject } from "@/renderer/types/test-sequencer";
+import { TestSequenceContainer } from "@/renderer/types/test-sequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { parseInt, map } from "lodash";
-import { ChevronDownIcon, ChevronUpIcon, TrashIcon } from "lucide-react";
+import { ChevronDownIcon, TrashIcon } from "lucide-react";
 import LockableButton from "@/renderer/routes/test_sequencer_panel/components/lockable/LockedButtons";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { DraggableRowSequence } from "../dnd/DraggableRowSequence";
+import { mapStatusToDisplay } from "./utils";
 
 
 export function SequenceTable() {
@@ -70,9 +70,7 @@ export function SequenceTable() {
     },
 
     {
-      accessorFn: (elem) => {
-        return "name";
-      },
+      accessorKey: "name",
       header: "Sequence name",
       cell: ({ row }) => {
         return (
@@ -84,9 +82,7 @@ export function SequenceTable() {
     },
 
     {
-      accessorFn: (elem) => {
-        return "description";
-      },
+      accessorKey: "description",
       header: "Description",
       cell: ({ row }) => {
         return (
@@ -98,23 +94,21 @@ export function SequenceTable() {
     },
 
     {
-      accessorFn: (elem) => {
-        return "status";
-      },
+      accessorKey: "status",
       header: "Status",
       cell: ({ row }) => {
         return (
           <div>
-            <p className="text-red-500"> FAIL </p>
+            {typeof mapStatusToDisplay[row.original.status] === "function"
+              ? mapStatusToDisplay[row.original.status](null)
+              : mapStatusToDisplay[row.original.status]}
           </div>
-        )
+        );
       },
     },
 
     {
-      accessorFn: (elem) => {
-        return "completion_time";
-      },
+      accessorKey: "completion_time",
       header: "Completion Time",
       cell: ({ row }) => {
         return (

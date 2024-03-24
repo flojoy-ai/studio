@@ -167,5 +167,6 @@ export type TestSequenceContainer = {
   tree: TestRootNode;
   elements: TestSequenceElement[];
   cycle: Cycle;
+  status: StatusType;
   testSequenceUnsaved: boolean;
 };
