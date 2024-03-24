@@ -94,6 +94,23 @@ export function SequenceTable() {
     },
 
     {
+      accessorKey: "run",
+      header: "Run",
+      cell: ({ row }) => {
+        return (
+          <Checkbox
+            disabled={isLocked}
+            className="relative z-20"
+            checked={row.original.run}
+            onCheckedChange={() => onToggleSequence([row.index])}
+            aria-label="Select row"
+          />
+        );
+      },
+    },
+
+
+    {
       accessorKey: "status",
       header: "Status",
       cell: ({ row }) => {
@@ -131,7 +148,7 @@ export function SequenceTable() {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const { sequences, setSequences, setSequenceAsRunnable, project } = useTestSequencerState();
+  const { sequences, setSequences, setSequenceAsRunnable, project, isLocked } = useTestSequencerState();
 
   const data = sequences;
 
@@ -160,6 +177,16 @@ export function SequenceTable() {
 
   const onRemoveSequence = (idxs: number[]) => {
     setSequences([ ...sequences].filter((_, idx) => !idxs.includes(idx)));
+  };
+
+  const onToggleSequence = (idxs: number[]) => {
+    // TODO: Integrity
+    setSequences.withException([ ...sequences].map((sequence, idx) => {
+      if (idxs.includes(idx)) {
+        return { ...sequence, run: !sequence.run };
+      }
+      return sequence;
+    }));
   };
 
   return (
@@ -233,7 +260,6 @@ export function SequenceTable() {
                       key={row.id}
                       isSelected={project !== null && project.name === row.original.project.name}
                       data-state={row.getIsSelected() && "selected"}
-                      onClick={() => setSequenceAsRunnable(row.original.project.name)}
                     />
                   </ContextMenuTrigger>
                   <ContextMenuContent>
@@ -241,6 +267,11 @@ export function SequenceTable() {
                       onClick={() => { onRemoveSequence([row.index]); }}
                     >
                       Remove Sequence
+                    </ContextMenuItem>
+                    <ContextMenuItem
+                      onClick={() => { onToggleSequence([row.index]); }}
+                    >
+                      { row.original.run ? "Disable" : "Enable" }
                     </ContextMenuItem>
                   </ContextMenuContent>
                 </ContextMenu>

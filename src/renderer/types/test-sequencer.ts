@@ -169,4 +169,5 @@ export type TestSequenceContainer = {
   cycle: Cycle;
   status: StatusType;
   testSequenceUnsaved: boolean;
+  run: boolean;
 };

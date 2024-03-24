@@ -208,6 +208,7 @@ export const useSequencerStore = create<State & Actions>()(
               elements: state.elements,
               testSequenceUnsaved: state.testSequenceUnsaved,
               status: "pending",
+              run: true,
             });
           }
         }
@@ -247,6 +248,7 @@ export const useSequencerStore = create<State & Actions>()(
           elements: [...state.elements],
           testSequenceUnsaved: state.testSequenceUnsaved,
           status: state.sequences[idx].status,
+          run: state.sequences[idx].run,
         };
         state.sequences[idx] = currSequence;
         // Load the next sequence and run it
@@ -286,7 +288,6 @@ export const useSequencerStore = create<State & Actions>()(
           });
           state.runs = [];
           // set the first sequence
-          state.displaySequence(state.sequences[0].project.name);
         } else {
           const newElems = [...state.elements].map((elem) => {
             return elem.type === "test"
@@ -321,6 +322,7 @@ export const useSequencerStore = create<State & Actions>()(
             elements: [...state.elements],
             testSequenceUnsaved: state.testSequenceUnsaved,
             status: state.sequences[oldIdx].status,
+            run: state.sequences[oldIdx].run,
           };
           state.sequences[oldIdx] = currSequence;
           state.testSequencerProject = state.sequences[idx].project;

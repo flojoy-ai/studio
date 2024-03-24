@@ -17,7 +17,7 @@ export const DraggableRowSequence = ({
   isSelected: boolean;
   row: Row<any>;
 }): React.ReactNode => {
-  const { sequences, setSequences } = useTestSequencerState();
+  const { sequences, setSequences, setSequenceAsRunnable, isLocked } = useTestSequencerState();
 
   // Only important part, could be pass from the table ----------------------------
   const elementMover = (fromIdx: number, toIdx: number) => {
@@ -72,10 +72,17 @@ export const DraggableRowSequence = ({
     useConfigureDropRef(parseInt(row.id));
   const isActiveAbove = isOverAbove && canDropAbove;
 
+    const handleDisplaySequence = (idx: number) => {
+    if (!isLocked) {
+      setSequenceAsRunnable(sequences[idx].project.name);
+    }
+  }
+
   return (
     <TableRow
       style={{ opacity: isDragging ? 0.2 : 1 }}
-      className={"relative " + (isSelected ? "bg-primary-foreground" : "")}
+      className={"relative" + (isSelected ? " bg-primary-foreground" : "")}
+      onClick={() => handleDisplaySequence(row.index)}
       ref={drag}
       {...props}
     >
