@@ -111,9 +111,15 @@ export function SequenceTable() {
       accessorKey: "completion_time",
       header: "Completion Time",
       cell: ({ row }) => {
+        let time = 0;
+        row.original.elements.forEach((element) => {
+          if (element.type === "test" && element.completionTime) {
+            time += element.completionTime;
+          }
+        });
         return (
           <div>
-            <p className="text-primary"> 10:30:215 </p>
+            <p className="text-primary"> {time.toFixed(2)}s </p>
           </div>
         )
       },
@@ -125,7 +131,7 @@ export function SequenceTable() {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const { sequences, setSequenceAsRunnable } = useTestSequencerState();
+  const { sequences, setSequenceAsRunnable, project } = useTestSequencerState();
 
   const data = sequences;
 
@@ -225,6 +231,7 @@ export function SequenceTable() {
                     <DraggableRowSequence
                       row={row}
                       key={row.id}
+                      isSelected={project !== null && project.name === row.original.project.name}
                       data-state={row.getIsSelected() && "selected"}
                       onClick={() => setSequenceAsRunnable(row.original.project.name)}
                     />

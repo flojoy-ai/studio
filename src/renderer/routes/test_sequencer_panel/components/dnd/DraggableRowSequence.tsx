@@ -11,9 +11,11 @@ import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { Project } from "@/renderer/types/project";
 
 export const DraggableRowSequence = ({
+  isSelected,
   row,
   ...props
 }: {
+  isSelected: boolean;
   row: Row<any>;
 }): React.ReactNode => {
   const { elems, setElems } = useTestSequencerState();
@@ -69,7 +71,7 @@ export const DraggableRowSequence = ({
   return (
     <TableRow
       style={{ opacity: isDragging ? 0.2 : 1 }}
-      className="relative"
+      className={"relative " + (isSelected ? "bg-primary-foreground" : "")}
       ref={drag}
       {...props}
     >
