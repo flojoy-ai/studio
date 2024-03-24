@@ -22,7 +22,8 @@ type State = {
   testSequenceUnsaved: boolean;
   testSequenceTree: TestRootNode;
   testSequencerProject: TestSequencerProject | null;
-  testSequencerProjects: TestSequencerProject[];
+  currentSequence: TestSequencerProject | null;
+  sequences: TestSequencerProject[];
 };
 
 type Actions = {
@@ -41,6 +42,8 @@ type Actions = {
   previousCycle: () => void;
   nextCycle: () => void;
   clearPreviousRuns: () => void;
+  setSequenceAsRunnable: (name: string) => void;
+  setNextSequenceAsRunnable: () => void;
 };
 
 export const useSequencerStore = create<State & Actions>()(
@@ -69,7 +72,8 @@ export const useSequencerStore = create<State & Actions>()(
       identifiers: [],
     },
     testSequencerProject: null,
-    testSequencerProjects: [],
+    currentSequence: null,
+    sequences: [],
 
 
     cycle: {
@@ -157,8 +161,32 @@ export const useSequencerStore = create<State & Actions>()(
       set((state) => {
         state.testSequencerProject = val;
         if (val !== null) {
-          state.testSequencerProjects.push(val);
+          state.sequences.push(val);
         }
       }),
+
+    // Navigation through sequences: TODO set the elems
+    setNextSequenceAsRunnable: () =>
+      set((state) => {
+        if (state.testSequencerProject !== null) {
+          const idx = state.sequences.findIndex(
+            (seq) => seq.name === state.currentSequence?.name,
+          );
+          if (idx < state.sequences.length - 1) {
+            state.testSequencerProject = state.sequences[idx + 1];
+          }
+        }
+
+      }),
+    setSequenceAsRunnable: (name) =>
+      set((state) => {
+        const idx = state.sequences.findIndex((seq) => seq.name === name);
+        if (idx >= 0) {
+          state.testSequencerProject = state.sequences[idx];
+          state.elements = state.testSequencerProject.elems;
+        }
+      }),
+
+
   })),
 );

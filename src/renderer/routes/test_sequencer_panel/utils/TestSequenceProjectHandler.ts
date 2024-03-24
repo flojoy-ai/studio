@@ -292,6 +292,7 @@ async function createTestSequencerElementsFromProjectElements(
           ...elem,
         };
   });
+  project.elems = elements;
   if (verifStateOrThrow) {
     await throwIfNotInAllBaseFolder(elements, baseFolder);
   }

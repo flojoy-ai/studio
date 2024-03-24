@@ -36,7 +36,7 @@ import {
 import { TestSequencerProject } from "@/renderer/types/test-sequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { parseInt, map } from "lodash";
-import { ChevronDownIcon, TrashIcon } from "lucide-react";
+import { ChevronDownIcon, ChevronUpIcon, TrashIcon } from "lucide-react";
 import LockableButton from "@/renderer/routes/test_sequencer_panel/components/lockable/LockedButtons";
 import { useRef, useState } from "react";
 import { DraggableRowSequence } from "../dnd/DraggableRowSequence";
@@ -125,15 +125,56 @@ export function SequenceTable() {
       },
     },
 
+    {
+      accessorKey: "up-down",
+      header: () => <div className="text-center">Reorder</div>,
+      enableHiding: false,
+      cell: ({ row }) => {
+        const onUpClick = () => {
+          setRowSelection([]);
+          setElems((data) => {
+            const new_data = [...data];
+            const index = parseInt(row.id);
+            if (index == 0) return data;
+            new_data[index] = data[index - 1];
+            new_data[index - 1] = data[index];
+            return new_data;
+          });
+        };
+        const onDownClick = () => {
+          setRowSelection([]);
+          setElems((data) => {
+            const new_data = [...data];
+            const index = parseInt(row.id);
+            if (index == data.length) return data;
+            new_data[index] = data[index + 1];
+            new_data[index + 1] = data[index];
+            return new_data;
+          });
+        };
+        return (
+          <div className="relative z-20 flex flex-row justify-center">
+            <LockableButton variant="ghost">
+              <ChevronUpIcon onClick={onUpClick} />
+            </LockableButton>
+            <LockableButton variant="ghost">
+              <ChevronDownIcon onClick={onDownClick} />
+            </LockableButton>
+          </div>
+        );
+      },
+    },
+
+
   ];
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const { projects } = useTestSequencerState();
+  const { sequences, setSequenceAsRunnable } = useTestSequencerState();
 
-  const data = projects;
+  const data = sequences;
 
   const table = useReactTable({
     data: data,
@@ -232,6 +273,7 @@ export function SequenceTable() {
                       row={row}
                       key={row.id}
                       data-state={row.getIsSelected() && "selected"}
+                      onClick={() => setSequenceAsRunnable(row.original.name)}
                     />
                   </ContextMenuTrigger>
                   <ContextMenuContent>
@@ -255,12 +297,6 @@ export function SequenceTable() {
             )}
           </TableBody>
         </Table>
-      </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
       </div>
     </div>
   );
