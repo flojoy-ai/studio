@@ -252,11 +252,18 @@ export const useSequencerStore = create<State & Actions>()(
         };
         state.sequences[idx] = currSequence;
         // Load the next sequence and run it
-        state.testSequencerProject = state.sequences[idx + 1].project;
-        state.testSequenceTree = state.sequences[idx + 1].tree;
-        state.elements = state.sequences[idx + 1].elements;
-        state.cycle = state.sequences[idx + 1].cycle;
-        state.testSequenceUnsaved = state.sequences[idx + 1].testSequenceUnsaved;
+        let nextIdx = idx + 1;
+        while (state.sequences[nextIdx].run === false) {
+          nextIdx = nextIdx + 1;
+          if (nextIdx === state.sequences.length) {
+            return;
+          }
+        }
+        state.testSequencerProject = state.sequences[nextIdx].project;
+        state.testSequenceTree = state.sequences[nextIdx].tree;
+        state.elements = state.sequences[nextIdx].elements;
+        state.cycle = state.sequences[nextIdx].cycle;
+        state.testSequenceUnsaved = state.sequences[nextIdx].testSequenceUnsaved;
         sender(testSequenceRunRequest(state.testSequenceTree));
         state.isLocked = true;
       }),
