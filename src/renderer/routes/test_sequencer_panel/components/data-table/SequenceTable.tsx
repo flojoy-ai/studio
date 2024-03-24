@@ -131,7 +131,7 @@ export function SequenceTable() {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const { sequences, setSequenceAsRunnable, project } = useTestSequencerState();
+  const { sequences, setSequences, setSequenceAsRunnable, project } = useTestSequencerState();
 
   const data = sequences;
 
@@ -159,7 +159,7 @@ export function SequenceTable() {
   };
 
   const onRemoveSequence = (idxs: number[]) => {
-    console.log("TODO");
+    setSequences([ ...sequences].filter((_, idx) => !idxs.includes(idx)));
   };
 
   return (
@@ -238,7 +238,7 @@ export function SequenceTable() {
                   </ContextMenuTrigger>
                   <ContextMenuContent>
                     <ContextMenuItem
-                      onClick={() => { console.log("TODO Remove sequence"); }}
+                      onClick={() => { onRemoveSequence([row.index]); }}
                     >
                       Remove Sequence
                     </ContextMenuItem>

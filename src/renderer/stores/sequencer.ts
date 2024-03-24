@@ -38,13 +38,16 @@ type Actions = {
   setTestSequenceUnsaved: (val: boolean) => void;
   setTestSequenceTree: (val: TestRootNode) => void;
   setTestSequencerProject: (val: TestSequencerProject | null) => void;
+  // Cycles
   setCycleCount: (val: number) => void;
   setInfinite: (val: boolean) => void;
   saveRun: () => void;
   previousCycle: () => void;
   nextCycle: () => void;
   clearPreviousRuns: () => void;
-  setSequenceAsRunnable: (name: string) => void;
+  // Sequences
+  setSequences: (val: TestSequenceContainer[]) => void;
+  displaySequence: (name: string) => void;
   runNextSequence: (sender: any) => void;
   runSequences: (sender: any) => void;
   setSequenceStatus: (val: StatusType) => void;
@@ -145,6 +148,32 @@ export const useSequencerStore = create<State & Actions>()(
       set((state) => {
         state.elements = val;
       }),
+    setSequences: (val) =>
+      set((state) => {
+        state.sequences = val;
+        if (state.sequences.length > 0) {
+          state.testSequencerProject = state.sequences[0].project;
+          state.testSequenceTree = state.sequences[0].tree;
+          state.elements = state.sequences[0].elements;
+          state.cycle = state.sequences[0].cycle;
+          state.testSequenceUnsaved = state.sequences[0].testSequenceUnsaved;
+        } else {
+          state.testSequencerProject = null;
+          state.testSequenceTree = {
+            type: "root",
+            children: [],
+            identifiers: [],
+          };
+          state.elements = [];
+          state.cycle = {
+            infinite: false,
+            cycleCount: 1,
+            cycleNumber: 0,
+            ptrCycle: -1,
+          };
+          state.testSequenceUnsaved = false;
+        }
+      }),
     setBackendState: (val) =>
       set((state) => {
         state.backendState = val;
@@ -199,7 +228,7 @@ export const useSequencerStore = create<State & Actions>()(
 
     // Navigation through sequences
     runNextSequence: (sender) =>
-      // TODO: Reset all status before a run + Optional run
+      // TODO: Optional run
       set((state) => {
         if (state.testSequencerProject === null) {
           return;  // User only has steps
@@ -257,7 +286,7 @@ export const useSequencerStore = create<State & Actions>()(
           });
           state.runs = [];
           // set the first sequence
-          state.setSequenceAsRunnable(state.sequences[0].project.name);
+          state.displaySequence(state.sequences[0].project.name);
         } else {
           const newElems = [...state.elements].map((elem) => {
             return elem.type === "test"
@@ -275,7 +304,7 @@ export const useSequencerStore = create<State & Actions>()(
         sender(testSequenceRunRequest(state.testSequenceTree));
       }),
 
-    setSequenceAsRunnable: (name) =>
+    displaySequence: (name) =>
       set((state) => {
         if (state.testSequencerProject !== null) {
           const idx = state.sequences.findIndex(

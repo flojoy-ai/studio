@@ -130,6 +130,7 @@ export function useTestSequencerState() {
     setTree,
     project,
     sequences,
+    setSequences,
     runNextSequence,
     setSequenceAsRunnable,
     setProject,
@@ -162,8 +163,9 @@ export function useTestSequencerState() {
         setTree: state.setTestSequenceTree,
         project: state.testSequencerProject,
         sequences: state.sequences,
+        setSequences: state.setSequences,
         runNextSequence: state.runNextSequence,
-        setSequenceAsRunnable: state.setSequenceAsRunnable,
+        setSequenceAsRunnable: state.displaySequence,
         setProject: state.setTestSequencerProject,
         cycle: state.cycle,
         setCycleCount: state.setCycleCount,
@@ -235,6 +237,7 @@ export function useTestSequencerState() {
   }
 
   const addNewElemsWithPermissions = withPermissionCheck(AddNewElems);
+  const setSequencesWithPermissions = withPermissionCheck(setSequences);
 
   return {
     elems,
@@ -254,6 +257,7 @@ export function useTestSequencerState() {
     isUnsaved,
     project,
     sequences,
+    setSequences: setSequencesWithPermissions,
     runNextSequence,
     setSequenceAsRunnable,
     setProject,
