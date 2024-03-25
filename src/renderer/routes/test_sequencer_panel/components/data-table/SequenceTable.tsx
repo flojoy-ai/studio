@@ -207,6 +207,14 @@ export function SequenceTable() {
   };
 
   const onRemoveSequence = (idxs: number[]) => {
+    const isUnsaved = sequences.some((sequence, idx) => idxs.includes(idx) && sequence.testSequenceUnsaved);
+    if (isUnsaved) {
+      const shouldContinue = window.confirm(
+        "You have unsaved changes. Do you want to continue?",
+      );
+      if (!shouldContinue) return;
+    }
+
     setSequences([ ...sequences].filter((_, idx) => !idxs.includes(idx)));
   };
 
