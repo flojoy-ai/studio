@@ -301,7 +301,6 @@ export const useSequencerStore = create<State & Actions>()(
             }
           });
           state.runs = [];
-          // set the first sequence
         } else {
           const newElems = [...state.elements].map((elem) => {
             return elem.type === "test"
