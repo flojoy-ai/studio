@@ -3,7 +3,6 @@ import { z } from "zod";
 export type Summary = {
   id: string;
   successRate: number;
-  completionTime: number;
   numberOfTestRun: number;
   numberOfTest: number;
   numberOfCycleRunDisplay: string

@@ -1,6 +1,7 @@
-import { StatusType } from "@/renderer/types/test-sequencer"
+import { StatusType, Test, TestSequenceElement } from "@/renderer/types/test-sequencer"
 import { Badge } from "@/renderer/components/ui/badge";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@radix-ui/react-hover-card";
+import { filter, max, sum } from "lodash";
 
 export const mapStatusToDisplay: { [k in StatusType] } = {
   pending: <Badge className="bg-secondary text-primary">PENDING</Badge>,
@@ -38,4 +39,26 @@ function renderErrorMessage(text: string): JSX.Element {
     </div>
   );
 }
+
+
+export const getCompletionTime = (data: TestSequenceElement[]) => {
+  const onlyTests = getOnlyTests(data);
+  const parallel = filter(onlyTests, (elem) => elem.runInParallel).map(
+    (elem) => elem.completionTime,
+  );
+  const nonParallel = filter(onlyTests, (elem) => !elem.runInParallel).map(
+    (elem) => elem.completionTime,
+  );
+  let maxParallel = parallel.length > 0 ? max(parallel) : 0;
+  if (maxParallel === undefined) maxParallel = 0;
+  const nonParallelTotal = sum(nonParallel);
+  return maxParallel + nonParallelTotal;
+};
+
+export const getOnlyTests = (data: TestSequenceElement[]): Test[] => {
+  return filter(
+    data,
+    (elem) => elem.type === "test" && elem.status != "pending",
+  ) as Test[];
+};
 

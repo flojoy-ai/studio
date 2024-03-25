@@ -147,6 +147,13 @@ export const useSequencerStore = create<State & Actions>()(
     setElements: (val) =>
       set((state) => {
         state.elements = val;
+        if (state.testSequencerProject !== null) {
+          const idx = state.sequences.findIndex((seq) => seq.project.name === state.testSequencerProject.name);
+          if (idx !== -1) {
+            state.sequences[idx].elements = val;
+            state.testSequenceUnsaved = true;
+          }
+        }
       }),
     setSequences: (val) =>
       set((state) => {

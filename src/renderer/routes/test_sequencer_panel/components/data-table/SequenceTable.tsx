@@ -35,14 +35,16 @@ import {
 import { TestSequenceContainer } from "@/renderer/types/test-sequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { parseInt, map } from "lodash";
-import { ChevronDownIcon, TrashIcon } from "lucide-react";
+import { ChevronDownIcon, ChevronUpIcon, TrashIcon } from "lucide-react";
 import LockableButton from "@/renderer/routes/test_sequencer_panel/components/lockable/LockedButtons";
 import { useState } from "react";
 import { DraggableRowSequence } from "../dnd/DraggableRowSequence";
-import { mapStatusToDisplay } from "./utils";
+import { getCompletionTime, mapStatusToDisplay } from "./utils";
 
 
 export function SequenceTable() {
+
+  const { sequences, setSequences, project, isLocked } = useTestSequencerState();
 
   const columns: ColumnDef<TestSequenceContainer>[] = [
     {
@@ -128,12 +130,7 @@ export function SequenceTable() {
       accessorKey: "completion_time",
       header: "Completion Time",
       cell: ({ row }) => {
-        let time = 0;
-        row.original.elements.forEach((element) => {
-          if (element.type === "test" && element.completionTime) {
-            time += element.completionTime;
-          }
-        });
+        const time = getCompletionTime(row.original.elements);
         return (
           <div>
             <p className="text-primary"> {time.toFixed(2)}s </p>
@@ -142,13 +139,47 @@ export function SequenceTable() {
       },
     },
 
+    {
+      accessorKey: "up-down",
+      header: () => <div className="text-center">Reorder</div>,
+      cell: ({ row }) => {
+        const onUpClick = () => {
+          setRowSelection([]);
+          let newSequences = [...sequences];
+          const index = parseInt(row.id);
+          if (index == 0) return;
+          newSequences[index] = sequences[index - 1];
+          newSequences[index - 1] = sequences[index];
+          setSequences(newSequences);
+        };
+        const onDownClick = () => {
+          setRowSelection([]);
+          let newSequences = [...sequences];
+          const index = parseInt(row.id);
+          if (index == 0) return;
+          newSequences[index] = sequences[index + 1];
+          newSequences[index + 1] = sequences[index];
+          setSequences(newSequences);
+        };
+        return (
+          <div className="relative z-20 flex flex-row justify-center">
+            <LockableButton variant="ghost">
+              <ChevronUpIcon onClick={onUpClick} />
+            </LockableButton>
+            <LockableButton variant="ghost">
+              <ChevronDownIcon onClick={onDownClick} />
+            </LockableButton>
+          </div>
+        );
+      },
+    },
+
   ];
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({"up-down": false});
   const [rowSelection, setRowSelection] = useState({});
-  const { sequences, setSequences, setSequenceAsRunnable, project, isLocked } = useTestSequencerState();
 
   const data = sequences;
 

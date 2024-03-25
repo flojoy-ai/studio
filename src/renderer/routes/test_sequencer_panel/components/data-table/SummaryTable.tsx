@@ -20,36 +20,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/renderer/components/ui/table";
-import { filter, max, sum } from "lodash";
+import { filter } from "lodash";
 import {
   Cycle,
   Summary,
-  Test,
   TestSequenceElement,
 } from "@/renderer/types/test-sequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useEffect, useState } from "react";
+import { getOnlyTests } from "./utils";
 
-const getOnlyTests = (data: TestSequenceElement[]): Test[] => {
-  return filter(
-    data,
-    (elem) => elem.type === "test" && elem.status != "pending",
-  ) as Test[];
-};
-
-const getCompletionTime = (data: TestSequenceElement[]) => {
-  const onlyTests = getOnlyTests(data);
-  const parallel = filter(onlyTests, (elem) => elem.runInParallel).map(
-    (elem) => elem.completionTime,
-  );
-  const nonParallel = filter(onlyTests, (elem) => !elem.runInParallel).map(
-    (elem) => elem.completionTime,
-  );
-  let maxParallel = parallel.length > 0 ? max(parallel) : 0;
-  if (maxParallel === undefined) maxParallel = 0;
-  const nonParallelTotal = sum(nonParallel);
-  return maxParallel + nonParallelTotal;
-};
 
 const getSuccessRate = (data: TestSequenceElement[]): number => {
   const tests = getOnlyTests(data);
@@ -118,13 +98,6 @@ const columns: ColumnDef<Summary>[] = [
       return <div>{row.original.successRate.toFixed(1)}%</div>;
     },
   },
-  {
-    accessorKey: "completion_time",
-    header: "Total time",
-    cell: ({ row }) => {
-      return <div>{row.original.completionTime.toFixed(2)}s</div>;
-    },
-  },
 ];
 
 export function SummaryTable() {
@@ -141,7 +114,6 @@ export function SummaryTable() {
         numberOfTestRun: getNumberOfTestRun(elems),
         numberOfTest: getNumberOfTest(elems),
         successRate: getSuccessRate(elems),
-        completionTime: getCompletionTime(elems),
         numberOfCycleRunDisplay: getNumberOfCycleRun(cycle),
       },
     ]);

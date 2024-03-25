@@ -37,7 +37,6 @@ import {
   TestSequenceElement,
   ConditionalComponent,
   Conditional,
-  StatusType,
   Test,
 } from "@/renderer/types/test-sequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
@@ -52,14 +51,8 @@ import LockableButton from "@/renderer/routes/test_sequencer_panel/components/lo
 import { useRef, useState, useEffect } from "react";
 import TestNameCell from "./test-name-cell";
 import { DraggableRow } from "@/renderer/routes/test_sequencer_panel/components/dnd/DraggableRow";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/renderer/components/ui/hover-card";
 import PythonTestFileModal from "@/renderer/routes/test_sequencer_panel/components/modals/PythonTestFileModal";
 import { useModalState } from "@/renderer/hooks/useModalState";
-import { Badge } from "@/renderer/components/ui/badge";
 import { mapStatusToDisplay } from "./utils";
 
 
@@ -151,37 +144,7 @@ export function StepTable() {
       },
     },
 
-    {
-      accessorFn: (elem) => {
-        return elem.type === "test" ? "status" : null;
-      },
-      header: "Status",
-      cell: ({ row }) => {
-        return row.original.type === "test" ? (
-          <div>
-            {typeof mapStatusToDisplay[row.original.status] === "function"
-              ? mapStatusToDisplay[row.original.status](row.original.error)
-              : mapStatusToDisplay[row.original.status]}
-          </div>
-        ) : null;
-      },
-    },
 
-    {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      accessorFn: (elem, _) => {
-        return elem.type === "test" ? "completionTime" : null;
-      },
-      header: "Completion Time",
-      cell: ({ row }) => {
-        return row.original.type === "test" ? (
-          <div>
-            {row.original.completionTime &&
-              row.original.completionTime.toFixed(2)}
-          </div>
-        ) : null;
-      },
-    },
 
     {
       accessorFn: (elem) => {
@@ -211,9 +174,39 @@ export function StepTable() {
     },
 
     {
+      accessorFn: (elem) => {
+        return elem.type === "test" ? "status" : null;
+      },
+      header: "Status",
+      cell: ({ row }) => {
+        return row.original.type === "test" ? (
+          <div className="my-2">
+            {typeof mapStatusToDisplay[row.original.status] === "function"
+              ? mapStatusToDisplay[row.original.status](row.original.error)
+              : mapStatusToDisplay[row.original.status]}
+          </div>
+        ) : null;
+      },
+    },
+
+    {
+      accessorFn: (elem, _) => {
+        return elem.type === "test" ? "completionTime" : null;
+      },
+      header: "Completion Time",
+      cell: ({ row }) => {
+        return row.original.type === "test" ? (
+          <div>
+            {row.original.completionTime &&
+              row.original.completionTime.toFixed(2)}
+          </div>
+        ) : null;
+      },
+    },
+
+    {
       accessorKey: "up-down",
       header: () => <div className="text-center">Reorder</div>,
-      enableHiding: false,
       cell: ({ row }) => {
         const onUpClick = () => {
           setRowSelection([]);
@@ -253,7 +246,7 @@ export function StepTable() {
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({"up-down": false});
   const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
