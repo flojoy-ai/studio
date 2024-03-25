@@ -19,7 +19,6 @@ export const DraggableRowSequence = ({
 }): React.ReactNode => {
   const { sequences, setSequences, setSequenceAsRunnable, isLocked } = useTestSequencerState();
 
-  // Only important part, could be pass from the table ----------------------------
   const elementMover = (fromIdx: number, toIdx: number) => {
     let newSequences = [...sequences];
     newSequences.splice(toIdx, 0, newSequences[fromIdx]);
