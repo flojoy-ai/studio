@@ -236,7 +236,6 @@ export const useSequencerStore = create<State & Actions>()(
 
     // Navigation through sequences
     runNextSequence: (sender) =>
-      // TODO: Optional run
       set((state) => {
         if (state.testSequencerProject === null) {
           return;  // User only has steps
