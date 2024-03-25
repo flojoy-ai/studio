@@ -75,15 +75,8 @@ export function useCreateProject() {
 }
 
 export const useImportProject = () => {
-  const { isUnsaved } = useTestSequencerState();
   const manager = usePrepareStateManager(true);
   const handleImport = async () => {
-    if (isUnsaved) {
-      const shouldContinue = window.confirm(
-        "You have unsaved changes. Do you want to continue?",
-      );
-      if (!shouldContinue) return;
-    }
     window.api.openFilePicker(["tjoy"]).then((result) => {
       if (!result) return;
       const { filePath, fileContent } = result;
