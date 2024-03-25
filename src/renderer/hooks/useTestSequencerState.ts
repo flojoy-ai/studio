@@ -272,7 +272,7 @@ export function useTestSequencerState() {
     if (currentIdx === lastRunnableSequenceIdx && sequences[currentIdx].status !== "pending") {
       // Save cycle & run next the next one
       saveCycle();  // Won't update the lenght of cycleRuns right away
-      if (cycleRuns.length < cycleConfig.cycleCount - 1) {
+      if (cycleRuns.length < cycleConfig.cycleCount - 1 || cycleConfig.infinite) {
         const idx = sequences.findIndex((seq) => seq.runable);
         if (idx !== -1) {
           setIsLocked(true);

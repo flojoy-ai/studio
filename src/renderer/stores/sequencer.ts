@@ -161,6 +161,13 @@ export const useSequencerStore = create<State & Actions>()(
             return;
           }
           state.sequences[idx].status = val;
+          if (val === "aborted") {
+            state.sequences[idx].elements.forEach((el) => {
+              if (el.type === "test" && el.status === "running") {
+                el.status = "aborted";
+              }
+            });
+          }
         }
       }),
 
@@ -283,18 +290,14 @@ export const useSequencerStore = create<State & Actions>()(
         state.cycleConfig.infinite = val;
       }),
     saveCycle: () =>
-      // TODO: Convert to Save&RunCycle
       set((state) => {
-        if (state.cycleRuns.length > state.cycleConfig.cycleCount) {
+        if (state.cycleRuns.length > state.cycleConfig.cycleCount && state.cycleConfig.infinite === false) {
           return;
         }
         state.cycleRuns.push(
           state.sequences.map((seq) => ({ ...seq })),
         );
         state.cycleConfig.ptrCycle = state.cycleRuns.length - 1;
-        if (state.cycleRuns.length < state.cycleConfig.cycleCount) {
-          resetSequencesToPending(state);
-        }
       }),
     diplayPreviousCycle: () =>
       set((state) => {

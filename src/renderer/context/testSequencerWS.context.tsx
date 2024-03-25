@@ -23,7 +23,6 @@ export function TestSequencerWSProvider({
 }) {
   const {
     elems,
-    tree,
     websocketId,
     setElems,
     setIsLocked,
@@ -32,6 +31,7 @@ export function TestSequencerWSProvider({
     setBackendState,
     runNextRunnableSequence,
     updateSequenceStatus,
+    saveCycle,
   } = useTestSequencerState();
 
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
@@ -139,6 +139,7 @@ export function TestSequencerWSProvider({
         setBackendGlobalState(msg.data.state);
         setBackendState(msg.data.state);
         updateSequenceStatus(msg.data.status);
+        saveCycle();
         break;
       // Test state -------------------------
       case "test_done":
