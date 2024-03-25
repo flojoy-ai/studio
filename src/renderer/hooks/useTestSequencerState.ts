@@ -6,6 +6,7 @@ import {
   IfNode,
   TestNode,
   TestType,
+  TestSequencerProject,
 } from "@/renderer/types/test-sequencer";
 import {
   checkUniqueNames,
@@ -18,6 +19,7 @@ import { useShallow } from "zustand/react/shallow";
 import { v4 as uuidv4 } from "uuid";
 import { Err, Ok, Result } from "neverthrow";
 import { verifyElementCompatibleWithProject } from "@/renderer/routes/test_sequencer_panel/utils/TestSequenceProjectHandler";
+import { toast } from "sonner";
 
 // sync this with the definition of setElems
 export type SetElemsFn = {
@@ -129,14 +131,24 @@ export function useTestSequencerState() {
     tree,
     setTree,
     project,
-    setProject,
-    cycle,
+    // Sequences
+    sequences,
+    setSequences,
+    runRunnableSequencesFromCurrentOne,
+    runNextRunnableSequence,
+    displaySequence,
+    updateSequenceStatus,
+    addNewSequence,
+    removeSequence,
+    // Cycles
+    cycleConfig,
     setCycleCount,
     setInfinite,
-    saveRun,
-    previousCycle,
-    nextCycle,
-    clearPreviousRuns,
+    saveCycle,
+    cycleRuns,
+    diplayPreviousCycle,
+    displayNextCycle,
+    clearPreviousCycles,
   } = useSequencerStore(
     useShallow((state) => {
       return {
@@ -149,21 +161,31 @@ export function useTestSequencerState() {
         setIsLocked: state.setIsLocked,
         backendGlobalState: state.backendGlobalState,
         setBackendGlobalState: state.setBackendGlobalState,
-        backendState: state.backendState,
+        backendState: state.playPauseState,
         setBackendState: state.setBackendState,
         isUnsaved: state.testSequenceUnsaved,
         setUnsaved: state.setTestSequenceUnsaved,
-        tree: state.testSequenceTree,
+        tree: state.testSequenceStepTree,
         setTree: state.setTestSequenceTree,
-        project: state.testSequencerProject,
-        setProject: state.setTestSequencerProject,
-        cycle: state.cycle,
+        project: state.testSequencerDisplayed,
+        // Sequences
+        sequences: state.sequences,
+        setSequences: state.setSequences,
+        runRunnableSequencesFromCurrentOne: state.runRunnableSequencesFromCurrentOne,
+        runNextRunnableSequence: state.runNextRunnableSequence,
+        displaySequence: state.displaySequence,
+        updateSequenceStatus: state.updateSequenceStatus,
+        addNewSequence: state.addNewSequence,
+        removeSequence: state.removeSequence,
+        // Cycles
+        cycleConfig: state.cycleConfig,
         setCycleCount: state.setCycleCount,
         setInfinite: state.setInfinite,
-        saveRun: state.saveRun,
-        previousCycle: state.previousCycle,
-        nextCycle: state.nextCycle,
-        clearPreviousRuns: state.clearPreviousRuns,
+        saveCycle: state.saveCycle,
+        cycleRuns: state.cycleRuns,
+        diplayPreviousCycle: state.diplayPreviousCycle,
+        displayNextCycle: state.displayNextCycle,
+        clearPreviousCycles: state.clearPreviousCycles,
       };
     }),
   );
@@ -224,7 +246,66 @@ export function useTestSequencerState() {
     return new Ok(null);
   }
 
+  function addNewSeq(val: TestSequencerProject, elements: TestSequenceElement[]): void {
+    addNewSequence(val, elements);
+    displaySequence(val.name);
+  }
+
+  function displaySeq(name: string): void {
+    if (!isLocked) {
+      displaySequence(name);
+    }
+  }
+
+  function runNextRunnableSequenceAndCycle(sender: any): void {
+    if (project === null) {
+      return  // User only has steps
+    }
+    // Check if we are at the end of a cycle
+    let lastRunnableSequenceIdx = -1;
+    sequences.forEach((seq, idx) => {
+      if (seq.runable) {
+        lastRunnableSequenceIdx = idx;
+      }
+    });
+    const currentIdx = sequences.findIndex((seq) => seq.project.name === project.name);
+    if (currentIdx === lastRunnableSequenceIdx && sequences[currentIdx].status !== "pending") {
+      // Save cycle & run next the next one
+      saveCycle();  // Won't update the lenght of cycleRuns right away
+      if (cycleRuns.length < cycleConfig.cycleCount - 1) {
+        const idx = sequences.findIndex((seq) => seq.runable);
+        if (idx !== -1) {
+          setIsLocked(true);
+          displaySequence(sequences[idx].project.name);
+          runRunnableSequencesFromCurrentOne(sender);
+        }
+      }
+    } else {
+      // Run next sequence
+      runNextRunnableSequence(sender);
+    }
+  }
+
+  function runSequencer(sender: any): void {
+    if (project === null) {
+      setIsLocked(true);
+      runRunnableSequencesFromCurrentOne(sender);
+    } else {
+      clearPreviousCycles();
+      // Run from the first runable sequence 
+      const idx = sequences.findIndex((seq) => seq.runable);
+      if (idx !== -1) {
+        setIsLocked(true);
+        displaySequence(sequences[idx].project.name);
+        runRunnableSequencesFromCurrentOne(sender);
+      } else {
+        toast.info("No sequence selected to run.");
+      }
+    }
+  }
+
   const addNewElemsWithPermissions = withPermissionCheck(AddNewElems);
+  const setSequencesWithPermissions = withPermissionCheck(setSequences);
 
   return {
     elems,
@@ -243,13 +324,22 @@ export function useTestSequencerState() {
     setUnsaved,
     isUnsaved,
     project,
-    setProject,
-    cycle,
+    // Sequences
+    sequences,
+    setSequences: setSequencesWithPermissions,
+    runSequencer,
+    runNextRunnableSequence: runNextRunnableSequenceAndCycle,
+    displaySequence: displaySeq,
+    updateSequenceStatus,
+    addNewSequence: addNewSeq,
+    removeSequence,
+    // Cycles
+    cycleConfig,
     setCycleCount,
     setInfinite,
-    saveRun,
-    previousCycle,
-    nextCycle,
-    clearPreviousRuns,
+    saveCycle,
+    diplayPreviousCycle,
+    displayNextCycle,
+    clearPreviousCycles,
   };
 }

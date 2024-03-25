@@ -13,19 +13,17 @@ import {
 function usePrepareStateManager(
   withoutPermission: boolean = false,
 ): StateManager {
-  const { elems, setElems, project, setProject, setUnsaved, setCycleCount } =
+  const { elems, project, addNewSequence, removeSequence } =
     useTestSequencerState();
   if (withoutPermission) {
     return {
-      setElems: setElems.withException,
-      setProject,
-      setUnsaved,
-      elem: elems,
+      elems,
+      addNewSequence,
+      removeSequence,
       project,
-      setCycleCount,
     };
   }
-  return { setElems, setProject, setUnsaved, elem: elems, project, setCycleCount };
+  return { elems, project, addNewSequence, removeSequence };
 }
 
 export function useSaveProject() {
@@ -75,15 +73,8 @@ export function useCreateProject() {
 }
 
 export const useImportProject = () => {
-  const { isUnsaved } = useTestSequencerState();
   const manager = usePrepareStateManager(true);
   const handleImport = async () => {
-    if (isUnsaved) {
-      const shouldContinue = window.confirm(
-        "You have unsaved changes. Do you want to continue?",
-      );
-      if (!shouldContinue) return;
-    }
     window.api.openFilePicker(["tjoy"]).then((result) => {
       if (!result) return;
       const { filePath, fileContent } = result;

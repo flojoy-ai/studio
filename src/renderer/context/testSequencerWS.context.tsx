@@ -22,6 +22,7 @@ export function TestSequencerWSProvider({
   children?: React.ReactNode;
 }) {
   const {
+    elems,
     tree,
     websocketId,
     setElems,
@@ -29,10 +30,9 @@ export function TestSequencerWSProvider({
     setIsLoading,
     setBackendGlobalState,
     setBackendState,
-    saveRun,
-    cycle,
+    runNextRunnableSequence,
+    updateSequenceStatus,
   } = useTestSequencerState();
-  const { tSSendJsonMessage } = useContext(TSWebSocketContext);
 
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
     `ws://${env.VITE_BACKEND_HOST}:${env.VITE_BACKEND_PORT}/ts-ws/${websocketId}`,
@@ -118,26 +118,14 @@ export function TestSequencerWSProvider({
       case "test_set_done":
         setBackendGlobalState(msg.data.state);
         setBackendState(msg.data.state);
-        saveRun();
-        if (cycle.cycleNumber < cycle.cycleCount - 1 || cycle.infinite) {
-          console.log("Test set done" + cycle.cycleNumber + " " + cycle.cycleCount);
-          setElems.withException((elems: TestSequenceElement[]) => {
-            const newElems: TestSequenceElement[] = [...elems].map((elem) => {
-              return elem.type === "test"
-                ? {
-                    ...elem,
-                    status: "pending",
-                    completionTime: undefined,
-                    isSavedToCloud: false,
-                  }
-                : { ...elem };
-            });
-            return newElems;
-          });
-          sendJsonMessage(testSequenceRunRequest(tree));
-        } else {
-          setIsLocked(false);
-        }
+        setIsLocked(false);
+        const failed = elems.some((elem) => {
+          if (elem.type === "test")
+            return elem.status === "fail";
+          return false;
+        });
+        updateSequenceStatus(failed ? "fail" : "pass");
+        runNextRunnableSequence(sendJsonMessage);
         break;
       case "error":
         toast.error(
@@ -150,6 +138,7 @@ export function TestSequencerWSProvider({
         setIsLocked(false);
         setBackendGlobalState(msg.data.state);
         setBackendState(msg.data.state);
+        updateSequenceStatus(msg.data.status);
         break;
       // Test state -------------------------
       case "test_done":
@@ -164,11 +153,14 @@ export function TestSequencerWSProvider({
         break;
       case "running":
         updateTestStatus(msg.data.target_id, msg.data.state);
+        updateSequenceStatus(msg.data.state);
         setBackendState(msg.data.state);
         break;
       case "paused":
         updateTestStatus(msg.data.target_id, msg.data.state);
+        updateSequenceStatus(msg.data.state);
         setBackendState(msg.data.state);
+
         break
       default:
         break;

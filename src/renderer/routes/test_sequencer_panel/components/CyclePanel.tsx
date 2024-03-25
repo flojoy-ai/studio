@@ -8,7 +8,7 @@ import LockableButton from "./lockable/LockedButtons";
 
 export function CyclePanel() {
 
-  const { tree, cycle, setCycleCount, setInfinite, previousCycle, nextCycle } = useTestSequencerState();
+  const { tree, cycleConfig, setCycleCount, setInfinite, diplayPreviousCycle, displayNextCycle } = useTestSequencerState();
 
   return (
     <div className="rounded-xl border border-gray-300 dark:border-gray-800 mr-4 flex-none">
@@ -25,8 +25,8 @@ export function CyclePanel() {
               type="number" 
               id="cycle" 
               placeholder="1" 
-              disabled={cycle.infinite}
-              value={cycle.cycleCount} 
+              disabled={cycleConfig.infinite}
+              value={cycleConfig.cycleCount} 
               onChange={(event) => { setCycleCount(Number(event.target.value)); }} />
           </div>
 
@@ -34,7 +34,7 @@ export function CyclePanel() {
             <Label className="text-xs text-muted-foreground" htmlFor="infinte">Infinite</Label>
             <Switch 
               id="infinite"
-              checked={cycle.infinite}
+              checked={cycleConfig.infinite}
               onCheckedChange={setInfinite}
             />
           </div>
@@ -45,7 +45,7 @@ export function CyclePanel() {
               <LockableButton 
                 variant="outline"
                 isLocked={_.isEmpty(tree)}
-                onClick={previousCycle} 
+                onClick={diplayPreviousCycle} 
                 className="h-6"
               >
                 ←
@@ -53,7 +53,7 @@ export function CyclePanel() {
               <LockableButton 
                 variant="outline" 
                 isLocked={_.isEmpty(tree)}
-                onClick={nextCycle} 
+                onClick={displayNextCycle} 
                 className="h-6"
               >
                 →

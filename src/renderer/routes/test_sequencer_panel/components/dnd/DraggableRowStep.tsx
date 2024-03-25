@@ -10,7 +10,7 @@ import { Row, flexRender } from "@tanstack/react-table";
 import { parseInt } from "lodash";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 
-export const DraggableRow = ({
+export const DraggableRowStep = ({
   row,
   ...props
 }: {
@@ -22,10 +22,8 @@ export const DraggableRow = ({
     setElems((elems) => {
       const new_elems = [...elems];
       new_elems.splice(toIdx, 0, elems[fromIdx]);
-      // console.log(new_elems.map((elem) => elem.testName));
       fromIdx = toIdx < fromIdx ? fromIdx + 1 : fromIdx;
       new_elems.splice(fromIdx, 1);
-      // console.log(new_elems.map((elem) => elem.testName));
       return new_elems;
     });
   };
