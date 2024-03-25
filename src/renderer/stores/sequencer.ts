@@ -257,8 +257,10 @@ export const useSequencerStore = create<State & Actions>()(
         if (state.testSequencerDisplayed !== null) {
           const oldIdx = state.sequences.findIndex(
             (seq) => seq.project.name === state.testSequencerDisplayed?.name);
-          const oldSequence = containerizeCurrentSequence(oldIdx, state);
-          state.sequences[oldIdx] = oldSequence;
+          if (oldIdx !== -1) { // Could be -1 if the sequence was removed
+            const oldSequence = containerizeCurrentSequence(oldIdx, state);
+            state.sequences[oldIdx] = oldSequence;
+          }
         }
         // Load the new sequence
         loadSequence(idx, state);

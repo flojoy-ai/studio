@@ -44,7 +44,7 @@ import { getCompletionTime, mapStatusToDisplay } from "./utils";
 
 export function SequenceTable() {
 
-  const { sequences, setSequences, project, isLocked } = useTestSequencerState();
+  const { sequences, setSequences, project, isLocked, removeSequence } = useTestSequencerState();
 
   const columns: ColumnDef<TestSequenceContainer>[] = [
     {
@@ -214,8 +214,8 @@ export function SequenceTable() {
       );
       if (!shouldContinue) return;
     }
-
-    setSequences([ ...sequences].filter((_, idx) => !idxs.includes(idx)));
+    const seqNames = sequences.filter((_, idx) => idxs.includes(idx)).map((seq) => seq.project.name);
+    seqNames.forEach((name) => removeSequence(name));
   };
 
   const onToggleSequence = (idxs: number[]) => {

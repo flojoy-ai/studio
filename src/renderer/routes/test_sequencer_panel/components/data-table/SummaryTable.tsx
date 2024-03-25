@@ -119,7 +119,7 @@ export function SummaryTable() {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const { elems, cycle, sequences } = useTestSequencerState();
+  const { elems, cycleConfig, sequences } = useTestSequencerState();
   const [summary, setSummary] = useState<Summary[]>([]);
   useEffect(() => {
     setSummary([
@@ -128,11 +128,11 @@ export function SummaryTable() {
         numberOfTestRun: getNumberOfTestRun(elems),
         numberOfTest: getNumberOfTest(elems),
         successRate: getSuccessRate(elems),
-        numberOfCycleRunDisplay: getNumberOfCycleRun(cycle),
+        numberOfCycleRunDisplay: getNumberOfCycleRun(cycleConfig),
         integrity: getIntegrity(sequences),
       },
     ]);
-  }, [elems, cycle]);
+  }, [elems, cycleConfig]);
 
   const data = summary;
   const summaryTable = useReactTable({
