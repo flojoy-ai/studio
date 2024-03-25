@@ -25,7 +25,7 @@ export function ControlButton() {
       runSequences(tSSendJsonMessage);
     } else {
       // find first sequence where run is true
-      const idx = sequences.findIndex((seq) => seq.run);
+      const idx = sequences.findIndex((seq) => seq.runable);
       if (idx !== -1) {
         setIsLocked(true);
         setSequenceAsRunnable(sequences[idx].project.name);

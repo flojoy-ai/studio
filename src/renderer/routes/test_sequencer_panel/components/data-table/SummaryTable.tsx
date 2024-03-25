@@ -22,7 +22,7 @@ import {
 } from "@/renderer/components/ui/table";
 import { filter } from "lodash";
 import {
-  Cycle,
+  CycleConfig,
   Summary,
   TestSequenceContainer,
   TestSequenceElement,
@@ -57,17 +57,18 @@ const getNumberOfTestRun = (data: TestSequenceElement[]): number => {
   return count;
 }
 
-const getNumberOfCycleRun = (cycle: Cycle): string => {
-  if (cycle.infinite) {
-    return (cycle.ptrCycle + 1) + "/∞";
-  }
-  return (cycle.ptrCycle + 1) + "/" + cycle.cycleCount;
+const getNumberOfCycleRun = (cycle: CycleConfig): string => {
+  return "TODO";
+  // if (cycle.infinite) {
+  //   return (cycle.ptrCycle + 1) + "/∞";
+  // }
+  // return (cycle.ptrCycle + 1) + "/" + cycle.cycleCount;
 }
 
 const getIntegrity = (sequences: TestSequenceContainer[]): boolean => {
   // Check if all sequences put as runnable
   console.log("Integrity check");
-  return sequences.every((seq) => seq.run);
+  return sequences.every((seq) => seq.runable);
 }
 
 const columns: ColumnDef<Summary>[] = [

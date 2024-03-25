@@ -6,6 +6,7 @@ import {
   IfNode,
   TestNode,
   TestType,
+  TestSequencerProject,
 } from "@/renderer/types/test-sequencer";
 import {
   checkUniqueNames,
@@ -132,8 +133,7 @@ export function useTestSequencerState() {
     sequences,
     setSequences,
     runNextSequence,
-    setSequenceAsRunnable,
-    setProject,
+    displaySequence,
     cycle,
     setCycleCount,
     setInfinite,
@@ -143,6 +143,8 @@ export function useTestSequencerState() {
     clearPreviousRuns,
     setSequenceStatus,
     runSequences,
+    addNewSequence,
+    removeSequence,
   } = useSequencerStore(
     useShallow((state) => {
       return {
@@ -155,27 +157,29 @@ export function useTestSequencerState() {
         setIsLocked: state.setIsLocked,
         backendGlobalState: state.backendGlobalState,
         setBackendGlobalState: state.setBackendGlobalState,
-        backendState: state.backendState,
+        backendState: state.playPauseState,
         setBackendState: state.setBackendState,
         isUnsaved: state.testSequenceUnsaved,
         setUnsaved: state.setTestSequenceUnsaved,
-        tree: state.testSequenceTree,
+        tree: state.testSequenceStepTree,
         setTree: state.setTestSequenceTree,
-        project: state.testSequencerProject,
+        project: state.testSequencerDisplayed,
         sequences: state.sequences,
         setSequences: state.setSequences,
-        runNextSequence: state.runNextSequence,
-        setSequenceAsRunnable: state.displaySequence,
-        setProject: state.setTestSequencerProject,
-        cycle: state.cycle,
+        runNextSequence: state.runNextRunnableSequence,
+        displaySequence: state.displaySequence,
+        cycle: state.cycleConfig,
         setCycleCount: state.setCycleCount,
         setInfinite: state.setInfinite,
-        saveRun: state.saveRun,
-        previousCycle: state.previousCycle,
-        nextCycle: state.nextCycle,
-        clearPreviousRuns: state.clearPreviousRuns,
-        setSequenceStatus: state.setSequenceStatus,
-        runSequences: state.runSequences,
+        saveRun: state.saveCycle,
+        previousCycle: state.diplayPreviousCycle,
+        nextCycle: state.displayNextCycle,
+        clearPreviousRuns: state.clearPreviousCycles,
+        setSequenceStatus: state.updateSequenceStatus,
+        runSequences: state.runRunnableSequences,
+        addNewSequence: state.addNewSequence,
+        removeSequence: state.removeSequence,
+
       };
     }),
   );
@@ -236,6 +240,17 @@ export function useTestSequencerState() {
     return new Ok(null);
   }
 
+  function addNewSeq(val: TestSequencerProject, elements: TestSequenceElement[]): void {
+    addNewSequence(val, elements);
+    displaySequence(val.name);
+  }
+
+  function displaySeq(name: string): void {
+    if (!isLocked) {
+      displaySequence(name);
+    }
+  }
+
   const addNewElemsWithPermissions = withPermissionCheck(AddNewElems);
   const setSequencesWithPermissions = withPermissionCheck(setSequences);
 
@@ -259,8 +274,7 @@ export function useTestSequencerState() {
     sequences,
     setSequences: setSequencesWithPermissions,
     runNextSequence,
-    setSequenceAsRunnable,
-    setProject,
+    displaySequence: displaySeq,
     cycle,
     setCycleCount,
     setInfinite,
@@ -270,5 +284,7 @@ export function useTestSequencerState() {
     clearPreviousRuns,
     setSequenceStatus,
     runSequences,
+    addNewSequence: addNewSeq,
+    removeSequence,
   };
 }

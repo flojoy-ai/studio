@@ -103,7 +103,7 @@ export function SequenceTable() {
           <Checkbox
             disabled={isLocked}
             className="relative z-20"
-            checked={row.original.run}
+            checked={row.original.runable}
             onCheckedChange={() => onToggleSequence([row.index])}
             aria-label="Select row"
           />
@@ -223,7 +223,7 @@ export function SequenceTable() {
     // TODO: Integrity
     setSequences.withException([ ...sequences].map((sequence, idx) => {
       if (idxs.includes(idx)) {
-        return { ...sequence, run: !sequence.run };
+        return { ...sequence, runable: !sequence.runable };
       }
       return sequence;
     }));
@@ -311,7 +311,7 @@ export function SequenceTable() {
                     <ContextMenuItem
                       onClick={() => { onToggleSequence([row.index]); }}
                     >
-                      { row.original.run ? "Disable" : "Enable" }
+                      { row.original.runable ? "Disable" : "Enable" }
                     </ContextMenuItem>
                   </ContextMenuContent>
                 </ContextMenu>

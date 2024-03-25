@@ -41,13 +41,13 @@ export const BackendGlobalState = z.enum([
 ]);
 export type BackendGlobalState = z.infer<typeof BackendGlobalState>;
 
-export const Cycle = z.object({
+export const CycleConfig = z.object({
   infinite: z.boolean(),
   cycleCount: z.number(),
   cycleNumber: z.number(),
   ptrCycle: z.number(),
 });
-export type Cycle = z.infer<typeof Cycle>;
+export type CycleConfig = z.infer<typeof CycleConfig>;
 
 export const BackendMsg = z.object({
   state: MsgState,
@@ -166,9 +166,7 @@ export type TestSequenceContainer = {
   project: TestSequencerProject;
   tree: TestRootNode;
   elements: TestSequenceElement[];
-  cycle: Cycle;
   status: StatusType;
   testSequenceUnsaved: boolean;
-  cycleRuns: TestSequenceElement[][];
-  run: boolean;
+  runable: boolean;
 };

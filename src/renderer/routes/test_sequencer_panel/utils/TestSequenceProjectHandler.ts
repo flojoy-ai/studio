@@ -32,12 +32,10 @@ import { useSequencerStore } from "@/renderer/stores/sequencer";
 
 // Exposed API
 export type StateManager = {
-  elem: TestSequenceElement[];
-  setElems: (elems: TestSequenceElement[]) => void;
+  elems: TestSequenceElement[];
+  addNewSequence: (project: TestSequencerProject, elements: TestSequenceElement[]) => void;
+  removeSequence: (name: string) => void;
   project: TestSequencerProject | null;
-  setProject: (project: TestSequencerProject | null) => void;
-  setUnsaved: (unsaved: boolean) => void;
-  setCycleCount: (cycleCount: number) => void;
 };
 
 export async function createProject(
@@ -48,7 +46,7 @@ export async function createProject(
   // Create a new project from the element currently in the test sequencer
   // - Will valide that each element is in the base folder
   try {
-    const elems = stateManager.elem;
+    const elems = stateManager.elems;
     project = validatePath(project);
     console.log(project);
     project = updateProjectElements(
@@ -78,7 +76,7 @@ export async function saveProject(
     if (project === null) {
       throw new Error("No project to save");
     }
-    const elems = stateManager.elem;
+    const elems = stateManager.elems;
     project = validatePath(project);
     project = updateProjectElements(
       project,
@@ -139,7 +137,9 @@ export async function closeProject(
   stateManager: StateManager,
 ): Promise<Result<null, Error>> {
   // Close the current proejct from the app. The project is NOT deleted from disk
-  stateManager.setProject(null);
+  if (stateManager.project !== null) {
+    stateManager.removeSequence(stateManager.project.name);
+  }
   return Ok(null);
 }
 
@@ -230,10 +230,7 @@ async function syncProject(
     project.projectPath,
     false,
   );
-  stateManager.setElems(elements);
-  stateManager.setProject(project);
-  stateManager.setUnsaved(false);
-  stateManager.setCycleCount(project.cycle !== undefined && project.cycle !== null ? project.cycle : 1);
+  stateManager.addNewSequence(project, elements);
 }
 
 function removeBaseFolderFromName(name: string, baseFolder: string): string {
@@ -343,6 +340,6 @@ function updateProjectElements(
     ...project,
     elems: elements,
     // This could be cleanup if we ignore backward compatibility
-    cycle: useSequencerStore.getState().cycle.infinite ? -1 : useSequencerStore.getState().cycle.cycleCount,
+    cycle: useSequencerStore.getState().cycleConfig.infinite ? -1 : useSequencerStore.getState().cycleConfig.cycleCount,
   };
 }
