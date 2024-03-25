@@ -20,9 +20,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/renderer/components/ui/table";
-import { filter } from "lodash";
+import { filter, map } from "lodash";
 import {
   CycleConfig,
+  StatusType,
   Summary,
   TestSequenceContainer,
   TestSequenceElement,
@@ -31,6 +32,7 @@ import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useEffect, useState } from "react";
 import { getOnlyTests } from "./utils";
 import { Badge } from "@/renderer/components/ui/badge";
+import { mapStatusToDisplay } from "./utils";
 
 
 const getSuccessRate = (data: TestSequenceElement[]): number => {
@@ -65,14 +67,26 @@ const getNumberOfCycleRun = (cycle: CycleConfig): string => {
 }
 
 const getIntegrity = (sequences: TestSequenceContainer[]): boolean => {
-  // Check if all sequences put as runnable
-  console.log("Integrity check");
   let integrity = true;
   sequences.forEach((seq) => {
     integrity = integrity && seq.runable;
   });
   return integrity;
 }
+
+const getGlobalStatus = (cycleRuns: TestSequenceContainer[][],  sequences: TestSequenceContainer[], data: TestSequenceElement[]): StatusType => {
+  // Create a priority list with all the status
+  const priority = { "pending": 0, "pass": 1, "fail": 2, "aborted": 3, "paused": 4, "running": 5 };
+  if (cycleRuns.length > 0) {
+    const status = cycleRuns.map((el) => getGlobalStatus([], el, [])).reduce((prev, curr) => priority[prev] > priority[curr] ? prev : curr);
+    return status;
+  }
+  if (sequences.length === 0 && data.length === 0) return "pending";
+  const iter = sequences.length > 0 ? sequences : data;
+  const status = iter.map((el) => el.status).reduce((prev, curr) => priority[prev] > priority[curr] ? prev : curr);
+  return status;
+}
+
 
 const columns: ColumnDef<Summary>[] = [
   {
@@ -115,16 +129,45 @@ const columns: ColumnDef<Summary>[] = [
       return <div>{row.original.successRate.toFixed(1)}%</div>;
     },
   },
+
+  {
+    accessorKey: "cycleStatus",
+    header: "Cycle Status",
+    cell: ({ row }) => {
+      return (
+        <div>
+          {typeof mapStatusToDisplay[row.original.status] === "function"
+            ? mapStatusToDisplay[row.original.status](null)
+            : mapStatusToDisplay[row.original.status]}
+        </div>
+      );
+    }
+  },
+
+  {
+    accessorKey: "status",
+    header: "Sequencer Status",
+    cell: ({ row }) => {
+      return (
+        <div>
+          {typeof mapStatusToDisplay[row.original.status] === "function"
+            ? mapStatusToDisplay[row.original.status](null)
+            : mapStatusToDisplay[row.original.status]}
+        </div>
+      );
+    },
+  },
 ];
 
 export function SummaryTable() {
+  const { elems, cycleConfig, sequences, cycleRuns } = useTestSequencerState();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({ "cycleStatus": cycleRuns.length > 1 });
   const [rowSelection, setRowSelection] = useState({});
-  const { elems, cycleConfig, sequences } = useTestSequencerState();
   const [summary, setSummary] = useState<Summary[]>([]);
   useEffect(() => {
+    setColumnVisibility({ "cycleStatus": cycleRuns.length > 1 });
     setSummary([
       {
         id: "1",
@@ -133,9 +176,10 @@ export function SummaryTable() {
         successRate: getSuccessRate(elems),
         numberOfCycleRunDisplay: getNumberOfCycleRun(cycleConfig),
         integrity: getIntegrity(sequences),
+        status: getGlobalStatus(cycleRuns, sequences, elems),
       },
     ]);
-  }, [elems, cycleConfig, sequences]);
+  }, [elems, cycleConfig, sequences, cycleRuns]);
 
   const data = summary;
   const summaryTable = useReactTable({

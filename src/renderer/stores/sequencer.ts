@@ -163,7 +163,7 @@ export const useSequencerStore = create<State & Actions>()(
           state.sequences[idx].status = val;
           if (val === "aborted") {
             state.sequences[idx].elements.forEach((el) => {
-              if (el.type === "test" && el.status === "running") {
+              if (el.type === "test" && (el.status === "running" || el.status === "paused")) {
                 el.status = "aborted";
               }
             });

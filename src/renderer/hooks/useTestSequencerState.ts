@@ -335,6 +335,7 @@ export function useTestSequencerState() {
     removeSequence,
     // Cycles
     cycleConfig,
+    cycleRuns,
     setCycleCount,
     setInfinite,
     saveCycle,

@@ -7,6 +7,7 @@ export type Summary = {
   numberOfTest: number;
   numberOfCycleRunDisplay: string
   integrity: boolean;
+  status: StatusType;
 };
 
 export type LockedContextType = {
