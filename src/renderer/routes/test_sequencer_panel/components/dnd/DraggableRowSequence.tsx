@@ -26,7 +26,6 @@ export const DraggableRowSequence = ({
     newSequences.splice(fromIdx, 1);
     setSequences(newSequences);
   };
-  // -------------------------------------------------------------------------------
 
   //define behaviour for drag
   //note: logic for drag and drop operations defined inside of useDrag
