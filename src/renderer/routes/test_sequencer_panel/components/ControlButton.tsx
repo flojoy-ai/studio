@@ -20,7 +20,6 @@ export function ControlButton() {
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
 
   const handleClickRunTest = () => {
-    console.log("Start test - Project: ", project);
     if (project === null) {
       setIsLocked(true);
       runSequences(tSSendJsonMessage);
