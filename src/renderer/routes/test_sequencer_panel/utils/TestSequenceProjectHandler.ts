@@ -28,7 +28,6 @@ import {
   TestSequencerProject,
 } from "@/renderer/types/test-sequencer";
 import { createNewTest } from "@/renderer/hooks/useTestSequencerState";
-import { useSequencerStore } from "@/renderer/stores/sequencer";
 
 // Exposed API
 export type StateManager = {
@@ -339,7 +338,5 @@ function updateProjectElements(
   return {
     ...project,
     elems: elements,
-    // This could be cleanup if we ignore backward compatibility
-    cycle: useSequencerStore.getState().cycleConfig.infinite ? -1 : useSequencerStore.getState().cycleConfig.cycleCount,
   };
 }

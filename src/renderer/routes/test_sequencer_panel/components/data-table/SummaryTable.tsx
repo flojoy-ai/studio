@@ -58,17 +58,20 @@ const getNumberOfTestRun = (data: TestSequenceElement[]): number => {
 }
 
 const getNumberOfCycleRun = (cycle: CycleConfig): string => {
-  return "TODO";
-  // if (cycle.infinite) {
-  //   return (cycle.ptrCycle + 1) + "/∞";
-  // }
-  // return (cycle.ptrCycle + 1) + "/" + cycle.cycleCount;
+  if (cycle.infinite) {
+    return (cycle.ptrCycle + 1) + "/∞";
+  }
+  return (cycle.ptrCycle + 1) + "/" + cycle.cycleCount;
 }
 
 const getIntegrity = (sequences: TestSequenceContainer[]): boolean => {
   // Check if all sequences put as runnable
   console.log("Integrity check");
-  return sequences.every((seq) => seq.runable);
+  let integrity = true;
+  sequences.forEach((seq) => {
+    integrity = integrity && seq.runable;
+  });
+  return integrity;
 }
 
 const columns: ColumnDef<Summary>[] = [

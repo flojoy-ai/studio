@@ -12,6 +12,7 @@ import {
 } from "@/renderer/types/test-sequencer";
 import { TestSequencerProject } from "@/renderer/types/test-sequencer";
 import { testSequenceRunRequest } from "../routes/test_sequencer_panel/models/models";
+import { toast } from "sonner";
 
 type State = {
   websocketId: string;
@@ -88,7 +89,6 @@ export const useSequencerStore = create<State & Actions>()(
     cycleConfig: {
       infinite: false,
       cycleCount: 1,
-      cycleNumber: 0,
       ptrCycle: -1,
     },
     cycleRuns: [],
@@ -128,7 +128,6 @@ export const useSequencerStore = create<State & Actions>()(
           state.cycleConfig = {
             infinite: false,
             cycleCount: 1,
-            cycleNumber: 0,
             ptrCycle: -1,
           };
           state.testSequenceUnsaved = false;
@@ -167,8 +166,9 @@ export const useSequencerStore = create<State & Actions>()(
 
     runRunnableSequencesFromCurrentOne: (sender) =>
       set((state) => {
-        // Clear all status
-        resetAllToPending(state);
+        // Clear the sequencer
+        resetSequencesToPending(state);
+        state.clearPreviousCycles();
         // Run the first sequence
         sender(testSequenceRunRequest(state.testSequenceStepTree));
       }),
@@ -283,20 +283,59 @@ export const useSequencerStore = create<State & Actions>()(
         state.cycleConfig.infinite = val;
       }),
     saveCycle: () =>
+      // TODO: Convert to Save&RunCycle
       set((state) => {
-        // TODO
+        if (state.cycleRuns.length > state.cycleConfig.cycleCount) {
+          return;
+        }
+        state.cycleRuns.push(
+          state.sequences.map((seq) => ({ ...seq })),
+        );
+        state.cycleConfig.ptrCycle = state.cycleRuns.length - 1;
+        if (state.cycleRuns.length < state.cycleConfig.cycleCount) {
+          resetSequencesToPending(state);
+        }
       }),
     diplayPreviousCycle: () =>
       set((state) => {
-        // TODO
+        if (state.cycleConfig.ptrCycle <= 0) {
+          toast.info("No previous cycle");
+          return
+        }
+        // Save the current sequence
+        const currentSeqIdx = state.sequences.findIndex((seq) => seq.project.name === state.testSequencerDisplayed?.name);
+        if (currentSeqIdx !== -1) {
+          const currentSequence = containerizeCurrentSequence(currentSeqIdx, state);
+          state.sequences[currentSeqIdx] = currentSequence;
+        }
+        // Load the previous cycle
+        state.cycleConfig.ptrCycle = state.cycleConfig.ptrCycle - 1;
+        state.sequences = state.cycleRuns[state.cycleConfig.ptrCycle];
+        // Load the first sequence (without saving the previous one)
+        loadSequence(0, state);
       }),
     displayNextCycle: () =>
       set((state) => {
-        // TODO
+        if (state.cycleConfig.ptrCycle >= state.cycleRuns.length - 1) {
+          toast.info("No next cycle");
+          return
+        }
+        // Save the current cycle
+        const currentIdx = state.sequences.findIndex((seq) => seq.project.name === state.testSequencerDisplayed?.name);
+        if (currentIdx !== -1) {
+          const currentSequence = containerizeCurrentSequence(currentIdx, state);
+          state.sequences[currentIdx] = currentSequence;
+        }
+        // Load the previous cycle
+        state.cycleConfig.ptrCycle = state.cycleConfig.ptrCycle + 1;
+        state.sequences = state.cycleRuns[state.cycleConfig.ptrCycle];
+        // Load the first sequence (without saving the previous one)
+        loadSequence(currentIdx, state);
       }),
     clearPreviousCycles: () =>
       set((state) => {
-        // TODO
+        state.cycleConfig.ptrCycle = -1;
+        state.cycleRuns = [];
       }),
 
   })),
@@ -318,6 +357,9 @@ function containerizeCurrentSequence(containerIdx: number, state: any): TestSequ
 }
 
 function loadSequence(idx: number, state: any): void {
+  if (idx < 0 || idx >= state.sequences.length) {
+    return;
+  }
   state.testSequencerDisplayed = state.sequences[idx].project;
   state.testSequenceStepTree = state.sequences[idx].tree;
   state.elements = state.sequences[idx].elements;
@@ -335,13 +377,12 @@ function clearSequencer(state: any): void {
   state.cycleConfig = {
     infinite: false,
     cycleCount: 1,
-    cycleNumber: 0,
     ptrCycle: -1,
   };
   state.testSequenceUnsaved = false;
 }
 
-function resetAllToPending(state: any): void {
+function resetSequencesToPending(state: any): void {
   // Clean up all containers
   state.sequences.forEach((seq: TestSequenceContainer) => {
     // Clean up the sequence
@@ -360,8 +401,6 @@ function resetAllToPending(state: any): void {
     if (seq.project.name === state.testSequencerDisplayed?.name) {
       state.elements = newElems;
       state.testSequenceStepTree = seq.tree;
-      state.cycleConfig.ptrCycle = -1;
-      state.cycleConfig.cycleNumber = 0;
     }
   });
 
@@ -378,6 +417,4 @@ function resetAllToPending(state: any): void {
   });
   state.elements = newElems;
 
-  // Clean up the cycles
-  state.clearPreviousCycles();
 }

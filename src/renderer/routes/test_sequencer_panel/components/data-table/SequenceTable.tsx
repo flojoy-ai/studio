@@ -306,12 +306,7 @@ export function SequenceTable() {
                     <ContextMenuItem
                       onClick={() => { onRemoveSequence([row.index]); }}
                     >
-                      Remove Sequence
-                    </ContextMenuItem>
-                    <ContextMenuItem
-                      onClick={() => { onToggleSequence([row.index]); }}
-                    >
-                      { row.original.runable ? "Disable" : "Enable" }
+                      Remove sequence
                     </ContextMenuItem>
                   </ContextMenuContent>
                 </ContextMenu>

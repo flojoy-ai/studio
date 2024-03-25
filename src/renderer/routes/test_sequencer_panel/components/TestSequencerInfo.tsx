@@ -35,6 +35,7 @@ const TestSequencerView = () => {
             style={{ height: "calc(100vh - 260px)" }}
           >
             <div className="flex w-full">
+              <CyclePanel />
               <SummaryTable />
             </div>
             <SequenceTable />

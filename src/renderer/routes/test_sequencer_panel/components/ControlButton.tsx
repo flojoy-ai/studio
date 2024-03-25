@@ -1,9 +1,7 @@
 import LockableButton from "./lockable/LockedButtons";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import _ from "lodash";
-import { TestSequenceElement } from "@/renderer/types/test-sequencer";
 import {
-  testSequenceRunRequest,
   testSequenceStopRequest,
   testSequencePauseRequest,
   testSequenceResumeRequest,
@@ -16,35 +14,22 @@ import { toast } from "sonner";
 
 
 export function ControlButton() {
-  const { sequences, project, displaySequence, tree, setIsLocked, backendGlobalState, backendState, runRunnableSequencesFromCurrentOne } = useTestSequencerState();
+  const { tree, setIsLocked, backendGlobalState, backendState, runSequencer } = useTestSequencerState();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
 
   const handleClickRunTest = () => {
-    // This logic could go in a middleware (useTestSequencerState)
-    if (project === null) {
-      setIsLocked(true);
-      runRunnableSequencesFromCurrentOne(tSSendJsonMessage);
-    } else {
-      // Run from the first runable sequence 
-      const idx = sequences.findIndex((seq) => seq.runable);
-      if (idx !== -1) {
-        setIsLocked(true);
-        displaySequence(sequences[idx].project.name);
-        runRunnableSequencesFromCurrentOne(tSSendJsonMessage);
-      } else {
-        toast.info("No sequence selected to run.");
-      }
-    }
+    console.log("Run sequencer");
+    runSequencer(tSSendJsonMessage);
   };
 
   const handleClickStopTest = () => {
-    console.log("Stop test");
+    toast.warning("Stopping sequencer after this test.");
     tSSendJsonMessage(testSequenceStopRequest(tree));
     setIsLocked(false);
   };
 
   const handleClickPauseTest = () => {
-    toast.warning("Pausing test sequencer after this test.");
+    toast.warning("Pausing sequencer after this test.");
     if (backendGlobalState === "test_set_start") {
       console.log("Pause test");
       tSSendJsonMessage(testSequencePauseRequest(tree));
@@ -52,7 +37,7 @@ export function ControlButton() {
   }
 
   const handleClickResumeTest = () => {
-    toast.info("Resuming test sequencer.");
+    toast.info("Resuming sequencer.");
     if (backendGlobalState === "test_set_start") {
       console.log("Resume test");
       tSSendJsonMessage(testSequenceResumeRequest(tree));

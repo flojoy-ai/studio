@@ -44,7 +44,6 @@ export type BackendGlobalState = z.infer<typeof BackendGlobalState>;
 export const CycleConfig = z.object({
   infinite: z.boolean(),
   cycleCount: z.number(),
-  cycleNumber: z.number(),
   ptrCycle: z.number(),
 });
 export type CycleConfig = z.infer<typeof CycleConfig>;
@@ -157,7 +156,6 @@ export const TestSequencerProject = z.object({
   elems: TestSequenceElement.array(),
   projectPath: z.string(),
   interpreter: Interpreter,
-  cycle: z.number().nullish(),  // Backward compatibility
 });
 
 export type TestSequencerProject = z.infer<typeof TestSequencerProject>;

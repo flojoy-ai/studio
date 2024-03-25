@@ -19,6 +19,7 @@ import { useShallow } from "zustand/react/shallow";
 import { v4 as uuidv4 } from "uuid";
 import { Err, Ok, Result } from "neverthrow";
 import { verifyElementCompatibleWithProject } from "@/renderer/routes/test_sequencer_panel/utils/TestSequenceProjectHandler";
+import { toast } from "sonner";
 
 // sync this with the definition of setElems
 export type SetElemsFn = {
@@ -144,6 +145,7 @@ export function useTestSequencerState() {
     setCycleCount,
     setInfinite,
     saveCycle,
+    cycleRuns,
     diplayPreviousCycle,
     displayNextCycle,
     clearPreviousCycles,
@@ -180,6 +182,7 @@ export function useTestSequencerState() {
         setCycleCount: state.setCycleCount,
         setInfinite: state.setInfinite,
         saveCycle: state.saveCycle,
+        cycleRuns: state.cycleRuns,
         diplayPreviousCycle: state.diplayPreviousCycle,
         displayNextCycle: state.displayNextCycle,
         clearPreviousCycles: state.clearPreviousCycles,
@@ -254,6 +257,53 @@ export function useTestSequencerState() {
     }
   }
 
+  function runNextRunnableSequenceAndCycle(sender: any): void {
+    if (project === null) {
+      return  // User only has steps
+    }
+    // Check if we are at the end of a cycle
+    let lastRunnableSequenceIdx = -1;
+    sequences.forEach((seq, idx) => {
+      if (seq.runable) {
+        lastRunnableSequenceIdx = idx;
+      }
+    });
+    const currentIdx = sequences.findIndex((seq) => seq.project.name === project.name);
+    if (currentIdx === lastRunnableSequenceIdx && sequences[currentIdx].status !== "pending") {
+      // Save cycle & run next the next one
+      saveCycle();  // Won't update the lenght of cycleRuns right away
+      if (cycleRuns.length < cycleConfig.cycleCount - 1) {
+        const idx = sequences.findIndex((seq) => seq.runable);
+        if (idx !== -1) {
+          setIsLocked(true);
+          displaySequence(sequences[idx].project.name);
+          runRunnableSequencesFromCurrentOne(sender);
+        }
+      }
+    } else {
+      // Run next sequence
+      runNextRunnableSequence(sender);
+    }
+  }
+
+  function runSequencer(sender: any): void {
+    if (project === null) {
+      setIsLocked(true);
+      runRunnableSequencesFromCurrentOne(sender);
+    } else {
+      clearPreviousCycles();
+      // Run from the first runable sequence 
+      const idx = sequences.findIndex((seq) => seq.runable);
+      if (idx !== -1) {
+        setIsLocked(true);
+        displaySequence(sequences[idx].project.name);
+        runRunnableSequencesFromCurrentOne(sender);
+      } else {
+        toast.info("No sequence selected to run.");
+      }
+    }
+  }
+
   const addNewElemsWithPermissions = withPermissionCheck(AddNewElems);
   const setSequencesWithPermissions = withPermissionCheck(setSequences);
 
@@ -277,8 +327,8 @@ export function useTestSequencerState() {
     // Sequences
     sequences,
     setSequences: setSequencesWithPermissions,
-    runRunnableSequencesFromCurrentOne,
-    runNextRunnableSequence,
+    runSequencer,
+    runNextRunnableSequence: runNextRunnableSequenceAndCycle,
     displaySequence: displaySeq,
     updateSequenceStatus,
     addNewSequence: addNewSeq,
