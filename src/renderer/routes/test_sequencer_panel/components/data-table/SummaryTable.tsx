@@ -135,7 +135,7 @@ export function SummaryTable() {
         integrity: getIntegrity(sequences),
       },
     ]);
-  }, [elems, cycleConfig]);
+  }, [elems, cycleConfig, sequences]);
 
   const data = summary;
   const summaryTable = useReactTable({
