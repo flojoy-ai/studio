@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import {
-    BackendGlobalState,
+  BackendGlobalState,
   CycleConfig,
   MsgState,
   StatusType,
@@ -50,7 +50,7 @@ type Actions = {
   removeSequence: (name: string) => void;
   displaySequence: (name: string) => void;
   runNextRunnableSequence: (sender: any) => void;
-  runRunnableSequences: (sender: any) => void;
+  runRunnableSequencesFromCurrentOne: (sender: any) => void;
   updateSequenceStatus: (val: StatusType) => void;
 };
 
@@ -150,6 +150,8 @@ export const useSequencerStore = create<State & Actions>()(
       set((state) => {
         state.testSequenceStepTree = val;
       }),
+
+    // Sequences ===========================================================
     updateSequenceStatus: (val: StatusType) =>
       set((state) => {
         if (state.testSequencerDisplayed !== null) {
@@ -159,12 +161,18 @@ export const useSequencerStore = create<State & Actions>()(
           if (idx === -1) {
             return;
           }
-          console.log("Updating sequence status", val);
           state.sequences[idx].status = val;
         }
       }),
 
-    // Navigation through sequences
+    runRunnableSequencesFromCurrentOne: (sender) =>
+      set((state) => {
+        // Clear all status
+        resetAllToPending(state);
+        // Run the first sequence
+        sender(testSequenceRunRequest(state.testSequenceStepTree));
+      }),
+
     runNextRunnableSequence: (sender) =>
       set((state) => {
         if (state.testSequencerDisplayed === null) {
@@ -177,16 +185,7 @@ export const useSequencerStore = create<State & Actions>()(
         if (idx === -1 || idx === state.sequences.length - 1) {
           return;
         }
-        const currSequence = {
-          project: { ...state.testSequencerDisplayed },
-          cycle: { ...state.cycleConfig },
-          tree: { ...state.testSequenceStepTree },
-          elements: [...state.elements],
-          testSequenceUnsaved: state.testSequenceUnsaved,
-          status: state.sequences[idx].status,
-          run: state.sequences[idx].runable,
-          cycleRuns: state.cycleRuns,
-        };
+        const currSequence = containerizeCurrentSequence(idx, state);
         state.sequences[idx] = currSequence;
         // Load the next sequence and run it
         let nextIdx = idx + 1;
@@ -196,58 +195,12 @@ export const useSequencerStore = create<State & Actions>()(
             return;
           }
         }
-        state.testSequencerDisplayed = state.sequences[nextIdx].project;
-        state.testSequenceStepTree = state.sequences[nextIdx].tree;
-        state.elements = state.sequences[nextIdx].elements;
-        state.testSequenceUnsaved = state.sequences[nextIdx].testSequenceUnsaved;
+        loadSequence(nextIdx, state);
         sender(testSequenceRunRequest(state.testSequenceStepTree));
         state.isLocked = true;
       }),
 
-    runRunnableSequences: (sender) =>
-      set((state) => {
-        if (state.testSequencerDisplayed !== null) {
-          state.sequences.forEach((seq) => {
-            // Clean up the sequence
-            const newElems: TestSequenceElement[] = [...seq.elements].map((elem) => {
-              return elem.type === "test"
-                ? {
-                    ...elem,
-                    status: "pending",
-                    completionTime: undefined,
-                    isSavedToCloud: false,
-                  }
-                : { ...elem };
-            });
-            seq.elements = newElems;
-            seq.status = "pending";
-            if (seq.project.name === state.testSequencerDisplayed?.name) {
-              state.elements = newElems;
-              state.testSequenceStepTree = seq.tree;
-              state.cycleConfig.ptrCycle = -1;
-              state.cycleConfig.cycleNumber = 0;
-            }
-          });
-          state.cycleRuns = [];
-        } else {
-          const newElems = [...state.elements].map((elem) => {
-            return elem.type === "test"
-              ? {
-                  ...elem,
-                  status: StatusType.parse("pending"),
-                  completionTime: undefined,
-                  isSavedToCloud: false,
-                }
-              : { ...elem };
-          });
-          state.elements = newElems;
-          state.clearPreviousCycles();
-        }
-        sender(testSequenceRunRequest(state.testSequenceStepTree));
-      }),
-
-
-    addNewSequence: (project: TestSequencerProject, elements: TestSequenceElement[]) => 
+    addNewSequence: (project: TestSequencerProject, elements: TestSequenceElement[]) =>
       set((state) => {
         // Check if name is unique
         const idx = state.sequences.findIndex((seq) => seq.project.name === project.name);
@@ -257,14 +210,14 @@ export const useSequencerStore = create<State & Actions>()(
         // Save this sequence
         state.sequences.push({
           project: project,
-          tree: { type: "root", children: elements, identifiers: []},
+          tree: { type: "root", children: elements, identifiers: [] },
           elements: elements,
           testSequenceUnsaved: false,
           status: "pending",
           runable: true,
         });
       }),
-    
+
     removeSequence: (name) =>
       set((state) => {
         // Check if sequence exists
@@ -304,7 +257,7 @@ export const useSequencerStore = create<State & Actions>()(
         if (state.testSequencerDisplayed !== null) {
           const oldIdx = state.sequences.findIndex(
             (seq) => seq.project.name === state.testSequencerDisplayed?.name);
-          const oldSequence = containerizeSequence(oldIdx, state);
+          const oldSequence = containerizeCurrentSequence(oldIdx, state);
           state.sequences[oldIdx] = oldSequence;
         }
         // Load the new sequence
@@ -327,7 +280,7 @@ export const useSequencerStore = create<State & Actions>()(
       set((state) => {
         state.cycleConfig.infinite = val;
       }),
-    saveCycle: () => 
+    saveCycle: () =>
       set((state) => {
         // TODO
       }),
@@ -342,12 +295,15 @@ export const useSequencerStore = create<State & Actions>()(
     clearPreviousCycles: () =>
       set((state) => {
         // TODO
-      }),  
+      }),
 
   })),
 );
 
-function containerizeSequence(containerIdx: number, state: any): TestSequenceContainer {
+
+// Helper functions ==========================================================
+
+function containerizeCurrentSequence(containerIdx: number, state: any): TestSequenceContainer {
   const container = {
     project: { ...state.testSequencerDisplayed },
     tree: { ...state.testSequenceStepTree },
@@ -359,15 +315,12 @@ function containerizeSequence(containerIdx: number, state: any): TestSequenceCon
   return container;
 }
 
-
 function loadSequence(idx: number, state: any): void {
   state.testSequencerDisplayed = state.sequences[idx].project;
   state.testSequenceStepTree = state.sequences[idx].tree;
   state.elements = state.sequences[idx].elements;
-  state.cycleConfig = state.sequences[idx].cycle;
   state.testSequenceUnsaved = state.sequences[idx].testSequenceUnsaved;
 }
-
 
 function clearSequencer(state: any): void {
   state.testSequencerDisplayed = null;
@@ -384,4 +337,45 @@ function clearSequencer(state: any): void {
     ptrCycle: -1,
   };
   state.testSequenceUnsaved = false;
+}
+
+function resetAllToPending(state: any): void {
+  // Clean up all containers
+  state.sequences.forEach((seq: TestSequenceContainer) => {
+    // Clean up the sequence
+    const newElems: TestSequenceElement[] = [...seq.elements].map((elem) => {
+      return elem.type === "test"
+        ? {
+          ...elem,
+          status: "pending",
+          completionTime: undefined,
+          isSavedToCloud: false,
+        }
+        : { ...elem };
+    });
+    seq.elements = newElems;
+    seq.status = "pending";
+    if (seq.project.name === state.testSequencerDisplayed?.name) {
+      state.elements = newElems;
+      state.testSequenceStepTree = seq.tree;
+      state.cycleConfig.ptrCycle = -1;
+      state.cycleConfig.cycleNumber = 0;
+    }
+  });
+
+  // Clean up the current display
+  const newElems = [...state.elements].map((elem) => {
+  return elem.type === "test"
+    ? {
+      ...elem,
+      status: StatusType.parse("pending"),
+      completionTime: undefined,
+      isSavedToCloud: false,
+    }
+    : { ...elem };
+  });
+  state.elements = newElems;
+
+  // Clean up the cycles
+  state.clearPreviousCycles();
 }

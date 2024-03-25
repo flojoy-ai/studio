@@ -30,10 +30,8 @@ export function TestSequencerWSProvider({
     setIsLoading,
     setBackendGlobalState,
     setBackendState,
-    saveRun,
-    cycle,
-    runNextSequence,
-    setSequenceStatus: updateSequenceStatus,
+    runNextRunnableSequence,
+    updateSequenceStatus,
   } = useTestSequencerState();
 
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
@@ -120,33 +118,14 @@ export function TestSequencerWSProvider({
       case "test_set_done":
         setBackendGlobalState(msg.data.state);
         setBackendState(msg.data.state);
-        saveRun();
-        if (cycle.cycleNumber < cycle.cycleCount - 1 || cycle.infinite) {
-          console.log("Test set done" + cycle.cycleNumber + " " + cycle.cycleCount);
-          setElems.withException((elems: TestSequenceElement[]) => {
-            const newElems: TestSequenceElement[] = [...elems].map((elem) => {
-              return elem.type === "test"
-                ? {
-                    ...elem,
-                    status: "pending",
-                    completionTime: undefined,
-                    isSavedToCloud: false,
-                  }
-                : { ...elem };
-            });
-            return newElems;
-          });
-          sendJsonMessage(testSequenceRunRequest(tree));
-        } else {
-          setIsLocked(false);
-          const failed = elems.some((elem) => {
-            if (elem.type === "test")
-              return elem.status === "fail";
-            return false;
-          });
-          updateSequenceStatus(failed ? "fail" : "pass");
-          runNextSequence(sendJsonMessage);
-        }
+        setIsLocked(false);
+        const failed = elems.some((elem) => {
+          if (elem.type === "test")
+            return elem.status === "fail";
+          return false;
+        });
+        updateSequenceStatus(failed ? "fail" : "pass");
+        runNextRunnableSequence(sendJsonMessage);
         break;
       case "error":
         toast.error(

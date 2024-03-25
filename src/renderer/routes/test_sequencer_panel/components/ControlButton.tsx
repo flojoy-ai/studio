@@ -16,20 +16,21 @@ import { toast } from "sonner";
 
 
 export function ControlButton() {
-  const { sequences, project, setSequenceAsRunnable, setElems, tree, setIsLocked, backendGlobalState, backendState, clearPreviousRuns, runSequences } = useTestSequencerState();
+  const { sequences, project, displaySequence, tree, setIsLocked, backendGlobalState, backendState, runRunnableSequencesFromCurrentOne } = useTestSequencerState();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
 
   const handleClickRunTest = () => {
+    // This logic could go in a middleware (useTestSequencerState)
     if (project === null) {
       setIsLocked(true);
-      runSequences(tSSendJsonMessage);
+      runRunnableSequencesFromCurrentOne(tSSendJsonMessage);
     } else {
-      // find first sequence where run is true
+      // Run from the first runable sequence 
       const idx = sequences.findIndex((seq) => seq.runable);
       if (idx !== -1) {
         setIsLocked(true);
-        setSequenceAsRunnable(sequences[idx].project.name);
-        runSequences(tSSendJsonMessage);
+        displaySequence(sequences[idx].project.name);
+        runRunnableSequencesFromCurrentOne(tSSendJsonMessage);
       } else {
         toast.info("No sequence selected to run.");
       }

@@ -17,7 +17,7 @@ export const DraggableRowSequence = ({
   isSelected: boolean;
   row: Row<any>;
 }): React.ReactNode => {
-  const { sequences, setSequences, displaySequence, isLocked } = useTestSequencerState();
+  const { sequences, setSequences, displaySequence } = useTestSequencerState();
 
   const elementMover = (fromIdx: number, toIdx: number) => {
     let newSequences = [...sequences];
@@ -71,9 +71,7 @@ export const DraggableRowSequence = ({
   const isActiveAbove = isOverAbove && canDropAbove;
 
     const handleDisplaySequence = (idx: number) => {
-    if (!isLocked) {
       displaySequence(sequences[idx].project.name);
-    }
   }
 
   return (
