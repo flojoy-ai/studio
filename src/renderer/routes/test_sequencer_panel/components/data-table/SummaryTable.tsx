@@ -24,11 +24,13 @@ import { filter } from "lodash";
 import {
   Cycle,
   Summary,
+  TestSequenceContainer,
   TestSequenceElement,
 } from "@/renderer/types/test-sequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useEffect, useState } from "react";
 import { getOnlyTests } from "./utils";
+import { Badge } from "@/renderer/components/ui/badge";
 
 
 const getSuccessRate = (data: TestSequenceElement[]): number => {
@@ -62,6 +64,12 @@ const getNumberOfCycleRun = (cycle: Cycle): string => {
   return (cycle.ptrCycle + 1) + "/" + cycle.cycleCount;
 }
 
+const getIntegrity = (sequences: TestSequenceContainer[]): boolean => {
+  // Check if all sequences put as runnable
+  console.log("Integrity check");
+  return sequences.every((seq) => seq.run);
+}
+
 const columns: ColumnDef<Summary>[] = [
   {
     accessorKey: "id",
@@ -75,7 +83,12 @@ const columns: ColumnDef<Summary>[] = [
   {
     accessorKey: "integrity",
     header: "Integrity",
-    cell: () => <div className="text-green-500 text-bold">PASS</div>
+    cell: ({ row }) => {
+      if (row.original.integrity) {
+        return <Badge className="bg-green-500">PASS</Badge>;
+      }
+      return <Badge className="bg-red-500">FAIL</Badge>;
+    }
   },
   {
     accessorKey: "nb_cycle_run",
@@ -105,7 +118,7 @@ export function SummaryTable() {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const { elems, cycle } = useTestSequencerState();
+  const { elems, cycle, sequences } = useTestSequencerState();
   const [summary, setSummary] = useState<Summary[]>([]);
   useEffect(() => {
     setSummary([
@@ -115,6 +128,7 @@ export function SummaryTable() {
         numberOfTest: getNumberOfTest(elems),
         successRate: getSuccessRate(elems),
         numberOfCycleRunDisplay: getNumberOfCycleRun(cycle),
+        integrity: getIntegrity(sequences),
       },
     ]);
   }, [elems, cycle]);

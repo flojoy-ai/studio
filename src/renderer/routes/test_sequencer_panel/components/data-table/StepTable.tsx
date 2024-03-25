@@ -50,7 +50,7 @@ import { WriteConditionalModal } from "@/renderer/routes/test_sequencer_panel/co
 import LockableButton from "@/renderer/routes/test_sequencer_panel/components/lockable/LockedButtons";
 import { useRef, useState, useEffect } from "react";
 import TestNameCell from "./test-name-cell";
-import { DraggableRow } from "@/renderer/routes/test_sequencer_panel/components/dnd/DraggableRow";
+import { DraggableRowStep } from "@/renderer/routes/test_sequencer_panel/components/dnd/DraggableRowStep";
 import PythonTestFileModal from "@/renderer/routes/test_sequencer_panel/components/modals/PythonTestFileModal";
 import { useModalState } from "@/renderer/hooks/useModalState";
 import { mapStatusToDisplay } from "./utils";
@@ -442,7 +442,7 @@ export function StepTable() {
                     {/*   ))} */}
                     {/* </TableRow> */}
 
-                    <DraggableRow
+                    <DraggableRowStep
                       row={row}
                       key={row.id}
                       data-state={row.getIsSelected() && "selected"}

@@ -20,7 +20,7 @@ type State = {
   isLoading: boolean;
   backendGlobalState: BackendGlobalState;
   cycle: Cycle;
-  runs: TestSequenceElement[];
+  cycleRuns: TestSequenceElement[][];
   backendState: MsgState;
   testSequenceUnsaved: boolean;
   testSequenceTree: TestRootNode;
@@ -90,7 +90,7 @@ export const useSequencerStore = create<State & Actions>()(
       cycleNumber: 0,
       ptrCycle: -1,
     },
-    runs: [],
+    cycleRuns: [],
     setCycleCount: (val: number) =>
       set((state) => {
         console.log("setCycleCount", val);
@@ -108,33 +108,33 @@ export const useSequencerStore = create<State & Actions>()(
       }),
     saveRun: () => 
       set((state) => {
-        state.runs.push(state.elements);
+        state.cycleRuns.push(state.elements);
         state.cycle.ptrCycle = state.cycle.ptrCycle + 1;
         state.cycle.cycleNumber = state.cycle.cycleNumber + 1;
       }),
     previousCycle: () =>
       set((state) => {
-        if (state.runs.length > 0) {
+        if (state.cycleRuns.length > 0) {
           state.cycle.ptrCycle = state.cycle.ptrCycle - 1;
           if (state.cycle.ptrCycle < 0) {
             state.cycle.ptrCycle = 0;
           }
-          state.elements = state.runs[state.cycle.ptrCycle];
+          state.elements = state.cycleRuns[state.cycle.ptrCycle];
         }
       }),
     nextCycle: () =>
       set((state) => {
-        if (state.runs.length > 0) {
+        if (state.cycleRuns.length > 0) {
           state.cycle.ptrCycle = state.cycle.ptrCycle + 1;
-          if (state.cycle.ptrCycle >= state.runs.length) {
-            state.cycle.ptrCycle = state.runs.length - 1;
+          if (state.cycle.ptrCycle >= state.cycleRuns.length) {
+            state.cycle.ptrCycle = state.cycleRuns.length - 1;
           }
-          state.elements = state.runs[state.cycle.ptrCycle];
+          state.elements = state.cycleRuns[state.cycle.ptrCycle];
         }
       }),
     clearPreviousRuns: () =>
       set((state) => {
-        state.runs = [];
+        state.cycleRuns = [];
         state.cycle.ptrCycle = -1;
         state.cycle.cycleNumber = 0;
       }),  
@@ -159,6 +159,7 @@ export const useSequencerStore = create<State & Actions>()(
       set((state) => {
         state.sequences = val;
         if (state.sequences.length > 0) {
+          // Problem here
           state.testSequencerProject = state.sequences[0].project;
           state.testSequenceTree = state.sequences[0].tree;
           state.elements = state.sequences[0].elements;
@@ -207,7 +208,6 @@ export const useSequencerStore = create<State & Actions>()(
             (seq) => seq.project.name === val.name,
           );
           if (idx === -1) {
-            state.testSequencerProject = val;
             state.sequences.push({
               project: val,
               cycle: state.cycle,
@@ -216,6 +216,7 @@ export const useSequencerStore = create<State & Actions>()(
               testSequenceUnsaved: state.testSequenceUnsaved,
               status: "pending",
               run: true,
+              cycleRuns: [],
             });
           }
         }
@@ -255,6 +256,7 @@ export const useSequencerStore = create<State & Actions>()(
           testSequenceUnsaved: state.testSequenceUnsaved,
           status: state.sequences[idx].status,
           run: state.sequences[idx].run,
+          cycleRuns: state.cycleRuns,
         };
         state.sequences[idx] = currSequence;
         // Load the next sequence and run it
@@ -270,6 +272,7 @@ export const useSequencerStore = create<State & Actions>()(
         state.elements = state.sequences[nextIdx].elements;
         state.cycle = state.sequences[nextIdx].cycle;
         state.testSequenceUnsaved = state.sequences[nextIdx].testSequenceUnsaved;
+        state.cycleRuns = state.sequences[nextIdx].cycleRuns;
         sender(testSequenceRunRequest(state.testSequenceTree));
         state.isLocked = true;
       }),
@@ -278,6 +281,7 @@ export const useSequencerStore = create<State & Actions>()(
       set((state) => {
         if (state.testSequencerProject !== null) {
           state.sequences.forEach((seq) => {
+            // Clean up the sequence
             const newElems: TestSequenceElement[] = [...seq.elements].map((elem) => {
               return elem.type === "test"
                 ? {
@@ -292,6 +296,7 @@ export const useSequencerStore = create<State & Actions>()(
             seq.status = "pending";
             seq.cycle.ptrCycle = -1;
             seq.cycle.cycleNumber = 0;
+            seq.cycleRuns = [];
             if (seq.project.name === state.testSequencerProject.name) {
               state.elements = newElems;
               state.testSequenceTree = seq.tree;
@@ -299,13 +304,13 @@ export const useSequencerStore = create<State & Actions>()(
               state.cycle.cycleNumber = 0;
             }
           });
-          state.runs = [];
+          state.cycleRuns = [];
         } else {
           const newElems = [...state.elements].map((elem) => {
             return elem.type === "test"
               ? {
                   ...elem,
-                  status: "pending",
+                  status: StatusType.parse("pending"),
                   completionTime: undefined,
                   isSavedToCloud: false,
                 }
@@ -335,6 +340,7 @@ export const useSequencerStore = create<State & Actions>()(
             testSequenceUnsaved: state.testSequenceUnsaved,
             status: state.sequences[oldIdx].status,
             run: state.sequences[oldIdx].run,
+            cycleRuns: state.cycleRuns,
           };
           state.sequences[oldIdx] = currSequence;
           state.testSequencerProject = state.sequences[idx].project;
@@ -342,6 +348,7 @@ export const useSequencerStore = create<State & Actions>()(
           state.elements = state.sequences[idx].elements;
           state.cycle = state.sequences[idx].cycle;
           state.testSequenceUnsaved = state.sequences[idx].testSequenceUnsaved;
+          state.cycleRuns = state.sequences[idx].cycleRuns;
         }
       }),
 

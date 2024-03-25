@@ -219,6 +219,7 @@ export function SequenceTable() {
   };
 
   const onToggleSequence = (idxs: number[]) => {
+    console.log(idxs);
     // TODO: Integrity
     setSequences.withException([ ...sequences].map((sequence, idx) => {
       if (idxs.includes(idx)) {

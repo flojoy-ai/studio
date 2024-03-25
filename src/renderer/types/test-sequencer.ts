@@ -6,6 +6,7 @@ export type Summary = {
   numberOfTestRun: number;
   numberOfTest: number;
   numberOfCycleRunDisplay: string
+  integrity: boolean;
 };
 
 export type LockedContextType = {
@@ -168,5 +169,6 @@ export type TestSequenceContainer = {
   cycle: Cycle;
   status: StatusType;
   testSequenceUnsaved: boolean;
+  cycleRuns: TestSequenceElement[][];
   run: boolean;
 };
