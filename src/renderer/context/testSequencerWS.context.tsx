@@ -139,7 +139,6 @@ export function TestSequencerWSProvider({
           sendJsonMessage(testSequenceRunRequest(tree));
         } else {
           setIsLocked(false);
-          // Verif if a test is failed
           const failed = elems.some((elem) => {
             if (elem.type === "test")
               return elem.status === "fail";
