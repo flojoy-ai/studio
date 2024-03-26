@@ -9,7 +9,7 @@ import {
   StateManager,
   closeSequence,
   saveSequences,
-} from "@/renderer/routes/test_sequencer_panel/utils/TestSequenceProjectHandler";
+} from "@/renderer/routes/test_sequencer_panel/utils/SequenceHandler";
 
 function usePrepareStateManager(
   withoutPermission: boolean = false,

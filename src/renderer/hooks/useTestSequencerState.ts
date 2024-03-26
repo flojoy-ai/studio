@@ -18,7 +18,7 @@ import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useShallow } from "zustand/react/shallow";
 import { v4 as uuidv4 } from "uuid";
 import { Err, Ok, Result } from "neverthrow";
-import { verifyElementCompatibleWithSequence } from "@/renderer/routes/test_sequencer_panel/utils/TestSequenceProjectHandler";
+import { verifyElementCompatibleWithSequence } from "@/renderer/routes/test_sequencer_panel/utils/SequenceHandler";
 import { toast } from "sonner";
 
 // sync this with the definition of setElems
