@@ -97,23 +97,19 @@ export function useCreateSequence() {
 export const useImportSequences = () => {
   const manager = usePrepareStateManager(true);
   const handleImport = async () => {
-    window.api.openFilesPicker(["tjoy"]).then((result) => {
-      if (!result) return;
-      // Assum all file in the same folder: Because of import
-      result.forEach((res, idx) => {
+    const result = await window.api.openFilesPicker(["tjoy"]);
+    if (!result) return;
+    const importSequences = async () => {
+      await Promise.all(result.map(async (res, idx) => {
         const { filePath, fileContent } = res;
-        toast.promise(importSequence(filePath, fileContent, manager, true, idx !== 0), {
-          loading: "Importing sequence...",
-          success: (result) => {
-            if (result.ok) {
-              return "Sequence imported";
-            } else {
-              return `Error importing sequence: ${result.error}`;
-            }
-          },
-          error: (e) => `${e}`,
-        });
-      });
+        await importSequence(filePath, fileContent, manager, true, idx !== 0);
+      }));
+    };
+    const s = result.length > 1 ? "s": "";
+    toast.promise(importSequences, {
+      loading: `Importing${s} sequence...`,
+      success: () => `Sequence${s} imported`,
+      error: (e) => `${e}`,
     });
   };
   return handleImport;
