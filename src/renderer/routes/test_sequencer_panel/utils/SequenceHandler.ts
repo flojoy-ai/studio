@@ -131,6 +131,7 @@ export async function importSequence(
   fileContent: string,
   stateManager: StateManager,
   throwInsteadOfResult: boolean = false,
+  skipImportDeps: boolean = false,
 ): Promise<Result<null, Error>> {
   // From a file, import a sequence and update the test sequencer
   // * Importing a sequence overwrites the current sequence, even the test sequencer is unsaved
@@ -141,9 +142,11 @@ export async function importSequence(
     }
     const sequencePath = filePath.replaceAll(sequence.name + ".tjoy", "");
     sequence = updatePath(sequence, sequencePath);
-    const success = await installDeps(sequence);
-    if (!success) {
-      throw Error("Error installing dependencies");
+    if (!skipImportDeps) {
+      const success = await installDeps(sequence);
+      if (!success) {
+        throw Error("Not able to installing dependencies");
+      }
     }
     await syncSequence(sequence, stateManager);
     return Ok(null);

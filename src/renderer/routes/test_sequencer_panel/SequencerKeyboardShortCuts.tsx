@@ -1,10 +1,10 @@
 import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
 import { useSave } from "./components/control-bar/SaveButton";
-import { useImportSequence } from "@/renderer/hooks/useTestSequencerProject";
+import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 
 const SequencerKeyboardShortcuts = () => {
   const save = useSave();
-  const importSequence = useImportSequence();
+  const importSequence = useImportSequences();
 
   useKeyboardShortcut("ctrl", "s", save);
   useKeyboardShortcut("meta", "s", save);

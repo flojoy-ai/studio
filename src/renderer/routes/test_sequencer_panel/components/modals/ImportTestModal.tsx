@@ -49,7 +49,7 @@ export const ImportTestModal = () => {
     >
       <DialogContent>
         <h2 className="text-lg font-bold text-accent1">
-          Import Python Scripts & Tests
+          Import Tests
         </h2>
         <Button variant={"outline"} onClick={() => handleImportTest("pytest")}>
           Pytest & Unittest

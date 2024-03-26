@@ -41,7 +41,7 @@ export function useSaveSequence() {
           return `Error saving sequence: ${result.error}`;
         }
       },
-      error: (e) => `Error saving sequence: ${e}`,
+      error: (e) => `${e}`,
     });
   };
 
@@ -87,29 +87,31 @@ export function useCreateSequence() {
           return `Error creating sequence: ${result.error}`;
         }
       },
-      error: (e) => `Error creating sequence: ${e}`,
+      error: (e) => `${e}`,
     });
   };
 
   return withPermissionCheck(handle);
 }
 
-export const useImportSequence = () => {
+export const useImportSequences = () => {
   const manager = usePrepareStateManager(true);
   const handleImport = async () => {
-    window.api.openFilePicker(["tjoy"]).then((result) => {
+    window.api.openFilesPicker(["tjoy"]).then((result) => {
       if (!result) return;
-      const { filePath, fileContent } = result;
-      toast.promise(importSequence(filePath, fileContent, manager, true), {
-        loading: "Importing sequence...",
-        success: (result) => {
-          if (result.ok) {
-            return "Sequence imported";
-          } else {
-            return `Error importing sequence: ${result.error}`;
-          }
-        },
-        error: (e) => `Error importing sequence: ${e}`,
+      result.forEach((res, idx) => {
+        const { filePath, fileContent } = res;
+        toast.promise(importSequence(filePath, fileContent, manager, true, idx !== 0), {
+          loading: "Importing sequence...",
+          success: (result) => {
+            if (result.ok) {
+              return "Sequence imported";
+            } else {
+              return `Error importing sequence: ${result.error}`;
+            }
+          },
+          error: (e) => `${e}`,
+        });
       });
     });
   };

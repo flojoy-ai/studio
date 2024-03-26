@@ -12,6 +12,7 @@ import {
   saveFileToFullPath,
   writeFileSync,
   isFileOnDisk,
+  openFilesPicker,
 } from "./utils";
 import {
   getAllLogs,
@@ -146,6 +147,7 @@ export const registerIpcMainHandlers = () => {
     return poetryInstallRequirementsUserGroup(filePath);
   });
   ipcMain.handle(API.openFilePicker, openFilePicker);
+  ipcMain.handle(API.openFilesPicker, openFilesPicker);
   ipcMain.handle(
     API.openTestPicker,
     async (e) => await openFilePicker(e, "Test", ["json", "py"]),

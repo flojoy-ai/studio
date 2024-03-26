@@ -152,6 +152,40 @@ export const openFilePicker = (
   });
 };
 
+export const openFilesPicker = (
+  _,
+  name: string = "File",
+  allowedExtensions: string[] = ["json"],
+): Promise<{ filePath: string; fileContent: string }[] | undefined> => {
+  // Return mutiple files or all file with the allowed extensions if a folder is selected
+  return new Promise((resolve, reject) => {
+    try {
+      console.log("Files Picker: " + allowedExtensions);
+      const selectedPaths = dialog.showOpenDialogSync(global.mainWindow, {
+        properties: ["openFile", "multiSelections"],
+        filters: [
+          {
+            extensions: allowedExtensions,
+            name,
+          },
+        ],
+      });
+      if (selectedPaths && selectedPaths.length > 0) {
+        const files = selectedPaths.map((path) => { 
+          return {
+            filePath: path.split(sep).join(posix.sep),
+            fileContent: fs.readFileSync(path, { encoding: "utf-8" }),
+          }
+        });
+        resolve(files);
+      }
+      resolve(undefined);
+    } catch (error) {
+      reject(String(error));
+    }
+  });
+};
+
 export const cleanup = async () => {
   const captainProcess = global.captainProcess as ChildProcess;
   log.info(
