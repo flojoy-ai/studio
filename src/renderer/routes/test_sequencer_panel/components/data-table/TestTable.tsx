@@ -95,7 +95,7 @@ export function TestTable() {
       ),
       cell: ({ row }) => (
         <Checkbox
-          className="relative z-20"
+          className="relative z-20 my-2"
           checked={row.getIsSelected()}
           onCheckedChange={(value) => row.toggleSelected(!!value)}
           aria-label="Select row"
