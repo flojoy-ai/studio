@@ -56,9 +56,9 @@ import { useModalState } from "@/renderer/hooks/useModalState";
 import { mapStatusToDisplay } from "./utils";
 
 
-export function StepTable() {
+export function TestTable() {
   const { elems, setElems } = useTestSequencerState();
-  const { openRenameTestModal } = useModalState();
+  const { openRenameTestModal, setIsImportTestModalOpen } = useModalState();
   const [addIfStatement] = useState(false);
   const indentLevels = getIndentLevels(elems);
   const [openPyTestFileModal, setOpenPyTestFileModal] = useState(false);
@@ -501,9 +501,10 @@ export function StepTable() {
               <TableRow>
                 <TableCell
                   colSpan={columns.length + 1}
-                  className="h-24 text-center"
+                  className="h-24 text-center cursor-pointer hover:underline"
+                  onClick={() => setIsImportTestModalOpen(true)} 
                 >
-                  No Tests
+                  No Tests 
                 </TableCell>
               </TableRow>
             )}

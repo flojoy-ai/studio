@@ -14,7 +14,7 @@ export function CyclePanel() {
     <div className="rounded-xl border border-gray-300 dark:border-gray-800 mr-4 flex-none">
       <div className="flex flex-col">
         <h2 className="px-4 pt-2 text-lg font-bold text-accent1">
-          Cycle
+          Run Sequences In Cycle
         </h2>
         <div className="px-4 flex mb-2">
 

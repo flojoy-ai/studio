@@ -12,11 +12,8 @@ import { ControlButton } from "./ControlButton";
 
 export function DesignPanel() {
   const { setIsImportTestModalOpen, setIsCreateProjectModalOpen } = useModalStore();
-  const { project } = useTestSequencerState();
 
   const projectImport = useImportProject();
-  const saveProject = useSaveSequence();
-  const closeProject = useCloseProject();
 
   return (
     <div className="py-4">

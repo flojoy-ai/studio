@@ -1,4 +1,4 @@
-import { StepTable } from "./data-table/StepTable";
+import { TestTable } from "./data-table/TestTable";
 import { SummaryTable } from "./data-table/SummaryTable";
 import { SequenceTable } from "./data-table/SequenceTable";
 import { CloudPanel } from "./CloudPanel";
@@ -41,7 +41,7 @@ const TestSequencerView = () => {
               <SummaryTable />
             </div>
             <SequenceTable />
-            <StepTable />
+            <TestTable />
           </div>
 
           <div className="flex-none" style={{ width: "28%" }} >

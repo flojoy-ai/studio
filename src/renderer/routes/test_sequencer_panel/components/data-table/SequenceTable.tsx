@@ -40,11 +40,13 @@ import LockableButton from "@/renderer/routes/test_sequencer_panel/components/lo
 import { useState } from "react";
 import { DraggableRowSequence } from "../dnd/DraggableRowSequence";
 import { getCompletionTime, mapStatusToDisplay } from "./utils";
+import { useModalState } from "@/renderer/hooks/useModalState";
 
 
 export function SequenceTable() {
 
   const { sequences, setSequences, project, isLocked, removeSequence } = useTestSequencerState();
+  const { setIsCreateProjectModalOpen } = useModalState();
 
   const columns: ColumnDef<TestSequenceContainer>[] = [
     {
@@ -313,9 +315,10 @@ export function SequenceTable() {
               <TableRow>
                 <TableCell
                   colSpan={columns.length + 1}
-                  className="h-24 text-center"
+                  className="h-24 text-center cursor-pointer hover:underline"
+                  onClick={() => setIsCreateProjectModalOpen(true)} 
                 >
-                  No Sequences
+                  No Sequences 
                 </TableCell>
               </TableRow>
             )}
