@@ -13,6 +13,7 @@ import {
 import { TestSequencerProject } from "@/renderer/types/test-sequencer";
 import { testSequenceRunRequest } from "../routes/test_sequencer_panel/models/models";
 import { toast } from "sonner";
+import { createTestSequenceTree } from "../hooks/useTestSequencerState";
 
 type State = {
   websocketId: string;
@@ -176,6 +177,8 @@ export const useSequencerStore = create<State & Actions>()(
         // Clear the sequencer
         resetSequencesToPending(state);
         state.clearPreviousCycles();
+        // Make sure the Tree is up to date
+        state.testSequenceStepTree = createTestSequenceTree(state.elements);
         // Run the first sequence
         sender(testSequenceRunRequest(state.testSequenceStepTree));
       }),
@@ -217,7 +220,7 @@ export const useSequencerStore = create<State & Actions>()(
         // Save this sequence
         state.sequences.push({
           project: project,
-          tree: { type: "root", children: elements, identifiers: [] },
+          tree: createTestSequenceTree(elements),
           elements: elements,
           testSequenceUnsaved: false,
           status: "pending",

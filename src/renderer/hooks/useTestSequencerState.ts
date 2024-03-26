@@ -32,7 +32,7 @@ export type SetElemsFn = {
  * This test sequence element is guaranteed to be valid.
  * @param elems - The array of test sequence elements
  */
-const createTestSequenceTree = (elems: TestSequenceElement[]): TestRootNode => {
+export const createTestSequenceTree = (elems: TestSequenceElement[]): TestRootNode => {
   const identifiers = (
     elems.filter((elem) => elem.type === "test") as Test[]
   ).map((elem: Test) => {
