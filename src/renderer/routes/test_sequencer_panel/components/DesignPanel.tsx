@@ -1,9 +1,9 @@
 import { useModalStore } from "@/renderer/stores/modal";
 import LockableButton from "./lockable/LockedButtons";
 import {
-  useImportProject,
+  useImportSequence,
   useSaveSequence,
-  useCloseProject,
+  useCloseSequence,
 } from "@/renderer/hooks/useTestSequencerProject";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import _ from "lodash";
@@ -13,7 +13,7 @@ import { ControlButton } from "./ControlButton";
 export function DesignPanel() {
   const { setIsImportTestModalOpen, setIsCreateProjectModalOpen } = useModalStore();
 
-  const projectImport = useImportProject();
+  const projectImport = useImportSequence();
 
   return (
     <div className="py-4">

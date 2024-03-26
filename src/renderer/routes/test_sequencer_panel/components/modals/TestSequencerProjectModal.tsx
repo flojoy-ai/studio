@@ -3,7 +3,7 @@ import { Button } from "@/renderer/components/ui/button";
 import { useState } from "react";
 import { Input } from "@/renderer/components/ui/input";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
-import { useCreateProject } from "@/renderer/hooks/useTestSequencerProject";
+import { useCreateSequence } from "@/renderer/hooks/useTestSequencerProject";
 import { InterpreterType } from "@/renderer/types/test-sequencer";
 import { PathInput } from "@/renderer/components/ui/path-input";
 import { useModalStore } from "@/renderer/stores/modal";
@@ -12,7 +12,7 @@ export const TestSequencerProjectModal = () => {
   const { isCreateProjectModalOpen, setIsCreateProjectModalOpen } =
     useModalStore();
   const { elems } = useTestSequencerState();
-  const handleCreate = useCreateProject();
+  const handleCreate = useCreateSequence();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [projectDirPath, setProjectDirPath] = useState("");

@@ -1,8 +1,8 @@
 import { MenubarItem, MenubarShortcut } from "@/renderer/components/ui/menubar";
-import { useImportProject} from "@/renderer/hooks/useTestSequencerProject";
+import { useImportSequence} from "@/renderer/hooks/useTestSequencerProject";
 
 export const ImportSequenceButton = () => {
-  const importSequence = useImportProject();
+  const importSequence = useImportSequence();
 
   return (
     <MenubarItem

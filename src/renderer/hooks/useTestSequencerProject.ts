@@ -3,11 +3,11 @@ import { useTestSequencerState } from "./useTestSequencerState";
 import { TestSequencerProject } from "@/renderer/types/test-sequencer";
 import { toast } from "sonner";
 import {
-  createProject,
-  saveProject as saveSequence,
-  importProject,
+  createSequence,
+  saveSequence as saveSequence,
+  importSequence,
   StateManager,
-  closeProject,
+  closeSequence,
   saveSequences,
 } from "@/renderer/routes/test_sequencer_panel/utils/TestSequenceProjectHandler";
 
@@ -68,15 +68,15 @@ export function useSaveAllSequences() {
   return withPermissionCheck(handle);
 }
 
-export function useCreateProject() {
+export function useCreateSequence() {
   const { withPermissionCheck } = useWithPermission();
   const manager = usePrepareStateManager();
   const handle = async (
     project: TestSequencerProject,
     setModalOpen: (val: boolean) => void | null,
   ) => {
-    toast.promise(createProject(project, manager, true), {
-      loading: "Creating project...",
+    toast.promise(createSequence(project, manager, true), {
+      loading: "Creating sequence...",
       success: (result) => {
         if (result.ok) {
           if (setModalOpen) {
@@ -94,14 +94,14 @@ export function useCreateProject() {
   return withPermissionCheck(handle);
 }
 
-export const useImportProject = () => {
+export const useImportSequence = () => {
   const manager = usePrepareStateManager(true);
   const handleImport = async () => {
     window.api.openFilePicker(["tjoy"]).then((result) => {
       if (!result) return;
       const { filePath, fileContent } = result;
-      toast.promise(importProject(filePath, fileContent, manager, true), {
-        loading: "Importing project...",
+      toast.promise(importSequence(filePath, fileContent, manager, true), {
+        loading: "Importing sequence...",
         success: (result) => {
           if (result.ok) {
             return "Sequence imported";
@@ -116,7 +116,7 @@ export const useImportProject = () => {
   return handleImport;
 };
 
-export const useCloseProject = () => {
+export const useCloseSequence = () => {
   const { isUnsaved } = useTestSequencerState();
   const manager = usePrepareStateManager();
   const handle = async () => {
@@ -126,7 +126,7 @@ export const useCloseProject = () => {
       );
       if (!shouldContinue) return;
     }
-    await closeProject(manager);
+    await closeSequence(manager);
   };
 
   return handle;
