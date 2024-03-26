@@ -15,6 +15,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/ren
 import { DesignPanel } from "./DesignPanel";
 import { CyclePanel } from "./CyclePanel";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
+import SequencerKeyboardShortcuts from "../SequencerKeyboardShortCuts";
 
 const TestSequencerView = () => {
 
@@ -22,6 +23,7 @@ const TestSequencerView = () => {
 
   return (
     <LockedContextProvider>
+      <SequencerKeyboardShortcuts />
       <div
         style={{
           height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT}px)`,

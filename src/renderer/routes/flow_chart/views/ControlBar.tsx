@@ -24,6 +24,8 @@ import ProfileMenu from "./user-profile/ProfileMenu";
 import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
 import FeedbackModal from "./FeedbackModal";
+import { SaveSequencesButton } from "../../test_sequencer_panel/components/control-bar/SaveButton";
+import { ImportSequenceButton } from "../../test_sequencer_panel/components/control-bar/ImportButton";
 
 const ControlBar = () => {
   const { activeTab } = useAppStore(
@@ -90,15 +92,21 @@ const ControlBar = () => {
             <MenubarTrigger id="file-btn" data-testid="file-button">
               File
             </MenubarTrigger>
-            <MenubarContent>
-              <SaveButton />
-              <SaveAsButton />
-              <ExportResultButton />
-              <SaveFlowChartBtn />
-              <LoadButton />
-            </MenubarContent>
+            { activeTab === "Test Sequencer" ? (
+              <MenubarContent>
+                <SaveSequencesButton />
+                <ImportSequenceButton />
+              </MenubarContent>
+            ) : (
+              <MenubarContent>
+                <SaveButton />
+                <SaveAsButton />
+                <ExportResultButton />
+                <SaveFlowChartBtn />
+                <LoadButton />
+              </MenubarContent>
+            )}
           </MenubarMenu>
-
           <MenubarMenu>
             <MenubarTrigger data-testid="settings-btn">Settings</MenubarTrigger>
             <MenubarContent>

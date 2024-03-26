@@ -13,12 +13,14 @@ const TestSequencerView = () => {
     <DndProvider backend={HTML5Backend}>
       <div className="px-12 py-2">
         {!isLoading && <TestSequencerInfo />}
-        <div
-          style={{height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT}px)`}}
-          className="flex justify-center items-center"
-        >
-          {isLoading && <h1 className="font-bold text-gray-500">Loading...</h1>}
-        </div>
+        {isLoading &&
+          <div
+            style={{height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT}px)`}}
+            className="flex justify-center items-center"
+          >
+            <h1 className="font-bold text-gray-500">Loading...</h1>
+          </div>
+        }
     </div>
     </DndProvider>
   );

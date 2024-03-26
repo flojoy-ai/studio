@@ -24,6 +24,7 @@ import {
   stringifyProject,
 } from "@/renderer/routes/test_sequencer_panel/utils/TestSetUtils";
 import {
+    TestSequenceContainer,
   TestSequenceElement,
   TestSequencerProject,
 } from "@/renderer/types/test-sequencer";
@@ -35,6 +36,7 @@ export type StateManager = {
   addNewSequence: (project: TestSequencerProject, elements: TestSequenceElement[]) => void;
   removeSequence: (name: string) => void;
   project: TestSequencerProject | null;
+  sequences: TestSequenceContainer[];
 };
 
 export async function createProject(
@@ -93,6 +95,38 @@ export async function saveProject(
     return buildResultFromCatch(e);
   }
 }
+
+export async function saveSequences(
+  stateManager: StateManager,
+  throwInsteadOfResult: boolean = false,
+): Promise<Result<null, Error>> {
+  // Save the current project to disk
+  try {
+    let containers = stateManager.sequences;
+    if (containers.length === 0) {
+      throw new Error("No sequences to save");
+    }
+    containers.forEach(async (ctn) => {
+      const elems = ctn.elements; 
+      let sequence = ctn.project;
+      sequence = validatePath(sequence);
+      sequence = updateProjectElements(
+        sequence,
+        await createProjectElementsFromTestSequencerElements(
+          elems,
+          sequence.projectPath,
+          true,
+        ),
+      );
+      await saveToDisk(sequence);
+    });
+    return Ok(null);
+  } catch (e: unknown) {
+    if (throwInsteadOfResult) throw e;
+    return buildResultFromCatch(e);
+  }
+}
+
 
 export async function importProject(
   filePath: string,

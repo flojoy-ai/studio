@@ -4,16 +4,17 @@ import { TestSequencerProject } from "@/renderer/types/test-sequencer";
 import { toast } from "sonner";
 import {
   createProject,
-  saveProject,
+  saveProject as saveSequence,
   importProject,
   StateManager,
   closeProject,
+  saveSequences,
 } from "@/renderer/routes/test_sequencer_panel/utils/TestSequenceProjectHandler";
 
 function usePrepareStateManager(
   withoutPermission: boolean = false,
 ): StateManager {
-  const { elems, project, addNewSequence, removeSequence } =
+  const { elems, project, addNewSequence, removeSequence, sequences } =
     useTestSequencerState();
   if (withoutPermission) {
     return {
@@ -21,25 +22,46 @@ function usePrepareStateManager(
       addNewSequence,
       removeSequence,
       project,
+      sequences,
     };
   }
-  return { elems, project, addNewSequence, removeSequence };
+  return { elems, project, addNewSequence, removeSequence, sequences };
 }
 
-export function useSaveProject() {
+export function useSaveSequence() {
   const { withPermissionCheck } = useWithPermission();
   const manager = usePrepareStateManager();
   const handle = async () => {
-    toast.promise(saveProject(manager, true), {
-      loading: "Saving project...",
+    toast.promise(saveSequence(manager, true), {
+      loading: "Saving sequence...",
       success: (result) => {
         if (result.ok) {
-          return "Project saved";
+          return "Sequence saved";
         } else {
-          return `Error saving project: ${result.error}`;
+          return `Error saving sequence: ${result.error}`;
         }
       },
-      error: (e) => `Error saving project: ${e}`,
+      error: (e) => `Error saving sequence: ${e}`,
+    });
+  };
+
+  return withPermissionCheck(handle);
+}
+
+export function useSaveAllSequences() {
+  const { withPermissionCheck } = useWithPermission();
+  const manager = usePrepareStateManager();
+  const handle = async () => {
+    toast.promise(saveSequences(manager, true), {
+      loading: "Saving sequences...",
+      success: (result) => {
+        if (result.ok) {
+          return "Sequences saved";
+        } else {
+          return `Error saving sequences: ${result.error}`;
+        }
+      },
+      error: (e) => `${e}`,
     });
   };
 
@@ -60,12 +82,12 @@ export function useCreateProject() {
           if (setModalOpen) {
             setModalOpen(false);
           }
-          return "Project created";
+          return "Sequence created";
         } else {
-          return `Error creating project: ${result.error}`;
+          return `Error creating sequence: ${result.error}`;
         }
       },
-      error: (e) => `Error creating project: ${e}`,
+      error: (e) => `Error creating sequence: ${e}`,
     });
   };
 
@@ -82,12 +104,12 @@ export const useImportProject = () => {
         loading: "Importing project...",
         success: (result) => {
           if (result.ok) {
-            return "Project imported";
+            return "Sequence imported";
           } else {
-            return `Error importing project: ${result.error}`;
+            return `Error importing sequence: ${result.error}`;
           }
         },
-        error: (e) => `Error importing project: ${e}`,
+        error: (e) => `Error importing sequence: ${e}`,
       });
     });
   };

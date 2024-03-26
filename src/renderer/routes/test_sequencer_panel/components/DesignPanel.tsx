@@ -2,13 +2,11 @@ import { useModalStore } from "@/renderer/stores/modal";
 import LockableButton from "./lockable/LockedButtons";
 import {
   useImportProject,
-  useSaveProject,
+  useSaveSequence,
   useCloseProject,
 } from "@/renderer/hooks/useTestSequencerProject";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import _ from "lodash";
-import { Button } from "@/renderer/components/ui/button";
-import { PauseIcon } from "lucide-react";
 import { ControlButton } from "./ControlButton";
 
 
@@ -17,7 +15,7 @@ export function DesignPanel() {
   const { project } = useTestSequencerState();
 
   const projectImport = useImportProject();
-  const saveProject = useSaveProject();
+  const saveProject = useSaveSequence();
   const closeProject = useCloseProject();
 
   return (
