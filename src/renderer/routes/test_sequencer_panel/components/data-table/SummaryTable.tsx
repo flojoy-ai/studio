@@ -20,7 +20,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/renderer/components/ui/table";
-import { filter, map } from "lodash";
+import { filter} from "lodash";
 import {
   CycleConfig,
   StatusType,
@@ -93,7 +93,7 @@ const columns: ColumnDef<Summary>[] = [
     accessorKey: "id",
     header: () => (
       <h2 className="mb-2 pt-2 text-lg font-bold text-accent1">
-        Info 
+        Summary 
       </h2>
     ),
     cell: () => <div>Summary:</div>,

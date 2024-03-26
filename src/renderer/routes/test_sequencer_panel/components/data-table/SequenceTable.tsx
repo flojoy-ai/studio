@@ -315,7 +315,7 @@ export function SequenceTable() {
                   colSpan={columns.length + 1}
                   className="h-24 text-center"
                 >
-                  No Sequence.
+                  No Sequences
                 </TableCell>
               </TableRow>
             )}

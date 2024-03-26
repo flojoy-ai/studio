@@ -22,7 +22,7 @@ export function DesignPanel() {
     <div className="py-4">
       <div className="flex flex-col">
         <h2 className="text-lg font-bold text-accent1 ">
-          Import Test 
+          Import Tests & Sequences
         </h2>
         <LockableButton
           className="mt-4 w-full"
@@ -31,26 +31,8 @@ export function DesignPanel() {
             setIsImportTestModalOpen(true);
           }}
         >
-          Add New Tests
+          Add New Tests 
         </LockableButton>
-          <LockableButton
-            className="mt-4 w-full"
-            variant="outline"
-            onClick={projectImport}
-          >
-            Import Sequence
-          </LockableButton>
-        {project !== null && (
-          <LockableButton
-            className="mt-4 w-full"
-            variant="outline"
-            onClick={() => {
-              saveProject();
-            }}
-          >
-            Save Sequence
-          </LockableButton>
-        )}
         <LockableButton
           className="mt-4 w-full"
           variant="outline"
@@ -60,7 +42,13 @@ export function DesignPanel() {
         >
           New Sequence
         </LockableButton>
-
+        <LockableButton
+          className="mt-4 w-full"
+          variant="outline"
+          onClick={projectImport}
+        >
+          Import Sequence
+        </LockableButton>
         <ControlButton />
 
       </div>

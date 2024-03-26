@@ -503,7 +503,7 @@ export function StepTable() {
                   colSpan={columns.length + 1}
                   className="h-24 text-center"
                 >
-                    No steps available.
+                  No Tests
                 </TableCell>
               </TableRow>
             )}

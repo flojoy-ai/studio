@@ -45,22 +45,22 @@ export const TestSequencerProjectModal = () => {
     >
       <DialogContent>
         <h2 className="mb-2 pt-3 text-center text-lg font-bold text-accent1 ">
-          Project Manager
+          Create a New Sequence
         </h2>
         <Input
-          placeholder="Project Name"
+          placeholder="Sequence Name"
           onChange={(e) => {
             setName(e.target.value);
           }}
         />
         <Input
-          placeholder="Project Description"
+          placeholder="Sequence Description"
           onChange={(e) => {
             setDescription(e.target.value);
           }}
         />
         <PathInput
-          placeholder="Project Folder"
+          placeholder="Root Directory"
           allowedExtention={["tjoy"]}
           onChange={(event) => {
             setProjectDirPath(event.target.value);
@@ -94,7 +94,7 @@ export const TestSequencerProjectModal = () => {
           // </div>
         }
         <Button variant={"default"} onClick={() => handleSubmit()}>
-          New Project
+          New Sequence
         </Button>
       </DialogContent>
     </Dialog>
