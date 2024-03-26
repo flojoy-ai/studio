@@ -99,6 +99,7 @@ export const useImportSequences = () => {
   const handleImport = async () => {
     window.api.openFilesPicker(["tjoy"]).then((result) => {
       if (!result) return;
+      // Assum all file in the same folder: Because of import
       result.forEach((res, idx) => {
         const { filePath, fileContent } = res;
         toast.promise(importSequence(filePath, fileContent, manager, true, idx !== 0), {
