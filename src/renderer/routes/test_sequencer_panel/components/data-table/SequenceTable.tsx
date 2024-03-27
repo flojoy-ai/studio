@@ -41,12 +41,16 @@ import { useState } from "react";
 import { DraggableRowSequence } from "../dnd/DraggableRowSequence";
 import { getCompletionTime, mapStatusToDisplay } from "./utils";
 import { useModalState } from "@/renderer/hooks/useModalState";
+import useWithPermission from "@/renderer/hooks/useWithPermission";
+import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 
 
 export function SequenceTable() {
 
   const { sequences, setSequences, project, isLocked, removeSequence } = useTestSequencerState();
   const { setIsCreateProjectModalOpen } = useModalState();
+  const importSequences = useImportSequences();
+  const { isAdmin } = useWithPermission();
 
   const columns: ColumnDef<TestSequenceContainer>[] = [
     {
@@ -316,9 +320,15 @@ export function SequenceTable() {
                 <TableCell
                   colSpan={columns.length + 1}
                   className="h-24 text-center cursor-pointer hover:underline"
-                  onClick={() => setIsCreateProjectModalOpen(true)} 
+                  onClick={() => {
+                    if (isAdmin()) {
+                      setIsCreateProjectModalOpen(true);
+                    } else {
+                      importSequences();
+                    }
+                  }} 
                 >
-                  No Sequences 
+                    No Sequence
                 </TableCell>
               </TableRow>
             )}

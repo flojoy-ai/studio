@@ -54,11 +54,15 @@ import { DraggableRowStep } from "@/renderer/routes/test_sequencer_panel/compone
 import PythonTestFileModal from "@/renderer/routes/test_sequencer_panel/components/modals/PythonTestFileModal";
 import { useModalState } from "@/renderer/hooks/useModalState";
 import { mapStatusToDisplay } from "./utils";
+import useWithPermission from "@/renderer/hooks/useWithPermission";
+import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 
 
 export function TestTable() {
   const { elems, setElems } = useTestSequencerState();
   const { openRenameTestModal, setIsImportTestModalOpen } = useModalState();
+  const importSequences = useImportSequences();
+  const { isAdmin } = useWithPermission();
   const [addIfStatement] = useState(false);
   const indentLevels = getIndentLevels(elems);
   const [openPyTestFileModal, setOpenPyTestFileModal] = useState(false);
@@ -502,9 +506,15 @@ export function TestTable() {
                 <TableCell
                   colSpan={columns.length + 1}
                   className="h-24 text-center cursor-pointer hover:underline"
-                  onClick={() => setIsImportTestModalOpen(true)} 
+                  onClick={() => {
+                    if (isAdmin()) {
+                      setIsImportTestModalOpen(true);
+                    } else {
+                      importSequences();
+                    }
+                  }}
                 >
-                  No Tests 
+                  No Tests
                 </TableCell>
               </TableRow>
             )}

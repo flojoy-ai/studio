@@ -32,7 +32,7 @@ const TestSequencerView = () => {
         <div className="flex overflow-y-auto">
 
           <div
-            className="pt-12 ml-auto mr-auto h-3/5 flex-grow flex-col overflow-y-auto"
+            className={`ml-auto mr-auto h-3/5 flex-grow flex-col overflow-y-auto ${isAdmin() ? "pt-12":"pt-2"}`}
             style={{ height: "calc(100vh - 260px)" }}
           >
             <div className="flex w-full">

@@ -1,7 +1,7 @@
 import { MenubarItem, MenubarShortcut } from "@/renderer/components/ui/menubar";
 import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 
-export const ImportSequenceButton = () => {
+export const ImportSequencesButton = () => {
   const importSequences = useImportSequences();
 
   return (
@@ -14,3 +14,4 @@ export const ImportSequenceButton = () => {
     </MenubarItem>
   );
 };
+

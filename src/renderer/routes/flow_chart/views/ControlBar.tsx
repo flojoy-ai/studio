@@ -25,7 +25,7 @@ import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
 import FeedbackModal from "./FeedbackModal";
 import { SaveSequencesButton } from "../../test_sequencer_panel/components/control-bar/SaveButton";
-import { ImportSequenceButton } from "../../test_sequencer_panel/components/control-bar/ImportButton";
+import { ImportSequencesButton } from "../../test_sequencer_panel/components/control-bar/ImportButton";
 
 const ControlBar = () => {
   const { activeTab } = useAppStore(
@@ -95,7 +95,7 @@ const ControlBar = () => {
             { activeTab === "Test Sequencer" ? (
               <MenubarContent>
                 <SaveSequencesButton />
-                <ImportSequenceButton />
+                <ImportSequencesButton />
               </MenubarContent>
             ) : (
               <MenubarContent>

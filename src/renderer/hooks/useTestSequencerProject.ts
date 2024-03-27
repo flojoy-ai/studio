@@ -95,10 +95,11 @@ export function useCreateSequence() {
 }
 
 export const useImportSequences = () => {
+  // TODO - When technicien in user, open from cloud project list
   const manager = usePrepareStateManager(true);
   const handleImport = async () => {
-    const result = await window.api.openFilesPicker(["tjoy"]);
-    if (!result) return;
+    const result = await window.api.openFilesPicker(["tjoy"], "Select your .tjoy file");
+    if (!result || result.length === 0) return;
     const importSequences = async () => {
       await Promise.all(result.map(async (res, idx) => {
         const { filePath, fileContent } = res;

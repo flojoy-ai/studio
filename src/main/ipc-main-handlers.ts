@@ -13,6 +13,7 @@ import {
   writeFileSync,
   isFileOnDisk,
   openFilesPicker,
+  openAllFilesInFolderPicker,
 } from "./utils";
 import {
   getAllLogs,
@@ -148,6 +149,8 @@ export const registerIpcMainHandlers = () => {
   });
   ipcMain.handle(API.openFilePicker, openFilePicker);
   ipcMain.handle(API.openFilesPicker, openFilesPicker);
+  ipcMain.handle(API.openAllFilesInFolderPicker, openAllFilesInFolderPicker);
+  
   ipcMain.handle(
     API.openTestPicker,
     async (e) => await openFilePicker(e, "Test", ["json", "py"]),
