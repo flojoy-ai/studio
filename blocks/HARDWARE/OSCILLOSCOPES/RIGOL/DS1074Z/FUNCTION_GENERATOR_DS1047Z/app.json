@@ -2,8 +2,8 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 96,
-                "height": 96,
+                "width": 236,
+                "height": 140,
                 "id": "TIMER-af2092d2-6267-43b2-8382-4be735c21696",
                 "type": "CONTROL_FLOW",
                 "data": {
@@ -28,8 +28,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -44,19 +44,19 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -19.83662885057582,
-                    "y": -246.83929718870968
+                    "x": -209.83662885057583,
+                    "y": -18.83929718870968
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -19.83662885057582,
-                    "y": -246.83929718870968
+                    "x": -209.83662885057583,
+                    "y": -18.83929718870968
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 96,
-                "height": 96,
+                "width": 236,
+                "height": 140,
                 "id": "TIMER-ce9eac17-7ceb-47d5-a5e5-7a27c6756142",
                 "type": "CONTROL_FLOW",
                 "data": {
@@ -81,8 +81,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -97,26 +97,26 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 456.2472389827203,
-                    "y": -259.3966574615769
+                    "x": 658.2472389827203,
+                    "y": -23.39665746157698
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 456.2472389827203,
-                    "y": -259.3966574615769
+                    "x": 658.2472389827203,
+                    "y": -23.39665746157698
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 218,
+                "height": 233,
                 "id": "CONNECTION_DS1074Z-9ceaa31c-c506-4126-a525-ef1e6d4919a9",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "CONNECTION_DS1074Z-9ceaa31c-c506-4126-a525-ef1e6d4919a9",
                     "label": "CONNECTION DS1074Z",
                     "func": "CONNECTION_DS1074Z",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "device": {
                             "type": "VisaDevice",
@@ -134,8 +134,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -146,30 +146,30 @@
                             "desc": "None"
                         }
                     ],
-                    "path": "HARDWARE/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/BASIC/CONNECTION_DS1074Z/CONNECTION_DS1074Z.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/CONNECTION_DS1074Z/CONNECTION_DS1074Z.py",
                     "selected": false
                 },
                 "position": {
-                    "x": -656.2108322876518,
-                    "y": -282.29830389922904
+                    "x": -1086.2108322876518,
+                    "y": -50.29830389922904
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -656.2108322876518,
-                    "y": -282.29830389922904
+                    "x": -1086.2108322876518,
+                    "y": -50.29830389922904
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 269,
                 "id": "FUNCTION_GENERATOR_DS1047Z-c6bd8eae-1c44-49f4-b6c5-9bf17fdd22a4",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "FUNCTION_GENERATOR_DS1047Z-c6bd8eae-1c44-49f4-b6c5-9bf17fdd22a4",
                     "label": "FUNCTION GENERATOR DS1047Z",
                     "func": "FUNCTION_GENERATOR_DS1047Z",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -310,8 +310,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -322,30 +322,30 @@
                             "desc": "String: summary of channel settings."
                         }
                     ],
-                    "path": "HARDWARE/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/ADVANCED/FUNCTION_GENERATOR_DS1047Z/FUNCTION_GENERATOR_DS1047Z.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/FUNCTION_GENERATOR_DS1047Z/FUNCTION_GENERATOR_DS1047Z.py",
                     "selected": false
                 },
                 "position": {
-                    "x": -353.2654755138159,
-                    "y": -286.77988248516954
+                    "x": -661.2654755138159,
+                    "y": -50.77988248516954
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -353.2654755138159,
-                    "y": -286.77988248516954
+                    "x": -661.2654755138159,
+                    "y": -50.77988248516954
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 269,
                 "id": "FUNCTION_GENERATOR_DS1047Z-89f1ee84-f87f-4f23-8928-59fcb2632352",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "FUNCTION_GENERATOR_DS1047Z-89f1ee84-f87f-4f23-8928-59fcb2632352",
                     "label": "FUNCTION GENERATOR DS1047Z 1",
                     "func": "FUNCTION_GENERATOR_DS1047Z",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -486,8 +486,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -498,30 +498,30 @@
                             "desc": "String: summary of channel settings."
                         }
                     ],
-                    "path": "HARDWARE/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/ADVANCED/FUNCTION_GENERATOR_DS1047Z/FUNCTION_GENERATOR_DS1047Z.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/FUNCTION_GENERATOR_DS1047Z/FUNCTION_GENERATOR_DS1047Z.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 162.27465760271468,
-                    "y": -298.7088376538611
+                    "x": 204.27465760271468,
+                    "y": -48.70883765386111
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 162.27465760271468,
-                    "y": -298.7088376538611
+                    "x": 204.27465760271468,
+                    "y": -48.70883765386111
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 269,
                 "id": "FUNCTION_GENERATOR_DS1047Z-6525c24a-5661-49de-a760-7e270a2ada14",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "FUNCTION_GENERATOR_DS1047Z-6525c24a-5661-49de-a760-7e270a2ada14",
                     "label": "FUNCTION GENERATOR DS1047Z 2",
                     "func": "FUNCTION_GENERATOR_DS1047Z",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -662,8 +662,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -674,63 +674,76 @@
                             "desc": "String: summary of channel settings."
                         }
                     ],
-                    "path": "HARDWARE/INSTRUMENTS/OSCILLOSCOPES/RIGOL/DS1074Z/ADVANCED/FUNCTION_GENERATOR_DS1047Z/FUNCTION_GENERATOR_DS1047Z.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/RIGOL/DS1074Z/FUNCTION_GENERATOR_DS1047Z/FUNCTION_GENERATOR_DS1047Z.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 640.450922163319,
-                    "y": -311.9006945975107
+                    "x": 1168.4509221633189,
+                    "y": -53.900694597510665
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 640.450922163319,
-                    "y": -311.9006945975107
+                    "x": 1168.4509221633189,
+                    "y": -53.900694597510665
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
+                "id": "CONNECTION_DS1074Z-9ceaa31c-c506-4126-a525-ef1e6d4919a9->FUNCTION_GENERATOR_DS1047Z-c6bd8eae-1c44-49f4-b6c5-9bf17fdd22a4_40e0fcb5-b146-44e2-ad2a-a9fbeac80f32",
                 "source": "CONNECTION_DS1074Z-9ceaa31c-c506-4126-a525-ef1e6d4919a9",
-                "sourceHandle": "default",
                 "target": "FUNCTION_GENERATOR_DS1047Z-c6bd8eae-1c44-49f4-b6c5-9bf17fdd22a4",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CONNECTION_DS1074Z-9ceaa31c-c506-4126-a525-ef1e6d4919a9default-FUNCTION_GENERATOR_DS1047Z-c6bd8eae-1c44-49f4-b6c5-9bf17fdd22a4default"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
+                "id": "FUNCTION_GENERATOR_DS1047Z-c6bd8eae-1c44-49f4-b6c5-9bf17fdd22a4->TIMER-af2092d2-6267-43b2-8382-4be735c21696_77fbc577-a1a6-4e60-8f35-2669ef806d43",
                 "source": "FUNCTION_GENERATOR_DS1047Z-c6bd8eae-1c44-49f4-b6c5-9bf17fdd22a4",
-                "sourceHandle": "default",
                 "target": "TIMER-af2092d2-6267-43b2-8382-4be735c21696",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-FUNCTION_GENERATOR_DS1047Z-c6bd8eae-1c44-49f4-b6c5-9bf17fdd22a4default-TIMER-af2092d2-6267-43b2-8382-4be735c21696default"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "TIMER-af2092d2-6267-43b2-8382-4be735c21696->FUNCTION_GENERATOR_DS1047Z-89f1ee84-f87f-4f23-8928-59fcb2632352_f154b90b-32d9-4a24-9db4-d3b0ef4d1539",
                 "source": "TIMER-af2092d2-6267-43b2-8382-4be735c21696",
-                "sourceHandle": "default",
                 "target": "FUNCTION_GENERATOR_DS1047Z-89f1ee84-f87f-4f23-8928-59fcb2632352",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TIMER-af2092d2-6267-43b2-8382-4be735c21696default-FUNCTION_GENERATOR_DS1047Z-89f1ee84-f87f-4f23-8928-59fcb2632352default"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
+                "id": "FUNCTION_GENERATOR_DS1047Z-89f1ee84-f87f-4f23-8928-59fcb2632352->TIMER-ce9eac17-7ceb-47d5-a5e5-7a27c6756142_1e78ea96-3283-4852-b38f-e4e761e0f997",
                 "source": "FUNCTION_GENERATOR_DS1047Z-89f1ee84-f87f-4f23-8928-59fcb2632352",
-                "sourceHandle": "default",
                 "target": "TIMER-ce9eac17-7ceb-47d5-a5e5-7a27c6756142",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-FUNCTION_GENERATOR_DS1047Z-89f1ee84-f87f-4f23-8928-59fcb2632352default-TIMER-ce9eac17-7ceb-47d5-a5e5-7a27c6756142default"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "TIMER-ce9eac17-7ceb-47d5-a5e5-7a27c6756142->FUNCTION_GENERATOR_DS1047Z-6525c24a-5661-49de-a760-7e270a2ada14_29cf1073-410b-4c46-baa0-77dfda6a6d28",
                 "source": "TIMER-ce9eac17-7ceb-47d5-a5e5-7a27c6756142",
-                "sourceHandle": "default",
                 "target": "FUNCTION_GENERATOR_DS1047Z-6525c24a-5661-49de-a760-7e270a2ada14",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TIMER-ce9eac17-7ceb-47d5-a5e5-7a27c6756142default-FUNCTION_GENERATOR_DS1047Z-6525c24a-5661-49de-a760-7e270a2ada14default"
+                "data": {
+                    "outputType": "Any"
+                }
             }
-        ],
-        "viewport": {
-            "x": 1177.6156825958576,
-            "y": 657.56535325129,
-            "zoom": 1.1850094253528283
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

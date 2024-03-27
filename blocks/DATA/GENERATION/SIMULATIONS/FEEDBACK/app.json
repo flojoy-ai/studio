@@ -2,149 +2,32 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 380,
-                "height": 293,
-                "id": "BIG_NUMBER-e4942bf1-f23a-4344-80eb-c166dabb2dd2",
-                "type": "VISUALIZERS",
+                "id": "LOOP-a960c51e-2c47-4d5e-a53a-2cc1de676efe",
+                "type": "CONTROL_FLOW",
                 "data": {
-                    "id": "BIG_NUMBER-e4942bf1-f23a-4344-80eb-c166dabb2dd2",
-                    "label": "BIG NUMBER",
-                    "func": "BIG_NUMBER",
-                    "type": "VISUALIZERS",
-                    "ctrls": {
-                        "suffix": {
-                            "type": "str",
-                            "default": null,
-                            "functionName": "BIG_NUMBER",
-                            "param": "suffix",
-                            "value": ""
-                        },
-                        "prefix": {
-                            "type": "str",
-                            "default": null,
-                            "functionName": "BIG_NUMBER",
-                            "param": "prefix",
-                            "value": ""
-                        },
-                        "title": {
-                            "type": "str",
-                            "default": null,
-                            "functionName": "BIG_NUMBER",
-                            "param": "title",
-                            "value": ""
-                        },
-                        "relative_delta": {
-                            "type": "bool",
-                            "default": true,
-                            "functionName": "BIG_NUMBER",
-                            "param": "relative_delta",
-                            "value": true
-                        }
-                    },
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\BIG_NUMBER\\BIG_NUMBER.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 627.0045699600352,
-                    "y": 110.02353935715365
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 627.0045699600352,
-                    "y": 110.02353935715365
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "FEEDBACK-f81e0c07-98f4-4f31-b5b3-7a32118d139e",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "FEEDBACK-f81e0c07-98f4-4f31-b5b3-7a32118d139e",
-                    "label": "FEEDBACK",
-                    "func": "FEEDBACK",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "referred_node": {
-                            "type": "NodeReference",
-                            "default": "",
-                            "functionName": "FEEDBACK",
-                            "param": "referred_node",
-                            "value": "MULTIPLY-c463c154-d47a-4ed4-bc8d-ef5e6d237a6a"
-                        }
-                    },
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\FEEDBACK\\FEEDBACK.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 341.09724320819623,
-                    "y": 92.35595321700652
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 341.09724320819623,
-                    "y": 92.35595321700652
-                },
-                "dragging": true
-            },
-            {
-                "width": 96,
-                "height": 96,
-                "id": "LOOP-053d8521-fb3b-4c7d-85d0-9785230aeb2f",
-                "type": "LOGIC_GATES",
-                "data": {
-                    "id": "LOOP-053d8521-fb3b-4c7d-85d0-9785230aeb2f",
+                    "id": "LOOP-a960c51e-2c47-4d5e-a53a-2cc1de676efe",
                     "label": "LOOP",
                     "func": "LOOP",
-                    "type": "LOGIC_GATES",
+                    "type": "CONTROL_FLOW",
                     "ctrls": {
                         "num_loops": {
                             "type": "int",
                             "default": -1,
-                            "desc": "number of times to iterate through body nodes default is `-1` meaning infinity.",
+                            "desc": "number of times to iterate through body nodes, default is \"-1\" meaning infinity.",
+                            "overload": null,
                             "functionName": "LOOP",
                             "param": "num_loops",
-                            "value": "5"
+                            "value": 100
                         }
                     },
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -152,172 +35,353 @@
                             "name": "body",
                             "id": "body",
                             "type": "Any",
-                            "desc": null
+                            "desc": "Forwards the input DataContainer to the body."
                         },
                         {
                             "name": "end",
                             "id": "end",
                             "type": "Any",
-                            "desc": null
+                            "desc": "Forwards the input DataContainer to the end."
                         }
                     ],
-                    "path": "PYTHON/nodes\\LOGIC_GATES\\LOOPS\\LOOP\\LOOP.py",
-                    "selected": false
+                    "path": "CONTROL_FLOW/LOOPS/LOOP/LOOP.py"
                 },
                 "position": {
-                    "x": -175.2242470174267,
-                    "y": 223.309405138469
+                    "x": -426.2844262503926,
+                    "y": 57.24250121908801
                 },
+                "width": 236,
+                "height": 198,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -175.2242470174267,
-                    "y": 223.309405138469
+                    "x": -426.2844262503926,
+                    "y": 57.24250121908801
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
-                "id": "CONSTANT-8abbba8b-424f-4b20-888f-1cca9b62f89f",
-                "type": "GENERATORS",
+                "id": "CONSTANT-c81abc16-a942-42eb-a6ba-afbb754b4664",
+                "type": "DATA",
                 "data": {
-                    "id": "CONSTANT-8abbba8b-424f-4b20-888f-1cca9b62f89f",
+                    "id": "CONSTANT-c81abc16-a942-42eb-a6ba-afbb754b4664",
                     "label": "2",
                     "func": "CONSTANT",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
+                        "dc_type": {
+                            "type": "select",
+                            "default": "OrderedPair",
+                            "options": [
+                                "Scalar",
+                                "Vector",
+                                "OrderedPair"
+                            ],
+                            "desc": "The type of DataContainer to return.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "dc_type",
+                            "value": "Scalar"
+                        },
                         "constant": {
                             "type": "float",
                             "default": 3,
-                            "desc": null,
+                            "desc": "The value of the y axis output.",
+                            "overload": null,
                             "functionName": "CONSTANT",
                             "param": "constant",
-                            "value": "2"
+                            "value": 2
                         },
                         "step": {
-                            "type": "int",
+                            "type": "float",
                             "default": 1000,
-                            "desc": null,
+                            "desc": "The size of the y and x axes.",
+                            "overload": null,
                             "functionName": "CONSTANT",
                             "param": "step",
                             "value": 1000
                         }
                     },
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": null
+                            "desc": "Optional input that defines the size of the output.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "OrderedPair",
-                            "desc": null
+                            "type": "OrderedPair|Vector|Scalar",
+                            "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
                         }
                     ],
-                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\CONSTANT\\CONSTANT.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
                 },
                 "position": {
-                    "x": 50.92457046813533,
-                    "y": 305.3771474020375
+                    "x": 181.37542727199644,
+                    "y": 186.43805165177247
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 50.92457046813533,
-                    "y": 305.3771474020375
+                    "x": 181.37542727199644,
+                    "y": 186.43805165177247
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
-                "id": "CONSTANT-449b5a47-6d72-4f30-a239-8b3e2ba721bb",
-                "type": "GENERATORS",
+                "id": "CONSTANT-09a9e743-51c2-480f-b21d-0f31691c54ce",
+                "type": "DATA",
                 "data": {
-                    "id": "CONSTANT-449b5a47-6d72-4f30-a239-8b3e2ba721bb",
+                    "id": "CONSTANT-09a9e743-51c2-480f-b21d-0f31691c54ce",
                     "label": "4",
                     "func": "CONSTANT",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
+                        "dc_type": {
+                            "type": "select",
+                            "default": "OrderedPair",
+                            "options": [
+                                "Scalar",
+                                "Vector",
+                                "OrderedPair"
+                            ],
+                            "desc": "The type of DataContainer to return.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "dc_type",
+                            "value": "Scalar"
+                        },
                         "constant": {
                             "type": "float",
                             "default": 3,
-                            "desc": null,
+                            "desc": "The value of the y axis output.",
+                            "overload": null,
                             "functionName": "CONSTANT",
                             "param": "constant",
-                            "value": "4"
+                            "value": 4
                         },
                         "step": {
-                            "type": "int",
+                            "type": "float",
                             "default": 1000,
-                            "desc": null,
+                            "desc": "The size of the y and x axes.",
+                            "overload": null,
                             "functionName": "CONSTANT",
                             "param": "step",
                             "value": 1000
                         }
                     },
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": null
+                            "desc": "Optional input that defines the size of the output.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "OrderedPair",
-                            "desc": null
+                            "type": "OrderedPair|Vector|Scalar",
+                            "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
                         }
                     ],
-                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\CONSTANT\\CONSTANT.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
                 },
                 "position": {
-                    "x": 30.577110066478696,
-                    "y": 130.70166876803648
+                    "x": 183.59634471511174,
+                    "y": -103.62305549742308
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 30.577110066478696,
-                    "y": 130.70166876803648
+                    "x": 183.59634471511174,
+                    "y": -103.62305549742308
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 72,
-                "height": 72,
-                "id": "MULTIPLY-c463c154-d47a-4ed4-bc8d-ef5e6d237a6a",
-                "type": "ARITHMETIC",
+                "id": "BIG_NUMBER-e8fa5eea-e2fe-4ec9-bf79-da2d4590a09f",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "MULTIPLY-c463c154-d47a-4ed4-bc8d-ef5e6d237a6a",
+                    "id": "BIG_NUMBER-e8fa5eea-e2fe-4ec9-bf79-da2d4590a09f",
+                    "label": "BIG NUMBER",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any suffix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": ""
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "dec_places": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "dec_places",
+                            "value": 0
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Use scientific notation? Defaults to 4 decimal places.",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py"
+                },
+                "position": {
+                    "x": 1106.14586055443,
+                    "y": -143.4855602725732
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1106.14586055443,
+                    "y": -143.4855602725732
+                },
+                "dragging": false
+            },
+            {
+                "id": "FEEDBACK-70b83cb8-8f51-49a0-8ffe-3fa3d05281ab",
+                "type": "DATA",
+                "data": {
+                    "id": "FEEDBACK-70b83cb8-8f51-49a0-8ffe-3fa3d05281ab",
+                    "label": "FEEDBACK",
+                    "func": "FEEDBACK",
+                    "type": "DATA",
+                    "ctrls": {
+                        "referred_node": {
+                            "type": "NodeReference",
+                            "default": null,
+                            "desc": "The node ID to capture the result from.",
+                            "overload": null,
+                            "functionName": "FEEDBACK",
+                            "param": "referred_node",
+                            "value": ""
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "The result of the specified node ID, or the result of the parent node if it was not found."
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/FEEDBACK/FEEDBACK.py"
+                },
+                "position": {
+                    "x": 557.775900462822,
+                    "y": -109.0358868814564
+                },
+                "width": 216,
+                "height": 197,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 557.775900462822,
+                    "y": -109.0358868814564
+                },
+                "dragging": false
+            },
+            {
+                "id": "MULTIPLY-28e73492-c763-41ee-ba8d-c5708f222e50",
+                "type": "MATH",
+                "data": {
+                    "id": "MULTIPLY-28e73492-c763-41ee-ba8d-c5708f222e50",
                     "label": "MULTIPLY",
                     "func": "MULTIPLY",
-                    "type": "ARITHMETIC",
+                    "type": "MATH",
                     "ctrls": {},
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "a",
                             "id": "a",
                             "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": null
+                            "desc": "The input a use to compute the product of a and b.",
+                            "multiple": false
                         },
                         {
                             "name": "b",
                             "id": "b",
                             "type": "OrderedPair|Scalar|Vector",
-                            "multiple": true,
-                            "desc": null
+                            "desc": "The input b use to compute the product of a and b.",
+                            "multiple": true
                         }
                     ],
                     "outputs": [
@@ -325,91 +389,87 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Scalar|Vector",
-                            "desc": null
+                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the result of the product of input a and input b.\n\nScalar if a is a Scalar.\nc: the result of the product of input a and input b.\n\nVector if a is a Vector.\nv: the result of the product of input a and input b."
                         }
                     ],
-                    "path": "PYTHON/nodes\\TRANSFORMERS\\ARITHMETIC\\MULTIPLY\\MULTIPLY.py",
-                    "selected": false
+                    "path": "MATH/ARITHMETIC/MULTIPLY/MULTIPLY.py"
                 },
                 "position": {
-                    "x": 475.6559607373604,
-                    "y": 304.0731615929962
+                    "x": 912.2466959472752,
+                    "y": 161.57860877725705
                 },
+                "width": 216,
+                "height": 198,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 475.6559607373604,
-                    "y": 304.0731615929962
+                    "x": 912.2466959472752,
+                    "y": 161.57860877725705
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "FEEDBACK-f81e0c07-98f4-4f31-b5b3-7a32118d139e",
-                "sourceHandle": "default",
-                "target": "BIG_NUMBER-e4942bf1-f23a-4344-80eb-c166dabb2dd2",
-                "targetHandle": "default",
-                "id": "reactflow__edge-FEEDBACK-f81e0c07-98f4-4f31-b5b3-7a32118d139edefault-BIG_NUMBER-e4942bf1-f23a-4344-80eb-c166dabb2dd2default"
-            },
-            {
-                "source": "LOOP-053d8521-fb3b-4c7d-85d0-9785230aeb2f",
+                "id": "LOOP-a960c51e-2c47-4d5e-a53a-2cc1de676efe->CONSTANT-09a9e743-51c2-480f-b21d-0f31691c54ce_ebefbeb3-4cac-4833-b043-0873291ae102",
+                "source": "LOOP-a960c51e-2c47-4d5e-a53a-2cc1de676efe",
+                "target": "CONSTANT-09a9e743-51c2-480f-b21d-0f31691c54ce",
                 "sourceHandle": "body",
-                "target": "CONSTANT-449b5a47-6d72-4f30-a239-8b3e2ba721bb",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LOOP-053d8521-fb3b-4c7d-85d0-9785230aeb2fbody-CONSTANT-449b5a47-6d72-4f30-a239-8b3e2ba721bbdefault"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "LOOP-053d8521-fb3b-4c7d-85d0-9785230aeb2f",
+                "id": "LOOP-a960c51e-2c47-4d5e-a53a-2cc1de676efe->CONSTANT-c81abc16-a942-42eb-a6ba-afbb754b4664_7ac40ea3-0cbb-4943-927d-6ec98820e42a",
+                "source": "LOOP-a960c51e-2c47-4d5e-a53a-2cc1de676efe",
+                "target": "CONSTANT-c81abc16-a942-42eb-a6ba-afbb754b4664",
                 "sourceHandle": "body",
-                "target": "CONSTANT-8abbba8b-424f-4b20-888f-1cca9b62f89f",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LOOP-053d8521-fb3b-4c7d-85d0-9785230aeb2fbody-CONSTANT-8abbba8b-424f-4b20-888f-1cca9b62f89fdefault"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "CONSTANT-449b5a47-6d72-4f30-a239-8b3e2ba721bb",
+                "id": "CONSTANT-09a9e743-51c2-480f-b21d-0f31691c54ce->FEEDBACK-70b83cb8-8f51-49a0-8ffe-3fa3d05281ab_35289fa7-620c-4441-816d-cbf4a88cf95b",
+                "source": "CONSTANT-09a9e743-51c2-480f-b21d-0f31691c54ce",
+                "target": "FEEDBACK-70b83cb8-8f51-49a0-8ffe-3fa3d05281ab",
                 "sourceHandle": "default",
-                "target": "FEEDBACK-f81e0c07-98f4-4f31-b5b3-7a32118d139e",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CONSTANT-449b5a47-6d72-4f30-a239-8b3e2ba721bbdefault-FEEDBACK-f81e0c07-98f4-4f31-b5b3-7a32118d139edefault"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "FEEDBACK-f81e0c07-98f4-4f31-b5b3-7a32118d139e",
+                "id": "CONSTANT-c81abc16-a942-42eb-a6ba-afbb754b4664->MULTIPLY-28e73492-c763-41ee-ba8d-c5708f222e50_097c05aa-b28d-432c-8eca-66f08e279a34",
+                "source": "CONSTANT-c81abc16-a942-42eb-a6ba-afbb754b4664",
+                "target": "MULTIPLY-28e73492-c763-41ee-ba8d-c5708f222e50",
                 "sourceHandle": "default",
-                "target": "MULTIPLY-c463c154-d47a-4ed4-bc8d-ef5e6d237a6a",
-                "targetHandle": "a",
-                "id": "reactflow__edge-FEEDBACK-f81e0c07-98f4-4f31-b5b3-7a32118d139edefault-MULTIPLY-c463c154-d47a-4ed4-bc8d-ef5e6d237a6aa"
-            },
-            {
-                "source": "CONSTANT-8abbba8b-424f-4b20-888f-1cca9b62f89f",
-                "sourceHandle": "default",
-                "target": "MULTIPLY-c463c154-d47a-4ed4-bc8d-ef5e6d237a6a",
                 "targetHandle": "b",
-                "id": "reactflow__edge-CONSTANT-8abbba8b-424f-4b20-888f-1cca9b62f89fdefault-MULTIPLY-c463c154-d47a-4ed4-bc8d-ef5e6d237a6ab"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "FEEDBACK-70b83cb8-8f51-49a0-8ffe-3fa3d05281ab->BIG_NUMBER-e8fa5eea-e2fe-4ec9-bf79-da2d4590a09f_b93159b9-98f9-486c-9cc1-8216ad9c7994",
+                "source": "FEEDBACK-70b83cb8-8f51-49a0-8ffe-3fa3d05281ab",
+                "target": "BIG_NUMBER-e8fa5eea-e2fe-4ec9-bf79-da2d4590a09f",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Any"
+                }
+            },
+            {
+                "id": "FEEDBACK-70b83cb8-8f51-49a0-8ffe-3fa3d05281ab->MULTIPLY-28e73492-c763-41ee-ba8d-c5708f222e50_8a9b2f18-e2a8-4ab8-9c14-1bb1bfffa736",
+                "source": "FEEDBACK-70b83cb8-8f51-49a0-8ffe-3fa3d05281ab",
+                "target": "MULTIPLY-28e73492-c763-41ee-ba8d-c5708f222e50",
+                "sourceHandle": "default",
+                "targetHandle": "a",
+                "data": {
+                    "outputType": "Any"
+                }
             }
-        ],
-        "viewport": {
-            "x": 606.4472645567363,
-            "y": 234.63130388602087,
-            "zoom": 0.9186369849831518
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": []
 }

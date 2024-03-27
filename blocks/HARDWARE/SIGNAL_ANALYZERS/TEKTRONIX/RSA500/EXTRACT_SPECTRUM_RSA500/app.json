@@ -2,8 +2,8 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 269,
                 "id": "EXTRACT_SPECTRUM_RSA500-af96bf14-3bdd-4d09-b8e7-ca7e24083c8e",
                 "type": "HARDWARE",
                 "data": {
@@ -12,6 +12,15 @@
                     "func": "EXTRACT_SPECTRUM_RSA500",
                     "type": "HARDWARE",
                     "ctrls": {
+                        "dll_file": {
+                            "type": "File",
+                            "default": null,
+                            "desc": "Where the RSA_API.dll file is located.",
+                            "overload": null,
+                            "functionName": "EXTRACT_SPECTRUM_RSA500",
+                            "param": "dll_file",
+                            "value": ""
+                        },
                         "center_freq": {
                             "type": "float",
                             "default": 100000000,
@@ -55,8 +64,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -73,15 +82,15 @@
                     "x": 294.6907674218594,
                     "y": 110.23947430672145
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
                     "x": 294.6907674218594,
                     "y": 110.23947430672145
                 }
             },
             {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "LINE-e98d4d4b-6372-4419-9ebe-3af956455b26",
                 "type": "VISUALIZATION",
                 "data": {
@@ -89,15 +98,52 @@
                     "label": "LINE",
                     "func": "LINE",
                     "type": "VISUALIZATION",
-                    "ctrls": {},
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -111,31 +157,32 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
                 },
                 "position": {
-                    "x": 599.2583922530205,
-                    "y": 93.16762276530585
+                    "x": 692.0448332344039,
+                    "y": 73.33540637233835
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 599.2583922530205,
-                    "y": 93.16762276530585
+                    "x": 692.0448332344039,
+                    "y": 73.33540637233835
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
+                "id": "EXTRACT_SPECTRUM_RSA500-af96bf14-3bdd-4d09-b8e7-ca7e24083c8e->LINE-e98d4d4b-6372-4419-9ebe-3af956455b26_9c225f14-5bea-451a-9506-1b8c6a481f3d",
                 "source": "EXTRACT_SPECTRUM_RSA500-af96bf14-3bdd-4d09-b8e7-ca7e24083c8e",
-                "sourceHandle": "default",
                 "target": "LINE-e98d4d4b-6372-4419-9ebe-3af956455b26",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-EXTRACT_SPECTRUM_RSA500-af96bf14-3bdd-4d09-b8e7-ca7e24083c8edefault-LINE-e98d4d4b-6372-4419-9ebe-3af956455b26default"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             }
-        ],
-        "viewport": {
-            "x": 948.751833426666,
-            "y": 548.8961711096587,
-            "zoom": 0.8898510191682055
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

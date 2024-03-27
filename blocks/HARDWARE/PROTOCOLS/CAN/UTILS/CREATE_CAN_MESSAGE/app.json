@@ -5,12 +5,12 @@
                 "width": 192,
                 "height": 192,
                 "id": "CREATE_CAN_MESSAGE-7d0093f4-bf13-484c-b5e3-69eeb78d0873",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "CREATE_CAN_MESSAGE-7d0093f4-bf13-484c-b5e3-69eeb78d0873",
                     "label": "START MESSAGE",
                     "func": "CREATE_CAN_MESSAGE",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "frame_id": {
                             "type": "int",
@@ -99,12 +99,12 @@
                 "width": 192,
                 "height": 192,
                 "id": "SEND_CAN_MESSAGE-383458e7-ae08-4f3c-8d96-1f101efafeb0",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "SEND_CAN_MESSAGE-383458e7-ae08-4f3c-8d96-1f101efafeb0",
                     "label": "SEND CAN MESSAGE",
                     "func": "SEND_CAN_MESSAGE",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "CAN_address": {
                             "type": "str",
@@ -164,12 +164,12 @@
                 "width": 192,
                 "height": 192,
                 "id": "SEND_PERIODIC_CAN_MESSAGE-5553fe6d-8871-4309-bff3-5dacf630f417",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "SEND_PERIODIC_CAN_MESSAGE-5553fe6d-8871-4309-bff3-5dacf630f417",
                     "label": "SEND PERIODIC CAN MESSAGE",
                     "func": "SEND_PERIODIC_CAN_MESSAGE",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "CAN_address": {
                             "type": "str",
@@ -247,12 +247,12 @@
                 "width": 192,
                 "height": 192,
                 "id": "STOP_SEND_PERIODIC_CAN_MESSAGE-67dc0129-d0f1-4af6-873c-ad24d856c586",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "STOP_SEND_PERIODIC_CAN_MESSAGE-67dc0129-d0f1-4af6-873c-ad24d856c586",
                     "label": "STOP SEND PERIODIC CAN MESSAGE",
                     "func": "STOP_SEND_PERIODIC_CAN_MESSAGE",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "CAN_address": {
                             "type": "str",
@@ -357,12 +357,12 @@
                 "width": 192,
                 "height": 192,
                 "id": "CREATE_CAN_MESSAGE-d182a5b8-065c-4669-b27f-f7b3eacc6755",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "CREATE_CAN_MESSAGE-d182a5b8-065c-4669-b27f-f7b3eacc6755",
                     "label": "HEART BEAT MESSAGE",
                     "func": "CREATE_CAN_MESSAGE",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "frame_id": {
                             "type": "int",
@@ -451,12 +451,12 @@
                 "width": 192,
                 "height": 192,
                 "id": "CREATE_CAN_MESSAGE-91072c54-dda1-4467-b9ee-a667bb2081da",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "CREATE_CAN_MESSAGE-91072c54-dda1-4467-b9ee-a667bb2081da",
                     "label": "STOP MESSAGE",
                     "func": "CREATE_CAN_MESSAGE",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "frame_id": {
                             "type": "int",
@@ -545,12 +545,12 @@
                 "width": 192,
                 "height": 192,
                 "id": "SEND_CAN_MESSAGE-44271640-fd1a-4198-8eb5-8b6d1234b6c6",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "SEND_CAN_MESSAGE-44271640-fd1a-4198-8eb5-8b6d1234b6c6",
                     "label": "SEND CAN MESSAGE 1",
                     "func": "SEND_CAN_MESSAGE",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "CAN_address": {
                             "type": "str",
@@ -610,12 +610,12 @@
                 "width": 192,
                 "height": 192,
                 "id": "CANABLE_CONNECT-1593919d-426e-4b29-a218-8d8a72eeac06",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "CANABLE_CONNECT-1593919d-426e-4b29-a218-8d8a72eeac06",
                     "label": "CANABLE CONNECT",
                     "func": "CANABLE_CONNECT",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "device": {
                             "type": "SerialDevice",

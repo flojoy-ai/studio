@@ -2,58 +2,13 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 160,
-                "height": 160,
-                "id": "ORDERED_PAIR_2_VECTOR-c10210e9-69d0-44f0-b613-a8ea354afa0c",
-                "type": "TRANSFORMERS",
+                "id": "BASIC_OSCILLATOR-258b00ae-4d84-4241-8e08-3493680e6aff",
+                "type": "DATA",
                 "data": {
-                    "id": "ORDERED_PAIR_2_VECTOR-c10210e9-69d0-44f0-b613-a8ea354afa0c",
-                    "label": "ORDERED PAIR 2 VECTOR",
-                    "func": "ORDERED_PAIR_2_VECTOR",
-                    "type": "TRANSFORMERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "multiple": false,
-                            "desc": "The input OrderedPair."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "desc": "The y component of the input OrderedPair."
-                        }
-                    ],
-                    "path": "TRANSFORMERS/TYPE_CASTING/ORDERED_PAIR_2_VECTOR/ORDERED_PAIR_2_VECTOR.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 214.78179204004073,
-                    "y": -369.7193661288119
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 214.78179204004073,
-                    "y": -369.7193661288119
-                },
-                "dragging": true
-            },
-            {
-                "width": 210,
-                "height": 96,
-                "id": "BASIC_OSCILLATOR-3628dfa0-a669-47d8-b5e8-f5a5b59784c7",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "BASIC_OSCILLATOR-3628dfa0-a669-47d8-b5e8-f5a5b59784c7",
+                    "id": "BASIC_OSCILLATOR-258b00ae-4d84-4241-8e08-3493680e6aff",
                     "label": "BASIC OSCILLATOR",
                     "func": "BASIC_OSCILLATOR",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "sample_rate": {
                             "type": "int",
@@ -75,13 +30,13 @@
                         },
                         "waveform": {
                             "type": "select",
+                            "default": "sine",
                             "options": [
                                 "sine",
                                 "square",
                                 "triangle",
                                 "sawtooth"
                             ],
-                            "default": "sine",
                             "desc": "The waveform type of the wave.",
                             "overload": null,
                             "functionName": "BASIC_OSCILLATOR",
@@ -134,39 +89,123 @@
                             "desc": "x: time domain\ny: generated signal"
                         }
                     ],
-                    "path": "GENERATORS/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py"
                 },
                 "position": {
-                    "x": -210.40356762356083,
-                    "y": -179.79995261900876
+                    "x": -264.53053274645583,
+                    "y": -446.8584082620913
                 },
+                "width": 218,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -210.40356762356083,
-                    "y": -179.79995261900876
+                    "x": -264.53053274645583,
+                    "y": -446.8584082620913
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "LINE-33d02eb7-3b80-49ef-a656-c34fcfff376f",
-                "type": "VISUALIZERS",
+                "id": "ORDERED_PAIR_2_VECTOR-bfe48b6a-6bbb-4013-88e3-acd0879003e9",
+                "type": "TYPE_CASTING",
                 "data": {
-                    "id": "LINE-33d02eb7-3b80-49ef-a656-c34fcfff376f",
+                    "id": "ORDERED_PAIR_2_VECTOR-bfe48b6a-6bbb-4013-88e3-acd0879003e9",
+                    "label": "ORDERED PAIR 2 VECTOR 1",
+                    "func": "ORDERED_PAIR_2_VECTOR",
+                    "type": "TYPE_CASTING",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "The input OrderedPair.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "x",
+                            "id": "x",
+                            "type": "Vector",
+                            "desc": null
+                        },
+                        {
+                            "name": "y",
+                            "id": "y",
+                            "type": "Vector",
+                            "desc": null
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/TYPE_CASTING/ORDERED_PAIR_2_VECTOR/ORDERED_PAIR_2_VECTOR.py"
+                },
+                "position": {
+                    "x": 118.86287202134265,
+                    "y": -450.5729560801094
+                },
+                "width": 183,
+                "height": 154,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 118.86287202134265,
+                    "y": -450.5729560801094
+                },
+                "dragging": false
+            },
+            {
+                "id": "LINE-9ab747c1-86ca-4c80-9234-4bf913da3a93",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-9ab747c1-86ca-4c80-9234-4bf913da3a93",
                     "label": "LINE",
                     "func": "LINE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -177,39 +216,75 @@
                             "desc": "the DataContainer containing the Plotly Line visualization of the input data"
                         }
                     ],
-                    "path": "VISUALIZERS/PLOTLY/LINE/LINE.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
                 },
                 "position": {
-                    "x": 503.42876385112095,
-                    "y": -424.45007551086866
+                    "x": 588.8321811036801,
+                    "y": -490.8100944695312
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 503.42876385112095,
-                    "y": -424.45007551086866
+                    "x": 588.8321811036801,
+                    "y": -490.8100944695312
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "LINE-4d00a933-6e2b-4a7f-a845-f743b2c0cf90",
-                "type": "VISUALIZERS",
+                "id": "LINE-feb5a0d3-8d19-4169-b8d3-da82e4fcdd17",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "LINE-4d00a933-6e2b-4a7f-a845-f743b2c0cf90",
+                    "id": "LINE-feb5a0d3-8d19-4169-b8d3-da82e4fcdd17",
                     "label": "LINE 1",
                     "func": "LINE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -220,49 +295,67 @@
                             "desc": "the DataContainer containing the Plotly Line visualization of the input data"
                         }
                     ],
-                    "path": "VISUALIZERS/PLOTLY/LINE/LINE.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
                 },
                 "position": {
-                    "x": 493.4564315840414,
-                    "y": -98.33329107507114
+                    "x": 79.07382422888509,
+                    "y": -131.63196027284522
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 493.4564315840414,
-                    "y": -98.33329107507114
+                    "x": 79.07382422888509,
+                    "y": -131.63196027284522
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "BASIC_OSCILLATOR-3628dfa0-a669-47d8-b5e8-f5a5b59784c7",
-                "sourceHandle": "default",
-                "target": "ORDERED_PAIR_2_VECTOR-c10210e9-69d0-44f0-b613-a8ea354afa0c",
+                "id": "ORDERED_PAIR_2_VECTOR-bfe48b6a-6bbb-4013-88e3-acd0879003e9->LINE-9ab747c1-86ca-4c80-9234-4bf913da3a93_07ddf4d0-6c12-4f07-bd45-49bdc86b6d82",
+                "source": "ORDERED_PAIR_2_VECTOR-bfe48b6a-6bbb-4013-88e3-acd0879003e9",
+                "target": "LINE-9ab747c1-86ca-4c80-9234-4bf913da3a93",
+                "sourceHandle": "x",
                 "targetHandle": "default",
-                "id": "reactflow__edge-BASIC_OSCILLATOR-3628dfa0-a669-47d8-b5e8-f5a5b59784c7default-ORDERED_PAIR_2_VECTOR-c10210e9-69d0-44f0-b613-a8ea354afa0cdefault"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "ORDERED_PAIR_2_VECTOR-c10210e9-69d0-44f0-b613-a8ea354afa0c",
+                "id": "BASIC_OSCILLATOR-258b00ae-4d84-4241-8e08-3493680e6aff->ORDERED_PAIR_2_VECTOR-bfe48b6a-6bbb-4013-88e3-acd0879003e9_cc50dc44-853c-4273-aba8-333c20ce918d",
+                "source": "BASIC_OSCILLATOR-258b00ae-4d84-4241-8e08-3493680e6aff",
+                "target": "ORDERED_PAIR_2_VECTOR-bfe48b6a-6bbb-4013-88e3-acd0879003e9",
                 "sourceHandle": "default",
-                "target": "LINE-33d02eb7-3b80-49ef-a656-c34fcfff376f",
                 "targetHandle": "default",
-                "id": "reactflow__edge-ORDERED_PAIR_2_VECTOR-c10210e9-69d0-44f0-b613-a8ea354afa0cdefault-LINE-33d02eb7-3b80-49ef-a656-c34fcfff376fdefault"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "BASIC_OSCILLATOR-3628dfa0-a669-47d8-b5e8-f5a5b59784c7",
+                "id": "BASIC_OSCILLATOR-258b00ae-4d84-4241-8e08-3493680e6aff->LINE-feb5a0d3-8d19-4169-b8d3-da82e4fcdd17_cf88bbb6-638c-4c93-a9cf-95a31c3ffae3",
+                "source": "BASIC_OSCILLATOR-258b00ae-4d84-4241-8e08-3493680e6aff",
+                "target": "LINE-feb5a0d3-8d19-4169-b8d3-da82e4fcdd17",
                 "sourceHandle": "default",
-                "target": "LINE-4d00a933-6e2b-4a7f-a845-f743b2c0cf90",
                 "targetHandle": "default",
-                "id": "reactflow__edge-BASIC_OSCILLATOR-3628dfa0-a669-47d8-b5e8-f5a5b59784c7default-LINE-4d00a933-6e2b-4a7f-a845-f743b2c0cf90default"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "ORDERED_PAIR_2_VECTOR-bfe48b6a-6bbb-4013-88e3-acd0879003e9->LINE-9ab747c1-86ca-4c80-9234-4bf913da3a93_18ad5c82-df3a-45a8-9911-d6e797d03fed",
+                "source": "ORDERED_PAIR_2_VECTOR-bfe48b6a-6bbb-4013-88e3-acd0879003e9",
+                "target": "LINE-9ab747c1-86ca-4c80-9234-4bf913da3a93",
+                "sourceHandle": "y",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Vector"
+                }
             }
-        ],
-        "viewport": {
-            "x": 1139.470292881633,
-            "y": 572.2854272048312,
-            "zoom": 1.2136444284334926
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

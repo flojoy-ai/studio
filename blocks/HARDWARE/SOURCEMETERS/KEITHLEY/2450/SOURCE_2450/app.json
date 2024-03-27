@@ -46,8 +46,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -67,15 +67,15 @@
                     "path": "HARDWARE/SOURCEMETERS/KEITHLEY/2450/BEEP_2450/BEEP_2450.py"
                 },
                 "position": {
-                    "x": -448.3091293727178,
-                    "y": -347.92345448716804
+                    "x": -570.1344209580334,
+                    "y": -555.5236962703078
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -448.3091293727178,
-                    "y": -347.92345448716804
+                    "x": -570.1344209580334,
+                    "y": -555.5236962703078
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 192,
@@ -116,15 +116,15 @@
                     "path": "HARDWARE/SOURCEMETERS/KEITHLEY/2450/CONNECT_2450/CONNECT_2450.py"
                 },
                 "position": {
-                    "x": -674.0943355603956,
-                    "y": -346.9914490190549
+                    "x": -920.2311491715434,
+                    "y": -552.1054603616782
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -674.0943355603956,
-                    "y": -346.9914490190549
+                    "x": -920.2311491715434,
+                    "y": -552.1054603616782
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 192,
@@ -242,8 +242,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -263,15 +263,15 @@
                     "path": "HARDWARE/SOURCEMETERS/KEITHLEY/2450/IV_SWEEP_2450/IV_SWEEP_2450.py"
                 },
                 "position": {
-                    "x": 492.2816086087546,
-                    "y": 1.7974868009648617
+                    "x": 484.2816086087546,
+                    "y": -154.20251319903514
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 492.2816086087546,
-                    "y": 1.7974868009648617
+                    "x": 484.2816086087546,
+                    "y": -154.20251319903514
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 192,
@@ -300,8 +300,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -321,15 +321,15 @@
                     "path": "HARDWARE/SOURCEMETERS/KEITHLEY/2450/MEASURE_READ_2450/MEASURE_READ_2450.py"
                 },
                 "position": {
-                    "x": 512.3891574605273,
-                    "y": -320.65565183900117
+                    "x": 820.6817320845912,
+                    "y": -549.3888523665325
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 512.3891574605273,
-                    "y": -320.65565183900117
+                    "x": 820.6817320845912,
+                    "y": -549.3888523665325
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 192,
@@ -410,8 +410,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -431,15 +431,15 @@
                     "path": "HARDWARE/SOURCEMETERS/KEITHLEY/2450/MEASURE_SETTINGS_2450/MEASURE_SETTINGS_2450.py"
                 },
                 "position": {
-                    "x": 26.597185633155945,
-                    "y": -437.0939563812675
+                    "x": 80.05114010426385,
+                    "y": -741.6571853445555
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 26.597185633155945,
-                    "y": -437.0939563812675
+                    "x": 80.05114010426385,
+                    "y": -741.6571853445555
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 192,
@@ -481,8 +481,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -502,15 +502,15 @@
                     "path": "HARDWARE/SOURCEMETERS/KEITHLEY/2450/OUTPUT_2450/OUTPUT_2450.py"
                 },
                 "position": {
-                    "x": 280.0082587419151,
-                    "y": -318.62173032956696
+                    "x": 431.66831561343037,
+                    "y": -539.8962395355484
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 280.0082587419151,
-                    "y": -318.62173032956696
+                    "x": 431.66831561343037,
+                    "y": -539.8962395355484
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 192,
@@ -539,8 +539,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -554,15 +554,15 @@
                     "path": "HARDWARE/SOURCEMETERS/KEITHLEY/2450/RESET_2450/RESET_2450.py"
                 },
                 "position": {
-                    "x": -226.13106763431557,
-                    "y": -346.60560976610765
+                    "x": -204.9981088899241,
+                    "y": -554.2058515492475
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -226.13106763431557,
-                    "y": -346.60560976610765
+                    "x": -204.9981088899241,
+                    "y": -554.2058515492475
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 192,
@@ -659,8 +659,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -680,19 +680,19 @@
                     "path": "HARDWARE/SOURCEMETERS/KEITHLEY/2450/SOURCE_2450/SOURCE_2450.py"
                 },
                 "position": {
-                    "x": 16.48308033026258,
-                    "y": -220.1001132926403
+                    "x": 84.85441744447031,
+                    "y": -334.466713556406
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 16.48308033026258,
-                    "y": -220.1001132926403
+                    "x": 84.85441744447031,
+                    "y": -334.466713556406
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "LINE-30feab30-6d4f-4274-8877-383382355e5f",
                 "type": "VISUALIZATION",
                 "data": {
@@ -700,15 +700,52 @@
                     "label": "LINE",
                     "func": "LINE",
                     "type": "VISUALIZATION",
-                    "ctrls": {},
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -722,19 +759,24 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
                 },
                 "position": {
-                    "x": 820.060590405619,
-                    "y": -43.462075618890026
+                    "x": 901.2894950745512,
+                    "y": -188.00338429734006
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 820.060590405619,
-                    "y": -43.462075618890026
+                    "x": 901.2894950745512,
+                    "y": -188.00338429734006
                 },
-                "dragging": true
+                "dragging": false,
+                "style": {
+                    "width": 225,
+                    "height": 225
+                },
+                "resizing": false
             },
             {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "BIG_NUMBER-da49fee0-f0ca-4054-8686-bb576f153749",
                 "type": "VISUALIZATION",
                 "data": {
@@ -770,6 +812,15 @@
                             "param": "title",
                             "value": ""
                         },
+                        "dec_places": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "dec_places",
+                            "value": 0
+                        },
                         "relative_delta": {
                             "type": "bool",
                             "default": true,
@@ -782,7 +833,7 @@
                         "scientific_notation": {
                             "type": "bool",
                             "default": false,
-                            "desc": null,
+                            "desc": "Use scientific notation? Defaults to 4 decimal places.",
                             "overload": null,
                             "functionName": "BIG_NUMBER",
                             "param": "scientific_notation",
@@ -795,8 +846,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -810,94 +861,127 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py"
                 },
                 "position": {
-                    "x": 831.0144261253039,
-                    "y": -361.6163345095765
+                    "x": 1218.8663748459005,
+                    "y": -591.5926502573661
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 831.0144261253039,
-                    "y": -361.6163345095765
+                    "x": 1218.8663748459005,
+                    "y": -591.5926502573661
                 },
-                "dragging": true
+                "dragging": false,
+                "style": {
+                    "width": 225,
+                    "height": 225
+                },
+                "resizing": false
             }
         ],
         "edges": [
             {
+                "id": "CONNECT_2450-72b8d59f-b577-4f92-b3df-705b3fc2cd06->BEEP_2450-8f32f6a8-a1b7-4902-bcd0-bcd1891d1c29_bb50cea8-44b7-4160-a58f-a1f4a4157c37",
                 "source": "CONNECT_2450-72b8d59f-b577-4f92-b3df-705b3fc2cd06",
-                "sourceHandle": "default",
                 "target": "BEEP_2450-8f32f6a8-a1b7-4902-bcd0-bcd1891d1c29",
-                "targetHandle": "input",
-                "id": "reactflow__edge-CONNECT_2450-72b8d59f-b577-4f92-b3df-705b3fc2cd06default-BEEP_2450-8f32f6a8-a1b7-4902-bcd0-bcd1891d1c29input"
-            },
-            {
-                "source": "MEASURE_READ_2450-68952e00-42a8-458a-81c0-7d0d08398787",
                 "sourceHandle": "default",
-                "target": "IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010",
                 "targetHandle": "input",
-                "id": "reactflow__edge-MEASURE_READ_2450-68952e00-42a8-458a-81c0-7d0d08398787default-IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010input"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "OUTPUT_2450-e2cfabda-a18e-4170-a237-98e1dd262d9d",
-                "sourceHandle": "default",
-                "target": "MEASURE_READ_2450-68952e00-42a8-458a-81c0-7d0d08398787",
-                "targetHandle": "input",
-                "id": "reactflow__edge-OUTPUT_2450-e2cfabda-a18e-4170-a237-98e1dd262d9ddefault-MEASURE_READ_2450-68952e00-42a8-458a-81c0-7d0d08398787input"
-            },
-            {
-                "source": "RESET_2450-1417dc2d-b853-4330-9d4f-6f67c137809e",
-                "sourceHandle": "default",
-                "target": "MEASURE_SETTINGS_2450-2d6b2106-7975-4e13-9084-1432f534f5e9",
-                "targetHandle": "input",
-                "id": "reactflow__edge-RESET_2450-1417dc2d-b853-4330-9d4f-6f67c137809edefault-MEASURE_SETTINGS_2450-2d6b2106-7975-4e13-9084-1432f534f5e9input"
-            },
-            {
-                "source": "MEASURE_SETTINGS_2450-2d6b2106-7975-4e13-9084-1432f534f5e9",
-                "sourceHandle": "default",
-                "target": "OUTPUT_2450-e2cfabda-a18e-4170-a237-98e1dd262d9d",
-                "targetHandle": "input",
-                "id": "reactflow__edge-MEASURE_SETTINGS_2450-2d6b2106-7975-4e13-9084-1432f534f5e9default-OUTPUT_2450-e2cfabda-a18e-4170-a237-98e1dd262d9dinput"
-            },
-            {
-                "source": "SOURCE_2450-0665121f-eef3-48f7-b080-2400359631a7",
-                "sourceHandle": "default",
-                "target": "OUTPUT_2450-e2cfabda-a18e-4170-a237-98e1dd262d9d",
-                "targetHandle": "input",
-                "id": "reactflow__edge-SOURCE_2450-0665121f-eef3-48f7-b080-2400359631a7default-OUTPUT_2450-e2cfabda-a18e-4170-a237-98e1dd262d9dinput"
-            },
-            {
+                "id": "BEEP_2450-8f32f6a8-a1b7-4902-bcd0-bcd1891d1c29->RESET_2450-1417dc2d-b853-4330-9d4f-6f67c137809e_ae1c9a11-bc01-4528-afdc-58c8b4e43784",
                 "source": "BEEP_2450-8f32f6a8-a1b7-4902-bcd0-bcd1891d1c29",
-                "sourceHandle": "default",
                 "target": "RESET_2450-1417dc2d-b853-4330-9d4f-6f67c137809e",
+                "sourceHandle": "default",
                 "targetHandle": "input",
-                "id": "reactflow__edge-BEEP_2450-8f32f6a8-a1b7-4902-bcd0-bcd1891d1c29default-RESET_2450-1417dc2d-b853-4330-9d4f-6f67c137809einput"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "RESET_2450-1417dc2d-b853-4330-9d4f-6f67c137809e->MEASURE_SETTINGS_2450-2d6b2106-7975-4e13-9084-1432f534f5e9_5043e734-fc6e-473b-ac06-0077625c1693",
                 "source": "RESET_2450-1417dc2d-b853-4330-9d4f-6f67c137809e",
+                "target": "MEASURE_SETTINGS_2450-2d6b2106-7975-4e13-9084-1432f534f5e9",
                 "sourceHandle": "default",
-                "target": "SOURCE_2450-0665121f-eef3-48f7-b080-2400359631a7",
                 "targetHandle": "input",
-                "id": "reactflow__edge-RESET_2450-1417dc2d-b853-4330-9d4f-6f67c137809edefault-SOURCE_2450-0665121f-eef3-48f7-b080-2400359631a7input"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010",
+                "id": "RESET_2450-1417dc2d-b853-4330-9d4f-6f67c137809e->SOURCE_2450-0665121f-eef3-48f7-b080-2400359631a7_586b6a90-16fa-47f5-8066-c21ac26ecf82",
+                "source": "RESET_2450-1417dc2d-b853-4330-9d4f-6f67c137809e",
+                "target": "SOURCE_2450-0665121f-eef3-48f7-b080-2400359631a7",
                 "sourceHandle": "default",
-                "target": "LINE-30feab30-6d4f-4274-8877-383382355e5f",
-                "targetHandle": "default",
-                "id": "reactflow__edge-IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010default-LINE-30feab30-6d4f-4274-8877-383382355e5fdefault"
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "MEASURE_SETTINGS_2450-2d6b2106-7975-4e13-9084-1432f534f5e9->OUTPUT_2450-e2cfabda-a18e-4170-a237-98e1dd262d9d_d97a825f-44d8-42c0-831c-8088891a1ae2",
+                "source": "MEASURE_SETTINGS_2450-2d6b2106-7975-4e13-9084-1432f534f5e9",
+                "target": "OUTPUT_2450-e2cfabda-a18e-4170-a237-98e1dd262d9d",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "SOURCE_2450-0665121f-eef3-48f7-b080-2400359631a7->OUTPUT_2450-e2cfabda-a18e-4170-a237-98e1dd262d9d_af64066c-a245-4994-b0ec-f2f5f741009b",
+                "source": "SOURCE_2450-0665121f-eef3-48f7-b080-2400359631a7",
+                "target": "OUTPUT_2450-e2cfabda-a18e-4170-a237-98e1dd262d9d",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "OUTPUT_2450-e2cfabda-a18e-4170-a237-98e1dd262d9d->MEASURE_READ_2450-68952e00-42a8-458a-81c0-7d0d08398787_59d805df-e1dd-42ef-841b-3a5fce19bd91",
+                "source": "OUTPUT_2450-e2cfabda-a18e-4170-a237-98e1dd262d9d",
+                "target": "MEASURE_READ_2450-68952e00-42a8-458a-81c0-7d0d08398787",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "MEASURE_READ_2450-68952e00-42a8-458a-81c0-7d0d08398787->BIG_NUMBER-da49fee0-f0ca-4054-8686-bb576f153749_7dc661a8-95fe-4619-86a9-d6f09df3374d",
                 "source": "MEASURE_READ_2450-68952e00-42a8-458a-81c0-7d0d08398787",
-                "sourceHandle": "default",
                 "target": "BIG_NUMBER-da49fee0-f0ca-4054-8686-bb576f153749",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-MEASURE_READ_2450-68952e00-42a8-458a-81c0-7d0d08398787default-BIG_NUMBER-da49fee0-f0ca-4054-8686-bb576f153749default"
+                "data": {
+                    "outputType": "Scalar"
+                }
+            },
+            {
+                "id": "IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010->LINE-30feab30-6d4f-4274-8877-383382355e5f_8eaf1ae6-bfbf-4562-8f7c-242eaad77842",
+                "source": "IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010",
+                "target": "LINE-30feab30-6d4f-4274-8877-383382355e5f",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "MEASURE_READ_2450-68952e00-42a8-458a-81c0-7d0d08398787->IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010_c35fdda7-f286-4d76-8bba-ee4701fa53f5",
+                "source": "MEASURE_READ_2450-68952e00-42a8-458a-81c0-7d0d08398787",
+                "target": "IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "Scalar"
+                }
             }
-        ],
-        "viewport": {
-            "x": 994.2991122110108,
-            "y": 573.4932402039965,
-            "zoom": 0.9719556784888205
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

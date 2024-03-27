@@ -31,7 +31,7 @@ const App = () => {
 
   return (
     <div>
-      <Toaster theme={resolvedTheme} closeButton />
+      <Toaster theme={resolvedTheme} richColors closeButton />
       <SocketReceiver />
       <div className="titlebar flex h-12 items-center justify-center bg-background font-bold">
         Flojoy Studio ({packageJson.version})

@@ -2,77 +2,13 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 160,
-                "height": 160,
-                "id": "VECTOR_SUBSET-e808198b-5507-406c-816b-edfa5cd67c65",
-                "type": "TRANSFORMERS",
+                "id": "LINSPACE-b3239602-1b9f-49f9-bb71-675408381dc1",
+                "type": "DATA",
                 "data": {
-                    "id": "VECTOR_SUBSET-e808198b-5507-406c-816b-edfa5cd67c65",
-                    "label": "VECTOR SUBSET",
-                    "func": "VECTOR_SUBSET",
-                    "type": "TRANSFORMERS",
-                    "ctrls": {
-                        "indices": {
-                            "type": "Array",
-                            "default": null,
-                            "desc": "specified indices to extract values at from the input vector",
-                            "overload": null,
-                            "functionName": "VECTOR_SUBSET",
-                            "param": "indices",
-                            "value": "3, 1, 9"
-                        },
-                        "length": {
-                            "type": "int",
-                            "default": 1,
-                            "desc": "number of elements to extract from the input vector, default is 1 (this only applies when one index is specified for indices parameter)",
-                            "overload": null,
-                            "functionName": "VECTOR_SUBSET",
-                            "param": "length",
-                            "value": 1
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "desc": "The new vector with subset of elements extracted from the input vector"
-                        }
-                    ],
-                    "path": "TRANSFORMERS/VECTOR_MANIPULATION/VECTOR_SUBSET/VECTOR_SUBSET.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 104.03576804813667,
-                    "y": -249.72160283864238
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 104.03576804813667,
-                    "y": -249.72160283864238
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "LINSPACE-d585a7bc-2746-403c-a11d-8e126f184986",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "LINSPACE-d585a7bc-2746-403c-a11d-8e126f184986",
+                    "id": "LINSPACE-b3239602-1b9f-49f9-bb71-675408381dc1",
                     "label": "LINSPACE",
                     "func": "LINSPACE",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "start": {
                             "type": "float",
@@ -108,8 +44,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -117,33 +53,93 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector",
-                            "desc": "v: the vector between start and end with step number of points."
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
                         }
                     ],
-                    "path": "GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
                 },
                 "position": {
-                    "x": -228.13999483234682,
-                    "y": -219.17458038428336
+                    "x": -98.69095818511182,
+                    "y": -603.1085417522477
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -228.13999483234682,
-                    "y": -219.17458038428336
+                    "x": -98.69095818511182,
+                    "y": -603.1085417522477
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "SCATTER-ab4ed575-e472-4057-a8aa-15f49220d247",
-                "type": "VISUALIZERS",
+                "id": "VECTOR_SUBSET-aad7d20c-cc50-485d-9c99-d386442b2817",
+                "type": "TRANSFORM",
                 "data": {
-                    "id": "SCATTER-ab4ed575-e472-4057-a8aa-15f49220d247",
+                    "id": "VECTOR_SUBSET-aad7d20c-cc50-485d-9c99-d386442b2817",
+                    "label": "VECTOR SUBSET",
+                    "func": "VECTOR_SUBSET",
+                    "type": "TRANSFORM",
+                    "ctrls": {
+                        "indices": {
+                            "type": "Array",
+                            "default": null,
+                            "desc": "specified indices to extract values at from the input vector",
+                            "overload": null,
+                            "functionName": "VECTOR_SUBSET",
+                            "param": "indices",
+                            "value": "3, 1, 9"
+                        },
+                        "length": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "number of elements to extract from the input vector, default is 1 (this only applies when one index is specified for indices parameter)",
+                            "overload": null,
+                            "functionName": "VECTOR_SUBSET",
+                            "param": "length",
+                            "value": 1
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "The new vector with subset of elements extracted from the input vector"
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/VECTOR_MANIPULATION/VECTOR_SUBSET/VECTOR_SUBSET.py"
+                },
+                "position": {
+                    "x": 328.9582064303218,
+                    "y": -634.4293378389011
+                },
+                "width": 216,
+                "height": 296,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 328.9582064303218,
+                    "y": -634.4293378389011
+                },
+                "dragging": false
+            },
+            {
+                "id": "SCATTER-c2e2a7d2-f3ca-43d7-9aeb-2cc370bb032b",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "SCATTER-c2e2a7d2-f3ca-43d7-9aeb-2cc370bb032b",
                     "label": "SCATTER",
                     "func": "SCATTER",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -151,8 +147,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -160,42 +156,41 @@
                             "name": "default",
                             "id": "default",
                             "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Scatter visualization"
+                            "desc": "the DataContainer containing the Plotly Scatter visualization"
                         }
                     ],
-                    "path": "VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
                 },
                 "position": {
-                    "x": 428.99358461694226,
-                    "y": -314.5602635329144
+                    "x": 727.2550366946441,
+                    "y": -635.2507273491999
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 428.99358461694226,
-                    "y": -314.5602635329144
+                    "x": 727.2550366946441,
+                    "y": -635.2507273491999
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
-                "id": "TEXT-8b9ff74a-8faa-4e7d-b66a-b1c757520398",
-                "type": "GENERATORS",
+                "id": "TEXT-2c75bbda-ad1b-4bee-b861-7e1f4c24178b",
+                "type": "DATA",
                 "data": {
-                    "id": "TEXT-8b9ff74a-8faa-4e7d-b66a-b1c757520398",
-                    "label": "TEXT",
+                    "id": "TEXT-2c75bbda-ad1b-4bee-b861-7e1f4c24178b",
+                    "label": "DESCRIPTION",
                     "func": "TEXT",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "value": {
-                            "type": "str",
+                            "type": "TextArea",
                             "default": "Hello World!",
-                            "desc": "The value set in Parameters",
+                            "desc": "The value set in Parameters.",
                             "overload": null,
                             "functionName": "TEXT",
                             "param": "value",
-                            "value": "This is an app that extracts the values from the input vector given the indices to locate the values from."
+                            "value": "Hello World!"
                         }
                     },
                     "initCtrls": {},
@@ -204,8 +199,8 @@
                             "name": "_",
                             "id": "_",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -213,93 +208,108 @@
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "desc": "s: return the value being set in Parameters"
+                            "desc": "Return the value being set in Parameters."
                         }
                     ],
-                    "path": "GENERATORS/SIMULATIONS/TEXT/TEXT.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/TEXT/TEXT.py"
                 },
                 "position": {
-                    "x": 936.9816915983375,
-                    "y": -214.31949084904693
+                    "x": 345.7646659669007,
+                    "y": -267.5010118399847
                 },
+                "width": 239,
+                "height": 197,
                 "selected": false,
-                "positionAbsolute": {
-                    "x": 936.9816915983375,
-                    "y": -214.31949084904693
-                },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 384,
-                "height": 288,
-                "id": "TEXT_VIEW-51dabb17-f619-4f5b-963e-a84f3dec216e",
-                "type": "VISUALIZERS",
+                "id": "TEXT_VIEW-788e0099-619a-487f-8d68-335bc7abc8d5",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "TEXT_VIEW-51dabb17-f619-4f5b-963e-a84f3dec216e",
+                    "id": "TEXT_VIEW-788e0099-619a-487f-8d68-335bc7abc8d5",
                     "label": "TEXT VIEW",
                     "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": true
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
                 },
                 "position": {
-                    "x": 840.4770466400951,
-                    "y": -598.4440869703409
+                    "x": 748.5748226047438,
+                    "y": -311.7073581900851
                 },
-                "selected": true,
+                "width": 225,
+                "height": 225,
+                "selected": false,
                 "positionAbsolute": {
-                    "x": 840.4770466400951,
-                    "y": -598.4440869703409
+                    "x": 748.5748226047438,
+                    "y": -311.7073581900851
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "LINSPACE-d585a7bc-2746-403c-a11d-8e126f184986",
+                "id": "LINSPACE-b3239602-1b9f-49f9-bb71-675408381dc1->VECTOR_SUBSET-aad7d20c-cc50-485d-9c99-d386442b2817_1f82fa1b-7163-4768-8c2b-914e7f80dc6f",
+                "source": "LINSPACE-b3239602-1b9f-49f9-bb71-675408381dc1",
+                "target": "VECTOR_SUBSET-aad7d20c-cc50-485d-9c99-d386442b2817",
                 "sourceHandle": "default",
-                "target": "VECTOR_SUBSET-e808198b-5507-406c-816b-edfa5cd67c65",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-d585a7bc-2746-403c-a11d-8e126f184986default-VECTOR_SUBSET-e808198b-5507-406c-816b-edfa5cd67c65default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "VECTOR_SUBSET-e808198b-5507-406c-816b-edfa5cd67c65",
+                "id": "VECTOR_SUBSET-aad7d20c-cc50-485d-9c99-d386442b2817->SCATTER-c2e2a7d2-f3ca-43d7-9aeb-2cc370bb032b_494e87cc-a114-4950-91df-97b75e08905f",
+                "source": "VECTOR_SUBSET-aad7d20c-cc50-485d-9c99-d386442b2817",
+                "target": "SCATTER-c2e2a7d2-f3ca-43d7-9aeb-2cc370bb032b",
                 "sourceHandle": "default",
-                "target": "SCATTER-ab4ed575-e472-4057-a8aa-15f49220d247",
                 "targetHandle": "default",
-                "id": "reactflow__edge-VECTOR_SUBSET-e808198b-5507-406c-816b-edfa5cd67c65default-SCATTER-ab4ed575-e472-4057-a8aa-15f49220d247default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "SCATTER-ab4ed575-e472-4057-a8aa-15f49220d247",
+                "id": "TEXT-2c75bbda-ad1b-4bee-b861-7e1f4c24178b->TEXT_VIEW-788e0099-619a-487f-8d68-335bc7abc8d5_d21dc55b-5dc1-4ea1-94cd-e750449ad0f7",
+                "source": "TEXT-2c75bbda-ad1b-4bee-b861-7e1f4c24178b",
+                "target": "TEXT_VIEW-788e0099-619a-487f-8d68-335bc7abc8d5",
                 "sourceHandle": "default",
-                "target": "TEXT-8b9ff74a-8faa-4e7d-b66a-b1c757520398",
-                "targetHandle": "_",
-                "id": "reactflow__edge-SCATTER-ab4ed575-e472-4057-a8aa-15f49220d247default-TEXT-8b9ff74a-8faa-4e7d-b66a-b1c757520398_"
-            },
-            {
-                "source": "TEXT-8b9ff74a-8faa-4e7d-b66a-b1c757520398",
-                "sourceHandle": "default",
-                "target": "TEXT_VIEW-51dabb17-f619-4f5b-963e-a84f3dec216e",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TEXT-8b9ff74a-8faa-4e7d-b66a-b1c757520398default-TEXT_VIEW-51dabb17-f619-4f5b-963e-a84f3dec216edefault"
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 637.654905587641,
-            "y": 363.60612546109087,
-            "zoom": 0.7111497425822767
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

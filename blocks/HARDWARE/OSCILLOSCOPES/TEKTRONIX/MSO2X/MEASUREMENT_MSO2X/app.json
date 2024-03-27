@@ -28,8 +28,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -49,26 +49,26 @@
                     "path": "CONTROL_FLOW/LOOPS/LOOP/LOOP.py"
                 },
                 "position": {
-                    "x": 297.84241033180757,
-                    "y": -48.25951440373504
+                    "x": -908.5301864669029,
+                    "y": -273.01364469903615
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 297.84241033180757,
-                    "y": -48.25951440373504
+                    "x": -908.5301864669029,
+                    "y": -273.01364469903615
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "CONNECT_AFG31000-0062226e-0b7d-4fa6-80c7-c54374e26689",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "CONNECT_AFG31000-0062226e-0b7d-4fa6-80c7-c54374e26689",
                     "label": "CONNECT AFG31000",
                     "func": "CONNECT_AFG31000",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "device": {
                             "type": "VisaDevice",
@@ -92,26 +92,26 @@
                     "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/CONNECT_AFG31000/CONNECT_AFG31000.py"
                 },
                 "position": {
-                    "x": -487.5832333899324,
-                    "y": -85.71281461482198
+                    "x": -904.4349109461748,
+                    "y": -621.6649714728478
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -487.5832333899324,
-                    "y": -85.71281461482198
+                    "x": -904.4349109461748,
+                    "y": -621.6649714728478
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0a",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0a",
                     "label": "FUNCTION AFG31000",
                     "func": "FUNCTION_AFG31000",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -219,8 +219,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -234,26 +234,26 @@
                     "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/FUNCTION_AFG31000/FUNCTION_AFG31000.py"
                 },
                 "position": {
-                    "x": -247.20531802615722,
-                    "y": -88.28360028586019
+                    "x": -481.5643256845054,
+                    "y": -614.630879780839
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
-                    "x": -247.20531802615722,
-                    "y": -88.28360028586019
+                    "x": -481.5643256845054,
+                    "y": -614.630879780839
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346",
                     "label": "OUTPUT AFG31000",
                     "func": "OUTPUT_AFG31000",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -323,8 +323,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -338,15 +338,15 @@
                     "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/OUTPUT_AFG31000/OUTPUT_AFG31000.py"
                 },
                 "position": {
-                    "x": -4.041253332289557,
-                    "y": -89.11528788934237
+                    "x": -71.27539487361895,
+                    "y": -607.7786654938834
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -4.041253332289557,
-                    "y": -89.11528788934237
+                    "x": -71.27539487361895,
+                    "y": -607.7786654938834
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 208,
@@ -375,8 +375,8 @@
                             "name": "_",
                             "id": "_",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -390,15 +390,15 @@
                     "path": "DATA/GENERATION/SIMULATIONS/SCALAR/SCALAR.py"
                 },
                 "position": {
-                    "x": 713.5012273969588,
-                    "y": -360.27933360183454
+                    "x": 281.28174605984117,
+                    "y": -586.954439369745
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 713.5012273969588,
-                    "y": -360.27933360183454
+                    "x": 281.28174605984117,
+                    "y": -586.954439369745
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 208,
@@ -427,8 +427,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -442,26 +442,26 @@
                     "path": "DATA/GENERATION/SIMULATIONS/FEEDBACK/FEEDBACK.py"
                 },
                 "position": {
-                    "x": 720.1106847489735,
-                    "y": -166.0208166162968
+                    "x": -36.75365145913426,
+                    "y": -302.41007517156515
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 720.1106847489735,
-                    "y": -166.0208166162968
+                    "x": -36.75365145913426,
+                    "y": -302.41007517156515
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 72,
                 "height": 72,
                 "id": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa",
-                "type": "ARITHMETIC",
+                "type": "MATH",
                 "data": {
                     "id": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa",
                     "label": "MULTIPLY",
                     "func": "MULTIPLY",
-                    "type": "ARITHMETIC",
+                    "type": "MATH",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -469,15 +469,15 @@
                             "name": "a",
                             "id": "a",
                             "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "The input a use to compute the product of a and b."
+                            "desc": "The input a use to compute the product of a and b.",
+                            "multiple": false
                         },
                         {
                             "name": "b",
                             "id": "b",
                             "type": "OrderedPair|Scalar|Vector",
-                            "multiple": true,
-                            "desc": "The input b use to compute the product of a and b."
+                            "desc": "The input b use to compute the product of a and b.",
+                            "multiple": true
                         }
                     ],
                     "outputs": [
@@ -491,26 +491,26 @@
                     "path": "MATH/ARITHMETIC/MULTIPLY/MULTIPLY.py"
                 },
                 "position": {
-                    "x": 1006.5222850361846,
-                    "y": -257.0001437706319
+                    "x": 804.8198604121964,
+                    "y": -318.4713588941331
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1006.5222850361846,
-                    "y": -257.0001437706319
+                    "x": 804.8198604121964,
+                    "y": -318.4713588941331
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 269,
                 "id": "INPUT_PARAM_AFG31000-50267130-4ee8-4811-8d6f-311592e860aa",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "INPUT_PARAM_AFG31000-50267130-4ee8-4811-8d6f-311592e860aa",
                     "label": "INPUT PARAM AFG31000",
                     "func": "INPUT_PARAM_AFG31000",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -528,7 +528,7 @@
                                 "2"
                             ],
                             "default": "1",
-                            "desc": null,
+                            "desc": "Choose the channel to alter.",
                             "overload": null,
                             "functionName": "INPUT_PARAM_AFG31000",
                             "param": "source",
@@ -558,8 +558,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Scalar",
-                            "multiple": false,
-                            "desc": "The value to change the selected parameter to."
+                            "desc": "The value to change the selected parameter to.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -573,15 +573,15 @@
                     "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/INPUT_PARAM_AFG31000/INPUT_PARAM_AFG31000.py"
                 },
                 "position": {
-                    "x": 1140.5532203151026,
-                    "y": -316.4184436689111
+                    "x": 1263.495650562105,
+                    "y": -308.7345417784735
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1140.5532203151026,
-                    "y": -316.4184436689111
+                    "x": 1263.495650562105,
+                    "y": -308.7345417784735
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 208,
@@ -610,8 +610,8 @@
                             "name": "_",
                             "id": "_",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -625,46 +625,18 @@
                     "path": "DATA/GENERATION/SIMULATIONS/SCALAR/SCALAR.py"
                 },
                 "position": {
-                    "x": 442.0380401633032,
-                    "y": -155.21561637672798
+                    "x": -499.23994141530846,
+                    "y": -295.446825877215
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 442.0380401633032,
-                    "y": -155.21561637672798
+                    "x": -499.23994141530846,
+                    "y": -295.446825877215
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
-            {
-                "source": "OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346",
-                "sourceHandle": "default",
-                "target": "LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3",
-                "targetHandle": "default",
-                "id": "reactflow__edge-OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346default-LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3default"
-            },
-            {
-                "source": "CONNECT_AFG31000-0062226e-0b7d-4fa6-80c7-c54374e26689",
-                "sourceHandle": "default",
-                "target": "FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0a",
-                "targetHandle": "input",
-                "id": "reactflow__edge-CONNECT_AFG31000-0062226e-0b7d-4fa6-80c7-c54374e26689default-FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0ainput"
-            },
-            {
-                "source": "FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0a",
-                "sourceHandle": "default",
-                "target": "OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346",
-                "targetHandle": "input",
-                "id": "reactflow__edge-FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0adefault-OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346input"
-            },
-            {
-                "source": "SCALAR-7293af6c-58be-4aae-b370-a7d7932920cf",
-                "sourceHandle": "default",
-                "target": "FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05",
-                "targetHandle": "default",
-                "id": "reactflow__edge-SCALAR-7293af6c-58be-4aae-b370-a7d7932920cfdefault-FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05default"
-            },
             {
                 "source": "FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05",
                 "sourceHandle": "default",
@@ -673,32 +645,76 @@
                 "id": "reactflow__edge-FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05default-MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffab"
             },
             {
-                "source": "SCALAR-9208fd1c-ccd5-4143-afaf-817b0aae682c",
-                "sourceHandle": "default",
-                "target": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa",
-                "targetHandle": "a",
-                "id": "reactflow__edge-SCALAR-9208fd1c-ccd5-4143-afaf-817b0aae682cdefault-MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffaa"
-            },
-            {
-                "source": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa",
-                "sourceHandle": "default",
-                "target": "INPUT_PARAM_AFG31000-50267130-4ee8-4811-8d6f-311592e860aa",
-                "targetHandle": "input",
-                "id": "reactflow__edge-MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffadefault-INPUT_PARAM_AFG31000-50267130-4ee8-4811-8d6f-311592e860aainput"
-            },
-            {
                 "source": "LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3",
                 "sourceHandle": "body",
                 "target": "SCALAR-7293af6c-58be-4aae-b370-a7d7932920cf",
                 "targetHandle": "_",
                 "id": "reactflow__edge-LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3body-SCALAR-7293af6c-58be-4aae-b370-a7d7932920cf_"
+            },
+            {
+                "id": "CONNECT_AFG31000-0062226e-0b7d-4fa6-80c7-c54374e26689->FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0a_681dc82b-721e-4322-bd92-c677accda8d3",
+                "source": "CONNECT_AFG31000-0062226e-0b7d-4fa6-80c7-c54374e26689",
+                "target": "FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0a",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0a->OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346_cfb2aa9c-e1d5-4f9b-a1dc-022abf26531c",
+                "source": "FUNCTION_AFG31000-90a71d14-417a-4ca2-83fb-f5ebb241ab0a",
+                "target": "OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346->LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3_89ac713e-6aa7-4db5-9f7f-dfa362d3fe2b",
+                "source": "OUTPUT_AFG31000-ab5332be-43d2-49ac-b85f-4d73c7399346",
+                "target": "LOOP-dcb8da48-c5eb-46f0-8725-e1e0da36cbf3",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "SCALAR-7293af6c-58be-4aae-b370-a7d7932920cf->FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05_9121c5c4-0b5e-4319-8456-e1b9add08c14",
+                "source": "SCALAR-7293af6c-58be-4aae-b370-a7d7932920cf",
+                "target": "FEEDBACK-89012b22-0c06-4c42-a377-c0197b95ab05",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Scalar"
+                }
+            },
+            {
+                "id": "SCALAR-9208fd1c-ccd5-4143-afaf-817b0aae682c->MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa_afb0b76a-bb81-4a1c-8d90-f06c8b273ace",
+                "source": "SCALAR-9208fd1c-ccd5-4143-afaf-817b0aae682c",
+                "target": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa",
+                "sourceHandle": "default",
+                "targetHandle": "a",
+                "data": {
+                    "outputType": "Scalar"
+                }
+            },
+            {
+                "id": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa->INPUT_PARAM_AFG31000-50267130-4ee8-4811-8d6f-311592e860aa_e37fecad-05b4-4f83-9503-7d0393ae36a6",
+                "source": "MULTIPLY-3d9a4e10-8402-43f3-9e8d-45e860010ffa",
+                "target": "INPUT_PARAM_AFG31000-50267130-4ee8-4811-8d6f-311592e860aa",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             }
-        ],
-        "viewport": {
-            "x": 759.6034496961545,
-            "y": 603.2270380507501,
-            "zoom": 0.5383814557176602
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

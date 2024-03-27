@@ -2,20 +2,18 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
-                "id": "ATTENUATION_LDA602-01a70384-a7a8-455e-afc5-58354a065a14",
-                "type": "IO",
+                "id": "ATTENUATION_LDA602-ebb12842-4e66-413d-8080-e55530ca9f88",
+                "type": "HARDWARE",
                 "data": {
-                    "id": "ATTENUATION_LDA602-01a70384-a7a8-455e-afc5-58354a065a14",
-                    "label": "set ATTENUATION LDA602",
+                    "id": "ATTENUATION_LDA602-ebb12842-4e66-413d-8080-e55530ca9f88",
+                    "label": "SET ATTENUATION LDA602",
                     "func": "ATTENUATION_LDA602",
-                    "type": "IO",
+                    "type": "HARDWARE",
                     "ctrls": {
                         "serial_number": {
                             "type": "int",
                             "default": 839,
-                            "desc": "The serial number to connect to.",
+                            "desc": "The serial number (not model number) to connect to.",
                             "overload": null,
                             "functionName": "ATTENUATION_LDA602",
                             "param": "serial_number",
@@ -23,12 +21,12 @@
                         },
                         "query_set": {
                             "type": "select",
+                            "default": "query",
                             "options": [
                                 "query",
                                 "set"
                             ],
-                            "default": "query",
-                            "desc": "Query or set the attenuation.",
+                            "desc": "Query or set the attenuation?",
                             "overload": null,
                             "functionName": "ATTENUATION_LDA602",
                             "param": "query_set",
@@ -37,7 +35,7 @@
                         "attenuation": {
                             "type": "float",
                             "default": 10,
-                            "desc": "The actual set attenuation of the LDA.",
+                            "desc": "The attenuation to set the LDA to, in dB.",
                             "overload": null,
                             "functionName": "ATTENUATION_LDA602",
                             "param": "attenuation",
@@ -50,8 +48,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -68,35 +66,34 @@
                             "v": "0.18.0"
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/ATTENUATORS/LDA/LDA602/ATTENUATION_LDA602/ATTENUATION_LDA602.py",
-                    "selected": false
+                    "path": "HARDWARE/ATTENUATORS/LDA/LDA602/ATTENUATION_LDA602/ATTENUATION_LDA602.py"
                 },
                 "position": {
-                    "x": -274.44438190773985,
-                    "y": -73.26626661266889
+                    "x": -235.22479408104925,
+                    "y": -88.61383210124347
                 },
+                "width": 239,
+                "height": 269,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -274.44438190773985,
-                    "y": -73.26626661266889
+                    "x": -235.22479408104925,
+                    "y": -88.61383210124347
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
-                "id": "ATTENUATION_LDA602-9fb837d5-04fa-499b-9690-e6bb317f470b",
-                "type": "IO",
+                "id": "ATTENUATION_LDA602-25a86b20-030a-4f42-8b6a-5171b374d85d",
+                "type": "HARDWARE",
                 "data": {
-                    "id": "ATTENUATION_LDA602-9fb837d5-04fa-499b-9690-e6bb317f470b",
-                    "label": "query ATTENUATION LDA602",
+                    "id": "ATTENUATION_LDA602-25a86b20-030a-4f42-8b6a-5171b374d85d",
+                    "label": "Query ATTENUATION LDA602",
                     "func": "ATTENUATION_LDA602",
-                    "type": "IO",
+                    "type": "HARDWARE",
                     "ctrls": {
                         "serial_number": {
                             "type": "int",
                             "default": 839,
-                            "desc": "The serial number to connect to.",
+                            "desc": "The serial number (not model number) to connect to.",
                             "overload": null,
                             "functionName": "ATTENUATION_LDA602",
                             "param": "serial_number",
@@ -104,12 +101,12 @@
                         },
                         "query_set": {
                             "type": "select",
+                            "default": "query",
                             "options": [
                                 "query",
                                 "set"
                             ],
-                            "default": "query",
-                            "desc": "Query or set the attenuation.",
+                            "desc": "Query or set the attenuation?",
                             "overload": null,
                             "functionName": "ATTENUATION_LDA602",
                             "param": "query_set",
@@ -118,7 +115,7 @@
                         "attenuation": {
                             "type": "float",
                             "default": 10,
-                            "desc": "The actual set attenuation of the LDA.",
+                            "desc": "The attenuation to set the LDA to, in dB.",
                             "overload": null,
                             "functionName": "ATTENUATION_LDA602",
                             "param": "attenuation",
@@ -131,8 +128,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -149,118 +146,161 @@
                             "v": "0.18.0"
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/ATTENUATORS/LDA/LDA602/ATTENUATION_LDA602/ATTENUATION_LDA602.py",
-                    "selected": false
+                    "path": "HARDWARE/ATTENUATORS/LDA/LDA602/ATTENUATION_LDA602/ATTENUATION_LDA602.py"
                 },
                 "position": {
-                    "x": 130.34293392154294,
-                    "y": -72.57866849978348
+                    "x": 179.13076979397596,
+                    "y": -91.24818107641596
                 },
+                "width": 239,
+                "height": 269,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 130.34293392154294,
-                    "y": -72.57866849978348
+                    "x": 179.13076979397596,
+                    "y": -91.24818107641596
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 384,
-                "height": 288,
-                "id": "TEXT_VIEW-81987d18-dee4-4ad7-97b6-d9e578af8cd9",
-                "type": "VISUALIZERS",
+                "id": "TEXT_VIEW-8c437971-f1e3-44dd-88f6-39d88460ea6d",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "TEXT_VIEW-81987d18-dee4-4ad7-97b6-d9e578af8cd9",
-                    "label": "TEXT VIEW",
-                    "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
-                        }
-                    ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 491.92005634995985,
-                    "y": -121.10237142182902
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 491.92005634995985,
-                    "y": -121.10237142182902
-                },
-                "dragging": true
-            },
-            {
-                "width": 384,
-                "height": 288,
-                "id": "TEXT_VIEW-e35abb45-2e39-4860-8788-fa174df6738f",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TEXT_VIEW-e35abb45-2e39-4860-8788-fa174df6738f",
+                    "id": "TEXT_VIEW-8c437971-f1e3-44dd-88f6-39d88460ea6d",
                     "label": "TEXT VIEW 1",
                     "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
                 },
                 "position": {
-                    "x": 118.78073739813146,
-                    "y": -370.56072994021326
+                    "x": 646.7931499901528,
+                    "y": -125.9417474830596
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 118.78073739813146,
-                    "y": -370.56072994021326
+                    "x": 646.7931499901528,
+                    "y": -125.9417474830596
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "TEXT_VIEW-f2e5f29d-e8e2-4e1b-bb27-542ea07a0e68",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TEXT_VIEW-f2e5f29d-e8e2-4e1b-bb27-542ea07a0e68",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
+                },
+                "position": {
+                    "x": 180.37418341512443,
+                    "y": -394.6197403248155
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 180.37418341512443,
+                    "y": -394.6197403248155
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "ATTENUATION_LDA602-01a70384-a7a8-455e-afc5-58354a065a14",
+                "id": "ATTENUATION_LDA602-ebb12842-4e66-413d-8080-e55530ca9f88->ATTENUATION_LDA602-25a86b20-030a-4f42-8b6a-5171b374d85d_53db440b-6e77-4d2e-bf62-6dd09fdd90aa",
+                "source": "ATTENUATION_LDA602-ebb12842-4e66-413d-8080-e55530ca9f88",
+                "target": "ATTENUATION_LDA602-25a86b20-030a-4f42-8b6a-5171b374d85d",
                 "sourceHandle": "default",
-                "target": "ATTENUATION_LDA602-9fb837d5-04fa-499b-9690-e6bb317f470b",
                 "targetHandle": "default",
-                "id": "reactflow__edge-ATTENUATION_LDA602-01a70384-a7a8-455e-afc5-58354a065a14default-ATTENUATION_LDA602-9fb837d5-04fa-499b-9690-e6bb317f470bdefault"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "ATTENUATION_LDA602-9fb837d5-04fa-499b-9690-e6bb317f470b",
+                "id": "ATTENUATION_LDA602-ebb12842-4e66-413d-8080-e55530ca9f88->TEXT_VIEW-f2e5f29d-e8e2-4e1b-bb27-542ea07a0e68_00835a76-4719-405f-b9df-31f4a27d2197",
+                "source": "ATTENUATION_LDA602-ebb12842-4e66-413d-8080-e55530ca9f88",
+                "target": "TEXT_VIEW-f2e5f29d-e8e2-4e1b-bb27-542ea07a0e68",
                 "sourceHandle": "default",
-                "target": "TEXT_VIEW-81987d18-dee4-4ad7-97b6-d9e578af8cd9",
                 "targetHandle": "default",
-                "id": "reactflow__edge-ATTENUATION_LDA602-9fb837d5-04fa-499b-9690-e6bb317f470bdefault-TEXT_VIEW-81987d18-dee4-4ad7-97b6-d9e578af8cd9default"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "ATTENUATION_LDA602-01a70384-a7a8-455e-afc5-58354a065a14",
+                "id": "ATTENUATION_LDA602-25a86b20-030a-4f42-8b6a-5171b374d85d->TEXT_VIEW-8c437971-f1e3-44dd-88f6-39d88460ea6d_edfa8fd9-e24f-4920-a624-58005f2cbcaf",
+                "source": "ATTENUATION_LDA602-25a86b20-030a-4f42-8b6a-5171b374d85d",
+                "target": "TEXT_VIEW-8c437971-f1e3-44dd-88f6-39d88460ea6d",
                 "sourceHandle": "default",
-                "target": "TEXT_VIEW-e35abb45-2e39-4860-8788-fa174df6738f",
                 "targetHandle": "default",
-                "id": "reactflow__edge-ATTENUATION_LDA602-01a70384-a7a8-455e-afc5-58354a065a14default-TEXT_VIEW-e35abb45-2e39-4860-8788-fa174df6738fdefault"
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 1139.470292881633,
-            "y": 572.2854272048312,
-            "zoom": 1.2136444284334926
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

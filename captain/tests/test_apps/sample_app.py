@@ -233,12 +233,12 @@ sample_app = """
         "width": 250,
         "height": 159,
         "id": "HISTOGRAM-d53932d3-1dce-4320-a135-906b046cbe82",
-        "type": "VISUALIZERS",
+        "type": "VISUALIZATION",
         "data": {
           "id": "HISTOGRAM-d53932d3-1dce-4320-a135-906b046cbe82",
           "label": "HISTOGRAM",
           "func": "HISTOGRAM",
-          "type": "VISUALIZERS",
+          "type": "VISUALIZATION",
           "ctrls": {},
           "inputs": [
             {
@@ -273,12 +273,12 @@ sample_app = """
         "width": 225,
         "height": 226,
         "id": "SCATTER-8ac7a273-ef5f-4780-bc57-6c62c5ce507a",
-        "type": "VISUALIZERS",
+        "type": "VISUALIZATION",
         "data": {
           "id": "SCATTER-8ac7a273-ef5f-4780-bc57-6c62c5ce507a",
           "label": "SCATTER",
           "func": "SCATTER",
-          "type": "VISUALIZERS",
+          "type": "VISUALIZATION",
           "ctrls": {},
           "inputs": [
             {

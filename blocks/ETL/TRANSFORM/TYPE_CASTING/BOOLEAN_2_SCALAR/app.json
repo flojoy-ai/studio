@@ -2,8 +2,8 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f",
                 "type": "DATA",
                 "data": {
@@ -35,62 +35,19 @@
                     "selected": true
                 },
                 "position": {
-                    "x": -320.1693552631401,
-                    "y": -127.36631308085524
-                },
-                "selected": true,
-                "positionAbsolute": {
-                    "x": -320.1693552631401,
-                    "y": -127.36631308085524
-                },
-                "dragging": true
-            },
-            {
-                "width": 160,
-                "height": 160,
-                "id": "BOOLEAN_2_SCALAR-3d490dfe-d2d2-4dc1-9843-e63f0cad1840",
-                "type": "ETL",
-                "data": {
-                    "id": "BOOLEAN_2_SCALAR-3d490dfe-d2d2-4dc1-9843-e63f0cad1840",
-                    "label": "BOOLEAN 2 SCALAR",
-                    "func": "BOOLEAN_2_SCALAR",
-                    "type": "ETL",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Boolean",
-                            "multiple": false,
-                            "desc": "The input boolean to which we apply the conversion to."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Scalar",
-                            "desc": "The scalar result from the conversion of the input."
-                        }
-                    ],
-                    "path": "ETL/TRANSFORM/TYPE_CASTING/BOOLEAN_2_SCALAR/BOOLEAN_2_SCALAR.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 46.08506223862054,
-                    "y": -156.1304414679447
+                    "x": -546.1693552631401,
+                    "y": -117.3663130808552
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 46.08506223862054,
-                    "y": -156.1304414679447
+                    "x": -546.1693552631401,
+                    "y": -117.3663130808552
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 225,
-                "height": 226,
+                "height": 225,
                 "id": "BIG_NUMBER-1d8c8e7d-b0dd-40a4-8fcc-4d1acbd99fd5",
                 "type": "VISUALIZATION",
                 "data": {
@@ -126,6 +83,15 @@
                             "param": "title",
                             "value": ""
                         },
+                        "dec_places": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "dec_places",
+                            "value": 0
+                        },
                         "relative_delta": {
                             "type": "bool",
                             "default": true,
@@ -138,7 +104,7 @@
                         "scientific_notation": {
                             "type": "bool",
                             "default": false,
-                            "desc": null,
+                            "desc": "Use scientific notation? Defaults to 4 decimal places.",
                             "overload": null,
                             "functionName": "BIG_NUMBER",
                             "param": "scientific_notation",
@@ -151,8 +117,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -167,38 +133,84 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 351.88769998424897,
-                    "y": -188.97245592715404
+                    "x": 439.88769998424897,
+                    "y": -156.972455927154
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 351.88769998424897,
-                    "y": -188.97245592715404
+                    "x": 439.88769998424897,
+                    "y": -156.972455927154
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "BOOLEAN_2_SCALAR-3e40e811-b3fa-4895-a110-d1c4574774d3",
+                "type": "TYPE_CASTING",
+                "data": {
+                    "id": "BOOLEAN_2_SCALAR-3e40e811-b3fa-4895-a110-d1c4574774d3",
+                    "label": "BOOLEAN 2 SCALAR 1",
+                    "func": "BOOLEAN_2_SCALAR",
+                    "type": "TYPE_CASTING",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Boolean",
+                            "desc": "The input boolean to which we apply the conversion to.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "The scalar result from the conversion of the input."
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/TYPE_CASTING/BOOLEAN_2_SCALAR/BOOLEAN_2_SCALAR.py"
+                },
+                "position": {
+                    "x": -83.95306618424033,
+                    "y": -87.74001886412907
+                },
+                "width": 318,
+                "height": 96,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -83.95306618424033,
+                    "y": -87.74001886412907
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
+                "id": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f->BOOLEAN_2_SCALAR-3e40e811-b3fa-4895-a110-d1c4574774d3_d6135220-02c0-4d3d-b3b9-ded2d19f6451",
                 "source": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f",
+                "target": "BOOLEAN_2_SCALAR-3e40e811-b3fa-4895-a110-d1c4574774d3",
                 "sourceHandle": "default",
-                "target": "BOOLEAN_2_SCALAR-3d490dfe-d2d2-4dc1-9843-e63f0cad1840",
                 "targetHandle": "default",
-                "id": "reactflow__edge-BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91fdefault-BOOLEAN_2_SCALAR-3d490dfe-d2d2-4dc1-9843-e63f0cad1840default"
+                "data": {
+                    "outputType": "Boolean"
+                }
             },
             {
-                "source": "BOOLEAN_2_SCALAR-3d490dfe-d2d2-4dc1-9843-e63f0cad1840",
-                "sourceHandle": "default",
+                "id": "BOOLEAN_2_SCALAR-3e40e811-b3fa-4895-a110-d1c4574774d3->BIG_NUMBER-1d8c8e7d-b0dd-40a4-8fcc-4d1acbd99fd5_462507e0-6d9d-4aa2-b8e0-56e488f7a44d",
+                "source": "BOOLEAN_2_SCALAR-3e40e811-b3fa-4895-a110-d1c4574774d3",
                 "target": "BIG_NUMBER-1d8c8e7d-b0dd-40a4-8fcc-4d1acbd99fd5",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-BOOLEAN_2_SCALAR-3d490dfe-d2d2-4dc1-9843-e63f0cad1840default-BIG_NUMBER-1d8c8e7d-b0dd-40a4-8fcc-4d1acbd99fd5default"
+                "data": {
+                    "outputType": "Scalar"
+                }
             }
-        ],
-        "viewport": {
-            "x": 695.5292625331784,
-            "y": 411.9979742640432,
-            "zoom": 0.6998961918490142
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

@@ -2,15 +2,139 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
-                "id": "PLOTLY_DATASET-5a7231e7-7fa7-480f-9562-c117499c99cd",
-                "type": "GENERATORS",
+                "id": "SURFACE3D-e135ba70-6942-4dd4-9746-a778d0607556",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "PLOTLY_DATASET-5a7231e7-7fa7-480f-9562-c117499c99cd",
-                    "label": "PLOTLY DATASET",
+                    "id": "SURFACE3D-e135ba70-6942-4dd4-9746-a778d0607556",
+                    "label": "SURFACE3D",
+                    "func": "SURFACE3D",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|DataFrame|Surface|Matrix",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly 3D Surface visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/SURFACE3D/SURFACE3D.py"
+                },
+                "position": {
+                    "x": 935.2045421893395,
+                    "y": -416.78088522545977
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 935.2045421893395,
+                    "y": -416.78088522545977
+                },
+                "dragging": false
+            },
+            {
+                "id": "SURFACE3D-9ad26137-dfbe-4814-8b11-17876f058421",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "SURFACE3D-9ad26137-dfbe-4814-8b11-17876f058421",
+                    "label": "SURFACE3D 3",
+                    "func": "SURFACE3D",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|DataFrame|Surface|Matrix",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly 3D Surface visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/SURFACE3D/SURFACE3D.py"
+                },
+                "position": {
+                    "x": -22.313036330344858,
+                    "y": -416.65546495614046
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -22.313036330344858,
+                    "y": -416.65546495614046
+                },
+                "dragging": false
+            },
+            {
+                "id": "SURFACE3D-3058d40d-3386-4313-9ef9-5baac8cd76a6",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "SURFACE3D-3058d40d-3386-4313-9ef9-5baac8cd76a6",
+                    "label": "SURFACE3D 2",
+                    "func": "SURFACE3D",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|DataFrame|Surface|Matrix",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly 3D Surface visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/SURFACE3D/SURFACE3D.py"
+                },
+                "position": {
+                    "x": 601.3225121926721,
+                    "y": -137.08146186210763
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 601.3225121926721,
+                    "y": -137.08146186210763
+                },
+                "dragging": false
+            },
+            {
+                "id": "PLOTLY_DATASET-b044ef80-f96f-443f-ae44-74ac0b7670b0",
+                "type": "DATA",
+                "data": {
+                    "id": "PLOTLY_DATASET-b044ef80-f96f-443f-ae44-74ac0b7670b0",
+                    "label": "PLOTLY DATASET (gapminder)",
                     "func": "PLOTLY_DATASET",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "dataset_key": {
                             "type": "select",
@@ -27,294 +151,51 @@
                                 "medals_wide",
                                 "stocks"
                             ],
+                            "desc": null,
+                            "overload": null,
                             "functionName": "PLOTLY_DATASET",
                             "param": "dataset_key",
                             "value": "gapminder"
                         }
                     },
+                    "initCtrls": {},
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "DataFrame"
+                            "type": "DataFrame",
+                            "desc": null
                         }
                     ],
-                    "path": "PYTHON/nodes\\GENERATORS\\SAMPLE_DATASETS\\PLOTLY_DATASET\\PLOTLY_DATASET.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SAMPLE_DATASETS/PLOTLY_DATASET/PLOTLY_DATASET.py"
                 },
                 "position": {
-                    "x": -225.5447275265222,
-                    "y": 170.31855263236565
+                    "x": -626.5589087632546,
+                    "y": -95.62850353315594
                 },
+                "width": 239,
+                "height": 269,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -225.5447275265222,
-                    "y": 170.31855263236565
+                    "x": -626.5589087632546,
+                    "y": -95.62850353315594
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 160,
-                "height": 160,
-                "id": "ORDERED_TRIPLE_2_SURFACE-810534da-2e75-4d23-b28a-d07602ab0cf3",
-                "type": "TRANSFORMERS",
+                "id": "DF_2_ORDERED_TRIPLE-19044872-8c36-4134-82ba-c63b620096cb",
+                "type": "TYPE_CASTING",
                 "data": {
-                    "id": "ORDERED_TRIPLE_2_SURFACE-810534da-2e75-4d23-b28a-d07602ab0cf3",
-                    "label": "ORDERED TRIPLE 2 SURFACE",
-                    "func": "ORDERED_TRIPLE_2_SURFACE",
-                    "type": "TRANSFORMERS",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Surface"
-                        }
-                    ],
-                    "path": "",
-                    "selected": false
-                },
-                "position": {
-                    "x": 464.045404438885,
-                    "y": 185.28592471837874
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 464.045404438885,
-                    "y": 185.28592471837874
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "MATRIX-a7f20c72-1c4e-4e31-9b3f-94cf1f228fd5",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "MATRIX-a7f20c72-1c4e-4e31-9b3f-94cf1f228fd5",
-                    "label": "MATRIX",
-                    "func": "MATRIX",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "row": {
-                            "type": "int",
-                            "default": 2,
-                            "functionName": "MATRIX",
-                            "param": "row",
-                            "value": "10"
-                        },
-                        "column": {
-                            "type": "int",
-                            "default": 2,
-                            "functionName": "MATRIX",
-                            "param": "column",
-                            "value": "10"
-                        }
-                    },
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Matrix"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\MATRIX\\MATRIX.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 538.2150785278972,
-                    "y": 531.2121179240219
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 538.2150785278972,
-                    "y": 531.2121179240219
-                },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "SURFACE3D-62cf3ecc-359b-4cd4-ad49-bd0e6995a522",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "SURFACE3D-62cf3ecc-359b-4cd4-ad49-bd0e6995a522",
-                    "label": "SURFACE3D 1",
-                    "func": "SURFACE3D",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple|DataFrame|Surface|Matrix",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\SURFACE3D\\SURFACE3D.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 592.7351595694264,
-                    "y": -184.92364835673408
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 592.7351595694264,
-                    "y": -184.92364835673408
-                },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "SURFACE3D-8be10741-50fe-4df3-b2a5-afdcf56c1035",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "SURFACE3D-8be10741-50fe-4df3-b2a5-afdcf56c1035",
-                    "label": "SURFACE3D 2",
-                    "func": "SURFACE3D",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple|DataFrame|Surface|Matrix",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\SURFACE3D\\SURFACE3D.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 954.7062224469232,
-                    "y": 494.12216042293704
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 954.7062224469232,
-                    "y": 494.12216042293704
-                },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "SURFACE3D-19305f4e-d1e0-489b-adc7-383816dd5f49",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "SURFACE3D-19305f4e-d1e0-489b-adc7-383816dd5f49",
-                    "label": "SURFACE3D 3",
-                    "func": "SURFACE3D",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple|DataFrame|Surface|Matrix",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\SURFACE3D\\SURFACE3D.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 131.90508644311723,
-                    "y": 462.8719302399147
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 131.90508644311723,
-                    "y": 462.8719302399147
-                },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "SURFACE3D-f4e1f4c2-c6fe-4a06-b7ad-89ffab8a1c01",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "SURFACE3D-f4e1f4c2-c6fe-4a06-b7ad-89ffab8a1c01",
-                    "label": "SURFACE3D 3",
-                    "func": "SURFACE3D",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple|DataFrame|Surface|Matrix",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\SURFACE3D\\SURFACE3D.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 941.4106709993805,
-                    "y": 111.8507417555283
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 941.4106709993805,
-                    "y": 111.8507417555283
-                },
-                "dragging": true
-            },
-            {
-                "width": 160,
-                "height": 160,
-                "id": "DF_2_ORDERED_TRIPLE-2e8aef3e-72be-4bb9-80b3-c8ec4c77db90",
-                "type": "TRANSFORMERS",
-                "data": {
-                    "id": "DF_2_ORDERED_TRIPLE-2e8aef3e-72be-4bb9-80b3-c8ec4c77db90",
-                    "label": "DF 2 ORDERED TRIPLE",
+                    "id": "DF_2_ORDERED_TRIPLE-19044872-8c36-4134-82ba-c63b620096cb",
+                    "label": "DF 2 ORDERED TRIPLE 1",
                     "func": "DF_2_ORDERED_TRIPLE",
-                    "type": "TRANSFORMERS",
+                    "type": "TYPE_CASTING",
                     "ctrls": {
                         "x": {
                             "type": "int",
                             "default": 0,
                             "desc": "The index of the column that represents the x-axis.",
+                            "overload": null,
                             "functionName": "DF_2_ORDERED_TRIPLE",
                             "param": "x",
                             "value": 0
@@ -323,6 +204,7 @@
                             "type": "int",
                             "default": 1,
                             "desc": "The index of the column that represents the y-axis.",
+                            "overload": null,
                             "functionName": "DF_2_ORDERED_TRIPLE",
                             "param": "y",
                             "value": 1
@@ -331,6 +213,7 @@
                             "type": "int",
                             "default": 2,
                             "desc": "The index of the column that represents the z-axis.",
+                            "overload": null,
                             "functionName": "DF_2_ORDERED_TRIPLE",
                             "param": "z",
                             "value": 2
@@ -342,8 +225,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "DataFrame",
-                            "multiple": false,
-                            "desc": "The input dataframe to which we apply the conversion to."
+                            "desc": "The input dataframe to which we apply the conversion to.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -354,88 +237,220 @@
                             "desc": "The OrderedTriple result from the conversion of the input."
                         }
                     ],
-                    "path": "PYTHON/nodes\\TRANSFORMERS\\TYPE_CASTING\\DF_2_ORDERED_TRIPLE\\DF_2_ORDERED_TRIPLE.py",
-                    "selected": false
+                    "path": "ETL/TRANSFORM/TYPE_CASTING/DF_2_ORDERED_TRIPLE/DF_2_ORDERED_TRIPLE.py"
                 },
                 "position": {
-                    "x": 147.77053983407995,
-                    "y": 52.00310455235933
+                    "x": -29.224437667646328,
+                    "y": -62.96617819023879
                 },
+                "width": 224,
+                "height": 96,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 147.77053983407995,
-                    "y": 52.00310455235933
+                    "x": -29.224437667646328,
+                    "y": -62.96617819023879
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "ORDERED_TRIPLE_2_SURFACE-4e4b4ae2-6b23-46db-b036-15cde2c519bf",
+                "type": "TYPE_CASTING",
+                "data": {
+                    "id": "ORDERED_TRIPLE_2_SURFACE-4e4b4ae2-6b23-46db-b036-15cde2c519bf",
+                    "label": "ORDERED TRIPLE 2 SURFACE 1",
+                    "func": "ORDERED_TRIPLE_2_SURFACE",
+                    "type": "TYPE_CASTING",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple",
+                            "desc": "The input OrderedTriple to which we apply the conversion to.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Surface",
+                            "desc": "The surface result from the conversion of the input."
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/TYPE_CASTING/ORDERED_TRIPLE_2_SURFACE/ORDERED_TRIPLE_2_SURFACE.py"
+                },
+                "position": {
+                    "x": 568.2932370842142,
+                    "y": 226.9975485823403
+                },
+                "width": 331,
+                "height": 96,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 568.2932370842142,
+                    "y": 226.9975485823403
+                },
+                "dragging": false
+            },
+            {
+                "id": "MATRIX-b8d0f84f-0e29-47e7-83e6-18718fe6c11a",
+                "type": "DATA",
+                "data": {
+                    "id": "MATRIX-b8d0f84f-0e29-47e7-83e6-18718fe6c11a",
+                    "label": "MATRIX",
+                    "func": "MATRIX",
+                    "type": "DATA",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "row",
+                            "id": "row",
+                            "type": "Scalar",
+                            "desc": "number of rows",
+                            "multiple": false
+                        },
+                        {
+                            "name": "column",
+                            "id": "column",
+                            "type": "Scalar",
+                            "desc": "number of columns",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Matrix",
+                            "desc": "Randomly generated matrix"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/MATRIX/MATRIX.py"
+                },
+                "position": {
+                    "x": 326.52035762064656,
+                    "y": -378.87835481379364
+                },
+                "width": 216,
+                "height": 198,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 326.52035762064656,
+                    "y": -378.87835481379364
+                },
+                "dragging": false
+            },
+            {
+                "id": "SURFACE3D-3b8f0bdb-8fa2-46db-88cb-f8d86c1f2a52",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "SURFACE3D-3b8f0bdb-8fa2-46db-88cb-f8d86c1f2a52",
+                    "label": "SURFACE3D 1",
+                    "func": "SURFACE3D",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|DataFrame|Surface|Matrix",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly 3D Surface visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/SURFACE3D/SURFACE3D.py"
+                },
+                "position": {
+                    "x": 1075.4576516375187,
+                    "y": 153.9776105499917
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1075.4576516375187,
+                    "y": 153.9776105499917
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "PLOTLY_DATASET-5a7231e7-7fa7-480f-9562-c117499c99cd",
+                "id": "PLOTLY_DATASET-b044ef80-f96f-443f-ae44-74ac0b7670b0->DF_2_ORDERED_TRIPLE-19044872-8c36-4134-82ba-c63b620096cb_b5ec6380-e5c5-4f29-bdac-7ce1e474d5bb",
+                "source": "PLOTLY_DATASET-b044ef80-f96f-443f-ae44-74ac0b7670b0",
+                "target": "DF_2_ORDERED_TRIPLE-19044872-8c36-4134-82ba-c63b620096cb",
                 "sourceHandle": "default",
-                "target": "SURFACE3D-19305f4e-d1e0-489b-adc7-383816dd5f49",
                 "targetHandle": "default",
-                "id": "reactflow__edge-PLOTLY_DATASET-5a7231e7-7fa7-480f-9562-c117499c99cddefault-SURFACE3D-19305f4e-d1e0-489b-adc7-383816dd5f49default"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             },
             {
-                "source": "MATRIX-a7f20c72-1c4e-4e31-9b3f-94cf1f228fd5",
+                "id": "DF_2_ORDERED_TRIPLE-19044872-8c36-4134-82ba-c63b620096cb->ORDERED_TRIPLE_2_SURFACE-4e4b4ae2-6b23-46db-b036-15cde2c519bf_cca1853f-af6c-457e-9fc8-8a5bbe728909",
+                "source": "DF_2_ORDERED_TRIPLE-19044872-8c36-4134-82ba-c63b620096cb",
+                "target": "ORDERED_TRIPLE_2_SURFACE-4e4b4ae2-6b23-46db-b036-15cde2c519bf",
                 "sourceHandle": "default",
-                "target": "SURFACE3D-8be10741-50fe-4df3-b2a5-afdcf56c1035",
                 "targetHandle": "default",
-                "id": "reactflow__edge-MATRIX-a7f20c72-1c4e-4e31-9b3f-94cf1f228fd5default-SURFACE3D-8be10741-50fe-4df3-b2a5-afdcf56c1035default"
+                "data": {
+                    "outputType": "OrderedTriple"
+                }
             },
             {
-                "source": "ORDERED_TRIPLE_2_SURFACE-810534da-2e75-4d23-b28a-d07602ab0cf3",
+                "id": "MATRIX-b8d0f84f-0e29-47e7-83e6-18718fe6c11a->SURFACE3D-e135ba70-6942-4dd4-9746-a778d0607556_f4e372a3-1f3c-4ca5-90bd-8d5d9e3465b6",
+                "source": "MATRIX-b8d0f84f-0e29-47e7-83e6-18718fe6c11a",
+                "target": "SURFACE3D-e135ba70-6942-4dd4-9746-a778d0607556",
                 "sourceHandle": "default",
-                "target": "SURFACE3D-f4e1f4c2-c6fe-4a06-b7ad-89ffab8a1c01",
                 "targetHandle": "default",
-                "id": "reactflow__edge-ORDERED_TRIPLE_2_SURFACE-810534da-2e75-4d23-b28a-d07602ab0cf3default-SURFACE3D-f4e1f4c2-c6fe-4a06-b7ad-89ffab8a1c01default"
+                "data": {
+                    "outputType": "Matrix"
+                }
             },
             {
-                "source": "PLOTLY_DATASET-5a7231e7-7fa7-480f-9562-c117499c99cd",
+                "id": "PLOTLY_DATASET-b044ef80-f96f-443f-ae44-74ac0b7670b0->SURFACE3D-9ad26137-dfbe-4814-8b11-17876f058421_3337ac5b-38a3-4b74-a9a0-3d1d4531fd9c",
+                "source": "PLOTLY_DATASET-b044ef80-f96f-443f-ae44-74ac0b7670b0",
+                "target": "SURFACE3D-9ad26137-dfbe-4814-8b11-17876f058421",
                 "sourceHandle": "default",
-                "target": "DF_2_ORDERED_TRIPLE-2e8aef3e-72be-4bb9-80b3-c8ec4c77db90",
                 "targetHandle": "default",
-                "id": "reactflow__edge-PLOTLY_DATASET-5a7231e7-7fa7-480f-9562-c117499c99cddefault-DF_2_ORDERED_TRIPLE-2e8aef3e-72be-4bb9-80b3-c8ec4c77db90default"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             },
             {
-                "source": "DF_2_ORDERED_TRIPLE-2e8aef3e-72be-4bb9-80b3-c8ec4c77db90",
+                "id": "DF_2_ORDERED_TRIPLE-19044872-8c36-4134-82ba-c63b620096cb->SURFACE3D-3058d40d-3386-4313-9ef9-5baac8cd76a6_60782118-75b5-4736-abb4-fa1c97da6591",
+                "source": "DF_2_ORDERED_TRIPLE-19044872-8c36-4134-82ba-c63b620096cb",
+                "target": "SURFACE3D-3058d40d-3386-4313-9ef9-5baac8cd76a6",
                 "sourceHandle": "default",
-                "target": "ORDERED_TRIPLE_2_SURFACE-810534da-2e75-4d23-b28a-d07602ab0cf3",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DF_2_ORDERED_TRIPLE-2e8aef3e-72be-4bb9-80b3-c8ec4c77db90default-ORDERED_TRIPLE_2_SURFACE-810534da-2e75-4d23-b28a-d07602ab0cf3default"
+                "data": {
+                    "outputType": "OrderedTriple"
+                }
             },
             {
-                "source": "DF_2_ORDERED_TRIPLE-2e8aef3e-72be-4bb9-80b3-c8ec4c77db90",
+                "id": "ORDERED_TRIPLE_2_SURFACE-4e4b4ae2-6b23-46db-b036-15cde2c519bf->SURFACE3D-3b8f0bdb-8fa2-46db-88cb-f8d86c1f2a52_e43d9e76-b190-44ad-a655-f190ed39adb3",
+                "source": "ORDERED_TRIPLE_2_SURFACE-4e4b4ae2-6b23-46db-b036-15cde2c519bf",
+                "target": "SURFACE3D-3b8f0bdb-8fa2-46db-88cb-f8d86c1f2a52",
                 "sourceHandle": "default",
-                "target": "SURFACE3D-62cf3ecc-359b-4cd4-ad49-bd0e6995a522",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DF_2_ORDERED_TRIPLE-2e8aef3e-72be-4bb9-80b3-c8ec4c77db90default-SURFACE3D-62cf3ecc-359b-4cd4-ad49-bd0e6995a522default"
+                "data": {
+                    "outputType": "Surface"
+                }
             }
-        ],
-        "viewport": {
-            "x": 688.7902964004815,
-            "y": 260.4768364001233,
-            "zoom": 0.5523926457065711
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

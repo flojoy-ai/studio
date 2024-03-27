@@ -6,6 +6,8 @@ import react from "@astrojs/react";
 import robotsTxt from "astro-robots-txt";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import svgr from "vite-plugin-svgr";
+
 // import starlightDocSearch from "@astrojs/starlight-docsearch";
 
 // https://astro.build/config
@@ -155,5 +157,6 @@ export default defineConfig({
         "@blocks": path.resolve("../blocks/"),
       },
     },
+    plugins: [svgr()],
   },
 });

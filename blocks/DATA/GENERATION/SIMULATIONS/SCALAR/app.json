@@ -2,82 +2,40 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
-                "id": "SCALAR-0a444b33-cbb1-474f-b301-2afafbd1ec06",
-                "type": "GENERATORS",
+                "id": "LINSPACE-e71aee1d-01d8-4582-a443-a57421468046",
+                "type": "DATA",
                 "data": {
-                    "id": "SCALAR-0a444b33-cbb1-474f-b301-2afafbd1ec06",
-                    "label": "SCALAR",
-                    "func": "SCALAR",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "value": {
-                            "type": "float",
-                            "default": 3,
-                            "desc": "The value of the y axis output",
-                            "functionName": "SCALAR",
-                            "param": "value",
-                            "value": "10"
-                        }
-                    },
-                    "initCtrls": {},
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Scalar",
-                            "desc": "c: return the value being set in Parameters"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/SCALAR/SCALAR.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -68.45245265394736,
-                    "y": 82.09538044237203
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -68.45245265394736,
-                    "y": 82.09538044237203
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "LINSPACE-f9050481-67ec-4041-8a79-857915f5068a",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "LINSPACE-f9050481-67ec-4041-8a79-857915f5068a",
+                    "id": "LINSPACE-e71aee1d-01d8-4582-a443-a57421468046",
                     "label": "LINSPACE",
                     "func": "LINSPACE",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "start": {
                             "type": "float",
                             "default": 10,
                             "desc": "The start point of the data.",
+                            "overload": null,
                             "functionName": "LINSPACE",
                             "param": "start",
-                            "value": "0"
+                            "value": 0
                         },
                         "end": {
                             "type": "float",
                             "default": 0,
                             "desc": "The end point of the data.",
+                            "overload": null,
                             "functionName": "LINSPACE",
                             "param": "end",
-                            "value": "10"
+                            "value": 10
                         },
                         "step": {
                             "type": "int",
                             "default": 1000,
                             "desc": "The number of points in the vector.",
+                            "overload": null,
                             "functionName": "LINSPACE",
                             "param": "step",
-                            "value": "200"
+                            "value": 200
                         }
                     },
                     "initCtrls": {},
@@ -86,8 +44,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -95,92 +53,130 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector",
-                            "desc": "v: the vector between start and end with step number of points."
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
                         }
                     ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
                 },
                 "position": {
-                    "x": -65.78211539086668,
-                    "y": -78.04804637833047
+                    "x": -162.59453580292023,
+                    "y": -162.9898739585885
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -65.78211539086668,
-                    "y": -78.04804637833047
+                    "x": -162.59453580292023,
+                    "y": -162.9898739585885
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 72,
-                "height": 72,
-                "id": "ADD-c5647328-b364-4ce5-8399-07dc2430fa73",
-                "type": "ARITHMETIC",
+                "id": "SCALAR-2d0b0231-763b-44d7-a7cd-20875248429c",
+                "type": "DATA",
                 "data": {
-                    "id": "ADD-c5647328-b364-4ce5-8399-07dc2430fa73",
-                    "label": "ADD",
-                    "func": "ADD",
-                    "type": "ARITHMETIC",
-                    "ctrls": {},
+                    "id": "SCALAR-2d0b0231-763b-44d7-a7cd-20875248429c",
+                    "label": "SCALAR",
+                    "func": "SCALAR",
+                    "type": "DATA",
+                    "ctrls": {
+                        "value": {
+                            "type": "float",
+                            "default": 3,
+                            "desc": "The value set in Parameters",
+                            "overload": null,
+                            "functionName": "SCALAR",
+                            "param": "value",
+                            "value": 10
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
-                            "name": "a",
-                            "id": "a",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": null
-                        },
-                        {
-                            "name": "b",
-                            "id": "b",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": true,
-                            "desc": null
+                            "name": "_",
+                            "id": "_",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "desc": null
+                            "type": "Scalar",
+                            "desc": "c: return the value being set in Parameters"
                         }
                     ],
-                    "path": "PYTHON/nodes/TRANSFORMERS/ARITHMETIC/ADD/ADD.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/SCALAR/SCALAR.py"
                 },
                 "position": {
-                    "x": 319.8903167459661,
-                    "y": 3.0683844611061772
+                    "x": -141.3243862614436,
+                    "y": 138.08765215849297
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
+                "dragging": false,
                 "positionAbsolute": {
-                    "x": 319.8903167459661,
-                    "y": 3.0683844611061772
-                },
-                "dragging": true
+                    "x": -141.3243862614436,
+                    "y": 138.08765215849297
+                }
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "LINE-67cf5d6a-c420-4fe5-a4d6-c98812711b01",
-                "type": "VISUALIZERS",
+                "id": "LINE-e4c70bfe-102a-451c-8cca-71f09c1d425b",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "LINE-67cf5d6a-c420-4fe5-a4d6-c98812711b01",
+                    "id": "LINE-e4c70bfe-102a-451c-8cca-71f09c1d425b",
                     "label": "LINE",
                     "func": "LINE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -188,70 +184,109 @@
                             "name": "default",
                             "id": "default",
                             "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Line visualization of the input data"
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
                         }
                     ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
                 },
                 "position": {
-                    "x": 557.0297668457374,
-                    "y": -73.40249478571985
+                    "x": 585.4005342769019,
+                    "y": -45.689311016881504
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 557.0297668457374,
-                    "y": -73.40249478571985
+                    "x": 585.4005342769019,
+                    "y": -45.689311016881504
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "ADD-f614e052-fa3f-46bc-9461-205828dabf02",
+                "type": "MATH",
+                "data": {
+                    "id": "ADD-f614e052-fa3f-46bc-9461-205828dabf02",
+                    "label": "ADD",
+                    "func": "ADD",
+                    "type": "MATH",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "a",
+                            "id": "a",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "The input a use to compute the sum of a and b.",
+                            "multiple": false
+                        },
+                        {
+                            "name": "b",
+                            "id": "b",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "The input b use to compute the sum of a and b.",
+                            "multiple": true
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the sum of input a and input b.\n\nScalar if a is a Scalar.\nc: the sum of input a and input b.\n\nVector if a is a Vector.\nv: the sum of input a and input b."
+                        }
+                    ],
+                    "path": "MATH/ARITHMETIC/ADD/ADD.py"
+                },
+                "position": {
+                    "x": 263.5649735543143,
+                    "y": -8.175478559155692
+                },
+                "width": 216,
+                "height": 198,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 263.5649735543143,
+                    "y": -8.175478559155692
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "LINSPACE-f9050481-67ec-4041-8a79-857915f5068a",
+                "id": "LINSPACE-e71aee1d-01d8-4582-a443-a57421468046->ADD-f614e052-fa3f-46bc-9461-205828dabf02_b5adbb10-b354-4c50-b84b-65d1d5dc85d0",
+                "source": "LINSPACE-e71aee1d-01d8-4582-a443-a57421468046",
+                "target": "ADD-f614e052-fa3f-46bc-9461-205828dabf02",
                 "sourceHandle": "default",
-                "target": "ADD-c5647328-b364-4ce5-8399-07dc2430fa73",
                 "targetHandle": "a",
-                "id": "reactflow__edge-LINSPACE-f9050481-67ec-4041-8a79-857915f5068adefault-ADD-c5647328-b364-4ce5-8399-07dc2430fa73a"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "SCALAR-0a444b33-cbb1-474f-b301-2afafbd1ec06",
+                "id": "SCALAR-2d0b0231-763b-44d7-a7cd-20875248429c->ADD-f614e052-fa3f-46bc-9461-205828dabf02_92bc0d79-1f00-4bde-b178-ee1fab80b936",
+                "source": "SCALAR-2d0b0231-763b-44d7-a7cd-20875248429c",
+                "target": "ADD-f614e052-fa3f-46bc-9461-205828dabf02",
                 "sourceHandle": "default",
-                "target": "ADD-c5647328-b364-4ce5-8399-07dc2430fa73",
                 "targetHandle": "b",
-                "id": "reactflow__edge-SCALAR-0a444b33-cbb1-474f-b301-2afafbd1ec06default-ADD-c5647328-b364-4ce5-8399-07dc2430fa73b"
+                "data": {
+                    "outputType": "Scalar"
+                }
             },
             {
-                "source": "ADD-c5647328-b364-4ce5-8399-07dc2430fa73",
+                "id": "ADD-f614e052-fa3f-46bc-9461-205828dabf02->LINE-e4c70bfe-102a-451c-8cca-71f09c1d425b_871425ff-caa9-403b-9d36-da718b8a9441",
+                "source": "ADD-f614e052-fa3f-46bc-9461-205828dabf02",
+                "target": "LINE-e4c70bfe-102a-451c-8cca-71f09c1d425b",
                 "sourceHandle": "default",
-                "target": "LINE-67cf5d6a-c420-4fe5-a4d6-c98812711b01",
                 "targetHandle": "default",
-                "id": "reactflow__edge-ADD-c5647328-b364-4ce5-8399-07dc2430fa73default-LINE-67cf5d6a-c420-4fe5-a4d6-c98812711b01default"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             }
-        ],
-        "viewport": {
-            "x": 574.9737644785836,
-            "y": 258.3200412975903,
-            "zoom": 1.01138398827472
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

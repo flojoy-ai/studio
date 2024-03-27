@@ -2,62 +2,77 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 380,
-                "height": 293,
-                "id": "LINE-04475ad6-db8e-485b-8169-a90dfb525a8f",
-                "type": "VISUALIZERS",
+                "id": "LOOP-25820250-e0b2-4883-92e5-7625b26f6355",
+                "type": "CONTROL_FLOW",
                 "data": {
-                    "id": "LINE-04475ad6-db8e-485b-8169-a90dfb525a8f",
-                    "label": "LINE",
-                    "func": "LINE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "id": "LOOP-25820250-e0b2-4883-92e5-7625b26f6355",
+                    "label": "LOOP",
+                    "func": "LOOP",
+                    "type": "CONTROL_FLOW",
+                    "ctrls": {
+                        "num_loops": {
+                            "type": "int",
+                            "default": -1,
+                            "desc": "number of times to iterate through body nodes, default is \"-1\" meaning infinity.",
+                            "overload": null,
+                            "functionName": "LOOP",
+                            "param": "num_loops",
+                            "value": -1
+                        }
+                    },
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix",
-                            "multiple": false,
-                            "desc": null
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
                         {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": null
+                            "name": "body",
+                            "id": "body",
+                            "type": "Any",
+                            "desc": "Forwards the input DataContainer to the body."
+                        },
+                        {
+                            "name": "end",
+                            "id": "end",
+                            "type": "Any",
+                            "desc": "Forwards the input DataContainer to the end."
                         }
                     ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
-                    "selected": false
+                    "path": "CONTROL_FLOW/LOOPS/LOOP/LOOP.py"
                 },
                 "position": {
-                    "x": 327.14642964578854,
-                    "y": 198.79482276769716
+                    "x": -503.5194727487279,
+                    "y": 101.70762628090108
                 },
+                "width": 236,
+                "height": 198,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 327.14642964578854,
-                    "y": 198.79482276769716
+                    "x": -503.5194727487279,
+                    "y": 101.70762628090108
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 210,
-                "height": 96,
-                "id": "WAVEPACKET-ee6f2fc1-8cef-400a-895c-abe0564b1261",
-                "type": "GENERATORS",
+                "id": "WAVEPACKET-b4781dc8-19da-43cc-8f53-c5813a57e0a6",
+                "type": "DATA",
                 "data": {
-                    "id": "WAVEPACKET-ee6f2fc1-8cef-400a-895c-abe0564b1261",
+                    "id": "WAVEPACKET-b4781dc8-19da-43cc-8f53-c5813a57e0a6",
                     "label": "WAVEPACKET",
                     "func": "WAVEPACKET",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "L_box": {
                             "type": "float",
                             "default": 20,
                             "desc": "The width of the box in Bohr lengths.",
+                            "overload": null,
                             "functionName": "WAVEPACKET",
                             "param": "L_box",
                             "value": 20
@@ -66,14 +81,16 @@
                             "type": "float",
                             "default": 0,
                             "desc": "The center of the initial wavepacket.",
+                            "overload": null,
                             "functionName": "WAVEPACKET",
                             "param": "center",
-                            "value": "5"
+                            "value": 5
                         },
                         "momentum": {
                             "type": "float",
                             "default": 5,
                             "desc": "The momentum of the initial wavepacket.",
+                            "overload": null,
                             "functionName": "WAVEPACKET",
                             "param": "momentum",
                             "value": 5
@@ -82,26 +99,29 @@
                             "type": "float",
                             "default": 1,
                             "desc": "The width of the initial wavepacket.",
+                            "overload": null,
                             "functionName": "WAVEPACKET",
                             "param": "sigma",
-                            "value": "1"
+                            "value": 1
                         },
                         "dt": {
                             "type": "float",
                             "default": 0.2,
-                            "desc": "Time steps in atomic units, 1 a.u. = 24.188 as",
+                            "desc": "Time steps in atomic units, 1 a.u. = 24.188 as.",
+                            "overload": null,
                             "functionName": "WAVEPACKET",
                             "param": "dt",
-                            "value": "0.1"
+                            "value": 0.1
                         }
                     },
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -112,117 +132,126 @@
                             "desc": "The most recent wavepacket."
                         }
                     ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/WAVEPACKET/WAVEPACKET.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/WAVEPACKET/WAVEPACKET.py"
                 },
                 "position": {
-                    "x": -71.22529418711089,
-                    "y": 231.12759430779778
+                    "x": 9.125004898003283,
+                    "y": 76.83448369813681
                 },
+                "width": 218,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -71.22529418711089,
-                    "y": 231.12759430779778
+                    "x": 9.125004898003283,
+                    "y": 76.83448369813681
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 96,
-                "height": 96,
-                "id": "LOOP-4a9435b9-f3d9-42bb-ac6f-058b309d33f5",
-                "type": "LOGIC_GATES",
+                "id": "LINE-d3717c0b-1679-4d16-9980-f0b75117ab35",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "LOOP-4a9435b9-f3d9-42bb-ac6f-058b309d33f5",
-                    "label": "LOOP",
-                    "func": "LOOP",
-                    "type": "LOGIC_GATES",
+                    "id": "LINE-d3717c0b-1679-4d16-9980-f0b75117ab35",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
                     "ctrls": {
-                        "num_loops": {
-                            "type": "int",
-                            "default": -1,
-                            "desc": "number of times to iterate through body nodes default is `-1` meaning infinity.",
-                            "functionName": "LOOP",
-                            "param": "num_loops",
-                            "value": 20
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
                         }
                     },
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
                         {
-                            "name": "body",
-                            "id": "body",
-                            "type": "Any",
-                            "desc": null
-                        },
-                        {
-                            "name": "end",
-                            "id": "end",
-                            "type": "Any",
-                            "desc": null
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
                         }
                     ],
-                    "path": "PYTHON/nodes\\LOGIC_GATES\\LOOPS\\LOOP\\LOOP.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
                 },
                 "position": {
-                    "x": -398.0667272413819,
-                    "y": 300.8094166726855
+                    "x": 409.20596457596815,
+                    "y": 42.70366236867932
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -398.0667272413819,
-                    "y": 300.8094166726855
+                    "x": 409.20596457596815,
+                    "y": 42.70366236867932
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "WAVEPACKET-ee6f2fc1-8cef-400a-895c-abe0564b1261",
+                "id": "WAVEPACKET-b4781dc8-19da-43cc-8f53-c5813a57e0a6->LINE-d3717c0b-1679-4d16-9980-f0b75117ab35_a8201292-153a-469b-9921-0168eb32e9f0",
+                "source": "WAVEPACKET-b4781dc8-19da-43cc-8f53-c5813a57e0a6",
+                "target": "LINE-d3717c0b-1679-4d16-9980-f0b75117ab35",
                 "sourceHandle": "default",
-                "target": "LINE-04475ad6-db8e-485b-8169-a90dfb525a8f",
                 "targetHandle": "default",
-                "id": "reactflow__edge-WAVEPACKET-ee6f2fc1-8cef-400a-895c-abe0564b1261default-LINE-04475ad6-db8e-485b-8169-a90dfb525a8fdefault"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "LOOP-4a9435b9-f3d9-42bb-ac6f-058b309d33f5",
+                "id": "LOOP-25820250-e0b2-4883-92e5-7625b26f6355->WAVEPACKET-b4781dc8-19da-43cc-8f53-c5813a57e0a6_208ca30f-4cf0-474c-988c-14de0d42c6b6",
+                "source": "LOOP-25820250-e0b2-4883-92e5-7625b26f6355",
+                "target": "WAVEPACKET-b4781dc8-19da-43cc-8f53-c5813a57e0a6",
                 "sourceHandle": "body",
-                "target": "WAVEPACKET-ee6f2fc1-8cef-400a-895c-abe0564b1261",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LOOP-4a9435b9-f3d9-42bb-ac6f-058b309d33f5body-WAVEPACKET-ee6f2fc1-8cef-400a-895c-abe0564b1261default"
+                "data": {
+                    "outputType": "Any"
+                }
             }
-        ],
-        "viewport": {
-            "x": 688.7902964004815,
-            "y": 260.4768364001233,
-            "zoom": 0.5523926457065711
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

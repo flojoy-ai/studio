@@ -2,59 +2,19 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 225,
-                "height": 226,
-                "id": "TABLE-e495f7ee-9936-41e5-8341-8532fbe7fc37",
-                "type": "VISUALIZERS",
+                "id": "TIMESERIES-b7da77ce-27c8-4986-8ca9-5f8904db7a65",
+                "type": "DATA",
                 "data": {
-                    "id": "TABLE-e495f7ee-9936-41e5-8341-8532fbe7fc37",
-                    "label": "TABLE",
-                    "func": "TABLE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple|OrderedPair|DataFrame|Matrix",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 1454.0240539163242,
-                    "y": 449.24417024363777
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1454.0240539163242,
-                    "y": 449.24417024363777
-                },
-                "dragging": true
-            },
-            {
-                "width": 130,
-                "height": 130,
-                "id": "TIMESERIES-32359924-1394-434a-a933-965680772cfb",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "TIMESERIES-32359924-1394-434a-a933-965680772cfb",
+                    "id": "TIMESERIES-b7da77ce-27c8-4986-8ca9-5f8904db7a65",
                     "label": "TIMESERIES",
                     "func": "TIMESERIES",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "start_date": {
                             "type": "str",
                             "default": "2023-01-01",
+                            "desc": "The start date of the timeseries in the format 'YYYY:MM:DD'.",
+                            "overload": null,
                             "functionName": "TIMESERIES",
                             "param": "start_date",
                             "value": "2023-01-01"
@@ -62,65 +22,95 @@
                         "end_date": {
                             "type": "str",
                             "default": "2023-07-20",
+                            "desc": "The end date of the timeseries in the format 'YYYY:MM:DD'.",
+                            "overload": null,
                             "functionName": "TIMESERIES",
                             "param": "end_date",
                             "value": "2023-07-20"
                         }
                     },
+                    "initCtrls": {},
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "DataFrame"
+                            "type": "DataFrame",
+                            "desc": "m: the resulting timeseries"
                         }
                     ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TIMESERIES/TIMESERIES.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/TIMESERIES/TIMESERIES.py"
                 },
                 "position": {
-                    "x": 1083.3085875570803,
-                    "y": 496.01628490654286
+                    "x": 1027.3798616774418,
+                    "y": 463.30381977947343
                 },
+                "width": 218,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1083.3085875570803,
-                    "y": 496.01628490654286
+                    "x": 1027.3798616774418,
+                    "y": 463.30381977947343
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "TABLE-9eda9e7a-4eae-4545-b78d-1feab492ec99",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TABLE-9eda9e7a-4eae-4545-b78d-1feab492ec99",
+                    "label": "TABLE",
+                    "func": "TABLE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Table visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
+                },
+                "position": {
+                    "x": 1441.7350757268991,
+                    "y": 426.7722252472722
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1441.7350757268991,
+                    "y": 426.7722252472722
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "TIMESERIES-32359924-1394-434a-a933-965680772cfb",
+                "id": "TIMESERIES-b7da77ce-27c8-4986-8ca9-5f8904db7a65->TABLE-9eda9e7a-4eae-4545-b78d-1feab492ec99_a223b369-0fb3-477d-a560-229b1806167a",
+                "source": "TIMESERIES-b7da77ce-27c8-4986-8ca9-5f8904db7a65",
+                "target": "TABLE-9eda9e7a-4eae-4545-b78d-1feab492ec99",
                 "sourceHandle": "default",
-                "target": "TABLE-e495f7ee-9936-41e5-8341-8532fbe7fc37",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TIMESERIES-32359924-1394-434a-a933-965680772cfbdefault-TABLE-e495f7ee-9936-41e5-8341-8532fbe7fc37default"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             }
-        ],
-        "viewport": {
-            "x": -388.5128599008947,
-            "y": 286.46416379622787,
-            "zoom": 1.1464119616325565
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

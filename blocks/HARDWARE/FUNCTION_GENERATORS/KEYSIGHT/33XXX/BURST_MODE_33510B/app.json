@@ -2,15 +2,13 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
-                "id": "CONNECTION_33510B-4c8ca1dd-a8ee-4ba9-ae8b-886c80a0a027",
-                "type": "IO",
+                "id": "CONNECTION_33510B-14337691-3295-4a71-aa97-1ff10d000b38",
+                "type": "FUNCTION_GENERATORS",
                 "data": {
-                    "id": "CONNECTION_33510B-4c8ca1dd-a8ee-4ba9-ae8b-886c80a0a027",
-                    "label": "CONNECTION 33510B",
+                    "id": "CONNECTION_33510B-14337691-3295-4a71-aa97-1ff10d000b38",
+                    "label": "CONNECTION 33510B 1",
                     "func": "CONNECTION_33510B",
-                    "type": "IO",
+                    "type": "FUNCTION_GENERATORS",
                     "ctrls": {
                         "device": {
                             "type": "VisaDevice",
@@ -19,7 +17,7 @@
                             "overload": null,
                             "functionName": "CONNECTION_33510B",
                             "param": "device",
-                            "value": "USB0::2391::9735::MY59003244::0::INSTR"
+                            "value": ""
                         }
                     },
                     "initCtrls": {},
@@ -28,8 +26,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -40,65 +38,29 @@
                             "desc": "Optional: None"
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/FUNCTION_GENERATORS/KEYSIGHT/33XXX/BASIC/CONNECTION_33510B/CONNECTION_33510B.py",
-                    "selected": false
+                    "path": "HARDWARE/FUNCTION_GENERATORS/KEYSIGHT/33XXX/CONNECTION_33510B/CONNECTION_33510B.py"
                 },
                 "position": {
-                    "x": -527.3533818261817,
-                    "y": -104.51110954945591
+                    "x": -1019.8398721893932,
+                    "y": -151.1271909815107
                 },
+                "width": 218,
+                "height": 233,
                 "selected": false,
+                "dragging": false,
                 "positionAbsolute": {
-                    "x": -527.3533818261817,
-                    "y": -104.51110954945591
-                },
-                "dragging": true
+                    "x": -1019.8398721893932,
+                    "y": -151.1271909815107
+                }
             },
             {
-                "width": 384,
-                "height": 288,
-                "id": "TEXT_VIEW-1e087237-ee3a-4db7-963d-46fbdbd7b59b",
-                "type": "VISUALIZERS",
+                "id": "BURST_MODE_33510B-907b6ba6-091a-4685-9c31-dc41983bc3ff",
+                "type": "FUNCTION_GENERATORS",
                 "data": {
-                    "id": "TEXT_VIEW-1e087237-ee3a-4db7-963d-46fbdbd7b59b",
-                    "label": "TEXT VIEW",
-                    "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
-                        }
-                    ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 233.00086174633415,
-                    "y": -124.48626608153023
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 233.00086174633415,
-                    "y": -124.48626608153023
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "BURST_MODE_33510B-f8a40cc2-e5ec-408c-922f-6f58a235a431",
-                "type": "IO",
-                "data": {
-                    "id": "BURST_MODE_33510B-f8a40cc2-e5ec-408c-922f-6f58a235a431",
-                    "label": "BURST MODE 33510B",
+                    "id": "BURST_MODE_33510B-907b6ba6-091a-4685-9c31-dc41983bc3ff",
+                    "label": "BURST MODE 33510B 1",
                     "func": "BURST_MODE_33510B",
-                    "type": "IO",
+                    "type": "FUNCTION_GENERATORS",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -107,15 +69,15 @@
                             "overload": null,
                             "functionName": "BURST_MODE_33510B",
                             "param": "connection",
-                            "value": "USB0::2391::9735::MY59003244::0::INSTR"
+                            "value": ""
                         },
                         "on_off": {
                             "type": "select",
+                            "default": "OFF",
                             "options": [
                                 "ON",
                                 "OFF"
                             ],
-                            "default": "OFF",
                             "desc": "Turn the burst mode on or off.",
                             "overload": null,
                             "functionName": "BURST_MODE_33510B",
@@ -124,11 +86,11 @@
                         },
                         "channel": {
                             "type": "select",
+                            "default": "ch1",
                             "options": [
                                 "ch1",
                                 "ch2"
                             ],
-                            "default": "ch1",
                             "desc": "The channel to modify the burst mode for.",
                             "overload": null,
                             "functionName": "BURST_MODE_33510B",
@@ -137,12 +99,12 @@
                         },
                         "trigger_source": {
                             "type": "select",
+                            "default": "TIM",
                             "options": [
                                 "EXT",
                                 "IMM",
                                 "TIM"
                             ],
-                            "default": "TIM",
                             "desc": "Set the trigger_source (e.g. externally or timed).",
                             "overload": null,
                             "functionName": "BURST_MODE_33510B",
@@ -160,11 +122,11 @@
                         },
                         "trigger_slope": {
                             "type": "select",
+                            "default": "POS",
                             "options": [
                                 "POS",
                                 "NEG"
                             ],
-                            "default": "POS",
                             "desc": "If triggering is external, trigger on a positive or negative slope.",
                             "overload": null,
                             "functionName": "BURST_MODE_33510B",
@@ -182,11 +144,11 @@
                         },
                         "burst_mode": {
                             "type": "select",
+                            "default": "N Cycle",
                             "options": [
                                 "N Cycle",
                                 "Gated"
                             ],
-                            "default": "N Cycle",
                             "desc": "Set the burst mode for the WFG.",
                             "overload": null,
                             "functionName": "BURST_MODE_33510B",
@@ -213,11 +175,11 @@
                         },
                         "burst_polarity": {
                             "type": "select",
+                            "default": "NORM",
                             "options": [
                                 "NORM",
                                 "INV"
                             ],
-                            "default": "NORM",
                             "desc": "The polarity of the burst in Gated mode, normal or inverted.",
                             "overload": null,
                             "functionName": "BURST_MODE_33510B",
@@ -231,8 +193,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -243,41 +205,99 @@
                             "desc": "String: summary of burst mode settings."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/FUNCTION_GENERATORS/KEYSIGHT/33XXX/ADVANCED/BURST_MODE_33510B/BURST_MODE_33510B.py",
-                    "selected": false
+                    "path": "HARDWARE/FUNCTION_GENERATORS/KEYSIGHT/33XXX/BURST_MODE_33510B/BURST_MODE_33510B.py"
                 },
                 "position": {
-                    "x": -149.8564984407858,
-                    "y": -110.30884513863724
+                    "x": -645.452404822224,
+                    "y": -153.17264118120602
                 },
+                "width": 216,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -149.8564984407858,
-                    "y": -110.30884513863724
+                    "x": -645.452404822224,
+                    "y": -153.17264118120602
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "TEXT_VIEW-407957d4-a63e-44ef-9e67-b67cd099cdd8",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TEXT_VIEW-407957d4-a63e-44ef-9e67-b67cd099cdd8",
+                    "label": "TEXT VIEW 1",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
+                },
+                "position": {
+                    "x": -276.5842084409776,
+                    "y": -189.65929339522836
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -276.5842084409776,
+                    "y": -189.65929339522836
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "CONNECTION_33510B-4c8ca1dd-a8ee-4ba9-ae8b-886c80a0a027",
+                "id": "CONNECTION_33510B-14337691-3295-4a71-aa97-1ff10d000b38->BURST_MODE_33510B-907b6ba6-091a-4685-9c31-dc41983bc3ff_8c653f22-c83a-4fc0-885d-d4ce33a607d7",
+                "source": "CONNECTION_33510B-14337691-3295-4a71-aa97-1ff10d000b38",
+                "target": "BURST_MODE_33510B-907b6ba6-091a-4685-9c31-dc41983bc3ff",
                 "sourceHandle": "default",
-                "target": "BURST_MODE_33510B-f8a40cc2-e5ec-408c-922f-6f58a235a431",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CONNECTION_33510B-4c8ca1dd-a8ee-4ba9-ae8b-886c80a0a027default-BURST_MODE_33510B-f8a40cc2-e5ec-408c-922f-6f58a235a431default"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "BURST_MODE_33510B-f8a40cc2-e5ec-408c-922f-6f58a235a431",
+                "id": "BURST_MODE_33510B-907b6ba6-091a-4685-9c31-dc41983bc3ff->TEXT_VIEW-407957d4-a63e-44ef-9e67-b67cd099cdd8_71cd8c3d-152e-4f41-92f4-13818ad82130",
+                "source": "BURST_MODE_33510B-907b6ba6-091a-4685-9c31-dc41983bc3ff",
+                "target": "TEXT_VIEW-407957d4-a63e-44ef-9e67-b67cd099cdd8",
                 "sourceHandle": "default",
-                "target": "TEXT_VIEW-1e087237-ee3a-4db7-963d-46fbdbd7b59b",
                 "targetHandle": "default",
-                "id": "reactflow__edge-BURST_MODE_33510B-f8a40cc2-e5ec-408c-922f-6f58a235a431default-TEXT_VIEW-1e087237-ee3a-4db7-963d-46fbdbd7b59bdefault"
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 1104.261946392206,
-            "y": 573.1338859553202,
-            "zoom": 1.2154437530123414
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

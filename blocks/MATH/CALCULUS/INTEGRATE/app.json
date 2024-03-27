@@ -2,39 +2,40 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
-                "id": "LINSPACE-2a6c019f-b64b-4196-b4b1-abd02e7e11f6",
-                "type": "GENERATORS",
+                "id": "LINSPACE-e557bbc1-562b-4ab4-99d9-3f6e23da914b",
+                "type": "DATA",
                 "data": {
-                    "id": "LINSPACE-2a6c019f-b64b-4196-b4b1-abd02e7e11f6",
+                    "id": "LINSPACE-e557bbc1-562b-4ab4-99d9-3f6e23da914b",
                     "label": "LINSPACE",
                     "func": "LINSPACE",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "start": {
                             "type": "float",
                             "default": 10,
                             "desc": "The start point of the data.",
+                            "overload": null,
                             "functionName": "LINSPACE",
                             "param": "start",
-                            "value": 0
+                            "value": 10
                         },
                         "end": {
                             "type": "float",
                             "default": 0,
                             "desc": "The end point of the data.",
+                            "overload": null,
                             "functionName": "LINSPACE",
                             "param": "end",
-                            "value": 10
+                            "value": 0
                         },
                         "step": {
                             "type": "int",
                             "default": 1000,
                             "desc": "The number of points in the vector.",
+                            "overload": null,
                             "functionName": "LINSPACE",
                             "param": "step",
-                            "value": 100
+                            "value": 1000
                         }
                     },
                     "initCtrls": {},
@@ -43,8 +44,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -52,119 +53,32 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector",
-                            "desc": "v: the vector between start and end with step number of points."
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
                         }
                     ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
                 },
                 "position": {
-                    "x": -927.3848717286024,
-                    "y": -821.0604097802312
+                    "x": -1334.9468755573776,
+                    "y": -633.338617248509
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -927.3848717286024,
-                    "y": -821.0604097802312
+                    "x": -1334.9468755573776,
+                    "y": -633.338617248509
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 225,
-                "height": 226,
-                "id": "LINE-935cd8cd-5364-4810-a10e-d4f44ba92c46",
-                "type": "VISUALIZERS",
+                "id": "INTEGRATE-08878c08-33cf-41af-b1bd-dc6adc3d0d7d",
+                "type": "MATH",
                 "data": {
-                    "id": "LINE-935cd8cd-5364-4810-a10e-d4f44ba92c46",
-                    "label": "LINE",
-                    "func": "LINE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Line visualization of the input data"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -655.978655939177,
-                    "y": -685.8084479383958
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -655.978655939177,
-                    "y": -685.8084479383958
-                },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "LINE-0570e8a2-9567-4924-95a6-e6860f813f6e",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "LINE-0570e8a2-9567-4924-95a6-e6860f813f6e",
-                    "label": "LINE 1",
-                    "func": "LINE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Line visualization of the input data"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -241.91914104985577,
-                    "y": -689.3682222086691
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -241.91914104985577,
-                    "y": -689.3682222086691
-                },
-                "dragging": true
-            },
-            {
-                "width": 189,
-                "height": 160,
-                "id": "INTEGRATE-e679902d-1d1a-4637-ac53-27902d14ac82",
-                "type": "TRANSFORMERS",
-                "data": {
-                    "id": "INTEGRATE-e679902d-1d1a-4637-ac53-27902d14ac82",
+                    "id": "INTEGRATE-08878c08-33cf-41af-b1bd-dc6adc3d0d7d",
                     "label": "INTEGRATE",
                     "func": "INTEGRATE",
-                    "type": "TRANSFORMERS",
+                    "type": "MATH",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -172,8 +86,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Vector",
-                            "multiple": false,
-                            "desc": "Input from which we get the two lists we use in the integration."
+                            "desc": "Input from which we get the two lists we use in the integration.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -184,149 +98,215 @@
                             "desc": "x: the x-axis of the input.\ny: the result of the integral."
                         }
                     ],
-                    "path": "PYTHON/nodes/TRANSFORMERS/CALCULUS/INTEGRATE/INTEGRATE.py",
-                    "selected": false
+                    "path": "MATH/CALCULUS/INTEGRATE/INTEGRATE.py"
                 },
                 "position": {
-                    "x": -631.3440553995594,
-                    "y": -888.0274596317122
+                    "x": -858.1599051988321,
+                    "y": -807.7012459909811
                 },
+                "width": 216,
+                "height": 164,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -631.3440553995594,
-                    "y": -888.0274596317122
+                    "x": -858.1599051988321,
+                    "y": -807.7012459909811
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 231,
-                "height": 96,
-                "id": "TEXT-f0185b55-1a81-4c1f-935c-c24283f359ec",
-                "type": "GENERATORS",
+                "id": "LINE-0f7dcbaf-79e3-4bfc-91f3-e18221449c36",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "TEXT-f0185b55-1a81-4c1f-935c-c24283f359ec",
-                    "label": "DESCRIPTION",
-                    "func": "TEXT",
-                    "type": "GENERATORS",
+                    "id": "LINE-0f7dcbaf-79e3-4bfc-91f3-e18221449c36",
+                    "label": "LINE 1",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
                     "ctrls": {
-                        "value": {
+                        "xaxis_title": {
                             "type": "str",
-                            "default": "Hello World!",
-                            "desc": "The value set in Parameters",
-                            "functionName": "TEXT",
-                            "param": "value",
-                            "value": "This app shows how the INTEGRATE node works. First we generate a linear function with the LINSPACE node. Then we integrate it and we visualize the result with the LINE node."
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
                         }
                     },
                     "initCtrls": {},
                     "inputs": [
                         {
-                            "name": "_",
-                            "id": "_",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "String",
-                            "desc": "s: return the value being set in Parameters"
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
                         }
                     ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TEXT/TEXT.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
                 },
                 "position": {
-                    "x": -388.1482554067745,
-                    "y": -893.69163328032
+                    "x": -860.9585223214385,
+                    "y": -475.23797975784436
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -388.1482554067745,
-                    "y": -893.69163328032
+                    "x": -860.9585223214385,
+                    "y": -475.23797975784436
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 225,
-                "height": 226,
-                "id": "TEXT_VIEW-a37f239f-48e7-4b7b-b0eb-14d0957e6392",
-                "type": "VISUALIZERS",
+                "id": "LINE-5c7ada5d-7d6c-4ebf-b9fe-49b0a4120b97",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "TEXT_VIEW-a37f239f-48e7-4b7b-b0eb-14d0957e6392",
-                    "label": "TEXT VIEW",
-                    "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "id": "LINE-5c7ada5d-7d6c-4ebf-b9fe-49b0a4120b97",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
-                    "path": "PYTHON/nodes/VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
                 },
                 "position": {
-                    "x": -98.90474482048039,
-                    "y": -973.8498685724127
+                    "x": -463.60477450550115,
+                    "y": -679.0838690337953
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -98.90474482048039,
-                    "y": -973.8498685724127
+                    "x": -463.60477450550115,
+                    "y": -679.0838690337953
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "LINSPACE-2a6c019f-b64b-4196-b4b1-abd02e7e11f6",
+                "id": "LINSPACE-e557bbc1-562b-4ab4-99d9-3f6e23da914b->INTEGRATE-08878c08-33cf-41af-b1bd-dc6adc3d0d7d_0f880bf1-b840-445b-a5dd-c218e170e380",
+                "source": "LINSPACE-e557bbc1-562b-4ab4-99d9-3f6e23da914b",
+                "target": "INTEGRATE-08878c08-33cf-41af-b1bd-dc6adc3d0d7d",
                 "sourceHandle": "default",
-                "target": "INTEGRATE-e679902d-1d1a-4637-ac53-27902d14ac82",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-2a6c019f-b64b-4196-b4b1-abd02e7e11f6default-INTEGRATE-e679902d-1d1a-4637-ac53-27902d14ac82default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "LINSPACE-2a6c019f-b64b-4196-b4b1-abd02e7e11f6",
+                "id": "INTEGRATE-08878c08-33cf-41af-b1bd-dc6adc3d0d7d->LINE-5c7ada5d-7d6c-4ebf-b9fe-49b0a4120b97_534c9294-9395-4601-b257-6c673fafeb45",
+                "source": "INTEGRATE-08878c08-33cf-41af-b1bd-dc6adc3d0d7d",
+                "target": "LINE-5c7ada5d-7d6c-4ebf-b9fe-49b0a4120b97",
                 "sourceHandle": "default",
-                "target": "LINE-935cd8cd-5364-4810-a10e-d4f44ba92c46",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-2a6c019f-b64b-4196-b4b1-abd02e7e11f6default-LINE-935cd8cd-5364-4810-a10e-d4f44ba92c46default"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "INTEGRATE-e679902d-1d1a-4637-ac53-27902d14ac82",
+                "id": "LINSPACE-e557bbc1-562b-4ab4-99d9-3f6e23da914b->LINE-0f7dcbaf-79e3-4bfc-91f3-e18221449c36_82fec6ac-0c08-4aa7-a1fa-30235298f6bc",
+                "source": "LINSPACE-e557bbc1-562b-4ab4-99d9-3f6e23da914b",
+                "target": "LINE-0f7dcbaf-79e3-4bfc-91f3-e18221449c36",
                 "sourceHandle": "default",
-                "target": "LINE-0570e8a2-9567-4924-95a6-e6860f813f6e",
                 "targetHandle": "default",
-                "id": "reactflow__edge-INTEGRATE-e679902d-1d1a-4637-ac53-27902d14ac82default-LINE-0570e8a2-9567-4924-95a6-e6860f813f6edefault"
-            },
-            {
-                "source": "INTEGRATE-e679902d-1d1a-4637-ac53-27902d14ac82",
-                "sourceHandle": "default",
-                "target": "TEXT-f0185b55-1a81-4c1f-935c-c24283f359ec",
-                "targetHandle": "_",
-                "id": "reactflow__edge-INTEGRATE-e679902d-1d1a-4637-ac53-27902d14ac82default-TEXT-f0185b55-1a81-4c1f-935c-c24283f359ec_"
-            },
-            {
-                "source": "TEXT-f0185b55-1a81-4c1f-935c-c24283f359ec",
-                "sourceHandle": "default",
-                "target": "TEXT_VIEW-a37f239f-48e7-4b7b-b0eb-14d0957e6392",
-                "targetHandle": "default",
-                "id": "reactflow__edge-TEXT-f0185b55-1a81-4c1f-935c-c24283f359ecdefault-TEXT_VIEW-a37f239f-48e7-4b7b-b0eb-14d0957e6392default"
+                "data": {
+                    "outputType": "Vector"
+                }
             }
-        ],
-        "viewport": {
-            "x": 328.30307914563144,
-            "y": 226.88940714410813,
-            "zoom": 0.5
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

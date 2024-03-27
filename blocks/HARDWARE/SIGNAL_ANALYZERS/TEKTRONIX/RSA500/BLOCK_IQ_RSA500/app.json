@@ -2,8 +2,8 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 234,
                 "id": "BLOCK_IQ_RSA500-33713d6b-4202-414e-b8a3-2d9870aa0c7e",
                 "type": "HARDWARE",
                 "data": {
@@ -12,6 +12,15 @@
                     "func": "BLOCK_IQ_RSA500",
                     "type": "HARDWARE",
                     "ctrls": {
+                        "dll_file": {
+                            "type": "File",
+                            "default": null,
+                            "desc": "Where the RSA_API.dll file is located.",
+                            "overload": null,
+                            "functionName": "BLOCK_IQ_RSA500",
+                            "param": "dll_file",
+                            "value": ""
+                        },
                         "center_freq": {
                             "type": "float",
                             "default": 100000000,
@@ -55,8 +64,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -76,19 +85,19 @@
                     "path": "HARDWARE/SIGNAL_ANALYZERS/TEKTRONIX/RSA500/BLOCK_IQ_RSA500/BLOCK_IQ_RSA500.py"
                 },
                 "position": {
-                    "x": -56.027539485865546,
-                    "y": -144.34132183199543
+                    "x": -108.97987647487028,
+                    "y": -143.10987213457668
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -56.027539485865546,
-                    "y": -144.34132183199543
+                    "x": -108.97987647487028,
+                    "y": -143.10987213457668
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "LINE-7f8f05d3-8628-400e-8b6b-5b5c01ac63bd",
                 "type": "VISUALIZATION",
                 "data": {
@@ -96,15 +105,52 @@
                     "label": "LINE",
                     "func": "LINE",
                     "type": "VISUALIZATION",
-                    "ctrls": {},
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -129,8 +175,8 @@
                 "dragging": true
             },
             {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "LINE-b386bedb-cff5-4f45-bd9a-88af92b4a933",
                 "type": "VISUALIZATION",
                 "data": {
@@ -138,15 +184,52 @@
                     "label": "LINE 1",
                     "func": "LINE",
                     "type": "VISUALIZATION",
-                    "ctrls": {},
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -173,25 +256,29 @@
         ],
         "edges": [
             {
+                "id": "BLOCK_IQ_RSA500-33713d6b-4202-414e-b8a3-2d9870aa0c7e->LINE-b386bedb-cff5-4f45-bd9a-88af92b4a933_942ef813-0639-4ffe-9d43-8bcce74e6a15",
                 "source": "BLOCK_IQ_RSA500-33713d6b-4202-414e-b8a3-2d9870aa0c7e",
-                "sourceHandle": "I_real",
                 "target": "LINE-b386bedb-cff5-4f45-bd9a-88af92b4a933",
+                "sourceHandle": "I_real",
                 "targetHandle": "default",
-                "id": "reactflow__edge-BLOCK_IQ_RSA500-33713d6b-4202-414e-b8a3-2d9870aa0c7eI_real-LINE-b386bedb-cff5-4f45-bd9a-88af92b4a933default"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
+                "id": "BLOCK_IQ_RSA500-33713d6b-4202-414e-b8a3-2d9870aa0c7e->LINE-7f8f05d3-8628-400e-8b6b-5b5c01ac63bd_fc355f63-4fd7-4981-8ce6-a64ec25649f0",
                 "source": "BLOCK_IQ_RSA500-33713d6b-4202-414e-b8a3-2d9870aa0c7e",
-                "sourceHandle": "Q_imag",
                 "target": "LINE-7f8f05d3-8628-400e-8b6b-5b5c01ac63bd",
+                "sourceHandle": "Q_imag",
                 "targetHandle": "default",
-                "id": "reactflow__edge-BLOCK_IQ_RSA500-33713d6b-4202-414e-b8a3-2d9870aa0c7eQ_imag-LINE-7f8f05d3-8628-400e-8b6b-5b5c01ac63bddefault"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             }
-        ],
-        "viewport": {
-            "x": 948.751833426666,
-            "y": 548.8961711096587,
-            "zoom": 0.8898510191682055
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

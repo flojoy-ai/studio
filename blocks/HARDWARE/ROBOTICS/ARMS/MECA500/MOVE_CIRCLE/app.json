@@ -2,15 +2,15 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 197,
                 "id": "CONNECT-8808f575-3a8c-4985-8744-a697ff79c40d",
-                "type": "HARDWARE",
+                "type": "ROBOTICS",
                 "data": {
                     "id": "CONNECT-8808f575-3a8c-4985-8744-a697ff79c40d",
                     "label": "CONNECT",
                     "func": "CONNECT",
-                    "type": "HARDWARE",
+                    "type": "ROBOTICS",
                     "ctrls": {
                         "ip_address": {
                             "type": "str",
@@ -46,29 +46,30 @@
                             "v": "1.4.0"
                         }
                     ],
-                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/CONNECT/CONNECT.py",
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECA500/CONNECT/CONNECT.py",
                     "selected": false
                 },
                 "position": {
-                    "x": -451.20434004901955,
-                    "y": -60.904869691378984
+                    "x": -880.1355482005778,
+                    "y": -67.74042679339578
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -451.20434004901955,
-                    "y": -60.904869691378984
-                }
+                    "x": -880.1355482005778,
+                    "y": -67.74042679339578
+                },
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 197,
                 "id": "HOME-5de5f4dc-0f9a-422b-9291-676590b27f38",
-                "type": "HARDWARE",
+                "type": "ROBOTICS",
                 "data": {
                     "id": "HOME-5de5f4dc-0f9a-422b-9291-676590b27f38",
                     "label": "HOME",
                     "func": "HOME",
-                    "type": "HARDWARE",
+                    "type": "ROBOTICS",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -76,8 +77,8 @@
                             "name": "ip_address",
                             "id": "ip_address",
                             "type": "String",
-                            "multiple": false,
-                            "desc": "The IP address of the robot arm."
+                            "desc": "The IP address of the robot arm.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -94,30 +95,30 @@
                             "v": "1.4.0"
                         }
                     ],
-                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/HOME/HOME.py",
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECA500/HOME/HOME.py",
                     "selected": false
                 },
                 "position": {
-                    "x": -67.52953161935635,
-                    "y": -57.67086561680469
+                    "x": -475.954068464864,
+                    "y": -62.79753344331738
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -67.52953161935635,
-                    "y": -57.67086561680469
+                    "x": -475.954068464864,
+                    "y": -62.79753344331738
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 218,
+                "height": 197,
                 "id": "DISCONNECT-270b52f0-d89b-4c0f-a0c4-71d9088bbdc8",
-                "type": "HARDWARE",
+                "type": "ROBOTICS",
                 "data": {
                     "id": "DISCONNECT-270b52f0-d89b-4c0f-a0c4-71d9088bbdc8",
                     "label": "DISCONNECT",
                     "func": "DISCONNECT",
-                    "type": "HARDWARE",
+                    "type": "ROBOTICS",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -125,8 +126,8 @@
                             "name": "ip_address",
                             "id": "ip_address",
                             "type": "String",
-                            "multiple": false,
-                            "desc": "The IP address of the robot arm."
+                            "desc": "The IP address of the robot arm.",
+                            "multiple": false
                         }
                     ],
                     "pip_dependencies": [
@@ -135,30 +136,30 @@
                             "v": "1.4.0"
                         }
                     ],
-                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/DISCONNECT/DISCONNECT.py",
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECA500/DISCONNECT/DISCONNECT.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 959.789519687517,
-                    "y": -73.75356165646582
+                    "x": 537.6938686379758,
+                    "y": 278.27762909740267
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 959.789519687517,
-                    "y": -73.75356165646582
+                    "x": 537.6938686379758,
+                    "y": 278.27762909740267
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "SET_BLENDING-b95463e0-7098-48b1-94b5-c83e888a9b31",
-                "type": "HARDWARE",
+                "type": "ROBOTICS",
                 "data": {
                     "id": "SET_BLENDING-b95463e0-7098-48b1-94b5-c83e888a9b31",
                     "label": "SET BLENDING",
                     "func": "SET_BLENDING",
-                    "type": "HARDWARE",
+                    "type": "ROBOTICS",
                     "ctrls": {
                         "blending": {
                             "type": "float",
@@ -176,8 +177,8 @@
                             "name": "ip_address",
                             "id": "ip_address",
                             "type": "String",
-                            "multiple": false,
-                            "desc": "The IP address of the robot arm."
+                            "desc": "The IP address of the robot arm.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -194,30 +195,30 @@
                             "v": "1.4.0"
                         }
                     ],
-                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/SET_BLENDING/SET_BLENDING.py",
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECA500/SET_BLENDING/SET_BLENDING.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 486.54012035181637,
-                    "y": -58.12541640325708
+                    "x": 334.4489748319411,
+                    "y": -70.08764133178659
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 486.54012035181637,
-                    "y": -58.12541640325708
+                    "x": 334.4489748319411,
+                    "y": -70.08764133178659
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "MOVE_CIRCLE-ec2687c5-86d1-4262-b67e-eedee5521e87",
-                "type": "HARDWARE",
+                "type": "ROBOTICS",
                 "data": {
                     "id": "MOVE_CIRCLE-ec2687c5-86d1-4262-b67e-eedee5521e87",
                     "label": "MOVE CIRCLE",
                     "func": "MOVE_CIRCLE",
-                    "type": "HARDWARE",
+                    "type": "ROBOTICS",
                     "ctrls": {
                         "radius": {
                             "type": "float",
@@ -244,8 +245,8 @@
                             "name": "ip_address",
                             "id": "ip_address",
                             "type": "String",
-                            "multiple": false,
-                            "desc": "The IP address of the robot arm."
+                            "desc": "The IP address of the robot arm.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -262,30 +263,30 @@
                             "v": "1.4.0"
                         }
                     ],
-                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/MOVE_CIRCLE/MOVE_CIRCLE.py",
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECA500/MOVE_CIRCLE/MOVE_CIRCLE.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 235.71478149653188,
-                    "y": -252.48278068414817
+                    "x": -61.631952441201705,
+                    "y": -67.9227389296928
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 235.71478149653188,
-                    "y": -252.48278068414817
+                    "x": -61.631952441201705,
+                    "y": -67.9227389296928
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "MOVE_CIRCLE-fe32aec8-d49c-4995-b494-dff990b7ecca",
-                "type": "HARDWARE",
+                "type": "ROBOTICS",
                 "data": {
                     "id": "MOVE_CIRCLE-fe32aec8-d49c-4995-b494-dff990b7ecca",
                     "label": "MOVE CIRCLE 1",
                     "func": "MOVE_CIRCLE",
-                    "type": "HARDWARE",
+                    "type": "ROBOTICS",
                     "ctrls": {
                         "radius": {
                             "type": "float",
@@ -312,8 +313,8 @@
                             "name": "ip_address",
                             "id": "ip_address",
                             "type": "String",
-                            "multiple": false,
-                            "desc": "The IP address of the robot arm."
+                            "desc": "The IP address of the robot arm.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -330,63 +331,76 @@
                             "v": "1.4.0"
                         }
                     ],
-                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/MOVE_CIRCLE/MOVE_CIRCLE.py",
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECA500/MOVE_CIRCLE/MOVE_CIRCLE.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 720.8725592925385,
-                    "y": 159.2921393872959
+                    "x": 725.9992271190512,
+                    "y": -61.15457715274789
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 720.8725592925385,
-                    "y": 159.2921393872959
+                    "x": 725.9992271190512,
+                    "y": -61.15457715274789
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
+                "id": "CONNECT-8808f575-3a8c-4985-8744-a697ff79c40d->HOME-5de5f4dc-0f9a-422b-9291-676590b27f38_f098d88d-8892-416b-8175-b102e66586ba",
                 "source": "CONNECT-8808f575-3a8c-4985-8744-a697ff79c40d",
-                "sourceHandle": "default",
                 "target": "HOME-5de5f4dc-0f9a-422b-9291-676590b27f38",
+                "sourceHandle": "default",
                 "targetHandle": "ip_address",
-                "id": "reactflow__edge-CONNECT-8808f575-3a8c-4985-8744-a697ff79c40ddefault-HOME-5de5f4dc-0f9a-422b-9291-676590b27f38ip_address"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "HOME-5de5f4dc-0f9a-422b-9291-676590b27f38->MOVE_CIRCLE-ec2687c5-86d1-4262-b67e-eedee5521e87_77d54dff-c5d8-40fe-8879-7204f654b4a9",
                 "source": "HOME-5de5f4dc-0f9a-422b-9291-676590b27f38",
-                "sourceHandle": "default",
                 "target": "MOVE_CIRCLE-ec2687c5-86d1-4262-b67e-eedee5521e87",
+                "sourceHandle": "default",
                 "targetHandle": "ip_address",
-                "id": "reactflow__edge-HOME-5de5f4dc-0f9a-422b-9291-676590b27f38default-MOVE_CIRCLE-ec2687c5-86d1-4262-b67e-eedee5521e87ip_address"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "MOVE_CIRCLE-ec2687c5-86d1-4262-b67e-eedee5521e87->SET_BLENDING-b95463e0-7098-48b1-94b5-c83e888a9b31_05048efa-264c-42ec-b87d-5890e3d1a60d",
                 "source": "MOVE_CIRCLE-ec2687c5-86d1-4262-b67e-eedee5521e87",
-                "sourceHandle": "default",
                 "target": "SET_BLENDING-b95463e0-7098-48b1-94b5-c83e888a9b31",
+                "sourceHandle": "default",
                 "targetHandle": "ip_address",
-                "id": "reactflow__edge-MOVE_CIRCLE-ec2687c5-86d1-4262-b67e-eedee5521e87default-SET_BLENDING-b95463e0-7098-48b1-94b5-c83e888a9b31ip_address"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "SET_BLENDING-b95463e0-7098-48b1-94b5-c83e888a9b31->MOVE_CIRCLE-fe32aec8-d49c-4995-b494-dff990b7ecca_102d1784-9baa-453a-90db-640fce84acd9",
                 "source": "SET_BLENDING-b95463e0-7098-48b1-94b5-c83e888a9b31",
-                "sourceHandle": "default",
                 "target": "MOVE_CIRCLE-fe32aec8-d49c-4995-b494-dff990b7ecca",
+                "sourceHandle": "default",
                 "targetHandle": "ip_address",
-                "id": "reactflow__edge-SET_BLENDING-b95463e0-7098-48b1-94b5-c83e888a9b31default-MOVE_CIRCLE-fe32aec8-d49c-4995-b494-dff990b7eccaip_address"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "MOVE_CIRCLE-fe32aec8-d49c-4995-b494-dff990b7ecca->DISCONNECT-270b52f0-d89b-4c0f-a0c4-71d9088bbdc8_642e0796-5b6b-4ddd-8c6a-81b05ce0b202",
                 "source": "MOVE_CIRCLE-fe32aec8-d49c-4995-b494-dff990b7ecca",
-                "sourceHandle": "default",
                 "target": "DISCONNECT-270b52f0-d89b-4c0f-a0c4-71d9088bbdc8",
+                "sourceHandle": "default",
                 "targetHandle": "ip_address",
-                "id": "reactflow__edge-MOVE_CIRCLE-fe32aec8-d49c-4995-b494-dff990b7eccadefault-DISCONNECT-270b52f0-d89b-4c0f-a0c4-71d9088bbdc8ip_address"
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 828.0110268252124,
-            "y": 536.5928265048133,
-            "zoom": 0.8332097522012074
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

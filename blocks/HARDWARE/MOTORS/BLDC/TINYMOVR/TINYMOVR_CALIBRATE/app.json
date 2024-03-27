@@ -491,12 +491,12 @@
                 "width": 380,
                 "height": 293,
                 "id": "BIG_NUMBER-c2fd7485-9717-469e-8982-0ccb7c4a8f98",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "BIG_NUMBER-c2fd7485-9717-469e-8982-0ccb7c4a8f98",
                     "label": "BIG NUMBER 1",
                     "func": "BIG_NUMBER",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {
                         "suffix": {
                             "type": "str",
@@ -623,12 +623,12 @@
                 "width": 384,
                 "height": 288,
                 "id": "TEXT_VIEW-868b5fe2-e820-493a-84e1-cbc80df5ad72",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "TEXT_VIEW-868b5fe2-e820-493a-84e1-cbc80df5ad72",
                     "label": "TEXT VIEW",
                     "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {
                         "prettify": {
                             "type": "bool",

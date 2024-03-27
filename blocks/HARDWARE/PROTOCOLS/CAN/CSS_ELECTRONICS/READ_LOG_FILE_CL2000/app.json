@@ -2,15 +2,15 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "READ_LOG_FILE_CL2000-130c92a8-e3af-4b82-942c-d9eb60063591",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "READ_LOG_FILE_CL2000-130c92a8-e3af-4b82-942c-d9eb60063591",
                     "label": "READ LOG FILE CL2000",
                     "func": "READ_LOG_FILE_CL2000",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "file_path": {
                             "type": "File",
@@ -28,8 +28,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -43,26 +43,26 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/CSS_ELECTRONICS/READ_LOG_FILE_CL2000/READ_LOG_FILE_CL2000.py"
                 },
                 "position": {
-                    "x": -7.310948143306021,
-                    "y": -89.13157839056569
+                    "x": -467.310948143306,
+                    "y": 16.868421609434336
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -7.310948143306021,
-                    "y": -89.13157839056569
+                    "x": -467.310948143306,
+                    "y": 16.868421609434336
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 198,
                 "id": "MF4_WRITE-5c9cd677-3a08-43e1-8c1e-55336803d69b",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "MF4_WRITE-5c9cd677-3a08-43e1-8c1e-55336803d69b",
                     "label": "MF4 WRITE",
                     "func": "MF4_WRITE",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -70,15 +70,15 @@
                             "name": "MF4_writer",
                             "id": "MF4_writer",
                             "type": "Stateful",
-                            "multiple": false,
-                            "desc": "A mf4 writer object from a MF4_CREATE_WRITER block."
+                            "desc": "A mf4 writer object from a MF4_CREATE_WRITER block.",
+                            "multiple": false
                         },
                         {
                             "name": "messages",
                             "id": "messages",
                             "type": "Stateful",
-                            "multiple": false,
-                            "desc": "A list of message in the python-can format."
+                            "desc": "A list of message in the python-can format.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -102,26 +102,26 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_WRITE/MF4_WRITE.py"
                 },
                 "position": {
-                    "x": 299.0989350617307,
-                    "y": -281.7368219914982
+                    "x": -104.90106493826931,
+                    "y": -249.73682199149823
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 299.0989350617307,
-                    "y": -281.7368219914982
+                    "x": -104.90106493826931,
+                    "y": -249.73682199149823
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "MF4_CREATE_WRITER-f926d662-e852-411d-a933-5985a1bc3513",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "MF4_CREATE_WRITER-f926d662-e852-411d-a933-5985a1bc3513",
                     "label": "MF4 CREATE WRITER",
                     "func": "MF4_CREATE_WRITER",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "dir": {
                             "type": "Directory",
@@ -190,32 +190,32 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ]
                 },
                 "position": {
-                    "x": -16.10556588633176,
-                    "y": -319.19739283490156
+                    "x": -478.10556588633176,
+                    "y": -525.1973928349015
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -16.10556588633176,
-                    "y": -319.19739283490156
+                    "x": -478.10556588633176,
+                    "y": -525.1973928349015
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 234,
                 "id": "DECODE_CAN_MESSAGE-3e06a4de-81f0-44b9-b12f-9cef85ccd469",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "DECODE_CAN_MESSAGE-3e06a4de-81f0-44b9-b12f-9cef85ccd469",
                     "label": "DECODE CAN MESSAGE",
                     "func": "DECODE_CAN_MESSAGE",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "ignore_undefined_id_error": {
                             "type": "bool",
@@ -233,15 +233,15 @@
                             "name": "dbc",
                             "id": "dbc",
                             "type": "Stateful",
-                            "multiple": false,
-                            "desc": "The database to use for decoding the message."
+                            "desc": "The database to use for decoding the message.",
+                            "multiple": false
                         },
                         {
                             "name": "messages",
                             "id": "messages",
                             "type": "Stateful",
-                            "multiple": false,
-                            "desc": "The message to DECODE_CAN. Must be a can.Message object."
+                            "desc": "The message to DECODE_CAN. Must be a can.Message object.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -249,7 +249,7 @@
                             "name": "default",
                             "id": "default",
                             "type": "DataFrame",
-                            "desc": "Return dataframe containing the DECODE_CANd message."
+                            "desc": "Return dataframe containing the decoded message."
                         }
                     ],
                     "pip_dependencies": [
@@ -265,26 +265,26 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/UTILS/DECODE_CAN_MESSAGE/DECODE_CAN_MESSAGE.py"
                 },
                 "position": {
-                    "x": 1101.0180494338101,
-                    "y": -278.66461076733424
+                    "x": 1105.0180494338101,
+                    "y": -516.6646107673342
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1101.0180494338101,
-                    "y": -278.66461076733424
+                    "x": 1105.0180494338101,
+                    "y": -516.6646107673342
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 197,
                 "id": "LOAD_DBC-3b10c926-ed3c-43b8-8e09-274d473ba9ca",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "LOAD_DBC-3b10c926-ed3c-43b8-8e09-274d473ba9ca",
                     "label": "LOAD DBC",
                     "func": "LOAD_DBC",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "file_path": {
                             "type": "File",
@@ -302,8 +302,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -327,19 +327,19 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/UTILS/LOAD_DBC/LOAD_DBC.py"
                 },
                 "position": {
-                    "x": 798.0179264324436,
-                    "y": -306.28766826207675
+                    "x": 772.0179264324436,
+                    "y": -730.2876682620767
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 798.0179264324436,
-                    "y": -306.28766826207675
+                    "x": 772.0179264324436,
+                    "y": -730.2876682620767
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 150,
-                "height": 180,
+                "width": 281,
+                "height": 233,
                 "id": "PRINT_DATACONTAINER-3505b03f-d79e-4fc9-afca-96ea630c9a23",
                 "type": "DEBUGGING",
                 "data": {
@@ -354,8 +354,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": "The input DataContainer to print."
+                            "desc": "The input DataContainer to print.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -369,19 +369,19 @@
                     "path": "DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py"
                 },
                 "position": {
-                    "x": 1128.7367737080822,
-                    "y": -61.70317256774592
+                    "x": 344.7367737080822,
+                    "y": -65.70317256774592
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1128.7367737080822,
-                    "y": -61.70317256774592
+                    "x": 344.7367737080822,
+                    "y": -65.70317256774592
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 1412,
-                "height": 708,
+                "width": 225,
+                "height": 225,
                 "id": "TEXT_VIEW-6eb802a6-6193-4e55-ad21-64c6507670d1",
                 "type": "VISUALIZATION",
                 "data": {
@@ -406,8 +406,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "String|Boolean",
-                            "multiple": false,
-                            "desc": "The DataContainer to be visualized in text format"
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -421,31 +421,31 @@
                     "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
                 },
                 "position": {
-                    "x": -47.49268435631279,
-                    "y": 131.25921023588444
+                    "x": 970.5073156436872,
+                    "y": -92.74078976411556
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -47.49268435631279,
-                    "y": 131.25921023588444
+                    "x": 970.5073156436872,
+                    "y": -92.74078976411556
                 },
-                "dragging": true,
+                "dragging": false,
                 "style": {
-                    "width": 1412,
-                    "height": 708
+                    "width": 225,
+                    "height": 225
                 },
                 "resizing": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 234,
                 "id": "MF4_CLOSE_WRITER-f955b1ef-90a8-44e5-8726-1df66acbcc6c",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "MF4_CLOSE_WRITER-f955b1ef-90a8-44e5-8726-1df66acbcc6c",
                     "label": "MF4 CLOSE WRITER",
                     "func": "MF4_CLOSE_WRITER",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -453,15 +453,15 @@
                             "name": "MF4_writer",
                             "id": "MF4_writer",
                             "type": "Stateful",
-                            "multiple": false,
-                            "desc": "A mf4 writer object from a MF4_CREATE_WRITER block."
+                            "desc": "A mf4 writer object from a MF4_CREATE_WRITER block.",
+                            "multiple": false
                         },
                         {
                             "name": "default",
                             "id": "default",
                             "type": "Stateful",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -485,26 +485,26 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_CLOSE_WRITER/MF4_CLOSE_WRITER.py"
                 },
                 "position": {
-                    "x": 580.0599418891392,
-                    "y": -80.55776443123881
+                    "x": 280.05994188913917,
+                    "y": -500.55776443123875
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 580.0599418891392,
-                    "y": -80.55776443123881
+                    "x": 280.05994188913917,
+                    "y": -500.55776443123875
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "MF4_CREATE_READER-3b020401-11cb-4d25-9a9d-0b645a38995f",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "MF4_CREATE_READER-3b020401-11cb-4d25-9a9d-0b645a38995f",
                     "label": "MF4 CREATE READER",
                     "func": "MF4_CREATE_READER",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "file": {
                             "type": "File",
@@ -522,8 +522,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -547,15 +547,15 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/UTILS/MF4_CREATE_READER/MF4_CREATE_READER.py"
                 },
                 "position": {
-                    "x": 832.9027910089521,
-                    "y": -77.06410251858324
+                    "x": 678.9027910089521,
+                    "y": -493.06410251858324
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 832.9027910089521,
-                    "y": -77.06410251858324
+                    "x": 678.9027910089521,
+                    "y": -493.06410251858324
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
@@ -588,20 +588,6 @@
                 "id": "reactflow__edge-LOAD_DBC-3b10c926-ed3c-43b8-8e09-274d473ba9cadefault-DECODE_CAN_MESSAGE-3e06a4de-81f0-44b9-b12f-9cef85ccd469dbc"
             },
             {
-                "source": "DECODE_CAN_MESSAGE-3e06a4de-81f0-44b9-b12f-9cef85ccd469",
-                "sourceHandle": "default",
-                "target": "PRINT_DATACONTAINER-3505b03f-d79e-4fc9-afca-96ea630c9a23",
-                "targetHandle": "default",
-                "id": "reactflow__edge-DECODE_CAN_MESSAGE-3e06a4de-81f0-44b9-b12f-9cef85ccd469default-PRINT_DATACONTAINER-3505b03f-d79e-4fc9-afca-96ea630c9a23default"
-            },
-            {
-                "source": "PRINT_DATACONTAINER-3505b03f-d79e-4fc9-afca-96ea630c9a23",
-                "sourceHandle": "default",
-                "target": "TEXT_VIEW-6eb802a6-6193-4e55-ad21-64c6507670d1",
-                "targetHandle": "default",
-                "id": "reactflow__edge-PRINT_DATACONTAINER-3505b03f-d79e-4fc9-afca-96ea630c9a23default-TEXT_VIEW-6eb802a6-6193-4e55-ad21-64c6507670d1default"
-            },
-            {
                 "source": "MF4_WRITE-5c9cd677-3a08-43e1-8c1e-55336803d69b",
                 "sourceHandle": "default",
                 "target": "MF4_CLOSE_WRITER-f955b1ef-90a8-44e5-8726-1df66acbcc6c",
@@ -621,20 +607,35 @@
                 "target": "MF4_CREATE_READER-3b020401-11cb-4d25-9a9d-0b645a38995f",
                 "targetHandle": "default",
                 "id": "reactflow__edge-MF4_CLOSE_WRITER-f955b1ef-90a8-44e5-8726-1df66acbcc6cdefault-MF4_CREATE_READER-3b020401-11cb-4d25-9a9d-0b645a38995fdefault"
+            },
+            {
+                "id": "PRINT_DATACONTAINER-3505b03f-d79e-4fc9-afca-96ea630c9a23->TEXT_VIEW-6eb802a6-6193-4e55-ad21-64c6507670d1_8e87dab5-7006-4ac0-9886-7f60c2c3710c",
+                "source": "PRINT_DATACONTAINER-3505b03f-d79e-4fc9-afca-96ea630c9a23",
+                "target": "TEXT_VIEW-6eb802a6-6193-4e55-ad21-64c6507670d1",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "DECODE_CAN_MESSAGE-3e06a4de-81f0-44b9-b12f-9cef85ccd469->PRINT_DATACONTAINER-3505b03f-d79e-4fc9-afca-96ea630c9a23_d3506d9b-0402-468c-a025-441346b99c8e",
+                "source": "DECODE_CAN_MESSAGE-3e06a4de-81f0-44b9-b12f-9cef85ccd469",
+                "target": "PRINT_DATACONTAINER-3505b03f-d79e-4fc9-afca-96ea630c9a23",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "DataFrame"
+                }
             }
-        ],
-        "viewport": {
-            "x": 558.7008754750079,
-            "y": 333.48106516984456,
-            "zoom": 0.565566731289411
-        }
+        ]
     },
     "textNodes": [
         {
             "id": "TextNode-0e56c435-4f8d-42ec-896e-73568f2d6059",
             "position": {
-                "x": 278.3745985279124,
-                "y": -57.27212479756639
+                "x": -45.62540147208762,
+                "y": 12.727875202433665
             },
             "type": "TextNode",
             "data": {
@@ -645,15 +646,15 @@
             "selected": false,
             "dragging": false,
             "positionAbsolute": {
-                "x": 278.3745985279124,
-                "y": -57.27212479756639
+                "x": -45.62540147208762,
+                "y": 12.727875202433665
             }
         },
         {
             "id": "TextNode-ccf99451-f6a3-49c6-a88a-cadb82c86234",
             "position": {
-                "x": 572.0401243026548,
-                "y": -249.77121490635878
+                "x": 500.0401243026548,
+                "y": -651.7712149063588
             },
             "type": "TextNode",
             "data": {
@@ -663,10 +664,13 @@
             "height": 150,
             "selected": false,
             "positionAbsolute": {
-                "x": 572.0401243026548,
-                "y": -249.77121490635878
+                "x": 500.0401243026548,
+                "y": -651.7712149063588
             },
             "dragging": false
         }
-    ]
+    ],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

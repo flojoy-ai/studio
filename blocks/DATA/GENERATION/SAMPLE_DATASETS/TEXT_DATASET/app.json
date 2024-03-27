@@ -2,55 +2,13 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 225,
-                "height": 226,
-                "id": "TABLE-6a242d62-814f-406e-94de-d5c6908dce5e",
-                "type": "VISUALIZERS",
+                "id": "TEXT_DATASET-bff10f7d-a378-4295-a454-3eec13f22469",
+                "type": "DATA",
                 "data": {
-                    "id": "TABLE-6a242d62-814f-406e-94de-d5c6908dce5e",
-                    "label": "TABLE",
-                    "func": "TABLE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple|OrderedPair|DataFrame|Matrix",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 1170.5289863217536,
-                    "y": 441.8699692511366
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1170.5289863217536,
-                    "y": 441.8699692511366
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "TEXT_DATASET-4a227c84-7852-41a2-acdf-248e97fbae85",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "TEXT_DATASET-4a227c84-7852-41a2-acdf-248e97fbae85",
+                    "id": "TEXT_DATASET-bff10f7d-a378-4295-a454-3eec13f22469",
                     "label": "TEXT DATASET",
                     "func": "TEXT_DATASET",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "subset": {
                             "type": "select",
@@ -61,6 +19,7 @@
                                 "all"
                             ],
                             "desc": "Select the dataset to load: \"train\" for the training set, \"test\" for the test set, \"all\" for both.",
+                            "overload": null,
                             "functionName": "TEXT_DATASET",
                             "param": "subset",
                             "value": "train"
@@ -69,6 +28,7 @@
                             "type": "Array",
                             "default": null,
                             "desc": "Select the categories to load. By default, all categories are loaded.\nThe list of all categories is:\n'alt.atheism',\n'comp.graphics',\n'comp.os.ms-windows.misc',\n'comp.sys.ibm.pc.hardware',\n'comp.sys.mac.hardware',\n'comp.windows.x',\n'misc.forsale',\n'rec.autos',\n'rec.motorcycles',\n'rec.sport.baseball',\n'rec.sport.hockey',\n'sci.crypt',\n'sci.electronics',\n'sci.med',\n'sci.space',\n'soc.religion.christian',\n'talk.politics.guns',\n'talk.politics.mideast',\n'talk.politics.misc',\n'talk.religion.misc'",
+                            "overload": null,
                             "functionName": "TEXT_DATASET",
                             "param": "categories",
                             "value": "comp.graphics,alt.atheism"
@@ -77,6 +37,7 @@
                             "type": "bool",
                             "default": false,
                             "desc": "Remove the headers from the data.",
+                            "overload": null,
                             "functionName": "TEXT_DATASET",
                             "param": "remove_headers",
                             "value": true
@@ -85,6 +46,7 @@
                             "type": "bool",
                             "default": false,
                             "desc": "Remove the footers from the data.",
+                            "overload": null,
                             "functionName": "TEXT_DATASET",
                             "param": "remove_footers",
                             "value": true
@@ -93,11 +55,13 @@
                             "type": "bool",
                             "default": false,
                             "desc": "Remove the quotes from the data.",
+                            "overload": null,
                             "functionName": "TEXT_DATASET",
                             "param": "remove_quotes",
                             "value": true
                         }
                     },
+                    "initCtrls": {},
                     "outputs": [
                         {
                             "name": "default",
@@ -106,53 +70,76 @@
                             "desc": null
                         }
                     ],
-                    "path": "PYTHON/nodes\\GENERATORS\\SAMPLE_DATASETS\\TEXT_DATASET\\TEXT_DATASET.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SAMPLE_DATASETS/TEXT_DATASET/TEXT_DATASET.py"
                 },
                 "position": {
-                    "x": 829.2140671536599,
-                    "y": 506.1845630079231
+                    "x": 833.4516636376786,
+                    "y": 347.36333188254645
                 },
+                "width": 216,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 829.2140671536599,
-                    "y": 506.1845630079231
+                    "x": 833.4516636376786,
+                    "y": 347.36333188254645
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "TABLE-9cad381d-9d1a-4921-8d7f-eb45d372f4ac",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TABLE-9cad381d-9d1a-4921-8d7f-eb45d372f4ac",
+                    "label": "TABLE",
+                    "func": "TABLE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Table visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
+                },
+                "position": {
+                    "x": 1209.6867877049067,
+                    "y": 311.847289989381
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1209.6867877049067,
+                    "y": 311.847289989381
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "TEXT_DATASET-4a227c84-7852-41a2-acdf-248e97fbae85",
+                "id": "TEXT_DATASET-bff10f7d-a378-4295-a454-3eec13f22469->TABLE-9cad381d-9d1a-4921-8d7f-eb45d372f4ac_74b1a206-f242-4042-adac-c408556b29f3",
+                "source": "TEXT_DATASET-bff10f7d-a378-4295-a454-3eec13f22469",
+                "target": "TABLE-9cad381d-9d1a-4921-8d7f-eb45d372f4ac",
                 "sourceHandle": "default",
-                "target": "TABLE-6a242d62-814f-406e-94de-d5c6908dce5e",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TEXT_DATASET-4a227c84-7852-41a2-acdf-248e97fbae85default-TABLE-6a242d62-814f-406e-94de-d5c6908dce5edefault"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             }
-        ],
-        "viewport": {
-            "x": 606.4472645567363,
-            "y": 234.63130388602087,
-            "zoom": 0.9186369849831518
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": []
 }

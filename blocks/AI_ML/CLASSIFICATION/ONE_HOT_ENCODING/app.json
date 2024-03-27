@@ -2,15 +2,156 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 150,
-                "height": 150,
-                "id": "PLOTLY_DATASET-905b1a9b-05ef-4ae4-b51a-8574359571cf",
-                "type": "GENERATORS",
+                "width": 216,
+                "height": 234,
+                "id": "ONE_HOT_ENCODING-eef29534-7bf7-4d54-aff9-8fc25081c822",
+                "type": "AI_ML",
                 "data": {
-                    "id": "PLOTLY_DATASET-905b1a9b-05ef-4ae4-b51a-8574359571cf",
+                    "id": "ONE_HOT_ENCODING-eef29534-7bf7-4d54-aff9-8fc25081c822",
+                    "label": "ONE HOT ENCODING",
+                    "func": "ONE_HOT_ENCODING",
+                    "type": "AI_ML",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "data",
+                            "id": "data",
+                            "type": "DataFrame",
+                            "desc": "The input dataframe containing the categorical features.",
+                            "multiple": false
+                        },
+                        {
+                            "name": "feature_col",
+                            "id": "feature_col",
+                            "type": "DataFrame",
+                            "desc": "A dataframe whose columns are used to create the one hot encoding.\nFor example, if 'data' has columns ['a', 'b', 'c'] and 'feature_col' has columns ['a', 'b'],\nthen the one hot encoding will be created only for columns ['a', 'b'] against 'data'.\nDefaults to None, meaning that all columns of categorizable objects are encoded.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame",
+                            "desc": "The one hot encoding of the input features."
+                        }
+                    ],
+                    "path": "AI_ML/CLASSIFICATION/ONE_HOT_ENCODING/ONE_HOT_ENCODING.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 887.8608961346621,
+                    "y": 235.79255572443623
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 887.8608961346621,
+                    "y": 235.79255572443623
+                },
+                "dragging": false
+            },
+            {
+                "id": "TABLE-a9990a15-7f1d-47a1-bd28-68b30775a5f5",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TABLE-a9990a15-7f1d-47a1-bd28-68b30775a5f5",
+                    "label": "TABLE 1",
+                    "func": "TABLE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Table visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
+                },
+                "position": {
+                    "x": 1300.037336164308,
+                    "y": 194.3987135566341
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1300.037336164308,
+                    "y": 194.3987135566341
+                },
+                "dragging": false
+            },
+            {
+                "id": "EXTRACT_COLUMNS-f00688f4-19dd-44f8-93a1-1eedc3c8e0ec",
+                "type": "EXTRACT",
+                "data": {
+                    "id": "EXTRACT_COLUMNS-f00688f4-19dd-44f8-93a1-1eedc3c8e0ec",
+                    "label": "EXTRACT COLUMNS",
+                    "func": "EXTRACT_COLUMNS",
+                    "type": "EXTRACT",
+                    "ctrls": {
+                        "columns": {
+                            "type": "Array",
+                            "default": null,
+                            "desc": "The columns to extract from the input dataframe",
+                            "overload": null,
+                            "functionName": "EXTRACT_COLUMNS",
+                            "param": "columns",
+                            "value": "smoker,day"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame|Matrix",
+                            "desc": "Input to use as the table for column extraction",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame",
+                            "desc": "DataFrame or Matrix with only the specified columns"
+                        }
+                    ],
+                    "path": "ETL/EXTRACT/DATAFRAME/EXTRACT_COLUMNS/EXTRACT_COLUMNS.py"
+                },
+                "position": {
+                    "x": 356.2574012495658,
+                    "y": 342.00113177488424
+                },
+                "width": 216,
+                "height": 296,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 356.2574012495658,
+                    "y": 342.00113177488424
+                },
+                "dragging": false
+            },
+            {
+                "id": "PLOTLY_DATASET-bc7ce298-c40f-4d98-b9e6-69002cb1147e",
+                "type": "DATA",
+                "data": {
+                    "id": "PLOTLY_DATASET-bc7ce298-c40f-4d98-b9e6-69002cb1147e",
                     "label": "PLOTLY DATASET",
                     "func": "PLOTLY_DATASET",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "dataset_key": {
                             "type": "select",
@@ -27,219 +168,80 @@
                                 "medals_wide",
                                 "stocks"
                             ],
+                            "desc": null,
+                            "overload": null,
                             "functionName": "PLOTLY_DATASET",
                             "param": "dataset_key",
                             "value": "tips"
                         }
                     },
+                    "initCtrls": {},
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "DataFrame"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/GENERATORS/SAMPLE_DATASETS/PLOTLY_DATASET/PLOTLY_DATASET.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 225.17466971279896,
-                    "y": 33.26430366645344
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 225.17466971279896,
-                    "y": 33.26430366645344
-                }
-            },
-            {
-                "width": 150,
-                "height": 150,
-                "id": "EXTRACT_COLUMNS-c8e238a7-337c-479f-a2c6-bf607cb52779",
-                "type": "EXTRACTORS",
-                "data": {
-                    "id": "EXTRACT_COLUMNS-c8e238a7-337c-479f-a2c6-bf607cb52779",
-                    "label": "EXTRACT COLUMNS",
-                    "func": "EXTRACT_COLUMNS",
-                    "type": "EXTRACTORS",
-                    "ctrls": {
-                        "columns": {
-                            "type": "Array",
-                            "default": null,
-                            "functionName": "EXTRACT_COLUMNS",
-                            "param": "columns",
-                            "value": "smoker,day"
-                        }
-                    },
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "DataFrame|Matrix",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "DataFrame"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/EXTRACTORS/EXTRACT_COLUMNS/EXTRACT_COLUMNS/EXTRACT_COLUMNS.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 479.4724139818194,
-                    "y": 227.22426944242306
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 479.4724139818194,
-                    "y": 227.22426944242306
-                },
-                "dragging": true
-            },
-            {
-                "width": 150,
-                "height": 150,
-                "id": "ONE_HOT_ENCODING-eef29534-7bf7-4d54-aff9-8fc25081c822",
-                "type": "AI_ML",
-                "data": {
-                    "id": "ONE_HOT_ENCODING-eef29534-7bf7-4d54-aff9-8fc25081c822",
-                    "label": "ONE HOT ENCODING",
-                    "func": "ONE_HOT_ENCODING",
-                    "type": "AI_ML",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "data",
-                            "id": "data",
                             "type": "DataFrame",
-                            "multiple": false
-                        },
-                        {
-                            "name": "feature_col",
-                            "id": "feature_col",
-                            "type": "DataFrame",
-                            "multiple": false
+                            "desc": null
                         }
                     ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "DataFrame"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/AI_ML/CLASSIFICATION/ONE_HOT_ENCODING/ONE_HOT_ENCODING.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SAMPLE_DATASETS/PLOTLY_DATASET/PLOTLY_DATASET.py"
                 },
                 "position": {
-                    "x": 747.6834197435038,
-                    "y": 52.737263025393986
+                    "x": -70.9945656925166,
+                    "y": 204.59594605687516
                 },
+                "width": 216,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 747.6834197435038,
-                    "y": 52.737263025393986
+                    "x": -70.9945656925166,
+                    "y": 204.59594605687516
                 },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "TABLE-e6aab77d-927f-4eeb-be3f-afdd469df2ae",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TABLE-e6aab77d-927f-4eeb-be3f-afdd469df2ae",
-                    "label": "TABLE",
-                    "func": "TABLE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple|OrderedPair|DataFrame|Matrix",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 1061.7767903212753,
-                    "y": 13.83665125511368
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1061.7767903212753,
-                    "y": 13.83665125511368
-                },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "PLOTLY_DATASET-905b1a9b-05ef-4ae4-b51a-8574359571cf",
+                "id": "PLOTLY_DATASET-bc7ce298-c40f-4d98-b9e6-69002cb1147e->EXTRACT_COLUMNS-f00688f4-19dd-44f8-93a1-1eedc3c8e0ec_9c73d6f2-f079-4ebb-aa86-d826fb394042",
+                "source": "PLOTLY_DATASET-bc7ce298-c40f-4d98-b9e6-69002cb1147e",
+                "target": "EXTRACT_COLUMNS-f00688f4-19dd-44f8-93a1-1eedc3c8e0ec",
                 "sourceHandle": "default",
-                "target": "EXTRACT_COLUMNS-c8e238a7-337c-479f-a2c6-bf607cb52779",
                 "targetHandle": "default",
-                "id": "reactflow__edge-PLOTLY_DATASET-905b1a9b-05ef-4ae4-b51a-8574359571cfdefault-EXTRACT_COLUMNS-c8e238a7-337c-479f-a2c6-bf607cb52779default"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             },
             {
-                "source": "PLOTLY_DATASET-905b1a9b-05ef-4ae4-b51a-8574359571cf",
-                "sourceHandle": "default",
+                "id": "PLOTLY_DATASET-bc7ce298-c40f-4d98-b9e6-69002cb1147e->ONE_HOT_ENCODING-eef29534-7bf7-4d54-aff9-8fc25081c822_7aa7999a-c4b7-456b-9407-1fb0559ff061",
+                "source": "PLOTLY_DATASET-bc7ce298-c40f-4d98-b9e6-69002cb1147e",
                 "target": "ONE_HOT_ENCODING-eef29534-7bf7-4d54-aff9-8fc25081c822",
+                "sourceHandle": "default",
                 "targetHandle": "data",
-                "id": "reactflow__edge-PLOTLY_DATASET-905b1a9b-05ef-4ae4-b51a-8574359571cfdefault-ONE_HOT_ENCODING-eef29534-7bf7-4d54-aff9-8fc25081c822data"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             },
             {
-                "source": "EXTRACT_COLUMNS-c8e238a7-337c-479f-a2c6-bf607cb52779",
-                "sourceHandle": "default",
-                "target": "ONE_HOT_ENCODING-eef29534-7bf7-4d54-aff9-8fc25081c822",
-                "targetHandle": "feature_col",
-                "id": "reactflow__edge-EXTRACT_COLUMNS-c8e238a7-337c-479f-a2c6-bf607cb52779default-ONE_HOT_ENCODING-eef29534-7bf7-4d54-aff9-8fc25081c822feature_col"
-            },
-            {
+                "id": "ONE_HOT_ENCODING-eef29534-7bf7-4d54-aff9-8fc25081c822->TABLE-a9990a15-7f1d-47a1-bd28-68b30775a5f5_0308693c-80da-412c-9343-183cc3528caa",
                 "source": "ONE_HOT_ENCODING-eef29534-7bf7-4d54-aff9-8fc25081c822",
+                "target": "TABLE-a9990a15-7f1d-47a1-bd28-68b30775a5f5",
                 "sourceHandle": "default",
-                "target": "TABLE-e6aab77d-927f-4eeb-be3f-afdd469df2ae",
                 "targetHandle": "default",
-                "id": "reactflow__edge-ONE_HOT_ENCODING-eef29534-7bf7-4d54-aff9-8fc25081c822default-TABLE-e6aab77d-927f-4eeb-be3f-afdd469df2aedefault"
+                "data": {
+                    "outputType": "DataFrame"
+                }
+            },
+            {
+                "id": "EXTRACT_COLUMNS-f00688f4-19dd-44f8-93a1-1eedc3c8e0ec->ONE_HOT_ENCODING-eef29534-7bf7-4d54-aff9-8fc25081c822_7ba2616a-2a9c-4cbc-9446-76d01a139d00",
+                "source": "EXTRACT_COLUMNS-f00688f4-19dd-44f8-93a1-1eedc3c8e0ec",
+                "target": "ONE_HOT_ENCODING-eef29534-7bf7-4d54-aff9-8fc25081c822",
+                "sourceHandle": "default",
+                "targetHandle": "feature_col",
+                "data": {
+                    "outputType": "DataFrame"
+                }
             }
-        ],
-        "viewport": {
-            "x": -456.37712173371256,
-            "y": 259.03077225262325,
-            "zoom": 1.3466637668169514
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": []
 }

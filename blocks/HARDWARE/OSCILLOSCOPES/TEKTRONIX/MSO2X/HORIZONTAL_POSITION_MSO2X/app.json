@@ -2,15 +2,15 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "CONNECT_MSO2X-0aa2b138-6f87-46a2-8002-6184a1530b53",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "CONNECT_MSO2X-0aa2b138-6f87-46a2-8002-6184a1530b53",
                     "label": "CONNECT MSO2X",
                     "func": "CONNECT_MSO2X",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "device": {
                             "type": "VisaDevice",
@@ -41,31 +41,31 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -977.188493353959,
-                    "y": -44.46244198906959
+                    "x": -1825.188493353959,
+                    "y": -50.46244198906959
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -977.188493353959,
-                    "y": -44.46244198906959
+                    "x": -1825.188493353959,
+                    "y": -50.46244198906959
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 218,
+                "height": 269,
                 "id": "HORIZONTAL_SCALE_MSO2X-ee01d43e-afff-4c6f-98d8-6bc6f10e42c2",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "HORIZONTAL_SCALE_MSO2X-ee01d43e-afff-4c6f-98d8-6bc6f10e42c2",
                     "label": "HORIZONTAL SCALE MSO2X",
                     "func": "HORIZONTAL_SCALE_MSO2X",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": null,
+                            "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
                             "overload": null,
                             "functionName": "HORIZONTAL_SCALE_MSO2X",
                             "param": "connection",
@@ -87,8 +87,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -109,31 +109,31 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -405.81697582335465,
-                    "y": 189.96161599218755
+                    "x": -787.8169758233546,
+                    "y": 251.9616159921875
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -405.81697582335465,
-                    "y": 189.96161599218755
+                    "x": -787.8169758233546,
+                    "y": 251.9616159921875
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 269,
                 "id": "VERTICAL_SCALE_MSO2X-d076e917-998d-4980-8e3b-265ea1bc3c9d",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "VERTICAL_SCALE_MSO2X-d076e917-998d-4980-8e3b-265ea1bc3c9d",
                     "label": "VERTICAL SCALE MSO2X",
                     "func": "VERTICAL_SCALE_MSO2X",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": null,
+                            "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
                             "overload": null,
                             "functionName": "VERTICAL_SCALE_MSO2X",
                             "param": "connection",
@@ -164,8 +164,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -186,31 +186,31 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -129.9837452378976,
-                    "y": -305.6287145147128
+                    "x": -309.9837452378976,
+                    "y": -311.6287145147128
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -129.9837452378976,
-                    "y": -305.6287145147128
+                    "x": -309.9837452378976,
+                    "y": -311.6287145147128
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 239,
+                "height": 269,
                 "id": "PROBE_ATTENUATION_MSO2X-878d812f-31ed-42e1-9afa-cd98a4f03218",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "PROBE_ATTENUATION_MSO2X-878d812f-31ed-42e1-9afa-cd98a4f03218",
                     "label": "PROBE ATTENUATION MSO2X",
                     "func": "PROBE_ATTENUATION_MSO2X",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": null,
+                            "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
                             "overload": null,
                             "functionName": "PROBE_ATTENUATION_MSO2X",
                             "param": "connection",
@@ -241,8 +241,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -264,30 +264,30 @@
                 },
                 "position": {
                     "x": 145.1990600695467,
-                    "y": -307.15481744882214
+                    "y": -369.1548174488221
                 },
                 "selected": false,
                 "positionAbsolute": {
                     "x": 145.1990600695467,
-                    "y": -307.15481744882214
+                    "y": -369.1548174488221
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 239,
+                "height": 269,
                 "id": "PROBE_ATTENUATION_MSO2X-6dbe224e-c160-4b67-9e21-58cd63cf12c1",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "PROBE_ATTENUATION_MSO2X-6dbe224e-c160-4b67-9e21-58cd63cf12c1",
                     "label": "PROBE ATTENUATION MSO2X 1",
                     "func": "PROBE_ATTENUATION_MSO2X",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": null,
+                            "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
                             "overload": null,
                             "functionName": "PROBE_ATTENUATION_MSO2X",
                             "param": "connection",
@@ -318,8 +318,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -340,31 +340,31 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 152.53458365561363,
-                    "y": -46.280067591737975
+                    "x": 136.53458365561363,
+                    "y": -52.280067591737975
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 152.53458365561363,
-                    "y": -46.280067591737975
+                    "x": 136.53458365561363,
+                    "y": -52.280067591737975
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 269,
                 "id": "VERTICAL_SCALE_MSO2X-ddc4853b-3fc6-464a-af6e-b381c951927c",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "VERTICAL_SCALE_MSO2X-ddc4853b-3fc6-464a-af6e-b381c951927c",
                     "label": "VERTICAL SCALE MSO2X 1",
                     "func": "VERTICAL_SCALE_MSO2X",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": null,
+                            "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
                             "overload": null,
                             "functionName": "VERTICAL_SCALE_MSO2X",
                             "param": "connection",
@@ -395,8 +395,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -417,26 +417,26 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -124.24549231479804,
-                    "y": -41.6650176150589
+                    "x": -304.24549231479807,
+                    "y": -51.6650176150589
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -124.24549231479804,
-                    "y": -41.6650176150589
+                    "x": -304.24549231479807,
+                    "y": -51.6650176150589
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 197,
                 "id": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693",
                     "label": "AFG MSO2X",
                     "func": "AFG_MSO2X",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -560,8 +560,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -582,26 +582,26 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -698.8026111944561,
-                    "y": -43.32578217849789
+                    "x": -1396.802611194456,
+                    "y": -49.32578217849789
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -698.8026111944561,
-                    "y": -43.32578217849789
+                    "x": -1396.802611194456,
+                    "y": -49.32578217849789
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 269,
                 "id": "EDGE_TRIGGER_MSO2X-d49ab2ee-d02f-49e8-9b62-c8a0b12178e7",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "EDGE_TRIGGER_MSO2X-d49ab2ee-d02f-49e8-9b62-c8a0b12178e7",
                     "label": "EDGE TRIGGER MSO2X",
                     "func": "EDGE_TRIGGER_MSO2X",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -668,8 +668,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -690,26 +690,26 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -406.90769764792697,
-                    "y": -49.819698713873265
+                    "x": -780.907697647927,
+                    "y": -43.81969871387332
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -406.90769764792697,
-                    "y": -49.819698713873265
+                    "x": -780.907697647927,
+                    "y": -43.81969871387332
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 239,
+                "height": 269,
                 "id": "PROBE_ATTENUATION_MSO2X-00f21911-ce4f-4c52-b6b8-8945df176c9e",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "PROBE_ATTENUATION_MSO2X-00f21911-ce4f-4c52-b6b8-8945df176c9e",
                     "label": "PROBE ATTENUATION MSO2X 2",
                     "func": "PROBE_ATTENUATION_MSO2X",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -745,8 +745,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -767,31 +767,31 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 143.7548857229971,
-                    "y": 213.68730403885746
+                    "x": 131.7548857229971,
+                    "y": 253.68730403885752
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 143.7548857229971,
-                    "y": 213.68730403885746
+                    "x": 131.7548857229971,
+                    "y": 253.68730403885752
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 269,
                 "id": "VERTICAL_SCALE_MSO2X-e3bf31f9-d433-4c25-9681-9a6889e8b726",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "VERTICAL_SCALE_MSO2X-e3bf31f9-d433-4c25-9681-9a6889e8b726",
                     "label": "VERTICAL SCALE MSO2X 2",
                     "func": "VERTICAL_SCALE_MSO2X",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": null,
+                            "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
                             "overload": null,
                             "functionName": "VERTICAL_SCALE_MSO2X",
                             "param": "connection",
@@ -822,8 +822,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -844,26 +844,26 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -119.5041432543409,
-                    "y": 214.10459472226114
+                    "x": -299.5041432543409,
+                    "y": 256.10459472226114
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -119.5041432543409,
-                    "y": 214.10459472226114
+                    "x": -299.5041432543409,
+                    "y": 256.10459472226114
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50",
                     "label": "SETUP FILE MSO2X",
                     "func": "SETUP_FILE_MSO2X",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -890,7 +890,7 @@
                         "filename": {
                             "type": "str",
                             "default": "flojoy",
-                            "desc": "The file name to save or recall (e.g. c:/flojoy.set).",
+                            "desc": "The file name to save or recall (\"flojoy\" results in \"C:/flojoy.set\").",
                             "overload": null,
                             "functionName": "SETUP_FILE_MSO2X",
                             "param": "filename",
@@ -903,8 +903,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -925,26 +925,26 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 461.4916700325758,
-                    "y": -42.790683296731856
+                    "x": 709.4916700325758,
+                    "y": -66.79068329673191
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 461.4916700325758,
-                    "y": -42.790683296731856
+                    "x": 709.4916700325758,
+                    "y": -66.79068329673191
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 269,
                 "id": "CHANNEL_DISPLAY_MSO2X-01821803-7291-4dbc-adaf-5aa8d232e179",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "CHANNEL_DISPLAY_MSO2X-01821803-7291-4dbc-adaf-5aa8d232e179",
                     "label": "CHANNEL DISPLAY MSO2X",
                     "func": "CHANNEL_DISPLAY_MSO2X",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -1014,8 +1014,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -1036,115 +1036,152 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -401.6813062901618,
-                    "y": -308.90769934164945
+                    "x": -783.6813062901617,
+                    "y": -322.9076993416495
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -401.6813062901618,
-                    "y": -308.90769934164945
+                    "x": -783.6813062901617,
+                    "y": -322.9076993416495
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
+                "id": "CONNECT_MSO2X-0aa2b138-6f87-46a2-8002-6184a1530b53->AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693_16438057-b537-4799-a723-f86f0981e673",
                 "source": "CONNECT_MSO2X-0aa2b138-6f87-46a2-8002-6184a1530b53",
-                "sourceHandle": "default",
                 "target": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693",
+                "sourceHandle": "default",
                 "targetHandle": "input",
-                "id": "reactflow__edge-CONNECT_MSO2X-0aa2b138-6f87-46a2-8002-6184a1530b53default-AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693input"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693->CHANNEL_DISPLAY_MSO2X-01821803-7291-4dbc-adaf-5aa8d232e179_a05963d9-4aa1-4c09-9a4e-c694b238a080",
                 "source": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693",
-                "sourceHandle": "default",
-                "target": "EDGE_TRIGGER_MSO2X-d49ab2ee-d02f-49e8-9b62-c8a0b12178e7",
-                "targetHandle": "input",
-                "id": "reactflow__edge-AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693default-EDGE_TRIGGER_MSO2X-d49ab2ee-d02f-49e8-9b62-c8a0b12178e7input"
-            },
-            {
-                "source": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693",
-                "sourceHandle": "default",
-                "target": "HORIZONTAL_SCALE_MSO2X-ee01d43e-afff-4c6f-98d8-6bc6f10e42c2",
-                "targetHandle": "input",
-                "id": "reactflow__edge-AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693default-HORIZONTAL_SCALE_MSO2X-ee01d43e-afff-4c6f-98d8-6bc6f10e42c2input"
-            },
-            {
-                "source": "HORIZONTAL_SCALE_MSO2X-ee01d43e-afff-4c6f-98d8-6bc6f10e42c2",
-                "sourceHandle": "default",
-                "target": "VERTICAL_SCALE_MSO2X-e3bf31f9-d433-4c25-9681-9a6889e8b726",
-                "targetHandle": "input",
-                "id": "reactflow__edge-HORIZONTAL_SCALE_MSO2X-ee01d43e-afff-4c6f-98d8-6bc6f10e42c2default-VERTICAL_SCALE_MSO2X-e3bf31f9-d433-4c25-9681-9a6889e8b726input"
-            },
-            {
-                "source": "VERTICAL_SCALE_MSO2X-e3bf31f9-d433-4c25-9681-9a6889e8b726",
-                "sourceHandle": "default",
-                "target": "PROBE_ATTENUATION_MSO2X-00f21911-ce4f-4c52-b6b8-8945df176c9e",
-                "targetHandle": "input",
-                "id": "reactflow__edge-VERTICAL_SCALE_MSO2X-e3bf31f9-d433-4c25-9681-9a6889e8b726default-PROBE_ATTENUATION_MSO2X-00f21911-ce4f-4c52-b6b8-8945df176c9einput"
-            },
-            {
-                "source": "VERTICAL_SCALE_MSO2X-ddc4853b-3fc6-464a-af6e-b381c951927c",
-                "sourceHandle": "default",
-                "target": "PROBE_ATTENUATION_MSO2X-6dbe224e-c160-4b67-9e21-58cd63cf12c1",
-                "targetHandle": "input",
-                "id": "reactflow__edge-VERTICAL_SCALE_MSO2X-ddc4853b-3fc6-464a-af6e-b381c951927cdefault-PROBE_ATTENUATION_MSO2X-6dbe224e-c160-4b67-9e21-58cd63cf12c1input"
-            },
-            {
-                "source": "EDGE_TRIGGER_MSO2X-d49ab2ee-d02f-49e8-9b62-c8a0b12178e7",
-                "sourceHandle": "default",
-                "target": "VERTICAL_SCALE_MSO2X-ddc4853b-3fc6-464a-af6e-b381c951927c",
-                "targetHandle": "input",
-                "id": "reactflow__edge-EDGE_TRIGGER_MSO2X-d49ab2ee-d02f-49e8-9b62-c8a0b12178e7default-VERTICAL_SCALE_MSO2X-ddc4853b-3fc6-464a-af6e-b381c951927cinput"
-            },
-            {
-                "source": "VERTICAL_SCALE_MSO2X-d076e917-998d-4980-8e3b-265ea1bc3c9d",
-                "sourceHandle": "default",
-                "target": "PROBE_ATTENUATION_MSO2X-878d812f-31ed-42e1-9afa-cd98a4f03218",
-                "targetHandle": "input",
-                "id": "reactflow__edge-VERTICAL_SCALE_MSO2X-d076e917-998d-4980-8e3b-265ea1bc3c9ddefault-PROBE_ATTENUATION_MSO2X-878d812f-31ed-42e1-9afa-cd98a4f03218input"
-            },
-            {
-                "source": "PROBE_ATTENUATION_MSO2X-878d812f-31ed-42e1-9afa-cd98a4f03218",
-                "sourceHandle": "default",
-                "target": "SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50",
-                "targetHandle": "input",
-                "id": "reactflow__edge-PROBE_ATTENUATION_MSO2X-878d812f-31ed-42e1-9afa-cd98a4f03218default-SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50input"
-            },
-            {
-                "source": "PROBE_ATTENUATION_MSO2X-6dbe224e-c160-4b67-9e21-58cd63cf12c1",
-                "sourceHandle": "default",
-                "target": "SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50",
-                "targetHandle": "input",
-                "id": "reactflow__edge-PROBE_ATTENUATION_MSO2X-6dbe224e-c160-4b67-9e21-58cd63cf12c1default-SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50input"
-            },
-            {
-                "source": "PROBE_ATTENUATION_MSO2X-00f21911-ce4f-4c52-b6b8-8945df176c9e",
-                "sourceHandle": "default",
-                "target": "SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50",
-                "targetHandle": "input",
-                "id": "reactflow__edge-PROBE_ATTENUATION_MSO2X-00f21911-ce4f-4c52-b6b8-8945df176c9edefault-SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50input"
-            },
-            {
-                "source": "CHANNEL_DISPLAY_MSO2X-01821803-7291-4dbc-adaf-5aa8d232e179",
-                "sourceHandle": "default",
-                "target": "VERTICAL_SCALE_MSO2X-d076e917-998d-4980-8e3b-265ea1bc3c9d",
-                "targetHandle": "input",
-                "id": "reactflow__edge-CHANNEL_DISPLAY_MSO2X-01821803-7291-4dbc-adaf-5aa8d232e179default-VERTICAL_SCALE_MSO2X-d076e917-998d-4980-8e3b-265ea1bc3c9dinput"
-            },
-            {
-                "source": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693",
-                "sourceHandle": "default",
                 "target": "CHANNEL_DISPLAY_MSO2X-01821803-7291-4dbc-adaf-5aa8d232e179",
+                "sourceHandle": "default",
                 "targetHandle": "input",
-                "id": "reactflow__edge-AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693default-CHANNEL_DISPLAY_MSO2X-01821803-7291-4dbc-adaf-5aa8d232e179input"
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693->EDGE_TRIGGER_MSO2X-d49ab2ee-d02f-49e8-9b62-c8a0b12178e7_b68b3da1-e54a-48d5-87f2-6d4aad786bea",
+                "source": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693",
+                "target": "EDGE_TRIGGER_MSO2X-d49ab2ee-d02f-49e8-9b62-c8a0b12178e7",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693->HORIZONTAL_SCALE_MSO2X-ee01d43e-afff-4c6f-98d8-6bc6f10e42c2_677ee44a-715f-43f7-a9a2-49ba473e6242",
+                "source": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693",
+                "target": "HORIZONTAL_SCALE_MSO2X-ee01d43e-afff-4c6f-98d8-6bc6f10e42c2",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "CHANNEL_DISPLAY_MSO2X-01821803-7291-4dbc-adaf-5aa8d232e179->VERTICAL_SCALE_MSO2X-d076e917-998d-4980-8e3b-265ea1bc3c9d_b8888b6e-3be7-4a2d-af5b-fa257108d7fb",
+                "source": "CHANNEL_DISPLAY_MSO2X-01821803-7291-4dbc-adaf-5aa8d232e179",
+                "target": "VERTICAL_SCALE_MSO2X-d076e917-998d-4980-8e3b-265ea1bc3c9d",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "EDGE_TRIGGER_MSO2X-d49ab2ee-d02f-49e8-9b62-c8a0b12178e7->VERTICAL_SCALE_MSO2X-ddc4853b-3fc6-464a-af6e-b381c951927c_4785d9f0-a123-409b-b3aa-be0231993102",
+                "source": "EDGE_TRIGGER_MSO2X-d49ab2ee-d02f-49e8-9b62-c8a0b12178e7",
+                "target": "VERTICAL_SCALE_MSO2X-ddc4853b-3fc6-464a-af6e-b381c951927c",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "HORIZONTAL_SCALE_MSO2X-ee01d43e-afff-4c6f-98d8-6bc6f10e42c2->VERTICAL_SCALE_MSO2X-e3bf31f9-d433-4c25-9681-9a6889e8b726_37fd027b-f061-496f-a1cb-a24094182531",
+                "source": "HORIZONTAL_SCALE_MSO2X-ee01d43e-afff-4c6f-98d8-6bc6f10e42c2",
+                "target": "VERTICAL_SCALE_MSO2X-e3bf31f9-d433-4c25-9681-9a6889e8b726",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "VERTICAL_SCALE_MSO2X-d076e917-998d-4980-8e3b-265ea1bc3c9d->PROBE_ATTENUATION_MSO2X-878d812f-31ed-42e1-9afa-cd98a4f03218_675cb233-e01a-47e4-9d5f-9dc6bfa89c05",
+                "source": "VERTICAL_SCALE_MSO2X-d076e917-998d-4980-8e3b-265ea1bc3c9d",
+                "target": "PROBE_ATTENUATION_MSO2X-878d812f-31ed-42e1-9afa-cd98a4f03218",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "VERTICAL_SCALE_MSO2X-ddc4853b-3fc6-464a-af6e-b381c951927c->PROBE_ATTENUATION_MSO2X-6dbe224e-c160-4b67-9e21-58cd63cf12c1_c6e468c6-067b-4da8-93c7-077572a582a1",
+                "source": "VERTICAL_SCALE_MSO2X-ddc4853b-3fc6-464a-af6e-b381c951927c",
+                "target": "PROBE_ATTENUATION_MSO2X-6dbe224e-c160-4b67-9e21-58cd63cf12c1",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "VERTICAL_SCALE_MSO2X-e3bf31f9-d433-4c25-9681-9a6889e8b726->PROBE_ATTENUATION_MSO2X-00f21911-ce4f-4c52-b6b8-8945df176c9e_5bef3652-364f-4a95-9609-f3284446185e",
+                "source": "VERTICAL_SCALE_MSO2X-e3bf31f9-d433-4c25-9681-9a6889e8b726",
+                "target": "PROBE_ATTENUATION_MSO2X-00f21911-ce4f-4c52-b6b8-8945df176c9e",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "PROBE_ATTENUATION_MSO2X-878d812f-31ed-42e1-9afa-cd98a4f03218->SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50_313fe09d-dbdf-43c5-8306-f173a0a76171",
+                "source": "PROBE_ATTENUATION_MSO2X-878d812f-31ed-42e1-9afa-cd98a4f03218",
+                "target": "SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "PROBE_ATTENUATION_MSO2X-6dbe224e-c160-4b67-9e21-58cd63cf12c1->SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50_4d974e4e-1461-4c2c-9e66-15dc1195a2b4",
+                "source": "PROBE_ATTENUATION_MSO2X-6dbe224e-c160-4b67-9e21-58cd63cf12c1",
+                "target": "SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "PROBE_ATTENUATION_MSO2X-00f21911-ce4f-4c52-b6b8-8945df176c9e->SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50_9439d371-cc5b-40de-a692-947449141d34",
+                "source": "PROBE_ATTENUATION_MSO2X-00f21911-ce4f-4c52-b6b8-8945df176c9e",
+                "target": "SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 1189.7883637885323,
-            "y": 525.5787480876195,
-            "zoom": 1.0441212277180714
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

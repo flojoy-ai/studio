@@ -2,336 +2,24 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
-                "id": "VEC_2_LINSPACE-66a4f72c-7d6f-47fa-8cb0-3d6d8b57b287",
-                "type": "DATA",
+                "width": 216,
+                "height": 233,
+                "id": "CONNECT_MSO2X-0aa2b138-6f87-46a2-8002-6184a1530b53",
+                "type": "OSCILLOSCOPES",
                 "data": {
-                    "id": "VEC_2_LINSPACE-66a4f72c-7d6f-47fa-8cb0-3d6d8b57b287",
-                    "label": "VEC 2 LINSPACE",
-                    "func": "VEC_2_LINSPACE",
-                    "type": "DATA",
-                    "ctrls": {
-                        "start": {
-                            "type": "float",
-                            "default": -10,
-                            "desc": "The start point of the data.",
-                            "overload": null,
-                            "functionName": "VEC_2_LINSPACE",
-                            "param": "start",
-                            "value": -10
-                        },
-                        "end": {
-                            "type": "float",
-                            "default": 10,
-                            "desc": "The end point of the data.",
-                            "overload": null,
-                            "functionName": "VEC_2_LINSPACE",
-                            "param": "end",
-                            "value": 10
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Scalar|Vector",
-                            "multiple": false,
-                            "desc": "Length of resulting linspace vector."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
-                        }
-                    ],
-                    "path": "DATA/GENERATION/SIMULATIONS/VEC_2_LINSPACE/VEC_2_LINSPACE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -31.805589219806237,
-                    "y": -314.41315686170105
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -31.805589219806237,
-                    "y": -314.41315686170105
-                },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "LINE-b5878989-43db-4fc2-8812-e2a6d2278486",
-                "type": "VISUALIZATION",
-                "data": {
-                    "id": "LINE-b5878989-43db-4fc2-8812-e2a6d2278486",
-                    "label": "LINE",
-                    "func": "LINE",
-                    "type": "VISUALIZATION",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
-                        }
-                    ],
-                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py",
-                    "selected": true
-                },
-                "position": {
-                    "x": 900.3515946918044,
-                    "y": -253.27355565401513
-                },
-                "selected": true,
-                "positionAbsolute": {
-                    "x": 900.3515946918044,
-                    "y": -253.27355565401513
-                },
-                "dragging": true
-            },
-            {
-                "width": 240,
-                "height": 160,
-                "id": "DECIMATE-dd3aad9a-43f2-4f07-9f76-76e2bb428cbb",
-                "type": "SCIPY",
-                "data": {
-                    "id": "DECIMATE-dd3aad9a-43f2-4f07-9f76-76e2bb428cbb",
-                    "label": "DECIMATE",
-                    "func": "DECIMATE",
-                    "type": "SCIPY",
-                    "ctrls": {
-                        "q": {
-                            "type": "int",
-                            "default": 2,
-                            "desc": "The downsampling factor. When using IIR downsampling, it is recommended\nto call `decimate` multiple times for downsampling factors higher than 13.",
-                            "overload": null,
-                            "functionName": "DECIMATE",
-                            "param": "q",
-                            "value": 10
-                        },
-                        "n": {
-                            "type": "int",
-                            "default": 2,
-                            "desc": "The order of the filter (1 less than the length for 'fir').\nDefaults to 8 for 'iir' and 20 times the downsampling factor for 'fir'.",
-                            "overload": null,
-                            "functionName": "DECIMATE",
-                            "param": "n",
-                            "value": 2
-                        },
-                        "ftype": {
-                            "type": "str",
-                            "default": "iir",
-                            "desc": "If 'iir' or 'fir', specifies the type of lowpass filter.\nIf an instance of an \"dlti\" object, uses that object to filter before downsampling.",
-                            "overload": null,
-                            "functionName": "DECIMATE",
-                            "param": "ftype",
-                            "value": "iir"
-                        },
-                        "axis": {
-                            "type": "int",
-                            "default": -1,
-                            "desc": "The axis along which to decimate.",
-                            "overload": null,
-                            "functionName": "DECIMATE",
-                            "param": "axis",
-                            "value": -1
-                        },
-                        "zero_phase": {
-                            "type": "bool",
-                            "default": true,
-                            "desc": "Prevent phase shift by filtering with 'filtfilt' instead of 'lfilter'\nwhen using an IIR filter, and shifting the outputs back by the filter's\ngroup delay when using an FIR filter. The default value of 'True' is\nrecommended, since a phase shift is generally not desired.",
-                            "overload": null,
-                            "functionName": "DECIMATE",
-                            "param": "zero_phase",
-                            "value": true
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Matrix",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Matrix|Scalar",
-                            "desc": "type 'ordered pair', 'scalar', or 'matrix'"
-                        }
-                    ],
-                    "path": "SCIPY/SIGNAL/DECIMATE/DECIMATE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 550.2008547363174,
-                    "y": -217.54318216176063
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 550.2008547363174,
-                    "y": -217.54318216176063
-                },
-                "dragging": true
-            },
-            {
-                "width": 160,
-                "height": 160,
-                "id": "VECTOR_2_ORDERED_PAIR-81e9a781-6952-45e4-8714-ed61cd8a9a82",
-                "type": "ETL",
-                "data": {
-                    "id": "VECTOR_2_ORDERED_PAIR-81e9a781-6952-45e4-8714-ed61cd8a9a82",
-                    "label": "VECTOR 2 ORDERED PAIR",
-                    "func": "VECTOR_2_ORDERED_PAIR",
-                    "type": "ETL",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "multiple": false,
-                            "desc": "The input vector that will be the x axis of OrderedPair."
-                        },
-                        {
-                            "name": "y",
-                            "id": "y",
-                            "type": "Vector",
-                            "multiple": false,
-                            "desc": "The input vector that will be the y axis of OrderedPair."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "desc": "The OrderedPair that is generated from the input vectors"
-                        }
-                    ],
-                    "path": "ETL/TRANSFORM/TYPE_CASTING/VECTOR_2_ORDERED_PAIR/VECTOR_2_ORDERED_PAIR.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 249.00076175466944,
-                    "y": -215.88296586711417
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 249.00076175466944,
-                    "y": -215.88296586711417
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "QUERY_CURVE_MSO-d4abab7c-528b-44d0-b6a8-b48e0c679ca3",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "QUERY_CURVE_MSO-d4abab7c-528b-44d0-b6a8-b48e0c679ca3",
-                    "label": "QUERY CURVE MSO",
-                    "func": "QUERY_CURVE_MSO",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "VisaConnection",
-                            "default": null,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "QUERY_CURVE_MSO",
-                            "param": "connection",
-                            "value": "TCPIP::169.254.7.31::INSTR"
-                        },
-                        "channel": {
-                            "type": "int",
-                            "default": 2,
-                            "desc": "Oscilloscope channel to query (1 or 2 for a 2 channel scope, 1-4 for a 4 channel scope, etc)",
-                            "overload": null,
-                            "functionName": "QUERY_CURVE_MSO",
-                            "param": "channel",
-                            "value": 2
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "desc": "A list containing the curve query results."
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "tm_devices",
-                            "v": "0.1.24"
-                        }
-                    ],
-                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2XX/QUERY_CURVE_MSO/QUERY_CURVE_MSO.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -319.65630094143455,
-                    "y": -204.95134274922012
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -319.65630094143455,
-                    "y": -204.95134274922012
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "CONNECT_MSO-e6f1237b-d12e-4512-a563-f7f9bdb319a6",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "CONNECT_MSO-e6f1237b-d12e-4512-a563-f7f9bdb319a6",
-                    "label": "CONNECT MSO",
-                    "func": "CONNECT_MSO",
-                    "type": "HARDWARE",
+                    "id": "CONNECT_MSO2X-0aa2b138-6f87-46a2-8002-6184a1530b53",
+                    "label": "CONNECT MSO2X",
+                    "func": "CONNECT_MSO2X",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "device": {
                             "type": "VisaDevice",
                             "default": null,
                             "desc": "The connected VISA device.",
                             "overload": null,
-                            "functionName": "CONNECT_MSO",
+                            "functionName": "CONNECT_MSO2X",
                             "param": "device",
-                            "value": "TCPIP::169.254.7.31::INSTR"
+                            "value": "TCPIP::169.254.9.12::INSTR"
                         }
                     },
                     "initCtrls": {},
@@ -340,222 +28,1160 @@
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "desc": "The IP address of the VISA device."
+                            "desc": "The IP or VISA address of the VISA device."
                         }
                     ],
                     "pip_dependencies": [
                         {
                             "name": "tm_devices",
-                            "v": "0.1.24"
+                            "v": "1"
                         }
                     ],
-                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2XX/CONNECT_MSO/CONNECT_MSO.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/CONNECT_MSO2X/CONNECT_MSO2X.py",
                     "selected": false
                 },
                 "position": {
-                    "x": -670.2974296333135,
-                    "y": -205.63589719643787
+                    "x": -1825.188493353959,
+                    "y": -50.46244198906959
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -670.2974296333135,
-                    "y": -205.63589719643787
+                    "x": -1825.188493353959,
+                    "y": -50.46244198906959
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
-                "id": "HORIZONTAL_SCALE_MSO-29fcf4b0-ad64-426b-878e-3c48a069c234",
-                "type": "HARDWARE",
+                "width": 218,
+                "height": 269,
+                "id": "HORIZONTAL_SCALE_MSO2X-ee01d43e-afff-4c6f-98d8-6bc6f10e42c2",
+                "type": "OSCILLOSCOPES",
                 "data": {
-                    "id": "HORIZONTAL_SCALE_MSO-29fcf4b0-ad64-426b-878e-3c48a069c234",
-                    "label": "HORIZONTAL SCALE MSO",
-                    "func": "HORIZONTAL_SCALE_MSO",
-                    "type": "HARDWARE",
+                    "id": "HORIZONTAL_SCALE_MSO2X-ee01d43e-afff-4c6f-98d8-6bc6f10e42c2",
+                    "label": "HORIZONTAL SCALE MSO2X",
+                    "func": "HORIZONTAL_SCALE_MSO2X",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": null,
+                            "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
                             "overload": null,
-                            "functionName": "HORIZONTAL_SCALE_MSO",
+                            "functionName": "HORIZONTAL_SCALE_MSO2X",
                             "param": "connection",
-                            "value": "TCPIP::169.254.7.31::INSTR"
+                            "value": "TCPIP::169.254.9.12::INSTR"
                         },
                         "scale": {
                             "type": "float",
                             "default": 0.001,
-                            "desc": "Horizontal viewport division",
+                            "desc": "Horizontal viewport division, in seconds",
                             "overload": null,
-                            "functionName": "HORIZONTAL_SCALE_MSO",
+                            "functionName": "HORIZONTAL_SCALE_MSO2X",
                             "param": "scale",
-                            "value": 0.001
+                            "value": 0.00001
                         }
                     },
                     "initCtrls": {},
                     "inputs": [
                         {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
                             "name": "default",
                             "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "type": "String",
+                            "desc": "Horizontal scale"
                         }
                     ],
                     "pip_dependencies": [
                         {
                             "name": "tm_devices",
-                            "v": "0.1.24"
+                            "v": "1"
                         }
                     ],
-                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2XX/HORIZONTAL_SCALE_MSO/HORIZONTAL_SCALE_MSO.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/HORIZONTAL_SCALE_MSO2X/HORIZONTAL_SCALE_MSO2X.py",
                     "selected": false
                 },
                 "position": {
-                    "x": -302.160636288433,
-                    "y": 67.15658218424869
+                    "x": -787.8169758233546,
+                    "y": 251.9616159921875
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -302.160636288433,
-                    "y": 67.15658218424869
+                    "x": -787.8169758233546,
+                    "y": 251.9616159921875
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
-                "id": "VERTICAL_SCALE_MSO-777bd85b-1933-4726-a6c8-64bf301600d1",
-                "type": "HARDWARE",
+                "width": 216,
+                "height": 269,
+                "id": "VERTICAL_SCALE_MSO2X-d076e917-998d-4980-8e3b-265ea1bc3c9d",
+                "type": "OSCILLOSCOPES",
                 "data": {
-                    "id": "VERTICAL_SCALE_MSO-777bd85b-1933-4726-a6c8-64bf301600d1",
-                    "label": "VERTICAL SCALE MSO",
-                    "func": "VERTICAL_SCALE_MSO",
-                    "type": "HARDWARE",
+                    "id": "VERTICAL_SCALE_MSO2X-d076e917-998d-4980-8e3b-265ea1bc3c9d",
+                    "label": "VERTICAL SCALE MSO2X",
+                    "func": "VERTICAL_SCALE_MSO2X",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": null,
+                            "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
                             "overload": null,
-                            "functionName": "VERTICAL_SCALE_MSO",
+                            "functionName": "VERTICAL_SCALE_MSO2X",
                             "param": "connection",
-                            "value": "TCPIP::169.254.7.31::INSTR"
+                            "value": "TCPIP::169.254.9.12::INSTR"
                         },
                         "channel": {
                             "type": "int",
                             "default": 1,
                             "desc": "Oscilloscope channel to affect",
                             "overload": null,
-                            "functionName": "VERTICAL_SCALE_MSO",
+                            "functionName": "VERTICAL_SCALE_MSO2X",
                             "param": "channel",
-                            "value": 2
+                            "value": 1
                         },
                         "scale": {
                             "type": "float",
                             "default": 1,
-                            "desc": "Vertical viewport division",
+                            "desc": "Vertical viewport division, in V",
                             "overload": null,
-                            "functionName": "VERTICAL_SCALE_MSO",
+                            "functionName": "VERTICAL_SCALE_MSO2X",
                             "param": "scale",
+                            "value": 0.2
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Vertical scale"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tm_devices",
+                            "v": "1"
+                        }
+                    ],
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/VERTICAL_SCALE_MSO2X/VERTICAL_SCALE_MSO2X.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -309.9837452378976,
+                    "y": -311.6287145147128
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -309.9837452378976,
+                    "y": -311.6287145147128
+                },
+                "dragging": false
+            },
+            {
+                "width": 239,
+                "height": 269,
+                "id": "PROBE_ATTENUATION_MSO2X-878d812f-31ed-42e1-9afa-cd98a4f03218",
+                "type": "OSCILLOSCOPES",
+                "data": {
+                    "id": "PROBE_ATTENUATION_MSO2X-878d812f-31ed-42e1-9afa-cd98a4f03218",
+                    "label": "PROBE ATTENUATION MSO2X",
+                    "func": "PROBE_ATTENUATION_MSO2X",
+                    "type": "OSCILLOSCOPES",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
+                            "overload": null,
+                            "functionName": "PROBE_ATTENUATION_MSO2X",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.9.12::INSTR"
+                        },
+                        "channel": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "Oscilloscope channel to affect",
+                            "overload": null,
+                            "functionName": "PROBE_ATTENUATION_MSO2X",
+                            "param": "channel",
+                            "value": 1
+                        },
+                        "attenuation": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The attenuation level to set",
+                            "overload": null,
+                            "functionName": "PROBE_ATTENUATION_MSO2X",
+                            "param": "attenuation",
                             "value": 1
                         }
                     },
                     "initCtrls": {},
                     "inputs": [
                         {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
                             "name": "default",
                             "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "type": "String",
+                            "desc": "Attenuation"
                         }
                     ],
                     "pip_dependencies": [
                         {
                             "name": "tm_devices",
-                            "v": "0.1.24"
+                            "v": "1"
                         }
                     ],
-                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2XX/VERTICAL_SCALE_MSO/VERTICAL_SCALE_MSO.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/PROBE_ATTENUATION_MSO2X/PROBE_ATTENUATION_MSO2X.py",
                     "selected": false
                 },
                 "position": {
-                    "x": -324.4451436019013,
-                    "y": -525.4377454645389
+                    "x": 145.1990600695467,
+                    "y": -369.1548174488221
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -324.4451436019013,
-                    "y": -525.4377454645389
+                    "x": 145.1990600695467,
+                    "y": -369.1548174488221
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "width": 239,
+                "height": 269,
+                "id": "PROBE_ATTENUATION_MSO2X-6dbe224e-c160-4b67-9e21-58cd63cf12c1",
+                "type": "OSCILLOSCOPES",
+                "data": {
+                    "id": "PROBE_ATTENUATION_MSO2X-6dbe224e-c160-4b67-9e21-58cd63cf12c1",
+                    "label": "PROBE ATTENUATION MSO2X 1",
+                    "func": "PROBE_ATTENUATION_MSO2X",
+                    "type": "OSCILLOSCOPES",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
+                            "overload": null,
+                            "functionName": "PROBE_ATTENUATION_MSO2X",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.9.12::INSTR"
+                        },
+                        "channel": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "Oscilloscope channel to affect",
+                            "overload": null,
+                            "functionName": "PROBE_ATTENUATION_MSO2X",
+                            "param": "channel",
+                            "value": 2
+                        },
+                        "attenuation": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The attenuation level to set",
+                            "overload": null,
+                            "functionName": "PROBE_ATTENUATION_MSO2X",
+                            "param": "attenuation",
+                            "value": 1
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Attenuation"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tm_devices",
+                            "v": "1"
+                        }
+                    ],
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/PROBE_ATTENUATION_MSO2X/PROBE_ATTENUATION_MSO2X.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 136.53458365561363,
+                    "y": -52.280067591737975
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 136.53458365561363,
+                    "y": -52.280067591737975
+                },
+                "dragging": false
+            },
+            {
+                "width": 216,
+                "height": 269,
+                "id": "VERTICAL_SCALE_MSO2X-ddc4853b-3fc6-464a-af6e-b381c951927c",
+                "type": "OSCILLOSCOPES",
+                "data": {
+                    "id": "VERTICAL_SCALE_MSO2X-ddc4853b-3fc6-464a-af6e-b381c951927c",
+                    "label": "VERTICAL SCALE MSO2X 1",
+                    "func": "VERTICAL_SCALE_MSO2X",
+                    "type": "OSCILLOSCOPES",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
+                            "overload": null,
+                            "functionName": "VERTICAL_SCALE_MSO2X",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.9.12::INSTR"
+                        },
+                        "channel": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "Oscilloscope channel to affect",
+                            "overload": null,
+                            "functionName": "VERTICAL_SCALE_MSO2X",
+                            "param": "channel",
+                            "value": 2
+                        },
+                        "scale": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "Vertical viewport division, in V",
+                            "overload": null,
+                            "functionName": "VERTICAL_SCALE_MSO2X",
+                            "param": "scale",
+                            "value": 0.2
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Vertical scale"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tm_devices",
+                            "v": "1"
+                        }
+                    ],
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/VERTICAL_SCALE_MSO2X/VERTICAL_SCALE_MSO2X.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -304.24549231479807,
+                    "y": -51.6650176150589
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -304.24549231479807,
+                    "y": -51.6650176150589
+                },
+                "dragging": false
+            },
+            {
+                "width": 216,
+                "height": 197,
+                "id": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693",
+                "type": "OSCILLOSCOPES",
+                "data": {
+                    "id": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693",
+                    "label": "AFG MSO2X",
+                    "func": "AFG_MSO2X",
+                    "type": "OSCILLOSCOPES",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
+                            "overload": null,
+                            "functionName": "AFG_MSO2X",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.9.12::INSTR"
+                        },
+                        "function": {
+                            "type": "select",
+                            "options": [
+                                "sine",
+                                "square",
+                                "pulse",
+                                "ramp",
+                                "noise",
+                                "DC",
+                                "sinc",
+                                "gaussian",
+                                "lorentz ",
+                                "erise",
+                                "edecay",
+                                "haversine",
+                                "cardiac"
+                            ],
+                            "default": "sine",
+                            "desc": "The type of waveform to use.",
+                            "overload": null,
+                            "functionName": "AFG_MSO2X",
+                            "param": "function",
+                            "value": "sine"
+                        },
+                        "frequency": {
+                            "type": "float",
+                            "default": 100000000,
+                            "desc": "The frequency of the waveform, in Hz.",
+                            "overload": null,
+                            "functionName": "AFG_MSO2X",
+                            "param": "frequency",
+                            "value": 100000
+                        },
+                        "amplitude": {
+                            "type": "float",
+                            "default": 0.2,
+                            "desc": "The peak to peak voltage of the waveform, in volts.",
+                            "overload": null,
+                            "functionName": "AFG_MSO2X",
+                            "param": "amplitude",
+                            "value": 0.4
+                        },
+                        "offset": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The voltage offset of the waveform, in volts.",
+                            "overload": null,
+                            "functionName": "AFG_MSO2X",
+                            "param": "offset",
+                            "value": 0.05
+                        },
+                        "ramp_symmetry": {
+                            "type": "float",
+                            "default": 50,
+                            "desc": "The ramp symmetry if the ramp waveform is used, in percent.",
+                            "overload": null,
+                            "functionName": "AFG_MSO2X",
+                            "param": "ramp_symmetry",
+                            "value": 50
+                        },
+                        "square_duty": {
+                            "type": "float",
+                            "default": 50,
+                            "desc": "The duty of the square waveform if used, in percent.",
+                            "overload": null,
+                            "functionName": "AFG_MSO2X",
+                            "param": "square_duty",
+                            "value": 50
+                        },
+                        "pulse_width": {
+                            "type": "float",
+                            "default": 0.000001,
+                            "desc": "The pulse width in seconds if the pulse waveform is used.",
+                            "overload": null,
+                            "functionName": "AFG_MSO2X",
+                            "param": "pulse_width",
+                            "value": 0.000001
+                        },
+                        "impedance": {
+                            "type": "select",
+                            "options": [
+                                "unchanged",
+                                "fifty",
+                                "highZ"
+                            ],
+                            "default": "unchanged",
+                            "desc": "The impedance of the output.",
+                            "overload": null,
+                            "functionName": "AFG_MSO2X",
+                            "param": "impedance",
+                            "value": "fifty"
+                        },
+                        "mode": {
+                            "type": "select",
+                            "options": [
+                                "off",
+                                "continuous",
+                                "burst"
+                            ],
+                            "default": "continuous",
+                            "desc": "The mode to use.",
+                            "overload": null,
+                            "functionName": "AFG_MSO2X",
+                            "param": "mode",
+                            "value": "continuous"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "AFG settings"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tm_devices",
+                            "v": "1"
+                        }
+                    ],
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/AFG_MSO2X/AFG_MSO2X.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -1396.802611194456,
+                    "y": -49.32578217849789
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -1396.802611194456,
+                    "y": -49.32578217849789
+                },
+                "dragging": false
+            },
+            {
+                "width": 216,
+                "height": 269,
+                "id": "EDGE_TRIGGER_MSO2X-d49ab2ee-d02f-49e8-9b62-c8a0b12178e7",
+                "type": "OSCILLOSCOPES",
+                "data": {
+                    "id": "EDGE_TRIGGER_MSO2X-d49ab2ee-d02f-49e8-9b62-c8a0b12178e7",
+                    "label": "EDGE TRIGGER MSO2X",
+                    "func": "EDGE_TRIGGER_MSO2X",
+                    "type": "OSCILLOSCOPES",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
+                            "overload": null,
+                            "functionName": "EDGE_TRIGGER_MSO2X",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.9.12::INSTR"
+                        },
+                        "channel": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "Oscilloscope channel to affect",
+                            "overload": null,
+                            "functionName": "EDGE_TRIGGER_MSO2X",
+                            "param": "channel",
+                            "value": 2
+                        },
+                        "level": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The trigger threshold voltage, in V.",
+                            "overload": null,
+                            "functionName": "EDGE_TRIGGER_MSO2X",
+                            "param": "level",
+                            "value": 0
+                        },
+                        "edge_coupling": {
+                            "type": "select",
+                            "options": [
+                                "unchanged",
+                                "dc",
+                                "hfrej",
+                                "lfrej",
+                                "noiserej"
+                            ],
+                            "default": "unchanged",
+                            "desc": "The type of edge coupling to use for triggering.",
+                            "overload": null,
+                            "functionName": "EDGE_TRIGGER_MSO2X",
+                            "param": "edge_coupling",
+                            "value": "dc"
+                        },
+                        "edge_slope": {
+                            "type": "select",
+                            "options": [
+                                "unchanged",
+                                "rise",
+                                "fall",
+                                "either"
+                            ],
+                            "default": "unchanged",
+                            "desc": "The type of edge slope to use for triggering.",
+                            "overload": null,
+                            "functionName": "EDGE_TRIGGER_MSO2X",
+                            "param": "edge_slope",
+                            "value": "rise"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Trigger settings"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tm_devices",
+                            "v": "1"
+                        }
+                    ],
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/EDGE_TRIGGER_MSO2X/EDGE_TRIGGER_MSO2X.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -780.907697647927,
+                    "y": -43.81969871387332
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -780.907697647927,
+                    "y": -43.81969871387332
+                },
+                "dragging": false
+            },
+            {
+                "width": 239,
+                "height": 269,
+                "id": "PROBE_ATTENUATION_MSO2X-00f21911-ce4f-4c52-b6b8-8945df176c9e",
+                "type": "OSCILLOSCOPES",
+                "data": {
+                    "id": "PROBE_ATTENUATION_MSO2X-00f21911-ce4f-4c52-b6b8-8945df176c9e",
+                    "label": "PROBE ATTENUATION MSO2X 2",
+                    "func": "PROBE_ATTENUATION_MSO2X",
+                    "type": "OSCILLOSCOPES",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
+                            "overload": null,
+                            "functionName": "PROBE_ATTENUATION_MSO2X",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.9.12::INSTR"
+                        },
+                        "channel": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "Oscilloscope channel to affect",
+                            "overload": null,
+                            "functionName": "PROBE_ATTENUATION_MSO2X",
+                            "param": "channel",
+                            "value": 3
+                        },
+                        "attenuation": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The attenuation level to set",
+                            "overload": null,
+                            "functionName": "PROBE_ATTENUATION_MSO2X",
+                            "param": "attenuation",
+                            "value": 1
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Attenuation"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tm_devices",
+                            "v": "1"
+                        }
+                    ],
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/PROBE_ATTENUATION_MSO2X/PROBE_ATTENUATION_MSO2X.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 131.7548857229971,
+                    "y": 253.68730403885752
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 131.7548857229971,
+                    "y": 253.68730403885752
+                },
+                "dragging": false
+            },
+            {
+                "width": 216,
+                "height": 269,
+                "id": "VERTICAL_SCALE_MSO2X-e3bf31f9-d433-4c25-9681-9a6889e8b726",
+                "type": "OSCILLOSCOPES",
+                "data": {
+                    "id": "VERTICAL_SCALE_MSO2X-e3bf31f9-d433-4c25-9681-9a6889e8b726",
+                    "label": "VERTICAL SCALE MSO2X 2",
+                    "func": "VERTICAL_SCALE_MSO2X",
+                    "type": "OSCILLOSCOPES",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
+                            "overload": null,
+                            "functionName": "VERTICAL_SCALE_MSO2X",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.9.12::INSTR"
+                        },
+                        "channel": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "Oscilloscope channel to affect",
+                            "overload": null,
+                            "functionName": "VERTICAL_SCALE_MSO2X",
+                            "param": "channel",
+                            "value": 3
+                        },
+                        "scale": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "Vertical viewport division, in V",
+                            "overload": null,
+                            "functionName": "VERTICAL_SCALE_MSO2X",
+                            "param": "scale",
+                            "value": 0.2
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Vertical scale"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tm_devices",
+                            "v": "1"
+                        }
+                    ],
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/VERTICAL_SCALE_MSO2X/VERTICAL_SCALE_MSO2X.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -299.5041432543409,
+                    "y": 256.10459472226114
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -299.5041432543409,
+                    "y": 256.10459472226114
+                },
+                "dragging": false
+            },
+            {
+                "width": 216,
+                "height": 233,
+                "id": "SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50",
+                "type": "OSCILLOSCOPES",
+                "data": {
+                    "id": "SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50",
+                    "label": "SETUP FILE MSO2X",
+                    "func": "SETUP_FILE_MSO2X",
+                    "type": "OSCILLOSCOPES",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
+                            "overload": null,
+                            "functionName": "SETUP_FILE_MSO2X",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.9.12::INSTR"
+                        },
+                        "save_or_recall": {
+                            "type": "select",
+                            "options": [
+                                "save",
+                                "recall"
+                            ],
+                            "default": "save",
+                            "desc": "Save or recall the file.",
+                            "overload": null,
+                            "functionName": "SETUP_FILE_MSO2X",
+                            "param": "save_or_recall",
+                            "value": "save"
+                        },
+                        "filename": {
+                            "type": "str",
+                            "default": "flojoy",
+                            "desc": "The file name to save or recall (\"flojoy\" results in \"C:/flojoy.set\").",
+                            "overload": null,
+                            "functionName": "SETUP_FILE_MSO2X",
+                            "param": "filename",
+                            "value": "flojoy"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Filename"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tm_devices",
+                            "v": "1"
+                        }
+                    ],
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/SETUP_FILE_MSO2X/SETUP_FILE_MSO2X.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 709.4916700325758,
+                    "y": -66.79068329673191
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 709.4916700325758,
+                    "y": -66.79068329673191
+                },
+                "dragging": false
+            },
+            {
+                "width": 216,
+                "height": 269,
+                "id": "CHANNEL_DISPLAY_MSO2X-01821803-7291-4dbc-adaf-5aa8d232e179",
+                "type": "OSCILLOSCOPES",
+                "data": {
+                    "id": "CHANNEL_DISPLAY_MSO2X-01821803-7291-4dbc-adaf-5aa8d232e179",
+                    "label": "CHANNEL DISPLAY MSO2X",
+                    "func": "CHANNEL_DISPLAY_MSO2X",
+                    "type": "OSCILLOSCOPES",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_MSO2X block).",
+                            "overload": null,
+                            "functionName": "CHANNEL_DISPLAY_MSO2X",
+                            "param": "connection",
+                            "value": "TCPIP::169.254.9.12::INSTR"
+                        },
+                        "ch1_display": {
+                            "type": "select",
+                            "options": [
+                                "1",
+                                "0"
+                            ],
+                            "default": "0",
+                            "desc": "Turn the channel on or off",
+                            "overload": null,
+                            "functionName": "CHANNEL_DISPLAY_MSO2X",
+                            "param": "ch1_display",
+                            "value": "1"
+                        },
+                        "ch2_display": {
+                            "type": "select",
+                            "options": [
+                                "1",
+                                "0"
+                            ],
+                            "default": "0",
+                            "desc": "Turn the channel on or off",
+                            "overload": null,
+                            "functionName": "CHANNEL_DISPLAY_MSO2X",
+                            "param": "ch2_display",
+                            "value": "1"
+                        },
+                        "ch3_display": {
+                            "type": "select",
+                            "options": [
+                                "1",
+                                "0"
+                            ],
+                            "default": "0",
+                            "desc": "Turn the channel on or off",
+                            "overload": null,
+                            "functionName": "CHANNEL_DISPLAY_MSO2X",
+                            "param": "ch3_display",
+                            "value": "1"
+                        },
+                        "ch4_display": {
+                            "type": "select",
+                            "options": [
+                                "1",
+                                "0"
+                            ],
+                            "default": "0",
+                            "desc": "Turn the channel on or off",
+                            "overload": null,
+                            "functionName": "CHANNEL_DISPLAY_MSO2X",
+                            "param": "ch4_display",
+                            "value": "0"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Channel display"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "tm_devices",
+                            "v": "1"
+                        }
+                    ],
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MSO2X/CHANNEL_DISPLAY_MSO2X/CHANNEL_DISPLAY_MSO2X.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -783.6813062901617,
+                    "y": -322.9076993416495
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -783.6813062901617,
+                    "y": -322.9076993416495
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "VEC_2_LINSPACE-66a4f72c-7d6f-47fa-8cb0-3d6d8b57b287",
+                "id": "CONNECT_MSO2X-0aa2b138-6f87-46a2-8002-6184a1530b53->AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693_16438057-b537-4799-a723-f86f0981e673",
+                "source": "CONNECT_MSO2X-0aa2b138-6f87-46a2-8002-6184a1530b53",
+                "target": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693",
                 "sourceHandle": "default",
-                "target": "VECTOR_2_ORDERED_PAIR-81e9a781-6952-45e4-8714-ed61cd8a9a82",
-                "targetHandle": "default",
-                "id": "reactflow__edge-VEC_2_LINSPACE-66a4f72c-7d6f-47fa-8cb0-3d6d8b57b287default-VECTOR_2_ORDERED_PAIR-81e9a781-6952-45e4-8714-ed61cd8a9a82default"
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "VECTOR_2_ORDERED_PAIR-81e9a781-6952-45e4-8714-ed61cd8a9a82",
+                "id": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693->CHANNEL_DISPLAY_MSO2X-01821803-7291-4dbc-adaf-5aa8d232e179_a05963d9-4aa1-4c09-9a4e-c694b238a080",
+                "source": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693",
+                "target": "CHANNEL_DISPLAY_MSO2X-01821803-7291-4dbc-adaf-5aa8d232e179",
                 "sourceHandle": "default",
-                "target": "DECIMATE-dd3aad9a-43f2-4f07-9f76-76e2bb428cbb",
-                "targetHandle": "default",
-                "id": "reactflow__edge-VECTOR_2_ORDERED_PAIR-81e9a781-6952-45e4-8714-ed61cd8a9a82default-DECIMATE-dd3aad9a-43f2-4f07-9f76-76e2bb428cbbdefault"
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "DECIMATE-dd3aad9a-43f2-4f07-9f76-76e2bb428cbb",
+                "id": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693->EDGE_TRIGGER_MSO2X-d49ab2ee-d02f-49e8-9b62-c8a0b12178e7_b68b3da1-e54a-48d5-87f2-6d4aad786bea",
+                "source": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693",
+                "target": "EDGE_TRIGGER_MSO2X-d49ab2ee-d02f-49e8-9b62-c8a0b12178e7",
                 "sourceHandle": "default",
-                "target": "LINE-b5878989-43db-4fc2-8812-e2a6d2278486",
-                "targetHandle": "default",
-                "id": "reactflow__edge-DECIMATE-dd3aad9a-43f2-4f07-9f76-76e2bb428cbbdefault-LINE-b5878989-43db-4fc2-8812-e2a6d2278486default"
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "QUERY_CURVE_MSO-d4abab7c-528b-44d0-b6a8-b48e0c679ca3",
+                "id": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693->HORIZONTAL_SCALE_MSO2X-ee01d43e-afff-4c6f-98d8-6bc6f10e42c2_677ee44a-715f-43f7-a9a2-49ba473e6242",
+                "source": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693",
+                "target": "HORIZONTAL_SCALE_MSO2X-ee01d43e-afff-4c6f-98d8-6bc6f10e42c2",
                 "sourceHandle": "default",
-                "target": "VEC_2_LINSPACE-66a4f72c-7d6f-47fa-8cb0-3d6d8b57b287",
-                "targetHandle": "default",
-                "id": "reactflow__edge-QUERY_CURVE_MSO-d4abab7c-528b-44d0-b6a8-b48e0c679ca3default-VEC_2_LINSPACE-66a4f72c-7d6f-47fa-8cb0-3d6d8b57b287default"
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "QUERY_CURVE_MSO-d4abab7c-528b-44d0-b6a8-b48e0c679ca3",
+                "id": "CHANNEL_DISPLAY_MSO2X-01821803-7291-4dbc-adaf-5aa8d232e179->VERTICAL_SCALE_MSO2X-d076e917-998d-4980-8e3b-265ea1bc3c9d_b8888b6e-3be7-4a2d-af5b-fa257108d7fb",
+                "source": "CHANNEL_DISPLAY_MSO2X-01821803-7291-4dbc-adaf-5aa8d232e179",
+                "target": "VERTICAL_SCALE_MSO2X-d076e917-998d-4980-8e3b-265ea1bc3c9d",
                 "sourceHandle": "default",
-                "target": "VECTOR_2_ORDERED_PAIR-81e9a781-6952-45e4-8714-ed61cd8a9a82",
-                "targetHandle": "y",
-                "id": "reactflow__edge-QUERY_CURVE_MSO-d4abab7c-528b-44d0-b6a8-b48e0c679ca3default-VECTOR_2_ORDERED_PAIR-81e9a781-6952-45e4-8714-ed61cd8a9a82y"
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "CONNECT_MSO-e6f1237b-d12e-4512-a563-f7f9bdb319a6",
+                "id": "EDGE_TRIGGER_MSO2X-d49ab2ee-d02f-49e8-9b62-c8a0b12178e7->VERTICAL_SCALE_MSO2X-ddc4853b-3fc6-464a-af6e-b381c951927c_4785d9f0-a123-409b-b3aa-be0231993102",
+                "source": "EDGE_TRIGGER_MSO2X-d49ab2ee-d02f-49e8-9b62-c8a0b12178e7",
+                "target": "VERTICAL_SCALE_MSO2X-ddc4853b-3fc6-464a-af6e-b381c951927c",
                 "sourceHandle": "default",
-                "target": "QUERY_CURVE_MSO-d4abab7c-528b-44d0-b6a8-b48e0c679ca3",
-                "targetHandle": "default",
-                "id": "reactflow__edge-CONNECT_MSO-e6f1237b-d12e-4512-a563-f7f9bdb319a6default-QUERY_CURVE_MSO-d4abab7c-528b-44d0-b6a8-b48e0c679ca3default"
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "CONNECT_MSO-e6f1237b-d12e-4512-a563-f7f9bdb319a6",
+                "id": "HORIZONTAL_SCALE_MSO2X-ee01d43e-afff-4c6f-98d8-6bc6f10e42c2->VERTICAL_SCALE_MSO2X-e3bf31f9-d433-4c25-9681-9a6889e8b726_37fd027b-f061-496f-a1cb-a24094182531",
+                "source": "HORIZONTAL_SCALE_MSO2X-ee01d43e-afff-4c6f-98d8-6bc6f10e42c2",
+                "target": "VERTICAL_SCALE_MSO2X-e3bf31f9-d433-4c25-9681-9a6889e8b726",
                 "sourceHandle": "default",
-                "target": "VERTICAL_SCALE_MSO-777bd85b-1933-4726-a6c8-64bf301600d1",
-                "targetHandle": "default",
-                "id": "reactflow__edge-CONNECT_MSO-e6f1237b-d12e-4512-a563-f7f9bdb319a6default-VERTICAL_SCALE_MSO-777bd85b-1933-4726-a6c8-64bf301600d1default"
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "CONNECT_MSO-e6f1237b-d12e-4512-a563-f7f9bdb319a6",
+                "id": "VERTICAL_SCALE_MSO2X-d076e917-998d-4980-8e3b-265ea1bc3c9d->PROBE_ATTENUATION_MSO2X-878d812f-31ed-42e1-9afa-cd98a4f03218_675cb233-e01a-47e4-9d5f-9dc6bfa89c05",
+                "source": "VERTICAL_SCALE_MSO2X-d076e917-998d-4980-8e3b-265ea1bc3c9d",
+                "target": "PROBE_ATTENUATION_MSO2X-878d812f-31ed-42e1-9afa-cd98a4f03218",
                 "sourceHandle": "default",
-                "target": "HORIZONTAL_SCALE_MSO-29fcf4b0-ad64-426b-878e-3c48a069c234",
-                "targetHandle": "default",
-                "id": "reactflow__edge-CONNECT_MSO-e6f1237b-d12e-4512-a563-f7f9bdb319a6default-HORIZONTAL_SCALE_MSO-29fcf4b0-ad64-426b-878e-3c48a069c234default"
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "VERTICAL_SCALE_MSO2X-ddc4853b-3fc6-464a-af6e-b381c951927c->PROBE_ATTENUATION_MSO2X-6dbe224e-c160-4b67-9e21-58cd63cf12c1_c6e468c6-067b-4da8-93c7-077572a582a1",
+                "source": "VERTICAL_SCALE_MSO2X-ddc4853b-3fc6-464a-af6e-b381c951927c",
+                "target": "PROBE_ATTENUATION_MSO2X-6dbe224e-c160-4b67-9e21-58cd63cf12c1",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "VERTICAL_SCALE_MSO2X-e3bf31f9-d433-4c25-9681-9a6889e8b726->PROBE_ATTENUATION_MSO2X-00f21911-ce4f-4c52-b6b8-8945df176c9e_5bef3652-364f-4a95-9609-f3284446185e",
+                "source": "VERTICAL_SCALE_MSO2X-e3bf31f9-d433-4c25-9681-9a6889e8b726",
+                "target": "PROBE_ATTENUATION_MSO2X-00f21911-ce4f-4c52-b6b8-8945df176c9e",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "PROBE_ATTENUATION_MSO2X-878d812f-31ed-42e1-9afa-cd98a4f03218->SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50_313fe09d-dbdf-43c5-8306-f173a0a76171",
+                "source": "PROBE_ATTENUATION_MSO2X-878d812f-31ed-42e1-9afa-cd98a4f03218",
+                "target": "SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "PROBE_ATTENUATION_MSO2X-6dbe224e-c160-4b67-9e21-58cd63cf12c1->SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50_4d974e4e-1461-4c2c-9e66-15dc1195a2b4",
+                "source": "PROBE_ATTENUATION_MSO2X-6dbe224e-c160-4b67-9e21-58cd63cf12c1",
+                "target": "SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "PROBE_ATTENUATION_MSO2X-00f21911-ce4f-4c52-b6b8-8945df176c9e->SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50_9439d371-cc5b-40de-a692-947449141d34",
+                "source": "PROBE_ATTENUATION_MSO2X-00f21911-ce4f-4c52-b6b8-8945df176c9e",
+                "target": "SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50",
+                "sourceHandle": "default",
+                "targetHandle": "input",
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 493.2364587353772,
-            "y": 502.07029082007256,
-            "zoom": 0.5
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

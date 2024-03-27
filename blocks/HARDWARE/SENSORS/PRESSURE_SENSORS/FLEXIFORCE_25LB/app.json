@@ -2,24 +2,41 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 150,
-                "height": 180,
-                "id": "FLEXIFORCE_25LB-6833dfdd-3730-4483-a8aa-3c094280f07e",
-                "type": "IO",
+                "id": "FLEXIFORCE_25LB-4f1b968b-6305-4aff-84c4-0a8e27e4e1e3",
+                "type": "HARDWARE",
                 "data": {
-                    "id": "FLEXIFORCE_25LB-6833dfdd-3730-4483-a8aa-3c094280f07e",
-                    "label": "FLEXIFORCE 25LB",
+                    "id": "FLEXIFORCE_25LB-4f1b968b-6305-4aff-84c4-0a8e27e4e1e3",
+                    "label": "FLEXIFORCE 25LB 1",
                     "func": "FLEXIFORCE_25LB",
-                    "type": "IO",
-                    "ctrls": {},
+                    "type": "HARDWARE",
+                    "ctrls": {
+                        "calibration1": {
+                            "type": "float",
+                            "default": 0.015,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "FLEXIFORCE_25LB",
+                            "param": "calibration1",
+                            "value": 0.015
+                        },
+                        "calibration2": {
+                            "type": "float",
+                            "default": 0.06,
+                            "desc": "Calibration parameters to convert voltage into pressure.",
+                            "overload": null,
+                            "functionName": "FLEXIFORCE_25LB",
+                            "param": "calibration2",
+                            "value": 0.06
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "type": "OrderedPair",
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -36,26 +53,26 @@
                             "v": "3.5"
                         }
                     ],
-                    "path": "PYTHON/nodes/IO/ANALOG_SENSORS/PRESSURE_SENSORS/FLEXIFORCE_25LB/FLEXIFORCE_25LB.py",
-                    "selected": false
+                    "path": "HARDWARE/SENSORS/PRESSURE_SENSORS/FLEXIFORCE_25LB/FLEXIFORCE_25LB.py"
                 },
                 "position": {
-                    "x": -128.77937355641933,
-                    "y": -298.2480293081669
+                    "x": 447.3675602384292,
+                    "y": -234.17899480775748
                 },
+                "width": 218,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -128.77937355641933,
-                    "y": -298.2480293081669
+                    "x": 447.3675602384292,
+                    "y": -234.17899480775748
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
-        "edges": [],
-        "viewport": {
-            "x": 819.7643144890276,
-            "y": 420.4113108673,
-            "zoom": 0.8915653288195635
-        }
-    }
+        "edges": []
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

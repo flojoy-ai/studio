@@ -3,73 +3,8 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 72,
-                "height": 72,
-                "id": "LOG-07f1112d-0e68-412c-874e-b62de4eb4e08",
-                "type": "ARITHMETIC",
-                "data": {
-                    "id": "LOG-07f1112d-0e68-412c-874e-b62de4eb4e08",
-                    "label": "LOG",
-                    "func": "LOG",
-                    "type": "ARITHMETIC",
-                    "ctrls": {
-                        "log_base": {
-                            "type": "select",
-                            "options": [
-                                "input",
-                                "e",
-                                "10",
-                                "2"
-                            ],
-                            "default": "e",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "LOG",
-                            "param": "log_base",
-                            "value": "input"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "a",
-                            "id": "a",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "The input a use to compute the log of a."
-                        },
-                        {
-                            "name": "b",
-                            "id": "b",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": true,
-                            "desc": "The input b use to compute the log with base b."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the result of the logarithm.\n\nScalar if a is a Scalar.\nc: the result of the logarithm.\n\nVector if a is a Vector.\nv: the result of the logarithm."
-                        }
-                    ],
-                    "path": "MATH/ARITHMETIC/LOG/LOG.py"
-                },
-                "position": {
-                    "x": 536.127226910247,
-                    "y": 61.30048564745533
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 536.127226910247,
-                    "y": 61.30048564745533
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "CONSTANT-eb11eb65-6792-4c89-a2ac-a489ccfe5dfb",
                 "type": "DATA",
                 "data": {
@@ -117,8 +52,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input that defines the size of the output."
+                            "desc": "Optional input that defines the size of the output.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -132,15 +67,15 @@
                     "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
                 },
                 "position": {
-                    "x": 174.71466430745514,
-                    "y": 354.0344238670953
+                    "x": -64.89646842453973,
+                    "y": 453.52208716517515
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 174.71466430745514,
-                    "y": 354.0344238670953
+                    "x": -64.89646842453973,
+                    "y": 453.52208716517515
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 225,
@@ -196,8 +131,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -211,19 +146,19 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
                 },
                 "position": {
-                    "x": 761.0278374669548,
-                    "y": -14.908699902106434
+                    "x": 889.9414293461568,
+                    "y": -24.717342762480484
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 761.0278374669548,
-                    "y": -14.908699902106434
+                    "x": 889.9414293461568,
+                    "y": -24.717342762480484
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "LINSPACE-e0e069e4-2231-4850-984b-8381c6675600",
                 "type": "DATA",
                 "data": {
@@ -266,8 +201,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -281,64 +216,15 @@
                     "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
                 },
                 "position": {
-                    "x": 164.6685427721214,
-                    "y": 41.51249406836007
+                    "x": -73.5413552655343,
+                    "y": -14.536893705206069
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 164.6685427721214,
-                    "y": 41.51249406836007
+                    "x": -73.5413552655343,
+                    "y": -14.536893705206069
                 },
-                "dragging": true
-            },
-            {
-                "width": 72,
-                "height": 72,
-                "id": "POWER-98cdbe2d-9e2c-4530-aa29-db31d7fab15b",
-                "type": "ARITHMETIC",
-                "data": {
-                    "id": "POWER-98cdbe2d-9e2c-4530-aa29-db31d7fab15b",
-                    "label": "POWER",
-                    "func": "POWER",
-                    "type": "ARITHMETIC",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "a",
-                            "id": "a",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "The input a used to compute a to the power of b."
-                        },
-                        {
-                            "name": "b",
-                            "id": "b",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": true,
-                            "desc": "The input b used to compute a to the power of b."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the result of a^b (or a**b).\n\nScalar if a is a Scalar.\nc: the result of a^b (or a**b).\n\nVector if a is a Vector.\nv: the result of a^b (or a**b)."
-                        }
-                    ],
-                    "path": "MATH/ARITHMETIC/POWER/POWER.py"
-                },
-                "position": {
-                    "x": 528.6108877861144,
-                    "y": 355.67633009555345
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 528.6108877861144,
-                    "y": 355.67633009555345
-                },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 225,
@@ -394,8 +280,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -409,87 +295,196 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
                 },
                 "position": {
-                    "x": 753.1025002972111,
-                    "y": 278.40602986815543
+                    "x": 891.824735036787,
+                    "y": 268.59738700778155
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 753.1025002972111,
-                    "y": 278.40602986815543
+                    "x": 891.824735036787,
+                    "y": 268.59738700778155
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "LOG-d32ba9ae-2de3-4873-a5d3-fe80f45053af",
+                "type": "MATH",
+                "data": {
+                    "id": "LOG-d32ba9ae-2de3-4873-a5d3-fe80f45053af",
+                    "label": "LOG",
+                    "func": "LOG",
+                    "type": "MATH",
+                    "ctrls": {
+                        "log_base": {
+                            "type": "select",
+                            "default": "e",
+                            "options": [
+                                "input",
+                                "e",
+                                "10",
+                                "2"
+                            ],
+                            "desc": "The base to use for the logarithm, by default \"e\".",
+                            "overload": null,
+                            "functionName": "LOG",
+                            "param": "log_base",
+                            "value": "e"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "a",
+                            "id": "a",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "The input a use to compute the log of a.",
+                            "multiple": false
+                        },
+                        {
+                            "name": "b",
+                            "id": "b",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "The input b use to compute the log with base b.",
+                            "multiple": true
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the result of the logarithm.\n\nScalar if a is a Scalar.\nc: the result of the logarithm.\n\nVector if a is a Vector.\nv: the result of the logarithm."
+                        }
+                    ],
+                    "path": "MATH/ARITHMETIC/LOG/LOG.py"
+                },
+                "position": {
+                    "x": 506.62195940933805,
+                    "y": 13.068364016511907
+                },
+                "width": 216,
+                "height": 198,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 506.62195940933805,
+                    "y": 13.068364016511907
+                },
+                "dragging": false
+            },
+            {
+                "id": "POWER-94d4ae8f-3762-4399-b70d-7c569f5a9d88",
+                "type": "MATH",
+                "data": {
+                    "id": "POWER-94d4ae8f-3762-4399-b70d-7c569f5a9d88",
+                    "label": "POWER",
+                    "func": "POWER",
+                    "type": "MATH",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "a",
+                            "id": "a",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "The input a used to compute a to the power of b.",
+                            "multiple": false
+                        },
+                        {
+                            "name": "b",
+                            "id": "b",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "The input b used to compute a to the power of b.",
+                            "multiple": true
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the result of a^b (or a**b).\n\nScalar if a is a Scalar.\nc: the result of a^b (or a**b).\n\nVector if a is a Vector.\nv: the result of a^b (or a**b)."
+                        }
+                    ],
+                    "path": "MATH/ARITHMETIC/POWER/POWER.py"
+                },
+                "position": {
+                    "x": 449.00394211388544,
+                    "y": 306.3536962680002
+                },
+                "width": 216,
+                "height": 198,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 449.00394211388544,
+                    "y": 306.3536962680002
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "CONSTANT-eb11eb65-6792-4c89-a2ac-a489ccfe5dfb",
-                "sourceHandle": "default",
-                "target": "LOG-07f1112d-0e68-412c-874e-b62de4eb4e08",
-                "targetHandle": "b",
-                "id": "reactflow__edge-CONSTANT-eb11eb65-6792-4c89-a2ac-a489ccfe5dfbdefault-LOG-07f1112d-0e68-412c-874e-b62de4eb4e08b"
-            },
-            {
+                "id": "LINSPACE-e0e069e4-2231-4850-984b-8381c6675600->LOG-d32ba9ae-2de3-4873-a5d3-fe80f45053af_311e6e5b-4df7-45e8-b110-5e2eb2612c00",
                 "source": "LINSPACE-e0e069e4-2231-4850-984b-8381c6675600",
+                "target": "LOG-d32ba9ae-2de3-4873-a5d3-fe80f45053af",
                 "sourceHandle": "default",
-                "target": "LOG-07f1112d-0e68-412c-874e-b62de4eb4e08",
                 "targetHandle": "a",
-                "id": "reactflow__edge-LINSPACE-e0e069e4-2231-4850-984b-8381c6675600default-LOG-07f1112d-0e68-412c-874e-b62de4eb4e08a"
-            },
-            {
-                "source": "LOG-07f1112d-0e68-412c-874e-b62de4eb4e08",
-                "sourceHandle": "default",
-                "target": "LINE-f5fe8fa8-810c-4243-ae02-57e029818a28",
-                "targetHandle": "default",
-                "id": "reactflow__edge-LOG-07f1112d-0e68-412c-874e-b62de4eb4e08default-LINE-f5fe8fa8-810c-4243-ae02-57e029818a28default"
-            },
-            {
-                "source": "LINSPACE-e0e069e4-2231-4850-984b-8381c6675600",
-                "sourceHandle": "default",
-                "target": "POWER-98cdbe2d-9e2c-4530-aa29-db31d7fab15b",
-                "targetHandle": "a",
-                "id": "reactflow__edge-LINSPACE-e0e069e4-2231-4850-984b-8381c6675600default-POWER-98cdbe2d-9e2c-4530-aa29-db31d7fab15ba"
-            },
-            {
-                "source": "CONSTANT-eb11eb65-6792-4c89-a2ac-a489ccfe5dfb",
-                "sourceHandle": "default",
-                "target": "POWER-98cdbe2d-9e2c-4530-aa29-db31d7fab15b",
-                "targetHandle": "b",
-                "id": "reactflow__edge-CONSTANT-eb11eb65-6792-4c89-a2ac-a489ccfe5dfbdefault-POWER-98cdbe2d-9e2c-4530-aa29-db31d7fab15bb"
-            },
-            {
-                "source": "POWER-98cdbe2d-9e2c-4530-aa29-db31d7fab15b",
-                "sourceHandle": "default",
-                "target": "LINE-aeb85ccf-a852-40cc-bded-ee964eeae686",
-                "targetHandle": "default",
-                "id": "reactflow__edge-POWER-98cdbe2d-9e2c-4530-aa29-db31d7fab15bdefault-LINE-aeb85ccf-a852-40cc-bded-ee964eeae686default"
-            }
-        ],
-        "viewport": {
-            "x": 596.4078106925898,
-            "y": 284.264848938833,
-            "zoom": 1.1129640394988185
-        },
-        "textNodes": [
-            {
-                "id": "TextNode-8b717d9b-272d-40a6-9dd8-942d6ffc227f",
-                "position": {
-                    "x": -76.12615774739446,
-                    "y": -211.88790565368888
-                },
-                "type": "TextNode",
                 "data": {
-                    "text": "bruhurhalskdjaskljdaklsjd"
-                },
-                "width": 200,
-                "height": 150,
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -76.12615774739446,
-                    "y": -211.88790565368888
-                },
-                "dragging": false
+                    "outputType": "Vector"
+                }
+            },
+            {
+                "id": "CONSTANT-eb11eb65-6792-4c89-a2ac-a489ccfe5dfb->LOG-d32ba9ae-2de3-4873-a5d3-fe80f45053af_93f05e60-2030-4087-bc6f-07461f886bb6",
+                "source": "CONSTANT-eb11eb65-6792-4c89-a2ac-a489ccfe5dfb",
+                "target": "LOG-d32ba9ae-2de3-4873-a5d3-fe80f45053af",
+                "sourceHandle": "default",
+                "targetHandle": "b",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "LOG-d32ba9ae-2de3-4873-a5d3-fe80f45053af->LINE-f5fe8fa8-810c-4243-ae02-57e029818a28_18005f23-6d50-450c-80fc-198bc2299ff8",
+                "source": "LOG-d32ba9ae-2de3-4873-a5d3-fe80f45053af",
+                "target": "LINE-f5fe8fa8-810c-4243-ae02-57e029818a28",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "LINSPACE-e0e069e4-2231-4850-984b-8381c6675600->POWER-94d4ae8f-3762-4399-b70d-7c569f5a9d88_a6938670-743b-4740-9b18-b9c8502436ee",
+                "source": "LINSPACE-e0e069e4-2231-4850-984b-8381c6675600",
+                "target": "POWER-94d4ae8f-3762-4399-b70d-7c569f5a9d88",
+                "sourceHandle": "default",
+                "targetHandle": "a",
+                "data": {
+                    "outputType": "Vector"
+                }
+            },
+            {
+                "id": "CONSTANT-eb11eb65-6792-4c89-a2ac-a489ccfe5dfb->POWER-94d4ae8f-3762-4399-b70d-7c569f5a9d88_e1d58b76-b3c2-4bd8-b19d-b506c070b880",
+                "source": "CONSTANT-eb11eb65-6792-4c89-a2ac-a489ccfe5dfb",
+                "target": "POWER-94d4ae8f-3762-4399-b70d-7c569f5a9d88",
+                "sourceHandle": "default",
+                "targetHandle": "b",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "POWER-94d4ae8f-3762-4399-b70d-7c569f5a9d88->LINE-aeb85ccf-a852-40cc-bded-ee964eeae686_d50e1354-35db-4592-8ac1-289222d0ce1a",
+                "source": "POWER-94d4ae8f-3762-4399-b70d-7c569f5a9d88",
+                "target": "LINE-aeb85ccf-a852-40cc-bded-ee964eeae686",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             }
         ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

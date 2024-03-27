@@ -5,21 +5,58 @@
                 "width": 380,
                 "height": 293,
                 "id": "LINE-437e1ca3-fdc5-43c7-89a4-95766a021c45",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "LINE-437e1ca3-fdc5-43c7-89a4-95766a021c45",
                     "label": "LINE",
                     "func": "LINE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -30,30 +67,30 @@
                             "desc": "the DataContainer containing the Plotly Line visualization of the input data"
                         }
                     ],
-                    "path": "VISUALIZERS/PLOTLY/LINE/LINE.py",
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 1200.7713597268273,
-                    "y": -153.0327557792072
+                    "x": 1144.7713597268273,
+                    "y": -477.03275577920726
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1200.7713597268273,
-                    "y": -153.0327557792072
+                    "x": 1144.7713597268273,
+                    "y": -477.03275577920726
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 218,
+                "height": 233,
                 "id": "CONNECTION_FSV-6af7f29b-5578-4bb7-97b2-d728dcd68073",
-                "type": "IO",
+                "type": "HARDWARE",
                 "data": {
                     "id": "CONNECTION_FSV-6af7f29b-5578-4bb7-97b2-d728dcd68073",
                     "label": "CONNECTION FSV",
                     "func": "CONNECTION_FSV",
-                    "type": "IO",
+                    "type": "HARDWARE",
                     "ctrls": {
                         "device": {
                             "type": "VisaDevice",
@@ -71,8 +108,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -80,38 +117,38 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "desc": "Optional: None"
+                            "desc": "None"
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/NETWORK_ANALYZERS/ROHDE_SCHWARZ/FSV/BASIC/CONNECTION_FSV/CONNECTION_FSV.py",
+                    "path": "HARDWARE/SIGNAL_ANALYZERS/ROHDE_SCHWARZ/FSV/CONNECTION_FSV/CONNECTION_FSV.py",
                     "selected": false
                 },
                 "position": {
-                    "x": -165.87432737853123,
-                    "y": -120.16128595451798
+                    "x": -1055.8743273785312,
+                    "y": -372.161285954518
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -165.87432737853123,
-                    "y": -120.16128595451798
+                    "x": -1055.8743273785312,
+                    "y": -372.161285954518
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "EXTRACT_SWEEP_FSV-58bbdf2f-add5-4426-b581-7499196e74f0",
-                "type": "IO",
+                "type": "HARDWARE",
                 "data": {
                     "id": "EXTRACT_SWEEP_FSV-58bbdf2f-add5-4426-b581-7499196e74f0",
                     "label": "EXTRACT SWEEP FSV",
                     "func": "EXTRACT_SWEEP_FSV",
-                    "type": "IO",
+                    "type": "HARDWARE",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_FSV node).",
+                            "desc": "The VISA address (requires the CONNECTION_FSV block).",
                             "overload": null,
                             "functionName": "EXTRACT_SWEEP_FSV",
                             "param": "connection",
@@ -124,8 +161,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -133,38 +170,38 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair",
-                            "desc": "OrderedPair: The sweep trace from the FSV is returned."
+                            "desc": "The sweep trace from the FSV is returned."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/NETWORK_ANALYZERS/ROHDE_SCHWARZ/FSV/BASIC/EXTRACT_SWEEP_FSV/EXTRACT_SWEEP_FSV.py",
+                    "path": "HARDWARE/SIGNAL_ANALYZERS/ROHDE_SCHWARZ/FSV/EXTRACT_SWEEP_FSV/EXTRACT_SWEEP_FSV.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 944.424750958627,
-                    "y": -104.5688078747067
+                    "x": 740.424750958627,
+                    "y": -378.56880787470675
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 944.424750958627,
-                    "y": -104.5688078747067
+                    "x": 740.424750958627,
+                    "y": -378.56880787470675
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "INIT_SWEEP_FSV-d8a3c888-310a-437b-b68a-43f6a3d4831f",
-                "type": "IO",
+                "type": "HARDWARE",
                 "data": {
                     "id": "INIT_SWEEP_FSV-d8a3c888-310a-437b-b68a-43f6a3d4831f",
                     "label": "INIT SWEEP FSV",
                     "func": "INIT_SWEEP_FSV",
-                    "type": "IO",
+                    "type": "HARDWARE",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_FSV node).",
+                            "desc": "The VISA address (requires the CONNECTION_FSV block).",
                             "overload": null,
                             "functionName": "INIT_SWEEP_FSV",
                             "param": "connection",
@@ -203,8 +240,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -212,38 +249,38 @@
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "desc": "String: Display and sweep settings."
+                            "desc": "Display and sweep settings."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/NETWORK_ANALYZERS/ROHDE_SCHWARZ/FSV/BASIC/INIT_SWEEP_FSV/INIT_SWEEP_FSV.py",
+                    "path": "HARDWARE/SIGNAL_ANALYZERS/ROHDE_SCHWARZ/FSV/INIT_SWEEP_FSV/INIT_SWEEP_FSV.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 664.5284252626413,
-                    "y": -104.04499432691225
+                    "x": 320.52842526264135,
+                    "y": -378.0449943269123
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 664.5284252626413,
-                    "y": -104.04499432691225
+                    "x": 320.52842526264135,
+                    "y": -378.0449943269123
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 269,
                 "id": "SWEEP_SETTINGS_FSV-92c0fefc-8488-4a14-b96d-83f4141aa370",
-                "type": "IO",
+                "type": "HARDWARE",
                 "data": {
                     "id": "SWEEP_SETTINGS_FSV-92c0fefc-8488-4a14-b96d-83f4141aa370",
                     "label": "SWEEP SETTINGS FSV",
                     "func": "SWEEP_SETTINGS_FSV",
-                    "type": "IO",
+                    "type": "HARDWARE",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_FSV node).",
+                            "desc": "The VISA address (requires the CONNECTION_FSV block).",
                             "overload": null,
                             "functionName": "SWEEP_SETTINGS_FSV",
                             "param": "connection",
@@ -306,11 +343,20 @@
                                 "auto"
                             ],
                             "default": "auto",
-                            "desc": "How the FSV sweeps along the x axis range.",
+                            "desc": "The sweep time (set to auto if = 0), in seconds.",
                             "overload": null,
                             "functionName": "SWEEP_SETTINGS_FSV",
                             "param": "sweep_type",
                             "value": "auto"
+                        },
+                        "sweep_time": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SWEEP_SETTINGS_FSV",
+                            "param": "sweep_time",
+                            "value": 0
                         },
                         "counts": {
                             "type": "int",
@@ -337,8 +383,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -346,22 +392,22 @@
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "desc": "String: Sweep settings summary."
+                            "desc": "Sweep settings summary."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/NETWORK_ANALYZERS/ROHDE_SCHWARZ/FSV/BASIC/SWEEP_SETTINGS_FSV/SWEEP_SETTINGS_FSV.py",
+                    "path": "HARDWARE/SIGNAL_ANALYZERS/ROHDE_SCHWARZ/FSV/SWEEP_SETTINGS_FSV/SWEEP_SETTINGS_FSV.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 388.1458911727439,
-                    "y": -105.03404862797419
+                    "x": -61.854108827256084,
+                    "y": -377.03404862797424
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 388.1458911727439,
-                    "y": -105.03404862797419
+                    "x": -61.854108827256084,
+                    "y": -377.03404862797424
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 192,
@@ -422,8 +468,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -434,19 +480,19 @@
                             "desc": "Y axis settings summary."
                         }
                     ],
-                    "path": "HARDWARE/INSTRUMENTS/SIGNAL_ANALYZERS/ROHDE_SCHWARZ/FSV/BASIC/Y_AXIS_SETTINGS_FSV/Y_AXIS_SETTINGS_FSV.py",
+                    "path": "HARDWARE/SIGNAL_ANALYZERS/ROHDE_SCHWARZ/FSV/Y_AXIS_SETTINGS_FSV/Y_AXIS_SETTINGS_FSV.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 109.20780297012695,
-                    "y": 13.528794319218918
+                    "x": -558.792197029873,
+                    "y": -248.47120568078105
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 109.20780297012695,
-                    "y": 13.528794319218918
+                    "x": -558.792197029873,
+                    "y": -248.47120568078105
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 192,
@@ -493,8 +539,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -505,78 +551,96 @@
                             "desc": "Sweep settings summary."
                         }
                     ],
-                    "path": "HARDWARE/INSTRUMENTS/SIGNAL_ANALYZERS/ROHDE_SCHWARZ/FSV/ADVANCED/BANDWIDTH_FSV/BANDWIDTH_FSV.py",
+                    "path": "HARDWARE/SIGNAL_ANALYZERS/ROHDE_SCHWARZ/FSV/BANDWIDTH_FSV/BANDWIDTH_FSV.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 109.28125266481953,
-                    "y": -215.6207862487323
+                    "x": -560.7187473351805,
+                    "y": -545.6207862487323
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 109.28125266481953,
-                    "y": -215.6207862487323
+                    "x": -560.7187473351805,
+                    "y": -545.6207862487323
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "INIT_SWEEP_FSV-d8a3c888-310a-437b-b68a-43f6a3d4831f",
-                "sourceHandle": "default",
-                "target": "EXTRACT_SWEEP_FSV-58bbdf2f-add5-4426-b581-7499196e74f0",
-                "targetHandle": "default",
-                "id": "reactflow__edge-INIT_SWEEP_FSV-d8a3c888-310a-437b-b68a-43f6a3d4831fdefault-EXTRACT_SWEEP_FSV-58bbdf2f-add5-4426-b581-7499196e74f0default",
-                "selected": false
-            },
-            {
+                "id": "CONNECTION_FSV-6af7f29b-5578-4bb7-97b2-d728dcd68073->BANDWIDTH_FSV-5bd28a76-5459-41ae-b735-4a5c83dd50a6_a3b2130e-bb3a-4ca7-9c1e-a42db0f23477",
                 "source": "CONNECTION_FSV-6af7f29b-5578-4bb7-97b2-d728dcd68073",
-                "sourceHandle": "default",
-                "target": "Y_AXIS_SETTINGS_FSV-ec7e33e4-95a2-44a4-8158-131c01732b18",
-                "targetHandle": "default",
-                "id": "reactflow__edge-CONNECTION_FSV-6af7f29b-5578-4bb7-97b2-d728dcd68073default-Y_AXIS_SETTINGS_FSV-ec7e33e4-95a2-44a4-8158-131c01732b18default"
-            },
-            {
-                "source": "Y_AXIS_SETTINGS_FSV-ec7e33e4-95a2-44a4-8158-131c01732b18",
-                "sourceHandle": "default",
-                "target": "SWEEP_SETTINGS_FSV-92c0fefc-8488-4a14-b96d-83f4141aa370",
-                "targetHandle": "default",
-                "id": "reactflow__edge-Y_AXIS_SETTINGS_FSV-ec7e33e4-95a2-44a4-8158-131c01732b18default-SWEEP_SETTINGS_FSV-92c0fefc-8488-4a14-b96d-83f4141aa370default"
-            },
-            {
-                "source": "SWEEP_SETTINGS_FSV-92c0fefc-8488-4a14-b96d-83f4141aa370",
-                "sourceHandle": "default",
-                "target": "INIT_SWEEP_FSV-d8a3c888-310a-437b-b68a-43f6a3d4831f",
-                "targetHandle": "default",
-                "id": "reactflow__edge-SWEEP_SETTINGS_FSV-92c0fefc-8488-4a14-b96d-83f4141aa370default-INIT_SWEEP_FSV-d8a3c888-310a-437b-b68a-43f6a3d4831fdefault"
-            },
-            {
-                "source": "EXTRACT_SWEEP_FSV-58bbdf2f-add5-4426-b581-7499196e74f0",
-                "sourceHandle": "default",
-                "target": "LINE-437e1ca3-fdc5-43c7-89a4-95766a021c45",
-                "targetHandle": "default",
-                "id": "reactflow__edge-EXTRACT_SWEEP_FSV-58bbdf2f-add5-4426-b581-7499196e74f0default-LINE-437e1ca3-fdc5-43c7-89a4-95766a021c45default"
-            },
-            {
-                "source": "CONNECTION_FSV-6af7f29b-5578-4bb7-97b2-d728dcd68073",
-                "sourceHandle": "default",
                 "target": "BANDWIDTH_FSV-5bd28a76-5459-41ae-b735-4a5c83dd50a6",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CONNECTION_FSV-6af7f29b-5578-4bb7-97b2-d728dcd68073default-BANDWIDTH_FSV-5bd28a76-5459-41ae-b735-4a5c83dd50a6default"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "BANDWIDTH_FSV-5bd28a76-5459-41ae-b735-4a5c83dd50a6",
+                "id": "CONNECTION_FSV-6af7f29b-5578-4bb7-97b2-d728dcd68073->Y_AXIS_SETTINGS_FSV-ec7e33e4-95a2-44a4-8158-131c01732b18_e1954a96-c67b-4882-9193-1ace133d47d6",
+                "source": "CONNECTION_FSV-6af7f29b-5578-4bb7-97b2-d728dcd68073",
+                "target": "Y_AXIS_SETTINGS_FSV-ec7e33e4-95a2-44a4-8158-131c01732b18",
                 "sourceHandle": "default",
-                "target": "SWEEP_SETTINGS_FSV-92c0fefc-8488-4a14-b96d-83f4141aa370",
                 "targetHandle": "default",
-                "id": "reactflow__edge-BANDWIDTH_FSV-5bd28a76-5459-41ae-b735-4a5c83dd50a6default-SWEEP_SETTINGS_FSV-92c0fefc-8488-4a14-b96d-83f4141aa370default"
+                "data": {
+                    "outputType": "Any"
+                }
+            },
+            {
+                "id": "SWEEP_SETTINGS_FSV-92c0fefc-8488-4a14-b96d-83f4141aa370->INIT_SWEEP_FSV-d8a3c888-310a-437b-b68a-43f6a3d4831f_28697c97-08ac-4b67-a431-f4b389ef1761",
+                "source": "SWEEP_SETTINGS_FSV-92c0fefc-8488-4a14-b96d-83f4141aa370",
+                "target": "INIT_SWEEP_FSV-d8a3c888-310a-437b-b68a-43f6a3d4831f",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "BANDWIDTH_FSV-5bd28a76-5459-41ae-b735-4a5c83dd50a6->SWEEP_SETTINGS_FSV-92c0fefc-8488-4a14-b96d-83f4141aa370_355bd35e-4bb8-4856-be38-de886dc5691d",
+                "source": "BANDWIDTH_FSV-5bd28a76-5459-41ae-b735-4a5c83dd50a6",
+                "target": "SWEEP_SETTINGS_FSV-92c0fefc-8488-4a14-b96d-83f4141aa370",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "Y_AXIS_SETTINGS_FSV-ec7e33e4-95a2-44a4-8158-131c01732b18->SWEEP_SETTINGS_FSV-92c0fefc-8488-4a14-b96d-83f4141aa370_d44d4ee5-5a74-4329-abfe-86e9b307f3c1",
+                "source": "Y_AXIS_SETTINGS_FSV-ec7e33e4-95a2-44a4-8158-131c01732b18",
+                "target": "SWEEP_SETTINGS_FSV-92c0fefc-8488-4a14-b96d-83f4141aa370",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "INIT_SWEEP_FSV-d8a3c888-310a-437b-b68a-43f6a3d4831f->EXTRACT_SWEEP_FSV-58bbdf2f-add5-4426-b581-7499196e74f0_2767b313-6a11-4067-888b-bbd9f7bb0411",
+                "source": "INIT_SWEEP_FSV-d8a3c888-310a-437b-b68a-43f6a3d4831f",
+                "target": "EXTRACT_SWEEP_FSV-58bbdf2f-add5-4426-b581-7499196e74f0",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "EXTRACT_SWEEP_FSV-58bbdf2f-add5-4426-b581-7499196e74f0->LINE-437e1ca3-fdc5-43c7-89a4-95766a021c45_961001be-d60e-499f-998e-a4a3433d5375",
+                "source": "EXTRACT_SWEEP_FSV-58bbdf2f-add5-4426-b581-7499196e74f0",
+                "target": "LINE-437e1ca3-fdc5-43c7-89a4-95766a021c45",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             }
-        ],
-        "viewport": {
-            "x": 1139.470292881633,
-            "y": 572.2854272048312,
-            "zoom": 1.2136444284334926
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

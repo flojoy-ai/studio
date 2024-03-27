@@ -2,19 +2,19 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 150,
-                "height": 150,
-                "id": "LOCAL_FILE-f21874a3-6a2f-4f64-ae87-faebdfba5c6d",
-                "type": "LOADERS",
+                "id": "LOCAL_FILE-8d57c1bb-d412-448b-b000-23850281b4a2",
+                "type": "LOAD",
                 "data": {
-                    "id": "LOCAL_FILE-f21874a3-6a2f-4f64-ae87-faebdfba5c6d",
+                    "id": "LOCAL_FILE-8d57c1bb-d412-448b-b000-23850281b4a2",
                     "label": "LOCAL FILE",
                     "func": "LOCAL_FILE",
-                    "type": "LOADERS",
+                    "type": "LOAD",
                     "ctrls": {
                         "file_path": {
                             "type": "str",
                             "default": null,
+                            "desc": "The path to the file to be loaded. This can be either an absolute path or\na path relative to the \"nodes\" directory.",
+                            "overload": null,
                             "functionName": "LOCAL_FILE",
                             "param": "file_path",
                             "value": ""
@@ -24,63 +24,24 @@
                             "default": "Image",
                             "options": [
                                 "Image",
+                                "Grayscale",
                                 "JSON",
-                                "CSV",
-                                "Excel",
-                                "XML"
+                                "CSV"
                             ],
+                            "desc": "Type of file to load, default = image.\nIf both 'file_path' and 'default' are not specified when 'file_type=\"Image\"',\na default image will be loaded.\nIf the file path is not specified and the default input is not connected,\na ValueError is raised.",
+                            "overload": null,
                             "functionName": "LOCAL_FILE",
                             "param": "file_type",
                             "value": "Image"
                         }
                     },
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image|DataFrame"
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "xlrd",
-                            "v": "2.0.1"
-                        },
-                        {
-                            "name": "lxml",
-                            "v": "4.9.2"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\LOADERS\\LOCAL_FILE_SYSTEM\\LOCAL_FILE\\LOCAL_FILE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 149.9445089046593,
-                    "y": 154.15881591576107
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 149.9445089046593,
-                    "y": 154.15881591576107
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "IMAGE-c69df1a9-06a0-41aa-beb2-41bc8a400ed5",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "IMAGE-c69df1a9-06a0-41aa-beb2-41bc8a400ed5",
-                    "label": "IMAGE",
-                    "func": "IMAGE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Image",
+                            "type": "String",
+                            "desc": "If this input node is connected, the file name will be taken from\nthe output of the connected node.\nTo be used in conjunction with batch processing.",
                             "multiple": false
                         }
                     ],
@@ -88,56 +49,89 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Plotly"
+                            "type": "Image|DataFrame|Grayscale",
+                            "desc": "Image for file_type 'image'.\nGrayscale from file_type 'Grayscale'.\nDataFrame for file_type 'json', 'csv'."
                         }
                     ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\IMAGE\\IMAGE.py",
-                    "selected": false
+                    "pip_dependencies": [
+                        {
+                            "name": "scikit-image",
+                            "v": "0.21.0"
+                        }
+                    ],
+                    "path": "ETL/LOAD/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py"
                 },
                 "position": {
-                    "x": 528.5159374760879,
-                    "y": 79.87310163004685
+                    "x": 88.3824050397883,
+                    "y": 135.05784937626265
                 },
+                "width": 216,
+                "height": 188,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 528.5159374760879,
-                    "y": 79.87310163004685
+                    "x": 88.3824050397883,
+                    "y": 135.05784937626265
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "IMAGE-d95f8a40-a076-464e-b332-6b7608eecc67",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "IMAGE-d95f8a40-a076-464e-b332-6b7608eecc67",
+                    "label": "IMAGE",
+                    "func": "IMAGE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|Grayscale",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
+                },
+                "position": {
+                    "x": 509.056687221012,
+                    "y": 93.63474265641418
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 509.056687221012,
+                    "y": 93.63474265641418
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "LOCAL_FILE-f21874a3-6a2f-4f64-ae87-faebdfba5c6d",
+                "id": "LOCAL_FILE-8d57c1bb-d412-448b-b000-23850281b4a2->IMAGE-d95f8a40-a076-464e-b332-6b7608eecc67_5e6c54e1-0273-4e72-9033-ec2046e96e80",
+                "source": "LOCAL_FILE-8d57c1bb-d412-448b-b000-23850281b4a2",
+                "target": "IMAGE-d95f8a40-a076-464e-b332-6b7608eecc67",
                 "sourceHandle": "default",
-                "target": "IMAGE-c69df1a9-06a0-41aa-beb2-41bc8a400ed5",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LOCAL_FILE-f21874a3-6a2f-4f64-ae87-faebdfba5c6ddefault-IMAGE-c69df1a9-06a0-41aa-beb2-41bc8a400ed5default"
+                "data": {
+                    "outputType": "Image"
+                }
             }
-        ],
-        "viewport": {
-            "x": -296.35399545928726,
-            "y": 66.8470830817738,
-            "zoom": 0.8744723800359967
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

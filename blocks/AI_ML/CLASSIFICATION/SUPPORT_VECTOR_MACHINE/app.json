@@ -2,128 +2,8 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 150,
-                "height": 150,
-                "id": "READ_CSV-59c660d6-c37c-48e6-9e32-11490ebba845",
-                "type": "EXTRACTORS",
-                "data": {
-                    "id": "READ_CSV-59c660d6-c37c-48e6-9e32-11490ebba845",
-                    "label": "READ CSV",
-                    "func": "READ_CSV",
-                    "type": "EXTRACTORS",
-                    "ctrls": {
-                        "file_path": {
-                            "type": "str",
-                            "default": "https://raw.githubusercontent.com/cs109/2014_data/master/countries.csv",
-                            "functionName": "READ_CSV",
-                            "param": "file_path",
-                            "value": "./PYTHON/nodes/EXTRACTORS/FILE/READ_CSV/assets/iris_train.csv"
-                        }
-                    },
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "DataFrame"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/EXTRACTORS/FILE/READ_CSV/READ_CSV.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 654.4111754934514,
-                    "y": 510.5069042246754
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 654.4111754934514,
-                    "y": 510.5069042246754
-                },
-                "dragging": true
-            },
-            {
-                "width": 150,
-                "height": 150,
-                "id": "READ_CSV-90526963-cd8b-4b79-bf22-12138be6d2c7",
-                "type": "EXTRACTORS",
-                "data": {
-                    "id": "READ_CSV-90526963-cd8b-4b79-bf22-12138be6d2c7",
-                    "label": "READ CSV 1",
-                    "func": "READ_CSV",
-                    "type": "EXTRACTORS",
-                    "ctrls": {
-                        "file_path": {
-                            "type": "str",
-                            "default": "https://raw.githubusercontent.com/cs109/2014_data/master/countries.csv",
-                            "functionName": "READ_CSV",
-                            "param": "file_path",
-                            "value": "./PYTHON/nodes/EXTRACTORS/FILE/READ_CSV/assets/iris_test_no_label.csv"
-                        }
-                    },
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "DataFrame"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/EXTRACTORS/FILE/READ_CSV/READ_CSV.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 656.2323843615078,
-                    "y": 772.1477992127109
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 656.2323843615078,
-                    "y": 772.1477992127109
-                },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "TABLE-500d4621-276f-4b84-a114-1e4498781381",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TABLE-500d4621-276f-4b84-a114-1e4498781381",
-                    "label": "TABLE",
-                    "func": "TABLE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple|OrderedPair|DataFrame|Matrix",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 1496.5324809006217,
-                    "y": 648.6028296725746
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1496.5324809006217,
-                    "y": 648.6028296725746
-                },
-                "dragging": true
-            },
-            {
-                "width": 150,
-                "height": 150,
+                "width": 216,
+                "height": 328,
                 "id": "SUPPORT_VECTOR_MACHINE-111df792-52d2-41ac-9662-1066da12d44b",
                 "type": "AI_ML",
                 "data": {
@@ -144,7 +24,9 @@
                             ],
                             "functionName": "SUPPORT_VECTOR_MACHINE",
                             "param": "kernel",
-                            "value": "linear"
+                            "value": "linear",
+                            "desc": "Specifies the kernel type to be used in the algorithm.\nFor detailed information about kernel types:\nhttps://scikit-learn.org/stable/modules/svm.html#kernel-functions",
+                            "overload": null
                         }
                     },
                     "inputs": [
@@ -152,18 +34,21 @@
                             "name": "train_feature",
                             "id": "train_feature",
                             "type": "DataFrame|Matrix",
+                            "desc": null,
                             "multiple": false
                         },
                         {
                             "name": "train_label",
                             "id": "train_label",
                             "type": "DataFrame|Matrix",
+                            "desc": null,
                             "multiple": false
                         },
                         {
                             "name": "input_data",
                             "id": "input_data",
                             "type": "DataFrame|Matrix",
+                            "desc": null,
                             "multiple": false
                         }
                     ],
@@ -171,7 +56,8 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "DataFrame"
+                            "type": "DataFrame",
+                            "desc": "The predictions for the input data."
                         }
                     ],
                     "pip_dependencies": [
@@ -180,92 +66,132 @@
                             "v": "1.2.2"
                         }
                     ],
-                    "path": "PYTHON/nodes/AI_ML/CLASSIFICATION/SUPPORT_VECTOR_MACHINE/SUPPORT_VECTOR_MACHINE.py",
+                    "path": "AI_ML/CLASSIFICATION/SUPPORT_VECTOR_MACHINE/SUPPORT_VECTOR_MACHINE.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 1210.9973012192495,
-                    "y": 688.4577952218613
+                    "x": 1335.702765728109,
+                    "y": 545.9751089789575
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1210.9973012192495,
-                    "y": 688.4577952218613
+                    "x": 1335.702765728109,
+                    "y": 545.9751089789575
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 150,
-                "height": 150,
-                "id": "EXTRACT_COLUMNS-afb1e4ac-a149-400c-b795-0f3fd78ab5f7",
-                "type": "EXTRACTORS",
+                "id": "READ_CSV-30889683-2832-4931-92d3-3655095a74db",
+                "type": "EXTRACT",
                 "data": {
-                    "id": "EXTRACT_COLUMNS-afb1e4ac-a149-400c-b795-0f3fd78ab5f7",
-                    "label": "EXTRACT COLUMNS",
-                    "func": "EXTRACT_COLUMNS",
-                    "type": "EXTRACTORS",
+                    "id": "READ_CSV-30889683-2832-4931-92d3-3655095a74db",
+                    "label": "READ CSV 2",
+                    "func": "READ_CSV",
+                    "type": "EXTRACT",
                     "ctrls": {
-                        "columns": {
-                            "type": "Array",
-                            "default": null,
-                            "functionName": "EXTRACT_COLUMNS",
-                            "param": "columns",
-                            "value": "sepal_length,sepal_width,petal_length,petal_width"
+                        "file_path": {
+                            "type": "str",
+                            "default": "https://raw.githubusercontent.com/cs109/2014_data/master/countries.csv",
+                            "desc": "File path to the .csv file or an URL of a .csv file.",
+                            "overload": null,
+                            "functionName": "READ_CSV",
+                            "param": "file_path",
+                            "value": "./blocks/ETL/EXTRACT/FILE/READ_CSV/assets/iris_train.csv"
                         }
                     },
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "DataFrame|Matrix",
-                            "multiple": false
-                        }
-                    ],
+                    "initCtrls": {},
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "DataFrame"
+                            "type": "DataFrame",
+                            "desc": "DataFrame loaded from .csv file"
                         }
                     ],
-                    "path": "PYTHON/nodes/EXTRACTORS/EXTRACT_COLUMNS/EXTRACT_COLUMNS/EXTRACT_COLUMNS.py",
-                    "selected": false
+                    "path": "ETL/EXTRACT/FILE/READ_CSV/READ_CSV.py"
                 },
                 "position": {
-                    "x": 925.4528113568123,
-                    "y": 408.74992717383236
+                    "x": 315.80721762348867,
+                    "y": 205.8968860927248
                 },
+                "width": 216,
+                "height": 260,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 925.4528113568123,
-                    "y": 408.74992717383236
+                    "x": 315.80721762348867,
+                    "y": 205.8968860927248
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 150,
-                "height": 150,
-                "id": "EXTRACT_COLUMNS-394a3bea-c4b0-4e54-821b-8392c1bcaac0",
-                "type": "EXTRACTORS",
+                "id": "READ_CSV-b129bd06-805b-42c7-9329-c4e359b274e8",
+                "type": "EXTRACT",
                 "data": {
-                    "id": "EXTRACT_COLUMNS-394a3bea-c4b0-4e54-821b-8392c1bcaac0",
+                    "id": "READ_CSV-b129bd06-805b-42c7-9329-c4e359b274e8",
+                    "label": "READ CSV 3",
+                    "func": "READ_CSV",
+                    "type": "EXTRACT",
+                    "ctrls": {
+                        "file_path": {
+                            "type": "str",
+                            "default": "https://raw.githubusercontent.com/cs109/2014_data/master/countries.csv",
+                            "desc": "File path to the .csv file or an URL of a .csv file.",
+                            "overload": null,
+                            "functionName": "READ_CSV",
+                            "param": "file_path",
+                            "value": "./blocks/ETL/EXTRACT/FILE/READ_CSV/assets/iris_test_no_label.csv"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame",
+                            "desc": "DataFrame loaded from .csv file"
+                        }
+                    ],
+                    "path": "ETL/EXTRACT/FILE/READ_CSV/READ_CSV.py"
+                },
+                "position": {
+                    "x": 321.27618765731097,
+                    "y": 593.7963955477085
+                },
+                "width": 216,
+                "height": 260,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 321.27618765731097,
+                    "y": 593.7963955477085
+                },
+                "dragging": false
+            },
+            {
+                "id": "EXTRACT_COLUMNS-0545e012-b814-4fa3-862e-eee90706362c",
+                "type": "EXTRACT",
+                "data": {
+                    "id": "EXTRACT_COLUMNS-0545e012-b814-4fa3-862e-eee90706362c",
                     "label": "EXTRACT COLUMNS 1",
                     "func": "EXTRACT_COLUMNS",
-                    "type": "EXTRACTORS",
+                    "type": "EXTRACT",
                     "ctrls": {
                         "columns": {
                             "type": "Array",
                             "default": null,
+                            "desc": "The columns to extract from the input dataframe",
+                            "overload": null,
                             "functionName": "EXTRACT_COLUMNS",
                             "param": "columns",
                             "value": "variety"
                         }
                     },
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "DataFrame|Matrix",
+                            "desc": "Input to use as the table for column extraction",
                             "multiple": false
                         }
                     ],
@@ -273,91 +199,182 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "DataFrame"
+                            "type": "DataFrame",
+                            "desc": "DataFrame or Matrix with only the specified columns"
                         }
                     ],
-                    "path": "PYTHON/nodes/EXTRACTORS/EXTRACT_COLUMNS/EXTRACT_COLUMNS/EXTRACT_COLUMNS.py",
-                    "selected": false
+                    "path": "ETL/EXTRACT/DATAFRAME/EXTRACT_COLUMNS/EXTRACT_COLUMNS.py"
                 },
                 "position": {
-                    "x": 921.9762546726099,
-                    "y": 588.0217108217173
+                    "x": 841.1658067237929,
+                    "y": 353.88252196921417
                 },
+                "width": 216,
+                "height": 296,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 921.9762546726099,
-                    "y": 588.0217108217173
+                    "x": 841.1658067237929,
+                    "y": 353.88252196921417
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "EXTRACT_COLUMNS-4c6da2c7-4f06-4c0c-a452-84817df38733",
+                "type": "EXTRACT",
+                "data": {
+                    "id": "EXTRACT_COLUMNS-4c6da2c7-4f06-4c0c-a452-84817df38733",
+                    "label": "EXTRACT COLUMNS",
+                    "func": "EXTRACT_COLUMNS",
+                    "type": "EXTRACT",
+                    "ctrls": {
+                        "columns": {
+                            "type": "Array",
+                            "default": null,
+                            "desc": "The columns to extract from the input dataframe",
+                            "overload": null,
+                            "functionName": "EXTRACT_COLUMNS",
+                            "param": "columns",
+                            "value": "sepal_length,sepal_width,petal_length,petal_width"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame|Matrix",
+                            "desc": "Input to use as the table for column extraction",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame",
+                            "desc": "DataFrame or Matrix with only the specified columns"
+                        }
+                    ],
+                    "path": "ETL/EXTRACT/DATAFRAME/EXTRACT_COLUMNS/EXTRACT_COLUMNS.py"
+                },
+                "position": {
+                    "x": 840.3328183914539,
+                    "y": 21.344722450526433
+                },
+                "width": 216,
+                "height": 296,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 840.3328183914539,
+                    "y": 21.344722450526433
+                },
+                "dragging": false
+            },
+            {
+                "id": "TABLE-659144a4-a348-4176-a5af-6072249ac807",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TABLE-659144a4-a348-4176-a5af-6072249ac807",
+                    "label": "TABLE",
+                    "func": "TABLE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Table visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
+                },
+                "position": {
+                    "x": 1813.0596051147795,
+                    "y": 544.1310205428638
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1813.0596051147795,
+                    "y": 544.1310205428638
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "READ_CSV-59c660d6-c37c-48e6-9e32-11490ebba845",
+                "id": "READ_CSV-30889683-2832-4931-92d3-3655095a74db->EXTRACT_COLUMNS-4c6da2c7-4f06-4c0c-a452-84817df38733_97113086-1408-47ac-a7e2-918a00047170",
+                "source": "READ_CSV-30889683-2832-4931-92d3-3655095a74db",
+                "target": "EXTRACT_COLUMNS-4c6da2c7-4f06-4c0c-a452-84817df38733",
                 "sourceHandle": "default",
-                "target": "EXTRACT_COLUMNS-afb1e4ac-a149-400c-b795-0f3fd78ab5f7",
                 "targetHandle": "default",
-                "id": "reactflow__edge-READ_CSV-59c660d6-c37c-48e6-9e32-11490ebba845default-EXTRACT_COLUMNS-afb1e4ac-a149-400c-b795-0f3fd78ab5f7default"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             },
             {
-                "source": "READ_CSV-59c660d6-c37c-48e6-9e32-11490ebba845",
+                "id": "READ_CSV-30889683-2832-4931-92d3-3655095a74db->EXTRACT_COLUMNS-0545e012-b814-4fa3-862e-eee90706362c_b7d25888-1d76-4ebf-9606-f62458b78570",
+                "source": "READ_CSV-30889683-2832-4931-92d3-3655095a74db",
+                "target": "EXTRACT_COLUMNS-0545e012-b814-4fa3-862e-eee90706362c",
                 "sourceHandle": "default",
-                "target": "EXTRACT_COLUMNS-394a3bea-c4b0-4e54-821b-8392c1bcaac0",
                 "targetHandle": "default",
-                "id": "reactflow__edge-READ_CSV-59c660d6-c37c-48e6-9e32-11490ebba845default-EXTRACT_COLUMNS-394a3bea-c4b0-4e54-821b-8392c1bcaac0default"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             },
             {
-                "source": "SUPPORT_VECTOR_MACHINE-111df792-52d2-41ac-9662-1066da12d44b",
-                "sourceHandle": "default",
-                "target": "TABLE-500d4621-276f-4b84-a114-1e4498781381",
-                "targetHandle": "default",
-                "id": "reactflow__edge-SUPPORT_VECTOR_MACHINE-111df792-52d2-41ac-9662-1066da12d44bdefault-TABLE-500d4621-276f-4b84-a114-1e4498781381default"
-            },
-            {
-                "source": "EXTRACT_COLUMNS-afb1e4ac-a149-400c-b795-0f3fd78ab5f7",
-                "sourceHandle": "default",
+                "id": "EXTRACT_COLUMNS-4c6da2c7-4f06-4c0c-a452-84817df38733->SUPPORT_VECTOR_MACHINE-111df792-52d2-41ac-9662-1066da12d44b_b90584da-d982-48d3-afe4-a74f740eaacb",
+                "source": "EXTRACT_COLUMNS-4c6da2c7-4f06-4c0c-a452-84817df38733",
                 "target": "SUPPORT_VECTOR_MACHINE-111df792-52d2-41ac-9662-1066da12d44b",
+                "sourceHandle": "default",
                 "targetHandle": "train_feature",
-                "id": "reactflow__edge-EXTRACT_COLUMNS-afb1e4ac-a149-400c-b795-0f3fd78ab5f7default-SUPPORT_VECTOR_MACHINE-111df792-52d2-41ac-9662-1066da12d44btrain_feature"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             },
             {
-                "source": "EXTRACT_COLUMNS-394a3bea-c4b0-4e54-821b-8392c1bcaac0",
-                "sourceHandle": "default",
+                "id": "EXTRACT_COLUMNS-0545e012-b814-4fa3-862e-eee90706362c->SUPPORT_VECTOR_MACHINE-111df792-52d2-41ac-9662-1066da12d44b_ad355912-4cb3-40f2-9852-4313f46fe296",
+                "source": "EXTRACT_COLUMNS-0545e012-b814-4fa3-862e-eee90706362c",
                 "target": "SUPPORT_VECTOR_MACHINE-111df792-52d2-41ac-9662-1066da12d44b",
+                "sourceHandle": "default",
                 "targetHandle": "train_label",
-                "id": "reactflow__edge-EXTRACT_COLUMNS-394a3bea-c4b0-4e54-821b-8392c1bcaac0default-SUPPORT_VECTOR_MACHINE-111df792-52d2-41ac-9662-1066da12d44btrain_label"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             },
             {
-                "source": "READ_CSV-90526963-cd8b-4b79-bf22-12138be6d2c7",
-                "sourceHandle": "default",
+                "id": "READ_CSV-b129bd06-805b-42c7-9329-c4e359b274e8->SUPPORT_VECTOR_MACHINE-111df792-52d2-41ac-9662-1066da12d44b_6f7b5602-37e2-41f9-9b42-c111b30bf207",
+                "source": "READ_CSV-b129bd06-805b-42c7-9329-c4e359b274e8",
                 "target": "SUPPORT_VECTOR_MACHINE-111df792-52d2-41ac-9662-1066da12d44b",
+                "sourceHandle": "default",
                 "targetHandle": "input_data",
-                "id": "reactflow__edge-READ_CSV-90526963-cd8b-4b79-bf22-12138be6d2c7default-SUPPORT_VECTOR_MACHINE-111df792-52d2-41ac-9662-1066da12d44binput_data"
+                "data": {
+                    "outputType": "DataFrame"
+                }
+            },
+            {
+                "id": "SUPPORT_VECTOR_MACHINE-111df792-52d2-41ac-9662-1066da12d44b->TABLE-659144a4-a348-4176-a5af-6072249ac807_b587975f-b822-41df-8eab-13d615e9f819",
+                "source": "SUPPORT_VECTOR_MACHINE-111df792-52d2-41ac-9662-1066da12d44b",
+                "target": "TABLE-659144a4-a348-4176-a5af-6072249ac807",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "DataFrame"
+                }
             }
-        ],
-        "viewport": {
-            "x": -456.37712173371256,
-            "y": 259.03077225262325,
-            "zoom": 1.3466637668169514
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": []
 }

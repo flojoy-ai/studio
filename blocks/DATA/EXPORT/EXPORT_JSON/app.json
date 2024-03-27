@@ -51,8 +51,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input that defines the size of the output."
+                            "desc": "Optional input that defines the size of the output.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -66,15 +66,15 @@
                     "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
                 },
                 "position": {
-                    "x": 76.87383453673007,
-                    "y": 158.1576377132222
+                    "x": 60.8920691692899,
+                    "y": 160.15535838415235
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 76.87383453673007,
-                    "y": 158.1576377132222
+                    "x": 60.8920691692899,
+                    "y": 160.15535838415235
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 208,
@@ -177,8 +177,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": "unused in this node"
+                            "desc": "unused in this node",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -192,15 +192,15 @@
                     "path": "DATA/GENERATION/SIMULATIONS/RAND/RAND.py"
                 },
                 "position": {
-                    "x": 71.49537299909832,
-                    "y": -72.33823990380307
+                    "x": 65.50221098630826,
+                    "y": -70.34051923287291
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 71.49537299909832,
-                    "y": -72.33823990380307
+                    "x": 65.50221098630826,
+                    "y": -70.34051923287291
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 208,
@@ -271,8 +271,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Vector",
-                            "multiple": false,
-                            "desc": "Input that defines the x-axis values of the function and output."
+                            "desc": "Input that defines the x-axis values of the function and output.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -286,15 +286,15 @@
                     "path": "DATA/GENERATION/SIMULATIONS/SINE/SINE.py"
                 },
                 "position": {
-                    "x": 62.42319909860282,
-                    "y": -301.00266922604686
+                    "x": 64.42091976953284,
+                    "y": -314.986713922557
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 62.42319909860282,
-                    "y": -301.00266922604686
+                    "x": 64.42091976953284,
+                    "y": -314.986713922557
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 208,
@@ -341,8 +341,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -356,110 +356,19 @@
                     "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
                 },
                 "position": {
-                    "x": -336.67341264118056,
-                    "y": -71.7546304438876
+                    "x": -416.58223947838144,
+                    "y": -71.75463044388755
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -336.67341264118056,
-                    "y": -71.7546304438876
+                    "x": -416.58223947838144,
+                    "y": -71.75463044388755
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 72,
-                "height": 72,
-                "id": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
-                "type": "ARITHMETIC",
-                "data": {
-                    "id": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
-                    "label": "ADD",
-                    "func": "ADD",
-                    "type": "ARITHMETIC",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "a",
-                            "id": "a",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "The input a use to compute the sum of a and b."
-                        },
-                        {
-                            "name": "b",
-                            "id": "b",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": true,
-                            "desc": "The input b use to compute the sum of a and b."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the sum of input a and input b.\n\nScalar if a is a Scalar.\nc: the sum of input a and input b.\n\nVector if a is a Vector.\nv: the sum of input a and input b."
-                        }
-                    ],
-                    "path": "MATH/ARITHMETIC/ADD/ADD.py"
-                },
-                "position": {
-                    "x": 455.81410014711645,
-                    "y": -65.80836687150429
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 455.81410014711645,
-                    "y": -65.80836687150429
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "HISTOGRAM-149d70e3-3b62-411e-b5af-cd6793361245",
-                "type": "VISUALIZATION",
-                "data": {
-                    "id": "HISTOGRAM-149d70e3-3b62-411e-b5af-cd6793361245",
-                    "label": "HISTOGRAM",
-                    "func": "HISTOGRAM",
-                    "type": "VISUALIZATION",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly Histogram visualization"
-                        }
-                    ],
-                    "path": "DATA/VISUALIZATION/PLOTLY/HISTOGRAM/HISTOGRAM.py"
-                },
-                "position": {
-                    "x": 675.7697531609749,
-                    "y": -400.0941438515998
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 675.7697531609749,
-                    "y": -400.0941438515998
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "SCATTER-1d9a92a3-7920-4c42-999d-d13af5481b20",
                 "type": "VISUALIZATION",
                 "data": {
@@ -474,8 +383,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -489,19 +398,24 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
                 },
                 "position": {
-                    "x": 682.0263689660662,
-                    "y": 48.99663152269517
+                    "x": 993.6707936311498,
+                    "y": 138.89406171454618
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 682.0263689660662,
-                    "y": 48.99663152269517
+                    "x": 993.6707936311498,
+                    "y": 138.89406171454618
                 },
-                "dragging": true
+                "dragging": false,
+                "style": {
+                    "width": 225,
+                    "height": 225
+                },
+                "resizing": false
             },
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 233,
                 "id": "EXPORT_JSON-72ae713e-7b63-4a65-b429-7bcafc9a6e5a",
                 "type": "DATA",
                 "data": {
@@ -513,7 +427,7 @@
                         "dir": {
                             "type": "Directory",
                             "default": null,
-                            "desc": null,
+                            "desc": "The directory to export to.",
                             "overload": null,
                             "functionName": "EXPORT_JSON",
                             "param": "dir",
@@ -522,7 +436,7 @@
                         "filename": {
                             "type": "str",
                             "default": "exported.json",
-                            "desc": null,
+                            "desc": "The name of the file to output.",
                             "overload": null,
                             "functionName": "EXPORT_JSON",
                             "param": "filename",
@@ -535,8 +449,8 @@
                             "name": "dc",
                             "id": "dc",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": "The DataContainer to export.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -550,87 +464,200 @@
                     "path": "DATA/EXPORT/EXPORT_JSON/EXPORT_JSON.py"
                 },
                 "position": {
-                    "x": 752.513710475816,
-                    "y": -77.4126168601424
+                    "x": 986.2470289746285,
+                    "y": -105.38070625316283
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 752.513710475816,
-                    "y": -77.4126168601424
+                    "x": 986.2470289746285,
+                    "y": -105.38070625316283
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "ADD-de076273-ef20-4166-a866-a9756760b3a1",
+                "type": "MATH",
+                "data": {
+                    "id": "ADD-de076273-ef20-4166-a866-a9756760b3a1",
+                    "label": "ADD 1",
+                    "func": "ADD",
+                    "type": "MATH",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "a",
+                            "id": "a",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "The input a use to compute the sum of a and b.",
+                            "multiple": false
+                        },
+                        {
+                            "name": "b",
+                            "id": "b",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "The input b use to compute the sum of a and b.",
+                            "multiple": true
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the sum of input a and input b.\n\nScalar if a is a Scalar.\nc: the sum of input a and input b.\n\nVector if a is a Vector.\nv: the sum of input a and input b."
+                        }
+                    ],
+                    "path": "MATH/ARITHMETIC/ADD/ADD.py"
+                },
+                "position": {
+                    "x": 608.3276265875078,
+                    "y": -101.16104531643612
+                },
+                "width": 216,
+                "height": 198,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 608.3276265875078,
+                    "y": -101.16104531643612
+                },
+                "dragging": false
+            },
+            {
+                "id": "HISTOGRAM-5248b030-d966-406e-9ad3-22f00c2af136",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "HISTOGRAM-5248b030-d966-406e-9ad3-22f00c2af136",
+                    "label": "HISTOGRAM",
+                    "func": "HISTOGRAM",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Histogram visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/HISTOGRAM/HISTOGRAM.py"
+                },
+                "position": {
+                    "x": 992.0193582967486,
+                    "y": -439.6020663539765
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 992.0193582967486,
+                    "y": -439.6020663539765
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
+                "id": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c->RAND-17189505-635e-428c-8a2a-9620ce0ac25e_4c135fd0-998f-4424-9330-23e2082f6385",
                 "source": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c",
-                "sourceHandle": "default",
-                "target": "CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1d",
-                "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356cdefault-CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1ddefault"
-            },
-            {
-                "source": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c",
-                "sourceHandle": "default",
                 "target": "RAND-17189505-635e-428c-8a2a-9620ce0ac25e",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356cdefault-RAND-17189505-635e-428c-8a2a-9620ce0ac25edefault"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
+                "id": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c->SINE-e3058354-d58c-49ac-9590-97f739e56270_adba4908-39f2-4cbd-a674-bdff60b30898",
                 "source": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c",
-                "sourceHandle": "default",
                 "target": "SINE-e3058354-d58c-49ac-9590-97f739e56270",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356cdefault-SINE-e3058354-d58c-49ac-9590-97f739e56270default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "RAND-17189505-635e-428c-8a2a-9620ce0ac25e",
+                "id": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c->CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1d_754d4b27-c979-454e-9535-9782538df814",
+                "source": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c",
+                "target": "CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1d",
                 "sourceHandle": "default",
-                "target": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
-                "targetHandle": "b",
-                "id": "reactflow__edge-RAND-17189505-635e-428c-8a2a-9620ce0ac25edefault-ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676b"
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1d",
-                "sourceHandle": "default",
-                "target": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
-                "targetHandle": "b",
-                "id": "reactflow__edge-CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1ddefault-ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676b"
-            },
-            {
+                "id": "SINE-e3058354-d58c-49ac-9590-97f739e56270->ADD-de076273-ef20-4166-a866-a9756760b3a1_7c082615-54fb-4e3f-aebb-ad7cada9fff9",
                 "source": "SINE-e3058354-d58c-49ac-9590-97f739e56270",
+                "target": "ADD-de076273-ef20-4166-a866-a9756760b3a1",
                 "sourceHandle": "default",
-                "target": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
                 "targetHandle": "a",
-                "id": "reactflow__edge-SINE-e3058354-d58c-49ac-9590-97f739e56270default-ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676a"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
+                "id": "RAND-17189505-635e-428c-8a2a-9620ce0ac25e->ADD-de076273-ef20-4166-a866-a9756760b3a1_eca2cb83-108c-4dbc-b79c-b3f11090e669",
+                "source": "RAND-17189505-635e-428c-8a2a-9620ce0ac25e",
+                "target": "ADD-de076273-ef20-4166-a866-a9756760b3a1",
                 "sourceHandle": "default",
-                "target": "HISTOGRAM-149d70e3-3b62-411e-b5af-cd6793361245",
-                "targetHandle": "default",
-                "id": "reactflow__edge-ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676default-HISTOGRAM-149d70e3-3b62-411e-b5af-cd6793361245default"
+                "targetHandle": "b",
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
+                "id": "CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1d->ADD-de076273-ef20-4166-a866-a9756760b3a1_06374312-e691-44b7-8c50-dea0df081fb3",
+                "source": "CONSTANT-8f49af5e-6221-4a93-be4b-68675dbccf1d",
+                "target": "ADD-de076273-ef20-4166-a866-a9756760b3a1",
                 "sourceHandle": "default",
+                "targetHandle": "b",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "ADD-de076273-ef20-4166-a866-a9756760b3a1->SCATTER-1d9a92a3-7920-4c42-999d-d13af5481b20_2817a008-10b7-4001-9f4f-23b52cb0667a",
+                "source": "ADD-de076273-ef20-4166-a866-a9756760b3a1",
                 "target": "SCATTER-1d9a92a3-7920-4c42-999d-d13af5481b20",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676default-SCATTER-1d9a92a3-7920-4c42-999d-d13af5481b20default"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676",
-                "sourceHandle": "default",
+                "id": "ADD-de076273-ef20-4166-a866-a9756760b3a1->EXPORT_JSON-72ae713e-7b63-4a65-b429-7bcafc9a6e5a_cd7d020d-3323-40c5-8ccd-427416620428",
+                "source": "ADD-de076273-ef20-4166-a866-a9756760b3a1",
                 "target": "EXPORT_JSON-72ae713e-7b63-4a65-b429-7bcafc9a6e5a",
+                "sourceHandle": "default",
                 "targetHandle": "dc",
-                "id": "reactflow__edge-ADD-69dceb02-4dc9-4744-aa9a-6a0eb7b20676default-EXPORT_JSON-72ae713e-7b63-4a65-b429-7bcafc9a6e5adc"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "ADD-de076273-ef20-4166-a866-a9756760b3a1->HISTOGRAM-5248b030-d966-406e-9ad3-22f00c2af136_a8aa9d4b-5899-4a90-8b03-10d7ca73b974",
+                "source": "ADD-de076273-ef20-4166-a866-a9756760b3a1",
+                "target": "HISTOGRAM-5248b030-d966-406e-9ad3-22f00c2af136",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             }
-        ],
-        "viewport": {
-            "x": 322.90044843403956,
-            "y": 412.972605301969,
-            "zoom": 0.5
-        }
+        ]
     },
     "textNodes": []
 }

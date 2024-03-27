@@ -2,74 +2,13 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 160,
-                "height": 160,
-                "id": "SPLIT_VECTOR-2c142043-09ad-4c8b-b70f-20a11e7e834e",
-                "type": "TRANSFORMERS",
+                "id": "LINSPACE-2dfa5fd0-6ddc-4d14-aefb-7ff460744b28",
+                "type": "DATA",
                 "data": {
-                    "id": "SPLIT_VECTOR-2c142043-09ad-4c8b-b70f-20a11e7e834e",
-                    "label": "SPLIT VECTOR",
-                    "func": "SPLIT_VECTOR",
-                    "type": "TRANSFORMERS",
-                    "ctrls": {
-                        "index": {
-                            "type": "int",
-                            "default": 0,
-                            "desc": "index which you want to split your vector by",
-                            "overload": null,
-                            "functionName": "SPLIT_VECTOR",
-                            "param": "index",
-                            "value": 5
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "multiple": false,
-                            "desc": "The input vector"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "vector1",
-                            "id": "vector1",
-                            "type": "Vector",
-                            "desc": null
-                        },
-                        {
-                            "name": "vector2",
-                            "id": "vector2",
-                            "type": "Vector",
-                            "desc": null
-                        }
-                    ],
-                    "path": "TRANSFORMERS/VECTOR_MANIPULATION/SPLIT_VECTOR/SPLIT_VECTOR.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 54.537176517267866,
-                    "y": -49.618422243917365
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 54.537176517267866,
-                    "y": -49.618422243917365
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "LINSPACE-9c059168-e1f9-48d4-8b4f-71819705921b",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "LINSPACE-9c059168-e1f9-48d4-8b4f-71819705921b",
+                    "id": "LINSPACE-2dfa5fd0-6ddc-4d14-aefb-7ff460744b28",
                     "label": "LINSPACE",
                     "func": "LINSPACE",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "start": {
                             "type": "float",
@@ -105,8 +44,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -114,33 +53,90 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector",
-                            "desc": "v: the vector between start and end with step number of points."
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
                         }
                     ],
-                    "path": "GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
                 },
                 "position": {
-                    "x": -278.74012053762044,
-                    "y": -18.66135755060509
+                    "x": -383.1249000433728,
+                    "y": -123.11424228815605
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -278.74012053762044,
-                    "y": -18.66135755060509
+                    "x": -383.1249000433728,
+                    "y": -123.11424228815605
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 225,
-                "height": 226,
-                "id": "SCATTER-76a0e5d9-3b96-49ed-8b3e-96924e0df1fa",
-                "type": "VISUALIZERS",
+                "id": "SPLIT_VECTOR-9d6f160e-39bf-49a4-b2d8-ddec02cdf9f2",
+                "type": "TRANSFORM",
                 "data": {
-                    "id": "SCATTER-76a0e5d9-3b96-49ed-8b3e-96924e0df1fa",
+                    "id": "SPLIT_VECTOR-9d6f160e-39bf-49a4-b2d8-ddec02cdf9f2",
+                    "label": "SPLIT VECTOR",
+                    "func": "SPLIT_VECTOR",
+                    "type": "TRANSFORM",
+                    "ctrls": {
+                        "index": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "index which you want to split your vector by",
+                            "overload": null,
+                            "functionName": "SPLIT_VECTOR",
+                            "param": "index",
+                            "value": 5
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "The input vector",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "vector1",
+                            "id": "vector1",
+                            "type": "Vector",
+                            "desc": null
+                        },
+                        {
+                            "name": "vector2",
+                            "id": "vector2",
+                            "type": "Vector",
+                            "desc": null
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/VECTOR_MANIPULATION/SPLIT_VECTOR/SPLIT_VECTOR.py"
+                },
+                "position": {
+                    "x": -53.770832018302286,
+                    "y": -157.6334516297426
+                },
+                "width": 216,
+                "height": 296,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -53.770832018302286,
+                    "y": -157.6334516297426
+                },
+                "dragging": false
+            },
+            {
+                "id": "SCATTER-1b0acbc5-077b-4df2-8a99-10afcad40c58",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "SCATTER-1b0acbc5-077b-4df2-8a99-10afcad40c58",
                     "label": "SCATTER",
                     "func": "SCATTER",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -148,8 +144,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -157,33 +153,32 @@
                             "name": "default",
                             "id": "default",
                             "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Scatter visualization"
+                            "desc": "the DataContainer containing the Plotly Scatter visualization"
                         }
                     ],
-                    "path": "VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
                 },
                 "position": {
-                    "x": 326.2489442177936,
-                    "y": 51.64274049118558
+                    "x": 365.44339780570965,
+                    "y": -354.9826334744851
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 326.2489442177936,
-                    "y": 51.64274049118558
+                    "x": 365.44339780570965,
+                    "y": -354.9826334744851
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 225,
-                "height": 226,
-                "id": "SCATTER-7903ae78-384f-4e4b-b2eb-2beb1b205a08",
-                "type": "VISUALIZERS",
+                "id": "SCATTER-38a82f3e-df58-4739-a281-cadee11539d9",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "SCATTER-7903ae78-384f-4e4b-b2eb-2beb1b205a08",
+                    "id": "SCATTER-38a82f3e-df58-4739-a281-cadee11539d9",
                     "label": "SCATTER 1",
                     "func": "SCATTER",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -191,8 +186,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -200,51 +195,60 @@
                             "name": "default",
                             "id": "default",
                             "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Scatter visualization"
+                            "desc": "the DataContainer containing the Plotly Scatter visualization"
                         }
                     ],
-                    "path": "VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
                 },
                 "position": {
-                    "x": 328.89276225866735,
-                    "y": -250.33841381618652
+                    "x": 385.18579445310957,
+                    "y": -26.30488663753323
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 328.89276225866735,
-                    "y": -250.33841381618652
+                    "x": 385.18579445310957,
+                    "y": -26.30488663753323
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "LINSPACE-9c059168-e1f9-48d4-8b4f-71819705921b",
-                "sourceHandle": "default",
-                "target": "SPLIT_VECTOR-2c142043-09ad-4c8b-b70f-20a11e7e834e",
-                "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-9c059168-e1f9-48d4-8b4f-71819705921bdefault-SPLIT_VECTOR-2c142043-09ad-4c8b-b70f-20a11e7e834edefault"
-            },
-            {
-                "source": "SPLIT_VECTOR-2c142043-09ad-4c8b-b70f-20a11e7e834e",
+                "id": "SPLIT_VECTOR-9d6f160e-39bf-49a4-b2d8-ddec02cdf9f2->SCATTER-1b0acbc5-077b-4df2-8a99-10afcad40c58_be9459e4-1bd0-4ddc-958e-43fa5a06c379",
+                "source": "SPLIT_VECTOR-9d6f160e-39bf-49a4-b2d8-ddec02cdf9f2",
+                "target": "SCATTER-1b0acbc5-077b-4df2-8a99-10afcad40c58",
                 "sourceHandle": "vector1",
-                "target": "SCATTER-7903ae78-384f-4e4b-b2eb-2beb1b205a08",
                 "targetHandle": "default",
-                "id": "reactflow__edge-SPLIT_VECTOR-2c142043-09ad-4c8b-b70f-20a11e7e834evector1-SCATTER-7903ae78-384f-4e4b-b2eb-2beb1b205a08default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "SPLIT_VECTOR-2c142043-09ad-4c8b-b70f-20a11e7e834e",
+                "id": "SPLIT_VECTOR-9d6f160e-39bf-49a4-b2d8-ddec02cdf9f2->SCATTER-38a82f3e-df58-4739-a281-cadee11539d9_1d1cfcf8-f33c-4272-9b22-4b37034aaa33",
+                "source": "SPLIT_VECTOR-9d6f160e-39bf-49a4-b2d8-ddec02cdf9f2",
+                "target": "SCATTER-38a82f3e-df58-4739-a281-cadee11539d9",
                 "sourceHandle": "vector2",
-                "target": "SCATTER-76a0e5d9-3b96-49ed-8b3e-96924e0df1fa",
                 "targetHandle": "default",
-                "id": "reactflow__edge-SPLIT_VECTOR-2c142043-09ad-4c8b-b70f-20a11e7e834evector2-SCATTER-76a0e5d9-3b96-49ed-8b3e-96924e0df1fadefault"
+                "data": {
+                    "outputType": "Vector"
+                }
+            },
+            {
+                "id": "LINSPACE-2dfa5fd0-6ddc-4d14-aefb-7ff460744b28->SPLIT_VECTOR-9d6f160e-39bf-49a4-b2d8-ddec02cdf9f2_77cc60d5-e548-48c2-9d09-373c31293693",
+                "source": "LINSPACE-2dfa5fd0-6ddc-4d14-aefb-7ff460744b28",
+                "target": "SPLIT_VECTOR-9d6f160e-39bf-49a4-b2d8-ddec02cdf9f2",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Vector"
+                }
             }
-        ],
-        "viewport": {
-            "x": 856.9726609784543,
-            "y": 419.56285211681103,
-            "zoom": 0.8897660042407147
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

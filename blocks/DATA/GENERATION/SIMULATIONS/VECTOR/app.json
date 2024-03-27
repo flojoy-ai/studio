@@ -2,8 +2,8 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "VECTOR-27b23b2b-1a0e-4f61-bcd5-c3e215ca8c0c",
                 "type": "DATA",
                 "data": {
@@ -48,19 +48,19 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -105.84937651070591,
-                    "y": 70.06183953445299
+                    "x": -196.98941401989987,
+                    "y": 43.00464089891102
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -105.84937651070591,
-                    "y": 70.06183953445299
+                    "x": -196.98941401989987,
+                    "y": 43.00464089891102
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 225,
-                "height": 226,
+                "height": 225,
                 "id": "SCATTER-bfc90afc-f924-4f33-b5f9-56e94fc538e5",
                 "type": "VISUALIZATION",
                 "data": {
@@ -75,8 +75,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -94,7 +94,7 @@
                     "x": 257.2295835211114,
                     "y": 3.6118511073185005
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
                     "x": 257.2295835211114,
                     "y": 3.6118511073185005
@@ -104,18 +104,19 @@
         ],
         "edges": [
             {
+                "id": "VECTOR-27b23b2b-1a0e-4f61-bcd5-c3e215ca8c0c->SCATTER-bfc90afc-f924-4f33-b5f9-56e94fc538e5_fbb20598-fda8-491e-a8ae-b6e6d42b0453",
                 "source": "VECTOR-27b23b2b-1a0e-4f61-bcd5-c3e215ca8c0c",
-                "sourceHandle": "default",
                 "target": "SCATTER-bfc90afc-f924-4f33-b5f9-56e94fc538e5",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-VECTOR-27b23b2b-1a0e-4f61-bcd5-c3e215ca8c0cdefault-SCATTER-bfc90afc-f924-4f33-b5f9-56e94fc538e5default"
+                "data": {
+                    "outputType": "Vector"
+                }
             }
-        ],
-        "viewport": {
-            "x": 695.5292625331784,
-            "y": 411.9979742640432,
-            "zoom": 0.6998961918490142
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

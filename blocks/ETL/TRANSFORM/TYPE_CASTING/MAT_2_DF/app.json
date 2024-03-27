@@ -2,23 +2,229 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 231,
-                "height": 96,
-                "id": "TEXT-72b66432-eaa0-4d86-95d6-ebe5075bef53",
-                "type": "GENERATORS",
+                "id": "MATRIX-f42342c5-2121-4d6a-81dc-e748e3a19885",
+                "type": "DATA",
                 "data": {
-                    "id": "TEXT-72b66432-eaa0-4d86-95d6-ebe5075bef53",
+                    "id": "MATRIX-f42342c5-2121-4d6a-81dc-e748e3a19885",
+                    "label": "MATRIX",
+                    "func": "MATRIX",
+                    "type": "DATA",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "row",
+                            "id": "row",
+                            "type": "Scalar",
+                            "desc": "number of rows",
+                            "multiple": false
+                        },
+                        {
+                            "name": "column",
+                            "id": "column",
+                            "type": "Scalar",
+                            "desc": "number of columns",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Matrix",
+                            "desc": "Randomly generated matrix"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/MATRIX/MATRIX.py"
+                },
+                "position": {
+                    "x": -1233.1127169930774,
+                    "y": -953.4079434895615
+                },
+                "width": 216,
+                "height": 198,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -1233.1127169930774,
+                    "y": -953.4079434895615
+                },
+                "dragging": false
+            },
+            {
+                "id": "LINE-bb6deeac-3758-448f-b52e-7abae6f517fd",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-bb6deeac-3758-448f-b52e-7abae6f517fd",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": -866.6594956110747,
+                    "y": -1226.3090614911207
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -866.6594956110747,
+                    "y": -1226.3090614911207
+                },
+                "dragging": false
+            },
+            {
+                "id": "LINE-e1c932f6-2b7b-4f35-a966-9c6799f6ced1",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-e1c932f6-2b7b-4f35-a966-9c6799f6ced1",
+                    "label": "LINE 1",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": -482.09213456206066,
+                    "y": -991.2009106739843
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -482.09213456206066,
+                    "y": -991.2009106739843
+                },
+                "dragging": false
+            },
+            {
+                "id": "TEXT-6c793d2d-27a7-44db-9b30-16750fe24002",
+                "type": "DATA",
+                "data": {
+                    "id": "TEXT-6c793d2d-27a7-44db-9b30-16750fe24002",
                     "label": "DESCRIPTION",
                     "func": "TEXT",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "value": {
-                            "type": "str",
+                            "type": "TextArea",
                             "default": "Hello World!",
-                            "desc": "The value set in Parameters",
+                            "desc": "The value set in Parameters.",
+                            "overload": null,
                             "functionName": "TEXT",
                             "param": "value",
-                            "value": "This app shows how the MAT_2_DF node works. First we generate a matrix with 9 rows and 3 columns. Then we convert this Matrix in a DataFrame and we visualize the result with the LINE node."
+                            "value": "Hello World!"
                         }
                     },
                     "initCtrls": {},
@@ -27,8 +233,8 @@
                             "name": "_",
                             "id": "_",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -36,119 +242,84 @@
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "desc": "s: return the value being set in Parameters"
+                            "desc": "Return the value being set in Parameters."
                         }
                     ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TEXT/TEXT.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/TEXT/TEXT.py"
                 },
                 "position": {
-                    "x": -556.6631437445458,
-                    "y": -824.0377265986776
+                    "x": -10.615022309495316,
+                    "y": -955.6883602355492
                 },
+                "width": 239,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -556.6631437445458,
-                    "y": -824.0377265986776
+                    "x": -10.615022309495316,
+                    "y": -955.6883602355492
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 225,
-                "height": 226,
-                "id": "TEXT_VIEW-6985f322-a5cb-4e90-a111-e6609ad974ae",
-                "type": "VISUALIZERS",
+                "id": "TEXT_VIEW-803e024b-3f47-45df-9dca-541a8e6ecf3c",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "TEXT_VIEW-6985f322-a5cb-4e90-a111-e6609ad974ae",
+                    "id": "TEXT_VIEW-803e024b-3f47-45df-9dca-541a8e6ecf3c",
                     "label": "TEXT VIEW",
                     "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -284.6091662018555,
-                    "y": -890.5935019228401
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -284.6091662018555,
-                    "y": -890.5935019228401
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "MATRIX-8ad853e0-d572-43b2-9e5d-53177ffa8fb0",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "MATRIX-8ad853e0-d572-43b2-9e5d-53177ffa8fb0",
-                    "label": "MATRIX",
-                    "func": "MATRIX",
-                    "type": "GENERATORS",
+                    "type": "VISUALIZATION",
                     "ctrls": {
-                        "row": {
-                            "type": "int",
-                            "default": 2,
-                            "desc": "number of rows",
-                            "functionName": "MATRIX",
-                            "param": "row",
-                            "value": 9
-                        },
-                        "column": {
-                            "type": "int",
-                            "default": 2,
-                            "desc": "number of columns",
-                            "functionName": "MATRIX",
-                            "param": "column",
-                            "value": 3
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
                         }
                     },
                     "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
+                        }
+                    ],
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Matrix",
-                            "desc": "randomly generated matrix"
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
                         }
                     ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/MATRIX/MATRIX.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
                 },
                 "position": {
-                    "x": -1043.2636673727357,
-                    "y": -747.8141424962938
+                    "x": -297.02744209653036,
+                    "y": -1335.4157141489018
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -1043.2636673727357,
-                    "y": -747.8141424962938
+                    "x": -297.02744209653036,
+                    "y": -1335.4157141489018
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 160,
-                "height": 160,
-                "id": "MAT_2_DF-0973028e-daa8-4d6f-b817-a817b35ffabc",
-                "type": "TRANSFORMERS",
+                "id": "MAT_2_DF-adf50636-b7bc-460c-8c4b-bbad4deea8b2",
+                "type": "TYPE_CASTING",
                 "data": {
-                    "id": "MAT_2_DF-0973028e-daa8-4d6f-b817-a817b35ffabc",
-                    "label": "MAT 2 DF",
+                    "id": "MAT_2_DF-adf50636-b7bc-460c-8c4b-bbad4deea8b2",
+                    "label": "MAT 2 DF 1",
                     "func": "MAT_2_DF",
-                    "type": "TRANSFORMERS",
+                    "type": "TYPE_CASTING",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -156,8 +327,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Matrix",
-                            "multiple": false,
-                            "desc": "The input matrix to which we apply the conversion to."
+                            "desc": "The input matrix to which we apply the conversion to.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -168,148 +339,77 @@
                             "desc": "The dataframe result from the conversion of the input."
                         }
                     ],
-                    "path": "PYTHON/nodes/TRANSFORMERS/TYPE_CASTING/MAT_2_DF/MAT_2_DF.py",
-                    "selected": false
+                    "path": "ETL/TRANSFORM/TYPE_CASTING/MAT_2_DF/MAT_2_DF.py"
                 },
                 "position": {
-                    "x": -748.6868837914724,
-                    "y": -782.6233652716551
+                    "x": -855.1879034757401,
+                    "y": -925.4483206262262
                 },
+                "width": 194,
+                "height": 96,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -748.6868837914724,
-                    "y": -782.6233652716551
+                    "x": -855.1879034757401,
+                    "y": -925.4483206262262
                 },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "LINE-7236db9b-7b95-4d46-a240-8c8f82126d47",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "LINE-7236db9b-7b95-4d46-a240-8c8f82126d47",
-                    "label": "LINE",
-                    "func": "LINE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Line visualization of the input data"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -357.47302869019376,
-                    "y": -562.7262647369073
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -357.47302869019376,
-                    "y": -562.7262647369073
-                },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "LINE-88541288-c3ff-4f6e-a9e1-e737a369d795",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "LINE-88541288-c3ff-4f6e-a9e1-e737a369d795",
-                    "label": "LINE 1",
-                    "func": "LINE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Line visualization of the input data"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -803.2547549391984,
-                    "y": -561.4604053055284
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -803.2547549391984,
-                    "y": -561.4604053055284
-                },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "MATRIX-8ad853e0-d572-43b2-9e5d-53177ffa8fb0",
+                "id": "MATRIX-f42342c5-2121-4d6a-81dc-e748e3a19885->MAT_2_DF-adf50636-b7bc-460c-8c4b-bbad4deea8b2_08a3c31d-df0d-4150-bd17-7df17ebc0ea4",
+                "source": "MATRIX-f42342c5-2121-4d6a-81dc-e748e3a19885",
+                "target": "MAT_2_DF-adf50636-b7bc-460c-8c4b-bbad4deea8b2",
                 "sourceHandle": "default",
-                "target": "MAT_2_DF-0973028e-daa8-4d6f-b817-a817b35ffabc",
                 "targetHandle": "default",
-                "id": "reactflow__edge-MATRIX-8ad853e0-d572-43b2-9e5d-53177ffa8fb0default-MAT_2_DF-0973028e-daa8-4d6f-b817-a817b35ffabcdefault"
+                "data": {
+                    "outputType": "Matrix"
+                }
             },
             {
-                "source": "MAT_2_DF-0973028e-daa8-4d6f-b817-a817b35ffabc",
+                "id": "MAT_2_DF-adf50636-b7bc-460c-8c4b-bbad4deea8b2->LINE-e1c932f6-2b7b-4f35-a966-9c6799f6ced1_9112ed27-f189-4905-a578-90ed4e8da71e",
+                "source": "MAT_2_DF-adf50636-b7bc-460c-8c4b-bbad4deea8b2",
+                "target": "LINE-e1c932f6-2b7b-4f35-a966-9c6799f6ced1",
                 "sourceHandle": "default",
-                "target": "TEXT-72b66432-eaa0-4d86-95d6-ebe5075bef53",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "DataFrame"
+                }
+            },
+            {
+                "id": "MATRIX-f42342c5-2121-4d6a-81dc-e748e3a19885->LINE-bb6deeac-3758-448f-b52e-7abae6f517fd_64e3f736-e983-4185-b794-fc87dd594dc7",
+                "source": "MATRIX-f42342c5-2121-4d6a-81dc-e748e3a19885",
+                "target": "LINE-bb6deeac-3758-448f-b52e-7abae6f517fd",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Matrix"
+                }
+            },
+            {
+                "id": "LINE-e1c932f6-2b7b-4f35-a966-9c6799f6ced1->TEXT-6c793d2d-27a7-44db-9b30-16750fe24002_c5c8015c-bb5f-41a5-9b3f-7a5beefd5318",
+                "source": "LINE-e1c932f6-2b7b-4f35-a966-9c6799f6ced1",
+                "target": "TEXT-6c793d2d-27a7-44db-9b30-16750fe24002",
+                "sourceHandle": "default",
                 "targetHandle": "_",
-                "id": "reactflow__edge-MAT_2_DF-0973028e-daa8-4d6f-b817-a817b35ffabcdefault-TEXT-72b66432-eaa0-4d86-95d6-ebe5075bef53_"
+                "data": {
+                    "outputType": "Plotly"
+                }
             },
             {
-                "source": "TEXT-72b66432-eaa0-4d86-95d6-ebe5075bef53",
+                "id": "TEXT-6c793d2d-27a7-44db-9b30-16750fe24002->TEXT_VIEW-803e024b-3f47-45df-9dca-541a8e6ecf3c_74d1e44e-5474-4901-a029-8b01c93092c7",
+                "source": "TEXT-6c793d2d-27a7-44db-9b30-16750fe24002",
+                "target": "TEXT_VIEW-803e024b-3f47-45df-9dca-541a8e6ecf3c",
                 "sourceHandle": "default",
-                "target": "TEXT_VIEW-6985f322-a5cb-4e90-a111-e6609ad974ae",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TEXT-72b66432-eaa0-4d86-95d6-ebe5075bef53default-TEXT_VIEW-6985f322-a5cb-4e90-a111-e6609ad974aedefault"
-            },
-            {
-                "source": "MATRIX-8ad853e0-d572-43b2-9e5d-53177ffa8fb0",
-                "sourceHandle": "default",
-                "target": "LINE-88541288-c3ff-4f6e-a9e1-e737a369d795",
-                "targetHandle": "default",
-                "id": "reactflow__edge-MATRIX-8ad853e0-d572-43b2-9e5d-53177ffa8fb0default-LINE-88541288-c3ff-4f6e-a9e1-e737a369d795default"
-            },
-            {
-                "source": "MAT_2_DF-0973028e-daa8-4d6f-b817-a817b35ffabc",
-                "sourceHandle": "default",
-                "target": "LINE-7236db9b-7b95-4d46-a240-8c8f82126d47",
-                "targetHandle": "default",
-                "id": "reactflow__edge-MAT_2_DF-0973028e-daa8-4d6f-b817-a817b35ffabcdefault-LINE-7236db9b-7b95-4d46-a240-8c8f82126d47default"
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 328.30307914563144,
-            "y": 226.88940714410813,
-            "zoom": 0.5
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

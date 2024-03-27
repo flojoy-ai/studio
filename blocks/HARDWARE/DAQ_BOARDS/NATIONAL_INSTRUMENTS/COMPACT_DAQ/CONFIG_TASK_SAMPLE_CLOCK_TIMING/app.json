@@ -2,15 +2,71 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
-                "id": "ATTACH_ANALOG_INPUT_THERMOCOUPLE-2bd5f092-6b59-4288-8c51-590b89e961fc",
-                "type": "HARDWARE",
+                "id": "CREATE_TASK-6c93607e-7e96-49b7-9d89-f51e60bf425f",
+                "type": "NATIONAL_INSTRUMENTS",
                 "data": {
-                    "id": "ATTACH_ANALOG_INPUT_THERMOCOUPLE-2bd5f092-6b59-4288-8c51-590b89e961fc",
-                    "label": "ATTACH ANALOG INPUT THERMOCOUPLE",
+                    "id": "CREATE_TASK-6c93607e-7e96-49b7-9d89-f51e60bf425f",
+                    "label": "CREATE TASK 1",
+                    "func": "CREATE_TASK",
+                    "type": "NATIONAL_INSTRUMENTS",
+                    "ctrls": {
+                        "task_name": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "The name of the task to create.",
+                            "overload": null,
+                            "functionName": "CREATE_TASK",
+                            "param": "task_name",
+                            "value": "task"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "This block does not return any meaningful data;"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "nidaqmx",
+                            "v": "0.9.0"
+                        }
+                    ],
+                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CREATE_TASK/CREATE_TASK.py"
+                },
+                "position": {
+                    "x": -775.3168719201651,
+                    "y": -362.6484593866646
+                },
+                "width": 216,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -775.3168719201651,
+                    "y": -362.6484593866646
+                },
+                "dragging": false
+            },
+            {
+                "id": "ATTACH_ANALOG_INPUT_THERMOCOUPLE-1af25251-8a74-48df-b7a1-cf79eee7a9ec",
+                "type": "NATIONAL_INSTRUMENTS",
+                "data": {
+                    "id": "ATTACH_ANALOG_INPUT_THERMOCOUPLE-1af25251-8a74-48df-b7a1-cf79eee7a9ec",
+                    "label": "ATTACH ANALOG INPUT THERMOCOUPLE 1",
                     "func": "ATTACH_ANALOG_INPUT_THERMOCOUPLE",
-                    "type": "HARDWARE",
+                    "type": "NATIONAL_INSTRUMENTS",
                     "ctrls": {
                         "task_name": {
                             "type": "str",
@@ -28,7 +84,7 @@
                             "overload": null,
                             "functionName": "ATTACH_ANALOG_INPUT_THERMOCOUPLE",
                             "param": "cDAQ_start_channel",
-                            "value": "cDAQ2Mod1/ai0"
+                            "value": ""
                         },
                         "cDAQ_end_channel": {
                             "type": "NIDAQmxDevice",
@@ -37,7 +93,7 @@
                             "overload": null,
                             "functionName": "ATTACH_ANALOG_INPUT_THERMOCOUPLE",
                             "param": "cDAQ_end_channel",
-                            "value": "cDAQ2Mod1/ai1"
+                            "value": ""
                         },
                         "min_val": {
                             "type": "float",
@@ -59,13 +115,13 @@
                         },
                         "units": {
                             "type": "select",
+                            "default": "Celsius",
                             "options": [
                                 "Celsius",
                                 "Fahrenheit",
                                 "Rankine",
                                 "Kelvin"
                             ],
-                            "default": "Celsius",
                             "desc": "The units to use to return thermocouple measurements (default is \"Celsius\").",
                             "overload": null,
                             "functionName": "ATTACH_ANALOG_INPUT_THERMOCOUPLE",
@@ -74,6 +130,7 @@
                         },
                         "thermocouple_type": {
                             "type": "select",
+                            "default": "J",
                             "options": [
                                 "K",
                                 "R",
@@ -84,7 +141,6 @@
                                 "T",
                                 "B"
                             ],
-                            "default": "J",
                             "desc": "The type of thermocouple being used (default is \"J\").",
                             "overload": null,
                             "functionName": "ATTACH_ANALOG_INPUT_THERMOCOUPLE",
@@ -93,12 +149,12 @@
                         },
                         "cold_junction_source": {
                             "type": "select",
+                            "default": "Constant",
                             "options": [
                                 "Constant",
                                 "Channel",
                                 "Built In"
                             ],
-                            "default": "Constant",
                             "desc": "Specifies the source of cold junction compensation (default is \"Constant\").",
                             "overload": null,
                             "functionName": "ATTACH_ANALOG_INPUT_THERMOCOUPLE",
@@ -130,8 +186,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -151,84 +207,26 @@
                     "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/ATTACH_ANALOG_INPUT_THERMOCOUPLE/ATTACH_ANALOG_INPUT_THERMOCOUPLE.py"
                 },
                 "position": {
-                    "x": -220.06700011074955,
-                    "y": -469.59728836503734
+                    "x": -425.7645184419778,
+                    "y": -369.8425384331779
                 },
-                "selected": true,
-                "positionAbsolute": {
-                    "x": -220.06700011074955,
-                    "y": -469.59728836503734
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "CREATE_TASK-3a9a80ae-038b-401a-9315-2ea6d5be966d",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "CREATE_TASK-3a9a80ae-038b-401a-9315-2ea6d5be966d",
-                    "label": "CREATE TASK T",
-                    "func": "CREATE_TASK",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "task_name": {
-                            "type": "str",
-                            "default": null,
-                            "desc": "The name of the task to create.",
-                            "overload": null,
-                            "functionName": "CREATE_TASK",
-                            "param": "task_name",
-                            "value": "task"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "This block does not return any meaningful data;"
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "nidaqmx",
-                            "v": "0.9.0"
-                        }
-                    ],
-                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CREATE_TASK/CREATE_TASK.py"
-                },
-                "position": {
-                    "x": -506.029123378887,
-                    "y": -464.1648293758232
-                },
+                "width": 260,
+                "height": 305,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -506.029123378887,
-                    "y": -464.1648293758232
+                    "x": -425.7645184419778,
+                    "y": -369.8425384331779
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
-                "id": "READ_TASK-03680997-4d05-4ffb-8430-2a9a9a463130",
-                "type": "HARDWARE",
+                "id": "READ_TASK-5ed526f7-263d-46d3-89da-c55a9faaf848",
+                "type": "NATIONAL_INSTRUMENTS",
                 "data": {
-                    "id": "READ_TASK-03680997-4d05-4ffb-8430-2a9a9a463130",
-                    "label": "READ TASK",
+                    "id": "READ_TASK-5ed526f7-263d-46d3-89da-c55a9faaf848",
+                    "label": "READ TASK 2",
                     "func": "READ_TASK",
-                    "type": "HARDWARE",
+                    "type": "NATIONAL_INSTRUMENTS",
                     "ctrls": {
                         "task_name": {
                             "type": "str",
@@ -273,8 +271,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -294,23 +292,90 @@
                     "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/READ_TASK/READ_TASK.py"
                 },
                 "position": {
-                    "x": 50.846524751351836,
-                    "y": -469.09826301224865
+                    "x": -32.3681644373153,
+                    "y": -369.0073759078333
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 50.846524751351836,
-                    "y": -469.09826301224865
+                    "x": -32.3681644373153,
+                    "y": -369.0073759078333
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 932,
-                "height": 329,
-                "id": "LINE-c5449809-df5f-45ed-ae84-295f0b579026",
+                "id": "TASK_WAIT_UNTIL_DONE-04c0ae35-fad9-4227-bb9d-22885332df60",
+                "type": "NATIONAL_INSTRUMENTS",
+                "data": {
+                    "id": "TASK_WAIT_UNTIL_DONE-04c0ae35-fad9-4227-bb9d-22885332df60",
+                    "label": "TASK WAIT UNTIL DONE",
+                    "func": "TASK_WAIT_UNTIL_DONE",
+                    "type": "NATIONAL_INSTRUMENTS",
+                    "ctrls": {
+                        "task_name": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "The name of the task to wait for.",
+                            "overload": null,
+                            "functionName": "TASK_WAIT_UNTIL_DONE",
+                            "param": "task_name",
+                            "value": "task"
+                        },
+                        "timeout": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "Specifies the maximum amount of time in seconds to wait for the measurement or generation to complete. This method returns an error if the time elapses.",
+                            "overload": null,
+                            "functionName": "TASK_WAIT_UNTIL_DONE",
+                            "param": "timeout",
+                            "value": 100
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "Return the input"
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "nidaqmx",
+                            "v": "0.9.0"
+                        }
+                    ],
+                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/TASK_WAIT_UNTIL_DONE/TASK_WAIT_UNTIL_DONE.py"
+                },
+                "position": {
+                    "x": 340.4224223722875,
+                    "y": -368.9985361334934
+                },
+                "width": 216,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 340.4224223722875,
+                    "y": -368.9985361334934
+                },
+                "dragging": false
+            },
+            {
+                "id": "LINE-9825908c-be6b-4351-bcbc-18bd81699daa",
                 "type": "VISUALIZATION",
                 "data": {
-                    "id": "LINE-c5449809-df5f-45ed-ae84-295f0b579026",
+                    "id": "LINE-9825908c-be6b-4351-bcbc-18bd81699daa",
                     "label": "LINE",
                     "func": "LINE",
                     "type": "VISUALIZATION",
@@ -358,8 +423,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -373,98 +438,26 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
                 },
                 "position": {
-                    "x": 544.6803070953374,
-                    "y": -533.1322790505346
+                    "x": 719.0142934690757,
+                    "y": -406.34209194537164
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 544.6803070953374,
-                    "y": -533.1322790505346
+                    "x": 719.0142934690757,
+                    "y": -406.34209194537164
                 },
-                "dragging": true,
-                "style": {
-                    "width": 932,
-                    "height": 329
-                },
-                "resizing": false
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
-                "id": "TASK_WAIT_UNTIL_DONE-755cf03c-3be3-454d-9e1e-10bc8ab41fbf",
-                "type": "HARDWARE",
+                "id": "CREATE_TASK-39607c6e-cd34-4212-b5cb-6ca89e321049",
+                "type": "NATIONAL_INSTRUMENTS",
                 "data": {
-                    "id": "TASK_WAIT_UNTIL_DONE-755cf03c-3be3-454d-9e1e-10bc8ab41fbf",
-                    "label": "TASK WAIT UNTIL DONE",
-                    "func": "TASK_WAIT_UNTIL_DONE",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "task_name": {
-                            "type": "str",
-                            "default": null,
-                            "desc": "The name of the task to wait for.",
-                            "overload": null,
-                            "functionName": "TASK_WAIT_UNTIL_DONE",
-                            "param": "task_name",
-                            "value": "task"
-                        },
-                        "timeout": {
-                            "type": "float",
-                            "default": 10,
-                            "desc": "Specifies the maximum amount of time in seconds to wait for the measurement or generation to complete. This method returns an error if the time elapses.",
-                            "overload": null,
-                            "functionName": "TASK_WAIT_UNTIL_DONE",
-                            "param": "timeout",
-                            "value": 100
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "Return the input"
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "nidaqmx",
-                            "v": "0.9.0"
-                        }
-                    ],
-                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/TASK_WAIT_UNTIL_DONE/TASK_WAIT_UNTIL_DONE.py"
-                },
-                "position": {
-                    "x": 293.2946635468876,
-                    "y": -468.4781862331952
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 293.2946635468876,
-                    "y": -468.4781862331952
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "CREATE_TASK-f7fd15b6-3b2c-4cf1-abd9-fefba4c0c3c7",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "CREATE_TASK-f7fd15b6-3b2c-4cf1-abd9-fefba4c0c3c7",
+                    "id": "CREATE_TASK-39607c6e-cd34-4212-b5cb-6ca89e321049",
                     "label": "CREATE TASK",
                     "func": "CREATE_TASK",
-                    "type": "HARDWARE",
+                    "type": "NATIONAL_INSTRUMENTS",
                     "ctrls": {
                         "task_name": {
                             "type": "str",
@@ -482,8 +475,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -503,26 +496,26 @@
                     "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CREATE_TASK/CREATE_TASK.py"
                 },
                 "position": {
-                    "x": -490.7103502812978,
-                    "y": -132.99487891441487
+                    "x": -762.1759508072017,
+                    "y": -58.49252747537423
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -490.7103502812978,
-                    "y": -132.99487891441487
+                    "x": -762.1759508072017,
+                    "y": -58.49252747537423
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
-                "id": "ATTACH_ANALOG_INPUT_VOLTAGE-7f34ae2d-ba05-49c1-9661-7217147b70b0",
-                "type": "HARDWARE",
+                "id": "ATTACH_ANALOG_INPUT_VOLTAGE-72286d3d-882f-40d5-8ac7-8596c1fca0c1",
+                "type": "NATIONAL_INSTRUMENTS",
                 "data": {
-                    "id": "ATTACH_ANALOG_INPUT_VOLTAGE-7f34ae2d-ba05-49c1-9661-7217147b70b0",
+                    "id": "ATTACH_ANALOG_INPUT_VOLTAGE-72286d3d-882f-40d5-8ac7-8596c1fca0c1",
                     "label": "ATTACH ANALOG INPUT VOLTAGE",
                     "func": "ATTACH_ANALOG_INPUT_VOLTAGE",
-                    "type": "HARDWARE",
+                    "type": "NATIONAL_INSTRUMENTS",
                     "ctrls": {
                         "task_name": {
                             "type": "str",
@@ -540,7 +533,7 @@
                             "overload": null,
                             "functionName": "ATTACH_ANALOG_INPUT_VOLTAGE",
                             "param": "cDAQ_start_channel",
-                            "value": "cDAQ2Mod2/ai0"
+                            "value": ""
                         },
                         "cDAQ_end_channel": {
                             "type": "NIDAQmxDevice",
@@ -549,7 +542,7 @@
                             "overload": null,
                             "functionName": "ATTACH_ANALOG_INPUT_VOLTAGE",
                             "param": "cDAQ_end_channel",
-                            "value": "cDAQ2Mod2/ai1"
+                            "value": ""
                         },
                         "min_val": {
                             "type": "float",
@@ -571,10 +564,10 @@
                         },
                         "units": {
                             "type": "select",
+                            "default": "VOLTS",
                             "options": [
                                 "VOLTS"
                             ],
-                            "default": "VOLTS",
                             "desc": "The units to use to return voltage measurements (default is \"VOLTS\").",
                             "overload": null,
                             "functionName": "ATTACH_ANALOG_INPUT_VOLTAGE",
@@ -588,8 +581,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -609,26 +602,26 @@
                     "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/ATTACH_ANALOG_INPUT_VOLTAGE/ATTACH_ANALOG_INPUT_VOLTAGE.py"
                 },
                 "position": {
-                    "x": -223.30022268183697,
-                    "y": -126.15673120892353
+                    "x": -383.83714477723333,
+                    "y": -56.65174026688038
                 },
+                "width": 216,
+                "height": 305,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -223.30022268183697,
-                    "y": -126.15673120892353
+                    "x": -383.83714477723333,
+                    "y": -56.65174026688038
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
-                "id": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-fb3f1d0c-caec-45a6-97fc-de723e9361b7",
-                "type": "HARDWARE",
+                "id": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-204351a8-9967-4272-87db-0ac0367ca73e",
+                "type": "NATIONAL_INSTRUMENTS",
                 "data": {
-                    "id": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-fb3f1d0c-caec-45a6-97fc-de723e9361b7",
+                    "id": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-204351a8-9967-4272-87db-0ac0367ca73e",
                     "label": "CONFIG TASK SAMPLE CLOCK TIMING",
                     "func": "CONFIG_TASK_SAMPLE_CLOCK_TIMING",
-                    "type": "HARDWARE",
+                    "type": "NATIONAL_INSTRUMENTS",
                     "ctrls": {
                         "task_name": {
                             "type": "str",
@@ -664,8 +657,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -685,26 +678,26 @@
                     "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CONFIG_TASK_SAMPLE_CLOCK_TIMING/CONFIG_TASK_SAMPLE_CLOCK_TIMING.py"
                 },
                 "position": {
-                    "x": 34.267124360525685,
-                    "y": -123.17028642904131
+                    "x": -18.04606785344965,
+                    "y": -56.98908762829268
                 },
+                "width": 216,
+                "height": 341,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 34.267124360525685,
-                    "y": -123.17028642904131
+                    "x": -18.04606785344965,
+                    "y": -56.98908762829268
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
-                "id": "READ_TASK-f174625f-7441-4651-b0b9-0cb2996a3bfe",
-                "type": "HARDWARE",
+                "id": "READ_TASK-2e54fee2-46a1-4eda-a6a8-d9d72f3e842f",
+                "type": "NATIONAL_INSTRUMENTS",
                 "data": {
-                    "id": "READ_TASK-f174625f-7441-4651-b0b9-0cb2996a3bfe",
-                    "label": "READ TASK 1",
+                    "id": "READ_TASK-2e54fee2-46a1-4eda-a6a8-d9d72f3e842f",
+                    "label": "READ TASK",
                     "func": "READ_TASK",
-                    "type": "HARDWARE",
+                    "type": "NATIONAL_INSTRUMENTS",
                     "ctrls": {
                         "task_name": {
                             "type": "str",
@@ -749,8 +742,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -770,23 +763,23 @@
                     "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/READ_TASK/READ_TASK.py"
                 },
                 "position": {
-                    "x": 301.1213950009721,
-                    "y": -130.4739735772311
+                    "x": 343.2866395000674,
+                    "y": -55.067972611971356
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
+                "dragging": false,
                 "positionAbsolute": {
-                    "x": 301.1213950009721,
-                    "y": -130.4739735772311
-                },
-                "dragging": true
+                    "x": 343.2866395000674,
+                    "y": -55.067972611971356
+                }
             },
             {
-                "width": 913,
-                "height": 297,
-                "id": "LINE-e82a6642-d44f-4509-8911-02faa279248b",
+                "id": "LINE-e544025f-554b-4f38-999a-535495748b4c",
                 "type": "VISUALIZATION",
                 "data": {
-                    "id": "LINE-e82a6642-d44f-4509-8911-02faa279248b",
+                    "id": "LINE-e544025f-554b-4f38-999a-535495748b4c",
                     "label": "LINE 1",
                     "func": "LINE",
                     "type": "VISUALIZATION",
@@ -834,8 +827,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -849,85 +842,104 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
                 },
                 "position": {
-                    "x": 562.1120484472618,
-                    "y": -183.8396101429177
+                    "x": 682.5760296270587,
+                    "y": -91.637391274111
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 562.1120484472618,
-                    "y": -183.8396101429177
+                    "x": 682.5760296270587,
+                    "y": -91.637391274111
                 },
-                "dragging": true,
-                "style": {
-                    "width": 913,
-                    "height": 297
-                },
-                "resizing": false
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "CREATE_TASK-3a9a80ae-038b-401a-9315-2ea6d5be966d",
+                "id": "CREATE_TASK-6c93607e-7e96-49b7-9d89-f51e60bf425f->ATTACH_ANALOG_INPUT_THERMOCOUPLE-1af25251-8a74-48df-b7a1-cf79eee7a9ec_15e47e45-83f6-4ad7-a6c0-676fdf3433e6",
+                "source": "CREATE_TASK-6c93607e-7e96-49b7-9d89-f51e60bf425f",
+                "target": "ATTACH_ANALOG_INPUT_THERMOCOUPLE-1af25251-8a74-48df-b7a1-cf79eee7a9ec",
                 "sourceHandle": "default",
-                "target": "ATTACH_ANALOG_INPUT_THERMOCOUPLE-2bd5f092-6b59-4288-8c51-590b89e961fc",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CREATE_TASK-3a9a80ae-038b-401a-9315-2ea6d5be966ddefault-ATTACH_ANALOG_INPUT_THERMOCOUPLE-2bd5f092-6b59-4288-8c51-590b89e961fcdefault"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "ATTACH_ANALOG_INPUT_THERMOCOUPLE-2bd5f092-6b59-4288-8c51-590b89e961fc",
+                "id": "ATTACH_ANALOG_INPUT_THERMOCOUPLE-1af25251-8a74-48df-b7a1-cf79eee7a9ec->READ_TASK-5ed526f7-263d-46d3-89da-c55a9faaf848_13b177e7-f74f-4b57-b2d0-5cebaa5a70a0",
+                "source": "ATTACH_ANALOG_INPUT_THERMOCOUPLE-1af25251-8a74-48df-b7a1-cf79eee7a9ec",
+                "target": "READ_TASK-5ed526f7-263d-46d3-89da-c55a9faaf848",
                 "sourceHandle": "default",
-                "target": "READ_TASK-03680997-4d05-4ffb-8430-2a9a9a463130",
                 "targetHandle": "default",
-                "id": "reactflow__edge-ATTACH_ANALOG_INPUT_THERMOCOUPLE-2bd5f092-6b59-4288-8c51-590b89e961fcdefault-READ_TASK-03680997-4d05-4ffb-8430-2a9a9a463130default"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "TASK_WAIT_UNTIL_DONE-755cf03c-3be3-454d-9e1e-10bc8ab41fbf",
+                "id": "READ_TASK-5ed526f7-263d-46d3-89da-c55a9faaf848->TASK_WAIT_UNTIL_DONE-04c0ae35-fad9-4227-bb9d-22885332df60_87b3f4fd-2c46-4538-871c-67ea58e9cb78",
+                "source": "READ_TASK-5ed526f7-263d-46d3-89da-c55a9faaf848",
+                "target": "TASK_WAIT_UNTIL_DONE-04c0ae35-fad9-4227-bb9d-22885332df60",
                 "sourceHandle": "default",
-                "target": "LINE-c5449809-df5f-45ed-ae84-295f0b579026",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TASK_WAIT_UNTIL_DONE-755cf03c-3be3-454d-9e1e-10bc8ab41fbfdefault-LINE-c5449809-df5f-45ed-ae84-295f0b579026default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "READ_TASK-03680997-4d05-4ffb-8430-2a9a9a463130",
+                "id": "TASK_WAIT_UNTIL_DONE-04c0ae35-fad9-4227-bb9d-22885332df60->LINE-9825908c-be6b-4351-bcbc-18bd81699daa_a81d48e6-545c-472f-b0c2-9c1be0cb72d2",
+                "source": "TASK_WAIT_UNTIL_DONE-04c0ae35-fad9-4227-bb9d-22885332df60",
+                "target": "LINE-9825908c-be6b-4351-bcbc-18bd81699daa",
                 "sourceHandle": "default",
-                "target": "TASK_WAIT_UNTIL_DONE-755cf03c-3be3-454d-9e1e-10bc8ab41fbf",
                 "targetHandle": "default",
-                "id": "reactflow__edge-READ_TASK-03680997-4d05-4ffb-8430-2a9a9a463130default-TASK_WAIT_UNTIL_DONE-755cf03c-3be3-454d-9e1e-10bc8ab41fbfdefault"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "CREATE_TASK-f7fd15b6-3b2c-4cf1-abd9-fefba4c0c3c7",
+                "id": "CREATE_TASK-39607c6e-cd34-4212-b5cb-6ca89e321049->ATTACH_ANALOG_INPUT_VOLTAGE-72286d3d-882f-40d5-8ac7-8596c1fca0c1_d28d0536-e652-4346-999f-256d7d12e505",
+                "source": "CREATE_TASK-39607c6e-cd34-4212-b5cb-6ca89e321049",
+                "target": "ATTACH_ANALOG_INPUT_VOLTAGE-72286d3d-882f-40d5-8ac7-8596c1fca0c1",
                 "sourceHandle": "default",
-                "target": "ATTACH_ANALOG_INPUT_VOLTAGE-7f34ae2d-ba05-49c1-9661-7217147b70b0",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CREATE_TASK-f7fd15b6-3b2c-4cf1-abd9-fefba4c0c3c7default-ATTACH_ANALOG_INPUT_VOLTAGE-7f34ae2d-ba05-49c1-9661-7217147b70b0default"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "ATTACH_ANALOG_INPUT_VOLTAGE-7f34ae2d-ba05-49c1-9661-7217147b70b0",
+                "id": "ATTACH_ANALOG_INPUT_VOLTAGE-72286d3d-882f-40d5-8ac7-8596c1fca0c1->CONFIG_TASK_SAMPLE_CLOCK_TIMING-204351a8-9967-4272-87db-0ac0367ca73e_376dadfe-80d4-4275-b57e-32c8f226476c",
+                "source": "ATTACH_ANALOG_INPUT_VOLTAGE-72286d3d-882f-40d5-8ac7-8596c1fca0c1",
+                "target": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-204351a8-9967-4272-87db-0ac0367ca73e",
                 "sourceHandle": "default",
-                "target": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-fb3f1d0c-caec-45a6-97fc-de723e9361b7",
                 "targetHandle": "default",
-                "id": "reactflow__edge-ATTACH_ANALOG_INPUT_VOLTAGE-7f34ae2d-ba05-49c1-9661-7217147b70b0default-CONFIG_TASK_SAMPLE_CLOCK_TIMING-fb3f1d0c-caec-45a6-97fc-de723e9361b7default"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-fb3f1d0c-caec-45a6-97fc-de723e9361b7",
+                "id": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-204351a8-9967-4272-87db-0ac0367ca73e->READ_TASK-2e54fee2-46a1-4eda-a6a8-d9d72f3e842f_c015b8e7-8b85-4506-a0d0-418a92a48dc7",
+                "source": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-204351a8-9967-4272-87db-0ac0367ca73e",
+                "target": "READ_TASK-2e54fee2-46a1-4eda-a6a8-d9d72f3e842f",
                 "sourceHandle": "default",
-                "target": "READ_TASK-f174625f-7441-4651-b0b9-0cb2996a3bfe",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CONFIG_TASK_SAMPLE_CLOCK_TIMING-fb3f1d0c-caec-45a6-97fc-de723e9361b7default-READ_TASK-f174625f-7441-4651-b0b9-0cb2996a3bfedefault"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "READ_TASK-f174625f-7441-4651-b0b9-0cb2996a3bfe",
+                "id": "READ_TASK-2e54fee2-46a1-4eda-a6a8-d9d72f3e842f->LINE-e544025f-554b-4f38-999a-535495748b4c_ee3c5ba9-75d7-46d5-845f-4c4a81e7e37d",
+                "source": "READ_TASK-2e54fee2-46a1-4eda-a6a8-d9d72f3e842f",
+                "target": "LINE-e544025f-554b-4f38-999a-535495748b4c",
                 "sourceHandle": "default",
-                "target": "LINE-e82a6642-d44f-4509-8911-02faa279248b",
                 "targetHandle": "default",
-                "id": "reactflow__edge-READ_TASK-f174625f-7441-4651-b0b9-0cb2996a3bfedefault-LINE-e82a6642-d44f-4509-8911-02faa279248bdefault"
+                "data": {
+                    "outputType": "Vector"
+                }
             }
-        ],
-        "viewport": {
-            "x": 745.4959161862347,
-            "y": 534.0004312460885,
-            "zoom": 0.5738499854240589
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

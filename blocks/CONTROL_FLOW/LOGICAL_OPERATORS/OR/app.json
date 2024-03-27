@@ -35,15 +35,15 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -324.4557052032284,
-                    "y": -245.95532808996285
+                    "x": -343.3076694686171,
+                    "y": 68.24407633318265
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -324.4557052032284,
-                    "y": -245.95532808996285
+                    "x": -343.3076694686171,
+                    "y": 68.24407633318265
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 225,
@@ -72,8 +72,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "String|Boolean",
-                            "multiple": false,
-                            "desc": "The DataContainer to be visualized in text format"
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -88,15 +88,15 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 286.78490831190555,
-                    "y": -189.95722633108144
+                    "x": 617.3226817650548,
+                    "y": -173.6188573010779
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 286.78490831190555,
-                    "y": -189.95722633108144
+                    "x": 617.3226817650548,
+                    "y": -173.6188573010779
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 208,
@@ -132,19 +132,19 @@
                     "selected": true
                 },
                 "position": {
-                    "x": -322.80617305443747,
-                    "y": -53.36684959669492
+                    "x": -336.6309468490559,
+                    "y": -316.0375516944446
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
-                    "x": -322.80617305443747,
-                    "y": -53.36684959669492
+                    "x": -336.6309468490559,
+                    "y": -316.0375516944446
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 96,
-                "height": 96,
+                "width": 236,
+                "height": 198,
                 "id": "OR-75ceed2a-629b-43a1-b3c6-8c08129581be",
                 "type": "CONTROL_FLOW",
                 "data": {
@@ -159,15 +159,15 @@
                             "name": "default",
                             "id": "default",
                             "type": "Boolean",
-                            "multiple": false,
-                            "desc": "The input boolean to which we apply the OR operation."
+                            "desc": "The input boolean to which we apply the OR operation.",
+                            "multiple": false
                         },
                         {
                             "name": "a",
                             "id": "a",
                             "type": "Boolean",
-                            "multiple": false,
-                            "desc": "The input boolean to which we apply the OR operation."
+                            "desc": "The input boolean to which we apply the OR operation.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -182,45 +182,49 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 16.211798357351306,
-                    "y": -128.99125360329023
+                    "x": 170.7979053335389,
+                    "y": -135.27524169175317
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 16.211798357351306,
-                    "y": -128.99125360329023
+                    "x": 170.7979053335389,
+                    "y": -135.27524169175317
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f",
-                "sourceHandle": "default",
-                "target": "OR-75ceed2a-629b-43a1-b3c6-8c08129581be",
-                "targetHandle": "a",
-                "id": "reactflow__edge-BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91fdefault-OR-75ceed2a-629b-43a1-b3c6-8c08129581bea"
-            },
-            {
+                "id": "BOOLEAN-1ae06ff9-112a-49b7-a49a-6981056c54d0->OR-75ceed2a-629b-43a1-b3c6-8c08129581be_2a0582c0-e986-4737-86e2-6866a27e0595",
                 "source": "BOOLEAN-1ae06ff9-112a-49b7-a49a-6981056c54d0",
-                "sourceHandle": "default",
                 "target": "OR-75ceed2a-629b-43a1-b3c6-8c08129581be",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-BOOLEAN-1ae06ff9-112a-49b7-a49a-6981056c54d0default-OR-75ceed2a-629b-43a1-b3c6-8c08129581bedefault"
+                "data": {
+                    "outputType": "Boolean"
+                }
             },
             {
-                "source": "OR-75ceed2a-629b-43a1-b3c6-8c08129581be",
+                "id": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f->OR-75ceed2a-629b-43a1-b3c6-8c08129581be_53dac3dc-9d84-488b-bb48-bc915b50d0d0",
+                "source": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f",
+                "target": "OR-75ceed2a-629b-43a1-b3c6-8c08129581be",
                 "sourceHandle": "default",
+                "targetHandle": "a",
+                "data": {
+                    "outputType": "Boolean"
+                }
+            },
+            {
+                "id": "OR-75ceed2a-629b-43a1-b3c6-8c08129581be->TEXT_VIEW-b4f49971-09c4-4ad9-a4a2-417eae73808c_a4f2e1ca-8039-4cfe-bba2-eef703b8a763",
+                "source": "OR-75ceed2a-629b-43a1-b3c6-8c08129581be",
                 "target": "TEXT_VIEW-b4f49971-09c4-4ad9-a4a2-417eae73808c",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-OR-75ceed2a-629b-43a1-b3c6-8c08129581bedefault-TEXT_VIEW-b4f49971-09c4-4ad9-a4a2-417eae73808cdefault"
+                "data": {
+                    "outputType": "Boolean"
+                }
             }
-        ],
-        "viewport": {
-            "x": 695.5292625331784,
-            "y": 411.9979742640432,
-            "zoom": 0.6998961918490142
-        }
+        ]
     },
     "textNodes": []
 }

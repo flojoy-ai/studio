@@ -82,12 +82,12 @@
                 "width": 225,
                 "height": 226,
                 "id": "HEATMAP-2fcfddb7-fa77-4593-82c3-22fe9d6beee0",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "HEATMAP-2fcfddb7-fa77-4593-82c3-22fe9d6beee0",
                     "label": "HEATMAP",
                     "func": "HEATMAP",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {
                         "show_text": {
                             "type": "bool",
@@ -142,12 +142,12 @@
                 "width": 225,
                 "height": 226,
                 "id": "IMAGE-a79fa1e7-a7af-435d-960b-8d5e6ec628f8",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "IMAGE-a79fa1e7-a7af-435d-960b-8d5e6ec628f8",
                     "label": "IMAGE",
                     "func": "IMAGE",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [

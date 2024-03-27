@@ -35,19 +35,19 @@
                     "selected": true
                 },
                 "position": {
-                    "x": -323.0269218898656,
-                    "y": -115.93604657395335
+                    "x": -398.4347789514205,
+                    "y": -143.58559416319017
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
-                    "x": -323.0269218898656,
-                    "y": -115.93604657395335
+                    "x": -398.4347789514205,
+                    "y": -143.58559416319017
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 225,
-                "height": 226,
+                "height": 225,
                 "id": "TEXT_VIEW-b4f49971-09c4-4ad9-a4a2-417eae73808c",
                 "type": "VISUALIZATION",
                 "data": {
@@ -72,8 +72,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "String|Boolean",
-                            "multiple": false,
-                            "desc": "The DataContainer to be visualized in text format"
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -88,19 +88,19 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 285.3561249985428,
-                    "y": -204.24505946470885
+                    "x": 544.2564342432147,
+                    "y": -179.10910711085722
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 285.3561249985428,
-                    "y": -204.24505946470885
+                    "x": 544.2564342432147,
+                    "y": -179.10910711085722
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 96,
-                "height": 96,
+                "width": 236,
+                "height": 140,
                 "id": "NOT-c0bb5b68-91af-4ae6-9a45-193df16cbb75",
                 "type": "CONTROL_FLOW",
                 "data": {
@@ -115,8 +115,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Boolean",
-                            "multiple": false,
-                            "desc": "The input boolean to which we apply the NOT operation."
+                            "desc": "The input boolean to which we apply the NOT operation.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -144,25 +144,26 @@
         ],
         "edges": [
             {
+                "id": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f->NOT-c0bb5b68-91af-4ae6-9a45-193df16cbb75_f36806f2-9d70-4267-a95b-752771e64855",
                 "source": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f",
-                "sourceHandle": "default",
                 "target": "NOT-c0bb5b68-91af-4ae6-9a45-193df16cbb75",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91fdefault-NOT-c0bb5b68-91af-4ae6-9a45-193df16cbb75default"
+                "data": {
+                    "outputType": "Boolean"
+                }
             },
             {
+                "id": "NOT-c0bb5b68-91af-4ae6-9a45-193df16cbb75->TEXT_VIEW-b4f49971-09c4-4ad9-a4a2-417eae73808c_dcb0553a-2440-4119-820b-f9e228d2c080",
                 "source": "NOT-c0bb5b68-91af-4ae6-9a45-193df16cbb75",
-                "sourceHandle": "default",
                 "target": "TEXT_VIEW-b4f49971-09c4-4ad9-a4a2-417eae73808c",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-NOT-c0bb5b68-91af-4ae6-9a45-193df16cbb75default-TEXT_VIEW-b4f49971-09c4-4ad9-a4a2-417eae73808cdefault"
+                "data": {
+                    "outputType": "Boolean"
+                }
             }
-        ],
-        "viewport": {
-            "x": 695.5292625331784,
-            "y": 411.9979742640432,
-            "zoom": 0.6998961918490142
-        }
+        ]
     },
     "textNodes": []
 }

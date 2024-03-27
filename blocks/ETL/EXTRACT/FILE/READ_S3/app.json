@@ -2,20 +2,19 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 150,
-                "height": 180,
-                "id": "READ_S3-a7ae5adf-3873-46e1-b0f1-89abfb885ae6",
-                "type": "EXTRACTORS",
+                "id": "READ_S3-7898bf5d-06f5-4a92-ba41-d32bc885a312",
+                "type": "EXTRACT",
                 "data": {
-                    "id": "READ_S3-a7ae5adf-3873-46e1-b0f1-89abfb885ae6",
+                    "id": "READ_S3-7898bf5d-06f5-4a92-ba41-d32bc885a312",
                     "label": "READ S3",
                     "func": "READ_S3",
-                    "type": "EXTRACTORS",
+                    "type": "EXTRACT",
                     "ctrls": {
                         "s3_name": {
                             "type": "str",
                             "default": "",
-                            "desc": "name of the key that the user used to save access and secret access key",
+                            "desc": "name of the key that the user used to save the access and secret access keys",
+                            "overload": null,
                             "functionName": "READ_S3",
                             "param": "s3_name",
                             "value": "FLOJOY"
@@ -23,7 +22,8 @@
                         "bucket_name": {
                             "type": "str",
                             "default": "",
-                            "desc": "AWS S3 bucket name that they are trying to access",
+                            "desc": "Amazon S3 bucket name that they are trying to access",
+                            "overload": null,
                             "functionName": "READ_S3",
                             "param": "bucket_name",
                             "value": "flojoy-test"
@@ -32,51 +32,53 @@
                             "type": "str",
                             "default": "",
                             "desc": "name of the file that they want to extract",
+                            "overload": null,
                             "functionName": "READ_S3",
                             "param": "file_name",
                             "value": "userdata1.parquet"
                         }
                     },
+                    "initCtrls": {},
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "DataFrame",
-                            "desc": null
+                            "desc": "DataFrame loaded from file in the specfied bucket"
                         }
                     ],
-                    "path": "PYTHON/nodes/EXTRACTORS/FILE/READ_S3/READ_S3.py",
-                    "selected": false
+                    "path": "ETL/EXTRACT/FILE/READ_S3/READ_S3.py"
                 },
                 "position": {
-                    "x": -30.844856544489318,
-                    "y": -70.41830920648297
+                    "x": -27.643178392359452,
+                    "y": -155.25659888187408
                 },
+                "width": 216,
+                "height": 260,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -30.844856544489318,
-                    "y": -70.41830920648297
+                    "x": -27.643178392359452,
+                    "y": -155.25659888187408
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 225,
-                "height": 226,
-                "id": "TABLE-0f7daf14-fbf4-46c1-8d75-124ce212b38e",
-                "type": "VISUALIZERS",
+                "id": "TABLE-2b6b9b7d-ff55-4f17-91dd-267ecae40285",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "TABLE-0f7daf14-fbf4-46c1-8d75-124ce212b38e",
+                    "id": "TABLE-2b6b9b7d-ff55-4f17-91dd-267ecae40285",
                     "label": "TABLE",
                     "func": "TABLE",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "OrderedTriple|OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": null
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -84,56 +86,40 @@
                             "name": "default",
                             "id": "default",
                             "type": "Plotly",
-                            "desc": null
+                            "desc": "the DataContainer containing the Plotly Table visualization"
                         }
                     ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
                 },
                 "position": {
-                    "x": 325.5749490958755,
-                    "y": -89.02125782914803
+                    "x": 335.7257579132853,
+                    "y": -161.56973635414178
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 325.5749490958755,
-                    "y": -89.02125782914803
+                    "x": 335.7257579132853,
+                    "y": -161.56973635414178
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "READ_S3-a7ae5adf-3873-46e1-b0f1-89abfb885ae6",
+                "id": "READ_S3-7898bf5d-06f5-4a92-ba41-d32bc885a312->TABLE-2b6b9b7d-ff55-4f17-91dd-267ecae40285_9ab6bc81-14c1-4e3a-baa1-9d1ba10ebe81",
+                "source": "READ_S3-7898bf5d-06f5-4a92-ba41-d32bc885a312",
+                "target": "TABLE-2b6b9b7d-ff55-4f17-91dd-267ecae40285",
                 "sourceHandle": "default",
-                "target": "TABLE-0f7daf14-fbf4-46c1-8d75-124ce212b38e",
                 "targetHandle": "default",
-                "id": "reactflow__edge-READ_S3-a7ae5adf-3873-46e1-b0f1-89abfb885ae6default-TABLE-0f7daf14-fbf4-46c1-8d75-124ce212b38edefault"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             }
-        ],
-        "viewport": {
-            "x": 510.21439896404956,
-            "y": 541.3693344933569,
-            "zoom": 0.8648007408335578
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }
