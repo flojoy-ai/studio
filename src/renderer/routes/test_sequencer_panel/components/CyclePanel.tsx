@@ -8,10 +8,10 @@ import LockableButton from "./lockable/LockedButtons";
 
 export function CyclePanel() {
 
-  const { tree, cycleConfig, setCycleCount, setInfinite, diplayPreviousCycle, displayNextCycle } = useTestSequencerState();
+  const { tree, cycleRuns, cycleConfig, setCycleCount, setInfinite, diplayPreviousCycle, displayNextCycle, isLocked } = useTestSequencerState();
 
   return (
-    <div className="rounded-xl border border-gray-300 dark:border-gray-800 mr-4 flex-none">
+    <div className="rounded-xl border border-gray-300 dark:border-gray-800 ml-4 flex-none">
       <div className="flex flex-col">
         <h2 className="px-4 pt-2 text-lg font-bold text-accent1">
           Run Sequences In Cycle
@@ -47,6 +47,7 @@ export function CyclePanel() {
                 isLocked={_.isEmpty(tree)}
                 onClick={diplayPreviousCycle} 
                 className="h-6"
+                disabled={cycleConfig.ptrCycle <= 0 || isLocked }
               >
                 ←
               </LockableButton>
@@ -55,6 +56,7 @@ export function CyclePanel() {
                 isLocked={_.isEmpty(tree)}
                 onClick={displayNextCycle} 
                 className="h-6"
+                disabled={cycleConfig.ptrCycle >= cycleRuns.length - 1 || cycleConfig.ptrCycle === -1 || isLocked }
               >
                 →
               </LockableButton>
