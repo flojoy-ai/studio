@@ -66,25 +66,19 @@ const getNumberOfCycleRun = (cycle: CycleConfig): string => {
   return (cycle.ptrCycle + 1) + "/" + cycle.cycleCount;
 }
 
-const getIntegrity = (sequences: TestSequenceContainer[]): boolean => {
-  let integrity = true;
-  sequences.forEach((seq) => {
-    integrity = integrity && seq.runable;
-  });
-  return integrity;
-}
-
 const getGlobalStatus = (cycleRuns: TestSequenceContainer[][],  sequences: TestSequenceContainer[], data: TestSequenceElement[]): StatusType => {
   // Create a priority list with all the status
   const priority = { "pending": 0, "pass": 1, "fail": 2, "aborted": 3, "paused": 4, "running": 5 };
-  if (cycleRuns.length > 0) {
-    const status = cycleRuns.map((el) => getGlobalStatus([], el, [])).reduce((prev, curr) => priority[prev] > priority[curr] ? prev : curr);
-    return status;
-  }
-  if (sequences.length === 0 && data.length === 0) return "pending";
+  // Find highest priority in cycle
+  const highestCycle = cycleRuns.length > 0 ?
+    cycleRuns.map((el) => getGlobalStatus([], el, [])).reduce((prev, curr) => priority[prev] > priority[curr] ? prev : curr) :
+    "pending";
+  if (sequences.length === 0 && data.length === 0) return highestCycle;
+  // Highest in the view
   const iter = sequences.length > 0 ? sequences : data;
   const status = iter.map((el) => el.status).reduce((prev, curr) => priority[prev] > priority[curr] ? prev : curr);
-  return status;
+  const highestGlobal = priority[highestCycle] > priority[status] ? highestCycle : status;
+  return highestGlobal ;
 }
 
 const columns: ColumnDef<Summary>[] = [
@@ -112,21 +106,24 @@ const columns: ColumnDef<Summary>[] = [
     },
   },
   {
-    accessorKey: "integrity",
-    header: "Integrity",
-    cell: ({ row }) => {
-      if (row.original.integrity) {
-        return <Badge className="bg-green-500">PASS</Badge>;
-      }
-      return <Badge className="bg-red-500">FAIL</Badge>;
-    }
-  },
-  {
     accessorKey: "nb_cycle_run",
     header: "Cycle Run",
     cell: ({ row }) => {
       return <div>{row.original.numberOfCycleRunDisplay}</div>;
     },
+  },
+  {
+    accessorKey: "cycleStatus",
+    header: "Cycle Status",
+    cell: ({ row }) => {
+      return (
+        <div>
+          {typeof mapStatusToDisplay[row.original.status] === "function"
+            ? mapStatusToDisplay[row.original.status](null)
+            : mapStatusToDisplay[row.original.status]}
+        </div>
+      );
+    }
   },
   {
     accessorKey: "nb_test_run",
@@ -142,32 +139,23 @@ const columns: ColumnDef<Summary>[] = [
       return <div>{row.original.successRate.toFixed(1)}%</div>;
     },
   },
-
-  {
-    accessorKey: "cycleStatus",
-    header: "Cycle Status",
-    cell: ({ row }) => {
-      return (
-        <div>
-          {typeof mapStatusToDisplay[row.original.status] === "function"
-            ? mapStatusToDisplay[row.original.status](null)
-            : mapStatusToDisplay[row.original.status]}
-        </div>
-      );
-    }
-  },
-
 ];
 
 export function SummaryTable() {
   const { elems, cycleConfig, sequences, cycleRuns } = useTestSequencerState();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({ "cycleStatus": cycleRuns.length > 1 });
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
+    "cycleStatus": cycleRuns.length > 1, 
+    "nb_cycle_run": cycleConfig.cycleCount > 1 || cycleConfig.infinite,
+  })
   const [rowSelection, setRowSelection] = useState({});
   const [summary, setSummary] = useState<Summary[]>([]);
   useEffect(() => {
-    setColumnVisibility({ "cycleStatus": cycleRuns.length > 1 });
+    setColumnVisibility({
+      "cycleStatus": cycleRuns.length > 1,
+      "nb_cycle_run": cycleConfig.cycleCount > 1 || cycleConfig.infinite,
+    });
     setSummary([
       {
         id: "1",
@@ -175,7 +163,6 @@ export function SummaryTable() {
         numberOfTest: getNumberOfTest(elems),
         successRate: getSuccessRate(elems),
         numberOfCycleRunDisplay: getNumberOfCycleRun(cycleConfig),
-        integrity: getIntegrity(sequences),
         status: getGlobalStatus(cycleRuns, sequences, elems),
       },
     ]);

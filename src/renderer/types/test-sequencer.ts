@@ -6,7 +6,6 @@ export type Summary = {
   numberOfTestRun: number;
   numberOfTest: number;
   numberOfCycleRunDisplay: string
-  integrity: boolean;
   status: StatusType;
 };
 

@@ -18,8 +18,18 @@ import { getCloudProjects, getEnvironmentVariables } from "@/renderer/lib/api";
 import { toastQueryError } from "@/renderer/utils/report-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Spinner } from "@/renderer/components/ui/spinner";
-import { PauseIcon } from "lucide-react";
 import { ControlButton } from "./ControlButton";
+import { TestSequenceContainer } from "@/renderer/types/test-sequencer";
+import { Badge } from "@/renderer/components/ui/badge";
+
+const getIntegrity = (sequences: TestSequenceContainer[]): boolean => {
+  let integrity = true;
+  sequences.forEach((seq) => {
+    integrity = integrity && seq.runable;
+  });
+  return integrity;
+}
+
 
 export function CloudPanel() {
   const queryClient = useQueryClient();
@@ -27,7 +37,7 @@ export function CloudPanel() {
   const [lotNumber, setLotNumber] = useState("");
   const [projectId, setProjectId] = useState("");
   const [partNumber, setPartNumber ] = useState("");
-  const { tree, setIsLocked } = useTestSequencerState();
+  const { tree, setIsLocked, sequences } = useTestSequencerState();
   const { tSSendJsonMessage } = useTestSequencerWS();
 
   const envsQuery = useQuery({
@@ -210,6 +220,10 @@ export function CloudPanel() {
           <p>Test JIG SN: SN-0123456</p>
           <p>Operator: John Doe</p>
           <p> Sequencer: TSW-0.3.0 </p>
+          <p> Integrity: {getIntegrity(sequences) ? 
+            <Badge className="h-4 bg-green-500">Pass</Badge> : 
+            <Badge className="h-4 bg-red-500">Fail</Badge>}
+          </p>
         </div>
       </div>
     </div>
