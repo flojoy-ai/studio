@@ -41,4 +41,9 @@ export enum Selectors {
   testSequencerTabBtn = "test-sequencer-btn",
   addNewTestBtn = "add-new-test",
   pytestBtn = "pytest-btn",
+  globalStatusBadge = "global-status-badge",
+  newSeqModalNameInput = "new-seq-modal-name-input",
+  newSeqModalDescInput = "new-seq-modal-desc-input",
+  newSeqModalRootInput = "new-seq-modal-root-import",
+  newSeqModalCreateButton = "new-seq-modal-create-btn",
 }

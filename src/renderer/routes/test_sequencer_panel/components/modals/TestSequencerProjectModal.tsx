@@ -44,23 +44,26 @@ export const TestSequencerProjectModal = () => {
       onOpenChange={setIsCreateProjectModalOpen}
     >
       <DialogContent>
-        <h2 className="mb-2 pt-3 text-center text-lg font-bold text-accent1 ">
-          Create a New Sequence
+        <h2 className="mb-2 text-center text-lg font-bold text-accent1 ">
+          New Sequence
         </h2>
         <Input
           placeholder="Sequence Name"
+          data-testid="new-seq-modal-name-input"
           onChange={(e) => {
             setName(e.target.value);
           }}
         />
         <Input
           placeholder="Sequence Description"
+          data-testid="new-seq-modal-desc-input"
           onChange={(e) => {
             setDescription(e.target.value);
           }}
         />
         <PathInput
           placeholder="Root Directory"
+          data-testid="new-seq-modal-root-import"
           allowedExtention={["tjoy"]}
           onChange={(event) => {
             setProjectDirPath(event.target.value);
@@ -93,7 +96,11 @@ export const TestSequencerProjectModal = () => {
           //   />
           // </div>
         }
-        <Button variant={"default"} onClick={() => handleSubmit()}>
+        <Button 
+          variant={"default"}
+          data-testid="new-seq-modal-create-btn"
+          onClick={() => handleSubmit()}
+        >
           New Sequence
         </Button>
       </DialogContent>

@@ -96,11 +96,17 @@ const columns: ColumnDef<Summary>[] = [
     accessorKey: "status",
     header: "Sequencer Status",
     cell: ({ row }) => {
+      const map = {
+        pending: <Badge data-testid="global-status-badge" variant="bold" className="bg-secondary text-primary">PENDING</Badge>,
+        running: <Badge data-testid="global-status-badge" variant="bold" className="bg-blue-500 border-dash border-secondary">RUNNING</Badge>,
+        paused:  <Badge data-testid="global-status-badge" variant="bold" className="bg-yellow-500">PAUSED</Badge>,
+        pass:    <Badge data-testid="global-status-badge" variant="bold" className="bg-green-500">PASS</Badge>,
+        aborted: <Badge data-testid="global-status-badge" variant="bold" className="bg-red-500">ABORTED</Badge>,
+        fail:    <Badge data-testid="global-status-badge" variant="bold" className="bg-red-500">FAIL</Badge>
+      }
       return (
         <div>
-          {typeof mapStatusToDisplay[row.original.status] === "function"
-            ? mapStatusToDisplay[row.original.status](null)
-            : mapStatusToDisplay[row.original.status]}
+          {map[row.original.status]}
         </div>
       );
     },
