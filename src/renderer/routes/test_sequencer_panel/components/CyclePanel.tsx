@@ -18,7 +18,7 @@ export function CyclePanel() {
         </h2>
         <div className="px-4 flex mb-2">
 
-          <div className="grid max-w-sm items-center gap-1.5 mt-1">
+          <div className="grid max-w-sm items-center gap-1.5">
             <Label className="text-xs text-muted-foreground" htmlFor="cycle">Number</Label>
             <Input 
               className="h-7 w-16" 
@@ -39,7 +39,7 @@ export function CyclePanel() {
             />
           </div>
 
-          <div className="ml-4">
+          <div className="grid max-w-sm items-center gap-1.5 ml-4">
             <Label className="text-xs text-muted-foreground" htmlFor="checkCycle"> Cycle Navigation </Label>
             <div id="checkCycle" className="flex gap-2 mt-1">
               <LockableButton 

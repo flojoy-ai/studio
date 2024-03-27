@@ -4,18 +4,19 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@radix-ui/react-h
 import { filter, max, sum } from "lodash";
 
 export const mapStatusToDisplay: { [k in StatusType] } = {
-  pending: <Badge className="bg-secondary text-primary">PENDING</Badge>,
-  running: <Badge className="bg-blue-500 border-dash border-secondary">RUNNING</Badge>,
-  paused:  <Badge className="bg-yellow-500">PAUSED</Badge>,
-  pass:    <Badge className="bg-green-500">PASS</Badge>,
-  aborted: <Badge className="bg-red-500">ABORTED</Badge>,
+  pending: <Badge variant="bold" className="bg-secondary text-primary">PENDING</Badge>,
+  running: <Badge variant="bold" className="bg-blue-500 border-dash border-secondary">RUNNING</Badge>,
+  paused:  <Badge variant="bold" className="bg-yellow-500">PAUSED</Badge>,
+  pass:    <Badge variant="bold" className="bg-green-500">PASS</Badge>,
+  aborted: <Badge variant="bold" className="bg-red-500">ABORTED</Badge>,
   fail: (status: string | null) =>
     status === null || status === "" ? (
-      <Badge className="bg-red-500">FAIL</Badge>
+      <Badge variant="bold" className="bg-red-500">FAIL</Badge>
     ) : (
       <HoverCard>
         <HoverCardTrigger>
           <Badge
+            variant="bold"
             className="text relative z-20 bg-red-500 underline underline-offset-2 hover:bg-red-700"
           >
             FAIL

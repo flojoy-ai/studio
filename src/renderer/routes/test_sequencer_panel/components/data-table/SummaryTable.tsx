@@ -87,16 +87,29 @@ const getGlobalStatus = (cycleRuns: TestSequenceContainer[][],  sequences: TestS
   return status;
 }
 
-
 const columns: ColumnDef<Summary>[] = [
+
   {
     accessorKey: "id",
     header: () => (
       <h2 className="mb-2 pt-2 text-lg font-bold text-accent1">
-        Summary 
+         Status
       </h2>
     ),
     cell: () => <div>Summary:</div>,
+  },
+  {
+    accessorKey: "status",
+    header: "Sequencer Status",
+    cell: ({ row }) => {
+      return (
+        <div>
+          {typeof mapStatusToDisplay[row.original.status] === "function"
+            ? mapStatusToDisplay[row.original.status](null)
+            : mapStatusToDisplay[row.original.status]}
+        </div>
+      );
+    },
   },
   {
     accessorKey: "integrity",
@@ -144,19 +157,6 @@ const columns: ColumnDef<Summary>[] = [
     }
   },
 
-  {
-    accessorKey: "status",
-    header: "Sequencer Status",
-    cell: ({ row }) => {
-      return (
-        <div>
-          {typeof mapStatusToDisplay[row.original.status] === "function"
-            ? mapStatusToDisplay[row.original.status](null)
-            : mapStatusToDisplay[row.original.status]}
-        </div>
-      );
-    },
-  },
 ];
 
 export function SummaryTable() {
