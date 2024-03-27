@@ -72,6 +72,8 @@ def get_text_blob_from_dc(dc: DataContainer) -> str | None:
 
 
 def get_frontend_res_obj_from_result(
+    node_id: str,
+    observe_blocks: list[str],
     result: Optional[dict[str, Any] | DataContainer],
 ) -> Optional[dict[str, Any]]:
     if result is None:
@@ -85,6 +87,14 @@ def get_frontend_res_obj_from_result(
                 "plotly_fig": plotly_fig,
                 "text_blob": get_text_blob_from_dc(result),
             }
+        case DataContainer():
+            if node_id in observe_blocks:
+                return {
+                    "data": result,
+                    "plotly_fig": None,
+                    "text_blob": None,
+                }
+            return None
 
     if isinstance(result, DataContainer):
         return None
@@ -96,15 +106,20 @@ def get_frontend_res_obj_from_result(
 
         plotly_fig = None
         text_blob = None
+        data = None
         match result:
             case Plotly() | String() | Bytes():
                 plotly_fig = data_container_to_plotly(data=result)
                 text_blob = get_text_blob_from_dc(result)
+            case DataContainer():
+                if node_id in observe_blocks:
+                    data = result
 
         return {
             **result,
+            "data": data,
             "plotly_fig": plotly_fig,
             "text_blob": text_blob,
         }
     keys = list(result.keys())
-    return get_frontend_res_obj_from_result(result[keys[0]])
+    return get_frontend_res_obj_from_result(node_id, observe_blocks, result[keys[0]])

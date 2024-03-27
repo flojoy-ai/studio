@@ -1,6 +1,6 @@
 import { WidgetProps } from "@/renderer/types/control";
 import { NumberInput } from "@/renderer/components/common/NumberInput";
-import WidgetLabel from "@/renderer/components/common/widget-label";
+import { WidgetLabel } from "@/renderer/components/common/control-label";
 import { useControl } from "@/renderer/hooks/useControl";
 
 export const NumberInputNode = ({ id, data }: WidgetProps) => {
@@ -15,7 +15,7 @@ export const NumberInputNode = ({ id, data }: WidgetProps) => {
       <WidgetLabel
         label={data.label}
         placeholder={`${name} (${data.blockParameter})`}
-        widgetId={id}
+        id={id}
       />
       <NumberInput
         value={value as number}

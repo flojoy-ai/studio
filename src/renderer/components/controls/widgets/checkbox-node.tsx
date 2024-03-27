@@ -1,6 +1,6 @@
 import { WidgetProps } from "@/renderer/types/control";
 import { Checkbox } from "@/renderer/components/ui/checkbox";
-import WidgetLabel from "@/renderer/components/common/widget-label";
+import { WidgetLabel } from "@/renderer/components/common/control-label";
 import { useControl } from "@/renderer/hooks/useControl";
 
 export const CheckboxNode = ({ id, data }: WidgetProps) => {
@@ -16,7 +16,7 @@ export const CheckboxNode = ({ id, data }: WidgetProps) => {
       <WidgetLabel
         label={data.label}
         placeholder={`${name} (${data.blockParameter})`}
-        widgetId={id}
+        id={id}
       />
       <div className="py-1" />
       <Checkbox

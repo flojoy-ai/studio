@@ -1,6 +1,6 @@
 import { WidgetProps } from "@/renderer/types/control";
 import { Switch } from "@/renderer/components/ui/switch";
-import WidgetLabel from "@/renderer/components/common/widget-label";
+import { WidgetLabel } from "@/renderer/components/common/control-label";
 import { useControl } from "@/renderer/hooks/useControl";
 
 export const SwitchNode = ({ id, data }: WidgetProps) => {
@@ -15,7 +15,7 @@ export const SwitchNode = ({ id, data }: WidgetProps) => {
       <WidgetLabel
         label={data.label}
         placeholder={`${name} (${data.blockParameter})`}
-        widgetId={id}
+        id={id}
       />
       <div className="py-1" />
       <Switch

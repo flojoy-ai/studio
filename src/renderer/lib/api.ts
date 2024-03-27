@@ -70,6 +70,7 @@ export const deleteEnvironmentVariable = async (key: string) => {
 type RunFlowchartArgs = {
   nodes: Node<BlockData>[];
   edges: Edge[];
+  observeBlocks: string[];
   jobId: string;
   settings: BackendSettings;
 };
@@ -77,6 +78,7 @@ type RunFlowchartArgs = {
 export const runFlowchart = async ({
   nodes,
   edges,
+  observeBlocks,
   settings,
   jobId,
 }: RunFlowchartArgs) => {
@@ -86,6 +88,7 @@ export const runFlowchart = async ({
         fc: JSON.stringify({ nodes, edges }),
         jobsetId: jobId,
         cancelExistingJobs: true,
+        observeBlocks: observeBlocks,
         //IMPORTANT: if you want to add more backend settings, modify PostWFC pydantic model in backend, otherwise you will get 422 error
         ..._.mapValues(settings, (s) => s.value),
       },

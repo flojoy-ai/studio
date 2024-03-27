@@ -25,10 +25,11 @@ const FlowControlButtons = () => {
   const resetNodeParamChanged = useFlowchartStore(
     useShallow((state) => state.resetNodeParamChanged),
   );
-  const { nodes, edges } = useProjectStore(
+  const { nodes, edges, vizNodes } = useProjectStore(
     useShallow((state) => ({
       nodes: state.nodes,
       edges: state.edges,
+      vizNodes: state.controlVisualizationNodes,
     })),
   );
 
@@ -58,6 +59,7 @@ const FlowControlButtons = () => {
       await runFlowchart({
         nodes,
         edges,
+        observeBlocks: vizNodes.map((n) => n.data.blockId),
         jobId: socketId,
         settings: backendSettings,
       })

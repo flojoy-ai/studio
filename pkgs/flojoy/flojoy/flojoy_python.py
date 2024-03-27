@@ -168,6 +168,7 @@ def flojoy(
             node_id: str,
             job_id: str,
             jobset_id: str,
+            observe_blocks: list[str],
             previous_jobs: list[dict[str, str]] = [],
             ctrls: dict[str, Any] | None = None,
         ):
@@ -255,7 +256,9 @@ def flojoy(
 
                 # Package the result and return it
                 FN = func.__name__
-                result = get_frontend_res_obj_from_result(dc_obj)
+                result = get_frontend_res_obj_from_result(
+                    node_id, observe_blocks, dc_obj
+                )
                 return JobSuccess(
                     result=result,
                     fn=FN,

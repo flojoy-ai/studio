@@ -16,6 +16,16 @@ export const nearestMultiple = (x: number, y: number) => {
   return Math.round(x / y) * y;
 };
 
+export const countDecimalPlaces = (num: number) => {
+  const numString = num.toString();
+  const decimalIndex = numString.indexOf(".");
+  if (decimalIndex === -1) {
+    return 0;
+  }
+
+  return numString.length - decimalIndex - 1;
+};
+
 export class Vector2 {
   readonly x: number;
   readonly y: number;

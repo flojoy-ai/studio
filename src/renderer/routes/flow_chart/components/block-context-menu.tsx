@@ -1,12 +1,12 @@
 import { BlockData } from "@/renderer/types/block";
 import { Code, CopyPlus, Info, Pencil, X } from "lucide-react";
-import { useCallback } from "react";
-import { useStore, Node, useReactFlow } from "reactflow";
+import { useStore, Node } from "reactflow";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useFlowchartStore } from "@/renderer/stores/flowchart";
 import { useShallow } from "zustand/react/shallow";
 import { MenuInfo } from "@/renderer/types/context-menu";
 import { ContextMenuAction } from "@/renderer/components/common/context-menu-action";
+import { useDeleteBlock } from "@/renderer/stores/project";
 
 export type BlockContextMenuInfo = MenuInfo<BlockData> & {
   fullPath: string;
@@ -31,7 +31,6 @@ export default function BlockContextMenu({
   setNodeModalOpen,
 }: Props) {
   const { withPermissionCheck } = useWithPermission();
-  const { setNodes, setEdges } = useReactFlow();
 
   const setIsEditMode = useFlowchartStore(
     useShallow((state) => state.setIsEditMode),
@@ -65,10 +64,7 @@ export default function BlockContextMenu({
     await window.api.openLink(`vscode://file/${fullPath}`);
   };
 
-  const deleteNode = useCallback(() => {
-    setNodes((nodes) => nodes.filter((n) => n.id !== node.id));
-    setEdges((edges) => edges.filter((edge) => edge.source !== node.id));
-  }, [setNodes, setEdges, node.id]);
+  const deleteBlock = useDeleteBlock();
 
   return (
     <div
@@ -116,7 +112,7 @@ export default function BlockContextMenu({
       <hr />
       <ContextMenuAction
         testId="context-delete-block"
-        onClick={deleteNode}
+        onClick={() => deleteBlock(node.id)}
         icon={X}
       >
         Delete Block
