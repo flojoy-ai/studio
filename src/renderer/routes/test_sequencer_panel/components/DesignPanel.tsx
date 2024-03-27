@@ -23,6 +23,7 @@ export function DesignPanel() {
         </h2>
         <LockableButton
           className="mt-4 w-full"
+          data-testid="add-new-tests"
           variant="outline"
           onClick={() => {
             setIsImportTestModalOpen(true);

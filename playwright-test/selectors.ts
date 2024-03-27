@@ -38,4 +38,7 @@ export enum Selectors {
   customBlocksTabBtn = "custom-blocks-tab",
   importCustomBlockBtn = "import-custom-block",
   depManagerModalBtn = "dep-manager-modal-button",
+  testSequencerTabBtn = "test-sequencer-btn",
+  addNewTestBtn = "add-new-test",
+  pytestBtn = "pytest-btn",
 }
