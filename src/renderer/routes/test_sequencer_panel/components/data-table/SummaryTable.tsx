@@ -112,6 +112,20 @@ const columns: ColumnDef<Summary>[] = [
     },
   },
   {
+    accessorKey: "nb_test_run",
+    header: "Tests Run",
+    cell: ({ row }) => {
+      return <div>{row.original.numberOfTestRun + "/" + row.original.numberOfTest}</div>;
+    },
+  },
+  {
+    accessorKey: "success_rate",
+    header: "Success Rate",
+    cell: ({ row }) => {
+      return <div>{row.original.successRate.toFixed(1)}%</div>;
+    },
+  },
+  {
     accessorKey: "nb_cycle_run",
     header: "Cycle Run",
     cell: ({ row }) => {
@@ -131,20 +145,6 @@ const columns: ColumnDef<Summary>[] = [
       );
     }
   },
-  {
-    accessorKey: "nb_test_run",
-    header: "Tests Run",
-    cell: ({ row }) => {
-      return <div>{row.original.numberOfTestRun + "/" + row.original.numberOfTest}</div>;
-    },
-  },
-  {
-    accessorKey: "success_rate",
-    header: "Success Rate",
-    cell: ({ row }) => {
-      return <div>{row.original.successRate.toFixed(1)}%</div>;
-    },
-  },
 ];
 
 export function SummaryTable() {
@@ -162,6 +162,7 @@ export function SummaryTable() {
       "cycleStatus": cycleRuns.length > 1,
       "nb_cycle_run": cycleConfig.cycleCount > 1 || cycleConfig.infinite,
     });
+    console.log("useEffect SummaryTable; cycleRuns: ", cycleRuns);
     setSummary([
       {
         id: "1",

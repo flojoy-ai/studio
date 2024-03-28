@@ -231,6 +231,7 @@ export const useSequencerStore = create<State & Actions>()(
     removeSequence: (name) =>
       set((state) => {
         // Check if sequence exists
+        console.log("removeSequence", name);
         const idx = state.sequences.findIndex((seq) => seq.project.name === name);
         if (idx === -1) {
           return;
@@ -379,6 +380,7 @@ function clearSequencer(state: any): void {
     children: [],
     identifiers: [],
   };
+  state.cycleRuns = [];
   state.elements = [];
   state.cycleConfig = {
     infinite: false,
