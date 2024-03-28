@@ -50,7 +50,7 @@ const frontendSettings = {
   watchMode: {
     type: "boolean",
     title: "Watch Mode",
-    desc: "Automatically re-run the flowchart when any param changes",
+    desc: "Automatically re-run the flowchart when any parameter changes",
     value: false,
   },
 } satisfies Record<string, Setting>;
@@ -128,7 +128,10 @@ export const useSettingsStore = create<SettingsState & SettingsActions>()(
           });
         },
       }),
-      { name: "flojoy-settings" },
+      { 
+        name: "flojoy-settings",
+        version: 1,
+      },
     ),
   ),
 );

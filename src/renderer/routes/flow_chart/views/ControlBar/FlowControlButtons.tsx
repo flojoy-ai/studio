@@ -25,7 +25,6 @@ const FlowControlButtons = () => {
 
   const backendSettings = useSettingsStore((state) => state.backend);
   const { watchMode } = useSettingsStore((state) => state.frontend);
-  // const watch = watchMode.value;
 
   const resetNodeParamChanged = useFlowchartStore(
     useShallow((state) => state.resetNodeParamChanged),
@@ -74,12 +73,13 @@ const FlowControlButtons = () => {
     );
   };
 
-  // useEffect(() => {
-  //   if (watch && nodeParamChanged) {
-  //     cancelFlowchartRun(socketId);
-  //     onRun();
-  //   }
-  // }, [nodeParamChanged, watch]);
+  const watch = watchMode.value;
+  useEffect(() => {
+    if (watch && nodeParamChanged) {
+      cancelFlowchartRun(socketId);
+      onRun();
+    }
+  }, [nodeParamChanged, watch]);
 
 
   useKeyboardShortcut("ctrl", "p", onRun);
