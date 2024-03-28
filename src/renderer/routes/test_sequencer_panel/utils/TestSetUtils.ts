@@ -25,12 +25,12 @@ export const readJsonTestSet = (
   return null;
 };
 
-export const stringifyProject = (project: TestSequencerProject): string => {
+export const stringifySequence = (project: TestSequencerProject): string => {
   const projectString = JSON.stringify(project);
   return projectString;
 };
 
-export const readJsonProject = (
+export const readJsonSequence = (
   projectString: string,
 ): TestSequencerProject | null => {
   try {

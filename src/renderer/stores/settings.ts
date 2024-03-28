@@ -22,8 +22,8 @@ export type Setting = BooleanSetting | NumberSetting;
 const backendSettings = {
   nodeDelay: {
     type: "number",
-    title: "Node Delay",
-    desc: "Delay before running the next node in milliseconds",
+    title: "Block Delay",
+    desc: "Block before running the next node in milliseconds",
     value: 0,
   },
   maximumRuntime: {

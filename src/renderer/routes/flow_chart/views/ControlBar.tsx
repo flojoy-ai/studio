@@ -24,6 +24,8 @@ import ProfileMenu from "./user-profile/ProfileMenu";
 import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
 import FeedbackModal from "./FeedbackModal";
+import { SaveSequencesButton } from "../../test_sequencer_panel/components/control-bar/SaveButton";
+import { ImportSequencesButton } from "../../test_sequencer_panel/components/control-bar/ImportButton";
 
 const ControlBar = () => {
   const { activeTab } = useAppStore(
@@ -90,15 +92,21 @@ const ControlBar = () => {
             <MenubarTrigger id="file-btn" data-testid="file-button">
               File
             </MenubarTrigger>
-            <MenubarContent>
-              <SaveButton />
-              <SaveAsButton />
-              <ExportResultButton />
-              <SaveFlowChartBtn />
-              <LoadButton />
-            </MenubarContent>
+            { activeTab === "Test Sequencer" ? (
+              <MenubarContent>
+                <SaveSequencesButton />
+                <ImportSequencesButton />
+              </MenubarContent>
+            ) : (
+              <MenubarContent>
+                <SaveButton />
+                <SaveAsButton />
+                <ExportResultButton />
+                <SaveFlowChartBtn />
+                <LoadButton />
+              </MenubarContent>
+            )}
           </MenubarMenu>
-
           <MenubarMenu>
             <MenubarTrigger data-testid="settings-btn">Settings</MenubarTrigger>
             <MenubarContent>
@@ -114,30 +122,38 @@ const ControlBar = () => {
               >
                 Environment Variables
               </MenubarItem>
-              <MenubarItem
-                data-testid="btn-keyboardshortcut"
-                onClick={() => setIsKeyboardShortcutOpen(true)}
-              >
-                Keyboard Shortcut
-              </MenubarItem>
-              <MenubarItem
-                data-testid="btn-editor-settings"
-                onClick={() => setIsEditorSettingsOpen(true)}
-              >
-                Editor Settings
-              </MenubarItem>
-              <MenubarItem
-                data-testid="btn-node-settings"
-                onClick={() => setIsBlockSettingsOpen(true)}
-              >
-                Node Settings
-              </MenubarItem>
-              <MenubarItem
-                data-testid="btn-device-settings"
-                onClick={() => setIsDeviceSettingsOpen(true)}
-              >
-                Device Settings
-              </MenubarItem>
+              { activeTab !== "Test Sequencer" &&
+                <MenubarItem
+                  data-testid="btn-keyboardshortcut"
+                  onClick={() => setIsKeyboardShortcutOpen(true)}
+                >
+                  Keyboard Shortcut
+                </MenubarItem>
+              }
+              { activeTab !== "Test Sequencer" &&
+                <MenubarItem
+                  data-testid="btn-editor-settings"
+                  onClick={() => setIsEditorSettingsOpen(true)}
+                >
+                  Editor Settings
+                </MenubarItem>
+              }
+              { activeTab !== "Test Sequencer" &&
+                <MenubarItem
+                  data-testid="btn-node-settings"
+                  onClick={() => setIsBlockSettingsOpen(true)}
+                >
+                  Block Settings
+                </MenubarItem>
+              }
+              { activeTab !== "Test Sequencer" &&
+                <MenubarItem
+                  data-testid="btn-device-settings"
+                  onClick={() => setIsDeviceSettingsOpen(true)}
+                >
+                  Device Settings
+                </MenubarItem>
+              }
               <MenubarItem
                 data-testid="btn-debug-settings"
                 onClick={() => setIsDebugSettingsOpen(true)}

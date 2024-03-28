@@ -38,4 +38,12 @@ export enum Selectors {
   customBlocksTabBtn = "custom-blocks-tab",
   importCustomBlockBtn = "import-custom-block",
   depManagerModalBtn = "dep-manager-modal-button",
+  testSequencerTabBtn = "test-sequencer-btn",
+  addNewTestBtn = "add-new-test",
+  pytestBtn = "pytest-btn",
+  globalStatusBadge = "global-status-badge",
+  newSeqModalNameInput = "new-seq-modal-name-input",
+  newSeqModalDescInput = "new-seq-modal-desc-input",
+  newSeqModalCreateButton = "new-seq-modal-create-btn",
+  pathInputSelectButton = "path-input-select-button",
 }

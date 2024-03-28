@@ -5,6 +5,7 @@ import pyproject from "../../../pyproject.toml?raw";
 import toml from "toml";
 import { store } from "../store";
 import * as fs from "fs";
+import log from "electron-log/main";
 
 // FIXME: do not hardcode the groups here
 export const POETRY_DEP_GROUPS: Pick<
@@ -170,7 +171,7 @@ export async function poetryInstallRequirementsUserGroup(
     }
     return true;
   } catch (e) {
-    console.error(e);
+    log.info(e);
     return false;
   }
 }

@@ -4,7 +4,7 @@ from typing import Any, Callable, Union
 from flojoy import JobFailure, JobSuccess
 
 
-class PoisonPill:
+class PoisonPill(Exception):
     pass
 
 

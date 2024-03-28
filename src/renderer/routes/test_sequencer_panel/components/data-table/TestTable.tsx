@@ -37,7 +37,6 @@ import {
   TestSequenceElement,
   ConditionalComponent,
   Conditional,
-  StatusType,
   Test,
 } from "@/renderer/types/test-sequencer";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
@@ -47,52 +46,23 @@ import {
   getIndentLevels,
 } from "@/renderer/routes/test_sequencer_panel/utils/ConditionalUtils";
 import { ChevronUpIcon, ChevronDownIcon, TrashIcon } from "lucide-react";
-import { WriteConditionalModal } from "@/renderer/routes/test_sequencer_panel/components/AddWriteConditionalModal";
+import { WriteConditionalModal } from "@/renderer/routes/test_sequencer_panel/components/modals/AddWriteConditionalModal";
 import LockableButton from "@/renderer/routes/test_sequencer_panel/components/lockable/LockedButtons";
 import { useRef, useState, useEffect } from "react";
 import TestNameCell from "./test-name-cell";
-import { DraggableRow } from "@/renderer/routes/test_sequencer_panel/components/dnd/DraggableRow";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/renderer/components/ui/hover-card";
-import PythonTestFileModal from "@/renderer/routes/test_sequencer_panel/components/PythonTestFileModal";
+import { DraggableRowStep } from "@/renderer/routes/test_sequencer_panel/components/dnd/DraggableRowStep";
+import PythonTestFileModal from "@/renderer/routes/test_sequencer_panel/components/modals/PythonTestFileModal";
+import { useModalState } from "@/renderer/hooks/useModalState";
+import { mapStatusToDisplay } from "./utils";
+import useWithPermission from "@/renderer/hooks/useWithPermission";
+import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 
-function renderErrorMessage(text: string): JSX.Element {
-  const lines = text.split("\n");
-  return (
-    <div className="mt-2 max-h-[400px] overflow-y-auto whitespace-pre rounded-md bg-secondary p-2">
-      {lines.map((line, index) => (
-        <div key={index}>{line}</div>
-      ))}
-    </div>
-  );
-}
 
-const mapStatusToDisplay: { [k in StatusType] } = {
-  pending: <p className="text-yellow-500">PENDING</p>,
-  pass: <p className="text-green-500">PASS</p>,
-  failed: (status: string | null) =>
-    status === null || status === "" ? (
-      <p className="text-red-500">FAIL</p>
-    ) : (
-      <HoverCard>
-        <HoverCardTrigger>
-          <p className="text relative z-20 text-red-500 underline underline-offset-2">
-            FAIL
-          </p>
-        </HoverCardTrigger>
-        <HoverCardContent className="w-256">
-          <h2 className="text-muted-foreground">Error Message:</h2>
-          {renderErrorMessage(status)}
-        </HoverCardContent>
-      </HoverCard>
-    ),
-};
-
-export function DataTable() {
-  const { elems, setElems, running } = useTestSequencerState();
+export function TestTable() {
+  const { elems, setElems } = useTestSequencerState();
+  const { openRenameTestModal, setIsImportTestModalOpen } = useModalState();
+  const importSequences = useImportSequences();
+  const { isAdmin } = useWithPermission();
   const [addIfStatement] = useState(false);
   const indentLevels = getIndentLevels(elems);
   const [openPyTestFileModal, setOpenPyTestFileModal] = useState(false);
@@ -129,7 +99,7 @@ export function DataTable() {
       ),
       cell: ({ row }) => (
         <Checkbox
-          className="relative z-20"
+          className="relative z-20 my-2"
           checked={row.getIsSelected()}
           onCheckedChange={(value) => row.toggleSelected(!!value)}
           aria-label="Select row"
@@ -148,7 +118,6 @@ export function DataTable() {
         return (
           <TestNameCell
             cellProps={props}
-            running={running}
             indentLevels={indentLevels}
           />
         );
@@ -179,37 +148,7 @@ export function DataTable() {
       },
     },
 
-    {
-      accessorFn: (elem) => {
-        return elem.type === "test" ? "status" : null;
-      },
-      header: "Status",
-      cell: ({ row }) => {
-        return row.original.type === "test" ? (
-          <div>
-            {typeof mapStatusToDisplay[row.original.status] === "function"
-              ? mapStatusToDisplay[row.original.status](row.original.error)
-              : mapStatusToDisplay[row.original.status]}
-          </div>
-        ) : null;
-      },
-    },
 
-    {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      accessorFn: (elem, _) => {
-        return elem.type === "test" ? "completionTime" : null;
-      },
-      header: "Completion Time",
-      cell: ({ row }) => {
-        return row.original.type === "test" ? (
-          <div>
-            {row.original.completionTime &&
-              row.original.completionTime.toFixed(2)}
-          </div>
-        ) : null;
-      },
-    },
 
     {
       accessorFn: (elem) => {
@@ -239,9 +178,39 @@ export function DataTable() {
     },
 
     {
+      accessorFn: (elem) => {
+        return elem.type === "test" ? "status" : null;
+      },
+      header: "Status",
+      cell: ({ row }) => {
+        return row.original.type === "test" ? (
+          <div className="my-2">
+            {typeof mapStatusToDisplay[row.original.status] === "function"
+              ? mapStatusToDisplay[row.original.status](row.original.error)
+              : mapStatusToDisplay[row.original.status]}
+          </div>
+        ) : null;
+      },
+    },
+
+    {
+      accessorFn: (elem, _) => {
+        return elem.type === "test" ? "completionTime" : null;
+      },
+      header: "Completion Time",
+      cell: ({ row }) => {
+        return row.original.type === "test" ? (
+          <div>
+            {row.original.completionTime &&
+              row.original.completionTime.toFixed(2)}
+          </div>
+        ) : null;
+      },
+    },
+
+    {
       accessorKey: "up-down",
       header: () => <div className="text-center">Reorder</div>,
-      enableHiding: false,
       cell: ({ row }) => {
         const onUpClick = () => {
           setRowSelection([]);
@@ -281,7 +250,7 @@ export function DataTable() {
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({"up-down": false});
   const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
@@ -477,7 +446,7 @@ export function DataTable() {
                     {/*   ))} */}
                     {/* </TableRow> */}
 
-                    <DraggableRow
+                    <DraggableRowStep
                       row={row}
                       key={row.id}
                       data-state={row.getIsSelected() && "selected"}
@@ -492,10 +461,21 @@ export function DataTable() {
                     >
                       Add Conditional
                     </ContextMenuItem>
+                    {row.original.type === "test" && (
+                      <ContextMenuItem
+                        onClick={() => {
+                          openRenameTestModal(row.original.id);
+                        }}
+                      >
+                        Rename Test
+                      </ContextMenuItem>
+                    )}
                     <ContextMenuItem
                       onClick={() => onRemoveTest([parseInt(row.id)])}
                     >
-                      Remove Test
+                      {row.original.type === "test"
+                        ? "Remove Test"
+                        : "Remove Conditional"}
                     </ContextMenuItem>
                     {row.original.type === "test" && (
                       <ContextMenuItem
@@ -524,10 +504,17 @@ export function DataTable() {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
+                  colSpan={columns.length + 1}
+                  className="h-24 text-center cursor-pointer hover:underline"
+                  onClick={() => {
+                    if (isAdmin()) {
+                      setIsImportTestModalOpen(true);
+                    } else {
+                      importSequences();
+                    }
+                  }}
                 >
-                  No results.
+                  No Tests
                 </TableCell>
               </TableRow>
             )}

@@ -18,12 +18,26 @@ import { getCloudProjects, getEnvironmentVariables } from "@/renderer/lib/api";
 import { toastQueryError } from "@/renderer/utils/report-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Spinner } from "@/renderer/components/ui/spinner";
+import { ControlButton } from "./ControlButton";
+import { TestSequenceContainer } from "@/renderer/types/test-sequencer";
+import { Badge } from "@/renderer/components/ui/badge";
+
+const getIntegrity = (sequences: TestSequenceContainer[]): boolean => {
+  let integrity = true;
+  sequences.forEach((seq) => {
+    integrity = integrity && seq.runable;
+  });
+  return integrity;
+}
+
 
 export function CloudPanel() {
   const queryClient = useQueryClient();
-  const [hardwareId, setHardwareId] = useState("");
+  const [serialNumber, setSerialNumber] = useState("");
+  const [lotNumber, setLotNumber] = useState("");
   const [projectId, setProjectId] = useState("");
-  const { tree, setIsLocked } = useTestSequencerState();
+  const [partNumber, setPartNumber ] = useState("");
+  const { tree, setIsLocked, sequences } = useTestSequencerState();
   const { tSSendJsonMessage } = useTestSequencerWS();
 
   const envsQuery = useQuery({
@@ -62,6 +76,9 @@ export function CloudPanel() {
     enabled: envsQuery.isSuccess,
   });
 
+  // Todo: part query base on the project id
+  const dummyPartQuery = ["part1", "part2", "part3"];
+
   const { isEnvVarModalOpen, setIsEnvVarModalOpen } = useAppStore(
     useShallow((state) => ({
       isEnvVarModalOpen: state.isEnvVarModalOpen,
@@ -75,12 +92,16 @@ export function CloudPanel() {
   }, [isEnvVarModalOpen]);
 
   const handleExport = () => {
-    tSSendJsonMessage(testSequenceExportCloud(tree, hardwareId, projectId));
+    tSSendJsonMessage(testSequenceExportCloud(tree, serialNumber, projectId));
     setIsLocked(true);
   };
 
   if (!envsQuery.isSuccess || !projectsQuery.isSuccess) {
-    return <Spinner />;
+    return (
+      <div className="grid grid-cols-1 gap-4 place-items-center pt-5">
+        <Spinner />
+      </div>
+    );
   }
 
   const isCloudKeySet = envsQuery.data.some(
@@ -89,38 +110,89 @@ export function CloudPanel() {
 
   if (!isCloudKeySet) {
     return (
-      <Button onClick={() => setIsEnvVarModalOpen(true)} className="w-full">
+      <Button onClick={() => setIsEnvVarModalOpen(true)} className="w-full mt-5">
         Connect to Flojoy Cloud
       </Button>
     );
   }
 
   return (
-    <div className="min-w-[240px] rounded-xl border border-gray-300 p-4 py-4 dark:border-gray-800">
+    <div className="mt-4">
       <div className="flex flex-col">
-        <h2 className="mb-2 pt-3 text-center text-lg font-bold text-accent1 ">
-          Cloud Panel
+
+        <h2 className="mb-2 text-lg font-bold text-accent1 ">
+          Unit Under Test
+        </h2>
+        
+        <div className="flex">
+
+          <div className="flex-grow">
+            <div className="pb-1 pt-2 text-xs text-muted-foreground">
+              <p>Serial Number</p>
+            </div>
+            <Input
+              className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
+              type="text"
+              value={serialNumber}
+              onChange={(e) => setSerialNumber(e.target.value)}
+              placeholder="SN-0001"
+              autoFocus
+            />
+          </div>
+
+          <div className="ml-2 flex-none w-1/3">
+            <div className="pb-1 pt-2 text-xs text-muted-foreground">
+              <p>Lot Number</p>
+            </div>
+            <Input
+              className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
+              type="text"
+              value={lotNumber}
+              onChange={(e) => setLotNumber(e.target.value)}
+              placeholder="L-001"
+              autoFocus
+            />
+          </div>
+
+        </div>
+
+
+        <div className="pb-1 pt-2 text-xs text-muted-foreground">
+          <p>Part Number</p>
+        </div>
+        <Select onValueChange={setPartNumber}>
+          <SelectTrigger>
+            <SelectValue placeholder={"Select a part..."} />
+          </SelectTrigger>
+          <SelectContent className="max-h-72">
+            {dummyPartQuery.map((part) => (
+              <SelectItem key={part} value={part}>
+                {part}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <div className="pt-2 text-xs text-muted-foreground">
+          <p>Description: Actuator 62mm </p>
+          <p>Product: Arm-Link 6</p>
+        </div>
+
+        <ControlButton /> 
+
+        <hr className="mt-4"/>
+        
+        <h2 className="my-2 text-lg font-bold text-accent1 ">
+          Test Environment
         </h2>
 
-        <div className="pb-1 text-muted-foreground">
-          <h2>Hardware id</h2>
-        </div>
-        <Input
-          className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
-          type="text"
-          value={hardwareId}
-          onChange={(e) => setHardwareId(e.target.value)}
-          placeholder="Scan or enter hardware id"
-          autoFocus
-        />
-
-        <div className="pb-1 pt-2 text-muted-foreground">
-          <h2>Project</h2>
+        <div className="pb-1 text-xs text-muted-foreground">
+          <p>Test Station</p>
         </div>
 
         <Select onValueChange={setProjectId}>
           <SelectTrigger>
-            <SelectValue placeholder={"Select a project..."} />
+            <SelectValue placeholder={"Select a test JIG..."} />
           </SelectTrigger>
           <SelectContent className="max-h-72">
             {projectsQuery.data.length === 0 && (
@@ -130,7 +202,7 @@ export function CloudPanel() {
                   onClick={() => projectsQuery.refetch()}
                   variant={"ghost"}
                 >
-                  Refresh project list
+                  Refresh part list
                 </Button>
               </div>
             )}
@@ -141,14 +213,17 @@ export function CloudPanel() {
             ))}
           </SelectContent>
         </Select>
-        <div>
-          <LockableButton
-            isLocked={hardwareId === "" || projectId === ""}
-            className="mt-4 w-full"
-            onClick={handleExport}
-          >
-            Upload Test Results
-          </LockableButton>
+
+        <div className="mt-2 grid grid-cols-2 grid-flow-row gap-1 text-xs text-muted-foreground">
+          <p>Station: ID-12345678 </p>
+          <p>Test JIG P/N: PN-0123456</p>
+          <p>Test JIG SN: SN-0123456</p>
+          <p>Operator: John Doe</p>
+          <p> Sequencer: TSW-0.3.0 </p>
+          <p> Integrity: {getIntegrity(sequences) ? 
+            <Badge className="h-4 bg-green-500">Pass</Badge> : 
+            <Badge className="h-4 bg-red-500">Fail</Badge>}
+          </p>
         </div>
       </div>
     </div>

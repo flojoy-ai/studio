@@ -45,6 +45,8 @@ export const API = {
   poetryUninstallDepGroup: "POETRY_UNINSTALL_DEP_GROUP",
   poetryInstallRequirementsUserGroup: "POETRY_INSTALL_REQUIREMENTS_USER_GROUP",
   openFilePicker: "OPEN_FILE_PICKER",
+  openFilesPicker: "OPEN_FILES_PICKER",
+  openAllFilesInFolderPicker: "OPEN_ALL_FILES_IN_FOLDER_PICKER",
   getFileContent: "GET_FILE_CONTENT",
   isFileOnDisk: "IS_FILE_ON_DISK",
   openEditorWindow: "OPEN_EDITOR_WINDOW",
@@ -136,6 +138,19 @@ export default {
     allowedExtensions: string[] = ["json"],
   ): Promise<{ filePath: string; fileContent: string } | undefined> =>
     ipcRenderer.invoke(API.openFilePicker, allowedExtensions),
+
+  openFilesPicker: (
+    allowedExtensions: string[] = ["json"],
+    title: string = "Select Files",
+  ): Promise<{ filePath: string; fileContent: string }[] | undefined> =>
+    ipcRenderer.invoke(API.openFilesPicker, allowedExtensions, title),
+
+  openAllFilesInFolderPicker: (
+    allowedExtensions: string[] = ["json"],
+    title: string = "Select Folder",
+  ): Promise<{ filePath: string; fileContent: string }[] | undefined> =>
+    ipcRenderer.invoke(API.openAllFilesInFolderPicker, allowedExtensions, title),
+
 
   getFileContent: (filepath: string): Promise<string> =>
     ipcRenderer.invoke(API.getFileContent, filepath),

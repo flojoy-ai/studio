@@ -21,10 +21,19 @@ class TestTypes(str, Enum):
     matlab = "matlab"
 
 
+class ResultTypes(str, Enum):
+    pass_ = "pass"
+    fail = "fail"
+    aborted = "aborted"
+
+
 class StatusTypes(str, Enum):
     pending = "pending"
-    pass_ = "pass"
-    failed = "failed"
+    running = "running"
+    paused = "paused"
+    pass_ = ResultTypes.pass_.value
+    fail = ResultTypes.fail.value
+    aborted = ResultTypes.aborted.value
 
 
 class MsgState(str, Enum):
@@ -33,13 +42,14 @@ class MsgState(str, Enum):
     running = "running"
     test_done = "test_done"
     error = "error"
+    paused = "paused"
     test_set_done = "test_set_done"
 
 
 class BackendMsg(BaseModel):
     state: MsgState = Field(..., alias="state")
     target_id: str = Field(..., alias="targetId")
-    result: bool = Field(..., alias="result")
+    status: str = Field(..., alias="status")
     time_taken: float = Field(..., alias="timeTaken")
     is_saved_to_cloud: bool = Field(..., alias="isSavedToCloud")
     error: Optional[str] = Field(None, alias="error")
@@ -119,7 +129,7 @@ class TestDiscoverContainer(BaseModel):
     response: List[TestDiscoveryResponse] = Field(..., alias="response")
 
 
-TestSequenceEvents = Literal["run", "stop", "subscribe", "export"]
+TestSequenceEvents = Literal["run", "stop", "subscribe", "export", "pause", "resume"]
 
 
 class TestData(BaseModel):

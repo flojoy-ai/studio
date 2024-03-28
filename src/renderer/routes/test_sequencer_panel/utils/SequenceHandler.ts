@@ -1,11 +1,10 @@
 // Exposed function in this file should alway follow the following pattern:
-// Take the project as an Input.
-//   1. Always valide the state of the proejct
+// Take the sequence as an Input.
+//   1. Always valide the state of the sequence
 //   2. Do the operation
 //   3. Update the test sequencer
 //   4. Return a Result<T, Error>
-// Note: All path in a project should be using '/' for cross-platform compatibility
-
+// Note: All path in a sequence should be using '/' for cross-platform compatibility
 // Note: Toast.promise doesn't work with neverthrow -----
 export type Result<T, E = Error> =
   | { ok: true; value: T }
@@ -20,10 +19,11 @@ export function Err<T, E>(error: E): Result<T, E> {
 // End of note ------------------------------------------
 
 import {
-  readJsonProject,
-  stringifyProject,
+  readJsonSequence,
+  stringifySequence,
 } from "@/renderer/routes/test_sequencer_panel/utils/TestSetUtils";
 import {
+  TestSequenceContainer,
   TestSequenceElement,
   TestSequencerProject,
 } from "@/renderer/types/test-sequencer";
@@ -31,34 +31,33 @@ import { createNewTest } from "@/renderer/hooks/useTestSequencerState";
 
 // Exposed API
 export type StateManager = {
-  elem: TestSequenceElement[];
-  setElems: (elems: TestSequenceElement[]) => void;
+  elems: TestSequenceElement[];
+  addNewSequence: (project: TestSequencerProject, elements: TestSequenceElement[]) => void;
+  removeSequence: (name: string) => void;
   project: TestSequencerProject | null;
-  setProject: (project: TestSequencerProject | null) => void;
-  setUnsaved: (unsaved: boolean) => void;
+  sequences: TestSequenceContainer[];
 };
 
-export async function createProject(
-  project: TestSequencerProject,
+export async function createSequence(
+  sequence: TestSequencerProject,
   stateManager: StateManager,
   throwInsteadOfResult: boolean = false,
 ): Promise<Result<null, Error>> {
   // Create a new project from the element currently in the test sequencer
   // - Will valide that each element is in the base folder
   try {
-    const elems = stateManager.elem;
-    project = validatePath(project);
-    console.log(project);
-    project = updateProjectElements(
-      project,
-      await createProjectElementsFromTestSequencerElements(
+    const elems = stateManager.elems;
+    sequence = validatePath(sequence);
+    sequence = updateSequenceElement(
+      sequence,
+      await createExportableSequenceElementsFromTestSequencerElements(
         elems,
-        project.projectPath,
+        sequence.projectPath,
         true,
       ),
     );
-    await saveToDisk(project);
-    await syncProject(project, stateManager);
+    await saveToDisk(sequence);
+    await syncSequence(sequence, stateManager);
     return Ok(null);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
@@ -66,28 +65,28 @@ export async function createProject(
   }
 }
 
-export async function saveProject(
+export async function saveSequence(
   stateManager: StateManager,
   throwInsteadOfResult: boolean = false,
 ): Promise<Result<null, Error>> {
-  // Save the current project to disk
+  // Save the current sequence to disk
   try {
-    let project = stateManager.project;
-    if (project === null) {
-      throw new Error("No project to save");
+    let sequence = stateManager.project;
+    if (sequence === null) {
+      throw new Error("No sequence to save");
     }
-    const elems = stateManager.elem;
-    project = validatePath(project);
-    project = updateProjectElements(
-      project,
-      await createProjectElementsFromTestSequencerElements(
+    const elems = stateManager.elems;
+    sequence = validatePath(sequence);
+    sequence = updateSequenceElement(
+      sequence,
+      await createExportableSequenceElementsFromTestSequencerElements(
         elems,
-        project.projectPath,
+        sequence.projectPath,
         true,
       ),
     );
-    await saveToDisk(project);
-    await syncProject(project, stateManager);
+    await saveToDisk(sequence);
+    await syncSequence(sequence, stateManager);
     return Ok(null);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
@@ -95,26 +94,61 @@ export async function saveProject(
   }
 }
 
-export async function importProject(
+export async function saveSequences(
+  stateManager: StateManager,
+  throwInsteadOfResult: boolean = false,
+): Promise<Result<null, Error>> {
+  // Save the current sequence to disk
+  try {
+    let containers = stateManager.sequences;
+    if (containers.length === 0) {
+      throw new Error("No sequences to save");
+    }
+    containers.forEach(async (ctn) => {
+      const elems = ctn.elements; 
+      let sequence = ctn.project;
+      sequence = validatePath(sequence);
+      sequence = updateSequenceElement(
+        sequence,
+        await createExportableSequenceElementsFromTestSequencerElements(
+          elems,
+          sequence.projectPath,
+          true,
+        ),
+      );
+      await saveToDisk(sequence);
+    });
+    return Ok(null);
+  } catch (e: unknown) {
+    if (throwInsteadOfResult) throw e;
+    return buildResultFromCatch(e);
+  }
+}
+
+
+export async function importSequence(
   filePath: string,
   fileContent: string,
   stateManager: StateManager,
   throwInsteadOfResult: boolean = false,
+  skipImportDeps: boolean = false,
 ): Promise<Result<null, Error>> {
-  // From a file, import a project and update the test sequencer
-  // * Importing a project overwrites the current project, even the test sequencer is unsaved
+  // From a file, import a sequence and update the test sequencer
+  // * Importing a sequence overwrites the current sequence, even the test sequencer is unsaved
   try {
-    let project = readJsonProject(fileContent);
-    if (!project) {
-      throw new Error("Error reading project file");
+    let sequence = readJsonSequence(fileContent);
+    if (!sequence) {
+      throw new Error("Error reading sequence file");
     }
-    const projectPath = filePath.replaceAll(project.name + ".tjoy", "");
-    project = updatePath(project, projectPath);
-    const success = await installDeps(project);
-    if (!success) {
-      throw Error("Error installing dependencies");
+    const sequencePath = filePath.replaceAll(sequence.name + ".tjoy", "");
+    sequence = updatePath(sequence, sequencePath);
+    if (!skipImportDeps) {
+      const success = await installDeps(sequence);
+      if (!success) {
+        throw Error("Not able to installing dependencies");
+      }
     }
-    await syncProject(project, stateManager);
+    await syncSequence(sequence, stateManager);
     return Ok(null);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
@@ -122,33 +156,35 @@ export async function importProject(
   }
 }
 
-export async function exportProject(
+export async function exportSequence(
   stateManager: StateManager,
   throwInsteadOfResult: boolean = false,
 ): Promise<Result<null, Error>> {
-  // Export the current project as a zip file without any dependencies
-  await saveProject(stateManager);
+  // Export the current sequence as a zip file without any dependencies
+  await saveSequence(stateManager);
   const error = new Error("Export Not Implemented");
   if (throwInsteadOfResult) throw error;
   return Err(error);
 }
 
-export async function closeProject(
+export async function closeSequence(
   stateManager: StateManager,
 ): Promise<Result<null, Error>> {
-  // Close the current proejct from the app. The project is NOT deleted from disk
-  stateManager.setProject(null);
+  // Close the current proejct from the app. The sequence is NOT deleted from disk
+  if (stateManager.project !== null) {
+    stateManager.removeSequence(stateManager.project.name);
+  }
   return Ok(null);
 }
 
-export async function verifyElementCompatibleWithProject(
-  project: TestSequencerProject,
+export async function verifyElementCompatibleWithSequence(
+  sequence: TestSequencerProject,
   elements: TestSequenceElement[],
   throwInsteadOfResult: boolean = false,
 ): Promise<Result<null, Error>> {
-  // Verify that the elements are within the current project directory.
+  // Verify that the elements are within the current sequence directory.
   try {
-    await throwIfNotInAllBaseFolder(elements, project.projectPath);
+    await throwIfNotInAllBaseFolder(elements, sequence.projectPath);
     return Ok(null);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
@@ -162,56 +198,56 @@ function buildResultFromCatch(e: unknown): Result<null, Error> {
   if (e instanceof Error) {
     return Err(e);
   } else {
-    console.error("[SaveProject] Unknown error", e);
-    return Err(new Error("Unknown error while creating the project"));
+    console.error("[Save Sequence] Unknown error", e);
+    return Err(new Error("Unknown error while creating the sequence."));
   }
 }
 
-function validatePath(project: TestSequencerProject): TestSequencerProject {
-  let path = project.projectPath;
+function validatePath(sequence: TestSequencerProject): TestSequencerProject {
+  let path = sequence.projectPath;
   if (!path.endsWith("/")) {
     path = path + "/";
   }
-  return updatePath(project, path);
+  return updatePath(sequence, path);
 }
 
 function updatePath(
-  project: TestSequencerProject,
+  sequence: TestSequencerProject,
   newPath: string,
 ): TestSequencerProject {
   return {
-    ...project,
+    ...sequence,
     projectPath: newPath,
   };
 }
 
-async function saveToDisk(project: TestSequencerProject): Promise<void> {
+async function saveToDisk(sequence: TestSequencerProject): Promise<void> {
   if ("api" in window) {
     // Deps
-    if (project.interpreter.requirementsPath) {
+    if (sequence.interpreter.requirementsPath) {
       const deps = await window.api.poetryShowUserGroup();
       const content = deps
         .map((dep) => dep.name + "==" + dep.version)
         .join("\n");
       await window.api.saveToFile(
-        project.projectPath + project.interpreter.requirementsPath,
+        sequence.projectPath + sequence.interpreter.requirementsPath,
         content,
       );
     }
-    // Project
+    // Sequence
     await window.api.saveToFile(
-      project.projectPath + project.name + ".tjoy",
-      stringifyProject(project),
+      sequence.projectPath + sequence.name + ".tjoy",
+      stringifySequence(sequence),
     );
   } else {
     throw new Error("Not able to save to disk");
   }
 }
 
-async function installDeps(project: TestSequencerProject): Promise<boolean> {
+async function installDeps(sequence: TestSequencerProject): Promise<boolean> {
   if ("api" in window) {
     const succes = await window.api.poetryInstallRequirementsUserGroup(
-      project.projectPath + project.interpreter.requirementsPath,
+      sequence.projectPath + sequence.interpreter.requirementsPath,
     );
     return succes;
   } else {
@@ -219,21 +255,30 @@ async function installDeps(project: TestSequencerProject): Promise<boolean> {
   }
 }
 
-async function syncProject(
-  project: TestSequencerProject,
+async function syncSequence(
+  sequence: TestSequencerProject,
   stateManager: StateManager,
 ): Promise<void> {
-  const elements = await createTestSequencerElementsFromProjectElements(
-    project,
-    project.projectPath,
+  const elements = await createTestSequencerElementsFromSequenceElements(
+    sequence,
+    sequence.projectPath,
     false,
   );
-  stateManager.setElems(elements);
-  stateManager.setProject(project);
-  stateManager.setUnsaved(false);
+  stateManager.addNewSequence(sequence, elements);
 }
 
-async function createProjectElementsFromTestSequencerElements(
+function removeBaseFolderFromName(name: string, baseFolder: string): string {
+  if (name.startsWith(baseFolder)) {
+    return name.replace(baseFolder, "");
+  }
+  // Pytest have only part of the "path" in the name
+  const splitName = name.split("/");
+  const splitBase = new Set(baseFolder.split("/"));
+  const filtered = splitName.filter((el) => !splitBase.has(el));
+  return filtered.join("/");
+}
+
+async function createExportableSequenceElementsFromTestSequencerElements(
   elems: TestSequenceElement[],
   baseFolder: string,
   verifStateOrThrow: boolean,
@@ -244,7 +289,7 @@ async function createProjectElementsFromTestSequencerElements(
   const elements = [...elems].map((elem) => {
     return elem.type === "test"
       ? createNewTest(
-          elem.path.replaceAll(baseFolder, ""),
+          removeBaseFolderFromName(elem.testName, baseFolder),
           elem.path.replaceAll(baseFolder, ""),
           elem.testType,
           elem.exportToCloud,
@@ -259,15 +304,15 @@ async function createProjectElementsFromTestSequencerElements(
   return elements;
 }
 
-async function createTestSequencerElementsFromProjectElements(
-  project: TestSequencerProject,
+async function createTestSequencerElementsFromSequenceElements(
+  sequence: TestSequencerProject,
   baseFolder: string,
   verifStateOrThrow: boolean,
 ): Promise<TestSequenceElement[]> {
-  const elements: TestSequenceElement[] = [...project.elems].map((elem) => {
+  const elements: TestSequenceElement[] = [...sequence.elems].map((elem) => {
     return elem.type === "test"
       ? createNewTest(
-          elem.testName,
+          removeBaseFolderFromName(elem.testName, baseFolder),
           baseFolder + elem.path,
           elem.testType,
           elem.exportToCloud,
@@ -278,6 +323,7 @@ async function createTestSequencerElementsFromProjectElements(
           ...elem,
         };
   });
+  sequence.elems = elements;
   if (verifStateOrThrow) {
     await throwIfNotInAllBaseFolder(elements, baseFolder);
   }
@@ -320,12 +366,12 @@ async function throwIfNotInAllBaseFolder(
   }
 }
 
-function updateProjectElements(
-  project: TestSequencerProject,
+function updateSequenceElement(
+  sequence: TestSequencerProject,
   elements: TestSequenceElement[],
 ): TestSequencerProject {
   return {
-    ...project,
+    ...sequence,
     elems: elements,
   };
 }

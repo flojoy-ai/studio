@@ -58,11 +58,10 @@ const Header = () => {
       {tabs.map((t) => (
         <HeaderTab
           to={t.to}
-          testId={t.testId}
           key={t.fullText}
           tabName={t.fullText}
         >
-          <div className="hidden sm:block">{t.fullText}</div>
+          <div data-testid={t.testId} className="hidden sm:block">{t.fullText}</div>
           <div className="sm:hidden">{t.shortText}</div>
         </HeaderTab>
       ))}
