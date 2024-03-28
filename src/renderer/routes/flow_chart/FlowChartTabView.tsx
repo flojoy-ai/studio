@@ -15,6 +15,8 @@ import {
   applyNodeChanges,
   OnConnect,
   NodeMouseHandler,
+  BackgroundVariant,
+  Background,
 } from "reactflow";
 import Sidebar from "@/renderer/routes/common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
@@ -438,6 +440,7 @@ const FlowChartTab = () => {
             onNodeContextMenu={onNodeContextMenu}
             onPaneClick={onPaneClick}
           >
+            <Background color="#a6a6a6" variant={BackgroundVariant.Dots} />
             <MiniMap
               className="!bottom-1 !bg-background"
               nodeColor={

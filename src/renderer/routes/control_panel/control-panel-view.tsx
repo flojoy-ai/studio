@@ -11,6 +11,8 @@ import ReactFlow, {
   ReactFlowProvider,
   Node,
   applyNodeChanges,
+  Background,
+  BackgroundVariant,
 } from "reactflow";
 import ControlTextNode from "@/renderer/components/controls/control-text-node";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
@@ -208,7 +210,7 @@ const ControlPanelView = () => {
           position: "absolute",
           top: `calc(${LAYOUT_TOP_HEIGHT + ACTIONS_HEIGHT}px + 30px)`,
           right: "50px",
-          zIndex: 1000,
+          zIndex: 10,
         }}
       >
         <FlowControlButtons />
@@ -296,6 +298,7 @@ const ControlPanelView = () => {
           onPaneClick={onPaneClick}
           onNodeContextMenu={onNodeContextMenu}
         >
+          <Background color="#a6a6a6" variant={BackgroundVariant.Dots} />
           <Controls
             fitViewOptions={{ padding: 0.8 }}
             className="!bottom-1 !shadow-control"

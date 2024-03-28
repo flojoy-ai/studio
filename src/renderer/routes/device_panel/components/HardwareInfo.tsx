@@ -80,6 +80,8 @@ export const HardwareInfo = () => {
 
   // Driver Dependent Devices
   const niDevices = devices.nidaqmxDevices.concat(devices.nidmmDevices);
+  const allTurnOff = deviceSettings.niDAQmxDeviceDiscovery.value === false && nidmmDeviceDiscovery.value === false;
+
 
   const driverDependentDevices: DeviceCardProps[] | undefined =
     niDevices.length > 0
@@ -110,15 +112,15 @@ export const HardwareInfo = () => {
       <div className="py-6" />
       <DeviceSection title="Connected via USB" devices={serialDevices} />
       <div className="py-6" />
-      <DeviceSection title="Connected via Internet" devices={visaDevices} />
+      <DeviceSection title="Connected via Ethernet" devices={visaDevices} />
       <div className="py-6" />
       <DeviceSection
         title="Connected via External Software"
         devices={driverDependentDevices}
       />
-      {driverDependentDevices === undefined && (
+      {allTurnOff === true && (
         <h5 className="mb-2 pt-2 text-xs text-accent5">
-          To enable driver-dependent discovery, see: Settings → Device Settings
+          Currently Disabled, Settings → Device Settings
         </h5>
       )}
     </div>
