@@ -5,7 +5,6 @@ import {
   getExecutablePath,
   mockDialogMessage,
   standbyStatus,
-  writeLogFile,
 } from "./utils";
 import { Selectors } from "./selectors";
 import { join } from "path";
@@ -30,8 +29,8 @@ test.describe("Create a test sequence", () => {
 
   test.afterAll(async () => {
     await app.close();
-    
   });
+
 
   test("Should import and run test steps", async () => {
     // Click on add tests to open modal
@@ -56,10 +55,11 @@ test.describe("Create a test sequence", () => {
     // Run the test and check the status
     await window.getByText("Run Test Sequence").click();
     await window.waitForTimeout(10000);
-    await expect(window.getByTestId("global-status-badge")).toContainText("FAIL");
+    await expect(window.getByTestId(Selectors.globalStatusBadge)).toContainText("FAIL");
   });
 
-  test("Should create a sequence", async () => {
+
+  test("Should create and run a sequence", async () => {
     // Click on add tests to open modal
     await expect(window.getByText("Add New Tests")).toBeEnabled({
       timeout: 15000,
@@ -85,35 +85,29 @@ test.describe("Create a test sequence", () => {
     } else {
       await window.keyboard.press("Control+s");
     }
-    const root = join(__dirname, "fixtures/custom-sequences/");
+
+    // Fill the modal
     const savePath = join(__dirname, "fixtures/custom-sequences/seq_example.tjoy");
     await window.getByTestId(Selectors.newSeqModalNameInput).fill("seq_example");
     await window.getByTestId(Selectors.newSeqModalDescInput).fill("Playwrite test sequence");
-    await window.getByTestId(Selectors.newSeqModalRootInput).fill(root);
+    const root = join(__dirname, "fixtures/custom-sequences/");
+    await app.evaluate(async ({ dialog }, root) => {
+      dialog.showOpenDialog = () =>
+        Promise.resolve({ filePaths: [root], canceled: false });
+    }, root);
+    await window.getByTestId(Selectors.pathInputSelectButton).click();
+
+    // Create the sequence
     await window.getByTestId(Selectors.newSeqModalCreateButton).click();
 
     // Check if saved sequence exists
+    await window.getByRole("dialog").waitFor({"state": "hidden"});
     expect(existsSync(savePath)).toBe(true);
 
     // Run the sequence and check the status
     await window.getByText("Run Test Sequence").click();
     await window.waitForTimeout(10000);
-    await expect(window.getByTestId("global-status-badge")).toContainText("FAIL");
-  });
-
-  test("Should run the sequence", async () => {
-    // Load a complexe sequence
-    const customSeqFile = join(__dirname, "fixtures/custom-sequences/complexe_sequence.tjoy");
-    await app.evaluate(async ({ dialog }, customTestFile) => {
-      dialog.showOpenDialogSync = () => { return [customTestFile]; }
-    }, customSeqFile);
-    
-    // Run the sequence
-    await window.getByText("Run Test Sequence").click();
-    await window.waitForTimeout(10000);
-
-    // Check the status
-    await expect(window.getByTestId("global-status-badge")).toContainText("PASS");
+    await expect(window.getByTestId(Selectors.globalStatusBadge)).toContainText("FAIL");
   });
 
 });

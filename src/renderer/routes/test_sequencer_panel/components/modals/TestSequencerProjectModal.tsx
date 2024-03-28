@@ -63,7 +63,6 @@ export const TestSequencerProjectModal = () => {
         />
         <PathInput
           placeholder="Root Directory"
-          data-testid="new-seq-modal-root-import"
           allowedExtention={["tjoy"]}
           onChange={(event) => {
             setProjectDirPath(event.target.value);

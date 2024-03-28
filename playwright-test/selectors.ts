@@ -44,6 +44,6 @@ export enum Selectors {
   globalStatusBadge = "global-status-badge",
   newSeqModalNameInput = "new-seq-modal-name-input",
   newSeqModalDescInput = "new-seq-modal-desc-input",
-  newSeqModalRootInput = "new-seq-modal-root-import",
   newSeqModalCreateButton = "new-seq-modal-create-btn",
+  pathInputSelectButton = "path-input-select-button",
 }
