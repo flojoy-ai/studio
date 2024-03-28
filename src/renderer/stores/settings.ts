@@ -44,8 +44,14 @@ const frontendSettings = {
   fitViewOnResize: {
     type: "boolean",
     title: "Fit view on resize",
-    desc: "Center the view of the flow chart automatically when the window is resized",
+    desc: "Center the view of the flowchart automatically when the window is resized",
     value: true,
+  },
+  watchMode: {
+    type: "boolean",
+    title: "Watch Mode",
+    desc: "Automatically re-run the flowchart when any param changes",
+    value: false,
   },
 } satisfies Record<string, Setting>;
 

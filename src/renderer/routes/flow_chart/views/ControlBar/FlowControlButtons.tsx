@@ -1,8 +1,6 @@
 import { Ban, Play } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
-// import { sendProgramToMix } from "@/renderer/services/MixpanelServices";
 import { ServerStatus } from "@/renderer/types/socket";
-import WatchBtn from "./WatchBtn";
 import useKeyboardShortcut from "@/renderer/hooks/useKeyboardShortcut";
 import { useManifest } from "@/renderer/stores/manifest";
 import _ from "lodash";
@@ -13,6 +11,7 @@ import { useShallow } from "zustand/react/shallow";
 import { useSettingsStore } from "@/renderer/stores/settings";
 import { runFlowchart, cancelFlowchartRun } from "@/renderer/lib/api";
 import { useSocketStore } from "@/renderer/stores/socket";
+import { useEffect } from "react";
 
 const FlowControlButtons = () => {
   const { socketId, serverStatus } = useSocketStore((state) => ({
@@ -20,7 +19,13 @@ const FlowControlButtons = () => {
     serverStatus: state.serverStatus,
   }));
 
+  const nodeParamChanged = useFlowchartStore(
+    useShallow((state) => state.nodeParamChanged),
+  );
+
   const backendSettings = useSettingsStore((state) => state.backend);
+  const { watchMode } = useSettingsStore((state) => state.frontend);
+  // const watch = watchMode.value;
 
   const resetNodeParamChanged = useFlowchartStore(
     useShallow((state) => state.resetNodeParamChanged),
@@ -53,7 +58,6 @@ const FlowControlButtons = () => {
     }
 
     // sendProgramToMix(nodes, true, false);
-
     (
       await runFlowchart({
         nodes,
@@ -70,45 +74,46 @@ const FlowControlButtons = () => {
     );
   };
 
+  // useEffect(() => {
+  //   if (watch && nodeParamChanged) {
+  //     cancelFlowchartRun(socketId);
+  //     onRun();
+  //   }
+  // }, [nodeParamChanged, watch]);
+
+
   useKeyboardShortcut("ctrl", "p", onRun);
   useKeyboardShortcut("meta", "p", onRun);
 
   return (
     <>
-      <div className="flex">
-      {playBtnDisabled || serverStatus === ServerStatus.STANDBY ? (
-        <Button
-          data-cy="btn-play"
-          data-testid="btn-play"
-          variant="dotted"
-          id="btn-play"
-          onClick={onRun}
-          disabled={nodes.length === 0 || !manifest}
-          className="w-28 gap-2"
-        >
-          <Play size={18} />
-          Play
-        </Button>
-      ) : (
-        <Button
-          data-testid="btn-cancel"
-          data-cy="btn-cancel"
-          id="btn-cancel"
-          onClick={() => cancelFlowchartRun(socketId)}
-          className="w-28 gap-2"
-          variant="dotted"
-        >
-          <Ban size={18} />
-          Cancel
-        </Button>
-      )}
-
-      { /*
-          TODO PUT THAT IN THE SETTTTIIIINNNGGGGGG  - DON'T FORGET
-      <div className="px-0.5 ml-4" />
-      <WatchBtn playFC={onRun} cancelFC={() => cancelFlowchartRun(socketId)} />
-      <div className="px-0.5" />
-        */ }
+      <div>
+        {playBtnDisabled || serverStatus === ServerStatus.STANDBY ? (
+          <Button
+            data-cy="btn-play"
+            data-testid="btn-play"
+            variant="dotted"
+            id="btn-play"
+            onClick={onRun}
+            disabled={nodes.length === 0 || !manifest}
+            className="w-28 gap-2"
+          >
+            <Play size={18} />
+            Play
+          </Button>
+        ) : (
+          <Button
+            data-testid="btn-cancel"
+            data-cy="btn-cancel"
+            id="btn-cancel"
+            onClick={() => cancelFlowchartRun(socketId)}
+            className="w-28 gap-2"
+            variant="dotted"
+          >
+            <Ban size={18} />
+            Cancel
+          </Button>
+        )}
       </div>
     </>
   );
