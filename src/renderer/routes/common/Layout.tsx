@@ -13,7 +13,9 @@ const SERVER_STATUS_HEIGHT = 32;
 export const BOTTOM_STATUS_BAR_HEIGHT = 64;
 
 export const LAYOUT_TOP_HEIGHT =
-  HEADER_HEIGHT + ACTIONS_HEIGHT + SERVER_STATUS_HEIGHT;
+  HEADER_HEIGHT + ACTIONS_HEIGHT;
+
+export const LAYOUT_TOP_HEIGHT_FLOWCHART = LAYOUT_TOP_HEIGHT + SERVER_STATUS_HEIGHT + 32; 
 
 export const Layout = () => {
   const serverStatus = useSocketStore((state) => state.serverStatus);
@@ -34,34 +36,7 @@ export const Layout = () => {
 
   return (
     <div>
-      <div className="relative bg-background px-8 pb-2">
-        {(activeTab === "Visual Python Script" ||
-          activeTab === "Control Panel") && (
-          <div className="absolute left-10 top-1.5 flex items-center gap-x-1 rounded-md p-1">
-            <Input
-              className={
-                "h-6 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap border-muted/60 text-sm focus:border-muted-foreground focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 sm:w-48"
-              }
-              value={projectName}
-              onChange={(e) => setProjectName(e.target.value)}
-              placeholder="Untitled project"
-            />
-            {hasUnsavedChanges && (
-              <div className=" h-2 w-2 rounded-full bg-foreground/50" />
-            )}
-          </div>
-        )}
-        <div
-          data-cy="app-status"
-          id="app-status"
-          className="flex items-center justify-center text-sm"
-          style={{
-            height: SERVER_STATUS_HEIGHT,
-          }}
-        >
-          <code>{serverStatus}</code>
-        </div>
-        <div />
+      <div className="relative bg-background px-8 py-2">
         <Header />
       </div>
       <main

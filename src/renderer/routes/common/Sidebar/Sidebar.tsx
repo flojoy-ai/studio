@@ -4,7 +4,7 @@ import { memo, useEffect, useRef, useState } from "react";
 
 import { Leaf, RootNode } from "@/renderer/types/manifest";
 import SidebarNode from "./SidebarNode";
-import { LAYOUT_TOP_HEIGHT } from "@/renderer/routes/common/Layout";
+import { LAYOUT_TOP_HEIGHT, LAYOUT_TOP_HEIGHT_FLOWCHART } from "@/renderer/routes/common/Layout";
 import { ArrowDownWideNarrow, ArrowUpWideNarrow, XIcon } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
 import { cn } from "@/renderer/lib/utils";
@@ -83,8 +83,8 @@ const Sidebar = ({
     <div
       data-testid="sidebar"
       style={{
-        top: LAYOUT_TOP_HEIGHT,
-        height: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)`,
+        top: LAYOUT_TOP_HEIGHT_FLOWCHART ,
+        height: `calc(100vh - ${LAYOUT_TOP_HEIGHT_FLOWCHART }px)`,
       }}
       className={cn(
         "absolute bottom-0 z-50 flex flex-col overflow-hidden bg-modal p-6 sm:w-96",

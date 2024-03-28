@@ -83,9 +83,6 @@ const ControlBar = () => {
         setOpen={setIsFeedbackModalOpen}
       />
 
-      {(activeTab === "Visual Python Script" ||
-        activeTab === "Control Panel") && <FlowControlButtons />}
-
       <div className="flex">
         <Menubar>
           <MenubarMenu>

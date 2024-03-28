@@ -20,7 +20,7 @@ import {
 } from "@/renderer/stores/project";
 import { Button } from "@/renderer/components/ui/button";
 import { ClearCanvasBtn } from "@/renderer/routes/flow_chart/components/ClearCanvasBtn";
-import { Text } from "lucide-react";
+import { Binary, Text } from "lucide-react";
 import { useCallback, useRef, useState } from "react";
 import { NewWidgetModal } from "./components/new-widget-modal";
 import VisualizationNode from "@/renderer/components/controls/visualization-node";
@@ -45,6 +45,9 @@ import { calculateContextMenuOffset } from "@/renderer/utils/context-menu";
 import { toast } from "sonner";
 import { useContextMenu } from "@/renderer/hooks/useContextMenu";
 import { deepMutableClone } from "@/renderer/utils/clone";
+import { Link } from "react-router-dom";
+import { useSocketStore } from "@/renderer/stores/socket";
+import FlowControlButtons from "../flow_chart/views/ControlBar/FlowControlButtons";
 
 const nodeTypes = {
   TextNode: ControlTextNode,
@@ -195,8 +198,21 @@ const ControlPanelView = () => {
       }
     : undefined;
 
+  const serverStatus = useSocketStore((state) => state.serverStatus);
+
   return (
     <ReactFlowProvider>
+      <div
+        style={{ 
+          height: ACTIONS_HEIGHT,
+          position: "absolute",
+          top: `calc(${LAYOUT_TOP_HEIGHT + ACTIONS_HEIGHT}px + 30px)`,
+          right: "50px",
+          zIndex: 1000,
+        }}
+      >
+        <FlowControlButtons />
+      </div>
       <ConfigDialog
         initialValues={widgetConfig.current}
         open={widgetConfigOpen}
@@ -229,9 +245,29 @@ const ControlPanelView = () => {
             <Text size={20} className="stroke-muted-foreground" />
             Add Text
           </Button>
-
-          <div className="grow" />
           <ClearCanvasBtn clearCanvas={clearCanvas} />
+          <div className="grow" />
+          <div
+            data-cy="app-status"
+            id="app-status"
+            className="flex items-center justify-center text-sm mr-5"
+          >
+            <code>{serverStatus}</code>
+          </div>
+
+          <Link
+            to="/flowchart"
+            data-cy="script-btn"
+          >
+            <Button
+              data-testid="add-text-button"
+              className="gap-2 w-40"
+              variant="ghost"
+            >
+              <Binary size={20} className="stroke-muted-foreground" />
+              Editor View
+            </Button>
+          </Link>
         </div>
         <div className="py-1" />
       </div>

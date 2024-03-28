@@ -108,12 +108,12 @@ export const HardwareInfo = () => {
       <div className="py-3" />
       <DeviceSection title="Cameras" devices={cameras} />
       <div className="py-6" />
-      <DeviceSection title="Serial" devices={serialDevices} />
+      <DeviceSection title="Connected via USB" devices={serialDevices} />
       <div className="py-6" />
-      <DeviceSection title="VISA" devices={visaDevices} />
+      <DeviceSection title="Connected via Internet" devices={visaDevices} />
       <div className="py-6" />
       <DeviceSection
-        title="Driver-Dependent Devices"
+        title="Connected via External Software"
         devices={driverDependentDevices}
       />
       {driverDependentDevices === undefined && (

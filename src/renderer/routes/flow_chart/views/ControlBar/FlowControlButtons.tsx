@@ -75,6 +75,7 @@ const FlowControlButtons = () => {
 
   return (
     <>
+      <div className="flex">
       {playBtnDisabled || serverStatus === ServerStatus.STANDBY ? (
         <Button
           data-cy="btn-play"
@@ -102,9 +103,13 @@ const FlowControlButtons = () => {
         </Button>
       )}
 
-      <div className="px-0.5" />
+      { /*
+          TODO PUT THAT IN THE SETTTTIIIINNNGGGGGG  - DON'T FORGET
+      <div className="px-0.5 ml-4" />
       <WatchBtn playFC={onRun} cancelFC={() => cancelFlowchartRun(socketId)} />
       <div className="px-0.5" />
+        */ }
+      </div>
     </>
   );
 };

@@ -26,7 +26,7 @@ import {
 } from "@/renderer/routes/common/Layout";
 import { CenterObserver } from "./components/CenterObserver";
 import { Separator } from "@/renderer/components/ui/separator";
-import { Pencil, Text, Workflow, X } from "lucide-react";
+import { Joystick, Pencil, Text, Workflow, X } from "lucide-react";
 import { GalleryModal } from "@/renderer/components/gallery/GalleryModal";
 import { useTheme } from "@/renderer/providers/theme-provider";
 import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
@@ -72,6 +72,8 @@ import CustomEdge from "./components/custom-edge";
 import { useSocketStore } from "@/renderer/stores/socket";
 import { calculateContextMenuOffset } from "@/renderer/utils/context-menu";
 import { useContextMenu } from "@/renderer/hooks/useContextMenu";
+import { Link } from "react-router-dom";
+import FlowControlButtons from "./views/ControlBar/FlowControlButtons";
 
 const edgeTypes = {
   default: CustomEdge,
@@ -264,10 +266,22 @@ const FlowChartTab = () => {
   );
 
   const addBlockReady = manifest !== undefined;
+  const serverStatus = useSocketStore((state) => state.serverStatus);
 
   return (
     <>
       <ReactFlowProvider>
+        <div
+          style={{ 
+            height: ACTIONS_HEIGHT,
+            position: "absolute",
+            top: `calc(${LAYOUT_TOP_HEIGHT + ACTIONS_HEIGHT}px + 30px)`,
+            right: "50px",
+            zIndex: 10,
+          }}
+        >
+          <FlowControlButtons />
+        </div>
         <div className="mx-8 border-b" style={{ height: ACTIONS_HEIGHT }}>
           <div className="py-1" />
           <div className="flex">
@@ -314,7 +328,7 @@ const FlowChartTab = () => {
               isGalleryOpen={isGalleryOpen}
               setIsGalleryOpen={setIsGalleryOpen}
             />
-            <div className="grow" />
+            <ClearCanvasBtn clearCanvas={clearCanvas} />
             {selectedNode && (
               <>
                 {!isEditMode ? (
@@ -339,7 +353,28 @@ const FlowChartTab = () => {
                 )}
               </>
             )}
-            <ClearCanvasBtn clearCanvas={clearCanvas} />
+            <div className="grow" />
+            <div
+              data-cy="app-status"
+              id="app-status"
+              className="flex items-center justify-center text-sm mr-5"
+            >
+              <code>{serverStatus}</code>
+            </div>
+
+            <Link
+              to="/control"
+              data-cy="control-btn"
+            >
+              <Button
+                data-testid="add-text-button"
+                className="gap-2 w-40"
+                variant="ghost"
+              >
+                <Joystick size={20} className="stroke-muted-foreground" />
+                Control View
+              </Button>
+            </Link>
           </div>
           <div className="py-1" />
           <Separator />
