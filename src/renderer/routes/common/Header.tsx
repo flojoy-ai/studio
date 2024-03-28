@@ -24,12 +24,6 @@ const tabs: Tab[] = [
     shortText: "Sequencer",
     testId: "test-sequencer-btn",
   },
-  // {                                                                           
-  //   to: "/control",
-  //   fullText: "Control Panel",
-  //   shortText: "Control",
-  //   testId: "control-btn",
-  // }, 
   {
     to: "/devices",
     fullText: "Device Manager",
