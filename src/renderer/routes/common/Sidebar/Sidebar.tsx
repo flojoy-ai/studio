@@ -84,26 +84,19 @@ const Sidebar = ({
       data-testid="sidebar"
       style={{
         top: LAYOUT_TOP_HEIGHT_FLOWCHART ,
-        height: `calc(100vh - ${LAYOUT_TOP_HEIGHT_FLOWCHART }px)`,
+        height: `calc(100vh - ${LAYOUT_TOP_HEIGHT_FLOWCHART}px)`,
       }}
       className={cn(
-        "absolute bottom-0 z-50 flex flex-col overflow-hidden bg-modal p-6 sm:w-96",
+        "absolute bottom-0 z-50 flex flex-col overflow-hidden bg-modal pl-6 pt-4 sm:w-96",
         isSideBarOpen ? "left-0 duration-500" : "-left-full duration-300",
       )}
     >
       <div className="absolute right-2 top-2">
-        <div
-          className="cursor-pointer rounded-xl p-1 transition duration-200 hover:bg-muted"
-          data-testid="sidebar-close"
-          onClick={() => setSideBarStatus(false)}
-        >
-          <XIcon size={20} className="stroke-muted-foreground" />
-        </div>
       </div>
       <div>
         <div
           className={cn(
-            "mt-4 flex w-[316px] items-center rounded-sm bg-background pl-2 focus:ring-2 focus:ring-accent1 focus-visible:ring-2 focus-visible:ring-accent1",
+            "flex mr-7 items-center rounded-sm bg-background pl-2 focus:ring-2 focus:ring-accent1 focus-visible:ring-2 focus-visible:ring-accent1",
             { "ring-2 ring-accent1": searchFocused },
           )}
         >
@@ -121,7 +114,6 @@ const Sidebar = ({
             onBlur={() => setSearchFocused(false)}
           />
         </div>
-        <div className="py-1" />
         <div className="flex items-end">
           <a
             href={env.VITE_REQUEST_BLOCK_URL}
@@ -148,10 +140,17 @@ const Sidebar = ({
             <button
               data-testid="sidebar-collapse-btn"
               onClick={() => setCollapse(!collapse)}
-              className="text-gray-300 duration-200 hover:text-muted-foreground"
+              className="ml-2 text-gray-300 duration-200 hover:text-muted-foreground"
             >
               <ArrowUpWideNarrow />
             </button>
+          </div>
+          <div
+            className="ml-2 cursor-pointer rounded-xl mb-2.5 mr-8 transition duration-200 hover:text-muted-foreground"
+            data-testid="sidebar-close"
+            onClick={() => setSideBarStatus(false)}
+          >
+            <XIcon size={20} className="stroke-muted-foreground" />
           </div>
         </div>
       </div>
