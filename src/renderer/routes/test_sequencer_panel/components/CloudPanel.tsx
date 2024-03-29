@@ -110,7 +110,7 @@ export function CloudPanel() {
 
 
   return (
-    <div className="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg border bg-card text-card-foreground shadow-sm p-6 ml-5">
+    <div className="mt-5 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg border bg-card text-card-foreground shadow-sm p-6 ml-5">
       <h3 className="text-2xl font-semibold leading-none tracking-tight">Report</h3>
       <p className="text-sm text-muted-foreground mt-2">Automatically save the result to Flojoy Cloud</p>
       <div className="flex flex-col">

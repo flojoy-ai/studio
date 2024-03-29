@@ -21,17 +21,17 @@ const TestSequencerView = () => {
       <DesignBar />
       <div
         style={{
-          height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT + ACTIONS_HEIGHT}px - 30px)`,
+          height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT + ACTIONS_HEIGHT}px)`,
         }}
         className="overflow-y-auto"
       >
         <ModalsProvider />
         <div className="flex">
-          <div className="ml-auto mr-auto h-3/5 flex-grow flex-col overflow-y-auto mt-6">
+          <div className="ml-auto mr-auto h-3/5 flex-grow flex-col overflow-y-auto mt-7">
             <SequenceTable />
             <TestTable />
           </div>
-          <div className="flex-none gap-5" style={{ width: "28%" }} >
+          <div className="flex-none" style={{ width: "28%" }} >
             <ControlButton />
             <CloudPanel />
           </div>
