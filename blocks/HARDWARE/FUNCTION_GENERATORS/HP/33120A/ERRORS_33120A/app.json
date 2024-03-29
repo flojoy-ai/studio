@@ -1,496 +1,15 @@
 {
+    "name": "app",
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
-                "id": "AMPLITUDE_33120A-3ff24c94-d21f-4858-8d52-686301e63007",
-                "type": "HARDWARE",
+                "id": "OPEN_SERIAL-9fc37d7a-5184-4476-9488-68655f43ad75",
+                "type": "PROTOCOLS",
                 "data": {
-                    "id": "AMPLITUDE_33120A-3ff24c94-d21f-4858-8d52-686301e63007",
-                    "label": "AMPLITUDE 33120A",
-                    "func": "AMPLITUDE_33120A",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "SerialConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires a OPEN SERIAL node).",
-                            "overload": null,
-                            "functionName": "AMPLITUDE_33120A",
-                            "param": "connection",
-                            "value": "/dev/ttyUSB0"
-                        },
-                        "amplitude": {
-                            "type": "float",
-                            "default": 0.1,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "AMPLITUDE_33120A",
-                            "param": "amplitude",
-                            "value": 0.2
-                        },
-                        "options": {
-                            "type": "select",
-                            "options": [
-                                "min",
-                                "max",
-                                "input"
-                            ],
-                            "default": "input",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "AMPLITUDE_33120A",
-                            "param": "options",
-                            "value": "input"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "String: Summary of waveform generator settings."
-                        }
-                    ],
-                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/AMPLITUDE_33120A/AMPLITUDE_33120A.py"
-                },
-                "position": {
-                    "x": -320.6347371666098,
-                    "y": 76.9805002762858
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -320.6347371666098,
-                    "y": 76.9805002762858
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "FREQUENCY_33120A-756256f2-dcf9-4ce1-942e-8daf1093bcfa",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "FREQUENCY_33120A-756256f2-dcf9-4ce1-942e-8daf1093bcfa",
-                    "label": "FREQUENCY 33120A",
-                    "func": "FREQUENCY_33120A",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "SerialConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires a OPEN SERIAL node).",
-                            "overload": null,
-                            "functionName": "FREQUENCY_33120A",
-                            "param": "connection",
-                            "value": "/dev/ttyUSB0"
-                        },
-                        "frequency": {
-                            "type": "float",
-                            "default": 0.1,
-                            "desc": "The frequency of the output waveform.",
-                            "overload": null,
-                            "functionName": "FREQUENCY_33120A",
-                            "param": "frequency",
-                            "value": 20000
-                        },
-                        "options": {
-                            "type": "select",
-                            "options": [
-                                "min",
-                                "max",
-                                "input"
-                            ],
-                            "default": "input",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "FREQUENCY_33120A",
-                            "param": "options",
-                            "value": "input"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "String: Summary of waveform generator settings."
-                        }
-                    ],
-                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/FREQUENCY_33120A/FREQUENCY_33120A.py"
-                },
-                "position": {
-                    "x": -302.7584505702139,
-                    "y": -368.96269847635415
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -302.7584505702139,
-                    "y": -368.96269847635415
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "FUNCTION_33120A-abbea89a-9e8c-43a1-b19c-238d9bfd7de2",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "FUNCTION_33120A-abbea89a-9e8c-43a1-b19c-238d9bfd7de2",
-                    "label": "FUNCTION 33120A",
-                    "func": "FUNCTION_33120A",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "SerialConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires a OPEN SERIAL node).",
-                            "overload": null,
-                            "functionName": "FUNCTION_33120A",
-                            "param": "connection",
-                            "value": "/dev/ttyUSB0"
-                        },
-                        "waveform": {
-                            "type": "select",
-                            "options": [
-                                "sin",
-                                "square",
-                                "triangle",
-                                "ramp",
-                                "noise",
-                                "DC"
-                            ],
-                            "default": "sin",
-                            "desc": "The type of function to use.",
-                            "overload": null,
-                            "functionName": "FUNCTION_33120A",
-                            "param": "waveform",
-                            "value": "square"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "String: Summary of waveform generator settings."
-                        }
-                    ],
-                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/FUNCTION_33120A/FUNCTION_33120A.py"
-                },
-                "position": {
-                    "x": -574.804597070195,
-                    "y": -43.09187105800669
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -574.804597070195,
-                    "y": -43.09187105800669
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "OFFSET_33120A-17c17763-74e6-442c-a99e-df22bc5d55a9",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "OFFSET_33120A-17c17763-74e6-442c-a99e-df22bc5d55a9",
-                    "label": "OFFSET 33120A",
-                    "func": "OFFSET_33120A",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "SerialConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires a OPEN SERIAL node).",
-                            "overload": null,
-                            "functionName": "OFFSET_33120A",
-                            "param": "connection",
-                            "value": "/dev/ttyUSB0"
-                        },
-                        "offset": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "The offset of the output waveform, in volts.",
-                            "overload": null,
-                            "functionName": "OFFSET_33120A",
-                            "param": "offset",
-                            "value": 0.15
-                        },
-                        "options": {
-                            "type": "select",
-                            "options": [
-                                "min",
-                                "max",
-                                "input"
-                            ],
-                            "default": "input",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "OFFSET_33120A",
-                            "param": "options",
-                            "value": "input"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "String: Summary of waveform generator settings."
-                        }
-                    ],
-                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/OFFSET_33120A/OFFSET_33120A.py"
-                },
-                "position": {
-                    "x": -322.66776101948153,
-                    "y": 302.6940698386591
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -322.66776101948153,
-                    "y": 302.6940698386591
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "RECALL_33120A-018e6159-53e2-4370-b296-406c6a3ef9ba",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "RECALL_33120A-018e6159-53e2-4370-b296-406c6a3ef9ba",
-                    "label": "RECALL 33120A",
-                    "func": "RECALL_33120A",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "SerialConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires a OPEN SERIAL node).",
-                            "overload": null,
-                            "functionName": "RECALL_33120A",
-                            "param": "connection",
-                            "value": "/dev/ttyUSB0"
-                        },
-                        "state": {
-                            "type": "select",
-                            "options": [
-                                "0",
-                                "1",
-                                "2",
-                                "3"
-                            ],
-                            "default": "1",
-                            "desc": "The state to recall.",
-                            "overload": null,
-                            "functionName": "RECALL_33120A",
-                            "param": "state",
-                            "value": "1"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "String: Summary of waveform generator settings."
-                        }
-                    ],
-                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/RECALL_33120A/RECALL_33120A.py"
-                },
-                "position": {
-                    "x": 219.88379598617064,
-                    "y": -41.53801331123651
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 219.88379598617064,
-                    "y": -41.53801331123651
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "RESET_33120A-45dfe70e-519b-417d-85a8-364397154c08",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "RESET_33120A-45dfe70e-519b-417d-85a8-364397154c08",
-                    "label": "RESET 33120A",
-                    "func": "RESET_33120A",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "SerialConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires a OPEN SERIAL node).",
-                            "overload": null,
-                            "functionName": "RESET_33120A",
-                            "param": "connection",
-                            "value": "/dev/ttyUSB0"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "String: Summary of waveform generator settings."
-                        }
-                    ],
-                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/RESET_33120A/RESET_33120A.py"
-                },
-                "position": {
-                    "x": -1320.7494740080376,
-                    "y": 69.02098899526396
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -1320.7494740080376,
-                    "y": 69.02098899526396
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "SAVE_33120A-5a1196ea-9224-4628-af5b-2539f650b07a",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "SAVE_33120A-5a1196ea-9224-4628-af5b-2539f650b07a",
-                    "label": "SAVE 33120A",
-                    "func": "SAVE_33120A",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "SerialConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires a OPEN SERIAL node).",
-                            "overload": null,
-                            "functionName": "SAVE_33120A",
-                            "param": "connection",
-                            "value": "/dev/ttyUSB0"
-                        },
-                        "state": {
-                            "type": "select",
-                            "options": [
-                                "0",
-                                "1",
-                                "2",
-                                "3"
-                            ],
-                            "default": "1",
-                            "desc": "The state to save.",
-                            "overload": null,
-                            "functionName": "SAVE_33120A",
-                            "param": "state",
-                            "value": "1"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "String: Summary of waveform generator settings."
-                        }
-                    ],
-                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/SAVE_33120A/SAVE_33120A.py"
-                },
-                "position": {
-                    "x": -9.166194954206333,
-                    "y": -44.27502086943298
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -9.166194954206333,
-                    "y": -44.27502086943298
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "OPEN_SERIAL-1ac321a2-39b7-48cc-8008-45c77ccb5636",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "OPEN_SERIAL-1ac321a2-39b7-48cc-8008-45c77ccb5636",
-                    "label": "OPEN SERIAL",
+                    "id": "OPEN_SERIAL-9fc37d7a-5184-4476-9488-68655f43ad75",
+                    "label": "OPEN SERIAL 1",
                     "func": "OPEN_SERIAL",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "device": {
                             "type": "SerialDevice",
@@ -499,7 +18,7 @@
                             "overload": null,
                             "functionName": "OPEN_SERIAL",
                             "param": "device",
-                            "value": "/dev/ttyUSB0"
+                            "value": ""
                         },
                         "baudrate": {
                             "type": "int",
@@ -538,26 +57,844 @@
                     "path": "HARDWARE/PROTOCOLS/SERIAL/OPEN_SERIAL/OPEN_SERIAL.py"
                 },
                 "position": {
-                    "x": -1594.296415979883,
-                    "y": -46.18484479263685
+                    "x": -1934.3343072107973,
+                    "y": -95.89131273358907
                 },
+                "width": 216,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -1594.296415979883,
-                    "y": -46.18484479263685
+                    "x": -1934.3343072107973,
+                    "y": -95.89131273358907
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
-                "id": "ERRORS_33120A-bdf0da6a-4b96-44c3-a84d-db9135c5c21e",
-                "type": "HARDWARE",
+                "id": "CLEAR_BUFFER_33120A-5597e606-3e39-49da-a669-9d70ba612c5b",
+                "type": "FUNCTION_GENERATORS",
                 "data": {
-                    "id": "ERRORS_33120A-bdf0da6a-4b96-44c3-a84d-db9135c5c21e",
-                    "label": "ERRORS 33120A",
+                    "id": "CLEAR_BUFFER_33120A-5597e606-3e39-49da-a669-9d70ba612c5b",
+                    "label": "CLEAR BUFFER 33120A 1",
+                    "func": "CLEAR_BUFFER_33120A",
+                    "type": "FUNCTION_GENERATORS",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires a OPEN SERIAL node).",
+                            "overload": null,
+                            "functionName": "CLEAR_BUFFER_33120A",
+                            "param": "connection",
+                            "value": ""
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Summary of waveform generator settings."
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/CLEAR_BUFFER_33120A/CLEAR_BUFFER_33120A.py"
+                },
+                "position": {
+                    "x": -1562.3580948086412,
+                    "y": -291.04387237033575
+                },
+                "width": 216,
+                "height": 269,
+                "selected": false,
+                "dragging": false,
+                "positionAbsolute": {
+                    "x": -1562.3580948086412,
+                    "y": -291.04387237033575
+                }
+            },
+            {
+                "id": "RESET_33120A-8f6e84f6-5165-446a-a67b-27b0fbbdb201",
+                "type": "FUNCTION_GENERATORS",
+                "data": {
+                    "id": "RESET_33120A-8f6e84f6-5165-446a-a67b-27b0fbbdb201",
+                    "label": "RESET 33120A 1",
+                    "func": "RESET_33120A",
+                    "type": "FUNCTION_GENERATORS",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires a OPEN SERIAL node).",
+                            "overload": null,
+                            "functionName": "RESET_33120A",
+                            "param": "connection",
+                            "value": ""
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Summary of waveform generator settings."
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/RESET_33120A/RESET_33120A.py"
+                },
+                "position": {
+                    "x": -1553.4882385125293,
+                    "y": 107.92413195673919
+                },
+                "width": 216,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -1553.4882385125293,
+                    "y": 107.92413195673919
+                },
+                "dragging": false
+            },
+            {
+                "id": "IMPEDANCE_33120A-d2794905-d600-4dff-b4f5-da3dcdc64ded",
+                "type": "FUNCTION_GENERATORS",
+                "data": {
+                    "id": "IMPEDANCE_33120A-d2794905-d600-4dff-b4f5-da3dcdc64ded",
+                    "label": "IMPEDANCE 33120A 1",
+                    "func": "IMPEDANCE_33120A",
+                    "type": "FUNCTION_GENERATORS",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires a OPEN SERIAL node).",
+                            "overload": null,
+                            "functionName": "IMPEDANCE_33120A",
+                            "param": "connection",
+                            "value": ""
+                        },
+                        "impedance": {
+                            "type": "select",
+                            "default": "50",
+                            "options": [
+                                "50",
+                                "max"
+                            ],
+                            "desc": "Use 50 or HighZ (1M) Ohms as the impedance/termination.",
+                            "overload": null,
+                            "functionName": "IMPEDANCE_33120A",
+                            "param": "impedance",
+                            "value": "50"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Summary of waveform generator settings."
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/IMPEDANCE_33120A/IMPEDANCE_33120A.py"
+                },
+                "position": {
+                    "x": -1242.931192044746,
+                    "y": -86.2506204727332
+                },
+                "width": 216,
+                "height": 233,
+                "selected": false,
+                "dragging": false,
+                "positionAbsolute": {
+                    "x": -1242.931192044746,
+                    "y": -86.2506204727332
+                }
+            },
+            {
+                "id": "TRIGGER_33120A-0ca3f65f-879d-4cff-ba8f-7dc70eb8e20f",
+                "type": "FUNCTION_GENERATORS",
+                "data": {
+                    "id": "TRIGGER_33120A-0ca3f65f-879d-4cff-ba8f-7dc70eb8e20f",
+                    "label": "TRIGGER 33120A 1",
+                    "func": "TRIGGER_33120A",
+                    "type": "FUNCTION_GENERATORS",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires a OPEN SERIAL node).",
+                            "overload": null,
+                            "functionName": "TRIGGER_33120A",
+                            "param": "connection",
+                            "value": ""
+                        },
+                        "source": {
+                            "type": "select",
+                            "default": "immediate",
+                            "options": [
+                                "immediate",
+                                "external",
+                                "bus"
+                            ],
+                            "desc": "The source to use for triggering.",
+                            "overload": null,
+                            "functionName": "TRIGGER_33120A",
+                            "param": "source",
+                            "value": "immediate"
+                        },
+                        "slope": {
+                            "type": "select",
+                            "default": "positive",
+                            "options": [
+                                "positive",
+                                "negative"
+                            ],
+                            "desc": "Trigger on positive or negative slopes.",
+                            "overload": null,
+                            "functionName": "TRIGGER_33120A",
+                            "param": "slope",
+                            "value": "positive"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Summary of waveform generator settings."
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/TRIGGER_33120A/TRIGGER_33120A.py"
+                },
+                "position": {
+                    "x": -889.3949701254423,
+                    "y": -339.461640051543
+                },
+                "width": 216,
+                "height": 233,
+                "selected": false,
+                "dragging": false,
+                "positionAbsolute": {
+                    "x": -889.3949701254423,
+                    "y": -339.461640051543
+                }
+            },
+            {
+                "id": "VOLT_UNIT_33120A-b254bcf5-f294-442e-b9f6-1b36e2dc70f9",
+                "type": "FUNCTION_GENERATORS",
+                "data": {
+                    "id": "VOLT_UNIT_33120A-b254bcf5-f294-442e-b9f6-1b36e2dc70f9",
+                    "label": "VOLT UNIT 33120A 1",
+                    "func": "VOLT_UNIT_33120A",
+                    "type": "FUNCTION_GENERATORS",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires a OPEN SERIAL node).",
+                            "overload": null,
+                            "functionName": "VOLT_UNIT_33120A",
+                            "param": "connection",
+                            "value": ""
+                        },
+                        "unit": {
+                            "type": "select",
+                            "default": "default",
+                            "options": [
+                                "VPP",
+                                "VRMS",
+                                "DBM",
+                                "default"
+                            ],
+                            "desc": "The type of amplitude unit to use.",
+                            "overload": null,
+                            "functionName": "VOLT_UNIT_33120A",
+                            "param": "unit",
+                            "value": "VPP"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Summary of waveform generator settings."
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/VOLT_UNIT_33120A/VOLT_UNIT_33120A.py"
+                },
+                "position": {
+                    "x": -876.3941284036591,
+                    "y": 118.18704521880477
+                },
+                "width": 216,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -876.3941284036591,
+                    "y": 118.18704521880477
+                },
+                "dragging": false
+            },
+            {
+                "id": "FUNCTION_33120A-72c9b47a-a1fd-4fee-904d-3aedb960444d",
+                "type": "FUNCTION_GENERATORS",
+                "data": {
+                    "id": "FUNCTION_33120A-72c9b47a-a1fd-4fee-904d-3aedb960444d",
+                    "label": "FUNCTION 33120A 1",
+                    "func": "FUNCTION_33120A",
+                    "type": "FUNCTION_GENERATORS",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires a OPEN SERIAL node).",
+                            "overload": null,
+                            "functionName": "FUNCTION_33120A",
+                            "param": "connection",
+                            "value": ""
+                        },
+                        "waveform": {
+                            "type": "select",
+                            "default": "sin",
+                            "options": [
+                                "sin",
+                                "square",
+                                "triangle",
+                                "ramp",
+                                "noise",
+                                "DC"
+                            ],
+                            "desc": "The type of function to use.",
+                            "overload": null,
+                            "functionName": "FUNCTION_33120A",
+                            "param": "waveform",
+                            "value": "square"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Summary of waveform generator settings."
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/FUNCTION_33120A/FUNCTION_33120A.py"
+                },
+                "position": {
+                    "x": -600.3787275902885,
+                    "y": -114.64069008779904
+                },
+                "width": 216,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -600.3787275902885,
+                    "y": -114.64069008779904
+                },
+                "dragging": false
+            },
+            {
+                "id": "FREQUENCY_33120A-54c1693d-3de0-4083-afb2-27ab5f32419b",
+                "type": "FUNCTION_GENERATORS",
+                "data": {
+                    "id": "FREQUENCY_33120A-54c1693d-3de0-4083-afb2-27ab5f32419b",
+                    "label": "FREQUENCY 33120A 1",
+                    "func": "FREQUENCY_33120A",
+                    "type": "FUNCTION_GENERATORS",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires a OPEN SERIAL node).",
+                            "overload": null,
+                            "functionName": "FREQUENCY_33120A",
+                            "param": "connection",
+                            "value": ""
+                        },
+                        "frequency": {
+                            "type": "float",
+                            "default": 0.1,
+                            "desc": "The frequency of the output waveform.",
+                            "overload": null,
+                            "functionName": "FREQUENCY_33120A",
+                            "param": "frequency",
+                            "value": 20000
+                        },
+                        "options": {
+                            "type": "select",
+                            "default": "input",
+                            "options": [
+                                "min",
+                                "max",
+                                "input"
+                            ],
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "FREQUENCY_33120A",
+                            "param": "options",
+                            "value": "input"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Summary of waveform generator settings."
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/FREQUENCY_33120A/FREQUENCY_33120A.py"
+                },
+                "position": {
+                    "x": -164.4133888536868,
+                    "y": 39.77115638779833
+                },
+                "width": 216,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -164.4133888536868,
+                    "y": 39.77115638779833
+                },
+                "dragging": false
+            },
+            {
+                "id": "DUTY_33120A-459b5893-0d6e-477d-8d3e-f1c6165a5c57",
+                "type": "FUNCTION_GENERATORS",
+                "data": {
+                    "id": "DUTY_33120A-459b5893-0d6e-477d-8d3e-f1c6165a5c57",
+                    "label": "DUTY 33120A 1",
+                    "func": "DUTY_33120A",
+                    "type": "FUNCTION_GENERATORS",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires a OPEN SERIAL node).",
+                            "overload": null,
+                            "functionName": "DUTY_33120A",
+                            "param": "connection",
+                            "value": ""
+                        },
+                        "duty": {
+                            "type": "int",
+                            "default": 50,
+                            "desc": "The duty for the square function, in percent.",
+                            "overload": null,
+                            "functionName": "DUTY_33120A",
+                            "param": "duty",
+                            "value": 60
+                        },
+                        "options": {
+                            "type": "select",
+                            "default": "input",
+                            "options": [
+                                "min",
+                                "max",
+                                "input"
+                            ],
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "DUTY_33120A",
+                            "param": "options",
+                            "value": "input"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Summary of waveform generator settings."
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/DUTY_33120A/DUTY_33120A.py"
+                },
+                "position": {
+                    "x": -200.45159058852164,
+                    "y": -520.9260532994304
+                },
+                "width": 216,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -200.45159058852164,
+                    "y": -520.9260532994304
+                },
+                "dragging": false
+            },
+            {
+                "id": "AMPLITUDE_33120A-045be7a0-9d80-4676-b643-120942bed392",
+                "type": "FUNCTION_GENERATORS",
+                "data": {
+                    "id": "AMPLITUDE_33120A-045be7a0-9d80-4676-b643-120942bed392",
+                    "label": "AMPLITUDE 33120A 1",
+                    "func": "AMPLITUDE_33120A",
+                    "type": "FUNCTION_GENERATORS",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires a OPEN SERIAL node).",
+                            "overload": null,
+                            "functionName": "AMPLITUDE_33120A",
+                            "param": "connection",
+                            "value": ""
+                        },
+                        "amplitude": {
+                            "type": "float",
+                            "default": 0.1,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "AMPLITUDE_33120A",
+                            "param": "amplitude",
+                            "value": 0.2
+                        },
+                        "options": {
+                            "type": "select",
+                            "default": "input",
+                            "options": [
+                                "min",
+                                "max",
+                                "input"
+                            ],
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "AMPLITUDE_33120A",
+                            "param": "options",
+                            "value": "input"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Summary of waveform generator settings."
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/AMPLITUDE_33120A/AMPLITUDE_33120A.py"
+                },
+                "position": {
+                    "x": -187.93194273087408,
+                    "y": -256.42206270370514
+                },
+                "width": 216,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -187.93194273087408,
+                    "y": -256.42206270370514
+                },
+                "dragging": false
+            },
+            {
+                "id": "OFFSET_33120A-aba2340c-e0b7-401b-ab1a-6773aee80da7",
+                "type": "FUNCTION_GENERATORS",
+                "data": {
+                    "id": "OFFSET_33120A-aba2340c-e0b7-401b-ab1a-6773aee80da7",
+                    "label": "OFFSET 33120A 1",
+                    "func": "OFFSET_33120A",
+                    "type": "FUNCTION_GENERATORS",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires a OPEN SERIAL node).",
+                            "overload": null,
+                            "functionName": "OFFSET_33120A",
+                            "param": "connection",
+                            "value": ""
+                        },
+                        "offset": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The offset of the output waveform, in volts.",
+                            "overload": null,
+                            "functionName": "OFFSET_33120A",
+                            "param": "offset",
+                            "value": 0.15
+                        },
+                        "options": {
+                            "type": "select",
+                            "default": "input",
+                            "options": [
+                                "min",
+                                "max",
+                                "input"
+                            ],
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "OFFSET_33120A",
+                            "param": "options",
+                            "value": "input"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Summary of waveform generator settings."
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/OFFSET_33120A/OFFSET_33120A.py"
+                },
+                "position": {
+                    "x": -174.9486216884091,
+                    "y": 311.77224063781784
+                },
+                "width": 216,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -174.9486216884091,
+                    "y": 311.77224063781784
+                },
+                "dragging": false
+            },
+            {
+                "id": "SAVE_33120A-30889302-e51c-49af-8840-d02b648dc905",
+                "type": "FUNCTION_GENERATORS",
+                "data": {
+                    "id": "SAVE_33120A-30889302-e51c-49af-8840-d02b648dc905",
+                    "label": "SAVE 33120A 1",
+                    "func": "SAVE_33120A",
+                    "type": "FUNCTION_GENERATORS",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires a OPEN SERIAL node).",
+                            "overload": null,
+                            "functionName": "SAVE_33120A",
+                            "param": "connection",
+                            "value": ""
+                        },
+                        "state": {
+                            "type": "select",
+                            "default": "1",
+                            "options": [
+                                "0",
+                                "1",
+                                "2",
+                                "3"
+                            ],
+                            "desc": "The state to save.",
+                            "overload": null,
+                            "functionName": "SAVE_33120A",
+                            "param": "state",
+                            "value": "1"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Summary of waveform generator settings."
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/SAVE_33120A/SAVE_33120A.py"
+                },
+                "position": {
+                    "x": 240.53096855231001,
+                    "y": -509.625833249303
+                },
+                "width": 216,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 240.53096855231001,
+                    "y": -509.625833249303
+                },
+                "dragging": false
+            },
+            {
+                "id": "RECALL_33120A-81ca0d82-ed80-4d39-8a4a-06dbb487474c",
+                "type": "FUNCTION_GENERATORS",
+                "data": {
+                    "id": "RECALL_33120A-81ca0d82-ed80-4d39-8a4a-06dbb487474c",
+                    "label": "RECALL 33120A 1",
+                    "func": "RECALL_33120A",
+                    "type": "FUNCTION_GENERATORS",
+                    "ctrls": {
+                        "connection": {
+                            "type": "SerialConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires a OPEN SERIAL node).",
+                            "overload": null,
+                            "functionName": "RECALL_33120A",
+                            "param": "connection",
+                            "value": ""
+                        },
+                        "state": {
+                            "type": "select",
+                            "default": "1",
+                            "options": [
+                                "0",
+                                "1",
+                                "2",
+                                "3"
+                            ],
+                            "desc": "The state to recall.",
+                            "overload": null,
+                            "functionName": "RECALL_33120A",
+                            "param": "state",
+                            "value": "1"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Summary of waveform generator settings."
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/RECALL_33120A/RECALL_33120A.py"
+                },
+                "position": {
+                    "x": 631.6530889367393,
+                    "y": -515.1337084820268
+                },
+                "width": 216,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 631.6530889367393,
+                    "y": -515.1337084820268
+                },
+                "dragging": false
+            },
+            {
+                "id": "ERRORS_33120A-20d7b85a-0996-48f1-931c-3d784901ad9f",
+                "type": "FUNCTION_GENERATORS",
+                "data": {
+                    "id": "ERRORS_33120A-20d7b85a-0996-48f1-931c-3d784901ad9f",
+                    "label": "ERRORS 33120A 1",
                     "func": "ERRORS_33120A",
-                    "type": "HARDWARE",
+                    "type": "FUNCTION_GENERATORS",
                     "ctrls": {
                         "connection": {
                             "type": "SerialConnection",
@@ -566,7 +903,7 @@
                             "overload": null,
                             "functionName": "ERRORS_33120A",
                             "param": "connection",
-                            "value": "/dev/ttyUSB0"
+                            "value": ""
                         },
                         "number": {
                             "type": "int",
@@ -580,7 +917,7 @@
                         "prologix": {
                             "type": "bool",
                             "default": false,
-                            "desc": null,
+                            "desc": "Is a Prologix GPIB adapter being used?",
                             "overload": null,
                             "functionName": "ERRORS_33120A",
                             "param": "prologix",
@@ -593,8 +930,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -608,24 +945,24 @@
                     "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/ERRORS_33120A/ERRORS_33120A.py"
                 },
                 "position": {
-                    "x": 448.86983221645653,
-                    "y": -43.76363233195087
+                    "x": 267.73998112991603,
+                    "y": 14.068163909978693
                 },
+                "width": 216,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 448.86983221645653,
-                    "y": -43.76363233195087
+                    "x": 267.73998112991603,
+                    "y": 14.068163909978693
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 346,
-                "height": 405,
-                "id": "TEXT_VIEW-bc1879ff-29b0-422c-b73a-5e58bf3ba614",
+                "id": "TEXT_VIEW-5a612d69-b86d-447c-87e6-ad96733a51cf",
                 "type": "VISUALIZATION",
                 "data": {
-                    "id": "TEXT_VIEW-bc1879ff-29b0-422c-b73a-5e58bf3ba614",
-                    "label": "TEXT VIEW",
+                    "id": "TEXT_VIEW-5a612d69-b86d-447c-87e6-ad96733a51cf",
+                    "label": "TEXT VIEW 1",
                     "func": "TEXT_VIEW",
                     "type": "VISUALIZATION",
                     "ctrls": {
@@ -645,8 +982,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "String|Boolean",
-                            "multiple": false,
-                            "desc": "The DataContainer to be visualized in text format"
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -660,501 +997,214 @@
                     "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
                 },
                 "position": {
-                    "x": 679.9578962718704,
-                    "y": -153.45834248894488
+                    "x": 754.6117960887098,
+                    "y": -17.58256214426592
                 },
-                "selected": true,
-                "positionAbsolute": {
-                    "x": 679.9578962718704,
-                    "y": -153.45834248894488
-                },
-                "dragging": true,
-                "style": {
-                    "width": 346,
-                    "height": 405
-                },
-                "resizing": false
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "DUTY_33120A-a079342d-b876-4ffc-9494-3cb180988960",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "DUTY_33120A-a079342d-b876-4ffc-9494-3cb180988960",
-                    "label": "DUTY 33120A",
-                    "func": "DUTY_33120A",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "SerialConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires a OPEN SERIAL node).",
-                            "overload": null,
-                            "functionName": "DUTY_33120A",
-                            "param": "connection",
-                            "value": "/dev/ttyUSB0"
-                        },
-                        "duty": {
-                            "type": "int",
-                            "default": 50,
-                            "desc": "The duty for the square function, in percent.",
-                            "overload": null,
-                            "functionName": "DUTY_33120A",
-                            "param": "duty",
-                            "value": 60
-                        },
-                        "options": {
-                            "type": "select",
-                            "options": [
-                                "min",
-                                "max",
-                                "input"
-                            ],
-                            "default": "input",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "DUTY_33120A",
-                            "param": "options",
-                            "value": "input"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "String: Summary of waveform generator settings."
-                        }
-                    ],
-                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/DUTY_33120A/DUTY_33120A.py"
-                },
-                "position": {
-                    "x": -307.7371758852563,
-                    "y": -141.07779375261765
-                },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -307.7371758852563,
-                    "y": -141.07779375261765
+                    "x": 754.6117960887098,
+                    "y": -17.58256214426592
                 },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "CLEAR_BUFFER_33120A-65dde127-57d3-418c-8a15-752005f3c1d0",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "CLEAR_BUFFER_33120A-65dde127-57d3-418c-8a15-752005f3c1d0",
-                    "label": "CLEAR BUFFER 33120A",
-                    "func": "CLEAR_BUFFER_33120A",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "SerialConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires a OPEN SERIAL node).",
-                            "overload": null,
-                            "functionName": "CLEAR_BUFFER_33120A",
-                            "param": "connection",
-                            "value": "/dev/ttyUSB0"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "String: Summary of waveform generator settings."
-                        }
-                    ],
-                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/CLEAR_BUFFER_33120A/CLEAR_BUFFER_33120A.py"
-                },
-                "position": {
-                    "x": -1310.7862174113604,
-                    "y": -162.543530282779
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -1310.7862174113604,
-                    "y": -162.543530282779
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "IMPEDANCE_33120A-1a424b2f-cf2e-4bdf-a22e-9928aefab3a3",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "IMPEDANCE_33120A-1a424b2f-cf2e-4bdf-a22e-9928aefab3a3",
-                    "label": "IMPEDANCE 33120A",
-                    "func": "IMPEDANCE_33120A",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "SerialConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires a OPEN SERIAL node).",
-                            "overload": null,
-                            "functionName": "IMPEDANCE_33120A",
-                            "param": "connection",
-                            "value": "/dev/ttyUSB0"
-                        },
-                        "impedance": {
-                            "type": "select",
-                            "options": [
-                                "50",
-                                "max"
-                            ],
-                            "default": "50",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "IMPEDANCE_33120A",
-                            "param": "impedance",
-                            "value": "50"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "String: Summary of waveform generator settings."
-                        }
-                    ],
-                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/IMPEDANCE_33120A/IMPEDANCE_33120A.py"
-                },
-                "position": {
-                    "x": -1062.3341553315845,
-                    "y": -47.20980699303601
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -1062.3341553315845,
-                    "y": -47.20980699303601
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "TRIGGER_33120A-1b8d2bb4-a713-4090-a0c6-2044e61f5616",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "TRIGGER_33120A-1b8d2bb4-a713-4090-a0c6-2044e61f5616",
-                    "label": "TRIGGER 33120A",
-                    "func": "TRIGGER_33120A",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "SerialConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires a OPEN SERIAL node).",
-                            "overload": null,
-                            "functionName": "TRIGGER_33120A",
-                            "param": "connection",
-                            "value": "/dev/ttyUSB0"
-                        },
-                        "source": {
-                            "type": "select",
-                            "options": [
-                                "immediate",
-                                "external",
-                                "bus"
-                            ],
-                            "default": "immediate",
-                            "desc": "The source to use for triggering.",
-                            "overload": null,
-                            "functionName": "TRIGGER_33120A",
-                            "param": "source",
-                            "value": "immediate"
-                        },
-                        "slope": {
-                            "type": "select",
-                            "options": [
-                                "positive",
-                                "negative"
-                            ],
-                            "default": "positive",
-                            "desc": "Trigger on positive or negative slopes.",
-                            "overload": null,
-                            "functionName": "TRIGGER_33120A",
-                            "param": "slope",
-                            "value": "positive"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "String: Summary of waveform generator settings."
-                        }
-                    ],
-                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/TRIGGER_33120A/TRIGGER_33120A.py"
-                },
-                "position": {
-                    "x": -805.1878225153748,
-                    "y": -158.67971641693447
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -805.1878225153748,
-                    "y": -158.67971641693447
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "VOLT_UNIT_33120A-09e7320d-72d5-4c9a-8024-8c7c516e12dd",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "VOLT_UNIT_33120A-09e7320d-72d5-4c9a-8024-8c7c516e12dd",
-                    "label": "VOLT UNIT 33120A",
-                    "func": "VOLT_UNIT_33120A",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "SerialConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires a OPEN SERIAL node).",
-                            "overload": null,
-                            "functionName": "VOLT_UNIT_33120A",
-                            "param": "connection",
-                            "value": "/dev/ttyUSB0"
-                        },
-                        "unit": {
-                            "type": "select",
-                            "options": [
-                                "VPP",
-                                "VRMS",
-                                "DBM",
-                                "default"
-                            ],
-                            "default": "default",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "VOLT_UNIT_33120A",
-                            "param": "unit",
-                            "value": "VPP"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "String: Summary of waveform generator settings."
-                        }
-                    ],
-                    "path": "HARDWARE/FUNCTION_GENERATORS/HP/33120A/VOLT_UNIT_33120A/VOLT_UNIT_33120A.py"
-                },
-                "position": {
-                    "x": -806.7166322729779,
-                    "y": 63.57752993923282
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -806.7166322729779,
-                    "y": 63.57752993923282
-                },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "FUNCTION_33120A-abbea89a-9e8c-43a1-b19c-238d9bfd7de2",
+                "id": "OPEN_SERIAL-9fc37d7a-5184-4476-9488-68655f43ad75->CLEAR_BUFFER_33120A-5597e606-3e39-49da-a669-9d70ba612c5b_ab907cb7-e295-4e4a-a4b9-4c5d390a5d83",
+                "source": "OPEN_SERIAL-9fc37d7a-5184-4476-9488-68655f43ad75",
+                "target": "CLEAR_BUFFER_33120A-5597e606-3e39-49da-a669-9d70ba612c5b",
                 "sourceHandle": "default",
-                "target": "AMPLITUDE_33120A-3ff24c94-d21f-4858-8d52-686301e63007",
                 "targetHandle": "default",
-                "id": "reactflow__edge-FUNCTION_33120A-abbea89a-9e8c-43a1-b19c-238d9bfd7de2default-AMPLITUDE_33120A-3ff24c94-d21f-4858-8d52-686301e63007default"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "FUNCTION_33120A-abbea89a-9e8c-43a1-b19c-238d9bfd7de2",
+                "id": "OPEN_SERIAL-9fc37d7a-5184-4476-9488-68655f43ad75->RESET_33120A-8f6e84f6-5165-446a-a67b-27b0fbbdb201_7ed6fb4b-7462-4a0a-b9fc-26cfa9834cd5",
+                "source": "OPEN_SERIAL-9fc37d7a-5184-4476-9488-68655f43ad75",
+                "target": "RESET_33120A-8f6e84f6-5165-446a-a67b-27b0fbbdb201",
                 "sourceHandle": "default",
-                "target": "FREQUENCY_33120A-756256f2-dcf9-4ce1-942e-8daf1093bcfa",
                 "targetHandle": "default",
-                "id": "reactflow__edge-FUNCTION_33120A-abbea89a-9e8c-43a1-b19c-238d9bfd7de2default-FREQUENCY_33120A-756256f2-dcf9-4ce1-942e-8daf1093bcfadefault"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "VOLT_UNIT_33120A-09e7320d-72d5-4c9a-8024-8c7c516e12dd",
+                "id": "CLEAR_BUFFER_33120A-5597e606-3e39-49da-a669-9d70ba612c5b->IMPEDANCE_33120A-d2794905-d600-4dff-b4f5-da3dcdc64ded_4d650866-5feb-4393-b681-cc90c5f022b2",
+                "source": "CLEAR_BUFFER_33120A-5597e606-3e39-49da-a669-9d70ba612c5b",
+                "target": "IMPEDANCE_33120A-d2794905-d600-4dff-b4f5-da3dcdc64ded",
                 "sourceHandle": "default",
-                "target": "FUNCTION_33120A-abbea89a-9e8c-43a1-b19c-238d9bfd7de2",
                 "targetHandle": "default",
-                "id": "reactflow__edge-VOLT_UNIT_33120A-09e7320d-72d5-4c9a-8024-8c7c516e12dddefault-FUNCTION_33120A-abbea89a-9e8c-43a1-b19c-238d9bfd7de2default"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "TRIGGER_33120A-1b8d2bb4-a713-4090-a0c6-2044e61f5616",
+                "id": "RESET_33120A-8f6e84f6-5165-446a-a67b-27b0fbbdb201->IMPEDANCE_33120A-d2794905-d600-4dff-b4f5-da3dcdc64ded_4452e369-520a-4590-b5d7-7765ebf8d2ef",
+                "source": "RESET_33120A-8f6e84f6-5165-446a-a67b-27b0fbbdb201",
+                "target": "IMPEDANCE_33120A-d2794905-d600-4dff-b4f5-da3dcdc64ded",
                 "sourceHandle": "default",
-                "target": "FUNCTION_33120A-abbea89a-9e8c-43a1-b19c-238d9bfd7de2",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TRIGGER_33120A-1b8d2bb4-a713-4090-a0c6-2044e61f5616default-FUNCTION_33120A-abbea89a-9e8c-43a1-b19c-238d9bfd7de2default"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "FUNCTION_33120A-abbea89a-9e8c-43a1-b19c-238d9bfd7de2",
+                "id": "IMPEDANCE_33120A-d2794905-d600-4dff-b4f5-da3dcdc64ded->TRIGGER_33120A-0ca3f65f-879d-4cff-ba8f-7dc70eb8e20f_0c610da2-55a3-4b4f-acd1-f834c84619a9",
+                "source": "IMPEDANCE_33120A-d2794905-d600-4dff-b4f5-da3dcdc64ded",
+                "target": "TRIGGER_33120A-0ca3f65f-879d-4cff-ba8f-7dc70eb8e20f",
                 "sourceHandle": "default",
-                "target": "OFFSET_33120A-17c17763-74e6-442c-a99e-df22bc5d55a9",
                 "targetHandle": "default",
-                "id": "reactflow__edge-FUNCTION_33120A-abbea89a-9e8c-43a1-b19c-238d9bfd7de2default-OFFSET_33120A-17c17763-74e6-442c-a99e-df22bc5d55a9default"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "SAVE_33120A-5a1196ea-9224-4628-af5b-2539f650b07a",
+                "id": "IMPEDANCE_33120A-d2794905-d600-4dff-b4f5-da3dcdc64ded->VOLT_UNIT_33120A-b254bcf5-f294-442e-b9f6-1b36e2dc70f9_f65d4d07-d5b9-4c49-95fa-54edee5650d9",
+                "source": "IMPEDANCE_33120A-d2794905-d600-4dff-b4f5-da3dcdc64ded",
+                "target": "VOLT_UNIT_33120A-b254bcf5-f294-442e-b9f6-1b36e2dc70f9",
                 "sourceHandle": "default",
-                "target": "RECALL_33120A-018e6159-53e2-4370-b296-406c6a3ef9ba",
                 "targetHandle": "default",
-                "id": "reactflow__edge-SAVE_33120A-5a1196ea-9224-4628-af5b-2539f650b07adefault-RECALL_33120A-018e6159-53e2-4370-b296-406c6a3ef9badefault"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "OPEN_SERIAL-1ac321a2-39b7-48cc-8008-45c77ccb5636",
+                "id": "TRIGGER_33120A-0ca3f65f-879d-4cff-ba8f-7dc70eb8e20f->FUNCTION_33120A-72c9b47a-a1fd-4fee-904d-3aedb960444d_9ce6a562-1420-4a5b-8780-bb02aef316bd",
+                "source": "TRIGGER_33120A-0ca3f65f-879d-4cff-ba8f-7dc70eb8e20f",
+                "target": "FUNCTION_33120A-72c9b47a-a1fd-4fee-904d-3aedb960444d",
                 "sourceHandle": "default",
-                "target": "RESET_33120A-45dfe70e-519b-417d-85a8-364397154c08",
                 "targetHandle": "default",
-                "id": "reactflow__edge-OPEN_SERIAL-1ac321a2-39b7-48cc-8008-45c77ccb5636default-RESET_33120A-45dfe70e-519b-417d-85a8-364397154c08default"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "FREQUENCY_33120A-756256f2-dcf9-4ce1-942e-8daf1093bcfa",
+                "id": "VOLT_UNIT_33120A-b254bcf5-f294-442e-b9f6-1b36e2dc70f9->FUNCTION_33120A-72c9b47a-a1fd-4fee-904d-3aedb960444d_a77ae940-a797-4410-a060-0012425ec19e",
+                "source": "VOLT_UNIT_33120A-b254bcf5-f294-442e-b9f6-1b36e2dc70f9",
+                "target": "FUNCTION_33120A-72c9b47a-a1fd-4fee-904d-3aedb960444d",
                 "sourceHandle": "default",
-                "target": "SAVE_33120A-5a1196ea-9224-4628-af5b-2539f650b07a",
                 "targetHandle": "default",
-                "id": "reactflow__edge-FREQUENCY_33120A-756256f2-dcf9-4ce1-942e-8daf1093bcfadefault-SAVE_33120A-5a1196ea-9224-4628-af5b-2539f650b07adefault"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "DUTY_33120A-a079342d-b876-4ffc-9494-3cb180988960",
+                "id": "FUNCTION_33120A-72c9b47a-a1fd-4fee-904d-3aedb960444d->FREQUENCY_33120A-54c1693d-3de0-4083-afb2-27ab5f32419b_67077cef-0525-4cd0-be54-53ec46fc6d10",
+                "source": "FUNCTION_33120A-72c9b47a-a1fd-4fee-904d-3aedb960444d",
+                "target": "FREQUENCY_33120A-54c1693d-3de0-4083-afb2-27ab5f32419b",
                 "sourceHandle": "default",
-                "target": "SAVE_33120A-5a1196ea-9224-4628-af5b-2539f650b07a",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DUTY_33120A-a079342d-b876-4ffc-9494-3cb180988960default-SAVE_33120A-5a1196ea-9224-4628-af5b-2539f650b07adefault"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "AMPLITUDE_33120A-3ff24c94-d21f-4858-8d52-686301e63007",
+                "id": "FUNCTION_33120A-72c9b47a-a1fd-4fee-904d-3aedb960444d->DUTY_33120A-459b5893-0d6e-477d-8d3e-f1c6165a5c57_6064ff74-faf0-4b07-90dd-89f745c18189",
+                "source": "FUNCTION_33120A-72c9b47a-a1fd-4fee-904d-3aedb960444d",
+                "target": "DUTY_33120A-459b5893-0d6e-477d-8d3e-f1c6165a5c57",
                 "sourceHandle": "default",
-                "target": "SAVE_33120A-5a1196ea-9224-4628-af5b-2539f650b07a",
                 "targetHandle": "default",
-                "id": "reactflow__edge-AMPLITUDE_33120A-3ff24c94-d21f-4858-8d52-686301e63007default-SAVE_33120A-5a1196ea-9224-4628-af5b-2539f650b07adefault"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "OFFSET_33120A-17c17763-74e6-442c-a99e-df22bc5d55a9",
+                "id": "FUNCTION_33120A-72c9b47a-a1fd-4fee-904d-3aedb960444d->AMPLITUDE_33120A-045be7a0-9d80-4676-b643-120942bed392_ad785538-1c31-4de8-97e6-c4bb45f5e88d",
+                "source": "FUNCTION_33120A-72c9b47a-a1fd-4fee-904d-3aedb960444d",
+                "target": "AMPLITUDE_33120A-045be7a0-9d80-4676-b643-120942bed392",
                 "sourceHandle": "default",
-                "target": "SAVE_33120A-5a1196ea-9224-4628-af5b-2539f650b07a",
                 "targetHandle": "default",
-                "id": "reactflow__edge-OFFSET_33120A-17c17763-74e6-442c-a99e-df22bc5d55a9default-SAVE_33120A-5a1196ea-9224-4628-af5b-2539f650b07adefault"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "RECALL_33120A-018e6159-53e2-4370-b296-406c6a3ef9ba",
+                "id": "FUNCTION_33120A-72c9b47a-a1fd-4fee-904d-3aedb960444d->OFFSET_33120A-aba2340c-e0b7-401b-ab1a-6773aee80da7_cd19d228-9489-457a-acbb-5a27e173b501",
+                "source": "FUNCTION_33120A-72c9b47a-a1fd-4fee-904d-3aedb960444d",
+                "target": "OFFSET_33120A-aba2340c-e0b7-401b-ab1a-6773aee80da7",
                 "sourceHandle": "default",
-                "target": "ERRORS_33120A-bdf0da6a-4b96-44c3-a84d-db9135c5c21e",
                 "targetHandle": "default",
-                "id": "reactflow__edge-RECALL_33120A-018e6159-53e2-4370-b296-406c6a3ef9badefault-ERRORS_33120A-bdf0da6a-4b96-44c3-a84d-db9135c5c21edefault"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "ERRORS_33120A-bdf0da6a-4b96-44c3-a84d-db9135c5c21e",
+                "id": "FREQUENCY_33120A-54c1693d-3de0-4083-afb2-27ab5f32419b->SAVE_33120A-30889302-e51c-49af-8840-d02b648dc905_dbd9ab71-8e63-4165-95eb-f156f7937718",
+                "source": "FREQUENCY_33120A-54c1693d-3de0-4083-afb2-27ab5f32419b",
+                "target": "SAVE_33120A-30889302-e51c-49af-8840-d02b648dc905",
                 "sourceHandle": "default",
-                "target": "TEXT_VIEW-bc1879ff-29b0-422c-b73a-5e58bf3ba614",
                 "targetHandle": "default",
-                "id": "reactflow__edge-ERRORS_33120A-bdf0da6a-4b96-44c3-a84d-db9135c5c21edefault-TEXT_VIEW-bc1879ff-29b0-422c-b73a-5e58bf3ba614default"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "FUNCTION_33120A-abbea89a-9e8c-43a1-b19c-238d9bfd7de2",
+                "id": "AMPLITUDE_33120A-045be7a0-9d80-4676-b643-120942bed392->SAVE_33120A-30889302-e51c-49af-8840-d02b648dc905_c0e274c1-412f-49c1-b936-d57227e2d6de",
+                "source": "AMPLITUDE_33120A-045be7a0-9d80-4676-b643-120942bed392",
+                "target": "SAVE_33120A-30889302-e51c-49af-8840-d02b648dc905",
                 "sourceHandle": "default",
-                "target": "DUTY_33120A-a079342d-b876-4ffc-9494-3cb180988960",
                 "targetHandle": "default",
-                "id": "reactflow__edge-FUNCTION_33120A-abbea89a-9e8c-43a1-b19c-238d9bfd7de2default-DUTY_33120A-a079342d-b876-4ffc-9494-3cb180988960default"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "OPEN_SERIAL-1ac321a2-39b7-48cc-8008-45c77ccb5636",
+                "id": "OFFSET_33120A-aba2340c-e0b7-401b-ab1a-6773aee80da7->SAVE_33120A-30889302-e51c-49af-8840-d02b648dc905_2f98cdca-1aa0-43bd-942b-c968bfbfca7b",
+                "source": "OFFSET_33120A-aba2340c-e0b7-401b-ab1a-6773aee80da7",
+                "target": "SAVE_33120A-30889302-e51c-49af-8840-d02b648dc905",
                 "sourceHandle": "default",
-                "target": "CLEAR_BUFFER_33120A-65dde127-57d3-418c-8a15-752005f3c1d0",
                 "targetHandle": "default",
-                "id": "reactflow__edge-OPEN_SERIAL-1ac321a2-39b7-48cc-8008-45c77ccb5636default-CLEAR_BUFFER_33120A-65dde127-57d3-418c-8a15-752005f3c1d0default"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "CLEAR_BUFFER_33120A-65dde127-57d3-418c-8a15-752005f3c1d0",
+                "id": "SAVE_33120A-30889302-e51c-49af-8840-d02b648dc905->RECALL_33120A-81ca0d82-ed80-4d39-8a4a-06dbb487474c_8d559700-fda3-401d-9598-8bb4e1006ff0",
+                "source": "SAVE_33120A-30889302-e51c-49af-8840-d02b648dc905",
+                "target": "RECALL_33120A-81ca0d82-ed80-4d39-8a4a-06dbb487474c",
                 "sourceHandle": "default",
-                "target": "IMPEDANCE_33120A-1a424b2f-cf2e-4bdf-a22e-9928aefab3a3",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CLEAR_BUFFER_33120A-65dde127-57d3-418c-8a15-752005f3c1d0default-IMPEDANCE_33120A-1a424b2f-cf2e-4bdf-a22e-9928aefab3a3default"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "RESET_33120A-45dfe70e-519b-417d-85a8-364397154c08",
+                "id": "RECALL_33120A-81ca0d82-ed80-4d39-8a4a-06dbb487474c->ERRORS_33120A-20d7b85a-0996-48f1-931c-3d784901ad9f_fe53cbf3-92c5-4d0c-99cc-2e17b2be473d",
+                "source": "RECALL_33120A-81ca0d82-ed80-4d39-8a4a-06dbb487474c",
+                "target": "ERRORS_33120A-20d7b85a-0996-48f1-931c-3d784901ad9f",
                 "sourceHandle": "default",
-                "target": "IMPEDANCE_33120A-1a424b2f-cf2e-4bdf-a22e-9928aefab3a3",
                 "targetHandle": "default",
-                "id": "reactflow__edge-RESET_33120A-45dfe70e-519b-417d-85a8-364397154c08default-IMPEDANCE_33120A-1a424b2f-cf2e-4bdf-a22e-9928aefab3a3default"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "IMPEDANCE_33120A-1a424b2f-cf2e-4bdf-a22e-9928aefab3a3",
+                "id": "ERRORS_33120A-20d7b85a-0996-48f1-931c-3d784901ad9f->TEXT_VIEW-5a612d69-b86d-447c-87e6-ad96733a51cf_71267a5f-666a-4bf8-afce-394bd6197b2a",
+                "source": "ERRORS_33120A-20d7b85a-0996-48f1-931c-3d784901ad9f",
+                "target": "TEXT_VIEW-5a612d69-b86d-447c-87e6-ad96733a51cf",
                 "sourceHandle": "default",
-                "target": "TRIGGER_33120A-1b8d2bb4-a713-4090-a0c6-2044e61f5616",
                 "targetHandle": "default",
-                "id": "reactflow__edge-IMPEDANCE_33120A-1a424b2f-cf2e-4bdf-a22e-9928aefab3a3default-TRIGGER_33120A-1b8d2bb4-a713-4090-a0c6-2044e61f5616default"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "IMPEDANCE_33120A-1a424b2f-cf2e-4bdf-a22e-9928aefab3a3",
+                "id": "DUTY_33120A-459b5893-0d6e-477d-8d3e-f1c6165a5c57->SAVE_33120A-30889302-e51c-49af-8840-d02b648dc905_d34f9e0a-3137-4ba5-90fc-0c2f762ea9c6",
+                "source": "DUTY_33120A-459b5893-0d6e-477d-8d3e-f1c6165a5c57",
+                "target": "SAVE_33120A-30889302-e51c-49af-8840-d02b648dc905",
                 "sourceHandle": "default",
-                "target": "VOLT_UNIT_33120A-09e7320d-72d5-4c9a-8024-8c7c516e12dd",
                 "targetHandle": "default",
-                "id": "reactflow__edge-IMPEDANCE_33120A-1a424b2f-cf2e-4bdf-a22e-9928aefab3a3default-VOLT_UNIT_33120A-09e7320d-72d5-4c9a-8024-8c7c516e12dddefault"
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 989.5074684112005,
-            "y": 600.5845297883666,
-            "zoom": 1.0185604667011527
-        }
+        ]
     },
-    "name": "app",
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

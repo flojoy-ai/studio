@@ -2,8 +2,8 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "SINE-e3058354-d58c-49ac-9590-97f739e56270",
                 "type": "DATA",
                 "data": {
@@ -70,8 +70,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Vector",
-                            "multiple": false,
-                            "desc": "Input that defines the x-axis values of the function and output."
+                            "desc": "Input that defines the x-axis values of the function and output.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -85,19 +85,19 @@
                     "path": "DATA/GENERATION/SIMULATIONS/SINE/SINE.py"
                 },
                 "position": {
-                    "x": 87.72836390388723,
-                    "y": -84.39045849281248
+                    "x": 13.289537158981148,
+                    "y": -84.39045849281246
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 87.72836390388723,
-                    "y": -84.39045849281248
+                    "x": 13.289537158981148,
+                    "y": -84.39045849281246
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c",
                 "type": "DATA",
                 "data": {
@@ -140,8 +140,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -155,15 +155,15 @@
                     "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
                 },
                 "position": {
-                    "x": -205.08655565370174,
-                    "y": -81.87669636600134
+                    "x": -433.20554083970427,
+                    "y": -84.27794884164345
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -205.08655565370174,
-                    "y": -81.87669636600134
+                    "x": -433.20554083970427,
+                    "y": -84.27794884164345
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 225,
@@ -182,8 +182,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -197,19 +197,19 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
                 },
                 "position": {
-                    "x": 722.5146326545213,
-                    "y": -142.31041440525482
+                    "x": 901.4079420898602,
+                    "y": -120.69914212447566
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 722.5146326545213,
-                    "y": -142.31041440525482
+                    "x": 901.4079420898602,
+                    "y": -120.69914212447566
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 160,
-                "height": 160,
+                "width": 216,
+                "height": 197,
                 "id": "VOLT_TO_DB-f4f83dbe-64b9-4945-8ade-02c7685c4949",
                 "type": "DSP",
                 "data": {
@@ -234,8 +234,8 @@
                             "name": "data",
                             "id": "data",
                             "type": "OrderedPair|Vector",
-                            "multiple": false,
-                            "desc": "The input to apply the absolute value to."
+                            "desc": "The input to apply the absolute value to.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -249,45 +249,52 @@
                     "path": "DSP/VOLT_TO_DB/VOLT_TO_DB.py"
                 },
                 "position": {
-                    "x": 439.22345001051497,
-                    "y": -114.61271288598803
+                    "x": 447.6278336752624,
+                    "y": -84.59705694046141
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 439.22345001051497,
-                    "y": -114.61271288598803
+                    "x": 447.6278336752624,
+                    "y": -84.59705694046141
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
+                "id": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c->SINE-e3058354-d58c-49ac-9590-97f739e56270_35910597-54ef-447a-b96f-e7a0f7bbf2a6",
                 "source": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c",
-                "sourceHandle": "default",
                 "target": "SINE-e3058354-d58c-49ac-9590-97f739e56270",
-                "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356cdefault-SINE-e3058354-d58c-49ac-9590-97f739e56270default"
-            },
-            {
-                "source": "VOLT_TO_DB-f4f83dbe-64b9-4945-8ade-02c7685c4949",
                 "sourceHandle": "default",
-                "target": "SCATTER-1d9a92a3-7920-4c42-999d-d13af5481b20",
                 "targetHandle": "default",
-                "id": "reactflow__edge-VOLT_TO_DB-f4f83dbe-64b9-4945-8ade-02c7685c4949default-SCATTER-1d9a92a3-7920-4c42-999d-d13af5481b20default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
+                "id": "SINE-e3058354-d58c-49ac-9590-97f739e56270->VOLT_TO_DB-f4f83dbe-64b9-4945-8ade-02c7685c4949_2c20897f-cd6a-46f4-b095-82c333d2a6d9",
                 "source": "SINE-e3058354-d58c-49ac-9590-97f739e56270",
-                "sourceHandle": "default",
                 "target": "VOLT_TO_DB-f4f83dbe-64b9-4945-8ade-02c7685c4949",
+                "sourceHandle": "default",
                 "targetHandle": "data",
-                "id": "reactflow__edge-SINE-e3058354-d58c-49ac-9590-97f739e56270default-VOLT_TO_DB-f4f83dbe-64b9-4945-8ade-02c7685c4949data"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "VOLT_TO_DB-f4f83dbe-64b9-4945-8ade-02c7685c4949->SCATTER-1d9a92a3-7920-4c42-999d-d13af5481b20_4b4eec11-b17c-4abf-a783-c2598c4ce3c6",
+                "source": "VOLT_TO_DB-f4f83dbe-64b9-4945-8ade-02c7685c4949",
+                "target": "SCATTER-1d9a92a3-7920-4c42-999d-d13af5481b20",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             }
-        ],
-        "viewport": {
-            "x": 998.2402235606428,
-            "y": 582.5298224384069,
-            "zoom": 0.9879406118224267
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

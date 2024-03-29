@@ -2,15 +2,15 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 197,
                 "id": "CONNECT-8808f575-3a8c-4985-8744-a697ff79c40d",
-                "type": "HARDWARE",
+                "type": "ROBOTICS",
                 "data": {
                     "id": "CONNECT-8808f575-3a8c-4985-8744-a697ff79c40d",
                     "label": "CONNECT",
                     "func": "CONNECT",
-                    "type": "HARDWARE",
+                    "type": "ROBOTICS",
                     "ctrls": {
                         "ip_address": {
                             "type": "str",
@@ -46,29 +46,30 @@
                             "v": "1.4.0"
                         }
                     ],
-                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/CONNECT/CONNECT.py",
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECA500/CONNECT/CONNECT.py",
                     "selected": false
                 },
                 "position": {
-                    "x": -451.20434004901955,
-                    "y": -60.904869691378984
+                    "x": -620.8912004382421,
+                    "y": -244.16667891173933
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -451.20434004901955,
-                    "y": -60.904869691378984
-                }
+                    "x": -620.8912004382421,
+                    "y": -244.16667891173933
+                },
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 197,
                 "id": "HOME-5de5f4dc-0f9a-422b-9291-676590b27f38",
-                "type": "HARDWARE",
+                "type": "ROBOTICS",
                 "data": {
                     "id": "HOME-5de5f4dc-0f9a-422b-9291-676590b27f38",
                     "label": "HOME",
                     "func": "HOME",
-                    "type": "HARDWARE",
+                    "type": "ROBOTICS",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -76,8 +77,8 @@
                             "name": "ip_address",
                             "id": "ip_address",
                             "type": "String",
-                            "multiple": false,
-                            "desc": "The IP address of the robot arm."
+                            "desc": "The IP address of the robot arm.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -94,30 +95,30 @@
                             "v": "1.4.0"
                         }
                     ],
-                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/HOME/HOME.py",
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECA500/HOME/HOME.py",
                     "selected": false
                 },
                 "position": {
-                    "x": -67.52953161935635,
-                    "y": -57.67086561680469
+                    "x": -240.61012921636336,
+                    "y": -242.62954344105728
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -67.52953161935635,
-                    "y": -57.67086561680469
+                    "x": -240.61012921636336,
+                    "y": -242.62954344105728
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 197,
                 "id": "SET_TRF-9a052f4a-e4c6-4d9e-99a8-26ada24487ef",
-                "type": "HARDWARE",
+                "type": "ROBOTICS",
                 "data": {
                     "id": "SET_TRF-9a052f4a-e4c6-4d9e-99a8-26ada24487ef",
                     "label": "SET TRF",
                     "func": "SET_TRF",
-                    "type": "HARDWARE",
+                    "type": "ROBOTICS",
                     "ctrls": {
                         "rf_x": {
                             "type": "float",
@@ -180,8 +181,8 @@
                             "name": "ip_address",
                             "id": "ip_address",
                             "type": "String",
-                            "multiple": false,
-                            "desc": "The IP address of the robot arm."
+                            "desc": "The IP address of the robot arm.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -198,30 +199,30 @@
                             "v": "1.4.0"
                         }
                     ],
-                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/SET_TRF/SET_TRF.py",
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECA500/SET_TRF/SET_TRF.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 264.6295379344546,
-                    "y": -54.72653533790697
+                    "x": 123.7894438113999,
+                    "y": -232.89773874659062
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 264.6295379344546,
-                    "y": -54.72653533790697
+                    "x": 123.7894438113999,
+                    "y": -232.89773874659062
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "MOVE_LIN_REL_TRF-ac41efb4-012f-4179-95cd-9c002a1a5bca",
-                "type": "HARDWARE",
+                "type": "ROBOTICS",
                 "data": {
                     "id": "MOVE_LIN_REL_TRF-ac41efb4-012f-4179-95cd-9c002a1a5bca",
                     "label": "MOVE LIN REL TRF",
                     "func": "MOVE_LIN_REL_TRF",
-                    "type": "HARDWARE",
+                    "type": "ROBOTICS",
                     "ctrls": {
                         "x": {
                             "type": "float",
@@ -284,8 +285,8 @@
                             "name": "ip_address",
                             "id": "ip_address",
                             "type": "String",
-                            "multiple": false,
-                            "desc": "The IP address of the robot arm."
+                            "desc": "The IP address of the robot arm.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -302,30 +303,30 @@
                             "v": "1.4.0"
                         }
                     ],
-                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/MOVE_LIN_REL_TRF/MOVE_LIN_REL_TRF.py",
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECA500/MOVE_LIN_REL_TRF/MOVE_LIN_REL_TRF.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 602.1636672816304,
-                    "y": -50.26447523084056
+                    "x": 479.98912780139017,
+                    "y": -228.43567863952427
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 602.1636672816304,
-                    "y": -50.26447523084056
+                    "x": 479.98912780139017,
+                    "y": -228.43567863952427
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 218,
+                "height": 197,
                 "id": "DISCONNECT-270b52f0-d89b-4c0f-a0c4-71d9088bbdc8",
-                "type": "HARDWARE",
+                "type": "ROBOTICS",
                 "data": {
                     "id": "DISCONNECT-270b52f0-d89b-4c0f-a0c4-71d9088bbdc8",
                     "label": "DISCONNECT",
                     "func": "DISCONNECT",
-                    "type": "HARDWARE",
+                    "type": "ROBOTICS",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -333,8 +334,8 @@
                             "name": "ip_address",
                             "id": "ip_address",
                             "type": "String",
-                            "multiple": false,
-                            "desc": "The IP address of the robot arm."
+                            "desc": "The IP address of the robot arm.",
+                            "multiple": false
                         }
                     ],
                     "pip_dependencies": [
@@ -343,56 +344,66 @@
                             "v": "1.4.0"
                         }
                     ],
-                    "path": "HARDWARE/ROBOTICS/ARMS/MECADEMIC/DISCONNECT/DISCONNECT.py",
+                    "path": "HARDWARE/ROBOTICS/ARMS/MECA500/DISCONNECT/DISCONNECT.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 959.789519687517,
-                    "y": -73.75356165646582
+                    "x": 888.5210383240435,
+                    "y": -226.47173600676612
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 959.789519687517,
-                    "y": -73.75356165646582
+                    "x": 888.5210383240435,
+                    "y": -226.47173600676612
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
+                "id": "CONNECT-8808f575-3a8c-4985-8744-a697ff79c40d->HOME-5de5f4dc-0f9a-422b-9291-676590b27f38_239174e0-0437-4060-8162-638743f80b7f",
                 "source": "CONNECT-8808f575-3a8c-4985-8744-a697ff79c40d",
-                "sourceHandle": "default",
                 "target": "HOME-5de5f4dc-0f9a-422b-9291-676590b27f38",
+                "sourceHandle": "default",
                 "targetHandle": "ip_address",
-                "id": "reactflow__edge-CONNECT-8808f575-3a8c-4985-8744-a697ff79c40ddefault-HOME-5de5f4dc-0f9a-422b-9291-676590b27f38ip_address"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "HOME-5de5f4dc-0f9a-422b-9291-676590b27f38->SET_TRF-9a052f4a-e4c6-4d9e-99a8-26ada24487ef_d53cbad8-192a-4dda-8d33-af56ec6018d7",
                 "source": "HOME-5de5f4dc-0f9a-422b-9291-676590b27f38",
-                "sourceHandle": "default",
                 "target": "SET_TRF-9a052f4a-e4c6-4d9e-99a8-26ada24487ef",
+                "sourceHandle": "default",
                 "targetHandle": "ip_address",
-                "id": "reactflow__edge-HOME-5de5f4dc-0f9a-422b-9291-676590b27f38default-SET_TRF-9a052f4a-e4c6-4d9e-99a8-26ada24487efip_address"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "SET_TRF-9a052f4a-e4c6-4d9e-99a8-26ada24487ef->MOVE_LIN_REL_TRF-ac41efb4-012f-4179-95cd-9c002a1a5bca_0d3819b5-5210-4ac9-9c41-f3fd22bee25b",
                 "source": "SET_TRF-9a052f4a-e4c6-4d9e-99a8-26ada24487ef",
-                "sourceHandle": "default",
                 "target": "MOVE_LIN_REL_TRF-ac41efb4-012f-4179-95cd-9c002a1a5bca",
+                "sourceHandle": "default",
                 "targetHandle": "ip_address",
-                "id": "reactflow__edge-SET_TRF-9a052f4a-e4c6-4d9e-99a8-26ada24487efdefault-MOVE_LIN_REL_TRF-ac41efb4-012f-4179-95cd-9c002a1a5bcaip_address"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "MOVE_LIN_REL_TRF-ac41efb4-012f-4179-95cd-9c002a1a5bca->DISCONNECT-270b52f0-d89b-4c0f-a0c4-71d9088bbdc8_fdfd5588-014a-4e4b-9290-eaef3c3e2a87",
                 "source": "MOVE_LIN_REL_TRF-ac41efb4-012f-4179-95cd-9c002a1a5bca",
-                "sourceHandle": "default",
                 "target": "DISCONNECT-270b52f0-d89b-4c0f-a0c4-71d9088bbdc8",
+                "sourceHandle": "default",
                 "targetHandle": "ip_address",
-                "id": "reactflow__edge-MOVE_LIN_REL_TRF-ac41efb4-012f-4179-95cd-9c002a1a5bcadefault-DISCONNECT-270b52f0-d89b-4c0f-a0c4-71d9088bbdc8ip_address"
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 828.0110268252124,
-            "y": 536.5928265048133,
-            "zoom": 0.8332097522012074
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

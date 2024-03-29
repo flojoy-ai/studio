@@ -9,6 +9,7 @@ class PostWFC(BaseModel):
     fc: str
     jobsetId: str
     cancelExistingJobs: bool
+    observeBlocks: list[str]
     nodeDelay: float
     maximumRuntime: float
     maximumConcurrentWorkers: int

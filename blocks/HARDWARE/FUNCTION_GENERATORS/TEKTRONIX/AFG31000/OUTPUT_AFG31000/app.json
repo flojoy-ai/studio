@@ -2,15 +2,13 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
-                "id": "CONNECT_AFG31000-6e227039-f81f-4f48-92a5-e4a1c0207f3e",
-                "type": "HARDWARE",
+                "id": "CONNECT_AFG31000-3ecfdf23-b749-4254-864f-ea6834743cdd",
+                "type": "FUNCTION_GENERATORS",
                 "data": {
-                    "id": "CONNECT_AFG31000-6e227039-f81f-4f48-92a5-e4a1c0207f3e",
+                    "id": "CONNECT_AFG31000-3ecfdf23-b749-4254-864f-ea6834743cdd",
                     "label": "CONNECT AFG31000",
                     "func": "CONNECT_AFG31000",
-                    "type": "HARDWARE",
+                    "type": "FUNCTION_GENERATORS",
                     "ctrls": {
                         "device": {
                             "type": "VisaDevice",
@@ -19,7 +17,7 @@
                             "overload": null,
                             "functionName": "CONNECT_AFG31000",
                             "param": "device",
-                            "value": "TCPIP::169.254.145.144::INSTR"
+                            "value": ""
                         }
                     },
                     "initCtrls": {},
@@ -34,276 +32,26 @@
                     "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/CONNECT_AFG31000/CONNECT_AFG31000.py"
                 },
                 "position": {
-                    "x": -356.99744674030666,
-                    "y": -192.33911380820962
+                    "x": -322.0034124436222,
+                    "y": -212.60605806928825
                 },
+                "width": 216,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -356.99744674030666,
-                    "y": -192.33911380820962
+                    "x": -322.0034124436222,
+                    "y": -212.60605806928825
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
-                "id": "ALIGN_PHASES_AFG31000-32845bcc-be43-4ddc-adf3-8daad721c749",
-                "type": "HARDWARE",
+                "id": "FUNCTION_AFG31000-73eefdbf-2b49-4735-9b15-8d742a2a7b82",
+                "type": "FUNCTION_GENERATORS",
                 "data": {
-                    "id": "ALIGN_PHASES_AFG31000-32845bcc-be43-4ddc-adf3-8daad721c749",
-                    "label": "ALIGN PHASES AFG31000",
-                    "func": "ALIGN_PHASES_AFG31000",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "VisaConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_AFG31000 block).",
-                            "overload": null,
-                            "functionName": "ALIGN_PHASES_AFG31000",
-                            "param": "connection",
-                            "value": "TCPIP::169.254.145.144::INSTR"
-                        },
-                        "channel": {
-                            "type": "select",
-                            "options": [
-                                "1",
-                                "2"
-                            ],
-                            "default": "1",
-                            "desc": "Which channel is the reference?",
-                            "overload": null,
-                            "functionName": "ALIGN_PHASES_AFG31000",
-                            "param": "channel",
-                            "value": "1"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "input",
-                            "id": "input",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "Placeholder"
-                        }
-                    ],
-                    "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/ALIGN_PHASES_AFG31000/ALIGN_PHASES_AFG31000.py"
-                },
-                "position": {
-                    "x": 439.9476681838445,
-                    "y": -194.69759194078154
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 439.9476681838445,
-                    "y": -194.69759194078154
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "OUTPUT_AFG31000-f318cbb8-f463-43c8-b06b-9f3fe2a62fe1",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "OUTPUT_AFG31000-f318cbb8-f463-43c8-b06b-9f3fe2a62fe1",
-                    "label": "OUTPUT AFG31000",
-                    "func": "OUTPUT_AFG31000",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "VisaConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_AFG31000 block).",
-                            "overload": null,
-                            "functionName": "OUTPUT_AFG31000",
-                            "param": "connection",
-                            "value": "TCPIP::169.254.145.144::INSTR"
-                        },
-                        "ch1": {
-                            "type": "select",
-                            "options": [
-                                "on",
-                                "off"
-                            ],
-                            "default": "on",
-                            "desc": "Turn channel 1 output on or off.",
-                            "overload": null,
-                            "functionName": "OUTPUT_AFG31000",
-                            "param": "ch1",
-                            "value": "on"
-                        },
-                        "ch2": {
-                            "type": "select",
-                            "options": [
-                                "on",
-                                "off"
-                            ],
-                            "default": "on",
-                            "desc": "Turn channel 2 output on or off.",
-                            "overload": null,
-                            "functionName": "OUTPUT_AFG31000",
-                            "param": "ch2",
-                            "value": "on"
-                        },
-                        "ch1_impedance": {
-                            "type": "select",
-                            "options": [
-                                "50",
-                                "1e6"
-                            ],
-                            "default": "50",
-                            "desc": "Choosen channel 1 impedance.",
-                            "overload": null,
-                            "functionName": "OUTPUT_AFG31000",
-                            "param": "ch1_impedance",
-                            "value": "50"
-                        },
-                        "ch2_impedance": {
-                            "type": "select",
-                            "options": [
-                                "50",
-                                "1e6"
-                            ],
-                            "default": "50",
-                            "desc": "Choosen channel 2 impedance",
-                            "overload": null,
-                            "functionName": "OUTPUT_AFG31000",
-                            "param": "ch2_impedance",
-                            "value": "50"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "input",
-                            "id": "input",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "Placeholder"
-                        }
-                    ],
-                    "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/OUTPUT_AFG31000/OUTPUT_AFG31000.py"
-                },
-                "position": {
-                    "x": 193.0241524368904,
-                    "y": -193.99838203480326
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 193.0241524368904,
-                    "y": -193.99838203480326
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "SAVE_STATE_AFG31000-8f3cb51f-6cd9-49c1-bb78-9f05988a82dc",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "SAVE_STATE_AFG31000-8f3cb51f-6cd9-49c1-bb78-9f05988a82dc",
-                    "label": "SAVE STATE AFG31000",
-                    "func": "SAVE_STATE_AFG31000",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "VisaConnection",
-                            "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_AFG31000 block).",
-                            "overload": null,
-                            "functionName": "SAVE_STATE_AFG31000",
-                            "param": "connection",
-                            "value": "TCPIP::169.254.145.144::INSTR"
-                        },
-                        "save_recall": {
-                            "type": "select",
-                            "options": [
-                                "save",
-                                "recall"
-                            ],
-                            "default": "save",
-                            "desc": "Save or recall the save state.",
-                            "overload": null,
-                            "functionName": "SAVE_STATE_AFG31000",
-                            "param": "save_recall",
-                            "value": "save"
-                        },
-                        "option": {
-                            "type": "select",
-                            "options": [
-                                "1",
-                                "2",
-                                "3",
-                                "4",
-                                "5"
-                            ],
-                            "default": "1",
-                            "desc": "Choose from the 5 save states.",
-                            "overload": null,
-                            "functionName": "SAVE_STATE_AFG31000",
-                            "param": "option",
-                            "value": "2"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "input",
-                            "id": "input",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "Save state"
-                        }
-                    ],
-                    "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/SAVE_STATE_AFG31000/SAVE_STATE_AFG31000.py"
-                },
-                "position": {
-                    "x": 680.0566763496477,
-                    "y": -192.15162100388233
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 680.0566763496477,
-                    "y": -192.15162100388233
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "FUNCTION_AFG31000-d59ef12d-1210-419c-a3e0-db44576fc527",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "FUNCTION_AFG31000-d59ef12d-1210-419c-a3e0-db44576fc527",
+                    "id": "FUNCTION_AFG31000-73eefdbf-2b49-4735-9b15-8d742a2a7b82",
                     "label": "FUNCTION AFG31000",
                     "func": "FUNCTION_AFG31000",
-                    "type": "HARDWARE",
+                    "type": "FUNCTION_GENERATORS",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -312,15 +60,15 @@
                             "overload": null,
                             "functionName": "FUNCTION_AFG31000",
                             "param": "connection",
-                            "value": "TCPIP::169.254.145.144::INSTR"
+                            "value": ""
                         },
                         "source": {
                             "type": "select",
+                            "default": "1",
                             "options": [
                                 "1",
                                 "2"
                             ],
-                            "default": "1",
                             "desc": null,
                             "overload": null,
                             "functionName": "FUNCTION_AFG31000",
@@ -329,6 +77,7 @@
                         },
                         "functions": {
                             "type": "select",
+                            "default": "sinusoid",
                             "options": [
                                 "sinusoid",
                                 "square",
@@ -343,7 +92,6 @@
                                 "edecay",
                                 "haversine"
                             ],
-                            "default": "sinusoid",
                             "desc": "Choose the function to output",
                             "overload": null,
                             "functionName": "FUNCTION_AFG31000",
@@ -411,8 +159,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -426,26 +174,26 @@
                     "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/FUNCTION_AFG31000/FUNCTION_AFG31000.py"
                 },
                 "position": {
-                    "x": -67.77699444442803,
-                    "y": -334.69885402865026
+                    "x": 24.156119253548553,
+                    "y": -413.70270711944937
                 },
+                "width": 216,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -67.77699444442803,
-                    "y": -334.69885402865026
+                    "x": 24.156119253548553,
+                    "y": -413.70270711944937
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
-                "id": "FUNCTION_AFG31000-300873f1-7bc9-455a-bad4-1c9565f82b2a",
-                "type": "HARDWARE",
+                "id": "FUNCTION_AFG31000-43e61ef3-c245-46f5-921f-b53af98e2a9e",
+                "type": "FUNCTION_GENERATORS",
                 "data": {
-                    "id": "FUNCTION_AFG31000-300873f1-7bc9-455a-bad4-1c9565f82b2a",
+                    "id": "FUNCTION_AFG31000-43e61ef3-c245-46f5-921f-b53af98e2a9e",
                     "label": "FUNCTION AFG31000 1",
                     "func": "FUNCTION_AFG31000",
-                    "type": "HARDWARE",
+                    "type": "FUNCTION_GENERATORS",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -454,23 +202,24 @@
                             "overload": null,
                             "functionName": "FUNCTION_AFG31000",
                             "param": "connection",
-                            "value": "TCPIP::169.254.145.144::INSTR"
+                            "value": ""
                         },
                         "source": {
                             "type": "select",
+                            "default": "1",
                             "options": [
                                 "1",
                                 "2"
                             ],
-                            "default": "1",
                             "desc": null,
                             "overload": null,
                             "functionName": "FUNCTION_AFG31000",
                             "param": "source",
-                            "value": "2"
+                            "value": "1"
                         },
                         "functions": {
                             "type": "select",
+                            "default": "sinusoid",
                             "options": [
                                 "sinusoid",
                                 "square",
@@ -485,7 +234,6 @@
                                 "edecay",
                                 "haversine"
                             ],
-                            "default": "sinusoid",
                             "desc": "Choose the function to output",
                             "overload": null,
                             "functionName": "FUNCTION_AFG31000",
@@ -553,8 +301,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -568,66 +316,334 @@
                     "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/FUNCTION_AFG31000/FUNCTION_AFG31000.py"
                 },
                 "position": {
-                    "x": -62.333665463218566,
-                    "y": -90.14297151518164
+                    "x": 23.983765435458082,
+                    "y": 22.447257076160497
                 },
+                "width": 216,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -62.333665463218566,
-                    "y": -90.14297151518164
+                    "x": 23.983765435458082,
+                    "y": 22.447257076160497
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "OUTPUT_AFG31000-2370692e-ce95-4501-9297-56b1f2374e60",
+                "type": "FUNCTION_GENERATORS",
+                "data": {
+                    "id": "OUTPUT_AFG31000-2370692e-ce95-4501-9297-56b1f2374e60",
+                    "label": "OUTPUT AFG31000",
+                    "func": "OUTPUT_AFG31000",
+                    "type": "FUNCTION_GENERATORS",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_AFG31000 block).",
+                            "overload": null,
+                            "functionName": "OUTPUT_AFG31000",
+                            "param": "connection",
+                            "value": ""
+                        },
+                        "ch1": {
+                            "type": "select",
+                            "default": "on",
+                            "options": [
+                                "on",
+                                "off"
+                            ],
+                            "desc": "Turn channel 1 output on or off.",
+                            "overload": null,
+                            "functionName": "OUTPUT_AFG31000",
+                            "param": "ch1",
+                            "value": "on"
+                        },
+                        "ch2": {
+                            "type": "select",
+                            "default": "on",
+                            "options": [
+                                "on",
+                                "off"
+                            ],
+                            "desc": "Turn channel 2 output on or off.",
+                            "overload": null,
+                            "functionName": "OUTPUT_AFG31000",
+                            "param": "ch2",
+                            "value": "on"
+                        },
+                        "ch1_impedance": {
+                            "type": "select",
+                            "default": "50",
+                            "options": [
+                                "50",
+                                "1e6"
+                            ],
+                            "desc": "Choosen channel 1 impedance.",
+                            "overload": null,
+                            "functionName": "OUTPUT_AFG31000",
+                            "param": "ch1_impedance",
+                            "value": "50"
+                        },
+                        "ch2_impedance": {
+                            "type": "select",
+                            "default": "50",
+                            "options": [
+                                "50",
+                                "1e6"
+                            ],
+                            "desc": "Choosen channel 2 impedance",
+                            "overload": null,
+                            "functionName": "OUTPUT_AFG31000",
+                            "param": "ch2_impedance",
+                            "value": "50"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Placeholder"
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/OUTPUT_AFG31000/OUTPUT_AFG31000.py"
+                },
+                "position": {
+                    "x": 434.19795122364326,
+                    "y": -202.4944369055621
+                },
+                "width": 216,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 434.19795122364326,
+                    "y": -202.4944369055621
+                },
+                "dragging": false
+            },
+            {
+                "id": "ALIGN_PHASES_AFG31000-cda403b6-9980-475e-be3f-9f74d7b87dc9",
+                "type": "FUNCTION_GENERATORS",
+                "data": {
+                    "id": "ALIGN_PHASES_AFG31000-cda403b6-9980-475e-be3f-9f74d7b87dc9",
+                    "label": "ALIGN PHASES AFG31000",
+                    "func": "ALIGN_PHASES_AFG31000",
+                    "type": "FUNCTION_GENERATORS",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_AFG31000 block).",
+                            "overload": null,
+                            "functionName": "ALIGN_PHASES_AFG31000",
+                            "param": "connection",
+                            "value": ""
+                        },
+                        "channel": {
+                            "type": "select",
+                            "default": "1",
+                            "options": [
+                                "1",
+                                "2"
+                            ],
+                            "desc": "Which channel is the reference?",
+                            "overload": null,
+                            "functionName": "ALIGN_PHASES_AFG31000",
+                            "param": "channel",
+                            "value": "1"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Aligned channel phases"
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/ALIGN_PHASES_AFG31000/ALIGN_PHASES_AFG31000.py"
+                },
+                "position": {
+                    "x": 804.2027086401187,
+                    "y": -203.86547092828008
+                },
+                "width": 216,
+                "height": 269,
+                "selected": false,
+                "dragging": false,
+                "positionAbsolute": {
+                    "x": 804.2027086401187,
+                    "y": -203.86547092828008
+                }
+            },
+            {
+                "id": "SAVE_STATE_AFG31000-8556f085-1a67-4a8b-b4bd-5ce7d70cee37",
+                "type": "FUNCTION_GENERATORS",
+                "data": {
+                    "id": "SAVE_STATE_AFG31000-8556f085-1a67-4a8b-b4bd-5ce7d70cee37",
+                    "label": "SAVE STATE AFG31000",
+                    "func": "SAVE_STATE_AFG31000",
+                    "type": "FUNCTION_GENERATORS",
+                    "ctrls": {
+                        "connection": {
+                            "type": "VisaConnection",
+                            "default": null,
+                            "desc": "The VISA address (requires the CONNECTION_AFG31000 block).",
+                            "overload": null,
+                            "functionName": "SAVE_STATE_AFG31000",
+                            "param": "connection",
+                            "value": ""
+                        },
+                        "save_recall": {
+                            "type": "select",
+                            "default": "save",
+                            "options": [
+                                "save",
+                                "recall"
+                            ],
+                            "desc": "Save or recall the save state.",
+                            "overload": null,
+                            "functionName": "SAVE_STATE_AFG31000",
+                            "param": "save_recall",
+                            "value": "save"
+                        },
+                        "option": {
+                            "type": "select",
+                            "default": "1",
+                            "options": [
+                                "1",
+                                "2",
+                                "3",
+                                "4",
+                                "5"
+                            ],
+                            "desc": "Choose from the 5 save states.",
+                            "overload": null,
+                            "functionName": "SAVE_STATE_AFG31000",
+                            "param": "option",
+                            "value": "2"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "input",
+                            "id": "input",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "Save state"
+                        }
+                    ],
+                    "path": "HARDWARE/FUNCTION_GENERATORS/TEKTRONIX/AFG31000/SAVE_STATE_AFG31000/SAVE_STATE_AFG31000.py"
+                },
+                "position": {
+                    "x": 1219.7221891509314,
+                    "y": -207.74873238298798
+                },
+                "width": 216,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1219.7221891509314,
+                    "y": -207.74873238298798
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "OUTPUT_AFG31000-f318cbb8-f463-43c8-b06b-9f3fe2a62fe1",
+                "id": "CONNECT_AFG31000-3ecfdf23-b749-4254-864f-ea6834743cdd->FUNCTION_AFG31000-73eefdbf-2b49-4735-9b15-8d742a2a7b82_60840025-8ce0-472d-8f22-d52f422aa0a1",
+                "source": "CONNECT_AFG31000-3ecfdf23-b749-4254-864f-ea6834743cdd",
+                "target": "FUNCTION_AFG31000-73eefdbf-2b49-4735-9b15-8d742a2a7b82",
                 "sourceHandle": "default",
-                "target": "ALIGN_PHASES_AFG31000-32845bcc-be43-4ddc-adf3-8daad721c749",
                 "targetHandle": "input",
-                "id": "reactflow__edge-OUTPUT_AFG31000-f318cbb8-f463-43c8-b06b-9f3fe2a62fe1default-ALIGN_PHASES_AFG31000-32845bcc-be43-4ddc-adf3-8daad721c749input"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "FUNCTION_AFG31000-d59ef12d-1210-419c-a3e0-db44576fc527",
+                "id": "CONNECT_AFG31000-3ecfdf23-b749-4254-864f-ea6834743cdd->FUNCTION_AFG31000-43e61ef3-c245-46f5-921f-b53af98e2a9e_3ec9fead-464d-4c3e-a708-a5b1ac810911",
+                "source": "CONNECT_AFG31000-3ecfdf23-b749-4254-864f-ea6834743cdd",
+                "target": "FUNCTION_AFG31000-43e61ef3-c245-46f5-921f-b53af98e2a9e",
                 "sourceHandle": "default",
-                "target": "OUTPUT_AFG31000-f318cbb8-f463-43c8-b06b-9f3fe2a62fe1",
                 "targetHandle": "input",
-                "id": "reactflow__edge-FUNCTION_AFG31000-d59ef12d-1210-419c-a3e0-db44576fc527default-OUTPUT_AFG31000-f318cbb8-f463-43c8-b06b-9f3fe2a62fe1input"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "FUNCTION_AFG31000-300873f1-7bc9-455a-bad4-1c9565f82b2a",
+                "id": "FUNCTION_AFG31000-73eefdbf-2b49-4735-9b15-8d742a2a7b82->OUTPUT_AFG31000-2370692e-ce95-4501-9297-56b1f2374e60_4f357119-c841-4d3b-bb3f-99fcc613ce90",
+                "source": "FUNCTION_AFG31000-73eefdbf-2b49-4735-9b15-8d742a2a7b82",
+                "target": "OUTPUT_AFG31000-2370692e-ce95-4501-9297-56b1f2374e60",
                 "sourceHandle": "default",
-                "target": "OUTPUT_AFG31000-f318cbb8-f463-43c8-b06b-9f3fe2a62fe1",
                 "targetHandle": "input",
-                "id": "reactflow__edge-FUNCTION_AFG31000-300873f1-7bc9-455a-bad4-1c9565f82b2adefault-OUTPUT_AFG31000-f318cbb8-f463-43c8-b06b-9f3fe2a62fe1input"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "ALIGN_PHASES_AFG31000-32845bcc-be43-4ddc-adf3-8daad721c749",
+                "id": "FUNCTION_AFG31000-43e61ef3-c245-46f5-921f-b53af98e2a9e->OUTPUT_AFG31000-2370692e-ce95-4501-9297-56b1f2374e60_55178372-3c21-494a-8a5d-8301c3ce7ef7",
+                "source": "FUNCTION_AFG31000-43e61ef3-c245-46f5-921f-b53af98e2a9e",
+                "target": "OUTPUT_AFG31000-2370692e-ce95-4501-9297-56b1f2374e60",
                 "sourceHandle": "default",
-                "target": "SAVE_STATE_AFG31000-8f3cb51f-6cd9-49c1-bb78-9f05988a82dc",
                 "targetHandle": "input",
-                "id": "reactflow__edge-ALIGN_PHASES_AFG31000-32845bcc-be43-4ddc-adf3-8daad721c749default-SAVE_STATE_AFG31000-8f3cb51f-6cd9-49c1-bb78-9f05988a82dcinput"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "CONNECT_AFG31000-6e227039-f81f-4f48-92a5-e4a1c0207f3e",
+                "id": "OUTPUT_AFG31000-2370692e-ce95-4501-9297-56b1f2374e60->ALIGN_PHASES_AFG31000-cda403b6-9980-475e-be3f-9f74d7b87dc9_7f9b7c67-d8b4-4dad-a883-e52de0d86a44",
+                "source": "OUTPUT_AFG31000-2370692e-ce95-4501-9297-56b1f2374e60",
+                "target": "ALIGN_PHASES_AFG31000-cda403b6-9980-475e-be3f-9f74d7b87dc9",
                 "sourceHandle": "default",
-                "target": "FUNCTION_AFG31000-d59ef12d-1210-419c-a3e0-db44576fc527",
                 "targetHandle": "input",
-                "id": "reactflow__edge-CONNECT_AFG31000-6e227039-f81f-4f48-92a5-e4a1c0207f3edefault-FUNCTION_AFG31000-d59ef12d-1210-419c-a3e0-db44576fc527input"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "CONNECT_AFG31000-6e227039-f81f-4f48-92a5-e4a1c0207f3e",
+                "id": "ALIGN_PHASES_AFG31000-cda403b6-9980-475e-be3f-9f74d7b87dc9->SAVE_STATE_AFG31000-8556f085-1a67-4a8b-b4bd-5ce7d70cee37_9bd0ca6b-9c1e-4f73-ac91-87a7bf726fbb",
+                "source": "ALIGN_PHASES_AFG31000-cda403b6-9980-475e-be3f-9f74d7b87dc9",
+                "target": "SAVE_STATE_AFG31000-8556f085-1a67-4a8b-b4bd-5ce7d70cee37",
                 "sourceHandle": "default",
-                "target": "FUNCTION_AFG31000-300873f1-7bc9-455a-bad4-1c9565f82b2a",
                 "targetHandle": "input",
-                "id": "reactflow__edge-CONNECT_AFG31000-6e227039-f81f-4f48-92a5-e4a1c0207f3edefault-FUNCTION_AFG31000-300873f1-7bc9-455a-bad4-1c9565f82b2ainput"
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 998.0979704909867,
-            "y": 583.9050842369531,
-            "zoom": 0.9793470432493011
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

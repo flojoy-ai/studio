@@ -2,58 +2,15 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 160,
-                "height": 160,
-                "id": "ORDERED_PAIR_XY_INVERT-2792706c-8d3b-4d14-ab86-25b7b02afbff",
-                "type": "TRANSFORMERS",
+                "width": 216,
+                "height": 197,
+                "id": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c",
+                "type": "DATA",
                 "data": {
-                    "id": "ORDERED_PAIR_XY_INVERT-2792706c-8d3b-4d14-ab86-25b7b02afbff",
-                    "label": "ORDERED PAIR XY INVERT",
-                    "func": "ORDERED_PAIR_XY_INVERT",
-                    "type": "TRANSFORMERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "multiple": false,
-                            "desc": "The input OrderedPair that we would like to invert the axis"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "desc": "The OrderedPair that is inverted"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\TRANSFORMERS\\ORDERED_PAIR_MANIPULATION\\ORDERED_PAIR_XY_INVERT\\ORDERED_PAIR_XY_INVERT.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 150.97310141564193,
-                    "y": 176.2485798315949
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 150.97310141564193,
-                    "y": 176.2485798315949
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "LINSPACE-a4763e5c-fbf5-4e75-b292-7ea368d7c42c",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "LINSPACE-a4763e5c-fbf5-4e75-b292-7ea368d7c42c",
+                    "id": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c",
                     "label": "LINSPACE",
                     "func": "LINSPACE",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "start": {
                             "type": "float",
@@ -89,8 +46,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -98,60 +55,83 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector",
-                            "desc": "v: the vector between start and end with step number of points."
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
                         }
                     ],
-                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\LINSPACE\\LINSPACE.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
                 },
                 "position": {
-                    "x": -473.6771271573732,
-                    "y": -126.59799740553947
+                    "x": -633.111048447888,
+                    "y": -146.0552336190454
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -473.6771271573732,
-                    "y": -126.59799740553947
+                    "x": -633.111048447888,
+                    "y": -146.0552336190454
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
-                "id": "LINSPACE-bdc206ef-b69b-40e2-8f38-f6eaeb9f1314",
-                "type": "GENERATORS",
+                "width": 216,
+                "height": 197,
+                "id": "SINE-a0a451d7-4d9b-49c1-bf37-d1a82c52ac06",
+                "type": "DATA",
                 "data": {
-                    "id": "LINSPACE-bdc206ef-b69b-40e2-8f38-f6eaeb9f1314",
-                    "label": "LINSPACE 1",
-                    "func": "LINSPACE",
-                    "type": "GENERATORS",
+                    "id": "SINE-a0a451d7-4d9b-49c1-bf37-d1a82c52ac06",
+                    "label": "SINE",
+                    "func": "SINE",
+                    "type": "DATA",
                     "ctrls": {
-                        "start": {
+                        "amplitude": {
                             "type": "float",
-                            "default": 10,
-                            "desc": "The start point of the data.",
+                            "default": 1,
+                            "desc": "The amplitude of the wave.",
                             "overload": null,
-                            "functionName": "LINSPACE",
-                            "param": "start",
-                            "value": 20
+                            "functionName": "SINE",
+                            "param": "amplitude",
+                            "value": 1
                         },
-                        "end": {
+                        "frequency": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The wave frequency in radians/2pi.",
+                            "overload": null,
+                            "functionName": "SINE",
+                            "param": "frequency",
+                            "value": 1
+                        },
+                        "offset": {
                             "type": "float",
                             "default": 0,
-                            "desc": "The end point of the data.",
+                            "desc": "The y axis offset of the function.",
                             "overload": null,
-                            "functionName": "LINSPACE",
-                            "param": "end",
+                            "functionName": "SINE",
+                            "param": "offset",
                             "value": 0
                         },
-                        "step": {
-                            "type": "int",
-                            "default": 1000,
-                            "desc": "The number of points in the vector.",
+                        "phase": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The x axis offset of the function.",
                             "overload": null,
-                            "functionName": "LINSPACE",
-                            "param": "step",
-                            "value": 2000
+                            "functionName": "SINE",
+                            "param": "phase",
+                            "value": 0
+                        },
+                        "waveform": {
+                            "type": "select",
+                            "options": [
+                                "sine",
+                                "square",
+                                "triangle",
+                                "sawtooth"
+                            ],
+                            "default": "sine",
+                            "desc": "The waveform type of the wave.",
+                            "overload": null,
+                            "functionName": "SINE",
+                            "param": "waveform",
+                            "value": "sine"
                         }
                     },
                     "initCtrls": {},
@@ -159,145 +139,9 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "desc": "v: the vector between start and end with step number of points."
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\LINSPACE\\LINSPACE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -469.41122388328694,
-                    "y": 10.150456437007108
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -469.41122388328694,
-                    "y": 10.150456437007108
-                },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "SCATTER-b778eb21-99a8-44f8-9694-07ac47d7b2a0",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "SCATTER-b778eb21-99a8-44f8-9694-07ac47d7b2a0",
-                    "label": "SCATTER",
-                    "func": "SCATTER",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Scatter visualization"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\SCATTER\\SCATTER.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 141.87732476050604,
-                    "y": -114.2086779722151
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 141.87732476050604,
-                    "y": -114.2086779722151
-                },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "SCATTER-011cf3e2-6c48-41f8-b600-1d344e28ad61",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "SCATTER-011cf3e2-6c48-41f8-b600-1d344e28ad61",
-                    "label": "SCATTER 1",
-                    "func": "SCATTER",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Scatter visualization"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\SCATTER\\SCATTER.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 423.8168712785772,
-                    "y": 141.8525453524494
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 423.8168712785772,
-                    "y": 141.8525453524494
-                },
-                "dragging": true
-            },
-            {
-                "width": 160,
-                "height": 160,
-                "id": "VECTOR_2_ORDERED_PAIR-00a791c3-063f-4218-9c64-b67d7631398e",
-                "type": "TRANSFORMERS",
-                "data": {
-                    "id": "VECTOR_2_ORDERED_PAIR-00a791c3-063f-4218-9c64-b67d7631398e",
-                    "label": "VECTOR 2 ORDERED PAIR",
-                    "func": "VECTOR_2_ORDERED_PAIR",
-                    "type": "TRANSFORMERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "multiple": false,
-                            "desc": "The input vector that will be the x axis of OrderedPair."
-                        },
-                        {
-                            "name": "y",
-                            "id": "y",
-                            "type": "Vector",
-                            "multiple": false,
-                            "desc": "The input vector that will be the y axis of OrderedPair."
+                            "type": "OrderedPair|Vector",
+                            "desc": "Input that defines the x-axis values of the function and output.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -305,65 +149,498 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair",
-                            "desc": "The OrderedPair that is generated from the input vectors"
+                            "desc": "x: the input v or x values\ny: the resulting sine function"
                         }
                     ],
-                    "path": "PYTHON/nodes\\TRANSFORMERS\\TYPE_CASTING\\VECTOR_2_ORDERED_PAIR\\VECTOR_2_ORDERED_PAIR.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/SINE/SINE.py"
                 },
                 "position": {
-                    "x": -95.64923043132146,
-                    "y": -74.11331295449935
+                    "x": -251.28573126531043,
+                    "y": -143.9374375277764
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -95.64923043132146,
-                    "y": -74.11331295449935
+                    "x": -251.28573126531043,
+                    "y": -143.9374375277764
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "width": 225,
+                "height": 225,
+                "id": "BIG_NUMBER-92682ab7-0b40-4b0e-b885-58cc49865554",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "BIG_NUMBER-92682ab7-0b40-4b0e-b885-58cc49865554",
+                    "label": "BIG NUMBER",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any suffix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": ""
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "dec_places": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "dec_places",
+                            "value": 0
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Use scientific notation? Defaults to 4 decimal places.",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py"
+                },
+                "position": {
+                    "x": 655.8464901960423,
+                    "y": -171.42394765353833
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 655.8464901960423,
+                    "y": -171.42394765353833
+                },
+                "dragging": false
+            },
+            {
+                "width": 225,
+                "height": 225,
+                "id": "BIG_NUMBER-0c508315-4e0d-4d17-a704-a57b6c2b0301",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "BIG_NUMBER-0c508315-4e0d-4d17-a704-a57b6c2b0301",
+                    "label": "BIG NUMBER 1",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "suffix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any suffix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": ""
+                        },
+                        "prefix": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "any prefix to show with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        },
+                        "dec_places": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "dec_places",
+                            "value": 0
+                        },
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Use scientific notation? Defaults to 4 decimal places.",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py"
+                },
+                "position": {
+                    "x": 661.6992801673069,
+                    "y": -533.587036179937
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 661.6992801673069,
+                    "y": -533.587036179937
+                },
+                "dragging": false
+            },
+            {
+                "width": 225,
+                "height": 225,
+                "id": "TABLE-40a7dca2-e0d9-4cd1-bdf5-c7ea10a72ae6",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TABLE-40a7dca2-e0d9-4cd1-bdf5-c7ea10a72ae6",
+                    "label": "TABLE",
+                    "func": "TABLE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Table visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
+                },
+                "position": {
+                    "x": 691.3025279604158,
+                    "y": 189.43986750472277
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 691.3025279604158,
+                    "y": 189.43986750472277
+                },
+                "dragging": false
+            },
+            {
+                "id": "ORDERED_PAIR_INDEXING-9708a185-2429-4027-a878-632a97615fe9",
+                "type": "TRANSFORM",
+                "data": {
+                    "id": "ORDERED_PAIR_INDEXING-9708a185-2429-4027-a878-632a97615fe9",
+                    "label": "ORDERED PAIR INDEXING",
+                    "func": "ORDERED_PAIR_INDEXING",
+                    "type": "TRANSFORM",
+                    "ctrls": {
+                        "index": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "The index of the OrderedPair to return.",
+                            "overload": null,
+                            "functionName": "ORDERED_PAIR_INDEXING",
+                            "param": "index",
+                            "value": 0
+                        },
+                        "x_axis": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Index x axis? If not y is indexed.",
+                            "overload": null,
+                            "functionName": "ORDERED_PAIR_INDEXING",
+                            "param": "x_axis",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "The input OrderedPair to index.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "The scalar index of the input OrderedPair."
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/ORDERED_PAIR_MANIPULATION/ORDERED_PAIR_INDEXING/ORDERED_PAIR_INDEXING.py"
+                },
+                "position": {
+                    "x": 208.64186821874063,
+                    "y": -521.530106887874
+                },
+                "width": 216,
+                "height": 332,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 208.64186821874063,
+                    "y": -521.530106887874
+                },
+                "dragging": false
+            },
+            {
+                "id": "ORDERED_PAIR_LENGTH-8c1d9fd0-cd85-45e9-a8fe-af4f3105e53f",
+                "type": "TRANSFORM",
+                "data": {
+                    "id": "ORDERED_PAIR_LENGTH-8c1d9fd0-cd85-45e9-a8fe-af4f3105e53f",
+                    "label": "ORDERED PAIR LENGTH",
+                    "func": "ORDERED_PAIR_LENGTH",
+                    "type": "TRANSFORM",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "The input OrderedPair to find the length of.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "The length of the input OrderedPair."
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/ORDERED_PAIR_MANIPULATION/ORDERED_PAIR_LENGTH/ORDERED_PAIR_LENGTH.py"
+                },
+                "position": {
+                    "x": 224.48297512406998,
+                    "y": -175.63621846229938
+                },
+                "width": 216,
+                "height": 332,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 224.48297512406998,
+                    "y": -175.63621846229938
+                },
+                "dragging": false
+            },
+            {
+                "id": "ORDERED_PAIR_DELETE-a774ad2e-3b05-4ce9-9c7f-4039ce59fd13",
+                "type": "TRANSFORM",
+                "data": {
+                    "id": "ORDERED_PAIR_DELETE-a774ad2e-3b05-4ce9-9c7f-4039ce59fd13",
+                    "label": "ORDERED PAIR DELETE",
+                    "func": "ORDERED_PAIR_DELETE",
+                    "type": "TRANSFORM",
+                    "ctrls": {
+                        "indices": {
+                            "type": "Array",
+                            "default": null,
+                            "desc": "specified indices to delete value(s) at from the input OrderedPair",
+                            "overload": null,
+                            "functionName": "ORDERED_PAIR_DELETE",
+                            "param": "indices",
+                            "value": ""
+                        },
+                        "length": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "number of elements to delete from the input OrderedPair, default is 1 (this only applies when one index is specified for indices parameter)",
+                            "overload": null,
+                            "functionName": "ORDERED_PAIR_DELETE",
+                            "param": "length",
+                            "value": 1
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "The input OrderedPair to delete from",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "desc": "The new OrderedPair with element(s) deleted from the input OrderedPair"
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/ORDERED_PAIR_MANIPULATION/ORDERED_PAIR_DELETE/ORDERED_PAIR_DELETE.py"
+                },
+                "position": {
+                    "x": 232.3309518769675,
+                    "y": 188.341788717869
+                },
+                "width": 216,
+                "height": 296,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 232.3309518769675,
+                    "y": 188.341788717869
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "LINSPACE-a4763e5c-fbf5-4e75-b292-7ea368d7c42c",
+                "id": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c->SINE-a0a451d7-4d9b-49c1-bf37-d1a82c52ac06_e5fd2f4d-e18e-49c5-bcef-0e2028a498c5",
+                "source": "LINSPACE-5fad4c5e-5ae2-4466-989f-30ed2158356c",
+                "target": "SINE-a0a451d7-4d9b-49c1-bf37-d1a82c52ac06",
                 "sourceHandle": "default",
-                "target": "VECTOR_2_ORDERED_PAIR-00a791c3-063f-4218-9c64-b67d7631398e",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-a4763e5c-fbf5-4e75-b292-7ea368d7c42cdefault-VECTOR_2_ORDERED_PAIR-00a791c3-063f-4218-9c64-b67d7631398edefault"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "LINSPACE-bdc206ef-b69b-40e2-8f38-f6eaeb9f1314",
+                "id": "SINE-a0a451d7-4d9b-49c1-bf37-d1a82c52ac06->ORDERED_PAIR_INDEXING-9708a185-2429-4027-a878-632a97615fe9_d1c853ed-74e3-486a-a21e-caca881e1c40",
+                "source": "SINE-a0a451d7-4d9b-49c1-bf37-d1a82c52ac06",
+                "target": "ORDERED_PAIR_INDEXING-9708a185-2429-4027-a878-632a97615fe9",
                 "sourceHandle": "default",
-                "target": "VECTOR_2_ORDERED_PAIR-00a791c3-063f-4218-9c64-b67d7631398e",
-                "targetHandle": "y",
-                "id": "reactflow__edge-LINSPACE-bdc206ef-b69b-40e2-8f38-f6eaeb9f1314default-VECTOR_2_ORDERED_PAIR-00a791c3-063f-4218-9c64-b67d7631398ey"
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "VECTOR_2_ORDERED_PAIR-00a791c3-063f-4218-9c64-b67d7631398e",
+                "id": "ORDERED_PAIR_INDEXING-9708a185-2429-4027-a878-632a97615fe9->BIG_NUMBER-0c508315-4e0d-4d17-a704-a57b6c2b0301_7ae09695-3894-4501-9d1d-755c056cd2d3",
+                "source": "ORDERED_PAIR_INDEXING-9708a185-2429-4027-a878-632a97615fe9",
+                "target": "BIG_NUMBER-0c508315-4e0d-4d17-a704-a57b6c2b0301",
                 "sourceHandle": "default",
-                "target": "SCATTER-b778eb21-99a8-44f8-9694-07ac47d7b2a0",
                 "targetHandle": "default",
-                "id": "reactflow__edge-VECTOR_2_ORDERED_PAIR-00a791c3-063f-4218-9c64-b67d7631398edefault-SCATTER-b778eb21-99a8-44f8-9694-07ac47d7b2a0default"
+                "data": {
+                    "outputType": "Scalar"
+                }
             },
             {
-                "source": "VECTOR_2_ORDERED_PAIR-00a791c3-063f-4218-9c64-b67d7631398e",
+                "id": "SINE-a0a451d7-4d9b-49c1-bf37-d1a82c52ac06->ORDERED_PAIR_LENGTH-8c1d9fd0-cd85-45e9-a8fe-af4f3105e53f_ca2690d3-2d03-4249-b619-b8c9f7295d55",
+                "source": "SINE-a0a451d7-4d9b-49c1-bf37-d1a82c52ac06",
+                "target": "ORDERED_PAIR_LENGTH-8c1d9fd0-cd85-45e9-a8fe-af4f3105e53f",
                 "sourceHandle": "default",
-                "target": "ORDERED_PAIR_XY_INVERT-2792706c-8d3b-4d14-ab86-25b7b02afbff",
                 "targetHandle": "default",
-                "id": "reactflow__edge-VECTOR_2_ORDERED_PAIR-00a791c3-063f-4218-9c64-b67d7631398edefault-ORDERED_PAIR_XY_INVERT-2792706c-8d3b-4d14-ab86-25b7b02afbffdefault"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "ORDERED_PAIR_XY_INVERT-2792706c-8d3b-4d14-ab86-25b7b02afbff",
+                "id": "ORDERED_PAIR_LENGTH-8c1d9fd0-cd85-45e9-a8fe-af4f3105e53f->BIG_NUMBER-92682ab7-0b40-4b0e-b885-58cc49865554_d36c81d7-1fd0-4363-a6af-96dc87541292",
+                "source": "ORDERED_PAIR_LENGTH-8c1d9fd0-cd85-45e9-a8fe-af4f3105e53f",
+                "target": "BIG_NUMBER-92682ab7-0b40-4b0e-b885-58cc49865554",
                 "sourceHandle": "default",
-                "target": "SCATTER-011cf3e2-6c48-41f8-b600-1d344e28ad61",
                 "targetHandle": "default",
-                "id": "reactflow__edge-ORDERED_PAIR_XY_INVERT-2792706c-8d3b-4d14-ab86-25b7b02afbffdefault-SCATTER-011cf3e2-6c48-41f8-b600-1d344e28ad61default"
+                "data": {
+                    "outputType": "Scalar"
+                }
+            },
+            {
+                "id": "SINE-a0a451d7-4d9b-49c1-bf37-d1a82c52ac06->ORDERED_PAIR_DELETE-a774ad2e-3b05-4ce9-9c7f-4039ce59fd13_5d214b3f-a80f-4082-836c-b4e6c87a555a",
+                "source": "SINE-a0a451d7-4d9b-49c1-bf37-d1a82c52ac06",
+                "target": "ORDERED_PAIR_DELETE-a774ad2e-3b05-4ce9-9c7f-4039ce59fd13",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "ORDERED_PAIR_DELETE-a774ad2e-3b05-4ce9-9c7f-4039ce59fd13->TABLE-40a7dca2-e0d9-4cd1-bdf5-c7ea10a72ae6_4765a43a-2b24-4cb2-88ad-dcc14f96e998",
+                "source": "ORDERED_PAIR_DELETE-a774ad2e-3b05-4ce9-9c7f-4039ce59fd13",
+                "target": "TABLE-40a7dca2-e0d9-4cd1-bdf5-c7ea10a72ae6",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             }
-        ],
-        "viewport": {
-            "x": 856.9726609784543,
-            "y": 419.56285211681103,
-            "zoom": 0.8897660042407147
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

@@ -2,116 +2,66 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
-                "id": "READ_USB4065-3ca3e42a-4ee3-490b-86c0-a0c1353840d5",
-                "type": "HARDWARE",
+                "id": "BIG_NUMBER-22175a74-756d-4334-81ff-10732f27faf2",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "READ_USB4065-3ca3e42a-4ee3-490b-86c0-a0c1353840d5",
-                    "label": "READ USB4065",
-                    "func": "READ_USB4065",
-                    "type": "HARDWARE",
+                    "id": "BIG_NUMBER-22175a74-756d-4334-81ff-10732f27faf2",
+                    "label": "BIG NUMBER 1",
+                    "func": "BIG_NUMBER",
+                    "type": "VISUALIZATION",
                     "ctrls": {
-                        "connection": {
-                            "type": "NIConnection",
+                        "suffix": {
+                            "type": "str",
                             "default": null,
-                            "desc": null,
+                            "desc": "any suffix to show with big number",
                             "overload": null,
-                            "functionName": "READ_USB4065",
-                            "param": "connection",
-                            "value": "Dev1"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Scalar",
-                            "desc": "Scalar: The DMM reading."
-                        }
-                    ],
-                    "path": "HARDWARE/MULTIMETERS/NI/USB_4065/READ_USB4065/READ_USB4065.py"
-                },
-                "position": {
-                    "x": 491.2846826931461,
-                    "y": -42.91749082497847
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 491.2846826931461,
-                    "y": -42.91749082497847
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "RESISTANCE_4W_USB4065-bf88942f-43e9-4fcb-9bf9-0033417470ba",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "RESISTANCE_4W_USB4065-bf88942f-43e9-4fcb-9bf9-0033417470ba",
-                    "label": "RESISTANCE 4W USB4065",
-                    "func": "RESISTANCE_4W_USB4065",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "connection": {
-                            "type": "NIConnection",
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": ""
+                        },
+                        "prefix": {
+                            "type": "str",
                             "default": null,
-                            "desc": null,
+                            "desc": "any prefix to show with big number",
                             "overload": null,
-                            "functionName": "RESISTANCE_4W_USB4065",
-                            "param": "connection",
-                            "value": "Dev1"
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
                         },
-                        "digits": {
-                            "type": "select",
-                            "options": [
-                                "4.5",
-                                "5.5",
-                                "6.5"
-                            ],
-                            "default": "5.5",
-                            "desc": "The number of digits for the measurement. Lower values are faster.",
+                        "title": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "title of the plot, default = \"BIG_NUMBER\"",
                             "overload": null,
-                            "functionName": "RESISTANCE_4W_USB4065",
-                            "param": "digits",
-                            "value": "5.5"
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
                         },
-                        "resist_limit": {
-                            "type": "select",
-                            "options": [
-                                "1",
-                                "10",
-                                "100",
-                                "1000",
-                                "1e4",
-                                "1e5",
-                                "1e6"
-                            ],
-                            "default": "1e6",
-                            "desc": "The maximum resistance to allow, in Ohms.",
+                        "dec_places": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\"",
                             "overload": null,
-                            "functionName": "RESISTANCE_4W_USB4065",
-                            "param": "resist_limit",
-                            "value": "1e6"
+                            "functionName": "BIG_NUMBER",
+                            "param": "dec_places",
+                            "value": 0
                         },
-                        "read": {
+                        "relative_delta": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "whether or not to show the relative delta from the last run along with big number",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "scientific_notation": {
                             "type": "bool",
                             "default": false,
-                            "desc": "Read the selected unit, or not.",
+                            "desc": "Use scientific notation? Defaults to 4 decimal places.",
                             "overload": null,
-                            "functionName": "RESISTANCE_4W_USB4065",
-                            "param": "read",
+                            "functionName": "BIG_NUMBER",
+                            "param": "scientific_notation",
                             "value": false
                         }
                     },
@@ -120,91 +70,39 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Scalar",
-                            "desc": "Scalar: The resistance reading."
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly big number visualization"
                         }
                     ],
-                    "path": "HARDWARE/MULTIMETERS/NI/USB_4065/RESISTANCE_4W_USB4065/RESISTANCE_4W_USB4065.py"
+                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py"
                 },
                 "position": {
-                    "x": 191.81770431499933,
-                    "y": -33.00235290801649
+                    "x": 285.2153008076907,
+                    "y": -99.23748322273082
                 },
-                "selected": true,
-                "positionAbsolute": {
-                    "x": 191.81770431499933,
-                    "y": -33.00235290801649
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "CONNECTION_USB4065-1229c1cb-6008-4f60-addf-050afd3e50e1",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "CONNECTION_USB4065-1229c1cb-6008-4f60-addf-050afd3e50e1",
-                    "label": "CONNECTION USB4065",
-                    "func": "CONNECTION_USB4065",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "NI_address": {
-                            "type": "NIDMMDevice",
-                            "default": null,
-                            "desc": "The NI DMM instrument to connect to.",
-                            "overload": null,
-                            "functionName": "CONNECTION_USB4065",
-                            "param": "NI_address",
-                            "value": "Dev1"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "Optional: None"
-                        }
-                    ],
-                    "path": "HARDWARE/MULTIMETERS/NI/USB_4065/CONNECTION_USB4065/CONNECTION_USB4065.py"
-                },
-                "position": {
-                    "x": -107.74989892311537,
-                    "y": -48.9911725998563
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -107.74989892311537,
-                    "y": -48.9911725998563
-                },
-                "dragging": true
-            },
-            {
                 "width": 225,
                 "height": 225,
-                "id": "BIG_NUMBER-7474b60b-f1f8-47f3-9835-64461006cabd",
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 285.2153008076907,
+                    "y": -99.23748322273082
+                },
+                "dragging": false
+            },
+            {
+                "id": "BIG_NUMBER-098d8088-304d-49b0-bb9e-62edb53e7153",
                 "type": "VISUALIZATION",
                 "data": {
-                    "id": "BIG_NUMBER-7474b60b-f1f8-47f3-9835-64461006cabd",
+                    "id": "BIG_NUMBER-098d8088-304d-49b0-bb9e-62edb53e7153",
                     "label": "BIG NUMBER",
                     "func": "BIG_NUMBER",
                     "type": "VISUALIZATION",
@@ -270,8 +168,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -285,45 +183,296 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py"
                 },
                 "position": {
-                    "x": 809.4735726468833,
-                    "y": -55.70150124584757
+                    "x": 291.6904337411286,
+                    "y": -490.7836261874827
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 809.4735726468833,
-                    "y": -55.70150124584757
+                    "x": 291.6904337411286,
+                    "y": -490.7836261874827
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "CONNECTION_USB4065-87805379-d4d9-44ba-bfb2-936e8e106c00",
+                "type": "MULTIMETERS",
+                "data": {
+                    "id": "CONNECTION_USB4065-87805379-d4d9-44ba-bfb2-936e8e106c00",
+                    "label": "CONNECTION USB4065",
+                    "func": "CONNECTION_USB4065",
+                    "type": "MULTIMETERS",
+                    "ctrls": {
+                        "NI_address": {
+                            "type": "NIDMMDevice",
+                            "default": null,
+                            "desc": "The NI DMM instrument to connect to.",
+                            "overload": null,
+                            "functionName": "CONNECTION_USB4065",
+                            "param": "NI_address",
+                            "value": ""
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "Optional: None"
+                        }
+                    ],
+                    "path": "HARDWARE/MULTIMETERS/NI/USB_4065/CONNECTION_USB4065/CONNECTION_USB4065.py"
+                },
+                "position": {
+                    "x": -665.2987497235579,
+                    "y": -297.50643741809904
+                },
+                "width": 218,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -665.2987497235579,
+                    "y": -297.50643741809904
+                },
+                "dragging": false
+            },
+            {
+                "id": "AC_VOLTAGE_USB4065-5f915eef-6e43-43bd-8fc5-d15639795305",
+                "type": "MULTIMETERS",
+                "data": {
+                    "id": "AC_VOLTAGE_USB4065-5f915eef-6e43-43bd-8fc5-d15639795305",
+                    "label": "AC VOLTAGE USB4065",
+                    "func": "AC_VOLTAGE_USB4065",
+                    "type": "MULTIMETERS",
+                    "ctrls": {
+                        "connection": {
+                            "type": "NIConnection",
+                            "default": null,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "AC_VOLTAGE_USB4065",
+                            "param": "connection",
+                            "value": ""
+                        },
+                        "digits": {
+                            "type": "select",
+                            "default": "5.5",
+                            "options": [
+                                "4.5",
+                                "5.5",
+                                "6.5"
+                            ],
+                            "desc": "The number of digits for the measurement. Lower values are faster.",
+                            "overload": null,
+                            "functionName": "AC_VOLTAGE_USB4065",
+                            "param": "digits",
+                            "value": "5.5"
+                        },
+                        "voltage_limit": {
+                            "type": "select",
+                            "default": "20",
+                            "options": [
+                                "0.2",
+                                "2",
+                                "20",
+                                "300"
+                            ],
+                            "desc": "The maximum voltage to allow, in Volts.",
+                            "overload": null,
+                            "functionName": "AC_VOLTAGE_USB4065",
+                            "param": "voltage_limit",
+                            "value": "20"
+                        },
+                        "read": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Read the selected unit, or not.",
+                            "overload": null,
+                            "functionName": "AC_VOLTAGE_USB4065",
+                            "param": "read",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "Scalar: The AC voltage reading."
+                        }
+                    ],
+                    "path": "HARDWARE/MULTIMETERS/NI/USB_4065/AC_VOLTAGE_USB4065/AC_VOLTAGE_USB4065.py"
+                },
+                "position": {
+                    "x": -252.9990082295787,
+                    "y": -461.54276370524735
+                },
+                "width": 216,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -252.9990082295787,
+                    "y": -461.54276370524735
+                },
+                "dragging": false
+            },
+            {
+                "id": "AC_CURRENT_USB4065-87dc7980-45e3-4968-ab41-a72edcbe18e1",
+                "type": "MULTIMETERS",
+                "data": {
+                    "id": "AC_CURRENT_USB4065-87dc7980-45e3-4968-ab41-a72edcbe18e1",
+                    "label": "AC CURRENT USB4065",
+                    "func": "AC_CURRENT_USB4065",
+                    "type": "MULTIMETERS",
+                    "ctrls": {
+                        "connection": {
+                            "type": "NIConnection",
+                            "default": null,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "AC_CURRENT_USB4065",
+                            "param": "connection",
+                            "value": ""
+                        },
+                        "digits": {
+                            "type": "select",
+                            "default": "5.5",
+                            "options": [
+                                "4.5",
+                                "5.5",
+                                "6.5"
+                            ],
+                            "desc": "The number of digits for the measurement. Lower values are faster.",
+                            "overload": null,
+                            "functionName": "AC_CURRENT_USB4065",
+                            "param": "digits",
+                            "value": "5.5"
+                        },
+                        "current_limit": {
+                            "type": "select",
+                            "default": "3",
+                            "options": [
+                                "0.01",
+                                "0.1",
+                                "0.5",
+                                "3"
+                            ],
+                            "desc": "The maximum current to allow, in Amps.",
+                            "overload": null,
+                            "functionName": "AC_CURRENT_USB4065",
+                            "param": "current_limit",
+                            "value": "3"
+                        },
+                        "read": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Read the selected unit, or not.",
+                            "overload": null,
+                            "functionName": "AC_CURRENT_USB4065",
+                            "param": "read",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Scalar",
+                            "desc": "Scalar: The AC current reading."
+                        }
+                    ],
+                    "path": "HARDWARE/MULTIMETERS/NI/USB_4065/AC_CURRENT_USB4065/AC_CURRENT_USB4065.py"
+                },
+                "position": {
+                    "x": -256.08628831403416,
+                    "y": -51.35802268301552
+                },
+                "width": 216,
+                "height": 233,
+                "selected": true,
+                "positionAbsolute": {
+                    "x": -256.08628831403416,
+                    "y": -51.35802268301552
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "RESISTANCE_4W_USB4065-bf88942f-43e9-4fcb-9bf9-0033417470ba",
+                "id": "CONNECTION_USB4065-87805379-d4d9-44ba-bfb2-936e8e106c00->AC_VOLTAGE_USB4065-5f915eef-6e43-43bd-8fc5-d15639795305_1cbe39ee-e926-4388-a5dc-908d108b23d8",
+                "source": "CONNECTION_USB4065-87805379-d4d9-44ba-bfb2-936e8e106c00",
+                "target": "AC_VOLTAGE_USB4065-5f915eef-6e43-43bd-8fc5-d15639795305",
                 "sourceHandle": "default",
-                "target": "READ_USB4065-3ca3e42a-4ee3-490b-86c0-a0c1353840d5",
                 "targetHandle": "default",
-                "id": "reactflow__edge-RESISTANCE_4W_USB4065-bf88942f-43e9-4fcb-9bf9-0033417470badefault-READ_USB4065-3ca3e42a-4ee3-490b-86c0-a0c1353840d5default"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "CONNECTION_USB4065-1229c1cb-6008-4f60-addf-050afd3e50e1",
+                "id": "CONNECTION_USB4065-87805379-d4d9-44ba-bfb2-936e8e106c00->AC_CURRENT_USB4065-87dc7980-45e3-4968-ab41-a72edcbe18e1_8bccb0d3-20aa-44ef-9a10-0238ca23e69c",
+                "source": "CONNECTION_USB4065-87805379-d4d9-44ba-bfb2-936e8e106c00",
+                "target": "AC_CURRENT_USB4065-87dc7980-45e3-4968-ab41-a72edcbe18e1",
                 "sourceHandle": "default",
-                "target": "RESISTANCE_4W_USB4065-bf88942f-43e9-4fcb-9bf9-0033417470ba",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CONNECTION_USB4065-1229c1cb-6008-4f60-addf-050afd3e50e1default-RESISTANCE_4W_USB4065-bf88942f-43e9-4fcb-9bf9-0033417470badefault"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "READ_USB4065-3ca3e42a-4ee3-490b-86c0-a0c1353840d5",
+                "id": "AC_CURRENT_USB4065-87dc7980-45e3-4968-ab41-a72edcbe18e1->BIG_NUMBER-22175a74-756d-4334-81ff-10732f27faf2_b38ec70d-d28a-4603-9431-f8f26d579f51",
+                "source": "AC_CURRENT_USB4065-87dc7980-45e3-4968-ab41-a72edcbe18e1",
+                "target": "BIG_NUMBER-22175a74-756d-4334-81ff-10732f27faf2",
                 "sourceHandle": "default",
-                "target": "BIG_NUMBER-7474b60b-f1f8-47f3-9835-64461006cabd",
                 "targetHandle": "default",
-                "id": "reactflow__edge-READ_USB4065-3ca3e42a-4ee3-490b-86c0-a0c1353840d5default-BIG_NUMBER-7474b60b-f1f8-47f3-9835-64461006cabddefault"
+                "data": {
+                    "outputType": "Scalar"
+                }
+            },
+            {
+                "id": "AC_VOLTAGE_USB4065-5f915eef-6e43-43bd-8fc5-d15639795305->BIG_NUMBER-098d8088-304d-49b0-bb9e-62edb53e7153_935931bf-00b8-4874-b28e-c4f83191fa4c",
+                "source": "AC_VOLTAGE_USB4065-5f915eef-6e43-43bd-8fc5-d15639795305",
+                "target": "BIG_NUMBER-098d8088-304d-49b0-bb9e-62edb53e7153",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Scalar"
+                }
             }
-        ],
-        "viewport": {
-            "x": 998.2402235606428,
-            "y": 582.5298224384069,
-            "zoom": 0.9879406118224267
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

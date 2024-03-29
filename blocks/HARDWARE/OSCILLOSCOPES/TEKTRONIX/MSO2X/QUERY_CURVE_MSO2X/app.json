@@ -2,15 +2,15 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "CONNECT_MSO2X-0aa2b138-6f87-46a2-8002-6184a1530b53",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "CONNECT_MSO2X-0aa2b138-6f87-46a2-8002-6184a1530b53",
                     "label": "CONNECT MSO2X",
                     "func": "CONNECT_MSO2X",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "device": {
                             "type": "VisaDevice",
@@ -41,26 +41,26 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -972.3997773818419,
-                    "y": -42.54695560022276
+                    "x": -1590.399777381842,
+                    "y": -22.54695560022276
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -972.3997773818419,
-                    "y": -42.54695560022276
+                    "x": -1590.399777381842,
+                    "y": -22.54695560022276
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 197,
                 "id": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693",
                     "label": "AFG MSO2X",
                     "func": "AFG_MSO2X",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -184,8 +184,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -206,26 +206,26 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -422.9725712005135,
-                    "y": -39.494809400804286
+                    "x": -716.9725712005136,
+                    "y": -23.494809400804343
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -422.9725712005135,
-                    "y": -39.494809400804286
+                    "x": -716.9725712005136,
+                    "y": -23.494809400804343
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50",
                     "label": "SETUP FILE MSO2X",
                     "func": "SETUP_FILE_MSO2X",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -252,7 +252,7 @@
                         "filename": {
                             "type": "str",
                             "default": "flojoy",
-                            "desc": "The file name to save or recall (e.g. c:/flojoy.set).",
+                            "desc": "The file name to save or recall (\"flojoy\" results in \"C:/flojoy.set\").",
                             "overload": null,
                             "functionName": "SETUP_FILE_MSO2X",
                             "param": "filename",
@@ -265,8 +265,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -287,19 +287,19 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -692.5888792476351,
-                    "y": -40.87519690788497
+                    "x": -1130.588879247635,
+                    "y": -18.87519690788497
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -692.5888792476351,
-                    "y": -40.87519690788497
+                    "x": -1130.588879247635,
+                    "y": -18.87519690788497
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "LINE-180e9530-0d2b-49af-b71f-be6e354a386f",
                 "type": "VISUALIZATION",
                 "data": {
@@ -307,15 +307,52 @@
                     "label": "LINE",
                     "func": "LINE",
                     "type": "VISUALIZATION",
-                    "ctrls": {},
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -330,19 +367,19 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 136.50463949365567,
-                    "y": 199.82777311679627
+                    "x": 354.50463949365565,
+                    "y": 231.82777311679627
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 136.50463949365567,
-                    "y": 199.82777311679627
+                    "x": 354.50463949365565,
+                    "y": 231.82777311679627
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "LINE-effb893b-822f-40d5-a84c-df6d536f69c6",
                 "type": "VISUALIZATION",
                 "data": {
@@ -350,15 +387,52 @@
                     "label": "LINE 1",
                     "func": "LINE",
                     "type": "VISUALIZATION",
-                    "ctrls": {},
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -373,19 +447,19 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 138.6209863013431,
-                    "y": -81.31974440384789
+                    "x": 338.6209863013431,
+                    "y": -67.31974440384784
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 138.6209863013431,
-                    "y": -81.31974440384789
+                    "x": 338.6209863013431,
+                    "y": -67.31974440384784
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "LINE-6eafbfa3-aedf-460e-a8f0-2161c00d3955",
                 "type": "VISUALIZATION",
                 "data": {
@@ -393,15 +467,52 @@
                     "label": "LINE 2",
                     "func": "LINE",
                     "type": "VISUALIZATION",
-                    "ctrls": {},
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -416,26 +527,26 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 135.98228266571007,
-                    "y": -357.6232447912331
+                    "x": 325.98228266571004,
+                    "y": -359.6232447912331
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 135.98228266571007,
-                    "y": -357.6232447912331
+                    "x": 325.98228266571004,
+                    "y": -359.6232447912331
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 269,
                 "id": "QUERY_CURVE_MSO2X-2e356447-433c-4145-919c-fb6f469da7d1",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "QUERY_CURVE_MSO2X-2e356447-433c-4145-919c-fb6f469da7d1",
                     "label": "QUERY CURVE MSO2X",
                     "func": "QUERY_CURVE_MSO2X",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -462,8 +573,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -484,26 +595,26 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -121.463243116228,
-                    "y": -306.83381131617256
+                    "x": -141.463243116228,
+                    "y": -318.8338113161726
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -121.463243116228,
-                    "y": -306.83381131617256
+                    "x": -141.463243116228,
+                    "y": -318.8338113161726
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 269,
                 "id": "QUERY_CURVE_MSO2X-cca29f1b-0114-4b2e-8219-d933ada2b6d2",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "QUERY_CURVE_MSO2X-cca29f1b-0114-4b2e-8219-d933ada2b6d2",
                     "label": "QUERY CURVE MSO2X 1",
                     "func": "QUERY_CURVE_MSO2X",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -530,8 +641,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -552,26 +663,26 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -123.75754697446376,
-                    "y": -33.1920273568287
+                    "x": -135.75754697446376,
+                    "y": -25.192027356828703
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -123.75754697446376,
-                    "y": -33.1920273568287
+                    "x": -135.75754697446376,
+                    "y": -25.192027356828703
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 269,
                 "id": "QUERY_CURVE_MSO2X-efa64c32-95a9-42ff-8fa9-db9a15604d92",
-                "type": "HARDWARE",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "QUERY_CURVE_MSO2X-efa64c32-95a9-42ff-8fa9-db9a15604d92",
                     "label": "QUERY CURVE MSO2X 2",
                     "func": "QUERY_CURVE_MSO2X",
-                    "type": "HARDWARE",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -598,8 +709,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -620,80 +731,102 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -113.81926123352736,
-                    "y": 248.36041852771388
+                    "x": -129.81926123352736,
+                    "y": 272.3604185277138
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -113.81926123352736,
-                    "y": 248.36041852771388
+                    "x": -129.81926123352736,
+                    "y": 272.3604185277138
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "QUERY_CURVE_MSO2X-2e356447-433c-4145-919c-fb6f469da7d1",
-                "sourceHandle": "default",
-                "target": "LINE-6eafbfa3-aedf-460e-a8f0-2161c00d3955",
-                "targetHandle": "default",
-                "id": "reactflow__edge-QUERY_CURVE_MSO2X-2e356447-433c-4145-919c-fb6f469da7d1default-LINE-6eafbfa3-aedf-460e-a8f0-2161c00d3955default"
-            },
-            {
-                "source": "QUERY_CURVE_MSO2X-cca29f1b-0114-4b2e-8219-d933ada2b6d2",
-                "sourceHandle": "default",
-                "target": "LINE-effb893b-822f-40d5-a84c-df6d536f69c6",
-                "targetHandle": "default",
-                "id": "reactflow__edge-QUERY_CURVE_MSO2X-cca29f1b-0114-4b2e-8219-d933ada2b6d2default-LINE-effb893b-822f-40d5-a84c-df6d536f69c6default"
-            },
-            {
-                "source": "QUERY_CURVE_MSO2X-efa64c32-95a9-42ff-8fa9-db9a15604d92",
-                "sourceHandle": "default",
-                "target": "LINE-180e9530-0d2b-49af-b71f-be6e354a386f",
-                "targetHandle": "default",
-                "id": "reactflow__edge-QUERY_CURVE_MSO2X-efa64c32-95a9-42ff-8fa9-db9a15604d92default-LINE-180e9530-0d2b-49af-b71f-be6e354a386fdefault"
-            },
-            {
+                "id": "CONNECT_MSO2X-0aa2b138-6f87-46a2-8002-6184a1530b53->SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50_26a2b1d6-2126-4c82-9a65-1580dbf9b1d5",
                 "source": "CONNECT_MSO2X-0aa2b138-6f87-46a2-8002-6184a1530b53",
-                "sourceHandle": "default",
                 "target": "SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50",
+                "sourceHandle": "default",
                 "targetHandle": "input",
-                "id": "reactflow__edge-CONNECT_MSO2X-0aa2b138-6f87-46a2-8002-6184a1530b53default-SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50input"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50->AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693_2b1440e0-b866-4584-93c4-63271b6cd518",
                 "source": "SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50",
-                "sourceHandle": "default",
                 "target": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693",
+                "sourceHandle": "default",
                 "targetHandle": "input",
-                "id": "reactflow__edge-SETUP_FILE_MSO2X-f00de19f-2d87-4751-838f-541233885c50default-AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693input"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693->QUERY_CURVE_MSO2X-2e356447-433c-4145-919c-fb6f469da7d1_5608adbc-a3ea-4355-b44c-e2fed3d14a5e",
                 "source": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693",
-                "sourceHandle": "default",
                 "target": "QUERY_CURVE_MSO2X-2e356447-433c-4145-919c-fb6f469da7d1",
+                "sourceHandle": "default",
                 "targetHandle": "input",
-                "id": "reactflow__edge-AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693default-QUERY_CURVE_MSO2X-2e356447-433c-4145-919c-fb6f469da7d1input"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693->QUERY_CURVE_MSO2X-cca29f1b-0114-4b2e-8219-d933ada2b6d2_98b83280-7e7c-4086-b92d-cd7e8a12e2b1",
                 "source": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693",
-                "sourceHandle": "default",
                 "target": "QUERY_CURVE_MSO2X-cca29f1b-0114-4b2e-8219-d933ada2b6d2",
+                "sourceHandle": "default",
                 "targetHandle": "input",
-                "id": "reactflow__edge-AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693default-QUERY_CURVE_MSO2X-cca29f1b-0114-4b2e-8219-d933ada2b6d2input"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693->QUERY_CURVE_MSO2X-efa64c32-95a9-42ff-8fa9-db9a15604d92_66efeb45-9c69-4d23-8744-3a7afc748172",
                 "source": "AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693",
-                "sourceHandle": "default",
                 "target": "QUERY_CURVE_MSO2X-efa64c32-95a9-42ff-8fa9-db9a15604d92",
+                "sourceHandle": "default",
                 "targetHandle": "input",
-                "id": "reactflow__edge-AFG_MSO2X-1c101431-e80d-484e-98ad-9f58c893c693default-QUERY_CURVE_MSO2X-efa64c32-95a9-42ff-8fa9-db9a15604d92input"
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "QUERY_CURVE_MSO2X-2e356447-433c-4145-919c-fb6f469da7d1->LINE-6eafbfa3-aedf-460e-a8f0-2161c00d3955_399cc5fb-6804-414f-8f75-ae24822d0146",
+                "source": "QUERY_CURVE_MSO2X-2e356447-433c-4145-919c-fb6f469da7d1",
+                "target": "LINE-6eafbfa3-aedf-460e-a8f0-2161c00d3955",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "QUERY_CURVE_MSO2X-cca29f1b-0114-4b2e-8219-d933ada2b6d2->LINE-effb893b-822f-40d5-a84c-df6d536f69c6_e5937b31-1217-48d7-8e3b-5339350396f1",
+                "source": "QUERY_CURVE_MSO2X-cca29f1b-0114-4b2e-8219-d933ada2b6d2",
+                "target": "LINE-effb893b-822f-40d5-a84c-df6d536f69c6",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "QUERY_CURVE_MSO2X-efa64c32-95a9-42ff-8fa9-db9a15604d92->LINE-180e9530-0d2b-49af-b71f-be6e354a386f_69cbd69e-9558-4047-8dac-4dca55a53f12",
+                "source": "QUERY_CURVE_MSO2X-efa64c32-95a9-42ff-8fa9-db9a15604d92",
+                "target": "LINE-180e9530-0d2b-49af-b71f-be6e354a386f",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             }
-        ],
-        "viewport": {
-            "x": 1189.7883637885323,
-            "y": 525.5787480876195,
-            "zoom": 1.0441212277180714
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

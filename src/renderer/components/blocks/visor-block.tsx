@@ -26,7 +26,15 @@ const VisorBlock = (props: BlockProps) => {
       plotlyFig ? makePlotlyData(plotlyFig.data, resolvedTheme, true) : null,
     [plotlyFig, resolvedTheme],
   );
-  const [dimensions, setDimensions] = useState({ width: 225, height: 225 });
+
+  const maxInputOutput = useMemo(
+    () => Math.max(data.inputs?.length ?? 0, data.outputs?.length ?? 0),
+    [data.inputs?.length, data.outputs?.length],
+  );
+  const [dimensions, setDimensions] = useState({
+    height: maxInputOutput > 1 ? maxInputOutput * 58 + 38 : 225,
+    width: 225,
+  });
 
   const updateNodeInternals = useUpdateNodeInternals();
 

@@ -25,7 +25,6 @@ import { ClearCanvasBtn } from "@/renderer/routes/flow_chart/components/ClearCan
 import { Binary, Text } from "lucide-react";
 import { useCallback, useRef, useState } from "react";
 import { NewWidgetModal } from "./components/new-widget-modal";
-import VisualizationNode from "@/renderer/components/controls/visualization-node";
 import { NewVisualizationModal } from "./components/new-visualization";
 import {
   WidgetConfig,
@@ -36,6 +35,7 @@ import {
   isConfigurable,
   WIDGETS,
   WIDGET_CONFIGS,
+  VISUALIZATIONS,
 } from "@/renderer/types/control";
 import { ConfigDialog } from "./components/config-dialog";
 import { useShallow } from "zustand/react/shallow";
@@ -50,11 +50,12 @@ import { deepMutableClone } from "@/renderer/utils/clone";
 import { Link } from "react-router-dom";
 import { useSocketStore } from "@/renderer/stores/socket";
 import FlowControlButtons from "../flow_chart/views/ControlBar/FlowControlButtons";
+import _ from "lodash";
 
 const nodeTypes = {
   TextNode: ControlTextNode,
-  visualization: VisualizationNode,
-  ...Object.fromEntries(Object.entries(WIDGETS).map(([k, v]) => [k, v.node])),
+  ..._.mapValues(VISUALIZATIONS, (v) => v.node),
+  ..._.mapValues(WIDGETS, (v) => v.node),
 };
 
 const ControlPanelView = () => {

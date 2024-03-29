@@ -2,15 +2,15 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "CREATE_CAN_MESSAGE-7d0093f4-bf13-484c-b5e3-69eeb78d0873",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "CREATE_CAN_MESSAGE-7d0093f4-bf13-484c-b5e3-69eeb78d0873",
                     "label": "START MESSAGE",
                     "func": "CREATE_CAN_MESSAGE",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "frame_id": {
                             "type": "int",
@@ -64,8 +64,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -85,26 +85,26 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/UTILS/CREATE_CAN_MESSAGE/CREATE_CAN_MESSAGE.py"
                 },
                 "position": {
-                    "x": -355.08942172131447,
-                    "y": -737.0764614407618
+                    "x": -477.4482981259736,
+                    "y": -780.0674180153718
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -355.08942172131447,
-                    "y": -737.0764614407618
+                    "x": -477.4482981259736,
+                    "y": -780.0674180153718
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 234,
                 "id": "SEND_CAN_MESSAGE-383458e7-ae08-4f3c-8d96-1f101efafeb0",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "SEND_CAN_MESSAGE-383458e7-ae08-4f3c-8d96-1f101efafeb0",
                     "label": "SEND CAN MESSAGE",
                     "func": "SEND_CAN_MESSAGE",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "CAN_address": {
                             "type": "str",
@@ -122,15 +122,15 @@
                             "name": "message",
                             "id": "message",
                             "type": "Stateful",
-                            "multiple": false,
-                            "desc": "A list of messages to send to the CAN device."
+                            "desc": "A list of messages to send to the CAN device.",
+                            "multiple": false
                         },
                         {
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -150,26 +150,26 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/BUS/SEND_CAN_MESSAGE/SEND_CAN_MESSAGE.py"
                 },
                 "position": {
-                    "x": -48.65422772648216,
-                    "y": -485.9624093364467
+                    "x": -152.82462250342172,
+                    "y": -481.00191434706863
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -48.65422772648216,
-                    "y": -485.9624093364467
+                    "x": -152.82462250342172,
+                    "y": -481.00191434706863
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 306,
                 "id": "SEND_PERIODIC_CAN_MESSAGE-5553fe6d-8871-4309-bff3-5dacf630f417",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "SEND_PERIODIC_CAN_MESSAGE-5553fe6d-8871-4309-bff3-5dacf630f417",
                     "label": "SEND PERIODIC CAN MESSAGE",
                     "func": "SEND_PERIODIC_CAN_MESSAGE",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "CAN_address": {
                             "type": "str",
@@ -183,7 +183,7 @@
                         "period": {
                             "type": "float",
                             "default": null,
-                            "desc": "The period in seconds between messages",
+                            "desc": "The period in seconds between messages.",
                             "overload": null,
                             "functionName": "SEND_PERIODIC_CAN_MESSAGE",
                             "param": "period",
@@ -192,7 +192,7 @@
                         "duration": {
                             "type": "float",
                             "default": null,
-                            "desc": "Approximate duration in seconds to continue sending messages. If no duration is provided, the task will continue indefinitely",
+                            "desc": "Approximate duration in seconds to continue sending messages. If no duration is provided, the task will continue indefinitely.",
                             "overload": null,
                             "functionName": "SEND_PERIODIC_CAN_MESSAGE",
                             "param": "duration",
@@ -205,15 +205,15 @@
                             "name": "message",
                             "id": "message",
                             "type": "Stateful",
-                            "multiple": false,
-                            "desc": "A list of messages to send to the CAN device."
+                            "desc": "A list of messages to send to the CAN device.",
+                            "multiple": false
                         },
                         {
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -234,25 +234,25 @@
                 },
                 "position": {
                     "x": 263.6189552201036,
-                    "y": -481.4717087816572
+                    "y": -506.27418372854754
                 },
                 "selected": false,
                 "positionAbsolute": {
                     "x": 263.6189552201036,
-                    "y": -481.4717087816572
+                    "y": -506.27418372854754
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 305,
                 "id": "STOP_SEND_PERIODIC_CAN_MESSAGE-67dc0129-d0f1-4af6-873c-ad24d856c586",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "STOP_SEND_PERIODIC_CAN_MESSAGE-67dc0129-d0f1-4af6-873c-ad24d856c586",
                     "label": "STOP SEND PERIODIC CAN MESSAGE",
                     "func": "STOP_SEND_PERIODIC_CAN_MESSAGE",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "CAN_address": {
                             "type": "str",
@@ -270,8 +270,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -291,15 +291,15 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/BUS/STOP_SEND_PERIODIC_CAN_MESSAGE/STOP_SEND_PERIODIC_CAN_MESSAGE.py"
                 },
                 "position": {
-                    "x": 740.1472996559744,
-                    "y": -495.9076731769095
+                    "x": 983.2115541355001,
+                    "y": -500.86816816628755
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 740.1472996559744,
-                    "y": -495.9076731769095
+                    "x": 983.2115541355001,
+                    "y": -500.86816816628755
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 96,
@@ -328,8 +328,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -343,26 +343,26 @@
                     "path": "CONTROL_FLOW/TIMERS/TIMER/TIMER.py"
                 },
                 "position": {
-                    "x": 560.2399909219129,
-                    "y": -441.26780631710915
+                    "x": 624.7264257838278,
+                    "y": -472.6842745831703
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 560.2399909219129,
-                    "y": -441.26780631710915
+                    "x": 624.7264257838278,
+                    "y": -472.6842745831703
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "CREATE_CAN_MESSAGE-d182a5b8-065c-4669-b27f-f7b3eacc6755",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "CREATE_CAN_MESSAGE-d182a5b8-065c-4669-b27f-f7b3eacc6755",
                     "label": "HEART BEAT MESSAGE",
                     "func": "CREATE_CAN_MESSAGE",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "frame_id": {
                             "type": "int",
@@ -416,8 +416,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -437,26 +437,26 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/UTILS/CREATE_CAN_MESSAGE/CREATE_CAN_MESSAGE.py"
                 },
                 "position": {
-                    "x": -48.78087151653277,
-                    "y": -725.7721536727006
+                    "x": -129.80228967637464,
+                    "y": -783.6445952154447
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -48.78087151653277,
-                    "y": -725.7721536727006
+                    "x": -129.80228967637464,
+                    "y": -783.6445952154447
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "CREATE_CAN_MESSAGE-91072c54-dda1-4467-b9ee-a667bb2081da",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "CREATE_CAN_MESSAGE-91072c54-dda1-4467-b9ee-a667bb2081da",
                     "label": "STOP MESSAGE",
                     "func": "CREATE_CAN_MESSAGE",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "frame_id": {
                             "type": "int",
@@ -510,8 +510,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -531,26 +531,26 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/UTILS/CREATE_CAN_MESSAGE/CREATE_CAN_MESSAGE.py"
                 },
                 "position": {
-                    "x": 731.8942981391345,
-                    "y": -735.9085737377275
+                    "x": 922.046606065294,
+                    "y": -810.3159985783986
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 731.8942981391345,
-                    "y": -735.9085737377275
+                    "x": 922.046606065294,
+                    "y": -810.3159985783986
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 234,
                 "id": "SEND_CAN_MESSAGE-44271640-fd1a-4198-8eb5-8b6d1234b6c6",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "SEND_CAN_MESSAGE-44271640-fd1a-4198-8eb5-8b6d1234b6c6",
                     "label": "SEND CAN MESSAGE 1",
                     "func": "SEND_CAN_MESSAGE",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "CAN_address": {
                             "type": "str",
@@ -568,15 +568,15 @@
                             "name": "message",
                             "id": "message",
                             "type": "Stateful",
-                            "multiple": false,
-                            "desc": "A list of messages to send to the CAN device."
+                            "desc": "A list of messages to send to the CAN device.",
+                            "multiple": false
                         },
                         {
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -596,26 +596,26 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/BUS/SEND_CAN_MESSAGE/SEND_CAN_MESSAGE.py"
                 },
                 "position": {
-                    "x": 1016.2689748796695,
-                    "y": -499.9201431348866
+                    "x": 1360.1966274765493,
+                    "y": -541.2576013797037
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1016.2689748796695,
-                    "y": -499.9201431348866
+                    "x": 1360.1966274765493,
+                    "y": -541.2576013797037
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "CANABLE_CONNECT-1593919d-426e-4b29-a218-8d8a72eeac06",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "CANABLE_CONNECT-1593919d-426e-4b29-a218-8d8a72eeac06",
                     "label": "CANABLE CONNECT",
                     "func": "CANABLE_CONNECT",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "device": {
                             "type": "SerialDevice",
@@ -651,8 +651,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -672,80 +672,102 @@
                     "path": "HARDWARE/PROTOCOLS/CAN/BUS/CANABLE_CONNECT/CANABLE_CONNECT.py"
                 },
                 "position": {
-                    "x": -352.62305724251326,
-                    "y": -461.75603703441163
+                    "x": -526.2403818707459,
+                    "y": -458.44904037482627
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -352.62305724251326,
-                    "y": -461.75603703441163
+                    "x": -526.2403818707459,
+                    "y": -458.44904037482627
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
+                "id": "CREATE_CAN_MESSAGE-7d0093f4-bf13-484c-b5e3-69eeb78d0873->SEND_CAN_MESSAGE-383458e7-ae08-4f3c-8d96-1f101efafeb0_c26347a3-a7c2-4b95-8c77-6a0d0d958d12",
                 "source": "CREATE_CAN_MESSAGE-7d0093f4-bf13-484c-b5e3-69eeb78d0873",
-                "sourceHandle": "default",
                 "target": "SEND_CAN_MESSAGE-383458e7-ae08-4f3c-8d96-1f101efafeb0",
+                "sourceHandle": "default",
                 "targetHandle": "message",
-                "id": "reactflow__edge-CREATE_CAN_MESSAGE-7d0093f4-bf13-484c-b5e3-69eeb78d0873default-SEND_CAN_MESSAGE-383458e7-ae08-4f3c-8d96-1f101efafeb0message"
+                "data": {
+                    "outputType": "Stateful"
+                }
             },
             {
-                "source": "CREATE_CAN_MESSAGE-d182a5b8-065c-4669-b27f-f7b3eacc6755",
-                "sourceHandle": "default",
-                "target": "SEND_PERIODIC_CAN_MESSAGE-5553fe6d-8871-4309-bff3-5dacf630f417",
-                "targetHandle": "message",
-                "id": "reactflow__edge-CREATE_CAN_MESSAGE-d182a5b8-065c-4669-b27f-f7b3eacc6755default-SEND_PERIODIC_CAN_MESSAGE-5553fe6d-8871-4309-bff3-5dacf630f417message"
-            },
-            {
-                "source": "SEND_CAN_MESSAGE-383458e7-ae08-4f3c-8d96-1f101efafeb0",
-                "sourceHandle": "default",
-                "target": "SEND_PERIODIC_CAN_MESSAGE-5553fe6d-8871-4309-bff3-5dacf630f417",
-                "targetHandle": "default",
-                "id": "reactflow__edge-SEND_CAN_MESSAGE-383458e7-ae08-4f3c-8d96-1f101efafeb0default-SEND_PERIODIC_CAN_MESSAGE-5553fe6d-8871-4309-bff3-5dacf630f417default"
-            },
-            {
-                "source": "TIMER-b8065128-ecd6-4ab5-96bb-040b6b5921b8",
-                "sourceHandle": "default",
-                "target": "STOP_SEND_PERIODIC_CAN_MESSAGE-67dc0129-d0f1-4af6-873c-ad24d856c586",
-                "targetHandle": "default",
-                "id": "reactflow__edge-TIMER-b8065128-ecd6-4ab5-96bb-040b6b5921b8default-STOP_SEND_PERIODIC_CAN_MESSAGE-67dc0129-d0f1-4af6-873c-ad24d856c586default"
-            },
-            {
-                "source": "SEND_PERIODIC_CAN_MESSAGE-5553fe6d-8871-4309-bff3-5dacf630f417",
-                "sourceHandle": "default",
-                "target": "TIMER-b8065128-ecd6-4ab5-96bb-040b6b5921b8",
-                "targetHandle": "default",
-                "id": "reactflow__edge-SEND_PERIODIC_CAN_MESSAGE-5553fe6d-8871-4309-bff3-5dacf630f417default-TIMER-b8065128-ecd6-4ab5-96bb-040b6b5921b8default"
-            },
-            {
-                "source": "CREATE_CAN_MESSAGE-91072c54-dda1-4467-b9ee-a667bb2081da",
-                "sourceHandle": "default",
-                "target": "SEND_CAN_MESSAGE-44271640-fd1a-4198-8eb5-8b6d1234b6c6",
-                "targetHandle": "message",
-                "id": "reactflow__edge-CREATE_CAN_MESSAGE-91072c54-dda1-4467-b9ee-a667bb2081dadefault-SEND_CAN_MESSAGE-44271640-fd1a-4198-8eb5-8b6d1234b6c6message"
-            },
-            {
-                "source": "STOP_SEND_PERIODIC_CAN_MESSAGE-67dc0129-d0f1-4af6-873c-ad24d856c586",
-                "sourceHandle": "default",
-                "target": "SEND_CAN_MESSAGE-44271640-fd1a-4198-8eb5-8b6d1234b6c6",
-                "targetHandle": "default",
-                "id": "reactflow__edge-STOP_SEND_PERIODIC_CAN_MESSAGE-67dc0129-d0f1-4af6-873c-ad24d856c586default-SEND_CAN_MESSAGE-44271640-fd1a-4198-8eb5-8b6d1234b6c6default"
-            },
-            {
+                "id": "CANABLE_CONNECT-1593919d-426e-4b29-a218-8d8a72eeac06->SEND_CAN_MESSAGE-383458e7-ae08-4f3c-8d96-1f101efafeb0_99671470-ba1c-486b-8c80-648133a5a9b5",
                 "source": "CANABLE_CONNECT-1593919d-426e-4b29-a218-8d8a72eeac06",
-                "sourceHandle": "default",
                 "target": "SEND_CAN_MESSAGE-383458e7-ae08-4f3c-8d96-1f101efafeb0",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CANABLE_CONNECT-1593919d-426e-4b29-a218-8d8a72eeac06default-SEND_CAN_MESSAGE-383458e7-ae08-4f3c-8d96-1f101efafeb0default"
+                "data": {
+                    "outputType": "Any"
+                }
+            },
+            {
+                "id": "CREATE_CAN_MESSAGE-d182a5b8-065c-4669-b27f-f7b3eacc6755->SEND_PERIODIC_CAN_MESSAGE-5553fe6d-8871-4309-bff3-5dacf630f417_a016d794-3458-45b7-893f-433aec8bce81",
+                "source": "CREATE_CAN_MESSAGE-d182a5b8-065c-4669-b27f-f7b3eacc6755",
+                "target": "SEND_PERIODIC_CAN_MESSAGE-5553fe6d-8871-4309-bff3-5dacf630f417",
+                "sourceHandle": "default",
+                "targetHandle": "message",
+                "data": {
+                    "outputType": "Stateful"
+                }
+            },
+            {
+                "id": "SEND_CAN_MESSAGE-383458e7-ae08-4f3c-8d96-1f101efafeb0->SEND_PERIODIC_CAN_MESSAGE-5553fe6d-8871-4309-bff3-5dacf630f417_9218a880-ee82-4aa5-9fa7-c90b18032880",
+                "source": "SEND_CAN_MESSAGE-383458e7-ae08-4f3c-8d96-1f101efafeb0",
+                "target": "SEND_PERIODIC_CAN_MESSAGE-5553fe6d-8871-4309-bff3-5dacf630f417",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Any"
+                }
+            },
+            {
+                "id": "SEND_PERIODIC_CAN_MESSAGE-5553fe6d-8871-4309-bff3-5dacf630f417->TIMER-b8065128-ecd6-4ab5-96bb-040b6b5921b8_3e9cbf3a-286d-485e-9358-0d379f34b1e2",
+                "source": "SEND_PERIODIC_CAN_MESSAGE-5553fe6d-8871-4309-bff3-5dacf630f417",
+                "target": "TIMER-b8065128-ecd6-4ab5-96bb-040b6b5921b8",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Any"
+                }
+            },
+            {
+                "id": "TIMER-b8065128-ecd6-4ab5-96bb-040b6b5921b8->STOP_SEND_PERIODIC_CAN_MESSAGE-67dc0129-d0f1-4af6-873c-ad24d856c586_958f2929-b44b-484f-806f-a51063e458fa",
+                "source": "TIMER-b8065128-ecd6-4ab5-96bb-040b6b5921b8",
+                "target": "STOP_SEND_PERIODIC_CAN_MESSAGE-67dc0129-d0f1-4af6-873c-ad24d856c586",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Any"
+                }
+            },
+            {
+                "id": "STOP_SEND_PERIODIC_CAN_MESSAGE-67dc0129-d0f1-4af6-873c-ad24d856c586->SEND_CAN_MESSAGE-44271640-fd1a-4198-8eb5-8b6d1234b6c6_c32e7b34-846e-4729-b19f-3ad96a0777dd",
+                "source": "STOP_SEND_PERIODIC_CAN_MESSAGE-67dc0129-d0f1-4af6-873c-ad24d856c586",
+                "target": "SEND_CAN_MESSAGE-44271640-fd1a-4198-8eb5-8b6d1234b6c6",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Any"
+                }
+            },
+            {
+                "id": "CREATE_CAN_MESSAGE-91072c54-dda1-4467-b9ee-a667bb2081da->SEND_CAN_MESSAGE-44271640-fd1a-4198-8eb5-8b6d1234b6c6_875142f0-99b0-4ca4-8261-c1bc698246b1",
+                "source": "CREATE_CAN_MESSAGE-91072c54-dda1-4467-b9ee-a667bb2081da",
+                "target": "SEND_CAN_MESSAGE-44271640-fd1a-4198-8eb5-8b6d1234b6c6",
+                "sourceHandle": "default",
+                "targetHandle": "message",
+                "data": {
+                    "outputType": "Stateful"
+                }
             }
-        ],
-        "viewport": {
-            "x": 639.3412246463487,
-            "y": 715.6088048026895,
-            "zoom": 1.0454058107840345
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

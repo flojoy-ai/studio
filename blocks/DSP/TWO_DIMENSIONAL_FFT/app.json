@@ -2,156 +2,13 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 380,
-                "height": 293,
-                "id": "IMAGE-455a09f6-8f20-4087-ab60-9f01c1b2427c",
-                "type": "VISUALIZERS",
+                "id": "SKIMAGE-e3b2bbe6-fb35-4440-95fb-98739126735e",
+                "type": "DATA",
                 "data": {
-                    "id": "IMAGE-455a09f6-8f20-4087-ab60-9f01c1b2427c",
-                    "label": "IMAGE",
-                    "func": "IMAGE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 1049.9664410476967,
-                    "y": 7.753302513786252
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1049.9664410476967,
-                    "y": 7.753302513786252
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "IMAGE-135a920b-87fa-4759-bfca-0b6ad739b406",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "IMAGE-135a920b-87fa-4759-bfca-0b6ad739b406",
-                    "label": "IMAGE 1",
-                    "func": "IMAGE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 680.10784936201,
-                    "y": 259.1429105274428
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 680.10784936201,
-                    "y": 259.1429105274428
-                },
-                "dragging": true
-            },
-            {
-                "width": 160,
-                "height": 160,
-                "id": "TWO_DIMENSIONAL_FFT-373b4021-dbb6-4c59-8884-b146b6d2bb76",
-                "type": "TRANSFORMERS",
-                "data": {
-                    "id": "TWO_DIMENSIONAL_FFT-373b4021-dbb6-4c59-8884-b146b6d2bb76",
-                    "label": "TWO DIMENSIONAL FFT",
-                    "func": "TWO_DIMENSIONAL_FFT",
-                    "type": "TRANSFORMERS",
-                    "ctrls": {
-                        "real_signal": {
-                            "type": "bool",
-                            "default": true,
-                            "functionName": "TWO_DIMENSIONAL_FFT",
-                            "param": "real_signal",
-                            "value": false
-                        },
-                        "color": {
-                            "type": "select",
-                            "default": "red",
-                            "options": [
-                                "red",
-                                "green",
-                                "blue",
-                                "Grayscale"
-                            ],
-                            "functionName": "TWO_DIMENSIONAL_FFT",
-                            "param": "color",
-                            "value": "red"
-                        }
-                    },
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Grayscale|DataFrame|Image|Matrix",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Matrix|DataFrame|Image"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/TRANSFORMERS/SIGNAL_PROCESSING/TWO_DIMENSIONAL_FFT/TWO_DIMENSIONAL_FFT.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 751.5106356403874,
-                    "y": 35.73398367632049
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 751.5106356403874,
-                    "y": 35.73398367632049
-                },
-                "dragging": true
-            },
-            {
-                "width": 150,
-                "height": 180,
-                "id": "SKIMAGE-1fe5199d-c1cf-40c3-8a55-2445b6a2426c",
-                "type": "default",
-                "data": {
-                    "id": "SKIMAGE-1fe5199d-c1cf-40c3-8a55-2445b6a2426c",
+                    "id": "SKIMAGE-e3b2bbe6-fb35-4440-95fb-98739126735e",
                     "label": "SKIMAGE",
                     "func": "SKIMAGE",
-                    "type": "default",
+                    "type": "DATA",
                     "ctrls": {
                         "img_key": {
                             "type": "select",
@@ -201,18 +58,20 @@
                                 "text",
                                 "vortex"
                             ],
-                            "desc": null,
+                            "desc": "The name of the image to be loaded from scikit-image.",
+                            "overload": null,
                             "functionName": "SKIMAGE",
                             "param": "img_key",
                             "value": "astronaut"
                         }
                     },
+                    "initCtrls": {},
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "Image",
-                            "desc": null
+                            "desc": "DataContainer containing the image loaded from scikit-image."
                         }
                     ],
                     "pip_dependencies": [
@@ -221,67 +80,208 @@
                             "v": "0.21.0"
                         }
                     ],
-                    "path": "PYTHON/nodes\\GENERATORS\\SAMPLE_IMAGES\\SKIMAGE\\SKIMAGE.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SAMPLE_IMAGES/SKIMAGE/SKIMAGE.py"
                 },
                 "position": {
-                    "x": 417.41128879686454,
-                    "y": 21.10713477860139
+                    "x": 355.0098831330012,
+                    "y": -12.785196957640608
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 417.41128879686454,
-                    "y": 21.10713477860139
+                    "x": 355.0098831330012,
+                    "y": -12.785196957640608
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "TWO_DIMENSIONAL_FFT-f43cc623-9e7a-4959-a570-405a5c7ff608",
+                "type": "DSP",
+                "data": {
+                    "id": "TWO_DIMENSIONAL_FFT-f43cc623-9e7a-4959-a570-405a5c7ff608",
+                    "label": "TWO DIMENSIONAL FFT",
+                    "func": "TWO_DIMENSIONAL_FFT",
+                    "type": "DSP",
+                    "ctrls": {
+                        "real_signal": {
+                            "type": "bool",
+                            "default": true,
+                            "desc": "true if the input matrix consists of only real numbers, false otherwise",
+                            "overload": null,
+                            "functionName": "TWO_DIMENSIONAL_FFT",
+                            "param": "real_signal",
+                            "value": false
+                        },
+                        "color": {
+                            "type": "select",
+                            "default": "red",
+                            "options": [
+                                "red",
+                                "green",
+                                "blue",
+                                "grayscale"
+                            ],
+                            "desc": "if the input is an RGBA or RGB image, this parameter selects the color channel to perform the FFT on",
+                            "overload": null,
+                            "functionName": "TWO_DIMENSIONAL_FFT",
+                            "param": "color",
+                            "value": "red"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Grayscale|DataFrame|Image|Matrix",
+                            "desc": "The 2D data to apply 2DFFT to.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Matrix|DataFrame|Image",
+                            "desc": "m: the matrix after 2DFFT"
+                        }
+                    ],
+                    "path": "DSP/TWO_DIMENSIONAL_FFT/TWO_DIMENSIONAL_FFT.py"
+                },
+                "position": {
+                    "x": 784.1255943895725,
+                    "y": -202.3931433713443
+                },
+                "width": 239,
+                "height": 269,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 784.1255943895725,
+                    "y": -202.3931433713443
+                },
+                "dragging": false
+            },
+            {
+                "id": "IMAGE-ca64aba2-ccdb-4486-bce6-10cea0b5d90e",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "IMAGE-ca64aba2-ccdb-4486-bce6-10cea0b5d90e",
+                    "label": "IMAGE 1",
+                    "func": "IMAGE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|Grayscale",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
+                },
+                "position": {
+                    "x": 1188.5830195526303,
+                    "y": -49.49813062460646
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1188.5830195526303,
+                    "y": -49.49813062460646
+                },
+                "dragging": false
+            },
+            {
+                "id": "IMAGE-b9651e89-4134-461c-b891-f06a4525b38a",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "IMAGE-b9651e89-4134-461c-b891-f06a4525b38a",
+                    "label": "IMAGE",
+                    "func": "IMAGE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|Grayscale",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
+                },
+                "position": {
+                    "x": 777.629757706388,
+                    "y": 141.93022915842147
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 777.629757706388,
+                    "y": 141.93022915842147
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "TWO_DIMENSIONAL_FFT-373b4021-dbb6-4c59-8884-b146b6d2bb76",
+                "id": "SKIMAGE-e3b2bbe6-fb35-4440-95fb-98739126735e->TWO_DIMENSIONAL_FFT-f43cc623-9e7a-4959-a570-405a5c7ff608_788f480a-2729-4131-a33b-4c33c8d79a7a",
+                "source": "SKIMAGE-e3b2bbe6-fb35-4440-95fb-98739126735e",
+                "target": "TWO_DIMENSIONAL_FFT-f43cc623-9e7a-4959-a570-405a5c7ff608",
                 "sourceHandle": "default",
-                "target": "IMAGE-455a09f6-8f20-4087-ab60-9f01c1b2427c",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TWO_DIMENSIONAL_FFT-373b4021-dbb6-4c59-8884-b146b6d2bb76default-IMAGE-455a09f6-8f20-4087-ab60-9f01c1b2427cdefault"
+                "data": {
+                    "outputType": "Image"
+                }
             },
             {
-                "source": "SKIMAGE-1fe5199d-c1cf-40c3-8a55-2445b6a2426c",
+                "id": "TWO_DIMENSIONAL_FFT-f43cc623-9e7a-4959-a570-405a5c7ff608->IMAGE-ca64aba2-ccdb-4486-bce6-10cea0b5d90e_d57021f5-42ab-4899-bc7a-a952578ead21",
+                "source": "TWO_DIMENSIONAL_FFT-f43cc623-9e7a-4959-a570-405a5c7ff608",
+                "target": "IMAGE-ca64aba2-ccdb-4486-bce6-10cea0b5d90e",
                 "sourceHandle": "default",
-                "target": "TWO_DIMENSIONAL_FFT-373b4021-dbb6-4c59-8884-b146b6d2bb76",
                 "targetHandle": "default",
-                "id": "reactflow__edge-SKIMAGE-1fe5199d-c1cf-40c3-8a55-2445b6a2426cdefault-TWO_DIMENSIONAL_FFT-373b4021-dbb6-4c59-8884-b146b6d2bb76default"
+                "data": {
+                    "outputType": "Matrix"
+                }
             },
             {
-                "source": "SKIMAGE-1fe5199d-c1cf-40c3-8a55-2445b6a2426c",
+                "id": "SKIMAGE-e3b2bbe6-fb35-4440-95fb-98739126735e->IMAGE-b9651e89-4134-461c-b891-f06a4525b38a_3794acfe-b5a0-4ccf-ad11-587c6696b8d6",
+                "source": "SKIMAGE-e3b2bbe6-fb35-4440-95fb-98739126735e",
+                "target": "IMAGE-b9651e89-4134-461c-b891-f06a4525b38a",
                 "sourceHandle": "default",
-                "target": "IMAGE-135a920b-87fa-4759-bfca-0b6ad739b406",
                 "targetHandle": "default",
-                "id": "reactflow__edge-SKIMAGE-1fe5199d-c1cf-40c3-8a55-2445b6a2426cdefault-IMAGE-135a920b-87fa-4759-bfca-0b6ad739b406default"
+                "data": {
+                    "outputType": "Image"
+                }
             }
-        ],
-        "viewport": {
-            "x": 606.4472645567363,
-            "y": 234.63130388602087,
-            "zoom": 0.9186369849831518
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

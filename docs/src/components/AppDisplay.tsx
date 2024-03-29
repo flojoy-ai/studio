@@ -1,11 +1,17 @@
-import ReactFlow, { Background, Controls, MiniMap } from "reactflow";
+import ReactFlow, {
+  Background,
+  Controls,
+  MiniMap,
+  type Edge,
+  type Node,
+} from "reactflow";
 import "reactflow/dist/style.css";
 import { Download } from "lucide-react";
-import nodeTypes from "./nodes/nodeTypes";
+import blockTypesMap from "./blocks/block-types";
 import { CustomEdge } from "./custom-edge";
 
 type AppDisplayProps = {
-  app: unknown;
+  app: Record<string, Record<string, unknown>>;
   blockName: string;
 };
 
@@ -41,8 +47,8 @@ const AppDisplay = ({ app, blockName }: AppDisplayProps) => {
     );
   }
 
-  const nodes = appObject["nodes"];
-  const edges = appObject["edges"];
+  const nodes = appObject["nodes"] as Node[];
+  const edges = appObject["edges"] as Edge[];
 
   const download = () => {
     const jsonString = JSON.stringify(app, null, 2);
@@ -64,7 +70,7 @@ const AppDisplay = ({ app, blockName }: AppDisplayProps) => {
           <div style={{ width: "100vw", height: 400 }} className="">
             <ReactFlow
               nodes={nodes}
-              nodeTypes={nodeTypes}
+              nodeTypes={blockTypesMap}
               edges={edges}
               edgeTypes={edgeTypes}
               minZoom={0.25}

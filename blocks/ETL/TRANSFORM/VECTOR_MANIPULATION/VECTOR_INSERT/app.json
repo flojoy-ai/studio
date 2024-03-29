@@ -2,15 +2,167 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 160,
-                "height": 160,
-                "id": "VECTOR_INSERT-933e0106-5454-4bef-aa54-33e8537e0c0a",
-                "type": "TRANSFORMERS",
+                "id": "LINSPACE-d69cb194-aa1c-4123-b485-739b9877fb6e",
+                "type": "DATA",
                 "data": {
-                    "id": "VECTOR_INSERT-933e0106-5454-4bef-aa54-33e8537e0c0a",
+                    "id": "LINSPACE-d69cb194-aa1c-4123-b485-739b9877fb6e",
+                    "label": "LINSPACE",
+                    "func": "LINSPACE",
+                    "type": "DATA",
+                    "ctrls": {
+                        "start": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "The start point of the data.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": 0
+                        },
+                        "end": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The end point of the data.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": 10
+                        },
+                        "step": {
+                            "type": "int",
+                            "default": 1000,
+                            "desc": "The number of points in the vector.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": 10
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
+                },
+                "position": {
+                    "x": -569.7740734626539,
+                    "y": -324.58867664732213
+                },
+                "width": 216,
+                "height": 197,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -569.7740734626539,
+                    "y": -324.58867664732213
+                },
+                "dragging": false
+            },
+            {
+                "id": "SCATTER-82211b47-17c8-423f-8490-3f0be3bbec99",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "SCATTER-82211b47-17c8-423f-8490-3f0be3bbec99",
+                    "label": "SCATTER 1",
+                    "func": "SCATTER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Scatter visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
+                },
+                "position": {
+                    "x": -120.16403360123235,
+                    "y": -128.75084321964925
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -120.16403360123235,
+                    "y": -128.75084321964925
+                },
+                "dragging": false
+            },
+            {
+                "id": "SCATTER-9730ae20-4a6e-473b-9a7b-c0e71d28717b",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "SCATTER-9730ae20-4a6e-473b-9a7b-c0e71d28717b",
+                    "label": "SCATTER",
+                    "func": "SCATTER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Scatter visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
+                },
+                "position": {
+                    "x": 312.53967475800135,
+                    "y": -323.491035316159
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 312.53967475800135,
+                    "y": -323.491035316159
+                },
+                "dragging": false
+            },
+            {
+                "id": "VECTOR_INSERT-71fe8016-82ee-43d0-904d-773b7ad59a1b",
+                "type": "TRANSFORM",
+                "data": {
+                    "id": "VECTOR_INSERT-71fe8016-82ee-43d0-904d-773b7ad59a1b",
                     "label": "VECTOR INSERT",
                     "func": "VECTOR_INSERT",
-                    "type": "TRANSFORMERS",
+                    "type": "TRANSFORM",
                     "ctrls": {
                         "index": {
                             "type": "int",
@@ -37,8 +189,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -49,276 +201,57 @@
                             "desc": "The new vector that contains the inserted value"
                         }
                     ],
-                    "path": "TRANSFORMERS/VECTOR_MANIPULATION/VECTOR_INSERT/VECTOR_INSERT.py",
-                    "selected": false
+                    "path": "ETL/TRANSFORM/VECTOR_MANIPULATION/VECTOR_INSERT/VECTOR_INSERT.py"
                 },
                 "position": {
-                    "x": 132.73363980782221,
-                    "y": -275.2712172943302
+                    "x": -113.61285638360133,
+                    "y": -552.8277043775121
                 },
+                "width": 216,
+                "height": 296,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 132.73363980782221,
-                    "y": -275.2712172943302
+                    "x": -113.61285638360133,
+                    "y": -552.8277043775121
                 },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "LINSPACE-7a9f9fab-e8a8-490e-bb79-11dd2920655e",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "LINSPACE-7a9f9fab-e8a8-490e-bb79-11dd2920655e",
-                    "label": "LINSPACE",
-                    "func": "LINSPACE",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "start": {
-                            "type": "float",
-                            "default": 10,
-                            "desc": "The start point of the data.",
-                            "overload": null,
-                            "functionName": "LINSPACE",
-                            "param": "start",
-                            "value": 0
-                        },
-                        "end": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "The end point of the data.",
-                            "overload": null,
-                            "functionName": "LINSPACE",
-                            "param": "end",
-                            "value": 10
-                        },
-                        "step": {
-                            "type": "int",
-                            "default": 1000,
-                            "desc": "The number of points in the vector.",
-                            "overload": null,
-                            "functionName": "LINSPACE",
-                            "param": "step",
-                            "value": 10
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "desc": "v: the vector between start and end with step number of points."
-                        }
-                    ],
-                    "path": "GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -226.17189847801404,
-                    "y": -236.96939764894648
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -226.17189847801404,
-                    "y": -236.96939764894648
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "SCATTER-3cdae249-bfc6-414c-90ca-676c409f63a1",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "SCATTER-3cdae249-bfc6-414c-90ca-676c409f63a1",
-                    "label": "SCATTER",
-                    "func": "SCATTER",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Scatter visualization"
-                        }
-                    ],
-                    "path": "VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 530.9194383287412,
-                    "y": -298.5003635099639
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 530.9194383287412,
-                    "y": -298.5003635099639
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "LINSPACE-c18dd94e-5173-4351-9199-ef26d10df28d",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "LINSPACE-c18dd94e-5173-4351-9199-ef26d10df28d",
-                    "label": "LINSPACE 1",
-                    "func": "LINSPACE",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "start": {
-                            "type": "float",
-                            "default": 10,
-                            "desc": "The start point of the data.",
-                            "overload": null,
-                            "functionName": "LINSPACE",
-                            "param": "start",
-                            "value": 0
-                        },
-                        "end": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "The end point of the data.",
-                            "overload": null,
-                            "functionName": "LINSPACE",
-                            "param": "end",
-                            "value": 10
-                        },
-                        "step": {
-                            "type": "int",
-                            "default": 1000,
-                            "desc": "The number of points in the vector.",
-                            "overload": null,
-                            "functionName": "LINSPACE",
-                            "param": "step",
-                            "value": 10
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "desc": "v: the vector between start and end with step number of points."
-                        }
-                    ],
-                    "path": "GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -238.30662033776346,
-                    "y": 15.672223666923344
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -238.30662033776346,
-                    "y": 15.672223666923344
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "SCATTER-cf0df1c2-d8f3-440d-be66-050f14028a73",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "SCATTER-cf0df1c2-d8f3-440d-be66-050f14028a73",
-                    "label": "SCATTER 1",
-                    "func": "SCATTER",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Scatter visualization"
-                        }
-                    ],
-                    "path": "VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
-                    "selected": true
-                },
-                "position": {
-                    "x": 122.75760249507664,
-                    "y": -19.02508588254443
-                },
-                "selected": true,
-                "positionAbsolute": {
-                    "x": 122.75760249507664,
-                    "y": -19.02508588254443
-                },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "LINSPACE-7a9f9fab-e8a8-490e-bb79-11dd2920655e",
+                "id": "LINSPACE-d69cb194-aa1c-4123-b485-739b9877fb6e->VECTOR_INSERT-71fe8016-82ee-43d0-904d-773b7ad59a1b_c71536cb-f0d3-4c80-8410-759e06b4f8b6",
+                "source": "LINSPACE-d69cb194-aa1c-4123-b485-739b9877fb6e",
+                "target": "VECTOR_INSERT-71fe8016-82ee-43d0-904d-773b7ad59a1b",
                 "sourceHandle": "default",
-                "target": "VECTOR_INSERT-933e0106-5454-4bef-aa54-33e8537e0c0a",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-7a9f9fab-e8a8-490e-bb79-11dd2920655edefault-VECTOR_INSERT-933e0106-5454-4bef-aa54-33e8537e0c0adefault"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "VECTOR_INSERT-933e0106-5454-4bef-aa54-33e8537e0c0a",
+                "id": "VECTOR_INSERT-71fe8016-82ee-43d0-904d-773b7ad59a1b->SCATTER-9730ae20-4a6e-473b-9a7b-c0e71d28717b_9bba0159-1129-49de-8977-d7a69c9ca8de",
+                "source": "VECTOR_INSERT-71fe8016-82ee-43d0-904d-773b7ad59a1b",
+                "target": "SCATTER-9730ae20-4a6e-473b-9a7b-c0e71d28717b",
                 "sourceHandle": "default",
-                "target": "SCATTER-3cdae249-bfc6-414c-90ca-676c409f63a1",
                 "targetHandle": "default",
-                "id": "reactflow__edge-VECTOR_INSERT-933e0106-5454-4bef-aa54-33e8537e0c0adefault-SCATTER-3cdae249-bfc6-414c-90ca-676c409f63a1default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "LINSPACE-c18dd94e-5173-4351-9199-ef26d10df28d",
+                "id": "LINSPACE-d69cb194-aa1c-4123-b485-739b9877fb6e->SCATTER-82211b47-17c8-423f-8490-3f0be3bbec99_7d7eab1e-ba73-47c9-aec3-7a1a53bde2f7",
+                "source": "LINSPACE-d69cb194-aa1c-4123-b485-739b9877fb6e",
+                "target": "SCATTER-82211b47-17c8-423f-8490-3f0be3bbec99",
                 "sourceHandle": "default",
-                "target": "SCATTER-cf0df1c2-d8f3-440d-be66-050f14028a73",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-c18dd94e-5173-4351-9199-ef26d10df28ddefault-SCATTER-cf0df1c2-d8f3-440d-be66-050f14028a73default"
+                "data": {
+                    "outputType": "Vector"
+                }
             }
-        ],
-        "viewport": {
-            "x": 637.654905587641,
-            "y": 363.60612546109087,
-            "zoom": 0.7111497425822767
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

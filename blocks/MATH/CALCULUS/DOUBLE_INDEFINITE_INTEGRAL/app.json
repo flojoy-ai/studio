@@ -2,20 +2,68 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 160,
-                "height": 160,
-                "id": "DF_2_ORDERED_TRIPLE-9187e7e2-5b69-4f50-92c2-89e9ad32eb5a",
-                "type": "TRANSFORMERS",
+                "id": "MATRIX-43ebb52d-bb90-4303-8b13-ac69c5a260d4",
+                "type": "DATA",
                 "data": {
-                    "id": "DF_2_ORDERED_TRIPLE-9187e7e2-5b69-4f50-92c2-89e9ad32eb5a",
-                    "label": "DF 2 ORDERED TRIPLE",
+                    "id": "MATRIX-43ebb52d-bb90-4303-8b13-ac69c5a260d4",
+                    "label": "MATRIX",
+                    "func": "MATRIX",
+                    "type": "DATA",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "row",
+                            "id": "row",
+                            "type": "Scalar",
+                            "desc": "number of rows",
+                            "multiple": false
+                        },
+                        {
+                            "name": "column",
+                            "id": "column",
+                            "type": "Scalar",
+                            "desc": "number of columns",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Matrix",
+                            "desc": "Randomly generated matrix"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/MATRIX/MATRIX.py"
+                },
+                "position": {
+                    "x": -1375.0222238065664,
+                    "y": -833.2369427588832
+                },
+                "width": 216,
+                "height": 198,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -1375.0222238065664,
+                    "y": -833.2369427588832
+                },
+                "dragging": false
+            },
+            {
+                "id": "DF_2_ORDERED_TRIPLE-f0575b80-5af3-40f0-91be-06d2c456f870",
+                "type": "TYPE_CASTING",
+                "data": {
+                    "id": "DF_2_ORDERED_TRIPLE-f0575b80-5af3-40f0-91be-06d2c456f870",
+                    "label": "DF 2 ORDERED TRIPLE 1",
                     "func": "DF_2_ORDERED_TRIPLE",
-                    "type": "TRANSFORMERS",
+                    "type": "TYPE_CASTING",
                     "ctrls": {
                         "x": {
                             "type": "int",
                             "default": 0,
                             "desc": "The index of the column that represents the x-axis.",
+                            "overload": null,
                             "functionName": "DF_2_ORDERED_TRIPLE",
                             "param": "x",
                             "value": 1
@@ -24,6 +72,7 @@
                             "type": "int",
                             "default": 1,
                             "desc": "The index of the column that represents the y-axis.",
+                            "overload": null,
                             "functionName": "DF_2_ORDERED_TRIPLE",
                             "param": "y",
                             "value": 0
@@ -32,6 +81,7 @@
                             "type": "int",
                             "default": 2,
                             "desc": "The index of the column that represents the z-axis.",
+                            "overload": null,
                             "functionName": "DF_2_ORDERED_TRIPLE",
                             "param": "z",
                             "value": 2
@@ -43,8 +93,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "DataFrame",
-                            "multiple": false,
-                            "desc": "The input dataframe to which we apply the conversion to."
+                            "desc": "The input dataframe to which we apply the conversion to.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -55,316 +105,29 @@
                             "desc": "The OrderedTriple result from the conversion of the input."
                         }
                     ],
-                    "path": "PYTHON/nodes/TRANSFORMERS/TYPE_CASTING/DF_2_ORDERED_TRIPLE/DF_2_ORDERED_TRIPLE.py",
-                    "selected": false
+                    "path": "ETL/TRANSFORM/TYPE_CASTING/DF_2_ORDERED_TRIPLE/DF_2_ORDERED_TRIPLE.py"
                 },
                 "position": {
-                    "x": -717.6599601242405,
-                    "y": -861.3087449170545
+                    "x": -726.7935937744326,
+                    "y": -802.0171959995274
                 },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -717.6599601242405,
-                    "y": -861.3087449170545
-                },
-                "dragging": true
-            },
-            {
-                "width": 210,
-                "height": 160,
-                "id": "DOUBLE_INDEFINITE_INTEGRAL-3f53f6cd-dea7-4216-a9ca-b1678e4e1659",
-                "type": "TRANSFORMERS",
-                "data": {
-                    "id": "DOUBLE_INDEFINITE_INTEGRAL-3f53f6cd-dea7-4216-a9ca-b1678e4e1659",
-                    "label": "DOUBLE INDEFINITE INTEGRAL",
-                    "func": "DOUBLE_INDEFINITE_INTEGRAL",
-                    "type": "TRANSFORMERS",
-                    "ctrls": {
-                        "width": {
-                            "type": "int",
-                            "default": 3,
-                            "desc": "Number of columns of the 3 matrices generated by reshaping the x, y, and z columns of the OrderedTriple.",
-                            "functionName": "DOUBLE_INDEFINITE_INTEGRAL",
-                            "param": "width",
-                            "value": 25
-                        },
-                        "height": {
-                            "type": "int",
-                            "default": 3,
-                            "desc": "Number of rows of the 3 matrices generated by reshaping the x, y, and z columns of the OrderedTriple.",
-                            "functionName": "DOUBLE_INDEFINITE_INTEGRAL",
-                            "param": "height",
-                            "value": 40
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple",
-                            "multiple": false,
-                            "desc": "Input from which we use x, y, and z to compute the integral."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Matrix",
-                            "desc": "The matrix that contains the volume up to that point in each cell."
-                        }
-                    ],
-                    "path": "PYTHON/nodes/TRANSFORMERS/CALCULUS/DOUBLE_INDEFINITE_INTEGRAL/DOUBLE_INDEFINITE_INTEGRAL.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -430.9887217585666,
-                    "y": -857.9246665999526
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -430.9887217585666,
-                    "y": -857.9246665999526
-                },
-                "dragging": true
-            },
-            {
-                "width": 231,
+                "width": 224,
                 "height": 96,
-                "id": "TEXT-7d06c267-4df4-46cb-955a-590364ffbe7f",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "TEXT-7d06c267-4df4-46cb-955a-590364ffbe7f",
-                    "label": "DESCRIPTION",
-                    "func": "TEXT",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "value": {
-                            "type": "str",
-                            "default": "Hello World!",
-                            "desc": "The value set in Parameters",
-                            "functionName": "TEXT",
-                            "param": "value",
-                            "value": "This app shows how the DOUBLE_INDEFINITE_INTEGRAL node works. First the random dataset is convert to an OrderedTriple with the DF_2_ORDERED_TRIPLE node. This OrderedTriple matrix is our input. Then in this matrix the volume is computed up to that given point within each cell. We visualize the result with the SURFACE3D node."
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "_",
-                            "id": "_",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "s: return the value being set in Parameters"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TEXT/TEXT.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -208.9322349942402,
-                    "y": -1025.161008811376
-                },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -208.9322349942402,
-                    "y": -1025.161008811376
+                    "x": -726.7935937744326,
+                    "y": -802.0171959995274
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 384,
-                "height": 288,
-                "id": "TEXT_VIEW-44511591-de2f-450e-aca7-d44452751448",
-                "type": "VISUALIZERS",
+                "id": "MAT_2_DF-3ac4a575-4f70-491d-9428-7efbdc0ae13c",
+                "type": "TYPE_CASTING",
                 "data": {
-                    "id": "TEXT_VIEW-44511591-de2f-450e-aca7-d44452751448",
-                    "label": "TEXT VIEW",
-                    "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 59.952227672682,
-                    "y": -1168.5503618280513
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 59.952227672682,
-                    "y": -1168.5503618280513
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "SURFACE3D-01e54d50-c2a1-47cf-bb5f-e7dc68a39281",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "SURFACE3D-01e54d50-c2a1-47cf-bb5f-e7dc68a39281",
-                    "label": "SURFACE3D",
-                    "func": "SURFACE3D",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple|DataFrame|Surface|Matrix",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly 3D Surface visualization"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/SURFACE3D/SURFACE3D.py",
-                    "selected": true
-                },
-                "position": {
-                    "x": 155.23035742089172,
-                    "y": -858.1302089066567
-                },
-                "selected": true,
-                "positionAbsolute": {
-                    "x": 155.23035742089172,
-                    "y": -858.1302089066567
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "TABLE-7148044d-863f-4882-bfc9-1c35b85a1742",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TABLE-7148044d-863f-4882-bfc9-1c35b85a1742",
-                    "label": "TABLE",
-                    "func": "TABLE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Table visualization"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -545.787793504827,
-                    "y": -631.9942674910868
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -545.787793504827,
-                    "y": -631.9942674910868
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "MATRIX-7136a21d-9bd8-4fb5-8832-80c527d9036c",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "MATRIX-7136a21d-9bd8-4fb5-8832-80c527d9036c",
-                    "label": "MATRIX",
-                    "func": "MATRIX",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "row": {
-                            "type": "int",
-                            "default": 2,
-                            "desc": "number of rows",
-                            "overload": null,
-                            "functionName": "MATRIX",
-                            "param": "row",
-                            "value": 1000
-                        },
-                        "column": {
-                            "type": "int",
-                            "default": 2,
-                            "desc": "number of columns",
-                            "overload": null,
-                            "functionName": "MATRIX",
-                            "param": "column",
-                            "value": 3
-                        }
-                    },
-                    "initCtrls": {},
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Matrix",
-                            "desc": "randomly generated matrix"
-                        }
-                    ],
-                    "path": "GENERATORS/SIMULATIONS/MATRIX/MATRIX.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -1284.7040612581184,
-                    "y": -830.3249451717165
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -1284.7040612581184,
-                    "y": -830.3249451717165
-                },
-                "dragging": true
-            },
-            {
-                "width": 160,
-                "height": 160,
-                "id": "MAT_2_DF-5188bea2-1358-429d-9027-37a7608d2e9e",
-                "type": "TRANSFORMERS",
-                "data": {
-                    "id": "MAT_2_DF-5188bea2-1358-429d-9027-37a7608d2e9e",
+                    "id": "MAT_2_DF-3ac4a575-4f70-491d-9428-7efbdc0ae13c",
                     "label": "MAT 2 DF",
                     "func": "MAT_2_DF",
-                    "type": "TRANSFORMERS",
+                    "type": "TYPE_CASTING",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -372,8 +135,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Matrix",
-                            "multiple": false,
-                            "desc": "The input matrix to which we apply the conversion to."
+                            "desc": "The input matrix to which we apply the conversion to.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -384,77 +147,222 @@
                             "desc": "The dataframe result from the conversion of the input."
                         }
                     ],
-                    "path": "TRANSFORMERS/TYPE_CASTING/MAT_2_DF/MAT_2_DF.py",
-                    "selected": false
+                    "path": "ETL/TRANSFORM/TYPE_CASTING/MAT_2_DF/MAT_2_DF.py"
                 },
                 "position": {
-                    "x": -975.0041797428814,
-                    "y": -860.8336298362282
+                    "x": -1032.457146487244,
+                    "y": -801.4344531619643
                 },
+                "width": 194,
+                "height": 96,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -975.0041797428814,
-                    "y": -860.8336298362282
+                    "x": -1032.457146487244,
+                    "y": -801.4344531619643
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "DOUBLE_INDEFINITE_INTEGRAL-518f5962-4509-457a-9eeb-e178b160e0ee",
+                "type": "MATH",
+                "data": {
+                    "id": "DOUBLE_INDEFINITE_INTEGRAL-518f5962-4509-457a-9eeb-e178b160e0ee",
+                    "label": "DOUBLE INDEFINITE INTEGRAL",
+                    "func": "DOUBLE_INDEFINITE_INTEGRAL",
+                    "type": "MATH",
+                    "ctrls": {
+                        "width": {
+                            "type": "int",
+                            "default": 3,
+                            "desc": "Number of columns of the 3 matrices generated by reshaping the x, y, and z columns of the OrderedTriple.",
+                            "overload": null,
+                            "functionName": "DOUBLE_INDEFINITE_INTEGRAL",
+                            "param": "width",
+                            "value": 25
+                        },
+                        "height": {
+                            "type": "int",
+                            "default": 3,
+                            "desc": "Number of rows of the 3 matrices generated by reshaping the x, y, and z columns of the OrderedTriple.",
+                            "overload": null,
+                            "functionName": "DOUBLE_INDEFINITE_INTEGRAL",
+                            "param": "height",
+                            "value": 4
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple",
+                            "desc": "Input from which we use x, y, and z to compute the integral.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Matrix",
+                            "desc": "The matrix that contains the volume up to that point in each cell."
+                        }
+                    ],
+                    "path": "MATH/CALCULUS/DOUBLE_INDEFINITE_INTEGRAL/DOUBLE_INDEFINITE_INTEGRAL.py"
+                },
+                "position": {
+                    "x": -254.2482793302877,
+                    "y": -810.355495537712
+                },
+                "width": 218,
+                "height": 236,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -254.2482793302877,
+                    "y": -810.355495537712
+                },
+                "dragging": false
+            },
+            {
+                "id": "SURFACE3D-c9c0c718-a351-4e3f-a6ad-aa6c909f0d6a",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "SURFACE3D-c9c0c718-a351-4e3f-a6ad-aa6c909f0d6a",
+                    "label": "SURFACE3D",
+                    "func": "SURFACE3D",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|DataFrame|Surface|Matrix",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly 3D Surface visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/SURFACE3D/SURFACE3D.py"
+                },
+                "position": {
+                    "x": 65.68653575653815,
+                    "y": -867.4905351144728
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 65.68653575653815,
+                    "y": -867.4905351144728
+                },
+                "dragging": false
+            },
+            {
+                "id": "TABLE-0eeaefc2-a0ae-4e03-9d2a-b67c1fa491b1",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TABLE-0eeaefc2-a0ae-4e03-9d2a-b67c1fa491b1",
+                    "label": "TABLE",
+                    "func": "TABLE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Table visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
+                },
+                "position": {
+                    "x": -326.7669984498066,
+                    "y": -524.1881330554105
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -326.7669984498066,
+                    "y": -524.1881330554105
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "DOUBLE_INDEFINITE_INTEGRAL-3f53f6cd-dea7-4216-a9ca-b1678e4e1659",
+                "id": "MATRIX-43ebb52d-bb90-4303-8b13-ac69c5a260d4->MAT_2_DF-3ac4a575-4f70-491d-9428-7efbdc0ae13c_0208bc6f-dd90-4554-bdd6-01828a4119c6",
+                "source": "MATRIX-43ebb52d-bb90-4303-8b13-ac69c5a260d4",
+                "target": "MAT_2_DF-3ac4a575-4f70-491d-9428-7efbdc0ae13c",
                 "sourceHandle": "default",
-                "target": "TEXT-7d06c267-4df4-46cb-955a-590364ffbe7f",
-                "targetHandle": "_",
-                "id": "reactflow__edge-DOUBLE_INDEFINITE_INTEGRAL-3f53f6cd-dea7-4216-a9ca-b1678e4e1659default-TEXT-7d06c267-4df4-46cb-955a-590364ffbe7f_"
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Matrix"
+                }
             },
             {
-                "source": "DF_2_ORDERED_TRIPLE-9187e7e2-5b69-4f50-92c2-89e9ad32eb5a",
+                "id": "MAT_2_DF-3ac4a575-4f70-491d-9428-7efbdc0ae13c->DF_2_ORDERED_TRIPLE-f0575b80-5af3-40f0-91be-06d2c456f870_a9d86bc0-8b52-4275-869b-352f6e149e0e",
+                "source": "MAT_2_DF-3ac4a575-4f70-491d-9428-7efbdc0ae13c",
+                "target": "DF_2_ORDERED_TRIPLE-f0575b80-5af3-40f0-91be-06d2c456f870",
                 "sourceHandle": "default",
-                "target": "DOUBLE_INDEFINITE_INTEGRAL-3f53f6cd-dea7-4216-a9ca-b1678e4e1659",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DF_2_ORDERED_TRIPLE-9187e7e2-5b69-4f50-92c2-89e9ad32eb5adefault-DOUBLE_INDEFINITE_INTEGRAL-3f53f6cd-dea7-4216-a9ca-b1678e4e1659default"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             },
             {
-                "source": "DF_2_ORDERED_TRIPLE-9187e7e2-5b69-4f50-92c2-89e9ad32eb5a",
+                "id": "DF_2_ORDERED_TRIPLE-f0575b80-5af3-40f0-91be-06d2c456f870->DOUBLE_INDEFINITE_INTEGRAL-518f5962-4509-457a-9eeb-e178b160e0ee_1b5b04b6-f00c-4b85-8d73-f093d96711a9",
+                "source": "DF_2_ORDERED_TRIPLE-f0575b80-5af3-40f0-91be-06d2c456f870",
+                "target": "DOUBLE_INDEFINITE_INTEGRAL-518f5962-4509-457a-9eeb-e178b160e0ee",
                 "sourceHandle": "default",
-                "target": "TABLE-7148044d-863f-4882-bfc9-1c35b85a1742",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DF_2_ORDERED_TRIPLE-9187e7e2-5b69-4f50-92c2-89e9ad32eb5adefault-TABLE-7148044d-863f-4882-bfc9-1c35b85a1742default"
+                "data": {
+                    "outputType": "OrderedTriple"
+                }
             },
             {
-                "source": "DOUBLE_INDEFINITE_INTEGRAL-3f53f6cd-dea7-4216-a9ca-b1678e4e1659",
+                "id": "DOUBLE_INDEFINITE_INTEGRAL-518f5962-4509-457a-9eeb-e178b160e0ee->SURFACE3D-c9c0c718-a351-4e3f-a6ad-aa6c909f0d6a_8d5b0c9f-b3c1-4838-882a-7217cd9d3aee",
+                "source": "DOUBLE_INDEFINITE_INTEGRAL-518f5962-4509-457a-9eeb-e178b160e0ee",
+                "target": "SURFACE3D-c9c0c718-a351-4e3f-a6ad-aa6c909f0d6a",
                 "sourceHandle": "default",
-                "target": "SURFACE3D-01e54d50-c2a1-47cf-bb5f-e7dc68a39281",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DOUBLE_INDEFINITE_INTEGRAL-3f53f6cd-dea7-4216-a9ca-b1678e4e1659default-SURFACE3D-01e54d50-c2a1-47cf-bb5f-e7dc68a39281default"
+                "data": {
+                    "outputType": "Matrix"
+                }
             },
             {
-                "source": "TEXT-7d06c267-4df4-46cb-955a-590364ffbe7f",
+                "id": "DF_2_ORDERED_TRIPLE-f0575b80-5af3-40f0-91be-06d2c456f870->TABLE-0eeaefc2-a0ae-4e03-9d2a-b67c1fa491b1_dd196742-ca7b-40e1-bd71-893c076b15f6",
+                "source": "DF_2_ORDERED_TRIPLE-f0575b80-5af3-40f0-91be-06d2c456f870",
+                "target": "TABLE-0eeaefc2-a0ae-4e03-9d2a-b67c1fa491b1",
                 "sourceHandle": "default",
-                "target": "TEXT_VIEW-44511591-de2f-450e-aca7-d44452751448",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TEXT-7d06c267-4df4-46cb-955a-590364ffbe7fdefault-TEXT_VIEW-44511591-de2f-450e-aca7-d44452751448default"
-            },
-            {
-                "source": "MATRIX-7136a21d-9bd8-4fb5-8832-80c527d9036c",
-                "sourceHandle": "default",
-                "target": "MAT_2_DF-5188bea2-1358-429d-9027-37a7608d2e9e",
-                "targetHandle": "default",
-                "id": "reactflow__edge-MATRIX-7136a21d-9bd8-4fb5-8832-80c527d9036cdefault-MAT_2_DF-5188bea2-1358-429d-9027-37a7608d2e9edefault"
-            },
-            {
-                "source": "MAT_2_DF-5188bea2-1358-429d-9027-37a7608d2e9e",
-                "sourceHandle": "default",
-                "target": "DF_2_ORDERED_TRIPLE-9187e7e2-5b69-4f50-92c2-89e9ad32eb5a",
-                "targetHandle": "default",
-                "id": "reactflow__edge-MAT_2_DF-5188bea2-1358-429d-9027-37a7608d2e9edefault-DF_2_ORDERED_TRIPLE-9187e7e2-5b69-4f50-92c2-89e9ad32eb5adefault"
+                "data": {
+                    "outputType": "OrderedTriple"
+                }
             }
-        ],
-        "viewport": {
-            "x": 328.30307914563144,
-            "y": 226.88940714410813,
-            "zoom": 0.5
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

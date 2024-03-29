@@ -2,15 +2,13 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
-                "id": "CONNECTION_33510B-4c8ca1dd-a8ee-4ba9-ae8b-886c80a0a027",
-                "type": "IO",
+                "id": "CONNECTION_33510B-5cf13e91-12f9-4b36-befa-d658a1eb59d1",
+                "type": "FUNCTION_GENERATORS",
                 "data": {
-                    "id": "CONNECTION_33510B-4c8ca1dd-a8ee-4ba9-ae8b-886c80a0a027",
+                    "id": "CONNECTION_33510B-5cf13e91-12f9-4b36-befa-d658a1eb59d1",
                     "label": "CONNECTION 33510B",
                     "func": "CONNECTION_33510B",
-                    "type": "IO",
+                    "type": "FUNCTION_GENERATORS",
                     "ctrls": {
                         "device": {
                             "type": "VisaDevice",
@@ -19,7 +17,7 @@
                             "overload": null,
                             "functionName": "CONNECTION_33510B",
                             "param": "device",
-                            "value": "USB0::2391::9735::MY59003244::0::INSTR"
+                            "value": ""
                         }
                     },
                     "initCtrls": {},
@@ -28,8 +26,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -40,65 +38,81 @@
                             "desc": "Optional: None"
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/FUNCTION_GENERATORS/KEYSIGHT/33XXX/BASIC/CONNECTION_33510B/CONNECTION_33510B.py",
-                    "selected": true
+                    "path": "HARDWARE/FUNCTION_GENERATORS/KEYSIGHT/33XXX/CONNECTION_33510B/CONNECTION_33510B.py"
                 },
                 "position": {
-                    "x": -527.3533818261817,
-                    "y": -104.51110954945591
+                    "x": -1302.6354256130553,
+                    "y": -157.74601063120832
                 },
-                "selected": true,
+                "width": 218,
+                "height": 233,
+                "selected": false,
                 "positionAbsolute": {
-                    "x": -527.3533818261817,
-                    "y": -104.51110954945591
+                    "x": -1302.6354256130553,
+                    "y": -157.74601063120832
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 384,
-                "height": 288,
-                "id": "TEXT_VIEW-1e087237-ee3a-4db7-963d-46fbdbd7b59b",
-                "type": "VISUALIZERS",
+                "id": "TEXT_VIEW-85ee75d7-be54-4778-8bbd-cca992cea2af",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "TEXT_VIEW-1e087237-ee3a-4db7-963d-46fbdbd7b59b",
+                    "id": "TEXT_VIEW-85ee75d7-be54-4778-8bbd-cca992cea2af",
                     "label": "TEXT VIEW",
                     "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
                 },
                 "position": {
-                    "x": 233.00086174633415,
-                    "y": -124.48626608153023
+                    "x": -208.46860375455964,
+                    "y": -193.95059290715318
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 233.00086174633415,
-                    "y": -124.48626608153023
+                    "x": -208.46860375455964,
+                    "y": -193.95059290715318
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
-                "id": "RETURN_ERRORS_33510B-399b56cc-0062-49f0-933c-ab01e39b6788",
-                "type": "IO",
+                "id": "RETURN_ERRORS_33510B-2c2ee73a-b5c5-4fcd-983b-cd822d59f7fe",
+                "type": "FUNCTION_GENERATORS",
                 "data": {
-                    "id": "RETURN_ERRORS_33510B-399b56cc-0062-49f0-933c-ab01e39b6788",
+                    "id": "RETURN_ERRORS_33510B-2c2ee73a-b5c5-4fcd-983b-cd822d59f7fe",
                     "label": "RETURN ERRORS 33510B",
                     "func": "RETURN_ERRORS_33510B",
-                    "type": "IO",
+                    "type": "FUNCTION_GENERATORS",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
@@ -107,7 +121,7 @@
                             "overload": null,
                             "functionName": "RETURN_ERRORS_33510B",
                             "param": "connection",
-                            "value": "USB0::2391::9735::MY59003244::0::INSTR"
+                            "value": ""
                         }
                     },
                     "initCtrls": {},
@@ -116,8 +130,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -128,41 +142,47 @@
                             "desc": "String: Returns all errors in the WFG memory."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/FUNCTION_GENERATORS/KEYSIGHT/33XXX/ADVANCED/RETURN_ERRORS_33510B/RETURN_ERRORS_33510B.py",
-                    "selected": false
+                    "path": "HARDWARE/FUNCTION_GENERATORS/KEYSIGHT/33XXX/RETURN_ERRORS_33510B/RETURN_ERRORS_33510B.py"
                 },
                 "position": {
-                    "x": -147.83112432013039,
-                    "y": -101.03938942263295
+                    "x": -776.8060492650047,
+                    "y": -160.74191963019922
                 },
+                "width": 216,
+                "height": 269,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -147.83112432013039,
-                    "y": -101.03938942263295
+                    "x": -776.8060492650047,
+                    "y": -160.74191963019922
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "RETURN_ERRORS_33510B-399b56cc-0062-49f0-933c-ab01e39b6788",
+                "id": "CONNECTION_33510B-5cf13e91-12f9-4b36-befa-d658a1eb59d1->RETURN_ERRORS_33510B-2c2ee73a-b5c5-4fcd-983b-cd822d59f7fe_3161dcfb-5b00-45ff-9c41-c698f41eb298",
+                "source": "CONNECTION_33510B-5cf13e91-12f9-4b36-befa-d658a1eb59d1",
+                "target": "RETURN_ERRORS_33510B-2c2ee73a-b5c5-4fcd-983b-cd822d59f7fe",
                 "sourceHandle": "default",
-                "target": "TEXT_VIEW-1e087237-ee3a-4db7-963d-46fbdbd7b59b",
                 "targetHandle": "default",
-                "id": "reactflow__edge-RETURN_ERRORS_33510B-399b56cc-0062-49f0-933c-ab01e39b6788default-TEXT_VIEW-1e087237-ee3a-4db7-963d-46fbdbd7b59bdefault"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "CONNECTION_33510B-4c8ca1dd-a8ee-4ba9-ae8b-886c80a0a027",
+                "id": "RETURN_ERRORS_33510B-2c2ee73a-b5c5-4fcd-983b-cd822d59f7fe->TEXT_VIEW-85ee75d7-be54-4778-8bbd-cca992cea2af_541daa06-0f2b-464b-97b4-dffae0c0503d",
+                "source": "RETURN_ERRORS_33510B-2c2ee73a-b5c5-4fcd-983b-cd822d59f7fe",
+                "target": "TEXT_VIEW-85ee75d7-be54-4778-8bbd-cca992cea2af",
                 "sourceHandle": "default",
-                "target": "RETURN_ERRORS_33510B-399b56cc-0062-49f0-933c-ab01e39b6788",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CONNECTION_33510B-4c8ca1dd-a8ee-4ba9-ae8b-886c80a0a027default-RETURN_ERRORS_33510B-399b56cc-0062-49f0-933c-ab01e39b6788default"
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 1104.261946392206,
-            "y": 573.1338859553202,
-            "zoom": 1.2154437530123414
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

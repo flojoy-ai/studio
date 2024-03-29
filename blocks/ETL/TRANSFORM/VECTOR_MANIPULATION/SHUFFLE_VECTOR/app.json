@@ -2,15 +2,13 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
-                "id": "LINSPACE-2ed49441-b754-466d-83ed-a67759f7f6c0",
-                "type": "GENERATORS",
+                "id": "LINSPACE-d14d49d4-91c3-446e-853e-d0d19590cc7c",
+                "type": "DATA",
                 "data": {
-                    "id": "LINSPACE-2ed49441-b754-466d-83ed-a67759f7f6c0",
+                    "id": "LINSPACE-d14d49d4-91c3-446e-853e-d0d19590cc7c",
                     "label": "LINSPACE",
                     "func": "LINSPACE",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "start": {
                             "type": "float",
@@ -46,8 +44,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -55,33 +53,190 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector",
-                            "desc": "v: the vector between start and end with step number of points."
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
                         }
                     ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
                 },
                 "position": {
-                    "x": -446.6779449770943,
-                    "y": 76.62739294025627
+                    "x": -147.4120136467158,
+                    "y": -335.3665677178755
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -446.6779449770943,
-                    "y": 76.62739294025627
+                    "x": -147.4120136467158,
+                    "y": -335.3665677178755
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 160,
-                "height": 160,
-                "id": "SHUFFLE_VECTOR-98d9999c-0019-4249-8ab9-a202b2c0f811",
-                "type": "TRANSFORMERS",
+                "id": "LINE-f24b91a9-dfc3-495e-87a5-ee00de2abb28",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "SHUFFLE_VECTOR-98d9999c-0019-4249-8ab9-a202b2c0f811",
+                    "id": "LINE-f24b91a9-dfc3-495e-87a5-ee00de2abb28",
+                    "label": "LINE 1",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": 886.7839543669348,
+                    "y": -361.3811687862666
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 886.7839543669348,
+                    "y": -361.3811687862666
+                },
+                "dragging": false
+            },
+            {
+                "id": "LINE-ec2d223a-3b54-4893-988a-3020536cd0ba",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-ec2d223a-3b54-4893-988a-3020536cd0ba",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": 458.19686383170676,
+                    "y": -567.1653646432046
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 458.19686383170676,
+                    "y": -567.1653646432046
+                },
+                "dragging": false
+            },
+            {
+                "id": "SHUFFLE_VECTOR-01e1adb5-9377-4d63-8c4b-5abfb9da074a",
+                "type": "TRANSFORM",
+                "data": {
+                    "id": "SHUFFLE_VECTOR-01e1adb5-9377-4d63-8c4b-5abfb9da074a",
                     "label": "SHUFFLE VECTOR",
                     "func": "SHUFFLE_VECTOR",
-                    "type": "TRANSFORMERS",
+                    "type": "TRANSFORM",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -89,8 +244,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector",
-                            "multiple": false,
-                            "desc": null
+                            "desc": "The vector to shuffle.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -98,137 +253,60 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector",
-                            "desc": "Unique input vector"
+                            "desc": "Shuffled input vector"
                         }
                     ],
-                    "path": "TRANSFORMERS/VECTOR_MANIPULATION/SHUFFLE_VECTOR/SHUFFLE_VECTOR.py",
-                    "selected": true
+                    "path": "ETL/TRANSFORM/VECTOR_MANIPULATION/SHUFFLE_VECTOR/SHUFFLE_VECTOR.py"
                 },
                 "position": {
-                    "x": -125.88341540346411,
-                    "y": 198.83904817756536
+                    "x": 455.62944582784826,
+                    "y": -173.68233272446832
                 },
-                "selected": true,
-                "positionAbsolute": {
-                    "x": -125.88341540346411,
-                    "y": 198.83904817756536
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "SCATTER-dd00a29c-158a-4406-bcc3-ca3ebe181c37",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "SCATTER-dd00a29c-158a-4406-bcc3-ca3ebe181c37",
-                    "label": "SCATTER",
-                    "func": "SCATTER",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Scatter visualization"
-                        }
-                    ],
-                    "path": "VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 215.3314964598046,
-                    "y": 110.53771696595487
-                },
+                "width": 216,
+                "height": 296,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 215.3314964598046,
-                    "y": 110.53771696595487
+                    "x": 455.62944582784826,
+                    "y": -173.68233272446832
                 },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "SCATTER-0de9ba77-fa39-463c-af22-9b0aa0f44ee4",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "SCATTER-0de9ba77-fa39-463c-af22-9b0aa0f44ee4",
-                    "label": "SCATTER 1",
-                    "func": "SCATTER",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Scatter visualization"
-                        }
-                    ],
-                    "path": "VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -176.0953148241946,
-                    "y": -186.43591335855123
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -176.0953148241946,
-                    "y": -186.43591335855123
-                },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "LINSPACE-2ed49441-b754-466d-83ed-a67759f7f6c0",
+                "id": "LINSPACE-d14d49d4-91c3-446e-853e-d0d19590cc7c->LINE-ec2d223a-3b54-4893-988a-3020536cd0ba_3987be29-e0e4-4925-9259-2b668a307d97",
+                "source": "LINSPACE-d14d49d4-91c3-446e-853e-d0d19590cc7c",
+                "target": "LINE-ec2d223a-3b54-4893-988a-3020536cd0ba",
                 "sourceHandle": "default",
-                "target": "SCATTER-0de9ba77-fa39-463c-af22-9b0aa0f44ee4",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-2ed49441-b754-466d-83ed-a67759f7f6c0default-SCATTER-0de9ba77-fa39-463c-af22-9b0aa0f44ee4default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "SHUFFLE_VECTOR-98d9999c-0019-4249-8ab9-a202b2c0f811",
+                "id": "LINSPACE-d14d49d4-91c3-446e-853e-d0d19590cc7c->SHUFFLE_VECTOR-01e1adb5-9377-4d63-8c4b-5abfb9da074a_ba50adce-ed04-42a6-9f20-71a7912390eb",
+                "source": "LINSPACE-d14d49d4-91c3-446e-853e-d0d19590cc7c",
+                "target": "SHUFFLE_VECTOR-01e1adb5-9377-4d63-8c4b-5abfb9da074a",
                 "sourceHandle": "default",
-                "target": "SCATTER-dd00a29c-158a-4406-bcc3-ca3ebe181c37",
                 "targetHandle": "default",
-                "id": "reactflow__edge-SHUFFLE_VECTOR-98d9999c-0019-4249-8ab9-a202b2c0f811default-SCATTER-dd00a29c-158a-4406-bcc3-ca3ebe181c37default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "LINSPACE-2ed49441-b754-466d-83ed-a67759f7f6c0",
+                "id": "SHUFFLE_VECTOR-01e1adb5-9377-4d63-8c4b-5abfb9da074a->LINE-f24b91a9-dfc3-495e-87a5-ee00de2abb28_70023ae5-ac71-48b4-a55b-9ff394db608a",
+                "source": "SHUFFLE_VECTOR-01e1adb5-9377-4d63-8c4b-5abfb9da074a",
+                "target": "LINE-f24b91a9-dfc3-495e-87a5-ee00de2abb28",
                 "sourceHandle": "default",
-                "target": "SHUFFLE_VECTOR-98d9999c-0019-4249-8ab9-a202b2c0f811",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-2ed49441-b754-466d-83ed-a67759f7f6c0default-SHUFFLE_VECTOR-98d9999c-0019-4249-8ab9-a202b2c0f811default"
+                "data": {
+                    "outputType": "Vector"
+                }
             }
-        ],
-        "viewport": {
-            "x": 856.9726609784543,
-            "y": 419.56285211681103,
-            "zoom": 0.8897660042407147
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

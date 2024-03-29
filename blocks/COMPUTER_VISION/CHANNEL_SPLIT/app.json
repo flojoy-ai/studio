@@ -4,126 +4,6 @@
             {
                 "width": 160,
                 "height": 160,
-                "id": "LOCAL_FILE-e57df946-51ef-4f5a-a12b-d149660a4db3",
-                "type": "LOADERS",
-                "data": {
-                    "id": "LOCAL_FILE-e57df946-51ef-4f5a-a12b-d149660a4db3",
-                    "label": "LOCAL FILE",
-                    "func": "LOCAL_FILE",
-                    "type": "LOADERS",
-                    "ctrls": {
-                        "file_path": {
-                            "type": "str",
-                            "default": null,
-                            "desc": "path to the file to be loaded",
-                            "functionName": "LOCAL_FILE",
-                            "param": "file_path",
-                            "value": ""
-                        },
-                        "file_type": {
-                            "type": "select",
-                            "default": "Image",
-                            "options": [
-                                "Image",
-                                "Grayscale",
-                                "JSON",
-                                "CSV",
-                                "Excel",
-                                "XML"
-                            ],
-                            "desc": "type of file to load, default = image",
-                            "functionName": "LOCAL_FILE",
-                            "param": "file_type",
-                            "value": "Image"
-                        }
-                    },
-                    "initCtrls": {},
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image|DataFrame",
-                            "desc": "type 'image' for file_type 'image'\ntype 'dataframe' for file_type 'json', 'csv', 'excel', 'xml'"
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "xlrd",
-                            "v": "2.0.1"
-                        },
-                        {
-                            "name": "lxml",
-                            "v": "4.9.2"
-                        },
-                        {
-                            "name": "openpyxl",
-                            "v": "3.0.10"
-                        },
-                        {
-                            "name": "scikit-image",
-                            "v": "0.21.0"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/LOADERS/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 16.68335354877854,
-                    "y": 277.18951071721204
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 16.68335354877854,
-                    "y": 277.18951071721204
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "IMAGE-fc2d810d-0555-4dad-a752-c7d1b9f414b6",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "IMAGE-fc2d810d-0555-4dad-a752-c7d1b9f414b6",
-                    "label": "IMAGE",
-                    "func": "IMAGE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image|Grayscale",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": null
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
-                    "selected": true
-                },
-                "position": {
-                    "x": 246.49972372227353,
-                    "y": 611.7121034430841
-                },
-                "selected": true,
-                "positionAbsolute": {
-                    "x": 246.49972372227353,
-                    "y": 611.7121034430841
-                },
-                "dragging": true
-            },
-            {
-                "width": 160,
-                "height": 160,
                 "id": "CHANNEL_SPLIT-b280d160-e345-469d-9fed-2bd4bed3cbdc",
                 "type": "TRANSFORMERS",
                 "data": {
@@ -138,8 +18,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Image|Matrix",
-                            "multiple": false,
-                            "desc": null
+                            "desc": "The image to split.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -147,51 +27,49 @@
                             "name": "r",
                             "id": "r",
                             "type": "Image",
-                            "desc": null
+                            "desc": "The red channel."
                         },
                         {
                             "name": "g",
                             "id": "g",
                             "type": "Image",
-                            "desc": null
+                            "desc": "The green channel."
                         },
                         {
                             "name": "b",
                             "id": "b",
                             "type": "Image",
-                            "desc": null
+                            "desc": "The blue channel."
                         },
                         {
                             "name": "a",
                             "id": "a",
                             "type": "Image",
-                            "desc": null
+                            "desc": "The alpha channel."
                         }
                     ],
-                    "path": "PYTHON/nodes/TRANSFORMERS/IMAGE_PROCESSING/CHANNEL_SPLIT/CHANNEL_SPLIT.py",
+                    "path": "COMPUTER_VISION/CHANNEL_SPLIT/CHANNEL_SPLIT.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 361.80934853210897,
-                    "y": 201.83108462368654
+                    "x": -80.19065146789103,
+                    "y": 191.8310846236866
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 361.80934853210897,
-                    "y": 201.83108462368654
+                    "x": -80.19065146789103,
+                    "y": 191.8310846236866
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "IMAGE-f0dd3826-cae0-4b2c-b365-4e03f37c748a",
-                "type": "VISUALIZERS",
+                "id": "IMAGE-9453178e-69db-4808-9bee-9397cf35d630",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "IMAGE-f0dd3826-cae0-4b2c-b365-4e03f37c748a",
-                    "label": "IMAGE 1",
+                    "id": "IMAGE-9453178e-69db-4808-9bee-9397cf35d630",
+                    "label": "ORIGINAL IMAGE",
                     "func": "IMAGE",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -199,8 +77,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Image|Grayscale",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -208,33 +86,32 @@
                             "name": "default",
                             "id": "default",
                             "type": "Plotly",
-                            "desc": null
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
                         }
                     ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
                 },
                 "position": {
-                    "x": 844.5262434563318,
-                    "y": 569.0483505359973
+                    "x": -127.46023276746126,
+                    "y": 612.3690088130769
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 844.5262434563318,
-                    "y": 569.0483505359973
+                    "x": -127.46023276746126,
+                    "y": 612.3690088130769
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "IMAGE-739884dd-ab36-4e69-b306-5f158545fe62",
-                "type": "VISUALIZERS",
+                "id": "IMAGE-99a3ec44-bc20-45e7-9fbf-4aa732e52f60",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "IMAGE-739884dd-ab36-4e69-b306-5f158545fe62",
-                    "label": "IMAGE 2",
+                    "id": "IMAGE-99a3ec44-bc20-45e7-9fbf-4aa732e52f60",
+                    "label": "ALPHA",
                     "func": "IMAGE",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -242,8 +119,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Image|Grayscale",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -251,33 +128,32 @@
                             "name": "default",
                             "id": "default",
                             "type": "Plotly",
-                            "desc": null
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
                         }
                     ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
                 },
                 "position": {
-                    "x": 843.7565114516701,
-                    "y": 300.2645405612044
+                    "x": 495.03871614627906,
+                    "y": 669.1364807349395
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 843.7565114516701,
-                    "y": 300.2645405612044
+                    "x": 495.03871614627906,
+                    "y": 669.1364807349395
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "IMAGE-ffcae6c5-c5c3-42ad-bf7a-33e8210fd0f3",
-                "type": "VISUALIZERS",
+                "id": "IMAGE-aa952053-b04c-4586-be1b-49b82748c177",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "IMAGE-ffcae6c5-c5c3-42ad-bf7a-33e8210fd0f3",
-                    "label": "IMAGE 3",
+                    "id": "IMAGE-aa952053-b04c-4586-be1b-49b82748c177",
+                    "label": "GREEN",
                     "func": "IMAGE",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -285,8 +161,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Image|Grayscale",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -294,33 +170,32 @@
                             "name": "default",
                             "id": "default",
                             "type": "Plotly",
-                            "desc": null
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
                         }
                     ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
                 },
                 "position": {
-                    "x": 837.6675400027223,
-                    "y": 34.62121883456251
+                    "x": 463.6445608686065,
+                    "y": 49.00041688111696
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 837.6675400027223,
-                    "y": 34.62121883456251
+                    "x": 463.6445608686065,
+                    "y": 49.00041688111696
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "IMAGE-aef8d04e-578e-489f-a428-1098cbc213a5",
-                "type": "VISUALIZERS",
+                "id": "IMAGE-a8137fbe-4350-40eb-9941-5401cefca81e",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "IMAGE-aef8d04e-578e-489f-a428-1098cbc213a5",
-                    "label": "IMAGE 4",
+                    "id": "IMAGE-a8137fbe-4350-40eb-9941-5401cefca81e",
+                    "label": "RED",
                     "func": "IMAGE",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -328,8 +203,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Image|Grayscale",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -337,91 +212,202 @@
                             "name": "default",
                             "id": "default",
                             "type": "Plotly",
-                            "desc": null
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
                         }
                     ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
                 },
                 "position": {
-                    "x": 835.8892735158713,
-                    "y": -227.72940574007998
+                    "x": 461.08929634606784,
+                    "y": -260.36626588061614
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 835.8892735158713,
-                    "y": -227.72940574007998
+                    "x": 461.08929634606784,
+                    "y": -260.36626588061614
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "IMAGE-85d9b539-8cdb-4fdd-bce3-2cebf75bc425",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "IMAGE-85d9b539-8cdb-4fdd-bce3-2cebf75bc425",
+                    "label": "BLUE",
+                    "func": "IMAGE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|Grayscale",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
+                },
+                "position": {
+                    "x": 489.55544939889705,
+                    "y": 364.1908010479565
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 489.55544939889705,
+                    "y": 364.1908010479565
+                },
+                "dragging": false
+            },
+            {
+                "id": "LOCAL_FILE-b6513ee1-7cb8-4b72-a3f1-f3a82a9d3465",
+                "type": "LOAD",
+                "data": {
+                    "id": "LOCAL_FILE-b6513ee1-7cb8-4b72-a3f1-f3a82a9d3465",
+                    "label": "LOCAL IMAGE FILE",
+                    "func": "LOCAL_FILE",
+                    "type": "LOAD",
+                    "ctrls": {
+                        "file_path": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "The path to the file to be loaded. This can be either an absolute path or\na path relative to the \"nodes\" directory.",
+                            "overload": null,
+                            "functionName": "LOCAL_FILE",
+                            "param": "file_path",
+                            "value": ""
+                        },
+                        "file_type": {
+                            "type": "select",
+                            "default": "Image",
+                            "options": [
+                                "Image",
+                                "Grayscale",
+                                "JSON",
+                                "CSV"
+                            ],
+                            "desc": "Type of file to load, default = image.\nIf both 'file_path' and 'default' are not specified when 'file_type=\"Image\"',\na default image will be loaded.\nIf the file path is not specified and the default input is not connected,\na ValueError is raised.",
+                            "overload": null,
+                            "functionName": "LOCAL_FILE",
+                            "param": "file_type",
+                            "value": "Image"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "If this input node is connected, the file name will be taken from\nthe output of the connected node.\nTo be used in conjunction with batch processing.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|DataFrame|Grayscale",
+                            "desc": "Image for file_type 'image'.\nGrayscale from file_type 'Grayscale'.\nDataFrame for file_type 'json', 'csv'."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "scikit-image",
+                            "v": "0.21.0"
+                        }
+                    ],
+                    "path": "ETL/LOAD/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py"
+                },
+                "position": {
+                    "x": -564.6252547236779,
+                    "y": 264.00859838548865
+                },
+                "width": 216,
+                "height": 224,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -564.6252547236779,
+                    "y": 264.00859838548865
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "LOCAL_FILE-e57df946-51ef-4f5a-a12b-d149660a4db3",
-                "sourceHandle": "default",
-                "target": "IMAGE-fc2d810d-0555-4dad-a752-c7d1b9f414b6",
-                "targetHandle": "default",
-                "id": "reactflow__edge-LOCAL_FILE-e57df946-51ef-4f5a-a12b-d149660a4db3default-IMAGE-fc2d810d-0555-4dad-a752-c7d1b9f414b6default"
-            },
-            {
-                "source": "LOCAL_FILE-e57df946-51ef-4f5a-a12b-d149660a4db3",
-                "sourceHandle": "default",
-                "target": "CHANNEL_SPLIT-b280d160-e345-469d-9fed-2bd4bed3cbdc",
-                "targetHandle": "default",
-                "id": "reactflow__edge-LOCAL_FILE-e57df946-51ef-4f5a-a12b-d149660a4db3default-CHANNEL_SPLIT-b280d160-e345-469d-9fed-2bd4bed3cbdcdefault"
-            },
-            {
+                "id": "CHANNEL_SPLIT-b280d160-e345-469d-9fed-2bd4bed3cbdc->IMAGE-a8137fbe-4350-40eb-9941-5401cefca81e_717978e3-4024-49ad-be81-96edb5d118d6",
                 "source": "CHANNEL_SPLIT-b280d160-e345-469d-9fed-2bd4bed3cbdc",
+                "target": "IMAGE-a8137fbe-4350-40eb-9941-5401cefca81e",
                 "sourceHandle": "r",
-                "target": "IMAGE-aef8d04e-578e-489f-a428-1098cbc213a5",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CHANNEL_SPLIT-b280d160-e345-469d-9fed-2bd4bed3cbdcr-IMAGE-aef8d04e-578e-489f-a428-1098cbc213a5default"
+                "data": {
+                    "outputType": "Image"
+                }
             },
             {
+                "id": "CHANNEL_SPLIT-b280d160-e345-469d-9fed-2bd4bed3cbdc->IMAGE-aa952053-b04c-4586-be1b-49b82748c177_bc454577-9b31-46a1-b374-22af23576bb7",
                 "source": "CHANNEL_SPLIT-b280d160-e345-469d-9fed-2bd4bed3cbdc",
+                "target": "IMAGE-aa952053-b04c-4586-be1b-49b82748c177",
                 "sourceHandle": "g",
-                "target": "IMAGE-ffcae6c5-c5c3-42ad-bf7a-33e8210fd0f3",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CHANNEL_SPLIT-b280d160-e345-469d-9fed-2bd4bed3cbdcg-IMAGE-ffcae6c5-c5c3-42ad-bf7a-33e8210fd0f3default"
+                "data": {
+                    "outputType": "Image"
+                }
             },
             {
+                "id": "CHANNEL_SPLIT-b280d160-e345-469d-9fed-2bd4bed3cbdc->IMAGE-85d9b539-8cdb-4fdd-bce3-2cebf75bc425_1fe15043-3038-44d3-82b9-8a154961ed4b",
                 "source": "CHANNEL_SPLIT-b280d160-e345-469d-9fed-2bd4bed3cbdc",
+                "target": "IMAGE-85d9b539-8cdb-4fdd-bce3-2cebf75bc425",
                 "sourceHandle": "b",
-                "target": "IMAGE-739884dd-ab36-4e69-b306-5f158545fe62",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CHANNEL_SPLIT-b280d160-e345-469d-9fed-2bd4bed3cbdcb-IMAGE-739884dd-ab36-4e69-b306-5f158545fe62default"
+                "data": {
+                    "outputType": "Image"
+                }
             },
             {
+                "id": "CHANNEL_SPLIT-b280d160-e345-469d-9fed-2bd4bed3cbdc->IMAGE-99a3ec44-bc20-45e7-9fbf-4aa732e52f60_37de2eef-3257-47dc-a837-882157fd64ee",
                 "source": "CHANNEL_SPLIT-b280d160-e345-469d-9fed-2bd4bed3cbdc",
+                "target": "IMAGE-99a3ec44-bc20-45e7-9fbf-4aa732e52f60",
                 "sourceHandle": "a",
-                "target": "IMAGE-f0dd3826-cae0-4b2c-b365-4e03f37c748a",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CHANNEL_SPLIT-b280d160-e345-469d-9fed-2bd4bed3cbdca-IMAGE-f0dd3826-cae0-4b2c-b365-4e03f37c748adefault"
+                "data": {
+                    "outputType": "Image"
+                }
+            },
+            {
+                "id": "LOCAL_FILE-b6513ee1-7cb8-4b72-a3f1-f3a82a9d3465->CHANNEL_SPLIT-b280d160-e345-469d-9fed-2bd4bed3cbdc_3d5830b3-8848-498b-ac45-bddf3f4dd2fa",
+                "source": "LOCAL_FILE-b6513ee1-7cb8-4b72-a3f1-f3a82a9d3465",
+                "target": "CHANNEL_SPLIT-b280d160-e345-469d-9fed-2bd4bed3cbdc",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Image"
+                }
+            },
+            {
+                "id": "LOCAL_FILE-b6513ee1-7cb8-4b72-a3f1-f3a82a9d3465->IMAGE-9453178e-69db-4808-9bee-9397cf35d630_d8b3fda0-869e-4b01-81b9-9d72f622c095",
+                "source": "LOCAL_FILE-b6513ee1-7cb8-4b72-a3f1-f3a82a9d3465",
+                "target": "IMAGE-9453178e-69db-4808-9bee-9397cf35d630",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Image"
+                }
             }
-        ],
-        "viewport": {
-            "x": 852.7959874736157,
-            "y": 352.53461082817995,
-            "zoom": 0.7476193625116623
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": []
 }

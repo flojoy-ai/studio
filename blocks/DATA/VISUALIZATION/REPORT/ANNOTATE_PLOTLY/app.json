@@ -2,8 +2,8 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "TEXT-beb4a0b7-961a-4f43-ae3b-c6426015eaf2",
                 "type": "DATA",
                 "data": {
@@ -28,8 +28,8 @@
                             "name": "_",
                             "id": "_",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -43,19 +43,19 @@
                     "path": "DATA/GENERATION/SIMULATIONS/TEXT/TEXT.py"
                 },
                 "position": {
-                    "x": 785.4706656442254,
-                    "y": -485.91978567488616
+                    "x": 636.1648859262036,
+                    "y": -1511.8083810946246
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 785.4706656442254,
-                    "y": -485.91978567488616
+                    "x": 636.1648859262036,
+                    "y": -1511.8083810946246
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "BOOLEAN-5b980747-4a20-4f10-a101-74c050efc52e",
                 "type": "DATA",
                 "data": {
@@ -86,19 +86,19 @@
                     "path": "DATA/GENERATION/SIMULATIONS/BOOLEAN/BOOLEAN.py"
                 },
                 "position": {
-                    "x": 532.0581553527328,
-                    "y": 46.86799794075296
+                    "x": 617.9554625117853,
+                    "y": -843.1947014413884
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 532.0581553527328,
-                    "y": 46.86799794075296
+                    "x": 617.9554625117853,
+                    "y": -843.1947014413884
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 210,
-                "height": 96,
+                "width": 218,
+                "height": 233,
                 "id": "TEXT-f94b2ce3-733b-4bf7-b477-42c326a594ba",
                 "type": "DATA",
                 "data": {
@@ -123,8 +123,8 @@
                             "name": "_",
                             "id": "_",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -138,19 +138,19 @@
                     "path": "DATA/GENERATION/SIMULATIONS/TEXT/TEXT.py"
                 },
                 "position": {
-                    "x": 719.353613958426,
-                    "y": -373.9686306174872
+                    "x": 635.4426550328849,
+                    "y": -1306.8209715845896
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 719.353613958426,
-                    "y": -373.9686306174872
+                    "x": 635.4426550328849,
+                    "y": -1306.8209715845896
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 233,
                 "id": "PLOTLY_DATASET-42d335c8-cb26-4114-874a-0a20104d3c3c",
                 "type": "DATA",
                 "data": {
@@ -193,15 +193,15 @@
                     "path": "DATA/GENERATION/SAMPLE_DATASETS/PLOTLY_DATASET/PLOTLY_DATASET.py"
                 },
                 "position": {
-                    "x": -375.51518575743444,
-                    "y": 43.0040429924976
+                    "x": -741.5151857574344,
+                    "y": -72.9959570075024
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -375.51518575743444,
-                    "y": 43.0040429924976
+                    "x": -741.5151857574344,
+                    "y": -72.9959570075024
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 225,
@@ -220,8 +220,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -235,81 +235,19 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
                 },
                 "position": {
-                    "x": -113.97459457322236,
-                    "y": 76.98872307224929
+                    "x": -141.97459457322236,
+                    "y": 220.9887230722493
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -113.97459457322236,
-                    "y": 76.98872307224929
+                    "x": -141.97459457322236,
+                    "y": 220.9887230722493
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 150,
-                "height": 180,
-                "id": "REPORT_GEN-d770e252-299d-4a2c-a8c4-977f171ccb69",
-                "type": "default",
-                "data": {
-                    "id": "REPORT_GEN-d770e252-299d-4a2c-a8c4-977f171ccb69",
-                    "label": "REPORT GEN",
-                    "func": "REPORT_GEN",
-                    "type": "default",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "title",
-                            "id": "title",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "The title of the report"
-                        },
-                        {
-                            "name": "img_url",
-                            "id": "img_url",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "URL for the logo in the report letterhead"
-                        },
-                        {
-                            "name": "introduction",
-                            "id": "introduction",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "Report preamble"
-                        },
-                        {
-                            "name": "test_success",
-                            "id": "test_success",
-                            "type": "Boolean",
-                            "multiple": false,
-                            "desc": null
-                        },
-                        {
-                            "name": "figures",
-                            "id": "figures",
-                            "type": "Plotly",
-                            "multiple": true,
-                            "desc": "List of Plotly charts to display"
-                        }
-                    ],
-                    "path": "REPORT_GEN/REPORT_GEN.py"
-                },
-                "position": {
-                    "x": 556.7096951425408,
-                    "y": -144.3905183317288
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 556.7096951425408,
-                    "y": -144.3905183317288
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "SKIMAGE-7fe83db3-1e09-4b27-856e-760b4ea42b25",
                 "type": "DATA",
                 "data": {
@@ -391,15 +329,15 @@
                     "path": "DATA/GENERATION/SAMPLE_IMAGES/SKIMAGE/SKIMAGE.py"
                 },
                 "position": {
-                    "x": -378.05168229923663,
-                    "y": 329.85269559767505
+                    "x": -778.0516822992366,
+                    "y": 565.852695597675
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -378.05168229923663,
-                    "y": 329.85269559767505
+                    "x": -778.0516822992366,
+                    "y": 565.852695597675
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 225,
@@ -418,8 +356,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Image|Grayscale",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -433,252 +371,15 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
                 },
                 "position": {
-                    "x": -111.38596321766671,
-                    "y": 260.86307043786724
+                    "x": -145.3859632176667,
+                    "y": 538.8630704378672
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -111.38596321766671,
-                    "y": 260.86307043786724
+                    "x": -145.3859632176667,
+                    "y": 538.8630704378672
                 },
-                "dragging": true
-            },
-            {
-                "width": 150,
-                "height": 180,
-                "id": "ANNOTATE_PLOTLY-1353c689-467d-4805-9c41-21f916fa6a51",
-                "type": "default",
-                "data": {
-                    "id": "ANNOTATE_PLOTLY-1353c689-467d-4805-9c41-21f916fa6a51",
-                    "label": "ANNOTATE IMAGE",
-                    "func": "ANNOTATE_PLOTLY",
-                    "type": "default",
-                    "ctrls": {
-                        "title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "ANNOTATE_PLOTLY",
-                            "param": "title",
-                            "value": "Astronaut portrait"
-                        },
-                        "caption": {
-                            "type": "TextArea",
-                            "default": "",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "ANNOTATE_PLOTLY",
-                            "param": "caption",
-                            "value": "Photograph of Eileen Collins, an American astronaut. She was selected as an astronaut in 1992 and first piloted the space shuttle STS-63 in 1995. She retired in 2006 after spending a total of 38 days, 8 hours and 10 minutes in outer space."
-                        },
-                        "xaxis": {
-                            "type": "str",
-                            "default": "",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "ANNOTATE_PLOTLY",
-                            "param": "xaxis",
-                            "value": ""
-                        },
-                        "yaxis": {
-                            "type": "str",
-                            "default": "",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "ANNOTATE_PLOTLY",
-                            "param": "yaxis",
-                            "value": ""
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "multiple": false,
-                            "desc": "The Plotly figure object"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "The annotated Plotly object"
-                        }
-                    ],
-                    "path": "ANNOTATE_PLOTLY/ANNOTATE_PLOTLY.py"
-                },
-                "position": {
-                    "x": 223.2734951996323,
-                    "y": 284.30777002735977
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 223.2734951996323,
-                    "y": 284.30777002735977
-                },
-                "dragging": true
-            },
-            {
-                "width": 150,
-                "height": 180,
-                "id": "ANNOTATE_PLOTLY-8cad8ddb-da0f-4a9d-8fd8-a1f77ec2e2d8",
-                "type": "default",
-                "data": {
-                    "id": "ANNOTATE_PLOTLY-8cad8ddb-da0f-4a9d-8fd8-a1f77ec2e2d8",
-                    "label": "ANNOTATE TABLE",
-                    "func": "ANNOTATE_PLOTLY",
-                    "type": "default",
-                    "ctrls": {
-                        "title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "ANNOTATE_PLOTLY",
-                            "param": "title",
-                            "value": "Iris Dataset"
-                        },
-                        "caption": {
-                            "type": "TextArea",
-                            "default": "",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "ANNOTATE_PLOTLY",
-                            "param": "caption",
-                            "value": "This is one of the earliest datasets used in the literature on classification methods and widely used in statistics and machine learning.  The data set contains 3 classes of 50 instances each, where each class refers to a type of iris plant.  One class is linearly separable from the other 2; the latter are not linearly separable from each other."
-                        },
-                        "xaxis": {
-                            "type": "str",
-                            "default": "",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "ANNOTATE_PLOTLY",
-                            "param": "xaxis",
-                            "value": ""
-                        },
-                        "yaxis": {
-                            "type": "str",
-                            "default": "",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "ANNOTATE_PLOTLY",
-                            "param": "yaxis",
-                            "value": ""
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "multiple": false,
-                            "desc": "The Plotly figure object"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "The annotated Plotly object"
-                        }
-                    ],
-                    "path": "ANNOTATE_PLOTLY/ANNOTATE_PLOTLY.py"
-                },
-                "position": {
-                    "x": 221.38507575804067,
-                    "y": 97.39618946895143
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 221.38507575804067,
-                    "y": 97.39618946895143
-                },
-                "dragging": true
-            },
-            {
-                "width": 150,
-                "height": 180,
-                "id": "ANNOTATE_PLOTLY-1c1adaa4-64e8-49de-adbc-b6d638ec1dba",
-                "type": "default",
-                "data": {
-                    "id": "ANNOTATE_PLOTLY-1c1adaa4-64e8-49de-adbc-b6d638ec1dba",
-                    "label": "ANNOTATE 3D",
-                    "func": "ANNOTATE_PLOTLY",
-                    "type": "default",
-                    "ctrls": {
-                        "title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "ANNOTATE_PLOTLY",
-                            "param": "title",
-                            "value": "3D visualization"
-                        },
-                        "caption": {
-                            "type": "TextArea",
-                            "default": "",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "ANNOTATE_PLOTLY",
-                            "param": "caption",
-                            "value": "A 3D Scatter Plot is a mathematical diagram, the most basic version of three-dimensional plotting used to display the properties of data as three variables of a dataset using the cartesian coordinates."
-                        },
-                        "xaxis": {
-                            "type": "str",
-                            "default": "",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "ANNOTATE_PLOTLY",
-                            "param": "xaxis",
-                            "value": ""
-                        },
-                        "yaxis": {
-                            "type": "str",
-                            "default": "",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "ANNOTATE_PLOTLY",
-                            "param": "yaxis",
-                            "value": ""
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "multiple": false,
-                            "desc": "The Plotly figure object"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "The annotated Plotly object"
-                        }
-                    ],
-                    "path": "ANNOTATE_PLOTLY/ANNOTATE_PLOTLY.py"
-                },
-                "position": {
-                    "x": 221.38507575804067,
-                    "y": -86.82697164786532
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 221.38507575804067,
-                    "y": -86.82697164786532
-                },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 225,
@@ -697,8 +398,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedTriple|DataFrame",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -712,19 +413,19 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/SCATTER3D/SCATTER3D.py"
                 },
                 "position": {
-                    "x": -115.62238208835299,
-                    "y": -109.83021645540714
+                    "x": -139.622382088353,
+                    "y": -107.83021645540714
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -115.62238208835299,
-                    "y": -109.83021645540714
+                    "x": -139.622382088353,
+                    "y": -107.83021645540714
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "RAND-0a08e5e4-8ec7-4e5d-b75d-1de4b5b19c20",
                 "type": "DATA",
                 "data": {
@@ -823,8 +524,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": "unused in this node"
+                            "desc": "unused in this node",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -838,15 +539,15 @@
                     "path": "DATA/GENERATION/SIMULATIONS/RAND/RAND.py"
                 },
                 "position": {
-                    "x": -375.89366428828487,
-                    "y": -315.6800197726816
+                    "x": -713.7500866790901,
+                    "y": -686.0416729896003
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -375.89366428828487,
-                    "y": -315.6800197726816
+                    "x": -713.7500866790901,
+                    "y": -686.0416729896003
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 225,
@@ -865,8 +566,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -880,15 +581,15 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/HISTOGRAM/HISTOGRAM.py"
                 },
                 "position": {
-                    "x": -113.62355330384801,
-                    "y": -473.26278007622824
+                    "x": -146.7603050297983,
+                    "y": -720.9529189345037
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -113.62355330384801,
-                    "y": -473.26278007622824
+                    "x": -146.7603050297983,
+                    "y": -720.9529189345037
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 225,
@@ -907,8 +608,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -922,177 +623,19 @@
                     "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
                 },
                 "position": {
-                    "x": -115.41497998947231,
-                    "y": -293.32749026659036
+                    "x": -149.41497998947233,
+                    "y": -405.3274902665903
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -115.41497998947231,
-                    "y": -293.32749026659036
+                    "x": -149.41497998947233,
+                    "y": -405.3274902665903
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 150,
-                "height": 180,
-                "id": "ANNOTATE_PLOTLY-cc4d3990-460c-4663-95a7-03ab568e3af1",
-                "type": "default",
-                "data": {
-                    "id": "ANNOTATE_PLOTLY-cc4d3990-460c-4663-95a7-03ab568e3af1",
-                    "label": "ANNOTATE HISTOGRAM",
-                    "func": "ANNOTATE_PLOTLY",
-                    "type": "default",
-                    "ctrls": {
-                        "title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "ANNOTATE_PLOTLY",
-                            "param": "title",
-                            "value": "Poisson distribution (histogram)"
-                        },
-                        "caption": {
-                            "type": "TextArea",
-                            "default": "",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "ANNOTATE_PLOTLY",
-                            "param": "caption",
-                            "value": "Fusce imperdiet euismod orci quis euismod. Ut commodo nisi eu nunc mattis mollis. Maecenas commodo metus lorem, vitae ullamcorper nulla accumsan ac. Etiam molestie condimentum dui ultrices faucibus. Phasellus ac lacus hendrerit, sollicitudin sapien non, hendrerit tellus. In ac risus dolor. Ut gravida maximus mauris sit amet tincidunt. Aenean et lorem sed nulla pulvinar efficitur sed sed libero. Nam scelerisque elit vel urna accumsan volutpat. Proin eu tempus est. Sed efficitur libero eget nisi tristique pharetra. Praesent quis elementum lacus, nec facilisis tellus."
-                        },
-                        "xaxis": {
-                            "type": "str",
-                            "default": "",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "ANNOTATE_PLOTLY",
-                            "param": "xaxis",
-                            "value": ""
-                        },
-                        "yaxis": {
-                            "type": "str",
-                            "default": "",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "ANNOTATE_PLOTLY",
-                            "param": "yaxis",
-                            "value": ""
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "multiple": false,
-                            "desc": "The Plotly figure object"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "The annotated Plotly object"
-                        }
-                    ],
-                    "path": "ANNOTATE_PLOTLY/ANNOTATE_PLOTLY.py"
-                },
-                "position": {
-                    "x": 222.275449577127,
-                    "y": -447.4771199613789
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 222.275449577127,
-                    "y": -447.4771199613789
-                },
-                "dragging": true
-            },
-            {
-                "width": 150,
-                "height": 180,
-                "id": "ANNOTATE_PLOTLY-14c70ba9-d61b-4b71-979a-b6ba711edac2",
-                "type": "default",
-                "data": {
-                    "id": "ANNOTATE_PLOTLY-14c70ba9-d61b-4b71-979a-b6ba711edac2",
-                    "label": "ANNOTATE SCATTER",
-                    "func": "ANNOTATE_PLOTLY",
-                    "type": "default",
-                    "ctrls": {
-                        "title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "ANNOTATE_PLOTLY",
-                            "param": "title",
-                            "value": "Poisson distribution (scatter)"
-                        },
-                        "caption": {
-                            "type": "TextArea",
-                            "default": "",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "ANNOTATE_PLOTLY",
-                            "param": "caption",
-                            "value": "Fusce imperdiet euismod orci quis euismod. Ut commodo nisi eu nunc mattis mollis. Maecenas commodo metus lorem, vitae ullamcorper nulla accumsan ac. Etiam molestie condimentum dui ultrices faucibus. Phasellus ac lacus hendrerit, sollicitudin sapien non, hendrerit tellus. In ac risus dolor. Ut gravida maximus mauris sit amet tincidunt. Aenean et lorem sed nulla pulvinar efficitur sed sed libero. Nam scelerisque elit vel urna accumsan volutpat. Proin eu tempus est. Sed efficitur libero eget nisi tristique pharetra. Praesent quis elementum lacus, nec facilisis tellus."
-                        },
-                        "xaxis": {
-                            "type": "str",
-                            "default": "",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "ANNOTATE_PLOTLY",
-                            "param": "xaxis",
-                            "value": ""
-                        },
-                        "yaxis": {
-                            "type": "str",
-                            "default": "",
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "ANNOTATE_PLOTLY",
-                            "param": "yaxis",
-                            "value": ""
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "multiple": false,
-                            "desc": "The Plotly figure object"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "The annotated Plotly object"
-                        }
-                    ],
-                    "path": "ANNOTATE_PLOTLY/ANNOTATE_PLOTLY.py"
-                },
-                "position": {
-                    "x": 222.05228846031025,
-                    "y": -267.811861636604
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 222.05228846031025,
-                    "y": -267.811861636604
-                },
-                "dragging": true
-            },
-            {
-                "width": 252,
-                "height": 96,
+                "width": 260,
+                "height": 197,
                 "id": "TEXT-2c81e870-31ae-48cc-9821-05e8e494f658",
                 "type": "DATA",
                 "data": {
@@ -1117,8 +660,8 @@
                             "name": "_",
                             "id": "_",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -1132,15 +675,382 @@
                     "path": "DATA/GENERATION/SIMULATIONS/TEXT/TEXT.py"
                 },
                 "position": {
-                    "x": 632.2939798098372,
-                    "y": -259.14647986103876
+                    "x": 592.6819747190734,
+                    "y": -1055.640803380205
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 632.2939798098372,
-                    "y": -259.14647986103876
+                    "x": 592.6819747190734,
+                    "y": -1055.640803380205
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "ANNOTATE_PLOTLY-bf98f819-7707-4807-8e62-eb9b210008fa",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "ANNOTATE_PLOTLY-bf98f819-7707-4807-8e62-eb9b210008fa",
+                    "label": "ANNOTATE HISTOGRAM",
+                    "func": "ANNOTATE_PLOTLY",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "ANNOTATE_PLOTLY",
+                            "param": "title",
+                            "value": "Poisson distribution (histogram)"
+                        },
+                        "caption": {
+                            "type": "TextArea",
+                            "default": "",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "ANNOTATE_PLOTLY",
+                            "param": "caption",
+                            "value": "Fusce imperdiet euismod orci quis euismod. Ut commodo nisi eu nunc mattis mollis. Maecenas commodo metus lorem, vitae ullamcorper nulla accumsan ac. Etiam molestie condimentum dui ultrices faucibus. Phasellus ac lacus hendrerit, sollicitudin sapien non, hendrerit tellus. In ac risus dolor. Ut gravida maximus mauris sit amet tincidunt. Aenean et lorem sed nulla pulvinar efficitur sed sed libero. Nam scelerisque elit vel urna accumsan volutpat. Proin eu tempus est. Sed efficitur libero eget nisi tristique pharetra. Praesent quis elementum lacus, nec facilisis tellus."
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "The Plotly figure object",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "The annotated Plotly object"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/REPORT/ANNOTATE_PLOTLY/ANNOTATE_PLOTLY.py"
+                },
+                "position": {
+                    "x": 290.84045211292573,
+                    "y": -721.9392358862941
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 290.84045211292573,
+                    "y": -721.9392358862941
+                },
+                "dragging": false
+            },
+            {
+                "id": "REPORT_GENERATION-1a497d03-b0d5-4761-99a3-e2f9cbb150f9",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "REPORT_GENERATION-1a497d03-b0d5-4761-99a3-e2f9cbb150f9",
+                    "label": "REPORT GENERATION",
+                    "func": "REPORT_GENERATION",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "title",
+                            "id": "title",
+                            "type": "String",
+                            "desc": "The title of the report",
+                            "multiple": false
+                        },
+                        {
+                            "name": "img_url",
+                            "id": "img_url",
+                            "type": "String",
+                            "desc": "URL for the logo in the report letterhead",
+                            "multiple": false
+                        },
+                        {
+                            "name": "introduction",
+                            "id": "introduction",
+                            "type": "String",
+                            "desc": "Report preamble",
+                            "multiple": false
+                        },
+                        {
+                            "name": "test_success",
+                            "id": "test_success",
+                            "type": "Boolean",
+                            "desc": null,
+                            "multiple": false
+                        },
+                        {
+                            "name": "figures",
+                            "id": "figures",
+                            "type": "Plotly",
+                            "desc": "List of Plotly charts to display",
+                            "multiple": true
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/REPORT/REPORT_GENERATION/REPORT_GENERATION.py"
+                },
+                "position": {
+                    "x": 1586.1645023445567,
+                    "y": -979.7695461554471
+                },
+                "width": 225,
+                "height": 328,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1586.1645023445567,
+                    "y": -979.7695461554471
+                },
+                "dragging": false
+            },
+            {
+                "id": "ANNOTATE_PLOTLY-7a5ee472-2b7c-4160-b0e5-64078dbdf1a6",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "ANNOTATE_PLOTLY-7a5ee472-2b7c-4160-b0e5-64078dbdf1a6",
+                    "label": "ANNOTATE SCATTER",
+                    "func": "ANNOTATE_PLOTLY",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "ANNOTATE_PLOTLY",
+                            "param": "title",
+                            "value": "Poisson distribution (scatter)"
+                        },
+                        "caption": {
+                            "type": "TextArea",
+                            "default": "",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "ANNOTATE_PLOTLY",
+                            "param": "caption",
+                            "value": "Fusce imperdiet euismod orci quis euismod. Ut commodo nisi eu nunc mattis mollis. Maecenas commodo metus lorem, vitae ullamcorper nulla accumsan ac. Etiam molestie condimentum dui ultrices faucibus. Phasellus ac lacus hendrerit, sollicitudin sapien non, hendrerit tellus. In ac risus dolor. Ut gravida maximus mauris sit amet tincidunt. Aenean et lorem sed nulla pulvinar efficitur sed sed libero. Nam scelerisque elit vel urna accumsan volutpat. Proin eu tempus est. Sed efficitur libero eget nisi tristique pharetra. Praesent quis elementum lacus, nec facilisis tellus."
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "The Plotly figure object",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "The annotated Plotly object"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/REPORT/ANNOTATE_PLOTLY/ANNOTATE_PLOTLY.py"
+                },
+                "position": {
+                    "x": 300.4659003861149,
+                    "y": -409.95803716409966
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 300.4659003861149,
+                    "y": -409.95803716409966
+                },
+                "dragging": false
+            },
+            {
+                "id": "ANNOTATE_PLOTLY-6d1d4181-7900-40f5-9e09-77954a158737",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "ANNOTATE_PLOTLY-6d1d4181-7900-40f5-9e09-77954a158737",
+                    "label": "ANNOTATE 3D",
+                    "func": "ANNOTATE_PLOTLY",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "ANNOTATE_PLOTLY",
+                            "param": "title",
+                            "value": "3D visualization"
+                        },
+                        "caption": {
+                            "type": "TextArea",
+                            "default": "",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "ANNOTATE_PLOTLY",
+                            "param": "caption",
+                            "value": "A 3D Scatter Plot is a mathematical diagram, the most basic version of three-dimensional plotting used to display the properties of data as three variables of a dataset using the cartesian coordinates."
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "The Plotly figure object",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "The annotated Plotly object"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/REPORT/ANNOTATE_PLOTLY/ANNOTATE_PLOTLY.py"
+                },
+                "position": {
+                    "x": 312.789943752089,
+                    "y": -91.71055095463203
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 312.789943752089,
+                    "y": -91.71055095463203
+                },
+                "dragging": false
+            },
+            {
+                "id": "ANNOTATE_PLOTLY-d3e2ee4a-e56a-454c-b0b3-7abb0d4ae9b5",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "ANNOTATE_PLOTLY-d3e2ee4a-e56a-454c-b0b3-7abb0d4ae9b5",
+                    "label": "ANNOTATE TABLE",
+                    "func": "ANNOTATE_PLOTLY",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "ANNOTATE_PLOTLY",
+                            "param": "title",
+                            "value": "Iris Dataset"
+                        },
+                        "caption": {
+                            "type": "TextArea",
+                            "default": "",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "ANNOTATE_PLOTLY",
+                            "param": "caption",
+                            "value": "This is one of the earliest datasets used in the literature on classification methods and widely used in statistics and machine learning.  The data set contains 3 classes of 50 instances each, where each class refers to a type of iris plant.  One class is linearly separable from the other 2; the latter are not linearly separable from each other."
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "The Plotly figure object",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "The annotated Plotly object"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/REPORT/ANNOTATE_PLOTLY/ANNOTATE_PLOTLY.py"
+                },
+                "position": {
+                    "x": 322.7302721106687,
+                    "y": 219.93980831896374
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 322.7302721106687,
+                    "y": 219.93980831896374
+                },
+                "dragging": false
+            },
+            {
+                "id": "ANNOTATE_PLOTLY-6eba5c25-46fe-469c-a035-e25c6958429d",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "ANNOTATE_PLOTLY-6eba5c25-46fe-469c-a035-e25c6958429d",
+                    "label": "ANNOTATE IMAGE",
+                    "func": "ANNOTATE_PLOTLY",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "ANNOTATE_PLOTLY",
+                            "param": "title",
+                            "value": "Astronaut portrait"
+                        },
+                        "caption": {
+                            "type": "TextArea",
+                            "default": "",
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "ANNOTATE_PLOTLY",
+                            "param": "caption",
+                            "value": "Photograph of Eileen Collins, an American astronaut. She was selected as an astronaut in 1992 and first piloted the space shuttle STS-63 in 1995. She retired in 2006 after spending a total of 38 days, 8 hours and 10 minutes in outer space."
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "The Plotly figure object",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "The annotated Plotly object"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/REPORT/ANNOTATE_PLOTLY/ANNOTATE_PLOTLY.py"
+                },
+                "position": {
+                    "x": 326.096499284282,
+                    "y": 538.2159471509622
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 326.096499284282,
+                    "y": 538.2159471509622
+                },
+                "dragging": false
             }
         ],
         "edges": [
@@ -1152,95 +1062,11 @@
                 "id": "reactflow__edge-PLOTLY_DATASET-42d335c8-cb26-4114-874a-0a20104d3c3cdefault-TABLE-79e8d47c-0d8f-4c0d-b044-47ec7c3668c0default"
             },
             {
-                "source": "TEXT-f94b2ce3-733b-4bf7-b477-42c326a594ba",
-                "sourceHandle": "default",
-                "target": "REPORT_GEN-d770e252-299d-4a2c-a8c4-977f171ccb69",
-                "targetHandle": "img_url",
-                "id": "reactflow__edge-TEXT-f94b2ce3-733b-4bf7-b477-42c326a594badefault-REPORT_GEN-d770e252-299d-4a2c-a8c4-977f171ccb69img_url"
-            },
-            {
-                "source": "TEXT-beb4a0b7-961a-4f43-ae3b-c6426015eaf2",
-                "sourceHandle": "default",
-                "target": "REPORT_GEN-d770e252-299d-4a2c-a8c4-977f171ccb69",
-                "targetHandle": "title",
-                "id": "reactflow__edge-TEXT-beb4a0b7-961a-4f43-ae3b-c6426015eaf2default-REPORT_GEN-d770e252-299d-4a2c-a8c4-977f171ccb69title"
-            },
-            {
-                "source": "ANNOTATE_PLOTLY-1353c689-467d-4805-9c41-21f916fa6a51",
-                "sourceHandle": "default",
-                "target": "REPORT_GEN-d770e252-299d-4a2c-a8c4-977f171ccb69",
-                "targetHandle": "figures",
-                "id": "reactflow__edge-ANNOTATE_PLOTLY-1353c689-467d-4805-9c41-21f916fa6a51default-REPORT_GEN-d770e252-299d-4a2c-a8c4-977f171ccb69figures"
-            },
-            {
-                "source": "ANNOTATE_PLOTLY-8cad8ddb-da0f-4a9d-8fd8-a1f77ec2e2d8",
-                "sourceHandle": "default",
-                "target": "REPORT_GEN-d770e252-299d-4a2c-a8c4-977f171ccb69",
-                "targetHandle": "figures",
-                "id": "reactflow__edge-ANNOTATE_PLOTLY-8cad8ddb-da0f-4a9d-8fd8-a1f77ec2e2d8default-REPORT_GEN-d770e252-299d-4a2c-a8c4-977f171ccb69figures"
-            },
-            {
-                "source": "ANNOTATE_PLOTLY-1c1adaa4-64e8-49de-adbc-b6d638ec1dba",
-                "sourceHandle": "default",
-                "target": "REPORT_GEN-d770e252-299d-4a2c-a8c4-977f171ccb69",
-                "targetHandle": "figures",
-                "id": "reactflow__edge-ANNOTATE_PLOTLY-1c1adaa4-64e8-49de-adbc-b6d638ec1dbadefault-REPORT_GEN-d770e252-299d-4a2c-a8c4-977f171ccb69figures"
-            },
-            {
-                "source": "ANNOTATE_PLOTLY-cc4d3990-460c-4663-95a7-03ab568e3af1",
-                "sourceHandle": "default",
-                "target": "REPORT_GEN-d770e252-299d-4a2c-a8c4-977f171ccb69",
-                "targetHandle": "figures",
-                "id": "reactflow__edge-ANNOTATE_PLOTLY-cc4d3990-460c-4663-95a7-03ab568e3af1default-REPORT_GEN-d770e252-299d-4a2c-a8c4-977f171ccb69figures"
-            },
-            {
-                "source": "ANNOTATE_PLOTLY-14c70ba9-d61b-4b71-979a-b6ba711edac2",
-                "sourceHandle": "default",
-                "target": "REPORT_GEN-d770e252-299d-4a2c-a8c4-977f171ccb69",
-                "targetHandle": "figures",
-                "id": "reactflow__edge-ANNOTATE_PLOTLY-14c70ba9-d61b-4b71-979a-b6ba711edac2default-REPORT_GEN-d770e252-299d-4a2c-a8c4-977f171ccb69figures"
-            },
-            {
-                "source": "BOOLEAN-5b980747-4a20-4f10-a101-74c050efc52e",
-                "sourceHandle": "default",
-                "target": "REPORT_GEN-d770e252-299d-4a2c-a8c4-977f171ccb69",
-                "targetHandle": "test_success",
-                "id": "reactflow__edge-BOOLEAN-5b980747-4a20-4f10-a101-74c050efc52edefault-REPORT_GEN-d770e252-299d-4a2c-a8c4-977f171ccb69test_success"
-            },
-            {
-                "source": "TEXT-2c81e870-31ae-48cc-9821-05e8e494f658",
-                "sourceHandle": "default",
-                "target": "REPORT_GEN-d770e252-299d-4a2c-a8c4-977f171ccb69",
-                "targetHandle": "introduction",
-                "id": "reactflow__edge-TEXT-2c81e870-31ae-48cc-9821-05e8e494f658default-REPORT_GEN-d770e252-299d-4a2c-a8c4-977f171ccb69introduction"
-            },
-            {
                 "source": "SKIMAGE-7fe83db3-1e09-4b27-856e-760b4ea42b25",
                 "sourceHandle": "default",
                 "target": "IMAGE-7f54e16b-7777-464c-ae94-92ebea941856",
                 "targetHandle": "default",
                 "id": "reactflow__edge-SKIMAGE-7fe83db3-1e09-4b27-856e-760b4ea42b25default-IMAGE-7f54e16b-7777-464c-ae94-92ebea941856default"
-            },
-            {
-                "source": "IMAGE-7f54e16b-7777-464c-ae94-92ebea941856",
-                "sourceHandle": "default",
-                "target": "ANNOTATE_PLOTLY-1353c689-467d-4805-9c41-21f916fa6a51",
-                "targetHandle": "default",
-                "id": "reactflow__edge-IMAGE-7f54e16b-7777-464c-ae94-92ebea941856default-ANNOTATE_PLOTLY-1353c689-467d-4805-9c41-21f916fa6a51default"
-            },
-            {
-                "source": "TABLE-79e8d47c-0d8f-4c0d-b044-47ec7c3668c0",
-                "sourceHandle": "default",
-                "target": "ANNOTATE_PLOTLY-8cad8ddb-da0f-4a9d-8fd8-a1f77ec2e2d8",
-                "targetHandle": "default",
-                "id": "reactflow__edge-TABLE-79e8d47c-0d8f-4c0d-b044-47ec7c3668c0default-ANNOTATE_PLOTLY-8cad8ddb-da0f-4a9d-8fd8-a1f77ec2e2d8default"
-            },
-            {
-                "source": "SCATTER3D-d9aa3f5c-5402-42d5-8f7f-c12b2da7d967",
-                "sourceHandle": "default",
-                "target": "ANNOTATE_PLOTLY-1c1adaa4-64e8-49de-adbc-b6d638ec1dba",
-                "targetHandle": "default",
-                "id": "reactflow__edge-SCATTER3D-d9aa3f5c-5402-42d5-8f7f-c12b2da7d967default-ANNOTATE_PLOTLY-1c1adaa4-64e8-49de-adbc-b6d638ec1dbadefault"
             },
             {
                 "source": "PLOTLY_DATASET-42d335c8-cb26-4114-874a-0a20104d3c3c",
@@ -1264,45 +1090,176 @@
                 "id": "reactflow__edge-RAND-0a08e5e4-8ec7-4e5d-b75d-1de4b5b19c20default-SCATTER-ca676cf2-e2c1-44af-8432-c213161c571fdefault"
             },
             {
-                "source": "HISTOGRAM-ce29c671-05b1-4ff6-9a72-7a1b070da863",
+                "id": "TEXT-beb4a0b7-961a-4f43-ae3b-c6426015eaf2->REPORT_GENERATION-1a497d03-b0d5-4761-99a3-e2f9cbb150f9_58d8cf3b-a1fd-4d98-8373-657e36674275",
+                "source": "TEXT-beb4a0b7-961a-4f43-ae3b-c6426015eaf2",
+                "target": "REPORT_GENERATION-1a497d03-b0d5-4761-99a3-e2f9cbb150f9",
                 "sourceHandle": "default",
-                "target": "ANNOTATE_PLOTLY-cc4d3990-460c-4663-95a7-03ab568e3af1",
-                "targetHandle": "default",
-                "id": "reactflow__edge-HISTOGRAM-ce29c671-05b1-4ff6-9a72-7a1b070da863default-ANNOTATE_PLOTLY-cc4d3990-460c-4663-95a7-03ab568e3af1default"
+                "targetHandle": "title",
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "SCATTER-ca676cf2-e2c1-44af-8432-c213161c571f",
+                "id": "TEXT-f94b2ce3-733b-4bf7-b477-42c326a594ba->REPORT_GENERATION-1a497d03-b0d5-4761-99a3-e2f9cbb150f9_8c6249cc-7764-4a04-b8f6-06ab311c59c2",
+                "source": "TEXT-f94b2ce3-733b-4bf7-b477-42c326a594ba",
+                "target": "REPORT_GENERATION-1a497d03-b0d5-4761-99a3-e2f9cbb150f9",
                 "sourceHandle": "default",
-                "target": "ANNOTATE_PLOTLY-14c70ba9-d61b-4b71-979a-b6ba711edac2",
+                "targetHandle": "img_url",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "TEXT-2c81e870-31ae-48cc-9821-05e8e494f658->REPORT_GENERATION-1a497d03-b0d5-4761-99a3-e2f9cbb150f9_e57f33d3-3414-455d-9126-7cb04ac87333",
+                "source": "TEXT-2c81e870-31ae-48cc-9821-05e8e494f658",
+                "target": "REPORT_GENERATION-1a497d03-b0d5-4761-99a3-e2f9cbb150f9",
+                "sourceHandle": "default",
+                "targetHandle": "introduction",
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "BOOLEAN-5b980747-4a20-4f10-a101-74c050efc52e->REPORT_GENERATION-1a497d03-b0d5-4761-99a3-e2f9cbb150f9_f0c09ae9-8723-48e4-b850-33cac5a4f472",
+                "source": "BOOLEAN-5b980747-4a20-4f10-a101-74c050efc52e",
+                "target": "REPORT_GENERATION-1a497d03-b0d5-4761-99a3-e2f9cbb150f9",
+                "sourceHandle": "default",
+                "targetHandle": "test_success",
+                "data": {
+                    "outputType": "Boolean"
+                }
+            },
+            {
+                "id": "HISTOGRAM-ce29c671-05b1-4ff6-9a72-7a1b070da863->ANNOTATE_PLOTLY-bf98f819-7707-4807-8e62-eb9b210008fa_c4b5a0c2-3068-4c02-a86a-b0cfbe4c684f",
+                "source": "HISTOGRAM-ce29c671-05b1-4ff6-9a72-7a1b070da863",
+                "target": "ANNOTATE_PLOTLY-bf98f819-7707-4807-8e62-eb9b210008fa",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-SCATTER-ca676cf2-e2c1-44af-8432-c213161c571fdefault-ANNOTATE_PLOTLY-14c70ba9-d61b-4b71-979a-b6ba711edac2default"
+                "data": {
+                    "outputType": "Plotly"
+                }
+            },
+            {
+                "id": "ANNOTATE_PLOTLY-bf98f819-7707-4807-8e62-eb9b210008fa->REPORT_GENERATION-1a497d03-b0d5-4761-99a3-e2f9cbb150f9_9887936b-6a81-4611-a737-b7c23f425d64",
+                "source": "ANNOTATE_PLOTLY-bf98f819-7707-4807-8e62-eb9b210008fa",
+                "target": "REPORT_GENERATION-1a497d03-b0d5-4761-99a3-e2f9cbb150f9",
+                "sourceHandle": "default",
+                "targetHandle": "figures",
+                "data": {
+                    "outputType": "Plotly"
+                }
+            },
+            {
+                "id": "SCATTER-ca676cf2-e2c1-44af-8432-c213161c571f->ANNOTATE_PLOTLY-7a5ee472-2b7c-4160-b0e5-64078dbdf1a6_35fd48d7-3203-4212-bd30-1ed652a01db5",
+                "source": "SCATTER-ca676cf2-e2c1-44af-8432-c213161c571f",
+                "target": "ANNOTATE_PLOTLY-7a5ee472-2b7c-4160-b0e5-64078dbdf1a6",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Plotly"
+                }
+            },
+            {
+                "id": "ANNOTATE_PLOTLY-7a5ee472-2b7c-4160-b0e5-64078dbdf1a6->REPORT_GENERATION-1a497d03-b0d5-4761-99a3-e2f9cbb150f9_32cd6555-9b0d-4efe-b8f0-4588f8c90825",
+                "source": "ANNOTATE_PLOTLY-7a5ee472-2b7c-4160-b0e5-64078dbdf1a6",
+                "target": "REPORT_GENERATION-1a497d03-b0d5-4761-99a3-e2f9cbb150f9",
+                "sourceHandle": "default",
+                "targetHandle": "figures",
+                "data": {
+                    "outputType": "Plotly"
+                },
+                "selected": false
+            },
+            {
+                "id": "SCATTER3D-d9aa3f5c-5402-42d5-8f7f-c12b2da7d967->ANNOTATE_PLOTLY-6d1d4181-7900-40f5-9e09-77954a158737_3c80a31f-055d-4d96-a647-e3f5aa219390",
+                "source": "SCATTER3D-d9aa3f5c-5402-42d5-8f7f-c12b2da7d967",
+                "target": "ANNOTATE_PLOTLY-6d1d4181-7900-40f5-9e09-77954a158737",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Plotly"
+                }
+            },
+            {
+                "id": "ANNOTATE_PLOTLY-6d1d4181-7900-40f5-9e09-77954a158737->REPORT_GENERATION-1a497d03-b0d5-4761-99a3-e2f9cbb150f9_a1acc5ce-0d2a-437b-9400-29729ee24ca2",
+                "source": "ANNOTATE_PLOTLY-6d1d4181-7900-40f5-9e09-77954a158737",
+                "target": "REPORT_GENERATION-1a497d03-b0d5-4761-99a3-e2f9cbb150f9",
+                "sourceHandle": "default",
+                "targetHandle": "figures",
+                "data": {
+                    "outputType": "Plotly"
+                }
+            },
+            {
+                "id": "TABLE-79e8d47c-0d8f-4c0d-b044-47ec7c3668c0->ANNOTATE_PLOTLY-d3e2ee4a-e56a-454c-b0b3-7abb0d4ae9b5_47bcef84-f6b5-4f58-8c50-41cd239625e1",
+                "source": "TABLE-79e8d47c-0d8f-4c0d-b044-47ec7c3668c0",
+                "target": "ANNOTATE_PLOTLY-d3e2ee4a-e56a-454c-b0b3-7abb0d4ae9b5",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Plotly"
+                }
+            },
+            {
+                "id": "ANNOTATE_PLOTLY-d3e2ee4a-e56a-454c-b0b3-7abb0d4ae9b5->REPORT_GENERATION-1a497d03-b0d5-4761-99a3-e2f9cbb150f9_3be65af5-2b93-4e21-89b4-9c44f0e149fd",
+                "source": "ANNOTATE_PLOTLY-d3e2ee4a-e56a-454c-b0b3-7abb0d4ae9b5",
+                "target": "REPORT_GENERATION-1a497d03-b0d5-4761-99a3-e2f9cbb150f9",
+                "sourceHandle": "default",
+                "targetHandle": "figures",
+                "data": {
+                    "outputType": "Plotly"
+                }
+            },
+            {
+                "id": "IMAGE-7f54e16b-7777-464c-ae94-92ebea941856->ANNOTATE_PLOTLY-6eba5c25-46fe-469c-a035-e25c6958429d_0260fb51-9d99-4600-82e7-5d6b284a1c2a",
+                "source": "IMAGE-7f54e16b-7777-464c-ae94-92ebea941856",
+                "target": "ANNOTATE_PLOTLY-6eba5c25-46fe-469c-a035-e25c6958429d",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Plotly"
+                }
+            },
+            {
+                "id": "ANNOTATE_PLOTLY-6eba5c25-46fe-469c-a035-e25c6958429d->REPORT_GENERATION-1a497d03-b0d5-4761-99a3-e2f9cbb150f9_61821e49-f28c-4d39-9f62-2398370b2890",
+                "source": "ANNOTATE_PLOTLY-6eba5c25-46fe-469c-a035-e25c6958429d",
+                "target": "REPORT_GENERATION-1a497d03-b0d5-4761-99a3-e2f9cbb150f9",
+                "sourceHandle": "default",
+                "targetHandle": "figures",
+                "data": {
+                    "outputType": "Plotly"
+                },
+                "selected": false
             }
-        ],
-        "viewport": {
-            "x": 412.65044843403956,
-            "y": 293.722605301969,
-            "zoom": 0.5
-        }
+        ]
     },
     "textNodes": [
         {
             "id": "TextNode-414cd38f-bd80-4e27-bb48-adb220acf5e0",
             "position": {
-                "x": 745.6702538966846,
-                "y": -133.30142341872119
+                "x": -668.3297461033154,
+                "y": -977.3014234187212
             },
             "type": "TextNode",
             "data": {
-                "text": "REPORT GEN will save the autogenerated report to your Desktop as an HTML file."
+                "text": "# REPORT GEN will save the autogenerated report to your Desktop as an HTML file."
             },
-            "width": 200,
-            "height": 150,
+            "width": 800,
+            "height": 168,
             "selected": false,
             "positionAbsolute": {
-                "x": 745.6702538966846,
-                "y": -133.30142341872119
+                "x": -668.3297461033154,
+                "y": -977.3014234187212
             },
-            "dragging": false
+            "dragging": false,
+            "style": {
+                "width": 800,
+                "height": 168
+            },
+            "resizing": false
         }
-    ]
+    ],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

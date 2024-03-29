@@ -2,68 +2,13 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 168,
-                "height": 160,
-                "id": "DECIMATE_VECTOR-f69b3107-67d6-45fe-b8e1-c13a695ef147",
-                "type": "TRANSFORMERS",
+                "id": "LINSPACE-f7a59c3f-6207-4888-9441-15955be05596",
+                "type": "DATA",
                 "data": {
-                    "id": "DECIMATE_VECTOR-f69b3107-67d6-45fe-b8e1-c13a695ef147",
-                    "label": "DECIMATE VECTOR",
-                    "func": "DECIMATE_VECTOR",
-                    "type": "TRANSFORMERS",
-                    "ctrls": {
-                        "factor": {
-                            "type": "int",
-                            "default": 1,
-                            "desc": "Decimate factor which determines how many elements will be skipped \nbetween each selected element in the output vector",
-                            "overload": null,
-                            "functionName": "DECIMATE_VECTOR",
-                            "param": "factor",
-                            "value": 3
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "multiple": false,
-                            "desc": "The input vector"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "desc": "Decimated vector"
-                        }
-                    ],
-                    "path": "TRANSFORMERS/VECTOR_MANIPULATION/DECIMATE_VECTOR/DECIMATE_VECTOR.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 93.73637261733845,
-                    "y": 288.7013553414237
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 93.73637261733845,
-                    "y": 288.7013553414237
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "LINSPACE-4127abc5-0c6b-4ed1-a93d-dafa04ce055b",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "LINSPACE-4127abc5-0c6b-4ed1-a93d-dafa04ce055b",
+                    "id": "LINSPACE-f7a59c3f-6207-4888-9441-15955be05596",
                     "label": "LINSPACE",
                     "func": "LINSPACE",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "start": {
                             "type": "float",
@@ -99,8 +44,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -108,33 +53,32 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector",
-                            "desc": "v: the vector between start and end with step number of points."
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
                         }
                     ],
-                    "path": "GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
                 },
                 "position": {
-                    "x": -304.1937350604504,
-                    "y": 175.1811540461215
+                    "x": -360.24837456998057,
+                    "y": 89.31817136523193
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -304.1937350604504,
-                    "y": 175.1811540461215
+                    "x": -360.24837456998057,
+                    "y": 89.31817136523193
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "SCATTER-4d78bb08-9bbe-46fe-96e9-c6df9a4de961",
-                "type": "VISUALIZERS",
+                "id": "SCATTER-8b191d5a-6bb7-46e0-9661-a5752d87b5e4",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "SCATTER-4d78bb08-9bbe-46fe-96e9-c6df9a4de961",
+                    "id": "SCATTER-8b191d5a-6bb7-46e0-9661-a5752d87b5e4",
                     "label": "SCATTER",
                     "func": "SCATTER",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -142,8 +86,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -151,33 +95,32 @@
                             "name": "default",
                             "id": "default",
                             "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Scatter visualization"
+                            "desc": "the DataContainer containing the Plotly Scatter visualization"
                         }
                     ],
-                    "path": "VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
                 },
                 "position": {
-                    "x": 427.83363614611415,
-                    "y": 252.7186566241678
+                    "x": 166.83202045222544,
+                    "y": -171.45102499625213
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 427.83363614611415,
-                    "y": 252.7186566241678
+                    "x": 166.83202045222544,
+                    "y": -171.45102499625213
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "SCATTER-d4c3e47e-e9e8-48e1-a14b-20f1557a70b2",
-                "type": "VISUALIZERS",
+                "id": "SCATTER-040a8dfd-439b-4c95-82d1-00e0dee06b1f",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "SCATTER-d4c3e47e-e9e8-48e1-a14b-20f1557a70b2",
+                    "id": "SCATTER-040a8dfd-439b-4c95-82d1-00e0dee06b1f",
                     "label": "SCATTER 1",
                     "func": "SCATTER",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -185,8 +128,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -194,51 +137,112 @@
                             "name": "default",
                             "id": "default",
                             "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Scatter visualization"
+                            "desc": "the DataContainer containing the Plotly Scatter visualization"
                         }
                     ],
-                    "path": "VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py"
                 },
                 "position": {
-                    "x": 80.8584343742404,
-                    "y": -33.209565054005054
+                    "x": 554.3405327167477,
+                    "y": 8.636064024750283
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 80.8584343742404,
-                    "y": -33.209565054005054
+                    "x": 554.3405327167477,
+                    "y": 8.636064024750283
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "DECIMATE_VECTOR-d6e1bff3-88a3-4ced-b889-6d21cb325486",
+                "type": "TRANSFORM",
+                "data": {
+                    "id": "DECIMATE_VECTOR-d6e1bff3-88a3-4ced-b889-6d21cb325486",
+                    "label": "DECIMATE VECTOR",
+                    "func": "DECIMATE_VECTOR",
+                    "type": "TRANSFORM",
+                    "ctrls": {
+                        "factor": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "Decimate factor which determines how many elements will be skipped\nbetween each selected element in the output vector",
+                            "overload": null,
+                            "functionName": "DECIMATE_VECTOR",
+                            "param": "factor",
+                            "value": 3
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "The input vector",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "Decimated vector"
+                        }
+                    ],
+                    "path": "ETL/TRANSFORM/VECTOR_MANIPULATION/DECIMATE_VECTOR/DECIMATE_VECTOR.py"
+                },
+                "position": {
+                    "x": 167.97445163087872,
+                    "y": 220.8451888274127
+                },
+                "width": 216,
+                "height": 296,
+                "selected": false,
+                "dragging": false,
+                "positionAbsolute": {
+                    "x": 167.97445163087872,
+                    "y": 220.8451888274127
+                }
             }
         ],
         "edges": [
             {
-                "source": "LINSPACE-4127abc5-0c6b-4ed1-a93d-dafa04ce055b",
+                "id": "LINSPACE-f7a59c3f-6207-4888-9441-15955be05596->DECIMATE_VECTOR-d6e1bff3-88a3-4ced-b889-6d21cb325486_c37de782-b043-4683-aaa1-0ee4cae30348",
+                "source": "LINSPACE-f7a59c3f-6207-4888-9441-15955be05596",
+                "target": "DECIMATE_VECTOR-d6e1bff3-88a3-4ced-b889-6d21cb325486",
                 "sourceHandle": "default",
-                "target": "DECIMATE_VECTOR-f69b3107-67d6-45fe-b8e1-c13a695ef147",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-4127abc5-0c6b-4ed1-a93d-dafa04ce055bdefault-DECIMATE_VECTOR-f69b3107-67d6-45fe-b8e1-c13a695ef147default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "DECIMATE_VECTOR-f69b3107-67d6-45fe-b8e1-c13a695ef147",
+                "id": "LINSPACE-f7a59c3f-6207-4888-9441-15955be05596->SCATTER-8b191d5a-6bb7-46e0-9661-a5752d87b5e4_548a0acd-dfdb-4efd-bc3a-ce244bcc73cb",
+                "source": "LINSPACE-f7a59c3f-6207-4888-9441-15955be05596",
+                "target": "SCATTER-8b191d5a-6bb7-46e0-9661-a5752d87b5e4",
                 "sourceHandle": "default",
-                "target": "SCATTER-4d78bb08-9bbe-46fe-96e9-c6df9a4de961",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DECIMATE_VECTOR-f69b3107-67d6-45fe-b8e1-c13a695ef147default-SCATTER-4d78bb08-9bbe-46fe-96e9-c6df9a4de961default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "LINSPACE-4127abc5-0c6b-4ed1-a93d-dafa04ce055b",
+                "id": "DECIMATE_VECTOR-d6e1bff3-88a3-4ced-b889-6d21cb325486->SCATTER-040a8dfd-439b-4c95-82d1-00e0dee06b1f_5f32f2a7-0646-413d-9484-da796fec6048",
+                "source": "DECIMATE_VECTOR-d6e1bff3-88a3-4ced-b889-6d21cb325486",
+                "target": "SCATTER-040a8dfd-439b-4c95-82d1-00e0dee06b1f",
                 "sourceHandle": "default",
-                "target": "SCATTER-d4c3e47e-e9e8-48e1-a14b-20f1557a70b2",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-4127abc5-0c6b-4ed1-a93d-dafa04ce055bdefault-SCATTER-d4c3e47e-e9e8-48e1-a14b-20f1557a70b2default"
+                "data": {
+                    "outputType": "Vector"
+                }
             }
-        ],
-        "viewport": {
-            "x": 669.537650867023,
-            "y": 361.6114317341454,
-            "zoom": 0.7467072297113905
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

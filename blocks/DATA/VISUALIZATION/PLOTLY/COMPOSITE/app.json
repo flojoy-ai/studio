@@ -2,20 +2,94 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 150,
-                "height": 180,
-                "id": "LINSPACE-9f7d65a9-2b57-481e-8fec-675fd6a27c4c",
-                "type": "default",
+                "id": "CONSTANT-93f824bf-3b4b-44ae-8c08-becadbab4194",
+                "type": "DATA",
                 "data": {
-                    "id": "LINSPACE-9f7d65a9-2b57-481e-8fec-675fd6a27c4c",
+                    "id": "CONSTANT-93f824bf-3b4b-44ae-8c08-becadbab4194",
+                    "label": "2",
+                    "func": "CONSTANT",
+                    "type": "DATA",
+                    "ctrls": {
+                        "dc_type": {
+                            "type": "select",
+                            "default": "OrderedPair",
+                            "options": [
+                                "Scalar",
+                                "Vector",
+                                "OrderedPair"
+                            ],
+                            "desc": "The type of DataContainer to return.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "dc_type",
+                            "value": "OrderedPair"
+                        },
+                        "constant": {
+                            "type": "float",
+                            "default": 3,
+                            "desc": "The value of the y axis output.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "constant",
+                            "value": 2
+                        },
+                        "step": {
+                            "type": "float",
+                            "default": 1000,
+                            "desc": "The size of the y and x axes.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "step",
+                            "value": 1000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "desc": "Optional input that defines the size of the output.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Vector|Scalar",
+                            "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
+                },
+                "position": {
+                    "x": -385.75299323142343,
+                    "y": -375.76861510143465
+                },
+                "width": 216,
+                "height": 197,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -385.75299323142343,
+                    "y": -375.76861510143465
+                },
+                "dragging": false
+            },
+            {
+                "id": "LINSPACE-20e441e3-ae7f-4bab-a26b-2bb2d3e58018",
+                "type": "DATA",
+                "data": {
+                    "id": "LINSPACE-20e441e3-ae7f-4bab-a26b-2bb2d3e58018",
                     "label": "LINSPACE",
                     "func": "LINSPACE",
-                    "type": "default",
+                    "type": "DATA",
                     "ctrls": {
                         "start": {
                             "type": "float",
                             "default": 10,
-                            "desc": null,
+                            "desc": "The start point of the data.",
+                            "overload": null,
                             "functionName": "LINSPACE",
                             "param": "start",
                             "value": 10
@@ -23,7 +97,8 @@
                         "end": {
                             "type": "float",
                             "default": 0,
-                            "desc": null,
+                            "desc": "The end point of the data.",
+                            "overload": null,
                             "functionName": "LINSPACE",
                             "param": "end",
                             "value": 0
@@ -31,44 +106,183 @@
                         "step": {
                             "type": "int",
                             "default": 1000,
-                            "desc": null,
+                            "desc": "The number of points in the vector.",
+                            "overload": null,
                             "functionName": "LINSPACE",
                             "param": "step",
-                            "value": "300"
+                            "value": 300
                         }
                     },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
+                        }
+                    ],
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "Vector",
-                            "desc": null
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
                         }
                     ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
                 },
                 "position": {
-                    "x": -66.43604164074642,
-                    "y": -68.3746613701575
+                    "x": -403.57800932122353,
+                    "y": -85.85628638653725
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -66.43604164074642,
-                    "y": -68.3746613701575
+                    "x": -403.57800932122353,
+                    "y": -85.85628638653725
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 132,
-                "id": "PLOTLY_DATASET-b564f0e8-b1ae-4315-b43c-737bc2173d0a",
-                "type": "GENERATORS",
+                "id": "ADD-dc37bc9b-9d64-4060-a8c3-530f332a5814",
+                "type": "MATH",
                 "data": {
-                    "id": "PLOTLY_DATASET-b564f0e8-b1ae-4315-b43c-737bc2173d0a",
+                    "id": "ADD-dc37bc9b-9d64-4060-a8c3-530f332a5814",
+                    "label": "ADD",
+                    "func": "ADD",
+                    "type": "MATH",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "a",
+                            "id": "a",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "The input a use to compute the sum of a and b.",
+                            "multiple": false
+                        },
+                        {
+                            "name": "b",
+                            "id": "b",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "The input b use to compute the sum of a and b.",
+                            "multiple": true
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the sum of input a and input b.\n\nScalar if a is a Scalar.\nc: the sum of input a and input b.\n\nVector if a is a Vector.\nv: the sum of input a and input b."
+                        }
+                    ],
+                    "path": "MATH/ARITHMETIC/ADD/ADD.py"
+                },
+                "position": {
+                    "x": 167.5928114244684,
+                    "y": -233.00359078949785
+                },
+                "width": 216,
+                "height": 198,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 167.5928114244684,
+                    "y": -233.00359078949785
+                },
+                "dragging": false
+            },
+            {
+                "id": "COMPOSITE-1e2c0713-77ab-48ed-b5d0-64447f993948",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "COMPOSITE-1e2c0713-77ab-48ed-b5d0-64447f993948",
+                    "label": "COMPOSITE",
+                    "func": "COMPOSITE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "first_figure": {
+                            "type": "select",
+                            "default": "scatter",
+                            "options": [
+                                "bar",
+                                "line",
+                                "histogram",
+                                "scatter"
+                            ],
+                            "desc": "plotly type to display as the first figure, default is 'scatter'",
+                            "overload": null,
+                            "functionName": "COMPOSITE",
+                            "param": "first_figure",
+                            "value": "line"
+                        },
+                        "second_figure": {
+                            "type": "select",
+                            "default": "line",
+                            "options": [
+                                "bar",
+                                "line",
+                                "histogram",
+                                "scatter"
+                            ],
+                            "desc": "plotly type to display as the second figure, default is 'line'",
+                            "overload": null,
+                            "functionName": "COMPOSITE",
+                            "param": "second_figure",
+                            "value": "scatter"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "primary_trace",
+                            "id": "primary_trace",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized as the first figure",
+                            "multiple": false
+                        },
+                        {
+                            "name": "secondary_trace",
+                            "id": "secondary_trace",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized as the second figure",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing Plotly visualization of both figures"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/COMPOSITE/COMPOSITE.py"
+                },
+                "position": {
+                    "x": 674.2419698237338,
+                    "y": 90.24849851791481
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 674.2419698237338,
+                    "y": 90.24849851791481
+                },
+                "dragging": false
+            },
+            {
+                "id": "PLOTLY_DATASET-1770d651-73c1-462d-85b8-126dfa1db312",
+                "type": "DATA",
+                "data": {
+                    "id": "PLOTLY_DATASET-1770d651-73c1-462d-85b8-126dfa1db312",
                     "label": "PLOTLY DATASET",
                     "func": "PLOTLY_DATASET",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "dataset_key": {
                             "type": "select",
@@ -86,11 +300,13 @@
                                 "stocks"
                             ],
                             "desc": null,
+                            "overload": null,
                             "functionName": "PLOTLY_DATASET",
                             "param": "dataset_key",
                             "value": "iris"
                         }
                     },
+                    "initCtrls": {},
                     "outputs": [
                         {
                             "name": "default",
@@ -99,260 +315,67 @@
                             "desc": null
                         }
                     ],
-                    "path": "PYTHON/nodes/GENERATORS/SAMPLE_DATASETS/PLOTLY_DATASET/PLOTLY_DATASET.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SAMPLE_DATASETS/PLOTLY_DATASET/PLOTLY_DATASET.py"
                 },
                 "position": {
-                    "x": -106.64021374014129,
-                    "y": 145.3514779489801
+                    "x": -429.0308929530436,
+                    "y": 157.99567619235268
                 },
+                "width": 216,
+                "height": 233,
                 "selected": false,
+                "dragging": false,
                 "positionAbsolute": {
-                    "x": -106.64021374014129,
-                    "y": 145.3514779489801
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "COMPOSITE-b6def6e5-2c37-4da4-9e3c-395873927217",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "COMPOSITE-b6def6e5-2c37-4da4-9e3c-395873927217",
-                    "label": "COMPOSITE",
-                    "func": "COMPOSITE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {
-                        "first_figure": {
-                            "type": "select",
-                            "default": "scatter",
-                            "options": [
-                                "bar",
-                                "line",
-                                "histogram",
-                                "scatter"
-                            ],
-                            "desc": null,
-                            "functionName": "COMPOSITE",
-                            "param": "first_figure",
-                            "value": "line"
-                        },
-                        "second_figure": {
-                            "type": "select",
-                            "default": "scatter",
-                            "options": [
-                                "bar",
-                                "line",
-                                "histogram",
-                                "scatter"
-                            ],
-                            "desc": null,
-                            "functionName": "COMPOSITE",
-                            "param": "second_figure",
-                            "value": "scatter"
-                        }
-                    },
-                    "inputs": [
-                        {
-                            "name": "primary_trace",
-                            "id": "primary_trace",
-                            "type": "OrderedPair|DataFrame|Matrix",
-                            "multiple": false,
-                            "desc": null
-                        },
-                        {
-                            "name": "secondary_trace",
-                            "id": "secondary_trace",
-                            "type": "OrderedPair|DataFrame|Matrix",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": null
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/COMPOSITE/COMPOSITE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 350.43881227824863,
-                    "y": -35.91689494861453
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 350.43881227824863,
-                    "y": -35.91689494861453
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 100,
-                "id": "CONSTANT-7c624ace-7cb4-40ab-8121-af39ec25f5fb",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "CONSTANT-7c624ace-7cb4-40ab-8121-af39ec25f5fb",
-                    "label": "2",
-                    "func": "CONSTANT",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "constant": {
-                            "type": "float",
-                            "default": 3,
-                            "desc": null,
-                            "functionName": "CONSTANT",
-                            "param": "constant",
-                            "value": "2"
-                        },
-                        "step": {
-                            "type": "int",
-                            "default": 1000,
-                            "desc": null,
-                            "functionName": "CONSTANT",
-                            "param": "step",
-                            "value": "300"
-                        }
-                    },
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "desc": null
-                        }
-                    ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/CONSTANT/CONSTANT.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -106.8907422401193,
-                    "y": -197.052576359828
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -106.8907422401193,
-                    "y": -197.052576359828
-                },
-                "dragging": true
-            },
-            {
-                "width": 72,
-                "height": 72,
-                "id": "ADD-d7f9c6e1-013c-46ed-962d-680dc412e944",
-                "type": "ARITHMETIC",
-                "data": {
-                    "id": "ADD-d7f9c6e1-013c-46ed-962d-680dc412e944",
-                    "label": "ADD",
-                    "func": "ADD",
-                    "type": "ARITHMETIC",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "a",
-                            "id": "a",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": null
-                        },
-                        {
-                            "name": "b",
-                            "id": "b",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": true,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "desc": null
-                        }
-                    ],
-                    "path": "PYTHON/nodes/TRANSFORMERS/ARITHMETIC/ADD/ADD.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 161.5017601761473,
-                    "y": -92.92555379325714
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 161.5017601761473,
-                    "y": -92.92555379325714
-                },
-                "dragging": true
+                    "x": -429.0308929530436,
+                    "y": 157.99567619235268
+                }
             }
         ],
         "edges": [
             {
-                "source": "CONSTANT-7c624ace-7cb4-40ab-8121-af39ec25f5fb",
+                "id": "CONSTANT-93f824bf-3b4b-44ae-8c08-becadbab4194->ADD-dc37bc9b-9d64-4060-a8c3-530f332a5814_4924259b-f5b7-4485-89a0-ebf28b3e602f",
+                "source": "CONSTANT-93f824bf-3b4b-44ae-8c08-becadbab4194",
+                "target": "ADD-dc37bc9b-9d64-4060-a8c3-530f332a5814",
                 "sourceHandle": "default",
-                "target": "ADD-d7f9c6e1-013c-46ed-962d-680dc412e944",
                 "targetHandle": "a",
-                "id": "reactflow__edge-CONSTANT-7c624ace-7cb4-40ab-8121-af39ec25f5fbdefault-ADD-d7f9c6e1-013c-46ed-962d-680dc412e944a"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "LINSPACE-9f7d65a9-2b57-481e-8fec-675fd6a27c4c",
+                "id": "LINSPACE-20e441e3-ae7f-4bab-a26b-2bb2d3e58018->ADD-dc37bc9b-9d64-4060-a8c3-530f332a5814_9c161640-37ca-461e-8b02-eaaa9747894b",
+                "source": "LINSPACE-20e441e3-ae7f-4bab-a26b-2bb2d3e58018",
+                "target": "ADD-dc37bc9b-9d64-4060-a8c3-530f332a5814",
                 "sourceHandle": "default",
-                "target": "ADD-d7f9c6e1-013c-46ed-962d-680dc412e944",
                 "targetHandle": "b",
-                "id": "reactflow__edge-LINSPACE-9f7d65a9-2b57-481e-8fec-675fd6a27c4cdefault-ADD-d7f9c6e1-013c-46ed-962d-680dc412e944b"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "ADD-d7f9c6e1-013c-46ed-962d-680dc412e944",
+                "id": "PLOTLY_DATASET-1770d651-73c1-462d-85b8-126dfa1db312->COMPOSITE-1e2c0713-77ab-48ed-b5d0-64447f993948_af9e914d-ef16-4873-bd26-22cc1fc7940c",
+                "source": "PLOTLY_DATASET-1770d651-73c1-462d-85b8-126dfa1db312",
+                "target": "COMPOSITE-1e2c0713-77ab-48ed-b5d0-64447f993948",
                 "sourceHandle": "default",
-                "target": "COMPOSITE-b6def6e5-2c37-4da4-9e3c-395873927217",
-                "targetHandle": "primary_trace",
-                "id": "reactflow__edge-ADD-d7f9c6e1-013c-46ed-962d-680dc412e944default-COMPOSITE-b6def6e5-2c37-4da4-9e3c-395873927217primary_trace"
-            },
-            {
-                "source": "PLOTLY_DATASET-b564f0e8-b1ae-4315-b43c-737bc2173d0a",
-                "sourceHandle": "default",
-                "target": "COMPOSITE-b6def6e5-2c37-4da4-9e3c-395873927217",
                 "targetHandle": "secondary_trace",
-                "id": "reactflow__edge-PLOTLY_DATASET-b564f0e8-b1ae-4315-b43c-737bc2173d0adefault-COMPOSITE-b6def6e5-2c37-4da4-9e3c-395873927217secondary_trace"
+                "data": {
+                    "outputType": "DataFrame"
+                }
+            },
+            {
+                "id": "ADD-dc37bc9b-9d64-4060-a8c3-530f332a5814->COMPOSITE-1e2c0713-77ab-48ed-b5d0-64447f993948_1bc99d63-d6c4-4a42-9655-6e8e0e9c5806",
+                "source": "ADD-dc37bc9b-9d64-4060-a8c3-530f332a5814",
+                "target": "COMPOSITE-1e2c0713-77ab-48ed-b5d0-64447f993948",
+                "sourceHandle": "default",
+                "targetHandle": "primary_trace",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             }
-        ],
-        "viewport": {
-            "x": 547.784939185504,
-            "y": 240.2714794602041,
-            "zoom": 0.9407196048144776
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

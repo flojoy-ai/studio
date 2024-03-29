@@ -35,15 +35,15 @@
                     "selected": true
                 },
                 "position": {
-                    "x": -311.59665538296366,
-                    "y": -223.094795076159
+                    "x": -370.6661434145151,
+                    "y": 83.563823640831
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
-                    "x": -311.59665538296366,
-                    "y": -223.094795076159
+                    "x": -370.6661434145151,
+                    "y": 83.563823640831
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 208,
@@ -79,15 +79,15 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -313.75929763327065,
-                    "y": -49.701388444218594
+                    "x": -367.8015951940517,
+                    "y": -367.6711857204419
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -313.75929763327065,
-                    "y": -49.701388444218594
+                    "x": -367.8015951940517,
+                    "y": -367.6711857204419
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 225,
@@ -116,8 +116,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "String|Boolean",
-                            "multiple": false,
-                            "desc": "The DataContainer to be visualized in text format"
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -132,19 +132,19 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 279.52778925438827,
-                    "y": -204.87788411638337
+                    "x": 537.1713008813675,
+                    "y": -167.17395558560588
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 279.52778925438827,
-                    "y": -204.87788411638337
+                    "x": 537.1713008813675,
+                    "y": -167.17395558560588
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 96,
-                "height": 96,
+                "width": 236,
+                "height": 198,
                 "id": "IMPLIES-adbaeffb-4ff6-4478-a814-b4e2f3a16450",
                 "type": "CONTROL_FLOW",
                 "data": {
@@ -159,15 +159,15 @@
                             "name": "x",
                             "id": "x",
                             "type": "Boolean",
-                            "multiple": false,
-                            "desc": null
+                            "desc": "The input boolean to which we apply the IMPLIES operation.",
+                            "multiple": false
                         },
                         {
                             "name": "y",
                             "id": "y",
                             "type": "Boolean",
-                            "multiple": false,
-                            "desc": null
+                            "desc": "The input boolean to which we apply the IMPLIES operation.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -195,32 +195,36 @@
         ],
         "edges": [
             {
-                "source": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f",
-                "sourceHandle": "default",
-                "target": "IMPLIES-adbaeffb-4ff6-4478-a814-b4e2f3a16450",
-                "targetHandle": "y",
-                "id": "reactflow__edge-BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91fdefault-IMPLIES-adbaeffb-4ff6-4478-a814-b4e2f3a16450y"
-            },
-            {
+                "id": "BOOLEAN-18f5a10d-63ed-43ca-8955-a295a0f273c8->IMPLIES-adbaeffb-4ff6-4478-a814-b4e2f3a16450_645ce843-0377-4a7b-a373-461d6fe5c43c",
                 "source": "BOOLEAN-18f5a10d-63ed-43ca-8955-a295a0f273c8",
-                "sourceHandle": "default",
                 "target": "IMPLIES-adbaeffb-4ff6-4478-a814-b4e2f3a16450",
+                "sourceHandle": "default",
                 "targetHandle": "x",
-                "id": "reactflow__edge-BOOLEAN-18f5a10d-63ed-43ca-8955-a295a0f273c8default-IMPLIES-adbaeffb-4ff6-4478-a814-b4e2f3a16450x"
+                "data": {
+                    "outputType": "Boolean"
+                }
             },
             {
-                "source": "IMPLIES-adbaeffb-4ff6-4478-a814-b4e2f3a16450",
+                "id": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f->IMPLIES-adbaeffb-4ff6-4478-a814-b4e2f3a16450_09648d91-7506-4380-957f-de3d9c6dd148",
+                "source": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f",
+                "target": "IMPLIES-adbaeffb-4ff6-4478-a814-b4e2f3a16450",
                 "sourceHandle": "default",
+                "targetHandle": "y",
+                "data": {
+                    "outputType": "Boolean"
+                }
+            },
+            {
+                "id": "IMPLIES-adbaeffb-4ff6-4478-a814-b4e2f3a16450->TEXT_VIEW-95dff93f-272c-4114-bfb0-e96dc2874f96_12fff0c4-e854-424d-a142-db6c850e1754",
+                "source": "IMPLIES-adbaeffb-4ff6-4478-a814-b4e2f3a16450",
                 "target": "TEXT_VIEW-95dff93f-272c-4114-bfb0-e96dc2874f96",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-IMPLIES-adbaeffb-4ff6-4478-a814-b4e2f3a16450default-TEXT_VIEW-95dff93f-272c-4114-bfb0-e96dc2874f96default"
+                "data": {
+                    "outputType": "Boolean"
+                }
             }
-        ],
-        "viewport": {
-            "x": 695.5292625331784,
-            "y": 411.9979742640432,
-            "zoom": 0.6998961918490142
-        }
+        ]
     },
     "textNodes": []
 }

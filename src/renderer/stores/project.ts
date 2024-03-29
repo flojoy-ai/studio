@@ -46,6 +46,7 @@ import {
   ConfigMap,
   Configurable,
   VisualizationData,
+  VisualizationType,
   WidgetConfig,
   WidgetData,
   WidgetType,
@@ -115,7 +116,15 @@ type Actions = {
     newLabel: string,
   ) => Result<void, Error>;
 
-  addControlVisualization: (blockId: string) => Result<void, Error>;
+  addControlVisualization: (
+    blockId: string,
+    output: string,
+    type: VisualizationType,
+  ) => Result<void, Error>;
+  updateControlVisualizationLabel: (
+    widgetId: string,
+    newLabel: string,
+  ) => Result<void, Error>;
 
   addControlTextNode: (position: XYPosition) => void;
   updateControlTextNodeText: (id: string, text: string) => Result<void, Error>;
@@ -416,7 +425,7 @@ export const useProjectStore = create<State & Actions>()(
         set((state) => {
           const node = state.controlWidgetNodes.find((n) => n.id === widgetId);
           if (node === undefined) {
-            throw new Error("Block not found");
+            throw new Error("Widget not found");
           }
 
           node.data.label = newLabel;
@@ -427,21 +436,23 @@ export const useProjectStore = create<State & Actions>()(
       return ok(undefined);
     },
 
-    addControlVisualization: (blockId: string) => {
+    addControlVisualization: (
+      blockId: string,
+      output: string,
+      type: VisualizationType,
+    ) => {
       const sourceBlock = get().nodes.find((n) => n.id === blockId);
       if (sourceBlock === undefined) {
         return err(new Error("Source block not found"));
       }
-      if (sourceBlock.type !== "VISUALIZATION") {
-        return err(new Error("Source block must be a visualization block"));
-      }
 
       const node: Node<VisualizationData> = {
         id: uuidv4(),
-        type: "visualization",
+        type,
         data: {
           blockId,
-          visualizationType: sourceBlock.data.func,
+          blockOutput: output,
+          visualizationType: type,
         },
         position: { x: 0, y: 0 },
       };
@@ -449,6 +460,25 @@ export const useProjectStore = create<State & Actions>()(
         state.controlVisualizationNodes.push(node);
       });
 
+      return ok(undefined);
+    },
+
+    updateControlVisualizationLabel: (vizId: string, newLabel: string) => {
+      newLabel = newLabel.trim();
+      try {
+        set((state) => {
+          const node = state.controlVisualizationNodes.find(
+            (n) => n.id === vizId,
+          );
+          if (node === undefined) {
+            throw new Error("Block not found");
+          }
+
+          node.data.label = newLabel;
+        });
+      } catch (e) {
+        return err(e as Error);
+      }
       return ok(undefined);
     },
 
@@ -634,10 +664,13 @@ export const useDeleteBlock = () => {
   const setNodes = useProtectedSetter("nodes");
   const setEdges = useProtectedSetter("edges");
   const setControlWidgetNodes = useProtectedSetter("controlWidgetNodes");
+  const setControlVisualizationNodes = useProtectedSetter(
+    "controlVisualizationNodes",
+  );
 
   return useCallback(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    (nodeId: string, nodeLabel: string) => {
+    (nodeId: string) => {
       setNodes((prev) => prev.filter((node) => node.id !== nodeId));
       setEdges((prev) =>
         prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId),
@@ -645,9 +678,12 @@ export const useDeleteBlock = () => {
       setControlWidgetNodes((prev) =>
         prev.filter((widget) => widget.data.blockId !== nodeId),
       );
+      setControlVisualizationNodes((prev) =>
+        prev.filter((viz) => viz.data.blockId !== nodeId),
+      );
       // sendEventToMix(MixPanelEvents.nodeDeleted, { nodeTitle: nodeLabel });
     },
-    [setNodes, setEdges, setControlWidgetNodes],
+    [setNodes, setEdges, setControlWidgetNodes, setControlVisualizationNodes],
   );
 };
 

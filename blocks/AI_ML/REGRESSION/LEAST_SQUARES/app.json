@@ -2,328 +2,8 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 150,
-                "height": 180,
-                "id": "LINSPACE-83e1b3b0-29ca-4f42-9776-6c73652e2b71",
-                "type": "default",
-                "data": {
-                    "id": "LINSPACE-83e1b3b0-29ca-4f42-9776-6c73652e2b71",
-                    "label": "LINSPACE",
-                    "func": "LINSPACE",
-                    "type": "default",
-                    "ctrls": {
-                        "start": {
-                            "type": "float",
-                            "default": 10,
-                            "desc": null,
-                            "functionName": "LINSPACE",
-                            "param": "start",
-                            "value": "0"
-                        },
-                        "end": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": null,
-                            "functionName": "LINSPACE",
-                            "param": "end",
-                            "value": "7"
-                        },
-                        "step": {
-                            "type": "int",
-                            "default": 1000,
-                            "desc": null,
-                            "functionName": "LINSPACE",
-                            "param": "step",
-                            "value": "300"
-                        }
-                    },
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "desc": null
-                        }
-                    ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 148.49805390493464,
-                    "y": 216.82264265774717
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 148.49805390493464,
-                    "y": 216.82264265774717
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 100,
-                "id": "CONSTANT-57b24533-1823-42bd-b02a-c055c4e8e406",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "CONSTANT-57b24533-1823-42bd-b02a-c055c4e8e406",
-                    "label": "2",
-                    "func": "CONSTANT",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "constant": {
-                            "type": "float",
-                            "default": 3,
-                            "desc": null,
-                            "functionName": "CONSTANT",
-                            "param": "constant",
-                            "value": "2"
-                        },
-                        "step": {
-                            "type": "int",
-                            "default": 1000,
-                            "desc": null,
-                            "functionName": "CONSTANT",
-                            "param": "step",
-                            "value": "300"
-                        }
-                    },
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "desc": null
-                        }
-                    ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/CONSTANT/CONSTANT.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 105.04913536132531,
-                    "y": 63.181137897664996
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 105.04913536132531,
-                    "y": 63.181137897664996
-                },
-                "dragging": true
-            },
-            {
-                "width": 72,
-                "height": 72,
-                "id": "ADD-8f70cff2-2317-4178-9927-0b1d1c5ce326",
-                "type": "ARITHMETIC",
-                "data": {
-                    "id": "ADD-8f70cff2-2317-4178-9927-0b1d1c5ce326",
-                    "label": "ADD",
-                    "func": "ADD",
-                    "type": "ARITHMETIC",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "a",
-                            "id": "a",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": null
-                        },
-                        {
-                            "name": "b",
-                            "id": "b",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "multiple": true,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Scalar|Vector",
-                            "desc": null
-                        }
-                    ],
-                    "path": "PYTHON/nodes/TRANSFORMERS/ARITHMETIC/ADD/ADD.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 374.3382850463804,
-                    "y": 214.12796593726893
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 374.3382850463804,
-                    "y": 214.12796593726893
-                },
-                "dragging": true
-            },
-            {
-                "width": 150,
-                "height": 180,
-                "id": "LINSPACE-4d57606b-5efd-4fab-8742-a6ac2e7f3b67",
-                "type": "default",
-                "data": {
-                    "id": "LINSPACE-4d57606b-5efd-4fab-8742-a6ac2e7f3b67",
-                    "label": "LINSPACE 1",
-                    "func": "LINSPACE",
-                    "type": "default",
-                    "ctrls": {
-                        "start": {
-                            "type": "float",
-                            "default": 10,
-                            "desc": null,
-                            "functionName": "LINSPACE",
-                            "param": "start",
-                            "value": "0"
-                        },
-                        "end": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": null,
-                            "functionName": "LINSPACE",
-                            "param": "end",
-                            "value": "7"
-                        },
-                        "step": {
-                            "type": "int",
-                            "default": 1000,
-                            "desc": null,
-                            "functionName": "LINSPACE",
-                            "param": "step",
-                            "value": "300"
-                        }
-                    },
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "desc": null
-                        }
-                    ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 138.61587327634447,
-                    "y": 434.28381343983517
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 138.61587327634447,
-                    "y": 434.28381343983517
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 100,
-                "id": "RAND-c737081e-0937-47ef-9a87-44915e6806d3",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "RAND-c737081e-0937-47ef-9a87-44915e6806d3",
-                    "label": "RAND",
-                    "func": "RAND",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "distribution": {
-                            "type": "select",
-                            "default": "normal",
-                            "options": [
-                                "normal",
-                                "uniform",
-                                "poisson"
-                            ],
-                            "desc": "the distribution over the random samples",
-                            "functionName": "RAND",
-                            "param": "distribution",
-                            "value": "normal"
-                        },
-                        "lower_bound": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "the lower bound of the output interval",
-                            "functionName": "RAND",
-                            "param": "lower_bound",
-                            "value": 0
-                        },
-                        "upper_bound": {
-                            "type": "float",
-                            "default": 1,
-                            "desc": "the upper bound of the output interval",
-                            "functionName": "RAND",
-                            "param": "upper_bound",
-                            "value": 1
-                        },
-                        "normal_mean": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "the mean or \"center\" of the normal distribution",
-                            "functionName": "RAND",
-                            "param": "normal_mean",
-                            "value": 0
-                        },
-                        "normal_standard_deviation": {
-                            "type": "float",
-                            "default": 1,
-                            "desc": "the spread or \"width\" of the normal distribution",
-                            "functionName": "RAND",
-                            "param": "normal_standard_deviation",
-                            "value": 1
-                        },
-                        "poisson_events": {
-                            "type": "float",
-                            "default": 1,
-                            "desc": "the expected number of events occurring in a fixed time-interval when distribution is poisson",
-                            "functionName": "RAND",
-                            "param": "poisson_events",
-                            "value": 1
-                        }
-                    },
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Vector",
-                            "multiple": false,
-                            "desc": "Optional input to use as the x-axis for the random samples"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Scalar",
-                            "desc": "OrderedPair if there's an input\nx: the x-axis of the input\ny: the random samples\n\nScalar if there is no input\nc: the random number"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/RAND/RAND.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 353.9160159658098,
-                    "y": 495.1155185740378
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 353.9160159658098,
-                    "y": 495.1155185740378
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 132,
+                "width": 216,
+                "height": 234,
                 "id": "LEAST_SQUARES-0e288cda-db90-4fa7-b842-4ed4a43819de",
                 "type": "AI_ML",
                 "data": {
@@ -337,15 +17,15 @@
                             "name": "a",
                             "id": "a",
                             "type": "OrderedPair|Matrix",
-                            "multiple": false,
-                            "desc": null
+                            "desc": "A list of points or a coefficient matrix.",
+                            "multiple": false
                         },
                         {
                             "name": "b",
                             "id": "b",
                             "type": "OrderedPair|Matrix",
-                            "multiple": false,
-                            "desc": null
+                            "desc": "Ordinate or \"dependent variable\" values.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -353,33 +33,421 @@
                             "name": "default",
                             "id": "default",
                             "type": "Matrix|OrderedPair",
-                            "desc": "x: input matrix (data points)\ny: fitted line computed with returned regression weights"
+                            "desc": "OrderedPair\nx: input matrix (data points)\ny: fitted line computed with returned regression weights\n\nMatrix\nm: fitted matrix computed with returned regression weights"
                         }
                     ],
-                    "path": "PYTHON/nodes/AI_ML/REGRESSION/LEAST_SQUARES/LEAST_SQUARES.py",
+                    "path": "AI_ML/REGRESSION/LEAST_SQUARES/LEAST_SQUARES.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 482.7806320200681,
-                    "y": 276.35382064920515
+                    "x": 955.3411277168676,
+                    "y": -5.251143479838049
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 482.7806320200681,
-                    "y": 276.35382064920515
+                    "x": 955.3411277168676,
+                    "y": -5.251143479838049
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 225,
-                "height": 226,
-                "id": "COMPOSITE-5d51fd86-f875-4c1e-b8c5-0d67d6c6726f",
-                "type": "VISUALIZERS",
+                "id": "CONSTANT-434cd304-f676-4c46-928f-e8e5eabcffef",
+                "type": "DATA",
                 "data": {
-                    "id": "COMPOSITE-5d51fd86-f875-4c1e-b8c5-0d67d6c6726f",
+                    "id": "CONSTANT-434cd304-f676-4c46-928f-e8e5eabcffef",
+                    "label": "2",
+                    "func": "CONSTANT",
+                    "type": "DATA",
+                    "ctrls": {
+                        "dc_type": {
+                            "type": "select",
+                            "default": "OrderedPair",
+                            "options": [
+                                "Scalar",
+                                "Vector",
+                                "OrderedPair"
+                            ],
+                            "desc": "The type of DataContainer to return.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "dc_type",
+                            "value": "OrderedPair"
+                        },
+                        "constant": {
+                            "type": "float",
+                            "default": 3,
+                            "desc": "The value of the y axis output.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "constant",
+                            "value": 2
+                        },
+                        "step": {
+                            "type": "float",
+                            "default": 1000,
+                            "desc": "The size of the y and x axes.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "step",
+                            "value": 1000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "desc": "Optional input that defines the size of the output.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Vector|Scalar",
+                            "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
+                },
+                "position": {
+                    "x": 62.74919875576805,
+                    "y": -127.15914917536719
+                },
+                "width": 216,
+                "height": 197,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 62.74919875576805,
+                    "y": -127.15914917536719
+                },
+                "dragging": false
+            },
+            {
+                "id": "LINSPACE-ed19c57b-3d90-468e-ac15-5d5668e28208",
+                "type": "DATA",
+                "data": {
+                    "id": "LINSPACE-ed19c57b-3d90-468e-ac15-5d5668e28208",
+                    "label": "LINSPACE",
+                    "func": "LINSPACE",
+                    "type": "DATA",
+                    "ctrls": {
+                        "start": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "The start point of the data.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": 0
+                        },
+                        "end": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The end point of the data.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": 7
+                        },
+                        "step": {
+                            "type": "int",
+                            "default": 1000,
+                            "desc": "The number of points in the vector.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": 300
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
+                },
+                "position": {
+                    "x": 68.61821067504536,
+                    "y": 86.61768761797538
+                },
+                "width": 216,
+                "height": 197,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 68.61821067504536,
+                    "y": 86.61768761797538
+                },
+                "dragging": false
+            },
+            {
+                "id": "ADD-a379a6c1-7387-4e71-bd5b-a1f908ac56a8",
+                "type": "MATH",
+                "data": {
+                    "id": "ADD-a379a6c1-7387-4e71-bd5b-a1f908ac56a8",
+                    "label": "ADD",
+                    "func": "ADD",
+                    "type": "MATH",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "a",
+                            "id": "a",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "The input a use to compute the sum of a and b.",
+                            "multiple": false
+                        },
+                        {
+                            "name": "b",
+                            "id": "b",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "The input b use to compute the sum of a and b.",
+                            "multiple": true
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Scalar|Vector",
+                            "desc": "OrderedPair if a is an OrderedPair.\nx: the x-axis of input a.\ny: the sum of input a and input b.\n\nScalar if a is a Scalar.\nc: the sum of input a and input b.\n\nVector if a is a Vector.\nv: the sum of input a and input b."
+                        }
+                    ],
+                    "path": "MATH/ARITHMETIC/ADD/ADD.py"
+                },
+                "position": {
+                    "x": 472.0401963147955,
+                    "y": -42.781218024666714
+                },
+                "width": 216,
+                "height": 198,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 472.0401963147955,
+                    "y": -42.781218024666714
+                },
+                "dragging": false
+            },
+            {
+                "id": "LINSPACE-af0af5a0-a1f5-44b5-b7a6-b032175d2371",
+                "type": "DATA",
+                "data": {
+                    "id": "LINSPACE-af0af5a0-a1f5-44b5-b7a6-b032175d2371",
+                    "label": "LINSPACE 1",
+                    "func": "LINSPACE",
+                    "type": "DATA",
+                    "ctrls": {
+                        "start": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "The start point of the data.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": 10
+                        },
+                        "end": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The end point of the data.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": 0
+                        },
+                        "step": {
+                            "type": "int",
+                            "default": 1000,
+                            "desc": "The number of points in the vector.",
+                            "overload": null,
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": 1000
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|OrderedPair",
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector",
+                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
+                },
+                "position": {
+                    "x": 734.3597218465192,
+                    "y": 302.0650638071937
+                },
+                "width": 216,
+                "height": 197,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 734.3597218465192,
+                    "y": 302.0650638071937
+                },
+                "dragging": false
+            },
+            {
+                "id": "RAND-db70b577-1ab6-4268-a17d-bff19b9c13b3",
+                "type": "DATA",
+                "data": {
+                    "id": "RAND-db70b577-1ab6-4268-a17d-bff19b9c13b3",
+                    "label": "RAND",
+                    "func": "RAND",
+                    "type": "DATA",
+                    "ctrls": {
+                        "distribution": {
+                            "type": "select",
+                            "default": "normal",
+                            "options": [
+                                "normal",
+                                "uniform",
+                                "poisson"
+                            ],
+                            "desc": "the distribution over the random samples",
+                            "overload": {
+                                "uniform": [
+                                    "size",
+                                    "lower_bound",
+                                    "upper_bound"
+                                ],
+                                "normal": [
+                                    "size",
+                                    "normal_mean",
+                                    "normal_standard_deviation"
+                                ],
+                                "poisson": [
+                                    "size",
+                                    "poisson_events"
+                                ]
+                            },
+                            "functionName": "RAND",
+                            "param": "distribution",
+                            "value": "normal"
+                        },
+                        "size": {
+                            "type": "int",
+                            "default": 1000,
+                            "desc": "the size of the output. =1 outputs Scalar, >1 outputs Vector",
+                            "overload": null,
+                            "functionName": "RAND",
+                            "param": "size",
+                            "value": 1000
+                        },
+                        "lower_bound": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "the lower bound of the output interval",
+                            "overload": null,
+                            "functionName": "RAND",
+                            "param": "lower_bound",
+                            "value": 0
+                        },
+                        "upper_bound": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "the upper bound of the output interval",
+                            "overload": null,
+                            "functionName": "RAND",
+                            "param": "upper_bound",
+                            "value": 1
+                        },
+                        "normal_mean": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "the mean or \"center\" of the normal distribution",
+                            "overload": null,
+                            "functionName": "RAND",
+                            "param": "normal_mean",
+                            "value": 0
+                        },
+                        "normal_standard_deviation": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "the spread or \"width\" of the normal distribution",
+                            "overload": null,
+                            "functionName": "RAND",
+                            "param": "normal_standard_deviation",
+                            "value": 1
+                        },
+                        "poisson_events": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "the expected number of events occurring in a fixed time-interval when distribution is poisson",
+                            "overload": null,
+                            "functionName": "RAND",
+                            "param": "poisson_events",
+                            "value": 1
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "unused in this node",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|Scalar",
+                            "desc": "Vector if size > 1\nv: the random samples\n\nScalar if size = 1\nc: the random number"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/RAND/RAND.py"
+                },
+                "position": {
+                    "x": 1086.0216771143655,
+                    "y": 300.35834972148086
+                },
+                "width": 216,
+                "height": 197,
+                "selected": false,
+                "dragging": false,
+                "positionAbsolute": {
+                    "x": 1086.0216771143655,
+                    "y": 300.35834972148086
+                }
+            },
+            {
+                "id": "COMPOSITE-deccf3c1-e200-4143-86eb-88ac676ba305",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "COMPOSITE-deccf3c1-e200-4143-86eb-88ac676ba305",
                     "label": "COMPOSITE",
                     "func": "COMPOSITE",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {
                         "first_figure": {
                             "type": "select",
@@ -390,40 +458,43 @@
                                 "histogram",
                                 "scatter"
                             ],
-                            "desc": null,
+                            "desc": "plotly type to display as the first figure, default is 'scatter'",
+                            "overload": null,
                             "functionName": "COMPOSITE",
                             "param": "first_figure",
                             "value": "line"
                         },
                         "second_figure": {
                             "type": "select",
-                            "default": "scatter",
+                            "default": "line",
                             "options": [
                                 "bar",
                                 "line",
                                 "histogram",
                                 "scatter"
                             ],
-                            "desc": null,
+                            "desc": "plotly type to display as the second figure, default is 'line'",
+                            "overload": null,
                             "functionName": "COMPOSITE",
                             "param": "second_figure",
                             "value": "scatter"
                         }
                     },
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "primary_trace",
                             "id": "primary_trace",
-                            "type": "OrderedPair|DataFrame|Matrix",
-                            "multiple": false,
-                            "desc": null
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized as the first figure",
+                            "multiple": false
                         },
                         {
                             "name": "secondary_trace",
                             "id": "secondary_trace",
-                            "type": "OrderedPair|DataFrame|Matrix",
-                            "multiple": false,
-                            "desc": null
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized as the second figure",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -431,99 +502,146 @@
                             "name": "default",
                             "id": "default",
                             "type": "Plotly",
-                            "desc": null
+                            "desc": "the DataContainer containing Plotly visualization of both figures"
                         }
                     ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/COMPOSITE/COMPOSITE.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/COMPOSITE/COMPOSITE.py"
                 },
                 "position": {
-                    "x": 778.2995679422427,
-                    "y": 266.2522931189161
+                    "x": 1387.1507797796155,
+                    "y": -6.011155416773477
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 778.2995679422427,
-                    "y": 266.2522931189161
+                    "x": 1387.1507797796155,
+                    "y": -6.011155416773477
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "MATRIX-0dd15861-89d1-4663-a4fb-2a11746df516",
+                "type": "DATA",
+                "data": {
+                    "id": "MATRIX-0dd15861-89d1-4663-a4fb-2a11746df516",
+                    "label": "MATRIX",
+                    "func": "MATRIX",
+                    "type": "DATA",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "row",
+                            "id": "row",
+                            "type": "Scalar",
+                            "desc": "number of rows",
+                            "multiple": false
+                        },
+                        {
+                            "name": "column",
+                            "id": "column",
+                            "type": "Scalar",
+                            "desc": "number of columns",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Matrix",
+                            "desc": "Randomly generated matrix"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SIMULATIONS/MATRIX/MATRIX.py"
+                },
+                "position": {
+                    "x": 58.78211269126241,
+                    "y": 342.900734865336
+                },
+                "width": 216,
+                "height": 198,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 58.78211269126241,
+                    "y": 342.900734865336
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "LINSPACE-4d57606b-5efd-4fab-8742-a6ac2e7f3b67",
+                "id": "CONSTANT-434cd304-f676-4c46-928f-e8e5eabcffef->ADD-a379a6c1-7387-4e71-bd5b-a1f908ac56a8_72595da6-438b-41de-a071-49e97755768e",
+                "source": "CONSTANT-434cd304-f676-4c46-928f-e8e5eabcffef",
+                "target": "ADD-a379a6c1-7387-4e71-bd5b-a1f908ac56a8",
                 "sourceHandle": "default",
-                "target": "RAND-c737081e-0937-47ef-9a87-44915e6806d3",
+                "targetHandle": "a",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "LINSPACE-ed19c57b-3d90-468e-ac15-5d5668e28208->ADD-a379a6c1-7387-4e71-bd5b-a1f908ac56a8_a961b6b0-ba68-4520-aead-ef3aca1216a4",
+                "source": "LINSPACE-ed19c57b-3d90-468e-ac15-5d5668e28208",
+                "target": "ADD-a379a6c1-7387-4e71-bd5b-a1f908ac56a8",
+                "sourceHandle": "default",
+                "targetHandle": "b",
+                "data": {
+                    "outputType": "Vector"
+                }
+            },
+            {
+                "id": "ADD-a379a6c1-7387-4e71-bd5b-a1f908ac56a8->LEAST_SQUARES-0e288cda-db90-4fa7-b842-4ed4a43819de_6a623fa9-5431-4e36-a31c-d1e7231b635a",
+                "source": "ADD-a379a6c1-7387-4e71-bd5b-a1f908ac56a8",
+                "target": "LEAST_SQUARES-0e288cda-db90-4fa7-b842-4ed4a43819de",
+                "sourceHandle": "default",
+                "targetHandle": "a",
+                "data": {
+                    "outputType": "OrderedPair"
+                }
+            },
+            {
+                "id": "LINSPACE-af0af5a0-a1f5-44b5-b7a6-b032175d2371->RAND-db70b577-1ab6-4268-a17d-bff19b9c13b3_172ce1bd-99ca-4cd7-9ec7-42a0f7a0ad90",
+                "source": "LINSPACE-af0af5a0-a1f5-44b5-b7a6-b032175d2371",
+                "target": "RAND-db70b577-1ab6-4268-a17d-bff19b9c13b3",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-4d57606b-5efd-4fab-8742-a6ac2e7f3b67default-RAND-c737081e-0937-47ef-9a87-44915e6806d3default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "ADD-8f70cff2-2317-4178-9927-0b1d1c5ce326",
-                "sourceHandle": "default",
-                "target": "LEAST_SQUARES-0e288cda-db90-4fa7-b842-4ed4a43819de",
-                "targetHandle": "a",
-                "id": "reactflow__edge-ADD-8f70cff2-2317-4178-9927-0b1d1c5ce326default-LEAST_SQUARES-0e288cda-db90-4fa7-b842-4ed4a43819dea",
-                "selected": false
-            },
-            {
-                "source": "RAND-c737081e-0937-47ef-9a87-44915e6806d3",
-                "sourceHandle": "default",
-                "target": "LEAST_SQUARES-0e288cda-db90-4fa7-b842-4ed4a43819de",
-                "targetHandle": "b",
-                "id": "reactflow__edge-RAND-c737081e-0937-47ef-9a87-44915e6806d3default-LEAST_SQUARES-0e288cda-db90-4fa7-b842-4ed4a43819deb"
-            },
-            {
-                "source": "CONSTANT-57b24533-1823-42bd-b02a-c055c4e8e406",
-                "sourceHandle": "default",
-                "target": "ADD-8f70cff2-2317-4178-9927-0b1d1c5ce326",
-                "targetHandle": "a",
-                "id": "reactflow__edge-CONSTANT-57b24533-1823-42bd-b02a-c055c4e8e406default-ADD-8f70cff2-2317-4178-9927-0b1d1c5ce326a"
-            },
-            {
-                "source": "LINSPACE-83e1b3b0-29ca-4f42-9776-6c73652e2b71",
-                "sourceHandle": "default",
-                "target": "ADD-8f70cff2-2317-4178-9927-0b1d1c5ce326",
-                "targetHandle": "b",
-                "id": "reactflow__edge-LINSPACE-83e1b3b0-29ca-4f42-9776-6c73652e2b71default-ADD-8f70cff2-2317-4178-9927-0b1d1c5ce326b"
-            },
-            {
+                "id": "LEAST_SQUARES-0e288cda-db90-4fa7-b842-4ed4a43819de->COMPOSITE-deccf3c1-e200-4143-86eb-88ac676ba305_fe3601d6-cff5-4739-a50b-01a834f22cd4",
                 "source": "LEAST_SQUARES-0e288cda-db90-4fa7-b842-4ed4a43819de",
+                "target": "COMPOSITE-deccf3c1-e200-4143-86eb-88ac676ba305",
                 "sourceHandle": "default",
-                "target": "COMPOSITE-5d51fd86-f875-4c1e-b8c5-0d67d6c6726f",
                 "targetHandle": "primary_trace",
-                "id": "reactflow__edge-LEAST_SQUARES-0e288cda-db90-4fa7-b842-4ed4a43819dedefault-COMPOSITE-5d51fd86-f875-4c1e-b8c5-0d67d6c6726fprimary_trace"
+                "data": {
+                    "outputType": "Matrix"
+                }
             },
             {
-                "source": "RAND-c737081e-0937-47ef-9a87-44915e6806d3",
+                "id": "RAND-db70b577-1ab6-4268-a17d-bff19b9c13b3->COMPOSITE-deccf3c1-e200-4143-86eb-88ac676ba305_1ef4f614-65e5-43b8-b15c-938a7b78c55d",
+                "source": "RAND-db70b577-1ab6-4268-a17d-bff19b9c13b3",
+                "target": "COMPOSITE-deccf3c1-e200-4143-86eb-88ac676ba305",
                 "sourceHandle": "default",
-                "target": "COMPOSITE-5d51fd86-f875-4c1e-b8c5-0d67d6c6726f",
                 "targetHandle": "secondary_trace",
-                "id": "reactflow__edge-RAND-c737081e-0937-47ef-9a87-44915e6806d3default-COMPOSITE-5d51fd86-f875-4c1e-b8c5-0d67d6c6726fsecondary_trace"
+                "data": {
+                    "outputType": "Vector"
+                }
+            },
+            {
+                "id": "MATRIX-0dd15861-89d1-4663-a4fb-2a11746df516->LEAST_SQUARES-0e288cda-db90-4fa7-b842-4ed4a43819de_58a99e9a-92a2-47d7-91fb-49a00bc1514f",
+                "source": "MATRIX-0dd15861-89d1-4663-a4fb-2a11746df516",
+                "target": "LEAST_SQUARES-0e288cda-db90-4fa7-b842-4ed4a43819de",
+                "sourceHandle": "default",
+                "targetHandle": "b",
+                "data": {
+                    "outputType": "Matrix"
+                }
             }
-        ],
-        "viewport": {
-            "x": 555.284939185504,
-            "y": 240.2714794602041,
-            "zoom": 0.9407196048144776
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": []
 }

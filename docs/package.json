@@ -1,7 +1,7 @@
 {
   "name": "blocks",
   "type": "module",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -20,25 +20,28 @@
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@types/react": "^18.2.65",
+    "@types/react": "^18.2.73",
     "@types/react-dom": "^18.2.22",
     "astro": "4.4.0",
     "astro-robots-txt": "^1.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "lucide-react": "^0.331.0",
+    "neverthrow": "^6.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^9.0.1",
     "reactflow": "^11.10.4",
     "rehype-katex": "^7.0.0",
     "remark-math": "^6.0.0",
-    "sharp": "^0.33.2",
-    "tailwindcss": "^3.4.1"
+    "sharp": "^0.33.3",
+    "tailwindcss": "^3.4.3",
+    "vite-plugin-svgr": "^4.2.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.13.0",
-    "prettier-plugin-tailwindcss": "^0.5.12"
+    "prettier-plugin-tailwindcss": "^0.5.13"
   }
 }

@@ -2,19 +2,19 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
-                "id": "TIMESERIES-305de524-fd3a-422d-bdf1-31d59094fec3",
-                "type": "GENERATORS",
+                "id": "TIMESERIES-df8ba6f6-4089-4cef-8fae-9ddc890a3a86",
+                "type": "DATA",
                 "data": {
-                    "id": "TIMESERIES-305de524-fd3a-422d-bdf1-31d59094fec3",
+                    "id": "TIMESERIES-df8ba6f6-4089-4cef-8fae-9ddc890a3a86",
                     "label": "TIMESERIES",
                     "func": "TIMESERIES",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "start_date": {
                             "type": "str",
                             "default": "2023-01-01",
+                            "desc": "The start date of the timeseries in the format 'YYYY:MM:DD'.",
+                            "overload": null,
                             "functionName": "TIMESERIES",
                             "param": "start_date",
                             "value": "2023-01-01"
@@ -22,89 +22,94 @@
                         "end_date": {
                             "type": "str",
                             "default": "2023-07-20",
+                            "desc": "The end date of the timeseries in the format 'YYYY:MM:DD'.",
+                            "overload": null,
                             "functionName": "TIMESERIES",
                             "param": "end_date",
                             "value": "2023-07-20"
                         }
                     },
+                    "initCtrls": {},
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "DataFrame"
+                            "type": "DataFrame",
+                            "desc": "m: the resulting timeseries"
                         }
                     ],
-                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\TIMESERIES\\TIMESERIES.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/TIMESERIES/TIMESERIES.py"
                 },
                 "position": {
-                    "x": -63.304829660611006,
-                    "y": 109.24551147270125
+                    "x": -163.9743749654526,
+                    "y": -105.66856621532162
                 },
+                "width": 218,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -63.304829660611006,
-                    "y": 109.24551147270125
+                    "x": -163.9743749654526,
+                    "y": -105.66856621532162
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
-                "id": "MATRIX-a9b94d12-79cd-41b8-bac6-e764b105f4fa",
-                "type": "GENERATORS",
+                "id": "MATRIX-4bd2c124-acb9-4e7d-9903-1c7248913dd3",
+                "type": "DATA",
                 "data": {
-                    "id": "MATRIX-a9b94d12-79cd-41b8-bac6-e764b105f4fa",
+                    "id": "MATRIX-4bd2c124-acb9-4e7d-9903-1c7248913dd3",
                     "label": "MATRIX",
                     "func": "MATRIX",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "row": {
-                            "type": "int",
-                            "default": 2,
-                            "functionName": "MATRIX",
-                            "param": "row",
-                            "value": "8"
+                    "type": "DATA",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "row",
+                            "id": "row",
+                            "type": "Scalar",
+                            "desc": "number of rows",
+                            "multiple": false
                         },
-                        "column": {
-                            "type": "int",
-                            "default": 2,
-                            "functionName": "MATRIX",
-                            "param": "column",
-                            "value": "8"
+                        {
+                            "name": "column",
+                            "id": "column",
+                            "type": "Scalar",
+                            "desc": "number of columns",
+                            "multiple": false
                         }
-                    },
+                    ],
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Matrix"
+                            "type": "Matrix",
+                            "desc": "Randomly generated matrix"
                         }
                     ],
-                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\MATRIX\\MATRIX.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/MATRIX/MATRIX.py"
                 },
                 "position": {
-                    "x": -89.90574242528106,
-                    "y": 369.53768944496886
+                    "x": -157.43571759975734,
+                    "y": 186.83221800842756
                 },
+                "width": 216,
+                "height": 198,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -89.90574242528106,
-                    "y": 369.53768944496886
+                    "x": -157.43571759975734,
+                    "y": 186.83221800842756
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
-                "id": "PLOTLY_DATASET-db79195b-b335-4d6e-b159-66385db68a90",
-                "type": "GENERATORS",
+                "id": "PLOTLY_DATASET-0f30c802-355f-47aa-a685-d906dc4fdff3",
+                "type": "DATA",
                 "data": {
-                    "id": "PLOTLY_DATASET-db79195b-b335-4d6e-b159-66385db68a90",
+                    "id": "PLOTLY_DATASET-0f30c802-355f-47aa-a685-d906dc4fdff3",
                     "label": "PLOTLY DATASET",
                     "func": "PLOTLY_DATASET",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "dataset_key": {
                             "type": "select",
@@ -121,128 +126,53 @@
                                 "medals_wide",
                                 "stocks"
                             ],
+                            "desc": null,
+                            "overload": null,
                             "functionName": "PLOTLY_DATASET",
                             "param": "dataset_key",
                             "value": "wind"
                         }
                     },
+                    "initCtrls": {},
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "DataFrame"
+                            "type": "DataFrame",
+                            "desc": null
                         }
                     ],
-                    "path": "PYTHON/nodes\\GENERATORS\\SAMPLE_DATASETS\\PLOTLY_DATASET\\PLOTLY_DATASET.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SAMPLE_DATASETS/PLOTLY_DATASET/PLOTLY_DATASET.py"
                 },
                 "position": {
-                    "x": -69.19136719039435,
-                    "y": 630.5641699791069
+                    "x": -158.4478307217449,
+                    "y": 528.6962090276472
                 },
+                "width": 216,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -69.19136719039435,
-                    "y": 630.5641699791069
+                    "x": -158.4478307217449,
+                    "y": 528.6962090276472
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "BAR-a91c1fd4-ed0a-4c99-bb22-609ffa2299ca",
-                "type": "VISUALIZERS",
+                "id": "BAR-caca0537-5ad4-4054-b5e5-6fc0ee3c8787",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "BAR-a91c1fd4-ed0a-4c99-bb22-609ffa2299ca",
-                    "label": "BAR",
-                    "func": "BAR",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\BAR\\BAR.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 289.7569908907779,
-                    "y": 24.93517972661823
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 289.7569908907779,
-                    "y": 24.93517972661823
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "BAR-67887c6e-5070-4f8b-a453-6f17094bab99",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "BAR-67887c6e-5070-4f8b-a453-6f17094bab99",
-                    "label": "BAR 1",
-                    "func": "BAR",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix",
-                            "multiple": false
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\BAR\\BAR.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 348.3808606913409,
-                    "y": 531.4079284287167
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 348.3808606913409,
-                    "y": 531.4079284287167
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "BAR-25c3fe48-8421-43df-9cb9-24d38dc92f35",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "BAR-25c3fe48-8421-43df-9cb9-24d38dc92f35",
+                    "id": "BAR-caca0537-5ad4-4054-b5e5-6fc0ee3c8787",
                     "label": "BAR 2",
                     "func": "BAR",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized in a bar chart",
                             "multiple": false
                         }
                     ],
@@ -250,70 +180,145 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Plotly"
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Bar chart visualization"
                         }
                     ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\BAR\\BAR.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/BAR/BAR.py"
                 },
                 "position": {
-                    "x": 657.6937400125055,
-                    "y": 249.8464792652676
+                    "x": 595.082480371921,
+                    "y": 489.8374595242067
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 657.6937400125055,
-                    "y": 249.8464792652676
+                    "x": 595.082480371921,
+                    "y": 489.8374595242067
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "BAR-f32cd3b8-879e-40c2-8705-cc70e35ce32c",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "BAR-f32cd3b8-879e-40c2-8705-cc70e35ce32c",
+                    "label": "BAR 1",
+                    "func": "BAR",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized in a bar chart",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Bar chart visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/BAR/BAR.py"
+                },
+                "position": {
+                    "x": 590.3917994579788,
+                    "y": 152.40177763444115
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 590.3917994579788,
+                    "y": 152.40177763444115
+                },
+                "dragging": false
+            },
+            {
+                "id": "BAR-9dc3d445-a879-4afc-86e5-3c7c1b6e56f9",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "BAR-9dc3d445-a879-4afc-86e5-3c7c1b6e56f9",
+                    "label": "BAR",
+                    "func": "BAR",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized in a bar chart",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Bar chart visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/BAR/BAR.py"
+                },
+                "position": {
+                    "x": 581.0121450374411,
+                    "y": -136.13940736861275
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 581.0121450374411,
+                    "y": -136.13940736861275
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "TIMESERIES-305de524-fd3a-422d-bdf1-31d59094fec3",
+                "id": "TIMESERIES-df8ba6f6-4089-4cef-8fae-9ddc890a3a86->BAR-9dc3d445-a879-4afc-86e5-3c7c1b6e56f9_80576184-c19d-4e3c-a217-9f4fb235eb94",
+                "source": "TIMESERIES-df8ba6f6-4089-4cef-8fae-9ddc890a3a86",
+                "target": "BAR-9dc3d445-a879-4afc-86e5-3c7c1b6e56f9",
                 "sourceHandle": "default",
-                "target": "BAR-a91c1fd4-ed0a-4c99-bb22-609ffa2299ca",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TIMESERIES-305de524-fd3a-422d-bdf1-31d59094fec3default-BAR-a91c1fd4-ed0a-4c99-bb22-609ffa2299cadefault"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             },
             {
-                "source": "MATRIX-a9b94d12-79cd-41b8-bac6-e764b105f4fa",
+                "id": "MATRIX-4bd2c124-acb9-4e7d-9903-1c7248913dd3->BAR-f32cd3b8-879e-40c2-8705-cc70e35ce32c_71bfaa3f-59ad-4823-8d77-3385b2326b45",
+                "source": "MATRIX-4bd2c124-acb9-4e7d-9903-1c7248913dd3",
+                "target": "BAR-f32cd3b8-879e-40c2-8705-cc70e35ce32c",
                 "sourceHandle": "default",
-                "target": "BAR-25c3fe48-8421-43df-9cb9-24d38dc92f35",
                 "targetHandle": "default",
-                "id": "reactflow__edge-MATRIX-a9b94d12-79cd-41b8-bac6-e764b105f4fadefault-BAR-25c3fe48-8421-43df-9cb9-24d38dc92f35default"
+                "data": {
+                    "outputType": "Matrix"
+                }
             },
             {
-                "source": "PLOTLY_DATASET-db79195b-b335-4d6e-b159-66385db68a90",
+                "id": "PLOTLY_DATASET-0f30c802-355f-47aa-a685-d906dc4fdff3->BAR-caca0537-5ad4-4054-b5e5-6fc0ee3c8787_d83b9688-4395-48a1-a8a1-d736d7a39eea",
+                "source": "PLOTLY_DATASET-0f30c802-355f-47aa-a685-d906dc4fdff3",
+                "target": "BAR-caca0537-5ad4-4054-b5e5-6fc0ee3c8787",
                 "sourceHandle": "default",
-                "target": "BAR-67887c6e-5070-4f8b-a453-6f17094bab99",
                 "targetHandle": "default",
-                "id": "reactflow__edge-PLOTLY_DATASET-db79195b-b335-4d6e-b159-66385db68a90default-BAR-67887c6e-5070-4f8b-a453-6f17094bab99default"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             }
-        ],
-        "viewport": {
-            "x": 606.4472645567363,
-            "y": 234.63130388602087,
-            "zoom": 0.9186369849831518
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

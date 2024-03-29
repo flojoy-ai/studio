@@ -2,68 +2,146 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
-                "id": "MATRIX-0731e4bc-e7a7-454f-8eeb-cfec09eb29ed",
-                "type": "GENERATORS",
+                "id": "MATRIX-5775d874-812c-4b97-9a65-455da717e028",
+                "type": "DATA",
                 "data": {
-                    "id": "MATRIX-0731e4bc-e7a7-454f-8eeb-cfec09eb29ed",
+                    "id": "MATRIX-5775d874-812c-4b97-9a65-455da717e028",
                     "label": "MATRIX",
                     "func": "MATRIX",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "row": {
-                            "type": "int",
-                            "default": 2,
-                            "desc": "number of rows",
-                            "overload": null,
-                            "functionName": "MATRIX",
-                            "param": "row",
-                            "value": 2
-                        },
-                        "column": {
-                            "type": "int",
-                            "default": 2,
-                            "desc": "number of columns",
-                            "overload": null,
-                            "functionName": "MATRIX",
-                            "param": "column",
-                            "value": 2
-                        }
-                    },
+                    "type": "DATA",
+                    "ctrls": {},
                     "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "row",
+                            "id": "row",
+                            "type": "Scalar",
+                            "desc": "number of rows",
+                            "multiple": false
+                        },
+                        {
+                            "name": "column",
+                            "id": "column",
+                            "type": "Scalar",
+                            "desc": "number of columns",
+                            "multiple": false
+                        }
+                    ],
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "Matrix",
-                            "desc": "randomly generated matrix"
+                            "desc": "Randomly generated matrix"
                         }
                     ],
-                    "path": "GENERATORS/SIMULATIONS/MATRIX/MATRIX.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/MATRIX/MATRIX.py"
                 },
                 "position": {
-                    "x": -38.37785503354446,
-                    "y": 189.537203766789
+                    "x": -438.8161714075118,
+                    "y": -14.737384709793332
                 },
+                "width": 216,
+                "height": 198,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -38.37785503354446,
-                    "y": 189.537203766789
+                    "x": -438.8161714075118,
+                    "y": -14.737384709793332
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 189,
-                "height": 160,
-                "id": "TRANSPOSE_MATRIX-7295de41-c9f8-4901-b267-710cadf7a60d",
-                "type": "TRANSFORMERS",
+                "id": "MATRIX_VIEW-943b5023-b7d0-437c-8211-0e47f61f2be8",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "TRANSPOSE_MATRIX-7295de41-c9f8-4901-b267-710cadf7a60d",
+                    "id": "MATRIX_VIEW-943b5023-b7d0-437c-8211-0e47f61f2be8",
+                    "label": "MATRIX VIEW",
+                    "func": "MATRIX_VIEW",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Matrix",
+                            "desc": "the DataContainer to be visualized in matrix format.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing visualization of the input in matrix format"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/MATRIX_VIEW/MATRIX_VIEW.py"
+                },
+                "position": {
+                    "x": -23.929069039931676,
+                    "y": 115.04079271427526
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -23.929069039931676,
+                    "y": 115.04079271427526
+                },
+                "dragging": false
+            },
+            {
+                "id": "MATRIX_VIEW-105540fd-058e-44cd-bd2d-c9e9a2f91aa3",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "MATRIX_VIEW-105540fd-058e-44cd-bd2d-c9e9a2f91aa3",
+                    "label": "MATRIX VIEW 1",
+                    "func": "MATRIX_VIEW",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|Matrix",
+                            "desc": "the DataContainer to be visualized in matrix format.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing visualization of the input in matrix format"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/MATRIX_VIEW/MATRIX_VIEW.py"
+                },
+                "position": {
+                    "x": 332.2584200539867,
+                    "y": -78.7991786367229
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 332.2584200539867,
+                    "y": -78.7991786367229
+                },
+                "dragging": false
+            },
+            {
+                "id": "TRANSPOSE_MATRIX-ec23eec1-2bbf-4d8e-a961-d3fd326ef1a3",
+                "type": "TRANSFORM",
+                "data": {
+                    "id": "TRANSPOSE_MATRIX-ec23eec1-2bbf-4d8e-a961-d3fd326ef1a3",
                     "label": "TRANSPOSE MATRIX",
                     "func": "TRANSPOSE_MATRIX",
-                    "type": "TRANSFORMERS",
+                    "type": "TRANSFORM",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -71,8 +149,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Matrix",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -83,135 +161,57 @@
                             "desc": "The transposed matrix"
                         }
                     ],
-                    "path": "TRANSFORMERS/MATRIX_MANIPULATION/TRANSPOSE_MATRIX/TRANSPOSE_MATRIX.py",
-                    "selected": false
+                    "path": "ETL/TRANSFORM/MATRIX_MANIPULATION/TRANSPOSE_MATRIX/TRANSPOSE_MATRIX.py"
                 },
                 "position": {
-                    "x": 271.9852707073219,
-                    "y": 157.85500876077958
+                    "x": -27.875280926199338,
+                    "y": -203.36521170487842
                 },
+                "width": 236,
+                "height": 100,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 271.9852707073219,
-                    "y": 157.85500876077958
+                    "x": -27.875280926199338,
+                    "y": -203.36521170487842
                 },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "MATRIX_VIEW-3c6da778-21cb-4015-8962-2122a2e2d4ba",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "MATRIX_VIEW-3c6da778-21cb-4015-8962-2122a2e2d4ba",
-                    "label": "MATRIX VIEW",
-                    "func": "MATRIX_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Matrix",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in matrix format."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing visualization of the input in matrix format"
-                        }
-                    ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/MATRIX_VIEW/MATRIX_VIEW.py",
-                    "selected": true
-                },
-                "position": {
-                    "x": 612.2905538051309,
-                    "y": 126.62012728155935
-                },
-                "selected": true,
-                "positionAbsolute": {
-                    "x": 612.2905538051309,
-                    "y": 126.62012728155935
-                },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "MATRIX_VIEW-24267daa-8781-4e99-bbef-09d314ff7353",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "MATRIX_VIEW-24267daa-8781-4e99-bbef-09d314ff7353",
-                    "label": "MATRIX VIEW 1",
-                    "func": "MATRIX_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Matrix",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in matrix format."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing visualization of the input in matrix format"
-                        }
-                    ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/MATRIX_VIEW/MATRIX_VIEW.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 252.4218850792159,
-                    "y": -140.81709812661327
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 252.4218850792159,
-                    "y": -140.81709812661327
-                },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "MATRIX-0731e4bc-e7a7-454f-8eeb-cfec09eb29ed",
+                "id": "MATRIX-5775d874-812c-4b97-9a65-455da717e028->MATRIX_VIEW-943b5023-b7d0-437c-8211-0e47f61f2be8_6ef0c77b-e714-49ca-a1fd-6714d3d3f902",
+                "source": "MATRIX-5775d874-812c-4b97-9a65-455da717e028",
+                "target": "MATRIX_VIEW-943b5023-b7d0-437c-8211-0e47f61f2be8",
                 "sourceHandle": "default",
-                "target": "TRANSPOSE_MATRIX-7295de41-c9f8-4901-b267-710cadf7a60d",
                 "targetHandle": "default",
-                "id": "reactflow__edge-MATRIX-0731e4bc-e7a7-454f-8eeb-cfec09eb29eddefault-TRANSPOSE_MATRIX-7295de41-c9f8-4901-b267-710cadf7a60ddefault"
+                "data": {
+                    "outputType": "Matrix"
+                }
             },
             {
-                "source": "MATRIX-0731e4bc-e7a7-454f-8eeb-cfec09eb29ed",
+                "id": "MATRIX-5775d874-812c-4b97-9a65-455da717e028->TRANSPOSE_MATRIX-ec23eec1-2bbf-4d8e-a961-d3fd326ef1a3_b4ef272a-7b57-4713-83bd-5d7b52d422e4",
+                "source": "MATRIX-5775d874-812c-4b97-9a65-455da717e028",
+                "target": "TRANSPOSE_MATRIX-ec23eec1-2bbf-4d8e-a961-d3fd326ef1a3",
                 "sourceHandle": "default",
-                "target": "MATRIX_VIEW-24267daa-8781-4e99-bbef-09d314ff7353",
                 "targetHandle": "default",
-                "id": "reactflow__edge-MATRIX-0731e4bc-e7a7-454f-8eeb-cfec09eb29eddefault-MATRIX_VIEW-24267daa-8781-4e99-bbef-09d314ff7353default"
+                "data": {
+                    "outputType": "Matrix"
+                }
             },
             {
-                "source": "TRANSPOSE_MATRIX-7295de41-c9f8-4901-b267-710cadf7a60d",
+                "id": "TRANSPOSE_MATRIX-ec23eec1-2bbf-4d8e-a961-d3fd326ef1a3->MATRIX_VIEW-105540fd-058e-44cd-bd2d-c9e9a2f91aa3_95281d9d-6f05-40bb-af56-ed7bd20c1424",
+                "source": "TRANSPOSE_MATRIX-ec23eec1-2bbf-4d8e-a961-d3fd326ef1a3",
+                "target": "MATRIX_VIEW-105540fd-058e-44cd-bd2d-c9e9a2f91aa3",
                 "sourceHandle": "default",
-                "target": "MATRIX_VIEW-3c6da778-21cb-4015-8962-2122a2e2d4ba",
                 "targetHandle": "default",
-                "id": "reactflow__edge-TRANSPOSE_MATRIX-7295de41-c9f8-4901-b267-710cadf7a60ddefault-MATRIX_VIEW-3c6da778-21cb-4015-8962-2122a2e2d4badefault"
+                "data": {
+                    "outputType": "Matrix"
+                }
             }
-        ],
-        "viewport": {
-            "x": 669.537650867023,
-            "y": 359.1114317341454,
-            "zoom": 0.7467072297113905
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

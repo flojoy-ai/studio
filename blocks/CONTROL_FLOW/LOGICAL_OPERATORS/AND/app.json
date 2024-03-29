@@ -2,8 +2,8 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f",
                 "type": "DATA",
                 "data": {
@@ -35,19 +35,19 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -311.59665538296366,
-                    "y": -223.094795076159
+                    "x": -357.59665538296366,
+                    "y": 0.9052049238409836
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -311.59665538296366,
-                    "y": -223.094795076159
+                    "x": -357.59665538296366,
+                    "y": 0.9052049238409836
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
+                "width": 216,
+                "height": 197,
                 "id": "BOOLEAN-18f5a10d-63ed-43ca-8955-a295a0f273c8",
                 "type": "DATA",
                 "data": {
@@ -79,19 +79,19 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -313.75929763327065,
-                    "y": -49.701388444218594
+                    "x": -365.75929763327065,
+                    "y": -309.70138844421854
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -313.75929763327065,
-                    "y": -49.701388444218594
+                    "x": -365.75929763327065,
+                    "y": -309.70138844421854
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 96,
-                "height": 96,
+                "width": 236,
+                "height": 198,
                 "id": "AND-30b8243b-ac60-474e-8ab0-aba191100a83",
                 "type": "CONTROL_FLOW",
                 "data": {
@@ -106,15 +106,15 @@
                             "name": "default",
                             "id": "default",
                             "type": "Boolean",
-                            "multiple": false,
-                            "desc": "The input boolean to which we apply the AND operation."
+                            "desc": "The input boolean to which we apply the AND operation.",
+                            "multiple": false
                         },
                         {
                             "name": "a",
                             "id": "a",
                             "type": "Boolean",
-                            "multiple": false,
-                            "desc": "The input boolean to which we apply the AND operation."
+                            "desc": "The input boolean to which we apply the AND operation.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -125,7 +125,7 @@
                             "desc": "The boolean result from the operation of the inputs."
                         }
                     ],
-                    "path": "CONTROL_FLOW/LOGIC_OPERATORS/AND/AND.py",
+                    "path": "CONTROL_FLOW/LOGICAL_OPERATORS/AND/AND.py",
                     "selected": false
                 },
                 "position": {
@@ -141,7 +141,7 @@
             },
             {
                 "width": 225,
-                "height": 226,
+                "height": 225,
                 "id": "TEXT_VIEW-d52d5622-72ed-4b14-8f3d-e938e1615969",
                 "type": "VISUALIZATION",
                 "data": {
@@ -166,8 +166,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "String|Boolean",
-                            "multiple": false,
-                            "desc": "The DataContainer to be visualized in text format"
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -182,45 +182,49 @@
                     "selected": true
                 },
                 "position": {
-                    "x": 336.823979250268,
-                    "y": -208.11706826972792
+                    "x": 462.823979250268,
+                    "y": -172.11706826972795
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
-                    "x": 336.823979250268,
-                    "y": -208.11706826972792
+                    "x": 462.823979250268,
+                    "y": -172.11706826972795
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f",
-                "sourceHandle": "default",
-                "target": "AND-30b8243b-ac60-474e-8ab0-aba191100a83",
-                "targetHandle": "a",
-                "id": "reactflow__edge-BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91fdefault-AND-30b8243b-ac60-474e-8ab0-aba191100a83a"
-            },
-            {
+                "id": "BOOLEAN-18f5a10d-63ed-43ca-8955-a295a0f273c8->AND-30b8243b-ac60-474e-8ab0-aba191100a83_0e9eeaf5-fd70-469b-8d75-62b48bd62efc",
                 "source": "BOOLEAN-18f5a10d-63ed-43ca-8955-a295a0f273c8",
-                "sourceHandle": "default",
                 "target": "AND-30b8243b-ac60-474e-8ab0-aba191100a83",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-BOOLEAN-18f5a10d-63ed-43ca-8955-a295a0f273c8default-AND-30b8243b-ac60-474e-8ab0-aba191100a83default"
+                "data": {
+                    "outputType": "Boolean"
+                }
             },
             {
-                "source": "AND-30b8243b-ac60-474e-8ab0-aba191100a83",
+                "id": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f->AND-30b8243b-ac60-474e-8ab0-aba191100a83_363c24f5-9645-4756-8e70-910964c369ba",
+                "source": "BOOLEAN-6ecbe422-83c0-48b1-899d-ca0b1d50c91f",
+                "target": "AND-30b8243b-ac60-474e-8ab0-aba191100a83",
                 "sourceHandle": "default",
+                "targetHandle": "a",
+                "data": {
+                    "outputType": "Boolean"
+                }
+            },
+            {
+                "id": "AND-30b8243b-ac60-474e-8ab0-aba191100a83->TEXT_VIEW-d52d5622-72ed-4b14-8f3d-e938e1615969_8cb8997d-98da-4727-bd06-a13b02d2a567",
+                "source": "AND-30b8243b-ac60-474e-8ab0-aba191100a83",
                 "target": "TEXT_VIEW-d52d5622-72ed-4b14-8f3d-e938e1615969",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-AND-30b8243b-ac60-474e-8ab0-aba191100a83default-TEXT_VIEW-d52d5622-72ed-4b14-8f3d-e938e1615969default"
+                "data": {
+                    "outputType": "Boolean"
+                }
             }
-        ],
-        "viewport": {
-            "x": 695.5292625331784,
-            "y": 411.9979742640432,
-            "zoom": 0.6998961918490142
-        }
+        ]
     },
     "textNodes": []
 }

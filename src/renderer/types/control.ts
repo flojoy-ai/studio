@@ -1,14 +1,14 @@
 import { NodeProps } from "reactflow";
 import { z } from "zod";
-import { SliderNode } from "@/renderer/components/controls/slider-node";
-import { NumberInputNode } from "@/renderer/components/controls/number-input-node";
-import { FileUploadNode } from "@/renderer/components/controls/file-upload-node";
-import { CheckboxNode } from "@/renderer/components/controls/checkbox-node";
-import { SwitchNode } from "@/renderer/components/controls/switch-node";
-import { ComboboxNode } from "@/renderer/components/controls/combobox-node";
-import { RadioGroupNode } from "@/renderer/components/controls/radio-group-node";
+import { SliderNode } from "@/renderer/components/controls/widgets/slider-node";
+import { NumberInputNode } from "@/renderer/components/controls/widgets/number-input-node";
+import { FileUploadNode } from "@/renderer/components/controls/widgets/file-upload-node";
+import { CheckboxNode } from "@/renderer/components/controls/widgets/checkbox-node";
+import { SwitchNode } from "@/renderer/components/controls/widgets/switch-node";
+import { ComboboxNode } from "@/renderer/components/controls/widgets/combobox-node";
+import { RadioGroupNode } from "@/renderer/components/controls/widgets/radio-group-node";
 import { ValuesOf, getZodEnumFromObjectKeys } from "./util";
-import { KnobNode } from "@/renderer/components/controls/knob-node";
+import { KnobNode } from "@/renderer/components/controls/widgets/knob-node";
 import {
   LucideIcon,
   SlidersHorizontal,
@@ -19,7 +19,11 @@ import {
   ChevronsUpDown,
   CircleDot,
   Radius,
+  Square,
+  ScatterChart,
 } from "lucide-react";
+import { SevenSegmentDisplayNode } from "@/renderer/components/controls/visualization/seven-segment-display-node";
+import MirrorNode from "@/renderer/components/controls/visualization/mirror-node";
 
 export const PYTHON_TYPES = ["int", "float", "bool", "select", "File"] as const;
 export const PythonType = z.enum(PYTHON_TYPES);
@@ -172,25 +176,42 @@ export type WidgetData<
   config: T;
 };
 
-export type VisualizationType =
-  | "scatter"
-  | "histogram"
-  | "line"
-  | "surface3d"
-  | "scatter3d"
-  | "bar"
-  | "table"
-  | "image"
-  | "box"
-  | "big_number"
-  | "matrix_view"
-  | "array_view";
-
-export type VisualizationData = {
-  blockId: string;
-  visualizationType: string;
-};
-
 export type WidgetProps<
   T extends WidgetConfig | undefined = WidgetConfig | undefined,
 > = NodeProps<WidgetData<T>>;
+
+export const FLOJOY_TYPES = ["Scalar", "Plotly"] as const;
+export const FlojoyType = z.enum(FLOJOY_TYPES);
+export type FlojoyType = z.infer<typeof FlojoyType>;
+
+type VisualizationEntry = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  node: React.FC<VisualizationProps>;
+  allowedTypes: FlojoyType[];
+  icon: LucideIcon;
+};
+
+export const VISUALIZATIONS = {
+  "seven segment display": {
+    node: SevenSegmentDisplayNode,
+    allowedTypes: ["Scalar"],
+    icon: Square,
+  },
+  mirror: {
+    node: MirrorNode,
+    allowedTypes: ["Plotly"],
+    icon: ScatterChart,
+  },
+} as const satisfies Record<string, VisualizationEntry>;
+
+export const VisualizationType = getZodEnumFromObjectKeys(VISUALIZATIONS);
+export type VisualizationType = z.infer<typeof VisualizationType>;
+
+export type VisualizationData = {
+  blockId: string;
+  blockOutput: string;
+  label?: string;
+  visualizationType: VisualizationType;
+};
+
+export type VisualizationProps = NodeProps<VisualizationData>;

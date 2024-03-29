@@ -1,52 +1,24 @@
 {
+    "name": "app",
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
-                "id": "READ_TASK-eeab7450-8d5f-42f5-86fc-3c2a63f0d691",
-                "type": "HARDWARE",
+                "id": "CREATE_TASK-c1a7ffe3-96fd-436b-b17d-e2f713576350",
+                "type": "NATIONAL_INSTRUMENTS",
                 "data": {
-                    "id": "READ_TASK-eeab7450-8d5f-42f5-86fc-3c2a63f0d691",
-                    "label": "READ TASK",
-                    "func": "READ_TASK",
-                    "type": "HARDWARE",
+                    "id": "CREATE_TASK-c1a7ffe3-96fd-436b-b17d-e2f713576350",
+                    "label": "CREATE TASK",
+                    "func": "CREATE_TASK",
+                    "type": "NATIONAL_INSTRUMENTS",
                     "ctrls": {
                         "task_name": {
                             "type": "str",
                             "default": null,
-                            "desc": "The name of the task to read from.",
+                            "desc": "The name of the task to create.",
                             "overload": null,
-                            "functionName": "READ_TASK",
+                            "functionName": "CREATE_TASK",
                             "param": "task_name",
                             "value": "task"
-                        },
-                        "number_of_samples_per_channel": {
-                            "type": "int",
-                            "default": 1,
-                            "desc": "Number of samples to read (default is 1).",
-                            "overload": null,
-                            "functionName": "READ_TASK",
-                            "param": "number_of_samples_per_channel",
-                            "value": 100
-                        },
-                        "timeout": {
-                            "type": "float",
-                            "default": 10,
-                            "desc": "Time to wait for samples to become available. If set to 0, the method tries once to read the requested samples and returns an error if it is unable to (default is 10.0 seconds).",
-                            "overload": null,
-                            "functionName": "READ_TASK",
-                            "param": "timeout",
-                            "value": 10
-                        },
-                        "wait_infinitely": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": "If True, the method waits indefinitely for samples to become available. If False, the method waits for the amount of time specified by `timeout` (default is False).",
-                            "overload": null,
-                            "functionName": "READ_TASK",
-                            "param": "wait_infinitely",
-                            "value": false
                         }
                     },
                     "initCtrls": {},
@@ -55,16 +27,16 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Vector|Matrix",
-                            "desc": "Samples read from the device."
+                            "type": "Any",
+                            "desc": "This block does not return any meaningful data;"
                         }
                     ],
                     "pip_dependencies": [
@@ -73,189 +45,29 @@
                             "v": "0.9.0"
                         }
                     ],
-                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/READ_TASK/READ_TASK.py"
+                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CREATE_TASK/CREATE_TASK.py"
                 },
                 "position": {
-                    "x": -298.64277225401344,
-                    "y": -167.64088133123056
+                    "x": -778.1057189913877,
+                    "y": -296.3417705892648
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -298.64277225401344,
-                    "y": -167.64088133123056
+                    "x": -778.1057189913877,
+                    "y": -296.3417705892648
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 908,
-                "height": 317,
-                "id": "LINE-2da5889c-c892-4db0-b7a6-a519bdea5a5f",
-                "type": "VISUALIZATION",
+                "id": "ATTACH_ANALOG_INPUT_STRAIN_GAGE-726a610d-0403-4a9c-8328-b1d17ae7debf",
+                "type": "NATIONAL_INSTRUMENTS",
                 "data": {
-                    "id": "LINE-2da5889c-c892-4db0-b7a6-a519bdea5a5f",
-                    "label": "LINE",
-                    "func": "LINE",
-                    "type": "VISUALIZATION",
-                    "ctrls": {
-                        "xaxis_title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": "Choose the label for the x axis.",
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "xaxis_title",
-                            "value": ""
-                        },
-                        "yaxis_title": {
-                            "type": "str",
-                            "default": "",
-                            "desc": "Choose the label for the y axis.",
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "yaxis_title",
-                            "value": ""
-                        },
-                        "x_log_scale": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "x_log_scale",
-                            "value": false
-                        },
-                        "y_log_scale": {
-                            "type": "bool",
-                            "default": false,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "LINE",
-                            "param": "y_log_scale",
-                            "value": false
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
-                        }
-                    ],
-                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
-                },
-                "position": {
-                    "x": -28.36198111987187,
-                    "y": -252.16730293571464
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -28.36198111987187,
-                    "y": -252.16730293571464
-                },
-                "dragging": true,
-                "style": {
-                    "width": 908,
-                    "height": 317
-                },
-                "resizing": false
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-9c309463-9603-45a3-b29a-c5484c1aeae4",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-9c309463-9603-45a3-b29a-c5484c1aeae4",
-                    "label": "CONFIG TASK SAMPLE CLOCK TIMING",
-                    "func": "CONFIG_TASK_SAMPLE_CLOCK_TIMING",
-                    "type": "HARDWARE",
-                    "ctrls": {
-                        "task_name": {
-                            "type": "str",
-                            "default": null,
-                            "desc": "The name of the task to configure.",
-                            "overload": null,
-                            "functionName": "CONFIG_TASK_SAMPLE_CLOCK_TIMING",
-                            "param": "task_name",
-                            "value": "task"
-                        },
-                        "sample_clock_rate": {
-                            "type": "float",
-                            "default": 1000,
-                            "desc": "Specifies the sampling rate in samples per channel per second. If using an external source for the Sample Clock, set this input to the maximum expected rate of that clock. Uses the onboard clock of the device (default is 1000.0).",
-                            "overload": null,
-                            "functionName": "CONFIG_TASK_SAMPLE_CLOCK_TIMING",
-                            "param": "sample_clock_rate",
-                            "value": 1000
-                        },
-                        "number_of_samples_per_channel": {
-                            "type": "int",
-                            "default": 1000,
-                            "desc": "Specifies the number of samples to acquire or generate for each channel in the task (default is 1000).",
-                            "overload": null,
-                            "functionName": "CONFIG_TASK_SAMPLE_CLOCK_TIMING",
-                            "param": "number_of_samples_per_channel",
-                            "value": 1000
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": "This block does not return any meaningful data; it is designed for configuring the task's sample clock timing."
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "nidaqmx",
-                            "v": "0.9.0"
-                        }
-                    ],
-                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CONFIG_TASK_SAMPLE_CLOCK_TIMING/CONFIG_TASK_SAMPLE_CLOCK_TIMING.py"
-                },
-                "position": {
-                    "x": -470.4231196616418,
-                    "y": 111.98587764544806
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -470.4231196616418,
-                    "y": 111.98587764544806
-                },
-                "dragging": true
-            },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "ATTACH_ANALOG_INPUT_STRAIN_GAGE-d8ed1ba7-f388-4b2c-90b4-59e6b2628cb2",
-                "type": "HARDWARE",
-                "data": {
-                    "id": "ATTACH_ANALOG_INPUT_STRAIN_GAGE-d8ed1ba7-f388-4b2c-90b4-59e6b2628cb2",
+                    "id": "ATTACH_ANALOG_INPUT_STRAIN_GAGE-726a610d-0403-4a9c-8328-b1d17ae7debf",
                     "label": "ATTACH ANALOG INPUT STRAIN GAGE",
                     "func": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
-                    "type": "HARDWARE",
+                    "type": "NATIONAL_INSTRUMENTS",
                     "ctrls": {
                         "task_name": {
                             "type": "str",
@@ -264,7 +76,7 @@
                             "overload": null,
                             "functionName": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
                             "param": "task_name",
-                            "value": "task"
+                            "value": ""
                         },
                         "cDAQ_start_channel": {
                             "type": "NIDAQmxDevice",
@@ -273,7 +85,7 @@
                             "overload": null,
                             "functionName": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
                             "param": "cDAQ_start_channel",
-                            "value": "cDAQ2Mod4/ai0"
+                            "value": ""
                         },
                         "cDAQ_end_channel": {
                             "type": "NIDAQmxDevice",
@@ -282,7 +94,7 @@
                             "overload": null,
                             "functionName": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
                             "param": "cDAQ_end_channel",
-                            "value": "cDAQ2Mod4/ai1"
+                            "value": ""
                         },
                         "min_val": {
                             "type": "float",
@@ -304,10 +116,10 @@
                         },
                         "units": {
                             "type": "select",
+                            "default": "STRAIN",
                             "options": [
                                 "STRAIN"
                             ],
-                            "default": "STRAIN",
                             "desc": "The units to use to return strain measurements (default is \"STRAIN\").",
                             "overload": null,
                             "functionName": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
@@ -316,6 +128,7 @@
                         },
                         "strain_config": {
                             "type": "select",
+                            "default": "Full brige 1",
                             "options": [
                                 "Full brige 1",
                                 "Full brige 2",
@@ -325,7 +138,6 @@
                                 "Quarter brige 1",
                                 "Quarter brige 2"
                             ],
-                            "default": "Full brige 1",
                             "desc": "Specifies information about the bridge configuration and measurement (default is \"Full Bridge 1\").",
                             "overload": null,
                             "functionName": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
@@ -334,12 +146,12 @@
                         },
                         "voltage_excitation_source": {
                             "type": "select",
+                            "default": "Internal",
                             "options": [
                                 "None",
                                 "External",
                                 "Internal"
                             ],
-                            "default": "Internal",
                             "desc": "Specifies the source of excitation (default is \"Internal\").",
                             "overload": null,
                             "functionName": "ATTACH_ANALOG_INPUT_STRAIN_GAGE",
@@ -407,8 +219,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -428,35 +240,53 @@
                     "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/ATTACH_ANALOG_INPUT_STRAIN_GAGE/ATTACH_ANALOG_INPUT_STRAIN_GAGE.py"
                 },
                 "position": {
-                    "x": -556.9493161742778,
-                    "y": -119.1414166774826
+                    "x": -420.8933790480941,
+                    "y": -295.35267444672627
                 },
-                "selected": true,
+                "width": 216,
+                "height": 341,
+                "selected": false,
                 "positionAbsolute": {
-                    "x": -556.9493161742778,
-                    "y": -119.1414166774826
+                    "x": -420.8933790480941,
+                    "y": -295.35267444672627
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
-                "id": "CREATE_TASK-409ba857-06c2-4be4-bd14-1eca1d4654c9",
-                "type": "HARDWARE",
+                "id": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-73d724eb-e95b-41de-b9c9-557c0da4f510",
+                "type": "NATIONAL_INSTRUMENTS",
                 "data": {
-                    "id": "CREATE_TASK-409ba857-06c2-4be4-bd14-1eca1d4654c9",
-                    "label": "CREATE TASK",
-                    "func": "CREATE_TASK",
-                    "type": "HARDWARE",
+                    "id": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-73d724eb-e95b-41de-b9c9-557c0da4f510",
+                    "label": "CONFIG TASK SAMPLE CLOCK TIMING",
+                    "func": "CONFIG_TASK_SAMPLE_CLOCK_TIMING",
+                    "type": "NATIONAL_INSTRUMENTS",
                     "ctrls": {
                         "task_name": {
                             "type": "str",
                             "default": null,
-                            "desc": "The name of the task to create.",
+                            "desc": "The name of the task to configure.",
                             "overload": null,
-                            "functionName": "CREATE_TASK",
+                            "functionName": "CONFIG_TASK_SAMPLE_CLOCK_TIMING",
                             "param": "task_name",
                             "value": "task"
+                        },
+                        "sample_clock_rate": {
+                            "type": "float",
+                            "default": 1000,
+                            "desc": "Specifies the sampling rate in samples per channel per second. If using an external source for the Sample Clock, set this input to the maximum expected rate of that clock. Uses the onboard clock of the device (default is 1000.0).",
+                            "overload": null,
+                            "functionName": "CONFIG_TASK_SAMPLE_CLOCK_TIMING",
+                            "param": "sample_clock_rate",
+                            "value": 1000
+                        },
+                        "number_of_samples_per_channel": {
+                            "type": "int",
+                            "default": 1000,
+                            "desc": "Specifies the number of samples to acquire or generate for each channel in the task (default is 1000).",
+                            "overload": null,
+                            "functionName": "CONFIG_TASK_SAMPLE_CLOCK_TIMING",
+                            "param": "number_of_samples_per_channel",
+                            "value": 1000
                         }
                     },
                     "initCtrls": {},
@@ -465,8 +295,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -474,7 +304,7 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "desc": "This block does not return any meaningful data;"
+                            "desc": "This block does not return any meaningful data; it is designed for configuring the task's sample clock timing."
                         }
                     ],
                     "pip_dependencies": [
@@ -483,56 +313,231 @@
                             "v": "0.9.0"
                         }
                     ],
-                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CREATE_TASK/CREATE_TASK.py"
+                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/CONFIG_TASK_SAMPLE_CLOCK_TIMING/CONFIG_TASK_SAMPLE_CLOCK_TIMING.py"
                 },
                 "position": {
-                    "x": -623.7637565963919,
-                    "y": -348.65602177036146
+                    "x": -13.796602156225617,
+                    "y": -296.30326897290274
                 },
+                "width": 216,
+                "height": 341,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -623.7637565963919,
-                    "y": -348.65602177036146
+                    "x": -13.796602156225617,
+                    "y": -296.30326897290274
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "READ_TASK-7e599452-1f06-4b22-90fc-04be42c73bd7",
+                "type": "NATIONAL_INSTRUMENTS",
+                "data": {
+                    "id": "READ_TASK-7e599452-1f06-4b22-90fc-04be42c73bd7",
+                    "label": "READ TASK",
+                    "func": "READ_TASK",
+                    "type": "NATIONAL_INSTRUMENTS",
+                    "ctrls": {
+                        "task_name": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "The name of the task to read from.",
+                            "overload": null,
+                            "functionName": "READ_TASK",
+                            "param": "task_name",
+                            "value": "task"
+                        },
+                        "number_of_samples_per_channel": {
+                            "type": "int",
+                            "default": 1,
+                            "desc": "Number of samples to read (default is 1).",
+                            "overload": null,
+                            "functionName": "READ_TASK",
+                            "param": "number_of_samples_per_channel",
+                            "value": 100
+                        },
+                        "timeout": {
+                            "type": "float",
+                            "default": 10,
+                            "desc": "Time to wait for samples to become available. If set to 0, the method tries once to read the requested samples and returns an error if it is unable to (default is 10.0 seconds).",
+                            "overload": null,
+                            "functionName": "READ_TASK",
+                            "param": "timeout",
+                            "value": 10
+                        },
+                        "wait_infinitely": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "If True, the method waits indefinitely for samples to become available. If False, the method waits for the amount of time specified by `timeout` (default is False).",
+                            "overload": null,
+                            "functionName": "READ_TASK",
+                            "param": "wait_infinitely",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": null,
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Vector|Matrix",
+                            "desc": "Samples read from the device."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "nidaqmx",
+                            "v": "0.9.0"
+                        }
+                    ],
+                    "path": "HARDWARE/DAQ_BOARDS/NATIONAL_INSTRUMENTS/COMPACT_DAQ/READ_TASK/READ_TASK.py"
+                },
+                "position": {
+                    "x": 437.70768930910936,
+                    "y": -299.19907908409346
+                },
+                "width": 216,
+                "height": 197,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 437.70768930910936,
+                    "y": -299.19907908409346
+                },
+                "dragging": false
+            },
+            {
+                "id": "LINE-f380b8a5-7295-4003-a8bc-87eeac3950eb",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "LINE-f380b8a5-7295-4003-a8bc-87eeac3950eb",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+                },
+                "position": {
+                    "x": 855.2466025414612,
+                    "y": -334.7144243386497
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 855.2466025414612,
+                    "y": -334.7144243386497
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-9c309463-9603-45a3-b29a-c5484c1aeae4",
+                "id": "READ_TASK-7e599452-1f06-4b22-90fc-04be42c73bd7->LINE-f380b8a5-7295-4003-a8bc-87eeac3950eb_c4929b91-af8f-4210-a22c-f368477e7bfa",
+                "source": "READ_TASK-7e599452-1f06-4b22-90fc-04be42c73bd7",
+                "target": "LINE-f380b8a5-7295-4003-a8bc-87eeac3950eb",
                 "sourceHandle": "default",
-                "target": "READ_TASK-eeab7450-8d5f-42f5-86fc-3c2a63f0d691",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CONFIG_TASK_SAMPLE_CLOCK_TIMING-9c309463-9603-45a3-b29a-c5484c1aeae4default-READ_TASK-eeab7450-8d5f-42f5-86fc-3c2a63f0d691default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
-                "source": "READ_TASK-eeab7450-8d5f-42f5-86fc-3c2a63f0d691",
+                "id": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-73d724eb-e95b-41de-b9c9-557c0da4f510->READ_TASK-7e599452-1f06-4b22-90fc-04be42c73bd7_f0cf9415-f8c7-4e6c-a25a-dbc1b7f61e85",
+                "source": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-73d724eb-e95b-41de-b9c9-557c0da4f510",
+                "target": "READ_TASK-7e599452-1f06-4b22-90fc-04be42c73bd7",
                 "sourceHandle": "default",
-                "target": "LINE-2da5889c-c892-4db0-b7a6-a519bdea5a5f",
                 "targetHandle": "default",
-                "id": "reactflow__edge-READ_TASK-eeab7450-8d5f-42f5-86fc-3c2a63f0d691default-LINE-2da5889c-c892-4db0-b7a6-a519bdea5a5fdefault"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "ATTACH_ANALOG_INPUT_STRAIN_GAGE-d8ed1ba7-f388-4b2c-90b4-59e6b2628cb2",
+                "id": "CREATE_TASK-c1a7ffe3-96fd-436b-b17d-e2f713576350->ATTACH_ANALOG_INPUT_STRAIN_GAGE-726a610d-0403-4a9c-8328-b1d17ae7debf_8c06feb5-ecb4-464e-a99f-50455fd7982d",
+                "source": "CREATE_TASK-c1a7ffe3-96fd-436b-b17d-e2f713576350",
+                "target": "ATTACH_ANALOG_INPUT_STRAIN_GAGE-726a610d-0403-4a9c-8328-b1d17ae7debf",
                 "sourceHandle": "default",
-                "target": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-9c309463-9603-45a3-b29a-c5484c1aeae4",
                 "targetHandle": "default",
-                "id": "reactflow__edge-ATTACH_ANALOG_INPUT_STRAIN_GAGE-d8ed1ba7-f388-4b2c-90b4-59e6b2628cb2default-CONFIG_TASK_SAMPLE_CLOCK_TIMING-9c309463-9603-45a3-b29a-c5484c1aeae4default"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "CREATE_TASK-409ba857-06c2-4be4-bd14-1eca1d4654c9",
+                "id": "ATTACH_ANALOG_INPUT_STRAIN_GAGE-726a610d-0403-4a9c-8328-b1d17ae7debf->CONFIG_TASK_SAMPLE_CLOCK_TIMING-73d724eb-e95b-41de-b9c9-557c0da4f510_40fab6f8-d7f2-42a2-b983-5801162b26e6",
+                "source": "ATTACH_ANALOG_INPUT_STRAIN_GAGE-726a610d-0403-4a9c-8328-b1d17ae7debf",
+                "target": "CONFIG_TASK_SAMPLE_CLOCK_TIMING-73d724eb-e95b-41de-b9c9-557c0da4f510",
                 "sourceHandle": "default",
-                "target": "ATTACH_ANALOG_INPUT_STRAIN_GAGE-d8ed1ba7-f388-4b2c-90b4-59e6b2628cb2",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CREATE_TASK-409ba857-06c2-4be4-bd14-1eca1d4654c9default-ATTACH_ANALOG_INPUT_STRAIN_GAGE-d8ed1ba7-f388-4b2c-90b4-59e6b2628cb2default"
+                "data": {
+                    "outputType": "Any"
+                }
             }
-        ],
-        "viewport": {
-            "x": 933.9352888714216,
-            "y": 429.22336189960754,
-            "zoom": 0.7039763227823722
-        }
+        ]
     },
-    "name": "app",
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

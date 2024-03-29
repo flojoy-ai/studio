@@ -2,29 +2,31 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 150,
-                "height": 150,
-                "id": "OPEN_PARQUET-196993ec-f559-44c6-8d7d-14360ed20ce7",
-                "type": "EXTRACTORS",
+                "id": "OPEN_PARQUET-166fcaa7-ddfd-45e8-a97b-8a2659263a11",
+                "type": "EXTRACT",
                 "data": {
-                    "id": "OPEN_PARQUET-196993ec-f559-44c6-8d7d-14360ed20ce7",
+                    "id": "OPEN_PARQUET-166fcaa7-ddfd-45e8-a97b-8a2659263a11",
                     "label": "OPEN PARQUET",
                     "func": "OPEN_PARQUET",
-                    "type": "EXTRACTORS",
+                    "type": "EXTRACT",
                     "ctrls": {
                         "file_path": {
-                            "type": "str",
-                            "default": "",
+                            "type": "File",
+                            "default": null,
+                            "desc": "File path to the .parquet file or an URL of a .parquet file.",
+                            "overload": null,
                             "functionName": "OPEN_PARQUET",
                             "param": "file_path",
-                            "value": "./PYTHON/nodes/EXTRACTORS/FILE/OPEN_PARQUET/assets/userdata1.parquet"
+                            "value": ""
                         }
                     },
+                    "initCtrls": {},
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "DataFrame"
+                            "type": "DataFrame",
+                            "desc": "DataFrame loaded from .parquet file"
                         }
                     ],
                     "pip_dependencies": [
@@ -37,36 +39,37 @@
                             "v": "2023.7.0"
                         }
                     ],
-                    "path": "PYTHON/nodes/EXTRACTORS/FILE/OPEN_PARQUET/OPEN_PARQUET.py",
-                    "selected": false
+                    "path": "ETL/EXTRACT/FILE/OPEN_PARQUET/OPEN_PARQUET.py"
                 },
                 "position": {
-                    "x": 138.68874411360315,
-                    "y": 189.74714000262355
+                    "x": 140.67953677813284,
+                    "y": 97.63111198157486
                 },
+                "width": 216,
+                "height": 296,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 138.68874411360315,
-                    "y": 189.74714000262355
+                    "x": 140.67953677813284,
+                    "y": 97.63111198157486
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 225,
-                "height": 226,
-                "id": "TABLE-af6328dd-0379-4824-898f-d0d3b677b664",
-                "type": "VISUALIZERS",
+                "id": "TABLE-9588c426-9b9a-44a2-982e-3179edd053bb",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "TABLE-af6328dd-0379-4824-898f-d0d3b677b664",
+                    "id": "TABLE-9588c426-9b9a-44a2-982e-3179edd053bb",
                     "label": "TABLE",
                     "func": "TABLE",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "OrderedTriple|OrderedPair|DataFrame|Matrix",
+                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+                            "desc": "the DataContainer to be visualized",
                             "multiple": false
                         }
                     ],
@@ -74,56 +77,41 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Plotly"
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Table visualization"
                         }
                     ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/TABLE/TABLE.py"
                 },
                 "position": {
-                    "x": 520.163885181978,
-                    "y": 149.0810155005708
+                    "x": 529.2859053392498,
+                    "y": 93.56918510136035
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 520.163885181978,
-                    "y": 149.0810155005708
+                    "x": 529.2859053392498,
+                    "y": 93.56918510136035
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "OPEN_PARQUET-196993ec-f559-44c6-8d7d-14360ed20ce7",
+                "id": "OPEN_PARQUET-166fcaa7-ddfd-45e8-a97b-8a2659263a11->TABLE-9588c426-9b9a-44a2-982e-3179edd053bb_396fb71a-aa4c-4dc2-9507-694f93dcafad",
+                "source": "OPEN_PARQUET-166fcaa7-ddfd-45e8-a97b-8a2659263a11",
+                "target": "TABLE-9588c426-9b9a-44a2-982e-3179edd053bb",
                 "sourceHandle": "default",
-                "target": "TABLE-af6328dd-0379-4824-898f-d0d3b677b664",
                 "targetHandle": "default",
-                "id": "reactflow__edge-OPEN_PARQUET-196993ec-f559-44c6-8d7d-14360ed20ce7default-TABLE-af6328dd-0379-4824-898f-d0d3b677b664default"
+                "data": {
+                    "outputType": "DataFrame"
+                }
             }
-        ],
-        "viewport": {
-            "x": -456.37712173371256,
-            "y": 259.03077225262325,
-            "zoom": 1.3466637668169514
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

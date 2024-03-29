@@ -1,266 +1,325 @@
 {
+    "name": "IV Sweep",
     "rfInstance": {
-        "nodes": [
-            {
-                "width": 192,
-                "height": 192,
-                "id": "OPEN_KEITHLEY_24XX-097d2560-f5b9-468a-9517-32e89dedecc1",
-                "type": "IO",
-                "data": {
-                    "id": "OPEN_KEITHLEY_24XX-097d2560-f5b9-468a-9517-32e89dedecc1",
-                    "label": "OPEN KEITHLEY 24XX",
-                    "func": "OPEN_KEITHLEY_24XX",
-                    "type": "IO",
-                    "ctrls": {
-                        "device": {
-                            "type": "SerialDevice",
-                            "default": null,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "OPEN_KEITHLEY_24XX",
-                            "param": "device",
-                            "value": ""
-                        },
-                        "baudrate": {
-                            "type": "int",
-                            "default": 9600,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "OPEN_KEITHLEY_24XX",
-                            "param": "baudrate",
-                            "value": 9600
-                        }
-                    },
-                    "initCtrls": {},
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "desc": null
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "pyserial",
-                            "v": "3.5"
-                        }
-                    ],
-                    "path": "IO/INSTRUMENTS/SOURCEMETERS/KEITHLEY/24XX/BASIC/OPEN_KEITHLEY_24XX/OPEN_KEITHLEY_24XX.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -140.35863305434796,
-                    "y": 1.9088042829506549
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -140.35863305434796,
-                    "y": 1.9088042829506549
-                },
-                "dragging": true
+      "nodes": [
+        {
+          "width": 192,
+          "height": 192,
+          "id": "CONNECT_2450-72b8d59f-b577-4f92-b3df-705b3fc2cd06",
+          "type": "HARDWARE",
+          "data": {
+            "id": "CONNECT_2450-72b8d59f-b577-4f92-b3df-705b3fc2cd06",
+            "label": "CONNECT 2450",
+            "func": "CONNECT_2450",
+            "type": "HARDWARE",
+            "ctrls": {
+              "device": {
+                "type": "VisaDevice",
+                "default": null,
+                "desc": "The connected VISA device.",
+                "overload": null,
+                "functionName": "CONNECT_2450",
+                "param": "device",
+                "value": "TCPIP::169.254.175.123::INSTR"
+              }
             },
-            {
-                "width": 192,
-                "height": 192,
-                "id": "IV_SWEEP-41060d63-89ff-46f2-914b-944a11d24ed7",
-                "type": "IO",
-                "data": {
-                    "id": "IV_SWEEP-41060d63-89ff-46f2-914b-944a11d24ed7",
-                    "label": "IV SWEEP",
-                    "func": "IV_SWEEP",
-                    "type": "IO",
-                    "ctrls": {
-                        "connection": {
-                            "type": "SerialConnection",
-                            "default": null,
-                            "desc": null,
-                            "overload": null,
-                            "functionName": "IV_SWEEP",
-                            "param": "connection",
-                            "value": ""
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Vector",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair",
-                            "desc": null
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "pyserial",
-                            "v": "3.5"
-                        }
-                    ],
-                    "path": "IO/INSTRUMENTS/SOURCEMETERS/KEITHLEY/24XX/BASIC/IV_SWEEP/IV_SWEEP.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 511.6912461233678,
-                    "y": 5.980216390951398
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 511.6912461233678,
-                    "y": 5.980216390951398
-                },
-                "dragging": true
+            "initCtrls": {},
+            "outputs": [
+              {
+                "name": "default",
+                "id": "default",
+                "type": "String",
+                "desc": "The IP or VISA address of the VISA device."
+              }
+            ],
+            "pip_dependencies": [
+              {
+                "name": "tm_devices",
+                "v": "1.0"
+              }
+            ],
+            "path": "HARDWARE/SOURCEMETERS/KEITHLEY/2450/CONNECT_2450/CONNECT_2450.py"
+          },
+          "position": {
+            "x": -672.9705519399253,
+            "y": -345.8676653985847
+          },
+          "selected": false,
+          "positionAbsolute": {
+            "x": -672.9705519399253,
+            "y": -345.8676653985847
+          },
+          "dragging": false
+        },
+        {
+          "width": 192,
+          "height": 192,
+          "id": "IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010",
+          "type": "HARDWARE",
+          "data": {
+            "id": "IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010",
+            "label": "IV SWEEP 2450",
+            "func": "IV_SWEEP_2450",
+            "type": "HARDWARE",
+            "ctrls": {
+              "connection": {
+                "type": "VisaConnection",
+                "default": null,
+                "desc": "The VISA address (requires the CONNECTION_2450 block).",
+                "overload": null,
+                "functionName": "IV_SWEEP_2450",
+                "param": "connection",
+                "value": "TCPIP::169.254.175.123::INSTR"
+              },
+              "sweep": {
+                "type": "select",
+                "options": ["voltage", "current"],
+                "default": "voltage",
+                "desc": "Select the sweep mode, the opposite unit is measured.",
+                "overload": null,
+                "functionName": "IV_SWEEP_2450",
+                "param": "sweep",
+                "value": "voltage"
+              },
+              "sense": {
+                "type": "select",
+                "options": ["2-wire", "4-wire"],
+                "default": "2-wire",
+                "desc": "Use 2 or 4 wire sense/measurement mode.",
+                "overload": null,
+                "functionName": "IV_SWEEP_2450",
+                "param": "sense",
+                "value": "2-wire"
+              },
+              "start": {
+                "type": "float",
+                "default": 0,
+                "desc": "The first x value of the sweep.",
+                "overload": null,
+                "functionName": "IV_SWEEP_2450",
+                "param": "start",
+                "value": 0
+              },
+              "stop": {
+                "type": "float",
+                "default": 1,
+                "desc": "The last x value of the sweep.",
+                "overload": null,
+                "functionName": "IV_SWEEP_2450",
+                "param": "stop",
+                "value": 1
+              },
+              "points": {
+                "type": "float",
+                "default": 100,
+                "desc": "The number of points between start and stop.",
+                "overload": null,
+                "functionName": "IV_SWEEP_2450",
+                "param": "points",
+                "value": 100
+              },
+              "measurement_time": {
+                "type": "float",
+                "default": 1,
+                "desc": "How long to measure a single point, in seconds.",
+                "overload": null,
+                "functionName": "IV_SWEEP_2450",
+                "param": "measurement_time",
+                "value": 1
+              },
+              "measurement_delay": {
+                "type": "float",
+                "default": 0.05,
+                "desc": "How long to delay between two points, in seconds.",
+                "overload": null,
+                "functionName": "IV_SWEEP_2450",
+                "param": "measurement_delay",
+                "value": 0.05
+              },
+              "y_limit": {
+                "type": "float",
+                "default": 1,
+                "desc": "The limit of the measured value.",
+                "overload": null,
+                "functionName": "IV_SWEEP_2450",
+                "param": "y_limit",
+                "value": 1
+              },
+              "source_range": {
+                "type": "float",
+                "default": 1,
+                "desc": "The range of the x value.",
+                "overload": null,
+                "functionName": "IV_SWEEP_2450",
+                "param": "source_range",
+                "value": 2
+              }
             },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "LINSPACE-db9bbe29-66a0-4122-ad24-e3c00b1fba28",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "LINSPACE-db9bbe29-66a0-4122-ad24-e3c00b1fba28",
-                    "label": "LINSPACE",
-                    "func": "LINSPACE",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "start": {
-                            "type": "float",
-                            "default": 10,
-                            "desc": "The start point of the data.",
-                            "overload": null,
-                            "functionName": "LINSPACE",
-                            "param": "start",
-                            "value": 10
-                        },
-                        "end": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": "The end point of the data.",
-                            "overload": null,
-                            "functionName": "LINSPACE",
-                            "param": "end",
-                            "value": 0
-                        },
-                        "step": {
-                            "type": "int",
-                            "default": 1000,
-                            "desc": "The number of points in the vector.",
-                            "overload": null,
-                            "functionName": "LINSPACE",
-                            "param": "step",
-                            "value": 10
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector",
-                            "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
-                        }
-                    ],
-                    "path": "GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 192.47824090745922,
-                    "y": 49.8416165273091
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 192.47824090745922,
-                    "y": 49.8416165273091
-                },
-                "dragging": true
+            "initCtrls": {},
+            "inputs": [
+              {
+                "name": "input",
+                "id": "input",
+                "type": "Any",
+                "desc": null,
+                "multiple": false
+              }
+            ],
+            "outputs": [
+              {
+                "name": "default",
+                "id": "default",
+                "type": "OrderedPair",
+                "desc": "Sweep values"
+              }
+            ],
+            "pip_dependencies": [
+              {
+                "name": "tm_devices",
+                "v": "1.0"
+              }
+            ],
+            "path": "HARDWARE/SOURCEMETERS/KEITHLEY/2450/IV_SWEEP_2450/IV_SWEEP_2450.py"
+          },
+          "position": {
+            "x": -188.32832784400642,
+            "y": -346.5454586451035
+          },
+          "selected": false,
+          "positionAbsolute": {
+            "x": -188.32832784400642,
+            "y": -346.5454586451035
+          },
+          "dragging": false
+        },
+        {
+          "width": 380,
+          "height": 293,
+          "id": "LINE-30feab30-6d4f-4274-8877-383382355e5f",
+          "type": "VISUALIZATION",
+          "data": {
+            "id": "LINE-30feab30-6d4f-4274-8877-383382355e5f",
+            "label": "LINE",
+            "func": "LINE",
+            "type": "VISUALIZATION",
+            "ctrls": {
+              "xaxis_title": {
+                "type": "str",
+                "default": "",
+                "desc": "Choose the label for the x axis.",
+                "overload": null,
+                "functionName": "LINE",
+                "param": "xaxis_title",
+                "value": ""
+              },
+              "yaxis_title": {
+                "type": "str",
+                "default": "",
+                "desc": "Choose the label for the y axis.",
+                "overload": null,
+                "functionName": "LINE",
+                "param": "yaxis_title",
+                "value": ""
+              },
+              "x_log_scale": {
+                "type": "bool",
+                "default": false,
+                "desc": null,
+                "overload": null,
+                "functionName": "LINE",
+                "param": "x_log_scale",
+                "value": false
+              },
+              "y_log_scale": {
+                "type": "bool",
+                "default": false,
+                "desc": null,
+                "overload": null,
+                "functionName": "LINE",
+                "param": "y_log_scale",
+                "value": false
+              }
             },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "SCATTER-fee34277-0702-4342-af77-37c9d68701c6",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "SCATTER-fee34277-0702-4342-af77-37c9d68701c6",
-                    "label": "SCATTER",
-                    "func": "SCATTER",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly Scatter visualization"
-                        }
-                    ],
-                    "path": "VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 822.0611229804773,
-                    "y": -8.822814846961876
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 822.0611229804773,
-                    "y": -8.822814846961876
-                },
-                "dragging": true
-            }
-        ],
-        "edges": [
-            {
-                "source": "OPEN_KEITHLEY_24XX-097d2560-f5b9-468a-9517-32e89dedecc1",
-                "sourceHandle": "default",
-                "target": "LINSPACE-db9bbe29-66a0-4122-ad24-e3c00b1fba28",
-                "targetHandle": "default",
-                "id": "reactflow__edge-OPEN_KEITHLEY_24XX-097d2560-f5b9-468a-9517-32e89dedecc1default-LINSPACE-db9bbe29-66a0-4122-ad24-e3c00b1fba28default"
-            },
-            {
-                "source": "LINSPACE-db9bbe29-66a0-4122-ad24-e3c00b1fba28",
-                "sourceHandle": "default",
-                "target": "IV_SWEEP-41060d63-89ff-46f2-914b-944a11d24ed7",
-                "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-db9bbe29-66a0-4122-ad24-e3c00b1fba28default-IV_SWEEP-41060d63-89ff-46f2-914b-944a11d24ed7default"
-            },
-            {
-                "source": "IV_SWEEP-41060d63-89ff-46f2-914b-944a11d24ed7",
-                "sourceHandle": "default",
-                "target": "SCATTER-fee34277-0702-4342-af77-37c9d68701c6",
-                "targetHandle": "default",
-                "id": "reactflow__edge-IV_SWEEP-41060d63-89ff-46f2-914b-944a11d24ed7default-SCATTER-fee34277-0702-4342-af77-37c9d68701c6default"
-            }
-        ],
-        "viewport": {
-            "x": 255.10425070720453,
-            "y": 317.88940714410813,
-            "zoom": 0.5
+            "initCtrls": {},
+            "inputs": [
+              {
+                "name": "default",
+                "id": "default",
+                "type": "OrderedPair|DataFrame|Matrix|Vector",
+                "desc": "the DataContainer to be visualized",
+                "multiple": false
+              }
+            ],
+            "outputs": [
+              {
+                "name": "default",
+                "id": "default",
+                "type": "Plotly",
+                "desc": "the DataContainer containing the Plotly Line visualization of the input data"
+              }
+            ],
+            "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py"
+          },
+          "position": {
+            "x": 277.6353132585617,
+            "y": -388.71783537569377
+          },
+          "selected": false,
+          "positionAbsolute": {
+            "x": 277.6353132585617,
+            "y": -388.71783537569377
+          },
+          "dragging": false
         }
-    }
-}
+      ],
+      "edges": [
+        {
+          "id": "CONNECT_2450-72b8d59f-b577-4f92-b3df-705b3fc2cd06->IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010",
+          "source": "CONNECT_2450-72b8d59f-b577-4f92-b3df-705b3fc2cd06",
+          "target": "IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010",
+          "sourceHandle": "default",
+          "targetHandle": "input",
+          "data": {
+            "outputType": "String"
+          }
+        },
+        {
+          "id": "IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010->LINE-30feab30-6d4f-4274-8877-383382355e5f",
+          "source": "IV_SWEEP_2450-4e375cbe-903d-4b94-bda3-d17321ec8010",
+          "target": "LINE-30feab30-6d4f-4274-8877-383382355e5f",
+          "sourceHandle": "default",
+          "targetHandle": "default",
+          "data": {
+            "outputType": "OrderedPair"
+          }
+        }
+      ]
+    },
+    "textNodes": [
+      {
+        "id": "TextNode-1c9af5ae-81b7-437f-a108-1d85efbe8963",
+        "position": {
+          "x": -357.595171168341,
+          "y": -47.6374103046935
+        },
+        "type": "TextNode",
+        "data": {
+          "text": "## This app performs a IV sweep where voltage is swept and the resulting current is measured. This is a useful technique for testing electrical components, such as diodes."
+        },
+        "width": 582,
+        "height": 161,
+        "selected": false,
+        "positionAbsolute": {
+          "x": -357.595171168341,
+          "y": -47.6374103046935
+        },
+        "dragging": false,
+        "style": {
+          "width": 582,
+          "height": 161
+        },
+        "resizing": false
+      }
+    ]
+  }
+  

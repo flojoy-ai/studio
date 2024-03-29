@@ -2,24 +2,22 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 208,
-                "height": 96,
-                "id": "CONSTANT-f360e448-3c26-49f8-a617-a257b2243d86",
-                "type": "GENERATORS",
+                "id": "CONSTANT-a141f985-7d4a-4e4f-99a6-0a4ddc336c0a",
+                "type": "DATA",
                 "data": {
-                    "id": "CONSTANT-f360e448-3c26-49f8-a617-a257b2243d86",
-                    "label": "3.0",
+                    "id": "CONSTANT-a141f985-7d4a-4e4f-99a6-0a4ddc336c0a",
+                    "label": "3",
                     "func": "CONSTANT",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "dc_type": {
                             "type": "select",
+                            "default": "OrderedPair",
                             "options": [
                                 "Scalar",
                                 "Vector",
                                 "OrderedPair"
                             ],
-                            "default": "OrderedPair",
                             "desc": "The type of DataContainer to return.",
                             "overload": null,
                             "functionName": "CONSTANT",
@@ -51,8 +49,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input that defines the size of the output."
+                            "desc": "Optional input that defines the size of the output.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -63,115 +61,38 @@
                             "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
                         }
                     ],
-                    "path": "GENERATORS/SIMULATIONS/CONSTANT/CONSTANT.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
                 },
                 "position": {
-                    "x": -4.389812295729584,
-                    "y": -70.22965827413745
+                    "x": -406.2956173879023,
+                    "y": -25.67744309391992
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -4.389812295729584,
-                    "y": -70.22965827413745
+                    "x": -406.2956173879023,
+                    "y": -25.67744309391992
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
-                "id": "CONSTANT-2136b666-a5c8-491d-9b92-d39109c1735d",
-                "type": "GENERATORS",
+                "id": "CONSTANT-21de25df-26a2-4fb8-ae0b-0cddf99c875e",
+                "type": "DATA",
                 "data": {
-                    "id": "CONSTANT-2136b666-a5c8-491d-9b92-d39109c1735d",
-                    "label": "3.0",
+                    "id": "CONSTANT-21de25df-26a2-4fb8-ae0b-0cddf99c875e",
+                    "label": "3",
                     "func": "CONSTANT",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "dc_type": {
                             "type": "select",
+                            "default": "OrderedPair",
                             "options": [
                                 "Scalar",
                                 "Vector",
                                 "OrderedPair"
                             ],
-                            "default": "OrderedPair",
-                            "desc": "The type of DataContainer to return.",
-                            "overload": null,
-                            "functionName": "CONSTANT",
-                            "param": "dc_type",
-                            "value": "Scalar"
-                        },
-                        "constant": {
-                            "type": "float",
-                            "default": 3,
-                            "desc": "The value of the y axis output.",
-                            "overload": null,
-                            "functionName": "CONSTANT",
-                            "param": "constant",
-                            "value": 3
-                        },
-                        "step": {
-                            "type": "float",
-                            "default": 1000,
-                            "desc": "The size of the y and x axes.",
-                            "overload": null,
-                            "functionName": "CONSTANT",
-                            "param": "step",
-                            "value": 1000
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input that defines the size of the output."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|Vector|Scalar",
-                            "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
-                        }
-                    ],
-                    "path": "GENERATORS/SIMULATIONS/CONSTANT/CONSTANT.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -8.824363585712533,
-                    "y": -416.3213586761047
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -8.824363585712533,
-                    "y": -416.3213586761047
-                },
-                "dragging": true
-            },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "CONSTANT-5c7b7add-63a3-4a3f-aa9f-9c0cf172bb62",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "CONSTANT-5c7b7add-63a3-4a3f-aa9f-9c0cf172bb62",
-                    "label": "3.0",
-                    "func": "CONSTANT",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "dc_type": {
-                            "type": "select",
-                            "options": [
-                                "Scalar",
-                                "Vector",
-                                "OrderedPair"
-                            ],
-                            "default": "OrderedPair",
                             "desc": "The type of DataContainer to return.",
                             "overload": null,
                             "functionName": "CONSTANT",
@@ -203,8 +124,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input that defines the size of the output."
+                            "desc": "Optional input that defines the size of the output.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -215,73 +136,104 @@
                             "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
                         }
                     ],
-                    "path": "GENERATORS/SIMULATIONS/CONSTANT/CONSTANT.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
                 },
                 "position": {
-                    "x": -11.417226508304964,
-                    "y": 298.92084056266
+                    "x": 869.8649724197946,
+                    "y": -538.5811826274344
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -11.417226508304964,
-                    "y": 298.92084056266
+                    "x": 869.8649724197946,
+                    "y": -538.5811826274344
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 273,
-                "height": 160,
-                "id": "DATACONTAINER_TYPE-21be2d9a-d726-4d66-849c-1988ffb917c1",
-                "type": "EXTRACTORS",
+                "id": "CONSTANT-20d1ba43-c4a4-42a4-9147-94c9cd2bd032",
+                "type": "DATA",
                 "data": {
-                    "id": "DATACONTAINER_TYPE-21be2d9a-d726-4d66-849c-1988ffb917c1",
-                    "label": "DATACONTAINER TYPE",
-                    "func": "DATACONTAINER_TYPE",
-                    "type": "EXTRACTORS",
-                    "ctrls": {},
+                    "id": "CONSTANT-20d1ba43-c4a4-42a4-9147-94c9cd2bd032",
+                    "label": "3",
+                    "func": "CONSTANT",
+                    "type": "DATA",
+                    "ctrls": {
+                        "dc_type": {
+                            "type": "select",
+                            "default": "OrderedPair",
+                            "options": [
+                                "Scalar",
+                                "Vector",
+                                "OrderedPair"
+                            ],
+                            "desc": "The type of DataContainer to return.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "dc_type",
+                            "value": "Scalar"
+                        },
+                        "constant": {
+                            "type": "float",
+                            "default": 3,
+                            "desc": "The value of the y axis output.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "constant",
+                            "value": 3
+                        },
+                        "step": {
+                            "type": "float",
+                            "default": 1000,
+                            "desc": "The size of the y and x axes.",
+                            "overload": null,
+                            "functionName": "CONSTANT",
+                            "param": "step",
+                            "value": 1000
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "type": "Vector|OrderedPair",
+                            "desc": "Optional input that defines the size of the output.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "String",
-                            "desc": "String:"
+                            "type": "OrderedPair|Vector|Scalar",
+                            "desc": "OrderedPair if selected\nx: the x axis generated with size 'step'\ny: the resulting constant with size 'step'\nVector if selected\nv: the resulting constant with size 'step'\nScalar if selected\nc: the resulting constant"
                         }
                     ],
-                    "path": "EXTRACTORS/DEBUGGING/DATACONTAINER_TYPE/DATACONTAINER_TYPE.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/CONSTANT/CONSTANT.py"
                 },
                 "position": {
-                    "x": 367.2744596301207,
-                    "y": -266.10188042774996
+                    "x": -390.0969737539285,
+                    "y": -558.0291458882263
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 367.2744596301207,
-                    "y": -266.10188042774996
+                    "x": -390.0969737539285,
+                    "y": -558.0291458882263
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 160,
-                "height": 160,
-                "id": "DC_CONTENT_TYPE-47031b75-f6bb-4cd6-aef3-8f0ccfbfe131",
-                "type": "EXTRACTORS",
+                "id": "DC_CONTENT_TYPE-585c7dc8-9566-44e7-b2cc-2927ca410664",
+                "type": "DEBUGGING",
                 "data": {
-                    "id": "DC_CONTENT_TYPE-47031b75-f6bb-4cd6-aef3-8f0ccfbfe131",
+                    "id": "DC_CONTENT_TYPE-585c7dc8-9566-44e7-b2cc-2927ca410664",
                     "label": "DC CONTENT TYPE",
                     "func": "DC_CONTENT_TYPE",
-                    "type": "EXTRACTORS",
+                    "type": "DEBUGGING",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -289,8 +241,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": "The input DataContainer to check the content type.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -298,76 +250,32 @@
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "desc": "String:"
+                            "desc": "String: Type of the input DataContainer's content (e.g. float)"
                         }
                     ],
-                    "path": "EXTRACTORS/DEBUGGING/DC_CONTENT_TYPE/DC_CONTENT_TYPE.py",
-                    "selected": false
+                    "path": "DEBUGGING/DC_CONTENT_TYPE/DC_CONTENT_TYPE.py"
                 },
                 "position": {
-                    "x": 423.04204666204885,
-                    "y": -487.5001186468029
+                    "x": 65.93876355426272,
+                    "y": -562.5257793208026
                 },
+                "width": 216,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 423.04204666204885,
-                    "y": -487.5001186468029
+                    "x": 65.93876355426272,
+                    "y": -562.5257793208026
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 160,
-                "height": 160,
-                "id": "DC_CONTENT_TYPE-194bbb3e-7852-4728-9459-59e9a71777bd",
-                "type": "EXTRACTORS",
+                "id": "DC_CONTENT_TYPE-ddc1a7ae-78c8-4073-8897-91cdf34cd9b6",
+                "type": "DEBUGGING",
                 "data": {
-                    "id": "DC_CONTENT_TYPE-194bbb3e-7852-4728-9459-59e9a71777bd",
-                    "label": "DC CONTENT TYPE 1",
-                    "func": "DC_CONTENT_TYPE",
-                    "type": "EXTRACTORS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "desc": "String:"
-                        }
-                    ],
-                    "path": "EXTRACTORS/DEBUGGING/DC_CONTENT_TYPE/DC_CONTENT_TYPE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 418.8844775231683,
-                    "y": -73.25978257171602
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 418.8844775231683,
-                    "y": -73.25978257171602
-                },
-                "dragging": true
-            },
-            {
-                "width": 160,
-                "height": 160,
-                "id": "DC_CONTENT_TYPE-e8a4674d-97f1-4a41-ab6d-531839ac16cf",
-                "type": "EXTRACTORS",
-                "data": {
-                    "id": "DC_CONTENT_TYPE-e8a4674d-97f1-4a41-ab6d-531839ac16cf",
+                    "id": "DC_CONTENT_TYPE-ddc1a7ae-78c8-4073-8897-91cdf34cd9b6",
                     "label": "DC CONTENT TYPE 2",
                     "func": "DC_CONTENT_TYPE",
-                    "type": "EXTRACTORS",
+                    "type": "DEBUGGING",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -375,8 +283,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": "The input DataContainer to check the content type.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -384,217 +292,93 @@
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "desc": "String:"
+                            "desc": "String: Type of the input DataContainer's content (e.g. float)"
                         }
                     ],
-                    "path": "EXTRACTORS/DEBUGGING/DC_CONTENT_TYPE/DC_CONTENT_TYPE.py",
-                    "selected": false
+                    "path": "DEBUGGING/DC_CONTENT_TYPE/DC_CONTENT_TYPE.py"
                 },
                 "position": {
-                    "x": 422.58228096141244,
-                    "y": 293.7089447224463
+                    "x": 1264.672449257562,
+                    "y": -522.7284188622616
                 },
+                "width": 216,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 422.58228096141244,
-                    "y": 293.7089447224463
+                    "x": 1264.672449257562,
+                    "y": -522.7284188622616
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 384,
-                "height": 288,
-                "id": "TEXT_VIEW-817997cd-1bc4-469f-a626-ec9638878d86",
-                "type": "VISUALIZERS",
+                "id": "DC_CONTENT_TYPE-fcb671ce-eea2-4780-8316-84c41a4d58f8",
+                "type": "DEBUGGING",
                 "data": {
-                    "id": "TEXT_VIEW-817997cd-1bc4-469f-a626-ec9638878d86",
+                    "id": "DC_CONTENT_TYPE-fcb671ce-eea2-4780-8316-84c41a4d58f8",
+                    "label": "DC CONTENT TYPE 1",
+                    "func": "DC_CONTENT_TYPE",
+                    "type": "DEBUGGING",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "The input DataContainer to check the content type.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Type of the input DataContainer's content (e.g. float)"
+                        }
+                    ],
+                    "path": "DEBUGGING/DC_CONTENT_TYPE/DC_CONTENT_TYPE.py"
+                },
+                "position": {
+                    "x": 71.28185968642902,
+                    "y": 1.7441861568372587
+                },
+                "width": 216,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 71.28185968642902,
+                    "y": 1.7441861568372587
+                },
+                "dragging": false
+            },
+            {
+                "id": "TEXT_VIEW-9c9900cc-1c58-4884-89be-bddd9c6ac607",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TEXT_VIEW-9c9900cc-1c58-4884-89be-bddd9c6ac607",
                     "label": "TEXT VIEW",
                     "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
                         }
-                    ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 822.9185133761199,
-                    "y": 19.47337889558895
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 822.9185133761199,
-                    "y": 19.47337889558895
-                },
-                "dragging": true
-            },
-            {
-                "width": 384,
-                "height": 288,
-                "id": "TEXT_VIEW-c4fb79bf-789e-4aa4-83f6-ab1b7610b5d9",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TEXT_VIEW-c4fb79bf-789e-4aa4-83f6-ab1b7610b5d9",
-                    "label": "TEXT VIEW 1",
-                    "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
-                        }
-                    ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 830.5105759175779,
-                    "y": -148.29771160498527
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 830.5105759175779,
-                    "y": -148.29771160498527
-                },
-                "dragging": true
-            },
-            {
-                "width": 384,
-                "height": 288,
-                "id": "TEXT_VIEW-7a0ff8f6-ca21-481c-95cf-a63e2435f1a4",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TEXT_VIEW-7a0ff8f6-ca21-481c-95cf-a63e2435f1a4",
-                    "label": "TEXT VIEW 2",
-                    "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
-                        }
-                    ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 879.935152708707,
-                    "y": -347.8394230588621
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 879.935152708707,
-                    "y": -347.8394230588621
-                },
-                "dragging": true
-            },
-            {
-                "width": 384,
-                "height": 288,
-                "id": "TEXT_VIEW-1dde52f7-9389-41e3-9a59-159fea3d906b",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TEXT_VIEW-1dde52f7-9389-41e3-9a59-159fea3d906b",
-                    "label": "TEXT VIEW 3",
-                    "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
-                        }
-                    ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 832.5997194231193,
-                    "y": -561.8439852192519
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 832.5997194231193,
-                    "y": -561.8439852192519
-                },
-                "dragging": true
-            },
-            {
-                "width": 384,
-                "height": 288,
-                "id": "TEXT_VIEW-a27f28a7-9db3-4b3b-8558-9c772b38ca7c",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TEXT_VIEW-a27f28a7-9db3-4b3b-8558-9c772b38ca7c",
-                    "label": "TEXT VIEW 4",
-                    "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
-                        }
-                    ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 828.6977981693892,
-                    "y": 329.38047402670065
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 828.6977981693892,
-                    "y": 329.38047402670065
-                },
-                "dragging": true
-            },
-            {
-                "width": 273,
-                "height": 160,
-                "id": "PRINT_DATACONTAINER-f97df0b9-f133-4d4f-b366-9a5c8ed011ec",
-                "type": "EXTRACTORS",
-                "data": {
-                    "id": "PRINT_DATACONTAINER-f97df0b9-f133-4d4f-b366-9a5c8ed011ec",
-                    "label": "PRINT DATACONTAINER",
-                    "func": "PRINT_DATACONTAINER",
-                    "type": "EXTRACTORS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -602,100 +386,422 @@
                             "name": "default",
                             "id": "default",
                             "type": "String",
-                            "desc": "String:"
+                            "desc": "The DataContainer containing text data"
                         }
                     ],
-                    "path": "EXTRACTORS/DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
                 },
                 "position": {
-                    "x": 365.3841640709858,
-                    "y": 103.61032181488429
+                    "x": 511.21685478497693,
+                    "y": -601.5033793975443
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 365.3841640709858,
-                    "y": 103.61032181488429
+                    "x": 511.21685478497693,
+                    "y": -601.5033793975443
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "DATACONTAINER_TYPE-2c3aea62-b695-42db-88c2-a663ae5075e9",
+                "type": "DEBUGGING",
+                "data": {
+                    "id": "DATACONTAINER_TYPE-2c3aea62-b695-42db-88c2-a663ae5075e9",
+                    "label": "DATACONTAINER TYPE",
+                    "func": "DATACONTAINER_TYPE",
+                    "type": "DEBUGGING",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "The input DataContainer to check the type.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Input DataContainer type"
+                        }
+                    ],
+                    "path": "DEBUGGING/DATACONTAINER_TYPE/DATACONTAINER_TYPE.py"
+                },
+                "position": {
+                    "x": 75.23916158092504,
+                    "y": -288.11776951014326
+                },
+                "width": 281,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 75.23916158092504,
+                    "y": -288.11776951014326
+                },
+                "dragging": false
+            },
+            {
+                "id": "TEXT_VIEW-287a8ada-3f43-499b-9164-d9263f6ba755",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TEXT_VIEW-287a8ada-3f43-499b-9164-d9263f6ba755",
+                    "label": "TEXT VIEW 3",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
+                },
+                "position": {
+                    "x": 680.1127932915081,
+                    "y": 239.29934676637095
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 680.1127932915081,
+                    "y": 239.29934676637095
+                },
+                "dragging": false
+            },
+            {
+                "id": "TEXT_VIEW-d259ebde-368c-4bec-8e85-8cb7da512b74",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TEXT_VIEW-d259ebde-368c-4bec-8e85-8cb7da512b74",
+                    "label": "TEXT VIEW 2",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
+                },
+                "position": {
+                    "x": 681.167903524095,
+                    "y": -50.91077211257982
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "dragging": false,
+                "positionAbsolute": {
+                    "x": 681.167903524095,
+                    "y": -50.91077211257982
+                }
+            },
+            {
+                "id": "TEXT_VIEW-815a38c8-79cc-4eb2-9b94-fe46c828fcb8",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TEXT_VIEW-815a38c8-79cc-4eb2-9b94-fe46c828fcb8",
+                    "label": "TEXT VIEW 1",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
+                },
+                "position": {
+                    "x": 687.5684389578321,
+                    "y": -327.8104075995029
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 687.5684389578321,
+                    "y": -327.8104075995029
+                },
+                "dragging": false
+            },
+            {
+                "id": "TEXT_VIEW-4cd7ce36-f241-42ed-bb09-a7cb2a2048e6",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "TEXT_VIEW-4cd7ce36-f241-42ed-bb09-a7cb2a2048e6",
+                    "label": "TEXT VIEW 4",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py"
+                },
+                "position": {
+                    "x": 1064.3445828227555,
+                    "y": -163.6372051287218
+                },
+                "width": 225,
+                "height": 225,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1064.3445828227555,
+                    "y": -163.6372051287218
+                },
+                "dragging": false
+            },
+            {
+                "id": "PRINT_DATACONTAINER-0d59fefa-386c-4fce-a539-eb93b91301e0",
+                "type": "DEBUGGING",
+                "data": {
+                    "id": "PRINT_DATACONTAINER-0d59fefa-386c-4fce-a539-eb93b91301e0",
+                    "label": "PRINT DATACONTAINER",
+                    "func": "PRINT_DATACONTAINER",
+                    "type": "DEBUGGING",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "desc": "The input DataContainer to print.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "String: Input datacontainer information"
+                        }
+                    ],
+                    "path": "DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py"
+                },
+                "position": {
+                    "x": 39.05701937840763,
+                    "y": 278.910593029306
+                },
+                "width": 281,
+                "height": 233,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 39.05701937840763,
+                    "y": 278.910593029306
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "CONSTANT-2136b666-a5c8-491d-9b92-d39109c1735d",
+                "id": "CONSTANT-20d1ba43-c4a4-42a4-9147-94c9cd2bd032->DC_CONTENT_TYPE-585c7dc8-9566-44e7-b2cc-2927ca410664_06aeb62f-1dcf-48d5-9289-9148b84345da",
+                "source": "CONSTANT-20d1ba43-c4a4-42a4-9147-94c9cd2bd032",
+                "target": "DC_CONTENT_TYPE-585c7dc8-9566-44e7-b2cc-2927ca410664",
                 "sourceHandle": "default",
-                "target": "DC_CONTENT_TYPE-47031b75-f6bb-4cd6-aef3-8f0ccfbfe131",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CONSTANT-2136b666-a5c8-491d-9b92-d39109c1735ddefault-DC_CONTENT_TYPE-47031b75-f6bb-4cd6-aef3-8f0ccfbfe131default"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "CONSTANT-f360e448-3c26-49f8-a617-a257b2243d86",
+                "id": "DC_CONTENT_TYPE-585c7dc8-9566-44e7-b2cc-2927ca410664->TEXT_VIEW-9c9900cc-1c58-4884-89be-bddd9c6ac607_a28632fd-8386-4db9-a183-dce5335f1a8c",
+                "source": "DC_CONTENT_TYPE-585c7dc8-9566-44e7-b2cc-2927ca410664",
+                "target": "TEXT_VIEW-9c9900cc-1c58-4884-89be-bddd9c6ac607",
                 "sourceHandle": "default",
-                "target": "DATACONTAINER_TYPE-21be2d9a-d726-4d66-849c-1988ffb917c1",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CONSTANT-f360e448-3c26-49f8-a617-a257b2243d86default-DATACONTAINER_TYPE-21be2d9a-d726-4d66-849c-1988ffb917c1default"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "CONSTANT-f360e448-3c26-49f8-a617-a257b2243d86",
+                "id": "CONSTANT-a141f985-7d4a-4e4f-99a6-0a4ddc336c0a->DATACONTAINER_TYPE-2c3aea62-b695-42db-88c2-a663ae5075e9_06c1de19-bb87-4f13-8a35-6a2fb5366203",
+                "source": "CONSTANT-a141f985-7d4a-4e4f-99a6-0a4ddc336c0a",
+                "target": "DATACONTAINER_TYPE-2c3aea62-b695-42db-88c2-a663ae5075e9",
                 "sourceHandle": "default",
-                "target": "DC_CONTENT_TYPE-194bbb3e-7852-4728-9459-59e9a71777bd",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CONSTANT-f360e448-3c26-49f8-a617-a257b2243d86default-DC_CONTENT_TYPE-194bbb3e-7852-4728-9459-59e9a71777bddefault"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "CONSTANT-5c7b7add-63a3-4a3f-aa9f-9c0cf172bb62",
+                "id": "DATACONTAINER_TYPE-2c3aea62-b695-42db-88c2-a663ae5075e9->TEXT_VIEW-815a38c8-79cc-4eb2-9b94-fe46c828fcb8_c92f3c8c-f6c5-4761-af3b-aabb7be5e459",
+                "source": "DATACONTAINER_TYPE-2c3aea62-b695-42db-88c2-a663ae5075e9",
+                "target": "TEXT_VIEW-815a38c8-79cc-4eb2-9b94-fe46c828fcb8",
                 "sourceHandle": "default",
-                "target": "DC_CONTENT_TYPE-e8a4674d-97f1-4a41-ab6d-531839ac16cf",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CONSTANT-5c7b7add-63a3-4a3f-aa9f-9c0cf172bb62default-DC_CONTENT_TYPE-e8a4674d-97f1-4a41-ab6d-531839ac16cfdefault"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "DC_CONTENT_TYPE-e8a4674d-97f1-4a41-ab6d-531839ac16cf",
+                "id": "CONSTANT-a141f985-7d4a-4e4f-99a6-0a4ddc336c0a->DC_CONTENT_TYPE-fcb671ce-eea2-4780-8316-84c41a4d58f8_fc5e4e34-7564-4d54-bee1-565088298535",
+                "source": "CONSTANT-a141f985-7d4a-4e4f-99a6-0a4ddc336c0a",
+                "target": "DC_CONTENT_TYPE-fcb671ce-eea2-4780-8316-84c41a4d58f8",
                 "sourceHandle": "default",
-                "target": "TEXT_VIEW-a27f28a7-9db3-4b3b-8558-9c772b38ca7c",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DC_CONTENT_TYPE-e8a4674d-97f1-4a41-ab6d-531839ac16cfdefault-TEXT_VIEW-a27f28a7-9db3-4b3b-8558-9c772b38ca7cdefault"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "DC_CONTENT_TYPE-194bbb3e-7852-4728-9459-59e9a71777bd",
+                "id": "DC_CONTENT_TYPE-fcb671ce-eea2-4780-8316-84c41a4d58f8->TEXT_VIEW-d259ebde-368c-4bec-8e85-8cb7da512b74_8d9e9f0f-4e07-4cc8-b451-6806df4fd336",
+                "source": "DC_CONTENT_TYPE-fcb671ce-eea2-4780-8316-84c41a4d58f8",
+                "target": "TEXT_VIEW-d259ebde-368c-4bec-8e85-8cb7da512b74",
                 "sourceHandle": "default",
-                "target": "TEXT_VIEW-c4fb79bf-789e-4aa4-83f6-ab1b7610b5d9",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DC_CONTENT_TYPE-194bbb3e-7852-4728-9459-59e9a71777bddefault-TEXT_VIEW-c4fb79bf-789e-4aa4-83f6-ab1b7610b5d9default"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "DATACONTAINER_TYPE-21be2d9a-d726-4d66-849c-1988ffb917c1",
+                "id": "PRINT_DATACONTAINER-0d59fefa-386c-4fce-a539-eb93b91301e0->TEXT_VIEW-287a8ada-3f43-499b-9164-d9263f6ba755_6a1d2a91-8221-40fc-bd69-36fbad781983",
+                "source": "PRINT_DATACONTAINER-0d59fefa-386c-4fce-a539-eb93b91301e0",
+                "target": "TEXT_VIEW-287a8ada-3f43-499b-9164-d9263f6ba755",
                 "sourceHandle": "default",
-                "target": "TEXT_VIEW-7a0ff8f6-ca21-481c-95cf-a63e2435f1a4",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DATACONTAINER_TYPE-21be2d9a-d726-4d66-849c-1988ffb917c1default-TEXT_VIEW-7a0ff8f6-ca21-481c-95cf-a63e2435f1a4default"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "DC_CONTENT_TYPE-47031b75-f6bb-4cd6-aef3-8f0ccfbfe131",
+                "id": "CONSTANT-a141f985-7d4a-4e4f-99a6-0a4ddc336c0a->PRINT_DATACONTAINER-0d59fefa-386c-4fce-a539-eb93b91301e0_db15a90f-eabe-4155-8c61-6c5772c3cd12",
+                "source": "CONSTANT-a141f985-7d4a-4e4f-99a6-0a4ddc336c0a",
+                "target": "PRINT_DATACONTAINER-0d59fefa-386c-4fce-a539-eb93b91301e0",
                 "sourceHandle": "default",
-                "target": "TEXT_VIEW-1dde52f7-9389-41e3-9a59-159fea3d906b",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DC_CONTENT_TYPE-47031b75-f6bb-4cd6-aef3-8f0ccfbfe131default-TEXT_VIEW-1dde52f7-9389-41e3-9a59-159fea3d906bdefault"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "CONSTANT-f360e448-3c26-49f8-a617-a257b2243d86",
+                "id": "CONSTANT-21de25df-26a2-4fb8-ae0b-0cddf99c875e->DC_CONTENT_TYPE-ddc1a7ae-78c8-4073-8897-91cdf34cd9b6_6376c218-8eec-4852-b840-c4e63079d9e2",
+                "source": "CONSTANT-21de25df-26a2-4fb8-ae0b-0cddf99c875e",
+                "target": "DC_CONTENT_TYPE-ddc1a7ae-78c8-4073-8897-91cdf34cd9b6",
                 "sourceHandle": "default",
-                "target": "PRINT_DATACONTAINER-f97df0b9-f133-4d4f-b366-9a5c8ed011ec",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CONSTANT-f360e448-3c26-49f8-a617-a257b2243d86default-PRINT_DATACONTAINER-f97df0b9-f133-4d4f-b366-9a5c8ed011ecdefault"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             },
             {
-                "source": "PRINT_DATACONTAINER-f97df0b9-f133-4d4f-b366-9a5c8ed011ec",
+                "id": "DC_CONTENT_TYPE-ddc1a7ae-78c8-4073-8897-91cdf34cd9b6->TEXT_VIEW-4cd7ce36-f241-42ed-bb09-a7cb2a2048e6_00d0bd66-5214-4055-82dd-3378b9433db4",
+                "source": "DC_CONTENT_TYPE-ddc1a7ae-78c8-4073-8897-91cdf34cd9b6",
+                "target": "TEXT_VIEW-4cd7ce36-f241-42ed-bb09-a7cb2a2048e6",
                 "sourceHandle": "default",
-                "target": "TEXT_VIEW-817997cd-1bc4-469f-a626-ec9638878d86",
                 "targetHandle": "default",
-                "id": "reactflow__edge-PRINT_DATACONTAINER-f97df0b9-f133-4d4f-b366-9a5c8ed011ecdefault-TEXT_VIEW-817997cd-1bc4-469f-a626-ec9638878d86default"
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 1139.470292881633,
-            "y": 572.2854272048312,
-            "zoom": 1.2136444284334926
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

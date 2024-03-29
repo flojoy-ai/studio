@@ -1,0 +1,16 @@
+<svg height="100pt" width="100pt" viewBox="5 10 115 116" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="13" y="41" width="27" height="49" rx="3" className="fill-accent5" fillOpacity="0.6" />
+  <rect x="16" y="48" width="21" height="5" rx="2.5" className="fill-accent5" />
+  <rect x="16" y="56" width="21" height="28" rx="2" className="fill-accent5" />
+  <rect x="53" y="41" width="27" height="33" rx="3" className="fill-accent5" fillOpacity="0.6" />
+  <rect x="88" y="68" width="27" height="45" rx="3" className="fill-accent5" fillOpacity="0.4" />
+  <rect x="91" y="74" width="21" height="22" rx="2" className="fill-accent5" fillOpacity="0.8" />
+  <rect x="91" y="99" width="21" height="9" rx="2" className="fill-accent5" fillOpacity="0.8" />
+  <rect x="56" y="47" width="21" height="5" rx="2.5" className="fill-accent5" />
+  <rect x="56" y="55" width="21" height="5" rx="2.5" className="fill-accent5" />
+  <rect x="56" y="63" width="21" height="5" rx="2.5" className="fill-accent5" />
+  <path d="M40 50C42.4074 50.1417 47.3185 52.04 47.7037 58.5C48.0889 64.96 51.3951 66.8583 53 67"
+    className="stroke-accent5" stroke-width="1.5" />
+  <path d="M80 63C81.4815 63.2417 84.5037 66.48 84.7407 77.5C84.9778 88.52 87.0123 91.7583 88 92"
+    className="stroke-accent5" stroke-width="1.5" />
+</svg>

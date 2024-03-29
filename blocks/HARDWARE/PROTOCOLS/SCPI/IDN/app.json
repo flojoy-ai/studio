@@ -2,15 +2,15 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 197,
                 "id": "OPEN_SERIAL-17411722-e9a1-4e27-ba12-1e75d699e01d",
-                "type": "IO",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "OPEN_SERIAL-17411722-e9a1-4e27-ba12-1e75d699e01d",
                     "label": "OPEN SERIAL",
                     "func": "OPEN_SERIAL",
-                    "type": "IO",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "device": {
                             "type": "SerialDevice",
@@ -29,6 +29,15 @@
                             "functionName": "OPEN_SERIAL",
                             "param": "baudrate",
                             "value": 9600
+                        },
+                        "connection_time": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "connection_time",
+                            "value": 0
                         }
                     },
                     "initCtrls": {},
@@ -46,7 +55,7 @@
                             "v": "3.5"
                         }
                     ],
-                    "path": "IO/PROTOCOLS/SERIAL/BASIC/OPEN_SERIAL/OPEN_SERIAL.py",
+                    "path": "HARDWARE/PROTOCOLS/SERIAL/OPEN_SERIAL/OPEN_SERIAL.py",
                     "selected": false
                 },
                 "position": {
@@ -61,15 +70,15 @@
                 "dragging": true
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 197,
                 "id": "IDN-c161f297-0c02-4397-9227-f3142ad0bb9c",
-                "type": "IO",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "IDN-c161f297-0c02-4397-9227-f3142ad0bb9c",
                     "label": "IDN",
                     "func": "IDN",
-                    "type": "IO",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "connection": {
                             "type": "SerialConnection",
@@ -86,9 +95,9 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "A dummy String DataContainer - likely connected to the output of the OPEN_SERIAL node. This dummy input is intended to connect to the OPEN_SERIAL output to ensure that OPEN_SERIAL is executed first."
+                            "type": "Any",
+                            "desc": "Any DataContainer - likely connected to the output of the OPEN_SERIAL block.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -105,119 +114,162 @@
                             "v": "3.5"
                         }
                     ],
-                    "path": "IO/PROTOCOLS/SCPI/IDN/IDN.py",
+                    "path": "HARDWARE/PROTOCOLS/SCPI/IDN/IDN.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 551.0172186571147,
-                    "y": -576.1304008214148
+                    "x": 538.1952842719052,
+                    "y": -622.2893646081691
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 551.0172186571147,
-                    "y": -576.1304008214148
+                    "x": 538.1952842719052,
+                    "y": -622.2893646081691
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 384,
-                "height": 288,
+                "width": 225,
+                "height": 225,
                 "id": "TEXT_VIEW-35658fcd-1613-4ac0-9e6c-321e0289cdb9",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "TEXT_VIEW-35658fcd-1613-4ac0-9e6c-321e0289cdb9",
                     "label": "TEXT VIEW",
                     "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false,
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ]
                 },
                 "position": {
-                    "x": 481.65150454274004,
-                    "y": -332.91450740918776
+                    "x": 558.5831108539974,
+                    "y": -318.81037958545727
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 481.65150454274004,
-                    "y": -332.91450740918776
+                    "x": 558.5831108539974,
+                    "y": -318.81037958545727
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 384,
-                "height": 288,
+                "width": 225,
+                "height": 225,
                 "id": "TEXT_VIEW-eedc270e-60d1-43a4-8052-c06d065cda03",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "TEXT_VIEW-eedc270e-60d1-43a4-8052-c06d065cda03",
                     "label": "TEXT VIEW 1",
                     "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
                         }
                     ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": true
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": true,
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ]
                 },
                 "position": {
-                    "x": 879.5415779914551,
-                    "y": -625.7781906340394
+                    "x": 979.5526661960895,
+                    "y": -657.8330265970633
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
-                    "x": 879.5415779914551,
-                    "y": -625.7781906340394
+                    "x": 979.5526661960895,
+                    "y": -657.8330265970633
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
+                "id": "OPEN_SERIAL-17411722-e9a1-4e27-ba12-1e75d699e01d->IDN-c161f297-0c02-4397-9227-f3142ad0bb9c_78c05881-db29-42bc-bb21-2359ba959f43",
                 "source": "OPEN_SERIAL-17411722-e9a1-4e27-ba12-1e75d699e01d",
-                "sourceHandle": "default",
                 "target": "IDN-c161f297-0c02-4397-9227-f3142ad0bb9c",
-                "targetHandle": "default",
-                "id": "reactflow__edge-OPEN_SERIAL-17411722-e9a1-4e27-ba12-1e75d699e01ddefault-IDN-c161f297-0c02-4397-9227-f3142ad0bb9cdefault"
-            },
-            {
-                "source": "IDN-c161f297-0c02-4397-9227-f3142ad0bb9c",
                 "sourceHandle": "default",
-                "target": "TEXT_VIEW-eedc270e-60d1-43a4-8052-c06d065cda03",
                 "targetHandle": "default",
-                "id": "reactflow__edge-IDN-c161f297-0c02-4397-9227-f3142ad0bb9cdefault-TEXT_VIEW-eedc270e-60d1-43a4-8052-c06d065cda03default"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "OPEN_SERIAL-17411722-e9a1-4e27-ba12-1e75d699e01d->TEXT_VIEW-35658fcd-1613-4ac0-9e6c-321e0289cdb9_0788ccd2-c609-46db-9930-5997d8a3af82",
                 "source": "OPEN_SERIAL-17411722-e9a1-4e27-ba12-1e75d699e01d",
-                "sourceHandle": "default",
                 "target": "TEXT_VIEW-35658fcd-1613-4ac0-9e6c-321e0289cdb9",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-OPEN_SERIAL-17411722-e9a1-4e27-ba12-1e75d699e01ddefault-TEXT_VIEW-35658fcd-1613-4ac0-9e6c-321e0289cdb9default"
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "IDN-c161f297-0c02-4397-9227-f3142ad0bb9c->TEXT_VIEW-eedc270e-60d1-43a4-8052-c06d065cda03_901490eb-8394-42d7-8fca-d7356b622220",
+                "source": "IDN-c161f297-0c02-4397-9227-f3142ad0bb9c",
+                "target": "TEXT_VIEW-eedc270e-60d1-43a4-8052-c06d065cda03",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 173.54985819173658,
-            "y": 726.3350510651735,
-            "zoom": 0.8280007481315924
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

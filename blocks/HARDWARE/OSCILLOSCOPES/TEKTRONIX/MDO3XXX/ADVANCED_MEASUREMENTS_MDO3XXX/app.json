@@ -2,15 +2,15 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
+                "width": 218,
+                "height": 233,
                 "id": "CONNECTION_MDO3XXX-9ce85b60-e790-43df-bb20-2d71fda6c1b3",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "CONNECTION_MDO3XXX-9ce85b60-e790-43df-bb20-2d71fda6c1b3",
                     "label": "CONNECTION MDO3XXX",
                     "func": "CONNECTION_MDO3XXX",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "device": {
                             "type": "VisaDevice",
@@ -37,8 +37,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -49,35 +49,35 @@
                             "desc": "Optional: None"
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/BASIC/CONNECTION_MDO3XXX/CONNECTION_MDO3XXX.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/CONNECTION_MDO3XXX/CONNECTION_MDO3XXX.py",
                     "selected": false
                 },
                 "position": {
-                    "x": -255.44879430712533,
-                    "y": -98.564770643341
+                    "x": -957.4487943071254,
+                    "y": 41.435229356658965
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -255.44879430712533,
-                    "y": -98.564770643341
+                    "x": -957.4487943071254,
+                    "y": 41.435229356658965
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "EXTRACT_TRACE_MDO3XXX-c47a35fb-de9e-404b-84e6-223f569e975f",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "EXTRACT_TRACE_MDO3XXX-c47a35fb-de9e-404b-84e6-223f569e975f",
                     "label": "EXTRACT TRACE CH1",
                     "func": "EXTRACT_TRACE_MDO3XXX",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_MDO3XXX node).",
+                            "desc": "The VISA address (requires the CONNECTION_MDO3XXX block).",
                             "overload": null,
                             "functionName": "EXTRACT_TRACE_MDO3XXX",
                             "param": "connection",
@@ -121,8 +121,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -133,30 +133,30 @@
                             "desc": "OrderedPair: The trace of the oscilloscope is returned."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/BASIC/EXTRACT_TRACE_MDO3XXX/EXTRACT_TRACE_MDO3XXX.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/EXTRACT_TRACE_MDO3XXX/EXTRACT_TRACE_MDO3XXX.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 130.0358104923503,
-                    "y": -284.8055974025993
+                    "x": -471.96418950764973,
+                    "y": -226.80559740259923
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 130.0358104923503,
-                    "y": -284.8055974025993
+                    "x": -471.96418950764973,
+                    "y": -226.80559740259923
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "BIG_NUMBER-cc9b6db5-08dd-4f8a-8256-6fcb30a02b35",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "BIG_NUMBER-cc9b6db5-08dd-4f8a-8256-6fcb30a02b35",
                     "label": "BIG NUMBER",
                     "func": "BIG_NUMBER",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {
                         "suffix": {
                             "type": "str",
@@ -185,6 +185,15 @@
                             "param": "title",
                             "value": ""
                         },
+                        "dec_places": {
+                            "type": "int",
+                            "default": 0,
+                            "desc": "Number of decimal places. Use 0 to not round. default = \"BIG_NUMBER\"",
+                            "overload": null,
+                            "functionName": "BIG_NUMBER",
+                            "param": "dec_places",
+                            "value": 0
+                        },
                         "relative_delta": {
                             "type": "bool",
                             "default": true,
@@ -197,7 +206,7 @@
                         "scientific_notation": {
                             "type": "bool",
                             "default": false,
-                            "desc": null,
+                            "desc": "Use scientific notation? Defaults to 4 decimal places.",
                             "overload": null,
                             "functionName": "BIG_NUMBER",
                             "param": "scientific_notation",
@@ -210,8 +219,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Scalar|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -222,35 +231,40 @@
                             "desc": "the DataContainer containing the Plotly big number visualization"
                         }
                     ],
-                    "path": "VISUALIZERS/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
+                    "path": "DATA/VISUALIZATION/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 518.5383675018643,
-                    "y": 18.73411176197044
+                    "x": 54.538367501864286,
+                    "y": 296.73411176197044
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 518.5383675018643,
-                    "y": 18.73411176197044
+                    "x": 54.538367501864286,
+                    "y": 296.73411176197044
                 },
-                "dragging": true
+                "dragging": false,
+                "style": {
+                    "width": 225,
+                    "height": 225
+                },
+                "resizing": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 260,
+                "height": 269,
                 "id": "ADVANCED_MEASUREMENTS_MDO3XXX-aeaf88a6-543f-4405-9697-456be37da742",
-                "type": "IO",
+                "type": "OSCILLOSCOPES",
                 "data": {
                     "id": "ADVANCED_MEASUREMENTS_MDO3XXX-aeaf88a6-543f-4405-9697-456be37da742",
                     "label": "ADVANCED MEASUREMENTS Rise Time (s)",
                     "func": "ADVANCED_MEASUREMENTS_MDO3XXX",
-                    "type": "IO",
+                    "type": "OSCILLOSCOPES",
                     "ctrls": {
                         "connection": {
                             "type": "VisaConnection",
                             "default": null,
-                            "desc": "The VISA address (requires the CONNECTION_MDO3XXX node).",
+                            "desc": "The VISA address (requires the CONNECTION_MDO3XXX block).",
                             "overload": null,
                             "functionName": "ADVANCED_MEASUREMENTS_MDO3XXX",
                             "param": "connection",
@@ -297,8 +311,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -309,39 +323,76 @@
                             "desc": "Scalar: The measurement from the oscilloscope channel."
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/ADVANCED/ADVANCED_MEASUREMENTS_MDO3XXX/ADVANCED_MEASUREMENTS_MDO3XXX.py",
+                    "path": "HARDWARE/OSCILLOSCOPES/TEKTRONIX/MDO3XXX/ADVANCED_MEASUREMENTS_MDO3XXX/ADVANCED_MEASUREMENTS_MDO3XXX.py",
                     "selected": true
                 },
                 "position": {
-                    "x": 124.57314459031954,
-                    "y": 66.47911682859728
+                    "x": -483.42685540968046,
+                    "y": 334.4791168285973
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
-                    "x": 124.57314459031954,
-                    "y": 66.47911682859728
+                    "x": -483.42685540968046,
+                    "y": 334.4791168285973
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "LINE-b72c0154-74fc-44e5-ba43-8a3bd91d6ef1",
-                "type": "VISUALIZERS",
+                "type": "VISUALIZATION",
                 "data": {
                     "id": "LINE-b72c0154-74fc-44e5-ba43-8a3bd91d6ef1",
                     "label": "LINE",
                     "func": "LINE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "xaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the x axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "xaxis_title",
+                            "value": ""
+                        },
+                        "yaxis_title": {
+                            "type": "str",
+                            "default": "",
+                            "desc": "Choose the label for the y axis.",
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "yaxis_title",
+                            "value": ""
+                        },
+                        "x_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "x_log_scale",
+                            "value": false
+                        },
+                        "y_log_scale": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "LINE",
+                            "param": "y_log_scale",
+                            "value": false
+                        }
+                    },
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -352,55 +403,71 @@
                             "desc": "the DataContainer containing the Plotly Line visualization of the input data"
                         }
                     ],
-                    "path": "VISUALIZERS/PLOTLY/LINE/LINE.py",
+                    "path": "DATA/VISUALIZATION/PLOTLY/LINE/LINE.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 530.2324516876912,
-                    "y": -305.24892486085355
+                    "x": 60.232451687691196,
+                    "y": -263.24892486085355
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 530.2324516876912,
-                    "y": -305.24892486085355
+                    "x": 60.232451687691196,
+                    "y": -263.24892486085355
                 },
-                "dragging": true
+                "dragging": false,
+                "style": {
+                    "width": 225,
+                    "height": 225
+                },
+                "resizing": false
             }
         ],
         "edges": [
             {
+                "id": "CONNECTION_MDO3XXX-9ce85b60-e790-43df-bb20-2d71fda6c1b3->EXTRACT_TRACE_MDO3XXX-c47a35fb-de9e-404b-84e6-223f569e975f_d730d2e2-4b78-4ece-a2aa-cd6483fe028f",
                 "source": "CONNECTION_MDO3XXX-9ce85b60-e790-43df-bb20-2d71fda6c1b3",
-                "sourceHandle": "default",
                 "target": "EXTRACT_TRACE_MDO3XXX-c47a35fb-de9e-404b-84e6-223f569e975f",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CONNECTION_MDO3XXX-9ce85b60-e790-43df-bb20-2d71fda6c1b3default-EXTRACT_TRACE_MDO3XXX-c47a35fb-de9e-404b-84e6-223f569e975fdefault"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
+                "id": "CONNECTION_MDO3XXX-9ce85b60-e790-43df-bb20-2d71fda6c1b3->ADVANCED_MEASUREMENTS_MDO3XXX-aeaf88a6-543f-4405-9697-456be37da742_7060824c-2c29-473e-b70c-82712bb6c024",
                 "source": "CONNECTION_MDO3XXX-9ce85b60-e790-43df-bb20-2d71fda6c1b3",
-                "sourceHandle": "default",
                 "target": "ADVANCED_MEASUREMENTS_MDO3XXX-aeaf88a6-543f-4405-9697-456be37da742",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-CONNECTION_MDO3XXX-9ce85b60-e790-43df-bb20-2d71fda6c1b3default-ADVANCED_MEASUREMENTS_MDO3XXX-aeaf88a6-543f-4405-9697-456be37da742default"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
+                "id": "ADVANCED_MEASUREMENTS_MDO3XXX-aeaf88a6-543f-4405-9697-456be37da742->BIG_NUMBER-cc9b6db5-08dd-4f8a-8256-6fcb30a02b35_d6a2e219-db6e-4e2f-9466-a47583287813",
                 "source": "ADVANCED_MEASUREMENTS_MDO3XXX-aeaf88a6-543f-4405-9697-456be37da742",
-                "sourceHandle": "default",
                 "target": "BIG_NUMBER-cc9b6db5-08dd-4f8a-8256-6fcb30a02b35",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-ADVANCED_MEASUREMENTS_MDO3XXX-aeaf88a6-543f-4405-9697-456be37da742default-BIG_NUMBER-cc9b6db5-08dd-4f8a-8256-6fcb30a02b35default"
+                "data": {
+                    "outputType": "Scalar"
+                }
             },
             {
+                "id": "EXTRACT_TRACE_MDO3XXX-c47a35fb-de9e-404b-84e6-223f569e975f->LINE-b72c0154-74fc-44e5-ba43-8a3bd91d6ef1_d694b377-51ab-406c-9218-13410f050b4a",
                 "source": "EXTRACT_TRACE_MDO3XXX-c47a35fb-de9e-404b-84e6-223f569e975f",
-                "sourceHandle": "default",
                 "target": "LINE-b72c0154-74fc-44e5-ba43-8a3bd91d6ef1",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-EXTRACT_TRACE_MDO3XXX-c47a35fb-de9e-404b-84e6-223f569e975fdefault-LINE-b72c0154-74fc-44e5-ba43-8a3bd91d6ef1default"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             }
-        ],
-        "viewport": {
-            "x": 1136.4492687849445,
-            "y": 584.5880790869217,
-            "zoom": 1.2397346348267997
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

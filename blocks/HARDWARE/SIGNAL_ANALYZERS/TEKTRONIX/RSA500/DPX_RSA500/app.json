@@ -2,8 +2,8 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 198,
                 "id": "DPX_RSA500-9793ef30-3342-49e0-9050-68b8580762d9",
                 "type": "HARDWARE",
                 "data": {
@@ -12,6 +12,15 @@
                     "func": "DPX_RSA500",
                     "type": "HARDWARE",
                     "ctrls": {
+                        "dll_file": {
+                            "type": "File",
+                            "default": null,
+                            "desc": "Where the RSA_API.dll file is located.",
+                            "overload": null,
+                            "functionName": "DPX_RSA500",
+                            "param": "dll_file",
+                            "value": ""
+                        },
                         "center_freq": {
                             "type": "float",
                             "default": 100000000,
@@ -55,8 +64,8 @@
                             "name": "input",
                             "id": "input",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -87,8 +96,8 @@
                 "dragging": true
             },
             {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "HEATMAP-e93684b6-b790-43c5-b20b-5a654eed0e60",
                 "type": "VISUALIZATION",
                 "data": {
@@ -122,8 +131,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Matrix|Grayscale|DataFrame|Vector|OrderedTriple|Surface",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -148,8 +157,8 @@
                 "dragging": true
             },
             {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 225,
                 "id": "HEATMAP-92039989-a727-4e17-990e-7aa31270fe0b",
                 "type": "VISUALIZATION",
                 "data": {
@@ -183,8 +192,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Matrix|Grayscale|DataFrame|Vector|OrderedTriple|Surface",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -211,25 +220,29 @@
         ],
         "edges": [
             {
+                "id": "DPX_RSA500-9793ef30-3342-49e0-9050-68b8580762d9->HEATMAP-92039989-a727-4e17-990e-7aa31270fe0b_e79e23e0-7063-4e27-82e0-f1bf9c4e041b",
                 "source": "DPX_RSA500-9793ef30-3342-49e0-9050-68b8580762d9",
-                "sourceHandle": "dpx_ogram",
-                "target": "HEATMAP-e93684b6-b790-43c5-b20b-5a654eed0e60",
+                "target": "HEATMAP-92039989-a727-4e17-990e-7aa31270fe0b",
+                "sourceHandle": "bitmap",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DPX_RSA500-9793ef30-3342-49e0-9050-68b8580762d9dpx_ogram-HEATMAP-e93684b6-b790-43c5-b20b-5a654eed0e60default"
+                "data": {
+                    "outputType": "Surface"
+                }
             },
             {
+                "id": "DPX_RSA500-9793ef30-3342-49e0-9050-68b8580762d9->HEATMAP-e93684b6-b790-43c5-b20b-5a654eed0e60_0ebf1d79-267d-4ffd-8cb1-354abce88eae",
                 "source": "DPX_RSA500-9793ef30-3342-49e0-9050-68b8580762d9",
-                "sourceHandle": "bitmap",
-                "target": "HEATMAP-92039989-a727-4e17-990e-7aa31270fe0b",
+                "target": "HEATMAP-e93684b6-b790-43c5-b20b-5a654eed0e60",
+                "sourceHandle": "dpx_ogram",
                 "targetHandle": "default",
-                "id": "reactflow__edge-DPX_RSA500-9793ef30-3342-49e0-9050-68b8580762d9bitmap-HEATMAP-92039989-a727-4e17-990e-7aa31270fe0bdefault"
+                "data": {
+                    "outputType": "Surface"
+                }
             }
-        ],
-        "viewport": {
-            "x": 948.751833426666,
-            "y": 548.8961711096587,
-            "zoom": 0.8898510191682055
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

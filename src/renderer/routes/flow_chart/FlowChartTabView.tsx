@@ -197,7 +197,7 @@ const FlowChartTab = () => {
   const handleNodesDelete: OnNodesDelete = useCallback(
     (nodes) => {
       nodes.forEach((node) => {
-        deleteBlock(node.id, node.data.label);
+        deleteBlock(node.id);
       });
     },
     [deleteBlock],
@@ -406,7 +406,6 @@ const FlowChartTab = () => {
               node={selectedNode}
               otherNodes={otherNodes}
               setNodeModalOpen={setNodeModalOpen}
-              handleDelete={deleteBlock}
             />
           )}
 

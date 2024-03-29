@@ -2,15 +2,15 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 269,
                 "id": "SERIAL_WRITE-bc7a5dce-aaf9-4de4-9e77-681b1a6ea623",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "SERIAL_WRITE-bc7a5dce-aaf9-4de4-9e77-681b1a6ea623",
                     "label": "SERIAL WRITE GREEN",
                     "func": "SERIAL_WRITE",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "connection": {
                             "type": "SerialDevice",
@@ -43,6 +43,21 @@
                             "functionName": "SERIAL_WRITE",
                             "param": "encoding",
                             "value": "bytes"
+                        },
+                        "terminator": {
+                            "type": "select",
+                            "default": "None",
+                            "options": [
+                                "CR+LF",
+                                "CR",
+                                "LF",
+                                "None"
+                            ],
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "terminator",
+                            "value": "None"
                         }
                     },
                     "initCtrls": {},
@@ -51,8 +66,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -67,26 +82,26 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 517.7419064110766,
-                    "y": -184.5000668406568
+                    "x": 723.3518637465713,
+                    "y": -173.7592481738772
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 517.7419064110766,
-                    "y": -184.5000668406568
+                    "x": 723.3518637465713,
+                    "y": -173.7592481738772
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "SERIAL_WRITE-0218a49f-0787-4813-8890-f9b89fc00cb4",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "SERIAL_WRITE-0218a49f-0787-4813-8890-f9b89fc00cb4",
                     "label": "SERIAL WRITE RED",
                     "func": "SERIAL_WRITE",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "connection": {
                             "type": "SerialDevice",
@@ -119,6 +134,21 @@
                             "functionName": "SERIAL_WRITE",
                             "param": "encoding",
                             "value": "bytes"
+                        },
+                        "terminator": {
+                            "type": "select",
+                            "default": "None",
+                            "options": [
+                                "CR+LF",
+                                "CR",
+                                "LF",
+                                "None"
+                            ],
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "terminator",
+                            "value": "None"
                         }
                     },
                     "initCtrls": {},
@@ -127,8 +157,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -143,15 +173,15 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 78.57312827620973,
-                    "y": -190.12757653624098
+                    "x": -16.55983705812386,
+                    "y": -177.85235520277854
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 78.57312827620973,
-                    "y": -190.12757653624098
+                    "x": -16.55983705812386,
+                    "y": -177.85235520277854
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 96,
@@ -180,8 +210,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -196,15 +226,15 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 348.3147844694306,
-                    "y": -138.7151227992282
+                    "x": 345.245979136065,
+                    "y": -143.31833079927657
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 348.3147844694306,
-                    "y": -138.7151227992282
+                    "x": 345.245979136065,
+                    "y": -143.31833079927657
                 },
-                "dragging": true
+                "dragging": false
             },
             {
                 "width": 96,
@@ -233,8 +263,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -249,26 +279,26 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 805.1676351686855,
-                    "y": -138.7569363178802
+                    "x": 1090.5665311716862,
+                    "y": -147.96335231797696
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 805.1676351686855,
-                    "y": -138.7569363178802
+                    "x": 1090.5665311716862,
+                    "y": -147.96335231797696
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 233,
                 "id": "SERIAL_WRITE-57ddea96-b303-498e-b9e2-5c07d9a806f9",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "SERIAL_WRITE-57ddea96-b303-498e-b9e2-5c07d9a806f9",
                     "label": "SERIAL WRITE OFF",
                     "func": "SERIAL_WRITE",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "connection": {
                             "type": "SerialDevice",
@@ -301,6 +331,21 @@
                             "functionName": "SERIAL_WRITE",
                             "param": "encoding",
                             "value": "bytes"
+                        },
+                        "terminator": {
+                            "type": "select",
+                            "default": "None",
+                            "options": [
+                                "CR+LF",
+                                "CR",
+                                "LF",
+                                "None"
+                            ],
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "SERIAL_WRITE",
+                            "param": "terminator",
+                            "value": "None"
                         }
                     },
                     "initCtrls": {},
@@ -309,8 +354,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": null,
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -325,26 +370,26 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 1005.8130418866517,
-                    "y": -170.9287784505403
+                    "x": 1536.7163645589005,
+                    "y": -173.99758378390595
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1005.8130418866517,
-                    "y": -170.9287784505403
+                    "x": 1536.7163645589005,
+                    "y": -173.99758378390595
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 197,
                 "id": "OPEN_SERIAL-902f7add-251b-46ad-bba3-cc2c288c6cdf",
-                "type": "HARDWARE",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "OPEN_SERIAL-902f7add-251b-46ad-bba3-cc2c288c6cdf",
                     "label": "OPEN SERIAL",
                     "func": "OPEN_SERIAL",
-                    "type": "HARDWARE",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "device": {
                             "type": "SerialDevice",
@@ -393,25 +438,18 @@
                     "selected": false
                 },
                 "position": {
-                    "x": -251.21351812883603,
-                    "y": -192.98718088808147
+                    "x": -401.5849794637504,
+                    "y": -182.24636222130187
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -251.21351812883603,
-                    "y": -192.98718088808147
+                    "x": -401.5849794637504,
+                    "y": -182.24636222130187
                 },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
-            {
-                "source": "SERIAL_WRITE-0218a49f-0787-4813-8890-f9b89fc00cb4",
-                "sourceHandle": "default",
-                "target": "TIMER-e504bb14-d25e-428a-8e34-4756bca67e1a",
-                "targetHandle": "default",
-                "id": "reactflow__edge-SERIAL_WRITE-0218a49f-0787-4813-8890-f9b89fc00cb4default-TIMER-e504bb14-d25e-428a-8e34-4756bca67e1adefault"
-            },
             {
                 "source": "TIMER-e504bb14-d25e-428a-8e34-4756bca67e1a",
                 "sourceHandle": "default",
@@ -427,25 +465,39 @@
                 "id": "reactflow__edge-TIMER-47a9cdca-2b4e-4f7e-85c2-3b0ae18c442cdefault-SERIAL_WRITE-57ddea96-b303-498e-b9e2-5c07d9a806f9default"
             },
             {
-                "source": "SERIAL_WRITE-bc7a5dce-aaf9-4de4-9e77-681b1a6ea623",
+                "id": "OPEN_SERIAL-902f7add-251b-46ad-bba3-cc2c288c6cdf->SERIAL_WRITE-0218a49f-0787-4813-8890-f9b89fc00cb4_bb5fbcd1-6114-4d1d-a80d-dc6da106a09b",
+                "source": "OPEN_SERIAL-902f7add-251b-46ad-bba3-cc2c288c6cdf",
+                "target": "SERIAL_WRITE-0218a49f-0787-4813-8890-f9b89fc00cb4",
                 "sourceHandle": "default",
-                "target": "TIMER-47a9cdca-2b4e-4f7e-85c2-3b0ae18c442c",
                 "targetHandle": "default",
-                "id": "reactflow__edge-SERIAL_WRITE-bc7a5dce-aaf9-4de4-9e77-681b1a6ea623default-TIMER-47a9cdca-2b4e-4f7e-85c2-3b0ae18c442cdefault"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
-                "source": "OPEN_SERIAL-902f7add-251b-46ad-bba3-cc2c288c6cdf",
+                "id": "SERIAL_WRITE-0218a49f-0787-4813-8890-f9b89fc00cb4->TIMER-e504bb14-d25e-428a-8e34-4756bca67e1a_5c077014-1b1b-4c2f-86f0-a6965c1642b1",
+                "source": "SERIAL_WRITE-0218a49f-0787-4813-8890-f9b89fc00cb4",
+                "target": "TIMER-e504bb14-d25e-428a-8e34-4756bca67e1a",
                 "sourceHandle": "default",
-                "target": "SERIAL_WRITE-0218a49f-0787-4813-8890-f9b89fc00cb4",
                 "targetHandle": "default",
-                "id": "reactflow__edge-OPEN_SERIAL-902f7add-251b-46ad-bba3-cc2c288c6cdfdefault-SERIAL_WRITE-0218a49f-0787-4813-8890-f9b89fc00cb4default"
+                "data": {
+                    "outputType": "String"
+                }
+            },
+            {
+                "id": "SERIAL_WRITE-bc7a5dce-aaf9-4de4-9e77-681b1a6ea623->TIMER-47a9cdca-2b4e-4f7e-85c2-3b0ae18c442c_d7575c70-5c67-40dc-b7c6-78992d051f16",
+                "source": "SERIAL_WRITE-bc7a5dce-aaf9-4de4-9e77-681b1a6ea623",
+                "target": "TIMER-47a9cdca-2b4e-4f7e-85c2-3b0ae18c442c",
+                "sourceHandle": "default",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 556.2622732052125,
-            "y": 791.7618058444115,
-            "zoom": 0.6304092340400338
-        }
+        ]
     },
-    "textNodes": []
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

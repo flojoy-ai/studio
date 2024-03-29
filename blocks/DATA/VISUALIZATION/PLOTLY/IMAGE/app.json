@@ -2,85 +2,21 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 150,
-                "height": 150,
-                "id": "LOCAL_FILE-f21874a3-6a2f-4f64-ae87-faebdfba5c6d",
-                "type": "LOADERS",
+                "id": "IMAGE-8e8d60fa-e004-4f7f-ab1d-457380f39a1b",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "LOCAL_FILE-f21874a3-6a2f-4f64-ae87-faebdfba5c6d",
-                    "label": "LOCAL FILE",
-                    "func": "LOCAL_FILE",
-                    "type": "LOADERS",
-                    "ctrls": {
-                        "file_path": {
-                            "type": "str",
-                            "default": null,
-                            "functionName": "LOCAL_FILE",
-                            "param": "file_path",
-                            "value": ""
-                        },
-                        "file_type": {
-                            "type": "select",
-                            "default": "Image",
-                            "options": [
-                                "Image",
-                                "JSON",
-                                "CSV",
-                                "Excel",
-                                "XML"
-                            ],
-                            "functionName": "LOCAL_FILE",
-                            "param": "file_type",
-                            "value": "Image"
-                        }
-                    },
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image|DataFrame"
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "xlrd",
-                            "v": "2.0.1"
-                        },
-                        {
-                            "name": "lxml",
-                            "v": "4.9.2"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\LOADERS\\LOCAL_FILE_SYSTEM\\LOCAL_FILE\\LOCAL_FILE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 118.33279169679147,
-                    "y": 120.20549002582902
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 118.33279169679147,
-                    "y": 120.20549002582902
-                },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "IMAGE-c69df1a9-06a0-41aa-beb2-41bc8a400ed5",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "IMAGE-c69df1a9-06a0-41aa-beb2-41bc8a400ed5",
+                    "id": "IMAGE-8e8d60fa-e004-4f7f-ab1d-457380f39a1b",
                     "label": "IMAGE",
                     "func": "IMAGE",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
+                    "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Image",
+                            "type": "Image|Grayscale",
+                            "desc": "the DataContainer to be visualized",
                             "multiple": false
                         }
                     ],
@@ -88,56 +24,135 @@
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Plotly"
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
                         }
                     ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\IMAGE\\IMAGE.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
                 },
                 "position": {
-                    "x": 561.2984590249878,
-                    "y": 85.72712333520752
+                    "x": 431.4805086131503,
+                    "y": 8.138374885580191
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 561.2984590249878,
-                    "y": 85.72712333520752
+                    "x": 431.4805086131503,
+                    "y": 8.138374885580191
                 },
-                "dragging": true
+                "dragging": false
+            },
+            {
+                "id": "SKIMAGE-23dabce4-5e7e-4a9d-b56b-78d66f536f70",
+                "type": "DATA",
+                "data": {
+                    "id": "SKIMAGE-23dabce4-5e7e-4a9d-b56b-78d66f536f70",
+                    "label": "SKIMAGE",
+                    "func": "SKIMAGE",
+                    "type": "DATA",
+                    "ctrls": {
+                        "img_key": {
+                            "type": "select",
+                            "default": "astronaut",
+                            "options": [
+                                "astronaut",
+                                "binary_blobs",
+                                "brain",
+                                "brick",
+                                "camera",
+                                "cat",
+                                "cell",
+                                "cells3d",
+                                "checkerboard",
+                                "chelsea",
+                                "clock",
+                                "coffee",
+                                "coins",
+                                "colorwheel",
+                                "create_image_fetcher",
+                                "data_dir",
+                                "download_all",
+                                "eagle",
+                                "file_hash",
+                                "grass",
+                                "gravel",
+                                "horse",
+                                "hubble_deep_field",
+                                "human_mitosis",
+                                "image_fetcher",
+                                "immunohistochemistry",
+                                "kidney",
+                                "lbp_frontal_face_cascade_filename",
+                                "lfw_subset",
+                                "lily",
+                                "logo",
+                                "microaneurysms",
+                                "moon",
+                                "nickel_solidification",
+                                "page",
+                                "protein_transport",
+                                "retina",
+                                "rocket",
+                                "shepp_logan_phantom",
+                                "skin",
+                                "stereo_motorcycle",
+                                "text",
+                                "vortex"
+                            ],
+                            "desc": "The name of the image to be loaded from scikit-image.",
+                            "overload": null,
+                            "functionName": "SKIMAGE",
+                            "param": "img_key",
+                            "value": "astronaut"
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image",
+                            "desc": "DataContainer containing the image loaded from scikit-image."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "scikit-image",
+                            "v": "0.21.0"
+                        }
+                    ],
+                    "path": "DATA/GENERATION/SAMPLE_IMAGES/SKIMAGE/SKIMAGE.py"
+                },
+                "position": {
+                    "x": 6.962985869225605,
+                    "y": 44.7719381942361
+                },
+                "width": 216,
+                "height": 197,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 6.962985869225605,
+                    "y": 44.7719381942361
+                },
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "LOCAL_FILE-f21874a3-6a2f-4f64-ae87-faebdfba5c6d",
+                "id": "SKIMAGE-23dabce4-5e7e-4a9d-b56b-78d66f536f70->IMAGE-8e8d60fa-e004-4f7f-ab1d-457380f39a1b_43fddc3c-b91c-4014-bf28-438ca795fb96",
+                "source": "SKIMAGE-23dabce4-5e7e-4a9d-b56b-78d66f536f70",
+                "target": "IMAGE-8e8d60fa-e004-4f7f-ab1d-457380f39a1b",
                 "sourceHandle": "default",
-                "target": "IMAGE-c69df1a9-06a0-41aa-beb2-41bc8a400ed5",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LOCAL_FILE-f21874a3-6a2f-4f64-ae87-faebdfba5c6ddefault-IMAGE-c69df1a9-06a0-41aa-beb2-41bc8a400ed5default"
+                "data": {
+                    "outputType": "Image"
+                }
             }
-        ],
-        "viewport": {
-            "x": -296.35399545928726,
-            "y": 66.8470830817738,
-            "zoom": 0.8744723800359967
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ]
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

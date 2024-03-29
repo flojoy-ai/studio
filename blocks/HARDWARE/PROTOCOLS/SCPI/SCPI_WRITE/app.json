@@ -3,15 +3,15 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 197,
                 "id": "SCPI_WRITE-52a454f8-4871-4856-b681-08d16ba3375b",
-                "type": "IO",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "SCPI_WRITE-52a454f8-4871-4856-b681-08d16ba3375b",
                     "label": "SCPI WRITE",
                     "func": "SCPI_WRITE",
-                    "type": "IO",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "connection": {
                             "type": "SerialConnection",
@@ -38,8 +38,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": "Any DataContainer - likely connected to the output of the OPEN_SERIAL node."
+                            "desc": "Any DataContainer - likely connected to the output of the OPEN_SERIAL block.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -56,30 +56,30 @@
                             "v": "3.5"
                         }
                     ],
-                    "path": "IO/PROTOCOLS/SCPI/SCPI_WRITE/SCPI_WRITE.py",
+                    "path": "HARDWARE/PROTOCOLS/SCPI/SCPI_WRITE/SCPI_WRITE.py",
                     "selected": true
                 },
                 "position": {
-                    "x": 234.72013360308043,
-                    "y": -167.20927235372574
+                    "x": 166.72013360308043,
+                    "y": -307.20927235372574
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
-                    "x": 234.72013360308043,
-                    "y": -167.20927235372574
+                    "x": 166.72013360308043,
+                    "y": -307.20927235372574
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 197,
                 "id": "OPEN_SERIAL-d8d4820a-124d-486e-89ee-2bb873434dd4",
-                "type": "IO",
+                "type": "PROTOCOLS",
                 "data": {
                     "id": "OPEN_SERIAL-d8d4820a-124d-486e-89ee-2bb873434dd4",
                     "label": "OPEN SERIAL",
                     "func": "OPEN_SERIAL",
-                    "type": "IO",
+                    "type": "PROTOCOLS",
                     "ctrls": {
                         "device": {
                             "type": "SerialDevice",
@@ -98,6 +98,15 @@
                             "functionName": "OPEN_SERIAL",
                             "param": "baudrate",
                             "value": 9600
+                        },
+                        "connection_time": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": null,
+                            "overload": null,
+                            "functionName": "OPEN_SERIAL",
+                            "param": "connection_time",
+                            "value": 0
                         }
                     },
                     "initCtrls": {},
@@ -115,30 +124,86 @@
                             "v": "3.5"
                         }
                     ],
-                    "path": "IO/PROTOCOLS/SERIAL/BASIC/OPEN_SERIAL/OPEN_SERIAL.py",
+                    "path": "HARDWARE/PROTOCOLS/SERIAL/OPEN_SERIAL/OPEN_SERIAL.py",
                     "selected": false
                 },
                 "position": {
-                    "x": -119.78151756712703,
-                    "y": -169.75657507433
+                    "x": -327.781517567127,
+                    "y": -311.75657507432993
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -119.78151756712703,
-                    "y": -169.75657507433
+                    "x": -327.781517567127,
+                    "y": -311.75657507432993
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 273,
-                "height": 160,
-                "id": "PRINT_DATACONTAINER-84c3219c-85fd-4661-88c3-f8208d2113e1",
-                "type": "EXTRACTORS",
+                "width": 225,
+                "height": 225,
+                "id": "TEXT_VIEW-784462fd-3284-40ac-bbd2-446e740f9edb",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "PRINT_DATACONTAINER-84c3219c-85fd-4661-88c3-f8208d2113e1",
+                    "id": "TEXT_VIEW-784462fd-3284-40ac-bbd2-446e740f9edb",
+                    "label": "TEXT VIEW",
+                    "func": "TEXT_VIEW",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "prettify": {
+                            "type": "bool",
+                            "default": false,
+                            "desc": "Whether to prettify the displayed text (defaults to True)",
+                            "overload": null,
+                            "functionName": "TEXT_VIEW",
+                            "param": "prettify",
+                            "value": false
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String|Boolean",
+                            "desc": "The DataContainer to be visualized in text format",
+                            "multiple": false
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
+                    "selected": false,
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "The DataContainer containing text data"
+                        }
+                    ]
+                },
+                "position": {
+                    "x": 1113.7413591150134,
+                    "y": -350.73757787208604
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1113.7413591150134,
+                    "y": -350.73757787208604
+                },
+                "dragging": false,
+                "style": {
+                    "width": 225,
+                    "height": 225
+                },
+                "resizing": false
+            },
+            {
+                "id": "PRINT_DATACONTAINER-1c8e3635-eead-4a58-8856-4e74bb51ca95",
+                "type": "DEBUGGING",
+                "data": {
+                    "id": "PRINT_DATACONTAINER-1c8e3635-eead-4a58-8856-4e74bb51ca95",
                     "label": "PRINT DATACONTAINER",
                     "func": "PRINT_DATACONTAINER",
-                    "type": "EXTRACTORS",
+                    "type": "DEBUGGING",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
@@ -146,8 +211,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Any",
-                            "multiple": false,
-                            "desc": null
+                            "desc": "The input DataContainer to print.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -158,83 +223,57 @@
                             "desc": "String: Input datacontainer information"
                         }
                     ],
-                    "path": "EXTRACTORS/DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py",
-                    "selected": false
+                    "path": "DEBUGGING/PRINT_DATACONTAINER/PRINT_DATACONTAINER.py"
                 },
                 "position": {
-                    "x": 557.3999599501618,
-                    "y": -148.94821702035097
+                    "x": 627.3405112941368,
+                    "y": -309.5031269017396
                 },
+                "width": 281,
+                "height": 233,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 557.3999599501618,
-                    "y": -148.94821702035097
+                    "x": 627.3405112941368,
+                    "y": -309.5031269017396
                 },
-                "dragging": true
-            },
-            {
-                "width": 384,
-                "height": 288,
-                "id": "TEXT_VIEW-784462fd-3284-40ac-bbd2-446e740f9edb",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TEXT_VIEW-784462fd-3284-40ac-bbd2-446e740f9edb",
-                    "label": "TEXT VIEW",
-                    "func": "TEXT_VIEW",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "String",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized in text format"
-                        }
-                    ],
-                    "path": "VISUALIZERS/DATA_STRUCTURE/TEXT_VIEW/TEXT_VIEW.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 947.7413591150134,
-                    "y": -212.73757787208604
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 947.7413591150134,
-                    "y": -212.73757787208604
-                },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
+                "id": "OPEN_SERIAL-d8d4820a-124d-486e-89ee-2bb873434dd4->SCPI_WRITE-52a454f8-4871-4856-b681-08d16ba3375b_81ad02c4-4073-4ad4-a062-58cbba2ed6fe",
                 "source": "OPEN_SERIAL-d8d4820a-124d-486e-89ee-2bb873434dd4",
-                "sourceHandle": "default",
                 "target": "SCPI_WRITE-52a454f8-4871-4856-b681-08d16ba3375b",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-OPEN_SERIAL-d8d4820a-124d-486e-89ee-2bb873434dd4default-SCPI_WRITE-52a454f8-4871-4856-b681-08d16ba3375bdefault"
+                "data": {
+                    "outputType": "String"
+                }
             },
             {
+                "id": "SCPI_WRITE-52a454f8-4871-4856-b681-08d16ba3375b->PRINT_DATACONTAINER-1c8e3635-eead-4a58-8856-4e74bb51ca95_fe38ab4d-2e14-4126-b43b-2c0ca1fe1648",
                 "source": "SCPI_WRITE-52a454f8-4871-4856-b681-08d16ba3375b",
+                "target": "PRINT_DATACONTAINER-1c8e3635-eead-4a58-8856-4e74bb51ca95",
                 "sourceHandle": "default",
-                "target": "PRINT_DATACONTAINER-84c3219c-85fd-4661-88c3-f8208d2113e1",
                 "targetHandle": "default",
-                "id": "reactflow__edge-SCPI_WRITE-52a454f8-4871-4856-b681-08d16ba3375bdefault-PRINT_DATACONTAINER-84c3219c-85fd-4661-88c3-f8208d2113e1default"
+                "data": {
+                    "outputType": "Scalar"
+                }
             },
             {
-                "source": "PRINT_DATACONTAINER-84c3219c-85fd-4661-88c3-f8208d2113e1",
-                "sourceHandle": "default",
+                "id": "PRINT_DATACONTAINER-1c8e3635-eead-4a58-8856-4e74bb51ca95->TEXT_VIEW-784462fd-3284-40ac-bbd2-446e740f9edb_27c457f3-3468-4cff-ba30-719f5286db54",
+                "source": "PRINT_DATACONTAINER-1c8e3635-eead-4a58-8856-4e74bb51ca95",
                 "target": "TEXT_VIEW-784462fd-3284-40ac-bbd2-446e740f9edb",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-PRINT_DATACONTAINER-84c3219c-85fd-4661-88c3-f8208d2113e1default-TEXT_VIEW-784462fd-3284-40ac-bbd2-446e740f9edbdefault"
+                "data": {
+                    "outputType": "String"
+                }
             }
-        ],
-        "viewport": {
-            "x": 461.8053939811623,
-            "y": 532.5623864271589,
-            "zoom": 1.4143748922070958
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }

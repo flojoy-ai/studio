@@ -2,100 +2,562 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 160,
-                "height": 160,
-                "id": "LOCAL_FILE-ddbac494-e150-4ece-b75a-5b2d3f930d02",
-                "type": "LOADERS",
+                "width": 150,
+                "height": 174,
+                "id": "EXTREMA_DETERMINATION-601e08c6-42d6-4b85-aa87-5e8ea4d4abb5",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "LOCAL_FILE-ddbac494-e150-4ece-b75a-5b2d3f930d02",
-                    "label": "TIF LOADER",
-                    "func": "LOCAL_FILE",
-                    "type": "LOADERS",
+                    "id": "EXTREMA_DETERMINATION-601e08c6-42d6-4b85-aa87-5e8ea4d4abb5",
+                    "label": "LoG PEAK FINDER",
+                    "func": "EXTREMA_DETERMINATION",
+                    "type": "VISUALIZATION",
                     "ctrls": {
-                        "file_path": {
-                            "type": "str",
+                        "center": {
+                            "type": "list[int]",
                             "default": null,
-                            "desc": "path to the file to be loaded",
-                            "functionName": "LOCAL_FILE",
-                            "param": "file_path",
-                            "value": "TRANSFORMERS/IMAGE_PROCESSING/EXTREMA_DETERMINATION/assets/highrange.tif"
+                            "desc": "For the high symmetry algorithm, this provides the center of symmetry\nto pass to the cross correlation routines.\nIf none is provided, an autocenter routine is run to attempt to find the center of symmetry.",
+                            "functionName": "EXTREMA_DETERMINATION",
+                            "param": "center",
+                            "value": "",
+                            "overload": null
                         },
-                        "file_type": {
+                        "min_dist": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The minimum distance between peaks.\nIf the L2 distance (in pixels) of any pair of peaks is less than min_dist,\nthey are considered to be the same, and one is discarded.\nThis parameter applies to all algorithms.",
+                            "functionName": "EXTREMA_DETERMINATION",
+                            "param": "min_dist",
+                            "value": 0,
+                            "overload": null
+                        },
+                        "algorithm": {
                             "type": "select",
-                            "default": "Image",
+                            "default": "log",
                             "options": [
-                                "Image",
-                                "Grayscale",
-                                "JSON",
-                                "CSV",
-                                "Excel",
-                                "XML"
+                                "persistence",
+                                "high_symmetry",
+                                "log"
                             ],
-                            "desc": "type of file to load, default = image",
-                            "functionName": "LOCAL_FILE",
-                            "param": "file_type",
-                            "value": "Grayscale"
+                            "desc": "The name of the algorithm to use.",
+                            "functionName": "EXTREMA_DETERMINATION",
+                            "param": "algorithm",
+                            "value": "log",
+                            "overload": null
+                        },
+                        "prominence": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "In the prominence and Laplacian of Gaussian algorithms, this defines the threshold\nabove or below which objects must pass in order to be considered a peak.\nDoes not apply to the high_symmetry algorithm.",
+                            "functionName": "EXTREMA_DETERMINATION",
+                            "param": "prominence",
+                            "value": "0.1",
+                            "overload": null
+                        },
+                        "k": {
+                            "type": "float",
+                            "default": 1.41,
+                            "desc": "This specifies the scaling of Gaussian filters between successive applications\nof Gaussian filters of increasing sigma.\nDefault is chosen for ideal spherically symmetric peaks.\nCan be tuned for more bizarre looking peak structures.\nApplies only to the Laplacian of Gaussian algorithm.",
+                            "functionName": "EXTREMA_DETERMINATION",
+                            "param": "k",
+                            "value": 1.41,
+                            "overload": null
+                        },
+                        "sigma": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The baseline standard deviation of the Gaussian filters,\nonly for the Laplacian of Gaussian algorithm.",
+                            "functionName": "EXTREMA_DETERMINATION",
+                            "param": "sigma",
+                            "value": 1,
+                            "overload": null
+                        },
+                        "max_power": {
+                            "type": "int",
+                            "default": 9,
+                            "desc": "Describes the upper limit of the degree of exponentiation for the successive\napplication of filters, only in the Laplacian of Gaussian algorithm.",
+                            "functionName": "EXTREMA_DETERMINATION",
+                            "param": "max_power",
+                            "value": 9,
+                            "overload": null
                         }
                     },
                     "initCtrls": {},
-                    "outputs": [
+                    "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Image|DataFrame",
-                            "desc": "type 'image' for file_type 'image'\ntype 'dataframe' for file_type 'json', 'csv', 'excel', 'xml'"
+                            "type": "Image|Grayscale|Matrix",
+                            "desc": "The input DataContainer that contains the image to be processed.\nCan either be RGBA, greyscale, or a matrix type.\nIn the case of RGB(A), the image is flattened to grayscale for the peak detection.",
+                            "multiple": false
+                        },
+                        {
+                            "name": "image_mask",
+                            "id": "image_mask",
+                            "type": "Grayscale|Matrix",
+                            "desc": "This object provides a mask to apply to the peak finding routines.\nPeaks found by any algorithm inside this mask are ignored.\nShould be of a datatype that can be static cast to booleans.\nIf none, it is assumed that the entire image is valid for peak detection.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "fig",
+                            "id": "fig",
+                            "type": "Plotly",
+                            "desc": "The Plotly figure so that the image can be visualized with its found peaks."
+                        },
+                        {
+                            "name": "blobs",
+                            "id": "blobs",
+                            "type": "Grayscale",
+                            "desc": "A blob mask that returns the regions around the found peaks.\nIt is only valid for the high_symmetry and log routines.\nAs the persistence algorithm is by definition hyperlocal, it has no notion of blobs\nthroughout the detection process, and as such returns a unity mask."
                         }
                     ],
                     "pip_dependencies": [
-                        {
-                            "name": "xlrd",
-                            "v": "2.0.1"
-                        },
-                        {
-                            "name": "lxml",
-                            "v": "4.9.2"
-                        },
-                        {
-                            "name": "openpyxl",
-                            "v": "3.0.10"
-                        },
                         {
                             "name": "scikit-image",
                             "v": "0.21.0"
                         }
                     ],
-                    "path": "PYTHON/nodes/LOADERS/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py",
+                    "path": "COMPUTER_VISION/EXTREMA_DETERMINATION/EXTREMA_DETERMINATION.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 604.1694193110504,
-                    "y": -312.0263517259316
+                    "x": 173.65257646934958,
+                    "y": 302.16518590802207
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 604.1694193110504,
-                    "y": -312.0263517259316
+                    "x": 173.65257646934958,
+                    "y": 302.16518590802207
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 160,
-                "height": 160,
-                "id": "LOCAL_FILE-a6939cc3-d70e-430f-8021-79e3fd8d18a1",
-                "type": "LOADERS",
+                "width": 150,
+                "height": 174,
+                "id": "EXTREMA_DETERMINATION-044a2e60-2992-456e-807d-27a973df9925",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "LOCAL_FILE-a6939cc3-d70e-430f-8021-79e3fd8d18a1",
+                    "id": "EXTREMA_DETERMINATION-044a2e60-2992-456e-807d-27a973df9925",
+                    "label": "LDR PEAK FINDER",
+                    "func": "EXTREMA_DETERMINATION",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "center": {
+                            "type": "list[int]",
+                            "default": null,
+                            "desc": "For the high symmetry algorithm, this provides the center of symmetry\nto pass to the cross correlation routines.\nIf none is provided, an autocenter routine is run to attempt to find the center of symmetry.",
+                            "functionName": "EXTREMA_DETERMINATION",
+                            "param": "center",
+                            "value": "125,125",
+                            "overload": null
+                        },
+                        "min_dist": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The minimum distance between peaks.\nIf the L2 distance (in pixels) of any pair of peaks is less than min_dist,\nthey are considered to be the same, and one is discarded.\nThis parameter applies to all algorithms.",
+                            "functionName": "EXTREMA_DETERMINATION",
+                            "param": "min_dist",
+                            "value": 0,
+                            "overload": null
+                        },
+                        "algorithm": {
+                            "type": "select",
+                            "default": "log",
+                            "options": [
+                                "persistence",
+                                "high_symmetry",
+                                "log"
+                            ],
+                            "desc": "The name of the algorithm to use.",
+                            "functionName": "EXTREMA_DETERMINATION",
+                            "param": "algorithm",
+                            "value": "high_symmetry",
+                            "overload": null
+                        },
+                        "prominence": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "In the prominence and Laplacian of Gaussian algorithms, this defines the threshold\nabove or below which objects must pass in order to be considered a peak.\nDoes not apply to the high_symmetry algorithm.",
+                            "functionName": "EXTREMA_DETERMINATION",
+                            "param": "prominence",
+                            "value": 0,
+                            "overload": null
+                        },
+                        "k": {
+                            "type": "float",
+                            "default": 1.41,
+                            "desc": "This specifies the scaling of Gaussian filters between successive applications\nof Gaussian filters of increasing sigma.\nDefault is chosen for ideal spherically symmetric peaks.\nCan be tuned for more bizarre looking peak structures.\nApplies only to the Laplacian of Gaussian algorithm.",
+                            "functionName": "EXTREMA_DETERMINATION",
+                            "param": "k",
+                            "value": 1.41,
+                            "overload": null
+                        },
+                        "sigma": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The baseline standard deviation of the Gaussian filters,\nonly for the Laplacian of Gaussian algorithm.",
+                            "functionName": "EXTREMA_DETERMINATION",
+                            "param": "sigma",
+                            "value": 1,
+                            "overload": null
+                        },
+                        "max_power": {
+                            "type": "int",
+                            "default": 9,
+                            "desc": "Describes the upper limit of the degree of exponentiation for the successive\napplication of filters, only in the Laplacian of Gaussian algorithm.",
+                            "functionName": "EXTREMA_DETERMINATION",
+                            "param": "max_power",
+                            "value": 9,
+                            "overload": null
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|Grayscale|Matrix",
+                            "desc": "The input DataContainer that contains the image to be processed.\nCan either be RGBA, greyscale, or a matrix type.\nIn the case of RGB(A), the image is flattened to grayscale for the peak detection.",
+                            "multiple": false
+                        },
+                        {
+                            "name": "image_mask",
+                            "id": "image_mask",
+                            "type": "Grayscale|Matrix",
+                            "desc": "This object provides a mask to apply to the peak finding routines.\nPeaks found by any algorithm inside this mask are ignored.\nShould be of a datatype that can be static cast to booleans.\nIf none, it is assumed that the entire image is valid for peak detection.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "fig",
+                            "id": "fig",
+                            "type": "Plotly",
+                            "desc": "The Plotly figure so that the image can be visualized with its found peaks."
+                        },
+                        {
+                            "name": "blobs",
+                            "id": "blobs",
+                            "type": "Grayscale",
+                            "desc": "A blob mask that returns the regions around the found peaks.\nIt is only valid for the high_symmetry and log routines.\nAs the persistence algorithm is by definition hyperlocal, it has no notion of blobs\nthroughout the detection process, and as such returns a unity mask."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "scikit-image",
+                            "v": "0.21.0"
+                        }
+                    ],
+                    "path": "COMPUTER_VISION/EXTREMA_DETERMINATION/EXTREMA_DETERMINATION.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -763.0148109770004,
+                    "y": -305.25396574770286
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -763.0148109770004,
+                    "y": -305.25396574770286
+                },
+                "dragging": false
+            },
+            {
+                "width": 150,
+                "height": 156,
+                "id": "REGION_PROPERTIES-5d3e79fd-90cb-49a9-8cad-30468d046ec8",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "REGION_PROPERTIES-5d3e79fd-90cb-49a9-8cad-30468d046ec8",
+                    "label": "REGION PROPERTIES 1",
+                    "func": "REGION_PROPERTIES",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|Grayscale|Matrix",
+                            "desc": "The input node to this function.\nIf nothing is supplied, a demo test case is returned to illustrate the functionality of this node.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "A Plotly figure containing the illustrated features as determined by this node."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "scikit-image",
+                            "v": "0.21.0"
+                        }
+                    ],
+                    "path": "COMPUTER_VISION/REGION_PROPERTIES/REGION_PROPERTIES.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 731.1791076117513,
+                    "y": 334.4051277948064
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 731.1791076117513,
+                    "y": 334.4051277948064
+                },
+                "dragging": false
+            },
+            {
+                "width": 150,
+                "height": 156,
+                "id": "REGION_PROPERTIES-373847d3-c96e-4c79-a80e-8d6d1f551945",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "REGION_PROPERTIES-373847d3-c96e-4c79-a80e-8d6d1f551945",
+                    "label": "REGION PROPERTIES 2",
+                    "func": "REGION_PROPERTIES",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|Grayscale|Matrix",
+                            "desc": "The input node to this function.\nIf nothing is supplied, a demo test case is returned to illustrate the functionality of this node.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "A Plotly figure containing the illustrated features as determined by this node."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "scikit-image",
+                            "v": "0.21.0"
+                        }
+                    ],
+                    "path": "COMPUTER_VISION/REGION_PROPERTIES/REGION_PROPERTIES.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1194.9133403687424,
+                    "y": -339.388490443667
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1194.9133403687424,
+                    "y": -339.388490443667
+                },
+                "dragging": false
+            },
+            {
+                "width": 150,
+                "height": 156,
+                "id": "REGION_PROPERTIES-bd45eb65-94ef-4d5b-a822-ca6653fe7988",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "REGION_PROPERTIES-bd45eb65-94ef-4d5b-a822-ca6653fe7988",
+                    "label": "REGION PROPERTIES 3",
+                    "func": "REGION_PROPERTIES",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|Grayscale|Matrix",
+                            "desc": "The input node to this function.\nIf nothing is supplied, a demo test case is returned to illustrate the functionality of this node.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "A Plotly figure containing the illustrated features as determined by this node."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "scikit-image",
+                            "v": "0.21.0"
+                        }
+                    ],
+                    "path": "COMPUTER_VISION/REGION_PROPERTIES/REGION_PROPERTIES.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -258.8832667982938,
+                    "y": -577.608055300374
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -258.8832667982938,
+                    "y": -577.608055300374
+                },
+                "dragging": false
+            },
+            {
+                "width": 150,
+                "height": 174,
+                "id": "EXTREMA_DETERMINATION-31c62e4e-d139-421c-aa63-7029a27dd453",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "EXTREMA_DETERMINATION-31c62e4e-d139-421c-aa63-7029a27dd453",
+                    "label": "HDR PEAK FINDER",
+                    "func": "EXTREMA_DETERMINATION",
+                    "type": "VISUALIZATION",
+                    "ctrls": {
+                        "center": {
+                            "type": "list[int]",
+                            "default": null,
+                            "desc": "For the high symmetry algorithm, this provides the center of symmetry\nto pass to the cross correlation routines.\nIf none is provided, an autocenter routine is run to attempt to find the center of symmetry.",
+                            "functionName": "EXTREMA_DETERMINATION",
+                            "param": "center",
+                            "value": "",
+                            "overload": null
+                        },
+                        "min_dist": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "The minimum distance between peaks.\nIf the L2 distance (in pixels) of any pair of peaks is less than min_dist,\nthey are considered to be the same, and one is discarded.\nThis parameter applies to all algorithms.",
+                            "functionName": "EXTREMA_DETERMINATION",
+                            "param": "min_dist",
+                            "value": 0,
+                            "overload": null
+                        },
+                        "algorithm": {
+                            "type": "select",
+                            "default": "log",
+                            "options": [
+                                "persistence",
+                                "high_symmetry",
+                                "log"
+                            ],
+                            "desc": "The name of the algorithm to use.",
+                            "functionName": "EXTREMA_DETERMINATION",
+                            "param": "algorithm",
+                            "value": "persistence",
+                            "overload": null
+                        },
+                        "prominence": {
+                            "type": "float",
+                            "default": 0,
+                            "desc": "In the prominence and Laplacian of Gaussian algorithms, this defines the threshold\nabove or below which objects must pass in order to be considered a peak.\nDoes not apply to the high_symmetry algorithm.",
+                            "functionName": "EXTREMA_DETERMINATION",
+                            "param": "prominence",
+                            "value": "0.1",
+                            "overload": null
+                        },
+                        "k": {
+                            "type": "float",
+                            "default": 1.41,
+                            "desc": "This specifies the scaling of Gaussian filters between successive applications\nof Gaussian filters of increasing sigma.\nDefault is chosen for ideal spherically symmetric peaks.\nCan be tuned for more bizarre looking peak structures.\nApplies only to the Laplacian of Gaussian algorithm.",
+                            "functionName": "EXTREMA_DETERMINATION",
+                            "param": "k",
+                            "value": 1.41,
+                            "overload": null
+                        },
+                        "sigma": {
+                            "type": "float",
+                            "default": 1,
+                            "desc": "The baseline standard deviation of the Gaussian filters,\nonly for the Laplacian of Gaussian algorithm.",
+                            "functionName": "EXTREMA_DETERMINATION",
+                            "param": "sigma",
+                            "value": 1,
+                            "overload": null
+                        },
+                        "max_power": {
+                            "type": "int",
+                            "default": 9,
+                            "desc": "Describes the upper limit of the degree of exponentiation for the successive\napplication of filters, only in the Laplacian of Gaussian algorithm.",
+                            "functionName": "EXTREMA_DETERMINATION",
+                            "param": "max_power",
+                            "value": 9,
+                            "overload": null
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|Grayscale|Matrix",
+                            "desc": "The input DataContainer that contains the image to be processed.\nCan either be RGBA, greyscale, or a matrix type.\nIn the case of RGB(A), the image is flattened to grayscale for the peak detection.",
+                            "multiple": false
+                        },
+                        {
+                            "name": "image_mask",
+                            "id": "image_mask",
+                            "type": "Grayscale|Matrix",
+                            "desc": "This object provides a mask to apply to the peak finding routines.\nPeaks found by any algorithm inside this mask are ignored.\nShould be of a datatype that can be static cast to booleans.\nIf none, it is assumed that the entire image is valid for peak detection.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "fig",
+                            "id": "fig",
+                            "type": "Plotly",
+                            "desc": "The Plotly figure so that the image can be visualized with its found peaks."
+                        },
+                        {
+                            "name": "blobs",
+                            "id": "blobs",
+                            "type": "Grayscale",
+                            "desc": "A blob mask that returns the regions around the found peaks.\nIt is only valid for the high_symmetry and log routines.\nAs the persistence algorithm is by definition hyperlocal, it has no notion of blobs\nthroughout the detection process, and as such returns a unity mask."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "scikit-image",
+                            "v": "0.21.0"
+                        }
+                    ],
+                    "path": "COMPUTER_VISION/EXTREMA_DETERMINATION/EXTREMA_DETERMINATION.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 597.5869261451514,
+                    "y": -371.9553941455995
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 597.5869261451514,
+                    "y": -371.9553941455995
+                },
+                "dragging": false
+            },
+            {
+                "id": "LOCAL_FILE-e7481241-5ed9-4816-b30c-6dacd31c8d97",
+                "type": "LOAD",
+                "data": {
+                    "id": "LOCAL_FILE-e7481241-5ed9-4816-b30c-6dacd31c8d97",
                     "label": "PNG LOADER",
                     "func": "LOCAL_FILE",
-                    "type": "LOADERS",
+                    "type": "LOAD",
                     "ctrls": {
                         "file_path": {
                             "type": "str",
                             "default": null,
-                            "desc": "path to the file to be loaded",
+                            "desc": "The path to the file to be loaded. This can be either an absolute path or\na path relative to the \"nodes\" directory.",
+                            "overload": null,
                             "functionName": "LOCAL_FILE",
                             "param": "file_path",
-                            "value": "TRANSFORMERS/IMAGE_PROCESSING/EXTREMA_DETERMINATION/assets/lowrange.png"
+                            "value": "COMPUTER_VISION/EXTREMA_DETERMINATION/assets/lowrange.png"
                         },
                         "file_type": {
                             "type": "select",
@@ -104,75 +566,71 @@
                                 "Image",
                                 "Grayscale",
                                 "JSON",
-                                "CSV",
-                                "Excel",
-                                "XML"
+                                "CSV"
                             ],
-                            "desc": "type of file to load, default = image",
+                            "desc": "Type of file to load, default = image.\nIf both 'file_path' and 'default' are not specified when 'file_type=\"Image\"',\na default image will be loaded.\nIf the file path is not specified and the default input is not connected,\na ValueError is raised.",
+                            "overload": null,
                             "functionName": "LOCAL_FILE",
                             "param": "file_type",
                             "value": "Image"
                         }
                     },
                     "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "If this input node is connected, the file name will be taken from\nthe output of the connected node.\nTo be used in conjunction with batch processing.",
+                            "multiple": false
+                        }
+                    ],
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Image|DataFrame",
-                            "desc": "type 'image' for file_type 'image'\ntype 'dataframe' for file_type 'json', 'csv', 'excel', 'xml'"
+                            "type": "Image|DataFrame|Grayscale",
+                            "desc": "Image for file_type 'image'.\nGrayscale from file_type 'Grayscale'.\nDataFrame for file_type 'json', 'csv'."
                         }
                     ],
                     "pip_dependencies": [
-                        {
-                            "name": "xlrd",
-                            "v": "2.0.1"
-                        },
-                        {
-                            "name": "lxml",
-                            "v": "4.9.2"
-                        },
-                        {
-                            "name": "openpyxl",
-                            "v": "3.0.10"
-                        },
                         {
                             "name": "scikit-image",
                             "v": "0.21.0"
                         }
                     ],
-                    "path": "PYTHON/nodes/LOADERS/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py",
-                    "selected": false
+                    "path": "ETL/LOAD/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py"
                 },
                 "position": {
-                    "x": -1053.189987467502,
-                    "y": -364.92519620864414
+                    "x": -1149.868634417404,
+                    "y": -313.2155847209874
                 },
+                "width": 216,
+                "height": 188,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -1053.189987467502,
-                    "y": -364.92519620864414
+                    "x": -1149.868634417404,
+                    "y": -313.2155847209874
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 168,
-                "height": 160,
-                "id": "LOCAL_FILE-1f53746a-5679-4ba5-be64-832d97bc41b9",
-                "type": "LOADERS",
+                "id": "LOCAL_FILE-179e7f3b-34d2-434b-a797-58eace9c9208",
+                "type": "LOAD",
                 "data": {
-                    "id": "LOCAL_FILE-1f53746a-5679-4ba5-be64-832d97bc41b9",
-                    "label": "LOW CONTRAST TIF",
+                    "id": "LOCAL_FILE-179e7f3b-34d2-434b-a797-58eace9c9208",
+                    "label": "LOCAL FILE 1",
                     "func": "LOCAL_FILE",
-                    "type": "LOADERS",
+                    "type": "LOAD",
                     "ctrls": {
                         "file_path": {
                             "type": "str",
                             "default": null,
-                            "desc": "path to the file to be loaded",
+                            "desc": "The path to the file to be loaded. This can be either an absolute path or\na path relative to the \"nodes\" directory.",
+                            "overload": null,
                             "functionName": "LOCAL_FILE",
                             "param": "file_path",
-                            "value": "TRANSFORMERS/IMAGE_PROCESSING/EXTREMA_DETERMINATION/assets/hubble_deep_field.tif"
+                            "value": "COMPUTER_VISION/EXTREMA_DETERMINATION/assets/hubble_deep_field.tif"
                         },
                         "file_type": {
                             "type": "select",
@@ -181,76 +639,71 @@
                                 "Image",
                                 "Grayscale",
                                 "JSON",
-                                "CSV",
-                                "Excel",
-                                "XML"
+                                "CSV"
                             ],
-                            "desc": "type of file to load, default = image",
+                            "desc": "Type of file to load, default = image.\nIf both 'file_path' and 'default' are not specified when 'file_type=\"Image\"',\na default image will be loaded.\nIf the file path is not specified and the default input is not connected,\na ValueError is raised.",
+                            "overload": null,
                             "functionName": "LOCAL_FILE",
                             "param": "file_type",
                             "value": "Grayscale"
                         }
                     },
                     "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "If this input node is connected, the file name will be taken from\nthe output of the connected node.\nTo be used in conjunction with batch processing.",
+                            "multiple": false
+                        }
+                    ],
                     "outputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Image|DataFrame",
-                            "desc": "type 'image' for file_type 'image'\ntype 'dataframe' for file_type 'json', 'csv', 'excel', 'xml'"
+                            "type": "Image|DataFrame|Grayscale",
+                            "desc": "Image for file_type 'image'.\nGrayscale from file_type 'Grayscale'.\nDataFrame for file_type 'json', 'csv'."
                         }
                     ],
                     "pip_dependencies": [
-                        {
-                            "name": "xlrd",
-                            "v": "2.0.1"
-                        },
-                        {
-                            "name": "lxml",
-                            "v": "4.9.2"
-                        },
-                        {
-                            "name": "openpyxl",
-                            "v": "3.0.10"
-                        },
                         {
                             "name": "scikit-image",
                             "v": "0.21.0"
                         }
                     ],
-                    "path": "PYTHON/nodes/LOADERS/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py",
-                    "selected": false
+                    "path": "ETL/LOAD/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py"
                 },
                 "position": {
-                    "x": -217.90310017145737,
-                    "y": 271.1259859593654
+                    "x": -369.60187718901227,
+                    "y": 288.75291662326856
                 },
+                "width": 216,
+                "height": 188,
                 "selected": false,
+                "dragging": false,
                 "positionAbsolute": {
-                    "x": -217.90310017145737,
-                    "y": 271.1259859593654
-                },
-                "dragging": true
+                    "x": -369.60187718901227,
+                    "y": 288.75291662326856
+                }
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "IMAGE-14ee8682-0eae-4089-bb0d-85827cd0b310",
-                "type": "VISUALIZERS",
+                "id": "IMAGE-641d6bb5-e956-4653-b1d9-000eb5446255",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "IMAGE-14ee8682-0eae-4089-bb0d-85827cd0b310",
-                    "label": "IMAGE",
+                    "id": "IMAGE-641d6bb5-e956-4653-b1d9-000eb5446255",
+                    "label": "IMAGE 3",
                     "func": "IMAGE",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Image",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "type": "Image|Grayscale",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -258,42 +711,114 @@
                             "name": "default",
                             "id": "default",
                             "type": "Plotly",
-                            "desc": null
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
                         }
                     ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
                 },
                 "position": {
-                    "x": 653.4906445061058,
-                    "y": 571.5826872351752
+                    "x": -296.5506609988547,
+                    "y": -181.3844675088318
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 653.4906445061058,
-                    "y": 571.5826872351752
+                    "x": -296.5506609988547,
+                    "y": -181.3844675088318
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "IMAGE-6f9055e3-c0e4-4366-addc-e87115239a49",
-                "type": "VISUALIZERS",
+                "id": "LOCAL_FILE-81e91252-621d-44a1-9a2f-dc7081b8b522",
+                "type": "LOAD",
                 "data": {
-                    "id": "IMAGE-6f9055e3-c0e4-4366-addc-e87115239a49",
+                    "id": "LOCAL_FILE-81e91252-621d-44a1-9a2f-dc7081b8b522",
+                    "label": "TIF LOADER",
+                    "func": "LOCAL_FILE",
+                    "type": "LOAD",
+                    "ctrls": {
+                        "file_path": {
+                            "type": "str",
+                            "default": null,
+                            "desc": "The path to the file to be loaded. This can be either an absolute path or\na path relative to the \"nodes\" directory.",
+                            "overload": null,
+                            "functionName": "LOCAL_FILE",
+                            "param": "file_path",
+                            "value": "COMPUTER_VISION/EXTREMA_DETERMINATION/assets/highrange.tif"
+                        },
+                        "file_type": {
+                            "type": "select",
+                            "default": "Image",
+                            "options": [
+                                "Image",
+                                "Grayscale",
+                                "JSON",
+                                "CSV"
+                            ],
+                            "desc": "Type of file to load, default = image.\nIf both 'file_path' and 'default' are not specified when 'file_type=\"Image\"',\na default image will be loaded.\nIf the file path is not specified and the default input is not connected,\na ValueError is raised.",
+                            "overload": null,
+                            "functionName": "LOCAL_FILE",
+                            "param": "file_type",
+                            "value": "Grayscale"
+                        }
+                    },
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "String",
+                            "desc": "If this input node is connected, the file name will be taken from\nthe output of the connected node.\nTo be used in conjunction with batch processing.",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Image|DataFrame|Grayscale",
+                            "desc": "Image for file_type 'image'.\nGrayscale from file_type 'Grayscale'.\nDataFrame for file_type 'json', 'csv'."
+                        }
+                    ],
+                    "pip_dependencies": [
+                        {
+                            "name": "scikit-image",
+                            "v": "0.21.0"
+                        }
+                    ],
+                    "path": "ETL/LOAD/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py"
+                },
+                "position": {
+                    "x": 166.00819097997248,
+                    "y": -381.18588359127534
+                },
+                "width": 216,
+                "height": 188,
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 166.00819097997248,
+                    "y": -381.18588359127534
+                },
+                "dragging": false
+            },
+            {
+                "id": "IMAGE-3d28258f-a4e4-4fdd-a055-d5fce86f0226",
+                "type": "VISUALIZATION",
+                "data": {
+                    "id": "IMAGE-3d28258f-a4e4-4fdd-a055-d5fce86f0226",
                     "label": "IMAGE 1",
                     "func": "IMAGE",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Image",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "type": "Image|Grayscale",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -301,42 +826,41 @@
                             "name": "default",
                             "id": "default",
                             "type": "Plotly",
-                            "desc": null
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
                         }
                     ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
                 },
                 "position": {
-                    "x": -249.28487445480079,
-                    "y": -111.21252195990098
+                    "x": 1163.9053537491234,
+                    "y": -135.90963058094712
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -249.28487445480079,
-                    "y": -111.21252195990098
+                    "x": 1163.9053537491234,
+                    "y": -135.90963058094712
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 380,
-                "height": 293,
-                "id": "IMAGE-e7d9dc29-41a1-420c-8147-a085c1032003",
-                "type": "VISUALIZERS",
+                "id": "IMAGE-bddf0b2f-446a-47fb-b54b-9535a6691f3b",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "IMAGE-e7d9dc29-41a1-420c-8147-a085c1032003",
-                    "label": "IMAGE 2",
+                    "id": "IMAGE-bddf0b2f-446a-47fb-b54b-9535a6691f3b",
+                    "label": "IMAGE",
                     "func": "IMAGE",
-                    "type": "VISUALIZERS",
+                    "type": "VISUALIZATION",
                     "ctrls": {},
                     "initCtrls": {},
                     "inputs": [
                         {
                             "name": "default",
                             "id": "default",
-                            "type": "Image",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
+                            "type": "Image|Grayscale",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -344,557 +868,45 @@
                             "name": "default",
                             "id": "default",
                             "type": "Plotly",
-                            "desc": null
+                            "desc": "the DataContainer containing the Plotly Image visualization of the input image"
                         }
                     ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
-                    "selected": false
+                    "path": "DATA/VISUALIZATION/PLOTLY/IMAGE/IMAGE.py"
                 },
                 "position": {
-                    "x": 1389.0518065859221,
-                    "y": -76.07570349952636
+                    "x": 674.8525297204955,
+                    "y": 23.60948220238572
                 },
+                "width": 225,
+                "height": 225,
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1389.0518065859221,
-                    "y": -76.07570349952636
+                    "x": 674.8525297204955,
+                    "y": 23.60948220238572
                 },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "EXTREMA_DETERMINATION-601e08c6-42d6-4b85-aa87-5e8ea4d4abb5",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "EXTREMA_DETERMINATION-601e08c6-42d6-4b85-aa87-5e8ea4d4abb5",
-                    "label": "LoG PEAK FINDER",
-                    "func": "EXTREMA_DETERMINATION",
-                    "type": "VISUALIZERS",
-                    "ctrls": {
-                        "center": {
-                            "type": "list[int]",
-                            "default": null,
-                            "desc": null,
-                            "functionName": "EXTREMA_DETERMINATION",
-                            "param": "center",
-                            "value": ""
-                        },
-                        "min_dist": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": null,
-                            "functionName": "EXTREMA_DETERMINATION",
-                            "param": "min_dist",
-                            "value": 0
-                        },
-                        "algorithm": {
-                            "type": "select",
-                            "default": "log",
-                            "options": [
-                                "persistence",
-                                "high_symmetry",
-                                "log"
-                            ],
-                            "desc": null,
-                            "functionName": "EXTREMA_DETERMINATION",
-                            "param": "algorithm",
-                            "value": "log"
-                        },
-                        "prominence": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": null,
-                            "functionName": "EXTREMA_DETERMINATION",
-                            "param": "prominence",
-                            "value": "0.1"
-                        },
-                        "k": {
-                            "type": "float",
-                            "default": 1.41,
-                            "desc": null,
-                            "functionName": "EXTREMA_DETERMINATION",
-                            "param": "k",
-                            "value": 1.41
-                        },
-                        "sigma": {
-                            "type": "float",
-                            "default": 1,
-                            "desc": null,
-                            "functionName": "EXTREMA_DETERMINATION",
-                            "param": "sigma",
-                            "value": 1
-                        },
-                        "max_power": {
-                            "type": "int",
-                            "default": 9,
-                            "desc": null,
-                            "functionName": "EXTREMA_DETERMINATION",
-                            "param": "max_power",
-                            "value": 9
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image|Grayscale|Matrix",
-                            "multiple": false,
-                            "desc": null
-                        },
-                        {
-                            "name": "image_mask",
-                            "id": "image_mask",
-                            "type": "Grayscale|Matrix",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "fig",
-                            "id": "fig",
-                            "type": "Plotly",
-                            "desc": null
-                        },
-                        {
-                            "name": "blobs",
-                            "id": "blobs",
-                            "type": "Grayscale",
-                            "desc": null
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "scikit-image",
-                            "v": "0.21.0"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/TRANSFORMERS/IMAGE_PROCESSING/EXTREMA_DETERMINATION/EXTREMA_DETERMINATION.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 143.65257646934958,
-                    "y": 376.16518590802207
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 143.65257646934958,
-                    "y": 376.16518590802207
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "EXTREMA_DETERMINATION-044a2e60-2992-456e-807d-27a973df9925",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "EXTREMA_DETERMINATION-044a2e60-2992-456e-807d-27a973df9925",
-                    "label": "LDR PEAK FINDER",
-                    "func": "EXTREMA_DETERMINATION",
-                    "type": "VISUALIZERS",
-                    "ctrls": {
-                        "center": {
-                            "type": "list[int]",
-                            "default": null,
-                            "desc": null,
-                            "functionName": "EXTREMA_DETERMINATION",
-                            "param": "center",
-                            "value": "125,125"
-                        },
-                        "min_dist": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": null,
-                            "functionName": "EXTREMA_DETERMINATION",
-                            "param": "min_dist",
-                            "value": 0
-                        },
-                        "algorithm": {
-                            "type": "select",
-                            "default": "log",
-                            "options": [
-                                "persistence",
-                                "high_symmetry",
-                                "log"
-                            ],
-                            "desc": null,
-                            "functionName": "EXTREMA_DETERMINATION",
-                            "param": "algorithm",
-                            "value": "high_symmetry"
-                        },
-                        "prominence": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": null,
-                            "functionName": "EXTREMA_DETERMINATION",
-                            "param": "prominence",
-                            "value": 0
-                        },
-                        "k": {
-                            "type": "float",
-                            "default": 1.41,
-                            "desc": null,
-                            "functionName": "EXTREMA_DETERMINATION",
-                            "param": "k",
-                            "value": 1.41
-                        },
-                        "sigma": {
-                            "type": "float",
-                            "default": 1,
-                            "desc": null,
-                            "functionName": "EXTREMA_DETERMINATION",
-                            "param": "sigma",
-                            "value": 1
-                        },
-                        "max_power": {
-                            "type": "int",
-                            "default": 9,
-                            "desc": null,
-                            "functionName": "EXTREMA_DETERMINATION",
-                            "param": "max_power",
-                            "value": 9
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image|Grayscale|Matrix",
-                            "multiple": false,
-                            "desc": null
-                        },
-                        {
-                            "name": "image_mask",
-                            "id": "image_mask",
-                            "type": "Grayscale|Matrix",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "fig",
-                            "id": "fig",
-                            "type": "Plotly",
-                            "desc": null
-                        },
-                        {
-                            "name": "blobs",
-                            "id": "blobs",
-                            "type": "Grayscale",
-                            "desc": null
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "scikit-image",
-                            "v": "0.21.0"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/TRANSFORMERS/IMAGE_PROCESSING/EXTREMA_DETERMINATION/EXTREMA_DETERMINATION.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -703.0148109770004,
-                    "y": -305.25396574770286
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -703.0148109770004,
-                    "y": -305.25396574770286
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "REGION_PROPERTIES-5d3e79fd-90cb-49a9-8cad-30468d046ec8",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "REGION_PROPERTIES-5d3e79fd-90cb-49a9-8cad-30468d046ec8",
-                    "label": "REGION PROPERTIES 1",
-                    "func": "REGION_PROPERTIES",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image|Grayscale|Matrix",
-                            "multiple": false,
-                            "desc": "The input node to this function. If nothing is supplied, then a demo test\ncase is returned to illustrate the functionality of this node."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "Returns the Plotly superclass of `DataContainer` that has the illustrated\nfeatures as determined by this node."
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "scikit-image",
-                            "v": "0.21.0"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/TRANSFORMERS/IMAGE_PROCESSING/REGION_PROPERTIES/REGION_PROPERTIES.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 651.1791076117513,
-                    "y": 290.4051277948064
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 651.1791076117513,
-                    "y": 290.4051277948064
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "REGION_PROPERTIES-373847d3-c96e-4c79-a80e-8d6d1f551945",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "REGION_PROPERTIES-373847d3-c96e-4c79-a80e-8d6d1f551945",
-                    "label": "REGION PROPERTIES 2",
-                    "func": "REGION_PROPERTIES",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image|Grayscale|Matrix",
-                            "multiple": false,
-                            "desc": "The input node to this function. If nothing is supplied, then a demo test\ncase is returned to illustrate the functionality of this node."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "Returns the Plotly superclass of `DataContainer` that has the illustrated\nfeatures as determined by this node."
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "scikit-image",
-                            "v": "0.21.0"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/TRANSFORMERS/IMAGE_PROCESSING/REGION_PROPERTIES/REGION_PROPERTIES.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 1388.9133403687424,
-                    "y": -367.3884904436671
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1388.9133403687424,
-                    "y": -367.3884904436671
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "REGION_PROPERTIES-bd45eb65-94ef-4d5b-a822-ca6653fe7988",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "REGION_PROPERTIES-bd45eb65-94ef-4d5b-a822-ca6653fe7988",
-                    "label": "REGION PROPERTIES 3",
-                    "func": "REGION_PROPERTIES",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image|Grayscale|Matrix",
-                            "multiple": false,
-                            "desc": "The input node to this function. If nothing is supplied, then a demo test\ncase is returned to illustrate the functionality of this node."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "Returns the Plotly superclass of `DataContainer` that has the illustrated\nfeatures as determined by this node."
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "scikit-image",
-                            "v": "0.21.0"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/TRANSFORMERS/IMAGE_PROCESSING/REGION_PROPERTIES/REGION_PROPERTIES.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -248.8832667982938,
-                    "y": -407.6080553003739
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -248.8832667982938,
-                    "y": -407.6080553003739
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "EXTREMA_DETERMINATION-31c62e4e-d139-421c-aa63-7029a27dd453",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "EXTREMA_DETERMINATION-31c62e4e-d139-421c-aa63-7029a27dd453",
-                    "label": "HDR PEAK FINDER",
-                    "func": "EXTREMA_DETERMINATION",
-                    "type": "VISUALIZERS",
-                    "ctrls": {
-                        "center": {
-                            "type": "list[int]",
-                            "default": null,
-                            "desc": null,
-                            "functionName": "EXTREMA_DETERMINATION",
-                            "param": "center",
-                            "value": ""
-                        },
-                        "min_dist": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": null,
-                            "functionName": "EXTREMA_DETERMINATION",
-                            "param": "min_dist",
-                            "value": 0
-                        },
-                        "algorithm": {
-                            "type": "select",
-                            "default": "log",
-                            "options": [
-                                "persistence",
-                                "high_symmetry",
-                                "log"
-                            ],
-                            "desc": null,
-                            "functionName": "EXTREMA_DETERMINATION",
-                            "param": "algorithm",
-                            "value": "persistence"
-                        },
-                        "prominence": {
-                            "type": "float",
-                            "default": 0,
-                            "desc": null,
-                            "functionName": "EXTREMA_DETERMINATION",
-                            "param": "prominence",
-                            "value": "0.1"
-                        },
-                        "k": {
-                            "type": "float",
-                            "default": 1.41,
-                            "desc": null,
-                            "functionName": "EXTREMA_DETERMINATION",
-                            "param": "k",
-                            "value": 1.41
-                        },
-                        "sigma": {
-                            "type": "float",
-                            "default": 1,
-                            "desc": null,
-                            "functionName": "EXTREMA_DETERMINATION",
-                            "param": "sigma",
-                            "value": 1
-                        },
-                        "max_power": {
-                            "type": "int",
-                            "default": 9,
-                            "desc": null,
-                            "functionName": "EXTREMA_DETERMINATION",
-                            "param": "max_power",
-                            "value": 9
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image|Grayscale|Matrix",
-                            "multiple": false,
-                            "desc": null
-                        },
-                        {
-                            "name": "image_mask",
-                            "id": "image_mask",
-                            "type": "Grayscale|Matrix",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "fig",
-                            "id": "fig",
-                            "type": "Plotly",
-                            "desc": null
-                        },
-                        {
-                            "name": "blobs",
-                            "id": "blobs",
-                            "type": "Grayscale",
-                            "desc": null
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "scikit-image",
-                            "v": "0.21.0"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/TRANSFORMERS/IMAGE_PROCESSING/EXTREMA_DETERMINATION/EXTREMA_DETERMINATION.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 957.5869261451514,
-                    "y": -277.95539414559954
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 957.5869261451514,
-                    "y": -277.95539414559954
-                },
-                "dragging": true
+                "dragging": false
             }
         ],
         "edges": [
             {
-                "source": "LOCAL_FILE-1f53746a-5679-4ba5-be64-832d97bc41b9",
-                "sourceHandle": "default",
+                "id": "LOCAL_FILE-179e7f3b-34d2-434b-a797-58eace9c9208->EXTREMA_DETERMINATION-601e08c6-42d6-4b85-aa87-5e8ea4d4abb5_97fed781-a84b-4d8a-9fd4-5d1f030069b4",
+                "source": "LOCAL_FILE-179e7f3b-34d2-434b-a797-58eace9c9208",
                 "target": "EXTREMA_DETERMINATION-601e08c6-42d6-4b85-aa87-5e8ea4d4abb5",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LOCAL_FILE-1f53746a-5679-4ba5-be64-832d97bc41b9default-EXTREMA_DETERMINATION-601e08c6-42d6-4b85-aa87-5e8ea4d4abb5default"
+                "data": {
+                    "outputType": "Image"
+                }
             },
             {
-                "source": "EXTREMA_DETERMINATION-601e08c6-42d6-4b85-aa87-5e8ea4d4abb5",
-                "sourceHandle": "blobs",
-                "target": "IMAGE-14ee8682-0eae-4089-bb0d-85827cd0b310",
+                "id": "LOCAL_FILE-e7481241-5ed9-4816-b30c-6dacd31c8d97->EXTREMA_DETERMINATION-044a2e60-2992-456e-807d-27a973df9925_d4ab5da1-8705-4311-ab0f-638727d44fee",
+                "source": "LOCAL_FILE-e7481241-5ed9-4816-b30c-6dacd31c8d97",
+                "target": "EXTREMA_DETERMINATION-044a2e60-2992-456e-807d-27a973df9925",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-EXTREMA_DETERMINATION-601e08c6-42d6-4b85-aa87-5e8ea4d4abb5blobs-IMAGE-14ee8682-0eae-4089-bb0d-85827cd0b310default"
+                "data": {
+                    "outputType": "Image"
+                }
             },
             {
                 "source": "EXTREMA_DETERMINATION-601e08c6-42d6-4b85-aa87-5e8ea4d4abb5",
@@ -904,18 +916,11 @@
                 "id": "reactflow__edge-EXTREMA_DETERMINATION-601e08c6-42d6-4b85-aa87-5e8ea4d4abb5blobs-REGION_PROPERTIES-5d3e79fd-90cb-49a9-8cad-30468d046ec8default"
             },
             {
-                "source": "LOCAL_FILE-a6939cc3-d70e-430f-8021-79e3fd8d18a1",
-                "sourceHandle": "default",
-                "target": "EXTREMA_DETERMINATION-044a2e60-2992-456e-807d-27a973df9925",
-                "targetHandle": "default",
-                "id": "reactflow__edge-LOCAL_FILE-a6939cc3-d70e-430f-8021-79e3fd8d18a1default-EXTREMA_DETERMINATION-044a2e60-2992-456e-807d-27a973df9925default"
-            },
-            {
-                "source": "EXTREMA_DETERMINATION-044a2e60-2992-456e-807d-27a973df9925",
+                "source": "EXTREMA_DETERMINATION-31c62e4e-d139-421c-aa63-7029a27dd453",
                 "sourceHandle": "blobs",
-                "target": "IMAGE-6f9055e3-c0e4-4366-addc-e87115239a49",
+                "target": "REGION_PROPERTIES-373847d3-c96e-4c79-a80e-8d6d1f551945",
                 "targetHandle": "default",
-                "id": "reactflow__edge-EXTREMA_DETERMINATION-044a2e60-2992-456e-807d-27a973df9925blobs-IMAGE-6f9055e3-c0e4-4366-addc-e87115239a49default"
+                "id": "reactflow__edge-EXTREMA_DETERMINATION-31c62e4e-d139-421c-aa63-7029a27dd453blobs-REGION_PROPERTIES-373847d3-c96e-4c79-a80e-8d6d1f551945default"
             },
             {
                 "source": "EXTREMA_DETERMINATION-044a2e60-2992-456e-807d-27a973df9925",
@@ -925,51 +930,46 @@
                 "id": "reactflow__edge-EXTREMA_DETERMINATION-044a2e60-2992-456e-807d-27a973df9925blobs-REGION_PROPERTIES-bd45eb65-94ef-4d5b-a822-ca6653fe7988default"
             },
             {
-                "source": "LOCAL_FILE-ddbac494-e150-4ece-b75a-5b2d3f930d02",
-                "sourceHandle": "default",
+                "id": "LOCAL_FILE-81e91252-621d-44a1-9a2f-dc7081b8b522->EXTREMA_DETERMINATION-31c62e4e-d139-421c-aa63-7029a27dd453_287e7a2b-c57b-48d4-bf77-8827ccabf5ba",
+                "source": "LOCAL_FILE-81e91252-621d-44a1-9a2f-dc7081b8b522",
                 "target": "EXTREMA_DETERMINATION-31c62e4e-d139-421c-aa63-7029a27dd453",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LOCAL_FILE-ddbac494-e150-4ece-b75a-5b2d3f930d02default-EXTREMA_DETERMINATION-31c62e4e-d139-421c-aa63-7029a27dd453default"
+                "data": {
+                    "outputType": "Image"
+                }
             },
             {
-                "source": "EXTREMA_DETERMINATION-31c62e4e-d139-421c-aa63-7029a27dd453",
+                "id": "EXTREMA_DETERMINATION-044a2e60-2992-456e-807d-27a973df9925->IMAGE-641d6bb5-e956-4653-b1d9-000eb5446255_9d59e61b-a246-4de3-88d3-80cefa2a5149",
+                "source": "EXTREMA_DETERMINATION-044a2e60-2992-456e-807d-27a973df9925",
+                "target": "IMAGE-641d6bb5-e956-4653-b1d9-000eb5446255",
                 "sourceHandle": "blobs",
-                "target": "REGION_PROPERTIES-373847d3-c96e-4c79-a80e-8d6d1f551945",
                 "targetHandle": "default",
-                "id": "reactflow__edge-EXTREMA_DETERMINATION-31c62e4e-d139-421c-aa63-7029a27dd453blobs-REGION_PROPERTIES-373847d3-c96e-4c79-a80e-8d6d1f551945default"
+                "data": {
+                    "outputType": "Grayscale"
+                }
             },
             {
+                "id": "EXTREMA_DETERMINATION-31c62e4e-d139-421c-aa63-7029a27dd453->IMAGE-3d28258f-a4e4-4fdd-a055-d5fce86f0226_fbe466fc-97a2-4286-8a6f-f100297c1aae",
                 "source": "EXTREMA_DETERMINATION-31c62e4e-d139-421c-aa63-7029a27dd453",
+                "target": "IMAGE-3d28258f-a4e4-4fdd-a055-d5fce86f0226",
                 "sourceHandle": "blobs",
-                "target": "IMAGE-e7d9dc29-41a1-420c-8147-a085c1032003",
                 "targetHandle": "default",
-                "id": "reactflow__edge-EXTREMA_DETERMINATION-31c62e4e-d139-421c-aa63-7029a27dd453blobs-IMAGE-e7d9dc29-41a1-420c-8147-a085c1032003default"
+                "data": {
+                    "outputType": "Grayscale"
+                }
+            },
+            {
+                "id": "EXTREMA_DETERMINATION-601e08c6-42d6-4b85-aa87-5e8ea4d4abb5->IMAGE-bddf0b2f-446a-47fb-b54b-9535a6691f3b_2694b68d-ca81-44fa-9550-ab526a703961",
+                "source": "EXTREMA_DETERMINATION-601e08c6-42d6-4b85-aa87-5e8ea4d4abb5",
+                "target": "IMAGE-bddf0b2f-446a-47fb-b54b-9535a6691f3b",
+                "sourceHandle": "blobs",
+                "targetHandle": "default",
+                "data": {
+                    "outputType": "Grayscale"
+                }
             }
-        ],
-        "viewport": {
-            "x": 801.6629450152791,
-            "y": 408.96803522436426,
-            "zoom": 0.6040151956464187
-        }
+        ]
     },
-    "ctrlsManifest": [
-        {
-            "type": "input",
-            "name": "Slider",
-            "id": "INPUT_PLACEHOLDER",
-            "hidden": false,
-            "minHeight": 1,
-            "minWidth": 2,
-            "layout": {
-                "x": 0,
-                "y": 0,
-                "h": 2,
-                "w": 2,
-                "minH": 1,
-                "minW": 2,
-                "i": "INPUT_PLACEHOLDER"
-            }
-        }
-    ],
     "textNodes": []
 }

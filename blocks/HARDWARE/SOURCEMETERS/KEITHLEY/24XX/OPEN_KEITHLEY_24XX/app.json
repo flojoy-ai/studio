@@ -2,20 +2,20 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 269,
                 "id": "OPEN_KEITHLEY_24XX-097d2560-f5b9-468a-9517-32e89dedecc1",
-                "type": "IO",
+                "type": "HARDWARE",
                 "data": {
                     "id": "OPEN_KEITHLEY_24XX-097d2560-f5b9-468a-9517-32e89dedecc1",
                     "label": "OPEN KEITHLEY 24XX",
                     "func": "OPEN_KEITHLEY_24XX",
-                    "type": "IO",
+                    "type": "HARDWARE",
                     "ctrls": {
                         "device": {
                             "type": "SerialDevice",
                             "default": null,
-                            "desc": null,
+                            "desc": "The connected serial device corresponding to the Keithley 2400 source meter.",
                             "overload": null,
                             "functionName": "OPEN_KEITHLEY_24XX",
                             "param": "device",
@@ -46,35 +46,35 @@
                             "v": "3.5"
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/SOURCEMETERS/KEITHLEY/24XX/BASIC/OPEN_KEITHLEY_24XX/OPEN_KEITHLEY_24XX.py",
+                    "path": "HARDWARE/SOURCEMETERS/KEITHLEY/24XX/OPEN_KEITHLEY_24XX/OPEN_KEITHLEY_24XX.py",
                     "selected": false
                 },
                 "position": {
-                    "x": -140.35863305434796,
-                    "y": 1.9088042829506549
+                    "x": -188.59756064326274,
+                    "y": 45.200149555053656
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -140.35863305434796,
-                    "y": 1.9088042829506549
+                    "x": -188.59756064326274,
+                    "y": 45.200149555053656
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 192,
-                "height": 192,
+                "width": 216,
+                "height": 197,
                 "id": "IV_SWEEP-41060d63-89ff-46f2-914b-944a11d24ed7",
-                "type": "IO",
+                "type": "HARDWARE",
                 "data": {
                     "id": "IV_SWEEP-41060d63-89ff-46f2-914b-944a11d24ed7",
                     "label": "IV SWEEP",
                     "func": "IV_SWEEP",
-                    "type": "IO",
+                    "type": "HARDWARE",
                     "ctrls": {
                         "connection": {
                             "type": "SerialConnection",
                             "default": null,
-                            "desc": null,
+                            "desc": "The open connection with the Keithley 2400 source meter.",
                             "overload": null,
                             "functionName": "IV_SWEEP",
                             "param": "connection",
@@ -87,8 +87,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "OrderedPair|Vector",
-                            "multiple": false,
-                            "desc": null
+                            "desc": "The voltages to send to the Keithley 2400 source meter.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -105,30 +105,71 @@
                             "v": "3.5"
                         }
                     ],
-                    "path": "IO/INSTRUMENTS/SOURCEMETERS/KEITHLEY/24XX/BASIC/IV_SWEEP/IV_SWEEP.py",
+                    "path": "HARDWARE/SOURCEMETERS/KEITHLEY/24XX/IV_SWEEP/IV_SWEEP.py",
                     "selected": false
                 },
                 "position": {
-                    "x": 511.6912461233678,
-                    "y": 5.980216390951398
+                    "x": 498.08539475213547,
+                    "y": 44.32397934624265
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 511.6912461233678,
-                    "y": 5.980216390951398
+                    "x": 498.08539475213547,
+                    "y": 44.32397934624265
                 },
-                "dragging": true
+                "dragging": false
             },
             {
-                "width": 208,
-                "height": 96,
-                "id": "LINSPACE-db9bbe29-66a0-4122-ad24-e3c00b1fba28",
-                "type": "GENERATORS",
+                "width": 225,
+                "height": 226,
+                "id": "SCATTER-fee34277-0702-4342-af77-37c9d68701c6",
+                "type": "VISUALIZATION",
                 "data": {
-                    "id": "LINSPACE-db9bbe29-66a0-4122-ad24-e3c00b1fba28",
+                    "id": "SCATTER-fee34277-0702-4342-af77-37c9d68701c6",
+                    "label": "SCATTER",
+                    "func": "SCATTER",
+                    "type": "VISUALIZATION",
+                    "ctrls": {},
+                    "initCtrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix|Vector",
+                            "desc": "the DataContainer to be visualized",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly",
+                            "desc": "the DataContainer containing the Plotly Scatter visualization"
+                        }
+                    ],
+                    "path": "DATA/VISUALIZATION/PLOTLY/SCATTER/SCATTER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 906.1700223662774,
+                    "y": -1.4014413717442267
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 906.1700223662774,
+                    "y": -1.4014413717442267
+                },
+                "dragging": false
+            },
+            {
+                "id": "LINSPACE-95cd2232-7798-4824-8301-9798be1f09a2",
+                "type": "DATA",
+                "data": {
+                    "id": "LINSPACE-95cd2232-7798-4824-8301-9798be1f09a2",
                     "label": "LINSPACE",
                     "func": "LINSPACE",
-                    "type": "GENERATORS",
+                    "type": "DATA",
                     "ctrls": {
                         "start": {
                             "type": "float",
@@ -155,7 +196,7 @@
                             "overload": null,
                             "functionName": "LINSPACE",
                             "param": "step",
-                            "value": 10
+                            "value": 1000
                         }
                     },
                     "initCtrls": {},
@@ -164,8 +205,8 @@
                             "name": "default",
                             "id": "default",
                             "type": "Vector|OrderedPair",
-                            "multiple": false,
-                            "desc": "Optional input in case LINSPACE is used in a loop. Not used."
+                            "desc": "Optional input in case LINSPACE is used in a loop. Not used.",
+                            "multiple": false
                         }
                     ],
                     "outputs": [
@@ -176,91 +217,57 @@
                             "desc": "v: the vector between 'start' and 'end' with a 'step' number of points."
                         }
                     ],
-                    "path": "GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-                    "selected": false
+                    "path": "DATA/GENERATION/SIMULATIONS/LINSPACE/LINSPACE.py"
                 },
                 "position": {
-                    "x": 192.47824090745922,
-                    "y": 49.8416165273091
+                    "x": 163.63174396404946,
+                    "y": 50.69778435897251
                 },
+                "width": 216,
+                "height": 197,
                 "selected": false,
+                "dragging": false,
                 "positionAbsolute": {
-                    "x": 192.47824090745922,
-                    "y": 49.8416165273091
-                },
-                "dragging": true
-            },
-            {
-                "width": 225,
-                "height": 226,
-                "id": "SCATTER-fee34277-0702-4342-af77-37c9d68701c6",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "SCATTER-fee34277-0702-4342-af77-37c9d68701c6",
-                    "label": "SCATTER",
-                    "func": "SCATTER",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedPair|DataFrame|Matrix|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing the Plotly Scatter visualization"
-                        }
-                    ],
-                    "path": "VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 822.0611229804773,
-                    "y": -8.822814846961876
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 822.0611229804773,
-                    "y": -8.822814846961876
-                },
-                "dragging": true
+                    "x": 163.63174396404946,
+                    "y": 50.69778435897251
+                }
             }
         ],
         "edges": [
             {
+                "id": "OPEN_KEITHLEY_24XX-097d2560-f5b9-468a-9517-32e89dedecc1->LINSPACE-95cd2232-7798-4824-8301-9798be1f09a2_8fec09e7-4a65-4819-85db-d3d6647122a0",
                 "source": "OPEN_KEITHLEY_24XX-097d2560-f5b9-468a-9517-32e89dedecc1",
+                "target": "LINSPACE-95cd2232-7798-4824-8301-9798be1f09a2",
                 "sourceHandle": "default",
-                "target": "LINSPACE-db9bbe29-66a0-4122-ad24-e3c00b1fba28",
                 "targetHandle": "default",
-                "id": "reactflow__edge-OPEN_KEITHLEY_24XX-097d2560-f5b9-468a-9517-32e89dedecc1default-LINSPACE-db9bbe29-66a0-4122-ad24-e3c00b1fba28default"
+                "data": {
+                    "outputType": "Any"
+                }
             },
             {
-                "source": "LINSPACE-db9bbe29-66a0-4122-ad24-e3c00b1fba28",
-                "sourceHandle": "default",
+                "id": "LINSPACE-95cd2232-7798-4824-8301-9798be1f09a2->IV_SWEEP-41060d63-89ff-46f2-914b-944a11d24ed7_fc6f8d20-7cb4-4e44-9bff-6c26334ae113",
+                "source": "LINSPACE-95cd2232-7798-4824-8301-9798be1f09a2",
                 "target": "IV_SWEEP-41060d63-89ff-46f2-914b-944a11d24ed7",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-LINSPACE-db9bbe29-66a0-4122-ad24-e3c00b1fba28default-IV_SWEEP-41060d63-89ff-46f2-914b-944a11d24ed7default"
+                "data": {
+                    "outputType": "Vector"
+                }
             },
             {
+                "id": "IV_SWEEP-41060d63-89ff-46f2-914b-944a11d24ed7->SCATTER-fee34277-0702-4342-af77-37c9d68701c6_cf2055d6-13bd-49d7-b3d1-84d89e59825f",
                 "source": "IV_SWEEP-41060d63-89ff-46f2-914b-944a11d24ed7",
-                "sourceHandle": "default",
                 "target": "SCATTER-fee34277-0702-4342-af77-37c9d68701c6",
+                "sourceHandle": "default",
                 "targetHandle": "default",
-                "id": "reactflow__edge-IV_SWEEP-41060d63-89ff-46f2-914b-944a11d24ed7default-SCATTER-fee34277-0702-4342-af77-37c9d68701c6default"
+                "data": {
+                    "outputType": "OrderedPair"
+                }
             }
-        ],
-        "viewport": {
-            "x": 255.10425070720453,
-            "y": 317.88940714410813,
-            "zoom": 0.5
-        }
-    }
+        ]
+    },
+    "textNodes": [],
+    "controlNodes": [],
+    "controlVisualizationNodes": [],
+    "controlTextNodes": []
 }
