@@ -26,7 +26,7 @@ export function CyclePanel() {
           > Cycle {cycleDisplay}</code>
         </Button>
       </HoverCardTrigger>
-      <HoverCardContent className="w-320 mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg border bg-card text-card-foreground shadow-sm px-3 py-2">
+      <HoverCardContent className="w-320 z-10 mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg border bg-card text-card-foreground shadow-sm px-3 py-2">
         <div>
           <h2 className="mt-2 text-lg font-bold text-accent1 text-center">
             Cycle Configuration
