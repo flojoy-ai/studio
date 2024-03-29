@@ -98,9 +98,16 @@ export function CloudPanel() {
 
   if (!envsQuery.isSuccess || !projectsQuery.isSuccess) {
     return (
-      <div className="grid grid-cols-1 gap-4 place-items-center pt-5">
-        <Spinner />
-      </div>
+      <div className="mt-5 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg border bg-card text-card-foreground shadow-sm px-6 pt-6 pb-3 ml-5">
+        <h3 className="text-2xl font-semibold leading-none tracking-tight">Report</h3>
+        <p className="text-sm text-muted-foreground mt-2">Automatically save the result to Flojoy Cloud</p>
+        <div className="flex flex-col">
+          <hr className="my-3" />
+          <div className="grid grid-cols-1 gap-4 place-items-center py-5">
+            <Spinner />
+          </div>
+        </div>
+      </div> 
     );
   }
 
