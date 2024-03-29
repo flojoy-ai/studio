@@ -205,7 +205,7 @@ const ControlPanelView = () => {
   return (
     <ReactFlowProvider>
       <div
-        style={{ 
+        style={{
           height: ACTIONS_HEIGHT,
           position: "absolute",
           top: `calc(${LAYOUT_TOP_HEIGHT + ACTIONS_HEIGHT}px + 30px)`,
@@ -252,18 +252,15 @@ const ControlPanelView = () => {
           <div
             data-cy="app-status"
             id="app-status"
-            className="flex items-center justify-center text-sm mr-5"
+            className="mr-5 flex items-center justify-center text-sm"
           >
             <code>{serverStatus}</code>
           </div>
 
-          <Link
-            to="/flowchart"
-            data-cy="script-btn"
-          >
+          <Link to="/flowchart" data-cy="script-btn">
             <Button
               data-testid="add-text-button"
-              className="gap-2 w-40"
+              className="w-40 gap-2"
               variant="ghost"
             >
               <Binary size={20} className="stroke-muted-foreground" />

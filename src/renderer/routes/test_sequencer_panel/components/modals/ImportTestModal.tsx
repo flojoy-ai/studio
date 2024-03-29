@@ -48,10 +48,12 @@ export const ImportTestModal = () => {
       onOpenChange={setIsImportTestModalOpen}
     >
       <DialogContent>
-        <h2 className="text-lg font-bold text-accent1">
-          Import Tests
-        </h2>
-        <Button variant={"outline"} onClick={() => handleImportTest("pytest")} data-testid="pytest-btn">
+        <h2 className="text-lg font-bold text-accent1">Import Tests</h2>
+        <Button
+          variant={"outline"}
+          onClick={() => handleImportTest("pytest")}
+          data-testid="pytest-btn"
+        >
           Pytest & Unittest
         </Button>
         <Button variant={"outline"} onClick={() => handleImportTest("python")}>

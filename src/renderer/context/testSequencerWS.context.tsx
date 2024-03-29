@@ -3,7 +3,11 @@ import { SendJsonMessage } from "react-use-websocket/dist/lib/types";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
-import { BackendMsg, Test, TestSequenceElement } from "@/renderer/types/test-sequencer";
+import {
+  BackendMsg,
+  Test,
+  TestSequenceElement,
+} from "@/renderer/types/test-sequencer";
 import { toast } from "sonner";
 import { env } from "@/env";
 import { testSequenceRunRequest } from "../routes/test_sequencer_panel/models/models";
@@ -54,7 +58,6 @@ export function TestSequencerWSProvider({
       return newElems;
     });
   };
-
 
   // Set result when received from backend for specific test
   const setResult = (
@@ -120,8 +123,7 @@ export function TestSequencerWSProvider({
         setBackendState(msg.data.state);
         setIsLocked(false);
         const failed = elems.some((elem) => {
-          if (elem.type === "test")
-            return elem.status === "fail";
+          if (elem.type === "test") return elem.status === "fail";
           return false;
         });
         updateSequenceStatus(failed ? "fail" : "pass");
@@ -162,7 +164,7 @@ export function TestSequencerWSProvider({
         updateSequenceStatus(msg.data.state);
         setBackendState(msg.data.state);
 
-        break
+        break;
       default:
         break;
     }

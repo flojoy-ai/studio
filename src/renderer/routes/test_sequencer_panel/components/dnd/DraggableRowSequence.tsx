@@ -70,9 +70,9 @@ export const DraggableRowSequence = ({
     useConfigureDropRef(parseInt(row.id));
   const isActiveAbove = isOverAbove && canDropAbove;
 
-    const handleDisplaySequence = (idx: number) => {
-      displaySequence(sequences[idx].project.name);
-  }
+  const handleDisplaySequence = (idx: number) => {
+    displaySequence(sequences[idx].project.name);
+  };
 
   return (
     <TableRow

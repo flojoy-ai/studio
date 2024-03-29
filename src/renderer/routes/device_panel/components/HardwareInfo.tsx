@@ -80,8 +80,9 @@ export const HardwareInfo = () => {
 
   // Driver Dependent Devices
   const niDevices = devices.nidaqmxDevices.concat(devices.nidmmDevices);
-  const allTurnOff = deviceSettings.niDAQmxDeviceDiscovery.value === false && nidmmDeviceDiscovery.value === false;
-
+  const allTurnOff =
+    deviceSettings.niDAQmxDeviceDiscovery.value === false &&
+    nidmmDeviceDiscovery.value === false;
 
   const driverDependentDevices: DeviceCardProps[] | undefined =
     niDevices.length > 0

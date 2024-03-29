@@ -13,9 +13,9 @@ import { PauseIcon, PlayIcon } from "lucide-react";
 import { toast } from "sonner";
 import { CyclePanel } from "./CyclePanel";
 
-
 export function ControlButton() {
-  const { tree, setIsLocked, backendGlobalState, backendState, runSequencer } = useTestSequencerState();
+  const { tree, setIsLocked, backendGlobalState, backendState, runSequencer } =
+    useTestSequencerState();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
 
   const handleClickRunTest = () => {
@@ -35,7 +35,7 @@ export function ControlButton() {
       console.log("Pause test");
       tSSendJsonMessage(testSequencePauseRequest(tree));
     }
-  }
+  };
 
   const handleClickResumeTest = () => {
     toast.info("Resuming sequencer.");
@@ -43,45 +43,45 @@ export function ControlButton() {
       console.log("Resume test");
       tSSendJsonMessage(testSequenceResumeRequest(tree));
     }
-  }
+  };
 
   return (
     <div>
-      <div className="flex my-4 ml-5 mr-2 px-2">
+      <div className="my-4 ml-5 mr-2 flex px-2">
         {backendGlobalState !== "test_set_start" ? (
-        <LockableButton
-          variant="dotted"
-          className="gap-2 flex-grow"
-          isLocked={_.isEmpty(tree)}
-          onClick={handleClickRunTest}
-        >
-          Run Test Sequences
-        </LockableButton>
+          <LockableButton
+            variant="dotted"
+            className="flex-grow gap-2"
+            isLocked={_.isEmpty(tree)}
+            onClick={handleClickRunTest}
+          >
+            Run Test Sequences
+          </LockableButton>
         ) : (
-          <div className={`flex flex-grow w-3/4 gap-4`}>
+          <div className={`flex w-3/4 flex-grow gap-4`}>
             <Button
-              className="gap-2 flex-grow"
-              variant="dotted" 
+              className="flex-grow gap-2"
+              variant="dotted"
               size="icon"
               onClick={handleClickStopTest}
             >
               Stop
             </Button>
             <Button
-              className="gap-2 flex-grow"
-              disabled={backendState !== "paused"} 
-              variant="dotted" 
+              className="flex-grow gap-2"
+              disabled={backendState !== "paused"}
+              variant="dotted"
               size="icon"
               onClick={handleClickResumeTest}
             >
               Play
             </Button>
-            <Button 
-              className="gap-2 flex-grow"
-              disabled={backendState !== "running"} 
-              variant="dotted" 
+            <Button
+              className="flex-grow gap-2"
+              disabled={backendState !== "running"}
+              variant="dotted"
               size="icon"
-              onClick={handleClickPauseTest} 
+              onClick={handleClickPauseTest}
             >
               Pause
             </Button>

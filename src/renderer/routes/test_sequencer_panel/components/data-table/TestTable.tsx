@@ -57,7 +57,6 @@ import { mapStatusToDisplay } from "./utils";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 
-
 export function TestTable() {
   const { elems, setElems } = useTestSequencerState();
   const { openRenameTestModal, setIsImportTestModalOpen } = useModalState();
@@ -115,12 +114,7 @@ export function TestTable() {
       },
       header: "Test name",
       cell: (props) => {
-        return (
-          <TestNameCell
-            cellProps={props}
-            indentLevels={indentLevels}
-          />
-        );
+        return <TestNameCell cellProps={props} indentLevels={indentLevels} />;
       },
     },
 
@@ -147,8 +141,6 @@ export function TestTable() {
         ) : null;
       },
     },
-
-
 
     {
       accessorFn: (elem) => {
@@ -250,7 +242,10 @@ export function TestTable() {
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({"up-down": false, "selected": isAdmin()});
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
+    "up-down": false,
+    selected: isAdmin(),
+  });
   const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
@@ -369,7 +364,7 @@ export function TestTable() {
         />
       )}
       <div className="m-1 flex items-center py-0">
-        { isAdmin() ? (
+        {isAdmin() ? (
           <LockableButton
             disabled={Object.keys(rowSelection).length == 0}
             onClick={handleClickRemoveTests}
@@ -379,7 +374,9 @@ export function TestTable() {
             <TrashIcon size={20} />
             <div className="hidden sm:block">Remove selected items</div>
           </LockableButton>
-        ): ( <div/> )}
+        ) : (
+          <div />
+        )}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="ml-auto">
@@ -507,7 +504,7 @@ export function TestTable() {
               <TableRow>
                 <TableCell
                   colSpan={columns.length + 1}
-                  className="h-24 text-center cursor-pointer hover:underline"
+                  className="h-24 cursor-pointer text-center hover:underline"
                   onClick={() => {
                     if (isAdmin()) {
                       setIsImportTestModalOpen(true);
@@ -523,14 +520,14 @@ export function TestTable() {
           </TableBody>
         </Table>
       </div>
-      { isAdmin() &&
+      {isAdmin() && (
         <div className="flex items-center justify-end space-x-2 py-4">
           <div className="flex-1 text-sm text-muted-foreground">
             {table.getFilteredSelectedRowModel().rows.length} of{" "}
             {table.getFilteredRowModel().rows.length} row(s) selected.
           </div>
         </div>
-      }
+      )}
     </div>
   );
 }

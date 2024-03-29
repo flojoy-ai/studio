@@ -10,7 +10,10 @@ export type TestType = z.infer<typeof TestType>;
 export const ResultType = z.enum(["pass", "fail", "aborted"]);
 export type ResultType = z.infer<typeof ResultType>;
 
-export const StatusType =  z.union([ResultType, z.enum(["pending", "running", "paused"])]);;
+export const StatusType = z.union([
+  ResultType,
+  z.enum(["pending", "running", "paused"]),
+]);
 export type StatusType = z.infer<typeof StatusType>;
 
 export const MsgState = z.enum([

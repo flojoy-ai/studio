@@ -50,12 +50,10 @@ const Header = () => {
         alt="Logo"
       />
       {tabs.map((t) => (
-        <HeaderTab
-          to={t.to}
-          key={t.fullText}
-          tabName={t.fullText}
-        >
-          <div data-testid={t.testId} className="hidden sm:block">{t.fullText}</div>
+        <HeaderTab to={t.to} key={t.fullText} tabName={t.fullText}>
+          <div data-testid={t.testId} className="hidden sm:block">
+            {t.fullText}
+          </div>
           <div className="sm:hidden">{t.shortText}</div>
         </HeaderTab>
       ))}

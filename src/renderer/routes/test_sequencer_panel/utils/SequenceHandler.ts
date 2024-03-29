@@ -32,7 +32,10 @@ import { createNewTest } from "@/renderer/hooks/useTestSequencerState";
 // Exposed API
 export type StateManager = {
   elems: TestSequenceElement[];
-  addNewSequence: (project: TestSequencerProject, elements: TestSequenceElement[]) => void;
+  addNewSequence: (
+    project: TestSequencerProject,
+    elements: TestSequenceElement[],
+  ) => void;
   removeSequence: (name: string) => void;
   project: TestSequencerProject | null;
   sequences: TestSequenceContainer[];
@@ -105,7 +108,7 @@ export async function saveSequences(
       throw new Error("No sequences to save");
     }
     containers.forEach(async (ctn) => {
-      const elems = ctn.elements; 
+      const elems = ctn.elements;
       let sequence = ctn.project;
       sequence = validatePath(sequence);
       sequence = updateSequenceElement(
@@ -124,7 +127,6 @@ export async function saveSequences(
     return buildResultFromCatch(e);
   }
 }
-
 
 export async function importSequence(
   filePath: string,

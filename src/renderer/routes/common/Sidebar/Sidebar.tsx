@@ -4,7 +4,10 @@ import { memo, useEffect, useRef, useState } from "react";
 
 import { Leaf, RootNode } from "@/renderer/types/manifest";
 import SidebarNode from "./SidebarNode";
-import { LAYOUT_TOP_HEIGHT, LAYOUT_TOP_HEIGHT_FLOWCHART } from "@/renderer/routes/common/Layout";
+import {
+  LAYOUT_TOP_HEIGHT,
+  LAYOUT_TOP_HEIGHT_FLOWCHART,
+} from "@/renderer/routes/common/Layout";
 import { ArrowDownWideNarrow, ArrowUpWideNarrow, XIcon } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
 import { cn } from "@/renderer/lib/utils";
@@ -83,7 +86,7 @@ const Sidebar = ({
     <div
       data-testid="sidebar"
       style={{
-        top: LAYOUT_TOP_HEIGHT_FLOWCHART ,
+        top: LAYOUT_TOP_HEIGHT_FLOWCHART,
         height: `calc(100vh - ${LAYOUT_TOP_HEIGHT_FLOWCHART}px)`,
       }}
       className={cn(
@@ -91,12 +94,11 @@ const Sidebar = ({
         isSideBarOpen ? "left-0 duration-500" : "-left-full duration-300",
       )}
     >
-      <div className="absolute right-2 top-2">
-      </div>
+      <div className="absolute right-2 top-2"></div>
       <div>
         <div
           className={cn(
-            "flex mr-7 items-center rounded-sm bg-background pl-2 focus:ring-2 focus:ring-accent1 focus-visible:ring-2 focus-visible:ring-accent1",
+            "mr-7 flex items-center rounded-sm bg-background pl-2 focus:ring-2 focus:ring-accent1 focus-visible:ring-2 focus-visible:ring-accent1",
             { "ring-2 ring-accent1": searchFocused },
           )}
         >
@@ -146,7 +148,7 @@ const Sidebar = ({
             </button>
           </div>
           <div
-            className="ml-2 cursor-pointer rounded-xl mb-2.5 mr-8 transition duration-200 hover:text-muted-foreground"
+            className="mb-2.5 ml-2 mr-8 cursor-pointer rounded-xl transition duration-200 hover:text-muted-foreground"
             data-testid="sidebar-close"
             onClick={() => setSideBarStatus(false)}
           >

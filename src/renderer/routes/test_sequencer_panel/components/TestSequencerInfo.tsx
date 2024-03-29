@@ -14,7 +14,6 @@ import { ControlButton } from "./ControlButton";
 import { DesignBar } from "./DesignBar";
 
 const TestSequencerView = () => {
-
   return (
     <LockedContextProvider>
       <SequencerKeyboardShortcuts />
@@ -27,11 +26,11 @@ const TestSequencerView = () => {
       >
         <ModalsProvider />
         <div className="flex">
-          <div className="ml-auto mr-auto h-3/5 flex-grow flex-col overflow-y-auto mt-7">
+          <div className="ml-auto mr-auto mt-7 h-3/5 flex-grow flex-col overflow-y-auto">
             <SequenceTable />
             <TestTable />
           </div>
-          <div className="flex-none" style={{ width: "28%" }} >
+          <div className="flex-none" style={{ width: "28%" }}>
             <ControlButton />
             <CloudPanel />
           </div>

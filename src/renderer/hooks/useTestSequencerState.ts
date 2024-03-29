@@ -32,7 +32,9 @@ export type SetElemsFn = {
  * This test sequence element is guaranteed to be valid.
  * @param elems - The array of test sequence elements
  */
-export const createTestSequenceTree = (elems: TestSequenceElement[]): TestRootNode => {
+export const createTestSequenceTree = (
+  elems: TestSequenceElement[],
+): TestRootNode => {
   const identifiers = (
     elems.filter((elem) => elem.type === "test") as Test[]
   ).map((elem: Test) => {
@@ -171,7 +173,8 @@ export function useTestSequencerState() {
         // Sequences
         sequences: state.sequences,
         setSequences: state.setSequences,
-        runRunnableSequencesFromCurrentOne: state.runRunnableSequencesFromCurrentOne,
+        runRunnableSequencesFromCurrentOne:
+          state.runRunnableSequencesFromCurrentOne,
         runNextRunnableSequence: state.runNextRunnableSequence,
         displaySequence: state.displaySequence,
         updateSequenceStatus: state.updateSequenceStatus,
@@ -246,7 +249,10 @@ export function useTestSequencerState() {
     return new Ok(null);
   }
 
-  function addNewSeq(val: TestSequencerProject, elements: TestSequenceElement[]): void {
+  function addNewSeq(
+    val: TestSequencerProject,
+    elements: TestSequenceElement[],
+  ): void {
     addNewSequence(val, elements);
     displaySequence(val.name);
   }
@@ -259,7 +265,7 @@ export function useTestSequencerState() {
 
   function runNextRunnableSequenceAndCycle(sender: any): void {
     if (project === null) {
-      return  // User only has steps
+      return; // User only has steps
     }
     // Check if we are at the end of a cycle
     let lastRunnableSequenceIdx = -1;
@@ -268,11 +274,19 @@ export function useTestSequencerState() {
         lastRunnableSequenceIdx = idx;
       }
     });
-    const currentIdx = sequences.findIndex((seq) => seq.project.name === project.name);
-    if (currentIdx === lastRunnableSequenceIdx && sequences[currentIdx].status !== "pending") {
+    const currentIdx = sequences.findIndex(
+      (seq) => seq.project.name === project.name,
+    );
+    if (
+      currentIdx === lastRunnableSequenceIdx &&
+      sequences[currentIdx].status !== "pending"
+    ) {
       // Save cycle & run next the next one
-      saveCycle();  // Won't update the lenght of cycleRuns right away
-      if (cycleRuns.length < cycleConfig.cycleCount - 1 || cycleConfig.infinite) {
+      saveCycle(); // Won't update the lenght of cycleRuns right away
+      if (
+        cycleRuns.length < cycleConfig.cycleCount - 1 ||
+        cycleConfig.infinite
+      ) {
         const idx = sequences.findIndex((seq) => seq.runable);
         if (idx !== -1) {
           setIsLocked(true);
@@ -292,7 +306,7 @@ export function useTestSequencerState() {
       runRunnableSequencesFromCurrentOne(sender);
     } else {
       clearPreviousCycles();
-      // Run from the first runable sequence 
+      // Run from the first runable sequence
       const idx = sequences.findIndex((seq) => seq.runable);
       if (idx !== -1) {
         setIsLocked(true);

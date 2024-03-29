@@ -24,7 +24,9 @@ class WSManager:
 # Manager for Test Sequencer activities
 class TSManager(WSManager):
     def __init__(self):
-        self.runner: asyncio.Runner | None = None  # holds the running sequencer (only one at a time)
+        self.runner: asyncio.Runner | None = (
+            None  # holds the running sequencer (only one at a time)
+        )
         self.pause = False
         self.poison_pill: PoisonPill | None = None
         super().__init__()

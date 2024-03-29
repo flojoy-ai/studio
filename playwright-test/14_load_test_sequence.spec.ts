@@ -9,7 +9,6 @@ import {
 import { Selectors } from "./selectors";
 import { join } from "path";
 
-
 test.describe("Create a test sequence", () => {
   let window: Page;
   let app: ElectronApplication;
@@ -33,9 +32,14 @@ test.describe("Create a test sequence", () => {
 
   test("Should load and run a sequence", async () => {
     // Load a complexe sequence
-    const customSeqFile = join(__dirname, "fixtures/custom-sequences/complexe_sequence.tjoy");
+    const customSeqFile = join(
+      __dirname,
+      "fixtures/custom-sequences/complexe_sequence.tjoy",
+    );
     await app.evaluate(async ({ dialog }, customTestFile) => {
-      dialog.showOpenDialogSync = () => { return [customTestFile]; }
+      dialog.showOpenDialogSync = () => {
+        return [customTestFile];
+      };
     }, customSeqFile);
     await window.waitForTimeout(5000);
 
@@ -47,15 +51,20 @@ test.describe("Create a test sequence", () => {
     }
 
     // Expect sequence and tests to be loaded
-    await expect(window.locator("div", { hasText: "test_one" }).first()).toBeVisible();
-    await expect(window.locator("div", { hasText: "complexe_sequence" }).first()).toBeVisible();
-    
+    await expect(
+      window.locator("div", { hasText: "test_one" }).first(),
+    ).toBeVisible();
+    await expect(
+      window.locator("div", { hasText: "complexe_sequence" }).first(),
+    ).toBeVisible();
+
     // Run the sequence
     await window.getByText("Run Test Sequences").click();
     await window.waitForTimeout(10000);
 
     // Check the status
-    await expect(window.getByTestId(Selectors.globalStatusBadge)).toContainText("PASS");
+    await expect(window.getByTestId(Selectors.globalStatusBadge)).toContainText(
+      "PASS",
+    );
   });
-
 });

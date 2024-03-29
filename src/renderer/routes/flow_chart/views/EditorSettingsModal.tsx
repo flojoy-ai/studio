@@ -14,7 +14,7 @@ export const EditorSettingsModal = ({
     settings: state.frontend,
     updateSettings: state.updateFrontendSettings,
   }));
-  console.log('settings', settings);
+  console.log("settings", settings);
 
   return (
     <SettingsModal

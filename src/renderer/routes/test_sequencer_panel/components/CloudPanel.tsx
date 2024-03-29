@@ -28,8 +28,7 @@ const getIntegrity = (sequences: TestSequenceContainer[]): boolean => {
     integrity = integrity && seq.runable;
   });
   return integrity;
-}
-
+};
 
 export function CloudPanel() {
   const queryClient = useQueryClient();
@@ -98,16 +97,20 @@ export function CloudPanel() {
 
   if (!envsQuery.isSuccess || !projectsQuery.isSuccess) {
     return (
-      <div className="mt-5 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg border bg-card text-card-foreground shadow-sm px-6 pt-6 pb-3 ml-5">
-        <h3 className="text-2xl font-semibold leading-none tracking-tight">Report</h3>
-        <p className="text-sm text-muted-foreground mt-2">Automatically save the result to Flojoy Cloud</p>
+      <div className="ml-5 mt-5 rounded-lg border bg-card px-6 pb-3 pt-6 text-card-foreground shadow-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+        <h3 className="text-2xl font-semibold leading-none tracking-tight">
+          Report
+        </h3>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Automatically save the result to Flojoy Cloud
+        </p>
         <div className="flex flex-col">
           <hr className="my-3" />
-          <div className="grid grid-cols-1 gap-4 place-items-center py-5">
+          <div className="grid grid-cols-1 place-items-center gap-4 py-5">
             <Spinner />
           </div>
         </div>
-      </div> 
+      </div>
     );
   }
 
@@ -115,28 +118,31 @@ export function CloudPanel() {
     (c) => c.key === "FLOJOY_CLOUD_WORKSPACE_SECRET",
   );
 
-
   return (
-    <div className="mt-5 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg border bg-card text-card-foreground shadow-sm p-6 ml-5">
-      <h3 className="text-2xl font-semibold leading-none tracking-tight">Report</h3>
-      <p className="text-sm text-muted-foreground mt-2">Automatically save the result to Flojoy Cloud</p>
+    <div className="ml-5 mt-5 rounded-lg border bg-card p-6 text-card-foreground shadow-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+      <h3 className="text-2xl font-semibold leading-none tracking-tight">
+        Report
+      </h3>
+      <p className="mt-2 text-sm text-muted-foreground">
+        Automatically save the result to Flojoy Cloud
+      </p>
       <div className="flex flex-col">
         <hr className="my-3" />
 
         {!isCloudKeySet ? (
-          <Button onClick={() => setIsEnvVarModalOpen(true)} className="w-full mt-5">
+          <Button
+            onClick={() => setIsEnvVarModalOpen(true)}
+            className="mt-5 w-full"
+          >
             Connect to Flojoy Cloud
           </Button>
-
         ) : (
           <div>
-
             <h2 className="mb-2 text-lg font-bold text-accent1 ">
               Unit Under Test
             </h2>
 
             <div className="flex">
-
               <div className="flex-grow">
                 <div className="pb-1 pt-2 text-xs text-muted-foreground">
                   <p>Serial Number</p>
@@ -152,7 +158,7 @@ export function CloudPanel() {
                 />
               </div>
 
-              <div className="ml-2 flex-none w-1/3">
+              <div className="ml-2 w-1/3 flex-none">
                 <div className="pb-1 pt-2 text-xs text-muted-foreground">
                   <p>Lot Number</p>
                 </div>
@@ -166,9 +172,7 @@ export function CloudPanel() {
                   autoFocus
                 />
               </div>
-
             </div>
-
 
             <div className="pb-1 pt-2 text-xs text-muted-foreground">
               <p>Part Number</p>
@@ -225,15 +229,20 @@ export function CloudPanel() {
               </SelectContent>
             </Select>
 
-            <div className="mt-2 grid grid-cols-2 grid-flow-row gap-1 text-xs text-muted-foreground">
+            <div className="mt-2 grid grid-flow-row grid-cols-2 gap-1 text-xs text-muted-foreground">
               <p>Station: ID-12345678 </p>
               <p>Test JIG P/N: PN-0123456</p>
               <p>Test JIG SN: SN-0123456</p>
               <p>Operator: John Doe</p>
               <p> Sequencer: TSW-0.3.0 </p>
-              <p> Integrity: {getIntegrity(sequences) ?
-                <Badge className="h-4 bg-green-500">Pass</Badge> :
-                <Badge className="h-4 bg-red-500">Fail</Badge>}
+              <p>
+                {" "}
+                Integrity:{" "}
+                {getIntegrity(sequences) ? (
+                  <Badge className="h-4 bg-green-500">Pass</Badge>
+                ) : (
+                  <Badge className="h-4 bg-red-500">Fail</Badge>
+                )}
               </p>
             </div>
           </div>

@@ -81,7 +81,6 @@ const FlowControlButtons = () => {
     }
   }, [nodeParamChanged, watch]);
 
-
   useKeyboardShortcut("ctrl", "p", onRun);
   useKeyboardShortcut("meta", "p", onRun);
 

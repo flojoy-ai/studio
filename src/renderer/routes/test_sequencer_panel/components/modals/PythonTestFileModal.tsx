@@ -1,8 +1,5 @@
 import { flojoySyntaxTheme } from "@/renderer/assets/FlojoyTheme";
-import {
-  Dialog,
-  DialogContent,
-} from "@/renderer/components/ui/dialog";
+import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { ScrollArea, ScrollBar } from "@/renderer/components/ui/scroll-area";
 import { Test } from "@/renderer/types/test-sequencer";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";

@@ -1,6 +1,12 @@
 import { TestRootNode } from "@/renderer/types/test-sequencer";
 
-export type TestSequenceEvents = "run" | "stop" | "subscribe" | "export" | "pause" | "resume";
+export type TestSequenceEvents =
+  | "run"
+  | "stop"
+  | "subscribe"
+  | "export"
+  | "pause"
+  | "resume";
 type CloudId = string | null;
 
 export type TestSequenceRun = {

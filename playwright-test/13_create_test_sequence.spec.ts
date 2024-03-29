@@ -31,7 +31,6 @@ test.describe("Create a test sequence", () => {
     await app.close();
   });
 
-
   test("Should import and run test steps", async () => {
     // Click on add tests to open modal
     await expect(window.getByText("New")).toBeEnabled({
@@ -39,26 +38,30 @@ test.describe("Create a test sequence", () => {
     });
     await window.getByText("New").click();
     await window.getByText("New Test").click();
-    
+
     // Select the fixture file
     const customTestFile = join(__dirname, "fixtures/custom-sequences/test.py");
     await app.evaluate(async ({ dialog }, customTestFile) => {
-      dialog.showOpenDialogSync = () => { return [customTestFile]; }
+      dialog.showOpenDialogSync = () => {
+        return [customTestFile];
+      };
     }, customTestFile);
 
-        
     // Click on Pytest test to open modal
     await window.getByTestId(Selectors.pytestBtn).click();
 
     // Expect test to be loaded
-    await expect(window.locator("div", { hasText: "test_one" }).first()).toBeVisible();
+    await expect(
+      window.locator("div", { hasText: "test_one" }).first(),
+    ).toBeVisible();
 
     // Run the test and check the status
     await window.getByText("Run Test Sequences").click();
     await window.waitForTimeout(10000);
-    await expect(window.getByTestId(Selectors.globalStatusBadge)).toContainText("FAIL");
+    await expect(window.getByTestId(Selectors.globalStatusBadge)).toContainText(
+      "FAIL",
+    );
   });
-
 
   test("Should create and run a sequence", async () => {
     // Click on add tests to open modal
@@ -67,19 +70,22 @@ test.describe("Create a test sequence", () => {
     });
     await window.getByText("New").click();
     await window.getByText("New Test").click();
-    
+
     // Select the fixture file
     const customTestFile = join(__dirname, "fixtures/custom-sequences/test.py");
     await app.evaluate(async ({ dialog }, customTestFile) => {
-      dialog.showOpenDialogSync = () => { return [customTestFile]; }
+      dialog.showOpenDialogSync = () => {
+        return [customTestFile];
+      };
     }, customTestFile);
 
-        
     // Click on Pytest test to open modal
     await window.getByTestId(Selectors.pytestBtn).click();
 
     // Expect test to be loaded
-    await expect(window.locator("div", { hasText: "test_one" }).first()).toBeVisible();
+    await expect(
+      window.locator("div", { hasText: "test_one" }).first(),
+    ).toBeVisible();
 
     // Ctrl/meta + p key shortcut to save the sequence
     if (process.platform === "darwin") {
@@ -89,9 +95,16 @@ test.describe("Create a test sequence", () => {
     }
 
     // Fill the modal
-    const savePath = join(__dirname, "fixtures/custom-sequences/seq_example.tjoy");
-    await window.getByTestId(Selectors.newSeqModalNameInput).fill("seq_example");
-    await window.getByTestId(Selectors.newSeqModalDescInput).fill("Playwrite test sequence");
+    const savePath = join(
+      __dirname,
+      "fixtures/custom-sequences/seq_example.tjoy",
+    );
+    await window
+      .getByTestId(Selectors.newSeqModalNameInput)
+      .fill("seq_example");
+    await window
+      .getByTestId(Selectors.newSeqModalDescInput)
+      .fill("Playwrite test sequence");
     const root = join(__dirname, "fixtures/custom-sequences/");
     await app.evaluate(async ({ dialog }, root) => {
       dialog.showOpenDialog = () =>
@@ -103,13 +116,14 @@ test.describe("Create a test sequence", () => {
     await window.getByTestId(Selectors.newSeqModalCreateButton).click();
 
     // Check if saved sequence exists
-    await window.getByRole("dialog").waitFor({"state": "hidden"});
+    await window.getByRole("dialog").waitFor({ state: "hidden" });
     expect(existsSync(savePath)).toBe(true);
 
     // Run the sequence and check the status
     await window.getByText("Run Test Sequences").click();
     await window.waitForTimeout(10000);
-    await expect(window.getByTestId(Selectors.globalStatusBadge)).toContainText("FAIL");
+    await expect(window.getByTestId(Selectors.globalStatusBadge)).toContainText(
+      "FAIL",
+    );
   });
-
 });

@@ -12,10 +12,10 @@ export const ACTIONS_HEIGHT = 52;
 const SERVER_STATUS_HEIGHT = 32;
 export const BOTTOM_STATUS_BAR_HEIGHT = 64;
 
-export const LAYOUT_TOP_HEIGHT =
-  HEADER_HEIGHT + ACTIONS_HEIGHT;
+export const LAYOUT_TOP_HEIGHT = HEADER_HEIGHT + ACTIONS_HEIGHT;
 
-export const LAYOUT_TOP_HEIGHT_FLOWCHART = LAYOUT_TOP_HEIGHT + SERVER_STATUS_HEIGHT + 32; 
+export const LAYOUT_TOP_HEIGHT_FLOWCHART =
+  LAYOUT_TOP_HEIGHT + SERVER_STATUS_HEIGHT + 32;
 
 export const Layout = () => {
   const serverStatus = useSocketStore((state) => state.serverStatus);

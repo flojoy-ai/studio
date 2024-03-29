@@ -14,7 +14,7 @@ export const SaveSequencesButton = () => {
   );
 };
 
-export const useSave = () => { 
+export const useSave = () => {
   const { withPermissionCheck } = useWithPermission();
   const saveSequences = useSaveAllSequences();
   const { setIsCreateProjectModalOpen } = useModalStore();
@@ -24,7 +24,7 @@ export const useSave = () => {
     if (project === null && sequences.length === 0) {
       setIsCreateProjectModalOpen(true);
     } else {
-      await saveSequences()
+      await saveSequences();
     }
   };
 

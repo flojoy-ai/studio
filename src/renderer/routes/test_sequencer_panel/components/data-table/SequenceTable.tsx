@@ -44,10 +44,9 @@ import { useModalState } from "@/renderer/hooks/useModalState";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 
-
 export function SequenceTable() {
-
-  const { sequences, setSequences, project, isLocked, removeSequence } = useTestSequencerState();
+  const { sequences, setSequences, project, isLocked, removeSequence } =
+    useTestSequencerState();
   const { setIsCreateProjectModalOpen } = useModalState();
   const importSequences = useImportSequences();
   const { isAdmin } = useWithPermission();
@@ -81,11 +80,7 @@ export function SequenceTable() {
       accessorKey: "name",
       header: "Sequence name",
       cell: ({ row }) => {
-        return (
-          <div>
-            {row.original.project.name}
-          </div>
-        );
+        return <div>{row.original.project.name}</div>;
       },
     },
 
@@ -93,11 +88,7 @@ export function SequenceTable() {
       accessorKey: "description",
       header: "Description",
       cell: ({ row }) => {
-        return (
-          <div>
-            {row.original.project.description}
-          </div>
-        )
+        return <div>{row.original.project.description}</div>;
       },
     },
 
@@ -116,7 +107,6 @@ export function SequenceTable() {
         );
       },
     },
-
 
     {
       accessorKey: "status",
@@ -138,11 +128,11 @@ export function SequenceTable() {
       cell: ({ row }) => {
         return (
           <div>
-            <p className="text-primary"> 
-              { getSuccessRate(row.original.elements).toFixed(2) }% 
+            <p className="text-primary">
+              {getSuccessRate(row.original.elements).toFixed(2)}%
             </p>
           </div>
-        )
+        );
       },
     },
 
@@ -155,7 +145,7 @@ export function SequenceTable() {
           <div>
             <p className="text-primary"> {time.toFixed(2)}s </p>
           </div>
-        )
+        );
       },
     },
 
@@ -193,12 +183,14 @@ export function SequenceTable() {
         );
       },
     },
-
   ];
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({"up-down": false, "selected": isAdmin()});
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
+    "up-down": false,
+    selected: isAdmin(),
+  });
   const [rowSelection, setRowSelection] = useState({});
 
   const data = sequences;
@@ -222,35 +214,43 @@ export function SequenceTable() {
   });
 
   const handleClickRemoveSequence = () => {
-    onRemoveSequence(map(Object.keys(rowSelection), (idxStr) => parseInt(idxStr)));
+    onRemoveSequence(
+      map(Object.keys(rowSelection), (idxStr) => parseInt(idxStr)),
+    );
     setRowSelection([]);
   };
 
   const onRemoveSequence = (idxs: number[]) => {
-    const isUnsaved = sequences.some((sequence, idx) => idxs.includes(idx) && sequence.testSequenceUnsaved);
+    const isUnsaved = sequences.some(
+      (sequence, idx) => idxs.includes(idx) && sequence.testSequenceUnsaved,
+    );
     if (isUnsaved) {
       const shouldContinue = window.confirm(
         "You have unsaved changes. Do you want to continue?",
       );
       if (!shouldContinue) return;
     }
-    const seqNames = sequences.filter((_, idx) => idxs.includes(idx)).map((seq) => seq.project.name);
+    const seqNames = sequences
+      .filter((_, idx) => idxs.includes(idx))
+      .map((seq) => seq.project.name);
     seqNames.forEach((name) => removeSequence(name));
   };
 
   const onToggleSequence = (idxs: number[]) => {
-    setSequences.withException([ ...sequences].map((sequence, idx) => {
-      if (idxs.includes(idx)) {
-        return { ...sequence, runable: !sequence.runable };
-      }
-      return sequence;
-    }));
+    setSequences.withException(
+      [...sequences].map((sequence, idx) => {
+        if (idxs.includes(idx)) {
+          return { ...sequence, runable: !sequence.runable };
+        }
+        return sequence;
+      }),
+    );
   };
 
   return (
     <div className="flex flex-col">
       <div className="m-1 flex items-center py-0">
-        { isAdmin() ? (
+        {isAdmin() ? (
           <LockableButton
             disabled={Object.keys(rowSelection).length == 0}
             onClick={handleClickRemoveSequence}
@@ -260,7 +260,9 @@ export function SequenceTable() {
             <TrashIcon size={20} />
             <div className="hidden sm:block">Remove selected items</div>
           </LockableButton>
-        ): ( <div/> )}
+        ) : (
+          <div />
+        )}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="ml-auto">
@@ -300,9 +302,9 @@ export function SequenceTable() {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
                     </TableHead>
                   );
                 })}
@@ -318,13 +320,18 @@ export function SequenceTable() {
                     <DraggableRowSequence
                       row={row}
                       key={row.id}
-                      isSelected={project !== null && project.name === row.original.project.name}
+                      isSelected={
+                        project !== null &&
+                        project.name === row.original.project.name
+                      }
                       data-state={row.getIsSelected() && "selected"}
                     />
                   </ContextMenuTrigger>
                   <ContextMenuContent>
                     <ContextMenuItem
-                      onClick={() => { onRemoveSequence([row.index]); }}
+                      onClick={() => {
+                        onRemoveSequence([row.index]);
+                      }}
                     >
                       Remove sequence
                     </ContextMenuItem>
@@ -335,16 +342,16 @@ export function SequenceTable() {
               <TableRow>
                 <TableCell
                   colSpan={columns.length + 1}
-                  className="h-24 text-center cursor-pointer hover:underline"
+                  className="h-24 cursor-pointer text-center hover:underline"
                   onClick={() => {
                     if (isAdmin()) {
                       setIsCreateProjectModalOpen(true);
                     } else {
                       importSequences();
                     }
-                  }} 
+                  }}
                 >
-                    No Sequence
+                  No Sequence
                 </TableCell>
               </TableRow>
             )}

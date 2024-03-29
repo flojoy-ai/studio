@@ -274,7 +274,7 @@ const FlowChartTab = () => {
     <>
       <ReactFlowProvider>
         <div
-          style={{ 
+          style={{
             height: ACTIONS_HEIGHT,
             position: "absolute",
             top: `calc(${LAYOUT_TOP_HEIGHT + ACTIONS_HEIGHT}px + 30px)`,
@@ -359,18 +359,15 @@ const FlowChartTab = () => {
             <div
               data-cy="app-status"
               id="app-status"
-              className="flex items-center justify-center text-sm mr-5"
+              className="mr-5 flex items-center justify-center text-sm"
             >
               <code>{serverStatus}</code>
             </div>
 
-            <Link
-              to="/control"
-              data-cy="control-btn"
-            >
+            <Link to="/control" data-cy="control-btn">
               <Button
                 data-testid="add-text-button"
-                className="gap-2 w-40"
+                className="w-40 gap-2"
                 variant="ghost"
               >
                 <Joystick size={20} className="stroke-muted-foreground" />

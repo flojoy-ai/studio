@@ -171,11 +171,11 @@ export const openFilesPicker = (
         ],
       });
       if (selectedPaths && selectedPaths.length > 0) {
-        const files = selectedPaths.map((path) => { 
+        const files = selectedPaths.map((path) => {
           return {
             filePath: path.split(sep).join(posix.sep),
             fileContent: fs.readFileSync(path, { encoding: "utf-8" }),
-          }
+          };
         });
         resolve(files);
       }
@@ -198,24 +198,28 @@ export const openAllFilesInFolderPicker = (
         title: title,
         properties: ["openDirectory"],
       });
-      if (selectedPaths && selectedPaths.length === 1 && fs.lstatSync(selectedPaths[0]).isDirectory()) {
+      if (
+        selectedPaths &&
+        selectedPaths.length === 1 &&
+        fs.lstatSync(selectedPaths[0]).isDirectory()
+      ) {
         // If a folder is selected and if so, found all file with the allowed extensions from that folder
         const folerPath = selectedPaths[0];
-        selectedPaths = []
-        fs.readdirSync(folerPath , { withFileTypes: true }).forEach((dirent) => {
+        selectedPaths = [];
+        fs.readdirSync(folerPath, { withFileTypes: true }).forEach((dirent) => {
           if (dirent.isFile()) {
-            const nameAndExt = dirent.name.split('.');
+            const nameAndExt = dirent.name.split(".");
             const ext = nameAndExt[nameAndExt.length - 1];
             if (allowedExtensions.includes(ext)) {
-              selectedPaths!.push(join(folerPath , dirent.name));
+              selectedPaths!.push(join(folerPath, dirent.name));
             }
           }
         });
-        const files = selectedPaths.map((path) => { 
+        const files = selectedPaths.map((path) => {
           return {
             filePath: path.split(sep).join(posix.sep),
             fileContent: fs.readFileSync(path, { encoding: "utf-8" }),
-          }
+          };
         });
         resolve(files);
       }

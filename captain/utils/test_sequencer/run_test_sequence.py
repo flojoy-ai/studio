@@ -64,7 +64,9 @@ Extract = tuple[
 def _with_stream_test_result(func: Callable[[TestNode], Extract]):
     # TODO: support run in parallel feature
     async def wrapper(node: TestNode) -> Extract:
-        await _stream_result_to_frontend(MsgState.running, test_id=node.id, result=StatusTypes.pending)
+        await _stream_result_to_frontend(
+            MsgState.running, test_id=node.id, result=StatusTypes.pending
+        )
         test_sequencer._set_output_loc(node.id)
         children_getter, test_result = func(node)
         if test_result is None:

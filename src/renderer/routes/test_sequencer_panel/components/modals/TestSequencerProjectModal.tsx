@@ -95,7 +95,7 @@ export const TestSequencerProjectModal = () => {
           //   />
           // </div>
         }
-        <Button 
+        <Button
           variant={"default"}
           data-testid="new-seq-modal-create-btn"
           onClick={() => handleSubmit()}
