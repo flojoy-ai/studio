@@ -37,7 +37,7 @@ export function CloudPanel() {
   const [lotNumber, setLotNumber] = useState("");
   const [projectId, setProjectId] = useState("");
   const [partNumber, setPartNumber] = useState("");
-  const { tree, setIsLocked, sequences } = useTestSequencerState();
+  const { tree, setIsLocked, isLocked, sequences } = useTestSequencerState();
   const { tSSendJsonMessage } = useTestSequencerWS();
 
   const envsQuery = useQuery({
@@ -140,6 +140,7 @@ export function CloudPanel() {
                   value={serialNumber}
                   onChange={(e) => setSerialNumber(e.target.value)}
                   placeholder="SN-0001"
+                  disabled={isLocked}
                   autoFocus
                 />
               </div>
@@ -154,6 +155,7 @@ export function CloudPanel() {
                   value={lotNumber}
                   onChange={(e) => setLotNumber(e.target.value)}
                   placeholder="L-001"
+                  disabled={isLocked}
                   autoFocus
                 />
               </div>
@@ -164,7 +166,7 @@ export function CloudPanel() {
             <div className="pb-1 pt-2 text-xs text-muted-foreground">
               <p>Part Number</p>
             </div>
-            <Select onValueChange={setPartNumber}>
+            <Select onValueChange={setPartNumber} disabled={isLocked}>
               <SelectTrigger>
                 <SelectValue placeholder={"Select a part..."} />
               </SelectTrigger>
@@ -192,7 +194,7 @@ export function CloudPanel() {
               <p>Test Station</p>
             </div>
 
-            <Select onValueChange={setProjectId}>
+            <Select onValueChange={setProjectId} disabled={isLocked}>
               <SelectTrigger>
                 <SelectValue placeholder={"Select a test JIG..."} />
               </SelectTrigger>

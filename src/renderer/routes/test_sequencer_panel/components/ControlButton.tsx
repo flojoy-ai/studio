@@ -47,20 +47,20 @@ export function ControlButton() {
 
   return (
     <div>
-      <div className="flex my-4 ml-5 mr-2 px-2 gap-2">
+      <div className="flex my-4 ml-5 mr-2 px-2">
         {backendGlobalState !== "test_set_start" ? (
         <LockableButton
           variant="dotted"
-          className="gap-2 flex-grow fade"
+          className="gap-2 flex-grow"
           isLocked={_.isEmpty(tree)}
           onClick={handleClickRunTest}
         >
           Run Test Sequences
         </LockableButton>
         ) : (
-          <div className={`flex flex-grow w-3/4 gap-2`}>
+          <div className={`flex flex-grow w-3/4 gap-4`}>
             <Button
-              className="gap-2 flex-grow fade"
+              className="gap-2 flex-grow"
               variant="dotted" 
               size="icon"
               onClick={handleClickStopTest}
@@ -68,7 +68,7 @@ export function ControlButton() {
               Stop
             </Button>
             <Button
-              className="gap-2 flex-grow fade"
+              className="gap-2 flex-grow"
               disabled={backendState !== "paused"} 
               variant="dotted" 
               size="icon"
@@ -77,7 +77,7 @@ export function ControlButton() {
               Play
             </Button>
             <Button 
-              className="gap-2 flex-grow fade"
+              className="gap-2 flex-grow"
               disabled={backendState !== "running"} 
               variant="dotted" 
               size="icon"
