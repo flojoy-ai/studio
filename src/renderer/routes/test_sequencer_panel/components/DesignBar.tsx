@@ -186,12 +186,12 @@ const getGlobalStatus = (cycleRuns: TestSequenceContainer[][],  sequences: TestS
 }
 
 const mapStatusToDisplay: { [k in StatusType] } = {
-  "pending": <div className="bg-secondary rounded-md h-full w-full inline-flex items-center justify-center text-primary"><code>PENDING</code></div>,
-  "running": <div className="bg-blue-500 rounded-md h-full w-full inline-flex items-center justify-center text-primary-foreground"><code>RUNNING</code></div>,
-  "paused": <div className="bg-yellow-500 rounded-md h-full w-full inline-flex items-center justify-center text-primary-foreground"><code>PAUSED</code></div>,
-  "pass": <div className="bg-green-500 rounded-md h-full w-full inline-flex items-center justify-center text-primary-foreground"><code>PASS</code></div>,
-  "aborted": <div className="bg-red-500 rounded-md h-full w-full inline-flex items-center justify-center text-primary-foreground"><code>ABORTED</code></div>,
-  "fail": <div className="bg-red-500 rounded-md h-full w-full inline-flex items-center justify-center text-primary-foreground"><code>FAIL</code></div>,
+  "pending": <div className="bg-secondary rounded-md h-full w-full inline-flex items-center justify-center text-primary"><code data-testid="global-status-badge">PENDING</code></div>,
+  "running": <div className="bg-blue-500 rounded-md h-full w-full inline-flex items-center justify-center text-primary-foreground"><code data-testid="global-status-badge">RUNNING</code></div>,
+  "paused": <div className="bg-yellow-500 rounded-md h-full w-full inline-flex items-center justify-center text-primary-foreground"><code data-testid="global-status-badge">PAUSED</code></div>,
+  "pass": <div className="bg-green-500 rounded-md h-full w-full inline-flex items-center justify-center text-primary-foreground"><code data-testid="global-status-badge">PASS</code></div>,
+  "aborted": <div className="bg-red-500 rounded-md h-full w-full inline-flex items-center justify-center text-primary-foreground"><code data-testid="global-status-badge">ABORTED</code></div>,
+  "fail": <div className="bg-red-500 rounded-md h-full w-full inline-flex items-center justify-center text-primary-foreground"><code data-testid="global-status-badge">FAIL</code></div>,
 }
 
 const getSuccessRate = (data: TestSequenceElement[]): number => {

@@ -34,10 +34,11 @@ test.describe("Create a test sequence", () => {
 
   test("Should import and run test steps", async () => {
     // Click on add tests to open modal
-    await expect(window.getByText("Add New Tests")).toBeEnabled({
+    await expect(window.getByText("New")).toBeEnabled({
       timeout: 15000,
     });
-    await window.getByText("Add New Tests").click();
+    await window.getByText("New").click();
+    await window.getByText("New Test").click();
     
     // Select the fixture file
     const customTestFile = join(__dirname, "fixtures/custom-sequences/test.py");
@@ -53,7 +54,7 @@ test.describe("Create a test sequence", () => {
     await expect(window.locator("div", { hasText: "test_one" }).first()).toBeVisible();
 
     // Run the test and check the status
-    await window.getByText("Run Test Sequence").click();
+    await window.getByText("Run Test Sequences").click();
     await window.waitForTimeout(10000);
     await expect(window.getByTestId(Selectors.globalStatusBadge)).toContainText("FAIL");
   });
@@ -61,10 +62,11 @@ test.describe("Create a test sequence", () => {
 
   test("Should create and run a sequence", async () => {
     // Click on add tests to open modal
-    await expect(window.getByText("Add New Tests")).toBeEnabled({
+    await expect(window.getByText("New")).toBeEnabled({
       timeout: 15000,
     });
-    await window.getByText("Add New Tests").click();
+    await window.getByText("New").click();
+    await window.getByText("New Test").click();
     
     // Select the fixture file
     const customTestFile = join(__dirname, "fixtures/custom-sequences/test.py");
@@ -105,7 +107,7 @@ test.describe("Create a test sequence", () => {
     expect(existsSync(savePath)).toBe(true);
 
     // Run the sequence and check the status
-    await window.getByText("Run Test Sequence").click();
+    await window.getByText("Run Test Sequences").click();
     await window.waitForTimeout(10000);
     await expect(window.getByTestId(Selectors.globalStatusBadge)).toContainText("FAIL");
   });

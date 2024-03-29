@@ -51,7 +51,7 @@ test.describe("Create a test sequence", () => {
     await expect(window.locator("div", { hasText: "complexe_sequence" }).first()).toBeVisible();
     
     // Run the sequence
-    await window.getByText("Run Test Sequence").click();
+    await window.getByText("Run Test Sequences").click();
     await window.waitForTimeout(10000);
 
     // Check the status
