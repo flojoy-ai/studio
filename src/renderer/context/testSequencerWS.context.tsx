@@ -6,11 +6,9 @@ import useWebSocket, { ReadyState } from "react-use-websocket";
 import {
   BackendMsg,
   Test,
-  TestSequenceElement,
 } from "@/renderer/types/test-sequencer";
 import { toast } from "sonner";
 import { env } from "@/env";
-import { testSequenceRunRequest } from "../routes/test_sequencer_panel/models/models";
 
 type ContextType = {
   tSSendJsonMessage: SendJsonMessage;
@@ -123,7 +121,9 @@ export function TestSequencerWSProvider({
         setBackendState(msg.data.state);
         setIsLocked(false);
         const failed = elems.some((elem) => {
-          if (elem.type === "test") return elem.status === "fail";
+          if (elem.type === "test") {
+            return elem.status === "fail";
+          }
           return false;
         });
         updateSequenceStatus(failed ? "fail" : "pass");

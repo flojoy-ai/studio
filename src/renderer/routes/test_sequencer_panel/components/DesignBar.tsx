@@ -221,7 +221,8 @@ const getGlobalStatus = (
   // Highest in the view
   const iter = sequences.length > 0 ? sequences : data;
   const status = iter
-    .map((el) => el.status)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .map((el: any) => el.status)
     .reduce((prev, curr) => (priority[prev] > priority[curr] ? prev : curr));
   const highestGlobal =
     priority[highestCycle] > priority[status] ? highestCycle : status;

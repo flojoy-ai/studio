@@ -8,6 +8,7 @@ import { TableCell, TableRow } from "@/renderer/components/ui/table";
 import { Row, flexRender } from "@tanstack/react-table";
 import { parseInt } from "lodash";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import { TestSequenceContainer } from "@/renderer/types/test-sequencer";
 
 export const DraggableRowSequence = ({
   isSelected,
@@ -15,12 +16,12 @@ export const DraggableRowSequence = ({
   ...props
 }: {
   isSelected: boolean;
-  row: Row<any>;
+  row: Row<TestSequenceContainer>;
 }): React.ReactNode => {
   const { sequences, setSequences, displaySequence } = useTestSequencerState();
 
   const elementMover = (fromIdx: number, toIdx: number) => {
-    let newSequences = [...sequences];
+    const newSequences = [...sequences];
     newSequences.splice(toIdx, 0, newSequences[fromIdx]);
     fromIdx = toIdx < fromIdx ? fromIdx + 1 : fromIdx;
     newSequences.splice(fromIdx, 1);

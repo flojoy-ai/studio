@@ -186,7 +186,7 @@ export function TestTable() {
     },
 
     {
-      accessorFn: (elem, _) => {
+      accessorFn: (elem) => {
         return elem.type === "test" ? "completionTime" : null;
       },
       header: "Completion Time",

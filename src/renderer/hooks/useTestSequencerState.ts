@@ -20,6 +20,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Err, Ok, Result } from "neverthrow";
 import { verifyElementCompatibleWithSequence } from "@/renderer/routes/test_sequencer_panel/utils/SequenceHandler";
 import { toast } from "sonner";
+import { SendJsonMessage } from "react-use-websocket/dist/lib/types";
 
 // sync this with the definition of setElems
 export type SetElemsFn = {
@@ -263,7 +264,7 @@ export function useTestSequencerState() {
     }
   }
 
-  function runNextRunnableSequenceAndCycle(sender: any): void {
+  function runNextRunnableSequenceAndCycle(sender: SendJsonMessage): void {
     if (project === null) {
       return; // User only has steps
     }
@@ -300,7 +301,7 @@ export function useTestSequencerState() {
     }
   }
 
-  function runSequencer(sender: any): void {
+  function runSequencer(sender: SendJsonMessage): void {
     if (project === null) {
       setIsLocked(true);
       runRunnableSequencesFromCurrentOne(sender);

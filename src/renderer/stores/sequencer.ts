@@ -11,9 +11,9 @@ import {
   TestSequenceElement,
 } from "@/renderer/types/test-sequencer";
 import { TestSequencerProject } from "@/renderer/types/test-sequencer";
-import { testSequenceRunRequest } from "../routes/test_sequencer_panel/models/models";
+import { testSequenceRunRequest } from "@/renderer/routes/test_sequencer_panel/models/models";
 import { toast } from "sonner";
-import { createTestSequenceTree } from "../hooks/useTestSequencerState";
+import { createTestSequenceTree } from "@/renderer//hooks/useTestSequencerState";
 
 type State = {
   websocketId: string;
@@ -386,10 +386,10 @@ export const useSequencerStore = create<State & Actions>()(
 
 function containerizeCurrentSequence(
   containerIdx: number,
-  state: any,
+  state: State & Actions,
 ): TestSequenceContainer {
   const container = {
-    project: { ...state.testSequencerDisplayed },
+    project: { ...state.testSequencerDisplayed! },
     tree: { ...state.testSequenceStepTree },
     elements: [...state.elements],
     testSequenceUnsaved: state.testSequenceUnsaved,
@@ -399,7 +399,7 @@ function containerizeCurrentSequence(
   return container;
 }
 
-function loadSequence(idx: number, state: any): void {
+function loadSequence(idx: number, state: State & Actions): void {
   if (idx < 0 || idx >= state.sequences.length) {
     return;
   }
@@ -409,7 +409,7 @@ function loadSequence(idx: number, state: any): void {
   state.testSequenceUnsaved = state.sequences[idx].testSequenceUnsaved;
 }
 
-function clearSequencer(state: any): void {
+function clearSequencer(state: State & Actions): void {
   state.testSequencerDisplayed = null;
   state.testSequenceStepTree = {
     type: "root",
@@ -426,7 +426,7 @@ function clearSequencer(state: any): void {
   state.testSequenceUnsaved = false;
 }
 
-function resetSequencesToPending(state: any): void {
+function resetSequencesToPending(state: State & Actions): void {
   // Clean up all containers
   state.sequences.forEach((seq: TestSequenceContainer) => {
     // Clean up the sequence

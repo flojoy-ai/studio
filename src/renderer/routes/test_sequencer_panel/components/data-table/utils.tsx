@@ -99,7 +99,5 @@ export const getSuccessRate = (data: TestSequenceElement[]): number => {
   const tests = getOnlyTests(data);
   if (tests.length == 0) return 0;
   const success = filter(tests, (elem) => elem.status == "pass").length;
-  console.log("Success Rate: ", (success / tests.length) * 100, "%", data);
-  console.log("tests: ", tests);
   return (success / tests.length) * 100;
 };

@@ -103,7 +103,7 @@ export async function saveSequences(
 ): Promise<Result<null, Error>> {
   // Save the current sequence to disk
   try {
-    let containers = stateManager.sequences;
+    const containers = stateManager.sequences;
     if (containers.length === 0) {
       throw new Error("No sequences to save");
     }

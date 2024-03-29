@@ -160,7 +160,7 @@ export const openFilesPicker = (
   // Return mutiple files or all file with the allowed extensions if a folder is selected
   return new Promise((resolve, reject) => {
     try {
-      let selectedPaths = dialog.showOpenDialogSync(global.mainWindow, {
+      const selectedPaths = dialog.showOpenDialogSync(global.mainWindow, {
         title: title,
         properties: ["openFile", "multiSelections"],
         filters: [

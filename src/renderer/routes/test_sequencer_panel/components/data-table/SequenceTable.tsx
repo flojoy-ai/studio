@@ -38,7 +38,7 @@ import { parseInt, map } from "lodash";
 import { ChevronDownIcon, ChevronUpIcon, TrashIcon } from "lucide-react";
 import LockableButton from "@/renderer/routes/test_sequencer_panel/components/lockable/LockedButtons";
 import { useState } from "react";
-import { DraggableRowSequence } from "../dnd/DraggableRowSequence";
+import { DraggableRowSequence } from "@/renderer/routes/test_sequencer_panel/components/dnd/DraggableRowSequence";
 import { getCompletionTime, getSuccessRate, mapStatusToDisplay } from "./utils";
 import { useModalState } from "@/renderer/hooks/useModalState";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
@@ -155,7 +155,7 @@ export function SequenceTable() {
       cell: ({ row }) => {
         const onUpClick = () => {
           setRowSelection([]);
-          let newSequences = [...sequences];
+          const newSequences = [...sequences];
           const index = parseInt(row.id);
           if (index == 0) return;
           newSequences[index] = sequences[index - 1];
@@ -164,7 +164,7 @@ export function SequenceTable() {
         };
         const onDownClick = () => {
           setRowSelection([]);
-          let newSequences = [...sequences];
+          const newSequences = [...sequences];
           const index = parseInt(row.id);
           if (index == 0) return;
           newSequences[index] = sequences[index + 1];

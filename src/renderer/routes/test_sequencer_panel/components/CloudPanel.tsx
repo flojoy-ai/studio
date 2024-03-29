@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Input } from "@/renderer/components/ui/input";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
-import LockableButton from "./lockable/LockedButtons";
 import { useTestSequencerWS } from "@/renderer/context/testSequencerWS.context";
 import {
   Select,
@@ -18,7 +17,6 @@ import { getCloudProjects, getEnvironmentVariables } from "@/renderer/lib/api";
 import { toastQueryError } from "@/renderer/utils/report-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Spinner } from "@/renderer/components/ui/spinner";
-import { ControlButton } from "./ControlButton";
 import { TestSequenceContainer } from "@/renderer/types/test-sequencer";
 import { Badge } from "@/renderer/components/ui/badge";
 
@@ -35,6 +33,7 @@ export function CloudPanel() {
   const [serialNumber, setSerialNumber] = useState("");
   const [lotNumber, setLotNumber] = useState("");
   const [projectId, setProjectId] = useState("");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [partNumber, setPartNumber] = useState("");
   const { tree, setIsLocked, isLocked, sequences } = useTestSequencerState();
   const { tSSendJsonMessage } = useTestSequencerWS();
@@ -90,6 +89,7 @@ export function CloudPanel() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEnvVarModalOpen]);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleExport = () => {
     tSSendJsonMessage(testSequenceExportCloud(tree, serialNumber, projectId));
     setIsLocked(true);
