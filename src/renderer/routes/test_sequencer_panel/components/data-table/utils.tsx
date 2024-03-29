@@ -5,7 +5,7 @@ import { filter, max, sum } from "lodash";
 
 export const mapStatusToDisplay: { [k in StatusType] } = {
   pending: <Badge variant="bold" className="bg-secondary text-primary">PENDING</Badge>,
-  running: <Badge variant="bold" className="bg-blue-500 border-dash border-secondary">RUNNING</Badge>,
+  running: <Badge variant="bold" className="bg-blue-500">RUNNING</Badge>,
   paused:  <Badge variant="bold" className="bg-yellow-500">PAUSED</Badge>,
   pass:    <Badge variant="bold" className="bg-green-500">PASS</Badge>,
   aborted: <Badge variant="bold" className="bg-red-500">ABORTED</Badge>,
@@ -59,7 +59,17 @@ export const getCompletionTime = (data: TestSequenceElement[]) => {
 export const getOnlyTests = (data: TestSequenceElement[]): Test[] => {
   return filter(
     data,
-    (elem) => elem.type === "test" && elem.status != "pending",
+    (elem) => elem.type === "test" && elem.status != "pending" && elem.status != "running",
   ) as Test[];
 };
+
+
+export const getSuccessRate = (data: TestSequenceElement[]): number => {   
+  const tests = getOnlyTests(data);  
+  if (tests.length == 0) return 0;
+  const success = filter(tests, (elem) => elem.status == "pass").length;
+  console.log("Success Rate: ", (success / tests.length) * 100, "%", data);
+  console.log("tests: ", tests);
+  return (success / tests.length) * 100;
+}
 

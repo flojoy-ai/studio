@@ -82,3 +82,17 @@ div {
 body {
   overflow: hidden; /* Make the HTML body be non-scrollable */
 }
+
+.fade {
+  animation: fadeInAnimation 1s ease-in-out;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+

@@ -39,7 +39,7 @@ import { ChevronDownIcon, ChevronUpIcon, TrashIcon } from "lucide-react";
 import LockableButton from "@/renderer/routes/test_sequencer_panel/components/lockable/LockedButtons";
 import { useState } from "react";
 import { DraggableRowSequence } from "../dnd/DraggableRowSequence";
-import { getCompletionTime, mapStatusToDisplay } from "./utils";
+import { getCompletionTime, getSuccessRate, mapStatusToDisplay } from "./utils";
 import { useModalState } from "@/renderer/hooks/useModalState";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
@@ -133,6 +133,20 @@ export function SequenceTable() {
     },
 
     {
+      accessorKey: "success_rate",
+      header: "Success Rate",
+      cell: ({ row }) => {
+        return (
+          <div>
+            <p className="text-primary"> 
+              { getSuccessRate(row.original.elements).toFixed(2) }% 
+            </p>
+          </div>
+        )
+      },
+    },
+
+    {
       accessorKey: "completion_time",
       header: "Completion Time",
       cell: ({ row }) => {
@@ -184,7 +198,7 @@ export function SequenceTable() {
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({"up-down": false});
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({"up-down": false, "selected": isAdmin()});
   const [rowSelection, setRowSelection] = useState({});
 
   const data = sequences;
@@ -236,15 +250,17 @@ export function SequenceTable() {
   return (
     <div className="flex flex-col">
       <div className="m-1 flex items-center py-0">
-        <LockableButton
-          disabled={Object.keys(rowSelection).length == 0}
-          onClick={handleClickRemoveSequence}
-          variant="ghost"
-          className="gap-2 whitespace-nowrap p-2"
-        >
-          <TrashIcon size={20} />
-          <div className="hidden sm:block">Remove selected items</div>
-        </LockableButton>
+        { isAdmin() ? (
+          <LockableButton
+            disabled={Object.keys(rowSelection).length == 0}
+            onClick={handleClickRemoveSequence}
+            variant="ghost"
+            className="gap-2 whitespace-nowrap p-2"
+          >
+            <TrashIcon size={20} />
+            <div className="hidden sm:block">Remove selected items</div>
+          </LockableButton>
+        ): ( <div/> )}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="ml-auto">

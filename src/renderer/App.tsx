@@ -25,10 +25,6 @@ function ErrorBoundary() {
 const App = () => {
   const { resolvedTheme } = useTheme();
 
-  // useLayoutEffect(() => {
-  //   initMixPanel();
-  // }, []);
-
   return (
     <div>
       <Toaster theme={resolvedTheme} closeButton />

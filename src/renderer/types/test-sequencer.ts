@@ -1,14 +1,5 @@
 import { z } from "zod";
 
-export type Summary = {
-  id: string;
-  successRate: number;
-  numberOfTestRun: number;
-  numberOfTest: number;
-  numberOfCycleRunDisplay: string
-  status: StatusType;
-};
-
 export type LockedContextType = {
   isLocked: boolean;
 };

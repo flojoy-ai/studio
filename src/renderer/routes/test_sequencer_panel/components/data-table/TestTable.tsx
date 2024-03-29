@@ -250,7 +250,7 @@ export function TestTable() {
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({"up-down": false});
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({"up-down": false, "selected": isAdmin()});
   const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
@@ -369,15 +369,17 @@ export function TestTable() {
         />
       )}
       <div className="m-1 flex items-center py-0">
-        <LockableButton
-          disabled={Object.keys(rowSelection).length == 0}
-          onClick={handleClickRemoveTests}
-          variant="ghost"
-          className="gap-2 whitespace-nowrap p-2"
-        >
-          <TrashIcon size={20} />
-          <div className="hidden sm:block">Remove selected items</div>
-        </LockableButton>
+        { isAdmin() ? (
+          <LockableButton
+            disabled={Object.keys(rowSelection).length == 0}
+            onClick={handleClickRemoveTests}
+            variant="ghost"
+            className="gap-2 whitespace-nowrap p-2"
+          >
+            <TrashIcon size={20} />
+            <div className="hidden sm:block">Remove selected items</div>
+          </LockableButton>
+        ): ( <div/> )}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="ml-auto">
@@ -521,12 +523,14 @@ export function TestTable() {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+      { isAdmin() &&
+        <div className="flex items-center justify-end space-x-2 py-4">
+          <div className="flex-1 text-sm text-muted-foreground">
+            {table.getFilteredSelectedRowModel().rows.length} of{" "}
+            {table.getFilteredRowModel().rows.length} row(s) selected.
+          </div>
         </div>
-      </div>
+      }
     </div>
   );
 }

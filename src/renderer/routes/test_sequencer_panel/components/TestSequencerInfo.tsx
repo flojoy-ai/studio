@@ -1,5 +1,4 @@
 import { TestTable } from "./data-table/TestTable";
-import { SummaryTable } from "./data-table/SummaryTable";
 import { SequenceTable } from "./data-table/SequenceTable";
 import { CloudPanel } from "./CloudPanel";
 import { LockedContextProvider } from "@/renderer/context/lock.context";
@@ -7,83 +6,35 @@ import _ from "lodash";
 import {
   LAYOUT_TOP_HEIGHT,
   BOTTOM_STATUS_BAR_HEIGHT,
+  ACTIONS_HEIGHT,
 } from "@/renderer/routes/common/Layout";
 import { ModalsProvider } from "./modals/ModalsProvider";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/renderer/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/renderer/components/ui/card";
-import { DesignPanel } from "./DesignPanel";
-import { CyclePanel } from "./CyclePanel";
-import useWithPermission from "@/renderer/hooks/useWithPermission";
 import SequencerKeyboardShortcuts from "../SequencerKeyboardShortCuts";
+import { ControlButton } from "./ControlButton";
+import { DesignBar } from "./DesignBar";
 
 const TestSequencerView = () => {
-
-  const { isAdmin } = useWithPermission();
 
   return (
     <LockedContextProvider>
       <SequencerKeyboardShortcuts />
+      <DesignBar />
       <div
         style={{
-          height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT}px)`,
+          height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT + ACTIONS_HEIGHT}px - 30px)`,
         }}
+        className="overflow-y-auto"
       >
         <ModalsProvider />
-        <div className="flex overflow-y-auto">
-
-          <div
-            className={`ml-auto mr-auto h-3/5 flex-grow flex-col overflow-y-auto ${isAdmin() ? "pt-12":"pt-2"}`}
-            style={{ height: "calc(100vh - 260px)" }}
-          >
-            <div className="flex w-full">
-              <SummaryTable />
-              <CyclePanel />
-            </div>
+        <div className="flex">
+          <div className="ml-auto mr-auto h-3/5 flex-grow flex-col overflow-y-auto mt-6">
             <SequenceTable />
             <TestTable />
           </div>
-
-          <div className="flex-none" style={{ width: "28%" }} >
-            <div className="top-0 h-full flex-none overflow-y-auto pl-5 w-full">
-              <Tabs defaultValue={ isAdmin() ? "Design" : "Execution" } className="w-full h-full">
-                { isAdmin() &&
-                  <TabsList className="flex justify-center">
-                    <TabsTrigger className="sm:mx-0 md:mx-1 lg:mx-5 xl:mx-8" value="Execution">Execution Panel</TabsTrigger>
-                    <TabsTrigger className="sm:mx-0 md:mx-1 lg:mx-5 xl:mx-8" value="Design">Design Panel</TabsTrigger>
-                  </TabsList>
-                }
-                <TabsContent value="Design">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Design</CardTitle>
-                      <CardDescription>
-                        Design and manage test sequences
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <hr />
-                      <DesignPanel />
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-                <TabsContent value="Execution">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Execution</CardTitle>
-                      <CardDescription>
-                        Monitor and control test execution
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <hr />
-                      <CloudPanel />
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-              </Tabs>
-            </div>
+          <div className="flex-none gap-5" style={{ width: "28%" }} >
+            <ControlButton />
+            <CloudPanel />
           </div>
-
         </div>
       </div>
     </LockedContextProvider>
