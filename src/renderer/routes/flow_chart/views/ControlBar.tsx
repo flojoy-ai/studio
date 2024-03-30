@@ -1,5 +1,4 @@
 import { memo, useState } from "react";
-
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { BlockSettingsModal } from "./BlockSettingsModal";
 import EnvVarModal from "./env-var/EnvVarModal";
