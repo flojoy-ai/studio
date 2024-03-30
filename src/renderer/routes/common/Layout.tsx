@@ -13,7 +13,6 @@ export const LAYOUT_TOP_HEIGHT_FLOWCHART =
   LAYOUT_TOP_HEIGHT + SERVER_STATUS_HEIGHT + 32;
 
 export const Layout = () => {
-
   return (
     <div>
       <div className="relative bg-background px-8 py-2">

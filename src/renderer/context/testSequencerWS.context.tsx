@@ -3,10 +3,7 @@ import { SendJsonMessage } from "react-use-websocket/dist/lib/types";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
-import {
-  BackendMsg,
-  Test,
-} from "@/renderer/types/test-sequencer";
+import { BackendMsg, Test } from "@/renderer/types/test-sequencer";
 import { toast } from "sonner";
 import { env } from "@/env";
 
