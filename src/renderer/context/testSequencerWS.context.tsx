@@ -120,6 +120,7 @@ export function TestSequencerWSProvider({
         setBackendGlobalState(msg.data.state);
         setBackendState(msg.data.state);
         setIsLocked(false);
+        // eslint-disable-next-line react-hooks/no-case-declarations
         const failed = elems.some((elem) => {
           if (elem.type === "test") {
             return elem.status === "fail";

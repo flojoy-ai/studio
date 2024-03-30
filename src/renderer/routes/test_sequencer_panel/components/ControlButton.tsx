@@ -7,11 +7,9 @@ import {
   testSequenceResumeRequest,
 } from "@/renderer/routes/test_sequencer_panel/models/models";
 import { TSWebSocketContext } from "@/renderer/context/testSequencerWS.context";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Button } from "@/renderer/components/ui/button";
-import { PauseIcon, PlayIcon } from "lucide-react";
 import { toast } from "sonner";
-import { CyclePanel } from "./CyclePanel";
 
 export function ControlButton() {
   const { tree, setIsLocked, backendGlobalState, backendState, runSequencer } =

@@ -1,11 +1,8 @@
 import { ImportIcon, Search } from "lucide-react";
-
 import { memo, useEffect, useRef, useState } from "react";
-
 import { Leaf, RootNode } from "@/renderer/types/manifest";
 import SidebarNode from "./SidebarNode";
 import {
-  LAYOUT_TOP_HEIGHT,
   LAYOUT_TOP_HEIGHT_FLOWCHART,
 } from "@/renderer/routes/common/Layout";
 import { ArrowDownWideNarrow, ArrowUpWideNarrow, XIcon } from "lucide-react";

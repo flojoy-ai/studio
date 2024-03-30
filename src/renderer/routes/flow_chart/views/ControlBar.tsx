@@ -24,8 +24,8 @@ import ProfileMenu from "./user-profile/ProfileMenu";
 import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
 import FeedbackModal from "./FeedbackModal";
-import { SaveSequencesButton } from "../../test_sequencer_panel/components/control-bar/SaveButton";
-import { ImportSequencesButton } from "../../test_sequencer_panel/components/control-bar/ImportButton";
+import { SaveSequencesButton } from "@/renderer/routes/test_sequencer_panel/components/control-bar/SaveButton";
+import { ImportSequencesButton } from "@/renderer/routes/test_sequencer_panel/components/control-bar/ImportButton";
 
 const ControlBar = () => {
   const { activeTab } = useAppStore(

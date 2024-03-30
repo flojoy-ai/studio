@@ -14,6 +14,7 @@ import { TestSequencerProject } from "@/renderer/types/test-sequencer";
 import { testSequenceRunRequest } from "@/renderer/routes/test_sequencer_panel/models/models";
 import { toast } from "sonner";
 import { createTestSequenceTree } from "@/renderer//hooks/useTestSequencerState";
+import { SendJsonMessage } from "react-use-websocket/dist/lib/types";
 
 type State = {
   websocketId: string;
@@ -54,8 +55,8 @@ type Actions = {
   ) => void;
   removeSequence: (name: string) => void;
   displaySequence: (name: string) => void;
-  runNextRunnableSequence: (sender: any) => void;
-  runRunnableSequencesFromCurrentOne: (sender: any) => void;
+  runNextRunnableSequence: (sender: SendJsonMessage) => void;
+  runRunnableSequencesFromCurrentOne: (sender: SendJsonMessage) => void;
   updateSequenceStatus: (val: StatusType) => void;
 };
 
