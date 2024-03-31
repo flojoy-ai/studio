@@ -110,10 +110,7 @@ export function CloudPanel() {
   return (
     <div className="w-full">
       {!isCloudKeySet ? (
-        <Button
-          onClick={() => setIsEnvVarModalOpen(true)}
-          className="w-full"
-        >
+        <Button onClick={() => setIsEnvVarModalOpen(true)} className="w-full">
           Connect to Flojoy Cloud
         </Button>
       ) : (

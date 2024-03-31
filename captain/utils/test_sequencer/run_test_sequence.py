@@ -323,7 +323,7 @@ def _case_test_upload(node: TestNode, hardware_id: str, project_id: str) -> Extr
     if node.export_to_cloud:
         cloud = FlojoyCloud(
             workspace_secret=get_env_var("FLOJOY_CLOUD_WORKSPACE_SECRET"),
-            api_url=get_flojoy_cloud_url()
+            api_url=get_flojoy_cloud_url(),
         )
 
         def reverse_id(test_name) -> str:

@@ -46,7 +46,9 @@ def FLOJOY_CLOUD_DOWNLOAD(
             "Flojoy Cloud key is not found! You can set it under Settings -> Environment Variables."
         )
 
-    cloud = flojoy_cloud.FlojoyCloud(workspace_secret=api_key, api_url=get_flojoy_cloud_url())
+    cloud = flojoy_cloud.FlojoyCloud(
+        workspace_secret=api_key, api_url=get_flojoy_cloud_url()
+    )
 
     measurement = cloud.get_measurement(measurement_id)
     logging.info(measurement)

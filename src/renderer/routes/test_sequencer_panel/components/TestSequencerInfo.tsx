@@ -43,19 +43,19 @@ const TestSequencerView = () => {
             <SequenceTable />
             <TestTable />
           </div>
-          <div className="flex-none w-[442px]">
+          <div className="w-[442px] flex-none">
             <div className="ml-5 mt-5 rounded-lg border bg-card px-6 pb-3 pt-4 text-card-foreground shadow-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
               <div className="h-14">
-              { backendGlobalState !== "test_set_start" &&
-                <div>
-                  <h3 className="text-2xl font-semibold leading-none tracking-tight">
-                     Sequencer
-                  </h3>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    Execute and report to Flojoy Cloud
-                  </p>
-                </div>
-              }
+                {backendGlobalState !== "test_set_start" && (
+                  <div>
+                    <h3 className="text-2xl font-semibold leading-none tracking-tight">
+                      Sequencer
+                    </h3>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      Execute and report to Flojoy Cloud
+                    </p>
+                  </div>
+                )}
               </div>
               <div className="flex flex-col">
                 <hr className="my-3" />

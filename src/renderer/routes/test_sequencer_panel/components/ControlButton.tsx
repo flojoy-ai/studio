@@ -46,11 +46,11 @@ export function ControlButton() {
 
   return (
     <div>
-      <div className="mt-6 mr-6">
+      <div className="mr-6 mt-6">
         {backendGlobalState !== "test_set_start" ? (
           <LockableButton
             variant="dotted"
-            className="px-4 py-2 w-28 gap-2"
+            className="w-28 gap-2 px-4 py-2"
             isLocked={_.isEmpty(tree)}
             onClick={handleClickRunTest}
           >
@@ -63,7 +63,7 @@ export function ControlButton() {
               variant="dotted"
               size="icon"
               onClick={handleClickStopTest}
-              className="gap-2 w-15 bg-destructive text-destructive-foreground hover:bg-destructive/90 px-5"
+              className="w-15 gap-2 bg-destructive px-5 text-destructive-foreground hover:bg-destructive/90"
             >
               <Square size={18} />
               Abort
@@ -73,7 +73,7 @@ export function ControlButton() {
               variant="dotted"
               size="icon"
               onClick={handleClickResumeTest}
-              className="gap-2 w-15 px-5"
+              className="w-15 gap-2 px-5"
             >
               <Play size={18} />
               Resume
@@ -83,7 +83,7 @@ export function ControlButton() {
               variant="dotted"
               size="icon"
               onClick={handleClickPauseTest}
-              className="gap-2 w-15 px-5"
+              className="w-15 gap-2 px-5"
             >
               <Pause size={18} />
               Pause

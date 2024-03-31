@@ -186,9 +186,7 @@ const EnvVarModal = () => {
           </div>
 
           <div className="py-1" />
-          <p className="text-xs">
-            Private Flojoy Cloud URL
-          </p>
+          <p className="text-xs">Private Flojoy Cloud URL</p>
           <div className="py-1" />
           <div className="flex w-full items-center space-x-2">
             <Input

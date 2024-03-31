@@ -75,7 +75,9 @@ def FLOJOY_CLOUD_UPLOAD(
 
     if default:
         # Only upload if the data is not empty, otherwise pass through
-        cloud = flojoy_cloud.FlojoyCloud(workspace_secret=api_key, api_url=get_flojoy_cloud_url())
+        cloud = flojoy_cloud.FlojoyCloud(
+            workspace_secret=api_key, api_url=get_flojoy_cloud_url()
+        )
         data = None
         # Optimist approach, assume that the data is at a castable dimension
         if isinstance(default, DataFrame):
