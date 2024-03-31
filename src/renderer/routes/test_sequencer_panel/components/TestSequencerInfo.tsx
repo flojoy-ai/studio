@@ -40,7 +40,7 @@ const TestSequencerView = () => {
       >
         <ModalsProvider />
         <div className="flex">
-          <div className="ml-auto mr-auto mt-7 h-3/5 flex-grow flex-col overflow-y-auto">
+          <div className="ml-auto mr-auto mt-2 h-3/5 flex-grow flex-col overflow-y-auto">
             <SequenceTable />
             <TestTable />
           </div>
