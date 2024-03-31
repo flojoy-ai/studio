@@ -2,14 +2,13 @@ import { TestTable } from "./data-table/TestTable";
 import { SequenceTable } from "./data-table/SequenceTable";
 import { CloudPanel } from "./CloudPanel";
 import { LockedContextProvider } from "@/renderer/context/lock.context";
-import _ from "lodash";
 import {
   LAYOUT_TOP_HEIGHT,
   BOTTOM_STATUS_BAR_HEIGHT,
   ACTIONS_HEIGHT,
 } from "@/renderer/routes/common/Layout";
 import { ModalsProvider } from "./modals/ModalsProvider";
-import SequencerKeyboardShortcuts from "../SequencerKeyboardShortCuts";
+import SequencerKeyboardShortcuts from "@/renderer/routes/test_sequencer_panel/SequencerKeyboardShortCuts";
 import { ControlButton } from "./ControlButton";
 import { DesignBar } from "./DesignBar";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";

@@ -1,8 +1,8 @@
 import { useModalStore } from "@/renderer/stores/modal";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
-import _, { filter } from "lodash";
+import { filter } from "lodash";
 import { Button } from "@/renderer/components/ui/button";
-import { ACTIONS_HEIGHT } from "../../common/Layout";
+import { ACTIONS_HEIGHT } from "@/renderer/routes/common/Layout";
 import {
   FlaskConical,
   HardDriveDownload,

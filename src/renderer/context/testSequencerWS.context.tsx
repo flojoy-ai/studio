@@ -3,10 +3,7 @@ import { SendJsonMessage } from "react-use-websocket/dist/lib/types";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
-import {
-  BackendMsg,
-  Test,
-} from "@/renderer/types/test-sequencer";
+import { BackendMsg, Test } from "@/renderer/types/test-sequencer";
 import { toast } from "sonner";
 import { env } from "@/env";
 
@@ -120,6 +117,7 @@ export function TestSequencerWSProvider({
         setBackendGlobalState(msg.data.state);
         setBackendState(msg.data.state);
         setIsLocked(false);
+        // eslint-disable-next-line no-case-declarations
         const failed = elems.some((elem) => {
           if (elem.type === "test") {
             return elem.status === "fail";

@@ -264,6 +264,17 @@ async def run_test_sequence(data, ts_manager: TSManager):
             children_getter, test_result = await _extract_from_node(
                 node, map_to_handler_run
             )
+            # # Upload to cloud if a part id is provided ===== FOR LATER
+            # # Add a check before all to double check if the part PN exist
+            # if test_result:
+            #     node.completion_time = test_result.time_taken
+            #     node.status = StatusTypes.pass_ if test_result.result else StatusTypes.fail
+            #     _, test_result = await _extract_from_node(
+            #         test_result.test_node,
+            #         map_to_handler_upload,
+            #         hardware_id="123",
+            #         project_id="123",
+            #     )
 
             if test_result:
                 context.result_dict[test_result.test_node.test_name] = test_result
