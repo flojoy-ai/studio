@@ -1,17 +1,15 @@
-import os
 import logging
 from flojoy import (
     DataContainer,
     flojoy,
     get_env_var,
+    get_flojoy_cloud_url,
     node_preflight,
     DataFrame,
     Boolean,
 )
 import flojoy_cloud
 import pandas as pd
-
-FLOJOY_CLOUD_URI: str = os.environ.get("FLOJOY_CLOUD_URI") or "https://cloud.flojoy.ai"
 
 
 @node_preflight
@@ -48,7 +46,7 @@ def FLOJOY_CLOUD_DOWNLOAD(
             "Flojoy Cloud key is not found! You can set it under Settings -> Environment Variables."
         )
 
-    cloud = flojoy_cloud.FlojoyCloud(workspace_secret=api_key)
+    cloud = flojoy_cloud.FlojoyCloud(workspace_secret=api_key, api_url=get_flojoy_cloud_url())
 
     measurement = cloud.get_measurement(measurement_id)
     logging.info(measurement)

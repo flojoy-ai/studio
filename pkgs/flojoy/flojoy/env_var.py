@@ -11,6 +11,7 @@ __all__ = [
     "get_env_var",
     "set_env_var",
     "delete_env_var",
+    "get_flojoy_cloud_url",
 ]
 
 
@@ -25,6 +26,23 @@ def get_keyring():
 def get_env_var(key: str) -> Optional[str]:
     kr = get_keyring()
     return kr.get_password("flojoy", key)
+
+
+def get_flojoy_cloud_url() -> str:
+    # Key should be validated when assign, but just making sure
+    cloud_url = get_env_var("FLOJOY_CLOUD_URL")
+    if cloud_url is None:
+        cloud_url = "https://cloud.flojoy.ai/api/v1"
+    else:
+        if not cloud_url.startswith("http"):
+            cloud_url = f"https://{cloud_url}"
+        if not cloud_url.endswith("/api/v1"):
+            if cloud_url.endswith("/"):
+                cloud_url = f"{cloud_url}api/v1"
+            else:
+                cloud_url = f"{cloud_url}/api/v1"
+
+    return cloud_url
 
 
 def set_env_var(key: str, value: str):
