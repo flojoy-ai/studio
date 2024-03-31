@@ -7,11 +7,10 @@ import {
   testSequenceResumeRequest,
 } from "@/renderer/routes/test_sequencer_panel/models/models";
 import { TSWebSocketContext } from "@/renderer/context/testSequencerWS.context";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Button } from "@/renderer/components/ui/button";
-import { PauseIcon, PlayIcon } from "lucide-react";
+import { Pause, Play, Square } from "lucide-react";
 import { toast } from "sonner";
-import { CyclePanel } from "./CyclePanel";
 
 export function ControlButton() {
   const { tree, setIsLocked, backendGlobalState, backendState, runSequencer } =
@@ -47,42 +46,46 @@ export function ControlButton() {
 
   return (
     <div>
-      <div className="my-4 ml-5 mr-2 flex px-2">
+      <div className="mt-6 mr-6">
         {backendGlobalState !== "test_set_start" ? (
           <LockableButton
             variant="dotted"
-            className="flex-grow gap-2"
+            className="px-4 py-2 w-28 gap-2"
             isLocked={_.isEmpty(tree)}
             onClick={handleClickRunTest}
           >
-            Run Test Sequences
+            <Play size={18} />
+            Play
           </LockableButton>
         ) : (
-          <div className={`flex w-3/4 flex-grow gap-4`}>
+          <div className="flex gap-2">
             <Button
-              className="flex-grow gap-2"
               variant="dotted"
               size="icon"
               onClick={handleClickStopTest}
+              className="gap-2 w-15 bg-destructive text-destructive-foreground hover:bg-destructive/90 px-5"
             >
-              Stop
+              <Square size={18} />
+              Abort
             </Button>
             <Button
-              className="flex-grow gap-2"
               disabled={backendState !== "paused"}
               variant="dotted"
               size="icon"
               onClick={handleClickResumeTest}
+              className="gap-2 w-15 px-5"
             >
-              Play
+              <Play size={18} />
+              Resume
             </Button>
             <Button
-              className="flex-grow gap-2"
               disabled={backendState !== "running"}
               variant="dotted"
               size="icon"
               onClick={handleClickPauseTest}
+              className="gap-2 w-15 px-5"
             >
+              <Pause size={18} />
               Pause
             </Button>
           </div>

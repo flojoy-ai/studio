@@ -97,19 +97,8 @@ export function CloudPanel() {
 
   if (!envsQuery.isSuccess || !projectsQuery.isSuccess) {
     return (
-      <div className="ml-5 mt-5 rounded-lg border bg-card px-6 pb-3 pt-6 text-card-foreground shadow-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-        <h3 className="text-2xl font-semibold leading-none tracking-tight">
-          Report
-        </h3>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Automatically save the result to Flojoy Cloud
-        </p>
-        <div className="flex flex-col">
-          <hr className="my-3" />
-          <div className="grid grid-cols-1 place-items-center gap-4 py-5">
-            <Spinner />
-          </div>
-        </div>
+      <div className="grid grid-cols-1 place-items-center gap-4 py-5">
+        <Spinner />
       </div>
     );
   }
@@ -119,135 +108,125 @@ export function CloudPanel() {
   );
 
   return (
-    <div className="ml-5 mt-5 rounded-lg border bg-card p-6 text-card-foreground shadow-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-      <h3 className="text-2xl font-semibold leading-none tracking-tight">
-        Report
-      </h3>
-      <p className="mt-2 text-sm text-muted-foreground">
-        Automatically save the result to Flojoy Cloud
-      </p>
-      <div className="flex flex-col">
-        <hr className="my-3" />
+    <div className="w-full">
+      {!isCloudKeySet ? (
+        <Button
+          onClick={() => setIsEnvVarModalOpen(true)}
+          className="w-full"
+        >
+          Connect to Flojoy Cloud
+        </Button>
+      ) : (
+        <div>
+          <h2 className="mb-2 text-lg font-bold text-accent1 ">
+            Unit Under Test
+          </h2>
 
-        {!isCloudKeySet ? (
-          <Button
-            onClick={() => setIsEnvVarModalOpen(true)}
-            className="mt-5 w-full"
-          >
-            Connect to Flojoy Cloud
-          </Button>
-        ) : (
-          <div>
-            <h2 className="mb-2 text-lg font-bold text-accent1 ">
-              Unit Under Test
-            </h2>
-
-            <div className="flex">
-              <div className="flex-grow">
-                <div className="pb-1 pt-2 text-xs text-muted-foreground">
-                  <p>Serial Number</p>
-                </div>
-                <Input
-                  className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
-                  type="text"
-                  value={serialNumber}
-                  onChange={(e) => setSerialNumber(e.target.value)}
-                  placeholder="SN-0001"
-                  disabled={isLocked}
-                  autoFocus
-                />
+          <div className="flex">
+            <div className="flex-grow">
+              <div className="pb-1 pt-2 text-xs text-muted-foreground">
+                <p>Serial Number</p>
               </div>
+              <Input
+                className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
+                type="text"
+                value={serialNumber}
+                onChange={(e) => setSerialNumber(e.target.value)}
+                placeholder="SN-0001"
+                disabled={isLocked}
+                autoFocus
+              />
+            </div>
 
-              <div className="ml-2 w-1/3 flex-none">
-                <div className="pb-1 pt-2 text-xs text-muted-foreground">
-                  <p>Lot Number</p>
-                </div>
-                <Input
-                  className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
-                  type="text"
-                  value={lotNumber}
-                  onChange={(e) => setLotNumber(e.target.value)}
-                  placeholder="L-001"
-                  disabled={isLocked}
-                  autoFocus
-                />
+            <div className="ml-2 w-1/3 flex-none">
+              <div className="pb-1 pt-2 text-xs text-muted-foreground">
+                <p>Lot Number</p>
               </div>
-            </div>
-
-            <div className="pb-1 pt-2 text-xs text-muted-foreground">
-              <p>Part Number</p>
-            </div>
-            <Select onValueChange={setPartNumber} disabled={isLocked}>
-              <SelectTrigger>
-                <SelectValue placeholder={"Select a part..."} />
-              </SelectTrigger>
-              <SelectContent className="max-h-72">
-                {dummyPartQuery.map((part) => (
-                  <SelectItem key={part} value={part}>
-                    {part}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <div className="pt-2 text-xs text-muted-foreground">
-              <p>Description: Actuator 62mm </p>
-              <p>Product: Arm-Link 6</p>
-            </div>
-
-            <hr className="mt-4" />
-
-            <h2 className="my-2 text-lg font-bold text-accent1 ">
-              Test Environment
-            </h2>
-
-            <div className="pb-1 text-xs text-muted-foreground">
-              <p>Test Station</p>
-            </div>
-
-            <Select onValueChange={setProjectId} disabled={isLocked}>
-              <SelectTrigger>
-                <SelectValue placeholder={"Select a test JIG..."} />
-              </SelectTrigger>
-              <SelectContent className="max-h-72">
-                {projectsQuery.data.length === 0 && (
-                  <div className="flex flex-col items-center justify-center gap-2 p-2 text-sm">
-                    <strong>No projects found</strong>
-                    <Button
-                      onClick={() => projectsQuery.refetch()}
-                      variant={"ghost"}
-                    >
-                      Refresh part list
-                    </Button>
-                  </div>
-                )}
-                {projectsQuery.data.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <div className="mt-2 grid grid-flow-row grid-cols-2 gap-1 text-xs text-muted-foreground">
-              <p>Station: ID-12345678 </p>
-              <p>Test JIG P/N: PN-0123456</p>
-              <p>Test JIG SN: SN-0123456</p>
-              <p>Operator: John Doe</p>
-              <p> Sequencer: TSW-0.3.0 </p>
-              <p>
-                {" "}
-                Integrity:{" "}
-                {getIntegrity(sequences) ? (
-                  <Badge className="h-4 bg-green-500">Pass</Badge>
-                ) : (
-                  <Badge className="h-4 bg-red-500">Fail</Badge>
-                )}
-              </p>
+              <Input
+                className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
+                type="text"
+                value={lotNumber}
+                onChange={(e) => setLotNumber(e.target.value)}
+                placeholder="L-001"
+                disabled={isLocked}
+                autoFocus
+              />
             </div>
           </div>
-        )}
-      </div>
+
+          <div className="pb-1 pt-2 text-xs text-muted-foreground">
+            <p>Part Number</p>
+          </div>
+          <Select onValueChange={setPartNumber} disabled={isLocked}>
+            <SelectTrigger>
+              <SelectValue placeholder={"Select a part..."} />
+            </SelectTrigger>
+            <SelectContent className="max-h-72">
+              {dummyPartQuery.map((part) => (
+                <SelectItem key={part} value={part}>
+                  {part}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <div className="pt-2 text-xs text-muted-foreground">
+            <p>Description: Actuator 62mm </p>
+            <p>Product: Arm-Link 6</p>
+          </div>
+
+          <hr className="mt-4" />
+
+          <h2 className="my-2 text-lg font-bold text-accent1 ">
+            Test Environment
+          </h2>
+
+          <div className="pb-1 text-xs text-muted-foreground">
+            <p>Test Station</p>
+          </div>
+
+          <Select onValueChange={setProjectId} disabled={isLocked}>
+            <SelectTrigger>
+              <SelectValue placeholder={"Select a test JIG..."} />
+            </SelectTrigger>
+            <SelectContent className="max-h-72">
+              {projectsQuery.data.length === 0 && (
+                <div className="flex flex-col items-center justify-center gap-2 p-2 text-sm">
+                  <strong>No projects found</strong>
+                  <Button
+                    onClick={() => projectsQuery.refetch()}
+                    variant={"ghost"}
+                  >
+                    Refresh part list
+                  </Button>
+                </div>
+              )}
+              {projectsQuery.data.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <div className="mt-2 grid grid-flow-row grid-cols-2 gap-1 text-xs text-muted-foreground">
+            <p>Station: ID-12345678 </p>
+            <p>Test JIG P/N: PN-0123456</p>
+            <p>Test JIG SN: SN-0123456</p>
+            <p>Operator: John Doe</p>
+            <p> Sequencer: TSW-0.3.0 </p>
+            <p>
+              {" "}
+              Integrity:{" "}
+              {getIntegrity(sequences) ? (
+                <Badge className="h-4 bg-green-500">Pass</Badge>
+              ) : (
+                <Badge className="h-4 bg-red-500">Fail</Badge>
+              )}
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
