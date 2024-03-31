@@ -39,7 +39,7 @@ export function CyclePanel() {
           </code>
         </Button>
       </HoverCardTrigger>
-      <HoverCardContent className="w-320 z-10 mt-2 rounded-lg border bg-card px-3 py-2 text-card-foreground shadow-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+      <HoverCardContent className="w-320 z-20 mt-2 rounded-lg border bg-card px-3 py-2 text-card-foreground shadow-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
         <div>
           <h2 className="mt-2 text-center text-lg font-bold text-accent1">
             Cycle Configuration
