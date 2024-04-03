@@ -144,11 +144,35 @@ export const discoverPytest = async (path: string, oneFile: boolean) => {
   });
 };
 
+
+const Part = z.object({
+  partId: z.string(),
+  partNumber: z.string(),
+  description: z.string(),
+});
+
+export type Part = z.infer<typeof Part>;
+
 const Project = z.object({
   label: z.string(),
   value: z.string(),
+  part: Part,
 });
-
 export type Project = z.infer<typeof Project>;
-
 export const getCloudProjects = () => get("cloud/projects", Project.array());
+
+const Station = z.object({
+  label: z.string(),
+  value: z.string(),
+});
+export type Station = z.infer<typeof Project>;
+export const getCloudStations = (projectId: string) => get(`cloud/stations/${projectId}`, Station.array());
+
+
+const Unit = z.object({
+  serialNumber: z.string(),
+  id: z.string(),
+  lotNumber : z.string(),
+});
+export type Unit = z.infer<typeof Unit>;
+export const getCloudUnit = (serialNumber: string) => get(`cloud/unit/SN/${serialNumber}`, Unit);

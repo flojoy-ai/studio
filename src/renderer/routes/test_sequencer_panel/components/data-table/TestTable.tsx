@@ -146,24 +146,13 @@ export function TestTable() {
       accessorFn: (elem) => {
         return elem.type === "test" ? "isSavedToCloud" : null;
       },
-      header: "Saved To Cloud",
+      header: "Export to Cloud",
       cell: ({ row }) => {
         if (row.original.type === "test") {
-          if (!row.original.exportToCloud) {
-            return <div> - </div>;
-          } else {
-            return (
-              <div
-                className={
-                  row.original.isSavedToCloud
-                    ? "text-green-500"
-                    : "text-red-500"
-                }
-              >
-                {row.original.isSavedToCloud ? "Saved" : "Not Saved"}
-              </div>
-            );
-          }
+          return <Checkbox
+            checked={row.original.exportToCloud}
+            onCheckedChange={() => toggleExportToCloud(row.original.id)}
+          />
         }
         return null;
       },

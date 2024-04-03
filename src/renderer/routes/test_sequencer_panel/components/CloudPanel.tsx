@@ -13,7 +13,7 @@ import { Button } from "@/renderer/components/ui/button";
 import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
 import { testSequenceExportCloud } from "@/renderer/routes/test_sequencer_panel/models/models";
-import { getCloudProjects, getEnvironmentVariables } from "@/renderer/lib/api";
+import { Station, getCloudProjects, getCloudStations, getCloudUnit, getEnvironmentVariables } from "@/renderer/lib/api";
 import { toastQueryError } from "@/renderer/utils/report-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Spinner } from "@/renderer/components/ui/spinner";
@@ -32,8 +32,10 @@ export function CloudPanel() {
   const queryClient = useQueryClient();
   const [serialNumber, setSerialNumber] = useState("");
   const [lotNumber, setLotNumber] = useState("");
+  const [description, setDescription] = useState("N/A");
+  const [product, setProduct] = useState("");
   const [projectId, setProjectId] = useState("");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [stationId, setStationId] = useState("");
   const [partNumber, setPartNumber] = useState("");
   const { tree, setIsLocked, isLocked, sequences } = useTestSequencerState();
   const { tSSendJsonMessage } = useTestSequencerWS();
@@ -52,6 +54,30 @@ export function CloudPanel() {
     },
   });
 
+  const unitQuery = useQuery({
+    queryKey: ["unit"],
+    queryFn: async () => {
+      if (envsQuery.isSuccess) {
+      if (
+        envsQuery.data.some((c) => c.key === "FLOJOY_CLOUD_WORKSPACE_SECRET") && serialNumber !== ""
+      ) {
+        const res = await getCloudUnit(serialNumber);
+        return res.match(
+          (vars) => {
+            return vars;
+          },
+          (e) => {
+            toastQueryError(e, "The Serail Number doesn't exist, please check it again.")
+            return [];
+          },
+        );
+      }
+      }
+      return [];
+    },
+    enabled: envsQuery.isSuccess,
+  });
+
   const projectsQuery = useQuery({
     queryKey: ["projects"],
     queryFn: async () => {
@@ -61,9 +87,11 @@ export function CloudPanel() {
         ) {
           const res = await getCloudProjects();
           return res.match(
-            (vars) => vars,
+            (vars) => {
+              return vars;
+            },
             (e) => {
-              toastQueryError(e, "Failed to fetch cloud projects");
+              toastQueryError(e, "Failed to fetch production lines");
               return [];
             },
           );
@@ -74,8 +102,36 @@ export function CloudPanel() {
     enabled: envsQuery.isSuccess,
   });
 
-  // Todo: part query base on the project id
-  const dummyPartQuery = ["part1", "part2", "part3"];
+  const stationsQuery = useQuery({
+    queryKey: ["stations"],
+    queryFn: async () => {
+      if (envsQuery.isSuccess) {
+        if (
+          envsQuery.data.some((c) => c.key === "FLOJOY_CLOUD_WORKSPACE_SECRET") && projectId
+        ) {
+          const res = await getCloudStations(projectId);
+          return res.match(
+            (vars) => vars,
+            (e) => {
+              toastQueryError(e, "Failed to fetch stations");
+              return [];
+            },
+          );
+        }
+      }
+      return [];
+    },
+    enabled: envsQuery.isSuccess,
+  });
+
+  const handleSetProject = (newValue: Station) => {
+    setStationId("");
+    stationsQuery.refetch();
+    setProjectId(newValue.value);
+    setDescription(newValue.part.description);
+    setPartNumber(newValue.part.partNumber);
+  };
+
 
   const { isEnvVarModalOpen, setIsEnvVarModalOpen } = useAppStore(
     useShallow((state) => ({
@@ -89,13 +145,13 @@ export function CloudPanel() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEnvVarModalOpen]);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleExport = () => {
-    tSSendJsonMessage(testSequenceExportCloud(tree, serialNumber, projectId));
-    setIsLocked(true);
-  };
+  // // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // const handleExport = () => {
+  //   tSSendJsonMessage(testSequenceExportCloud(tree, serialNumber, projectId));
+  //   setIsLocked(true);
+  // };
 
-  if (!envsQuery.isSuccess || !projectsQuery.isSuccess) {
+  if (!envsQuery.isSuccess || !projectsQuery.isSuccess || !stationsQuery.isSuccess) {
     return (
       <div className="grid grid-cols-1 place-items-center gap-4 py-5">
         <Spinner />
@@ -154,22 +210,11 @@ export function CloudPanel() {
           <div className="pb-1 pt-2 text-xs text-muted-foreground">
             <p>Part Number</p>
           </div>
-          <Select onValueChange={setPartNumber} disabled={isLocked}>
-            <SelectTrigger>
-              <SelectValue placeholder={"Select a part..."} />
-            </SelectTrigger>
-            <SelectContent className="max-h-72">
-              {dummyPartQuery.map((part) => (
-                <SelectItem key={part} value={part}>
-                  {part}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <Input placeholder="Select a station" value={partNumber} disabled={true} />
 
           <div className="pt-2 text-xs text-muted-foreground">
-            <p>Description: Actuator 62mm </p>
-            <p>Product: Arm-Link 6</p>
+            <p>Description: { ` ${description}`} </p>
+            { /* <p>Product: Arm-Link 6</p> } */}
           </div>
 
           <hr className="mt-4" />
@@ -179,39 +224,66 @@ export function CloudPanel() {
           </h2>
 
           <div className="pb-1 text-xs text-muted-foreground">
-            <p>Test Station</p>
+            <p>Production Line</p>
           </div>
 
-          <Select onValueChange={setProjectId} disabled={isLocked}>
+          <Select 
+            onValueChange={(value) => {
+              handleSetProject(value);
+            }} 
+            disabled={isLocked}
+          >
             <SelectTrigger>
-              <SelectValue placeholder={"Select a test JIG..."} />
+              <SelectValue placeholder={"Select your production line..."} />
             </SelectTrigger>
             <SelectContent className="max-h-72">
               {projectsQuery.data.length === 0 && (
                 <div className="flex flex-col items-center justify-center gap-2 p-2 text-sm">
-                  <strong>No projects found</strong>
+                  <strong>No production line found</strong>
                   <Button
                     onClick={() => projectsQuery.refetch()}
                     variant={"ghost"}
                   >
-                    Refresh part list
+                    Refresh 
                   </Button>
                 </div>
               )}
               {projectsQuery.data.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
+                <SelectItem key={option.value} value={option}>
                   {option.label}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
 
+          <div className="pb-1 pt-2 text-xs text-muted-foreground">
+            <p>Test Station</p>
+          </div>
+
+          <Select onValueChange={setStationId} disabled={isLocked}>
+            <SelectTrigger>
+              <SelectValue placeholder={"Select your station..."} />
+            </SelectTrigger>
+            <SelectContent className="max-h-72">
+              {stationsQuery.data.length === 0 && (
+                <div className="flex flex-col items-center justify-center gap-2 p-2 text-sm">
+                  <strong>No station found</strong>
+                  <p> Select a production line to load the available stations </p>
+                </div>
+              )}
+              {stationsQuery.data.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <div className="mt-2 grid grid-flow-row grid-cols-2 gap-1 text-xs text-muted-foreground">
             <p>Station: ID-12345678 </p>
             <p>Test JIG P/N: PN-0123456</p>
             <p>Test JIG SN: SN-0123456</p>
             <p>Operator: John Doe</p>
-            <p> Sequencer: TSW-0.3.0 </p>
+            <p>Sequencer: TSW-0.3.0 </p>
             <p>
               {" "}
               Integrity:{" "}

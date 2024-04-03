@@ -36,11 +36,8 @@ def get_flojoy_cloud_url() -> str:
     else:
         if not cloud_url.startswith("http"):
             cloud_url = f"https://{cloud_url}"
-        if not cloud_url.endswith("/api/v1"):
-            if cloud_url.endswith("/"):
-                cloud_url = f"{cloud_url}api/v1"
-            else:
-                cloud_url = f"{cloud_url}/api/v1"
+        if not cloud_url.endswith("/"):
+            cloud_url = f"{cloud_url}/"
 
     return cloud_url
 
