@@ -3,7 +3,6 @@ from captain.internal.manager import TSManager
 from captain.models.test_sequencer import TestSequenceEvents, TestSequenceRun
 from captain.utils.logger import logger
 from captain.utils.test_sequencer.run_test_sequence import (
-    export_test_sequence,
     run_test_sequence,
 )
 from typing import Callable
@@ -26,17 +25,6 @@ def _handle_run(data: TestSequenceRun, ts_manager: TSManager):
     ts_manager.cleanup()
 
 
-def _handle_export(data: TestSequenceRun, ts_manager: TSManager):
-    if data.hardware_id is None or data.project_id is None:
-        raise ValueError(
-            "Please ensure both Hardware ID and Project ID are provided before exporting."
-        )
-    with asyncio.Runner() as runner:
-        ts_manager.new_runner(runner)
-        runner.run(export_test_sequence(data.data, data.hardware_id, data.project_id))
-    ts_manager.cleanup()
-
-
 event_to_handle: dict[
     TestSequenceEvents, Callable[[TestSequenceRun, TSManager], None]
 ] = {
@@ -45,7 +33,6 @@ event_to_handle: dict[
     "stop": ts_manager.kill_runner,
     "pause": ts_manager.pause_runner,
     "resume": ts_manager.resume_runner,
-    "export": _handle_export,
 }
 
 

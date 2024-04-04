@@ -1,8 +1,6 @@
 import asyncio
 import subprocess
 import time
-from flojoy_cloud.client import FlojoyCloudException, FlojoyCloud
-from flojoy_cloud.measurement import MeasurementData
 from flojoy_cloud import test_sequencer
 import traceback
 from typing import Callable, List, Union
@@ -23,7 +21,6 @@ from captain.types.test_sequence import MsgState, TestSequenceMessage
 from captain.types.worker import PoisonPill
 from captain.utils.config import ts_manager
 from captain.utils.logger import logger
-from pkgs.flojoy.flojoy.env_var import get_env_var, get_flojoy_cloud_url
 
 
 class TestResult:
@@ -264,17 +261,6 @@ async def run_test_sequence(data, ts_manager: TSManager):
             children_getter, test_result = await _extract_from_node(
                 node, map_to_handler_run
             )
-            # # Upload to cloud if a part id is provided ===== FOR LATER
-            # # Add a check before all to double check if the part PN exist
-            # if test_result:
-            #     node.completion_time = test_result.time_taken
-            #     node.status = StatusTypes.pass_ if test_result.result else StatusTypes.fail
-            #     _, test_result = await _extract_from_node(
-            #         test_result.test_node,
-            #         map_to_handler_upload,
-            #         hardware_id="123",
-            #         project_id="123",
-            #     )
 
             if test_result:
                 context.result_dict[test_result.test_node.test_name] = test_result
@@ -295,133 +281,3 @@ async def run_test_sequence(data, ts_manager: TSManager):
         await _stream_result_to_frontend(state=MsgState.error, error=str(e))
         logger.error(f"{e}: {traceback.format_exc()}")
 
-
-def _with_stream_test_upload(func: Callable[[TestNode, str, str], Extract]):
-    async def wrapper(node: TestNode, hardware_id: str, project_id: str) -> Extract:
-        await _stream_result_to_frontend(MsgState.running, test_id=node.id)
-        try:
-            children_getter, test_result = func(node, hardware_id, project_id)
-            return children_getter, test_result
-        except Exception as e:
-            raise e
-        finally:
-            await _stream_result_to_frontend(
-                state=MsgState.test_done,
-                test_id=node.id,
-                result=node.status,
-                time_taken=node.completion_time if node.completion_time else -1,
-                is_saved_to_cloud=node.is_saved_to_cloud,
-            )
-
-    return wrapper
-
-
-@_with_stream_test_upload
-def _case_test_upload(node: TestNode, hardware_id: str, project_id: str) -> Extract:
-    if node.completion_time is None:
-        raise Exception(f"{node.id}: Can't upload a test that wasn't run")
-    if node.export_to_cloud:
-        cloud = FlojoyCloud(
-            workspace_secret=get_env_var("FLOJOY_CLOUD_WORKSPACE_SECRET"),
-            api_url=get_flojoy_cloud_url(),
-        )
-
-        def reverse_id(test_name) -> str:
-            tests = cloud.get_all_tests_by_project_id(project_id)
-            for i in tests:
-                if i.name == test_name:
-                    return str(i.id)
-            raise KeyError(f"No cloud test for {test_name}")
-
-        if node.status != StatusTypes.pending:
-            if node.completion_time is None:
-                raise Exception(f"{node.id}: Unexpected None for completion_time")
-            passed = True if node.status == StatusTypes.pass_ else False
-            data = test_sequencer._get_most_recent_data(node.id)
-            if not isinstance(data, MeasurementData):
-                logger.info(
-                    f"{node.id}: Unexpected data type for test data: {type(data)}"
-                )
-                data = passed
-            test_name = node.test_name
-            try:
-                node.is_saved_to_cloud = False
-                cloud.upload(
-                    data=data,
-                    test_id=reverse_id(test_name),
-                    hardware_id=hardware_id,
-                    name=test_name,
-                    passed=passed,
-                )
-                node.is_saved_to_cloud = True
-                logger.info(f"{test_name}: Uploaded to cloud")
-            except KeyError:  # Not in cloud: create a new test
-                cloud.create_test(test_name, project_id, measurement_type="boolean")
-                cloud.upload(
-                    data=passed,
-                    test_id=reverse_id(test_name),
-                    hardware_id=hardware_id,
-                    name=test_name,
-                    passed=passed,
-                )
-                node.is_saved_to_cloud = True
-                logger.info(f"{test_name}: Uploaded to cloud")
-            except FlojoyCloudException as err:
-                logger.error(err)
-                if "NOT_FOUND" in str(err):
-                    raise FlojoyCloudException(
-                        "Fail to upload to the cloud: Please make sure the hardware id is correct"
-                    ) from err
-                else:
-                    raise FlojoyCloudException(
-                        f"Failed to upload to the cloud: {err}"
-                    ) from err
-        else:
-            raise ValueError("Uploading a pending test is not allowed.")
-    return lambda _: None, TestResult(
-        node, True if node.status == StatusTypes.pass_ else False, node.completion_time
-    )
-
-
-map_to_handler_upload = (
-    "type",
-    {
-        "root": (None, _case_root),
-        "test": (None, _case_test_upload),
-        "conditional": (
-            "conditional_type",
-            {
-                "if": (None, _case_if_node),
-            },
-        ),
-    },
-)
-
-
-async def export_test_sequence(data, hardware_id, project_id):
-    data = pydantic.TypeAdapter(TestRootNode).validate_python(data)
-    identifiers = set(data.identifiers)
-    context = Context({}, identifiers)
-    try:
-        # Walking the tree with the same sequence as the last run and upload de TestNode
-        async def run_dfs(node: TestRootNode | TestSequenceElementNode):
-            children_getter, test_result = await _extract_from_node(
-                node,
-                map_to_handler_upload,
-                hardware_id=hardware_id,
-                project_id=project_id,
-            )
-            if test_result:
-                context.result_dict[test_result.test_node.test_name] = test_result
-            children = children_getter(context)
-            if not children:
-                return
-            for child in children:
-                await run_dfs(child)
-
-        await _stream_result_to_frontend(state=MsgState.test_set_export)
-        await run_dfs(data)  # Export tests
-        await _stream_result_to_frontend(state=MsgState.test_set_done)
-    except Exception as e:
-        await _stream_result_to_frontend(state=MsgState.error, error=str(e))
-        logger.error(f"{e}: {traceback.format_exc()}")
