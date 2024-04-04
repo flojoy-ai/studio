@@ -313,7 +313,7 @@ export function useTestSequencerState() {
           runRunnableSequencesFromCurrentOne(sender);
         }
       } else {
-        handleUpload(false);
+        handleUpload(false, false);
       }
     } else {
       // Run next sequence
@@ -321,7 +321,7 @@ export function useTestSequencerState() {
     }
   }
 
-  function handleUpload(forceUpload: boolean = false) {
+  function handleUpload(aborted: boolean, forceUpload: boolean = false) {
     if (uploadAfterRun || forceUpload) {
       if (project === null) {
         toast.warning("No sequence to upload, please create one.");
@@ -332,6 +332,7 @@ export function useTestSequencerState() {
           uploadInfo.serialNumber,
           uploadInfo.stationId,
           uploadInfo.integrity,
+          aborted,
           "",
           [...useSequencerStore.getState().cycleRuns]
         ); 

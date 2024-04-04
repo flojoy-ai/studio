@@ -141,7 +141,7 @@ export function TestSequencerWSProvider({
         setBackendState(msg.data.state);
         updateSequenceStatus(msg.data.status);
         saveCycle();
-        handleUpload();
+        handleUpload(true);
         break;
       // Test state -------------------------
       case "test_done":

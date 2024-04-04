@@ -181,6 +181,7 @@ export const postSession = (
   serialNumber: string,
   stationId: string,
   integrity: boolean,
+  aborted: boolean,
   commitHash: string,
   cycleRuns: TestSequenceContainer[][]
 )  => {
@@ -208,7 +209,7 @@ export const postSession = (
     serialNumber,
     stationId,
     integrity,
-    aborted: false,
+    aborted: aborted,
     notes: "",
     commitHash,
     measurements,

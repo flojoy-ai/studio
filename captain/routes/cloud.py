@@ -46,6 +46,7 @@ def headers_builder(with_workspace_id=True) -> dict:
     if with_workspace_id:
         response = requests.get(get_flojoy_cloud_url() + "workspace/", headers=headers)
         if response.status_code != 200:
+            logging.error(f"Failed to get workspace id: {response.text}")
             raise Exception("Failed to get workspace id")
         logging.info(response.json())
         workspace_id = response.json()[0]["id"]
