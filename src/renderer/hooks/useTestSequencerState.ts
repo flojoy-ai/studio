@@ -8,6 +8,7 @@ import {
   TestType,
   TestSequencerProject,
   TestSequenceContainer,
+  CycleConfig,
 } from "@/renderer/types/test-sequencer";
 import {
   checkUniqueNames,
@@ -312,11 +313,7 @@ export function useTestSequencerState() {
           runRunnableSequencesFromCurrentOne(sender);
         }
       } else {
-
-        // Custom instruction since the cycleRuns is not updated yet
-        const runs = [...useSequencerStore.getState().cycleRuns];
-        runs.push(sequences.map((seq) => ({ ...seq })));
-        handleUpload(false, runs);
+        handleUpload(false);
       }
     } else {
       // Run next sequence
@@ -324,7 +321,7 @@ export function useTestSequencerState() {
     }
   }
 
-  function handleUpload(forceUpload: boolean = false, containers: TestSequenceContainer[][] | undefined = undefined) {
+  function handleUpload(forceUpload: boolean = false) {
     if (uploadAfterRun || forceUpload) {
       if (project === null) {
         toast.warning("No sequence to upload, please create one.");
@@ -336,7 +333,7 @@ export function useTestSequencerState() {
           uploadInfo.stationId,
           uploadInfo.integrity,
           "",
-          containers ? containers : cycleRuns,
+          [...useSequencerStore.getState().cycleRuns]
         ); 
       };
       toast.promise(upload, 

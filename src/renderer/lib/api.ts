@@ -190,7 +190,7 @@ export const postSession = (
   cycleRuns.forEach((cycle, cycleNumber) => {
     cycle.forEach((seqContainer) => {
       seqContainer.elements.forEach((elem) => {
-        if (elem.type === "test" && elem.status !== "pending" && elem.exportToCloud) {
+        if (elem.type === "test" && elem.status !== "pending" && elem.status !== "running" && elem.exportToCloud) {
           measurements.push({
             testId: elem.id,
             sequenceName: seqContainer.project.name,
