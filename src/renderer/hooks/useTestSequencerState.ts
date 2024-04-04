@@ -7,6 +7,7 @@ import {
   TestNode,
   TestType,
   TestSequencerProject,
+  TestSequenceContainer,
 } from "@/renderer/types/test-sequencer";
 import {
   checkUniqueNames,
@@ -311,7 +312,11 @@ export function useTestSequencerState() {
           runRunnableSequencesFromCurrentOne(sender);
         }
       } else {
-        handleUpload(false, false);
+
+        // Custom instruction since the cycleRuns is not updated yet
+        const runs = [...useSequencerStore.getState().cycleRuns];
+        runs.push(sequences.map((seq) => ({ ...seq })));
+        handleUpload(false, runs);
       }
     } else {
       // Run next sequence
@@ -319,19 +324,20 @@ export function useTestSequencerState() {
     }
   }
 
-  function handleUpload(forceUpload: boolean = false, lastCycleUpdated: boolean = true) {
+  function handleUpload(forceUpload: boolean = false, containers: TestSequenceContainer[][] | undefined = undefined) {
     if (uploadAfterRun || forceUpload) {
       if (project === null) {
         toast.warning("No sequence to upload, please create one.");
         return;
       }
       const upload = async () => {
-        const runs = useSequencerStore.getState().cycleRuns;
-        if (lastCycleUpdated) {
-          runs.push(sequences.map((seq) => ({ ...seq })));
-        }
-        console.log("Uploading: " + JSON.stringify(runs));
-        await postSession(uploadInfo.serialNumber, uploadInfo.stationId, uploadInfo.integrity, "", runs); 
+        await postSession(
+          uploadInfo.serialNumber,
+          uploadInfo.stationId,
+          uploadInfo.integrity,
+          "",
+          containers ? containers : cycleRuns,
+        ); 
       };
       toast.promise(upload, 
         {
