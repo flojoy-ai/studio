@@ -178,7 +178,7 @@ export function useTestSequencerState() {
         setUnsaved: state.setTestSequenceUnsaved,
         tree: state.testSequenceStepTree,
         setTree: state.setTestSequenceTree,
-        project: state.testSequencerDisplayed,
+        project: state.testSequenceDisplayed,
         uploadAfterRun: state.uploadAfterRun,
         setUploadAfterRun: state.setUploadAfterRun,
         uploadInfo: state.uploadInfo,
@@ -311,7 +311,7 @@ export function useTestSequencerState() {
           runRunnableSequencesFromCurrentOne(sender);
         }
       } else {
-        handleUpload();
+        handleUpload(false, false);
       }
     } else {
       // Run next sequence
@@ -319,9 +319,20 @@ export function useTestSequencerState() {
     }
   }
 
-  function handleUpload(forceUpload: boolean = false) {
-    const upload = async () => { await postSession(uploadInfo.serialNumber, uploadInfo.stationId, uploadInfo.integrity, "", cycleRuns); };
+  function handleUpload(forceUpload: boolean = false, lastCycleUpdated: boolean = true) {
     if (uploadAfterRun || forceUpload) {
+      if (project === null) {
+        toast.warning("No sequence to upload, please create one.");
+        return;
+      }
+      const upload = async () => {
+        const runs = useSequencerStore.getState().cycleRuns;
+        if (lastCycleUpdated) {
+          runs.push(sequences.map((seq) => ({ ...seq })));
+        }
+        console.log("Uploading: " + JSON.stringify(runs));
+        await postSession(uploadInfo.serialNumber, uploadInfo.stationId, uploadInfo.integrity, "", runs); 
+      };
       toast.promise(upload, 
         {
           loading: "Uploading result...", 
@@ -335,6 +346,7 @@ export function useTestSequencerState() {
   }
 
   function runSequencer(sender: SendJsonMessage): void {
+    setIsUploaded(false);
     if (project === null) {
       setIsLocked(true);
       runRunnableSequencesFromCurrentOne(sender);

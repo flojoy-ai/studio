@@ -20,6 +20,7 @@ import { TestSequenceContainer } from "@/renderer/types/test-sequencer";
 import { Badge } from "@/renderer/components/ui/badge";
 import { Checkbox } from "@/renderer/components/ui/checkbox";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
+import { toast } from "sonner";
 
 
 export function CloudPanel() {
@@ -69,7 +70,8 @@ export function CloudPanel() {
         return res.match(
           (vars) =>  vars,
           (e) => {
-            toastQueryError(e, "The Serail Number doesn't exist, please check it again.")
+            console.error(e);
+            // toast.error("The Serail Number doesn't exist, please check it again.");
             return [];
           },
         );
@@ -91,7 +93,8 @@ export function CloudPanel() {
           return res.match(
             (vars) => vars,
             (e) => {
-              toastQueryError(e, "Failed to fetch production lines");
+              console.error(e);
+              toast.error("Failed to fetch production lines");
               return [];
             },
           );
@@ -112,7 +115,8 @@ export function CloudPanel() {
         return res.match(
           (vars) => vars,
           (e) => {
-            toastQueryError(e, "Failed to fetch stations");
+            console.error(e);
+            toast.error("Failed to fetch stations");
             return [];
           },
         );
@@ -301,7 +305,8 @@ export function CloudPanel() {
               <p className="ml-2 text-muted-foreground text-sm"> Automatically upload </p>
               <div className="grow"/>
               <Button 
-                variant="outline" disabled={isLocked || uploadInfo.isUploaded} 
+                variant="outline" 
+                disabled={isLocked || uploadInfo.isUploaded} 
                 className="h-6 text-muted-foreground text-xs" 
                 onClick={() => handleUpload(true)}
               >
