@@ -283,7 +283,7 @@ export function useTestSequencerState() {
 
   function runNextRunnableSequenceAndCycle(sender: SendJsonMessage): void {
     if (project === null) {
-      handleUpload();
+      handleUpload(false);
       return; // User only has steps
     }
     // Check if we are at the end of a cycle
