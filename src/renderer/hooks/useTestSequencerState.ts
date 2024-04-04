@@ -21,6 +21,7 @@ import { Err, Ok, Result } from "neverthrow";
 import { verifyElementCompatibleWithSequence } from "@/renderer/routes/test_sequencer_panel/utils/SequenceHandler";
 import { toast } from "sonner";
 import { SendJsonMessage } from "react-use-websocket/dist/lib/types";
+import { postSession } from "@/renderer/lib/api";
 
 // sync this with the definition of setElems
 export type SetElemsFn = {
@@ -134,6 +135,13 @@ export function useTestSequencerState() {
     tree,
     setTree,
     project,
+    uploadAfterRun,
+    setUploadAfterRun,
+    uploadInfo,
+    setStationId,
+    setSerialNumber,
+    setIntegrity,
+    setIsUploaded,
     // Sequences
     sequences,
     setSequences,
@@ -171,6 +179,13 @@ export function useTestSequencerState() {
         tree: state.testSequenceStepTree,
         setTree: state.setTestSequenceTree,
         project: state.testSequencerDisplayed,
+        uploadAfterRun: state.uploadAfterRun,
+        setUploadAfterRun: state.setUploadAfterRun,
+        uploadInfo: state.uploadInfo,
+        setStationId: state.setStationId,
+        setSerialNumber: state.setSerialNumber,
+        setIntegrity: state.setIntegrity,
+        setIsUploaded: state.setIsUploaded,
         // Sequences
         sequences: state.sequences,
         setSequences: state.setSequences,
@@ -266,6 +281,7 @@ export function useTestSequencerState() {
 
   function runNextRunnableSequenceAndCycle(sender: SendJsonMessage): void {
     if (project === null) {
+      handleUpload();
       return; // User only has steps
     }
     // Check if we are at the end of a cycle
@@ -294,10 +310,27 @@ export function useTestSequencerState() {
           displaySequence(sequences[idx].project.name);
           runRunnableSequencesFromCurrentOne(sender);
         }
+      } else {
+        handleUpload();
       }
     } else {
       // Run next sequence
       runNextRunnableSequence(sender);
+    }
+  }
+
+  function handleUpload(forceUpload: boolean = false) {
+    const upload = async () => { await postSession(uploadInfo.serialNumber, uploadInfo.stationId, uploadInfo.integrity, "", cycleRuns); };
+    if (uploadAfterRun || forceUpload) {
+      toast.promise(upload, 
+        {
+          loading: "Uploading result...", 
+          success: () => {
+            setIsUploaded(true);
+            return  "Uploaded result to cloud";
+          }
+        }
+      );
     }
   }
 
@@ -357,5 +390,14 @@ export function useTestSequencerState() {
     diplayPreviousCycle,
     displayNextCycle,
     clearPreviousCycles,
+    // Upload
+    uploadAfterRun,
+    setUploadAfterRun,
+    uploadInfo,
+    handleUpload,
+    setStationId,
+    setSerialNumber,
+    setIntegrity,
+    setIsUploaded,
   };
 }

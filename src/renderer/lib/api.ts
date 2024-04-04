@@ -14,7 +14,7 @@ import _ from "lodash";
 import { ResultAsync, fromPromise } from "neverthrow";
 import { Options } from "ky";
 import { DeviceInfo } from "@/renderer/types/hardware";
-import { TestDiscoverContainer } from "@/renderer/types/test-sequencer";
+import { TestDiscoverContainer, TestSequenceContainer } from "@/renderer/types/test-sequencer";
 
 const get = <Z extends z.ZodTypeAny>(
   url: string,
@@ -176,3 +176,71 @@ const Unit = z.object({
 });
 export type Unit = z.infer<typeof Unit>;
 export const getCloudUnit = (serialNumber: string) => get(`cloud/unit/SN/${serialNumber}`, Unit);
+
+export const postSession = (
+  serialNumber: string,
+  stationId: string,
+  integrity: boolean,
+  commitHash: string,
+  cycleRuns: TestSequenceContainer[][]
+)  => {
+  
+  const measurements: Measurement[] = [];
+  console.log(cycleRuns);
+  cycleRuns.forEach((cycle, cycleNumber) => {
+    cycle.forEach((seqContainer) => {
+      seqContainer.elements.forEach((elem) => {
+        if (elem.type === "test" && elem.status !== "pending" && elem.exportToCloud) {
+          measurements.push({
+            testId: elem.id,
+            sequenceName: seqContainer.project.name,
+            cycleNumber: cycleNumber,
+            name: elem.testName,
+            pass_: elem.status === "pass",
+            // createdAt: elem.completionTime ? `${elem.completionTime}` : "",
+          });
+        }
+      });
+    });   
+  });
+
+  const body = {
+    serialNumber,
+    stationId,
+    integrity,
+    aborted: false,
+    notes: "",
+    commitHash,
+    measurements,
+  };
+
+  console.log(JSON.stringify(body))
+  return fromPromise(
+    captain.post("cloud/session", {
+    json: body,
+  }).json(),
+    (e) => e as HTTPError,
+  );
+}
+
+const Measurement = z.object({
+  testId: z.string(),
+  sequenceName: z.string(),
+  cycleNumber: z.number(),
+  name: z.string(),
+  // data: Is handle in the backend
+  pass_: z.boolean().optional(),
+  // createdAt: z.string().optional(),
+  });
+export type Measurement = z.infer<typeof Measurement>;
+
+const Session = z.object({
+  serialNumber: z.string(),
+  stationId: z.string(),
+  integrity: z.boolean(),
+  aborted: z.boolean(),
+  notes: z.string(),
+  commitHash: z.string(),
+  measurements: Measurement.array(),
+  });
+export type Session = z.infer<typeof Session>;

@@ -59,7 +59,7 @@ const TestSequencerView = () => {
               </div>
               <div className="flex flex-col">
                 <hr className="my-3" />
-                <div className="grid grid-cols-1 place-items-center gap-4 py-2">
+                <div className="grid grid-cols-1 place-items-center gap-4 pb-2">
                   <CloudPanel />
                 </div>
               </div>

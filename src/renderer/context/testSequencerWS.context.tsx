@@ -27,6 +27,7 @@ export function TestSequencerWSProvider({
     setIsLocked,
     setIsLoading,
     setBackendGlobalState,
+    handleUpload,
     setBackendState,
     runNextRunnableSequence,
     updateSequenceStatus,
@@ -140,6 +141,7 @@ export function TestSequencerWSProvider({
         setBackendState(msg.data.state);
         updateSequenceStatus(msg.data.status);
         saveCycle();
+        handleUpload();
         break;
       // Test state -------------------------
       case "test_done":

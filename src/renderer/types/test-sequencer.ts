@@ -162,3 +162,12 @@ export type TestSequenceContainer = {
   testSequenceUnsaved: boolean;
   runable: boolean;
 };
+
+
+export type UploadInfo = {
+  serialNumber: string;
+  stationId: string;
+  integrity: boolean;
+  isUploaded: boolean;
+}
+

@@ -12,33 +12,37 @@ import {
 import { Button } from "@/renderer/components/ui/button";
 import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
-import { testSequenceExportCloud } from "@/renderer/routes/test_sequencer_panel/models/models";
 import { Station, getCloudProjects, getCloudStations, getCloudUnit, getEnvironmentVariables } from "@/renderer/lib/api";
 import { toastQueryError } from "@/renderer/utils/report-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Spinner } from "@/renderer/components/ui/spinner";
 import { TestSequenceContainer } from "@/renderer/types/test-sequencer";
 import { Badge } from "@/renderer/components/ui/badge";
+import { Checkbox } from "@/renderer/components/ui/checkbox";
+import useWithPermission from "@/renderer/hooks/useWithPermission";
 
-const getIntegrity = (sequences: TestSequenceContainer[]): boolean => {
-  let integrity = true;
-  sequences.forEach((seq) => {
-    integrity = integrity && seq.runable;
-  });
-  return integrity;
-};
 
 export function CloudPanel() {
   const queryClient = useQueryClient();
-  const [serialNumber, setSerialNumber] = useState("");
+  const { isAdmin } = useWithPermission();
   const [lotNumber, setLotNumber] = useState("");
   const [description, setDescription] = useState("N/A");
-  const [product, setProduct] = useState("");
   const [projectId, setProjectId] = useState("");
-  const [stationId, setStationId] = useState("");
   const [partNumber, setPartNumber] = useState("");
-  const { tree, setIsLocked, isLocked, sequences } = useTestSequencerState();
-  const { tSSendJsonMessage } = useTestSequencerWS();
+  const { isLocked, sequences, uploadInfo, setIntegrity, setSerialNumber, setStationId, uploadAfterRun, setUploadAfterRun, handleUpload } = useTestSequencerState();
+
+  useEffect(() => {
+    setUploadAfterRun(!isAdmin());
+  }, [isAdmin]);
+  
+  const getIntegrity = (sequences: TestSequenceContainer[]): boolean => {
+    let integrity = true;
+    sequences.forEach((seq) => {
+      integrity = integrity && seq.runable;
+    });
+    setIntegrity(integrity);
+    return integrity;
+  };
 
   const envsQuery = useQuery({
     queryKey: ["envs"],
@@ -59,13 +63,11 @@ export function CloudPanel() {
     queryFn: async () => {
       if (envsQuery.isSuccess) {
       if (
-        envsQuery.data.some((c) => c.key === "FLOJOY_CLOUD_WORKSPACE_SECRET") && serialNumber !== ""
+        envsQuery.data.some((c) => c.key === "FLOJOY_CLOUD_WORKSPACE_SECRET") && uploadInfo.serialNumber !== ""
       ) {
-        const res = await getCloudUnit(serialNumber);
+        const res = await getCloudUnit(uploadInfo.serialNumber);
         return res.match(
-          (vars) => {
-            return vars;
-          },
+          (vars) =>  vars,
           (e) => {
             toastQueryError(e, "The Serail Number doesn't exist, please check it again.")
             return [];
@@ -87,9 +89,7 @@ export function CloudPanel() {
         ) {
           const res = await getCloudProjects();
           return res.match(
-            (vars) => {
-              return vars;
-            },
+            (vars) => vars,
             (e) => {
               toastQueryError(e, "Failed to fetch production lines");
               return [];
@@ -105,33 +105,35 @@ export function CloudPanel() {
   const stationsQuery = useQuery({
     queryKey: ["stations"],
     queryFn: async () => {
-      if (envsQuery.isSuccess) {
-        if (
-          envsQuery.data.some((c) => c.key === "FLOJOY_CLOUD_WORKSPACE_SECRET") && projectId
-        ) {
-          const res = await getCloudStations(projectId);
-          return res.match(
-            (vars) => vars,
-            (e) => {
-              toastQueryError(e, "Failed to fetch stations");
-              return [];
-            },
-          );
-        }
+      if (
+        envsQuery.isSuccess && projectsQuery.isSuccess && projectId !== ""
+      ) {
+        const res = await getCloudStations(projectId);
+        return res.match(
+          (vars) => vars,
+          (e) => {
+            toastQueryError(e, "Failed to fetch stations");
+            return [];
+          },
+        );
       }
       return [];
     },
-    enabled: envsQuery.isSuccess,
+    enabled: projectsQuery.isSuccess, // Enable only when projectsQuery is successful
   });
+  
+  useEffect(() => {
+    setStationId("");
+    if (projectId !== "") {
+      stationsQuery.refetch();
+    }
+  }, [projectId]);
 
   const handleSetProject = (newValue: Station) => {
-    setStationId("");
-    stationsQuery.refetch();
     setProjectId(newValue.value);
     setDescription(newValue.part.description);
     setPartNumber(newValue.part.partNumber);
   };
-
 
   const { isEnvVarModalOpen, setIsEnvVarModalOpen } = useAppStore(
     useShallow((state) => ({
@@ -144,12 +146,6 @@ export function CloudPanel() {
     queryClient.invalidateQueries({ queryKey: ["envs"] });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEnvVarModalOpen]);
-
-  // // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const handleExport = () => {
-  //   tSSendJsonMessage(testSequenceExportCloud(tree, serialNumber, projectId));
-  //   setIsLocked(true);
-  // };
 
   if (!envsQuery.isSuccess || !projectsQuery.isSuccess || !stationsQuery.isSuccess) {
     return (
@@ -183,7 +179,7 @@ export function CloudPanel() {
               <Input
                 className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
                 type="text"
-                value={serialNumber}
+                value={uploadInfo.serialNumber}
                 onChange={(e) => setSerialNumber(e.target.value)}
                 placeholder="SN-0001"
                 disabled={isLocked}
@@ -260,7 +256,9 @@ export function CloudPanel() {
             <p>Test Station</p>
           </div>
 
-          <Select onValueChange={setStationId} disabled={isLocked}>
+          <Select 
+            onValueChange={setStationId} 
+            disabled={isLocked}>
             <SelectTrigger>
               <SelectValue placeholder={"Select your station..."} />
             </SelectTrigger>
@@ -268,7 +266,9 @@ export function CloudPanel() {
               {stationsQuery.data.length === 0 && (
                 <div className="flex flex-col items-center justify-center gap-2 p-2 text-sm">
                   <strong>No station found</strong>
+                  { stationsQuery.isFetching ? <p> Loading... </p> :
                   <p> Select a production line to load the available stations </p>
+                  }
                 </div>
               )}
               {stationsQuery.data.map((option) => (
@@ -294,6 +294,21 @@ export function CloudPanel() {
               )}
             </p>
           </div>
+          <div className="py-2" />
+          { isAdmin() && (
+            <div className="flex bt-2 items-center">
+              <Checkbox checked={uploadAfterRun} onCheckedChange={setUploadAfterRun} />
+              <p className="ml-2 text-muted-foreground text-sm"> Automatically upload </p>
+              <div className="grow"/>
+              <Button 
+                variant="outline" disabled={isLocked || uploadInfo.isUploaded} 
+                className="h-6 text-muted-foreground text-xs" 
+                onClick={() => handleUpload(true)}
+              >
+                { uploadInfo.isUploaded ? "Upload Done" : "Upload to Flojoy Cloud" }
+              </Button>
+            </div>
+          )}
         </div>
       )}
     </div>

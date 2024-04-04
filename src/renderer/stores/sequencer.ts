@@ -9,6 +9,7 @@ import {
   TestRootNode,
   TestSequenceContainer,
   TestSequenceElement,
+  UploadInfo,
 } from "@/renderer/types/test-sequencer";
 import { TestSequencerProject } from "@/renderer/types/test-sequencer";
 import { testSequenceRunRequest } from "@/renderer/routes/test_sequencer_panel/models/models";
@@ -29,6 +30,8 @@ type State = {
   testSequenceStepTree: TestRootNode;
   testSequencerDisplayed: TestSequencerProject | null;
   sequences: TestSequenceContainer[];
+  uploadAfterRun: boolean;
+  uploadInfo: UploadInfo;
 };
 
 type Actions = {
@@ -40,6 +43,11 @@ type Actions = {
   setBackendState: (val: MsgState) => void;
   setTestSequenceUnsaved: (val: boolean) => void;
   setTestSequenceTree: (val: TestRootNode) => void;
+  setUploadAfterRun: (val: boolean) => void;
+  setSerialNumber: (val: string) => void;
+  setIntegrity: (val: boolean) => void;
+  setStationId: (val: string) => void;
+  setIsUploaded: (val: boolean) => void;
   // Cycles
   setCycleCount: (val: number) => void;
   setInfinite: (val: boolean) => void;
@@ -97,6 +105,34 @@ export const useSequencerStore = create<State & Actions>()(
       ptrCycle: -1,
     },
     cycleRuns: [],
+
+    uploadAfterRun: false,
+    setUploadAfterRun: (val) =>
+      set((state) => {
+      state.uploadAfterRun = val;
+      }),
+    uploadInfo: {
+      serialNumber: "",
+      stationId: "",
+      integrity: false,
+      isUploaded: false,
+    },
+    setStationId: (val) =>
+      set((state) => {
+        state.uploadInfo.stationId = val;
+      }),
+    setIntegrity: (val) =>
+      set((state) => {
+        state.uploadInfo.integrity = val;
+      }),
+    setSerialNumber: (val) =>
+      set((state) => {
+        state.uploadInfo.serialNumber = val;
+      }),
+    setIsUploaded: (val) =>
+      set((state) => {
+        state.uploadInfo.isUploaded = val;
+      }),
 
     setWebsocketId: (val) =>
       set((state) => {
