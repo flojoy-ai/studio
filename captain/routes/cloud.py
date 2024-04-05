@@ -10,9 +10,35 @@ from typing import Optional
 import datetime
 from typing import Literal
 import pandas as pd
+from functools import wraps
 
 
 # Utils ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+def temporary_cache(*args, ttl=20):
+    """A decorator that ensures that the result of the function call
+    is cached for `ttl` seconds (default: 20).
+
+    Warning: The returned object is stored directly, mutating it also mutates the
+    cached object. Make a copy if you want to avoid that.
+    """
+    def decorator(func):
+        func.cache = None
+        func.cache_time = datetime.datetime.fromordinal(1)
+
+        @wraps(func)
+        def inner(*args, **kwargs):
+            if ((now := datetime.datetime.now()) - func.cache_time).total_seconds() > ttl:
+                func.cache = func(*args, **kwargs)
+                func.cache_time = now
+            return func.cache
+        return inner
+    if len(args) == 1 and callable(args[0]):
+        return decorator(args[0])
+    elif args:
+        raise ValueError("Must supply the decorator arguments as keywords.")
+    return decorator
 
 
 async def get_cloud_part_variation(part_variation_id: str):
@@ -35,8 +61,10 @@ def error_response_builder(e: Exception) -> Response:
         return Response(status_code=500, content=json.dumps([]))
 
 
+@temporary_cache
 def headers_builder(with_workspace_id=True) -> dict:
     workspace_secret = get_env_var("FLOJOY_CLOUD_WORKSPACE_SECRET")
+    logging.info("Querying workspace current")
     if workspace_secret is None:
         raise SecretNotFound
     headers = {
