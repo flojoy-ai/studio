@@ -41,6 +41,11 @@ export function CloudPanel() {
   const { isLocked, sequences, uploadInfo, setIntegrity, setSerialNumber, setStationId, uploadAfterRun, setUploadAfterRun, handleUpload } = useTestSequencerState();
 
   function handleSetSerialNumber(newValue: string) {
+    units.forEach((_, sn) => { 
+      if (sn.toLowerCase() === newValue.toLowerCase()) {
+        newValue = sn;
+      }
+    });
     setSerialNumber(newValue.toUpperCase());
   }
 
