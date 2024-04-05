@@ -40,6 +40,10 @@ export function CloudPanel() {
   const { user } = useAuth();
   const { isLocked, sequences, uploadInfo, setIntegrity, setSerialNumber, setStationId, uploadAfterRun, setUploadAfterRun, handleUpload } = useTestSequencerState();
 
+  function handleSetSerialNumber(newValue: string) {
+    setSerialNumber(newValue.toUpperCase());
+  }
+
   useEffect(() => {
     setUploadAfterRun(!isAdmin());
   }, [isAdmin]);
@@ -214,7 +218,7 @@ export function CloudPanel() {
               <div className="rounded-lg border">
               <Autocomplete 
                 options={serialNumbers} 
-                onChange={setSerialNumber} 
+                onChange={handleSetSerialNumber} 
                 placeholder="SN-0001"
                 value={uploadInfo.serialNumber}
               />
