@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Input } from "@/renderer/components/ui/input";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
-import { useTestSequencerWS } from "@/renderer/context/testSequencerWS.context";
+import packageJson from "../../../../../package.json";
 import {
   Select,
   SelectTrigger,
@@ -23,6 +23,7 @@ import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { toast } from "sonner";
 import { getGlobalStatus } from "./DesignBar";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
+import { useAuth } from "@/renderer/context/auth.context";
 
 
 export function CloudPanel() {
@@ -32,6 +33,7 @@ export function CloudPanel() {
   const [description, setDescription] = useState("N/A");
   const [projectId, setProjectId] = useState("");
   const [partNumber, setPartNumber] = useState("");
+  const { user } = useAuth();
   const { isLocked, sequences, uploadInfo, setIntegrity, setSerialNumber, setStationId, uploadAfterRun, setUploadAfterRun, handleUpload } = useTestSequencerState();
 
   useEffect(() => {
@@ -204,7 +206,6 @@ export function CloudPanel() {
                 onChange={(e) => setLotNumber(e.target.value)}
                 placeholder="L-001"
                 disabled={isLocked}
-                autoFocus
               />
             </div>
           </div>
@@ -286,8 +287,8 @@ export function CloudPanel() {
           </Select>
           <div className="mt-2 grid grid-flow-row grid-cols-2 gap-1 text-xs text-muted-foreground">
             <p>Station: ID-12345678 </p>
-            <p>Operator: John Doe</p>
-            <p>Sequencer: TSW-0.3.0 </p>
+            <p>Operator: { user ? user.name.substring(0, 20) : "Unknow" } </p>
+            <p>Sequencer: { "TS-" + packageJson.version } </p>
             <p>
               {" "}
               Integrity:{" "}
