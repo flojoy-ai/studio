@@ -60,9 +60,9 @@ export async function installPipx(): Promise<string> {
   const py = process.env.PY_INTERPRETER ?? "python";
   return await execCommand(
     new Command({
-      darwin: `"${py}" -m pip install --user pipx --break-system-packages`,
-      win32: `"${py}" -m pip install --user pipx`,
-      linux: `"${py}" -m pip install --user pipx --break-system-packages`,
+      darwin: `"${py}" -m pip install --user pipx==1.5.0 --break-system-packages`,
+      win32: `"${py}" -m pip install --user pipx==1.5.0`,
+      linux: `"${py}" -m pip install --user pipx==1.5.0 --break-system-packages`,
     }),
   );
 }
@@ -70,7 +70,7 @@ export async function installPipx(): Promise<string> {
 export async function pipxEnsurepath(): Promise<void> {
   const py = process.env.PY_INTERPRETER ?? "python";
   const pipxBinScript =
-    "import pipx.commands.ensure_path;import pipx.constants;script=pipx.commands.ensure_path.get_pipx_user_bin_path();bin=pipx.constants.DEFAULT_PIPX_BIN_DIR;print(bin,';',script)";
+    "import pipx.commands.ensure_path;import pipx.paths;script=pipx.commands.ensure_path.get_pipx_user_bin_path();bin=pipx.paths.DEFAULT_PIPX_BIN_DIR;print(bin,';',script)";
   const pipxBinPath = await execCommand(
     new Command(`"${py}" -c "${pipxBinScript}"`),
     { quiet: true },
