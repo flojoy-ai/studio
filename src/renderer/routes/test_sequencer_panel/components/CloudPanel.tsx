@@ -12,7 +12,7 @@ import {
 import { Button } from "@/renderer/components/ui/button";
 import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
-import { Project, Station, getCloudProjects, getCloudStations, getCloudUnits, getEnvironmentVariables } from "@/renderer/lib/api";
+import { Project, Station, Unit, getCloudProjects, getCloudStations, getCloudUnits, getEnvironmentVariables } from "@/renderer/lib/api";
 import { toastQueryError } from "@/renderer/utils/report-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Spinner } from "@/renderer/components/ui/spinner";
@@ -24,6 +24,7 @@ import { toast } from "sonner";
 import { getGlobalStatus } from "./DesignBar";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useAuth } from "@/renderer/context/auth.context";
+import { Autocomplete } from "@/renderer/components/ui/autocomplete";
 
 
 export function CloudPanel() {
@@ -34,7 +35,8 @@ export function CloudPanel() {
   const [projectId, setProjectId] = useState("");
   const [partNumber, setPartNumber] = useState("");
   const [partVarId, setPartVarId] = useState("");
-  const [units, setUnits] = useState([]);
+  const [serialNumbers, setSerialNumbers] = useState<string[]>([]);
+  const [units, setUnits] = useState<Map<string, Unit>>(new Map());
   const { user } = useAuth();
   const { isLocked, sequences, uploadInfo, setIntegrity, setSerialNumber, setStationId, uploadAfterRun, setUploadAfterRun, handleUpload } = useTestSequencerState();
 
@@ -72,11 +74,15 @@ export function CloudPanel() {
         if (
           envsQuery.data.some((c) => c.key === "FLOJOY_CLOUD_WORKSPACE_SECRET") && partVarId !== ""
         ) {
-          console.log("Fetching Units");
           const res = await getCloudUnits(partVarId)
-          console.log("res: " + res);
           return res.match(
-            (vars) => {console.log(vars); return vars;},
+            (vars) => {
+              setSerialNumbers(vars.map((unit) => unit.serialNumber));
+              const map = new Map<string, Unit>();
+              vars.forEach((unit) => map.set(unit.serialNumber, unit));
+              setUnits(map);
+              return vars;
+            },
             (e) => {
               console.error(e);
               toast.error("Error fetching units");
@@ -148,6 +154,14 @@ export function CloudPanel() {
     unitQuery.refetch();
   }, [partVarId]);
 
+  useEffect(() => {
+    if (units.has(uploadInfo.serialNumber)) {
+      if (units.get(uploadInfo.serialNumber)!.lotNumber !== null) {
+       setLotNumber(units.get(uploadInfo.serialNumber)!.lotNumber!);
+      }
+    }
+  }, [uploadInfo.serialNumber]);
+
 
   const handleSetProject = (newValue: Station) => {
     setProjectId(newValue.value);
@@ -197,15 +211,14 @@ export function CloudPanel() {
               <div className="pb-1 pt-2 text-xs text-muted-foreground">
                 <p>Serial Number</p>
               </div>
-              <Input
-                className="focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
-                type="text"
-                value={uploadInfo.serialNumber}
-                onChange={(e) => setSerialNumber(e.target.value)}
+              <div className="rounded-lg border">
+              <Autocomplete 
+                options={serialNumbers} 
+                onChange={setSerialNumber} 
                 placeholder="SN-0001"
-                disabled={isLocked}
-                autoFocus
+                value={uploadInfo.serialNumber}
               />
+              </div>
             </div>
 
             <div className="ml-2 w-1/3 flex-none">

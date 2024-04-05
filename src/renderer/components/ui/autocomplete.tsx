@@ -29,26 +29,28 @@ export const Autocomplete = forwardRef<HTMLInputElement, Props>(
             value={value}
             onValueChange={onChange}
             onSelect={() => setSelected(true)}
+            className="h-10"
             // FIXME: Select hack
             onBlur={() => setTimeout(() => setSelected(false), 100)}
+            autoFocus={true}
           />
-          <CommandList className="max-h-[160px] absolute top-[45px] bg-background w-full shadow-md rounded-b-lg">
-            {selected && options.length > 0 && (
-              <CommandGroup>
-                {options.map((opt) => (
-                  <CommandItem key={opt} value={opt} onSelect={onChange}>
-                    <Check
-                      className={cn(
-                        "mr-2 h-4 w-4",
-                        value === opt ? "opacity-100" : "opacity-0",
-                      )}
-                    />
-                    {opt}
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            )}
-          </CommandList>
+          {selected && options.length > 0 && (
+            <CommandList className="max-h-[160px] absolute top-[45px] bg-background w-full z-10 border rounded-lg">
+                <CommandGroup>
+                  {options.map((opt) => (
+                    <CommandItem key={opt} value={opt} onSelect={onChange}>
+                      <Check
+                        className={cn(
+                          "mr-2 h-4 w-4",
+                          value === opt ? "opacity-100" : "opacity-0",
+                        )}
+                      />
+                      {opt}
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+            </CommandList>
+          )}
         </Command>
       </div>
     );
