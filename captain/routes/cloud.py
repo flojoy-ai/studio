@@ -23,17 +23,22 @@ def temporary_cache(*args, ttl=20):
     Warning: The returned object is stored directly, mutating it also mutates the
     cached object. Make a copy if you want to avoid that.
     """
+
     def decorator(func):
         func.cache = None
         func.cache_time = datetime.datetime.fromordinal(1)
 
         @wraps(func)
         def inner(*args, **kwargs):
-            if ((now := datetime.datetime.now()) - func.cache_time).total_seconds() > ttl:
+            if (
+                (now := datetime.datetime.now()) - func.cache_time
+            ).total_seconds() > ttl:
                 func.cache = func(*args, **kwargs)
                 func.cache_time = now
             return func.cache
+
         return inner
+
     if len(args) == 1 and callable(args[0]):
         return decorator(args[0])
     elif args:
@@ -185,16 +190,6 @@ async def get_cloud_projects():
         if response.status_code != 200:
             return Response(status_code=response.status_code, content=json.dumps([]))
         projects = [Project(**project_data) for project_data in response.json()]
-        content = json.dumps(
-            [
-                {
-                    "label": p.name,
-                    "value": p.id,
-                    "part": await get_cloud_part_variation(p.part_variation_id),
-                }
-                for p in projects
-            ]
-        )
         return Response(
             status_code=200,
             content=json.dumps(
