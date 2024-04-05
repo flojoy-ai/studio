@@ -1,5 +1,3 @@
-import { cn } from "@/renderer/lib/utils";
-
 type IconProps = React.HTMLAttributes<SVGElement>;
 
 export const Icons = {

@@ -25,7 +25,7 @@ export const RenameTestModal = () => {
       }
       setTarget(path);
     }
-  }, [elems, renameTestId]);
+  }, [elems, renameTestId, project]);
 
   function handleClick() {
     setElems(

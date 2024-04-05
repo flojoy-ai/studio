@@ -169,7 +169,7 @@ const ControlBar = () => {
 
           <MenubarMenu>
             <MenubarTrigger onClick={() => setIsFeedbackModalOpen(true)}>
-              <Icons.discord className="w-5 h-5" />
+              <Icons.discord className="h-5 w-5" />
             </MenubarTrigger>
           </MenubarMenu>
         </Menubar>

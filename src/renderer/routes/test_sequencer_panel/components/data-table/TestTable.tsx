@@ -149,10 +149,12 @@ export function TestTable() {
       header: "Export to Cloud",
       cell: ({ row }) => {
         if (row.original.type === "test") {
-          return <Checkbox
-            checked={row.original.exportToCloud}
-            onCheckedChange={() => toggleExportToCloud(row.original.id)}
-          />
+          return (
+            <Checkbox
+              checked={row.original.exportToCloud}
+              onCheckedChange={() => toggleExportToCloud(row.original.id)}
+            />
+          );
         }
         return null;
       },
@@ -335,7 +337,7 @@ export function TestTable() {
     if (addIfStatement) {
       handleAddConditionalModal("if");
     }
-  }, [addIfStatement]);
+  }, [addIfStatement, handleAddConditionalModal]);
 
   return (
     <div className="flex flex-col">

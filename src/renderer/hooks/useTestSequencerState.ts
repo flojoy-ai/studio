@@ -7,8 +7,6 @@ import {
   TestNode,
   TestType,
   TestSequencerProject,
-  TestSequenceContainer,
-  CycleConfig,
 } from "@/renderer/types/test-sequencer";
 import {
   checkUniqueNames,
@@ -334,25 +332,31 @@ export function useTestSequencerState() {
           uploadInfo.integrity,
           aborted,
           "",
-          [...useSequencerStore.getState().cycleRuns]
-        ); 
+          [...useSequencerStore.getState().cycleRuns],
+        );
       };
-      toast.promise(upload, 
-        {
-          loading: "Uploading result...", 
-          success: () => {
-            setIsUploaded(true);
-            return  "Uploaded result to cloud";
-          },
-          error: (err) => {
-            return `Failed to upload result: ${err}`;
-          }
-        }
-      );
+      toast.promise(upload, {
+        loading: "Uploading result...",
+        success: () => {
+          setIsUploaded(true);
+          return "Uploaded result to cloud";
+        },
+        error: (err) => {
+          return `Failed to upload result: ${err}`;
+        },
+      });
     }
   }
 
+  function isValidCloudExport(): boolean {
+    console.log(uploadInfo);
+    return true;
+  }
+
   function runSequencer(sender: SendJsonMessage): void {
+    if (uploadAfterRun && !isValidCloudExport) {
+      toast.error("Please fill in the required fields to upload to cloud.");
+    }
     setIsUploaded(false);
     if (project === null) {
       setIsLocked(true);

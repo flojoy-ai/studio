@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Input } from "@/renderer/components/ui/input";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+// eslint-disable-next-line no-restricted-imports
 import packageJson from "../../../../../package.json";
 import {
   Select,
@@ -12,7 +13,15 @@ import {
 import { Button } from "@/renderer/components/ui/button";
 import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
-import { Project, Station, Unit, getCloudProjects, getCloudStations, getCloudUnits, getEnvironmentVariables } from "@/renderer/lib/api";
+import {
+  Project,
+  Station,
+  Unit,
+  getCloudProjects,
+  getCloudStations,
+  getCloudUnits,
+  getEnvironmentVariables,
+} from "@/renderer/lib/api";
 import { toastQueryError } from "@/renderer/utils/report-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Spinner } from "@/renderer/components/ui/spinner";
@@ -26,7 +35,6 @@ import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useAuth } from "@/renderer/context/auth.context";
 import { Autocomplete } from "@/renderer/components/ui/autocomplete";
 
-
 export function CloudPanel() {
   const queryClient = useQueryClient();
   const { isAdmin } = useWithPermission();
@@ -38,15 +46,26 @@ export function CloudPanel() {
   const [serialNumbers, setSerialNumbers] = useState<string[]>([]);
   const [units, setUnits] = useState<Map<string, Unit>>(new Map());
   const { user } = useAuth();
-  const { isLocked, sequences, uploadInfo, setIntegrity, setSerialNumber, setStationId, uploadAfterRun, setUploadAfterRun, handleUpload } = useTestSequencerState();
+  const {
+    isLocked,
+    sequences,
+    uploadInfo,
+    setIntegrity,
+    setSerialNumber,
+    setStationId,
+    uploadAfterRun,
+    setUploadAfterRun,
+    handleUpload,
+  } = useTestSequencerState();
 
   function handleSetSerialNumber(newValue: string) {
-    units.forEach((_, sn) => { 
+    // Remove this function once cloud ignore casing
+    units.forEach((_, sn) => {
       if (sn.toLowerCase() === newValue.toLowerCase()) {
         newValue = sn;
       }
     });
-    setSerialNumber(newValue.toUpperCase());
+    setSerialNumber(newValue);
   }
 
   useEffect(() => {
@@ -81,9 +100,12 @@ export function CloudPanel() {
     queryFn: async () => {
       if (envsQuery.isSuccess) {
         if (
-          envsQuery.data.some((c) => c.key === "FLOJOY_CLOUD_WORKSPACE_SECRET") && partVarId !== ""
+          envsQuery.data.some(
+            (c) => c.key === "FLOJOY_CLOUD_WORKSPACE_SECRET",
+          ) &&
+          partVarId !== ""
         ) {
-          const res = await getCloudUnits(partVarId)
+          const res = await getCloudUnits(partVarId);
           return res.match(
             (vars) => {
               setSerialNumbers(vars.map((unit) => unit.serialNumber));
@@ -133,9 +155,7 @@ export function CloudPanel() {
   const stationsQuery = useQuery({
     queryKey: ["stations"],
     queryFn: async () => {
-      if (
-        envsQuery.isSuccess && projectsQuery.isSuccess && projectId !== ""
-      ) {
+      if (envsQuery.isSuccess && projectsQuery.isSuccess && projectId !== "") {
         const res = await getCloudStations(projectId);
         return res.match(
           (vars) => vars,
@@ -152,7 +172,6 @@ export function CloudPanel() {
   });
 
   useEffect(() => {
-    setStationId("");
     if (projectId !== "") {
       stationsQuery.refetch();
       unitQuery.refetch();
@@ -166,11 +185,10 @@ export function CloudPanel() {
   useEffect(() => {
     if (units.has(uploadInfo.serialNumber)) {
       if (units.get(uploadInfo.serialNumber)!.lotNumber !== null) {
-       setLotNumber(units.get(uploadInfo.serialNumber)!.lotNumber!);
+        setLotNumber(units.get(uploadInfo.serialNumber)!.lotNumber!);
       }
     }
   }, [uploadInfo.serialNumber]);
-
 
   const handleSetProject = (newValue: Station) => {
     setProjectId(newValue.value);
@@ -191,7 +209,11 @@ export function CloudPanel() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEnvVarModalOpen]);
 
-  if (!envsQuery.isSuccess || !projectsQuery.isSuccess || !stationsQuery.isSuccess) {
+  if (
+    !envsQuery.isSuccess ||
+    !projectsQuery.isSuccess ||
+    !stationsQuery.isSuccess
+  ) {
     return (
       <div className="grid grid-cols-1 place-items-center gap-4 py-5">
         <Spinner />
@@ -221,12 +243,12 @@ export function CloudPanel() {
                 <p>Serial Number</p>
               </div>
               <div className="rounded-lg border">
-              <Autocomplete 
-                options={serialNumbers} 
-                onChange={handleSetSerialNumber} 
-                placeholder="SN-0001"
-                value={uploadInfo.serialNumber}
-              />
+                <Autocomplete
+                  options={serialNumbers}
+                  onChange={handleSetSerialNumber}
+                  placeholder="SN-0001"
+                  value={uploadInfo.serialNumber}
+                />
               </div>
             </div>
 
@@ -248,11 +270,14 @@ export function CloudPanel() {
           <div className="pb-1 pt-2 text-xs text-muted-foreground">
             <p>Part Number</p>
           </div>
-          <Input placeholder="Select a station" value={partNumber} disabled={true} />
+          <Input
+            placeholder="Select a station"
+            value={partNumber}
+            disabled={true}
+          />
 
           <div className="pt-2 text-xs text-muted-foreground">
             <p>Description: {` ${description}`} </p>
-            { /* <p>Product: Arm-Link 6</p> } */}
           </div>
 
           <hr className="mt-4" />
@@ -298,9 +323,7 @@ export function CloudPanel() {
             <p>Test Station</p>
           </div>
 
-          <Select
-            onValueChange={setStationId}
-            disabled={isLocked}>
+          <Select onValueChange={setStationId} disabled={isLocked}>
             <SelectTrigger>
               <SelectValue placeholder={"Select your station..."} />
             </SelectTrigger>
@@ -308,9 +331,14 @@ export function CloudPanel() {
               {stationsQuery.data.length === 0 && (
                 <div className="flex flex-col items-center justify-center gap-2 p-2 text-sm">
                   <strong>No station found</strong>
-                  {stationsQuery.isFetching ? <p> Loading... </p> :
-                    <p> Select a production line to load the available stations </p>
-                  }
+                  {stationsQuery.isFetching ? (
+                    <p> Loading... </p>
+                  ) : (
+                    <p>
+                      {" "}
+                      Select a production line to load the available stations{" "}
+                    </p>
+                  )}
                 </div>
               )}
               {stationsQuery.data.map((option) => (
@@ -322,8 +350,8 @@ export function CloudPanel() {
           </Select>
           <div className="mt-2 grid grid-flow-row grid-cols-2 gap-1 text-xs text-muted-foreground">
             <p>Station: ID-12345678 </p>
-            <p>Operator: { user ? user.name.substring(0, 20) : "Unknow" } </p>
-            <p>Sequencer: { "TS-" + packageJson.version } </p>
+            <p>Operator: {user ? user.name.substring(0, 20) : "Unknow"} </p>
+            <p>Sequencer: {"TS-" + packageJson.version} </p>
             <p>
               {" "}
               Integrity:{" "}
@@ -336,24 +364,32 @@ export function CloudPanel() {
           </div>
           <div className="py-2" />
           {isAdmin() && (
-            <div className="flex bt-2 items-center">
-              <Checkbox checked={uploadAfterRun} onCheckedChange={setUploadAfterRun} />
-              <p className="ml-2 text-muted-foreground text-sm"> Automatically upload </p>
+            <div className="bt-2 flex items-center">
+              <Checkbox
+                checked={uploadAfterRun}
+                onCheckedChange={setUploadAfterRun}
+              />
+              <p className="ml-2 text-sm text-muted-foreground">
+                {" "}
+                Automatically upload{" "}
+              </p>
               <div className="grow" />
               <Button
                 variant="outline"
                 disabled={isLocked || uploadInfo.isUploaded}
-                className="h-6 text-muted-foreground text-xs"
+                className="h-6 text-xs text-muted-foreground"
                 onClick={() => {
                   const status = getGlobalStatus(
                     useSequencerStore.getState().cycleRuns,
                     useSequencerStore.getState().sequences,
-                    useSequencerStore.getState().elements
+                    useSequencerStore.getState().elements,
                   );
-                  handleUpload(status === "aborted", true)
+                  handleUpload(status === "aborted", true);
                 }}
               >
-                {uploadInfo.isUploaded ? "Upload Done" : "Upload to Flojoy Cloud"}
+                {uploadInfo.isUploaded
+                  ? "Upload Done"
+                  : "Upload to Flojoy Cloud"}
               </Button>
             </div>
           )}

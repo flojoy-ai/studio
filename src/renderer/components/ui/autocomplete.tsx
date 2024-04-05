@@ -35,20 +35,20 @@ export const Autocomplete = forwardRef<HTMLInputElement, Props>(
             autoFocus={true}
           />
           {selected && options.length > 0 && (
-            <CommandList className="max-h-[160px] absolute top-[45px] bg-background w-full z-10 border rounded-lg">
-                <CommandGroup>
-                  {options.map((opt) => (
-                    <CommandItem key={opt} value={opt} onSelect={onChange}>
-                      <Check
-                        className={cn(
-                          "mr-2 h-4 w-4",
-                          value === opt ? "opacity-100" : "opacity-0",
-                        )}
-                      />
-                      {opt}
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
+            <CommandList className="absolute top-[45px] z-10 max-h-[160px] w-full rounded-lg border bg-background">
+              <CommandGroup>
+                {options.map((opt) => (
+                  <CommandItem key={opt} value={opt} onSelect={onChange}>
+                    <Check
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        value === opt ? "opacity-100" : "opacity-0",
+                      )}
+                    />
+                    {opt}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
             </CommandList>
           )}
         </Command>

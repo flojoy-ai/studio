@@ -3,13 +3,7 @@ import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { filter } from "lodash";
 import { Button } from "@/renderer/components/ui/button";
 import { ACTIONS_HEIGHT } from "@/renderer/routes/common/Layout";
-import {
-  FlaskConical,
-  Import,
-  LayoutGrid,
-  Plus,
-  Route,
-} from "lucide-react";
+import { FlaskConical, Import, LayoutGrid, Plus, Route } from "lucide-react";
 import {
   StatusType,
   TestSequenceContainer,
@@ -116,7 +110,7 @@ export function DesignBar() {
             </DropdownMenuContent>
           </DropdownMenu>
         )}
-        { /* Comming soon
+        {/* Comming soon
         <Button
           data-testid="add-text-button"
           className="gap-2"
@@ -126,7 +120,7 @@ export function DesignBar() {
           <HardDriveDownload size={20} className="stroke-muted-foreground" />
           Load Test Profile From Cloud
         </Button>
-        */ }
+        */}
 
         <div className="grow" />
 

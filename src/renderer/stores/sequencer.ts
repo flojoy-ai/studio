@@ -109,7 +109,7 @@ export const useSequencerStore = create<State & Actions>()(
     uploadAfterRun: false,
     setUploadAfterRun: (val) =>
       set((state) => {
-      state.uploadAfterRun = val;
+        state.uploadAfterRun = val;
       }),
     uploadInfo: {
       serialNumber: "",
