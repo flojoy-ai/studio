@@ -32,7 +32,7 @@ def get_flojoy_cloud_url() -> str:
     # Key should be validated when assign, but just making sure
     cloud_url = get_env_var("FLOJOY_CLOUD_URL")
     if cloud_url is None:
-        cloud_url = "https://cloud.flojoy.ai/api/v1"
+        cloud_url = "https://api.flojoy.ai/"
     else:
         if not cloud_url.startswith("http"):
             cloud_url = f"https://{cloud_url}"
