@@ -159,14 +159,14 @@ const Project = z.object({
   part: Part,
 });
 export type Project = z.infer<typeof Project>;
-export const getCloudProjects = () => get("cloud/projects", Project.array());
+export const getCloudProjects = () => get("cloud/projects", Project.array(), { timeout: 60000 });
 
 const Station = z.object({
   label: z.string(),
   value: z.string(),
 });
 export type Station = z.infer<typeof Project>;
-export const getCloudStations = (projectId: string) => get(`cloud/stations/${projectId}`, Station.array());
+export const getCloudStations = (projectId: string) => get(`cloud/stations/${projectId}`, Station.array(), { timeout: 60000 });
 
 
 const Unit = z.object({
@@ -175,7 +175,7 @@ const Unit = z.object({
   lotNumber : z.string(),
 });
 export type Unit = z.infer<typeof Unit>;
-export const getCloudUnit = (serialNumber: string) => get(`cloud/unit/SN/${serialNumber}`, Unit);
+export const getCloudUnit = (serialNumber: string) => get(`cloud/unit/SN/${serialNumber}`, Unit, { timeout: 60000 });
 
 export const postSession = (
   serialNumber: string,
