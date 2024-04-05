@@ -45,7 +45,9 @@ async def get_cloud_part_variation(part_variation_id: str):
     logging.info("Querying part variation")
     url = get_flojoy_cloud_url() + "partVariation/" + part_variation_id
     response = requests.get(url, headers=headers_builder())
-    part_variation = PartVariation(**response.json())
+    res = response.json()
+    res["partVariationId"] = part_variation_id
+    part_variation = PartVariation(**res)
     return part_variation.model_dump()
 
 
@@ -72,11 +74,11 @@ def headers_builder(with_workspace_id=True) -> dict:
         "flojoy-workspace-personal-secret": workspace_secret,
     }
     if with_workspace_id:
-        response = requests.get(get_flojoy_cloud_url() + "workspace/", headers=headers)
+        url = get_flojoy_cloud_url() + "workspace/"
+        response = requests.get(url, headers=headers)
         if response.status_code != 200:
-            logging.error(f"Failed to get workspace id: {response.text}")
+            logging.error(f"Failed to get workspace id {url}: {response.text}")
             raise Exception("Failed to get workspace id")
-        logging.info(response.json())
         workspace_id = response.json()[0]["id"]
         headers["flojoy-workspace-id"] = workspace_id
     return headers
@@ -105,8 +107,17 @@ class Station(CloudModel):
 
 class PartVariation(BaseModel):
     partId: str
+    partVariationId: str
     partNumber: str
     description: str
+
+
+class Unit(BaseModel):
+    serialNumber: str
+    lotNumber: Optional[str]
+    parent: Optional[str]
+    partVariationId: str
+    workspaceId: str
 
 
 class Measurement(BaseModel):
@@ -115,7 +126,6 @@ class Measurement(BaseModel):
     cycleNumber: int
     name: str
     pass_: Optional[bool]
-    # createdAt: Optional[datetime.datetime]
 
 
 class Session(BaseModel):
@@ -185,7 +195,6 @@ async def get_cloud_projects():
                 for p in projects
             ]
         )
-        logging.info(content)
         return Response(
             status_code=200,
             content=json.dumps(
@@ -213,7 +222,6 @@ async def get_cloud_stations(project_id: str):
         url = get_flojoy_cloud_url() + "station/"
         querystring = {"projectId": project_id}
         response = requests.get(url, headers=headers_builder(), params=querystring)
-
         if response.status_code != 200:
             logging.error(f"Error getting stations from Flojoy Cloud: {response.text}")
             return Response(status_code=response.status_code, content=json.dumps([]))
@@ -228,10 +236,20 @@ async def get_cloud_stations(project_id: str):
         return error_response_builder(e)
 
 
-@router.get("/cloud/unit/SN/{serial_number}")
-async def get_cloud_unit_SN(serial_number: str):
+@router.get("/cloud/partVariation/{part_var_id}/unit")
+async def get_cloud_variant_unit(part_var_id: str):
     try:
-        raise NotImplementedError
+        logging.info(f"Querying unit for part {part_var_id}")
+        url = f"{get_flojoy_cloud_url()}partVariation/{part_var_id}/unit"
+        response = requests.get(url, headers=headers_builder())
+        if response.status_code != 200:
+            logging.error(f"Error getting stations from Flojoy Cloud: {response.text}")
+            return Response(status_code=response.status_code, content=json.dumps([]))
+        units = [Unit(**u) for u in response.json()]
+        if not units:
+            return Response(status_code=404, content=json.dumps([]))
+        dict_model = [unit.model_dump() for unit in units]
+        return Response(status_code=200, content=json.dumps(dict_model))
     except Exception as e:
         return error_response_builder(e)
 
@@ -246,11 +264,8 @@ async def post_cloud_session(_: Response, body: Session):
             m["createdAt"] = "2024-04-03T23:47:57.593Z"
             m["data"] = make_payload(get_measurement(body.measurements[i]))
             m["pass"] = m.pop("pass_")
-        logging.info("Uploading:")
-        logging.info(payload)
         response = requests.post(url, json=payload, headers=headers_builder())
         if response.status_code == 200:
-            logging.info("Session posted successfully")
             return Response(status_code=200, content=json.dumps(response.json()))
         else:
             logging.error(

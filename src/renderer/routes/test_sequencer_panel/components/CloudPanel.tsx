@@ -12,7 +12,7 @@ import {
 import { Button } from "@/renderer/components/ui/button";
 import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
-import { Station, getCloudProjects, getCloudStations, getCloudUnit, getEnvironmentVariables } from "@/renderer/lib/api";
+import { Project, Station, getCloudProjects, getCloudStations, getCloudUnits, getEnvironmentVariables } from "@/renderer/lib/api";
 import { toastQueryError } from "@/renderer/utils/report-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Spinner } from "@/renderer/components/ui/spinner";
@@ -33,6 +33,8 @@ export function CloudPanel() {
   const [description, setDescription] = useState("N/A");
   const [projectId, setProjectId] = useState("");
   const [partNumber, setPartNumber] = useState("");
+  const [partVarId, setPartVarId] = useState("");
+  const [units, setUnits] = useState([]);
   const { user } = useAuth();
   const { isLocked, sequences, uploadInfo, setIntegrity, setSerialNumber, setStationId, uploadAfterRun, setUploadAfterRun, handleUpload } = useTestSequencerState();
 
@@ -68,14 +70,16 @@ export function CloudPanel() {
     queryFn: async () => {
       if (envsQuery.isSuccess) {
         if (
-          envsQuery.data.some((c) => c.key === "FLOJOY_CLOUD_WORKSPACE_SECRET") && uploadInfo.serialNumber !== ""
+          envsQuery.data.some((c) => c.key === "FLOJOY_CLOUD_WORKSPACE_SECRET") && partVarId !== ""
         ) {
-          const res = await getCloudUnit(uploadInfo.serialNumber);
+          console.log("Fetching Units");
+          const res = await getCloudUnits(partVarId)
+          console.log("res: " + res);
           return res.match(
-            (vars) => vars,
+            (vars) => {console.log(vars); return vars;},
             (e) => {
               console.error(e);
-              // toast.error("The Serail Number doesn't exist, please check it again.");
+              toast.error("Error fetching units");
               return [];
             },
           );
@@ -95,7 +99,9 @@ export function CloudPanel() {
         ) {
           const res = await getCloudProjects();
           return res.match(
-            (vars) => vars,
+            (vars: Project[]) => {
+              return vars;
+            },
             (e) => {
               console.error(e);
               toast.error("Failed to fetch production lines");
@@ -134,13 +140,20 @@ export function CloudPanel() {
     setStationId("");
     if (projectId !== "") {
       stationsQuery.refetch();
+      unitQuery.refetch();
     }
   }, [projectId]);
+
+  useEffect(() => {
+    unitQuery.refetch();
+  }, [partVarId]);
+
 
   const handleSetProject = (newValue: Station) => {
     setProjectId(newValue.value);
     setDescription(newValue.part.description);
     setPartNumber(newValue.part.partNumber);
+    setPartVarId(newValue.part.partVariationId);
   };
 
   const { isEnvVarModalOpen, setIsEnvVarModalOpen } = useAppStore(

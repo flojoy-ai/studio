@@ -147,6 +147,7 @@ export const discoverPytest = async (path: string, oneFile: boolean) => {
 
 const Part = z.object({
   partId: z.string(),
+  partVariationId: z.string(),
   partNumber: z.string(),
   description: z.string(),
 });
@@ -168,14 +169,13 @@ const Station = z.object({
 export type Station = z.infer<typeof Project>;
 export const getCloudStations = (projectId: string) => get(`cloud/stations/${projectId}`, Station.array(), { timeout: 60000 });
 
-
 const Unit = z.object({
   serialNumber: z.string(),
-  id: z.string(),
-  lotNumber : z.string(),
+  partVariationId: z.string(),
+  lotNumber : z.string().nullable(),
 });
 export type Unit = z.infer<typeof Unit>;
-export const getCloudUnit = (serialNumber: string) => get(`cloud/unit/SN/${serialNumber}`, Unit, { timeout: 60000 });
+export const getCloudUnits = (partId: string) => get(`cloud/partVariation/${partId}/unit`, Unit.array(), { timeout: 60000 });
 
 export const postSession = (
   serialNumber: string,
@@ -185,7 +185,6 @@ export const postSession = (
   commitHash: string,
   cycleRuns: TestSequenceContainer[][]
 )  => {
-  
   const measurements: Measurement[] = [];
   console.log(cycleRuns);
   cycleRuns.forEach((cycle, cycleNumber) => {
