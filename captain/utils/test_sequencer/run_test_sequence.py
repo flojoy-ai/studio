@@ -280,4 +280,3 @@ async def run_test_sequence(data, ts_manager: TSManager):
     except Exception as e:
         await _stream_result_to_frontend(state=MsgState.error, error=str(e))
         logger.error(f"{e}: {traceback.format_exc()}")
-

@@ -194,7 +194,7 @@ const getNumberOfSequenceRun = (data: TestSequenceContainer[]): number => {
   return count;
 };
 
-const getGlobalStatus = (
+export const getGlobalStatus = (
   cycleRuns: TestSequenceContainer[][],
   sequences: TestSequenceContainer[],
   data: TestSequenceElement[],

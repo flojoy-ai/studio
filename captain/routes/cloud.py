@@ -124,9 +124,7 @@ def make_payload(data: MeasurementData):
 def get_measurement(m: Measurement) -> MeasurementData:
     data = test_sequencer._get_most_recent_data(m.testId)
     if not isinstance(data, MeasurementData):
-        logging.info(
-            f"{m.testId}: Unexpected data type for test data: {type(data)}"
-        )
+        logging.info(f"{m.testId}: Unexpected data type for test data: {type(data)}")
         data = m.pass_
     return data
 
@@ -149,13 +147,29 @@ async def get_cloud_projects():
         if response.status_code != 200:
             return Response(status_code=response.status_code, content=json.dumps([]))
         projects = [Project(**project_data) for project_data in response.json()]
-        content = json.dumps([{"label": p.name, "value": p.id, "part": await get_cloud_part_variation(p.part_variation_id)} for p in projects])
+        content = json.dumps(
+            [
+                {
+                    "label": p.name,
+                    "value": p.id,
+                    "part": await get_cloud_part_variation(p.part_variation_id),
+                }
+                for p in projects
+            ]
+        )
         logging.info(content)
         return Response(
             status_code=200,
-            content=json.dumps([{
-                "label": p.name, "value": p.id, "part": await get_cloud_part_variation(p.part_variation_id)
-            } for p in projects]),
+            content=json.dumps(
+                [
+                    {
+                        "label": p.name,
+                        "value": p.id,
+                        "part": await get_cloud_part_variation(p.part_variation_id),
+                    }
+                    for p in projects
+                ]
+            ),
         )
     except Exception as e:
         return error_response_builder(e)
@@ -198,21 +212,22 @@ async def get_cloud_unit_SN(serial_number: str):
 async def post_cloud_session(_: Response, body: Session):
     try:
         logging.info("Posting session")
-        logging.info(body)
         url = get_flojoy_cloud_url() + "session/"
         payload = body.model_dump()
         for i, m in enumerate(payload["measurements"]):
             m["createdAt"] = "2024-04-03T23:47:57.593Z"
             m["data"] = make_payload(get_measurement(body.measurements[i]))
             m["pass"] = m.pop("pass_")
+        logging.info("Uploading:")
+        logging.info(payload)
         response = requests.post(url, json=payload, headers=headers_builder())
         if response.status_code == 200:
             logging.info("Session posted successfully")
             return Response(status_code=200, content=json.dumps(response.json()))
         else:
-            logging.error(f"Failed to post session. Status code: {response.status_code}, Response: {response.text}")
+            logging.error(
+                f"Failed to post session. Status code: {response.status_code}, Response: {response.text}"
+            )
             return Response(status_code=response.status_code, content=json.dumps([]))
     except Exception as e:
         return error_response_builder(e)
-
-

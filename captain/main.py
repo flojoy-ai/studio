@@ -29,6 +29,7 @@ async def startup_event(app: FastAPI):
 
 app = FastAPI(lifespan=startup_event)
 
+
 # Logging middleware
 @app.middleware("http")
 async def log_requests(request, call_next):

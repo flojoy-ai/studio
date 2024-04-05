@@ -21,6 +21,8 @@ import { Badge } from "@/renderer/components/ui/badge";
 import { Checkbox } from "@/renderer/components/ui/checkbox";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { toast } from "sonner";
+import { getGlobalStatus } from "./DesignBar";
+import { useSequencerStore } from "@/renderer/stores/sequencer";
 
 
 export function CloudPanel() {
@@ -35,7 +37,7 @@ export function CloudPanel() {
   useEffect(() => {
     setUploadAfterRun(!isAdmin());
   }, [isAdmin]);
-  
+
   const getIntegrity = (sequences: TestSequenceContainer[]): boolean => {
     let integrity = true;
     sequences.forEach((seq) => {
@@ -63,19 +65,19 @@ export function CloudPanel() {
     queryKey: ["unit"],
     queryFn: async () => {
       if (envsQuery.isSuccess) {
-      if (
-        envsQuery.data.some((c) => c.key === "FLOJOY_CLOUD_WORKSPACE_SECRET") && uploadInfo.serialNumber !== ""
-      ) {
-        const res = await getCloudUnit(uploadInfo.serialNumber);
-        return res.match(
-          (vars) =>  vars,
-          (e) => {
-            console.error(e);
-            // toast.error("The Serail Number doesn't exist, please check it again.");
-            return [];
-          },
-        );
-      }
+        if (
+          envsQuery.data.some((c) => c.key === "FLOJOY_CLOUD_WORKSPACE_SECRET") && uploadInfo.serialNumber !== ""
+        ) {
+          const res = await getCloudUnit(uploadInfo.serialNumber);
+          return res.match(
+            (vars) => vars,
+            (e) => {
+              console.error(e);
+              // toast.error("The Serail Number doesn't exist, please check it again.");
+              return [];
+            },
+          );
+        }
       }
       return [];
     },
@@ -125,7 +127,7 @@ export function CloudPanel() {
     },
     enabled: projectsQuery.isSuccess, // Enable only when projectsQuery is successful
   });
-  
+
   useEffect(() => {
     setStationId("");
     if (projectId !== "") {
@@ -213,7 +215,7 @@ export function CloudPanel() {
           <Input placeholder="Select a station" value={partNumber} disabled={true} />
 
           <div className="pt-2 text-xs text-muted-foreground">
-            <p>Description: { ` ${description}`} </p>
+            <p>Description: {` ${description}`} </p>
             { /* <p>Product: Arm-Link 6</p> } */}
           </div>
 
@@ -227,10 +229,10 @@ export function CloudPanel() {
             <p>Production Line</p>
           </div>
 
-          <Select 
+          <Select
             onValueChange={(value) => {
               handleSetProject(value);
-            }} 
+            }}
             disabled={isLocked}
           >
             <SelectTrigger>
@@ -244,7 +246,7 @@ export function CloudPanel() {
                     onClick={() => projectsQuery.refetch()}
                     variant={"ghost"}
                   >
-                    Refresh 
+                    Refresh
                   </Button>
                 </div>
               )}
@@ -260,8 +262,8 @@ export function CloudPanel() {
             <p>Test Station</p>
           </div>
 
-          <Select 
-            onValueChange={setStationId} 
+          <Select
+            onValueChange={setStationId}
             disabled={isLocked}>
             <SelectTrigger>
               <SelectValue placeholder={"Select your station..."} />
@@ -270,8 +272,8 @@ export function CloudPanel() {
               {stationsQuery.data.length === 0 && (
                 <div className="flex flex-col items-center justify-center gap-2 p-2 text-sm">
                   <strong>No station found</strong>
-                  { stationsQuery.isFetching ? <p> Loading... </p> :
-                  <p> Select a production line to load the available stations </p>
+                  {stationsQuery.isFetching ? <p> Loading... </p> :
+                    <p> Select a production line to load the available stations </p>
                   }
                 </div>
               )}
@@ -284,8 +286,6 @@ export function CloudPanel() {
           </Select>
           <div className="mt-2 grid grid-flow-row grid-cols-2 gap-1 text-xs text-muted-foreground">
             <p>Station: ID-12345678 </p>
-            <p>Test JIG P/N: PN-0123456</p>
-            <p>Test JIG SN: SN-0123456</p>
             <p>Operator: John Doe</p>
             <p>Sequencer: TSW-0.3.0 </p>
             <p>
@@ -299,18 +299,25 @@ export function CloudPanel() {
             </p>
           </div>
           <div className="py-2" />
-          { isAdmin() && (
+          {isAdmin() && (
             <div className="flex bt-2 items-center">
               <Checkbox checked={uploadAfterRun} onCheckedChange={setUploadAfterRun} />
               <p className="ml-2 text-muted-foreground text-sm"> Automatically upload </p>
-              <div className="grow"/>
-              <Button 
-                variant="outline" 
-                disabled={isLocked || uploadInfo.isUploaded} 
-                className="h-6 text-muted-foreground text-xs" 
-                onClick={() => handleUpload(true)}
+              <div className="grow" />
+              <Button
+                variant="outline"
+                disabled={isLocked || uploadInfo.isUploaded}
+                className="h-6 text-muted-foreground text-xs"
+                onClick={() => {
+                  const status = getGlobalStatus(
+                    useSequencerStore.getState().cycleRuns,
+                    useSequencerStore.getState().sequences,
+                    useSequencerStore.getState().elements
+                  );
+                  handleUpload(status === "aborted", true)
+                }}
               >
-                { uploadInfo.isUploaded ? "Upload Done" : "Upload to Flojoy Cloud" }
+                {uploadInfo.isUploaded ? "Upload Done" : "Upload to Flojoy Cloud"}
               </Button>
             </div>
           )}

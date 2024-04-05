@@ -343,6 +343,9 @@ export function useTestSequencerState() {
           success: () => {
             setIsUploaded(true);
             return  "Uploaded result to cloud";
+          },
+          error: (err) => {
+            return `Failed to upload result: ${err}`;
           }
         }
       );

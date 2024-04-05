@@ -205,7 +205,7 @@ export const postSession = (
     });   
   });
 
-  const body = {
+  const body: Session = {
     serialNumber,
     stationId,
     integrity,
@@ -216,12 +216,7 @@ export const postSession = (
   };
 
   console.log(JSON.stringify(body))
-  return fromPromise(
-    captain.post("cloud/session", {
-    json: body,
-  }).json(),
-    (e) => e as HTTPError,
-  );
+  return captain.post("cloud/session", { json: body }).json()
 }
 
 const Measurement = z.object({
