@@ -60,9 +60,9 @@ export async function installPipx(): Promise<string> {
   const py = process.env.PY_INTERPRETER ?? "python";
   return await execCommand(
     new Command({
-      darwin: `"${py}" -m pip install --user pipx --break-system-packages`,
-      win32: `"${py}" -m pip install --user pipx`,
-      linux: `"${py}" -m pip install --user pipx --break-system-packages`,
+      darwin: `"${py}" -m pip install --user pipx==1.5.0 --break-system-packages`,
+      win32: `"${py}" -m pip install --user pipx==1.5.0`,
+      linux: `"${py}" -m pip install --user pipx==1.5.0 --break-system-packages`,
     }),
   );
 }
@@ -70,7 +70,7 @@ export async function installPipx(): Promise<string> {
 export async function pipxEnsurepath(): Promise<void> {
   const py = process.env.PY_INTERPRETER ?? "python";
   const pipxBinScript =
-    "import pipx.commands.ensure_path;import pipx.constants;script=pipx.commands.ensure_path.get_pipx_user_bin_path();bin=pipx.constants.DEFAULT_PIPX_BIN_DIR;print(bin,';',script)";
+    "import pipx.commands.ensure_path;import pipx.paths;script=pipx.commands.ensure_path.get_pipx_user_bin_path();bin=pipx.paths.DEFAULT_PIPX_BIN_DIR;print(bin,';',script)";
   const pipxBinPath = await execCommand(
     new Command(`"${py}" -c "${pipxBinScript}"`),
     { quiet: true },
@@ -78,12 +78,18 @@ export async function pipxEnsurepath(): Promise<void> {
   const trimmedPath = pipxBinPath.trim().split(" ").join("");
   const existingPaths = process.env.PATH;
 
+  log.info("pipxEnsurepath: " + trimmedPath);
+  log.info("existingPaths: " + existingPaths);
+
   if (!existingPaths?.includes(trimmedPath)) {
     process.env.PATH = `${trimmedPath}:${existingPaths}`;
   }
 }
 
 export async function installPoetry(): Promise<void> {
+  log.info("PIPX_HOME: " + process.env.PIPX_HOME);
+  log.info("PIPX_BIN_DIR: " + process.env.PIPX_BIN_DIR);
+
   const py = process.env.PY_INTERPRETER ?? "python";
   const localDir = join(os.homedir(), ".local");
   if (!existsSync(localDir)) {
@@ -94,7 +100,15 @@ export async function installPoetry(): Promise<void> {
     mkdirSync(defaultPipxDir);
   }
   process.env.PIPX_HOME = defaultPipxDir;
-  await execCommand(new Command(`"${py}" -m pipx install poetry --force`));
+
+  const unset = "unset PIPX_HOME PIPX_BIN_DIR";
+  await execCommand(
+    new Command({
+      darwin: `${unset} && "${py}" -m pipx install poetry --force`,
+      win32: `"${py}" -m pipx install poetry --force`,
+      linux: `"${py}" -m pipx install poetry --force`,
+    }),
+  );
   const poetryPath = await getPoetryPath();
   process.env.POETRY_PATH = poetryPath;
 }

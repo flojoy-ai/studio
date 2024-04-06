@@ -2,7 +2,7 @@ import { execSync } from "child_process";
 import { join } from "path";
 import fs from "fs";
 import { ElectronApplication } from "playwright";
-export const STARTUP_TIMEOUT = 900000; // 15 mins
+export const STARTUP_TIMEOUT = 300000; // 5 mins
 export const standbyStatus = "🐢 awaiting a new job";
 export const getExecutablePath = () => {
   switch (process.platform) {
