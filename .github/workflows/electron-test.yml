@@ -70,9 +70,7 @@ jobs:
 
       - name: Build executable
         if: ${{ matrix.os == 'macos-latest-xlarge' }}
-        run: |
-          chmod +x /usr/local/opt/pipx_bin
-          pnpm run electron-package:mac
+        run: pnpm run electron-package:mac
 
       - name: Build executable
         if: ${{ matrix.os == 'windows-latest' }}

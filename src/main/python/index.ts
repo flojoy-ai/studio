@@ -90,6 +90,14 @@ export async function installPoetry(): Promise<void> {
   log.info("PIPX_HOME: " + process.env.PIPX_HOME);
   log.info("PIPX_BIN_DIR: " + process.env.PIPX_BIN_DIR);
 
+  await execCommand(
+    new Command({
+      darwin: `chmod +x ${process.env.PIPX_BIN_DIR}`,
+      win32: ``,
+      linux: ``,
+    }),
+  );
+
   const py = process.env.PY_INTERPRETER ?? "python";
   const localDir = join(os.homedir(), ".local");
   if (!existsSync(localDir)) {
