@@ -176,6 +176,10 @@ export const TestGeneratorPanel = () => {
             throw error;
           },
         );
+      })
+      .catch((err) => {
+        toast.error(err);
+        console.log(err);
       });
   };
 

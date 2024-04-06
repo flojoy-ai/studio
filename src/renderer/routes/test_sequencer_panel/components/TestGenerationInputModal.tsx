@@ -9,7 +9,7 @@ import {
 import { useModalState } from "@/renderer/routes/test_sequencer_panel/modals/useModalState";
 import { useTestGenerateStore } from "./TestGeneratorPanel";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/renderer/components/ui/input";
 
 const createNewTestFile = (path: string, code: string) => {
@@ -98,25 +98,33 @@ export const TestGenerationInputModal = () => {
     callbackForInputsForGeneratedTestModal(inputs);
   };
 
+  useEffect(() => {
+    return () => {
+      setInputs([]);
+    };
+  }, [isModalOpen]);
+
   return (
     <Dialog open={isModalOpen} onOpenChange={handleModalOpen}>
-      <DialogContent>
-        {placeholdersForGeneratedTest.map((placeholder, i) => (
-          <div className="m-6 space-y-3" key={"testgenerationinput-" + i}>
-            <p>{placeholder}:</p>
-            <Input
-              type="text"
-              value={inputs[i]}
-              onChange={(e) =>
-                setInputs((inputs) => {
-                  const newInputs = [...inputs];
-                  newInputs[i] = e.target.value;
-                  return newInputs;
-                })
-              }
-            />
-          </div>
-        ))}
+      <DialogContent className="h-3/4 overflow-y-scroll">
+        <div>
+          {placeholdersForGeneratedTest.map((placeholder, i) => (
+            <div className="m-6 space-y-3" key={"testgenerationinput-" + i}>
+              <p>{placeholder}:</p>
+              <Input
+                type="text"
+                value={inputs[i]}
+                onChange={(e) =>
+                  setInputs((inputs) => {
+                    const newInputs = [...inputs];
+                    newInputs[i] = e.target.value;
+                    return newInputs;
+                  })
+                }
+              />
+            </div>
+          ))}
+        </div>
         <Button onClick={handleSubmitClick}>Submit</Button>
       </DialogContent>
     </Dialog>
