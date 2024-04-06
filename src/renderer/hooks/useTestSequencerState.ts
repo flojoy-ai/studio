@@ -113,6 +113,7 @@ export function createNewTest(
     error: null,
     isSavedToCloud: false,
     exportToCloud: exportToCloud === undefined ? true : exportToCloud,
+    createdAt: new Date().toISOString(),
   };
   return newTest;
 }
