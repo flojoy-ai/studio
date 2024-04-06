@@ -64,9 +64,9 @@ export function DesignBar() {
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Button
-                data-testid="add-text-button"
                 className="gap-2"
                 variant="ghost"
+                data-testid="new-dropdown"
               >
                 <Plus size={20} className="stroke-muted-foreground" />
                 New
@@ -77,6 +77,7 @@ export function DesignBar() {
                 onClick={() => {
                   setIsImportTestModalOpen(true);
                 }}
+                data-testid="import-test-button"
               >
                 <FlaskConical
                   size={16}

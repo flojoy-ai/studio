@@ -53,6 +53,7 @@ export function ControlButton() {
             className="w-28 gap-2 px-4 py-2"
             isLocked={_.isEmpty(tree)}
             onClick={handleClickRunTest}
+            data-testid="run-test-btn"
           >
             <Play size={18} />
             Play

@@ -33,11 +33,11 @@ test.describe("Create a test sequence", () => {
 
   test("Should import and run test steps", async () => {
     // Click on add tests to open modal
-    await expect(window.getByText("New")).toBeEnabled({
+    await expect(window.getByTestId(Selectors.newDropdown)).toBeEnabled({
       timeout: 15000,
     });
-    await window.getByText("New").click();
-    await window.getByText("New Test").click();
+    await window.getByTestId(Selectors.newDropdown).click();
+    await window.getByTestId(Selectors.importTestBtn).click();
 
     // Select the fixture file
     const customTestFile = join(__dirname, "fixtures/custom-sequences/test.py");
@@ -56,7 +56,7 @@ test.describe("Create a test sequence", () => {
     ).toBeVisible();
 
     // Run the test and check the status
-    await window.getByText("Run Test Sequences").click();
+    await window.getByTestId(Selectors.runBtn).click();
     await window.waitForTimeout(10000);
     await expect(window.getByTestId(Selectors.globalStatusBadge)).toContainText(
       "FAIL",
@@ -65,11 +65,11 @@ test.describe("Create a test sequence", () => {
 
   test("Should create and run a sequence", async () => {
     // Click on add tests to open modal
-    await expect(window.getByText("New")).toBeEnabled({
+    await expect(window.getByTestId(Selectors.newDropdown)).toBeEnabled({
       timeout: 15000,
     });
-    await window.getByText("New").click();
-    await window.getByText("New Test").click();
+    await window.getByTestId(Selectors.newDropdown).click();
+    await window.getByTestId(Selectors.importTestBtn).click();
 
     // Select the fixture file
     const customTestFile = join(__dirname, "fixtures/custom-sequences/test.py");
@@ -120,7 +120,7 @@ test.describe("Create a test sequence", () => {
     expect(existsSync(savePath)).toBe(true);
 
     // Run the sequence and check the status
-    await window.getByText("Run Test Sequences").click();
+    await window.getByTestId(Selectors.runBtn).click();
     await window.waitForTimeout(10000);
     await expect(window.getByTestId(Selectors.globalStatusBadge)).toContainText(
       "FAIL",
