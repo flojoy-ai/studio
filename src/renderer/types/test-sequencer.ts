@@ -136,3 +136,11 @@ export const TestSequencerProject = z.object({
 });
 
 export type TestSequencerProject = z.infer<typeof TestSequencerProject>;
+
+export const TestGenerateResponse = z.object({
+  input: z.string(),
+  code: z.string(),
+  reasoning: z.string(),
+});
+
+export type TestGenerateResponse = z.infer<typeof TestGenerateResponse>;

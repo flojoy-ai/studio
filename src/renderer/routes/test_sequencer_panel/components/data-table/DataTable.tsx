@@ -28,7 +28,6 @@ import {
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -58,6 +57,7 @@ import {
   HoverCardTrigger,
 } from "@/renderer/components/ui/hover-card";
 import PythonTestFileModal from "@/renderer/routes/test_sequencer_panel/components/PythonTestFileModal";
+import { DroppableEmptyRow } from "../dnd/DroppableEmptyRow";
 
 function renderErrorMessage(text: string): JSX.Element {
   const lines = text.split("\n");
@@ -522,14 +522,7 @@ export function DataTable() {
                 </ContextMenu>
               ))
             ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
+              <DroppableEmptyRow colSpan={columns.length + 1} />
             )}
           </TableBody>
         </Table>

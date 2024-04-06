@@ -23,6 +23,16 @@ import {
   useSaveProject,
   useCloseProject,
 } from "@/renderer/hooks/useTestSequencerProject";
+import { TestGeneratorPanel } from "./TestGeneratorPanel";
+import { TabsContent } from "@radix-ui/react-tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/renderer/components/ui/tabs";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/renderer/components/ui/card";
+import { TestGenerationInputModal } from "./TestGenerationInputModal";
 
 const TestSequencerView = () => {
   const { setElems, tree, setIsLocked, backendState, project } =
@@ -71,6 +81,7 @@ const TestSequencerView = () => {
         isProjectModalOpen={isProjectModalOpen}
         handleProjectModalOpen={setIsProjectModalOpen}
       />
+      <TestGenerationInputModal />
       <div
         style={{
           height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT}px)`,
@@ -91,7 +102,32 @@ const TestSequencerView = () => {
 
           <div>
             <div className="top-0 h-full flex-none overflow-y-auto pl-5">
-              <CloudPanel />
+              <Tabs defaultValue="cloud" className="m-3 w-[400px]">
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="cloud">Cloud</TabsTrigger>
+                  <TabsTrigger value="generate">Generate</TabsTrigger>
+                </TabsList>
+                <TabsContent value="cloud">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Cloud Panel</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-2">
+                      <CloudPanel />
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+                <TabsContent value="generate">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Generate Panel</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-2">
+                      <TestGeneratorPanel />
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+              </Tabs>
               <div className="mt-5 rounded-xl border border-gray-300 p-4 py-4 dark:border-gray-800">
                 <div className="flex flex-col">
                   <h2 className="mb-2 pt-3 text-center text-lg font-bold text-accent1 ">
