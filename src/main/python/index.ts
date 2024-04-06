@@ -104,9 +104,9 @@ export async function installPoetry(): Promise<void> {
   const unset = "unset PIPX_HOME PIPX_BIN_DIR";
   await execCommand(
     new Command({
-      darwin: `${unset} && "${py}" -m pipx install poetry --force`,
-      win32: `"${py}" -m pipx install poetry --force`,
-      linux: `"${py}" -m pipx install poetry --force`,
+      darwin: `${unset} && "${py}" -m pipx install poetry`,
+      win32: `"${py}" -m pipx install poetry`,
+      linux: `"${py}" -m pipx install poetry`,
     }),
   );
   const poetryPath = await getPoetryPath();
