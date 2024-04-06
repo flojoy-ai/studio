@@ -1,5 +1,6 @@
 import { memo, ClipboardEvent, useState, useEffect, useCallback } from "react";
 import {
+    getCloudUser,
   getEnvironmentVariables,
   postEnvironmentVariable,
 } from "@/renderer/lib/api";
@@ -104,7 +105,17 @@ const EnvVarModal = () => {
       toast("Please enter your Flojoy Cloud workspace secret");
       return;
     }
-    // TODO: Ping the URL to check if it's a valid secret
+    const user = await getCloudUser(flojoyCloudKey)
+    const validSecret = user.match(
+      () => true,
+      () => {
+        toast.error("Invalid Flojoy Cloud workspace secret");
+        return false;
+      },
+    );
+    if (!validSecret) {
+      return
+    }
     const res = await postEnvironmentVariable({
       key: "FLOJOY_CLOUD_WORKSPACE_SECRET",
       value: flojoyCloudKey,

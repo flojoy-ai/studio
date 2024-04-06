@@ -1,12 +1,12 @@
 import json
 import logging
 import requests
-from fastapi import APIRouter, Response
+from fastapi import APIRouter, Header, Response
 from flojoy.env_var import get_env_var, get_flojoy_cloud_url
 from flojoy_cloud import test_sequencer
 from pydantic import BaseModel, ConfigDict
 from pydantic.alias_generators import to_camel
-from typing import Optional
+from typing import Annotated, Optional
 import datetime
 from typing import Literal
 import pandas as pd
@@ -267,6 +267,24 @@ async def post_cloud_session(_: Response, body: Session):
         else:
             logging.error(
                 f"Failed to post session. Status code: {response.status_code}, Response: {response.text}"
+            )
+            return Response(status_code=response.status_code, content=json.dumps([]))
+    except Exception as e:
+        return error_response_builder(e)
+
+
+@router.get("/cloud/user/")
+async def get_user_info(secret: Annotated[str | None, Header()]):
+    try:
+        logging.info("Querying user info")
+        url = get_flojoy_cloud_url() + "user/"
+        headers = {"flojoy-workspace-personal-secret": secret} if secret else headers_builder(with_workspace_id=False)
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            return Response(status_code=200, content=json.dumps(response.json()))
+        else:
+            logging.error(
+                f"Failed to get user info. Status code: {response.status_code}, Response: {response.text}"
             )
             return Response(status_code=response.status_code, content=json.dumps([]))
     except Exception as e:

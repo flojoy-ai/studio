@@ -147,6 +147,24 @@ export const discoverPytest = async (path: string, oneFile: boolean) => {
   });
 };
 
+const User = z.object({
+  email: z.string(),
+});
+
+export type User = z.infer<typeof User>
+
+export const getCloudUser = (workspace_secret: string | undefined = undefined) => {
+  if (workspace_secret) {
+    return get("cloud/user", User, {
+      headers: {
+        'secret': workspace_secret,
+      },
+    });
+  } else {
+    return get("cloud/user", User);
+  }
+};
+
 const Part = z.object({
   partId: z.string(),
   partVariationId: z.string(),
