@@ -60,6 +60,7 @@ export function TestSequencerWSProvider({
     id: string,
     result: string,
     timeTaken: number,
+    createdAt: string,
     isSavedToCloud: boolean,
     error: string | null,
   ) => {
@@ -70,6 +71,7 @@ export function TestSequencerWSProvider({
         ...newElems[idx],
         status: result,
         completionTime: timeTaken,
+        createdAt: createdAt,
         isSavedToCloud: isSavedToCloud,
         error: error,
       } as Test;
@@ -149,6 +151,7 @@ export function TestSequencerWSProvider({
           msg.data.target_id,
           msg.data.status,
           msg.data.time_taken,
+          msg.data.created_at,
           msg.data.is_saved_to_cloud,
           msg.data.error,
         );

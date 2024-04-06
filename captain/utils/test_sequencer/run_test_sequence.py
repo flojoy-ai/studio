@@ -1,4 +1,5 @@
 import asyncio
+from datetime import datetime
 import subprocess
 import time
 from flojoy_cloud import test_sequencer
@@ -30,11 +31,13 @@ class TestResult:
         result: bool,
         time_taken: float,
         error: str | None = None,
+        created_at: str = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
     ):
         self.test_node = test_node
         self.result = result
         self.time_taken = time_taken
         self.error = error
+        self.created_at = created_at
 
 
 class TestError:
@@ -74,6 +77,7 @@ def _with_stream_test_result(func: Callable[[TestNode], Extract]):
                 test_id=node.id,
                 result=StatusTypes.pass_ if test_result.result else StatusTypes.fail,
                 time_taken=test_result.time_taken,  # TODO result, time_taken should be together
+                created_at=test_result.created_at,
                 error=test_result.error,
                 is_saved_to_cloud=False,
             )
@@ -113,6 +117,7 @@ def _run_python(node: TestNode) -> Extract:
             is_pass,
             end_time - start_time,
             result.stderr.decode() if not is_pass else None,
+            datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%fZ')
         ),
     )
 
@@ -146,6 +151,7 @@ def _run_pytest(node: TestNode) -> Extract:
             is_pass,
             end_time - start_time,
             result.stdout.decode() if not is_pass else None,
+            datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
         ),
     )
 
@@ -181,13 +187,14 @@ async def _stream_result_to_frontend(
     test_id: str = "",
     result: StatusTypes = StatusTypes.pending,
     time_taken: float = 0,
+    created_at: str = datetime.now().isoformat(),
     is_saved_to_cloud: bool = False,
     error: str | None = None,
 ):
     asyncio.create_task(
         ts_manager.ws.broadcast(
             TestSequenceMessage(
-                state.value, test_id, result.value, time_taken, is_saved_to_cloud, error
+                state.value, test_id, result.value, time_taken, created_at, is_saved_to_cloud, error
             )
         )
     )

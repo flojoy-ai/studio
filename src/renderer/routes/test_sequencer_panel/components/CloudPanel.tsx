@@ -292,6 +292,7 @@ export function CloudPanel() {
 
           <Select
             onValueChange={(value) => {
+              // @ts-expect-error: handle convert the station to a string
               handleSetProject(value);
             }}
             disabled={isLocked}
@@ -312,6 +313,7 @@ export function CloudPanel() {
                 </div>
               )}
               {projectsQuery.data.map((option) => (
+                // @ts-expect-error: work in tandem with handleSetProject
                 <SelectItem key={option.value} value={option}>
                   {option.label}
                 </SelectItem>

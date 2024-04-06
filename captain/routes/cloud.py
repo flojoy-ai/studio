@@ -131,6 +131,7 @@ class Measurement(BaseModel):
     cycleNumber: int
     name: str
     pass_: Optional[bool]
+    createdAt: str
 
 
 class Session(BaseModel):
@@ -256,7 +257,6 @@ async def post_cloud_session(_: Response, body: Session):
         url = get_flojoy_cloud_url() + "session/"
         payload = body.model_dump()
         for i, m in enumerate(payload["measurements"]):
-            m["createdAt"] = "2024-04-03T23:47:57.593Z"
             m["data"] = make_payload(get_measurement(body.measurements[i]))
             m["pass"] = m.pop("pass_")
         response = requests.post(url, json=payload, headers=headers_builder())

@@ -207,7 +207,7 @@ export const postSession = (
             cycleNumber: cycleNumber,
             name: elem.testName,
             pass_: elem.status === "pass",
-            // createdAt: elem.completionTime ? `${elem.completionTime}` : "",
+            createdAt: elem.createdAt 
           });
         }
       });
@@ -235,7 +235,7 @@ const Measurement = z.object({
   name: z.string(),
   // data: Is handle in the backend
   pass_: z.boolean().optional(),
-  // createdAt: z.string().optional(),
+  createdAt: z.string(),
 });
 export type Measurement = z.infer<typeof Measurement>;
 
