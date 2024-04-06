@@ -31,7 +31,7 @@ class TestResult:
         result: bool,
         time_taken: float,
         error: str | None = None,
-        created_at: str = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
+        created_at: str = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
     ):
         self.test_node = test_node
         self.result = result
@@ -117,7 +117,7 @@ def _run_python(node: TestNode) -> Extract:
             is_pass,
             end_time - start_time,
             result.stderr.decode() if not is_pass else None,
-            datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+            datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
         ),
     )
 
@@ -151,7 +151,7 @@ def _run_pytest(node: TestNode) -> Extract:
             is_pass,
             end_time - start_time,
             result.stdout.decode() if not is_pass else None,
-            datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
+            datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
         ),
     )
 
@@ -194,7 +194,13 @@ async def _stream_result_to_frontend(
     asyncio.create_task(
         ts_manager.ws.broadcast(
             TestSequenceMessage(
-                state.value, test_id, result.value, time_taken, created_at, is_saved_to_cloud, error
+                state.value,
+                test_id,
+                result.value,
+                time_taken,
+                created_at,
+                is_saved_to_cloud,
+                error,
             )
         )
     )

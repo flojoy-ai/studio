@@ -207,7 +207,7 @@ export const postSession = (
             cycleNumber: cycleNumber,
             name: elem.testName,
             pass_: elem.status === "pass",
-            createdAt: elem.createdAt 
+            createdAt: elem.createdAt,
           });
         }
       });
