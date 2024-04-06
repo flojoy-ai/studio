@@ -131,6 +131,7 @@ class Measurement(BaseModel):
     cycleNumber: int
     name: str
     pass_: Optional[bool]
+    completionTime: float
     createdAt: str
 
 
@@ -259,6 +260,7 @@ async def post_cloud_session(_: Response, body: Session):
         for i, m in enumerate(payload["measurements"]):
             m["data"] = make_payload(get_measurement(body.measurements[i]))
             m["pass"] = m.pop("pass_")
+            m["durationMs"] = int(m.pop("completionTime") * 1000)
         response = requests.post(url, json=payload, headers=headers_builder())
         if response.status_code == 200:
             return Response(status_code=200, content=json.dumps(response.json()))

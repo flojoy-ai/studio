@@ -64,7 +64,7 @@ export const Test = z.object({
   status: StatusType,
   error: z.string().nullable(),
   completionTime: z.number().optional(),
-  createdAt: z.string(),
+  createdAt: z.string().optional(),
   isSavedToCloud: z.boolean(),
   exportToCloud: z.boolean(),
 });
