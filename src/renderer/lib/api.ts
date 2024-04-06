@@ -151,13 +151,15 @@ const User = z.object({
   email: z.string(),
 });
 
-export type User = z.infer<typeof User>
+export type User = z.infer<typeof User>;
 
-export const getCloudUser = (workspace_secret: string | undefined = undefined) => {
+export const getCloudUser = (
+  workspace_secret: string | undefined = undefined,
+) => {
   if (workspace_secret) {
     return get("cloud/user", User, {
       headers: {
-        'secret': workspace_secret,
+        secret: workspace_secret,
       },
     });
   } else {
@@ -273,11 +275,10 @@ export type Session = z.infer<typeof Session>;
 export const getCloudHealth = (url: string | undefined = undefined) => {
   let options: Options = {};
   if (url) {
-    options = {'headers': {'url': url}};
+    options = { headers: { url: url } };
   }
   return fromPromise(
     captain.get("cloud/health", options),
     (e) => e as HTTPError,
   );
 };
-

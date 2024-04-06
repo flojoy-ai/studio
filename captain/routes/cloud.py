@@ -278,7 +278,11 @@ async def get_user_info(secret: Annotated[str | None, Header()]):
     try:
         logging.info("Querying user info")
         url = get_flojoy_cloud_url() + "user/"
-        headers = {"flojoy-workspace-personal-secret": secret} if secret else headers_builder(with_workspace_id=False)
+        headers = (
+            {"flojoy-workspace-personal-secret": secret}
+            if secret
+            else headers_builder(with_workspace_id=False)
+        )
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
             return Response(status_code=200, content=json.dumps(response.json()))

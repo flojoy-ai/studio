@@ -1,7 +1,7 @@
 import { memo, ClipboardEvent, useState, useEffect, useCallback } from "react";
 import {
-    getCloudHealth,
-    getCloudUser,
+  getCloudHealth,
+  getCloudUser,
   getEnvironmentVariables,
   postEnvironmentVariable,
 } from "@/renderer/lib/api";
@@ -106,7 +106,7 @@ const EnvVarModal = () => {
       toast("Please enter your Flojoy Cloud workspace secret");
       return;
     }
-    const user = await getCloudUser(flojoyCloudKey)
+    const user = await getCloudUser(flojoyCloudKey);
     const validSecret = user.match(
       () => true,
       () => {
@@ -115,7 +115,7 @@ const EnvVarModal = () => {
       },
     );
     if (!validSecret) {
-      return
+      return;
     }
     const res = await postEnvironmentVariable({
       key: "FLOJOY_CLOUD_WORKSPACE_SECRET",
@@ -141,7 +141,7 @@ const EnvVarModal = () => {
       return;
     }
     if (!flojoyCloudUrl.endsWith("/")) {
-        setFlojoyCloudUrl(flojoyCloudUrl + "/");
+      setFlojoyCloudUrl(flojoyCloudUrl + "/");
     }
     const serverHealth = await getCloudHealth(flojoyCloudUrl);
     const validUrl = serverHealth.match(
@@ -152,7 +152,7 @@ const EnvVarModal = () => {
       },
     );
     if (!validUrl) {
-      return
+      return;
     }
     const res = await postEnvironmentVariable({
       key: "FLOJOY_CLOUD_URL",
