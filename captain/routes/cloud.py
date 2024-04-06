@@ -289,3 +289,22 @@ async def get_user_info(secret: Annotated[str | None, Header()]):
             return Response(status_code=response.status_code, content=json.dumps([]))
     except Exception as e:
         return error_response_builder(e)
+
+
+@router.get("/cloud/health/")
+async def get_cloud_health(url: Annotated[str | None, Header()]):
+    try:
+        logging.info("Querying health")
+        if url is None:
+            url = get_flojoy_cloud_url()
+        url = url + "health/"
+        response = requests.get(url, headers=headers_builder())
+        if response.status_code == 200:
+            return Response(status_code=200)
+        else:
+            logging.error(
+                f"Failed to get health. Status code: {response.status_code}, Response: {response.text}"
+            )
+            return Response(status_code=response.status_code, content=json.dumps([]))
+    except Exception as e:
+        return error_response_builder(e)

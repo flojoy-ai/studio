@@ -1,5 +1,6 @@
 import { memo, ClipboardEvent, useState, useEffect, useCallback } from "react";
 import {
+    getCloudHealth,
     getCloudUser,
   getEnvironmentVariables,
   postEnvironmentVariable,
@@ -139,7 +140,20 @@ const EnvVarModal = () => {
       toast("Please enter your Flojoy Cloud");
       return;
     }
-    // TODO: Ping the URL to check if it's a valid URL pointing to a Flojoy Cloud instance
+    if (!flojoyCloudUrl.endsWith("/")) {
+        setFlojoyCloudUrl(flojoyCloudUrl + "/");
+    }
+    const serverHealth = await getCloudHealth(flojoyCloudUrl);
+    const validUrl = serverHealth.match(
+      () => true,
+      () => {
+        toast.error("Invalid Flojoy Cloud URL");
+        return false;
+      },
+    );
+    if (!validUrl) {
+      return
+    }
     const res = await postEnvironmentVariable({
       key: "FLOJOY_CLOUD_URL",
       value: flojoyCloudUrl,

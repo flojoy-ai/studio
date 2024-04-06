@@ -269,3 +269,15 @@ const Session = z.object({
   measurements: Measurement.array(),
 });
 export type Session = z.infer<typeof Session>;
+
+export const getCloudHealth = (url: string | undefined = undefined) => {
+  let options: Options = {};
+  if (url) {
+    options = {'headers': {'url': url}};
+  }
+  return fromPromise(
+    captain.get("cloud/health", options),
+    (e) => e as HTTPError,
+  );
+};
+
