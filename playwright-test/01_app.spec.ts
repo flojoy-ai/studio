@@ -54,7 +54,7 @@ test.describe(`${productName} startup test`, () => {
     await window.waitForLoadState("domcontentloaded");
     const title = await window.$("title");
     expect(await title?.innerText()).toContain(productName);
-    // const welcomeText = `Welcome to Flojoy Studio V${version}`;
-    // await window.getByText(welcomeText).innerText({ timeout: STARTUP_TIMEOUT });
+    const welcomeText = `Welcome to Flojoy Studio V${version}`;
+    await window.getByText(welcomeText).innerText({ timeout: STARTUP_TIMEOUT });
   });
 });

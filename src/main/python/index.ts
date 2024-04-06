@@ -78,6 +78,9 @@ export async function pipxEnsurepath(): Promise<void> {
   const trimmedPath = pipxBinPath.trim().split(" ").join("");
   const existingPaths = process.env.PATH;
 
+  log.info("pipxEnsurepath: " + trimmedPath);
+  log.info("existingPaths: " + existingPaths);
+
   if (!existingPaths?.includes(trimmedPath)) {
     process.env.PATH = `${trimmedPath}:${existingPaths}`;
   }
