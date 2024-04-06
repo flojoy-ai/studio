@@ -30,14 +30,6 @@ async def startup_event(app: FastAPI):
 app = FastAPI(lifespan=startup_event)
 
 
-# Logging middleware
-@app.middleware("http")
-async def log_requests(request, call_next):
-    logging.info(f"Request received: {request.method} {request.url}")
-    response = await call_next(request)
-    return response
-
-
 # cors middleware
 app.add_middleware(
     CORSMiddleware,
