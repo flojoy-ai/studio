@@ -44,7 +44,7 @@ test.describe(`${productName} startup test`, () => {
   });
 
   test("App should be loaded correctly.", async () => {
-    const timeoutSecond = 900000; // 15mins
+    const timeoutSecond = 300000; // 5mins
     test.setTimeout(timeoutSecond);
     const window = await app.firstWindow({ timeout: timeoutSecond / 2 });
     await window.waitForLoadState("domcontentloaded");
