@@ -60,9 +60,9 @@ export async function installPipx(): Promise<string> {
   const py = process.env.PY_INTERPRETER ?? "python";
   return await execCommand(
     new Command({
-      darwin: `"${py}" -m pip install --user pipx --break-system-packages`,
-      win32: `"${py}" -m pip install --user pipx`,
-      linux: `"${py}" -m pip install --user pipx --break-system-packages`,
+      darwin: `"${py}" -m pip install --user pipx==1.5.0 --break-system-packages`,
+      win32: `"${py}" -m pip install --user pipx==1.5.0`,
+      linux: `"${py}" -m pip install --user pipx==1.5.0 --break-system-packages`,
     }),
   );
 }
