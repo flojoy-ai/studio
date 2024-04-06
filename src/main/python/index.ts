@@ -93,8 +93,8 @@ export async function installPoetry(): Promise<void> {
   await execCommand(
     new Command({
       darwin: `chmod +x ${process.env.PIPX_BIN_DIR}`,
-      win32: ``,
-      linux: ``,
+      win32: `dir`,
+      linux: `ls`,
     }),
   );
 
