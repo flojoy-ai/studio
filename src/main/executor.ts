@@ -13,7 +13,13 @@ export function execCommand(
 ): Promise<string> {
   log.info("execCommand: " + command.getCommand());
   return new Promise((resolve, reject) => {
-    const child = exec(command.getCommand(), {
+    const cmd = command.getCommand();
+    if (cmd === "") {
+      resolve("");
+      return;
+    }
+
+    const child = exec(cmd, {
       cwd: app.isPackaged ? process.resourcesPath : undefined,
     });
 
