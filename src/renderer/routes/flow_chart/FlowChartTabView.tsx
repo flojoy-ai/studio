@@ -76,6 +76,7 @@ import { calculateContextMenuOffset } from "@/renderer/utils/context-menu";
 import { useContextMenu } from "@/renderer/hooks/useContextMenu";
 import { Link } from "react-router-dom";
 import FlowControlButtons from "./views/ControlBar/FlowControlButtons";
+import { Input } from "@/renderer/components/ui/input";
 
 const edgeTypes = {
   default: CustomEdge,
@@ -270,6 +271,14 @@ const FlowChartTab = () => {
   const addBlockReady = manifest !== undefined;
   const serverStatus = useSocketStore((state) => state.serverStatus);
 
+  const { setProjectName, projectName, hasUnsavedChanges } = useProjectStore(
+    useShallow((state) => ({
+      setProjectName: state.setProjectName,
+      projectName: state.name,
+      hasUnsavedChanges: state.hasUnsavedChanges,
+    })),
+  );
+
   return (
     <>
       <ReactFlowProvider>
@@ -356,6 +365,20 @@ const FlowChartTab = () => {
               </>
             )}
             <div className="grow" />
+            <div className="felx inline-flex items-center gap-2 px-4 pt-1">
+              {hasUnsavedChanges && (
+                <div className=" h-2 w-2 rounded-full bg-foreground/50" />
+              )}
+              <Input
+                className={
+                  "h-6 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap border-muted/60 text-sm focus:border-muted-foreground focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 sm:w-48"
+                }
+                value={projectName}
+                onChange={(e) => setProjectName(e.target.value)}
+                placeholder="Untitled project"
+              />
+            </div>
+            <div />
             <div
               data-cy="app-status"
               id="app-status"
@@ -393,9 +416,8 @@ const FlowChartTab = () => {
 
         <div
           style={{
-            height: `calc(100vh - ${
-              LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT + ACTIONS_HEIGHT
-            }px)`,
+            height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT + ACTIONS_HEIGHT
+              }px)`,
           }}
           className="relative overflow-hidden bg-background"
           data-testid="react-flow"

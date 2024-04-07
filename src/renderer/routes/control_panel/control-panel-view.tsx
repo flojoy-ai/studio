@@ -51,6 +51,7 @@ import { Link } from "react-router-dom";
 import { useSocketStore } from "@/renderer/stores/socket";
 import FlowControlButtons from "../flow_chart/views/ControlBar/FlowControlButtons";
 import _ from "lodash";
+import { Input } from "@/renderer/components/ui/input";
 
 const nodeTypes = {
   TextNode: ControlTextNode,
@@ -203,6 +204,14 @@ const ControlPanelView = () => {
 
   const serverStatus = useSocketStore((state) => state.serverStatus);
 
+  const { setProjectName, projectName, hasUnsavedChanges } = useProjectStore(
+    useShallow((state) => ({
+      setProjectName: state.setProjectName,
+      projectName: state.name,
+      hasUnsavedChanges: state.hasUnsavedChanges,
+    })),
+  );
+
   return (
     <ReactFlowProvider>
       <div
@@ -250,6 +259,20 @@ const ControlPanelView = () => {
           </Button>
           <ClearCanvasBtn clearCanvas={clearCanvas} />
           <div className="grow" />
+          <div className="felx inline-flex items-center gap-2 px-4 pt-1">
+            {hasUnsavedChanges && (
+              <div className=" h-2 w-2 rounded-full bg-foreground/50" />
+            )}
+            <Input
+              className={
+                "h-6 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap border-muted/60 text-sm focus:border-muted-foreground focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 sm:w-48"
+              }
+              value={projectName}
+              onChange={(e) => setProjectName(e.target.value)}
+              placeholder="Untitled project"
+            />
+          </div>
+          <div />
           <div
             data-cy="app-status"
             id="app-status"
