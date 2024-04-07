@@ -5,18 +5,6 @@
 //   3. Update the test sequencer
 //   4. Return a Result<T, Error>
 // Note: All path in a sequence should be using '/' for cross-platform compatibility
-// Note: Toast.promise doesn't work with neverthrow -----
-export type Result<T, E = Error> =
-  | { ok: true; value: T }
-  | { ok: false; error: E };
-
-export function Ok<T, E>(value: T): Result<T, E> {
-  return { ok: true, value };
-}
-export function Err<T, E>(error: E): Result<T, E> {
-  return { ok: false, error };
-}
-// End of note ------------------------------------------
 
 import {
   readJsonSequence,
@@ -28,6 +16,7 @@ import {
   TestSequencerProject,
 } from "@/renderer/types/test-sequencer";
 import { createNewTest } from "@/renderer/hooks/useTestSequencerState";
+import { Err, Ok, Result } from "neverthrow";
 
 // Exposed API
 export type StateManager = {
@@ -45,7 +34,7 @@ export async function createSequence(
   sequence: TestSequencerProject,
   stateManager: StateManager,
   throwInsteadOfResult: boolean = false,
-): Promise<Result<null, Error>> {
+): Promise<Result<void, Error>> {
   // Create a new project from the element currently in the test sequencer
   // - Will valide that each element is in the base folder
   try {
@@ -61,7 +50,7 @@ export async function createSequence(
     );
     await saveToDisk(sequence);
     await syncSequence(sequence, stateManager);
-    return Ok(null);
+    return new Ok(undefined);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
     return buildResultFromCatch(e);
@@ -71,7 +60,7 @@ export async function createSequence(
 export async function saveSequence(
   stateManager: StateManager,
   throwInsteadOfResult: boolean = false,
-): Promise<Result<null, Error>> {
+): Promise<Result<void, Error>> {
   // Save the current sequence to disk
   try {
     let sequence = stateManager.project;
@@ -90,7 +79,7 @@ export async function saveSequence(
     );
     await saveToDisk(sequence);
     await syncSequence(sequence, stateManager);
-    return Ok(null);
+    return new Ok(undefined);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
     return buildResultFromCatch(e);
@@ -100,7 +89,7 @@ export async function saveSequence(
 export async function saveSequences(
   stateManager: StateManager,
   throwInsteadOfResult: boolean = false,
-): Promise<Result<null, Error>> {
+): Promise<Result<void, Error>> {
   // Save the current sequence to disk
   try {
     const containers = stateManager.sequences;
@@ -121,7 +110,7 @@ export async function saveSequences(
       );
       await saveToDisk(sequence);
     });
-    return Ok(null);
+    return new Ok(undefined);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
     return buildResultFromCatch(e);
@@ -134,7 +123,7 @@ export async function importSequence(
   stateManager: StateManager,
   throwInsteadOfResult: boolean = false,
   skipImportDeps: boolean = false,
-): Promise<Result<null, Error>> {
+): Promise<Result<void, Error>> {
   // From a file, import a sequence and update the test sequencer
   // * Importing a sequence overwrites the current sequence, even the test sequencer is unsaved
   try {
@@ -151,7 +140,7 @@ export async function importSequence(
       }
     }
     await syncSequence(sequence, stateManager);
-    return Ok(null);
+    return new Ok(undefined);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
     return buildResultFromCatch(e);
@@ -161,33 +150,33 @@ export async function importSequence(
 export async function exportSequence(
   stateManager: StateManager,
   throwInsteadOfResult: boolean = false,
-): Promise<Result<null, Error>> {
+): Promise<Result<void, Error>> {
   // Export the current sequence as a zip file without any dependencies
   await saveSequence(stateManager);
   const error = new Error("Export Not Implemented");
   if (throwInsteadOfResult) throw error;
-  return Err(error);
+  return new Err(error);
 }
 
 export async function closeSequence(
   stateManager: StateManager,
-): Promise<Result<null, Error>> {
+): Promise<Result<void, Error>> {
   // Close the current proejct from the app. The sequence is NOT deleted from disk
   if (stateManager.project !== null) {
     stateManager.removeSequence(stateManager.project.name);
   }
-  return Ok(null);
+  return new Ok(undefined);
 }
 
 export async function verifyElementCompatibleWithSequence(
   sequence: TestSequencerProject,
   elements: TestSequenceElement[],
   throwInsteadOfResult: boolean = false,
-): Promise<Result<null, Error>> {
+): Promise<Result<void, Error>> {
   // Verify that the elements are within the current sequence directory.
   try {
     await throwIfNotInAllBaseFolder(elements, sequence.projectPath);
-    return Ok(null);
+    return new Ok(undefined);
   } catch (e: unknown) {
     if (throwInsteadOfResult) throw e;
     return buildResultFromCatch(e);
@@ -196,12 +185,12 @@ export async function verifyElementCompatibleWithSequence(
 
 // Private -------------------------------------------------------------------------------------------------
 
-function buildResultFromCatch(e: unknown): Result<null, Error> {
+function buildResultFromCatch(e: unknown): Result<void, Error> {
   if (e instanceof Error) {
-    return Err(e);
+    return new Err(e);
   } else {
     console.error("[Save Sequence] Unknown error", e);
-    return Err(new Error("Unknown error while creating the sequence."));
+    return new Err(new Error("Unknown error while creating the sequence."));
   }
 }
 

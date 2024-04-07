@@ -10,6 +10,7 @@ import {
   closeSequence,
   saveSequences,
 } from "@/renderer/routes/test_sequencer_panel/utils/SequenceHandler";
+import { toastResultPromise } from "../utils/report-error";
 
 function usePrepareStateManager(
   withoutPermission: boolean = false,
@@ -32,15 +33,9 @@ export function useSaveSequence() {
   const { withPermissionCheck } = useWithPermission();
   const manager = usePrepareStateManager();
   const handle = async () => {
-    toast.promise(saveSequence(manager, true), {
+    toastResultPromise(saveSequence(manager, true), {
       loading: "Saving sequence...",
-      success: (result) => {
-        if (result.ok) {
-          return "Sequence saved";
-        } else {
-          return `Error saving sequence: ${result.error}`;
-        }
-      },
+      success: () => "Sequence saved",
       error: (e) => `${e}`,
     });
   };
@@ -52,15 +47,9 @@ export function useSaveAllSequences() {
   const { withPermissionCheck } = useWithPermission();
   const manager = usePrepareStateManager();
   const handle = async () => {
-    toast.promise(saveSequences(manager, true), {
+    toastResultPromise(saveSequences(manager, false), {
       loading: "Saving sequences...",
-      success: (result) => {
-        if (result.ok) {
-          return "Sequences saved";
-        } else {
-          return `Error saving sequences: ${result.error}`;
-        }
-      },
+      success: () => "Sequences saved",
       error: (e) => `${e}`,
     });
   };
@@ -75,17 +64,11 @@ export function useCreateSequence() {
     project: TestSequencerProject,
     setModalOpen: (val: boolean) => void | null,
   ) => {
-    toast.promise(createSequence(project, manager, true), {
+    toastResultPromise(createSequence(project, manager, true), {
       loading: "Creating sequence...",
-      success: (result) => {
-        if (result.ok) {
-          if (setModalOpen) {
-            setModalOpen(false);
-          }
-          return "Sequence created";
-        } else {
-          return `Error creating sequence: ${result.error}`;
-        }
+      success: () => {
+        setModalOpen(false);
+        return "Sequence created";
       },
       error: (e) => `${e}`,
     });
