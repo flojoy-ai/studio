@@ -33,7 +33,7 @@ export function useSaveSequence() {
   const { withPermissionCheck } = useWithPermission();
   const manager = usePrepareStateManager();
   const handle = async () => {
-    toastResultPromise(saveSequence(manager, true), {
+    toastResultPromise(saveSequence(manager), {
       loading: "Saving sequence...",
       success: () => "Sequence saved",
       error: (e) => `${e}`,
@@ -47,7 +47,7 @@ export function useSaveAllSequences() {
   const { withPermissionCheck } = useWithPermission();
   const manager = usePrepareStateManager();
   const handle = async () => {
-    toastResultPromise(saveSequences(manager, false), {
+    toastResultPromise(saveSequences(manager), {
       loading: "Saving sequences...",
       success: () => "Sequences saved",
       error: (e) => `${e}`,
@@ -64,7 +64,7 @@ export function useCreateSequence() {
     project: TestSequencerProject,
     setModalOpen: (val: boolean) => void | null,
   ) => {
-    toastResultPromise(createSequence(project, manager, true), {
+    toastResultPromise(createSequence(project, manager), {
       loading: "Creating sequence...",
       success: () => {
         setModalOpen(false);
@@ -90,7 +90,8 @@ export const useImportSequences = () => {
       await Promise.all(
         result.map(async (res, idx) => {
           const { filePath, fileContent } = res;
-          await importSequence(filePath, fileContent, manager, true, idx !== 0);
+          const result = await importSequence(filePath, fileContent, manager, idx !== 0);
+          if (result.isErr()) throw result.error;
         }),
       );
     };

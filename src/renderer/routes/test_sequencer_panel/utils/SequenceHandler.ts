@@ -33,7 +33,6 @@ export type StateManager = {
 export async function createSequence(
   sequence: TestSequencerProject,
   stateManager: StateManager,
-  throwInsteadOfResult: boolean = false,
 ): Promise<Result<void, Error>> {
   // Create a new project from the element currently in the test sequencer
   // - Will valide that each element is in the base folder
@@ -52,14 +51,12 @@ export async function createSequence(
     await syncSequence(sequence, stateManager);
     return new Ok(undefined);
   } catch (e: unknown) {
-    if (throwInsteadOfResult) throw e;
     return buildResultFromCatch(e);
   }
 }
 
 export async function saveSequence(
   stateManager: StateManager,
-  throwInsteadOfResult: boolean = false,
 ): Promise<Result<void, Error>> {
   // Save the current sequence to disk
   try {
@@ -81,14 +78,12 @@ export async function saveSequence(
     await syncSequence(sequence, stateManager);
     return new Ok(undefined);
   } catch (e: unknown) {
-    if (throwInsteadOfResult) throw e;
     return buildResultFromCatch(e);
   }
 }
 
 export async function saveSequences(
   stateManager: StateManager,
-  throwInsteadOfResult: boolean = false,
 ): Promise<Result<void, Error>> {
   // Save the current sequence to disk
   try {
@@ -112,7 +107,6 @@ export async function saveSequences(
     });
     return new Ok(undefined);
   } catch (e: unknown) {
-    if (throwInsteadOfResult) throw e;
     return buildResultFromCatch(e);
   }
 }
@@ -121,7 +115,6 @@ export async function importSequence(
   filePath: string,
   fileContent: string,
   stateManager: StateManager,
-  throwInsteadOfResult: boolean = false,
   skipImportDeps: boolean = false,
 ): Promise<Result<void, Error>> {
   // From a file, import a sequence and update the test sequencer
@@ -142,19 +135,16 @@ export async function importSequence(
     await syncSequence(sequence, stateManager);
     return new Ok(undefined);
   } catch (e: unknown) {
-    if (throwInsteadOfResult) throw e;
     return buildResultFromCatch(e);
   }
 }
 
 export async function exportSequence(
   stateManager: StateManager,
-  throwInsteadOfResult: boolean = false,
 ): Promise<Result<void, Error>> {
   // Export the current sequence as a zip file without any dependencies
   await saveSequence(stateManager);
   const error = new Error("Export Not Implemented");
-  if (throwInsteadOfResult) throw error;
   return new Err(error);
 }
 
@@ -171,14 +161,12 @@ export async function closeSequence(
 export async function verifyElementCompatibleWithSequence(
   sequence: TestSequencerProject,
   elements: TestSequenceElement[],
-  throwInsteadOfResult: boolean = false,
 ): Promise<Result<void, Error>> {
   // Verify that the elements are within the current sequence directory.
   try {
     await throwIfNotInAllBaseFolder(elements, sequence.projectPath);
     return new Ok(undefined);
   } catch (e: unknown) {
-    if (throwInsteadOfResult) throw e;
     return buildResultFromCatch(e);
   }
 }
