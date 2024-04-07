@@ -10,19 +10,31 @@ import {
 } from "@radix-ui/react-hover-card";
 import { Button } from "@/renderer/components/ui/button";
 import { CycleConfig } from "@/renderer/types/test-sequencer";
+import { useShallow } from "zustand/react/shallow";
+import { useSequencerStore } from "@/renderer/stores/sequencer";
 
 export function CyclePanel() {
+  const { tree, isLocked } = useTestSequencerState();
+
   const {
-    tree,
     cycleRuns,
     cycleConfig,
+    sequences,
     setCycleCount,
     setInfinite,
-    diplayPreviousCycle,
+    displayPreviousCycle,
     displayNextCycle,
-    sequences,
-    isLocked,
-  } = useTestSequencerState();
+  } = useSequencerStore(
+    useShallow((state) => ({
+      cycleRuns: state.cycleRuns,
+      cycleConfig: state.cycleConfig,
+      sequences: state.sequences,
+      setCycleCount: state.setCycleCount,
+      setInfinite: state.setInfinite,
+      displayPreviousCycle: state.diplayPreviousCycle,
+      displayNextCycle: state.displayNextCycle,
+    })),
+  );
   const cycleDisplay = getNumberOfCycleRun(cycleConfig);
 
   if (sequences.length === 0) {
@@ -77,7 +89,7 @@ export function CyclePanel() {
             <LockableButton
               variant="outline"
               isLocked={_.isEmpty(tree)}
-              onClick={diplayPreviousCycle}
+              onClick={displayPreviousCycle}
               className="h-6"
               disabled={cycleConfig.ptrCycle <= 0 || isLocked}
             >

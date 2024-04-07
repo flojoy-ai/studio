@@ -6,6 +6,7 @@ import useWebSocket, { ReadyState } from "react-use-websocket";
 import { BackendMsg, Test } from "@/renderer/types/test-sequencer";
 import { toast } from "sonner";
 import { env } from "@/env";
+import { useSequencerStore } from "../stores/sequencer";
 
 type ContextType = {
   tSSendJsonMessage: SendJsonMessage;
@@ -22,17 +23,20 @@ export function TestSequencerWSProvider({
 }) {
   const {
     elems,
-    websocketId,
     setElems,
     setIsLocked,
-    setIsLoading,
     setBackendGlobalState,
     handleUpload,
     setBackendState,
     runNextRunnableSequence,
-    updateSequenceStatus,
-    saveCycle,
   } = useTestSequencerState();
+  const { saveCycle, websocketId, setIsLoading, updateSequenceStatus } =
+    useSequencerStore((state) => ({
+      saveCycle: state.saveCycle,
+      websocketId: state.websocketId,
+      setIsLoading: state.setIsLoading,
+      updateSequenceStatus: state.updateSequenceStatus,
+    }));
 
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
     `ws://${env.VITE_BACKEND_HOST}:${env.VITE_BACKEND_PORT}/ts-ws/${websocketId}`,

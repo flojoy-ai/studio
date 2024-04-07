@@ -18,7 +18,8 @@ export type ImportTestSettings = {
 export type ImportType = "pytest" | "python";
 
 export const ImportTestModal = () => {
-  const { isImportTestModalOpen, setIsImportTestModalOpen } = useSequencerModalStore();
+  const { isImportTestModalOpen, setIsImportTestModalOpen } =
+    useSequencerModalStore();
   const [checked, setChecked] = useState<boolean>(false);
 
   const { setIsDepManagerModalOpen } = useAppStore(

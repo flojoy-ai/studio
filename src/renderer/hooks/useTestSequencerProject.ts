@@ -90,7 +90,12 @@ export const useImportSequences = () => {
       await Promise.all(
         result.map(async (res, idx) => {
           const { filePath, fileContent } = res;
-          const result = await importSequence(filePath, fileContent, manager, idx !== 0);
+          const result = await importSequence(
+            filePath,
+            fileContent,
+            manager,
+            idx !== 0,
+          );
           if (result.isErr()) throw result.error;
         }),
       );

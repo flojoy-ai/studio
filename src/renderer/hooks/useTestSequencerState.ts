@@ -122,9 +122,6 @@ export function useTestSequencerState() {
   const {
     elems,
     setElements,
-    websocketId,
-    isLoading,
-    setIsLoading,
     isLocked,
     setIsLocked,
     backendGlobalState,
@@ -137,11 +134,7 @@ export function useTestSequencerState() {
     setTree,
     project,
     uploadAfterRun,
-    setUploadAfterRun,
     uploadInfo,
-    setStationId,
-    setSerialNumber,
-    setIntegrity,
     setIsUploaded,
     // Sequences
     sequences,
@@ -149,26 +142,18 @@ export function useTestSequencerState() {
     runRunnableSequencesFromCurrentOne,
     runNextRunnableSequence,
     displaySequence,
-    updateSequenceStatus,
     addNewSequence,
     removeSequence,
     // Cycles
     cycleConfig,
-    setCycleCount,
-    setInfinite,
     saveCycle,
     cycleRuns,
-    diplayPreviousCycle,
-    displayNextCycle,
     clearPreviousCycles,
   } = useSequencerStore(
     useShallow((state) => {
       return {
         elems: state.elements,
         setElements: state.setElements,
-        websocketId: state.websocketId,
-        isLoading: state.isLoading,
-        setIsLoading: state.setIsLoading,
         isLocked: state.isLocked,
         setIsLocked: state.setIsLocked,
         backendGlobalState: state.backendGlobalState,
@@ -181,11 +166,7 @@ export function useTestSequencerState() {
         setTree: state.setTestSequenceTree,
         project: state.testSequenceDisplayed,
         uploadAfterRun: state.uploadAfterRun,
-        setUploadAfterRun: state.setUploadAfterRun,
         uploadInfo: state.uploadInfo,
-        setStationId: state.setStationId,
-        setSerialNumber: state.setSerialNumber,
-        setIntegrity: state.setIntegrity,
         setIsUploaded: state.setIsUploaded,
         // Sequences
         sequences: state.sequences,
@@ -194,17 +175,12 @@ export function useTestSequencerState() {
           state.runRunnableSequencesFromCurrentOne,
         runNextRunnableSequence: state.runNextRunnableSequence,
         displaySequence: state.displaySequence,
-        updateSequenceStatus: state.updateSequenceStatus,
         addNewSequence: state.addNewSequence,
         removeSequence: state.removeSequence,
         // Cycles
         cycleConfig: state.cycleConfig,
-        setCycleCount: state.setCycleCount,
-        setInfinite: state.setInfinite,
         saveCycle: state.saveCycle,
         cycleRuns: state.cycleRuns,
-        diplayPreviousCycle: state.diplayPreviousCycle,
-        displayNextCycle: state.displayNextCycle,
         clearPreviousCycles: state.clearPreviousCycles,
       };
     }),
@@ -349,7 +325,6 @@ export function useTestSequencerState() {
   }
 
   function isValidCloudExport(): boolean {
-    console.log(uploadInfo);
     return true;
   }
 
@@ -380,7 +355,6 @@ export function useTestSequencerState() {
 
   return {
     elems,
-    websocketId,
     setElems: setElemsWithPermissions,
     AddNewElems: addNewElemsWithPermissions,
     tree,
@@ -388,10 +362,8 @@ export function useTestSequencerState() {
     setBackendState,
     setBackendGlobalState,
     isLocked,
-    isLoading,
     backendState,
     backendGlobalState,
-    setIsLoading,
     setUnsaved,
     isUnsaved,
     project,
@@ -401,26 +373,9 @@ export function useTestSequencerState() {
     runSequencer,
     runNextRunnableSequence: runNextRunnableSequenceAndCycle,
     displaySequence: displaySeq,
-    updateSequenceStatus,
     addNewSequence: addNewSeq,
     removeSequence,
-    // Cycles
-    cycleConfig,
-    cycleRuns,
-    setCycleCount,
-    setInfinite,
-    saveCycle,
-    diplayPreviousCycle,
-    displayNextCycle,
-    clearPreviousCycles,
-    // Upload
-    uploadAfterRun,
-    setUploadAfterRun,
-    uploadInfo,
-    handleUpload,
-    setStationId,
-    setSerialNumber,
-    setIntegrity,
-    setIsUploaded,
+    handleUpload: handleUpload,
   };
 }
+

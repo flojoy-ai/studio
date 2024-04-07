@@ -21,6 +21,8 @@ import {
 } from "@/renderer/components/ui/dropdown-menu";
 import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 import { CyclePanel } from "./CyclePanel";
+import { useSequencerStore } from "@/renderer/stores/sequencer";
+import { useShallow } from "zustand/react/shallow";
 
 export type Summary = {
   successRate: number;
@@ -34,7 +36,13 @@ export type Summary = {
 export function DesignBar() {
   const { setIsImportTestModalOpen, setIsCreateProjectModalOpen } =
     useSequencerModalStore();
-  const { elems, sequences, cycleRuns } = useTestSequencerState();
+  const { elems } = useTestSequencerState();
+  const { sequences, cycleRuns } = useSequencerStore(
+    useShallow((state) => ({
+      sequences: state.sequences,
+      cycleRuns: state.cycleRuns,
+    })),
+  );
   const { isAdmin } = useWithPermission();
   const importSequences = useImportSequences();
 
@@ -161,7 +169,13 @@ const getNumberOfTest = (data: TestSequenceElement[]): number => {
 };
 
 const getNumberOfTestRun = (data: TestSequenceElement[]): number => {
-  return countWhere(data, (elem) => elem.type === "test" && elem.status != "pending" && elem.status != "running");
+  return countWhere(
+    data,
+    (elem) =>
+      elem.type === "test" &&
+      elem.status != "pending" &&
+      elem.status != "running",
+  );
 };
 
 const getNumberOfSequence = (data: TestSequenceContainer[]): number => {
@@ -169,7 +183,11 @@ const getNumberOfSequence = (data: TestSequenceContainer[]): number => {
 };
 
 const getNumberOfSequenceRun = (data: TestSequenceContainer[]): number => {
-  return countWhere(data, (elem) => elem.runable && elem.status != "pending" && elem.status != "running");
+  return countWhere(
+    data,
+    (elem) =>
+      elem.runable && elem.status != "pending" && elem.status != "running",
+  );
 };
 
 export const getGlobalStatus = (
@@ -179,7 +197,7 @@ export const getGlobalStatus = (
 ): StatusType => {
   // Create a priority list with all the status
   interface WithStatus {
-  status: string;
+    status: string;
   }
   const priority = {
     pending: 0,
@@ -193,10 +211,10 @@ export const getGlobalStatus = (
   const highestCycle =
     cycleRuns.length > 0
       ? cycleRuns
-        .map((el) => getGlobalStatus([], el, []))
-        .reduce((prev, curr) =>
-          priority[prev] > priority[curr] ? prev : curr,
-        )
+          .map((el) => getGlobalStatus([], el, []))
+          .reduce((prev, curr) =>
+            priority[prev] > priority[curr] ? prev : curr,
+          )
       : "pending";
   if (sequences.length === 0 && data.length === 0) return highestCycle;
   // Highest in the view

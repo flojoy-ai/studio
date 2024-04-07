@@ -59,7 +59,8 @@ import { useSequencerModalStore } from "@/renderer/stores/modal";
 
 export function TestTable() {
   const { elems, setElems } = useTestSequencerState();
-  const { openRenameTestModal, setIsImportTestModalOpen } = useSequencerModalStore();
+  const { openRenameTestModal, setIsImportTestModalOpen } =
+    useSequencerModalStore();
   const importSequences = useImportSequences();
   const { isAdmin } = useWithPermission();
   const [addIfStatement] = useState(false);

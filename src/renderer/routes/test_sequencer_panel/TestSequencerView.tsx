@@ -1,4 +1,3 @@
-import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import TestSequencerInfo from "@/renderer/routes/test_sequencer_panel/components/TestSequencerInfo";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -7,9 +6,11 @@ import {
   BOTTOM_STATUS_BAR_HEIGHT,
   ACTIONS_HEIGHT,
 } from "@/renderer/routes/common/Layout";
+import { useSequencerStore } from "@/renderer/stores/sequencer";
+import { useShallow } from "zustand/react/shallow";
 
 const TestSequencerView = () => {
-  const { isLoading } = useTestSequencerState();
+  const isLoading = useSequencerStore(useShallow((state) => state.isLoading));
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="px-12">

@@ -45,17 +45,25 @@ export function CloudPanel() {
   const [partVarId, setPartVarId] = useState("");
   const [serialNumbers, setSerialNumbers] = useState<string[]>([]);
   const { user } = useAuth();
+  const { isLocked, sequences, handleUpload } = useTestSequencerState();
   const {
-    isLocked,
-    sequences,
     uploadInfo,
     setIntegrity,
     setSerialNumber,
     setStationId,
     uploadAfterRun,
     setUploadAfterRun,
-    handleUpload,
-  } = useTestSequencerState();
+  } = useSequencerStore(
+    useShallow((state) => ({
+      uploadInfo: state.uploadInfo,
+      setIntegrity: state.setIntegrity,
+      setSerialNumber: state.setSerialNumber,
+      setStationId: state.setStationId,
+      uploadAfterRun: state.uploadAfterRun,
+      setUploadAfterRun: state.setUploadAfterRun,
+    })),
+  );
+
   let units = new Map<string, Unit>();
 
   function handleSetSerialNumber(newValue: string) {

@@ -43,10 +43,15 @@ import { getCompletionTime, getSuccessRate, mapStatusToDisplay } from "./utils";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 import { useSequencerModalStore } from "@/renderer/stores/modal";
+import { useSequencerStore } from "@/renderer/stores/sequencer";
+import { useShallow } from "zustand/react/shallow";
 
 export function SequenceTable() {
-  const { sequences, setSequences, project, isLocked, removeSequence } =
+  const { sequences, setSequences, project, isLocked } =
     useTestSequencerState();
+  const removeSequence = useSequencerStore(
+    useShallow((state) => state.removeSequence),
+  );
   const { setIsCreateProjectModalOpen } = useSequencerModalStore();
   const importSequences = useImportSequences();
   const { isAdmin } = useWithPermission();
