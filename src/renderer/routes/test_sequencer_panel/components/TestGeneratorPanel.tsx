@@ -39,11 +39,11 @@ import {
   ContextMenuTrigger,
 } from "@/renderer/components/ui/context-menu";
 import { toast } from "sonner";
-import { Test, TestGenerateResponse } from "@/renderer/types/test-sequencer";
-import { tryParse } from "@/types/result";
+import { Test } from "@/renderer/types/test-sequencer";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { useFillPlaceholdersAndAddTest } from "./TestGenerationInputModal";
+import { getTestGeneration } from "@/renderer/lib/api";
 
 export const columns: ColumnDef<Test>[] = [
   {
@@ -147,40 +147,48 @@ export const TestGeneratorPanel = () => {
   const [name, setName] = useState("");
   const fillPlaceholdersAndAddTest = useFillPlaceholdersAndAddTest();
 
-  const handleGenerateTestClick = () => {
-    return fetch("http://127.0.0.1:8000/generate-test/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json", // specify the content type
-      },
-      body: JSON.stringify({
-        input: prompt,
-        test_context: "random_context",
-      }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Bad response from test generation server");
-        }
-        return response.json();
-      })
-      .then((responseObj) => {
-        tryParse(TestGenerateResponse)(responseObj).match(
-          (value) => {
-            console.log(value);
-            fillPlaceholdersAndAddTest(name, value.code);
-          },
-          (error) => {
-            console.error(error);
-            toast.error(error.message);
-            throw error;
-          },
-        );
-      })
-      .catch((err) => {
-        toast.error(err);
-        console.log(err);
-      });
+  const handleGenerateTestClick = async () => {
+    return getTestGeneration(prompt, "random_context").then((response) => {
+      response.match(
+        (value) => fillPlaceholdersAndAddTest(name, value.code),
+        (err) => {
+          throw err;
+        },
+      );
+    });
+    // return fetch("http://127.0.0.1:8000/generate-test/", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json", // specify the content type
+    //   },
+    //   body: JSON.stringify({
+    //     input: prompt,
+    //     test_context: "random_context",
+    //   }),
+    // })
+    //   .then((response) => {
+    //     if (!response.ok) {
+    //       throw new Error("Bad response from test generation server");
+    //     }
+    //     return response.json();
+    //   })
+    //   .then((responseObj) => {
+    //     tryParse(TestGenerateResponse)(responseObj).match(
+    //       (value) => {
+    //         console.log(value);
+    //         fillPlaceholdersAndAddTest(name, value.code);
+    //       },
+    //       (error) => {
+    //         console.error(error);
+    //         toast.error(error.message);
+    //         throw error;
+    //       },
+    //     );
+    //   })
+    //   .catch((err) => {
+    //     toast.error(err);
+    //     console.log(err);
+    //   });
   };
 
   const handleRemoveTest = (testId: string) => {

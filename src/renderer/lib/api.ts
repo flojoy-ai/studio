@@ -11,10 +11,13 @@ import { BlockData } from "@/renderer/types/block";
 import { Edge, Node } from "reactflow";
 import { BackendSettings } from "@/renderer/stores/settings";
 import _ from "lodash";
-import { ResultAsync, fromPromise } from "neverthrow";
+import { Result, ResultAsync, fromPromise } from "neverthrow";
 import { Options } from "ky";
 import { DeviceInfo } from "@/renderer/types/hardware";
-import { TestDiscoverContainer } from "@/renderer/types/test-sequencer";
+import {
+  TestDiscoverContainer,
+  TestGenerateResponse,
+} from "@/renderer/types/test-sequencer";
 
 const get = <Z extends z.ZodTypeAny>(
   url: string,
@@ -25,6 +28,31 @@ const get = <Z extends z.ZodTypeAny>(
     captain.get(url, options).json(),
     (e) => e as HTTPError,
   ).andThen(tryParse(schema));
+};
+
+export const getTestGeneration = async (
+  input: string,
+  test_context: string,
+): Promise<
+  Result<TestGenerateResponse, HTTPError | ZodError<TestGenerateResponse>>
+> => {
+  return fetch("http://127.0.0.1:8000/generate-test/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json", // specify the content type
+    },
+    body: JSON.stringify({
+      input: input,
+      test_context: test_context,
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Bad response from test generation server");
+      }
+      return response.json();
+    })
+    .then(tryParse(TestGenerateResponse));
 };
 
 export const getManifest = (blocksPath?: string) => {
