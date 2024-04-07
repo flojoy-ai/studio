@@ -119,36 +119,32 @@ const ControlBar = () => {
                 Environment Variables
               </MenubarItem>
               {activeTab !== "Test Sequencer" && (
-                <MenubarItem
-                  data-testid="btn-keyboardshortcut"
-                  onClick={() => setIsKeyboardShortcutOpen(true)}
-                >
-                  Keyboard Shortcut
-                </MenubarItem>
-              )}
-              {activeTab !== "Test Sequencer" && (
-                <MenubarItem
-                  data-testid="btn-editor-settings"
-                  onClick={() => setIsEditorSettingsOpen(true)}
-                >
-                  Editor Settings
-                </MenubarItem>
-              )}
-              {activeTab !== "Test Sequencer" && (
-                <MenubarItem
-                  data-testid="btn-node-settings"
-                  onClick={() => setIsBlockSettingsOpen(true)}
-                >
-                  Block Settings
-                </MenubarItem>
-              )}
-              {activeTab !== "Test Sequencer" && (
-                <MenubarItem
-                  data-testid="btn-device-settings"
-                  onClick={() => setIsDeviceSettingsOpen(true)}
-                >
-                  Device Settings
-                </MenubarItem>
+                <>
+                  <MenubarItem
+                    data-testid="btn-keyboardshortcut"
+                    onClick={() => setIsKeyboardShortcutOpen(true)}
+                  >
+                    Keyboard Shortcut
+                  </MenubarItem>
+                  <MenubarItem
+                    data-testid="btn-editor-settings"
+                    onClick={() => setIsEditorSettingsOpen(true)}
+                  >
+                    Editor Settings
+                  </MenubarItem>
+                  <MenubarItem
+                    data-testid="btn-node-settings"
+                    onClick={() => setIsBlockSettingsOpen(true)}
+                  >
+                    Block Settings
+                  </MenubarItem>
+                  <MenubarItem
+                    data-testid="btn-device-settings"
+                    onClick={() => setIsDeviceSettingsOpen(true)}
+                  >
+                    Device Settings
+                  </MenubarItem>
+                </>
               )}
               <MenubarItem
                 data-testid="btn-debug-settings"
