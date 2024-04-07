@@ -33,7 +33,10 @@ import {
   TableRow,
 } from "@/renderer/components/ui/table";
 import { TestSequenceContainer } from "@/renderer/types/test-sequencer";
-import { useDisplayedSequenceState, useSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import {
+  useDisplayedSequenceState,
+  useSequencerState,
+} from "@/renderer/hooks/useTestSequencerState";
 import { parseInt, map } from "lodash";
 import { ChevronDownIcon, ChevronUpIcon, TrashIcon } from "lucide-react";
 import LockableButton from "@/renderer/routes/test_sequencer_panel/components/lockable/LockedButtons";

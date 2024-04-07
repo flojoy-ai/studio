@@ -31,7 +31,7 @@ type State = {
   sequences: TestSequenceContainer[];
   // For upload ~~~~~~~
   uploadAfterRun: boolean;
-  serialNumber: string;  
+  serialNumber: string;
   stationId: string;
   integrity: boolean;
   isUploaded: boolean;
@@ -111,15 +111,15 @@ export const useSequencerStore = create<State & Actions>()(
     cycleRuns: [],
 
     uploadAfterRun: false,
-    setUploadAfterRun: (val) => ({uploadAfterRun: val }),
+    setUploadAfterRun: (val) => ({ uploadAfterRun: val }),
     serialNumber: "",
-    setSerialNumber: (sn) => set(() => ({ serialNumber: sn})),
+    setSerialNumber: (sn) => set(() => ({ serialNumber: sn })),
     stationId: "",
-    setStationId: (id) => set(() => ({ stationId: id})),
+    setStationId: (id) => set(() => ({ stationId: id })),
     integrity: false,
-    setIntegrity: (val) => set(() => ({ integrity: val})),
+    setIntegrity: (val) => set(() => ({ integrity: val })),
     isUploaded: false,
-    setIsUploaded: (val) => set(() => ({ isUploaded: val})),
+    setIsUploaded: (val) => set(() => ({ isUploaded: val })),
 
     setWebsocketId: (val) =>
       set((state) => {
@@ -163,8 +163,14 @@ export const useSequencerStore = create<State & Actions>()(
           state.testSequenceUnsaved = false;
         }
       }),
-    setBackendState: (val) => set((state) => { state.playPauseState = val }),
-    setBackendGlobalState: (val) => set((state) => { state.backendGlobalState = val }),
+    setBackendState: (val) =>
+      set((state) => {
+        state.playPauseState = val;
+      }),
+    setBackendGlobalState: (val) =>
+      set((state) => {
+        state.backendGlobalState = val;
+      }),
     setTestSequenceUnsaved: (val) => ({ testSequenceUnsaved: val }),
     setTestSequenceTree: (val) =>
       set((state) => {

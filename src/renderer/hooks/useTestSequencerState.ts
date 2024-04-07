@@ -350,14 +350,9 @@ export function useSequencerState() {
         return;
       }
       const upload = async () => {
-        await postSession(
-          serialNumber,
-          stationId,
-          integrity,
-          aborted,
-          "",
-          [...useSequencerStore.getState().cycleRuns],
-        );
+        await postSession(serialNumber, stationId, integrity, aborted, "", [
+          ...useSequencerStore.getState().cycleRuns,
+        ]);
       };
       toast.promise(upload, {
         loading: "Uploading result...",
@@ -411,4 +406,3 @@ export function useSequencerState() {
     handleUpload: handleUpload,
   };
 }
-

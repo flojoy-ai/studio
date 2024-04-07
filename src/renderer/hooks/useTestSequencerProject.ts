@@ -1,5 +1,8 @@
 import useWithPermission from "./useWithPermission";
-import { useDisplayedSequenceState, useSequencerState } from "./useTestSequencerState";
+import {
+  useDisplayedSequenceState,
+  useSequencerState,
+} from "./useTestSequencerState";
 import { TestSequencerProject } from "@/renderer/types/test-sequencer";
 import { toast } from "sonner";
 import {

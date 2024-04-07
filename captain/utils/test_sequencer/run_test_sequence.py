@@ -245,7 +245,9 @@ map_to_handler_run = (
 )
 
 
-async def _extract_from_node(node: TestRootNode | TestSequenceElementNode, map_to_handler) -> Extract:
+async def _extract_from_node(
+    node: TestRootNode | TestSequenceElementNode, map_to_handler
+) -> Extract:
     if not bool(node.__dict__):
         return lambda _: None, None
     matcher, cur = map_to_handler

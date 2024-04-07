@@ -1,6 +1,9 @@
 import { MenubarItem, MenubarShortcut } from "@/renderer/components/ui/menubar";
 import { useSaveAllSequences } from "@/renderer/hooks/useTestSequencerProject";
-import { useDisplayedSequenceState, useSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import {
+  useDisplayedSequenceState,
+  useSequencerState,
+} from "@/renderer/hooks/useTestSequencerState";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useSequencerModalStore } from "@/renderer/stores/modal";
 
@@ -20,7 +23,6 @@ export const useSave = () => {
   const { setIsCreateProjectModalOpen } = useSequencerModalStore();
   const { project } = useDisplayedSequenceState();
   const { sequences } = useSequencerState();
-    
 
   const handleSave = async () => {
     if (project === null && sequences.length === 0) {

@@ -1,5 +1,8 @@
 import { TestDiscoverContainer } from "@/renderer/types/test-sequencer";
-import { createNewTest, useDisplayedSequenceState } from "./useTestSequencerState";
+import {
+  createNewTest,
+  useDisplayedSequenceState,
+} from "./useTestSequencerState";
 import { map } from "lodash";
 import { ImportTestSettings } from "@/renderer/routes/test_sequencer_panel/components/modals/ImportTestModal";
 import { toast } from "sonner";
