@@ -134,7 +134,9 @@ export function useTestSequencerState() {
     setTree,
     project,
     uploadAfterRun,
-    uploadInfo,
+    serialNumber,
+    stationId,
+    integrity,
     setIsUploaded,
     // Sequences
     sequences,
@@ -166,8 +168,10 @@ export function useTestSequencerState() {
         setTree: state.setTestSequenceTree,
         project: state.testSequenceDisplayed,
         uploadAfterRun: state.uploadAfterRun,
-        uploadInfo: state.uploadInfo,
         setIsUploaded: state.setIsUploaded,
+        serialNumber: state.serialNumber,
+        stationId: state.stationId,
+        integrity: state.integrity,
         // Sequences
         sequences: state.sequences,
         setSequences: state.setSequences,
@@ -303,9 +307,9 @@ export function useTestSequencerState() {
       }
       const upload = async () => {
         await postSession(
-          uploadInfo.serialNumber,
-          uploadInfo.stationId,
-          uploadInfo.integrity,
+          serialNumber,
+          stationId,
+          integrity,
           aborted,
           "",
           [...useSequencerStore.getState().cycleRuns],

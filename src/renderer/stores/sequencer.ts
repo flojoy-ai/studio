@@ -9,7 +9,6 @@ import {
   TestRootNode,
   TestSequenceContainer,
   TestSequenceElement,
-  UploadInfo,
 } from "@/renderer/types/test-sequencer";
 import { TestSequencerProject } from "@/renderer/types/test-sequencer";
 import { testSequenceRunRequest } from "@/renderer/routes/test_sequencer_panel/models/models";
@@ -30,8 +29,13 @@ type State = {
   testSequenceStepTree: TestRootNode;
   testSequenceDisplayed: TestSequencerProject | null;
   sequences: TestSequenceContainer[];
+  // For upload ~~~~~~~
   uploadAfterRun: boolean;
-  uploadInfo: UploadInfo;
+  serialNumber: string;  
+  stationId: string;
+  integrity: boolean;
+  isUploaded: boolean;
+  // ~~~~~~~~~~~~~~~~~~
 };
 
 type Actions = {
@@ -52,7 +56,7 @@ type Actions = {
   setCycleCount: (val: number) => void;
   setInfinite: (val: boolean) => void;
   saveCycle: () => void;
-  diplayPreviousCycle: () => void;
+  displayPreviousCycle: () => void;
   displayNextCycle: () => void;
   clearPreviousCycles: () => void;
   // Sequences
@@ -111,28 +115,14 @@ export const useSequencerStore = create<State & Actions>()(
       set((state) => {
         state.uploadAfterRun = val;
       }),
-    uploadInfo: {
-      serialNumber: "",
-      stationId: "",
-      integrity: false,
-      isUploaded: false,
-    },
-    setStationId: (val) =>
-      set((state) => {
-        state.uploadInfo.stationId = val;
-      }),
-    setIntegrity: (val) =>
-      set((state) => {
-        state.uploadInfo.integrity = val;
-      }),
-    setSerialNumber: (val) =>
-      set((state) => {
-        state.uploadInfo.serialNumber = val;
-      }),
-    setIsUploaded: (val) =>
-      set((state) => {
-        state.uploadInfo.isUploaded = val;
-      }),
+    serialNumber: "",
+    setSerialNumber: (sn) => set(() => ({ serialNumber: sn})),
+    stationId: "",
+    setStationId: (id) => set(() => ({ stationId: id})),
+    integrity: false,
+    setIntegrity: (val) => set(() => ({ integrity: val})),
+    isUploaded: false,
+    setIsUploaded: (val) => set(() => ({ isUploaded: val})),
 
     setWebsocketId: (val) =>
       set((state) => {
@@ -365,7 +355,7 @@ export const useSequencerStore = create<State & Actions>()(
         state.cycleRuns.push(state.sequences.map((seq) => ({ ...seq })));
         state.cycleConfig.ptrCycle = state.cycleRuns.length - 1;
       }),
-    diplayPreviousCycle: () =>
+    displayPreviousCycle: () =>
       set((state) => {
         if (state.cycleConfig.ptrCycle <= 0) {
           toast.info("No previous cycle");

@@ -47,7 +47,8 @@ export function CloudPanel() {
   const { user } = useAuth();
   const { isLocked, sequences, handleUpload } = useTestSequencerState();
   const {
-    uploadInfo,
+    serialNumber,
+    isUploaded,
     setIntegrity,
     setSerialNumber,
     setStationId,
@@ -55,7 +56,8 @@ export function CloudPanel() {
     setUploadAfterRun,
   } = useSequencerStore(
     useShallow((state) => ({
-      uploadInfo: state.uploadInfo,
+      serialNumber: state.serialNumber,
+      isUploaded: state.isUploaded,
       setIntegrity: state.setIntegrity,
       setSerialNumber: state.setSerialNumber,
       setStationId: state.setStationId,
@@ -191,12 +193,12 @@ export function CloudPanel() {
   }, [partVarId]);
 
   useEffect(() => {
-    if (units.has(uploadInfo.serialNumber)) {
-      if (units.get(uploadInfo.serialNumber)!.lotNumber !== null) {
-        setLotNumber(units.get(uploadInfo.serialNumber)!.lotNumber!);
+    if (units.has(serialNumber)) {
+      if (units.get(serialNumber)!.lotNumber !== null) {
+        setLotNumber(units.get(serialNumber)!.lotNumber!);
       }
     }
-  }, [uploadInfo.serialNumber]);
+  }, [serialNumber]);
 
   const handleSetProject = (newValue: Station) => {
     setProjectId(newValue.value);
@@ -255,7 +257,7 @@ export function CloudPanel() {
                   options={serialNumbers}
                   onChange={handleSetSerialNumber}
                   placeholder="SN-0001"
-                  value={uploadInfo.serialNumber}
+                  value={serialNumber}
                 />
               </div>
             </div>
@@ -363,7 +365,6 @@ export function CloudPanel() {
             <p>Operator: {user ? user.name.substring(0, 20) : "Unknow"} </p>
             <p>Sequencer: {"TS-" + packageJson.version} </p>
             <p>
-              {" "}
               Integrity:{" "}
               {getIntegrity(sequences) ? (
                 <Badge className="h-4 bg-green-500">Pass</Badge>
@@ -386,7 +387,7 @@ export function CloudPanel() {
               <div className="grow" />
               <Button
                 variant="outline"
-                disabled={isLocked || uploadInfo.isUploaded}
+                disabled={isLocked || isUploaded}
                 className="h-6 text-xs text-muted-foreground"
                 onClick={() => {
                   const status = getGlobalStatus(
@@ -397,7 +398,7 @@ export function CloudPanel() {
                   handleUpload(status === "aborted", true);
                 }}
               >
-                {uploadInfo.isUploaded
+                {isUploaded
                   ? "Upload Done"
                   : "Upload to Flojoy Cloud"}
               </Button>
