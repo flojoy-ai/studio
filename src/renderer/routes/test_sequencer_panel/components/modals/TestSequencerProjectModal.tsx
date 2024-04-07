@@ -6,11 +6,11 @@ import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useCreateSequence } from "@/renderer/hooks/useTestSequencerProject";
 import { InterpreterType } from "@/renderer/types/test-sequencer";
 import { PathInput } from "@/renderer/components/ui/path-input";
-import { useModalStore } from "@/renderer/stores/modal";
+import { useSequencerModalStore } from "@/renderer/stores/modal";
 
 export const TestSequencerProjectModal = () => {
   const { isCreateProjectModalOpen, setIsCreateProjectModalOpen } =
-    useModalStore();
+    useSequencerModalStore();
   const { elems } = useTestSequencerState();
   const handleCreate = useCreateSequence();
   const [name, setName] = useState("");

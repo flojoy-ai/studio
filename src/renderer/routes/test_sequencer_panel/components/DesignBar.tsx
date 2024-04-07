@@ -1,4 +1,4 @@
-import { useModalStore } from "@/renderer/stores/modal";
+import { useSequencerModalStore } from "@/renderer/stores/modal";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { filter } from "lodash";
 import { Button } from "@/renderer/components/ui/button";
@@ -33,7 +33,7 @@ export type Summary = {
 
 export function DesignBar() {
   const { setIsImportTestModalOpen, setIsCreateProjectModalOpen } =
-    useModalStore();
+    useSequencerModalStore();
   const { elems, sequences, cycleRuns } = useTestSequencerState();
   const { isAdmin } = useWithPermission();
   const importSequences = useImportSequences();

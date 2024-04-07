@@ -52,14 +52,14 @@ import { useRef, useState, useEffect } from "react";
 import TestNameCell from "./test-name-cell";
 import { DraggableRowStep } from "@/renderer/routes/test_sequencer_panel/components/dnd/DraggableRowStep";
 import PythonTestFileModal from "@/renderer/routes/test_sequencer_panel/components/modals/PythonTestFileModal";
-import { useModalState } from "@/renderer/hooks/useModalState";
 import { mapStatusToDisplay } from "./utils";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
+import { useSequencerModalStore } from "@/renderer/stores/modal";
 
 export function TestTable() {
   const { elems, setElems } = useTestSequencerState();
-  const { openRenameTestModal, setIsImportTestModalOpen } = useModalState();
+  const { openRenameTestModal, setIsImportTestModalOpen } = useSequencerModalStore();
   const importSequences = useImportSequences();
   const { isAdmin } = useWithPermission();
   const [addIfStatement] = useState(false);

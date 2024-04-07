@@ -1,9 +1,9 @@
 import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
-import { useModalState } from "@/renderer/hooks/useModalState";
+import { useSequencerModalStore } from "@/renderer/stores/modal";
 
 export const ErrorModal = () => {
   const { isErrorModalOpen, setIsErrorModalOpen, errorModalMessage } =
-    useModalState();
+    useSequencerModalStore();
   const lines = errorModalMessage.split("\n");
   const maxLen = 100;
   for (let i = 0; i < lines.length; i++) {

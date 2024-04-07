@@ -1,13 +1,13 @@
 import { Button } from "@/renderer/components/ui/button";
 import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { Input } from "@/renderer/components/ui/input";
-import { useModalState } from "@/renderer/hooks/useModalState";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import { useSequencerModalStore } from "@/renderer/stores/modal";
 import { useState, useEffect } from "react";
 
 export const RenameTestModal = () => {
   const { renameTestId, isRenameTestModalOpen, setIsRenameTestModalOpen } =
-    useModalState();
+    useSequencerModalStore();
   const { elems, setElems, project } = useTestSequencerState();
   const [testName, setTestName] = useState<string>("");
   const [target, setTarget] = useState<string>("");
@@ -37,7 +37,7 @@ export const RenameTestModal = () => {
         }
       }),
     );
-    setIsRenameTestModalOpen(false, null);
+    setIsRenameTestModalOpen(false);
   }
 
   return (

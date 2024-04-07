@@ -40,14 +40,14 @@ import LockableButton from "@/renderer/routes/test_sequencer_panel/components/lo
 import { useState } from "react";
 import { DraggableRowSequence } from "@/renderer/routes/test_sequencer_panel/components/dnd/DraggableRowSequence";
 import { getCompletionTime, getSuccessRate, mapStatusToDisplay } from "./utils";
-import { useModalState } from "@/renderer/hooks/useModalState";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
+import { useSequencerModalStore } from "@/renderer/stores/modal";
 
 export function SequenceTable() {
   const { sequences, setSequences, project, isLocked, removeSequence } =
     useTestSequencerState();
-  const { setIsCreateProjectModalOpen } = useModalState();
+  const { setIsCreateProjectModalOpen } = useSequencerModalStore();
   const importSequences = useImportSequences();
   const { isAdmin } = useWithPermission();
 

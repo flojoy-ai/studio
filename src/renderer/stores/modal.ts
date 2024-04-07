@@ -22,7 +22,7 @@ type Actions = {
   openRenameTestModal: (testId: string) => void;
 };
 
-export const useModalStore = create<State & Actions>()(
+export const useSequencerModalStore = create<State & Actions>()(
   immer((set) => ({
     isImportTestModalOpen: false,
     setIsImportTestModalOpen: (val) =>

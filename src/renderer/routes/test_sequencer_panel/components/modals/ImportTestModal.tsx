@@ -5,7 +5,7 @@ import { Separator } from "@/renderer/components/ui/separator";
 import { useTestImport } from "@/renderer/hooks/useTestImport";
 import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { useAppStore } from "@/renderer/stores/app";
-import { useModalStore } from "@/renderer/stores/modal";
+import { useSequencerModalStore } from "@/renderer/stores/modal";
 import { ExternalLinkIcon } from "lucide-react";
 import { useState } from "react";
 import { useShallow } from "zustand/react/shallow";
@@ -18,7 +18,7 @@ export type ImportTestSettings = {
 export type ImportType = "pytest" | "python";
 
 export const ImportTestModal = () => {
-  const { isImportTestModalOpen, setIsImportTestModalOpen } = useModalStore();
+  const { isImportTestModalOpen, setIsImportTestModalOpen } = useSequencerModalStore();
   const [checked, setChecked] = useState<boolean>(false);
 
   const { setIsDepManagerModalOpen } = useAppStore(
