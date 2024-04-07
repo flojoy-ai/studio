@@ -6,11 +6,12 @@ import { ACTIONS_HEIGHT } from "@/renderer/routes/common/Layout";
 import { FlaskConical, Import, LayoutGrid, Plus, Route } from "lucide-react";
 import {
   StatusType,
+  Test,
   TestSequenceContainer,
   TestSequenceElement,
 } from "@/renderer/types/test-sequencer";
 import { useMemo, useState } from "react";
-import { getOnlyTests } from "./data-table/utils";
+import { getOnlyCompletedTests } from "./data-table/utils";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import {
   DropdownMenu,
@@ -151,43 +152,24 @@ export function DesignBar() {
 }
 
 // Helper functions
+export function countWhere<T>(arr: T[], predicate: (t: T) => boolean): number {
+  return arr.reduce((acc, t) => (predicate(t) ? acc + 1 : acc), 0);
+}
 
 const getNumberOfTest = (data: TestSequenceElement[]): number => {
-  let count = 0;
-  data.forEach((elem) => {
-    if (elem.type === "test") count++;
-  });
-  return count;
+  return countWhere(data, (elem) => elem.type === "test");
 };
 
 const getNumberOfTestRun = (data: TestSequenceElement[]): number => {
-  let count = 0;
-  data.forEach((elem) => {
-    if (
-      elem.type === "test" &&
-      elem.status != "pending" &&
-      elem.status != "running"
-    )
-      count++;
-  });
-  return count;
+  return countWhere(data, (elem) => elem.type === "test" && elem.status != "pending" && elem.status != "running");
 };
 
 const getNumberOfSequence = (data: TestSequenceContainer[]): number => {
-  let count = 0;
-  data.forEach((elem) => {
-    if (elem.runable) count++;
-  });
-  return count;
+  return countWhere(data, (elem) => elem.runable);
 };
 
 const getNumberOfSequenceRun = (data: TestSequenceContainer[]): number => {
-  let count = 0;
-  data.forEach((elem) => {
-    if (elem.runable && elem.status != "pending" && elem.status != "running")
-      count++;
-  });
-  return count;
+  return countWhere(data, (elem) => elem.runable && elem.status != "pending" && elem.status != "running");
 };
 
 export const getGlobalStatus = (
@@ -196,6 +178,9 @@ export const getGlobalStatus = (
   data: TestSequenceElement[],
 ): StatusType => {
   // Create a priority list with all the status
+  interface WithStatus {
+  status: string;
+  }
   const priority = {
     pending: 0,
     pass: 1,
@@ -208,21 +193,21 @@ export const getGlobalStatus = (
   const highestCycle =
     cycleRuns.length > 0
       ? cycleRuns
-          .map((el) => getGlobalStatus([], el, []))
-          .reduce((prev, curr) =>
-            priority[prev] > priority[curr] ? prev : curr,
-          )
+        .map((el) => getGlobalStatus([], el, []))
+        .reduce((prev, curr) =>
+          priority[prev] > priority[curr] ? prev : curr,
+        )
       : "pending";
   if (sequences.length === 0 && data.length === 0) return highestCycle;
   // Highest in the view
-  const iter = sequences.length > 0 ? sequences : data;
+  const tests = data.filter((el) => el.type === "test") as Test[];
+  const iter = sequences.length > 0 ? sequences : tests;
   const status = iter
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .map((el: any) => el.status)
+    .map((el: WithStatus) => el.status)
     .reduce((prev, curr) => (priority[prev] > priority[curr] ? prev : curr));
   const highestGlobal =
     priority[highestCycle] > priority[status] ? highestCycle : status;
-  return highestGlobal;
+  return StatusType.parse(highestGlobal);
 };
 
 const mapStatusToDisplay: { [k in StatusType] } = {
@@ -259,7 +244,7 @@ const mapStatusToDisplay: { [k in StatusType] } = {
 };
 
 const getSuccessRate = (data: TestSequenceElement[]): number => {
-  const tests = getOnlyTests(data);
+  const tests = getOnlyCompletedTests(data);
   if (tests.length == 0) return 0;
   return (
     (filter(tests, (elem) => elem.status == "pass").length / tests.length) * 100
