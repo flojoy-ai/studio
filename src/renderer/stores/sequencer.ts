@@ -111,10 +111,7 @@ export const useSequencerStore = create<State & Actions>()(
     cycleRuns: [],
 
     uploadAfterRun: false,
-    setUploadAfterRun: (val) =>
-      set((state) => {
-        state.uploadAfterRun = val;
-      }),
+    setUploadAfterRun: (val) => ({uploadAfterRun: val }),
     serialNumber: "",
     setSerialNumber: (sn) => set(() => ({ serialNumber: sn})),
     stationId: "",
@@ -166,18 +163,9 @@ export const useSequencerStore = create<State & Actions>()(
           state.testSequenceUnsaved = false;
         }
       }),
-    setBackendState: (val) =>
-      set((state) => {
-        state.playPauseState = val;
-      }),
-    setBackendGlobalState: (val) =>
-      set((state) => {
-        state.backendGlobalState = val;
-      }),
-    setTestSequenceUnsaved: (val) =>
-      set((state) => {
-        state.testSequenceUnsaved = val;
-      }),
+    setBackendState: (val) => ({ playPauseState: val }),
+    setBackendGlobalState: (val) => ({ backendGlobalState: val }),
+    setTestSequenceUnsaved: (val) => ({ testSequenceUnsaved: val }),
     setTestSequenceTree: (val) =>
       set((state) => {
         state.testSequenceStepTree = val;

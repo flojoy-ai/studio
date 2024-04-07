@@ -31,7 +31,7 @@ export function CyclePanel() {
       sequences: state.sequences,
       setCycleCount: state.setCycleCount,
       setInfinite: state.setInfinite,
-      displayPreviousCycle: state.diplayPreviousCycle,
+      displayPreviousCycle: state.displayPreviousCycle,
       displayNextCycle: state.displayNextCycle,
     })),
   );
