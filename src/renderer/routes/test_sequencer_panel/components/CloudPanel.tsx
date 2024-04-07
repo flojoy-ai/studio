@@ -44,7 +44,6 @@ export function CloudPanel() {
   const [partNumber, setPartNumber] = useState("");
   const [partVarId, setPartVarId] = useState("");
   const [serialNumbers, setSerialNumbers] = useState<string[]>([]);
-  const [units, setUnits] = useState<Map<string, Unit>>(new Map());
   const { user } = useAuth();
   const {
     isLocked,
@@ -57,6 +56,7 @@ export function CloudPanel() {
     setUploadAfterRun,
     handleUpload,
   } = useTestSequencerState();
+  let units = new Map<string, Unit>();
 
   function handleSetSerialNumber(newValue: string) {
     // Remove this function once cloud ignore casing
@@ -111,7 +111,7 @@ export function CloudPanel() {
               setSerialNumbers(vars.map((unit) => unit.serialNumber));
               const map = new Map<string, Unit>();
               vars.forEach((unit) => map.set(unit.serialNumber, unit));
-              setUnits(map);
+              units = map;
               return vars;
             },
             (e) => {

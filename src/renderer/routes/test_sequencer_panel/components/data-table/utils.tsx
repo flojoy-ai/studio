@@ -72,7 +72,7 @@ function renderErrorMessage(text: string): JSX.Element {
 }
 
 export const getCompletionTime = (data: TestSequenceElement[]) => {
-  const onlyTests = getOnlyTests(data);
+  const onlyTests = getOnlyCompletedTests(data);
   const parallel = filter(onlyTests, (elem) => elem.runInParallel).map(
     (elem) => elem.completionTime,
   );
@@ -85,7 +85,7 @@ export const getCompletionTime = (data: TestSequenceElement[]) => {
   return maxParallel + nonParallelTotal;
 };
 
-export const getOnlyTests = (data: TestSequenceElement[]): Test[] => {
+export const getOnlyCompletedTests = (data: TestSequenceElement[]): Test[] => {
   return filter(
     data,
     (elem) =>
@@ -96,7 +96,7 @@ export const getOnlyTests = (data: TestSequenceElement[]): Test[] => {
 };
 
 export const getSuccessRate = (data: TestSequenceElement[]): number => {
-  const tests = getOnlyTests(data);
+  const tests = getOnlyCompletedTests(data);
   if (tests.length == 0) return 0;
   const success = filter(tests, (elem) => elem.status == "pass").length;
   return (success / tests.length) * 100;
