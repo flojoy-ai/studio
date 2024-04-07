@@ -163,8 +163,8 @@ export const useSequencerStore = create<State & Actions>()(
           state.testSequenceUnsaved = false;
         }
       }),
-    setBackendState: (val) => ({ playPauseState: val }),
-    setBackendGlobalState: (val) => ({ backendGlobalState: val }),
+    setBackendState: (val) => set((state) => { state.playPauseState = val }),
+    setBackendGlobalState: (val) => set((state) => { state.backendGlobalState = val }),
     setTestSequenceUnsaved: (val) => ({ testSequenceUnsaved: val }),
     setTestSequenceTree: (val) =>
       set((state) => {

@@ -11,10 +11,10 @@ import { ModalsProvider } from "./modals/ModalsProvider";
 import SequencerKeyboardShortcuts from "@/renderer/routes/test_sequencer_panel/SequencerKeyboardShortCuts";
 import { ControlButton } from "./ControlButton";
 import { DesignBar } from "./DesignBar";
-import { useSequencerTestState } from "@/renderer/hooks/useTestSequencerState";
+import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
 
 const TestSequencerView = () => {
-  const { backendGlobalState } = useSequencerTestState();
+  const { backendGlobalState } = useDisplayedSequenceState();
 
   return (
     <LockedContextProvider>

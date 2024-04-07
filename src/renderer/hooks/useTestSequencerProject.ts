@@ -1,5 +1,5 @@
 import useWithPermission from "./useWithPermission";
-import { useSequencerTestState, useSequencerState } from "./useTestSequencerState";
+import { useDisplayedSequenceState, useSequencerState } from "./useTestSequencerState";
 import { TestSequencerProject } from "@/renderer/types/test-sequencer";
 import { toast } from "sonner";
 import {
@@ -15,7 +15,7 @@ import { toastResultPromise } from "../utils/report-error";
 function usePrepareStateManager(
   withoutPermission: boolean = false,
 ): StateManager {
-  const { elems, project } = useSequencerTestState();
+  const { elems, project } = useDisplayedSequenceState();
   const { addNewSequence, removeSequence, sequences } = useSequencerState();
   if (withoutPermission) {
     return {
@@ -111,7 +111,7 @@ export const useImportSequences = () => {
 };
 
 export const useCloseSequence = () => {
-  const { isUnsaved } = useSequencerTestState();
+  const { isUnsaved } = useDisplayedSequenceState();
   const manager = usePrepareStateManager();
   const handle = async () => {
     if (isUnsaved) {

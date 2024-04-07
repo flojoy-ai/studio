@@ -118,7 +118,7 @@ export function createNewTest(
   return newTest;
 }
 
-export function useSequencerTestState() {
+export function useDisplayedSequenceState() {
   const {
     elems,
     setElements,

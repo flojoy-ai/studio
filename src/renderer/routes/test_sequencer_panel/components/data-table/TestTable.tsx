@@ -39,7 +39,7 @@ import {
   Conditional,
   Test,
 } from "@/renderer/types/test-sequencer";
-import { useSequencerTestState } from "@/renderer/hooks/useTestSequencerState";
+import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
 import { parseInt, filter, map } from "lodash";
 import {
   generateConditional,
@@ -58,7 +58,7 @@ import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 import { useSequencerModalStore } from "@/renderer/stores/modal";
 
 export function TestTable() {
-  const { elems, setElems } = useSequencerTestState();
+  const { elems, setElems } = useDisplayedSequenceState();
   const { openRenameTestModal, setIsImportTestModalOpen } =
     useSequencerModalStore();
   const importSequences = useImportSequences();

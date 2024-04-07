@@ -1,14 +1,14 @@
 import { Button } from "@/renderer/components/ui/button";
 import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { Input } from "@/renderer/components/ui/input";
-import { useSequencerTestState } from "@/renderer/hooks/useTestSequencerState";
+import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
 import { useSequencerModalStore } from "@/renderer/stores/modal";
 import { useState, useEffect } from "react";
 
 export const RenameTestModal = () => {
   const { renameTestId, isRenameTestModalOpen, setIsRenameTestModalOpen } =
     useSequencerModalStore();
-  const { elems, setElems, project } = useSequencerTestState();
+  const { elems, setElems, project } = useDisplayedSequenceState();
   const [testName, setTestName] = useState<string>("");
   const [target, setTarget] = useState<string>("");
 

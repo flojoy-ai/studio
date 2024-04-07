@@ -2,7 +2,7 @@ import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { Button } from "@/renderer/components/ui/button";
 import { useState } from "react";
 import { Input } from "@/renderer/components/ui/input";
-import { useSequencerTestState } from "@/renderer/hooks/useTestSequencerState";
+import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
 import { useCreateSequence } from "@/renderer/hooks/useTestSequencerProject";
 import { InterpreterType } from "@/renderer/types/test-sequencer";
 import { PathInput } from "@/renderer/components/ui/path-input";
@@ -11,7 +11,7 @@ import { useSequencerModalStore } from "@/renderer/stores/modal";
 export const TestSequencerProjectModal = () => {
   const { isCreateProjectModalOpen, setIsCreateProjectModalOpen } =
     useSequencerModalStore();
-  const { elems } = useSequencerTestState();
+  const { elems } = useDisplayedSequenceState();
   const handleCreate = useCreateSequence();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
