@@ -9,7 +9,7 @@ import {
   TestSequenceContainer,
   TestSequenceElement,
 } from "@/renderer/types/test-sequencer";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { getOnlyTests } from "./data-table/utils";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import {
@@ -45,7 +45,7 @@ export function DesignBar() {
     successRate: 0,
     status: "pending",
   });
-  useEffect(() => {
+  useMemo(() => {
     setSummary({
       numberOfTestRun: getNumberOfTestRun(elems),
       numberOfTest: getNumberOfTest(elems),
