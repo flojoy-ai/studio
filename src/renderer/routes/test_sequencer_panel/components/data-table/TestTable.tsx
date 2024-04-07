@@ -151,6 +151,7 @@ export function TestTable() {
         if (row.original.type === "test") {
           return (
             <Checkbox
+              className="relative z-10 my-2"
               checked={row.original.exportToCloud}
               onCheckedChange={() => toggleExportToCloud(row.original.id)}
             />
