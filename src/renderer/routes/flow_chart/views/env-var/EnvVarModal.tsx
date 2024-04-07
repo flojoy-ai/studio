@@ -138,14 +138,8 @@ const EnvVarModal = () => {
       setFlojoyCloudUrl(flojoyCloudUrl + "/");
     }
     const serverHealth = await getCloudHealth(flojoyCloudUrl);
-    const validUrl = serverHealth.match(
-      () => true,
-      () => {
-        toast.error("Invalid Flojoy Cloud URL");
-        return false;
-      },
-    );
-    if (!validUrl) {
+    if (serverHealth.isErr()) {
+      toast.error("Invalid Flojoy Cloud URL");
       return;
     }
     const res = await postEnvironmentVariable({
