@@ -12,6 +12,7 @@ from captain.services.consumer.blocks_watcher import BlocksWatcher
 from captain.types.test_sequence import TestSequenceMessage
 from captain.types.worker import PoisonPill
 from captain.utils.logger import logger
+from captain.utils.test_sequencer.run_test_sequence import utcnow_str
 
 """ Acts as a bridge between backend components """
 
@@ -52,6 +53,7 @@ class TSManager(WSManager):
                     target_id=id_of_test_waiting_for_resume,
                     status=StatusTypes.paused.value,
                     time_taken=-1,
+                    created_at=utcnow_str(),
                     is_saved_to_cloud=False,
                     error=None,
                 )
@@ -60,9 +62,9 @@ class TSManager(WSManager):
             logger.info("Waiting for pause to be lifted")
             if self.poison_pill is not None:
                 logger.info("Poison pill detected")
-                posion_pill = self.poison_pill
+                poison_pill = self.poison_pill
                 self.poison_pill = None
-                raise posion_pill
+                raise poison_pill
             time.sleep(0.5)
 
     def kill_runner(self, *args, **kwargs):

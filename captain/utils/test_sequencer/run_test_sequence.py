@@ -24,6 +24,10 @@ from captain.utils.config import ts_manager
 from captain.utils.logger import logger
 
 
+def utcnow_str() -> str:
+    return datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+
+
 class TestResult:
     def __init__(
         self,
@@ -31,7 +35,7 @@ class TestResult:
         result: bool,
         time_taken: float,
         error: str | None = None,
-        created_at: str = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
+        created_at: str = utcnow_str(),
     ):
         self.test_node = test_node
         self.result = result
@@ -117,7 +121,7 @@ def _run_python(node: TestNode) -> Extract:
             is_pass,
             end_time - start_time,
             result.stderr.decode() if not is_pass else None,
-            datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
+            utcnow_str(),
         ),
     )
 
@@ -151,7 +155,7 @@ def _run_pytest(node: TestNode) -> Extract:
             is_pass,
             end_time - start_time,
             result.stdout.decode() if not is_pass else None,
-            datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
+            utcnow_str(),
         ),
     )
 
@@ -208,11 +212,11 @@ async def _stream_result_to_frontend(
     await asyncio.sleep(0)  # still necessary for task yield
 
 
-async def _case_root(node: TestRootNode, **kwargs) -> Extract:
+async def _case_root(node: TestRootNode) -> Extract:
     return lambda _: node.children, None
 
 
-async def _case_if_node(node: IfNode, **kwargs) -> Extract:
+async def _case_if_node(node: IfNode) -> Extract:
     def get_next_children_from_context(context: Context):
         result_dict, identifiers = context.result_dict, context.identifiers
         expression_eval = _eval_condition(result_dict, node.condition, identifiers)
@@ -228,7 +232,6 @@ map_to_handler_run = (
     "type",
     {
         "root": (None, _case_root),
-        # "test": (None, _case_test),
         "test": (
             "test_type",
             {
@@ -246,17 +249,13 @@ map_to_handler_run = (
 )
 
 
-async def _extract_from_node(
-    node: TestRootNode | TestSequenceElementNode, map_to_handler, **kwargs
-) -> Extract:
+async def _extract_from_node(node: TestRootNode | TestSequenceElementNode, map_to_handler) -> Extract:
     if not bool(node.__dict__):
         return lambda _: None, None
     matcher, cur = map_to_handler
     while not callable(cur):
         matcher, cur = cur[node.__dict__[matcher]]
-    children_getter, test_result = await cur(
-        node, **kwargs
-    )  # sus name for the variable
+    children_getter, test_result = await cur(node)
     return children_getter, test_result
 
 
