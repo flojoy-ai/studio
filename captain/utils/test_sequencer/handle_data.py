@@ -39,7 +39,7 @@ event_to_handle: dict[
 def handle_data(data: TestSequenceRun):
     """
     Handles the data received from the test sequencer websocket
-    - Some event are trigger imeadiatly (run, stop, pause, resume)
+    - Some event are trigger immediately (run, stop, pause, resume)
     - Only one sequence or export can be run at the same time
 
     Parameters:
