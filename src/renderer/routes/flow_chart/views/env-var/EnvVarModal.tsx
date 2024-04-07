@@ -107,14 +107,8 @@ const EnvVarModal = () => {
       return;
     }
     const user = await getCloudUser(flojoyCloudKey);
-    const validSecret = user.match(
-      () => true,
-      () => {
-        toast.error("Invalid Flojoy Cloud workspace secret");
-        return false;
-      },
-    );
-    if (!validSecret) {
+    if (user.isErr()) {
+      toast.error("Invalid Flojoy Cloud workspace secret");
       return;
     }
     const res = await postEnvironmentVariable({
