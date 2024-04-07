@@ -255,9 +255,8 @@ export function useTestSequencerState() {
       const result = await verifyElementCompatibleWithSequence(
         project,
         newElems,
-        false,
       );
-      if (!result.ok) {
+      if (result.isErr()) {
         return new Err(result.error);
       }
     }
