@@ -118,7 +118,7 @@ export function createNewTest(
   return newTest;
 }
 
-export function useTestSequencerState() {
+export function useSequencerTestState() {
   const {
     elems,
     setElements,
@@ -133,24 +133,6 @@ export function useTestSequencerState() {
     tree,
     setTree,
     project,
-    uploadAfterRun,
-    serialNumber,
-    stationId,
-    integrity,
-    setIsUploaded,
-    // Sequences
-    sequences,
-    setSequences,
-    runRunnableSequencesFromCurrentOne,
-    runNextRunnableSequence,
-    displaySequence,
-    addNewSequence,
-    removeSequence,
-    // Cycles
-    cycleConfig,
-    saveCycle,
-    cycleRuns,
-    clearPreviousCycles,
   } = useSequencerStore(
     useShallow((state) => {
       return {
@@ -167,25 +149,6 @@ export function useTestSequencerState() {
         tree: state.testSequenceStepTree,
         setTree: state.setTestSequenceTree,
         project: state.testSequenceDisplayed,
-        uploadAfterRun: state.uploadAfterRun,
-        setIsUploaded: state.setIsUploaded,
-        serialNumber: state.serialNumber,
-        stationId: state.stationId,
-        integrity: state.integrity,
-        // Sequences
-        sequences: state.sequences,
-        setSequences: state.setSequences,
-        runRunnableSequencesFromCurrentOne:
-          state.runRunnableSequencesFromCurrentOne,
-        runNextRunnableSequence: state.runNextRunnableSequence,
-        displaySequence: state.displaySequence,
-        addNewSequence: state.addNewSequence,
-        removeSequence: state.removeSequence,
-        // Cycles
-        cycleConfig: state.cycleConfig,
-        saveCycle: state.saveCycle,
-        cycleRuns: state.cycleRuns,
-        clearPreviousCycles: state.clearPreviousCycles,
       };
     }),
   );
@@ -244,6 +207,87 @@ export function useTestSequencerState() {
     setElems((elems) => [...elems, ...newElems]);
     return new Ok(null);
   }
+
+  const addNewElemsWithPermissions = withPermissionCheck(AddNewElems);
+
+  return {
+    elems,
+    setElems: setElemsWithPermissions,
+    AddNewElems: addNewElemsWithPermissions,
+    tree,
+    setIsLocked,
+    setBackendState,
+    setBackendGlobalState,
+    isLocked,
+    backendState,
+    backendGlobalState,
+    setUnsaved,
+    isUnsaved,
+    project,
+  };
+}
+
+export function useSequencerState() {
+  const {
+    isLocked,
+    setIsLocked,
+    project,
+    uploadAfterRun,
+    serialNumber,
+    stationId,
+    integrity,
+    setIsUploaded,
+    sequences,
+    setSequences,
+    runRunnableSequencesFromCurrentOne,
+    runNextRunnableSequence,
+    displaySequence,
+    addNewSequence,
+    removeSequence,
+    cycleConfig,
+    saveCycle,
+    cycleRuns,
+    clearPreviousCycles,
+  } = useSequencerStore(
+    useShallow((state) => {
+      return {
+        elems: state.elements,
+        setElements: state.setElements,
+        isLocked: state.isLocked,
+        setIsLocked: state.setIsLocked,
+        backendGlobalState: state.backendGlobalState,
+        setBackendGlobalState: state.setBackendGlobalState,
+        backendState: state.playPauseState,
+        setBackendState: state.setBackendState,
+        isUnsaved: state.testSequenceUnsaved,
+        setUnsaved: state.setTestSequenceUnsaved,
+        tree: state.testSequenceStepTree,
+        setTree: state.setTestSequenceTree,
+        project: state.testSequenceDisplayed,
+        uploadAfterRun: state.uploadAfterRun,
+        setIsUploaded: state.setIsUploaded,
+        serialNumber: state.serialNumber,
+        stationId: state.stationId,
+        integrity: state.integrity,
+        // Sequences
+        sequences: state.sequences,
+        setSequences: state.setSequences,
+        runRunnableSequencesFromCurrentOne:
+          state.runRunnableSequencesFromCurrentOne,
+        runNextRunnableSequence: state.runNextRunnableSequence,
+        displaySequence: state.displaySequence,
+        addNewSequence: state.addNewSequence,
+        removeSequence: state.removeSequence,
+        // Cycles
+        cycleConfig: state.cycleConfig,
+        saveCycle: state.saveCycle,
+        cycleRuns: state.cycleRuns,
+        clearPreviousCycles: state.clearPreviousCycles,
+      };
+    }),
+  );
+
+  const { withPermissionCheck } = useWithPermission();
 
   function addNewSeq(
     val: TestSequencerProject,
@@ -354,24 +398,9 @@ export function useTestSequencerState() {
     }
   }
 
-  const addNewElemsWithPermissions = withPermissionCheck(AddNewElems);
   const setSequencesWithPermissions = withPermissionCheck(setSequences);
 
   return {
-    elems,
-    setElems: setElemsWithPermissions,
-    AddNewElems: addNewElemsWithPermissions,
-    tree,
-    setIsLocked,
-    setBackendState,
-    setBackendGlobalState,
-    isLocked,
-    backendState,
-    backendGlobalState,
-    setUnsaved,
-    isUnsaved,
-    project,
-    // Sequences
     sequences,
     setSequences: setSequencesWithPermissions,
     runSequencer,

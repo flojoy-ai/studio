@@ -1,6 +1,6 @@
 import { createContext, useMemo } from "react";
 import { LockedContextType } from "@/renderer/types/test-sequencer";
-import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import { useSequencerTestState } from "@/renderer/hooks/useTestSequencerState";
 
 export const LockedContext = createContext<LockedContextType>(
   {} as LockedContextType,
@@ -11,7 +11,7 @@ export const LockedContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const { isLocked } = useTestSequencerState();
+  const { isLocked } = useSequencerTestState();
   const value = useMemo<LockedContextType>(
     () => ({
       isLocked: isLocked,

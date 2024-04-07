@@ -1,5 +1,5 @@
 import LockableButton from "./lockable/LockedButtons";
-import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import { useSequencerTestState, useSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import _ from "lodash";
 import {
   testSequenceStopRequest,
@@ -13,8 +13,8 @@ import { Pause, Play, Square } from "lucide-react";
 import { toast } from "sonner";
 
 export function ControlButton() {
-  const { tree, setIsLocked, backendGlobalState, backendState, runSequencer } =
-    useTestSequencerState();
+  const { tree, setIsLocked, backendGlobalState, backendState } = useSequencerTestState();
+  const { runSequencer } = useSequencerState(); 
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
 
   const handleClickRunTest = () => {

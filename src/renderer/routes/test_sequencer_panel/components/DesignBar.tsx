@@ -1,5 +1,5 @@
 import { useSequencerModalStore } from "@/renderer/stores/modal";
-import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import { useSequencerTestState } from "@/renderer/hooks/useTestSequencerState";
 import { filter } from "lodash";
 import { Button } from "@/renderer/components/ui/button";
 import { ACTIONS_HEIGHT } from "@/renderer/routes/common/Layout";
@@ -36,7 +36,7 @@ export type Summary = {
 export function DesignBar() {
   const { setIsImportTestModalOpen, setIsCreateProjectModalOpen } =
     useSequencerModalStore();
-  const { elems } = useTestSequencerState();
+  const { elems } = useSequencerTestState();
   const { sequences, cycleRuns } = useSequencerStore(
     useShallow((state) => ({
       sequences: state.sequences,

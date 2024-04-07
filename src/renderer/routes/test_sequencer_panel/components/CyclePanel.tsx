@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { Input } from "@/renderer/components/ui/input";
-import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import { useSequencerTestState } from "@/renderer/hooks/useTestSequencerState";
 import LockableButton from "./lockable/LockedButtons";
 import { Checkbox } from "@/renderer/components/ui/checkbox";
 import {
@@ -14,7 +14,7 @@ import { useShallow } from "zustand/react/shallow";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
 
 export function CyclePanel() {
-  const { tree, isLocked } = useTestSequencerState();
+  const { tree, isLocked } = useSequencerTestState();
 
   const {
     cycleRuns,

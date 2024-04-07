@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 import { SendJsonMessage } from "react-use-websocket/dist/lib/types";
-import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import { useSequencerState, useSequencerTestState } from "@/renderer/hooks/useTestSequencerState";
 import { useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { BackendMsg, Test } from "@/renderer/types/test-sequencer";
@@ -26,10 +26,12 @@ export function TestSequencerWSProvider({
     setElems,
     setIsLocked,
     setBackendGlobalState,
-    handleUpload,
     setBackendState,
+  } = useSequencerTestState();
+  const {
+    handleUpload,
     runNextRunnableSequence,
-  } = useTestSequencerState();
+  } = useSequencerState();
   const { saveCycle, websocketId, setIsLoading, updateSequenceStatus } =
     useSequencerStore((state) => ({
       saveCycle: state.saveCycle,

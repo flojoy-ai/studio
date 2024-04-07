@@ -33,7 +33,7 @@ import {
   TableRow,
 } from "@/renderer/components/ui/table";
 import { TestSequenceContainer } from "@/renderer/types/test-sequencer";
-import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import { useSequencerTestState, useSequencerState } from "@/renderer/hooks/useTestSequencerState";
 import { parseInt, map } from "lodash";
 import { ChevronDownIcon, ChevronUpIcon, TrashIcon } from "lucide-react";
 import LockableButton from "@/renderer/routes/test_sequencer_panel/components/lockable/LockedButtons";
@@ -47,8 +47,8 @@ import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useShallow } from "zustand/react/shallow";
 
 export function SequenceTable() {
-  const { sequences, setSequences, project, isLocked } =
-    useTestSequencerState();
+  const { project, isLocked } = useSequencerTestState();
+  const { sequences, setSequences } = useSequencerState();
   const removeSequence = useSequencerStore(
     useShallow((state) => state.removeSequence),
   );

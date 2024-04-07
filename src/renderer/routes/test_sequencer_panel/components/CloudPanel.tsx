@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Input } from "@/renderer/components/ui/input";
-import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import { useSequencerState, useSequencerTestState } from "@/renderer/hooks/useTestSequencerState";
 // eslint-disable-next-line no-restricted-imports
 import packageJson from "../../../../../package.json";
 import {
@@ -45,7 +45,8 @@ export function CloudPanel() {
   const [partVarId, setPartVarId] = useState("");
   const [serialNumbers, setSerialNumbers] = useState<string[]>([]);
   const { user } = useAuth();
-  const { isLocked, sequences, handleUpload } = useTestSequencerState();
+  const { isLocked } = useSequencerTestState();
+  const { sequences, handleUpload } = useSequencerState();
   const {
     serialNumber,
     isUploaded,

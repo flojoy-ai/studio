@@ -3,7 +3,7 @@ import { Checkbox } from "@/renderer/components/ui/checkbox";
 import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { Separator } from "@/renderer/components/ui/separator";
 import { useTestImport } from "@/renderer/hooks/useTestImport";
-import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import { useSequencerTestState } from "@/renderer/hooks/useTestSequencerState";
 import { useAppStore } from "@/renderer/stores/app";
 import { useSequencerModalStore } from "@/renderer/stores/modal";
 import { ExternalLinkIcon } from "lucide-react";
@@ -29,7 +29,7 @@ export const ImportTestModal = () => {
   );
 
   const openFilePicker = useTestImport();
-  const { setIsLocked } = useTestSequencerState();
+  const { setIsLocked } = useSequencerTestState();
 
   const handleImportTest = (importType: ImportType) => {
     setIsLocked(true);

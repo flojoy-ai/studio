@@ -1,5 +1,5 @@
 import { TestDiscoverContainer } from "@/renderer/types/test-sequencer";
-import { createNewTest, useTestSequencerState } from "./useTestSequencerState";
+import { createNewTest, useSequencerTestState } from "./useTestSequencerState";
 import { map } from "lodash";
 import { ImportTestSettings } from "@/renderer/routes/test_sequencer_panel/components/modals/ImportTestModal";
 import { toast } from "sonner";
@@ -22,7 +22,7 @@ function parseDiscoverContainer(
 }
 
 export const useTestImport = () => {
-  const { AddNewElems } = useTestSequencerState();
+  const { AddNewElems } = useSequencerTestState();
   const { openErrorModal } = useSequencerModalStore();
 
   const handleUserDepInstall = useCallback(async (depName: string) => {
