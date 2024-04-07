@@ -30,9 +30,6 @@ event_to_handle: dict[
 ] = {
     "subscribe": _handle_subscribe,
     "run": _handle_run,
-    "stop": ts_manager.kill_runner,
-    "pause": ts_manager.pause_runner,
-    "resume": ts_manager.resume_runner,
 }
 
 

@@ -2,12 +2,12 @@ import asyncio
 from datetime import datetime
 import subprocess
 import time
+from captain.routes.cloud import utcnow_str
 from flojoy_cloud import test_sequencer
 import traceback
 from typing import Callable, List, Union
 import pydantic
 from captain.internal.manager import TSManager
-
 from captain.models.test_sequencer import (
     IfNode,
     StatusTypes,
@@ -22,10 +22,6 @@ from captain.types.test_sequence import MsgState, TestSequenceMessage
 from captain.types.worker import PoisonPill
 from captain.utils.config import ts_manager
 from captain.utils.logger import logger
-
-
-def utcnow_str() -> str:
-    return datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 
 
 class TestResult:

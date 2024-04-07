@@ -8,11 +8,11 @@ from typing import Any
 from captain.internal.wsmanager import ConnectionManager
 from captain.models.test_sequencer import MsgState, StatusTypes
 from captain.models.topology import Topology
+from captain.routes.cloud import utcnow_str
 from captain.services.consumer.blocks_watcher import BlocksWatcher
 from captain.types.test_sequence import TestSequenceMessage
 from captain.types.worker import PoisonPill
 from captain.utils.logger import logger
-from captain.utils.test_sequencer.run_test_sequence import utcnow_str
 
 """ Acts as a bridge between backend components """
 
@@ -25,21 +25,20 @@ class WSManager:
 # Manager for Test Sequencer activities
 class TSManager(WSManager):
     def __init__(self):
-        self.runner: asyncio.Runner | None = (
-            None  # holds the running sequencer (only one at a time)
-        )
+        # holds the running sequencer (only one at a time)
+        self.runner: asyncio.Runner | None = None
         self.pause = False
         self.poison_pill: PoisonPill | None = None
         super().__init__()
 
-    def new_runner(self, runner: asyncio.Runner, *args, **kwargs):
+    def new_runner(self, runner: asyncio.Runner):
         if self.runner is not None:
             self.kill_runner()
         self.runner = runner
         self.pause = False
         self.poison_pill = None
 
-    def cleanup(self, *args, **kwargs):
+    def cleanup(self):
         self.runner = None
         self.pause = False
 
@@ -67,7 +66,7 @@ class TSManager(WSManager):
                 raise poison_pill
             time.sleep(0.5)
 
-    def kill_runner(self, *args, **kwargs):
+    def kill_runner(self):
         if self.runner is not None:
             logger.info("Killing TS Runner")
             try:
@@ -84,18 +83,19 @@ class TSManager(WSManager):
                         "",
                         StatusTypes.aborted.value,
                         -1,
+                        utcnow_str(),
                         False,
                         "Test sequence was interrupted",
                     )
                 )
             )
 
-    def pause_runner(self, *args, **kwargs):
+    def pause_runner(self):
         if self.runner is not None:
             logger.info("Pausing TS Runner")
             self.pause = True
 
-    def resume_runner(self, *args, **kwargs):
+    def resume_runner(self):
         if self.pause:
             logger.info("Resuming TS Runner")
             self.pause = False

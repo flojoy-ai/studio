@@ -16,6 +16,10 @@ from functools import wraps
 # Utils ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
+def utcnow_str() -> str:
+    return datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+
+
 def temporary_cache(*args, ttl=20):
     """A decorator that ensures that the result of the function call
     is cached for `ttl` seconds (default: 20).
