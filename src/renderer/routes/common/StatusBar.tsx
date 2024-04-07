@@ -24,9 +24,7 @@ const StatusBar = (): JSX.Element => {
     }
   }, [minimize]);
   const handleDownloadLogs = () => {
-    if ("api" in window) {
-      window.api.downloadLogs();
-    }
+    window.api.downloadLogs();
   };
   // Listen for messages from the main process
   useEffect(() => {

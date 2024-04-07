@@ -201,37 +201,29 @@ function updatePath(
 }
 
 async function saveToDisk(sequence: TestSequencerProject): Promise<void> {
-  if ("api" in window) {
-    // Deps
-    if (sequence.interpreter.requirementsPath) {
-      const deps = await window.api.poetryShowUserGroup();
-      const content = deps
-        .map((dep) => dep.name + "==" + dep.version)
-        .join("\n");
-      await window.api.saveToFile(
-        sequence.projectPath + sequence.interpreter.requirementsPath,
-        content,
-      );
-    }
-    // Sequence
+  // Deps
+  if (sequence.interpreter.requirementsPath) {
+    const deps = await window.api.poetryShowUserGroup();
+    const content = deps
+      .map((dep) => dep.name + "==" + dep.version)
+      .join("\n");
     await window.api.saveToFile(
-      sequence.projectPath + sequence.name + ".tjoy",
-      stringifySequence(sequence),
+      sequence.projectPath + sequence.interpreter.requirementsPath,
+      content,
     );
-  } else {
-    throw new Error("Not able to save to disk");
   }
+  // Sequence
+  await window.api.saveToFile(
+    sequence.projectPath + sequence.name + ".tjoy",
+    stringifySequence(sequence),
+  );
 }
 
 async function installDeps(sequence: TestSequencerProject): Promise<boolean> {
-  if ("api" in window) {
-    const succes = await window.api.poetryInstallRequirementsUserGroup(
-      sequence.projectPath + sequence.interpreter.requirementsPath,
-    );
-    return succes;
-  } else {
-    throw new Error("Not able to install requirements."); // TODO: Better error
-  }
+  const success = await window.api.poetryInstallRequirementsUserGroup(
+    sequence.projectPath + sequence.interpreter.requirementsPath,
+  );
+  return success;
 }
 
 async function syncSequence(
@@ -322,20 +314,18 @@ async function throwIfNotInAllBaseFolder(
       // Absolute path
       continue;
     }
-    if ("api" in window) {
-      // Relative path
-      await window.api
-        .isFileOnDisk(baseFolder + elem.path)
-        .then((result) => {
-          if (result) {
-            weGoodBro = true;
-          }
-        })
-        .catch((e) => {
-          console.error("Error while checking if file is on disk", e);
-          throw new Error(`Error while checking if the file is on disk`);
-        });
-    }
+    // Relative path
+    await window.api
+      .isFileOnDisk(baseFolder + elem.path)
+      .then((result) => {
+        if (result) {
+          weGoodBro = true;
+        }
+      })
+      .catch((e) => {
+        console.error("Error while checking if file is on disk", e);
+        throw new Error(`Error while checking if the file is on disk`);
+      });
     // New test type ? Handle it here
     if (!weGoodBro) {
       throw new Error(
