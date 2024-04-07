@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import Enum, StrEnum
 from typing import List, Literal, Optional, Union
 
 from pydantic import BaseModel, Field
@@ -14,29 +14,23 @@ class LockedContextType(BaseModel):
     is_locked: bool = Field(..., alias="isLocked")
 
 
-class TestTypes(str, Enum):
+class TestTypes(StrEnum):
     pytest = "pytest"
     python = "python"
     flojoy = "flojoy"
     matlab = "matlab"
 
 
-class ResultTypes(str, Enum):
+class StatusTypes(StrEnum):
+    pending = "pending"
+    running = "running"
+    paused = "paused"
     pass_ = "pass"
     fail = "fail"
     aborted = "aborted"
 
 
-class StatusTypes(str, Enum):
-    pending = "pending"
-    running = "running"
-    paused = "paused"
-    pass_ = ResultTypes.pass_.value
-    fail = ResultTypes.fail.value
-    aborted = ResultTypes.aborted.value
-
-
-class MsgState(str, Enum):
+class MsgState(StrEnum):
     test_set_start = "test_set_start"
     test_set_export = "test_set_export"
     running = "running"
@@ -69,20 +63,20 @@ class Test(BaseModel):
     export_to_cloud: bool = Field(..., alias="exportToCloud")
 
 
-class Role(str, Enum):
+class Role(StrEnum):
     start = "start"
     between = "between"
     end = "end"
 
 
-class ConditionalComponent(str, Enum):
+class ConditionalComponent(StrEnum):
     if_ = "if"
     else_ = "else"
     elif_ = "elif"
     end = "end"
 
 
-class ConditionalLeader(str, Enum):
+class ConditionalLeader(StrEnum):
     if_ = "if"
 
 

@@ -10,7 +10,6 @@ from threading import Lock
 from captain.utils.config import ts_manager
 
 lock = Lock()
-global ts_pause
 
 
 def _handle_subscribe(_data: TestSequenceRun, _ts_manager: TSManager):
