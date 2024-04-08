@@ -70,15 +70,16 @@ export function CloudPanel() {
     })),
   );
 
-  let units = new Map<string, Unit>();
+  // Remove this once cloud ignore casing
+  const [units, setUnits] = useState<Record<string, Unit>>({});
 
   function handleSetSerialNumber(newValue: string) {
     // Remove this function once cloud ignore casing
-    units.forEach((_, sn) => {
-      if (sn.toLowerCase() === newValue.toLowerCase()) {
-        newValue = sn;
-      }
-    });
+    let sn = newValue.toLowerCase();
+    if (sn in units) {
+      console.log("Unit found: ", units[sn]);
+      newValue = units[sn].serialNumber;
+    }
     setSerialNumber(newValue);
   }
 
@@ -123,9 +124,9 @@ export function CloudPanel() {
           return res.match(
             (vars) => {
               setSerialNumbers(vars.map((unit) => unit.serialNumber));
-              const map = new Map<string, Unit>();
-              vars.forEach((unit) => map.set(unit.serialNumber, unit));
-              units = map;
+              const units = {};
+              vars.forEach((unit) => { units[unit.serialNumber.toLowerCase()] = unit; });
+              setUnits(units);
               return vars;
             },
             (e) => {
@@ -197,9 +198,10 @@ export function CloudPanel() {
   }, [partVarId]);
 
   useEffect(() => {
-    if (units.has(serialNumber)) {
-      if (units.get(serialNumber)!.lotNumber !== null) {
-        setLotNumber(units.get(serialNumber)!.lotNumber!);
+    const sn = serialNumber.toLowerCase();
+    if (sn in units) {
+      if (units[sn].lotNumber !== null) {
+        setLotNumber(units[sn].lotNumber!);
       }
     }
   }, [serialNumber]);
