@@ -205,7 +205,7 @@ export const useSequencerStore = create<State & Actions>()(
     runRunnableSequencesFromCurrentOne: (sender) => {
       set((state) => {
         // Clear the sequencer
-        resetSequencesToPending(state);
+        resetSequencesStateToPending(state);
         state.clearPreviousCycles();
         // Make sure the Tree is up to date
         state.testSequenceStepTree = createTestSequenceTree(state.elements);
@@ -225,7 +225,7 @@ export const useSequencerStore = create<State & Actions>()(
       if (idx === -1 || idx === get().sequences.length - 1) {
         return;
       }
-      const currSequence = containerizeCurrentSequence(idx, get());
+      const currSequence = containerizeCurrentSequence(idx);
       set((state) => {
         state.sequences[idx] = currSequence;
         // Load the next sequence and run it
@@ -236,7 +236,7 @@ export const useSequencerStore = create<State & Actions>()(
             return;
           }
         }
-        loadSequence(nextIdx, state);
+        loadSequenceState(nextIdx, state);
         state.isLocked = true;
       })
       sender(testSequenceRunRequest(get().testSequenceStepTree));
@@ -285,7 +285,7 @@ export const useSequencerStore = create<State & Actions>()(
           if (state.sequences.length !== 0) {
             state.displaySequence(state.sequences[0].project.name);
           } else {
-            clearSequencer(state);
+            clearSequencerState(state);
           }
         }
       })
@@ -313,12 +313,12 @@ export const useSequencerStore = create<State & Actions>()(
           );
           if (oldIdx !== -1) {
             // Could be -1 if the sequence was removed
-            const oldSequence = containerizeCurrentSequence(oldIdx, state);
+            const oldSequence = containerizeCurrentSequence(oldIdx);
             state.sequences[oldIdx] = oldSequence;
           }
         }
         // Load the new sequence
-        loadSequence(idx, state);
+        loadSequenceState(idx, state);
       })
     },
 
@@ -368,7 +368,6 @@ export const useSequencerStore = create<State & Actions>()(
         if (currentSeqIdx !== -1) {
           const currentSequence = containerizeCurrentSequence(
             currentSeqIdx,
-            state,
           );
           state.sequences[currentSeqIdx] = currentSequence;
         }
@@ -376,7 +375,7 @@ export const useSequencerStore = create<State & Actions>()(
         state.cycleConfig.ptrCycle = state.cycleConfig.ptrCycle - 1;
         state.sequences = state.cycleRuns[state.cycleConfig.ptrCycle];
         // Load the first sequence (without saving the previous one)
-        loadSequence(0, state);
+        loadSequenceState(0, state);
       })
     },
     displayNextCycle: () => {
@@ -392,7 +391,6 @@ export const useSequencerStore = create<State & Actions>()(
         if (currentIdx !== -1) {
           const currentSequence = containerizeCurrentSequence(
             currentIdx,
-            state,
           );
           state.sequences[currentIdx] = currentSequence;
         }
@@ -400,7 +398,7 @@ export const useSequencerStore = create<State & Actions>()(
         state.cycleConfig.ptrCycle = state.cycleConfig.ptrCycle + 1;
         state.sequences = state.cycleRuns[state.cycleConfig.ptrCycle];
         // Load the first sequence (without saving the previous one)
-        loadSequence(currentIdx, state);
+        loadSequenceState(currentIdx, state);
       })
     },
 
@@ -416,8 +414,8 @@ export const useSequencerStore = create<State & Actions>()(
 
 function containerizeCurrentSequence(
   containerIdx: number,
-  state: State & Actions,
 ): TestSequenceContainer {
+  const state = useSequencerStore.getState();
   const container = {
     project: { ...state.testSequenceDisplayed! },
     tree: { ...state.testSequenceStepTree },
@@ -429,36 +427,36 @@ function containerizeCurrentSequence(
   return container;
 }
 
-function loadSequence(idx: number, state: State & Actions): void {
-  if (idx < 0 || idx >= state.sequences.length) {
+function loadSequenceState(idx: number, stateSetter: State & Actions): void {
+  if (idx < 0 || idx >= stateSetter.sequences.length) {
     return;
   }
-  state.testSequenceDisplayed = state.sequences[idx].project;
-  state.testSequenceStepTree = state.sequences[idx].tree;
-  state.elements = state.sequences[idx].elements;
-  state.testSequenceUnsaved = state.sequences[idx].testSequenceUnsaved;
+  stateSetter.testSequenceDisplayed = stateSetter.sequences[idx].project;
+  stateSetter.testSequenceStepTree = stateSetter.sequences[idx].tree;
+  stateSetter.elements = stateSetter.sequences[idx].elements;
+  stateSetter.testSequenceUnsaved = stateSetter.sequences[idx].testSequenceUnsaved;
 }
 
-function clearSequencer(state: State & Actions): void {
-  state.testSequenceDisplayed = null;
-  state.testSequenceStepTree = {
+function clearSequencerState(stateSetter: State & Actions): void {
+  stateSetter.testSequenceDisplayed = null;
+  stateSetter.testSequenceStepTree = {
     type: "root",
     children: [],
     identifiers: [],
   };
-  state.cycleRuns = [];
-  state.elements = [];
-  state.cycleConfig = {
+  stateSetter.cycleRuns = [];
+  stateSetter.elements = [];
+  stateSetter.cycleConfig = {
     infinite: false,
     cycleCount: 1,
     ptrCycle: -1,
   };
-  state.testSequenceUnsaved = false;
+  stateSetter.testSequenceUnsaved = false;
 }
 
-function resetSequencesToPending(state: State & Actions): void {
+function resetSequencesStateToPending(stateSetter: State & Actions): void {
   // Clean up all containers
-  state.sequences.forEach((seq: TestSequenceContainer) => {
+  stateSetter.sequences.forEach((seq: TestSequenceContainer) => {
     // Clean up the sequence
     const newElems: TestSequenceElement[] = [...seq.elements].map((elem) => {
       return elem.type === "test"
@@ -472,14 +470,14 @@ function resetSequencesToPending(state: State & Actions): void {
     });
     seq.elements = newElems;
     seq.status = "pending";
-    if (seq.project.name === state.testSequenceDisplayed?.name) {
-      state.elements = newElems;
-      state.testSequenceStepTree = seq.tree;
+    if (seq.project.name === stateSetter.testSequenceDisplayed?.name) {
+      stateSetter.elements = newElems;
+      stateSetter.testSequenceStepTree = seq.tree;
     }
   });
 
   // Clean up the current display
-  const newElems = [...state.elements].map((elem) => {
+  const newElems = [...stateSetter.elements].map((elem) => {
     return elem.type === "test"
       ? {
           ...elem,
@@ -489,5 +487,5 @@ function resetSequencesToPending(state: State & Actions): void {
         }
       : { ...elem };
   });
-  state.elements = newElems;
+  stateSetter.elements = newElems;
 }
