@@ -7,11 +7,14 @@ import {
   BOTTOM_STATUS_BAR_HEIGHT,
   ACTIONS_HEIGHT,
 } from "@/renderer/routes/common/Layout";
-import { ModalsProvider } from "./modals/ModalsProvider";
 import SequencerKeyboardShortcuts from "@/renderer/routes/test_sequencer_panel/SequencerKeyboardShortCuts";
 import { ControlButton } from "./ControlButton";
 import { DesignBar } from "./DesignBar";
 import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
+import { TestSequencerProjectModal } from "./modals/TestSequencerProjectModal";
+import { ImportTestModal } from "./modals/ImportTestModal";
+import { ErrorModal } from "./modals/ErrorModal";
+import { RenameTestModal } from "./modals/RenameTestModal";
 
 const TestSequencerView = () => {
   const { backendGlobalState } = useDisplayedSequenceState();
@@ -37,7 +40,10 @@ const TestSequencerView = () => {
         }}
         className="overflow-y-auto"
       >
-        <ModalsProvider />
+        <TestSequencerProjectModal />
+        <ImportTestModal />
+        <ErrorModal />
+        <RenameTestModal />
         <div className="flex">
           <div className="ml-auto mr-auto mt-2 h-3/5 flex-grow flex-col overflow-y-auto">
             <SequenceTable />
