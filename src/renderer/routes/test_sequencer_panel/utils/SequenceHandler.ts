@@ -38,17 +38,15 @@ export async function createSequence(
   // - Will valide that each element is in the base folder
   const elems = stateManager.elems;
   sequence = validatePath(sequence);
-  const result = await createExportableSequenceElementsFromTestSequencerElements(
-    elems,
-    sequence.projectPath,
-  );
+  const result =
+    await createExportableSequenceElementsFromTestSequencerElements(
+      elems,
+      sequence.projectPath,
+    );
   if (result.isErr()) {
     return new Err(result.error);
   }
-  sequence = updateSequenceElement(
-    sequence,
-    result.value
-  );
+  sequence = updateSequenceElement(sequence, result.value);
   await saveToDisk(sequence);
   await syncSequence(sequence, stateManager);
   return new Ok(undefined);
@@ -64,17 +62,15 @@ export async function saveSequence(
   }
   const elems = stateManager.elems;
   sequence = validatePath(sequence);
-  const exportableElems = await createExportableSequenceElementsFromTestSequencerElements(
-    elems,
-    sequence.projectPath,
-  );
+  const exportableElems =
+    await createExportableSequenceElementsFromTestSequencerElements(
+      elems,
+      sequence.projectPath,
+    );
   if (exportableElems.isErr()) {
     return new Err(exportableElems.error);
   }
-  sequence = updateSequenceElement(
-    sequence,
-    exportableElems.value
-  );
+  sequence = updateSequenceElement(sequence, exportableElems.value);
   await saveToDisk(sequence);
   const isSync = await syncSequence(sequence, stateManager);
   if (isSync.isErr()) {
@@ -95,17 +91,15 @@ export async function saveSequences(
     const elems = ctn.elements;
     let sequence = ctn.project;
     sequence = validatePath(sequence);
-    const result = await createExportableSequenceElementsFromTestSequencerElements(
-      elems,
-      sequence.projectPath,
-    );
+    const result =
+      await createExportableSequenceElementsFromTestSequencerElements(
+        elems,
+        sequence.projectPath,
+      );
     if (result.isErr()) {
       return new Err(result.error);
     }
-    sequence = updateSequenceElement(
-      sequence,
-      result.value
-    );
+    sequence = updateSequenceElement(sequence, result.value);
     await saveToDisk(sequence);
   });
   return new Ok(undefined);
@@ -315,7 +309,11 @@ async function checkIfAllInBaseFolder(
       });
     // New test type ? Handle it here
     if (!weGoodBro) {
-      return new Err(Error(`The element ${elem.path} is not in the base folder ${baseFolder}`));
+      return new Err(
+        Error(
+          `The element ${elem.path} is not in the base folder ${baseFolder}`,
+        ),
+      );
     }
   }
   return new Ok(undefined);
