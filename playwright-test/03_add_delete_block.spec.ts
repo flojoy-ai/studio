@@ -62,16 +62,20 @@ test.describe("Add and delete blocks", () => {
     for (const block of blocks) {
       // Expand the sidebar menu
       await addBlockBtn.click({ delay: 500 });
+      await window.waitForTimeout(500);
       const sidebarInput = window.getByTestId(Selectors.sidebarInput);
 
       // Clear and fill sidebar input
       await sidebarInput.clear();
+      await window.waitForTimeout(500);
       await sidebarInput.fill(block);
+      await window.waitForTimeout(500);
 
       // Expand all blocks categories
       await window
         .getByTestId(Selectors.sidebarExpandBtn)
         .click({ clickCount: 2 });
+      await window.waitForTimeout(500);
 
       // Click on the block in the sidebar
       await window.getByText(block, { exact: true }).click();
