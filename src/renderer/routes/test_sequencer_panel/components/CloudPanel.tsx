@@ -388,8 +388,7 @@ export function CloudPanel() {
                 onCheckedChange={setUploadAfterRun}
               />
               <p className="ml-2 text-sm text-muted-foreground">
-                {" "}
-                Automatically upload{" "}
+                Automatically upload
               </p>
               <div className="grow" />
               <Button

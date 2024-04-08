@@ -76,8 +76,6 @@ export const getCompletionTime = (data: TestSequenceElement[]) => {
   const partitions = _.partition(onlyTests, (elem) => elem.runInParallel);
   const parallel = partitions[0].map((elem) => elem.completionTime);
   const nonParallel = partitions[1].map((elem) => elem.completionTime);
-  console.log("partitions", partitions);
-  parallel;
   let maxParallel = parallel.length > 0 ? max(parallel) : 0;
   if (maxParallel === undefined) maxParallel = 0;
   const nonParallelTotal = sum(nonParallel);

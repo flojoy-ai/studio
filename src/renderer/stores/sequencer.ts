@@ -111,7 +111,7 @@ export const useSequencerStore = create<State & Actions>()(
     cycleRuns: [],
 
     uploadAfterRun: false,
-    setUploadAfterRun: (val) => ({ uploadAfterRun: val }),
+    setUploadAfterRun: (val) => set((state) => { state.uploadAfterRun = val }),
     serialNumber: "",
     setSerialNumber: (sn) => set(() => ({ serialNumber: sn })),
     stationId: "",
@@ -459,11 +459,11 @@ function resetSequencesStateToPending(stateSetter: State & Actions): void {
     const newElems: TestSequenceElement[] = [...seq.elements].map((elem) => {
       return elem.type === "test"
         ? {
-            ...elem,
-            status: "pending",
-            completionTime: undefined,
-            isSavedToCloud: false,
-          }
+          ...elem,
+          status: "pending",
+          completionTime: undefined,
+          isSavedToCloud: false,
+        }
         : { ...elem };
     });
     seq.elements = newElems;
@@ -478,11 +478,11 @@ function resetSequencesStateToPending(stateSetter: State & Actions): void {
   const newElems = [...stateSetter.elements].map((elem) => {
     return elem.type === "test"
       ? {
-          ...elem,
-          status: StatusType.parse("pending"),
-          completionTime: undefined,
-          isSavedToCloud: false,
-        }
+        ...elem,
+        status: StatusType.parse("pending"),
+        completionTime: undefined,
+        isSavedToCloud: false,
+      }
       : { ...elem };
   });
   stateSetter.elements = newElems;
