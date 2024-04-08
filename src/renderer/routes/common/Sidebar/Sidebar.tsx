@@ -2,7 +2,7 @@ import { ImportIcon, Search } from "lucide-react";
 import { memo, useEffect, useRef, useState } from "react";
 import { Leaf, RootNode } from "@/renderer/types/manifest";
 import SidebarNode from "./SidebarNode";
-import { LAYOUT_TOP_HEIGHT_FLOWCHART } from "@/renderer/routes/common/Layout";
+import { ACTIONS_HEIGHT, LAYOUT_TOP_HEIGHT_FLOWCHART } from "@/renderer/routes/common/Layout";
 import { ArrowDownWideNarrow, ArrowUpWideNarrow, XIcon } from "lucide-react";
 import { Button } from "@/renderer/components/ui/button";
 import { cn } from "@/renderer/lib/utils";
@@ -77,11 +77,13 @@ const Sidebar = ({
     }
   };
 
+  const ctrlBarOffset = ACTIONS_HEIGHT + 12;
+
   return (
     <div
       data-testid="sidebar"
       style={{
-        top: LAYOUT_TOP_HEIGHT_FLOWCHART,
+        top: LAYOUT_TOP_HEIGHT_FLOWCHART + ctrlBarOffset,
         height: `calc(100vh - ${LAYOUT_TOP_HEIGHT_FLOWCHART}px)`,
       }}
       className={cn(
