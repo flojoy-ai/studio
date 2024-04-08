@@ -9,7 +9,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@radix-ui/react-hover-card";
-import { filter, max, sum } from "lodash";
+import _, { filter, max, sum } from "lodash";
 
 export const mapStatusToDisplay: { [k in StatusType] } = {
   pending: (
@@ -73,12 +73,11 @@ function renderErrorMessage(text: string): JSX.Element {
 
 export const getCompletionTime = (data: TestSequenceElement[]) => {
   const onlyTests = getOnlyCompletedTests(data);
-  const parallel = filter(onlyTests, (elem) => elem.runInParallel).map(
-    (elem) => elem.completionTime,
-  );
-  const nonParallel = filter(onlyTests, (elem) => !elem.runInParallel).map(
-    (elem) => elem.completionTime,
-  );
+  const partitions = _.partition(onlyTests, (elem) => elem.runInParallel);
+  const parallel = partitions[0].map((elem) => elem.completionTime);
+  const nonParallel = partitions[1].map((elem) => elem.completionTime);
+  console.log("partitions", partitions);
+  parallel
   let maxParallel = parallel.length > 0 ? max(parallel) : 0;
   if (maxParallel === undefined) maxParallel = 0;
   const nonParallelTotal = sum(nonParallel);
