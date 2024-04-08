@@ -42,9 +42,8 @@ test.describe("Create a test sequence", () => {
     // Select the fixture file
     const customTestFile = join(__dirname, "fixtures/custom-sequences/test.py");
     await app.evaluate(async ({ dialog }, customTestFile) => {
-      dialog.showOpenDialogSync = () => {
-        return [customTestFile];
-      };
+      dialog.showOpenDialog = () =>
+        Promise.resolve({ filePaths: [customTestFile], canceled: false });
     }, customTestFile);
 
     // Click on Pytest test to open modal
@@ -74,9 +73,8 @@ test.describe("Create a test sequence", () => {
     // Select the fixture file
     const customTestFile = join(__dirname, "fixtures/custom-sequences/test.py");
     await app.evaluate(async ({ dialog }, customTestFile) => {
-      dialog.showOpenDialogSync = () => {
-        return [customTestFile];
-      };
+      dialog.showOpenDialog = () =>
+        Promise.resolve({ filePaths: [customTestFile], canceled: false });
     }, customTestFile);
 
     // Click on Pytest test to open modal

@@ -37,9 +37,8 @@ test.describe("Create a test sequence", () => {
       "fixtures/custom-sequences/complexe_sequence.tjoy",
     );
     await app.evaluate(async ({ dialog }, customTestFile) => {
-      dialog.showOpenDialogSync = () => {
-        return [customTestFile];
-      };
+      dialog.showOpenDialog = () =>
+        Promise.resolve({ filePaths: [customTestFile], canceled: false });
     }, customSeqFile);
     await window.waitForTimeout(5000);
 

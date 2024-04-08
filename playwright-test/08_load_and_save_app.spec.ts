@@ -67,13 +67,15 @@ test.describe("Load and save app", () => {
     // Mock showOpenDialogSynce to return app.json path
     const appPath = join(__dirname, "fixtures/app.json");
     await app.evaluate(async ({ dialog }, appPath) => {
-      dialog.showOpenDialogSync = () => [appPath];
+      dialog.showOpenDialog = () =>
+        Promise.resolve({ filePaths: [appPath], canceled: false });
     }, appPath);
 
     // Click on Load button from file dropdown
     await window.getByTestId(Selectors.loadAppBtn).click();
 
     // Expect all blocks from the app.json file to be visible
+    await window.waitForTimeout(10000);
     for (const block of blockApp.rfInstance.nodes) {
       const id = `rf__node-${block.id}`;
       await expect(window.getByTestId(id)).toBeVisible({ timeout: 15000 });
