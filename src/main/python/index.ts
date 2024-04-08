@@ -102,6 +102,10 @@ export async function installPoetry(): Promise<void> {
   process.env.PIPX_HOME = defaultPipxDir;
 
   const unset = "unset PIPX_HOME PIPX_BIN_DIR";
+  // NOTE: Joey: this unset here is nessassary for the macOS runner on GitHub
+  // Actions to work. These 2 env vars are typically not set, at least on my
+  // machine, but they are somehow set on the runner, which screws things up.
+  // Giving: Permission denied: '/usr/local/opt/pipx_bin'
   await execCommand(
     new Command({
       darwin: `${unset} && "${py}" -m pipx install poetry --force`,
