@@ -77,7 +77,6 @@ export function CloudPanel() {
     // Remove this function once cloud ignore casing
     let sn = newValue.toLowerCase();
     if (sn in units) {
-      console.log("Unit found: ", units[sn]);
       newValue = units[sn].serialNumber;
     }
     setSerialNumber(newValue);
