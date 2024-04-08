@@ -124,7 +124,9 @@ export function CloudPanel() {
             (vars) => {
               setSerialNumbers(vars.map((unit) => unit.serialNumber));
               const units = {};
-              vars.forEach((unit) => { units[unit.serialNumber.toLowerCase()] = unit; });
+              vars.forEach((unit) => {
+                units[unit.serialNumber.toLowerCase()] = unit;
+              });
               setUnits(units);
               return vars;
             },

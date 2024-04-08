@@ -12,7 +12,8 @@ import { Pause, Play, Square } from "lucide-react";
 export function ControlButton() {
   const { tree, backendGlobalState, backendState } =
     useDisplayedSequenceState();
-  const { runSequencer, abortSequencer, pauseSequencer, resumeSequencer } = useSequencerState();
+  const { runSequencer, abortSequencer, pauseSequencer, resumeSequencer } =
+    useSequencerState();
   const { tSSendJsonMessage } = useContext(TSWebSocketContext);
 
   const handleClickRun = () => {

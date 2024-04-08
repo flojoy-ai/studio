@@ -204,9 +204,7 @@ async function saveToDisk(sequence: TestSequencerProject): Promise<void> {
   // Deps
   if (sequence.interpreter.requirementsPath) {
     const deps = await window.api.poetryShowUserGroup();
-    const content = deps
-      .map((dep) => dep.name + "==" + dep.version)
-      .join("\n");
+    const content = deps.map((dep) => dep.name + "==" + dep.version).join("\n");
     await window.api.saveToFile(
       sequence.projectPath + sequence.interpreter.requirementsPath,
       content,
