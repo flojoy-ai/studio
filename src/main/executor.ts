@@ -15,6 +15,8 @@ export function execCommand(
   return new Promise((resolve, reject) => {
     const cmd = command.getCommand();
     if (cmd === "") {
+      // NOTE: resolve early for empty command because somehow if you do
+      // exec("") on windows it seems to hang forever on the runner, not sure why
       resolve("");
       return;
     }
