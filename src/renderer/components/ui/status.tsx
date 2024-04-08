@@ -9,7 +9,7 @@ const statusVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-secondary",
+          "bg-secondary text-primary",
         warning:
           "bg-yellow-500",
         error:
