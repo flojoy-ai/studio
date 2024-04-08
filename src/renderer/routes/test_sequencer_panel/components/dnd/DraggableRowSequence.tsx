@@ -13,11 +13,10 @@ import { TestSequenceContainer } from "@/renderer/types/test-sequencer";
 export const DraggableRowSequence = ({
   isSelected,
   row,
-  ...props
 }: {
   isSelected: boolean;
   row: Row<TestSequenceContainer>;
-}): React.ReactNode => {
+}) => {
   const { sequences, setSequences, displaySequence } = useSequencerState();
 
   const elementMover = (fromIdx: number, toIdx: number) => {
@@ -81,7 +80,6 @@ export const DraggableRowSequence = ({
       className={"relative" + (isSelected ? " bg-primary-foreground" : "")}
       onClick={() => handleDisplaySequence(row.index)}
       ref={drag}
-      {...props}
     >
       {/* capture drag on above */}
       <div ref={dropAbove} className="absolute top-0 z-10 h-1/2 w-full" />
