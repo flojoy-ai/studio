@@ -22,6 +22,7 @@ import { verifyElementCompatibleWithSequence } from "@/renderer/routes/test_sequ
 import { toast } from "sonner";
 import { SendJsonMessage } from "react-use-websocket/dist/lib/types";
 import { postSession } from "@/renderer/lib/api";
+import { testSequencePauseRequest, testSequenceResumeRequest, testSequenceStopRequest } from "../routes/test_sequencer_panel/models/models";
 
 // sync this with the definition of setElems
 export type SetElemsFn = {
@@ -231,8 +232,10 @@ export function useSequencerState() {
   const {
     isLocked,
     setIsLocked,
+    tree,
     project,
     uploadAfterRun,
+    backendGlobalState,
     serialNumber,
     stationId,
     integrity,
@@ -251,25 +254,16 @@ export function useSequencerState() {
   } = useSequencerStore(
     useShallow((state) => {
       return {
-        elems: state.elements,
-        setElements: state.setElements,
         isLocked: state.isLocked,
         setIsLocked: state.setIsLocked,
-        backendGlobalState: state.backendGlobalState,
-        setBackendGlobalState: state.setBackendGlobalState,
-        backendState: state.playPauseState,
-        setBackendState: state.setBackendState,
-        isUnsaved: state.testSequenceUnsaved,
-        setUnsaved: state.setTestSequenceUnsaved,
         tree: state.testSequenceStepTree,
-        setTree: state.setTestSequenceTree,
         project: state.testSequenceDisplayed,
         uploadAfterRun: state.uploadAfterRun,
-        setIsUploaded: state.setIsUploaded,
+        backendGlobalState: state.backendGlobalState,
         serialNumber: state.serialNumber,
         stationId: state.stationId,
         integrity: state.integrity,
-        // Sequences
+        setIsUploaded: state.setIsUploaded,
         sequences: state.sequences,
         setSequences: state.setSequences,
         runRunnableSequencesFromCurrentOne:
@@ -393,12 +387,38 @@ export function useSequencerState() {
     }
   }
 
+  function abortSequencer(sender: SendJsonMessage) {
+    toast.warning("Stopping sequencer after this test.");
+    sender(testSequenceStopRequest(tree));
+    setIsLocked(false);
+  }
+
+  function pauseSequencer(sender: SendJsonMessage) {
+    if (backendGlobalState === "test_set_start") {
+      toast.warning("Pausing sequencer after this test.");
+      console.log("Pause test");
+      sender(testSequencePauseRequest(tree));
+    }
+  }
+
+  function resumeSequencer(sender: SendJsonMessage) {
+    if (backendGlobalState === "test_set_start") {
+      toast.info("Resuming sequencer.");
+      console.log("Resume test");
+      sender(testSequenceResumeRequest(tree));
+    }
+  }
+
+
   const setSequencesWithPermissions = withPermissionCheck(setSequences);
 
   return {
     sequences,
     setSequences: setSequencesWithPermissions,
     runSequencer,
+    abortSequencer,
+    pauseSequencer,
+    resumeSequencer,
     runNextRunnableSequence: runNextRunnableSequenceAndCycle,
     displaySequence: displaySeq,
     addNewSequence: addNewSeq,
@@ -406,3 +426,4 @@ export function useSequencerState() {
     handleUpload: handleUpload,
   };
 }
+
