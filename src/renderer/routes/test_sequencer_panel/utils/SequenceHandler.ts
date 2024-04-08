@@ -36,79 +36,79 @@ export async function createSequence(
 ): Promise<Result<void, Error>> {
   // Create a new project from the element currently in the test sequencer
   // - Will valide that each element is in the base folder
-  try {
-    const elems = stateManager.elems;
-    sequence = validatePath(sequence);
-    sequence = updateSequenceElement(
-      sequence,
-      await createExportableSequenceElementsFromTestSequencerElements(
-        elems,
-        sequence.projectPath,
-        true,
-      ),
-    );
-    await saveToDisk(sequence);
-    await syncSequence(sequence, stateManager);
-    return new Ok(undefined);
-  } catch (e: unknown) {
-    return buildResultFromCatch(e);
+  const elems = stateManager.elems;
+  sequence = validatePath(sequence);
+  const result = await createExportableSequenceElementsFromTestSequencerElements(
+    elems,
+    sequence.projectPath,
+  );
+  if (result.isErr()) {
+    return new Err(result.error);
   }
+  sequence = updateSequenceElement(
+    sequence,
+    result.value
+  );
+  await saveToDisk(sequence);
+  await syncSequence(sequence, stateManager);
+  return new Ok(undefined);
 }
 
 export async function saveSequence(
   stateManager: StateManager,
 ): Promise<Result<void, Error>> {
   // Save the current sequence to disk
-  try {
-    let sequence = stateManager.project;
-    if (sequence === null) {
-      throw new Error("No sequence to save");
-    }
-    const elems = stateManager.elems;
-    sequence = validatePath(sequence);
-    sequence = updateSequenceElement(
-      sequence,
-      await createExportableSequenceElementsFromTestSequencerElements(
-        elems,
-        sequence.projectPath,
-        true,
-      ),
-    );
-    await saveToDisk(sequence);
-    await syncSequence(sequence, stateManager);
-    return new Ok(undefined);
-  } catch (e: unknown) {
-    return buildResultFromCatch(e);
+  let sequence = stateManager.project;
+  if (sequence === null) {
+    return new Err(Error("No sequence to save"));
   }
+  const elems = stateManager.elems;
+  sequence = validatePath(sequence);
+  const result = await createExportableSequenceElementsFromTestSequencerElements(
+    elems,
+    sequence.projectPath,
+  );
+  if (result.isErr()) {
+    return new Err(result.error);
+  }
+  sequence = updateSequenceElement(
+    sequence,
+    result.value
+  );
+  await saveToDisk(sequence);
+  const isSync = await syncSequence(sequence, stateManager);
+  if (isSync.isErr()) {
+    return new Err(isSync.error);
+  }
+  return new Ok(undefined);
 }
 
 export async function saveSequences(
   stateManager: StateManager,
 ): Promise<Result<void, Error>> {
   // Save the current sequence to disk
-  try {
-    const containers = stateManager.sequences;
-    if (containers.length === 0) {
-      throw new Error("No sequences to save");
-    }
-    containers.forEach(async (ctn) => {
-      const elems = ctn.elements;
-      let sequence = ctn.project;
-      sequence = validatePath(sequence);
-      sequence = updateSequenceElement(
-        sequence,
-        await createExportableSequenceElementsFromTestSequencerElements(
-          elems,
-          sequence.projectPath,
-          true,
-        ),
-      );
-      await saveToDisk(sequence);
-    });
-    return new Ok(undefined);
-  } catch (e: unknown) {
-    return buildResultFromCatch(e);
+  const containers = stateManager.sequences;
+  if (containers.length === 0) {
+    return new Err(Error("No sequences to save"));
   }
+  containers.forEach(async (ctn) => {
+    const elems = ctn.elements;
+    let sequence = ctn.project;
+    sequence = validatePath(sequence);
+    const result = await createExportableSequenceElementsFromTestSequencerElements(
+      elems,
+      sequence.projectPath,
+    );
+    if (result.isErr()) {
+      return new Err(result.error);
+    }
+    sequence = updateSequenceElement(
+      sequence,
+      result.value
+    );
+    await saveToDisk(sequence);
+  });
+  return new Ok(undefined);
 }
 
 export async function importSequence(
@@ -119,24 +119,20 @@ export async function importSequence(
 ): Promise<Result<void, Error>> {
   // From a file, import a sequence and update the test sequencer
   // * Importing a sequence overwrites the current sequence, even the test sequencer is unsaved
-  try {
-    let sequence = readJsonSequence(fileContent);
-    if (!sequence) {
-      throw new Error("Error reading sequence file");
-    }
-    const sequencePath = filePath.replaceAll(sequence.name + ".tjoy", "");
-    sequence = updatePath(sequence, sequencePath);
-    if (!skipImportDeps) {
-      const success = await installDeps(sequence);
-      if (!success) {
-        throw Error("Not able to installing dependencies");
-      }
-    }
-    await syncSequence(sequence, stateManager);
-    return new Ok(undefined);
-  } catch (e: unknown) {
-    return buildResultFromCatch(e);
+  let sequence = readJsonSequence(fileContent);
+  if (!sequence) {
+    return new Err(Error("Error reading sequence file"));
   }
+  const sequencePath = filePath.replaceAll(sequence.name + ".tjoy", "");
+  sequence = updatePath(sequence, sequencePath);
+  if (!skipImportDeps) {
+    const success = await installDeps(sequence);
+    if (!success) {
+      return new Err(Error("Not able to installing dependencies"));
+    }
+  }
+  await syncSequence(sequence, stateManager);
+  return new Ok(undefined);
 }
 
 export async function exportSequence(
@@ -163,24 +159,10 @@ export async function verifyElementCompatibleWithSequence(
   elements: TestSequenceElement[],
 ): Promise<Result<void, Error>> {
   // Verify that the elements are within the current sequence directory.
-  try {
-    await throwIfNotInAllBaseFolder(elements, sequence.projectPath);
-    return new Ok(undefined);
-  } catch (e: unknown) {
-    return buildResultFromCatch(e);
-  }
+  return await checkIfAllInBaseFolder(elements, sequence.projectPath);
 }
 
 // Private -------------------------------------------------------------------------------------------------
-
-function buildResultFromCatch(e: unknown): Result<void, Error> {
-  if (e instanceof Error) {
-    return new Err(e);
-  } else {
-    console.error("[Save Sequence] Unknown error", e);
-    return new Err(new Error("Unknown error while creating the sequence."));
-  }
-}
 
 function validatePath(sequence: TestSequencerProject): TestSequencerProject {
   let path = sequence.projectPath;
@@ -227,13 +209,17 @@ async function installDeps(sequence: TestSequencerProject): Promise<boolean> {
 async function syncSequence(
   sequence: TestSequencerProject,
   stateManager: StateManager,
-): Promise<void> {
+): Promise<Result<void, Error>> {
   const elements = await createTestSequencerElementsFromSequenceElements(
     sequence,
     sequence.projectPath,
     false,
   );
-  stateManager.addNewSequence(sequence, elements);
+  if (elements.isErr()) {
+    return new Err(elements.error);
+  }
+  stateManager.addNewSequence(sequence, elements.value);
+  return new Ok(undefined);
 }
 
 function removeBaseFolderFromName(name: string, baseFolder: string): string {
@@ -250,10 +236,10 @@ function removeBaseFolderFromName(name: string, baseFolder: string): string {
 async function createExportableSequenceElementsFromTestSequencerElements(
   elems: TestSequenceElement[],
   baseFolder: string,
-  verifStateOrThrow: boolean,
-): Promise<TestSequenceElement[]> {
-  if (verifStateOrThrow) {
-    await throwIfNotInAllBaseFolder(elems, baseFolder);
+): Promise<Result<TestSequenceElement[], Error>> {
+  const result = await checkIfAllInBaseFolder(elems, baseFolder);
+  if (result.isErr()) {
+    return new Err(result.error);
   }
   const elements = [...elems].map((elem) => {
     return elem.type === "test"
@@ -270,14 +256,14 @@ async function createExportableSequenceElementsFromTestSequencerElements(
           condition: elem.condition.replaceAll(baseFolder, ""),
         };
   });
-  return elements;
+  return new Ok(elements);
 }
 
 async function createTestSequencerElementsFromSequenceElements(
   sequence: TestSequencerProject,
   baseFolder: string,
-  verifStateOrThrow: boolean,
-): Promise<TestSequenceElement[]> {
+  verifState: boolean,
+): Promise<Result<TestSequenceElement[], Error>> {
   const elements: TestSequenceElement[] = [...sequence.elems].map((elem) => {
     return elem.type === "test"
       ? createNewTest(
@@ -293,16 +279,19 @@ async function createTestSequencerElementsFromSequenceElements(
         };
   });
   sequence.elems = elements;
-  if (verifStateOrThrow) {
-    await throwIfNotInAllBaseFolder(elements, baseFolder);
+  if (verifState) {
+    const result = await checkIfAllInBaseFolder(elements, baseFolder);
+    if (result.isErr()) {
+      return new Err(result.error);
+    }
   }
-  return elements;
+  return new Ok(elements);
 }
 
-async function throwIfNotInAllBaseFolder(
+async function checkIfAllInBaseFolder(
   elems: TestSequenceElement[],
   baseFolder: string,
-) {
+): Promise<Result<void, Error>> {
   for (const elem of elems) {
     let weGoodBro = false;
     if (elem.type === "conditional") {
@@ -322,15 +311,14 @@ async function throwIfNotInAllBaseFolder(
       })
       .catch((e) => {
         console.error("Error while checking if file is on disk", e);
-        throw new Error(`Error while checking if the file is on disk`);
+        return new Err(Error(`Error while checking if the file is on disk`));
       });
     // New test type ? Handle it here
     if (!weGoodBro) {
-      throw new Error(
-        `The element ${elem.path} is not in the base folder ${baseFolder}`,
-      );
+      return new Err(Error(`The element ${elem.path} is not in the base folder ${baseFolder}`));
     }
   }
+  return new Ok(undefined);
 }
 
 function updateSequenceElement(
