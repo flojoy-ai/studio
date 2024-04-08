@@ -58,7 +58,7 @@ test.describe("Create a test sequence", () => {
     ).toBeVisible();
 
     // Run the sequence
-    await window.getByText("Run Test Sequences").click();
+    await window.getByTestId(Selectors.runBtn).click();
     await window.waitForTimeout(10000);
 
     // Check the status
