@@ -108,8 +108,6 @@ export function TestSequencerWSProvider({
     if (!msg.success) {
       console.error(msg.error);
       return;
-    } else {
-      console.log("Received message from backend: ", msg.data);
     }
 
     switch (msg.data.state) {
