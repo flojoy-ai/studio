@@ -22,7 +22,11 @@ import { verifyElementCompatibleWithSequence } from "@/renderer/routes/test_sequ
 import { toast } from "sonner";
 import { SendJsonMessage } from "react-use-websocket/dist/lib/types";
 import { postSession } from "@/renderer/lib/api";
-import { testSequencePauseRequest, testSequenceResumeRequest, testSequenceStopRequest } from "../routes/test_sequencer_panel/models/models";
+import {
+  testSequencePauseRequest,
+  testSequenceResumeRequest,
+  testSequenceStopRequest,
+} from "../routes/test_sequencer_panel/models/models";
 
 // sync this with the definition of setElems
 export type SetElemsFn = {
@@ -409,7 +413,6 @@ export function useSequencerState() {
     }
   }
 
-
   const setSequencesWithPermissions = withPermissionCheck(setSequences);
 
   return {
@@ -426,4 +429,3 @@ export function useSequencerState() {
     handleUpload: handleUpload,
   };
 }
-

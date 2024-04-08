@@ -8,16 +8,11 @@ const statusVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "bg-secondary text-primary",
-        warning:
-          "bg-yellow-500",
-        error:
-          "bg-red-500",
-        ok:
-          "bg-green-500",
-        action:
-          "bg-blue-500",
+        default: "bg-secondary text-primary",
+        warning: "bg-yellow-500",
+        error: "bg-red-500",
+        ok: "bg-green-500",
+        action: "bg-blue-500",
         outline: "text-foreground",
         bold: "font-semibold text-primary-foreground",
         big: "text-lg w-full m-1",
