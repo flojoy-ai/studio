@@ -64,16 +64,16 @@ export async function saveSequence(
   }
   const elems = stateManager.elems;
   sequence = validatePath(sequence);
-  const result = await createExportableSequenceElementsFromTestSequencerElements(
+  const exportableElems = await createExportableSequenceElementsFromTestSequencerElements(
     elems,
     sequence.projectPath,
   );
-  if (result.isErr()) {
-    return new Err(result.error);
+  if (exportableElems.isErr()) {
+    return new Err(exportableElems.error);
   }
   sequence = updateSequenceElement(
     sequence,
-    result.value
+    exportableElems.value
   );
   await saveToDisk(sequence);
   const isSync = await syncSequence(sequence, stateManager);
