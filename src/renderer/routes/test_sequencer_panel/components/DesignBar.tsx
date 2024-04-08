@@ -19,6 +19,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/renderer/components/ui/dropdown-menu";
+import { Status } from "@/renderer/components/ui/status";
 import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 import { CyclePanel } from "./CyclePanel";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
@@ -230,34 +231,34 @@ export const getGlobalStatus = (
 
 const mapStatusToDisplay: { [k in StatusType] } = {
   pending: (
-    <div className="inline-flex h-full w-full items-center justify-center rounded-md bg-secondary text-primary">
+    <Status>
       <code data-testid="global-status-badge">PENDING</code>
-    </div>
+    </Status>
   ),
   running: (
-    <div className="inline-flex h-full w-full items-center justify-center rounded-md bg-blue-500 text-primary-foreground">
+    <Status variant="action">
       <code data-testid="global-status-badge">RUNNING</code>
-    </div>
+    </Status>
   ),
   paused: (
-    <div className="inline-flex h-full w-full items-center justify-center rounded-md bg-yellow-500 text-primary-foreground">
+    <Status variant="warning">
       <code data-testid="global-status-badge">PAUSED</code>
-    </div>
+    </Status>
   ),
   pass: (
-    <div className="inline-flex h-full w-full items-center justify-center rounded-md bg-green-500 text-primary-foreground">
+    <Status variant="ok">
       <code data-testid="global-status-badge">PASS</code>
-    </div>
+    </Status>
   ),
   aborted: (
-    <div className="inline-flex h-full w-full items-center justify-center rounded-md bg-red-500 text-primary-foreground">
+    <Status variant="error">
       <code data-testid="global-status-badge">ABORTED</code>
-    </div>
+    </Status>
   ),
   fail: (
-    <div className="inline-flex h-full w-full items-center justify-center rounded-md bg-red-500 text-primary-foreground">
+    <Status variant="error">
       <code data-testid="global-status-badge">FAIL</code>
-    </div>
+    </Status>
   ),
 };
 
