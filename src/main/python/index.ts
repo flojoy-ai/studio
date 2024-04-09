@@ -108,9 +108,9 @@ export async function installPoetry(): Promise<void> {
   // Giving: Permission denied: '/usr/local/opt/pipx_bin'
   await execCommand(
     new Command({
-      darwin: `${unset} && "${py}" -m pipx install poetry --force`,
-      win32: `"${py}" -m pipx install poetry --force`,
-      linux: `"${py}" -m pipx install poetry --force`,
+      darwin: `${unset} && "${py}" -m pipx install poetry`,
+      win32: `"${py}" -m pipx install poetry`,
+      linux: `"${py}" -m pipx install poetry`,
     }),
   );
   const poetryPath = await getPoetryPath();
