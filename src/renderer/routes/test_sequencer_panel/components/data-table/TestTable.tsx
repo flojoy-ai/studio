@@ -69,7 +69,7 @@ export function TestTable() {
   const [testToDisplay, setTestToDisplay] = useState<Test | null>(null);
 
   function toggleExportToCloud(id: string) {
-    setElems.withException((elems) => {
+    setElems((elems) => {
       return elems.map((elem) => {
         if (elem.id === id) {
           if (elem.type === "test") {
