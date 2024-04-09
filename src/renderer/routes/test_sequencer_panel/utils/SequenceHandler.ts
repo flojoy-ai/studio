@@ -47,7 +47,10 @@ export async function createSequence(
     return err(result.error);
   }
   sequence = updateSequenceElement(sequence, result.value);
-  await saveToDisk(sequence);
+  const res = await saveToDisk(sequence);
+  if (res.isErr()) {
+    return err(res.error);
+  }
   await syncSequence(sequence, stateManager);
   return ok(undefined);
 }
@@ -71,7 +74,10 @@ export async function saveSequence(
     return err(exportableElems.error);
   }
   sequence = updateSequenceElement(sequence, exportableElems.value);
-  await saveToDisk(sequence);
+  const res = await saveToDisk(sequence);
+  if (res.isErr()) {
+    return err(res.error);
+  }
   const isSync = await syncSequence(sequence, stateManager);
   if (isSync.isErr()) {
     return err(isSync.error);
@@ -100,7 +106,10 @@ export async function saveSequences(
       return err(result.error);
     }
     sequence = updateSequenceElement(sequence, result.value);
-    await saveToDisk(sequence);
+    const res = await saveToDisk(sequence);
+    if (res.isErr()) {
+      return err(res.error);
+    }
   });
   return ok(undefined);
 }
@@ -176,21 +185,29 @@ function updatePath(
   };
 }
 
-async function saveToDisk(sequence: TestSequencerProject): Promise<void> {
+async function saveToDisk(sequence: TestSequencerProject): Promise<Result<void, Error>> {
   // Deps
   if (sequence.interpreter.requirementsPath) {
     const deps = await window.api.poetryShowUserGroup();
     const content = deps.map((dep) => dep.name + "==" + dep.version).join("\n");
-    await window.api.saveToFile(
+    const didSave = await window.api.saveFileToDisk(
       sequence.projectPath + sequence.interpreter.requirementsPath,
       content,
     );
+    if (!didSave) {
+      return err(Error(`Failed to save file to ${sequence.projectPath}`));
+    }
   }
   // Sequence
-  await window.api.saveToFile(
+  const didSave = await window.api.saveFileToDisk(
     sequence.projectPath + sequence.name + ".tjoy",
     stringifySequence(sequence),
-  );
+  )
+  if (!didSave) {
+    return err(Error(`Failed to save file to ${sequence.projectPath}`));
+  } else {
+    return ok(undefined);
+  }
 }
 
 async function installDeps(sequence: TestSequencerProject): Promise<boolean> {
@@ -238,17 +255,17 @@ async function createExportableSequenceElementsFromTestSequencerElements(
   const elements = [...elems].map((elem) => {
     return elem.type === "test"
       ? createNewTest(
-          removeBaseFolderFromName(elem.testName, baseFolder),
-          elem.path.replaceAll(baseFolder, ""),
-          elem.testType,
-          elem.exportToCloud,
-          elem.id,
-          elem.groupId,
-        )
+        removeBaseFolderFromName(elem.testName, baseFolder),
+        elem.path.replaceAll(baseFolder, ""),
+        elem.testType,
+        elem.exportToCloud,
+        elem.id,
+        elem.groupId,
+      )
       : {
-          ...elem,
-          condition: elem.condition.replaceAll(baseFolder, ""),
-        };
+        ...elem,
+        condition: elem.condition.replaceAll(baseFolder, ""),
+      };
   });
   return ok(elements);
 }
@@ -261,16 +278,16 @@ async function createTestSequencerElementsFromSequenceElements(
   const elements: TestSequenceElement[] = [...sequence.elems].map((elem) => {
     return elem.type === "test"
       ? createNewTest(
-          removeBaseFolderFromName(elem.testName, baseFolder),
-          baseFolder + elem.path,
-          elem.testType,
-          elem.exportToCloud,
-          elem.id,
-          elem.groupId,
-        )
+        removeBaseFolderFromName(elem.testName, baseFolder),
+        baseFolder + elem.path,
+        elem.testType,
+        elem.exportToCloud,
+        elem.id,
+        elem.groupId,
+      )
       : {
-          ...elem,
-        };
+        ...elem,
+      };
   });
   sequence.elems = elements;
   if (verifState) {

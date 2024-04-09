@@ -114,6 +114,7 @@ export const registerIpcMainHandlers = () => {
   ipcMain.handle(API.pipxEnsurepath, pipxEnsurepath);
   ipcMain.handle(API.installPoetry, installPoetry);
   ipcMain.handle(API.installDependencies, installDependencies);
+  ipcMain.handle(API.writeFileSync, writeFileSync);
   ipcMain.handle(API.spawnCaptain, spawnCaptain);
   ipcMain.handle(API.killCaptain, killCaptain);
   ipcMain.handle(API.openLogFolder, openLogFolder);
@@ -158,7 +159,7 @@ export const registerIpcMainHandlers = () => {
   ipcMain.handle(API.openEditorWindow, (_, filepath) => {
     createEditorWindow(filepath);
   });
-
+  
   ipcMain.handle(API.loadFileFromFullPath, (_, filepath) => {
     return loadFileFromFullPath(filepath);
   });
