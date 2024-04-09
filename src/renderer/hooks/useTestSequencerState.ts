@@ -218,7 +218,7 @@ export function useDisplayedSequenceState() {
   return {
     elems,
     setElems: setElemsWithPermissions,
-    AddNewElems: addNewElemsWithPermissions,
+    addNewElems: addNewElemsWithPermissions,
     tree,
     setIsLocked,
     setBackendState,

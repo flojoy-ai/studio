@@ -74,7 +74,7 @@ export async function saveSequence(
   await saveToDisk(sequence);
   const isSync = await syncSequence(sequence, stateManager);
   if (isSync.isErr()) {
-    return err(isSync.error);
+    return isSync;
   }
   return ok(undefined);
 }
@@ -97,7 +97,7 @@ export async function saveSequences(
         sequence.projectPath,
       );
     if (result.isErr()) {
-      return err(result.error);
+      return result;
     }
     sequence = updateSequenceElement(sequence, result.value);
     await saveToDisk(sequence);

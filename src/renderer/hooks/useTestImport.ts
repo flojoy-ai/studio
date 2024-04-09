@@ -27,7 +27,7 @@ function parseDiscoverContainer(
 }
 
 export const useTestImport = () => {
-  const { AddNewElems } = useDisplayedSequenceState();
+  const { addNewElems } = useDisplayedSequenceState();
   const { openErrorModal } = useSequencerModalStore();
 
   const handleUserDepInstall = useCallback(async (depName: string) => {
@@ -79,7 +79,7 @@ export const useTestImport = () => {
     if (newElems.length === 0) {
       return err(Error("No tests were found in the specified file."));
     }
-    const result = await AddNewElems(newElems);
+    const result = await addNewElems(newElems);
     if (result.isErr()) {
       return err(result.error);
     }

@@ -16,19 +16,9 @@ import {
 import { toastResultPromise } from "../utils/report-error";
 
 function usePrepareStateManager(
-  withoutPermission: boolean = false,
 ): StateManager {
   const { elems, project } = useDisplayedSequenceState();
   const { addNewSequence, removeSequence, sequences } = useSequencerState();
-  if (withoutPermission) {
-    return {
-      elems,
-      addNewSequence,
-      removeSequence,
-      project,
-      sequences,
-    };
-  }
   return { elems, project, addNewSequence, removeSequence, sequences };
 }
 
@@ -82,7 +72,7 @@ export function useCreateSequence() {
 
 export const useImportSequences = () => {
   // TODO - When technicien in user, open from cloud project list
-  const manager = usePrepareStateManager(true);
+  const manager = usePrepareStateManager();
   const handleImport = async () => {
     const result = await window.api.openFilesPicker(
       ["tjoy"],
