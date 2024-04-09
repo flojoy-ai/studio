@@ -9,15 +9,6 @@ export function saveFile(
   ipcRenderer.send(API.writeFileSync, path, data, allowedExtensions);
 }
 
-export async function saveToFile(path: string, data: string): Promise<boolean> {
-  try {
-    saveFile(path, data, ["tjoy"]);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
 export async function saveFileAs(
   defaultFilename: string,
   data: string,
