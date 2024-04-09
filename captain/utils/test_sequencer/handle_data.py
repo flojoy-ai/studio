@@ -3,7 +3,6 @@ from captain.internal.manager import TSManager
 from captain.models.test_sequencer import TestSequenceEvents, TestSequenceRun
 from captain.utils.logger import logger
 from captain.utils.test_sequencer.run_test_sequence import (
-    export_test_sequence,
     run_test_sequence,
 )
 from typing import Callable
@@ -20,20 +19,9 @@ def _handle_subscribe(_data: TestSequenceRun, _ts_manager: TSManager):
 def _handle_run(data: TestSequenceRun, ts_manager: TSManager):
     logger.info("Running test sequence")
     with asyncio.Runner() as runner:
-        ts_manager.runner = runner
-        runner.run(run_test_sequence(data.data))
-    ts_manager.runner = None
-
-
-def _handle_export(data: TestSequenceRun, ts_manager: TSManager):
-    if data.hardware_id is None or data.project_id is None:
-        raise ValueError(
-            "Please ensure both Hardware ID and Project ID are provided before exporting."
-        )
-    with asyncio.Runner() as runner:
-        runner.run(export_test_sequence(data.data, data.hardware_id, data.project_id))
-        ts_manager.runner = runner
-    ts_manager.runner = None
+        ts_manager.new_runner(runner)
+        runner.run(run_test_sequence(data.data, ts_manager))
+    ts_manager.cleanup()
 
 
 event_to_handle: dict[
@@ -41,19 +29,24 @@ event_to_handle: dict[
 ] = {
     "subscribe": _handle_subscribe,
     "run": _handle_run,
-    "stop": ts_manager.kill_runner,
-    "export": _handle_export,
 }
 
 
 def handle_data(data: TestSequenceRun):
     """
     Handles the data received from the test sequencer websocket
+    - Some event are trigger immediately (run, stop, pause, resume)
+    - Only one sequence or export can be run at the same time
 
     Parameters:
     data (string): the text received from the websocket
     """
     if data.event == "stop":
         ts_manager.kill_runner()
-    with lock:
-        event_to_handle[data.event](data, ts_manager)
+    elif data.event == "pause":
+        ts_manager.pause_runner()
+    elif data.event == "resume":
+        ts_manager.resume_runner()
+    else:
+        with lock:
+            event_to_handle[data.event](data, ts_manager)

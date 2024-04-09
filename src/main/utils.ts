@@ -69,8 +69,14 @@ export const ifconfig = async () => {
   );
 };
 
-export const writeFileSync = (_, filePath: string, text: string): void => {
-  fs.writeFileSync(filePath, text);
+export const writeFileSync = (_, filePath: string, text: string): boolean => {
+  try {
+    fs.writeFileSync(filePath, text);
+    return true;
+  } catch (error) {
+    log.error("Something went wrong when writing to file", error);
+    return false;
+  }
 };
 
 export const pickDirectory = async (
@@ -125,31 +131,99 @@ export const openFilePicker = (
   name: string = "File",
   allowedExtensions: string[] = ["json"],
 ): Promise<{ filePath: string; fileContent: string } | undefined> => {
-  return new Promise((resolve, reject) => {
-    try {
-      const selectedPaths = dialog.showOpenDialogSync(global.mainWindow, {
-        properties: ["openFile"],
-        filters: [
-          {
-            extensions: allowedExtensions,
-            name,
-          },
-        ],
-      });
-      if (selectedPaths && selectedPaths.length > 0) {
-        const fileContent = fs.readFileSync(selectedPaths[0], {
+  return dialog
+    .showOpenDialog(global.mainWindow, {
+      properties: ["openFile"],
+      filters: [
+        {
+          extensions: allowedExtensions,
+          name,
+        },
+      ],
+    })
+    .then((selectedPaths) => {
+      if (selectedPaths.filePaths.length > 0) {
+        const fileContent = fs.readFileSync(selectedPaths.filePaths[0], {
           encoding: "utf-8",
         });
-        resolve({
-          filePath: selectedPaths[0].split(sep).join(posix.sep),
+        return {
+          filePath: selectedPaths.filePaths[0].split(sep).join(posix.sep),
           fileContent,
-        });
+        };
       }
-      resolve(undefined);
-    } catch (error) {
-      reject(String(error));
-    }
-  });
+      return undefined;
+    });
+};
+
+export const openFilesPicker = (
+  _,
+  allowedExtensions: string[] = ["json"],
+  title: string = "Select Files",
+): Promise<{ filePath: string; fileContent: string }[] | undefined> => {
+  // Return mutiple files or all file with the allowed extensions if a folder is selected
+  return dialog
+    .showOpenDialog(global.mainWindow, {
+      title: title,
+      properties: ["openFile", "multiSelections"],
+      filters: [
+        {
+          extensions: allowedExtensions,
+          name: "File",
+        },
+      ],
+    })
+    .then((selectedPaths) => {
+      if (selectedPaths.filePaths.length > 0) {
+        const files = selectedPaths.filePaths.map((path) => {
+          return {
+            filePath: path.split(sep).join(posix.sep),
+            fileContent: fs.readFileSync(path, { encoding: "utf-8" }),
+          };
+        });
+        return files;
+      }
+      return undefined;
+    });
+};
+
+export const openAllFilesInFolderPicker = (
+  _,
+  allowedExtensions: string[] = ["json"],
+  title: string = "Select Folder",
+): Promise<{ filePath: string; fileContent: string }[] | undefined> => {
+  // Return mutiple files or all file with the allowed extensions if a folder is selected
+  return dialog
+    .showOpenDialog(global.mainWindow, {
+      title: title,
+      properties: ["openDirectory"],
+    })
+    .then((selectedPaths) => {
+      if (
+        selectedPaths.filePaths.length === 1 &&
+        fs.lstatSync(selectedPaths.filePaths[0]).isDirectory()
+      ) {
+        // If a folder is selected, found all file with the allowed extensions from that folder
+        const folerPath = selectedPaths.filePaths[0];
+        const paths: string[] = [];
+        fs.readdirSync(folerPath, { withFileTypes: true }).forEach((dirent) => {
+          if (dirent.isFile()) {
+            const nameAndExt = dirent.name.split(".");
+            const ext = nameAndExt[nameAndExt.length - 1];
+            if (allowedExtensions.includes(ext)) {
+              paths.push(join(folerPath, dirent.name));
+            }
+          }
+        });
+        const files = paths.map((path) => {
+          return {
+            filePath: path.split(sep).join(posix.sep),
+            fileContent: fs.readFileSync(path, { encoding: "utf-8" }),
+          };
+        });
+        return files;
+      }
+      return undefined;
+    });
 };
 
 export const cleanup = async () => {

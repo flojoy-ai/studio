@@ -13,26 +13,20 @@ interface Tab {
 
 const tabs: Tab[] = [
   {
+    to: "/flowchart",
+    fullText: "Flowchart",
+    shortText: "Script",
+    testId: "script-btn",
+  },
+  {
     to: "/test-sequencer",
     fullText: "Test Sequencer",
     shortText: "Sequencer",
     testId: "test-sequencer-btn",
   },
   {
-    to: "/flowchart",
-    fullText: "Visual Python Script",
-    shortText: "Script",
-    testId: "script-btn",
-  },
-  {
-    to: "/control",
-    fullText: "Control Panel",
-    shortText: "Control",
-    testId: "control-btn",
-  },
-  {
     to: "/devices",
-    fullText: "Hardware Devices",
+    fullText: "Device Manager",
     shortText: "Devices",
     testId: "devices-btn",
   },
@@ -48,7 +42,7 @@ const Header = () => {
   return (
     <div
       style={{ height: HEADER_HEIGHT }}
-      className="m-1 flex flex-row gap-4 whitespace-nowrap"
+      className="flex flex-row gap-4 whitespace-nowrap"
     >
       <img
         className="h-20 w-20 object-cover"
@@ -56,13 +50,10 @@ const Header = () => {
         alt="Logo"
       />
       {tabs.map((t) => (
-        <HeaderTab
-          to={t.to}
-          testId={t.testId}
-          key={t.fullText}
-          tabName={t.fullText}
-        >
-          <div className="hidden sm:block">{t.fullText}</div>
+        <HeaderTab to={t.to} key={t.fullText} tabName={t.fullText}>
+          <div data-testid={t.testId} className="hidden sm:block">
+            {t.fullText}
+          </div>
           <div className="sm:hidden">{t.shortText}</div>
         </HeaderTab>
       ))}

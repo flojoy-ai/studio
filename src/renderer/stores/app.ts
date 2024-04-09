@@ -3,9 +3,9 @@ import { immer } from "zustand/middleware/immer";
 
 export type TabName =
   | "Test Sequencer"
-  | "Visual Python Script"
+  | "Flowchart"
   | "Control Panel"
-  | "Hardware Devices";
+  | "Device Manager";
 
 type State = {
   showWelcomeScreen: boolean;

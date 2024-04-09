@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import StrEnum
 from typing import List, Literal, Optional, Union
 
 from pydantic import BaseModel, Field
@@ -14,32 +14,36 @@ class LockedContextType(BaseModel):
     is_locked: bool = Field(..., alias="isLocked")
 
 
-class TestTypes(str, Enum):
+class TestTypes(StrEnum):
     pytest = "pytest"
     python = "python"
     flojoy = "flojoy"
     matlab = "matlab"
 
 
-class StatusTypes(str, Enum):
+class StatusTypes(StrEnum):
     pending = "pending"
+    running = "running"
+    paused = "paused"
     pass_ = "pass"
-    failed = "failed"
+    fail = "fail"
+    aborted = "aborted"
 
 
-class MsgState(str, Enum):
+class MsgState(StrEnum):
     test_set_start = "test_set_start"
     test_set_export = "test_set_export"
     running = "running"
     test_done = "test_done"
     error = "error"
+    paused = "paused"
     test_set_done = "test_set_done"
 
 
 class BackendMsg(BaseModel):
     state: MsgState = Field(..., alias="state")
     target_id: str = Field(..., alias="targetId")
-    result: bool = Field(..., alias="result")
+    status: str = Field(..., alias="status")
     time_taken: float = Field(..., alias="timeTaken")
     is_saved_to_cloud: bool = Field(..., alias="isSavedToCloud")
     error: Optional[str] = Field(None, alias="error")
@@ -59,20 +63,20 @@ class Test(BaseModel):
     export_to_cloud: bool = Field(..., alias="exportToCloud")
 
 
-class Role(str, Enum):
+class Role(StrEnum):
     start = "start"
     between = "between"
     end = "end"
 
 
-class ConditionalComponent(str, Enum):
+class ConditionalComponent(StrEnum):
     if_ = "if"
     else_ = "else"
     elif_ = "elif"
     end = "end"
 
 
-class ConditionalLeader(str, Enum):
+class ConditionalLeader(StrEnum):
     if_ = "if"
 
 
@@ -119,7 +123,7 @@ class TestDiscoverContainer(BaseModel):
     response: List[TestDiscoveryResponse] = Field(..., alias="response")
 
 
-TestSequenceEvents = Literal["run", "stop", "subscribe", "export"]
+TestSequenceEvents = Literal["run", "stop", "subscribe", "pause", "resume"]
 
 
 class TestData(BaseModel):
@@ -129,5 +133,3 @@ class TestData(BaseModel):
 class TestSequenceRun(BaseModel):
     event: TestSequenceEvents
     data: Union[str, TestRootNode]
-    hardware_id: Union[str, None]
-    project_id: Union[str, None]

@@ -1,13 +1,15 @@
 import { TestRootNode } from "@/renderer/types/test-sequencer";
 
-export type TestSequenceEvents = "run" | "stop" | "subscribe" | "export";
-type CloudId = string | null;
+export type TestSequenceEvents =
+  | "run"
+  | "stop"
+  | "subscribe"
+  | "pause"
+  | "resume";
 
 export type TestSequenceRun = {
   event: TestSequenceEvents;
   data: TestRootNode;
-  hardware_id: CloudId;
-  project_id: CloudId;
 };
 
 export const testSequenceRunRequest: (tree: TestRootNode) => TestSequenceRun = (
@@ -16,8 +18,6 @@ export const testSequenceRunRequest: (tree: TestRootNode) => TestSequenceRun = (
   return {
     event: "run",
     data: tree,
-    hardware_id: null,
-    project_id: null,
   };
 };
 
@@ -27,24 +27,23 @@ export const testSequenceStopRequest: (
   return {
     event: "stop",
     data: tree,
-    hardware_id: null,
-    project_id: null,
   };
 };
 
-export const testSequenceExportCloud: (
+export const testSequenceResumeRequest: (
   tree: TestRootNode,
-  hardware_id: string,
-  project_id: string,
-) => TestSequenceRun = (
-  tree: TestRootNode,
-  hardware_id: string,
-  project_id: string,
-) => {
+) => TestSequenceRun = (tree: TestRootNode) => {
   return {
-    event: "export",
+    event: "resume",
     data: tree,
-    hardware_id: hardware_id,
-    project_id: project_id,
+  };
+};
+
+export const testSequencePauseRequest: (
+  tree: TestRootNode,
+) => TestSequenceRun = (tree: TestRootNode) => {
+  return {
+    event: "pause",
+    data: tree,
   };
 };

@@ -15,6 +15,8 @@ import {
   applyNodeChanges,
   OnConnect,
   NodeMouseHandler,
+  BackgroundVariant,
+  Background,
 } from "reactflow";
 import Sidebar from "@/renderer/routes/common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
@@ -26,7 +28,7 @@ import {
 } from "@/renderer/routes/common/Layout";
 import { CenterObserver } from "./components/CenterObserver";
 import { Separator } from "@/renderer/components/ui/separator";
-import { Pencil, Text, Workflow, X } from "lucide-react";
+import { Joystick, Pencil, Text, Workflow, X } from "lucide-react";
 import { GalleryModal } from "@/renderer/components/gallery/GalleryModal";
 import { useTheme } from "@/renderer/providers/theme-provider";
 import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
@@ -72,6 +74,9 @@ import CustomEdge from "./components/custom-edge";
 import { useSocketStore } from "@/renderer/stores/socket";
 import { calculateContextMenuOffset } from "@/renderer/utils/context-menu";
 import { useContextMenu } from "@/renderer/hooks/useContextMenu";
+import { Link } from "react-router-dom";
+import FlowControlButtons from "./views/ControlBar/FlowControlButtons";
+import { Input } from "@/renderer/components/ui/input";
 
 const edgeTypes = {
   default: CustomEdge,
@@ -264,10 +269,30 @@ const FlowChartTab = () => {
   );
 
   const addBlockReady = manifest !== undefined;
+  const serverStatus = useSocketStore((state) => state.serverStatus);
+
+  const { setProjectName, projectName, hasUnsavedChanges } = useProjectStore(
+    useShallow((state) => ({
+      setProjectName: state.setProjectName,
+      projectName: state.name,
+      hasUnsavedChanges: state.hasUnsavedChanges,
+    })),
+  );
 
   return (
     <>
       <ReactFlowProvider>
+        <div
+          style={{
+            height: ACTIONS_HEIGHT,
+            position: "absolute",
+            top: `calc(${LAYOUT_TOP_HEIGHT + ACTIONS_HEIGHT}px + 30px)`,
+            right: "50px",
+            zIndex: 10,
+          }}
+        >
+          <FlowControlButtons />
+        </div>
         <div className="mx-8 border-b" style={{ height: ACTIONS_HEIGHT }}>
           <div className="py-1" />
           <div className="flex">
@@ -314,7 +339,7 @@ const FlowChartTab = () => {
               isGalleryOpen={isGalleryOpen}
               setIsGalleryOpen={setIsGalleryOpen}
             />
-            <div className="grow" />
+            <ClearCanvasBtn clearCanvas={clearCanvas} />
             {selectedNode && (
               <>
                 {!isEditMode ? (
@@ -339,7 +364,39 @@ const FlowChartTab = () => {
                 )}
               </>
             )}
-            <ClearCanvasBtn clearCanvas={clearCanvas} />
+            <div className="grow" />
+            <div className="felx inline-flex items-center gap-2 px-4 pt-1">
+              {hasUnsavedChanges && (
+                <div className=" h-2 w-2 rounded-full bg-foreground/50" />
+              )}
+              <Input
+                className={
+                  "h-6 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap border-muted/60 text-sm focus:border-muted-foreground focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 sm:w-48"
+                }
+                value={projectName}
+                onChange={(e) => setProjectName(e.target.value)}
+                placeholder="Untitled project"
+              />
+            </div>
+            <div />
+            <div
+              data-cy="app-status"
+              id="app-status"
+              className="mr-5 flex items-center justify-center text-sm"
+            >
+              <code>{serverStatus}</code>
+            </div>
+
+            <Link to="/control" data-cy="control-btn">
+              <Button
+                data-testid="add-text-button"
+                className="w-40 gap-2"
+                variant="ghost"
+              >
+                <Joystick size={20} className="stroke-muted-foreground" />
+                Control View
+              </Button>
+            </Link>
           </div>
           <div className="py-1" />
           <Separator />
@@ -402,6 +459,7 @@ const FlowChartTab = () => {
             onNodeContextMenu={onNodeContextMenu}
             onPaneClick={onPaneClick}
           >
+            <Background color="#a6a6a6" variant={BackgroundVariant.Dots} />
             <MiniMap
               className="!bottom-1 !bg-background"
               nodeColor={

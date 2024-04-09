@@ -14,7 +14,10 @@ import _ from "lodash";
 import { ResultAsync, fromPromise } from "neverthrow";
 import { Options } from "ky";
 import { DeviceInfo } from "@/renderer/types/hardware";
-import { TestDiscoverContainer } from "@/renderer/types/test-sequencer";
+import {
+  TestDiscoverContainer,
+  TestSequenceContainer,
+} from "@/renderer/types/test-sequencer";
 
 const get = <Z extends z.ZodTypeAny>(
   url: string,
@@ -144,11 +147,138 @@ export const discoverPytest = async (path: string, oneFile: boolean) => {
   });
 };
 
+const User = z.object({
+  email: z.string(),
+});
+
+export type User = z.infer<typeof User>;
+
+export const getCloudUser = (
+  workspace_secret: string | undefined = undefined,
+) => {
+  if (workspace_secret) {
+    return get("cloud/user", User, {
+      headers: {
+        secret: workspace_secret,
+      },
+    });
+  } else {
+    return get("cloud/user", User);
+  }
+};
+
+const Part = z.object({
+  partId: z.string(),
+  partVariationId: z.string(),
+  partNumber: z.string(),
+  description: z.string(),
+});
+
+export type Part = z.infer<typeof Part>;
+
 const Project = z.object({
   label: z.string(),
   value: z.string(),
+  part: Part,
 });
-
 export type Project = z.infer<typeof Project>;
+export const getCloudProjects = () =>
+  get("cloud/projects", Project.array(), { timeout: 60000 });
 
-export const getCloudProjects = () => get("cloud/projects", Project.array());
+const Station = z.object({
+  label: z.string(),
+  value: z.string(),
+});
+export type Station = z.infer<typeof Project>;
+export const getCloudStations = (projectId: string) =>
+  get(`cloud/stations/${projectId}`, Station.array(), { timeout: 60000 });
+
+const Unit = z.object({
+  serialNumber: z.string(),
+  partVariationId: z.string(),
+  lotNumber: z.string().nullable(),
+});
+export type Unit = z.infer<typeof Unit>;
+export const getCloudUnits = (partId: string) =>
+  get(`cloud/partVariation/${partId}/unit`, Unit.array(), { timeout: 60000 });
+
+export const postSession = (
+  serialNumber: string,
+  stationId: string,
+  integrity: boolean,
+  aborted: boolean,
+  commitHash: string,
+  cycleRuns: TestSequenceContainer[][],
+) => {
+  const measurements: Measurement[] = [];
+  console.log(cycleRuns);
+  cycleRuns.forEach((cycle, cycleNumber) => {
+    cycle.forEach((seqContainer) => {
+      seqContainer.elements.forEach((elem) => {
+        if (
+          elem.type === "test" &&
+          elem.status !== "pending" &&
+          elem.status !== "running" &&
+          elem.exportToCloud
+        ) {
+          measurements.push({
+            testId: elem.id,
+            sequenceName: seqContainer.project.name,
+            cycleNumber: cycleNumber,
+            name: elem.testName,
+            pass_: elem.status === "pass",
+            completionTime: elem.completionTime!,
+            createdAt: elem.createdAt!,
+          });
+        }
+      });
+    });
+  });
+
+  const body: Session = {
+    serialNumber,
+    stationId,
+    integrity,
+    aborted: aborted,
+    notes: "",
+    commitHash,
+    measurements,
+  };
+
+  console.log(JSON.stringify(body));
+  return captain.post("cloud/session", { json: body }).json();
+};
+
+const Measurement = z.object({
+  testId: z.string(),
+  sequenceName: z.string(),
+  cycleNumber: z.number(),
+  name: z.string(),
+  // data: Is handle in the backend
+  pass_: z.boolean().optional(),
+  completionTime: z.number(),
+  createdAt: z.string(),
+});
+export type Measurement = z.infer<typeof Measurement>;
+
+const Session = z.object({
+  serialNumber: z.string(),
+  stationId: z.string(),
+  integrity: z.boolean(),
+  aborted: z.boolean(),
+  notes: z.string(),
+  commitHash: z.string(),
+  measurements: Measurement.array(),
+});
+export type Session = z.infer<typeof Session>;
+
+export const getCloudHealth = (url: string | undefined = undefined) => {
+  let options: Options = {};
+  if (url) {
+    options = { headers: { url: url } };
+  }
+  return fromPromise(
+    captain.get("cloud/health", options),
+    (e) => e as HTTPError,
+  );
+};

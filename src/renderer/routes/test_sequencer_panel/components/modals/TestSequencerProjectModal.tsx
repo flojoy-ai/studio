@@ -1,21 +1,18 @@
 import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { Button } from "@/renderer/components/ui/button";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { Input } from "@/renderer/components/ui/input";
-import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
-import { useCreateProject } from "@/renderer/hooks/useTestSequencerProject";
+import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
+import { useCreateSequence } from "@/renderer/hooks/useTestSequencerProject";
 import { InterpreterType } from "@/renderer/types/test-sequencer";
 import { PathInput } from "@/renderer/components/ui/path-input";
+import { useSequencerModalStore } from "@/renderer/stores/modal";
 
-export const TestSequencerProjectModal = ({
-  isProjectModalOpen,
-  handleProjectModalOpen,
-}: {
-  isProjectModalOpen: boolean;
-  handleProjectModalOpen: Dispatch<SetStateAction<boolean>>;
-}) => {
-  const { elems } = useTestSequencerState();
-  const handleCreate = useCreateProject();
+export const TestSequencerProjectModal = () => {
+  const { isCreateProjectModalOpen, setIsCreateProjectModalOpen } =
+    useSequencerModalStore();
+  const { elems } = useDisplayedSequenceState();
+  const handleCreate = useCreateSequence();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [projectDirPath, setProjectDirPath] = useState("");
@@ -37,30 +34,35 @@ export const TestSequencerProjectModal = ({
           requirementsPath: "flojoy_requirements.txt",
         },
       },
-      handleProjectModalOpen,
+      setIsCreateProjectModalOpen,
     );
   }
 
   return (
-    <Dialog open={isProjectModalOpen} onOpenChange={handleProjectModalOpen}>
+    <Dialog
+      open={isCreateProjectModalOpen}
+      onOpenChange={setIsCreateProjectModalOpen}
+    >
       <DialogContent>
-        <h2 className="mb-2 pt-3 text-center text-lg font-bold text-accent1 ">
-          Project Manager
+        <h2 className="mb-2 text-center text-lg font-bold text-accent1 ">
+          New Sequence
         </h2>
         <Input
-          placeholder="Project Name"
+          placeholder="Sequence Name"
+          data-testid="new-seq-modal-name-input"
           onChange={(e) => {
             setName(e.target.value);
           }}
         />
         <Input
-          placeholder="Project Description"
+          placeholder="Sequence Description"
+          data-testid="new-seq-modal-desc-input"
           onChange={(e) => {
             setDescription(e.target.value);
           }}
         />
         <PathInput
-          placeholder="Project Folder"
+          placeholder="Root Directory"
           allowedExtention={["tjoy"]}
           onChange={(event) => {
             setProjectDirPath(event.target.value);
@@ -93,9 +95,12 @@ export const TestSequencerProjectModal = ({
           //   />
           // </div>
         }
-        <Button variant={"default"} onClick={() => handleSubmit()}>
-          {" "}
-          New Project{" "}
+        <Button
+          variant={"default"}
+          data-testid="new-seq-modal-create-btn"
+          onClick={() => handleSubmit()}
+        >
+          New Sequence
         </Button>
       </DialogContent>
     </Dialog>

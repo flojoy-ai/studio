@@ -1,12 +1,15 @@
 import { createContext, useContext } from "react";
 import { SendJsonMessage } from "react-use-websocket/dist/lib/types";
-import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import {
+  useSequencerState,
+  useDisplayedSequenceState,
+} from "@/renderer/hooks/useTestSequencerState";
 import { useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { BackendMsg, Test } from "@/renderer/types/test-sequencer";
-import { mapToTestResult } from "@/renderer/routes/test_sequencer_panel/utils/TestUtils";
 import { toast } from "sonner";
 import { env } from "@/env";
+import { useSequencerStore } from "../stores/sequencer";
 
 type ContextType = {
   tSSendJsonMessage: SendJsonMessage;
@@ -22,14 +25,20 @@ export function TestSequencerWSProvider({
   children?: React.ReactNode;
 }) {
   const {
-    websocketId,
-    markTestAsDone,
-    addTestToRunning,
+    elems,
     setElems,
     setIsLocked,
-    setIsLoading,
+    setBackendGlobalState,
     setBackendState,
-  } = useTestSequencerState();
+  } = useDisplayedSequenceState();
+  const { handleUpload, runNextRunnableSequence } = useSequencerState();
+  const { saveCycle, websocketId, setIsLoading, updateSequenceStatus } =
+    useSequencerStore((state) => ({
+      saveCycle: state.saveCycle,
+      websocketId: state.websocketId,
+      setIsLoading: state.setIsLoading,
+      updateSequenceStatus: state.updateSequenceStatus,
+    }));
 
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
     `ws://${env.VITE_BACKEND_HOST}:${env.VITE_BACKEND_PORT}/ts-ws/${websocketId}`,
@@ -40,11 +49,24 @@ export function TestSequencerWSProvider({
     },
   );
 
+  const updateTestStatus = (id: string, status: string) => {
+    setElems.withException((elems) => {
+      const newElems = [...elems];
+      const idx = newElems.findIndex((elem) => elem.id === id);
+      newElems[idx] = {
+        ...newElems[idx],
+        status: status,
+      } as Test;
+      return newElems;
+    });
+  };
+
   // Set result when received from backend for specific test
   const setResult = (
     id: string,
-    result: boolean,
+    result: string,
     timeTaken: number,
+    createdAt: string,
     isSavedToCloud: boolean,
     error: string | null,
   ) => {
@@ -53,8 +75,9 @@ export function TestSequencerWSProvider({
       const idx = newElems.findIndex((elem) => elem.id === id);
       newElems[idx] = {
         ...newElems[idx],
-        status: mapToTestResult(result),
+        status: result,
         completionTime: timeTaken,
+        createdAt: createdAt,
         isSavedToCloud: isSavedToCloud,
         error: error,
       } as Test;
@@ -81,7 +104,6 @@ export function TestSequencerWSProvider({
   // Run when a new WebSocket message is received (lastJsonMessage)
   useEffect(() => {
     if (!lastJsonMessage) return;
-
     const msg = BackendMsg.safeParse(lastJsonMessage);
     if (!msg.success) {
       console.error(msg.error);
@@ -89,26 +111,28 @@ export function TestSequencerWSProvider({
     }
 
     switch (msg.data.state) {
+      // Global state ----------------------
       case "test_set_start":
-        setBackendState("test_set_start");
+        setBackendGlobalState(msg.data.state);
+        setBackendState(msg.data.state);
         break;
       case "test_set_export":
-        setBackendState("test_set_export");
+        setBackendGlobalState(msg.data.state);
+        setBackendState(msg.data.state);
         break;
-      case "test_done":
-        markTestAsDone(msg.data.target_id);
-        setResult(
-          msg.data.target_id,
-          msg.data.result,
-          msg.data.time_taken,
-          msg.data.is_saved_to_cloud,
-          msg.data.error,
-        );
-        // Don't specify a backend state here, because we want to keep the "RUNNER" or "EXPORT" state
-        break;
-      case "running":
-        addTestToRunning(msg.data.target_id);
-        // Don't specify a backend state here, because we want to keep the "RUNNER" or "EXPORT" state
+      case "test_set_done":
+        setBackendGlobalState(msg.data.state);
+        setBackendState(msg.data.state);
+        setIsLocked(false);
+        // eslint-disable-next-line no-case-declarations
+        const failed = elems.some((elem) => {
+          if (elem.type === "test") {
+            return elem.status === "fail";
+          }
+          return false;
+        });
+        updateSequenceStatus(failed ? "fail" : "pass");
+        runNextRunnableSequence(sendJsonMessage);
         break;
       case "error":
         toast.error(
@@ -119,12 +143,34 @@ export function TestSequencerWSProvider({
         );
         console.error(msg.data.error);
         setIsLocked(false);
-        setBackendState("error");
+        setBackendGlobalState(msg.data.state);
+        setBackendState(msg.data.state);
+        updateSequenceStatus(msg.data.status);
+        saveCycle();
+        handleUpload(true);
         break;
-      case "test_set_done":
-        console.log("tests are done", msg.data);
-        setIsLocked(false);
-        setBackendState("test_set_done");
+      // Test state -------------------------
+      case "test_done":
+        setResult(
+          msg.data.target_id,
+          msg.data.status,
+          msg.data.time_taken,
+          msg.data.created_at,
+          msg.data.is_saved_to_cloud,
+          msg.data.error,
+        );
+        setBackendState(msg.data.state);
+        break;
+      case "running":
+        updateTestStatus(msg.data.target_id, msg.data.state);
+        updateSequenceStatus(msg.data.state);
+        setBackendState(msg.data.state);
+        break;
+      case "paused":
+        updateTestStatus(msg.data.target_id, msg.data.state);
+        updateSequenceStatus(msg.data.state);
+        setBackendState(msg.data.state);
+
         break;
       default:
         break;

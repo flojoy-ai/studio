@@ -45,35 +45,6 @@ test.describe("Environment modal", () => {
     ).toBeVisible();
   });
 
-  test("Should set flojoy cloud API key", async () => {
-    test.setTimeout(60000);
-    // Define a test API key
-    const testAPIkey = "test-123";
-
-    // Clear the flojoy cloud input and fill with testAPIkey
-    await window.getByTestId(Selectors.flojoyCloudApiInput).clear();
-    await window.getByTestId(Selectors.flojoyCloudApiInput).fill(testAPIkey);
-
-    // Click on submit button
-    await window.getByTestId(Selectors.flojoyCloudApiSubmit).click();
-
-    try {
-      // Expect "FLOJOY_CLOUD_WORKSPACE_SECRET" to be listed in the modal
-      await expect(
-        window.getByText("FLOJOY_CLOUD_WORKSPACE_SECRET"),
-      ).toBeVisible({
-        timeout: 20000,
-      });
-    } catch (error) {
-      // #debug: Take a screenshot
-      await window.screenshot({
-        fullPage: true,
-        path: "test-results/flojoy-cloud-api.jpeg",
-      });
-      throw new Error(error.message);
-    }
-  });
-
   test("Should set given Env key value", async () => {
     test.setTimeout(60000);
     // Define a API key

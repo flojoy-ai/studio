@@ -1,166 +1,72 @@
-import { useContext, useState } from "react";
-import { DataTable } from "./data-table/DataTable";
-import { SummaryTable } from "./SummaryTable";
+import { TestTable } from "./data-table/TestTable";
+import { SequenceTable } from "./data-table/SequenceTable";
 import { CloudPanel } from "./CloudPanel";
-import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
-import {
-  testSequenceRunRequest,
-  testSequenceStopRequest,
-} from "@/renderer/routes/test_sequencer_panel/models/models";
-import { TestSequenceElement } from "@/renderer/types/test-sequencer";
-import { ImportTestModal } from "./ImportTestModal";
-import LockableButton from "./lockable/LockedButtons";
-import { TSWebSocketContext } from "@/renderer/context/testSequencerWS.context";
 import { LockedContextProvider } from "@/renderer/context/lock.context";
-import _ from "lodash";
 import {
   LAYOUT_TOP_HEIGHT,
   BOTTOM_STATUS_BAR_HEIGHT,
+  ACTIONS_HEIGHT,
 } from "@/renderer/routes/common/Layout";
-import { TestSequencerProjectModal } from "./TestSequencerProjectModal";
-import {
-  useImportProject,
-  useSaveProject,
-  useCloseProject,
-} from "@/renderer/hooks/useTestSequencerProject";
+import SequencerKeyboardShortcuts from "@/renderer/routes/test_sequencer_panel/SequencerKeyboardShortCuts";
+import { ControlButton } from "./ControlButton";
+import { DesignBar } from "./DesignBar";
+import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
+import { TestSequencerProjectModal } from "./modals/TestSequencerProjectModal";
+import { ImportTestModal } from "./modals/ImportTestModal";
+import { ErrorModal } from "./modals/ErrorModal";
+import { RenameTestModal } from "./modals/RenameTestModal";
 
 const TestSequencerView = () => {
-  const { setElems, tree, setIsLocked, backendState, project } =
-    useTestSequencerState();
-  const { tSSendJsonMessage } = useContext(TSWebSocketContext);
-  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
-
-  const resetStatus = () => {
-    setElems.withException((elems: TestSequenceElement[]) => {
-      const newElems: TestSequenceElement[] = [...elems].map((elem) => {
-        return elem.type === "test"
-          ? {
-              ...elem,
-              status: "pending",
-              completionTime: undefined,
-              isSavedToCloud: false,
-            }
-          : { ...elem };
-      });
-      return newElems;
-    });
-  };
-
-  const handleClickRunTest = () => {
-    console.log("Start test");
-    setIsLocked(true);
-    resetStatus();
-    tSSendJsonMessage(testSequenceRunRequest(tree));
-  };
-  const handleClickStopTest = () => {
-    console.log("Stop test");
-    tSSendJsonMessage(testSequenceStopRequest(tree));
-    setIsLocked(false);
-  };
-  const projectImport = useImportProject();
-  const saveProject = useSaveProject();
-  const closeProject = useCloseProject();
-  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
-  const handleClickImportTest = () => {
-    setIsImportModalOpen(true);
-  };
+  const { backendGlobalState } = useDisplayedSequenceState();
 
   return (
     <LockedContextProvider>
-      <TestSequencerProjectModal
-        isProjectModalOpen={isProjectModalOpen}
-        handleProjectModalOpen={setIsProjectModalOpen}
-      />
+      <SequencerKeyboardShortcuts />
+      <DesignBar />
       <div
         style={{
-          height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT}px)`,
+          height: ACTIONS_HEIGHT,
+          position: "absolute",
+          top: `calc(${LAYOUT_TOP_HEIGHT + ACTIONS_HEIGHT}px + 30px)`,
+          right: "50px",
+          zIndex: 10,
         }}
       >
-        <ImportTestModal
-          isModalOpen={isImportModalOpen}
-          handleModalOpen={setIsImportModalOpen}
-        />
-        <div className="flex overflow-y-auto">
-          <div
-            className="ml-auto mr-auto h-3/5 flex-grow flex-col overflow-y-auto"
-            style={{ height: "calc(100vh - 260px)" }}
-          >
-            <SummaryTable />
-            <DataTable />
+        <ControlButton />
+      </div>
+      <div
+        style={{
+          height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT + ACTIONS_HEIGHT}px)`,
+        }}
+        className="overflow-y-auto"
+      >
+        <TestSequencerProjectModal />
+        <ImportTestModal />
+        <ErrorModal />
+        <RenameTestModal />
+        <div className="flex">
+          <div className="ml-auto mr-auto mt-2 h-3/5 flex-grow flex-col overflow-y-auto">
+            <SequenceTable />
+            <TestTable />
           </div>
-
-          <div>
-            <div className="top-0 h-full flex-none overflow-y-auto pl-5">
-              <CloudPanel />
-              <div className="mt-5 rounded-xl border border-gray-300 p-4 py-4 dark:border-gray-800">
-                <div className="flex flex-col">
-                  <h2 className="mb-2 pt-3 text-center text-lg font-bold text-accent1 ">
-                    Control Panel
-                  </h2>
-                  <LockableButton
-                    className="mt-4 w-full"
-                    variant="outline"
-                    onClick={handleClickImportTest}
-                  >
-                    Add Python Tests
-                  </LockableButton>
-                  {project === null && (
-                    <LockableButton
-                      className="mt-4 w-full"
-                      variant="outline"
-                      onClick={projectImport}
-                    >
-                      Import Project
-                    </LockableButton>
-                  )}
-                  {project !== null && (
-                    <LockableButton
-                      className="mt-4 w-full"
-                      variant="outline"
-                      onClick={() => {
-                        saveProject();
-                      }}
-                    >
-                      Save Project
-                    </LockableButton>
-                  )}
-                  {project !== null && (
-                    <LockableButton
-                      className="mt-4 w-full"
-                      variant="outline"
-                      onClick={() => {
-                        closeProject();
-                      }}
-                    >
-                      Close Project
-                    </LockableButton>
-                  )}
-                  {project === null && (
-                    <LockableButton
-                      className="mt-4 w-full"
-                      variant="outline"
-                      onClick={() => {
-                        setIsProjectModalOpen(true);
-                      }}
-                    >
-                      New Project
-                    </LockableButton>
-                  )}
-                  <LockableButton
-                    variant="dotted"
-                    className="mt-4 w-full gap-2"
-                    isLocked={_.isEmpty(tree)}
-                    isException={backendState === "test_set_start"}
-                    onClick={
-                      backendState === "test_set_start"
-                        ? handleClickStopTest
-                        : handleClickRunTest
-                    }
-                  >
-                    {backendState === "test_set_start"
-                      ? "Stop Test Sequence"
-                      : "Run Test Sequence"}
-                  </LockableButton>
+          <div className="w-[442px] flex-none">
+            <div className="ml-5 mt-5 rounded-lg border bg-card px-6 pb-3 pt-4 text-card-foreground shadow-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+              <div className="h-14">
+                {backendGlobalState !== "test_set_start" && (
+                  <div>
+                    <h3 className="text-2xl font-semibold leading-none tracking-tight">
+                      Sequencer
+                    </h3>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      Execute and report to Flojoy Cloud
+                    </p>
+                  </div>
+                )}
+              </div>
+              <div className="flex flex-col">
+                <hr className="my-3" />
+                <div className="grid grid-cols-1 place-items-center gap-4 pb-2">
+                  <CloudPanel />
                 </div>
               </div>
             </div>

@@ -1,5 +1,4 @@
 import { memo, useState } from "react";
-
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { BlockSettingsModal } from "./BlockSettingsModal";
 import EnvVarModal from "./env-var/EnvVarModal";
@@ -16,7 +15,6 @@ import { EditorSettingsModal } from "./EditorSettingsModal";
 import { SaveAsButton, SaveButton } from "./ControlBar/SaveButtons";
 import { LoadButton } from "./ControlBar/LoadButton";
 import { ExportResultButton } from "./ControlBar/ExportResultButton";
-import FlowControlButtons from "./ControlBar/FlowControlButtons";
 import { DebugSettingsModal } from "./DebugSettingsModal";
 import DepManagerModal from "./DepManagerModal";
 import { DeviceSettingsModal } from "./DeviceSettingsModal";
@@ -24,6 +22,9 @@ import ProfileMenu from "./user-profile/ProfileMenu";
 import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
 import FeedbackModal from "./FeedbackModal";
+import { SaveSequencesButton } from "@/renderer/routes/test_sequencer_panel/components/control-bar/SaveButton";
+import { ImportSequencesButton } from "@/renderer/routes/test_sequencer_panel/components/control-bar/ImportButton";
+import { Icons } from "@/renderer/assets/icons";
 
 const ControlBar = () => {
   const { activeTab } = useAppStore(
@@ -81,24 +82,27 @@ const ControlBar = () => {
         setOpen={setIsFeedbackModalOpen}
       />
 
-      {(activeTab === "Visual Python Script" ||
-        activeTab === "Control Panel") && <FlowControlButtons />}
-
       <div className="flex">
         <Menubar>
           <MenubarMenu>
             <MenubarTrigger id="file-btn" data-testid="file-button">
               File
             </MenubarTrigger>
-            <MenubarContent>
-              <SaveButton />
-              <SaveAsButton />
-              <ExportResultButton />
-              <SaveFlowChartBtn />
-              <LoadButton />
-            </MenubarContent>
+            {activeTab === "Test Sequencer" ? (
+              <MenubarContent>
+                <SaveSequencesButton />
+                <ImportSequencesButton />
+              </MenubarContent>
+            ) : (
+              <MenubarContent>
+                <SaveButton />
+                <SaveAsButton />
+                <ExportResultButton />
+                <SaveFlowChartBtn />
+                <LoadButton />
+              </MenubarContent>
+            )}
           </MenubarMenu>
-
           <MenubarMenu>
             <MenubarTrigger data-testid="settings-btn">Settings</MenubarTrigger>
             <MenubarContent>
@@ -114,30 +118,34 @@ const ControlBar = () => {
               >
                 Environment Variables
               </MenubarItem>
-              <MenubarItem
-                data-testid="btn-keyboardshortcut"
-                onClick={() => setIsKeyboardShortcutOpen(true)}
-              >
-                Keyboard Shortcut
-              </MenubarItem>
-              <MenubarItem
-                data-testid="btn-editor-settings"
-                onClick={() => setIsEditorSettingsOpen(true)}
-              >
-                Editor Settings
-              </MenubarItem>
-              <MenubarItem
-                data-testid="btn-node-settings"
-                onClick={() => setIsBlockSettingsOpen(true)}
-              >
-                Node Settings
-              </MenubarItem>
-              <MenubarItem
-                data-testid="btn-device-settings"
-                onClick={() => setIsDeviceSettingsOpen(true)}
-              >
-                Device Settings
-              </MenubarItem>
+              {activeTab !== "Test Sequencer" && (
+                <>
+                  <MenubarItem
+                    data-testid="btn-keyboardshortcut"
+                    onClick={() => setIsKeyboardShortcutOpen(true)}
+                  >
+                    Keyboard Shortcut
+                  </MenubarItem>
+                  <MenubarItem
+                    data-testid="btn-editor-settings"
+                    onClick={() => setIsEditorSettingsOpen(true)}
+                  >
+                    Editor Settings
+                  </MenubarItem>
+                  <MenubarItem
+                    data-testid="btn-node-settings"
+                    onClick={() => setIsBlockSettingsOpen(true)}
+                  >
+                    Block Settings
+                  </MenubarItem>
+                  <MenubarItem
+                    data-testid="btn-device-settings"
+                    onClick={() => setIsDeviceSettingsOpen(true)}
+                  >
+                    Device Settings
+                  </MenubarItem>
+                </>
+              )}
               <MenubarItem
                 data-testid="btn-debug-settings"
                 onClick={() => setIsDebugSettingsOpen(true)}
@@ -157,7 +165,7 @@ const ControlBar = () => {
 
           <MenubarMenu>
             <MenubarTrigger onClick={() => setIsFeedbackModalOpen(true)}>
-              Feedback
+              <Icons.discord className="h-5 w-5" />
             </MenubarTrigger>
           </MenubarMenu>
         </Menubar>

@@ -106,11 +106,11 @@ const PathInput = React.forwardRef<HTMLInputElement, InputProps>(
         <Button
           variant={"none"}
           disabled={disabled}
+          data-testid="path-input-select-button"
           className="h-9 hover:accent-transparent"
           onClick={handlePickerClick}
         >
-          {" "}
-          {"Select"}{" "}
+          Select
         </Button>
       </div>
     );

@@ -3,7 +3,7 @@ import { Button } from "@/renderer/components/ui/button";
 import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import { Input } from "@/renderer/components/ui/input";
 import { Badge } from "@/renderer/components/ui/badge";
-import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,7 +25,7 @@ export const WriteConditionalModal = ({
   handleWrite: (input: string) => void;
 }) => {
   const [value, setValue] = useState("");
-  const { elems } = useTestSequencerState();
+  const { elems } = useDisplayedSequenceState();
   const [tests, setTests] = useState<string[]>([]);
 
   useEffect(() => {

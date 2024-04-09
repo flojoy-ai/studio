@@ -1,13 +1,13 @@
 import asyncio
+from datetime import datetime
 import subprocess
 import time
-from flojoy_cloud.client import FlojoyCloudException, FlojoyCloud
-from flojoy_cloud.measurement import MeasurementData
+from captain.routes.cloud import utcnow_str
 from flojoy_cloud import test_sequencer
 import traceback
 from typing import Callable, List, Union
 import pydantic
-
+from captain.internal.manager import TSManager
 from captain.models.test_sequencer import (
     IfNode,
     StatusTypes,
@@ -19,9 +19,9 @@ from captain.models.test_sequencer import (
 from captain.parser.bool_parser.bool_parser import eval_expression
 from captain.parser.bool_parser.expressions.models import Variable
 from captain.types.test_sequence import MsgState, TestSequenceMessage
+from captain.types.worker import PoisonPill
 from captain.utils.config import ts_manager
 from captain.utils.logger import logger
-from pkgs.flojoy.flojoy.env_var import get_env_var
 
 
 class TestResult:
@@ -31,11 +31,13 @@ class TestResult:
         result: bool,
         time_taken: float,
         error: str | None = None,
+        created_at: str = utcnow_str(),
     ):
         self.test_node = test_node
         self.result = result
         self.time_taken = time_taken
         self.error = error
+        self.created_at = created_at
 
 
 class TestError:
@@ -62,7 +64,9 @@ Extract = tuple[
 def _with_stream_test_result(func: Callable[[TestNode], Extract]):
     # TODO: support run in parallel feature
     async def wrapper(node: TestNode) -> Extract:
-        await _stream_result_to_frontend(MsgState.running, test_id=node.id)
+        await _stream_result_to_frontend(
+            MsgState.running, test_id=node.id, result=StatusTypes.pending
+        )
         test_sequencer._set_output_loc(node.id)
         children_getter, test_result = func(node)
         if test_result is None:
@@ -71,8 +75,9 @@ def _with_stream_test_result(func: Callable[[TestNode], Extract]):
             await _stream_result_to_frontend(
                 state=MsgState.test_done,
                 test_id=node.id,
-                result=test_result.result,
+                result=StatusTypes.pass_ if test_result.result else StatusTypes.fail,
                 time_taken=test_result.time_taken,  # TODO result, time_taken should be together
+                created_at=test_result.created_at,
                 error=test_result.error,
                 is_saved_to_cloud=False,
             )
@@ -112,6 +117,7 @@ def _run_python(node: TestNode) -> Extract:
             is_pass,
             end_time - start_time,
             result.stderr.decode() if not is_pass else None,
+            utcnow_str(),
         ),
     )
 
@@ -145,6 +151,7 @@ def _run_pytest(node: TestNode) -> Extract:
             is_pass,
             end_time - start_time,
             result.stdout.decode() if not is_pass else None,
+            utcnow_str(),
         ),
     )
 
@@ -178,15 +185,22 @@ def _eval_condition(
 async def _stream_result_to_frontend(
     state: MsgState,
     test_id: str = "",
-    result: bool = False,
+    result: StatusTypes = StatusTypes.pending,
     time_taken: float = 0,
+    created_at: str = datetime.now().isoformat(),
     is_saved_to_cloud: bool = False,
     error: str | None = None,
 ):
     asyncio.create_task(
         ts_manager.ws.broadcast(
             TestSequenceMessage(
-                state.value, test_id, result, time_taken, is_saved_to_cloud, error
+                state.value,
+                test_id,
+                result.value,
+                time_taken,
+                created_at,
+                is_saved_to_cloud,
+                error,
             )
         )
     )
@@ -194,11 +208,11 @@ async def _stream_result_to_frontend(
     await asyncio.sleep(0)  # still necessary for task yield
 
 
-async def _case_root(node: TestRootNode, **kwargs) -> Extract:
+async def _case_root(node: TestRootNode) -> Extract:
     return lambda _: node.children, None
 
 
-async def _case_if_node(node: IfNode, **kwargs) -> Extract:
+async def _case_if_node(node: IfNode) -> Extract:
     def get_next_children_from_context(context: Context):
         result_dict, identifiers = context.result_dict, context.identifiers
         expression_eval = _eval_condition(result_dict, node.condition, identifiers)
@@ -214,7 +228,6 @@ map_to_handler_run = (
     "type",
     {
         "root": (None, _case_root),
-        # "test": (None, _case_test),
         "test": (
             "test_type",
             {
@@ -233,27 +246,28 @@ map_to_handler_run = (
 
 
 async def _extract_from_node(
-    node: TestRootNode | TestSequenceElementNode, map_to_handler, **kwargs
+    node: TestRootNode | TestSequenceElementNode, map_to_handler
 ) -> Extract:
     if not bool(node.__dict__):
         return lambda _: None, None
     matcher, cur = map_to_handler
     while not callable(cur):
         matcher, cur = cur[node.__dict__[matcher]]
-    children_getter, test_result = await cur(
-        node, **kwargs
-    )  # sus name for the variable
+    children_getter, test_result = await cur(node)
     return children_getter, test_result
 
 
 # TODO have pydantic model for data, convert camelCase to snake_case
-async def run_test_sequence(data):
+async def run_test_sequence(data, ts_manager: TSManager):
     data = pydantic.TypeAdapter(TestRootNode).validate_python(data)
     identifiers = set(data.identifiers)
     context = Context({}, identifiers)
     try:
 
         async def run_dfs(node: TestRootNode | TestSequenceElementNode):
+            if isinstance(node, TestNode):
+                await ts_manager.wait_if_paused(node.id)
+
             children_getter, test_result = await _extract_from_node(
                 node, map_to_handler_run
             )
@@ -270,136 +284,9 @@ async def run_test_sequence(data):
         await _stream_result_to_frontend(state=MsgState.test_set_start)
         await run_dfs(data)  # run tests
         await _stream_result_to_frontend(state=MsgState.test_set_done)
-    except Exception as e:
-        await _stream_result_to_frontend(state=MsgState.error, error=str(e))
-        logger.error(f"{e}: {traceback.format_exc()}")
-
-
-def _with_stream_test_upload(func: Callable[[TestNode, str, str], Extract]):
-    async def wrapper(node: TestNode, hardware_id: str, project_id: str) -> Extract:
-        await _stream_result_to_frontend(MsgState.running, test_id=node.id)
-        try:
-            children_getter, test_result = func(node, hardware_id, project_id)
-            return children_getter, test_result
-        except Exception as e:
-            raise e
-        finally:
-            await _stream_result_to_frontend(
-                state=MsgState.test_done,
-                test_id=node.id,
-                result=True if node.status == StatusTypes.pass_ else False,
-                time_taken=node.completion_time if node.completion_time else -1,
-                is_saved_to_cloud=node.is_saved_to_cloud,
-            )
-
-    return wrapper
-
-
-@_with_stream_test_upload
-def _case_test_upload(node: TestNode, hardware_id: str, project_id: str) -> Extract:
-    if node.completion_time is None:
-        raise Exception(f"{node.id}: Can't upload a test that wasn't run")
-    if node.export_to_cloud:
-        cloud = FlojoyCloud(
-            workspace_secret=get_env_var("FLOJOY_CLOUD_WORKSPACE_SECRET")
-        )
-
-        def reverse_id(test_name) -> str:
-            tests = cloud.get_all_tests_by_project_id(project_id)
-            for i in tests:
-                if i.name == test_name:
-                    return str(i.id)
-            raise KeyError(f"No cloud test for {test_name}")
-
-        if node.status != StatusTypes.pending:
-            if node.completion_time is None:
-                raise Exception(f"{node.id}: Unexpected None for completion_time")
-            passed = True if node.status == StatusTypes.pass_ else False
-            data = test_sequencer._get_most_recent_data(node.id)
-            if not isinstance(data, MeasurementData):
-                logger.info(
-                    f"{node.id}: Unexpected data type for test data: {type(data)}"
-                )
-                data = passed
-            test_name = node.test_name
-            try:
-                node.is_saved_to_cloud = False
-                cloud.upload(
-                    data=data,
-                    test_id=reverse_id(test_name),
-                    hardware_id=hardware_id,
-                    name=test_name,
-                    passed=passed,
-                )
-                node.is_saved_to_cloud = True
-                logger.info(f"{test_name}: Uploaded to cloud")
-            except KeyError:  # Not in cloud: create a new test
-                cloud.create_test(test_name, project_id, measurement_type="boolean")
-                cloud.upload(
-                    data=passed,
-                    test_id=reverse_id(test_name),
-                    hardware_id=hardware_id,
-                    name=test_name,
-                    passed=passed,
-                )
-                node.is_saved_to_cloud = True
-                logger.info(f"{test_name}: Uploaded to cloud")
-            except FlojoyCloudException as err:
-                logger.error(err)
-                if "NOT_FOUND" in str(err):
-                    raise FlojoyCloudException(
-                        "Fail to upload to the cloud: Please make sure the hardware id is correct"
-                    ) from err
-                else:
-                    raise FlojoyCloudException(
-                        f"Failed to upload to the cloud: {err}"
-                    ) from err
-        else:
-            raise ValueError("Uploading a pending test is not allowed.")
-    return lambda _: None, TestResult(
-        node, True if node.status == StatusTypes.pass_ else False, node.completion_time
-    )
-
-
-map_to_handler_upload = (
-    "type",
-    {
-        "root": (None, _case_root),
-        "test": (None, _case_test_upload),
-        "conditional": (
-            "conditional_type",
-            {
-                "if": (None, _case_if_node),
-            },
-        ),
-    },
-)
-
-
-async def export_test_sequence(data, hardware_id, project_id):
-    data = pydantic.TypeAdapter(TestRootNode).validate_python(data)
-    identifiers = set(data.identifiers)
-    context = Context({}, identifiers)
-    try:
-        # Walking the tree with the same sequence as the last run and upload de TestNode
-        async def run_dfs(node: TestRootNode | TestSequenceElementNode):
-            children_getter, test_result = await _extract_from_node(
-                node,
-                map_to_handler_upload,
-                hardware_id=hardware_id,
-                project_id=project_id,
-            )
-            if test_result:
-                context.result_dict[test_result.test_node.test_name] = test_result
-            children = children_getter(context)
-            if not children:
-                return
-            for child in children:
-                await run_dfs(child)
-
-        await _stream_result_to_frontend(state=MsgState.test_set_export)
-        await run_dfs(data)  # Export tests
-        await _stream_result_to_frontend(state=MsgState.test_set_done)
+    except PoisonPill as e:
+        logger.info(f"PoisonPill received: {e}")
+        # Broadcast handled in TSManager
     except Exception as e:
         await _stream_result_to_frontend(state=MsgState.error, error=str(e))
         logger.error(f"{e}: {traceback.format_exc()}")

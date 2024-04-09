@@ -5,29 +5,26 @@ import {
   TestSequenceDropResult,
 } from "@/renderer/routes/test_sequencer_panel/models/drag_and_drop";
 import { TableCell, TableRow } from "@/renderer/components/ui/table";
-import { TestSequenceElement } from "@/renderer/types/test-sequencer";
 import { Row, flexRender } from "@tanstack/react-table";
 import { parseInt } from "lodash";
-import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import { useSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import { TestSequenceContainer } from "@/renderer/types/test-sequencer";
 
-export const DraggableRow = ({
+export const DraggableRowSequence = ({
+  isSelected,
   row,
-  ...props
 }: {
-  row: Row<TestSequenceElement>;
-}): React.ReactNode => {
-  const { elems, setElems } = useTestSequencerState();
+  isSelected: boolean;
+  row: Row<TestSequenceContainer>;
+}) => {
+  const { sequences, setSequences, displaySequence } = useSequencerState();
 
   const elementMover = (fromIdx: number, toIdx: number) => {
-    setElems((elems) => {
-      const new_elems = [...elems];
-      new_elems.splice(toIdx, 0, elems[fromIdx]);
-      // console.log(new_elems.map((elem) => elem.testName));
-      fromIdx = toIdx < fromIdx ? fromIdx + 1 : fromIdx;
-      new_elems.splice(fromIdx, 1);
-      // console.log(new_elems.map((elem) => elem.testName));
-      return new_elems;
-    });
+    const newSequences = [...sequences];
+    newSequences.splice(toIdx, 0, newSequences[fromIdx]);
+    fromIdx = toIdx < fromIdx ? fromIdx + 1 : fromIdx;
+    newSequences.splice(fromIdx, 1);
+    setSequences(newSequences);
   };
 
   //define behaviour for drag
@@ -46,7 +43,7 @@ export const DraggableRow = ({
         isDragging: monitor.isDragging(),
       }),
     }),
-    [elems],
+    [sequences],
   );
 
   //define behaviour for drop
@@ -73,12 +70,16 @@ export const DraggableRow = ({
     useConfigureDropRef(parseInt(row.id));
   const isActiveAbove = isOverAbove && canDropAbove;
 
+  const handleDisplaySequence = (idx: number) => {
+    displaySequence(sequences[idx].project.name);
+  };
+
   return (
     <TableRow
       style={{ opacity: isDragging ? 0.2 : 1 }}
-      className="relative"
+      className={"relative" + (isSelected ? " bg-primary-foreground" : "")}
+      onClick={() => handleDisplaySequence(row.index)}
       ref={drag}
-      {...props}
     >
       {/* capture drag on above */}
       <div ref={dropAbove} className="absolute top-0 z-10 h-1/2 w-full" />
@@ -101,7 +102,7 @@ export const DraggableRow = ({
       )}
 
       {row.getVisibleCells().map((cell) => (
-        <TableCell isCompact={true} key={cell.id}>
+        <TableCell isCompact={false} key={cell.id}>
           {flexRender(cell.column.columnDef.cell, cell.getContext())}
         </TableCell>
       ))}

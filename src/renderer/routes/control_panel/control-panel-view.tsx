@@ -11,6 +11,8 @@ import ReactFlow, {
   ReactFlowProvider,
   Node,
   applyNodeChanges,
+  Background,
+  BackgroundVariant,
 } from "reactflow";
 import ControlTextNode from "@/renderer/components/controls/control-text-node";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
@@ -20,7 +22,7 @@ import {
 } from "@/renderer/stores/project";
 import { Button } from "@/renderer/components/ui/button";
 import { ClearCanvasBtn } from "@/renderer/routes/flow_chart/components/ClearCanvasBtn";
-import { Text } from "lucide-react";
+import { Binary, Text } from "lucide-react";
 import { useCallback, useRef, useState } from "react";
 import { NewWidgetModal } from "./components/new-widget-modal";
 import { NewVisualizationModal } from "./components/new-visualization";
@@ -45,7 +47,11 @@ import { calculateContextMenuOffset } from "@/renderer/utils/context-menu";
 import { toast } from "sonner";
 import { useContextMenu } from "@/renderer/hooks/useContextMenu";
 import { deepMutableClone } from "@/renderer/utils/clone";
+import { Link } from "react-router-dom";
+import { useSocketStore } from "@/renderer/stores/socket";
+import FlowControlButtons from "../flow_chart/views/ControlBar/FlowControlButtons";
 import _ from "lodash";
+import { Input } from "@/renderer/components/ui/input";
 
 const nodeTypes = {
   TextNode: ControlTextNode,
@@ -196,8 +202,29 @@ const ControlPanelView = () => {
       }
     : undefined;
 
+  const serverStatus = useSocketStore((state) => state.serverStatus);
+
+  const { setProjectName, projectName, hasUnsavedChanges } = useProjectStore(
+    useShallow((state) => ({
+      setProjectName: state.setProjectName,
+      projectName: state.name,
+      hasUnsavedChanges: state.hasUnsavedChanges,
+    })),
+  );
+
   return (
     <ReactFlowProvider>
+      <div
+        style={{
+          height: ACTIONS_HEIGHT,
+          position: "absolute",
+          top: `calc(${LAYOUT_TOP_HEIGHT + ACTIONS_HEIGHT}px + 30px)`,
+          right: "50px",
+          zIndex: 10,
+        }}
+      >
+        <FlowControlButtons />
+      </div>
       <ConfigDialog
         initialValues={widgetConfig.current}
         open={widgetConfigOpen}
@@ -230,9 +257,40 @@ const ControlPanelView = () => {
             <Text size={20} className="stroke-muted-foreground" />
             Add Text
           </Button>
-
-          <div className="grow" />
           <ClearCanvasBtn clearCanvas={clearCanvas} />
+          <div className="grow" />
+          <div className="felx inline-flex items-center gap-2 px-4 pt-1">
+            {hasUnsavedChanges && (
+              <div className=" h-2 w-2 rounded-full bg-foreground/50" />
+            )}
+            <Input
+              className={
+                "h-6 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap border-muted/60 text-sm focus:border-muted-foreground focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 sm:w-48"
+              }
+              value={projectName}
+              onChange={(e) => setProjectName(e.target.value)}
+              placeholder="Untitled project"
+            />
+          </div>
+          <div />
+          <div
+            data-cy="app-status"
+            id="app-status"
+            className="mr-5 flex items-center justify-center text-sm"
+          >
+            <code>{serverStatus}</code>
+          </div>
+
+          <Link to="/flowchart" data-cy="script-btn">
+            <Button
+              data-testid="add-text-button"
+              className="w-40 gap-2"
+              variant="ghost"
+            >
+              <Binary size={20} className="stroke-muted-foreground" />
+              Editor View
+            </Button>
+          </Link>
         </div>
         <div className="py-1" />
       </div>
@@ -261,6 +319,7 @@ const ControlPanelView = () => {
           onPaneClick={onPaneClick}
           onNodeContextMenu={onNodeContextMenu}
         >
+          <Background color="#a6a6a6" variant={BackgroundVariant.Dots} />
           <Controls
             fitViewOptions={{ padding: 0.8 }}
             className="!bottom-1 !shadow-control"

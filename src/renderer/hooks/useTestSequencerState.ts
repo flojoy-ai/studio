@@ -6,6 +6,7 @@ import {
   IfNode,
   TestNode,
   TestType,
+  TestSequencerProject,
 } from "@/renderer/types/test-sequencer";
 import {
   checkUniqueNames,
@@ -17,7 +18,15 @@ import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useShallow } from "zustand/react/shallow";
 import { v4 as uuidv4 } from "uuid";
 import { Err, Ok, Result } from "neverthrow";
-import { verifyElementCompatibleWithProject } from "@/renderer/utils/TestSequenceProjectHandler";
+import { verifyElementCompatibleWithSequence } from "@/renderer/routes/test_sequencer_panel/utils/SequenceHandler";
+import { toast } from "sonner";
+import { SendJsonMessage } from "react-use-websocket/dist/lib/types";
+import { postSession } from "@/renderer/lib/api";
+import {
+  testSequencePauseRequest,
+  testSequenceResumeRequest,
+  testSequenceStopRequest,
+} from "../routes/test_sequencer_panel/models/models";
 
 // sync this with the definition of setElems
 export type SetElemsFn = {
@@ -30,7 +39,9 @@ export type SetElemsFn = {
  * This test sequence element is guaranteed to be valid.
  * @param elems - The array of test sequence elements
  */
-const createTestSequenceTree = (elems: TestSequenceElement[]): TestRootNode => {
+export const createTestSequenceTree = (
+  elems: TestSequenceElement[],
+): TestRootNode => {
   const identifiers = (
     elems.filter((elem) => elem.type === "test") as Test[]
   ).map((elem: Test) => {
@@ -107,22 +118,19 @@ export function createNewTest(
     error: null,
     isSavedToCloud: false,
     exportToCloud: exportToCloud === undefined ? true : exportToCloud,
+    createdAt: new Date().toISOString(),
   };
   return newTest;
 }
 
-export function useTestSequencerState() {
+export function useDisplayedSequenceState() {
   const {
     elems,
     setElements,
-    websocketId,
-    running,
-    markTestAsDone,
-    addTestToRunning,
-    isLoading,
-    setIsLoading,
     isLocked,
     setIsLocked,
+    backendGlobalState,
+    setBackendGlobalState,
     backendState,
     setBackendState,
     isUnsaved,
@@ -130,28 +138,22 @@ export function useTestSequencerState() {
     tree,
     setTree,
     project,
-    setProject,
   } = useSequencerStore(
     useShallow((state) => {
       return {
         elems: state.elements,
         setElements: state.setElements,
-        websocketId: state.websocketId,
-        running: state.curRun,
-        markTestAsDone: state.markTestAsDone,
-        addTestToRunning: state.addTestToRunning,
-        isLoading: state.isLoading,
-        setIsLoading: state.setIsLoading,
         isLocked: state.isLocked,
         setIsLocked: state.setIsLocked,
-        backendState: state.backendState,
+        backendGlobalState: state.backendGlobalState,
+        setBackendGlobalState: state.setBackendGlobalState,
+        backendState: state.playPauseState,
         setBackendState: state.setBackendState,
         isUnsaved: state.testSequenceUnsaved,
         setUnsaved: state.setTestSequenceUnsaved,
-        tree: state.testSequenceTree,
+        tree: state.testSequenceStepTree,
         setTree: state.setTestSequenceTree,
-        project: state.testSequencerProject,
-        setProject: state.setTestSequencerProject,
+        project: state.testSequenceDisplayed,
       };
     }),
   );
@@ -198,12 +200,11 @@ export function useTestSequencerState() {
   ): Promise<Result<null, Error>> {
     // Validate with project
     if (project !== null) {
-      const result = await verifyElementCompatibleWithProject(
+      const result = await verifyElementCompatibleWithSequence(
         project,
         newElems,
-        false,
       );
-      if (!result.ok) {
+      if (result.isErr()) {
         return new Err(result.error);
       }
     }
@@ -216,22 +217,215 @@ export function useTestSequencerState() {
 
   return {
     elems,
-    websocketId,
     setElems: setElemsWithPermissions,
-    AddNewElems: addNewElemsWithPermissions,
+    addNewElems: addNewElemsWithPermissions,
     tree,
-    running,
-    markTestAsDone,
-    addTestToRunning,
     setIsLocked,
     setBackendState,
+    setBackendGlobalState,
     isLocked,
-    isLoading,
     backendState,
-    setIsLoading,
+    backendGlobalState,
     setUnsaved,
     isUnsaved,
     project,
-    setProject,
+  };
+}
+
+export function useSequencerState() {
+  const {
+    isLocked,
+    setIsLocked,
+    tree,
+    project,
+    uploadAfterRun,
+    backendGlobalState,
+    serialNumber,
+    stationId,
+    integrity,
+    setIsUploaded,
+    sequences,
+    setSequences,
+    runRunnableSequencesFromCurrentOne,
+    runNextRunnableSequence,
+    displaySequence,
+    addNewSequence,
+    removeSequence,
+    cycleConfig,
+    saveCycle,
+    cycleRuns,
+    clearPreviousCycles,
+  } = useSequencerStore(
+    useShallow((state) => {
+      return {
+        isLocked: state.isLocked,
+        setIsLocked: state.setIsLocked,
+        tree: state.testSequenceStepTree,
+        project: state.testSequenceDisplayed,
+        uploadAfterRun: state.uploadAfterRun,
+        backendGlobalState: state.backendGlobalState,
+        serialNumber: state.serialNumber,
+        stationId: state.stationId,
+        integrity: state.integrity,
+        setIsUploaded: state.setIsUploaded,
+        sequences: state.sequences,
+        setSequences: state.setSequences,
+        runRunnableSequencesFromCurrentOne:
+          state.runRunnableSequencesFromCurrentOne,
+        runNextRunnableSequence: state.runNextRunnableSequence,
+        displaySequence: state.displaySequence,
+        addNewSequence: state.addNewSequence,
+        removeSequence: state.removeSequence,
+        // Cycles
+        cycleConfig: state.cycleConfig,
+        saveCycle: state.saveCycle,
+        cycleRuns: state.cycleRuns,
+        clearPreviousCycles: state.clearPreviousCycles,
+      };
+    }),
+  );
+
+  const { withPermissionCheck } = useWithPermission();
+
+  function addNewSeq(
+    val: TestSequencerProject,
+    elements: TestSequenceElement[],
+  ): void {
+    addNewSequence(val, elements);
+    displaySequence(val.name);
+  }
+
+  function displaySeq(name: string): void {
+    if (!isLocked) {
+      displaySequence(name);
+    }
+  }
+
+  function runNextRunnableSequenceAndCycle(sender: SendJsonMessage): void {
+    if (project === null) {
+      handleUpload(false);
+      return; // User only has steps
+    }
+    // Check if we are at the end of a cycle
+    let lastRunnableSequenceIdx = -1;
+    sequences.forEach((seq, idx) => {
+      if (seq.runable) {
+        lastRunnableSequenceIdx = idx;
+      }
+    });
+    const currentIdx = sequences.findIndex(
+      (seq) => seq.project.name === project.name,
+    );
+    if (
+      currentIdx === lastRunnableSequenceIdx &&
+      sequences[currentIdx].status !== "pending"
+    ) {
+      // Save cycle & run next the next one
+      saveCycle(); // Won't update the lenght of cycleRuns right away
+      if (
+        cycleRuns.length < cycleConfig.cycleCount - 1 ||
+        cycleConfig.infinite
+      ) {
+        const idx = sequences.findIndex((seq) => seq.runable);
+        if (idx !== -1) {
+          setIsLocked(true);
+          displaySequence(sequences[idx].project.name);
+          runRunnableSequencesFromCurrentOne(sender);
+        }
+      } else {
+        handleUpload(false, false);
+      }
+    } else {
+      // Run next sequence
+      runNextRunnableSequence(sender);
+    }
+  }
+
+  function handleUpload(aborted: boolean, forceUpload: boolean = false) {
+    if (uploadAfterRun || forceUpload) {
+      if (project === null) {
+        toast.warning("No sequence to upload, please create one.");
+        return;
+      }
+      const upload = async () => {
+        await postSession(serialNumber, stationId, integrity, aborted, "", [
+          ...useSequencerStore.getState().cycleRuns,
+        ]);
+      };
+      toast.promise(upload, {
+        loading: "Uploading result...",
+        success: () => {
+          setIsUploaded(true);
+          return "Uploaded result to cloud";
+        },
+        error: (err) => {
+          return `Failed to upload result: ${err}`;
+        },
+      });
+    }
+  }
+
+  function isValidCloudExport(): boolean {
+    return true;
+  }
+
+  function runSequencer(sender: SendJsonMessage): void {
+    if (uploadAfterRun && !isValidCloudExport) {
+      toast.error("Please fill in the required fields to upload to cloud.");
+    }
+    setIsUploaded(false);
+    if (project === null) {
+      setIsLocked(true);
+      runRunnableSequencesFromCurrentOne(sender);
+    } else {
+      clearPreviousCycles();
+      // Run from the first runable sequence
+      const idx = sequences.findIndex((seq) => seq.runable);
+      if (idx !== -1) {
+        setIsLocked(true);
+        displaySequence(sequences[idx].project.name);
+        runRunnableSequencesFromCurrentOne(sender);
+      } else {
+        toast.info("No sequence selected to run.");
+      }
+    }
+  }
+
+  function abortSequencer(sender: SendJsonMessage) {
+    toast.warning("Stopping sequencer after this test.");
+    sender(testSequenceStopRequest(tree));
+    setIsLocked(false);
+  }
+
+  function pauseSequencer(sender: SendJsonMessage) {
+    if (backendGlobalState === "test_set_start") {
+      toast.warning("Pausing sequencer after this test.");
+      console.log("Pause test");
+      sender(testSequencePauseRequest(tree));
+    }
+  }
+
+  function resumeSequencer(sender: SendJsonMessage) {
+    if (backendGlobalState === "test_set_start") {
+      toast.info("Resuming sequencer.");
+      console.log("Resume test");
+      sender(testSequenceResumeRequest(tree));
+    }
+  }
+
+  const setSequencesWithPermissions = withPermissionCheck(setSequences);
+
+  return {
+    sequences,
+    setSequences: setSequencesWithPermissions,
+    runSequencer,
+    abortSequencer,
+    pauseSequencer,
+    resumeSequencer,
+    runNextRunnableSequence: runNextRunnableSequenceAndCycle,
+    displaySequence: displaySeq,
+    addNewSequence: addNewSeq,
+    removeSequence,
+    handleUpload: handleUpload,
   };
 }

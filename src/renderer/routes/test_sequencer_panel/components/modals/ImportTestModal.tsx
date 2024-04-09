@@ -3,10 +3,11 @@ import { Checkbox } from "@/renderer/components/ui/checkbox";
 import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { Separator } from "@/renderer/components/ui/separator";
 import { useTestImport } from "@/renderer/hooks/useTestImport";
-import { useTestSequencerState } from "@/renderer/hooks/useTestSequencerState";
+import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
 import { useAppStore } from "@/renderer/stores/app";
+import { useSequencerModalStore } from "@/renderer/stores/modal";
 import { ExternalLinkIcon } from "lucide-react";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useShallow } from "zustand/react/shallow";
 
 export type ImportTestSettings = {
@@ -16,12 +17,9 @@ export type ImportTestSettings = {
 
 export type ImportType = "pytest" | "python";
 
-type Props = {
-  isModalOpen: boolean;
-  handleModalOpen: Dispatch<SetStateAction<boolean>>;
-};
-
-export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
+export const ImportTestModal = () => {
+  const { isImportTestModalOpen, setIsImportTestModalOpen } =
+    useSequencerModalStore();
   const [checked, setChecked] = useState<boolean>(false);
 
   const { setIsDepManagerModalOpen } = useAppStore(
@@ -31,7 +29,7 @@ export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
   );
 
   const openFilePicker = useTestImport();
-  const { setIsLocked } = useTestSequencerState();
+  const { setIsLocked } = useDisplayedSequenceState();
 
   const handleImportTest = (importType: ImportType) => {
     setIsLocked(true);
@@ -40,18 +38,23 @@ export const ImportTestModal = ({ isModalOpen, handleModalOpen }: Props) => {
         importType: importType,
         importAsOneRef: checked,
       },
-      handleModalOpen,
+      setIsImportTestModalOpen,
     );
     setIsLocked(false);
   };
 
   return (
-    <Dialog open={isModalOpen} onOpenChange={handleModalOpen}>
+    <Dialog
+      open={isImportTestModalOpen}
+      onOpenChange={setIsImportTestModalOpen}
+    >
       <DialogContent>
-        <h2 className="text-lg font-bold text-accent1">
-          Import Python Scripts & Tests
-        </h2>
-        <Button variant={"outline"} onClick={() => handleImportTest("pytest")}>
+        <h2 className="text-lg font-bold text-accent1">Import Tests</h2>
+        <Button
+          variant={"outline"}
+          onClick={() => handleImportTest("pytest")}
+          data-testid="pytest-btn"
+        >
           Pytest & Unittest
         </Button>
         <Button variant={"outline"} onClick={() => handleImportTest("python")}>

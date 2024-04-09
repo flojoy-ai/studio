@@ -1,5 +1,7 @@
 import { memo, ClipboardEvent, useState, useEffect, useCallback } from "react";
 import {
+  getCloudHealth,
+  getCloudUser,
   getEnvironmentVariables,
   postEnvironmentVariable,
 } from "@/renderer/lib/api";
@@ -38,6 +40,7 @@ const EnvVarModal = () => {
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
 
   const [flojoyCloudKey, setFlojoyCloudKey] = useState<string>("");
+  const [flojoyCloudUrl, setFlojoyCloudUrl] = useState<string>("");
 
   const fetchCredentials = useCallback(async () => {
     const res = await getEnvironmentVariables();
@@ -103,6 +106,11 @@ const EnvVarModal = () => {
       toast("Please enter your Flojoy Cloud workspace secret");
       return;
     }
+    const user = await getCloudUser(flojoyCloudKey);
+    if (user.isErr()) {
+      toast.error("Invalid Flojoy Cloud workspace secret");
+      return;
+    }
     const res = await postEnvironmentVariable({
       key: "FLOJOY_CLOUD_WORKSPACE_SECRET",
       value: flojoyCloudKey,
@@ -115,6 +123,37 @@ const EnvVarModal = () => {
       },
       (e) => {
         toast("Error adding your Flojoy Cloud workspace secret", {
+          description: e.message,
+        });
+      },
+    );
+  };
+
+  const handleSetCloudUrl = async () => {
+    if (flojoyCloudUrl === "") {
+      toast("Please enter your Flojoy Cloud");
+      return;
+    }
+    if (!flojoyCloudUrl.endsWith("/")) {
+      setFlojoyCloudUrl(flojoyCloudUrl + "/");
+    }
+    const serverHealth = await getCloudHealth(flojoyCloudUrl);
+    if (serverHealth.isErr()) {
+      toast.error("Invalid Flojoy Cloud URL");
+      return;
+    }
+    const res = await postEnvironmentVariable({
+      key: "FLOJOY_CLOUD_URL",
+      value: flojoyCloudUrl,
+    });
+    res.match(
+      () => {
+        toast("Successfully set your Flojoy Cloud Url!");
+        setFlojoyCloudUrl("");
+        fetchCredentials();
+      },
+      (e) => {
+        toast("Error adding your Flojoy Cloud Url", {
           description: e.message,
         });
       },
@@ -136,7 +175,7 @@ const EnvVarModal = () => {
           <a
             href={"https://cloud.flojoy.ai"} // TODO: repalce this with the ytb video link
             target="_blank"
-            className="text-sm underline"
+            className="text-xs underline"
           >
             Get your Flojoy Cloud workspace secret (in your workspace settings)
           </a>
@@ -154,6 +193,27 @@ const EnvVarModal = () => {
               data-testid="flojoy-cloud-api-submit"
               type="submit"
               onClick={withPermissionCheck(handleSetCloudKey)}
+            >
+              Set
+            </Button>
+          </div>
+
+          <div className="py-1" />
+          <p className="text-xs">Private Flojoy Cloud URL</p>
+          <div className="py-1" />
+          <div className="flex w-full items-center space-x-2">
+            <Input
+              type="text"
+              className="bg-modal"
+              data-testid="flojoy-cloud-url"
+              onChange={(e) => setFlojoyCloudUrl(e.target.value)}
+              value={flojoyCloudUrl}
+              placeholder="If not provided: https://cloud.flojoy.ai"
+            />
+            <Button
+              data-testid="flojoy-cloud-url-submit"
+              type="submit"
+              onClick={withPermissionCheck(handleSetCloudUrl)}
             >
               Set
             </Button>

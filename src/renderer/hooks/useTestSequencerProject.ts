@@ -1,110 +1,109 @@
 import useWithPermission from "./useWithPermission";
-import { useTestSequencerState } from "./useTestSequencerState";
+import {
+  useDisplayedSequenceState,
+  useSequencerState,
+} from "./useTestSequencerState";
 import { TestSequencerProject } from "@/renderer/types/test-sequencer";
 import { toast } from "sonner";
-import { Dispatch, SetStateAction } from "react";
 import {
-  createProject,
-  saveProject,
-  importProject,
+  createSequence,
+  saveSequence as saveSequence,
+  importSequence,
   StateManager,
-  closeProject,
-} from "@/renderer/utils/TestSequenceProjectHandler";
+  closeSequence,
+  saveSequences,
+} from "@/renderer/routes/test_sequencer_panel/utils/SequenceHandler";
+import { toastResultPromise } from "../utils/report-error";
 
-function usePrepareStateManager(
-  withoutPermission: boolean = false,
-): StateManager {
-  const { elems, setElems, project, setProject, setUnsaved } =
-    useTestSequencerState();
-  if (withoutPermission) {
-    return {
-      setElems: setElems.withException,
-      setProject,
-      setUnsaved,
-      elem: elems,
-      project,
-    };
-  }
-  return { setElems, setProject, setUnsaved, elem: elems, project };
+function usePrepareStateManager(): StateManager {
+  const { elems, project } = useDisplayedSequenceState();
+  const { addNewSequence, removeSequence, sequences } = useSequencerState();
+  return { elems, project, addNewSequence, removeSequence, sequences };
 }
 
-export function useSaveProject() {
+export function useSaveSequence() {
   const { withPermissionCheck } = useWithPermission();
   const manager = usePrepareStateManager();
   const handle = async () => {
-    toast.promise(saveProject(manager, true), {
-      loading: "Saving project...",
-      success: (result) => {
-        if (result.ok) {
-          return "Project saved";
-        } else {
-          return `Error saving project: ${result.error}`;
-        }
-      },
-      error: (e) => `Error saving project: ${e}`,
+    toastResultPromise(saveSequence(manager), {
+      loading: "Saving sequence...",
+      success: () => "Sequence saved",
+      error: (e) => `${e}`,
     });
   };
 
   return withPermissionCheck(handle);
 }
 
-export function useCreateProject() {
+export function useSaveAllSequences() {
+  const { withPermissionCheck } = useWithPermission();
+  const manager = usePrepareStateManager();
+  const handle = async () => {
+    toastResultPromise(saveSequences(manager), {
+      loading: "Saving sequences...",
+      success: () => "Sequences saved",
+      error: (e) => `${e}`,
+    });
+  };
+
+  return withPermissionCheck(handle);
+}
+
+export function useCreateSequence() {
   const { withPermissionCheck } = useWithPermission();
   const manager = usePrepareStateManager();
   const handle = async (
     project: TestSequencerProject,
-    setModalOpen: Dispatch<SetStateAction<boolean>> | null,
+    setModalOpen: (val: boolean) => void | null,
   ) => {
-    toast.promise(createProject(project, manager, true), {
-      loading: "Creating project...",
-      success: (result) => {
-        if (result.ok) {
-          if (setModalOpen) {
-            setModalOpen(false);
-          }
-          return "Project created";
-        } else {
-          return `Error creating project: ${result.error}`;
-        }
+    toastResultPromise(createSequence(project, manager), {
+      loading: "Creating sequence...",
+      success: () => {
+        setModalOpen(false);
+        return "Sequence created";
       },
-      error: (e) => `Error creating project: ${e}`,
+      error: (e) => `${e}`,
     });
   };
 
   return withPermissionCheck(handle);
 }
 
-export const useImportProject = () => {
-  const { isUnsaved } = useTestSequencerState();
-  const manager = usePrepareStateManager(true);
+export const useImportSequences = () => {
+  // TODO - When technicien in user, open from cloud project list
+  const manager = usePrepareStateManager();
   const handleImport = async () => {
-    if (isUnsaved) {
-      const shouldContinue = window.confirm(
-        "You have unsaved changes. Do you want to continue?",
+    const result = await window.api.openFilesPicker(
+      ["tjoy"],
+      "Select your .tjoy file",
+    );
+    if (!result || result.length === 0) return;
+    const importSequences = async () => {
+      await Promise.all(
+        result.map(async (res, idx) => {
+          const { filePath, fileContent } = res;
+          const result = await importSequence(
+            filePath,
+            fileContent,
+            manager,
+            idx !== 0,
+          );
+          if (result.isErr()) throw result.error;
+        }),
       );
-      if (!shouldContinue) return;
-    }
-    window.api.openFilePicker(["tjoy"]).then((result) => {
-      if (!result) return;
-      const { filePath, fileContent } = result;
-      toast.promise(importProject(filePath, fileContent, manager, true), {
-        loading: "Importing project...",
-        success: (result) => {
-          if (result.ok) {
-            return "Project imported";
-          } else {
-            return `Error importing project: ${result.error}`;
-          }
-        },
-        error: (e) => `Error importing project: ${e}`,
-      });
+    };
+    const s = result.length > 1 ? "s" : "";
+    toast.promise(importSequences, {
+      loading: `Importing${s} sequence...`,
+      success: () => `Sequence${s} imported`,
+      error: (e) => `${e}`,
     });
   };
   return handleImport;
 };
 
-export const useCloseProject = () => {
-  const { isUnsaved } = useTestSequencerState();
+export const useCloseSequence = () => {
+  const { isUnsaved } = useDisplayedSequenceState();
   const manager = usePrepareStateManager();
   const handle = async () => {
     if (isUnsaved) {
@@ -113,7 +112,7 @@ export const useCloseProject = () => {
       );
       if (!shouldContinue) return;
     }
-    await closeProject(manager);
+    await closeSequence(manager);
   };
 
   return handle;
