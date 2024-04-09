@@ -9,6 +9,8 @@ import { toast } from "sonner";
 import { useCallback } from "react";
 import { discoverPytest } from "@/renderer/lib/api";
 import { useSequencerModalStore } from "../stores/modal";
+import { toastResultPromise } from "../utils/report-error";
+import { Result, err, ok } from "neverthrow";
 
 function parseDiscoverContainer(
   data: TestDiscoverContainer,
@@ -44,7 +46,7 @@ export const useTestImport = () => {
     path: string,
     settings: ImportTestSettings,
     setModalOpen: (val: boolean) => void,
-  ) {
+  ): Promise<Result<void, Error>> {
     let data: TestDiscoverContainer;
     if (settings.importType == "python") {
       data = {
@@ -55,12 +57,12 @@ export const useTestImport = () => {
     } else {
       const res = await discoverPytest(path, settings.importAsOneRef);
       if (res.isErr()) {
-        throw res.error;
+        return err(res.error);
       }
       data = res.value;
     }
     if (data.error) {
-      throw new Error(data.error);
+      return err(Error(data.error));
     }
     for (const lib of data.missingLibraries) {
       toast.error(`Missing Python Library: ${lib}`, {
@@ -71,17 +73,18 @@ export const useTestImport = () => {
           },
         },
       });
-      throw new Error("Please retry after installing the missing libraries.");
+      return err(Error("Please retry after installing the missing libraries."));
     }
     const newElems = parseDiscoverContainer(data, settings);
     if (newElems.length === 0) {
-      throw new Error("No tests were found in the specified file.");
+      return err(Error("No tests were found in the specified file."));
     }
     const result = await AddNewElems(newElems);
     if (result.isErr()) {
-      throw result.error;
+      return err(result.error);
     }
     setModalOpen(false);
+    return ok(undefined);
   }
 
   const openFilePicker = (
@@ -93,7 +96,7 @@ export const useTestImport = () => {
       .then((result) => {
         if (!result) return;
         const { filePath } = result;
-        toast.promise(getTests(filePath, settings, setModalOpen), {
+        toastResultPromise(getTests(filePath, settings, setModalOpen), {
           loading: "Importing test...",
           success: () => {
             return "Test Imported.";
