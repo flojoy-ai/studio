@@ -15,8 +15,7 @@ import {
 } from "@/renderer/routes/test_sequencer_panel/utils/SequenceHandler";
 import { toastResultPromise } from "../utils/report-error";
 
-function usePrepareStateManager(
-): StateManager {
+function usePrepareStateManager(): StateManager {
   const { elems, project } = useDisplayedSequenceState();
   const { addNewSequence, removeSequence, sequences } = useSequencerState();
   return { elems, project, addNewSequence, removeSequence, sequences };

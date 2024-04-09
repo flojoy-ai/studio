@@ -159,7 +159,7 @@ export const registerIpcMainHandlers = () => {
   ipcMain.handle(API.openEditorWindow, (_, filepath) => {
     createEditorWindow(filepath);
   });
-  
+
   ipcMain.handle(API.loadFileFromFullPath, (_, filepath) => {
     return loadFileFromFullPath(filepath);
   });

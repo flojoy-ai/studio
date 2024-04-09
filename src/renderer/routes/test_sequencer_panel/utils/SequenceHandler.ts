@@ -185,7 +185,9 @@ function updatePath(
   };
 }
 
-async function saveToDisk(sequence: TestSequencerProject): Promise<Result<void, Error>> {
+async function saveToDisk(
+  sequence: TestSequencerProject,
+): Promise<Result<void, Error>> {
   // Deps
   if (sequence.interpreter.requirementsPath) {
     const deps = await window.api.poetryShowUserGroup();
@@ -202,7 +204,7 @@ async function saveToDisk(sequence: TestSequencerProject): Promise<Result<void, 
   const didSave = await window.api.saveFileToDisk(
     sequence.projectPath + sequence.name + ".tjoy",
     stringifySequence(sequence),
-  )
+  );
   if (!didSave) {
     return err(Error(`Failed to save file to ${sequence.projectPath}`));
   } else {
@@ -255,17 +257,17 @@ async function createExportableSequenceElementsFromTestSequencerElements(
   const elements = [...elems].map((elem) => {
     return elem.type === "test"
       ? createNewTest(
-        removeBaseFolderFromName(elem.testName, baseFolder),
-        elem.path.replaceAll(baseFolder, ""),
-        elem.testType,
-        elem.exportToCloud,
-        elem.id,
-        elem.groupId,
-      )
+          removeBaseFolderFromName(elem.testName, baseFolder),
+          elem.path.replaceAll(baseFolder, ""),
+          elem.testType,
+          elem.exportToCloud,
+          elem.id,
+          elem.groupId,
+        )
       : {
-        ...elem,
-        condition: elem.condition.replaceAll(baseFolder, ""),
-      };
+          ...elem,
+          condition: elem.condition.replaceAll(baseFolder, ""),
+        };
   });
   return ok(elements);
 }
@@ -278,16 +280,16 @@ async function createTestSequencerElementsFromSequenceElements(
   const elements: TestSequenceElement[] = [...sequence.elems].map((elem) => {
     return elem.type === "test"
       ? createNewTest(
-        removeBaseFolderFromName(elem.testName, baseFolder),
-        baseFolder + elem.path,
-        elem.testType,
-        elem.exportToCloud,
-        elem.id,
-        elem.groupId,
-      )
+          removeBaseFolderFromName(elem.testName, baseFolder),
+          baseFolder + elem.path,
+          elem.testType,
+          elem.exportToCloud,
+          elem.id,
+          elem.groupId,
+        )
       : {
-        ...elem,
-      };
+          ...elem,
+        };
   });
   sequence.elems = elements;
   if (verifState) {

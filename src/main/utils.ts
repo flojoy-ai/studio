@@ -72,7 +72,7 @@ export const ifconfig = async () => {
 export const writeFileSync = (_, filePath: string, text: string): boolean => {
   try {
     fs.writeFileSync(filePath, text);
-    return true
+    return true;
   } catch (error) {
     log.error("Something went wrong when writing to file", error);
     return false;
