@@ -2,7 +2,7 @@
   "name": "flojoy-studio",
   "productName": "Flojoy Studio",
   "description": "Joyful visual programming for Python",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "private": true,
   "homepage": "./",
   "author": "Jack Parmer <jp@flojoy.io>",
