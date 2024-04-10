@@ -154,7 +154,7 @@ export function TestTable() {
       cell: ({ row }) => {
         return row.original.type === "test" && row.original.minValue !== null ? (
           <div className="flex justify-center">
-            <code className="text-muted-foreground">{row.original.minValue}</code>
+            <code className="text-muted-foreground">{row.original.minValue}{row.original.unit}</code>
           </div>
         ) : null;
       },
@@ -169,7 +169,7 @@ export function TestTable() {
       cell: ({ row }) => {
         return row.original.type === "test" && row.original.maxValue !== null ? (
           <div className="flex justify-center">
-            <code className=" text-muted-foreground">{row.original.maxValue}</code>
+            <code className=" text-muted-foreground">{row.original.maxValue}{row.original.unit}</code>
           </div>
         ) : null;
       },
@@ -182,24 +182,9 @@ export function TestTable() {
       },
       header: () => (<div className="text-center pl-4">Measured</div>),
       cell: ({ row }) => {
-        return row.original.type === "test" && row.original.measuredValue !== null ? (
+        return row.original.type === "test" && row.original.measuredValue != null  ? (
           <div className="flex justify-center">
-            <code>{row.original.measuredValue}</code>
-          </div>
-        ) : null;
-      },
-    },
-
-    {
-      id: 'Unit',
-      accessorFn: (elem) => {
-        return elem.type === "test" ? "unit" : null;
-      },
-      header: () => (<div className="text-center pl-4">Unit</div>),
-      cell: ({ row }) => {
-        return row.original.type === "test" && row.original.unit !== null ? (
-          <div className="flex justify-center">
-            <p className="text-muted-foreground">{row.original.unit}</p>
+            <code>{row.original.measuredValue}{row.original.unit}</code>
           </div>
         ) : null;
       },
