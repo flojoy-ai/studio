@@ -152,7 +152,7 @@ export function TestTable() {
       },
       header: () => (<div className="text-center pl-4">Min</div>),
       cell: ({ row }) => {
-        return row.original.type === "test" && row.original.minValue !== null ? (
+        return row.original.type === "test" && row.original.minValue !== undefined ? (
           <div className="flex justify-center">
             <code className="text-muted-foreground">{row.original.minValue}{row.original.unit}</code>
           </div>
@@ -167,7 +167,7 @@ export function TestTable() {
       },
       header: () => (<div className="text-center pl-4">Max</div>),
       cell: ({ row }) => {
-        return row.original.type === "test" && row.original.maxValue !== null ? (
+        return row.original.type === "test" && row.original.maxValue !== undefined ? (
           <div className="flex justify-center">
             <code className=" text-muted-foreground">{row.original.maxValue}{row.original.unit}</code>
           </div>
@@ -217,12 +217,11 @@ export function TestTable() {
       accessorFn: (elem) => {
         return elem.type === "test" ? "completionTime" : null;
       },
-      header: () => (<div className="text-center pl-4">Completion Time</div>),
+      header: () => (<div className="text-center pl-4">Time</div>),
       cell: ({ row }) => {
         return row.original.type === "test" ? (
           <div className="flex justify-center">
-            {row.original.completionTime &&
-              row.original.completionTime.toFixed(2)}s
+          { row.original.completionTime ? `${row.original.completionTime.toFixed(2)}s` : "0.00s" }
           </div>
         ) : null;
       },
@@ -383,8 +382,8 @@ export function TestTable() {
       const test = new_data[writeMinMaxForIdx.current] as Test;
       new_data[writeMinMaxForIdx.current] = {
         ...test,
-        minValue,
-        maxValue,
+        minValue: isNaN(minValue) ? undefined : minValue,
+        maxValue: isNaN(maxValue) ? undefined : maxValue,
         unit
       };
       return new_data;
