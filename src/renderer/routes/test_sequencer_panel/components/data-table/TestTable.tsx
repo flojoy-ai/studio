@@ -182,7 +182,7 @@ export function TestTable() {
       },
       header: () => (<div className="text-center pl-4">Measured</div>),
       cell: ({ row }) => {
-        return row.original.type === "test" && row.original.measuredValue != null  ? (
+        return row.original.type === "test" && row.original.measuredValue !== undefined ? (
           <div className="flex justify-center">
             <code>{row.original.measuredValue}{row.original.unit}</code>
           </div>
