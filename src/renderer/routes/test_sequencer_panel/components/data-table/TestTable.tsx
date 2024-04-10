@@ -133,7 +133,7 @@ export function TestTable() {
     // },
 
     {
-      id: 'typeColumn',
+      id: 'Test Type',
       accessorFn: (elem) => {
         return elem.type === "test" ? "type" : null;
       },
@@ -146,7 +146,7 @@ export function TestTable() {
     },
 
     {
-      id: 'minColumn',
+      id: 'Min',
       accessorFn: (elem) => {
         return elem.type === "test" ? "min" : null;
       },
@@ -154,14 +154,14 @@ export function TestTable() {
       cell: ({ row }) => {
         return row.original.type === "test" && row.original.minValue !== null ? (
           <div className="flex justify-center">
-            <code className="text-foreground">{row.original.minValue}</code>
+            <code className="text-muted-foreground">{row.original.minValue}</code>
           </div>
         ) : null;
       },
     },
 
     {
-      id: 'maxColumn',
+      id: 'Max',
       accessorFn: (elem) => {
         return elem.type === "test" ? "max" : null;
       },
@@ -169,14 +169,14 @@ export function TestTable() {
       cell: ({ row }) => {
         return row.original.type === "test" && row.original.maxValue !== null ? (
           <div className="flex justify-center">
-            <code className="text-foreground">{row.original.maxValue}</code>
+            <code className=" text-muted-foreground">{row.original.maxValue}</code>
           </div>
         ) : null;
       },
     },
 
     {
-      id: 'measuredColumn',
+      id: 'Measured',
       accessorFn: (elem) => {
         return elem.type === "test" ? "measured_value" : null;
       },
@@ -191,7 +191,7 @@ export function TestTable() {
     },
 
     {
-      id: 'unitColumn',
+      id: 'Unit',
       accessorFn: (elem) => {
         return elem.type === "test" ? "unit" : null;
       },
@@ -199,14 +199,14 @@ export function TestTable() {
       cell: ({ row }) => {
         return row.original.type === "test" && row.original.unit !== null ? (
           <div className="flex justify-center">
-            <code>{row.original.unit}</code>
+            <p className="text-muted-foreground">{row.original.unit}</p>
           </div>
         ) : null;
       },
     },
 
     {
-      id: 'exportColumm',
+      id: 'Export',
       accessorFn: (elem) => {
         return elem.type === "test" ? "isSavedToCloud" : null;
       },
@@ -228,23 +228,23 @@ export function TestTable() {
     },
 
     {
-      id: 'idColumn',
+      id: 'Completion Time',
       accessorFn: (elem) => {
         return elem.type === "test" ? "completionTime" : null;
       },
-      header: () => (<div className="text-center pl-4">Time</div>),
+      header: () => (<div className="text-center pl-4">Completion Time</div>),
       cell: ({ row }) => {
         return row.original.type === "test" ? (
           <div className="flex justify-center">
             {row.original.completionTime &&
-              row.original.completionTime.toFixed(2)}
+              row.original.completionTime.toFixed(2)}s
           </div>
         ) : null;
       },
     },
 
     {
-      id: 'statusColumn',
+      id: 'Status',
       accessorFn: (elem) => {
         return elem.type === "test" ? "status" : null;
       },
