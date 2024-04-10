@@ -133,78 +133,94 @@ export function TestTable() {
     // },
 
     {
+      id: 'typeColumn',
       accessorFn: (elem) => {
         return elem.type === "test" ? "type" : null;
       },
-      header: "Test Type",
+      header: () => (<div className="text-center pl-4">Type</div>),
       cell: ({ row }) => {
         return row.original.type === "test" ? (
-          <div>{row.original.testType}</div>
+          <div className="flex justify-center">{row.original.testType}</div>
         ) : null;
       },
     },
 
     {
+      id: 'minColumn',
       accessorFn: (elem) => {
         return elem.type === "test" ? "min" : null;
       },
-      header: "Min",
+      header: () => (<div className="text-center pl-4">Min</div>),
       cell: ({ row }) => {
         return row.original.type === "test" && row.original.minValue !== null ? (
-          <code className="text-foreground">{row.original.minValue}</code>
+          <div className="flex justify-center">
+            <code className="text-foreground">{row.original.minValue}</code>
+          </div>
         ) : null;
       },
     },
 
     {
+      id: 'maxColumn',
       accessorFn: (elem) => {
         return elem.type === "test" ? "max" : null;
       },
-      header: "Max",
+      header: () => (<div className="text-center pl-4">Max</div>),
       cell: ({ row }) => {
         return row.original.type === "test" && row.original.maxValue !== null ? (
-          <code className="text-foreground">{row.original.maxValue}</code>
+          <div className="flex justify-center">
+            <code className="text-foreground">{row.original.maxValue}</code>
+          </div>
         ) : null;
       },
     },
 
     {
+      id: 'measuredColumn',
       accessorFn: (elem) => {
         return elem.type === "test" ? "measured_value" : null;
       },
-      header: "Measured",
+      header: () => (<div className="text-center pl-4">Measured</div>),
       cell: ({ row }) => {
         return row.original.type === "test" && row.original.measuredValue !== null ? (
-          <code>{row.original.measuredValue}</code>
+          <div className="flex justify-center">
+            <code>{row.original.measuredValue}</code>
+          </div>
         ) : null;
       },
     },
 
     {
+      id: 'unitColumn',
       accessorFn: (elem) => {
         return elem.type === "test" ? "unit" : null;
       },
-      header: "Unit",
+      header: () => (<div className="text-center pl-4">Unit</div>),
       cell: ({ row }) => {
         return row.original.type === "test" && row.original.unit !== null ? (
-          <code>{row.original.unit}</code>
+          <div className="flex justify-center">
+            <code>{row.original.unit}</code>
+          </div>
         ) : null;
       },
     },
 
     {
+      id: 'exportColumm',
       accessorFn: (elem) => {
         return elem.type === "test" ? "isSavedToCloud" : null;
       },
-      header: "Export",
+      header: () => (<div className="text-center pl-4">Export</div>),
       cell: ({ row }) => {
         if (row.original.type === "test") {
           return (
-            <Checkbox
-              className="relative z-10 my-2"
-              checked={row.original.exportToCloud}
-              onCheckedChange={() => toggleExportToCloud(row.original.id)}
-            />
+            <div className="flex justify-center">
+              <Checkbox
+                className="relative z-10 my-2"
+                checked={row.original.exportToCloud}
+                onCheckedChange={() => toggleExportToCloud(row.original.id)}
+              />
+            </div>
           );
         }
         return null;
@@ -212,13 +228,14 @@ export function TestTable() {
     },
 
     {
+      id: 'idColumn',
       accessorFn: (elem) => {
         return elem.type === "test" ? "completionTime" : null;
       },
-      header: "Time",
+      header: () => (<div className="text-center pl-4">Time</div>),
       cell: ({ row }) => {
         return row.original.type === "test" ? (
-          <div>
+          <div className="flex justify-center">
             {row.original.completionTime &&
               row.original.completionTime.toFixed(2)}
           </div>
@@ -227,13 +244,14 @@ export function TestTable() {
     },
 
     {
+      id: 'statusColumn',
       accessorFn: (elem) => {
         return elem.type === "test" ? "status" : null;
       },
-      header: "Status",
+      header: () => (<div className="text-center pl-4">Status</div>),
       cell: ({ row }) => {
         return row.original.type === "test" ? (
-          <div className="my-2">
+          <div className="my-2 flex justify-center">
             {typeof mapStatusToDisplay[row.original.status] === "function"
               ? mapStatusToDisplay[row.original.status](row.original.error)
               : mapStatusToDisplay[row.original.status]}
