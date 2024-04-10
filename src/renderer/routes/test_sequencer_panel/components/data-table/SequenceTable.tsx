@@ -102,7 +102,7 @@ export function SequenceTable() {
 
     {
       accessorKey: "run",
-      header: () => (<div className="text-center pl-4">Run</div>),
+      header: () => <div className="pl-4 text-center">Run</div>,
       cell: ({ row }) => {
         return (
           <div className="flex justify-center">
@@ -120,7 +120,7 @@ export function SequenceTable() {
 
     {
       accessorKey: "status",
-      header: () => (<div className="text-center">Status</div>),
+      header: () => <div className="text-center">Status</div>,
       cell: ({ row }) => {
         return (
           <div className="flex justify-center">
@@ -134,7 +134,7 @@ export function SequenceTable() {
 
     {
       accessorKey: "success_rate",
-      header: () => (<div className="text-center pl-4">Success Rate</div>),
+      header: () => <div className="pl-4 text-center">Success Rate</div>,
       cell: ({ row }) => {
         return (
           <div className="flex justify-center">
@@ -148,7 +148,7 @@ export function SequenceTable() {
 
     {
       accessorKey: "completion_time",
-      header: () => (<div className="text-center pl-4">Completion Time</div>),
+      header: () => <div className="pl-4 text-center">Completion Time</div>,
       cell: ({ row }) => {
         const time = getCompletionTime(row.original.elements);
         return (
@@ -312,9 +312,9 @@ export function SequenceTable() {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
                     </TableHead>
                   );
                 })}

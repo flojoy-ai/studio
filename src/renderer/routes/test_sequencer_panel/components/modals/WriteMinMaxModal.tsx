@@ -3,7 +3,6 @@ import { Button } from "@/renderer/components/ui/button";
 import { useState } from "react";
 import { Input } from "@/renderer/components/ui/input";
 
-
 export const WriteMinMaxModal = ({
   isModalOpen,
   setModalOpen,
@@ -18,12 +17,12 @@ export const WriteMinMaxModal = ({
   const [unit, setUnit] = useState("");
 
   return (
-    <Dialog
-      open={isModalOpen}
-      onOpenChange={setModalOpen}
-    >
+    <Dialog open={isModalOpen} onOpenChange={setModalOpen}>
       <DialogContent>
-        <h2 className="text-lg font-bold text-accent1"> Edit Expected Value </h2>
+        <h2 className="text-lg font-bold text-accent1">
+          {" "}
+          Edit Expected Value{" "}
+        </h2>
 
         <div className="flex gap-2">
           <div className="grow pb-1 text-xs">

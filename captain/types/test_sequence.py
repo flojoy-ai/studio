@@ -28,7 +28,15 @@ class TestSequenceMessage(dict):
     value: Optional[float]
 
     def __init__(
-        self, state, target_id, status, time_taken, created_at, is_saved_to_cloud, error, value
+        self,
+        state,
+        target_id,
+        status,
+        time_taken,
+        created_at,
+        is_saved_to_cloud,
+        error,
+        value,
     ):
         self["state"] = state
         self["target_id"] = target_id

@@ -133,11 +133,11 @@ export function TestTable() {
     // },
 
     {
-      id: 'Test Type',
+      id: "Test Type",
       accessorFn: (elem) => {
         return elem.type === "test" ? "type" : null;
       },
-      header: () => (<div className="text-center pl-4">Type</div>),
+      header: () => <div className="pl-4 text-center">Type</div>,
       cell: ({ row }) => {
         return row.original.type === "test" ? (
           <div className="flex justify-center">{row.original.testType}</div>
@@ -146,56 +146,68 @@ export function TestTable() {
     },
 
     {
-      id: 'Min',
+      id: "Min",
       accessorFn: (elem) => {
         return elem.type === "test" ? "min" : null;
       },
-      header: () => (<div className="text-center pl-4">Min</div>),
+      header: () => <div className="pl-4 text-center">Min</div>,
       cell: ({ row }) => {
-        return row.original.type === "test" && row.original.minValue !== undefined ? (
+        return row.original.type === "test" &&
+          row.original.minValue !== undefined ? (
           <div className="flex justify-center">
-            <code className="text-muted-foreground">{row.original.minValue}{row.original.unit}</code>
+            <code className="text-muted-foreground">
+              {row.original.minValue}
+              {row.original.unit}
+            </code>
           </div>
         ) : null;
       },
     },
 
     {
-      id: 'Max',
+      id: "Max",
       accessorFn: (elem) => {
         return elem.type === "test" ? "max" : null;
       },
-      header: () => (<div className="text-center pl-4">Max</div>),
+      header: () => <div className="pl-4 text-center">Max</div>,
       cell: ({ row }) => {
-        return row.original.type === "test" && row.original.maxValue !== undefined ? (
+        return row.original.type === "test" &&
+          row.original.maxValue !== undefined ? (
           <div className="flex justify-center">
-            <code className=" text-muted-foreground">{row.original.maxValue}{row.original.unit}</code>
+            <code className=" text-muted-foreground">
+              {row.original.maxValue}
+              {row.original.unit}
+            </code>
           </div>
         ) : null;
       },
     },
 
     {
-      id: 'Measured',
+      id: "Measured",
       accessorFn: (elem) => {
         return elem.type === "test" ? "measured_value" : null;
       },
-      header: () => (<div className="text-center pl-4">Measured</div>),
+      header: () => <div className="pl-4 text-center">Measured</div>,
       cell: ({ row }) => {
-        return row.original.type === "test" && row.original.measuredValue !== undefined ? (
+        return row.original.type === "test" &&
+          row.original.measuredValue !== undefined ? (
           <div className="flex justify-center">
-            <code>{row.original.measuredValue}{row.original.unit}</code>
+            <code>
+              {row.original.measuredValue}
+              {row.original.unit}
+            </code>
           </div>
         ) : null;
       },
     },
 
     {
-      id: 'Export',
+      id: "Export",
       accessorFn: (elem) => {
         return elem.type === "test" ? "isSavedToCloud" : null;
       },
-      header: () => (<div className="text-center pl-4">Export</div>),
+      header: () => <div className="pl-4 text-center">Export</div>,
       cell: ({ row }) => {
         if (row.original.type === "test") {
           return (
@@ -213,26 +225,28 @@ export function TestTable() {
     },
 
     {
-      id: 'Completion Time',
+      id: "Completion Time",
       accessorFn: (elem) => {
         return elem.type === "test" ? "completionTime" : null;
       },
-      header: () => (<div className="text-center pl-4">Time</div>),
+      header: () => <div className="pl-4 text-center">Time</div>,
       cell: ({ row }) => {
         return row.original.type === "test" ? (
           <div className="flex justify-center">
-          { row.original.completionTime ? `${row.original.completionTime.toFixed(2)}s` : "0.00s" }
+            {row.original.completionTime
+              ? `${row.original.completionTime.toFixed(2)}s`
+              : "0.00s"}
           </div>
         ) : null;
       },
     },
 
     {
-      id: 'Status',
+      id: "Status",
       accessorFn: (elem) => {
         return elem.type === "test" ? "status" : null;
       },
-      header: () => (<div className="text-center pl-4">Status</div>),
+      header: () => <div className="pl-4 text-center">Status</div>,
       cell: ({ row }) => {
         return row.original.type === "test" ? (
           <div className="my-2 flex justify-center">
@@ -329,7 +343,8 @@ export function TestTable() {
 
   const addConditionalAfterIdx = useRef(-1);
 
-  const [showWriteConditionalModal, setShowWriteConditionalModal] = useState(false);
+  const [showWriteConditionalModal, setShowWriteConditionalModal] =
+    useState(false);
   const writeConditionalForIdx = useRef(-1);
 
   const [showWriteMinMaxModal, setShowWriteMinMaxModal] = useState(false);
@@ -374,9 +389,13 @@ export function TestTable() {
   const onClickWriteMinMax = (idx: number) => {
     writeMinMaxForIdx.current = idx;
     setShowWriteMinMaxModal(true);
-  }
+  };
 
-  const onSubmitWriteMinMax = (minValue: number, maxValue: number, unit: string) => {
+  const onSubmitWriteMinMax = (
+    minValue: number,
+    maxValue: number,
+    unit: string,
+  ) => {
     setElems((data) => {
       const new_data = [...data];
       const test = new_data[writeMinMaxForIdx.current] as Test;
@@ -384,11 +403,11 @@ export function TestTable() {
         ...test,
         minValue: isNaN(minValue) ? undefined : minValue,
         maxValue: isNaN(maxValue) ? undefined : maxValue,
-        unit
+        unit,
       };
       return new_data;
     });
-  }
+  };
 
   const getSpecificContextMenuItems = (row: Row<TestSequenceElement>) => {
     switch (row.original.type) {
@@ -486,9 +505,9 @@ export function TestTable() {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
                     </TableHead>
                   );
                 })}

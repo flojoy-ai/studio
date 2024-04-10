@@ -69,7 +69,9 @@ def _with_stream_test_result(func: Callable[[TestNode], Extract]):
             MsgState.running, test_id=node.id, result=StatusTypes.pending
         )
         test_sequencer._set_output_loc(node.id, rm_existing_data=True)
-        logging.info(f"Running test {node.id} - min: {node.min_value} | max: {node.max_value}")
+        logging.info(
+            f"Running test {node.id} - min: {node.min_value} | max: {node.max_value}"
+        )
         test_sequencer._set_min_max(node.min_value, node.max_value)
         children_getter, test_result = func(node)
         measured_value = test_sequencer._get_most_recent_data(node.id)
@@ -84,7 +86,9 @@ def _with_stream_test_result(func: Callable[[TestNode], Extract]):
                 created_at=test_result.created_at,
                 error=test_result.error,
                 is_saved_to_cloud=False,
-                value=float(measured_value) if isinstance(measured_value, float) or isinstance(measured_value, int) else None,
+                value=float(measured_value)
+                if isinstance(measured_value, float) or isinstance(measured_value, int)
+                else None,
             )
         return children_getter, test_result
 
