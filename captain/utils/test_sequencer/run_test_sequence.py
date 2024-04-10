@@ -1,5 +1,6 @@
 import asyncio
 from datetime import datetime
+import logging
 import subprocess
 import time
 from captain.routes.cloud import utcnow_str
@@ -67,8 +68,8 @@ def _with_stream_test_result(func: Callable[[TestNode], Extract]):
         await _stream_result_to_frontend(
             MsgState.running, test_id=node.id, result=StatusTypes.pending
         )
-        test_sequencer._set_output_loc(node.id)
-        # TODO: func to rm all files so there is no data leakage between run
+        test_sequencer._set_output_loc(node.id, rm_existing_data=True)
+        logging.info(f"Running test {node.id} - min: {node.min_value} | max: {node.max_value}")
         test_sequencer._set_min_max(node.min_value, node.max_value)
         children_getter, test_result = func(node)
         measured_value = test_sequencer._get_most_recent_data(node.id)
