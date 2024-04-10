@@ -69,6 +69,7 @@ export function TestSequencerWSProvider({
     createdAt: string,
     isSavedToCloud: boolean,
     error: string | null,
+    value: number | null,
   ) => {
     setElems.withException((elems) => {
       const newElems = [...elems];
@@ -80,6 +81,7 @@ export function TestSequencerWSProvider({
         createdAt: createdAt,
         isSavedToCloud: isSavedToCloud,
         error: error,
+        measuredValue: value,
       } as Test;
       return newElems;
     });
@@ -158,6 +160,7 @@ export function TestSequencerWSProvider({
           msg.data.created_at,
           msg.data.is_saved_to_cloud,
           msg.data.error,
+          msg.data.value,
         );
         setBackendState(msg.data.state);
         break;

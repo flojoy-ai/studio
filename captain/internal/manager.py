@@ -55,6 +55,7 @@ class TSManager(WSManager):
                     created_at=utcnow_str(),
                     is_saved_to_cloud=False,
                     error=None,
+                    value=None,
                 )
             )
         while self.pause:
@@ -86,6 +87,7 @@ class TSManager(WSManager):
                         utcnow_str(),
                         False,
                         "Test sequence was interrupted",
+                        None,
                     )
                 )
             )

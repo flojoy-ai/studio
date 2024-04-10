@@ -50,6 +50,7 @@ export const BackendMsg = z.object({
   created_at: z.string(),
   is_saved_to_cloud: z.boolean(),
   error: z.string().nullable(),
+  value: z.number().nullable(),
 });
 export type BackendMsg = z.infer<typeof BackendMsg>;
 
@@ -67,6 +68,10 @@ export const Test = z.object({
   createdAt: z.string().optional(),
   isSavedToCloud: z.boolean(),
   exportToCloud: z.boolean(),
+  minValue: z.number().optional(),
+  maxValue: z.number().optional(),
+  measuredValue: z.number().optional(),
+  unit: z.string().optional(),
 });
 
 export type Test = z.infer<typeof Test>;

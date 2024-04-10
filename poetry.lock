@@ -1016,19 +1016,21 @@ name = "flojoy-cloud"
 version = "0.1.3"
 description = ""
 optional = false
-python-versions = "<4.0,>=3.11"
-files = [
-    {file = "flojoy_cloud-0.1.3-py3-none-any.whl", hash = "sha256:985440dc5de89b5b55c808f757a161f9e7af2291c44cc5edb6bcb381f28d412b"},
-    {file = "flojoy_cloud-0.1.3.tar.gz", hash = "sha256:412251b9c3f00424003ee20ed2bec2d21c3cb5c80669230c23accd2a92560ede"},
-]
+python-versions = "^3.11"
+files = []
+develop = true
 
 [package.dependencies]
-httpx = ">=0.26.0,<0.27.0"
-numpy = ">=1.26.3,<2.0.0"
-pandas = ">=2.2.0,<3.0.0"
-pydantic = ">=2.5.3,<3.0.0"
-rich = ">=13.7.0,<14.0.0"
-watchfiles = ">=0.21.0,<0.22.0"
+httpx = "^0.26.0"
+numpy = "^1.26.3"
+pandas = "^2.2.0"
+pydantic = "^2.5.3"
+rich = "^13.7.0"
+watchfiles = "^0.21.0"
+
+[package.source]
+type = "directory"
+url = "../cloud/packages/python"
 
 [[package]]
 name = "fonttools"
@@ -5381,4 +5383,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.11"
-content-hash = "eac288cb33c2c9ad6d2e8e8137432ea1dfc28276375caa389625a5fb3f3757dd"
+content-hash = "5dea256945a1980c5435ad42ea4fa24ccd3ca2e3ba1660362f3f0ac49e0f4fa6"

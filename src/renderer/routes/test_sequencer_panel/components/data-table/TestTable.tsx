@@ -56,6 +56,7 @@ import { mapStatusToDisplay } from "./utils";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 import { useSequencerModalStore } from "@/renderer/stores/modal";
+import { WriteMinMaxModal } from "../modals/WriteMinMaxModal";
 
 export function TestTable() {
   const { elems, setElems } = useDisplayedSequenceState();
@@ -145,9 +146,57 @@ export function TestTable() {
 
     {
       accessorFn: (elem) => {
+        return elem.type === "test" ? "min" : null;
+      },
+      header: "Min",
+      cell: ({ row }) => {
+        return row.original.type === "test" && row.original.minValue !== null ? (
+          <code className="text-foreground">{row.original.minValue}</code>
+        ) : null;
+      },
+    },
+
+    {
+      accessorFn: (elem) => {
+        return elem.type === "test" ? "max" : null;
+      },
+      header: "Max",
+      cell: ({ row }) => {
+        return row.original.type === "test" && row.original.maxValue !== null ? (
+          <code className="text-foreground">{row.original.maxValue}</code>
+        ) : null;
+      },
+    },
+
+    {
+      accessorFn: (elem) => {
+        return elem.type === "test" ? "measured_value" : null;
+      },
+      header: "Measured",
+      cell: ({ row }) => {
+        return row.original.type === "test" && row.original.measuredValue !== null ? (
+          <code>{row.original.measuredValue}</code>
+        ) : null;
+      },
+    },
+
+    {
+      accessorFn: (elem) => {
+        return elem.type === "test" ? "unit" : null;
+      },
+      header: "Unit",
+      cell: ({ row }) => {
+        return row.original.type === "test" && row.original.unit !== null ? (
+          <code>{row.original.unit}</code>
+        ) : null;
+      },
+    },
+
+    {
+      accessorFn: (elem) => {
         return elem.type === "test" ? "isSavedToCloud" : null;
       },
-      header: "Export to Cloud",
+      header: "Export",
       cell: ({ row }) => {
         if (row.original.type === "test") {
           return (
@@ -164,6 +213,21 @@ export function TestTable() {
 
     {
       accessorFn: (elem) => {
+        return elem.type === "test" ? "completionTime" : null;
+      },
+      header: "Time",
+      cell: ({ row }) => {
+        return row.original.type === "test" ? (
+          <div>
+            {row.original.completionTime &&
+              row.original.completionTime.toFixed(2)}
+          </div>
+        ) : null;
+      },
+    },
+
+    {
+      accessorFn: (elem) => {
         return elem.type === "test" ? "status" : null;
       },
       header: "Status",
@@ -173,21 +237,6 @@ export function TestTable() {
             {typeof mapStatusToDisplay[row.original.status] === "function"
               ? mapStatusToDisplay[row.original.status](row.original.error)
               : mapStatusToDisplay[row.original.status]}
-          </div>
-        ) : null;
-      },
-    },
-
-    {
-      accessorFn: (elem) => {
-        return elem.type === "test" ? "completionTime" : null;
-      },
-      header: "Completion Time",
-      cell: ({ row }) => {
-        return row.original.type === "test" ? (
-          <div>
-            {row.original.completionTime &&
-              row.original.completionTime.toFixed(2)}
           </div>
         ) : null;
       },
@@ -278,9 +327,11 @@ export function TestTable() {
 
   const addConditionalAfterIdx = useRef(-1);
 
-  const [showWriteConditionalModal, setShowWriteConditionalModal] =
-    useState(false);
+  const [showWriteConditionalModal, setShowWriteConditionalModal] = useState(false);
   const writeConditionalForIdx = useRef(-1);
+
+  const [showWriteMinMaxModal, setShowWriteMinMaxModal] = useState(false);
+  const writeMinMaxForIdx = useRef(-1);
 
   const handleWriteConditionalModal = (input: string) => {
     setElems((data) => {
@@ -318,6 +369,25 @@ export function TestTable() {
     setShowWriteConditionalModal(true);
   };
 
+  const onClickWriteMinMax = (idx: number) => {
+    writeMinMaxForIdx.current = idx;
+    setShowWriteMinMaxModal(true);
+  }
+
+  const onSubmitWriteMinMax = (minValue: number, maxValue: number, unit: string) => {
+    setElems((data) => {
+      const new_data = [...data];
+      const test = new_data[writeMinMaxForIdx.current] as Test;
+      new_data[writeMinMaxForIdx.current] = {
+        ...test,
+        minValue,
+        maxValue,
+        unit
+      };
+      return new_data;
+    });
+  }
+
   const getSpecificContextMenuItems = (row: Row<TestSequenceElement>) => {
     switch (row.original.type) {
       case "test":
@@ -348,6 +418,11 @@ export function TestTable() {
         setConditionalModalOpen={setShowWriteConditionalModal}
         handleWriteConditionalModalOpen={setShowWriteConditionalModal}
         handleWrite={handleWriteConditionalModal}
+      />
+      <WriteMinMaxModal
+        isModalOpen={showWriteMinMaxModal}
+        setModalOpen={setShowWriteMinMaxModal}
+        handleWrite={onSubmitWriteMinMax}
       />
       {openPyTestFileModal && (
         <PythonTestFileModal
@@ -409,9 +484,9 @@ export function TestTable() {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
                     </TableHead>
                   );
                 })}
@@ -453,15 +528,6 @@ export function TestTable() {
                     >
                       Add Conditional
                     </ContextMenuItem>
-                    {row.original.type === "test" && (
-                      <ContextMenuItem
-                        onClick={() => {
-                          openRenameTestModal(row.original.id);
-                        }}
-                      >
-                        Rename Test
-                      </ContextMenuItem>
-                    )}
                     <ContextMenuItem
                       onClick={() => onRemoveTest([parseInt(row.id)])}
                     >
@@ -470,25 +536,39 @@ export function TestTable() {
                         : "Remove Conditional"}
                     </ContextMenuItem>
                     {row.original.type === "test" && (
-                      <ContextMenuItem
-                        onClick={() => {
-                          setOpenPyTestFileModal(true);
-                          setTestToDisplay(row.original as Test);
-                        }}
-                      >
-                        Consult Code
-                      </ContextMenuItem>
-                    )}
-                    {row.original.type === "test" && (
-                      <ContextMenuItem
-                        onClick={() => {
-                          toggleExportToCloud(row.original.id);
-                        }}
-                      >
-                        {row.original.exportToCloud
-                          ? "Disable export to Cloud"
-                          : "Enable export to Cloud"}
-                      </ContextMenuItem>
+                      <>
+                        <ContextMenuItem
+                          onClick={() => {
+                            openRenameTestModal(row.original.id);
+                          }}
+                        >
+                          Rename Test
+                        </ContextMenuItem>
+                        <ContextMenuItem
+                          onClick={() => {
+                            onClickWriteMinMax(parseInt(row.id));
+                          }}
+                        >
+                          Edit Expected Value
+                        </ContextMenuItem>
+                        <ContextMenuItem
+                          onClick={() => {
+                            setOpenPyTestFileModal(true);
+                            setTestToDisplay(row.original as Test);
+                          }}
+                        >
+                          Consult Code
+                        </ContextMenuItem>
+                        <ContextMenuItem
+                          onClick={() => {
+                            toggleExportToCloud(row.original.id);
+                          }}
+                        >
+                          {row.original.exportToCloud
+                            ? "Disable export to Cloud"
+                            : "Enable export to Cloud"}
+                        </ContextMenuItem>
+                      </>
                     )}
                   </ContextMenuContent>
                 </ContextMenu>
