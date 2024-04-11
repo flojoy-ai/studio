@@ -37,11 +37,16 @@ export function useSaveSequence() {
 
 export function useSaveAllSequences() {
   const { withPermissionCheck } = useWithPermission();
+  const { setSequences, sequences } = useSequencerState();
   const manager = usePrepareStateManager();
   const handle = async () => {
     toastResultPromise(saveSequences(manager), {
       loading: "Saving sequences...",
-      success: () => "Sequences saved",
+      success: () => {
+        // Update the sequences in the state to set them as saved
+        setSequences([...sequences].map((seq) => ({ ...seq, testSequenceUnsaved: false })));
+        return "Sequences saved";
+      },
       error: (e) => `${e}`,
     });
   };
