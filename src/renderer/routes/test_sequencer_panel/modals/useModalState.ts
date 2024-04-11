@@ -9,7 +9,7 @@ type State = {
 type Actions = {
   showInputsForGeneratedTestModal: () => void;
   hideInputsForGeneratedTestModal: () => void;
-  setInputsForGeneratedTestModal: () => void;
+  setInputsForGeneratedTestModal: (isOpen: boolean) => void;
   setPlaceholdersForGeneratedTest: (placeholders: string[]) => void;
   setCallbackForInputsForGeneratedTestModal: (
     callback: (placeholderValues: string[]) => void,
@@ -17,7 +17,7 @@ type Actions = {
 };
 
 export const useModalState = create<State & Actions>()((set) => ({
-  inputsForGeneratedTestModalState: true,
+  inputsForGeneratedTestModalState: false,
   placeholdersForGeneratedTest: [],
   callbackForInputsForGeneratedTestModal: () => {},
   showInputsForGeneratedTestModal: () =>
