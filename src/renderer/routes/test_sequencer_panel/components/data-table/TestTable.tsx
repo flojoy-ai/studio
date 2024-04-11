@@ -225,23 +225,6 @@ export function TestTable() {
     },
 
     {
-      id: "Completion Time",
-      accessorFn: (elem) => {
-        return elem.type === "test" ? "completionTime" : null;
-      },
-      header: () => <div className="pl-4 text-center">Time</div>,
-      cell: ({ row }) => {
-        return row.original.type === "test" ? (
-          <div className="flex justify-center">
-            {row.original.completionTime
-              ? `${row.original.completionTime.toFixed(2)}s`
-              : "0.00s"}
-          </div>
-        ) : null;
-      },
-    },
-
-    {
       id: "Status",
       accessorFn: (elem) => {
         return elem.type === "test" ? "status" : null;
@@ -253,6 +236,23 @@ export function TestTable() {
             {typeof mapStatusToDisplay[row.original.status] === "function"
               ? mapStatusToDisplay[row.original.status](row.original.error)
               : mapStatusToDisplay[row.original.status]}
+          </div>
+        ) : null;
+      },
+    },
+
+    {
+      id: "Completion Time",
+      accessorFn: (elem) => {
+        return elem.type === "test" ? "completionTime" : null;
+      },
+      header: () => <div className="pl-4 text-center">Time</div>,
+      cell: ({ row }) => {
+        return row.original.type === "test" ? (
+          <div className="flex justify-center">
+            {row.original.completionTime
+              ? `${row.original.completionTime.toFixed(2)}s`
+              : "0.00s"}
           </div>
         ) : null;
       },
