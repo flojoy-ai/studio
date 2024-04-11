@@ -17,8 +17,16 @@ import { toastResultPromise } from "../utils/report-error";
 
 function usePrepareStateManager(): StateManager {
   const { elems, project } = useDisplayedSequenceState();
-  const { addNewSequence, removeSequence, sequences, setSequences } = useSequencerState();
-  return { elems, project, addNewSequence, removeSequence, sequences, setSequences };
+  const { addNewSequence, removeSequence, sequences, setSequences } =
+    useSequencerState();
+  return {
+    elems,
+    project,
+    addNewSequence,
+    removeSequence,
+    sequences,
+    setSequences,
+  };
 }
 
 export function useSaveSequence() {
