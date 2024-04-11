@@ -2,6 +2,7 @@ import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
+  ContextMenuSeparator,
   ContextMenuTrigger,
 } from "@/renderer/components/ui/context-menu";
 import {
@@ -454,14 +455,36 @@ export function TestTable() {
                       Add Conditional
                     </ContextMenuItem>
                     {row.original.type === "test" && (
-                      <ContextMenuItem
-                        onClick={() => {
-                          openRenameTestModal(row.original.id);
-                        }}
-                      >
-                        Rename Test
-                      </ContextMenuItem>
+                      <>
+                        <ContextMenuSeparator />
+                        <ContextMenuItem
+                          onClick={() => {
+                            setOpenPyTestFileModal(true);
+                            setTestToDisplay(row.original as Test);
+                          }}
+                        >
+                          Consult Code
+                        </ContextMenuItem>
+                        <ContextMenuSeparator />
+                        <ContextMenuItem
+                          onClick={() => {
+                            openRenameTestModal(row.original.id);
+                          }}
+                        >
+                          Rename Test
+                        </ContextMenuItem>
+                        <ContextMenuItem
+                          onClick={() => {
+                            toggleExportToCloud(row.original.id);
+                          }}
+                        >
+                          {row.original.exportToCloud
+                            ? "Disable export to Cloud"
+                            : "Enable export to Cloud"}
+                        </ContextMenuItem>
+                      </>
                     )}
+                    <ContextMenuSeparator />
                     <ContextMenuItem
                       onClick={() => onRemoveTest([parseInt(row.id)])}
                     >
@@ -469,27 +492,6 @@ export function TestTable() {
                         ? "Remove Test"
                         : "Remove Conditional"}
                     </ContextMenuItem>
-                    {row.original.type === "test" && (
-                      <ContextMenuItem
-                        onClick={() => {
-                          setOpenPyTestFileModal(true);
-                          setTestToDisplay(row.original as Test);
-                        }}
-                      >
-                        Consult Code
-                      </ContextMenuItem>
-                    )}
-                    {row.original.type === "test" && (
-                      <ContextMenuItem
-                        onClick={() => {
-                          toggleExportToCloud(row.original.id);
-                        }}
-                      >
-                        {row.original.exportToCloud
-                          ? "Disable export to Cloud"
-                          : "Enable export to Cloud"}
-                      </ContextMenuItem>
-                    )}
                   </ContextMenuContent>
                 </ContextMenu>
               ))
