@@ -274,24 +274,24 @@ export function SequenceTable() {
     }
     setSequences(
       [...sequences].map((seq, idx) => {
-      if (idx === renameForIdx.current) {
-        return {
-          ...seq,
-          project: { ...seq.project, name: newName },
-          testSequenceUnsaved: true,
-        };
-      }
-      return seq;
+        if (idx === renameForIdx.current) {
+          return {
+            ...seq,
+            project: { ...seq.project, name: newName },
+            testSequenceUnsaved: true,
+          };
+        }
+        return seq;
       }),
     );
     setIsRenameNameModalOpen(false);
-  }
+  };
   const [isRenameNameModalOpen, setIsRenameNameModalOpen] = useState(false);
   const [isRenameDescModalOpen, setIsRenameDescModalOpen] = useState(false);
   const [renameTarget, setRenameTarget] = useState("");
   const [initialName, setInitialName] = useState("");
   const renameForIdx = useRef(-1);
-  
+
   const onRenameDescription = (idx: number) => {
     const sequence = sequences[idx];
     renameForIdx.current = idx;
@@ -303,22 +303,22 @@ export function SequenceTable() {
   const handleRenameDescription = (newDescription: string) => {
     setSequences(
       [...sequences].map((seq, idx) => {
-      if (idx === renameForIdx.current) {
-      return {
-        ...seq,
-        project: { ...seq.project, description: newDescription },
-        testSequenceUnsaved: true,
-      };
-      }
-      return seq;
+        if (idx === renameForIdx.current) {
+          return {
+            ...seq,
+            project: { ...seq.project, description: newDescription },
+            testSequenceUnsaved: true,
+          };
+        }
+        return seq;
       }),
     );
     setIsRenameDescModalOpen(false);
-  }
+  };
 
   return (
     <div className="flex flex-col">
-      <RenameModal 
+      <RenameModal
         title="Rename sequence"
         isModalOpen={isRenameNameModalOpen}
         setModalOpen={setIsRenameNameModalOpen}
@@ -326,7 +326,7 @@ export function SequenceTable() {
         handleSubmit={handleRenameSequence}
         target={renameTarget}
       />
-      <RenameModal 
+      <RenameModal
         title="Edit description"
         isModalOpen={isRenameDescModalOpen}
         setModalOpen={setIsRenameDescModalOpen}

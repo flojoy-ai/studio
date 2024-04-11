@@ -3,8 +3,7 @@ import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { Input } from "@/renderer/components/ui/input";
 import { useEffect, useState } from "react";
 
-
-export const RenameModal  = ({
+export const RenameModal = ({
   title,
   isModalOpen,
   setModalOpen,
@@ -25,10 +24,7 @@ export const RenameModal  = ({
   }, [initialName]);
 
   return (
-    <Dialog
-      open={isModalOpen}
-      onOpenChange={setModalOpen}
-    >
+    <Dialog open={isModalOpen} onOpenChange={setModalOpen}>
       <DialogContent>
         <h2 className="text-lg font-bold text-accent1">{title}</h2>
         <div className="pb-1 text-muted-foreground">
