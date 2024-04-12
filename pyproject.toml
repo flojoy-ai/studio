@@ -38,6 +38,9 @@ nimodinst = "^1.4.7"
 flojoy-cloud = "^0.1.3"
 bcrypt = "^4.1.2"
 tinymovr = "^1.6.5"
+snowflake-connector-python = "3.8.1"
+langchain = "0.1.16"
+langchain-anthropic = "0.1.8"
 
 [tool.poetry.group.blocks.dependencies]
 scikit-image = "^0.22.0"
