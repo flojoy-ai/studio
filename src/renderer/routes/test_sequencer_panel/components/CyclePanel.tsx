@@ -3,15 +3,11 @@ import { Input } from "@/renderer/components/ui/input";
 import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
 import LockableButton from "./lockable/LockedButtons";
 import { Checkbox } from "@/renderer/components/ui/checkbox";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@radix-ui/react-hover-card";
 import { Button } from "@/renderer/components/ui/button";
 import { CycleConfig } from "@/renderer/types/test-sequencer";
 import { useShallow } from "zustand/react/shallow";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/renderer/components/ui/hover-card";
 
 export function CyclePanel() {
   const { tree, isLocked } = useDisplayedSequenceState();
@@ -51,9 +47,9 @@ export function CyclePanel() {
           </code>
         </Button>
       </HoverCardTrigger>
-      <HoverCardContent className="w-320 z-20 mt-2 rounded-lg border bg-card px-3 py-2 text-card-foreground shadow-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+      <HoverCardContent className="mt-2">
         <div>
-          <h2 className="mt-2 text-center text-lg font-bold text-accent1">
+          <h2 className="text-center text-lg font-bold text-accent1">
             Cycle Configuration
           </h2>
           <div className="my-3 flex items-center gap-2">
@@ -85,7 +81,7 @@ export function CyclePanel() {
 
           <hr />
 
-          <div className="my-3 flex items-center gap-2">
+          <div className="mt-3 flex items-center gap-2">
             <LockableButton
               variant="outline"
               isLocked={_.isEmpty(tree)}
