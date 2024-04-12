@@ -62,14 +62,14 @@ const StatusBar = (): JSX.Element => {
         }}
       >
         {minimize && (
-          <div className="flex min-w-fit items-center gap-2 ps-2 w-full">
+          <div className="flex min-w-fit items-center gap-2 px-2 mb-1 w-full">
             <div>
             {![ServerStatus.OFFLINE, ServerStatus.CONNECTING].includes(
               serverStatus,
             ) ? (
-              <Badge>Operational - {packageJson.version}</Badge>
+              <Badge variant="outline">Operational - {packageJson.version}</Badge>
             ) : (
-              <Badge variant={"destructive"}>Disconnected</Badge>
+              <Badge variant={"destructive"}>Disconnected  - {packageJson.version}</Badge>
             )}
             </div>
             { activeTab === "Flowchart" || activeTab === "Control Panel" ? (
