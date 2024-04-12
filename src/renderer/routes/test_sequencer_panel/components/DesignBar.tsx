@@ -24,11 +24,14 @@ import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 import { CyclePanel } from "./CyclePanel";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useShallow } from "zustand/react/shallow";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/renderer/components/ui/hover-card";
 
 export type Summary = {
   successRate: number;
-  numberOfTestRun: number;
-  numberOfTest: number;
+  numberOfTestRunInSeq: number;
+  numberOfTestInSeq: number;
+  numberOfTestRunInTotal: number;
+  numberOfTestInTotal: number;
   numberOfSequenceRun: number;
   numberOfSequence: number;
   status: StatusType;
@@ -48,8 +51,10 @@ export function DesignBar() {
   const importSequences = useImportSequences();
 
   const [summary, setSummary] = useState<Summary>({
-    numberOfTestRun: 0,
-    numberOfTest: 0,
+    numberOfTestRunInSeq: 0,
+    numberOfTestInSeq: 0,
+    numberOfTestRunInTotal: 0,
+    numberOfTestInTotal: 0,
     numberOfSequenceRun: 0,
     numberOfSequence: 0,
     successRate: 0,
@@ -57,14 +62,18 @@ export function DesignBar() {
   });
   useMemo(() => {
     setSummary({
-      numberOfTestRun: getNumberOfTestRun(elems),
-      numberOfTest: getNumberOfTest(elems),
+      numberOfTestRunInSeq: getNumberOfTestRunInSeq(elems),
+      numberOfTestInSeq: getNumberOfTestInSeq(elems),
+      numberOfTestRunInTotal: getNumberOfTestRunInTotal(sequences),
+      numberOfTestInTotal: getNumberOfTestInTotal(sequences),
       numberOfSequence: getNumberOfSequence(sequences),
       numberOfSequenceRun: getNumberOfSequenceRun(sequences),
       successRate: getSuccessRate(elems),
       status: getGlobalStatus(cycleRuns, sequences, elems),
     });
   }, [elems, sequences, cycleRuns]);
+
+  const [displayTotal, setDisplayTotal] = useState(false);
 
   return (
     <div className=" border-b" style={{ height: ACTIONS_HEIGHT }}>
@@ -135,12 +144,44 @@ export function DesignBar() {
 
         <div className="grow" />
 
+        <HoverCard>
+          <HoverCardTrigger asChild>
+            <Button variant="link" >
+              <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
+                Test {displayTotal ? summary.numberOfTestRunInTotal + "/" + summary.numberOfTestInTotal : summary.numberOfTestRunInSeq + "/" + summary.numberOfTestInSeq
+                }
+              </code>
+            </Button>
+          </HoverCardTrigger>
+          <HoverCardContent className="w-48 mt-2 rounded-lg border bg-card">
+            <div>
+              <h2 className="text-center text-lg font-bold text-accent1">
+                Display by
+              </h2>
+              <div className="mt-3 flex gap-2 items-center">
+                <Button
+                  variant="outline"
+                  onClick={() => setDisplayTotal(!displayTotal)}
+                  className="h-6"
+                  disabled={!displayTotal}
+                >
+                  <p className="text-xs">Sequence</p>
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setDisplayTotal(!displayTotal)}
+                  className="h-6"
+                  disabled={displayTotal}
+                >
+                  <p className="text-xs">Total</p>
+                </Button>
+              </div>
+            </div>
+          </HoverCardContent>
+        </HoverCard>
+
+
         <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
-          {" "}
-          Test {summary.numberOfTestRun + "/" + summary.numberOfTest}
-        </code>
-        <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
-          {" "}
           Sequence{" "}
           {summary.numberOfSequenceRun + "/" + summary.numberOfSequence}
         </code>
@@ -165,11 +206,11 @@ export function countWhere<T>(arr: T[], predicate: (t: T) => boolean): number {
   return arr.reduce((acc, t) => (predicate(t) ? acc + 1 : acc), 0);
 }
 
-const getNumberOfTest = (data: TestSequenceElement[]): number => {
+const getNumberOfTestInSeq = (data: TestSequenceElement[]): number => {
   return countWhere(data, (elem) => elem.type === "test");
 };
 
-const getNumberOfTestRun = (data: TestSequenceElement[]): number => {
+const getNumberOfTestRunInSeq = (data: TestSequenceElement[]): number => {
   return countWhere(
     data,
     (elem) =>
@@ -178,6 +219,14 @@ const getNumberOfTestRun = (data: TestSequenceElement[]): number => {
       elem.status != "running",
   );
 };
+
+const getNumberOfTestRunInTotal = (sequences: TestSequenceContainer[]): number => {
+  return sequences.reduce((acc, seq) => acc + getNumberOfTestRunInSeq(seq.elements), 0);
+}
+
+const getNumberOfTestInTotal = (sequences: TestSequenceContainer[]): number => {
+  return sequences.reduce((acc, seq) => acc + getNumberOfTestInSeq(seq.elements), 0);
+}
 
 const getNumberOfSequence = (data: TestSequenceContainer[]): number => {
   return countWhere(data, (elem) => elem.runable);
@@ -212,10 +261,10 @@ export const getGlobalStatus = (
   const highestCycle =
     cycleRuns.length > 0
       ? cycleRuns
-          .map((el) => getGlobalStatus([], el, []))
-          .reduce((prev, curr) =>
-            priority[prev] > priority[curr] ? prev : curr,
-          )
+        .map((el) => getGlobalStatus([], el, []))
+        .reduce((prev, curr) =>
+          priority[prev] > priority[curr] ? prev : curr,
+        )
       : "pending";
   if (sequences.length === 0 && data.length === 0) return highestCycle;
   // Highest in the view
