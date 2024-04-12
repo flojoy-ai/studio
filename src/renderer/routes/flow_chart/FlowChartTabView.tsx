@@ -315,9 +315,9 @@ const FlowChartTab = () => {
             )}
           </div>
         </div>
-        <div className="mx-8 border-b" style={{ height: ACTIONS_HEIGHT }}>
+        <div className="border-b" style={{ height: ACTIONS_HEIGHT }}>
           <div className="py-1" />
-          <div className="flex">
+          <div className="mx-8 flex">
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>

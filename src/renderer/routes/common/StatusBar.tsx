@@ -67,18 +67,17 @@ const StatusBar = (): JSX.Element => {
             {![ServerStatus.OFFLINE, ServerStatus.CONNECTING].includes(
               serverStatus,
             ) ? (
-              <Badge>Studio - {packageJson.version}</Badge>
+              <Badge>Operational - {packageJson.version}</Badge>
             ) : (
               <Badge variant={"destructive"}>Disconnected</Badge>
             )}
             </div>
             { activeTab === "Flowchart" || activeTab === "Control Panel" ? (
               <>
-                <div className="grow" />
                 <div 
                   data-cy="app-status"
                   id="app-status"
-                  className="flex text-xs"
+                  className="flex text-xs ml-2"
                 >
                   <code>
                     {serverStatus}
