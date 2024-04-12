@@ -478,7 +478,7 @@ const FlowChartTab = () => {
             />
             <Controls
               fitViewOptions={{ padding: 0.8 }}
-              className="!bottom-1 !shadow-control ml-20"
+              className="!bottom-1 ml-20 !shadow-control"
             />
             {menu && (
               <BlockContextMenu

@@ -42,7 +42,6 @@ const StatusBar = (): JSX.Element => {
     });
   }, []);
 
-
   return (
     <div
       className={cn(
@@ -62,42 +61,41 @@ const StatusBar = (): JSX.Element => {
         }}
       >
         {minimize && (
-          <div className="flex min-w-fit items-center gap-2 px-2 mb-1 w-full">
+
+          <div className="flex w-full min-w-fit items-center gap-2 ps-2">
             <div>
-            {![ServerStatus.OFFLINE, ServerStatus.CONNECTING].includes(
-              serverStatus,
-            ) ? (
-              <Badge variant="outline">Operational - {packageJson.version}</Badge>
-            ) : (
-              <Badge variant={"destructive"}>Disconnected  - {packageJson.version}</Badge>
-            )}
+              {![ServerStatus.OFFLINE, ServerStatus.CONNECTING].includes(
+                serverStatus,
+              ) ? (
+                <Badge variant="outline">Operational - {packageJson.version}</Badge>
+              ) : (
+                <Badge variant={"destructive"}>Disconnected - {packageJson.version}</Badge>
+              )}
             </div>
-            { activeTab === "Flowchart" || activeTab === "Control Panel" ? (
+            {activeTab === "Flowchart" || activeTab === "Control Panel" ? (
               <>
-                <div 
+                <div
                   data-cy="app-status"
                   id="app-status"
-                  className="flex text-xs ml-2"
+                  className="ml-2 flex text-xs"
                 >
-                  <code>
-                    {serverStatus}
-                  </code>
+                  <code>{serverStatus}</code>
                 </div>
               </>
-              ) : (
-                <>
-                  <code className="text-xs">
-                    {messages[messages.length - 1]?.slice(0, 145)}...
-                  </code>
-                  <div className="grow" />
-                </>
-              )}
+            ) : (
+              <>
+                <code className="text-xs">
+                  {messages[messages.length - 1]?.slice(0, 145)}...
+                </code>
+                <div className="grow" />
+              </>
+            )}
             <div className="grow" />
           </div>
         )}
         <div
           className={cn(
-            "sticky right-0 top-0 z-50 flex h-full justify-end w-32",
+            "sticky right-0 top-0 z-50 flex h-full w-32 justify-end",
             {
               "w-full p-0": !minimize,
             },
