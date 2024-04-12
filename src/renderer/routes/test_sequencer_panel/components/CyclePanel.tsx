@@ -7,7 +7,11 @@ import { Button } from "@/renderer/components/ui/button";
 import { CycleConfig } from "@/renderer/types/test-sequencer";
 import { useShallow } from "zustand/react/shallow";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/renderer/components/ui/hover-card";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/renderer/components/ui/hover-card";
 
 export function CyclePanel() {
   const { tree, isLocked } = useDisplayedSequenceState();

@@ -24,7 +24,11 @@ import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 import { CyclePanel } from "./CyclePanel";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useShallow } from "zustand/react/shallow";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/renderer/components/ui/hover-card";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/renderer/components/ui/hover-card";
 
 export type Summary = {
   successRate: number;
@@ -144,26 +148,33 @@ export function DesignBar() {
 
         <div className="grow" />
 
-        { sequences.length <= 1 ? (
+        {sequences.length <= 1 ? (
           <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
-            Test {summary.numberOfTestRunInSeq + "/" + summary.numberOfTestInSeq}
+            Test{" "}
+            {summary.numberOfTestRunInSeq + "/" + summary.numberOfTestInSeq}
           </code>
         ) : (
           <HoverCard>
             <HoverCardTrigger asChild>
-              <Button variant="link" >
+              <Button variant="link">
                 <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
-                  Test {displayTotal ? summary.numberOfTestRunInTotal + "/" + summary.numberOfTestInTotal : summary.numberOfTestRunInSeq + "/" + summary.numberOfTestInSeq
-                  }
+                  Test{" "}
+                  {displayTotal
+                    ? summary.numberOfTestRunInTotal +
+                      "/" +
+                      summary.numberOfTestInTotal
+                    : summary.numberOfTestRunInSeq +
+                      "/" +
+                      summary.numberOfTestInSeq}
                 </code>
               </Button>
             </HoverCardTrigger>
-            <HoverCardContent className="w-48 mt-2">
+            <HoverCardContent className="mt-2 w-48">
               <div>
                 <h2 className="text-center text-lg font-bold text-accent1">
                   Display by
                 </h2>
-                <div className="mt-3 flex gap-2 items-center">
+                <div className="mt-3 flex items-center gap-2">
                   <Button
                     variant="outline"
                     onClick={() => setDisplayTotal(!displayTotal)}
@@ -225,13 +236,21 @@ const getNumberOfTestRunInSeq = (data: TestSequenceElement[]): number => {
   );
 };
 
-const getNumberOfTestRunInTotal = (sequences: TestSequenceContainer[]): number => {
-  return sequences.reduce((acc, seq) => acc + getNumberOfTestRunInSeq(seq.elements), 0);
-}
+const getNumberOfTestRunInTotal = (
+  sequences: TestSequenceContainer[],
+): number => {
+  return sequences.reduce(
+    (acc, seq) => acc + getNumberOfTestRunInSeq(seq.elements),
+    0,
+  );
+};
 
 const getNumberOfTestInTotal = (sequences: TestSequenceContainer[]): number => {
-  return sequences.reduce((acc, seq) => acc + getNumberOfTestInSeq(seq.elements), 0);
-}
+  return sequences.reduce(
+    (acc, seq) => acc + getNumberOfTestInSeq(seq.elements),
+    0,
+  );
+};
 
 const getNumberOfSequence = (data: TestSequenceContainer[]): number => {
   return countWhere(data, (elem) => elem.runable);
@@ -266,10 +285,10 @@ export const getGlobalStatus = (
   const highestCycle =
     cycleRuns.length > 0
       ? cycleRuns
-        .map((el) => getGlobalStatus([], el, []))
-        .reduce((prev, curr) =>
-          priority[prev] > priority[curr] ? prev : curr,
-        )
+          .map((el) => getGlobalStatus([], el, []))
+          .reduce((prev, curr) =>
+            priority[prev] > priority[curr] ? prev : curr,
+          )
       : "pending";
   if (sequences.length === 0 && data.length === 0) return highestCycle;
   // Highest in the view
