@@ -27,7 +27,7 @@ const TestSequencerView = () => {
         style={{
           height: ACTIONS_HEIGHT,
           position: "absolute",
-          top: `calc(${LAYOUT_TOP_HEIGHT + ACTIONS_HEIGHT}px + 30px)`,
+          top: `calc(${LAYOUT_TOP_HEIGHT + ACTIONS_HEIGHT}px)`,
           right: "50px",
           zIndex: 10,
         }}

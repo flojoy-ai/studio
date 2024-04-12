@@ -4,7 +4,7 @@ import StatusBar from "@/renderer/routes/common/StatusBar";
 
 export const HEADER_HEIGHT = 72;
 export const ACTIONS_HEIGHT = 52;
-export const BOTTOM_STATUS_BAR_HEIGHT = 64;
+export const BOTTOM_STATUS_BAR_HEIGHT = 53;
 
 export const LAYOUT_TOP_HEIGHT = HEADER_HEIGHT + ACTIONS_HEIGHT;
 

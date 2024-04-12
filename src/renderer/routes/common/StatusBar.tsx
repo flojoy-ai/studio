@@ -36,14 +36,14 @@ const StatusBar = (): JSX.Element => {
   return (
     <div
       className={cn(
-        "fixed bottom-0 z-30 mt-6 w-full translate-y-[calc(100%-60px)] transition-transform duration-700 ease-in-out",
+        "fixed bottom-0 z-30 w-full translate-y-[calc(100%-40px)] transition-transform duration-700 ease-in-out",
         { "translate-y-0": !minimize },
       )}
     >
       <div
         className={cn("relative flex", {
           "flex-col justify-start overflow-y-scroll ": !minimize,
-          "row items-center justify-between bg-background": minimize,
+          "row h-10 items-center justify-between bg-background": minimize,
         })}
         style={{
           maxHeight: `calc(100vh - ${
@@ -60,22 +60,24 @@ const StatusBar = (): JSX.Element => {
             ) : (
               <Badge variant={"destructive"}>Disconnected</Badge>
             )}
-            <div className="text-sm">
-              {messages[messages.length - 1]?.slice(0, 145)}...
+            <div className="text-xs">
+              <code>
+                {messages[messages.length - 1]?.slice(0, 145)}...
+              </code>
             </div>
           </div>
         )}
         <div
           className={cn(
-            "sticky right-0 top-0 z-50 flex h-full w-full justify-end p-3",
+            "sticky right-0 top-0 z-50 flex h-full w-full justify-end",
             {
               "w-full p-0": !minimize,
             },
           )}
         >
           <Button
-            variant={"outline"}
-            className="w-29 rounded-none  "
+            variant="link"
+            className="w-29 rounded-none text-xs"
             onClick={() => setMinimize((p) => !p)}
           >
             {minimize ? "Expand log" : "Collapse log"}
@@ -83,11 +85,11 @@ const StatusBar = (): JSX.Element => {
         </div>
         {!minimize && (
           <Button
-            variant={"outline"}
-            className=" fixed bottom-0 right-0 rounded-none"
+            variant="ghost"
+            className="fixed bottom-0 right-0 m-1 text-xs"
             onClick={handleDownloadLogs}
           >
-            <DownloadIcon size={19} className="mr-2" />
+            <DownloadIcon size={16} className="mr-2" />
             Download Full Logs
           </Button>
         )}
