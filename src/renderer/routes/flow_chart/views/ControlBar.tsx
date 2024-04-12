@@ -168,13 +168,12 @@ const ControlBar = () => {
               Discord
             </MenubarTrigger>
           </MenubarMenu>
-          <MenubarMenu>
-          </MenubarMenu>
+          <MenubarMenu></MenubarMenu>
         </Menubar>
       </div>
       <Menubar>
         <MenubarMenu>
-        <ProfileMenu />
+          <ProfileMenu />
         </MenubarMenu>
       </Menubar>
       <DarkModeToggle />

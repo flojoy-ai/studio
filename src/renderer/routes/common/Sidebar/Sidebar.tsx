@@ -86,7 +86,7 @@ const Sidebar = ({
     <div
       data-testid="sidebar"
       style={{
-        top: LAYOUT_TOP_HEIGHT  + ctrlBarOffset,
+        top: LAYOUT_TOP_HEIGHT + ctrlBarOffset,
         height: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)`,
       }}
       className={cn(

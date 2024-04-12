@@ -201,7 +201,6 @@ const ControlPanelView = () => {
       }
     : undefined;
 
-
   const { setProjectName, projectName, hasUnsavedChanges } = useProjectStore(
     useShallow((state) => ({
       setProjectName: state.setProjectName,
