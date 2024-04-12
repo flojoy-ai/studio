@@ -144,7 +144,7 @@ export function DesignBar() {
 
         <div className="grow" />
 
-        { sequences.length === 0 ? (
+        { sequences.length <= 1 ? (
           <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
             Test {summary.numberOfTestRunInSeq + "/" + summary.numberOfTestInSeq}
           </code>
@@ -178,7 +178,7 @@ export function DesignBar() {
                     className="h-6"
                     disabled={displayTotal}
                   >
-                    <p className="text-xs">Total</p>
+                    <p className="text-xs">Cycle</p>
                   </Button>
                 </div>
               </div>
