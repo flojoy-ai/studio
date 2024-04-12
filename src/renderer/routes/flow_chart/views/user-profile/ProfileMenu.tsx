@@ -10,7 +10,6 @@ import {
 import { KeyIcon, UserPlus2 } from "lucide-react";
 import { Fragment, useState } from "react";
 import { PasswordModal } from "./PasswordModal";
-import { getAlphabetAvatar } from "@/renderer/utils/text-wrap";
 import { CreateUserProfile } from "@/renderer/components/common/CreateProfileModal";
 import { useAuth } from "@/renderer/context/auth.context";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +28,7 @@ const ProfileMenu = () => {
     <Fragment>
       <DropdownMenu>
         <DropdownMenuTrigger className="flex gap-2 px-2 items-center">
-          {user.name.slice(0, 20)}
+          {user.name.slice(0, 10)}
           { user.role === "Admin" ? (
             <Badge> Admin </Badge>
             ) : (
