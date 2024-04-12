@@ -61,18 +61,22 @@ const StatusBar = (): JSX.Element => {
         }}
       >
         {minimize && (
-
           <div className="flex w-full min-w-fit items-center gap-2 ps-2">
             <div>
               {![ServerStatus.OFFLINE, ServerStatus.CONNECTING].includes(
                 serverStatus,
               ) ? (
-                <Badge variant="outline">Operational - {packageJson.version}</Badge>
+                <Badge variant="outline">
+                  Operational - {packageJson.version}
+                </Badge>
               ) : (
-                <Badge variant={"destructive"}>Disconnected - {packageJson.version}</Badge>
+                <Badge variant={"destructive"}>
+                  Disconnected - {packageJson.version}
+                </Badge>
               )}
             </div>
-            {activeTab !== "Test Sequencer" && activeTab !== "Device Manager" ? (
+            {activeTab !== "Test Sequencer" &&
+            activeTab !== "Device Manager" ? (
               <>
                 <div
                   data-cy="app-status"
