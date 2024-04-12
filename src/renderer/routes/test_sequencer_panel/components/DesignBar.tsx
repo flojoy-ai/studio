@@ -144,42 +144,47 @@ export function DesignBar() {
 
         <div className="grow" />
 
-        <HoverCard>
-          <HoverCardTrigger asChild>
-            <Button variant="link" >
-              <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
-                Test {displayTotal ? summary.numberOfTestRunInTotal + "/" + summary.numberOfTestInTotal : summary.numberOfTestRunInSeq + "/" + summary.numberOfTestInSeq
-                }
-              </code>
-            </Button>
-          </HoverCardTrigger>
-          <HoverCardContent className="w-48 mt-2 rounded-lg border bg-card">
-            <div>
-              <h2 className="text-center text-lg font-bold text-accent1">
-                Display by
-              </h2>
-              <div className="mt-3 flex gap-2 items-center">
-                <Button
-                  variant="outline"
-                  onClick={() => setDisplayTotal(!displayTotal)}
-                  className="h-6"
-                  disabled={!displayTotal}
-                >
-                  <p className="text-xs">Sequence</p>
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => setDisplayTotal(!displayTotal)}
-                  className="h-6"
-                  disabled={displayTotal}
-                >
-                  <p className="text-xs">Total</p>
-                </Button>
+        { sequences.length === 0 ? (
+          <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
+            Test {summary.numberOfTestRunInSeq + "/" + summary.numberOfTestInSeq}
+          </code>
+        ) : (
+          <HoverCard>
+            <HoverCardTrigger asChild>
+              <Button variant="link" >
+                <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
+                  Test {displayTotal ? summary.numberOfTestRunInTotal + "/" + summary.numberOfTestInTotal : summary.numberOfTestRunInSeq + "/" + summary.numberOfTestInSeq
+                  }
+                </code>
+              </Button>
+            </HoverCardTrigger>
+            <HoverCardContent className="w-48 mt-2">
+              <div>
+                <h2 className="text-center text-lg font-bold text-accent1">
+                  Display by
+                </h2>
+                <div className="mt-3 flex gap-2 items-center">
+                  <Button
+                    variant="outline"
+                    onClick={() => setDisplayTotal(!displayTotal)}
+                    className="h-6"
+                    disabled={!displayTotal}
+                  >
+                    <p className="text-xs">Sequence</p>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => setDisplayTotal(!displayTotal)}
+                    className="h-6"
+                    disabled={displayTotal}
+                  >
+                    <p className="text-xs">Total</p>
+                  </Button>
+                </div>
               </div>
-            </div>
-          </HoverCardContent>
-        </HoverCard>
-
+            </HoverCardContent>
+          </HoverCard>
+        )}
 
         <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
           Sequence{" "}
