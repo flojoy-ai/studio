@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback } from "@/renderer/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,

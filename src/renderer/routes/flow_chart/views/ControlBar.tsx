@@ -24,7 +24,6 @@ import { useShallow } from "zustand/react/shallow";
 import FeedbackModal from "./FeedbackModal";
 import { SaveSequencesButton } from "@/renderer/routes/test_sequencer_panel/components/control-bar/SaveButton";
 import { ImportSequencesButton } from "@/renderer/routes/test_sequencer_panel/components/control-bar/ImportButton";
-import { Icons } from "@/renderer/assets/icons";
 
 const ControlBar = () => {
   const { activeTab } = useAppStore(

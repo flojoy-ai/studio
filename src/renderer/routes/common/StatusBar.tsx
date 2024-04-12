@@ -72,7 +72,7 @@ const StatusBar = (): JSX.Element => {
                 <Badge variant={"destructive"}>Disconnected - {packageJson.version}</Badge>
               )}
             </div>
-            {activeTab === "Flowchart" || activeTab === "Control Panel" ? (
+            {activeTab !== "Test Sequencer" && activeTab !== "Device Manager" ? (
               <>
                 <div
                   data-cy="app-status"

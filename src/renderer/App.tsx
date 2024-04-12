@@ -8,8 +8,6 @@ import ControlPanelTab from "./routes/control_panel/control-panel-view";
 import { useTheme } from "@/renderer/providers/theme-provider";
 import { Layout } from "./routes/common/Layout";
 import { Index } from "./routes/index";
-// eslint-disable-next-line no-restricted-imports
-import packageJson from "../../package.json";
 import EditorView from "./routes/editor/EditorView";
 import AuthPage from "./routes/auth/Auth";
 import { Toaster } from "sonner";
