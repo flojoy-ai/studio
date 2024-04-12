@@ -51,6 +51,7 @@ def SNOWFLAKE(
         the answer to the prompt
     """
     # STEP 1: GET DATA FROM SNOWFLAKE
+    # TODO: Have conn objects globally available sort of like hardware connections?
     conn = snowflake.connector.connect(
         user=user,
         password=password,
